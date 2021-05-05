@@ -1,9 +1,6 @@
 ---
 title: "Fingerprint"
-slug: "fingerprint-1"
 hidden: false
-createdAt: "2021-03-22T21:53:35.136Z"
-updatedAt: "2021-04-05T23:44:10.037Z"
 ---
 Key: `fingerprint`
 
