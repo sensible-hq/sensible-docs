@@ -1,9 +1,6 @@
 ---
 title: "Constant"
-slug: "constant-1"
 hidden: false
-createdAt: "2021-05-05T20:46:55.134Z"
-updatedAt: "2021-05-05T20:46:55.134Z"
 ---
 Returns a constant string value.
 [block:parameters]

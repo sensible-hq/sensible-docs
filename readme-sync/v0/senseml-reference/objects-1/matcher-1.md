@@ -1,9 +1,6 @@
 ---
 title: "Match"
-slug: "matcher-1"
 hidden: false
-createdAt: "2021-05-05T20:49:47.040Z"
-updatedAt: "2021-05-05T21:06:29.636Z"
 ---
 Matches are Instructions for matching lines of text in a document. There are three different types of Matches: SimpleMatcher, RegexMatcher, and FirstMatcher. 
 

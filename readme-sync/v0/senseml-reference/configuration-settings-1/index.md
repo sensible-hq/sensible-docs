@@ -1,9 +1,6 @@
 ---
 title: "Configuration Settings"
-slug: "configuration-settings-1"
 hidden: false
-createdAt: "2021-05-05T20:03:17.573Z"
-updatedAt: "2021-05-05T20:03:17.573Z"
 ---
 [block:parameters]
 {

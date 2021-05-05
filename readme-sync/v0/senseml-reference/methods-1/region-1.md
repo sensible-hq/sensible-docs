@@ -1,9 +1,6 @@
 ---
 title: "Region"
-slug: "region-1"
 hidden: false
-createdAt: "2021-05-05T20:43:43.304Z"
-updatedAt: "2021-05-05T20:43:43.304Z"
 ---
 Return lines within a given document region, defined in inches as a bounding box
 

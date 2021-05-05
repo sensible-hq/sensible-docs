@@ -1,9 +1,6 @@
 ---
 title: "Document Range"
-slug: "document-range"
 hidden: false
-createdAt: "2021-05-05T20:39:43.418Z"
-updatedAt: "2021-05-05T20:39:43.419Z"
 ---
 Matches all lines between the anchor and the `stop` or the end of the document, whichever comes first.
 [block:parameters]

@@ -1,9 +1,6 @@
 ---
 title: "Column"
-slug: "column-1"
 hidden: false
-createdAt: "2021-05-05T20:39:13.891Z"
-updatedAt: "2021-05-05T20:39:13.891Z"
 ---
 Matches all lines below the anchor line on the current page with more than 50% X-axis overlap
 [block:parameters]

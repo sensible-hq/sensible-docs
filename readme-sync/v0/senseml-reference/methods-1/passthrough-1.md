@@ -1,9 +1,6 @@
 ---
 title: "Passthrough"
-slug: "passthrough-1"
 hidden: false
-createdAt: "2021-05-05T20:42:45.344Z"
-updatedAt: "2021-05-05T20:42:45.344Z"
 ---
 Returns the anchor line
 [block:parameters]

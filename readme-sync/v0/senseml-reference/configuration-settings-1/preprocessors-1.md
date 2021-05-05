@@ -1,9 +1,6 @@
 ---
 title: "Preprocessors"
-slug: "preprocessors-1"
 hidden: false
-createdAt: "2021-05-05T20:04:26.742Z"
-updatedAt: "2021-05-05T20:04:26.742Z"
 ---
 - `ligature`
     - Intelligently replaces Unicode ligatures in PDF text extraction

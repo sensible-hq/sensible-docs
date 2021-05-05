@@ -1,9 +1,6 @@
 ---
 title: "Checkbox"
-slug: "checkbox-1"
 hidden: false
-createdAt: "2021-05-05T20:38:44.470Z"
-updatedAt: "2021-05-05T20:38:44.470Z"
 ---
 Looks for a checkbox next to the anchor and returns a boolean
 [block:parameters]

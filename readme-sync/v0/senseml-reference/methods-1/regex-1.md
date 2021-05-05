@@ -1,9 +1,6 @@
 ---
 title: "Regex"
-slug: "regex-1"
 hidden: false
-createdAt: "2021-05-05T20:43:14.443Z"
-updatedAt: "2021-05-05T20:43:14.443Z"
 ---
 Returns lines matching a regular expression. If the regular expression has capturing groups, `regex` will return the contents of the first capturing group. Otherwise, it will return the full contents of the matched line. 
 [block:parameters]

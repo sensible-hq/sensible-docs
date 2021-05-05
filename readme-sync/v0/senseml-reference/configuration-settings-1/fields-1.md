@@ -1,9 +1,6 @@
 ---
 title: "Fields"
-slug: "fields-1"
 hidden: false
-createdAt: "2021-05-05T20:35:45.121Z"
-updatedAt: "2021-05-05T20:35:45.121Z"
 ---
 [block:parameters]
 {

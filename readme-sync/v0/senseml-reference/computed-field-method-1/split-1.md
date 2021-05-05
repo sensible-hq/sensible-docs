@@ -1,9 +1,6 @@
 ---
 title: "Split"
-slug: "split-1"
 hidden: false
-createdAt: "2021-05-05T20:48:03.008Z"
-updatedAt: "2021-05-05T20:48:03.008Z"
 ---
 Returns one of the components of a field's string output after splitting it with a delimiter.
 [block:parameters]

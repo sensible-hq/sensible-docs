@@ -1,9 +1,6 @@
 ---
 title: "Fixed Table"
-slug: "fixed-table"
 hidden: false
-createdAt: "2021-05-05T20:40:42.687Z"
-updatedAt: "2021-05-05T20:40:42.687Z"
 ---
 Matches tables with a fixed number of columns and returns their collated column contents
 [block:parameters]

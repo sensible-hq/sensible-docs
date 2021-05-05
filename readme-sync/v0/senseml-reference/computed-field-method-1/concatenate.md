@@ -1,9 +1,6 @@
 ---
 title: "Concatenate"
-slug: "concatenate"
 hidden: false
-createdAt: "2021-05-05T20:46:28.336Z"
-updatedAt: "2021-05-05T20:46:28.336Z"
 ---
 Concatenates the output of two or more fields. If the fields are all strings, the output will be a single string. If any are arrays, the output will be an array if the array lengths match, and a string if they don't (using the first element of each array). If a string is present in the fields amongst arrays, its value will be repeated for every element of the output.
 [block:parameters]

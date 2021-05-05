@@ -1,9 +1,6 @@
 ---
 title: "Invoice"
-slug: "invoice-1"
 hidden: false
-createdAt: "2021-05-05T20:41:13.442Z"
-updatedAt: "2021-05-05T20:41:13.442Z"
 ---
 Identical to `table` but will also return detected invoice metadata
 [block:parameters]

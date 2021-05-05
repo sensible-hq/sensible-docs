@@ -1,9 +1,6 @@
 ---
 title: "PageMatcher"
-slug: "pagematcher-1"
 hidden: false
-createdAt: "2021-05-05T20:51:48.063Z"
-updatedAt: "2021-05-05T20:51:48.063Z"
 ---
 Instructions for matching a page with a bag of words. Will resolve to the first line on the matched page
 [block:parameters]

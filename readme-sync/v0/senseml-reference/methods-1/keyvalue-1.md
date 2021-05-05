@@ -1,9 +1,6 @@
 ---
 title: "Key/Value"
-slug: "keyvalue-1"
 hidden: false
-createdAt: "2021-05-05T20:41:43.840Z"
-updatedAt: "2021-05-05T20:41:43.840Z"
 ---
 Finds the most promising key/value pair (currently two-column tabular key/value representations only) in a single page of the source document. This single page and the winning key are those that score highest on the `terms` and `stopTerms`.
 [block:parameters]
