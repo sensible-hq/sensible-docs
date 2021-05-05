@@ -1,9 +1,6 @@
 ---
 title: "Mapper"
-slug: "mapper-1"
 hidden: false
-createdAt: "2021-03-26T17:40:09.512Z"
-updatedAt: "2021-03-26T17:40:09.512Z"
 ---
 Maps output from the source field using a lookup table
 [block:parameters]

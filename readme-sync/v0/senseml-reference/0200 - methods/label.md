@@ -1,9 +1,6 @@
 ---
 title: "Label"
-slug: "label"
 hidden: false
-createdAt: "2021-03-24T00:21:26.206Z"
-updatedAt: "2021-03-26T01:41:18.884Z"
 ---
 Return lines near the anchor point
 

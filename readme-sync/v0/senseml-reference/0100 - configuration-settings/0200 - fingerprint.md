@@ -1,6 +1,5 @@
 ---
-title: "Fingerprint"
-hidden: false
+title: "Fingerprint"hidden: false
 ---
 Key: `fingerprint`
 

@@ -1,9 +1,6 @@
 ---
 title: "OCR Level"
-slug: "ocr-level"
 hidden: false
-createdAt: "2021-03-22T21:55:44.267Z"
-updatedAt: "2021-04-01T15:53:36.779Z"
 ---
 Key: `ocr_level`
 

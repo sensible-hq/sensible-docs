@@ -1,9 +1,6 @@
 ---
 title: "Row"
-slug: "row"
 hidden: false
-createdAt: "2021-03-24T00:22:31.766Z"
-updatedAt: "2021-03-26T01:51:29.889Z"
 ---
 Matches all lines to the left or right of the anchor line with a top line within 0.08 inches of the anchor's top line
 [block:parameters]

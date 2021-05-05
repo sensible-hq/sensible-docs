@@ -1,9 +1,6 @@
 ---
 title: "SharedAnchorMatch"
-slug: "sharedanchormatch"
 hidden: false
-createdAt: "2021-03-24T00:26:51.403Z"
-updatedAt: "2021-03-24T02:26:24.495Z"
 ---
 An [AnchorMatch](ref:anchormatch) ] or [PageMatcher](ref:pagematcher) with an ID for reference by field anchors
 

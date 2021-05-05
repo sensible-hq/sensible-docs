@@ -1,9 +1,6 @@
 ---
 title: "Box"
-slug: "box"
 hidden: false
-createdAt: "2021-03-22T22:22:56.273Z"
-updatedAt: "2021-03-26T01:40:29.761Z"
 ---
 The box method finds lines that are surrounded by a dark-bordered box, like on certificates of insurance or W-2 forms. 
 [block:parameters]

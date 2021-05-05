@@ -1,9 +1,6 @@
 ---
 title: "Computed Field"
-slug: "computed-field"
 hidden: false
-createdAt: "2021-03-22T21:59:14.116Z"
-updatedAt: "2021-03-26T17:52:56.162Z"
 ---
 A computed field is a field that takes in one or more [Fields](ref:fields) parsed from the document and applies transformations on them through a [Computed Field Method](ref:computed-field-method). 
 [block:parameters]

@@ -1,9 +1,6 @@
 ---
 title: "Table"
-slug: "table"
 hidden: false
-createdAt: "2021-03-24T00:23:08.657Z"
-updatedAt: "2021-03-26T02:32:47.227Z"
 ---
 Matches tables based on bag-of-words scoring and returns their collated column contents
 [block:parameters]

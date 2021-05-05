@@ -1,6 +1,5 @@
 ---
-title: "Preprocessors"
-hidden: false
+title: "Preprocessors"hidden: false
 ---
 - `ligature`
     - Intelligently replaces Unicode ligatures in PDF text extraction

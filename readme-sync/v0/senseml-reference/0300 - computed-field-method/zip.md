@@ -1,9 +1,6 @@
 ---
 title: "Zip"
-slug: "zip"
 hidden: false
-createdAt: "2021-03-26T17:43:58.460Z"
-updatedAt: "2021-03-26T17:43:58.460Z"
 ---
 Zips multiple fields together into an array of object
 [block:parameters]

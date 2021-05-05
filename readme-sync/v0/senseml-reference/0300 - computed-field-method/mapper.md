@@ -1,9 +1,6 @@
 ---
 title: "Concatenate"
-slug: "mapper"
 hidden: false
-createdAt: "2021-03-26T17:28:00.782Z"
-updatedAt: "2021-03-26T17:40:30.151Z"
 ---
 Concatenates the output of two or more fields. If the fields are all strings, the output will be a single string. If any are arrays, the output will be an array if the array lengths match, and a string if they don't (using the first element of each array). If a string is present in the fields amongst arrays, its value will be repeated for every element of the output.
 [block:parameters]

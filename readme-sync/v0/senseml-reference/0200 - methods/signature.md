@@ -1,9 +1,6 @@
 ---
 title: "Signature"
-slug: "signature"
 hidden: false
-createdAt: "2021-03-24T00:22:43.796Z"
-updatedAt: "2021-03-26T02:04:28.708Z"
 ---
 Returns true if more than 3% of the pixels in the specified region are darkened
 [block:parameters]

@@ -1,9 +1,6 @@
 ---
 title: "Verbosity"
-slug: "verbosity"
 hidden: false
-createdAt: "2021-03-22T21:55:10.498Z"
-updatedAt: "2021-03-24T01:35:13.242Z"
 ---
 Key: `verbosity`
 [block:parameters]
