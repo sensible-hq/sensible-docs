@@ -5,7 +5,7 @@ hidden: false
 - `ligature`
     - Intelligently replaces Unicode ligatures in PDF text extraction. To find out the ligatures that exist in the extracted text for your PDF, you can extract all the lines in the PDF and search for them. To extract all lines into one key-value pair, you can use a config like:
 
-    ```json
+    ```
     {
   "fields": [
     
