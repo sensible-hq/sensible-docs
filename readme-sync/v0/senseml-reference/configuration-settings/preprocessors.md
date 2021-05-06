@@ -17,14 +17,14 @@ ligature
 
 Intelligently replaces Unicode ligatures in PDF text extraction.
 
-**components**
+**Components**
 
 | item                      | type   | comment                                                      |
 | ------------------------- | ------ | ------------------------------------------------------------ |
 | `type` (**required**)     | string | "ligature"                                                   |
 | `mappings` (**required**) | object | An object mapping strings (e.g., `"\u0000"`) to an array of possible ligature replacements (e.g., `["ff", "ffi", "fi", "fl"]`) |
 
-**example**
+**Example**
 
 This config  includes a  ligature mapping preprocessor and a field that finds a customer name: 
 
@@ -82,7 +82,7 @@ This config  includes a  ligature mapping preprocessor and a field that finds a 
 
 The following image shows an example of capturing all the lines of text in a W-9 form:
 
-[!img](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/all_lines.png)
+![example of capturing all lines](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/all_lines.png)
 
 
 
@@ -92,7 +92,7 @@ mergeLines
 
 Merges nearby lines more aggressively than the built-in line merger
 
-**components**
+**Components**
 
 | item                                       | type   | comment                                                      |
 | ------------------------------------------ | ------ | ------------------------------------------------------------ |
@@ -112,7 +112,7 @@ pageFilter
 ----
 Filters out low-scoring pages given a bag of target terms and stop terms. 
 
-**components** 
+**Components** 
 
 | component              | type   | comment                                                      |
 | ---------------------- | ------ | ------------------------------------------------------------ |
@@ -129,7 +129,7 @@ pageRange
 
 Filters pages outside the start page and end page
 
-**components** 
+**Components** 
 
 | component   | type   | comment                                                      |
 | ----------- | ------ | ------------------------------------------------------------ |
@@ -143,7 +143,7 @@ removeHeader
 ----
 Removes repeated elements at the start of pages in the document.   
 
-**components** 
+**Components** 
 
 | component      | type   | comment                                                      |
 | -------------- | ------ | ------------------------------------------------------------ |
@@ -155,7 +155,7 @@ removeFooter
 
 Removes repeated elements at the end of pages in the document.   
 
-**components** 
+**Components** 
 
 | component      | type   | comment                                                      |
 | -------------- | ------ | ------------------------------------------------------------ |
