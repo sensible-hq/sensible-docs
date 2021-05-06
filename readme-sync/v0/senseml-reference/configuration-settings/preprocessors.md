@@ -2,7 +2,9 @@
 title: "Preprocessors"
 hidden: false
 ---
-### ligature
+ligature
+----
+
 Intelligently replaces Unicode ligatures in PDF text extraction. To find out the ligatures that exist in the extracted text for your PDF, you can extract all the lines in the PDF and search for them. To extract all lines into one key-value pair, you can use a config like:
 
 ```
@@ -25,19 +27,19 @@ Intelligently replaces Unicode ligatures in PDF text extraction. To find out the
 }
 ```
 
-
-
 **mappings**
-        - An object mapping strings (e.g., `"\u0000"`) to an array of possible ligature replacements (e.g., `["ff", "ffi", "fi", "fl"]`)
-        - `ligature` will replace each instance of the string with the first replacement that has a dictionary match. If `ligature` finds no dictionary match, it will not modify the extracted text
+        * An object mapping strings (e.g., `"\u0000"`) to an array of possible ligature replacements (e.g., `["ff", "ffi", "fi", "fl"]`)
+        * `ligature` will replace each instance of the string with the first replacement that has a dictionary match. If `ligature` finds no dictionary match, it will not modify the extracted text
 - `mergeLines`
-    - Merges nearby lines more aggressively than the built-in line merger
-    - `directlyAdjacentThreshold`
-        - Fraction of line height under which two adjacent lines are merged without a space. For example, at 0.15 two lines will be merged without a space in between their contents when they are less than 15% of the line height apart from one another
-    - `adjacentThreshold`
-        - Identical to the above, but for mergers with a space in between
+    * Merges nearby lines more aggressively than the built-in line merger
+    * `directlyAdjacentThreshold`
+        * Fraction of line height under which two adjacent lines are merged without a space. For example, at 0.15 two lines will be merged without a space in between their contents when they are less than 15% of the line height apart from one another
+    * `adjacentThreshold`
+        * Identical to the above, but for mergers with a space in between
 
-### pageFilter
+pageFilter
+----
+
     - Filters out low-scoring pages given a bag of target terms and stop terms
     - `terms`
         - An array of strings with terms to score positively (e.g., `["number of buildings", "no. of buildings"]`)
@@ -47,19 +49,22 @@ Intelligently replaces Unicode ligatures in PDF text extraction. To find out the
         - The maximum number of highest-scoring pages to pass through the filter
     - `pageFilter` removes all text from the pages that do not pass the filter
 
-### pageRange
+pageRange
+---
     - Filters pages outside the start page and end page
     - `startPage` (optional, defaults to 0)
         - Zero-based index of the first page to pass through the filter (inclusive)
     - `endPage` (optional, defaults to length of pages array)
         - Zero-based index of the last page to pass through the filter (exclusive)
 
-### removeHeader
+removeHeader
+----
     - Removes repeated elements at the start of pages in the document
     - `startsOnPage` (optional, page number not index, defaults to 1)
         - The first page on which to start checking for repeated elements
 
-### removeFooter
+removeFooter
+----
     - Removes repeated elements at the end of pages in the document
     - `startsOnPage` (optional, page number not index, defaults to 1)
         - The first page on which to start checking for repeated elements
