@@ -2,7 +2,7 @@
 title: "Box"
 hidden: false
 ---
-Use the box method to grab data inside a box. This method works best with boxes that have a light background and unbroken dark borders. 
+Use the box method to grab lines inside a box. This method works best with boxes that have a light background and dark, continuous borders. 
 
 **Example**
 
@@ -27,6 +27,10 @@ The following config grabs a dollar amount from a box based on text matching in 
  ```
 
 The following image shows this example in the Sensible app:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_1099.png)
+
+
 
 [example of capturing box data](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_1099.png)
 
