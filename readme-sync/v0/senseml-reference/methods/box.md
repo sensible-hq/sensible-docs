@@ -32,8 +32,6 @@ The following image shows this example in the Sensible app:
 
 
 
-[example of capturing box data](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_1099.png)
-
 
 
 **Components**
