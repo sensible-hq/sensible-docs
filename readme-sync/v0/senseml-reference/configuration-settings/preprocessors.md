@@ -2,8 +2,8 @@
 title: "Preprocessors"
 hidden: false
 ---
-- `ligature`
-    - Intelligently replaces Unicode ligatures in PDF text extraction. To find out the ligatures that exist in the extracted text for your PDF, you can extract all the lines in the PDF and search for them. To extract all lines into one key-value pair, you can use a config like:
+**ligature**
+Intelligently replaces Unicode ligatures in PDF text extraction. To find out the ligatures that exist in the extracted text for your PDF, you can extract all the lines in the PDF and search for them. To extract all lines into one key-value pair, you can use a config like:
 
 ```
     {
@@ -27,7 +27,7 @@ hidden: false
 
 
 
-    - `mappings`
+**mappings**
         - An object mapping strings (e.g., `"\u0000"`) to an array of possible ligature replacements (e.g., `["ff", "ffi", "fi", "fl"]`)
         - `ligature` will replace each instance of the string with the first replacement that has a dictionary match. If `ligature` finds no dictionary match, it will not modify the extracted text
 - `mergeLines`
