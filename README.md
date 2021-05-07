@@ -26,8 +26,7 @@ See https://github.com/flowcommerce/readme-sync.
 You can author the docs in Github-flavored Markdown, with the following minor restrictions and caveats:
 
 - **links** - You can use relative links, but you have to leave out the .md extension. Like this: [syntax for relative link to a doc](./readme-sync/v0/some-file-name-no-textension). (Future improvement: should be easy to modify readme-sync code to strip out .md extensions if we want working relative links in the markdown stored in github)
-- **images** - You can't use relative links. We'll use hyperlinks to images stored on the master branch [like this syntax](./images/some-image). 
-- **manual edits to updatedAt:** the frontmatter in each markdown page includes an updatedAt field, which you must manually edit when you commit a page, so that the public docs display the correct info at the bottom of the page ("Updated x days ago").
+- **images** - You can't use relative links  [like this syntax](./images/some-image). We'll use hyperlinks instead to images stored on the master branch. 
 - **no semantic code snippets / language highlighting** ReadMe gets confused if you use a code block snippet that indicates the language. It erratically interprets #code comments as heading markdown syntax. So if you have a bunch of headings, then avoid:
 
 ```python
