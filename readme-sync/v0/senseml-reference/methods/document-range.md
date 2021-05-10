@@ -76,7 +76,7 @@ Parameters
 | id (**required**) | `documentRange`               |                                                              |
 | stop              | Match object. default: `none` | A Match object to stop extraction. Not included in the method output.  If unspecified, matches to end of document. |
 | includeAnchor     | boolean. default: `false`     | Includes the anchor line in the method output                |
-| includeImages     | boolean. default: `false`     | Returns the zero-indexed page number and coordinates of regions containing images in the document range .  **Notes**:</br>  </br>If you set to `true`,  also set`"type": "images"` in the `field` object (see preceding section for an example). </br>Does not return any matching lines (i.e., text); only image regions.</br> |
+| includeImages     | boolean. default: `false`     | Returns the zero-indexed page number and coordinates of regions containing images in the document range .  **Notes**:<br/>  If you set to `true`,  also set`"type": "images"` in the `field` object (see preceding section for an example). <br/>Returns only image region coordinates, not image bytes or matching lines (i.e., text). |
 
 Notes
 ----
