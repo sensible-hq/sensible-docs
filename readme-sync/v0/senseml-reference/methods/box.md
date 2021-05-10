@@ -10,15 +10,17 @@ The following config grabs a dollar amount from a box based on text matching in 
 
  ```json
 {
-	"fields": [{
-		"id": "rents_income",
-		"type": "currency",
-		"method": {
-			"id": "box",
-			"position": "below"
-		},
-		"anchor": "rents"
-	}]
+  "fields": [
+    {
+      "id": "rents_income",
+      "type": "currency",
+      "method": {
+        "id": "box",
+        "position": "below"
+      },
+      "anchor": "rents"
+    }
+  ]
 }
  ```
 
