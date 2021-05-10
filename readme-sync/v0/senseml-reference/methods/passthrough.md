@@ -2,17 +2,48 @@
 title: "Passthrough"
 hidden: false
 ---
-Returns the anchor line
-[block:parameters]
+Use the Passthrough method to grab a line or lines of text using an anchor, and return it directly. This can be useful when you want to match using regular expressions, and you don’t want to take any additional steps after finding your matches. 
+
+
+
+Examples
+----
+
+The following example config uses regular expressions to grab a list of forms that are all identified by 4 digits (i.e., Form 1099) in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the data we were looking for is already matched by the anchor, we don't need a Method object. To ignore the Method object, we set the method id to  `"passthrough"`. 
+
+```json
 {
-  "data": {
-    "h-0": "key",
-    "h-1": "value",
-    "h-2": "description",
-    "0-0": "id",
-    "0-1": "`passthrough`"
-  },
-  "cols": 3,
-  "rows": 1
+  "fields": [
+    {
+      "id": "forms_with_4_numbers",
+      "match": "all",
+      "anchor": {
+        "start": {
+          "type": "startsWith",
+          "text": "General Instructions",
+          "isCaseSensitive": true
+        },
+        "match": {
+          "type": "regex",
+          "pattern": "Form [0-9]{4}"
+        },
+        "end": "Rev. 10-2018"
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    }
+  ]
 }
-[/block]
+```
+
+The following image shows this example in the Sensible app:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/passthrough_regex.png)
+
+Parameters
+----
+
+| id                | value         | description                                                  |
+| ----------------- | ------------- | ------------------------------------------------------------ |
+| id (**required**) | `passthrough` | bypass the Method object, and return an anchor. Usually, you use this in conjunction with an anchor that uses regular expressions. Sensible support Javascript-flavored regex. |

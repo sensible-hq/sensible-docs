@@ -2,14 +2,14 @@
 title: "Region"
 hidden: false
 ---
-Use the Region method to grab lines in a box-shaped region, defined in inches. 
+Use the Region method to grab lines in a rectangular region, defined in inches. 
 
-In general, use this method when you want to grab data from an area whose formatting doesn't exactly fit other Sensible methods, such as the Box or Row method. For example, you can use this method when a `label` type anchor doesn't work because it is separated from the next consecutive line by too much whitespace.
+In general, use this method when you want to grab data from an area whose formatting doesn't exactly fit other Sensible methods, such as the Box or Row method. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to grab.
 
 Examples
 -----
 
-The following example config grabs a social security number from a W-9 form:
+The following example config extracts a social security number from a W-9 form by defining a region to grab:
 
 ```json
 {
@@ -46,13 +46,13 @@ Parameters
 
 | id                     | value                                               | description                                                  |
 | ---------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)      | region                                              |                                                              |
+| id (**required**)      | `region`                                            |                                                              |
 | start (**required**)   | Direction, either `above`, `below`, `left`, `right` | A Direction specifying where to start relative to the anchor point. `right` starts at the middle of the right edge, `below` starts at the middle of the bottom edge, and so forth. |
 | offsetX (**required**) | number                                              | The offset in inches from the `start` along the X axis       |
 | offsetY (**required**) | number                                              | The offset in inches from the `start` along the Y axis       |
 | width (**required**)   | number                                              | The width in inches of the extraction region                 |
 | height (**required**)  | number                                              | The height in inches of the extraction region                |
-| isAbsoluteOffset       | boolean. default: `false`                           | A flag to make the offsets relative to the 0,0 origin at the top left of the page, rather than relative to the anchor start point. |
+| isAbsoluteOffset       | boolean. default: `false`                           | A flag to make the offsets relative to the 0,0 origin at the top left of the page rather than to the anchor start point |
 
 Notes
 ----
