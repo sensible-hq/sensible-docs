@@ -2,7 +2,7 @@
 title: "Document Range"
 hidden: false
 ---
-Use the Document Range method to grab multiple consecutive lines, for example, paragraphs of legal text. Or, use it to grab regions containing images.
+Use the Document Range method to grab multiple consecutive lines, for example, paragraphs of legal text. Or, use it to return the coordinates of regions containing images.
 
 Examples
 -----
@@ -88,7 +88,7 @@ Currently, Document Range is the only method that supports identifying image reg
 - Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
 - Convert from Sensible's region coordinates to DPI coordinates.  Sensible region coordinates follow these conventions:
   - they are in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
-  - they are in inches (to convert inches to DPI, simply multiply the inches coordinates by your DPI setting. For example, an x-coordinate of 1.021 inches is 73.512 in DPI (72 DPI * 1.021 inches)
+  - they are in inches (to convert inches to DPI, simply multiply the inches coordinates by your DPI setting. For example, an x-coordinate of 3.156 inches is approximately 227 DPI for a DPI setting of 72 (72 DPI * 3.156 inches).
   - they are ordered clockwise from top left, i.e.: top left, top right, bottom right, bottom left
 - Extract a partial bitmap defined by the coordinates from the page.
 - Encode the bitmap to bytes in the image format of your choice. 
