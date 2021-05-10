@@ -4,7 +4,7 @@ hidden: false
 ---
 Use the box method to grab lines inside a box. This method works best with boxes that have a light background and dark, continuous borders. 
 
-**Example**
+**Examples**
 
 The following config grabs a dollar amount from a box based on text matching in the box:
 
