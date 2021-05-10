@@ -85,7 +85,7 @@ Notes
 
 Currently, Document Range is the only method that supports identifying image regions. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen language to follow these general steps:
 
-- Render the page containing the image to a bitmap.
+- Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
 - Convert from Sensible's region coordinates to DPI coordinates.  Sensible region coordinates follow these conventions:
   - they are in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
   - they are in inches (to convert inches to DPI, simply multiply the inches coordinates by your DPI setting. For example, an x-coordinate of 1.021 inches is 73.512 in DPI (72 DPI * 1.021 inches)
