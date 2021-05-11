@@ -2,26 +2,74 @@
 title: "Row"
 hidden: false
 ---
-Matches all lines to the left or right of the anchor line with a top line within 0.08 inches of the anchor's top line
-[block:parameters]
+Matches all lines to the left or right of the anchor line. The within 0.08 inches of the anchor's top line
+
+
+
+| key               | value                                        | description                                   |
+| ----------------- | -------------------------------------------- | --------------------------------------------- |
+| id (**required**) | `row`                                        |                                               |
+| includeAnchor     | boolean. default: `false`                    | Includes the anchor line in the method output |
+| position          | `right`, `left`. Default: `right`            | Matches to the left or right                  |
+| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which element in the row is the target        |
+
+Example
+----
+
+
+
+```json
 {
-  "data": {
-    "h-0": "key",
-    "h-1": "value",
-    "h-2": "description",
-    "0-0": "id",
-    "0-1": "`row`",
-    "1-0": "includeAnchor",
-    "1-1": "`true`, `false`",
-    "1-2": "optional, default: false\n\nIncludes the anchor line in the method output",
-    "2-0": "position",
-    "2-2": "optional, default: `right`\n\nMatches to the left or right",
-    "2-1": "`right`, `left`",
-    "3-0": "tiebreaker",
-    "3-1": "`first`, `second`, `third`, `last`, `>`, `<`",
-    "3-2": "Which element in the row is the target"
-  },
-  "cols": 3,
-  "rows": 4
+  "fields": [
+    {
+      "id": "number_1_language_on_github",
+      "method": {
+        "id": "row",
+        "tiebreaker": "first",
+        "position": "left",
+        "includeAnchor": true
+      },
+      "anchor": {
+        "match": [
+          {
+            "text": "Languages by Github rank",
+            "type": "startsWith"
+          },
+          {
+            "text": "1",
+            "type": "startsWith"
+          }
+        ]
+      }
+    },
+    {
+      "id": "python_change_in_TIBOE_rating",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      },
+      "anchor": {
+        "match": [
+          {
+            "text": "Languages ranked by search engine",
+            "type": "startsWith"
+          },
+          {
+            "text": "Python",
+            "type": "startsWith"
+          }
+        ]
+      }
+    },
+  ]
 }
-[/block]
+```
+
+
+
+Parameters
+-----
+
+Notes
+-----
+TODO: refer to column?
