@@ -94,3 +94,4 @@ Parameters
 Notes
 -----
 
+To grab an entire table, see the [Table method](doc:table).  To grab a column, see the [Column method](doc:column). 
