@@ -2,7 +2,9 @@
 title: "Row"
 hidden: false
 ---
-Matches all lines to the left or right of the anchor line.  A "row" is defined as lines that are vertically aligned with the anchor, within 0.08 inches of the top line of the anchor's bounding box. For example, the following image highlights the line that defines a row:
+Matches all lines to the left or right of the anchor line. 
+
+ A "row" is defined by lines of text aligned horizontally. Each matching line in the "row" must have a  top boundary that is within  0.08 inches of the top anchor's top boundary.  For example, the following image shows the line that defines a row of bold text:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/row_align.png)
 
@@ -10,10 +12,18 @@ Matches all lines to the left or right of the anchor line.  A "row" is defined a
 Examples
 ----
 
-The following example demonstrates choosing data from two consecutive tables:
+
+
+The following image shows an example of the row method in the Sensible app:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/row_example.png)
+
+
+
+The preceding example demonstrates choosing data from two consecutive tables:
 
 1. The first field has an anchor with two matches: first the anchor matches the heading `Languages by Github rank`  to ensure we are in the first table, and then it matches on the text  `first`  to find the row with the top-ranked Github language. The method then grabs the language name to the left of the last anchor match (`first`). 
-2. The second field also has an anchor with two matches: first the anchor matches  the heading `Languages ranked by search engine` to ensure we are in the second table, and then it finds the word `Python` to find the first row with that text.  The method then grabs the % change in ranking for Python by taking the second item in the row to the right of the anchor match (`Python`).
+2. The second field also has an anchor with two matches: first the anchor matches  the heading `Languages ranked by search engine` to ensure we are in the second table, and then it finds the word `Python` to find the first row with that language.  The method then grabs the % change in ranking for Python by taking the second item in the row to the right of the last anchor match (`Python`).
 
 ```json
 {
@@ -62,9 +72,7 @@ The following example demonstrates choosing data from two consecutive tables:
 }
 ```
 
-The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/row_example.png)
 
 
 
@@ -77,9 +85,12 @@ Parameters
 | id (**required**) | `row`                                        |                                                              |
 | includeAnchor     | boolean. default: `false`                    | Includes the anchor line in the method output                |
 | position          | `right`, `left`. Default: `right`            | Matches to the left or right                                 |
-| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the row is the target. Use `>` and `<` to grab maximum and minimum numeric values in the row. If the values in the row are alphanumeric rather than strictly numeric, then `<` and `>`  return values sorted alphanumerically rather than by amount (for example, in a row containing the lines "1", "2", a", and "z", `<` returns "1" and `>` returns "z".) |
+| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the row is the target. Use the comparisons `>` and `<` to grab maximum and minimum values in the row. By default the comparisons are sorted alphanumerically using [unicode values](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Less_than).  If you want to compare numeric amounts and ignore non-numbers in the row,  then add `type: number` as a top-level parameter to the field. |
+
+
+
 
 
 Notes
 -----
-TODO: refer to column?
+
