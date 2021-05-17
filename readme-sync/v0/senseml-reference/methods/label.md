@@ -2,29 +2,84 @@
 title: "Label"
 hidden: false
 ---
-Return lines near the anchor point
+Return lines near the anchor point.
 
-[block:parameters]
+Examples
+-----
+
+
+
+The following image shows examples of various labels in the Sensible app: 
+
+
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/label_examples.png)
+
+The preceding example shows fields that do the following:
+
+1. The  `simple_label` field grabs a line below a label.
+2. The `hanging_indent_label` field grabs multiple lines of text that are indented below a label. Notice that the match does **not** include lines to the left or right of matching lines. For example, in the PDF, the text "But lines to the left or right aren't matched" gets parsed as a separate line because of the horizontal gap between it and its adjacent line. Therefore is not included in the match.
+3.  The `right_aligned_label` field grabs multiple lines of text that are aligned to the right edge below a label.  Again, a line that is separated from the other lines by a horizontal gap is not included in the match.
+4. The `first_name_last_name` field grabs a person's name below the label, and uses a filter to remove an unwanted string.
+
+```json
 {
-  "data": {
-    "h-0": "key",
-    "h-1": "value",
-    "h-2": "description",
-    "0-0": "id",
-    "0-1": "`label`",
-    "1-0": "position",
-    "1-2": "What direction the target data is relative to the anchor point.",
-    "1-1": "[Direction](ref:direction) (`above`, `below`, `left`, `right`)",
-    "2-0": "stop",
-    "2-2": "optional, default first. Only applies to when `position` is `below`. \n\nThe stopping criterion for line extraction. By default `label` only matches one line, but if `gap` or a `Matcher` are supplied it will match aligned lines until it reaches a gap of 0.2 inches or a matching line, respectively",
-    "2-1": "`first`, `gap`, or a [Matcher](ref:matcher)",
-    "3-0": "textAlignment",
-    "3-2": "optional, default: `left`. Used with vertical matching (`position: below` or `position: above`).\n\nDetermines whether to match lines aligned to the anchor at the `left` edge or the `right` edge. \n\nFor `position: below` you may specify `hangingIndent` to match the closest line along the X axis, to the right, from the line below the anchor",
-    "3-1": "`left`, `right`, `hangingIndent`",
-    "4-0": "includeAnchor",
-    "4-2": "optional, default false. \n\nWhether to include the anchor line in the method output.\n\nFor horizontal matching (`position: left` or `position: right`) the method will return the remainder of the anchor line if its final `Matcher` didn't match the full line. For example, if the anchor line is \"Premium: $500\" and the `Matcher` is `{ \"type\": \"startsWith\", \"text\": \"Premium: \" }`, `label` will return \"$500\""
-  },
-  "cols": 3,
-  "rows": 5
+  "fields": [
+    {
+      "id": "simple_label",
+      "anchor": "Here is a good candidate",
+      "method": {
+        "id": "label",
+        "position": "below"
+      }
+    },
+    {
+      "id": "hanging_indent_label",
+      "anchor": "Here is the first line of a hanging indent",
+      "method": {
+        "id": "label",
+        "position": "below",
+        "textAlignment": "hangingIndent",
+        "stop": "gap"
+      }
+    },
+    {
+      "id": "right_aligned_label",
+      "anchor": "text is right-aligned",
+      "method": {
+        "id": "label",
+        "position": "below",
+        "textAlignment": "right",
+        "stop": "gap"
+      }
+    },
+    {
+      "id": "first_name_last_name",
+      "anchor": "label for a name",
+      "method": {
+        "id": "label",
+        "position": "below",
+        "wordFilters": [
+          "And here’s some extra text to filter out"
+        ]
+      }
+    }
+  ]
 }
-[/block]
+```
+
+
+
+Parameters
+-----
+
+| Key                     | Value                                                        | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| id (**required**)       | `label`                                                      |                                                              |
+| position (**required**) | a Direction object (`above`, `below`, `left`, `right`)       | What direction the target data is relative to the anchor point. |
+| stop                    | `first`, `gap`, or a Match object. Default: `first`          | Only applies to `"position": "below"`. <br/>The stopping criterion for line extraction. By default, the Label method only grabs one line. To grab multiple lines, use a `gap` or a Match object for `stop`.  The multiple matched lines include those that are aligned to the left edge of the first matching line below the label, unless you define a different alignment method using `textAlignment`. The match does **not** include lines to the left or right of matching lines. For `gap` , this method stops when it reaches a vertical gap of 0.2 inches, and for a Match object, this method stops when it reaches a matching line. |
+| textAlignment           | HorizontalDirection: `left`, `right`, or `hangingIndent`. Default: `left`. | Only applies to `"position": "below"` or `"position": "above"`. <br/>Determines whether to match lines vertically aligned to the anchor at the `left` edge or the `right` edge of the anchor boundary. <br/> `hangingIndent` only applies to  `"position": "below"`.  The top of the boundary of the hangingIndent candidate needs to be within 0.3 inches of the bottom of the boundary of the matching anchor line.  There is no restriction on the x-axis for the hangingIndent. |
+| includeAnchor           | boolean. default: `false`                                    | Whether to include the anchor line in the method output. For horizontal matching (`position: left` or `position: right`) the method returns the remainder of the anchor line if its final `Matcher` didn't match the full line. For example, if the anchor line is "Premium: $500" and the `Matcher` is `{ "type": "startsWith", "text": "Premium: " }`, `label` returns "$500". |
+
+
+
