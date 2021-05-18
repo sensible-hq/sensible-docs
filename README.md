@@ -25,19 +25,24 @@ See https://github.com/flowcommerce/readme-sync.
 
 You can author the docs in Github-flavored Markdown, with the following minor restrictions and caveats:
 
-- **links** - You can use relative links, but you have to leave out the .md extension. Like this: [syntax for relative link to a doc](./readme-sync/v0/some-file-name-no-textension). (Future improvement: should be easy to modify readme-sync code to strip out .md extensions if we want working relative links in the markdown stored in github)
-- **images** - You can't use relative links  [like this syntax](./images/some-image). We'll use hyperlinks instead to images stored on the master branch. 
-- **no semantic code snippets / language highlighting** ReadMe gets confused if you use a code block snippet that indicates the language. It erratically interprets #code comments as heading markdown syntax. So if you have a bunch of headings, then avoid:
+- **links** - You can use relative links, but you have to leave out the .md extension. Like this: `[syntax for relative link to a doc](./readme-sync/v0/some-file-name-no-textension)`. (Future improvement: should be easy to modify readme-sync code to strip out .md extensions if we want working relative links in the markdown stored in github)
 
-```python
-# some python code here
+- **images** - You can't use relative links  `[like this syntax](./images/some-image)`. We'll use hyperlinks instead to images stored on the master branch like this: `![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/some_image.png)` . 
+
+- **be careful with heading markup** ReadMe gets confused if you use a code block snippet that indicates the language IN CONJUNCTION with headings that use hashtags (#). In this instance it erratically interprets #code comments as heading markdown syntax. 
+
+  So avoid headings like this:
+
+  `# Heading 1`
+
+  and only use this syntax:
+
+```
+Heading 1
+_____
 ```
 
-and only use:
 
-```
-# some code in some unspecified language here  
-```
 
 - **no authoring in dash.readme** - the bottom line is: edit in Github or use readme's Suggested Edits mechanism! don't make direct edits in dash.readme
 

@@ -142,10 +142,12 @@ Match using a regular expression.
 
 **Examples**
 
+**TODO**
+
 First match
 ------
 
-This is a convenience or utility match to  just match the first line encountered. Useful in conjunction with the `pageFilter` preprocessor.
+This is a convenience or utility match to  just match the first line encountered. It is useful in conjunction with the `pageFilter` preprocessor.
 
 **Parameters**
 
