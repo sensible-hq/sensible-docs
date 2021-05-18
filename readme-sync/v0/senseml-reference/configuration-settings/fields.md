@@ -34,13 +34,13 @@ Types
 - `currency`: Currently supports currencies in dollars. 
 - `date`: Dates of the format MM/DD/YYYY and variants, or month name DD, YYYY and variants
 - `distance`: Currently supports miles and kilometers
-- `images`: Image metadata (can only be used with [Document Range](doc:documentrange))
+- `images`: Image metadata (can only be used with [Document Range](doc:document-range))
 - `name`: Names of the formats below and variants
                 - First Last
                 - First1 Last1 and First2 Last2
                 - Last, First1 and First2
                 - First1 and First2 Last
-- `paragraph`: A string with newlines at paragraph breaks (to be used with [Document Range](doc:documentrange) only)
+- `paragraph`: A string with newlines at paragraph breaks (to be used with [Document Range](doc:document-range) only)
 - `string`
 - `weight`: Currently supports pounds and kilograms
 
