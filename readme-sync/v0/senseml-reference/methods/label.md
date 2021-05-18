@@ -18,9 +18,8 @@ The following image shows examples of various labels in the Sensible app:
 The preceding example shows fields that do the following:
 
 1. The  `simple_label` field grabs a line below a label.
-2. The `hanging_indent_label` field grabs multiple lines of text that are indented below a label. Notice that the match does **not** include lines to the left or right of matching lines. For example, in the PDF, the text "But lines to the left or right aren't matched" gets parsed as a separate line because of the horizontal gap between it and its adjacent line. Therefore is not included in the match.
-3.  The `right_aligned_label` field grabs multiple lines of text that are aligned to the right edge below a label.  Again, a line that is separated from the other lines by a horizontal gap is not included in the match.
-4. The `first_name_last_name` field grabs a person's name below the label, and uses a filter to remove an unwanted string.
+2. The `one_line_label` field grabs text to the right of a label on the same line, and filters out an unwanted string. 
+3. The `hanging_indent_label` field grabs multiple lines of text by using a `stop` parameter.  The method grabs indented lines (`"textAlignment": "hangingIndent"`) , and the match does **not** include lines to the left or right of matching aligned lines. For example, in the PDF, the text "But lines to the left or right aren't matched" gets parsed as a separate line because of the horizontal gap between it and its adjacent line. 
 
 ```json
 {
@@ -34,6 +33,24 @@ The preceding example shows fields that do the following:
       }
     },
     {
+      "id": "one_line_label",
+      "anchor": {
+        "match": [
+          {
+            "type": "startsWith",
+            "text": "A label can be in one line:"
+          }
+        ]
+      },
+      "method": {
+        "id": "label",
+        "position": "right",
+        "wordFilters": [
+          "but filter out this extra text"
+        ]
+      }
+    },
+    {
       "id": "hanging_indent_label",
       "anchor": "Here is the first line of a hanging indent",
       "method": {
@@ -43,30 +60,6 @@ The preceding example shows fields that do the following:
         "stop": "gap"
       }
     },
-    {
-      "id": "right_aligned_label",
-      "anchor": "text is right-aligned",
-      "method": {
-        "id": "label",
-        "position": "below",
-        "textAlignment": "right",
-        "stop": {
-          "type": "includes",
-          "text": "here’s a label for a name"
-        }
-      }
-    },
-    {
-      "id": "first_name_last_name",
-      "anchor": "label for a name",
-      "method": {
-        "id": "label",
-        "position": "below",
-        "wordFilters": [
-          "And here’s some extra text to filter out"
-        ]
-      }
-    }
   ]
 }
 ```
