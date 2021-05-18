@@ -25,7 +25,7 @@ See https://github.com/flowcommerce/readme-sync.
 
 You can author the docs in Github-flavored Markdown, with the following minor restrictions and caveats:
 
-- **links** - You can use relative links, but you have to leave out the .md extension. Like this: `[syntax for relative link to a doc](./readme-sync/v0/some-file-name-no-textension)`. (Future improvement: should be easy to modify readme-sync code to strip out .md extensions if we want working relative links in the markdown stored in github)
+- **links** - The preferred linking method is to use Readme's syntax like this: `[some title](doc:some-doc-slug)`. or `[Some title](ref:some-api-endpoint-slug)`. (Not recommended: you can also use relative links, but  then you have to leave out the .md extension. Like this: `[syntax for relative link to a doc](./readme-sync/v0/some-file-name-no-textension)`. (Future improvement: should be easy to modify readme-sync code to strip out .md extensions if we want working relative links in the markdown stored in github)
 
 - **images** - You can't use relative links  `[like this syntax](./images/some-image)`. We'll use hyperlinks instead to images stored on the master branch like this: `![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/some_image.png)` . 
 
