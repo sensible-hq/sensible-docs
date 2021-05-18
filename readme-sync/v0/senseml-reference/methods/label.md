@@ -50,7 +50,10 @@ The preceding example shows fields that do the following:
         "id": "label",
         "position": "below",
         "textAlignment": "right",
-        "stop": "gap"
+        "stop": {
+          "type": "includes",
+          "text": "here’s a label for a name"
+        }
       }
     },
     {
