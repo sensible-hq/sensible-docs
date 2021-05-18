@@ -55,29 +55,17 @@ SenseML works with primarily with lines. A "line" is a rectangular region contai
 
 ![image-20210518095334649](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20210518095334649.png)
 
-A "line" is a type of region. A "box" is another type of region. Under the hood, everything is either a region or a point in space. *By the way, you can work with regions directly as methods when you need a highly configurable way to define a rectangle in space. Why would you want to do so? Again, under hood, SenseML is sensitive to spacing, because a PDF is really just an image -- a bytemap of dots defined in dots per inch, just as an image is a pixelmap under the hood. So sometimes, the built-in "line" method won't work because lines of text are too far apart.*  
+A "line" is a type of region. A "box" is another type of region. Under the hood, everything is either a region or a point in space. 
+
+
+
+
+
+TO DELETE: *By the way, you can work with regions directly as methods when you need a highly configurable way to define a rectangle in space. Why would you want to do so? Again, under hood, SenseML is sensitive to spacing, because a PDF is really just an image -- a bytemap of dots defined in dots per inch, just as an image is a pixelmap under the hood. So sometimes, the built-in "line" method won't work because lines of text are too far apart.*  
 
 In this example, we define a region (TODO: show the dot, show the region, show the orange anchor and the blue match.. which isn't necessarily the same as the returned value). 
 
 
 
 
-
-
-Schema
------
-
-```yaml
-preprocessors:
-	type: 
-# other configuration methods other than preprocessors also go at this top level
-fields:
-	id:
-	type:
-	anchor:
-		type:
-	method:
-		id:
-		
-```
 
