@@ -2,4 +2,4 @@
 title: "AnchorComponent"
 hidden: false
 ---
-An [AnchorMatch](ref:anchormatch), [PageMatcher](ref:pagematcher), or [Shared Anchor Matches](ref:shared-anchor-matches)
+An [AnchorMatch](doc:anchormatch), [PageMatcher](doc:pagematcher), or [Shared Anchor Matches](doc:shared-anchor-matches)

@@ -85,7 +85,7 @@ Parameters
 | id (**required**) | `row`                                        |                                                              |
 | includeAnchor     | boolean. default: `false`                    | Includes the anchor line in the method output                |
 | position          | `right`, `left`. Default: `right`            | Matches to the left or right                                 |
-| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the row is the target. Use the comparisons `>` and `<` to grab maximum and minimum values in the row. By default the comparisons are sorted alphanumerically using [unicode values](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Less_than).  If you want to compare numeric amounts and ignore non-numbers in the row,  then add `type: number` as a top-level parameter to the field. |
+| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the row is the target. Use the comparisons `>` and `<` to grab maximum and minimum values in the row. By default the comparisons are sorted alphanumerically using [unicode values](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Less_than).  If you want to compare numeric amounts and ignore non-numbers in the row,  then add `type: number` or `type: currency` as a top-level parameter to the field. |
 
 
 
