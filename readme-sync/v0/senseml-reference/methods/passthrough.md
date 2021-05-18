@@ -44,6 +44,8 @@ The following image shows this example in the Sensible app:
 Parameters
 ----
 
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
 | id                | value         | description                                           |
 | ----------------- | ------------- | ----------------------------------------------------- |
 | id (**required**) | `passthrough` | bypass the Method object, and return an anchor. <br/> |

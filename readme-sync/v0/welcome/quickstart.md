@@ -96,3 +96,11 @@ And it will look like this;
 ![image-20210518122640189](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20210518122640189.png)
 
 Let's talk about how this works:
+
+
+
+
+
+TODO:
+
+- talk about Integrating w/ your app (API calls + how you'd use the above app stuff to test out configs before doing the API calls...also talk about seeing your extraction run history in the app (sort alike logging?)
