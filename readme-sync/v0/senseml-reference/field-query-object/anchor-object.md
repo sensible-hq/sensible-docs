@@ -134,7 +134,7 @@ Match using a regular expression.
 
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the (Regex method)(doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. |
 | type (**required**)    | `regex`                  |                                                              |
 
