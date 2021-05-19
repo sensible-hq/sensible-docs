@@ -1,6 +1,6 @@
 ---
 title: "SharedAnchorMatch"
-hidden: false
+hidden: true
 ---
 An [AnchorMatch](doc:anchormatch) ] or [PageMatcher](doc:pagematcher) with an ID for reference by field anchors
 

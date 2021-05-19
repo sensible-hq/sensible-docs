@@ -1,5 +1,5 @@
 ---
 title: "Direction"
-hidden: false
+hidden: true
 ---
 One of `right`, `left`, `above`, or `below`.

@@ -1,6 +1,6 @@
 ---
 title: "Match"
-hidden: false
+hidden: true
 ---
 Matches are Instructions for matching lines of text in a document. There are three different types of Matches: SimpleMatcher, RegexMatcher, and FirstMatcher. 
 

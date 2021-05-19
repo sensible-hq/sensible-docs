@@ -1,4 +1,4 @@
 ---
 title: "Objects"
-hidden: false
+hidden: true
 ---

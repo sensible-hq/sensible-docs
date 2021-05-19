@@ -1,8 +1,8 @@
 ---
 title: "Anchor"
-hidden: true
+hidden: false
 ---
-An *anchor* is a string, Match object, or array of match objects. 
+An *anchor* is a string, Match object, or array of Match objects. 
 
 If you want to be syntactically concise, you can define a simple string anchor like:
 
@@ -40,13 +40,13 @@ These are the top-level components of an expanded Anchor object:
 | -------------------- | -------------------------------------- | ------------------------------------------------------------ |
 |                      |                                        |                                                              |
 | match (**required**) | Match object or array of match objects | See following section                                        |
-| start                | string, Match, or Match array          | Defines a point in the document at which to start searching for  the`match` you define for the anchor.  By default not included in the anchor output. This parameter can be useful if you want to limit your search to a specific section of a document. For example, you can define a `start` that matches a section heading. |
-| end                  | string, Match, or Match array          | Defines a point in the document at which to stop searching for  the`match` you define for the anchor.  By default not included in the anchor output. If unspecified, matches to end of document. |
-| includeEnd           | boolean                                | Specifies whether to include the text that matches the `end` parameter in the anchor output. |
+| start                | string, Match, or Match array          | Defines a point in the document at which to start searching for  the`match` you define for the anchor.  By default not included in the anchor output. This parameter can be useful if you want to limit your search to a specific section of a document. For example, you can define a `start` that matches a section heading. <br/>Note that lines that "follow" the `start` line are most reliably those that are positioned *below* the start line. Lines to the left are not included, and lines to the right are only considered "following" if they are at exactly the same height as the `start` line on the page. In other words a line qualifies as "successive" to the `start` line first by its y-axis position and then by its x-axis position. |
+| end                  | string, Match, or Match array          | Defines a point in the document at which to stop searching for  the`match` you define for the anchor.  By default not included in the anchor output. If unspecified, matches to end of document.  <br/>Note that lines that "precede" the `end` line are most reliably those that are positioned *above* the end line. Lines to the right are not included, and lines to the left are only considered "preceding" if they are at exactly the same height as the `end` line on the page. In other words, a line qualifies as "preceding" the `start` line first by its y-axis position and then by its x-axis position. |
+| includeEnd           | boolean                                | Whether to include the text in the matching `end` line in the anchor output. |
 
 **Examples**
 
-Here's an example of an Anchor object that uses all these parameters. Its `match` parameter includes an array of Match objects:
+Here's an example of an Anchor object that uses all these parameters: 
 
 ```json
 {
@@ -61,11 +61,7 @@ Here's an example of an Anchor object that uses all these parameters. Its `match
           [
             {
               "type": "includes",
-              "text": "Only match if you find this string in a line...",
-            },
-            {
-              "type": "startsWith",
-              "text": "...Followed by the 1st occurence of this string in another line",
+              "text": "Only finds anchor if you match this string in a line that is between the start and end lines (best to ensure start is above and end is below the text).",
             },
           ]      
       },
@@ -83,13 +79,15 @@ Here's an example of an Anchor object that uses all these parameters. Its `match
 Match object
 ====
 
-Matches are instructions for matching lines of text in a document. They are valid elements in anchors. There are three different types of Matches object:
+Matches are instructions for matching lines of text in a document. They are valid elements in anchors. There are three different types of Match objects:
 
-- Simple matcher
-- Regex match
-- First matcher
+- [Simple matcher](doc:anchor#section-simple-match)
+- [Regex match](doc:anchor#section-regex-match)
+- [First match](doc:anchor#section-first-match)
 
-For an array of Match objects, all matches must be found to successfully create an anchor.
+- In addition, the *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor#section-methods-influence-matches).
+
+
 
 Simple Match
 -------
@@ -142,7 +140,11 @@ Match using a regular expression.
 
 **Examples**
 
-**TODO**
+For an example, see the [Passthrough method example](doc:passthrough).
+
+
+
+
 
 First match
 ------
@@ -203,4 +205,58 @@ This example performs OCR only on a known page (for example, some PDFs may have 
   ],
 }
 ```
+Match arrays
+----
+
+For an array of Match objects, all matches must be found to successfully create an anchor.  The Match objects must be in separate successive (but not consecutive) lines. In other words, the second match starts its search in the line after the line matched by the previous Match object in the array, and so on. 
+
+```json
+{
+  "fields": [
+    {
+      "id": "simple_label",
+      "anchor": {
+        "start": "My section heading to start matching on",
+        "end": "My footer text to stop matching on",
+        "includeEnd": true,
+        "match": 
+          [
+            {
+              "type": "includes",
+              "text": "Only finds anchor if you match this string in a line...",
+            },
+            {
+              "type": "startsWith",
+              "text": "...Followed by the 1st occurence of this string in another line",
+            },
+          ]      
+      },
+      "method": {
+        "id": "label",
+        "position": "below"
+      }
+    }
+  ]
+}
+```
+
+
+
+
+Methods influence matches
+-----
+
+In addition to the conditions you set in the Match object itself (such as `isCaseSensitive`), the Method type you select in the `id` parameter influences whether text qualifies for the anchor match.
+
+In other words, if you set a Label method, then only text that qualifies as a label matches in the anchor. If the text is too far away from any other lines to be used as a label, it won't match, even if all the conditions you set in the Match object itself are otherwise met. 
+
+In the following example, the PDF contains two instances of the string "Python". Even though we set `"match":"last"` in the config, the config only matches the *first* instance of Python. Why? We set a `label` method, and only the first instance of Python is close enough to the text below it to qualify as a label for that text ( `"position":"below"`).
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/anchor_match_last_1.png)
+
+ On the other hand, if we set the method to `row`, then both instances of "Python" qualify, and we successfully match the last instance:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/anchor_match_last_2.png)
+
+
 

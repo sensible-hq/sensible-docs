@@ -1,6 +1,6 @@
 ---
 title: "AnchorMatch"
-hidden: false
+hidden: true
 ---
 A string, [Matcher](doc:matcher) or array of [Matchers](doc:matcher) 
 
