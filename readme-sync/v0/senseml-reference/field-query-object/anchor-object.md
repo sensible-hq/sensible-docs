@@ -81,11 +81,11 @@ Match object
 
 Matches are instructions for matching lines of text in a document. They are valid elements in anchors. There are three different types of Match objects:
 
-- [Simple matcher](doc:anchor#section-simple-match)
-- [Regex match](doc:anchor#section-regex-match)
-- [First match](doc:anchor#section-first-match)
+- [Simple matcher](doc:anchor-object#section-simple-match)
+- [Regex match](doc:anchor-object#section-regex-match)
+- [First match](doc:anchor-object#section-first-match)
 
-- In addition, the *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor#section-methods-influence-matches).
+- In addition, the *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
 
 
 
