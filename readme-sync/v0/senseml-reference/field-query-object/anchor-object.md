@@ -1,8 +1,8 @@
 ---
-title: "Anchor"
+title: "Anchor object"
 hidden: false
 ---
-An *anchor* is a string, Match object, or array of Match objects. 
+An *anchor* is a string, [Match](doc:anchor-object#section-match-object) object, or array of Match objects. 
 
 If you want to be syntactically concise, you can define a simple string anchor like:
 
