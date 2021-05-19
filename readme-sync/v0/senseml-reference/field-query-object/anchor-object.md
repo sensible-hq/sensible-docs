@@ -180,7 +180,7 @@ This example grabs all the lines in the document after the first line:
 }
 ```
 
-This example performs OCR only on a known page (for example, some PDFs may have inserted scans on specific pages, so you need to OCR only those pages and let Sensible perform direct text extraction on all other pages):
+This example performs OCR only on a known page, which is useful since OCR is slow and computationally expensive. For example, some document types may have inserted scans on specific known pages, so you need to OCR only those pages and let Sensible perform direct text extraction on all other pages:
 
 ```json
 {
