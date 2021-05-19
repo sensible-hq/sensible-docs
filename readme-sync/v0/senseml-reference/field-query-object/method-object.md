@@ -1,5 +1,5 @@
 ---
-title: "Method"
+title: "Method object"
 hidden: false
 ---
 
