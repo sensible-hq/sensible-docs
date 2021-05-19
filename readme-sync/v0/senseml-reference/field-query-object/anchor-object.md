@@ -208,7 +208,7 @@ This example performs OCR only on a known page, which is useful since OCR is slo
 Match arrays
 ----
 
-For an array of Match objects, all matches must be found to successfully create an anchor.  The Match objects must be in separate successive (but not consecutive) lines. In other words, the second match starts its search in the line after the line matched by the previous Match object in the array, and so on. 
+For an array of Match objects, all matches must be found to successfully create an anchor.  Each Match object must target a separate successive line. In other words, the second match starts its search in the line after the line matched by the first Match object in the array, and so on. 
 
 ```json
 {
