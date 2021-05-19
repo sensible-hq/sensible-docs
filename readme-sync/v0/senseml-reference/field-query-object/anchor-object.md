@@ -39,7 +39,7 @@ These are the top-level components of an expanded Anchor object:
 | key                  | values                                 | description                                                  |
 | -------------------- | -------------------------------------- | ------------------------------------------------------------ |
 |                      |                                        |                                                              |
-| match (**required**) | Match object or array of match objects | See following section                                        |
+| match (**required**) | Match object or array of match objects | See [following section](doc:anchor-object#section-match-object). |
 | start                | string, Match, or Match array          | Defines a point in the document at which to start searching for  the`match` you define for the anchor.  By default not included in the anchor output. This parameter can be useful if you want to limit your search to a specific section of a document. For example, you can define a `start` that matches a section heading. <br/>Note that lines that "follow" the `start` line are most reliably those that are positioned *below* the start line. Lines to the left are not included, and lines to the right are only considered "following" if they are at exactly the same height as the `start` line on the page. In other words a line qualifies as "successive" to the `start` line first by its y-axis position and then by its x-axis position. |
 | end                  | string, Match, or Match array          | Defines a point in the document at which to stop searching for  the`match` you define for the anchor.  By default not included in the anchor output. If unspecified, matches to end of document.  <br/>Note that lines that "precede" the `end` line are most reliably those that are positioned *above* the end line. Lines to the right are not included, and lines to the left are only considered "preceding" if they are at exactly the same height as the `end` line on the page. In other words, a line qualifies as "preceding" the `start` line first by its y-axis position and then by its x-axis position. |
 | includeEnd           | boolean                                | Whether to include the text in the matching `end` line in the anchor output. |
@@ -79,13 +79,13 @@ Here's an example of an Anchor object that uses all these parameters:
 Match object
 ====
 
-Matches are instructions for matching lines of text in a document. They are valid elements in anchors. There are three different types of Match objects:
+Matches are instructions for matching lines of text in a document. They are valid elements in anchors. There are three different types of Match objects including simple, regex, and first matches.  See the following sections:
 
 - [Simple matcher](doc:anchor-object#section-simple-match)
 - [Regex match](doc:anchor-object#section-regex-match)
 - [First match](doc:anchor-object#section-first-match)
-
-- In addition, the *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
+- You can define match arrays. See [Match arrays](doc:anchor-object#section-match-arrays) 
+- The *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
 
 
 
@@ -132,11 +132,11 @@ Match using a regular expression.
 
 **Parameters**
 
-| key                    | values                                                       | description                                                  |
-| ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| pattern (**required**) | valid regex                                                  | Javascript-flavored regular expression. Capturing groups are not supported (see the (Regex method)(doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
-| flags                  | JS-flavored regex flags, for example: "i", "g", "m"Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. \| |                                                              |
-| type (**required**)    | `regex`                                                      |                                                              |
+| key                    | values                   | description                                                  |
+| ---------------------- | ------------------------ | ------------------------------------------------------------ |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the (Regex method)(doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. |
+| type (**required**)    | `regex`                  |                                                              |
 
 **Examples**
 
