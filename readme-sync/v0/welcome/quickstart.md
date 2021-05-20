@@ -247,7 +247,7 @@ How can we capture the policy period reliably? AS you become more familiar with 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
 
-Fortunately, there are almost always multiple ways to tackle a problem in SenseML. 
+Fortunately, there are almost always multiple ways to tackle a problem in SenseML.  Here's a 
 
 
 
