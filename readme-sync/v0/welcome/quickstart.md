@@ -241,9 +241,42 @@ Before integrating the config with an application and writing tests against it, 
 
 2. Click the **anyco** config and look at the output.
 
-   Uh oh! It looks like this policy period spills over onto the next line. That's some sloppy PDF formatting, but we can't do anything about it. So we miss the end year (2021):
+   Uh oh! It looks like this policy period spills over onto the next line. That's some yucky PDF formatting, but we can't do anything about it. So we miss the end year (2021):
+
+How can we capture the policy period reliably? AS you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. But nope, this sloppily formatted PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor, so it doesn't get included in the output:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
+
+Fortunately, there are almost always multiple ways to tackle a problem in SenseML. 
 
 
+
+
+
+```json
+    {
+      "id": "policy_period",
+      "anchor": {
+        "match": [
+          {
+            "text": "policy period",
+            "type": "startsWith"
+          }
+        ]
+      },
+      "method": {
+        "id": "region",
+        "offsetX": -0.1,
+        "offsetY": -0.1,
+        "width": 3.5,
+        "height": 0.45,
+        "start": "left",
+        "wordFilters": [
+          "policy period",
+        ]
+      }
+    },
+```
 
 
 
