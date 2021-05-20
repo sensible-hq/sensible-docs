@@ -235,7 +235,13 @@ We'll save these and other techniques for a later tutorial!
 Sanity test the config
 ----
 
-Before integrating the config with an application and writing tests against it, let's sanity test the config by simply uploading another document.
+Before integrating the config with an application and writing tests against it, let's sanity test the config by simply uploading another quote.
+
+1.  Repeat the steps in the previous section to upload this [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden_2.pdf).
+
+2. Click the **anyco** config and look at the output.
+
+   Uh oh! It looks like this policy period spills over onto the next line. That's some sloppy PDF formatting, but we can't do anything about it. So we miss the end year (2021):
 
 
 
