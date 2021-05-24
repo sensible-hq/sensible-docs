@@ -1,6 +1,6 @@
 ---
 title: "Quickstart"
-hidden: true
+hidden: false
 ---
 
 
@@ -147,13 +147,14 @@ The config uses this Field query:
       },
 ```
 
-  Which returns:
+  Which returns: 
 
 ```json
   {
-  "policy_number": {
-  "type": "string",
-  "value": "123456789"
+  	"policy_number": {
+  		"type": "string",
+  		"value": "123456789"
+  	}
   }
 ```
 
@@ -181,7 +182,7 @@ The config uses this Field query:
           "id": "label",
           "position": "right"
         }
-      },
+      }
 ```
 
 This returns:
@@ -197,7 +198,7 @@ You can grab text to the right, left, above, or below a label. For example, how 
 
 **Row method**
 
-To grab the comprehensive coverage premium, the config uses the "row" method. This tells SenseML that:
+To grab the comprehensive coverage premium, the config uses the Row method. This tells SenseML that:
 
 - the anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
 -  SenseML should grab the second element (`"tiebreaker": "second"`) to the right of the label in the row. 
@@ -230,7 +231,7 @@ This returns:
     }
 ```
 
-The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`).  The default position is to the right of the anchor, but you can specify `"position":"left"`
+The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`).  The default position is to the right of the anchor, but you can specify `"position":"left"` to grab row elements to the left of the anchor.
 
 **Key concepts: lines**
 You might ask yourself, "why can't I just use a label in the table? Why can't I set a label for "bodily injury liability" and then grab the line starting with "$25,00" to the right of it, like this: 
@@ -254,8 +255,9 @@ The reason this query doesn't work is that SenseML operates on "lines". See thos
 
 You can get more advanced with this auto insurance config. For example:
 
-- You can use a Computed Field method to return the sum of all the listed premiums, which is $260 ($100 + $10 + $150).
-- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky since they can be a variable number of lines. You can use an xRangeFilter set in the Document Range method to capture them. 
+- You can use a [Column method](doc:column) to return all the listed premiums.
+- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method since they can be a variable number of lines. You can use the [Table method](doc:table) to more reliability capture the data in each cell of the table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.
+- What if you just wanted to capture all emails listed in the document? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough).
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).
 
@@ -272,11 +274,17 @@ Before integrating the config with an application and writing tests against it, 
    
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
 
-How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. But nope, this PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
+How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor.
+
+But nope, this PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_2.png)
 
-There are multiple ways to tackle this problem. Here's  one way: you can a [Region method](doc:region). A region is rectangular space defined by coordinates relative to the label. 
+
+
+
+
+There are multiple ways to tackle this problem. Here's one way: you can a [Region method](doc:region). A region is rectangular space defined by coordinates relative to the label. 
 
 Replace your existing policy_period field with the following field in the editor:
 
@@ -315,7 +323,7 @@ Let's double check that this region also works with our first PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_4.png)
 
-Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service text.
+Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlapthe customer service line.
 
 In a production scenario, continue testing PDFs until you're confident your configs will work with the PDF document type you've defined. 
 
@@ -333,7 +341,7 @@ First, make sure you can extract data using the config and PDF you created in pr
 ```curl
 curl --request POST \
   --url https://api.sensible.so/v0/extract/auto_insurance_quote \
-  --header 'Authorization: Bearer YOUR_BEARER_TOKEN' \
+  --header 'Authorization: Bearer YOUR_API_KEY' \
   --header 'Content-Type: application/pdf' \
   --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
 
@@ -343,9 +351,9 @@ In [Postman](https://www.postman.com/), you can run this request as follows:
 
 1. Click **File**>**Import** and select **Raw text**.
 
-2. Paste the previous code sample into the Raw text field, substituting your bearer token.
+2. Copy the previous code sample into the raw text field. Replace `YOUR_API_KEY` with your API key.
 
-3. Correct the path to your downloaded PDF. In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
+3. Correct the path to your downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
 
    
 
