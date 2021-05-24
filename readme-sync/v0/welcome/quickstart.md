@@ -347,19 +347,16 @@ curl --request POST \
 
 ```
 
-In [Postman](https://www.postman.com/), you can run this request as follows: 
+2. Run this request in [Postman](https://www.postman.com/): Click **File**>**Import** and select **Raw text**.
 
-1. Click **File**>**Import** and select **Raw text**.
+3. Copy the previous code sample into the raw text field. Replace `YOUR_API_KEY` with your API key.
+4. Correct the path to your downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
 
-2. Copy the previous code sample into the raw text field. Replace `YOUR_API_KEY` with your API key.
 
-3. Correct the path to your downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
-
-   
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_postman_1.png)
 
-Click **Send**, and you should see a response like this:
+5. Click **Send**, and you should see a response like this:
 
 ```json
 {
