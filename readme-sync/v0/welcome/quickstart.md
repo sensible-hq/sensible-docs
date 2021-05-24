@@ -191,7 +191,7 @@ This returns:
     "policy_period": {
       "type": "string",
       "value": " April 14, 2021 - Oct 14, 2021"
-    
+     }   
 ```
 
 You can grab text to the right, left, above, or below a label. For example, how would you use a label to grab the driver's name? Try it out.
@@ -211,13 +211,14 @@ The config uses this Field query:
 
 ```json
       {
-        "id": "comprehensive_premium",
-        "anchor": "comprehensive",
-        "type": "currency",
-        "method": {
-          "id": "row",
-          "tiebreaker": "second"
-        }
+      	"id": "comprehensive_premium",
+      	"anchor": "comprehensive",
+      	"type": "currency",
+      	"method": {
+      		"id": "row",
+      		"tiebreaker": "second"
+      	}
+      }
 ```
 
 This returns: 
@@ -240,12 +241,13 @@ You might ask yourself, "why can't I just use a label in the table? Why can't I 
 
 ```json
     {
-      "id": "injury_liability",
-      "anchor": "bodily injury",
-      "method": {
-        "id": "label",
-        "position": "right"
-      }
+    	"id": "injury_liability",
+    	"anchor": "bodily injury",
+    	"method": {
+    		"id": "label",
+    		"position": "right"
+    	}
+    }
 
 ```
 
@@ -276,7 +278,7 @@ Before integrating the config with an application and writing tests against it, 
 
 How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor.
 
-But nope, this PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
+But nope, this PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_2.png)
 
