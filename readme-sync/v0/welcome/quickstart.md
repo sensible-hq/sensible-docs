@@ -113,9 +113,9 @@ How it works
 
 - SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
 
-  **Box method**
+**Box method**
 
-  To grab the policy number, the config uses the Box method. This tells SenseML that:
+To grab the policy number, the config uses the Box method. This tells SenseML that:
 
   - The anchor text (`"Policy number"`) is inside of a box (`"id": "box"`)
 
@@ -123,13 +123,13 @@ How it works
 
     
 
-  For this box:
+For this box:
 
-  ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_box.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_box.png)
 
-  The config uses this Field query:
+The config uses this Field query:
 
-  ```json
+```json
       {
         "id": "policy_number",
         "anchor": {
@@ -145,34 +145,35 @@ How it works
           "position": "below"
         }
       },
-  ```
+```
 
   Which returns:
 
-  ```json
+```json
   {
   "policy_number": {
   "type": "string",
   "value": "123456789"
   }
-  ```
+```
 
   Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough). 
 
   
 
-  **Label method**
+**Label method**
 
-  To grab the policy period, the config uses the Label method. This tells SenseML that:
+To grab the policy period, the config uses the Label method. This tells SenseML that:
 
-  -  the anchor (`"policy period"`) is text that is pretty close to some other text.
-  -  SenseML should grab the nearest text to the label in the position specified (`right`).  (The "closeness" of lines is something you can configure with a preprocessor.)
+-  the anchor (`"policy period"`) is text that is pretty close to some other text.
+-  SenseML should grab the nearest text to the label in the position specified (`right`).  (The "closeness" of lines is something you can configure with a preprocessor.)
 
-  For this text:
-  ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_label_right.png)
-  The config uses this Field query:
+For this text:
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_label_right.png)
 
-  ```json
+The config uses this Field query:
+
+```json
       {
         "id": "policy_period",
         "anchor": "policy period:",
@@ -181,35 +182,33 @@ How it works
           "position": "right"
         }
       },
-  ```
+```
 
-  This returns:
+This returns:
 
-  ```json
+```json
     "policy_period": {
       "type": "string",
       "value": " April 14, 2021 - Oct 14, 2021"
     
-  ```
+```
 
-  
+You can grab text to the right, left, above, or below a label. For example, how would you use a label to grab the driver's name? Try it out.
 
-  You can grab text to the right, left, above, or below a label. For example, how would you use a label to grab the driver's name? Try it out.
+**Row method**
 
-  **Row method**
+To grab the comprehensive coverage premium, the config uses the "row" method. This tells SenseML that:
 
-  To grab the comprehensive coverage premium, the config uses the "row" method. This tells SenseML that:
+- the anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
+-  SenseML should grab the second element (`"tiebreaker": "second"`) to the right of the label in the row. 
+- The returned value is a currency (`"type": "currency"`).
 
-  - the anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
-  -  SenseML should grab the second element (`"tiebreaker": "second"`) to the right of the label in the row. 
-  - The returned value is a currency (`"type": "currency"`).
+To grab this premium of $150:
 
-  To grab this premium of $150:
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_row.png)
+The config uses this Field query:
 
-  ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_row.png)
-  The config uses this Field query:
-
-  ```json
+```json
       {
         "id": "comprehensive_premium",
         "anchor": "comprehensive",
@@ -218,23 +217,23 @@ How it works
           "id": "row",
           "tiebreaker": "second"
         }
-  ```
+```
 
-  This returns: 
+This returns: 
 
-  ```json
+```json
     "comprehensive_premium": {
       "source": "$150",
       "value": 150,
       "unit": "$",
       "type": "currency"
     }
-  ```
+```
 
-  The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`).  The default position is to the right of the anchor, but you can specify `"position":"left"`
+The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`).  The default position is to the right of the anchor, but you can specify `"position":"left"`
 
 **Key concepts: lines**
- You might ask yourself, "why can't I just use a label in the table? Why can't I set a label for "bodily injury liability" and then grab the line starting with "$25,00" to the right of it, like this: 
+You might ask yourself, "why can't I just use a label in the table? Why can't I set a label for "bodily injury liability" and then grab the line starting with "$25,00" to the right of it, like this: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_concept_1.png)
 
