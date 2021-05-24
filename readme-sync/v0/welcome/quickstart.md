@@ -165,8 +165,8 @@ The config uses this Field query:
 
 To grab the policy period, the config uses the Label method. This tells SenseML that:
 
--  the anchor (`"policy period"`) is text that is pretty close to some other text.
--  SenseML should grab the nearest text to the label in the position specified (`right`).  (The "closeness" of lines is something you can configure with a preprocessor.)
+-  the anchor (`"policy period"`) is text that is pretty close to some other text. (The "closeness" of lines is something you can configure with a preprocessor.)
+-  SenseML should grab the nearest text to the label in the position specified (`right`).  
 
 For this text:
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_label_right.png)
