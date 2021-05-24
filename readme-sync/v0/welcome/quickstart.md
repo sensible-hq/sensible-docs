@@ -157,7 +157,7 @@ The config uses this Field query:
   }
 ```
 
-  Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough). 
+  Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)). 
 
   
 
