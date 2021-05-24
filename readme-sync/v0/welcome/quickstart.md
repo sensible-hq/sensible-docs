@@ -23,7 +23,7 @@ Create the config
 
 1. You'll need an account.  Get one at [Sensible.so](https://www.sensible.so/get-early-access).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
-2. Log into the Sensible app at [app.sensible.so](app.sensible.so).
+2. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/).
 3. Click **Create document type** and name  it "auto_insurance_quote". Leave the defaults and click **Create**.
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_doc_type.png)
@@ -115,7 +115,7 @@ Congratulations! You've just created your first config!  If you want to process 
 
 **How it works**
 
-- Each "field" is a basic query unit in SenseML, and the field ID is output as the key in the structured data.  For more information, see [Field](doc: field-object).
+- Each "field" is a basic query unit in SenseML, and the field ID is output as the key in the structured data.  For more information, see [Field](doc: field-query-object).
 
 - SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. You can define complex anchors. For more information see [Anchor](doc:anchor-object). This config uses three types of methods:
 
@@ -128,7 +128,7 @@ Congratulations! You've just created your first config!  If you want to process 
     The config uses this Field query:
   
     ```json
-    {
+        {
           "id": "policy_number",
           "anchor": {
             "match": [
@@ -137,11 +137,16 @@ Congratulations! You've just created your first config!  If you want to process 
                 "type": "startsWith"
               }
             ]
+          },
+          "method": {
+            "id": "box",
+            "position": "below"
           }
+        },
     ```
-  
+    
     Which returns:
-
+    
     ```json
     {
     "policy_number": {
@@ -234,7 +239,7 @@ The reason this query doesn't work is that SenseML operates on "lines". See thos
 You can get more advanced with this auto insurance config. For example:
 
 - You can use a Computed Field method to return the sum of all the listed premiums, which is $260 ($100 + $10 + $150).
-- The limits listed in the table are tricky since they can be a variable number of lines. You can use an xRangeFilter set in the Document Range method to capture them. 
+- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky since they can be a variable number of lines. You can use an xRangeFilter set in the Document Range method to capture them. 
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).
 
@@ -243,21 +248,21 @@ Sanity test the config
 
 Before integrating the config with an application and writing tests against it, let's sanity test the config by uploading another quote.
 
-1.  Repeat the steps in the previous section to upload this [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden_2.pdf).
+1.  Repeat the steps in the previous section to upload a second [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden_2.pdf).
 
 2. Click the **anyco** config, select the "auto_insurance_anyco_gold_2" PDF, and look at the output:
 
-   Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That's some yucky PDF formatting, but we can't do anything about it.
+   Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That's some yucky PDF formatting, but let's work with it. 
    
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
 
-How can we capture the policy period reliably? AS you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. But nope, this sloppily formatted PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor (the orange box), so it doesn't get included in the method match (the blue box):
+How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. But nope, this PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor (the orange box), so it doesn't get included in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_2.png)
 
-Fortunately, there are almost always multiple ways to tackle a problem in SenseML.  Here's  one way: you can define a region is space relative to the label, and capture everything in it. 
+There are multiple ways to tackle this problem. Here's  one way: you can a [Region method](doc:region). A region is rectangular space defined with coordinates relative to the label. 
 
-Replace your policy_period field with field into the editor:
+Replace your existing policy_period field with the following field in the editor:
 
 ```json
     {
@@ -284,28 +289,28 @@ Replace your policy_period field with field into the editor:
     },
 ```
 
-This field defines a region in inches relative to the anchor, and since the region overlaps the anchor, it uses a filter to get rid of the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as `height` and `start`), so you can visually tweak the region till you're satisfied: 
+This field defines a region in inches relative to the anchor, and since the region overlaps the anchor, it uses a filter to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as `height` and `start`), so you can visually tweak the region till you're satisfied: 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_recover_2.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_3.png)
 
 
 
 Let's double check that this region also works with our first PDF:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_recover_2.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_4.png)
 
-Yes, it does.
+Yes, it does. In a production scenario, continue testing PDFs until you're confident your configs will work with the PDF document type you've defined. 
 
 Integrate with your application
 ---
 
 When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. 
 
-**Test data extraction API**
+**Test extraction API**
 
-First, make sure you can extract data using the config you created in previous steps:
+First, make sure you can extract data using the config and PDF you created in previous steps:
 
-1.  Let's assume you followed the previous steps and also downloaded the example [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden.pdf) For this example, use something like this to extract data:
+1.  In your local file system, locate the the example [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden.pdf) you downloaded in a previous step. For this example, use something like this to extract data:
 
 ```curl
 curl --request POST \
@@ -316,13 +321,13 @@ curl --request POST \
 
 ```
 
-In postman, you can run this request as follows: 
+In Postman, you can run this request as follows: 
 
-1. Click File>Import and select Raw text.
+1. Click **File**>**Import** and select **Raw text**.
 
-2. Paste in the previous code sample, substituting your bearer token.
+2. Paste the previous code sample into the Raw text field, substituting your bearer token.
 
-3. Correct the path to your downloaded PDF. Click **body**, select **binary**, then click **Select file** and choose your PDF:
+3. Correct the path to your downloaded PDF. In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
 
    
 
@@ -343,7 +348,7 @@ Click **Send**, and you should see a response like this:
         },
         "policy_period": {
             "type": "string",
-            "value": ": April 14, 2021 - Oct 14, 2021"
+            "value": " April 14, 2021 - Oct 14, 2021"
         },
         "comprehensive_premium": {
             "source": "$150",
@@ -357,11 +362,9 @@ Click **Send**, and you should see a response like this:
 
 
 
-Notice that you don't have to specify the config you created in this call ("anyco"). Sensible looks at all the configs created for this document type, and automatically chooses the one that fits best.
+Notice that you don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs created for this document type, and automatically chooses the one that fits best.
 
-
-
-Now you can use the [Sensible API](https://docs.sensible.so/reference) to generate upload and download URLs for multiple car insurance quote PDFs  and retrieve results. 
+Now you can use the [Sensible API](https://docs.sensible.so/reference) to generate upload and download URLs for multiple car insurance quote PDFs  and retrieve results.  
 
 
 
