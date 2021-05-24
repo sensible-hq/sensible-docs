@@ -107,18 +107,24 @@ Congratulations! You've just created your first config!  If you want to process 
 
 **How it works**
 
-- Each "field" is a basic query unit in SenseML, and the field ID is output as the key in the structured data.  For more information, see [Field](doc: field-query-object).
+- Each "field" is a basic query unit in SenseML, and the field ID is output as the key in the structured data.  For more information, see [Field](doc:field-query-object).
 
-- SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. You can define complex anchors. For more information see [Anchor](doc:anchor-object). This config uses three types of methods:
+- SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
 
-  - To grab the policy number, the config uses the "box" method. This tells SenseML that the anchor (`"Policy number"`) is inside of a box, and SenseML should grab the box contents except for the anchor itself.
+  - To grab the policy number, the config uses the Box method. This tells SenseML that:
 
+    - The anchor text (`"Policy number"`) is inside of a box (`"id": "box"`)
+  
+    - The data we want is below the anchor (`"position": "below"`).
+  
+      
+  
     For this box:
-  
+    
     ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_box.png)
-  
+    
     The config uses this Field query:
-  
+    
     ```json
         {
           "id": "policy_number",
@@ -147,7 +153,12 @@ Congratulations! You've just created your first config!  If you want to process 
     }
     ```
     
-  - To grab the policy period, the config uses the "label" method. This tells SenseML that the anchor (`"policy period"`) is text that is pretty close to some other text, and SenseML should grab the nearest text to the label in the position specified (`right`).  (The "closeness" of lines is something you can configure with a preprocessor.)
+    Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough). 
+    
+  - To grab the policy period, the config uses the Label method. This tells SenseML that:
+  
+    -  the anchor (`"policy period"`) is text that is pretty close to some other text.
+    -  SenseML should grab the nearest text to the label in the position specified (`right`).  (The "closeness" of lines is something you can configure with a preprocessor.)
   
     For this text:
     ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_label_right.png)
@@ -177,10 +188,14 @@ Congratulations! You've just created your first config!  If you want to process 
   
     You can grab text to the right, left, above, or below a label. For example, how would you use a label to grab the driver's name? Try it out.
   
-  - To grab the comprehensive coverage premium, the config uses the "row" method. This tells SenseML that the anchor (`"comprehensive"`) is part of a row in a table, and to grab some text in that row.
+  - To grab the comprehensive coverage premium, the config uses the "row" method. This tells SenseML that:
   
+    - the anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
+    -  SenseML should grab the second element (`"tiebreaker": "second"`) to the right of the label in the row. (the default position is to the right; not shown in this config).
+    - The returned value is a currency (`"type": "currency"`).
+    
     To grab this premium of $150:
-  
+    
     ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_row.png)
     The config uses this Field query:
     
@@ -206,7 +221,7 @@ Congratulations! You've just created your first config!  If you want to process 
       }
     ```
     
-    The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`). You can also select elements to the right or left of the anchor using `position`.  (not shown).
+    The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`). You can also select elements to the left of the anchor using `position`.  (not shown).
 
 **Key concepts: lines**
  You might ask yourself, "why can't I just use a label in the table? Why can't I set a label for "bodily injury liability" and then grab the line starting with "$25,00" to the right of it, like this: 
@@ -244,7 +259,7 @@ Before integrating the config with an application and writing tests against it, 
 
 2. Click the **anyco** config, select the "auto_insurance_anyco_gold_2" PDF, and look at the output:
 
-   Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That's some yucky PDF formatting, but let's work with it. 
+   Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That seems like some sloppy PDF formatting, but let's work with it. 
    
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
 
@@ -281,7 +296,7 @@ Replace your existing policy_period field with the following field in the editor
     },
 ```
 
-This field defines a region in inches relative to the anchor, and since the region overlaps the anchor, it uses a filter to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as `height` and `start`), so you can visually tweak the region till you're satisfied: 
+This field defines a region in inches relative to the anchor, and since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as `height` and `start`), so you can visually tweak the region till you're satisfied: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_3.png)
 
@@ -291,7 +306,9 @@ Let's double check that this region also works with our first PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_4.png)
 
-Yes, it does. In a production scenario, continue testing PDFs until you're confident your configs will work with the PDF document type you've defined. 
+Yes, it does. If you're feeling picky, try resizing the region using the visual green box for feedback, until the lower edge of the box doesn't overlap the customer service text.
+
+In a production scenario, continue testing PDFs until you're confident your configs will work with the PDF document type you've defined. 
 
 Integrate with your application
 ---
