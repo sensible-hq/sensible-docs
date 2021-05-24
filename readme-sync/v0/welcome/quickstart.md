@@ -256,11 +256,11 @@ Before integrating the config with an application and writing tests against it, 
    
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
 
-How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. But nope, this PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor (the orange box), so it doesn't get included in the method match (the blue box):
+How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. But nope, this PDF doesn't fit neatly into that method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_2.png)
 
-There are multiple ways to tackle this problem. Here's  one way: you can a [Region method](doc:region). A region is rectangular space defined with coordinates relative to the label. 
+There are multiple ways to tackle this problem. Here's  one way: you can a [Region method](doc:region). A region is rectangular space defined by coordinates relative to the label. 
 
 Replace your existing policy_period field with the following field in the editor:
 
@@ -306,7 +306,7 @@ Integrate with your application
 
 When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. 
 
-**Test extraction API**
+**Test the extraction API**
 
 First, make sure you can extract data using the config and PDF you created in previous steps:
 
@@ -321,7 +321,7 @@ curl --request POST \
 
 ```
 
-In Postman, you can run this request as follows: 
+In [Postman](https://www.postman.com/), you can run this request as follows: 
 
 1. Click **File**>**Import** and select **Raw text**.
 
@@ -364,7 +364,7 @@ Click **Send**, and you should see a response like this:
 
 Notice that you don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs created for this document type, and automatically chooses the one that fits best.
 
-Now you can use the [Sensible API](https://docs.sensible.so/reference) to generate upload and download URLs for multiple car insurance quote PDFs  and retrieve results.  
+Now you can use the [Sensible API](https://docs.sensible.so/reference) to generate upload and download URLs for multiple car insurance quote PDFs,  retrieve results, and integrate with your application.  
 
 
 
