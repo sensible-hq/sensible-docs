@@ -5,14 +5,6 @@ hidden: true
 
 
 
-DRAFT: UNPUBLISHED
------
-
-
-this is a draft version that is not yet included in the table of contents.
-
-
-
 Get structured data from an auto insurance quote
 ===
 
