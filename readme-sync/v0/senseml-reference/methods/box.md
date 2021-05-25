@@ -128,7 +128,7 @@ The oddly formatted boxes in this example help illustrate how SenseML recognizes
 
 1. Recognize the first box by finding the dark pixel borders of the box, expanding out from the starting position (in this case, the starting position is the default. The starting position is the green dot in the image). The expansion is in all directions, not just the cardinal directions shown  by the red arrows in the image.
 
-2. Find the border that is shared with the second box, in the direction specified (below, in this case). Pick the middle of that border in term's of the first box's dimensions.
+2. Find the border that is shared with the second box, in the direction specified (below, in this case). Pick the middle of that border in terms of the first box's dimensions.
 
 3. Offset just a little from the shared border to get inside the second box, then expand out from that position (shown as a green dot in the Sensible app) to recognize the second box's borders.
 
