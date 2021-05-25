@@ -23,7 +23,7 @@ Examples
 
 **Simple box**
 
-The following image shows a config that grabs a dollar amount from a box in a 1099 form, based on anchor text matching in the box: TODO: remove position
+The following image shows a config that grabs a dollar amount from a box in a 1099 form, based on anchor text matching in the box: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_1099.png)
 
@@ -37,7 +37,6 @@ The config for the preceding example is:
       "type": "currency",
       "method": {
         "id": "box",
-        "position": "below"
       },
       "anchor": "rents"
     }
@@ -64,12 +63,12 @@ The config for the preceding example is:
       "id": "dark_box",
       "method": {
         "id": "box",
-        "position": "below",
         "darknessThreshold": 0.8
       },
       "anchor": "dark box with light text",
     }
   ]
+}
 
 ```
 
@@ -137,7 +136,7 @@ The oddly formatted boxes in this example illustrate how SenseML recognizes offs
 
 Note that when boxes are inconsistently sized, spanned, and aligned, as in the preceding image,  SenseML's determination of what constitutes a "box" and where the "middle" of the shared border is may be complex.  In such cases, examine the visual representation of the box and its starting position the Sensible app to understand SenseML's behavior, and keep in mind that another method might be a better fit for such a complex scenario.
 
-TODO: left off with offsetY and offsetX
+
 
 **Troubleshooting box recognition**
 
