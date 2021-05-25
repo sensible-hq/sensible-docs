@@ -8,7 +8,9 @@ hidden: false
 Get structured data from an auto insurance quote
 ===
 
-Let's get started with SenseML! In this quickstart, you'll write a custom config to extract structured data from auto insurance quote PDFs and integrate Sensible with your application.
+Let's get started with SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, so that you can write queries that make visual and logical sense to a human programmer, shielding you from the underlying complexities of PDFs. If you can write basic SQL queries, you can write SenseML queries!  
+
+ In this quickstart, you'll write a collection of queries ( a "config") to extract structured data from auto insurance quote PDFs and integrate Sensible with your application.
 
 Get an account
 -----
@@ -23,42 +25,33 @@ Create the config
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_doc_type.png)
 
-2. Click **Upload document**  and choose this [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden.pdf):
+2. Download a PDF document from this link:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_pdf_1.png)
+    [auto_insurance_anyco_golden](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden.pdf)
 
-3. Click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
+3. Click **Upload document**  and choose the generic car insurance quote you just downloaded.
 
-4. Click the configuration name to edit the configuration:
+4. Click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
+
+5. Click the configuration name to edit the configuration:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_click_config.png)
 
-5. For this quickstart, let's extract only a few pieces of information:
+When the configuration opens, you see an empty config pane on the left, the PDF in the middle, and an empty output pane on the right:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_blank_config.png)
+
+6. For this quickstart, let's extract only a few pieces of information:
 
   - the policy number
   - the policy period
   - the premium for comprehensive insurance
 
-6. Paste in this config in the left pane in the editor to extract the data:
+7. Paste in this config in the left pane in the editor to extract the data:
 
  ```json
  {
    "fields": [
-     {
-       "id": "policy_number",
-       "anchor": {
-         "match": [
-           {
-             "text": "policy number",
-             "type": "startsWith"
-           }
-         ]
-       },
-       "method": {
-         "id": "box",
-         "position": "below"
-       }
-     },
      {
        "id": "policy_period",
        "anchor": "policy period",
@@ -74,6 +67,20 @@ Create the config
        "method": {
          "id": "row",
          "tiebreaker": "second"
+       }
+     },
+     {
+       "id": "policy_number",
+       "anchor": {
+         "match": [
+           {
+             "text": "policy number",
+             "type": "startsWith"
+           }
+         ]
+       },
+       "method": {
+         "id": "box"
        }
      }
    ]
@@ -118,62 +125,15 @@ How it works
 - Each "field" is a basic query unit in SenseML, and the field `id` is used as the key in the structured data.  For more information, see [Field](doc:field-query-object).
 - SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
 
-  - Box method
-  - Label method
-  - Row method
+  - [Label method](doc:quickstart#section-label-method)
+  - [Row method](doc:quickstart#section-row-method)
+  - [Box method](doc:quickstart#section-box-method)
 
-**Box method**
 
-To grab the policy number, the config uses the Box method. This tells SenseML that:
-
-  - The anchor text (`"policy number"`) is inside of a box (`"id": "box"`)
-
-  - The data we want is below the anchor (`"position": "below"`) TODO: CORRECT THIS ERROR
-
-    
-
-For this box:
-
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_box.png)
-
-The config uses this Field query:
-
-```json
-      {
-        "id": "policy_number",
-        "anchor": {
-          "match": [
-            {
-              "text": "policy number",
-              "type": "startsWith"
-            }
-          ]
-        },
-        "method": {
-          "id": "box",
-          "position": "below"
-        }
-      },
-```
-
-  Which returns: 
-
-```json
-  {
-  	"policy_number": {
-  		"type": "string",
-  		"value": "123456789"
-  	}
-  }
-```
-
-  Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)). 
-
-  
 
 **Label method**
 
-To grab the policy period, the config uses the Label method. This tells SenseML that:
+To grab the policy period, the config uses the [Label method](doc:label). This tells SenseML that:
 
 -  the anchor (`"policy period"`) is text that is pretty close to some other text. (The "closeness" of lines is something you can configure with a preprocessor.)
 -  SenseML should grab the nearest text to the label in the position specified (`right`).  
@@ -205,13 +165,34 @@ This returns:
 
 You can grab text to the right, left, above, or below a label. For example, how would you use a label to grab the driver's name? Try it out.
 
+**Key concepts: lines**
+See those gray boxes around the text in the following image?
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_concept_1.png)
+
+ Each gray box is a line. Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis.  These gray boxes are called "bounding boxes" for the lines because they define the line boundaries.
+
+The Label method can operate within a single line, or across multiple lines. So we might think we could use "Bodily injury" as the anchor text and return "$25,000 each"  for an insurance limit value in the preceding image, right? Why wouldn't something like this work?  
+
+    {
+    	"id": "doesnt_work_returns_null",
+    	"anchor": "bodily injury",
+    	"method": {
+    		"id": "label",
+    		"position": "right"
+    	}
+    }
+
+Try it, and you'll see it doesn't work. This is because the Label method works only for closely proximate lines (sensitive to spacing and font size), or for text in the same line.  Let's take a look at a purpose-built Row method instead to grab text in a table. 
+
 **Row method**
 
-To grab the comprehensive coverage premium, the config uses the Row method. This tells SenseML that:
+To grab the comprehensive coverage premium, the config uses the [Row method](doc:row). This tells SenseML that:
 
 - the anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
--  SenseML should grab the second element (`"tiebreaker": "second"`) to the right of the label in the row. 
-- The returned value is a currency (`"type": "currency"`).
+-  SenseML should grab the second element (`"tiebreaker": "second"`).  The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`). 
+-  It's not shown, but the default is to grab elements to the right of the anchor  in the row (`"position":"right"`). 
+- The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
 
 To grab this premium of $150:
 
@@ -225,7 +206,7 @@ The config uses this Field query:
       	"type": "currency",
       	"method": {
       		"id": "row",
-      		"tiebreaker": "second"
+      		"tiebreaker": "second",
       	}
       }
 ```
@@ -241,26 +222,55 @@ This returns:
     }
 ```
 
-The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`).  The default position is to the right of the anchor, but you can specify `"position":"left"` to grab row elements to the left of the anchor.
+**Box method**
 
-**Key concepts: lines**
-You might ask yourself, "why can't I just use a label in the table? Why can't I set a label for "bodily injury liability" and then grab the line starting with "$25,00" to the right of it, like this: 
+To grab the policy number, the config uses the Box method. This tells SenseML that:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_concept_1.png)
+  - The anchor line is a little more complex than we're used to. We define the match type (`"type": "startsWith"`) as well as the text match  (`"text": "policy number"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
+
+  - The anchor is inside a box (`"id": "box"`).
+
+    
+
+For this box:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_box.png)
+
+The config uses this Field query:
 
 ```json
-    {
-    	"id": "doesnt_work_returns_null",
-    	"anchor": "bodily injury",
-    	"method": {
-    		"id": "label",
-    		"position": "right"
-    	}
-    }
-
+      {
+        "id": "policy_number",
+        "anchor": {
+          "match": [
+            {
+              "text": "policy number",
+              "type": "startsWith"
+            }
+          ]
+        },
+        "method": {
+          "id": "box",
+        }
+      },
 ```
 
-The reason this query doesn't work is that SenseML operates on "lines". See those gray boxes around the text in the preceding image? Each gray box is a line. Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis. Since the Label method works only for closely proximate lines (sensitive to spacing and font size), this config uses the purpose-built "row" method instead.
+  Which returns: 
+
+```json
+  {
+  	"policy_number": {
+  		"type": "string",
+  		"value": "123456789"
+  	}
+  }
+```
+
+ Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most SenseML methods ignore the anchor line (the line containing the anchor text) and do not include it in the output. One notable exception to this general rule is the Label method, which can match text in the anchor line that is to the left or right of the anchor text (`"position":"left"` or `"position":"right"`).
+
+  
+
+
 
 **Advanced queries**
 
@@ -277,12 +287,14 @@ Sanity test the config
 
 Before integrating the config with an application and writing tests against it, let's sanity test the config by uploading another quote.
 
-1.  Repeat the steps in the previous section to upload a second [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden_2.pdf).
+1. Repeat the steps in the previous section to upload a second generic car insurance quote:
 
-2. Click the **anyco** config, select the "auto_insurance_anyco_gold_2" PDF, and look at the output:
+    [auto_insurance_anyco_golden_2](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden_2.pdf)
+
+2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output:
 
    Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That seems like some sloppy PDF formatting, but let's work with it. 
-   
+
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
 
 How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor.
@@ -334,7 +346,7 @@ Let's double check that this region also works with our first PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_4.png)
 
-Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf).
+Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But rest easy -- the Region method doesn't include a line of text unless the bounding box of the line is completely contained in the region.
 
 3. Click **Publish** to save your changes to the config.
 
