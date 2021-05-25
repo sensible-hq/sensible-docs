@@ -123,6 +123,10 @@ The config for the preceding example is:
 }
 ```
 
+
+
+
+
 TODO: left off with offsetY and offsetX
 
 **Troubleshooting box recognition**
@@ -139,9 +143,13 @@ However, if you ask SenseML to find the box borders by starting from the right e
 
 The oddly formatted boxes in this example illustrate how SenseML finds offset boxes after the first box:
 
-1. Find the borders of the first box, expanding out from the starting position (in this case, the starting position is the default. The starting position is the green dot in the image).
 
-2. Find the middle of the shared border with the second box, in the direction specified (below, in this case).
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_position_callouts.png)
+
+1. Find the borders of the first box, expanding out from the starting position (in this case, the starting position is the default. The starting position is the green dot in the image). The expansion is in all directions, not just the cardinal directions shown  by the red arrows in the image.
+
+2. Find the border that is shared with the second box, in the direction specified (below, in this case). Pick the middle of that border in term's of the first box's dimensions.
 
 3. offset just a little from the shared border to get into the second box's whitespace, then expand out from that position (shown as a green dot in the image) to define the second box's borders.
 
@@ -151,7 +159,7 @@ Note that when boxes are inconsistently sized and aligned, as in the preceding i
 
 
 
-TODO: accuracy check on this page! 
+
 
 
 
