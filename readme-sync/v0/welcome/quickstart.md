@@ -8,7 +8,9 @@ hidden: false
 Get structured data from an auto insurance quote
 ===
 
-Let's get started with SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, so that you can write queries that make visual and logical sense to a human programmer, shielding you from the underlying complexities of PDFs. If you can write basic SQL queries, you can write SenseML queries!  
+Let's get started with SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, heuristics, and good old-fashioned rules.
+
+If you can write basic SQL queries, you can write SenseML queries! SenseML shields you from the underlying complexities of PDFs, so you can  write queries that make visual and logical sense to a human programmer.
 
  In this quickstart, you'll write a collection of queries ( a "config") to extract structured data from auto insurance quote PDFs and integrate Sensible with your application.
 
