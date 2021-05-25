@@ -2,7 +2,26 @@
 title: "Label"
 hidden: false
 ---
-Return lines near the anchor point.
+Return text or lines proximate to the anchor point. Proximity is sensitive to font size and line spacing. 
+
+Unlike many other methods (such as Document Range), the Label method can return data from within the same line as the anchor line, when you specify horizontal matching (`position: left` or `position: right`).
+
+
+
+Parameters
+-----
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
+| Key                     | Value                                                 | Description                                                  |
+| ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)       | `label`                                               |                                                              |
+| position (**required**) | `above`, `below`, `left`, `right`                     | What direction the target data is relative to the anchor point. |
+| stop                    | `first`, `gap`, or a Match object. default: `first`   | Use with  `"position": "below"`.  <br/>This parameter allows you to grab multiple lines following a Label, rather than the default first line.  When you specify this parameter, this method matches the first line in the specified position relative to the anchor, and then continues down the page until it meets the specified `stop`.  The multiple matched lines include those that are aligned to the left edge of the first matching line, unless you define a different alignment method using `textAlignment`. The match does **not** include lines that are positioned to the left or right of matching lines. For `gap` , this method stops when it reaches a vertical gap of 0.2 inches, and for a Match object, this method stops when it reaches a matching line. |
+| textAlignment           | `left`, `right`, or `hangingIndent`. default: `left`. | Only applies to `"position": "below"` or `"position": "above"`. <br/>Determines whether to match lines vertically aligned to the anchor at the `left` edge or the `right` edge of the anchor boundary. <br/> `hangingIndent` only applies to  `"position": "below"`.  The top of the boundary of the hangingIndent candidate needs to be within 0.3 inches of the bottom of the boundary of the matching anchor line.  There is no restriction on the x-axis for the hangingIndent. |
+| includeAnchor           | boolean. default: `false`                             | Whether to include the anchor text in the method output. For horizontal matching (`position: left` or `position: right`) the method returns the remainder of the anchor line if its final `Matcher` didn't match the full line. For example, if the anchor line is "Premium: $500" and the `Matcher` is `{ "type": "startsWith", "text": "Premium: " }`, `label` returns "$500". |
+
+
 
 Examples
 -----
@@ -63,21 +82,4 @@ The preceding example shows fields that do the following:
   ]
 }
 ```
-
-
-
-Parameters
------
-
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
-
-| Key                     | Value                                                 | Description                                                  |
-| ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)       | `label`                                               |                                                              |
-| position (**required**) | `above`, `below`, `left`, `right`                     | What direction the target data is relative to the anchor point. |
-| stop                    | `first`, `gap`, or a Match object. default: `first`   | Use with  `"position": "below"`.  <br/>This parameter allows you to grab multiple lines following a Label, rather than the default first line.  When you specify this parameter, this method matches the first line in the specified position relative to the anchor, and then continues down the page until it meets the specified `stop`.  The multiple matched lines include those that are aligned to the left edge of the first matching line, unless you define a different alignment method using `textAlignment`. The match does **not** include lines that are positioned to the left or right of matching lines. For `gap` , this method stops when it reaches a vertical gap of 0.2 inches, and for a Match object, this method stops when it reaches a matching line. |
-| textAlignment           | `left`, `right`, or `hangingIndent`. default: `left`. | Only applies to `"position": "below"` or `"position": "above"`. <br/>Determines whether to match lines vertically aligned to the anchor at the `left` edge or the `right` edge of the anchor boundary. <br/> `hangingIndent` only applies to  `"position": "below"`.  The top of the boundary of the hangingIndent candidate needs to be within 0.3 inches of the bottom of the boundary of the matching anchor line.  There is no restriction on the x-axis for the hangingIndent. |
-| includeAnchor           | boolean. default: `false`                             | Whether to include the anchor line in the method output. For horizontal matching (`position: left` or `position: right`) the method returns the remainder of the anchor line if its final `Matcher` didn't match the full line. For example, if the anchor line is "Premium: $500" and the `Matcher` is `{ "type": "startsWith", "text": "Premium: " }`, `label` returns "$500". |
-
-
 
