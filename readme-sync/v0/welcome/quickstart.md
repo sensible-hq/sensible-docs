@@ -257,9 +257,9 @@ The reason this query doesn't work is that SenseML operates on "lines". See thos
 
 You can get more advanced with this auto insurance config. For example:
 
-- You can use a [Column method](doc:column) to return all the listed premiums.
-- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method since they can be a variable number of lines. You can use the [Table method](doc:table) to more reliability capture the data in each cell of the table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.
-- What if you just wanted to capture all emails listed in the document? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough).
+- You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
+- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method since they can be a variable number of lines. You can use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.
+- What if you just wanted to capture all emails listed in the document? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).
 

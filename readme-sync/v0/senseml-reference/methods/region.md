@@ -46,15 +46,15 @@ Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
-| id                     | value                                               | description                                                  |
-| ---------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)      | `region`                                            |                                                              |
-| start (**required**)   | Direction, either `above`, `below`, `left`, `right` | A Direction specifying where to start relative to the anchor point. `right` starts at the middle of the right edge, `below` starts at the middle of the bottom edge, and so forth. |
-| offsetX (**required**) | number                                              | The offset in inches from the `start` along the X axis       |
-| offsetY (**required**) | number                                              | The offset in inches from the `start` along the Y axis       |
-| width (**required**)   | number                                              | The width in inches of the extraction region                 |
-| height (**required**)  | number                                              | The height in inches of the extraction region                |
-| isAbsoluteOffset       | boolean. default: `false`                           | A flag to make the offsets relative to the 0,0 origin at the top left of the page rather than to the anchor start point |
+| id                     | value                             | description                                                  |
+| ---------------------- | --------------------------------- | ------------------------------------------------------------ |
+| id (**required**)      | `region`                          |                                                              |
+| start (**required**)   | `above`, `below`, `left`, `right` | A direction specifying where to start relative to the anchor point. `right` starts at the middle of the right edge, `below` starts at the middle of the bottom edge, and so forth. |
+| offsetX (**required**) | number                            | The offset in inches from the `start` along the X axis       |
+| offsetY (**required**) | number                            | The offset in inches from the `start` along the Y axis       |
+| width (**required**)   | number                            | The width in inches of the extraction region                 |
+| height (**required**)  | number                            | The height in inches of the extraction region                |
+| isAbsoluteOffset       | boolean. default: `false`         | A flag to make the offsets relative to the 0,0 origin at the top left of the page rather than to the anchor start point |
 
 Notes
 ----
