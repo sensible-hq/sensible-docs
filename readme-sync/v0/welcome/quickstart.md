@@ -224,9 +224,9 @@ This returns:
 
 **Box method**
 
-To grab the policy number, the config uses the Box method. This tells SenseML that:
+To grab the policy number, the config uses the Box method. This tells SenseML the following:
 
-  - The anchor line is a little more complex than we're used to. We define the match type (`"type": "startsWith"`) as well as the text match  (`"text": "policy number"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
+  - The anchor line is a little more complex than previous examples. We define the match type (`"type": "startsWith"`) as well as the text match  (`"text": "policy number"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
 
   - The anchor is inside a box (`"id": "box"`).
 
@@ -266,13 +266,9 @@ The config uses this Field query:
   }
 ```
 
- Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most SenseML methods ignore the anchor line (the line containing the anchor text) and do not include it in the output. One notable exception to this general rule is the Label method, which can match text in the anchor line that is to the left or right of the anchor text (`"position":"left"` or `"position":"right"`).
+Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most SenseML methods ignore the anchor line (the line containing the anchor text) and do not include it in the output. One notable exception to this general rule is the Label method, which can match text in the anchor line that is to the left or right of the anchor text (`"position":"left"` or `"position":"right"`).
 
-  
-
-
-
-**Advanced queries**
+  **Advanced queries**
 
 You can get more advanced with this auto insurance config. For example:
 
