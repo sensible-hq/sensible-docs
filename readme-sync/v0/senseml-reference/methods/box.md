@@ -123,19 +123,19 @@ The config for the preceding example is:
 }
 ```
 
-The oddly formatted boxes in this example illustrate how SenseML finds offset boxes after the first box:
+The oddly formatted boxes in this example illustrate how SenseML recognizes offset boxes after the first box:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_offset_callouts.png)
 
-1. Find the borders of the first box, expanding out from the starting position (in this case, the starting position is the default. The starting position is the green dot in the image). The expansion is in all directions, not just the cardinal directions shown  by the red arrows in the image.
+1. Recognize the first box by finding the dark pixel borders of the box, expanding out from the starting position (in this case, the starting position is the default. The starting position is the green dot in the image). The expansion is in all directions, not just the cardinal directions shown  by the red arrows in the image.
 
 2. Find the border that is shared with the second box, in the direction specified (below, in this case). Pick the middle of that border in term's of the first box's dimensions.
 
-3. offset just a little from the shared border to get into the second box's whitespace, then expand out from that position (shown as a green dot in the image) to define the second box's borders.
+3. Offset just a little from the shared border to get into the second box's whitespace, then expand out from that position (shown as a green dot in the image) to recognize the second box's borders.
 
 4. repeat steps 2 and 3 for the third box, and so on.
 
-Note that when boxes are inconsistently sized and aligned, as in the preceding image,  SenseML's determination of what constitutes a "box" and where the "middle" of the shared border is may be complex.  In such cases, examine the visual representation of the box and its starting position the Sensible app to understand SenseML's behavior, and keep in mind that another method might be a better fit for such a complex scenario.
+Note that when boxes are inconsistently sized, spanned, and aligned, as in the preceding image,  SenseML's determination of what constitutes a "box" and where the "middle" of the shared border is may be complex.  In such cases, examine the visual representation of the box and its starting position the Sensible app to understand SenseML's behavior, and keep in mind that another method might be a better fit for such a complex scenario.
 
 TODO: left off with offsetY and offsetX
 
