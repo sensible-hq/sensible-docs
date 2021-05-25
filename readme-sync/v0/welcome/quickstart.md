@@ -125,9 +125,9 @@ How it works
 - Each "field" is a basic query unit in SenseML, and the field `id` is used as the key in the structured data.  For more information, see [Field](doc:field-query-object).
 - SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
 
-  - [Label method](doc:quickstart#section-label-method)
-  - [Row method](doc:quickstart#section-row-method)
-  - [Box method](doc:quickstart#section-box-method)
+  - Label method
+  - Row method
+  - Box method
 
 
 
@@ -278,7 +278,7 @@ You can get more advanced with this auto insurance config. For example:
 
 - You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
 - The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method since they can be a variable number of lines. You can use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.
-- What if you just wanted to capture all emails listed in the document? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
+- What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).
 

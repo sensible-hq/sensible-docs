@@ -2,7 +2,7 @@
 title: "Region"
 hidden: false
 ---
-Use the Region method to grab lines in a rectangular region, defined in inches. 
+Use the Region method to grab lines in a rectangular region, defined in inches. The region omits lines that only partly fall inside the region. 
 
 In general, use this method when you want to grab data from an area whose formatting doesn't exactly fit other Sensible methods, such as the Box or Row method. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to grab.
 
