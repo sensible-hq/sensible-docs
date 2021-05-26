@@ -10,7 +10,7 @@ Matches all lines to the left or right of the anchor line.
 
 
 Examples
-----
+====
 
 
 
@@ -77,7 +77,7 @@ The preceding example demonstrates choosing data from two consecutive tables:
 
 
 Parameters
-------
+====
 
 
 | key               | value                                        | description                                                  |

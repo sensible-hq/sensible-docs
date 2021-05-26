@@ -9,7 +9,7 @@ Unlike many other methods (such as Document Range), the Label method can return 
 
 
 Parameters
------
+====
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
@@ -24,7 +24,7 @@ Parameters
 
 
 Examples
------
+====
 
 
 
