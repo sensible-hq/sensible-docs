@@ -444,9 +444,7 @@ curl --request POST \
 }
 ```
 
-
-
- :information_source: **Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best! 
+**Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best! 
 
 Now you can use the [Sensible API](https://docs.sensible.so/reference) to generate upload and download URLs for multiple car insurance quote PDFs,  retrieve results, and integrate with your application!  
 
