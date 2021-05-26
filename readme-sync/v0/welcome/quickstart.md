@@ -428,7 +428,7 @@ curl --request POST \
 
 ​    
 
-5. Click **Send**, and you should see a response like this:
+7. Click **Send**, and you should see a response like this:
 
 ```json
 {
