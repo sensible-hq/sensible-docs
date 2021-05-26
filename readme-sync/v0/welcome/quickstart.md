@@ -30,11 +30,11 @@ Create the config
 
 1. Click **Create document type** and name  it "auto_insurance_quote". Leave the defaults and click **Create**.
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_doc_type.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_doc_type.png)
 
 2. Download the following PDF document:
 
-    [auto_insurance_anyco_golden](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden.pdf)
+    [auto_insurance_anyco_golden](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf)
 
 3. Click **Upload document**  and choose the generic car insurance quote you just downloaded.
 
@@ -42,11 +42,11 @@ Create the config
 
 5. Click the configuration name to edit the configuration:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_click_config.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_click_config.png)
 
 When the configuration opens, you see an empty config pane on the left, the PDF in the middle, and an empty output pane on the right:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_blank_config.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_blank_config.png)
 
 6. For this quickstart, let's extract only a few pieces of information:
 
@@ -98,7 +98,7 @@ When the configuration opens, you see an empty config pane on the left, the PDF 
 
 The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_config_1.png)   
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_config_1.png)   
 
 You should see the following extracted data in the right pane:
 
@@ -147,7 +147,7 @@ To grab the policy period, the config uses the [Label method](doc:label). This t
 -  SenseML should grab the nearest text to the label in the position specified (`right`).  
 
 For this text:
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_label_right.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_label_right.png)
 
 The config uses this Field query:
 
@@ -178,7 +178,7 @@ Key concepts: lines
 
 See those gray boxes around the text in the following image?
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_concept_1.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_1.png)
 
 Each gray box is a line. Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis.  These gray boxes are called "bounding boxes" for the lines because they define the line boundaries.
 
@@ -197,7 +197,7 @@ Try it, and you'll see it doesn't work.
 
 This is because the Label method works only for closely proximate lines (sensitive to spacing and font size), or for text in the same line. In this case, the problem is that the gap between the two lines of text is too big:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_concept_2.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_2.png)
 
  Let's take a look at a purpose-built Row method instead to grab text in a table. 
 
@@ -213,7 +213,7 @@ To grab the comprehensive coverage premium, the config uses the [Row method](doc
 
 To grab this premium of $150:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_row.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_row.png)
 The config uses this Field query:
 
 ```json
@@ -246,7 +246,7 @@ In the app, you can visually inspect anchors and matches by looking at their col
 
 Anchor lines are surrounded by orange boxes, and matches are surrounded by blue boxes:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_concept_3.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_3.png)
 
 But wait!  You might have some questions:
 
@@ -274,7 +274,7 @@ To grab the policy number, the config uses the [Box method](doc:box). This tells
 
 For this box:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_box.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_box.png)
 
 The config uses this Field query:
 
@@ -326,19 +326,19 @@ Before integrating the config with an application and writing tests against it, 
 
 1. Repeat the steps in the previous section to upload a second generic car insurance quote:
 
-    [auto_insurance_anyco_golden_2](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden_2.pdf)
+    [auto_insurance_anyco_golden_2](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_2.pdf)
 
 2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output:
 
    Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That seems like sloppy PDF formatting, but let's work with it. 
 
-   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
+   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_1.png)
 
 How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor.
 
 But nope, this PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_2.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_2.png)
 
 
 
@@ -375,13 +375,13 @@ Replace your existing policy_period field with the following field in the editor
 
 This field defines a region in inches relative to the anchor, and since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as `height` and `start`), so you can visually tweak the region till you're satisfied. 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_3.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_3.png)
 
 
 
 Let's double check that this region also works with our first PDF:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_4.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_4.png)
 
 Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fiddle with the region size, you can rest easy -- the Region method only captures lines that are completely contained in the region. 
 
@@ -398,7 +398,7 @@ When you're satisfied with your config, use the [Sensible API](https://docs.sens
 
 First, make sure you can extract data using the config and PDF you created in previous steps:
 
-1.  In your local file system, locate the the example [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden.pdf) you downloaded in a previous step. For this example, use something like this to extract data:
+1.  In your local file system, locate the the example [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) you downloaded in a previous step. For this example, use something like this to extract data:
 
 ```curl
 curl --request POST \
@@ -410,7 +410,7 @@ curl --request POST \
 ```
 2. **Important!** Remember to click **Publish** in the Sensible app to publish your config, or this request won't work:  
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_publish_config.png).
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_publish_config.png).
 
 3. For an easy way to run this cURL request, download the [Postman](https://www.postman.com/) desktop app. 
 
@@ -418,13 +418,13 @@ curl --request POST \
 
 5.  In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
 
-   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_postman_import.png)
+   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_import.png)
 
 6. Correct the path to your downloaded PDF:
    -  **If you're in the command line:** Replace `PATH_TO_DOWNLOADED_PDF` with the local directory path to the PDF.
    -  **If you're in Postman:** In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_postman_1.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
 
 ​    
 

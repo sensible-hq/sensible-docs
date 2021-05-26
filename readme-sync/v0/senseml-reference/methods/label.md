@@ -32,7 +32,7 @@ The following image shows examples of various labels in the Sensible app:
 
 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/label_examples.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/label_examples.png)
 
 The preceding example shows fields that do the following:
 

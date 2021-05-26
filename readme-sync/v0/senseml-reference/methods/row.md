@@ -6,7 +6,7 @@ Matches all lines to the left or right of the anchor line.
 
  A "row" is defined as lines of text distributed along a horizontal line. Each matching line in the "row" must have a  top boundary line that is within  0.08 inches of the anchor's top boundary line.  For example, the following image shows the line that defines a row of bold text:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/row_align.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/row_align.png)
 
 
 Examples
@@ -16,7 +16,7 @@ Examples
 
 The following image shows an example of the row method in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/row_example.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/row_example.png)
 
 
 

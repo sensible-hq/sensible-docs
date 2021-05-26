@@ -54,7 +54,7 @@ The following example config extracts a social security number from a W-9 form b
 
 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/region_ssn.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/region_ssn.png)
 
 Notes
 ----

@@ -39,7 +39,7 @@ The following example config uses regular expressions to grab a list of forms th
 
 The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/passthrough_regex.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/passthrough_regex.png)
 
 Parameters
 ====

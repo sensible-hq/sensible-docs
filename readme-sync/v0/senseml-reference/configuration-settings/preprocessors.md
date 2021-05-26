@@ -82,7 +82,7 @@ This config  includes a  ligature mapping preprocessor and a field that finds a 
 
 The following image shows an example of capturing all the lines of text in a W-9 form:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/all_lines.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/all_lines.png)
 
 
 

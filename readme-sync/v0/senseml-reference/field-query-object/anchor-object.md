@@ -252,11 +252,11 @@ In other words, if you set a Label method, then only text that qualifies as a la
 
 In the following example, the PDF contains two instances of the string "Python". Even though we set `"match":"last"` in the config, the config only matches the *first* instance of Python. Why? We set a `label` method, and only the first instance of Python is close enough to the text below it to qualify as a label for that text ( `"position":"below"`).
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/anchor_match_last_1.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_match_last_1.png)
 
  On the other hand, if we set the method to `row`, then both instances of "Python" qualify, and we successfully match the last instance:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/anchor_match_last_2.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_match_last_2.png)
 
 
 

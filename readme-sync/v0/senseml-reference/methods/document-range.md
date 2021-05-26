@@ -32,7 +32,7 @@ The following config grabs a list of four sworn statements from a W-9 form:
 
 The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/documentrange_sworn.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_sworn.png)
 
 **Images**
 
@@ -61,7 +61,7 @@ The following config grabs two images from an example PDF that lists icons for p
 
 The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/documentrange_icons.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_icons.png)
 
 For more information on grabbing images, see the **Notes** section on this page.
 

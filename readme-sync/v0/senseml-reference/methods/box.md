@@ -25,7 +25,7 @@ Examples
 
 The following image shows a config that grabs a dollar amount from a box in a 1099 form, based on anchor text matching in the box: 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_1099.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_1099.png)
 
 The config for the preceding example is:
 
@@ -52,7 +52,7 @@ The following image shows extracting text from a box with a dark background and 
 
 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_dark.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_dark.png)
 
 The config for the preceding example is:
 
@@ -76,7 +76,7 @@ The config for the preceding example is:
 
 The following image shows extracting text from boxes using the `boxOffset` parameter. 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_offset.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_offset.png)
 
 The config for the preceding example is:
 
@@ -124,7 +124,7 @@ The config for the preceding example is:
 
 The oddly formatted boxes in this example help illustrate how SenseML recognizes offset boxes after the first box:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_offset_callouts.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_offset_callouts.png)
 
 1. Recognize the starting box by finding the dark pixel borders of the box, expanding out from the starting position (in this case, the green dot is the default starting `position`). The expansion is in all directions, not just the cardinal directions shown by the red arrows in the image.
 
@@ -142,7 +142,7 @@ You can use the Offset X and Offset Y parameters as an alternative to the Offset
 
 The following image shows the same PDF as in the Offset Boxes example, but uses X and Y coordinates to find the offset boxes instead:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_offsetxy.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_offsetxy.png)
 
 The red arrows show the specified offsets from the initial `position` (green dot) to the new `position` in which to find a box. The green dots move as you adjust the inches coordinates, so you can visually tweak your measurements in the app.
 
@@ -192,11 +192,11 @@ Use the Position parameter to finetune box recognition.
 
 For example, in the following image, the config specifies to find the box by expanding outward from the left edge of the anchor line's bounding box  (`"position": "left"`) until SenseML finds dark borders. But the starting position (the green dot) is right on the box border itself, so SenseML can't find the box:
 
- ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_position_left.png)
+ ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_position_left.png)
 
 However, if you ask SenseML to find the box borders by starting from the right edge of the anchor line's bounding box (`"position": "right"`), there's enough whitespace between the anchor and the box border for SenseML to find the box:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_position_right.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_position_right.png)
 
 
 
