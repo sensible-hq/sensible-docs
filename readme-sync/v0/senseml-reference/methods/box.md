@@ -142,13 +142,9 @@ You can use the Offset X and Offset Y parameters as an alternative to the Offset
 
 The following image shows the same PDF as in the Offset Boxes example, but uses X and Y coordinates to find the offset boxes instead:
 
-
-
- The red arrows show the specified offsets from the initial `position` (green dot) to the new `position` in which to find a box. The green dots move as you adjust the inches coordinates, so you can visually tweak your measurements in the app
-
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/box_offsetxy.png)
 
-
+The red arrows show the specified offsets from the initial `position` (green dot) to the new `position` in which to find a box. The green dots move as you adjust the inches coordinates, so you can visually tweak your measurements in the app.
 
 This example uses the following config:
 
@@ -187,8 +183,6 @@ This example uses the following config:
   ]
 }
 ```
-
-
 
 
 
