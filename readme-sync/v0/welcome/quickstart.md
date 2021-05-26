@@ -10,9 +10,9 @@ Get structured data from an auto insurance quote
 
 Let's get started with SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, heuristics, and good old-fashioned rules.
 
-If you can write basic SQL queries, you can write SenseML queries! SenseML shields you from the underlying complexities of PDFs, so you can  write queries that make visual and logical sense to a human programmer.
+If you can write basic SQL queries, you can write SenseML queries! SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
 
- In this quickstart, you'll write a collection of queries ( a "config") to extract structured data from auto insurance quote PDFs and integrate Sensible with your application.
+ In this quickstart, you'll write a collection of queries ( a "config") to extract structured data from auto insurance quotes and integrate Sensible with your application.
 
 Get an account
 -----
@@ -27,7 +27,7 @@ Create the config
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_doc_type.png)
 
-2. Download a PDF document from this link:
+2. Download the following PDF document:
 
     [auto_insurance_anyco_golden](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/pdfs/auto_insurance_anyco_golden.pdf)
 
@@ -124,7 +124,7 @@ How it works
 -----
 
 
-- Each "field" is a basic query unit in SenseML, and the field `id` is used as the key in the structured data.  For more information, see [Field](doc:field-query-object).
+- Each "field" is a basic query unit in SenseML, and the field `id` is used as the key in the structured data output.  For more information, see [Field](doc:field-query-object).
 - SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
 
   - Label method
@@ -137,7 +137,7 @@ How it works
 
 To grab the policy period, the config uses the [Label method](doc:label). This tells SenseML that:
 
--  the anchor (`"policy period"`) is text that is pretty close to some other text. (The "closeness" of lines is something you can configure with a preprocessor.)
+-  the anchor (`"policy period"`) is text that is pretty close to some other text. (The "closeness" of text is something you can configure with a preprocessor.)
 -  SenseML should grab the nearest text to the label in the position specified (`right`).  
 
 For this text:
@@ -172,9 +172,9 @@ See those gray boxes around the text in the following image?
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_concept_1.png)
 
- Each gray box is a line. Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis.  These gray boxes are called "bounding boxes" for the lines because they define the line boundaries.
+Each gray box is a line. Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis.  These gray boxes are called "bounding boxes" for the lines because they define the line boundaries.
 
-The Label method can operate within a single line, or across multiple lines. So we might think we could use "Bodily injury" as the anchor text and return "$25,000 each"  for an insurance limit value in the preceding image, right? Why wouldn't something like this work?  
+The Label method can operate within a single line, or across multiple lines. So looking at the previous image, we might think we could use "Bodily injury" as the anchor text and return "$25,000 each"  for an insurance limit, right? Why wouldn't something like this work?  
 
     {
     	"id": "doesnt_work_returns_null",
@@ -191,10 +191,10 @@ Try it, and you'll see it doesn't work. This is because the Label method works o
 
 To grab the comprehensive coverage premium, the config uses the [Row method](doc:row). This tells SenseML that:
 
-- the anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
--  SenseML should grab the second element (`"tiebreaker": "second"`).  The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`). 
--  It's not shown, but the default is to grab elements to the right of the anchor  in the row (`"position":"right"`). 
+- The anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
+- SenseML should grab the second element (`"tiebreaker": "second"`).  The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`). 
 - The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
+- It's not shown, but the default behavior is to grab elements to the right of the anchor  in the row (`"position":"right"`). 
 
 To grab this premium of $150:
 
@@ -226,11 +226,13 @@ This returns:
 
 **Box method**
 
-To grab the policy number, the config uses the Box method. This tells SenseML the following:
-
-  - The anchor line is a little more complex than previous examples. We define the match type (`"type": "startsWith"`) as well as the text match  (`"text": "policy number"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
+To grab the policy number, the config uses the [Box method](doc:box). This tells SenseML the following:
 
   - The anchor is inside a box (`"id": "box"`).
+
+  - Match on the anchor text "policy number". Notice that the anchor line is a little more complex than previous examples. We define the match type (`"type": "startsWith"`) as well as the text match  (`"text": "policy number"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
+
+    
 
     
 
@@ -275,7 +277,7 @@ Notice that SenseML  grabs the box contents, but not the anchor itself. In gener
 You can get more advanced with this auto insurance config. For example:
 
 - You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
-- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method since they can be a variable number of lines. You can use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.
+- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method since they can be a variable number of lines. Row methods depend on strict x-axis alignment of lines, so you'd only be able to grab the first line. Instead, you can use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.
 - What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).
@@ -291,7 +293,7 @@ Before integrating the config with an application and writing tests against it, 
 
 2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output:
 
-   Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That seems like some sloppy PDF formatting, but let's work with it. 
+   Uh oh! It looks like this policy period spills over onto the next line, so we miss the end year (2021). That seems like sloppy PDF formatting, but let's work with it. 
 
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_1.png)
 
@@ -344,7 +346,7 @@ Let's double check that this region also works with our first PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_error_4.png)
 
-Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But rest easy -- the Region method doesn't include a line of text unless the bounding box of the line is completely contained in the region.
+Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fiddle with the region size, you can rest easy -- the Region method only outputs lines that are completely contained in the region. 
 
 3. Click **Publish** to save your changes to the config.
 
@@ -408,7 +410,7 @@ curl --request POST \
 
 
 
-Notice that you don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs created for this document type, and **automatically** chooses the one that fits best.
+ :information_source:**Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs created for this document type, and **automatically** chooses the one that fits best! 
 
 Now you can use the [Sensible API](https://docs.sensible.so/reference) to generate upload and download URLs for multiple car insurance quote PDFs,  retrieve results, and integrate with your application!  
 
