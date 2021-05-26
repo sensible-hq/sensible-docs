@@ -245,13 +245,13 @@ Anchor lines are surrounded by orange boxes, and matches are surrounded by blue 
 
 But wait!  You might have some questions:
 
-- Why are all the lines in the row after the anchor colored blue, when the method only outputs one of the blue lines ($150)?
-- Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (after "............")?
+- Why are all the lines in the row after the anchor colored blue, when the output only includes one of the blue lines ($150)?
+- Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is just a bunch of dots, "............")?
 
 Here are some answers:
 
 - Sensible shows you the entire scope of the method match, not just what the method outputs. So the method matches *all* the elements in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. Seeing the entire method match in the app can help you troubleshoot unexpected output.
-- `"tiebreaker": "second"` evaluates *after* the datatype we set in the field, `"type": "currency"`.  So, instead of looking for the second line after the anchor in general, it looks for the second line *that contains a currency*.  There are two such lines, $250 and $150, and $150 is the second one. Convenient, huh? 
+- `"tiebreaker": "second"` evaluates *after* the datatype we set in the field, `"type": "currency"`.  So, instead of looking for the second line after the anchor in general, it looks for the second line *that contains a currency*.  There are two such lines, $250 and $150, and $150 is the second one. Convenient, right? 
 
 
 Box method
