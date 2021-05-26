@@ -1,6 +1,5 @@
 ---
 title: "API reference"
 hidden: false
-type: "link"
-link_url: "https://docs.sensible.so/reference"
 ---
+To integrate Sensible with your application, see the [API reference](https://docs.sensible.so/reference).
