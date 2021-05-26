@@ -412,8 +412,12 @@ curl --request POST \
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_publish_config.png).
 
-3. For an easy way to run this cURL request, download the [Postman](https://www.postman.com/) desktop app. In the Postman desktop app, click **File**>**Import** and select **Raw text**.
+3. For an easy way to run this cURL request, download the [Postman](https://www.postman.com/) desktop app. In the Postman desktop app, click **File**>**Import** and select **Raw text**:
+
+   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_postman_import.png)
+
 4. Copy the previous code sample into the raw text field in Postman. Replace `YOUR_API_KEY` with your API key.
+
 5. Correct the path to your downloaded PDF:
    -  **If you're in the command line:** Replace `PATH_TO_DOWNLOADED_PDF` with the local directory path to the PDF.
    -  **If you're in Postman:** In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
