@@ -412,7 +412,7 @@ curl --request POST \
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_publish_config.png).
 
-3. For an easy way to run this cURL request, download the [Postman](https://www.postman.com/) desktop app. In the Postman desktop app, click **File**>**Import** and select **Raw text**:
+3. For an easy way to run this cURL request, download the [Postman](https://www.postman.com/) desktop app. In the Postman desktop app, click **Import** and select **Raw text**:
 
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/quickstart_postman_import.png)
 
