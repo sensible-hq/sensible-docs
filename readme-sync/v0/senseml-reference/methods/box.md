@@ -56,8 +56,8 @@ The following image shows extracting text from a box with a dark background and 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for dark boxes | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_dark) |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Example PDF for dark boxes | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_dark.pdf) |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 
 The config for the preceding example is:
 
@@ -85,8 +85,8 @@ The following image shows extracting text from boxes using the Box Offset parame
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for offset boxes | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_offset) |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Example PDF for offset boxes | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_offset.pdf) |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 The config for the preceding example is:
 
@@ -159,8 +159,8 @@ The red arrows show the specified offsets from the initial positions (green dots
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for box coordinates | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_offset) |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Example PDF for box coordinates | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_offset.pdf) |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:
 
@@ -215,8 +215,8 @@ However, if you ask SenseML to find the box borders by starting from the right e
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for box recognition | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_recognition) |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Example PDF for box recognition | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_recognition.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 Notes
 ====
