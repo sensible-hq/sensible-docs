@@ -9,7 +9,7 @@ Here is a simple example of a field:
 
 ```json
 {
-    
+
   "fields": [
     {
       "id": "name_of_output_key",
@@ -21,10 +21,7 @@ Here is a simple example of a field:
     },
   ]
 }
-		
 ```
-
-
 
 The following image shows this example in the Sensible app:
 
@@ -41,26 +38,22 @@ As the preceding image shows, this is the output of the example field:
 }
 ```
 
-
-
 Field parameters
 ----
 
-
 Top-level components for a Field object are as follows:
 
-| Parameter             | Value                                                        | Description                                                  |
-| --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**)     | string                                                       | The ID is the name of the field, which SenseML uses as the key in the structured key/value output. |
-| anchor (**required**) | object                                                       | The anchor identifies one or more lines of *text* in the document where we start method execution. Can be a string, Match object, or array of Match objects. For more information, see [Anchor object](doc:anchor-object) and [Match object](doc:anchor-object#section-match-object). |
-| method (**required**) | object                                                       | The method describes how we want to expand from that anchor and grab your target data. For more information, see [Methods](doc:methods) and [Method object](doc:method-object). |
-| type                  | `accountingCurrency`, `address`, `boolean`, `currency`, `date`, `distance`, `images`, `name`, `number`, `paragraph`, `percentage`, `string`, `table`, `weight` | The type of data we want to extract. This type is also specified in the structured output. |
-| match                 | `first`,`last`,`all`                                         | If there are multiple matches for the anchor, which one to use.  For more information, see <br/>`all` returns an array of values for each match, under a single output key.  For example something like:  <br/>{<br/>  "name_of_output_key": [<br/>    {<br/>      "type": "string",<br/>      "value": "extracted data for first match"<br/>    },<br/>    {<br/>      "type": "string",<br/>      "value": "extracted data for second match"<br/>    } ]<br/>} |
-
-
+| Parameter             | Value                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)     | string                                                                                                                                                         | The ID is the name of the field, which SenseML uses as the key in the structured key/value output.                                                                                                                                                                                                                                                                                                                                                               |
+| anchor (**required**) | object                                                                                                                                                         | The anchor identifies one or more lines of *text* in the document where we start method execution. Can be a string, Match object, or array of Match objects. For more information, see [Anchor object](doc:anchor-object) and [Match object](doc:anchor-object#section-match-object).                                                                                                                                                                            |
+| method (**required**) | object                                                                                                                                                         | The method describes how we want to expand from that anchor and grab your target data. For more information, see [Methods](doc:methods) and [Method object](doc:method-object).                                                                                                                                                                                                                                                                                  |
+| type                  | `accountingCurrency`, `address`, `boolean`, `currency`, `date`, `distance`, `images`, `name`, `number`, `paragraph`, `percentage`, `string`, `table`, `weight` | The type of data we want to extract. This type is also specified in the structured output.                                                                                                                                                                                                                                                                                                                                                                       |
+| match                 | `first`,`last`,`all`                                                                                                                                           | If there are multiple matches for the anchor, which one to use.  For more information, see <br/>`all` returns an array of values for each match, under a single output key.  For example something like:  <br/>{<br/>  "name_of_output_key": [<br/>    {<br/>      "type": "string",<br/>      "value": "extracted data for first match"<br/>    },<br/>    {<br/>      "type": "string",<br/>      "value": "extracted data for second match"<br/>    } ]<br/>} |
 
 Example
 ----
+
 The following field example uses all the top-level parameters:
 
 ```json
@@ -79,8 +72,3 @@ The following field example uses all the top-level parameters:
   ],
 }
 ```
-
-
-
-
-
