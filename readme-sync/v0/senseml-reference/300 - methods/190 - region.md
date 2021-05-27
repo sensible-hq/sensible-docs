@@ -63,6 +63,6 @@ This example uses the following config:
 ```
 
 Notes
-===
+====
 
 If the region that you want to grab is a box that is bordered with dark lines, you can use the [Box method](doc:box) instead of the Region method.
