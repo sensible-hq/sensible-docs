@@ -21,7 +21,7 @@ Parameters
 | offsetY (**required**) | number                            | The offset in inches along the Y axis:<br/>- from the point defined in the Start parameter <br/>- to the top left corner of the region                                                                                                      |
 | width (**required**)   | number                            | The width in inches of the extraction region.                                                                                                                                                                                               |
 | height (**required**)  | number                            | The height in inches of the extraction region.                                                                                                                                                                                              |
-| isAbsoluteOffset       | boolean. default: `false`         | When specified, makes the offsets relative to the 0,0 origin at the top left of the page rather than to the Start parameter.                                                                                                                |
+| isAbsoluteOffset       | boolean. default: `false`         | Makes the offsets relative to the 0,0 origin at the top left of the page rather than to the Start parameter.                                                                                                                                |
 
 Examples
 ====
@@ -32,8 +32,8 @@ The following image shows extracting a social security number from a W-9 form by
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for box recognition | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box_recognition.pdf) |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Example PDF for region | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_region_w9_.pdf) |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:
 
