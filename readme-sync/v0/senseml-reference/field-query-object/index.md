@@ -5,7 +5,7 @@ hidden: false
 
 A field is the basic unit for writing a SenseML query to extract data from a PDF. The output of a field is a JSON key-value pair that structures the extracted data.  
 
-Here's a simple example of a field: 
+Here is a simple example of a field: 
 
 ```json
 {
