@@ -132,7 +132,7 @@ How it works
   
   - [How it works: label method](doc:quickstart#section-how-it-works-label-method)
   - [How it works: row method](doc:quickstart#section-how-it-works-row-method)
-  - [How it works: Box method](doc:quickstart#section-how-it-works-box-method)
+  - [How it works: box method](doc:quickstart#section-how-it-works-box-method)
 
 How it works: label method
 ----
@@ -176,7 +176,7 @@ See those gray boxes around the text in the following image?
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_1.png)
 
-Each gray box show the boundaries for a "line." Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis. 
+Each gray box show the boundaries for a "line." SenseML recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same x-axis. 
 
 The Label method can operate within a single line, or across multiple lines. Given that, let's ask this question: could we use the Label method to grab a line in the following image? 
 
@@ -342,7 +342,7 @@ But no, this PDF doesn't fit neatly into the Document Range method, because the 
 
 There are multiple ways to tackle this problem. Here's one way: you can a [Region method](doc:region). A region is rectangular space defined by coordinates relative to the label. 
 
-Replace your existing policy_period field with the following field in the editor:
+Replace your existing `policy_period` field with the following field in the editor:
 
 ```json
     {
@@ -369,7 +369,7 @@ Replace your existing policy_period field with the following field in the editor
     },
 ```
 
-This field defines a region in inches relative to the anchor, and since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as `height` and `start`), so you can visually tweak the region till you're satisfied. 
+This field defines a region in inches relative to the anchor. Since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as  the Height and Start parameters), so you can visually tweak the region till you're satisfied. 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_3.png)
 
