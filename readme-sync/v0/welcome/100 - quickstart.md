@@ -126,26 +126,21 @@ Congratulations! You've just created your first config!  If you want to process 
 How it works
 ====
 
-- Each "field" is a basic query unit in SenseML, and the field `id` is used as the key in the key/value JSON output. For example, if you define a field with `"id":""`  For more information, see [Field](doc:field-query-object).
+- Each "field" is a basic query unit in SenseML, and the field `id` is used as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
 - SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
   
-  - [Label method](doc:quickstart#section-label-method)
-  - [Row method](doc:quickstart#section-row-method)
-  - [Box method](doc:quickstart#section-box-method)
+  - [How it works: label method](doc:quickstart#section-how-it-works-label-method)
+  - [How it works: row method](doc:quickstart#section-how-it-works-row-method)
+  - [How it works: Box method](doc:quickstart#section-how-it-works-box-method)
 
-Label method
+How it works: label method
 ----
 
-To grab the policy period, the config uses the [Label method](doc:label). This tells SenseML that:
-
-- the anchor (`"policy period"`) is text that is pretty close to some other text. (The "closeness" of text is something you can configure with a preprocessor.)
-- SenseML should grab the nearest text to the label in the position specified (`right`).  
-
-For this text:
+To grab the policy period from this text:
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_label_right.png)
 
-The config uses this Field query:
+The config uses the [Label method](doc:label):
 
 ```json
       {
@@ -158,7 +153,12 @@ The config uses this Field query:
       }
 ```
 
-This returns:
+This tells SenseML that:
+
+- The anchor (`"policy period"`) is text that is pretty close to some other text (`"id": "label"`). 
+- SenseML should grab the nearest text to the label in the position specified (`right`).  
+
+This config returns:
 
 ```json
     "policy_period": {
@@ -169,16 +169,20 @@ This returns:
 
 You can grab text to the right, left, above, or below a label. For example, how would you use a label to grab the driver's name? Try it out.
 
-Key concepts: lines
+Key concept: lines
 ----
 
 See those gray boxes around the text in the following image?
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_1.png)
 
-Each gray box is a line. Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis.  These gray boxes are called "bounding boxes" for the lines because they define the line boundaries.
+Each gray box show the boundaries for a "line." Lines are defined by whitespace, so multiple "lines" can occupy the same x-axis. 
 
-The Label method can operate within a single line, or across multiple lines. So looking at the previous image, we might think we could use "Bodily injury" as the anchor text and return "$25,000 each"  for an insurance limit, right? Why wouldn't something like this work?  
+The Label method can operate within a single line, or across multiple lines. Given that, let's ask this question: could we use the Label method to grab a line in the following image? 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_4.png)
+
+For example, could we use "Bodily injury" as the anchor text and return "$25,000 each"  for an insurance limit? Would something like the following config work?  
 
     {
         "id": "doesnt_work_returns_null",
@@ -197,20 +201,12 @@ This is because the Label method works only for closely proximate lines (sensiti
 
  Let's take a look at a purpose-built Row method instead to grab text in a table. 
 
-Row method
+How it works: row method
 ----
 
-To grab the comprehensive coverage premium, the config uses the [Row method](doc:row). This tells SenseML that:
+To grab this comprehensive premium of $150:
 
-- The anchor (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
-- SenseML should grab the second element (`"tiebreaker": "second"`).  The tiebreaker lets you select which element in the row you want and can include maximums and minimums (`<` and `>`). 
-- The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
-- It's not shown, but the default behavior is to grab elements to the right of the anchor  in the row (`"position":"right"`). 
-
-To grab this premium of $150:
-
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_row.png)
-The config uses this Field query:
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_row.png) this config uses the [Row method](doc:row):
 
 ```json
       {
@@ -224,6 +220,17 @@ The config uses this Field query:
       }
 ```
 
+
+
+This tells SenseML that:
+
+- The anchor text (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
+- The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
+- SenseML should grab the second line in the row after the anchor  (`"tiebreaker": "second"`).  The tiebreaker lets you select which line in the row you want and can include maximums and minimums (`<` and `>`).
+- It's not shown, but the default behavior is to grab lines to the right of the anchor  in the row (`"position":"right"`). 
+
+
+
 This returns: 
 
 ```json
@@ -235,39 +242,34 @@ This returns:
     }
 ```
 
-Key concepts: visualize anchors and matches
+But wait! Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is just a bunch of dots, "............")? 
+
+The reason is that `"tiebreaker": "second"` evaluates *after* the datatype we set in the field, `"type": "currency"`. So, instead of looking for the second line after the anchor in general, it looks for the second line *that contains a currency*.  Convenient, right? There are two such lines, $250 and $150, and $150 is the second one. 
+
+Key concept: visualize anchors and matches
 ----
 
-In the app, you can visually inspect anchors and matches by looking at their color coding.
+In the app, you can visually inspect anchors and methods by looking at their color coding:
 
-Anchor lines are surrounded by orange boxes, and matches are surrounded by blue boxes:
+- Orange boxes show lines matched by the Anchor object.
+- Blue boxes show lines matched by the Method object.
+
+To continue the Row example from the previous section, in the following image the orange box shows that "Comprehensive" is the anchor line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_3.png)
 
-But wait!  You might have some questions:
+But why are *all* the lines after Comprehensive colored blue, when the previous example output only included one line, $150?
 
-- Why are *all* the lines in the row after the anchor colored blue, when the output only includes *one* of the blue lines ($150)?
-- Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is just a bunch of dots, "............")?
+The answer is that the Sensible app shows you the entire scope of the method match, not just what the method outputs. So the Row method matches *all* the elements in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. Seeing the entire method match in the app can help you troubleshoot unexpected output.
 
-Here are some answers:
-
-- Sensible shows you the entire scope of the method match, not just what the method outputs. So the method matches *all* the elements in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. Seeing the entire method match in the app can help you troubleshoot unexpected output.
-- `"tiebreaker": "second"` evaluates *after* the datatype we set in the field, `"type": "currency"`.  So, instead of looking for the second line after the anchor in general, it looks for the second line *that contains a currency*.  There are two such lines, $250 and $150, and $150 is the second one. Convenient, right? 
-
-Box method
+How it works: box method
 ----
 
-To grab the policy number, the config uses the [Box method](doc:box). This tells SenseML the following:
-
-- The anchor is inside a box (`"id": "box"`).
-
-- Match on the anchor text "policy number". Notice that the anchor line is a little more complex than previous examples. We define the match type (`"type": "startsWith"`) as well as the text match  (`"text": "policy number"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
-
-For this box:
+To grab the policy number from this box:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_box.png)
 
-The config uses this Field query:
+The config uses the [Box method](doc:box):
 
 ```json
       {
@@ -286,7 +288,13 @@ The config uses this Field query:
       },
 ```
 
-  Which returns: 
+ This tells SenseML the following:
+
+- The anchor is inside a box (`"id": "box"`).
+
+- The anchor text  is "policy number". Notice that the anchor line is a little more complex than previous examples, because we also define a match type (`"type": "startsWith"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
+
+ This returns: 
 
 ```json
   {
@@ -297,7 +305,7 @@ The config uses this Field query:
   }
 ```
 
-Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most SenseML methods ignore the anchor line (the line containing the anchor text) and do not include it in the output. One notable exception to this general rule is the Label method, which can match text in the anchor line that is to the left or right of the anchor text (`"position":"left"` or `"position":"right"`).
+Notice that SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most SenseML methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
 
 Advanced queries
 ----
@@ -305,7 +313,7 @@ Advanced queries
 You can get more advanced with this auto insurance config. For example:
 
 - You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
-- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method since they can be a variable number of lines. Row methods depend on strict x-axis alignment of lines, so you'd only be able to grab the first line. Instead, you can use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
+- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict x-axis alignment of lines, so you'd only be able to grab the first line. Instead, you can use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
 - What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).
@@ -328,7 +336,7 @@ Before integrating the config with an application and writing tests against it, 
 
 How can you capture the policy period reliably? As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. That should solve our variable line number challenge, right?
 
-But nope, this PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
+But no, this PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_2.png)
 
@@ -369,7 +377,7 @@ Let's double check that this region also works with our first PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_4.png)
 
-Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fiddle with the region size, you can rest easy -- the Region method only captures lines that are completely contained in the region. 
+Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fiddle with the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures lines that are completely contained in the region. 
 
 3. Click **Publish** to save your changes to the config.
 
