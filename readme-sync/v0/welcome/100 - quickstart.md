@@ -125,9 +125,9 @@ Congratulations! You've just created your first config!  If you want to process 
 
 
 
-- For a deep dive on how the config works, see the following section.
+- For a deep dive on how the config works, see [the following section](doc:quickstart#section-how-it-works).
 
-- If you want to skip ahead and try out the API, see [Integrate with your applicationI](doc:quickstart#section-integrate-with-your-application). 
+- If you want to skip ahead and try out the API, see [Integrate with your application](doc:quickstart#section-integrate-with-your-application). 
 
 How it works
 ====
