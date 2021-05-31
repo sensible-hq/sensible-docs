@@ -46,7 +46,7 @@ This example uses the following config:
             ],
           },
           {
-            "id": "col4_rank_this_month",
+            "id": "rank_this_month",
             "terms": [
               "this month"
             ],
@@ -68,4 +68,4 @@ This example uses the following config:
 Notes
 ====
 
-Use the Table method or Text Table method when dealing with tables in the same document type that have a variable number of columns. This method is more computationally expensive and less fast than the Fixed Table method, but is less sensitive to changes in table formatting.
+The Table method is slower than the Fixed Table method, but is less sensitive to changes in table formatting. Use the Table method when dealing with tables in the same document type that have a variable number of columns. 

@@ -11,9 +11,7 @@ Parameters
 | :------------------- | :----------- | :----------------------------------------------------------- |
 | id **required**      | `table`      | When you specify the Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. |
 | columns **required** | array        | An array of objects with the following parameters:<br/> *`id` (**required**): The id for the column in the extraction output<br/> *`minX` (**required**):  The distance in inches on the page from the left edge of the page to the left edge of the column.  <br/>  *`maxX` (**required**):  The distance in inches on the page from the left edge of the page to the right edge of the column.  <br/>  *`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object).<br/>   *`isRequired` (default false):  If true, the extraction will not return rows where a value is not present in this column |
-| minX                 | number       |                                                              |
-| maxX                 | number       |                                                              |
-| offsetY              | number       |                                                              |
+| offsetY              | number       | The offset, in inches, along a Y-axis from the anchor text, from which to start recognizing the table. |
 | stop                 | Match object | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With `stop` defined, the engine selectively OCRs the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
 
 Examples
@@ -63,8 +61,3 @@ This example uses the following config:
 ```
 
 
-
-Notes
-====
-
-Use the Table method or Text Table method when dealing with tables in the same document type that have a variable number of columns. This method is more computationally expensive and less fast than the Fixed Table method, but is less sensitive to changes in table formatting.
