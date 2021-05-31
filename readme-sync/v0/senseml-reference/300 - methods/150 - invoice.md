@@ -12,13 +12,13 @@ Parameters
 | key     | value                                                        | description                                                  |
 | :------ | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | id      | `invoice`                                                    |                                                              |
-| columns |                                                              | TODO: An array of objects with the following parameters: An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> - `index` (**required**): A zero-based column index <br/>-`type` : The type of the value in the table cell. See a list of possible types in [Field query object](doc:field-query-object)) <br/> -`isRequired` (default: false): If true, the extraction does not return rows where a value is not present in this column. |
+| columns |                                                              | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> -`terms` (**required**): An array of strings with terms to score positively. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, the extraction does not return rows where a value is not present in this column |
 | stop    | [Matcher](https://unpublished-sandbox.readme.io/docs/matcher) | optional, default: none. A [Matcher](https://unpublished-sandbox.readme.io/docs/matcher) to stop extraction. With `stop` defined, the engine selectively OCR the pages from the starting anchor to the page with the stop match. Otherwise the engine OCR all pages. |
 
 Examples
 ====
 
-The following image shows extracting two invoices for 2 items that have variably formatted invoices
+The following image shows extracting two invoices for 2 items that have variably formatted invoices.
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/invoice_example.png)
 
