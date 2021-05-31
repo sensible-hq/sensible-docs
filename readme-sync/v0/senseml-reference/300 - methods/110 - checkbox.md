@@ -2,29 +2,18 @@
 title: "Checkbox"
 hidden: false
 ---
-Looks for a checkbox next to the anchor and returns a boolean
-[block:parameters]
-{
-  "data": {
-    "h-0": "key",
-    "h-1": "values",
-    "h-2": "description",
-    "1-0": "position",
-    "1-2": "The starting position for the checkbox search.\n\nIf `offsetX` or `offsetY` is defined, `checkbox` will move directly from the position to the defined offset for the box search. Otherwise, `checkbox` will start at the starting position and search in the appropriate direction for a box boundary, and then return the contents of that box",
-    "1-1": "`left`, `right`",
-    "2-0": "offsetX",
-    "2-2": "optional\n\nThe offset in inches from the starting point along the X axis",
-    "2-1": "a number in inches (decimals allowed)",
-    "3-0": "offsetY",
-    "3-2": "optional\n\nThe offset in inches from the starting point along the Y axis",
-    "3-1": "a number in inches (decimals allowed)",
-    "4-0": "darknessThreshold",
-    "4-2": "optional, default 0.9.\n\nThe brightness threshold below which to consider a pixel a box boundary (white is 1.0).",
-    "4-1": "a number between 0 and 1",
-    "0-0": "id",
-    "0-1": "`checkbox`"
-  },
-  "cols": 3,
-  "rows": 5
-}
-[/block]
+Looks for a checkbox next to the anchor and returns a boolean indicating if the checkbox contained a checkmark or not.  This method works by default with boxes that have a light background and dark, continuous borders.  
+
+Parameters
+=====
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
+| key               | values                                  | description                                                  |
+| ----------------- | --------------------------------------- | ------------------------------------------------------------ |
+| id (**required**) | `checkbox`                              |                                                              |
+| position          | `left`, `right`                         | The starting position from which Sensible expands outward to recognize a checkbox. <br/> In detail, the Position parameter defines a little cluster of pixels relative to the anchor line, from which to expand outward until dark pixels signifying the checkbox border are found.<br/> |
+| offsetX           | number (decimals allowed). default: 0   | The offset in inches along the X axis, from the starting point defined by the Position parameter, from which to expand out and recognize a checkbox. |
+| offsetY           | number (decimals allowed).   default: 0 | The offset in inches along the Y axis, from the starting point  defined by  the Position parameter, from which to expand out and recognize a checkbox. |
+| darknessThreshold | number between 1 and 0. default 0.9     | The brightness threshold below which to consider a pixel a box boundary (white is 1.0). Configure this parameter when you have a checkbox with a dark background. |
+
