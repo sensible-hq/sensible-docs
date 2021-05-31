@@ -9,11 +9,10 @@ Parameters
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 
-| key     | value                                                        | description                                                  |
-| :------ | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| id      | `invoice`                                                    |                                                              |
-| columns |                                                              | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> -`terms` (**required**): An array of strings with terms to score positively. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, the extraction does not return rows where a value is not present in this column |
-| stop    | [Matcher](https://unpublished-sandbox.readme.io/docs/matcher) | optional, default: none. A [Matcher](https://unpublished-sandbox.readme.io/docs/matcher) to stop extraction. With `stop` defined, the engine selectively OCR the pages from the starting anchor to the page with the stop match. Otherwise the engine OCR all pages. |
+| key                  | value     | description                                                  |
+| :------------------- | :-------- | :----------------------------------------------------------- |
+| id (**required**)    | `invoice` |                                                              |
+| columns **required** | array     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> -`terms` (**required**): An array of strings with terms to score positively. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, the extraction does not return rows where a value is not present in this column |
 
 Examples
 ====
