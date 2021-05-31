@@ -7,10 +7,12 @@ Matches tables based on bag-of-words scoring and returns their collated column c
 Parameters
 =====
 
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
 | key                    | value        | description                                                  |
 | :--------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)      | `table`      | When you specify the Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. |
-| columns (**required**) | array        | An array of objects with the following parameters:<br/> *`id` (**required**): The id for the column in the extraction output<br/> *`terms` (**required**): An array of strings with terms to score positively. Usually, you include column headings in this array.<br/> *`stopTerms`: An array of strings with terms to score negatively. <br/> *`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object).<br/>  *`isRequired` (default false): If true, the extraction will not return rows where a value is not present in this column |
+| columns (**required**) | array        | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> -`terms` (**required**): An array of strings with terms to score positively. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, the extraction does not return rows where a value is not present in this column |
 | stop                   | Match object | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With `stop` defined, the engine selectively OCRs the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
 
 Examples
@@ -23,8 +25,8 @@ The following example shows extracting two columns from a table that updates mon
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for box recognition | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_table_dynamic.pdf) |
-| ------------------------------- | ------------------------------------------------------------ |
+| Example PDF for table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_table_dynamic.pdf) |
+| --------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
 
