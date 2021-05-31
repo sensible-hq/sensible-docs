@@ -20,11 +20,11 @@ Examples
 
 The following image shows extracting 2 columns from a fixed table in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/fixedtable_example.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/review/readme-sync/assets/v0/images/fixedtable_example.png)
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for box recognition | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_table.pdf) |
+| Example PDF for box recognition | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/review/readme-sync/assets/v0/pdfs/example_table.pdf) |
 | ------------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
