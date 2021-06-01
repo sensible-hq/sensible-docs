@@ -2,7 +2,7 @@
 title: "Text Table"
 hidden: false
 ---
-Matches tables based on coordinates in inches. Use this method when other Table methods can't recognize a table.
+Matches tables based on coordinates in inches. Use this method when other Table methods can't recognize a table.  Unlike other Table methods, this method relies on strict line alignment within the table and therefore can't recognize multiple lines as belonging to a single cell. In the case of a multi-line cell, SenseML treats each line as its own row. For an example, see the Examples section.
 
 Parameters
 =====
@@ -13,8 +13,8 @@ Parameters
 | :------------------- | :----------- | :----------------------------------------------------------- |
 | id **required**      | `table`      | When you specify the Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. |
 | columns **required** | array        | An array of objects with the following parameters:<br/> -`id` (**required**): The id for the column in the extraction output<br/> -`minX` (**required**):  The distance in inches on the page from the left edge of the page to the left edge of the column.  <br/>  -`maxX` (**required**):  The distance in inches on the page from the left edge of the page to the right edge of the column.  <br/>  -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object).<br/>   -`isRequired` (default false):  If true, the extraction will not return rows where a value is not present in this column |
-| offsetY              | number       | The offset, in inches, along a Y-axis from the anchor text, from which to start recognizing the table. |
-| stop                 | Match object | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With `stop` defined, the engine selectively OCRs the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
+| offsetY              | number       | Defines a starting point from which to recognize table. The starting point is is offset in inches along a Y-axis from the anchor line. |
+| stop                 | Match object | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With a Stop parameter defined, the engine selectively OCRs the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
 
 Examples
 ====
@@ -35,7 +35,7 @@ This example uses the following config:
 {
   "fields": [
     {
-      "id": "agile_risks_table_updates_monthly",
+      "id": "text_table",
       "anchor": "outline",
       "type": "table",
       "method": {
@@ -44,12 +44,14 @@ This example uses the following config:
           {
             "id": "col2_limits",
             "minX": 2.5,
-            "maxX": 4.1
+            "maxX": 4.1,
+            "type": "currency"
           },
           {
             "id": "col4_premiums",
             "minX": 6,
-            "maxX": 7
+            "maxX": 7,
+            "type": "currency"
           }
         ],
         "stop": {
