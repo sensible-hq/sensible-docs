@@ -2,7 +2,9 @@
 title: "Invoice"
 hidden: false
 ---
-Identical to the [Table method](doc:table), but also returns detected invoice metadata.
+This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts 1 invoice per PDF document.  If the PDF contains multiple tables, the Invoice method returns the data for the table that is most likely to be an invoice.
+
+It is recommended to create a single config that works for a variety of invoice formats, by using many synonymous terms to identify invoice elements. For more information, see the [example section](doc:invoice#section-examples). 
 
 Parameters
 ====
@@ -12,12 +14,16 @@ Parameters
 | key                  | value     | description                                                  |
 | :------------------- | :-------- | :----------------------------------------------------------- |
 | id (**required**)    | `invoice` |                                                              |
-| columns **required** | array     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> -`terms` (**required**): An array of strings with terms to score positively. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, the extraction does not return rows where a value is not present in this column |
+| columns **required** | array     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> -`terms` (**required**): An array of strings with terms to score positively. SenseML uses NLP techniques (such as tokenization and stemming) to score matches for the strings. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. SenseML uses NLP techniques (such as tokenization and stemming) to score matches for the strings. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, the extraction does not return rows where a value is not present in this column |
 
 Examples
 ====
 
-The following image shows extracting two invoices for 2 items that have variably formatted invoices.
+The following image shows an example of using the Invoice method:
+
+- It extracts the invoice table from a PDF that contains multiple tables.
+- It extracts other invoice metadata from header and footer information in the invoice.
+- This example uses a large number of synonymous terms for each invoice column, so it can parse invoices from a variety of vendors. 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/invoice_example.png)
 
@@ -33,17 +39,19 @@ This example uses the following config:
 {
   "fields": [
     {
-      "id": "invoice_item_1",
+      "id": "invoice",
       "type": "table",
-      "anchor": "item 1",
       "method": {
         "id": "invoice",
         "columns": [
           {
             "id": "quantity",
             "terms": [
+              "qty",
               "quantity",
               "ordered",
+              "shipped",
+              "ord"
             ],
             "isRequired": true
           },
@@ -51,92 +59,71 @@ This example uses the following config:
             "id": "sku",
             "terms": [
               "sku",
+              "item number",
+              "item no.",
               "item code",
+              "product number",
+              "product no.",
+              "product code",
+              "p.o.s."
+            ],
+            "isRequired": true
+          },
+          {
+            "id": "description",
+            "terms": [
+              "description",
+              "product",
+              "material description",
+              "product description"
             ],
             "isRequired": true
           },
           {
             "id": "unit_price",
             "terms": [
+              "price",
               "unit price",
+              "list",
+              "sale",
+              "pricing",
+              "rate"
             ],
             "stopTerms": [
+              "ext",
+              "extendsion",
+              "extd",
+              "final",
               "total"
-            ],
-            "type": "currency",
-          },
-          {
-            "id": "description",
-            "terms": [
-              "description",
-              "material description",
             ],
             "isRequired": true
           },
           {
             "id": "total_price",
             "terms": [
+              "amount",
+              "total",
+              "extension",
               "final price",
-              "total price"
-            ],
-            "type": "currency",
-            "isRequired": true
-          }
-        ]
-      }
-    },
-    {
-      "id": "invoice_item_2",
-      "type": "table",
-      "anchor": "item 2",
-      "method": {
-        "id": "invoice",
-        "columns": [
-          {
-            "id": "quantity",
-            "terms": [
-              "quantity",
-              "ordered",
-            ],
-            "isRequired": true
-          },
-          {
-            "id": "sku",
-            "terms": [
-              "sku",
-              "item code",
-            ],
-            "isRequired": true
-          },
-          {
-            "id": "unit_price",
-            "terms": [
-              "unit price",
-            ],
-            "stopTerms": [
-              "total"
-            ],
-            "type": "currency",
-          },
-          {
-            "id": "description",
-            "terms": [
-              "description",
-              "material description",
-            ],
-            "isRequired": true
-          },
-          {
-            "id": "total_price",
-            "terms": [
-              "final price",
-              "total price"
+              "extended amount",
+              "extended",
+              "ext price",
+              "net extended",
+              "extd. price",
+              "sales amount",
+              "total price",
+              "sub total"
             ],
             "isRequired": true
           }
         ]
+      },
+      "anchor": {
+        "match": {
+          "type": "first"
+        }
       }
-    },
+    }
   ]
 }
 ```
@@ -145,17 +132,65 @@ And the example output is the following:
 
 ```json
 {
-  "invoice_item_1": {
+  "invoice": {
     "metadata": {
+      "billing_address_recipient": {
+        "value": "Cash sales-Anytown",
+        "type": "string"
+      },
+      "customer_name": {
+        "value": "Acme Inc",
+        "type": "string"
+      },
+      "invoice_date": {
+        "source": "06/21/21",
+        "value": "2021-06-21T00:00:00.000Z",
+        "type": "date"
+      },
+      "invoice_id": {
+        "value": "19288685",
+        "type": "string"
+      },
+      "invoice_total": {
+        "source": "7,061.48",
+        "value": 7061.48,
+        "unit": "$",
+        "type": "currency"
+      },
       "items": {
         "value": "",
         "type": "string"
+      },
+      "shipping_address": null,
+      "shipping_address_recipient": {
+        "value": "Acme Inc",
+        "type": "string"
+      },
+      "sub_total": {
+        "source": "$6306.93",
+        "value": 6306.93,
+        "unit": "$",
+        "type": "currency"
+      },
+      "total_tax": {
+        "source": "450.00",
+        "value": 450,
+        "unit": "$",
+        "type": "currency"
       }
     },
     "columns": [
       {
         "id": "quantity",
         "values": [
+          {
+            "value": "1x",
+            "type": "string"
+          },
+          {
+            "value": "4x",
+            "type": "string"
+          },
           {
             "value": "2x",
             "type": "string"
@@ -168,64 +203,13 @@ And the example output is the following:
           {
             "value": "987654321",
             "type": "string"
-          }
-        ]
-      },
-      {
-        "id": "description",
-        "values": [
+          },
           {
-            "value": "Rubber boots (blue)",
+            "value": "123456789",
             "type": "string"
-          }
-        ]
-      },
-      {
-        "id": "unit_price",
-        "values": [
+          },
           {
-            "source": "$10.99",
-            "value": 10.99,
-            "unit": "$",
-            "type": "currency"
-          }
-        ]
-      },
-      {
-        "id": "total_price",
-        "values": [
-          {
-            "source": "$21.98",
-            "value": 21.98,
-            "unit": "$",
-            "type": "currency"
-          }
-        ]
-      }
-    ]
-  },
-  "invoice_item_2": {
-    "metadata": {
-      "items": {
-        "value": "",
-        "type": "string"
-      }
-    },
-    "columns": [
-      {
-        "id": "quantity",
-        "values": [
-          {
-            "value": "2x",
-            "type": "string"
-          }
-        ]
-      },
-      {
-        "id": "sku",
-        "values": [
-          {
-            "value": "987654321",
+            "value": "192837465",
             "type": "string"
           }
         ]
@@ -234,7 +218,15 @@ And the example output is the following:
         "id": "description",
         "values": [
           {
-            "value": "Rubber boots (blue)",
+            "value": "Standing desk",
+            "type": "string"
+          },
+          {
+            "value": "Office chair (gray)",
+            "type": "string"
+          },
+          {
+            "value": "Conference table (beige)",
             "type": "string"
           }
         ]
@@ -243,10 +235,16 @@ And the example output is the following:
         "id": "unit_price",
         "values": [
           {
-            "source": "$10.99",
-            "value": 10.99,
-            "unit": "$",
-            "type": "currency"
+            "value": "$1,100.99",
+            "type": "string"
+          },
+          {
+            "value": "$550.99",
+            "type": "string"
+          },
+          {
+            "value": "$1,500.99",
+            "type": "string"
           }
         ]
       },
@@ -254,7 +252,15 @@ And the example output is the following:
         "id": "total_price",
         "values": [
           {
-            "value": "$21.98",
+            "value": "$1,100.99",
+            "type": "string"
+          },
+          {
+            "value": "$2,203.96",
+            "type": "string"
+          },
+          {
+            "value": "$3,001.98",
             "type": "string"
           }
         ]
