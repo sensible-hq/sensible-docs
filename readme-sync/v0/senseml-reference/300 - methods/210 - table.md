@@ -2,7 +2,7 @@
 title: "Table"
 hidden: false
 ---
-Matches tables based on bag-of-words scoring and returns their collated column contents.
+Matches tables based on bag-of-words scoring and returns their collated column contents. Use the Table method when dealing with tables in the same document type that have a variable number of columns.  Choose anchor text that precedes the table, for example, a table title. 
 
 Parameters
 =====
@@ -12,8 +12,8 @@ Parameters
 | key                    | value        | description                                                  |
 | :--------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)      | `table`      | When you specify the Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. |
-| columns (**required**) | array        | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/>  -`terms` (**required**): An array of strings with terms to score positively. SenseML uses NLP techniques (such as tokenization and stemming) to score matches for the strings. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. SenseML uses NLP techniques (such as tokenization and stemming) to score matches for the strings. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, SenseML does not return rows in which a value is not present in this column. If false, SenseML returns nulls for rows in which a value is not present. |
-| stop                   | Match object | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With a Stop parameter defined, the engine selectively OCRs the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
+| columns (**required**) | array        | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/>  -`terms` (**required**): An array of strings with terms to score positively. SenseML uses NLP techniques (such as tokenization and stemming) to score matches for the strings. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. SenseML uses NLP techniques (such as tokenization and stemming) to score matches for the strings. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, SenseML does not return rows in which a value is not present in this column. If false, SenseML returns nulls for rows in which a value is not present. Bear in mind that if you set this parameter to true for an empty row in one column, SenseML leaves out that row for all other columns as well, even if that row had content under a different column. |
+| stop                   | Match object | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With a Stop parameter defined, the engine OCRs only the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
 
 Examples
 ====
@@ -52,7 +52,8 @@ This example uses the following config:
             "terms": [
               "this month"
             ],
-            "type": "number"
+            "type": "number",
+            "isRequired": true
           }
         ],
         "stop": {
@@ -65,9 +66,3 @@ This example uses the following config:
 }
 ```
 
-
-
-Notes
-====
-
-The Table method is slower than the Fixed Table method, but is less sensitive to changes in table formatting. Use the Table method when dealing with tables in the same document type that have a variable number of columns. 

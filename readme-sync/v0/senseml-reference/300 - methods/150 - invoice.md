@@ -4,7 +4,7 @@ hidden: false
 ---
 This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts one invoice per PDF document.  If the PDF contains multiple tables, the Invoice method returns the data for the table that is most likely to be an invoice.
 
-It is recommended to create a single, flexible config that works for a variety of invoice formats. Create a flexible config by using many synonymous terms to identify invoice elements. For more information, see the [example section](doc:invoice#section-examples). 
+It's a best practice to create a single, flexible config that works for a variety of invoice formats. Create a flexible config by using synonymous terms to identify invoice elements. For more information, see the [Examples section](doc:invoice#section-examples). 
 
 Parameters
 ====

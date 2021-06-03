@@ -2,7 +2,7 @@
 title: "Fixed Table"
 hidden: false
 ---
-Matches tables with a fixed number of columns and returns their collated column contents. Choose anchor text that precedes the table but is not inside the table, for example, a table title. 
+Matches tables with a fixed number of columns and returns their collated column contents. Choose anchor text that precedes the table, for example, a table title. 
 
 Parameters
 =====
@@ -14,13 +14,13 @@ Parameters
 | :------------------------- | :-------------------------- | :----------------------------------------------------------- |
 | id (**required**)          | `fixedTable`                | When you specify the Fixed Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. |
 | columnCount (**required**) | integer                     | The number of columns the tables must have.                  |
-| columns (**required**)     | array                       | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> - `index` (**required**): A zero-based column index <br/>-`type` : The type of the value in the table cell. See a list of possible types in [Field query object](doc:field-query-object)) <br/> -`isRequired` (default: false): If true, SenseML does not return rows in which a value is not present in this column. If false, SenseML returns nulls for rows in which a value is not present. |
-| stop                       | Match object. default: none | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With a Stop parameter defined, the engine selectively OCRs the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
+| columns (**required**)     | array                       | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> - `index` (**required**): A zero-based column index <br/>-`type` : The type of the value in the table cell. See a list of possible types in [Field query object](doc:field-query-object)) <br/> -`isRequired` (default: false): Bear in mind that if you set this parameter to true for an empty row in one column, SenseML leaves out that row for all other columns as well, even if that row had content under a different column. |
+| stop                       | Match object. default: none | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With a Stop parameter defined, the engine only OCRs the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
 
 Examples
 =====
 
-The following image shows extracting 2 columns from a fixed table in the Sensible app:
+The following image shows extracting two columns from a fixed table in the Sensible app:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/review/readme-sync/assets/v0/images/fixedtable_example.png)
 
@@ -70,4 +70,5 @@ This example uses the following config:
 
 Notes
 ====
-Use this method instead of the Table method or Text Table method when you are certain that the table always has the same number of columns in all the PDFs of the specified document type. 
+Use this method instead of the Table method when you are certain that the table always has the same number of columns in all the PDFs of the specified document type. 
+
