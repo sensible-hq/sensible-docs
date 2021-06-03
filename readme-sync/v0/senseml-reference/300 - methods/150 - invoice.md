@@ -2,9 +2,9 @@
 title: "Invoice"
 hidden: false
 ---
-This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts 1 invoice per PDF document.  If the PDF contains multiple tables, the Invoice method returns the data for the table that is most likely to be an invoice.
+This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts one invoice per PDF document.  If the PDF contains multiple tables, the Invoice method returns the data for the table that is most likely to be an invoice.
 
-It is recommended to create a single config that works for a variety of invoice formats, by using many synonymous terms to identify invoice elements. For more information, see the [example section](doc:invoice#section-examples). 
+It is recommended to create a single, flexible config that works for a variety of invoice formats. Create a flexible config by using many synonymous terms to identify invoice elements. For more information, see the [example section](doc:invoice#section-examples). 
 
 Parameters
 ====
@@ -25,12 +25,12 @@ The following image shows an example of using the Invoice method:
 - It extracts other invoice metadata from header and footer information in the invoice.
 - This example uses a large number of synonymous terms for each invoice column, so it can parse invoices from a variety of vendors. 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/review/readme-sync/assets/v0/images/invoice_example.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/invoice_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for invoice | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/review/readme-sync/assets/v0/pdfs/example_invoice.pdf) |
+| Example PDF for invoice | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_invoice.pdf) |
 | ----------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
