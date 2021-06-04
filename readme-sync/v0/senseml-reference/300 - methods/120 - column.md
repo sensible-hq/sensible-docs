@@ -4,8 +4,11 @@ hidden: false
 ---
 Matches all lines below the anchor line on the current page if:
 
-- the anchor line x extent contains the target line x extent, or vice versa
-- they overlap at least 50% of the narrower line’s x extent with more than 50% X-axis overlap 
+- The anchor line's left and right boundaries ("x extent") contain the target line's x extent, or vice versa. 
+
+  Or:
+
+- The anchor line and target line overlap by at least 50% of the narrower line’s x extent.
 
 Parameters
 ====
