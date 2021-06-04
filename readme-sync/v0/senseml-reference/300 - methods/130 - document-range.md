@@ -52,7 +52,16 @@ The following image shows this example in the Sensible app:
 Images
 ----
 
-The following config grabs two images from an example PDF that lists icons for popular programming languages:
+The following example grabs two images' coordinates:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_icons.png)
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example PDF for image coordinates | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_image_coordinates.pdf) |
+| --------------------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
 
 ```json
 {
@@ -75,9 +84,7 @@ The following config grabs two images from an example PDF that lists icons for p
 }
 ```
 
-The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_icons.png)
 
 For more information on grabbing images, see the **Notes** section on this page.
 
@@ -86,7 +93,8 @@ For more information on grabbing images, see the **Notes** section on this page.
 Notes
 ====
 
-**Extracting images**
+Extracting images
+----
 
 Currently, Document Range is the only method that supports identifying image regions. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen language to follow these general steps:
 
