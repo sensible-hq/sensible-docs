@@ -2,7 +2,7 @@
 title: "Regex"
 hidden: false
 ---
-Returns lines matching a regular expression. 
+Returns lines matching a regular expression. Often, you use a capturing group in this method to narrow down some text in a line you matched in an anchor.
 
 Parameters
 ====
@@ -17,9 +17,43 @@ Parameters
 | flags                  | JS-flavored regex flags, default: none | Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. |
 | stop                   | Match object. default: none            | A Match object to stop extraction. Not included in the method output.  If unspecified, matches to end of document. |
 
+Examples
+====
+
+The following example narrows down text that's matched in an anchor line (since capturing groups are supported only in the Regex method, not in anchors):
+
+
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/regex_example.png)
+
+
+
+
+```json
+{
+  "fields": [
+    {
+      "anchor": {
+        "match": {
+          "pattern": "^((19|20)\\d{2})$",
+          "type": "regex",
+          "minimumHeight": 0.2
+        }
+      },
+      "id": "document_year",
+      "type": "number",
+      "method": {
+        "id": "regex",
+        "pattern": "^((19|20)\\d{2})$"
+      },
+    },
+  ]
+}
+```
+
 
 
 Notes
----
+====
 
 Regular expressions are also supported in **anchor** matches.  For an example, see the [Passthrough method](doc:passthrough).
