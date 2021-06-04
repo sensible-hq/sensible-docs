@@ -18,7 +18,10 @@ Parameters
 Examples
 ====
 
-The following example shows extracting two columns from a table that updates monthly with a variable number of columns in the Sensible app. Note that in order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `rank_this_month` .
+The following example shows extracting two columns from a table that updates monthly with a variable number of columns in the Sensible app. Notes:
+
+- In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `rank_this_month` .
+- To improve performance, the config specifies a Stop parameter. This ensures Sensible only OCRs the relevant page area while looking for a table.
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/table_dynamic_example.png)
 
