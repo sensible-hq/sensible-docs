@@ -25,7 +25,7 @@ The following image shows an example of using the Invoice method:
 - It extracts other invoice metadata from header and footer information in the invoice.
 - This example uses a large number of synonymous terms for each invoice column, so it can parse invoices from a variety of vendors. 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/review/readme-sync/assets/v0/images/invoice_example.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/invoice_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
