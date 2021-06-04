@@ -4,10 +4,25 @@ hidden: false
 ---
 Use the Document Range method to grab multiple consecutive lines, for example, paragraphs of legal text. Or, use it to return the coordinates of regions containing images.
 
-Examples
------
 
-**Paragraphs and lists**
+
+Parameters
+====
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
+| key               | value                         | description                                                  |
+| ----------------- | ----------------------------- | ------------------------------------------------------------ |
+| id (**required**) | `documentRange`               |                                                              |
+| stop              | Match object. default: `none` | A Match object to stop extraction. Not included in the method output.  If unspecified, matches to end of document. |
+| includeAnchor     | boolean. default: `false`     | Includes the anchor line in the method output                |
+| includeImages     | boolean. default: `false`     | Returns the zero-indexed page number and coordinates of regions containing images in the document range .  **Notes**:<br/>  If you set to `true`,  also set`"type": "images"` in the `field` object (see preceding section for an example). <br/>Returns only image region coordinates, not image bytes or matching lines (i.e., text). |
+
+Examples
+====
+
+Paragraphs and lists
+----
 
 The following config grabs a list of four sworn statements from a W-9 form: 
 
@@ -34,7 +49,8 @@ The following image shows this example in the Sensible app:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_sworn.png)
 
-**Images**
+Images
+----
 
 The following config grabs two images from an example PDF that lists icons for popular programming languages:
 
@@ -67,19 +83,8 @@ For more information on grabbing images, see the **Notes** section on this page.
 
 
 
-Parameters
--------
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
-
-| key               | value                         | description                                                  |
-| ----------------- | ----------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `documentRange`               |                                                              |
-| stop              | Match object. default: `none` | A Match object to stop extraction. Not included in the method output.  If unspecified, matches to end of document. |
-| includeAnchor     | boolean. default: `false`     | Includes the anchor line in the method output                |
-| includeImages     | boolean. default: `false`     | Returns the zero-indexed page number and coordinates of regions containing images in the document range .  **Notes**:<br/>  If you set to `true`,  also set`"type": "images"` in the `field` object (see preceding section for an example). <br/>Returns only image region coordinates, not image bytes or matching lines (i.e., text). |
-
 Notes
-----
+====
 
 **Extracting images**
 

@@ -2,29 +2,70 @@
 title: "Checkbox"
 hidden: false
 ---
-Looks for a checkbox next to the anchor and returns a boolean
-[block:parameters]
+Looks for a checkbox next to the anchor and returns a boolean indicating if the checkbox contains a checkmark or not.  This method works by default with boxes that have a light background and dark, continuous borders.  
+
+Parameters
+=====
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
+| key               | values                                  | description                                                  |
+| ----------------- | --------------------------------------- | ------------------------------------------------------------ |
+| id (**required**) | `checkbox`                              | The maximum checkbox size supported is a square with sides 0.3 inches long. Sensible returns true if the checkbox contains a checkmark, "Y", or "X" character. |
+| position          | `left`, `right`                         | The starting position from which Sensible expands outward to recognize a checkbox.  Sensible searches left or right from the midpoint of the left or right anchor line boundary, respectively. It searches for a maximum of 0.15 inches from the starting point until it finds dark pixels signifying the box border. If the anchor line's boundaries and the checkbox are separated by a greater horizontal distance, then use Offset X in combination with the Position parameter to find the box. |
+| offsetX           | number (decimals allowed). default: 0   | The offset in inches along the X axis, from the starting point defined by the Position parameter, from which to expand out and recognize a checkbox. When you define an offset, Sensible expands out directly from the point specified to find the checkbox borders. |
+| offsetY           | number (decimals allowed).   default: 0 | The offset in inches along the Y axis, from the starting point  defined by  the Position parameter, from which to expand out and recognize a checkbox. When you define an offset, Sensible expands out directly from the point specified to find the checkbox borders. |
+| darknessThreshold | number between 1 and 0. default 0.9     | The brightness threshold below which to consider a pixel a box boundary (white is 1.0). Configure this parameter when you have a checkbox with a dark background. |
+
+Examples
+====
+
+The following image shows extracting three checkboxes:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/review/readme-sync/assets/v0/images/checkbox_examples.png)
+
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example PDF for checkboxes | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_checkbox.pdf) |
+| -------------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
 {
-  "data": {
-    "h-0": "key",
-    "h-1": "values",
-    "h-2": "description",
-    "1-0": "position",
-    "1-2": "The starting position for the checkbox search.\n\nIf `offsetX` or `offsetY` is defined, `checkbox` will move directly from the position to the defined offset for the box search. Otherwise, `checkbox` will start at the starting position and search in the appropriate direction for a box boundary, and then return the contents of that box",
-    "1-1": "`left`, `right`",
-    "2-0": "offsetX",
-    "2-2": "optional\n\nThe offset in inches from the starting point along the X axis",
-    "2-1": "a number in inches (decimals allowed)",
-    "3-0": "offsetY",
-    "3-2": "optional\n\nThe offset in inches from the starting point along the Y axis",
-    "3-1": "a number in inches (decimals allowed)",
-    "4-0": "darknessThreshold",
-    "4-2": "optional, default 0.9.\n\nThe brightness threshold below which to consider a pixel a box boundary (white is 1.0).",
-    "4-1": "a number between 0 and 1",
-    "0-0": "id",
-    "0-1": "`checkbox`"
-  },
-  "cols": 3,
-  "rows": 5
+  "fields": [
+    {
+      "id": "checkbox_left",
+      "anchor": "left",
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "checkbox_below",
+      "anchor": "below",
+      "method": {
+        "id": "checkbox",
+        "position": "left",
+        "offsetY": 0.5,
+        "offsetX": 0.3
+      }
+    },
+    {
+      "id": "checkbox_dark",
+      "anchor": "dark",
+      "method": {
+        "id": "checkbox",
+        "position": "right",
+        "darknessThreshold": 0.4,
+        "offsetX": 0.2
+      }
+    }
+  ]
 }
-[/block]
+```
+
+
+

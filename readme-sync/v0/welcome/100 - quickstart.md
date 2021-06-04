@@ -125,9 +125,9 @@ Congratulations! You've just created your first config!  If you want to process 
 
 
 
-- For a deep dive on how the config works, see the following section.
+- For a deep dive on how the config works, see [the following section](doc:quickstart#section-how-it-works).
 
-- If you want to skip ahead and try out the API, see [Integrate with your applicationI](doc:quickstart#section-integrate-with-your-application). 
+- If you want to skip ahead and try out the API, see [Integrate with your application](doc:quickstart#section-integrate-with-your-application). 
 
 How it works
 ====
@@ -161,8 +161,8 @@ The config uses the [Label method](doc:label):
 
 This tells SenseML that:
 
-- The anchor (`"policy period"`) is text that is pretty close to some other text (`"id": "label"`). 
-- SenseML should grab the nearest text to the label in the position specified (`right`).  
+- The anchor (`"policy period"`) is text that is pretty close to the text we want to grab, so it can serve as a "label" for that text  (`"id": "label"`). 
+- SenseML should grab the text to the right of the label (`"position": "right"`).  
 
 This config returns:
 
@@ -212,7 +212,9 @@ How it works: row method
 
 To grab this comprehensive premium of $150:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_row.png) this config uses the [Row method](doc:row):
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_row.png)
+
+this config uses the [Row method](doc:row):
 
 ```json
       {
@@ -260,11 +262,11 @@ In the app, you can visually inspect anchors and methods by looking at their col
 - Orange boxes show lines matched by the Anchor object.
 - Blue boxes show lines matched by the Method object.
 
-To continue the Row example from the previous section, in the following image the orange box shows that "Comprehensive" is the anchor line:
+To continue the Row method example from the previous section, in the following image the orange box shows that "Comprehensive" is the anchor line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_3.png)
 
-But why are *all* the lines after Comprehensive colored blue, when the previous example output only included one line, $150?
+Why are *all* the lines after "Comprehensive" colored blue, when the previous example output only included one line, $150?
 
 The answer is that the Sensible app shows you the entire scope of the method match, not just what the method outputs. So the Row method matches *all* the elements in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. Seeing the entire method match in the app can help you troubleshoot unexpected output.
 
@@ -342,11 +344,11 @@ Before integrating the config with an application and writing tests against it, 
 
 How can you capture the policy period reliably? 
 
-As you become more familiar with SenseML, you might guess you'd use a Document Range method, which grabs multiple lines of text, like paragraphs, after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
+As you become more familiar with SenseML, you might guess you'd use the [Document Range](doc:document-range) method, which grabs multiple lines of text, like paragraphs, after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_2.png)
 
-There are multiple ways to tackle this problem. Here's one way: you can a [Region method](doc:region). A region is rectangular space defined by coordinates relative to the label. 
+There are multiple ways to tackle this problem. Here's one way: you can a [Region method](doc:region). A region is a rectangular space defined by coordinates relative to the label. 
 
 Replace your existing `policy_period` field with the following field in the editor:
 

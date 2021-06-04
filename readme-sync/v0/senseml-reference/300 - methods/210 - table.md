@@ -2,23 +2,67 @@
 title: "Table"
 hidden: false
 ---
-Matches tables based on bag-of-words scoring and returns their collated column contents
-[block:parameters]
+Matches tables based on bag-of-words scoring and returns their collated column contents. Use the Table method when dealing with tables in the same document type that have a variable number of columns.  Choose anchor text that precedes the table, for example, a table title. 
+
+Parameters
+=====
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
+| key                    | value        | description                                                  |
+| :--------------------- | :----------- | :----------------------------------------------------------- |
+| id (**required**)      | `table`      | When you specify the Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. This method returns true if the checkbox contains a "Y" or "X" character, false if empty. |
+| columns (**required**) | array        | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/>  -`terms` (**required**): An array of strings with terms to score positively. Sensible uses NLP techniques (such as tokenization and stemming) to score matches for the strings. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively. Sensible uses NLP techniques (such as tokenization and stemming) to score matches for the strings. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, Sensible does not return rows in which a value is not present in this column. If false, Sensible returns nulls for rows in which a value is not present. Bear in mind that if you set this parameter to true for an empty row in one column, Sensible leaves out that row for all other columns as well, even if that row had content under a different column. |
+| stop                   | Match object | **Recommended** [Match object](doc:anchor-object#section-match-object)  to stop table recognition. OCR is a prerequisite for table recognition. With a Stop parameter defined, the engine OCRs only the pages from the starting anchor to the page with the stop match. Otherwise, the engine OCRs all pages, which can impact performance. |
+
+Examples
+====
+
+The following example shows extracting two columns from a table that updates monthly with a variable number of columns in the Sensible app:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/table_dynamic_example.png)
+
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example PDF for table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_table_dynamic.pdf) |
+| --------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
 {
-  "data": {
-    "h-0": "key",
-    "h-1": "value",
-    "h-2": "description",
-    "0-0": "id",
-    "0-1": "`table`",
-    "1-0": "columns",
-    "1-2": "An array of objects with the following shape:\n  * `id`: The id for the column in the extraction output\n  * `terms`: An array of strings with terms to score positively.\n  * `stopTerms`:  optional. An array of strings with terms to score negatively.\n  * `isRequired`: optional, default false. If true, the extraction will not return rows where a value is not present in this column",
-    "2-0": "stop",
-    "2-1": "[Matcher](doc:matcher)",
-    "2-2": "optional, default: none. A [Matcher](doc:matcher) to stop extraction. With `stop` defined, the engine will selectively OCR the pages from the starting anchor to the page with the stop match. Otherwise the engine will OCR all pages",
-    "1-1": "array"
-  },
-  "cols": 3,
-  "rows": 3
+  "fields": [
+    {
+      "id": "agile_risks_table_updates_monthly",
+      "anchor": "agile software",
+      "type": "table",
+      "method": {
+        "id": "table",
+        "columns": [
+          {
+            "id": "col1_risk_description",
+            "terms": [
+              "risk",
+              "description"
+            ],
+          },
+          {
+            "id": "rank_this_month",
+            "terms": [
+              "this month"
+            ],
+            "type": "number",
+            "isRequired": true
+          }
+        ],
+        "stop": {
+          "type": "startsWith",
+          "text": "project managers"
+        }
+      }
+    }
+  ]
 }
-[/block]
+```
+
