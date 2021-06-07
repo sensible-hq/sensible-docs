@@ -17,7 +17,7 @@ Parameters
 Examples
 ----
 
-This config  includes a ligature mapping preprocessor and shows the output of the whole document in order to check the ligature replacement accuracy: 
+This config  shows using a ligature mapping preprocessor and outputting the whole document in order to check the ligature replacement accuracy: 
 
 ```
 {
@@ -91,7 +91,6 @@ To find out if ligatures exist in the extracted text for your PDF, you can extra
 The following image shows an example of capturing all the lines of text in a W-9 form:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/all_lines.png)
-
 
 
 
