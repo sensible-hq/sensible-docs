@@ -2,7 +2,7 @@
 title: "Preprocessors"
 hidden: false
 ---
-The following sections describe the type of preprocessors you can use to clean up your document:
+The following sections describe the value of preprocessors you can use to clean up your document:
 
 * ligature
 * pageFilter
@@ -13,20 +13,22 @@ The following sections describe the type of preprocessors you can use to clean u
 
 
 ligature
-----
+===
 
 Intelligently replaces Unicode ligatures in PDF text extraction.
 
-**Components**
+Parameters
+----
 
-| key                       | type   | comment                                                      |
+| key                       | value   | description                                                      |
 | ------------------------- | ------ | ------------------------------------------------------------ |
-| `type` (**required**)     | string | "ligature"                                                   |
-| `mappings` (**required**) | object | An object mapping strings (e.g., `"\u0000"`) to an array of possible ligature replacements (e.g., `["ff", "ffi", "fi", "fl"]`) |
+| `type` (**required**)     | `ligature` |                                                    |
+| `mappings` (**required**) | object | An object mapping ligature strings (e.g., `"\u0000"`) to an array of possible ligature replacements (e.g., `["ff", "ffi", "fi", "fl"]`) |
 
-**Example**
+Examples
+----
 
-This config  includes a  ligature mapping preprocessor and a field that finds a customer name: 
+This config  includes a ligature mapping preprocessor and a field that finds a customer name: 
 
 ```
 {
@@ -56,7 +58,8 @@ This config  includes a  ligature mapping preprocessor and a field that finds a 
 }
 ```
 
-**Notes**
+Notes
+----
 
  To find out the ligatures that exist in the extracted text for your PDF, you can extract all the lines in the PDF and search for them. To extract all lines into one key-value pair, you can use a config like:
 
@@ -87,14 +90,16 @@ The following image shows an example of capturing all the lines of text in a W-9
 
 
 mergeLines
----
+====
 
 
 Merges nearby lines more aggressively than the built-in line merger
 
-**Components**
+Parameters
+----
 
-| key                                        | type   | comment                                                      |
+
+| key                                        | value   | description                                                      |
 | ------------------------------------------ | ------ | ------------------------------------------------------------ |
 | `type` (**required**)                      | string | "mergeLines"                                                 |
 | `directlyAdjacentThreshold` (**required**) | number | Fraction of line height under which two adjacent lines (i.e., horizontally distributed along an x-axis)  are merged without a space. For example, at 0.15 two lines are merged without a space in between their contents when they are less than 15% of the line height apart from one another. |
@@ -104,19 +109,19 @@ Merges nearby lines more aggressively than the built-in line merger
 
 
 
-**Examples**
-
    
 
 
 
 pageFilter
-----
+====
 Filters out low-scoring pages given a bag of target terms and stop terms. 
 
-**Components** 
+Parameters
+----
 
-| key                    | type   | comment                                                      |
+
+| key                    | value   | description                                                      |
 | ---------------------- | ------ | ------------------------------------------------------------ |
 | `type` (**required**)  | string | "pageFilter"                                                 |
 | `terms` (**required**) | array  | An array of strings with terms to score positively (e.g., `["number of buildings", "no. of buildings"]`) |
@@ -127,13 +132,15 @@ Filters out low-scoring pages given a bag of target terms and stop terms.
 
 
 pageRange
----
+====
 
 Filters pages outside the start page and end page
 
-**Components** 
+Parameters
+----
 
-| key         | type   | comment                                                      |
+
+| key         | value   | description                                                      |
 | ----------- | ------ | ------------------------------------------------------------ |
 | `type`      | string | "pageRange"                                                  |
 | `startPage` | number | Zero-based index of the first page to pass through the filter (inclusive).  The default is 0. |
@@ -142,24 +149,26 @@ Filters pages outside the start page and end page
  
 
 removeHeader
-----
+====
 Removes repeated elements at the start of pages in the document.   
 
-**Components** 
+Parameters
+----
 
-| key            | type   | comment                                                      |
+| key            | value   | description                                                      |
 | -------------- | ------ | ------------------------------------------------------------ |
 | `type`         | string | "removeHeader"                                               |
 | `startsOnPage` | number | The first page number on which to start checking for repeated elements. The default is 1.  Note this is the page *number* not  the page's zero-based index in the pages array. The default is 1. |
 
 removeFooter
-----
+====
 
 Removes repeated elements at the end of pages in the document.   
 
-**Components** 
+Parameters
+----
 
-| key            | type   | comment                                                      |
+| key            | value   | description                                                      |
 | -------------- | ------ | ------------------------------------------------------------ |
 | `type`         | string | "removeHeader"                                               |
 | `startsOnPage` | number | The first page number on which to start checking for repeated elements. The default is 1.  Note this is the page *number* not  the page's zero-based index in the pages array. The default is 1. |
