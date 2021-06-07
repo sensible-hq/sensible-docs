@@ -1,6 +1,6 @@
 ---
 title: "Computed Field"
-hidden: false
+hidden: true
 ---
 A computed field is a field that takes in one or more [Fields](doc:fields) parsed from the document and applies transformations on them through a [Computed Field Method](doc:computed-field-method). 
 [block:parameters]

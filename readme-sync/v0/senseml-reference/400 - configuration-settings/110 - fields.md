@@ -1,6 +1,6 @@
 ---
 title: "Fields"
-hidden: false
+hidden: true
 ---
 [block:parameters]
 {
