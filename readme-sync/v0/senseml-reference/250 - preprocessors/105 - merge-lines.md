@@ -62,7 +62,7 @@ This example uses the following config:
   ]
 }
 ```
-Jittery lines
+Jittery lines on a y-axis
 ----
 
 The following image shows using the Y Overlap parameter to ignore "jitter" on the y-axis, where two lines that should be perfectly aligned are not  (for example, as the result of a low-quality scan).
@@ -100,20 +100,41 @@ This example uses the following config:
   ]
 }
 ```
-Overlapping lines
+Overlapping lines on an x-axis
 ----
 
 The following image shows using the Min X Gap Threshold parameter to correctly extract overlapping text in a poorly formatted PDF:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/fixedtable_example.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for TBD | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_box.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| Example PDF for Min X Gap Threshold | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_merge_lines_minxgap.pdf) |
+| ----------------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
 
 ```
+{
+  "preprocessors": [
+    {
+      "type": "mergeLines",
+      "directlyAdjacentThreshold": 0.16,
+      "adjacentThreshold": 0.6,
+      "minXGapThreshold": 0
+    }
+  ],
+  "fields": [
+    {
+      "id": "field_1",
+      "method": {
+        "id": "label",
+        "includeAnchor": true,
+        "position": "right"
+      },
+      "anchor": "supplementary"
+    }
+  ]
+}
 ```
