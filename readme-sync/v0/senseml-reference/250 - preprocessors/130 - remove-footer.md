@@ -3,26 +3,37 @@ title: "Preprocessors"
 hidden: false
 ---
 
+Removes repeated elements at the ends of pages in the document from the direct text extraction of the page.   
 
-Removes repeated elements at the end of pages in the document from the direct text extraction of the page.   
+To recognize a footer, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
+
+These elements are recognized as "repeating":
+
+- Elements whose y-extent does not overlap with any variable element
+- Positively incrementing page numbers
+
+These elements are not recognized as "repeating": 
+
+- Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
+- A repeating element that is missing from even one page (for example, from an intentionally blank page).  To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. 
 
 Parameters
 ====
 
 | key            | value   | description                                                      |
 | -------------- | ------ | ------------------------------------------------------------ |
-| type (**required**) | `removeHeader` | To recognize a footer, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element.  Page numbers are ignored.   For an example, see the Examples section. |
-| startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. The default is 1.  Note this is the page *number*, not the page's zero-based index in the pages array. |
+| type (**required**) | `removeFooter` | For an example, see the Examples section. |
+| startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. The default is 1.  Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
 
 Examples
 ====
 
 The following images show:
 
-- A repeating footer with an incrementing page number. This footer is removed from the direct text extraction.
+- A repeating footer with an incrementing page number. This element is removed from the direct text extraction.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating footer, it is also treated as a footer and is removed from the direct text extraction.
-  - Where it overlaps variable text, it is not considered a footer and is still included in the direct text extraction
+  - Where it overlaps a repeating element, it is also treated as repeating and is removed from the direct text extraction.
+  - Where it overlaps variable text, it is not considered repeating and is still included in the direct text extraction
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/remove_footer_example_1.png)
 
@@ -46,7 +57,7 @@ This example uses the following config:
   ],
   "fields": [
     {
-      "id": "all_lines_minus_repeating_footer_elements",
+      "id": "all_lines_minus_repeating_bottom_elements",
       "method": {
         "id": "documentRange",
         "includeAnchor": true
