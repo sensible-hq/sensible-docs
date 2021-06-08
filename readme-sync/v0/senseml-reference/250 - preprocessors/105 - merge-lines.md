@@ -72,7 +72,7 @@ The following image shows using the Y Overlap parameter to ignore "jitter" on th
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for Y Overlap | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_merge_lines_yoverlap.pdf) |
+| Example PDF for Y Overlap | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap_example.pdf) |
 | ------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
@@ -110,7 +110,7 @@ The following image shows using the Min X Gap Threshold parameter to correctly e
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for Min X Gap Threshold | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_merge_lines_minxgap.pdf) |
+| Example PDF for Min X Gap Threshold | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap_example.pdf) |
 | ----------------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

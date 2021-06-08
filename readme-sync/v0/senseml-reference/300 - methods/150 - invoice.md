@@ -30,7 +30,7 @@ The following image shows an example of using the Invoice method:
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for invoice | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_invoice.pdf) |
+| Example PDF for invoice | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/invoice_example.pdf) |
 | ----------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

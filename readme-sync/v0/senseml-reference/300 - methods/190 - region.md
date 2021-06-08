@@ -32,7 +32,7 @@ The following image shows extracting a social security number from a W-9 form by
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for region | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_region_w9.pdf) |
+| Example PDF for region | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/region_w9_example.pdf) |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:

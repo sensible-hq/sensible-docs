@@ -29,7 +29,7 @@ The following image shows extracting two columns from a fixed table in the Sensi
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for fixed table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_fixed_table.pdf) |
+| Example PDF for fixed table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/fixed_table_example.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

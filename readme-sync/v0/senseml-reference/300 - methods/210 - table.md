@@ -28,7 +28,7 @@ The following example shows extracting two columns from a table that updates mon
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_table_dynamic.pdf) |
+| Example PDF for table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic_example.pdf) |
 | --------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
