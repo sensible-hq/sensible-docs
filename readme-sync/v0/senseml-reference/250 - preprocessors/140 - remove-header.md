@@ -15,7 +15,7 @@ These elements are recognized as "repeating":
 These elements are not recognized as "repeating": 
 
 - Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
-- A repeating element that is missing from even one page (for example, from an intentionally blank page).  To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. 
+- A repeating element that is missing from even one page (for example, from an intentionally blank page). 
 
 Parameters
 ====

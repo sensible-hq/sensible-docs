@@ -2,7 +2,7 @@
 title: "Fingerprint"
 hidden: false
 ---
-If you create multiple configs for a document type, Sensible automatically chooses which config's output to return. Behind the scenes, Sensible runs extractions for a document using all the configs you define in the doc type, then chooses the extraction from the config that has the highest percentage of non-null values.
+If you create multiple configs for a document type, Sensible automatically chooses which config's output to return. Behind the scenes, Sensible runs extractions for a document using all the configs you define for the doc type, then chooses the extraction from the config that has the highest percentage of non-null values.
 
 You can configure this default behavior and potentially boost performance by adding a fingerprint to a config. A fingerprint tests for matching text before deciding to run or skip a config for a doc.  This can save you processing time, particularly if a config contains computationally expensive operations like selective OCR (incluing the Table and Fixed Table methods) or box recognition methods (like Box or Checkbox).  Instead of running all configs in a doc type, Sensible can quickly test a doc using a fingerprint and choose to run or skip the config up front.
 
@@ -22,8 +22,6 @@ For example, if you have a vendor-specific config, "anyco_life_insurance_quote" 
 ```
 
 This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases.  
-
-
 
 As the previous example shows, a fingerprint consists of an array of tests, where each test is a Match object or array of Match objects. A test passes if all the matches defined for the test are found in the doc.  For more information, see [Match object](doc:anchor-object#section-match-object).
 

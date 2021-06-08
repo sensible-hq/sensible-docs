@@ -1,10 +1,10 @@
 ---
-title: "Ligature"
+title: "Merge lines"
 hidden: false
 ---
 
 
-Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor when the PDF contains oversplit lines.
+Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor when the PDF contains oversplit lines, lines overlapping on the x-axis, or "jittery" lines misaligned on the y-axis.
 
 Parameters
 ----
@@ -12,10 +12,10 @@ Parameters
 | key                                        | value                                  | description                                                  |
 | ------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ |
 | `type` (**required**)                      | string                                 | "mergeLines"                                                 |
-| `directlyAdjacentThreshold` (**required**) | number >= 0.16  default: 0.16          | Fraction of line height under which two adjacent lines (i.e., horizontally distributed along an x-axis) are merged without a space. For example, at 0.15 two lines are merged without a space in between their contents when they are less than 15% of the line height apart from one another.<br/>Under the hood, Sensible uses the default setting to transform separate tokens output from OCR into lines. It's relatively uncommon to need to adjust the default value for this parameter. |
+| `directlyAdjacentThreshold` (**required**) | number >= 0.16  default: 0.16          | Fraction of line height under which two adjacent lines (i.e., horizontally distributed along an x-axis) are merged without a space. For example, at 0.15 two lines are merged without a space in between their contents when they are less than 15% of the line height apart from one another.<br/>Under the hood, Sensible uses the default setting for this parameter to transform separate tokens output from OCR into lines. It's relatively uncommon to need to adjust the default value for this parameter. |
 | `adjacentThreshold` (**required**)         | number >= 0.6 default:  0.6            | Fraction of line height under which two adjacent lines (i.e., horizontally distributed along an x-axis) are merged with a space.<br> Use this parameter to correct oversplit lines. For an example, see the Examples section. |
 | `yOverlapThreshold`                        | number between 0 and 1.0. default: 1.0 | Configure this parameter if lines are not perfectly aligned at the same height on the page. The Y Overlap Threshold is the y overlap above which the Merge Lines preprocessor merges two adjacent lines. Y overlap is the portion of the joint y-axis range of two lines that is occupied by both lines. For example, if two lines share the same minimum and maximum y-axis values, they will have an overlap of 1. If one line's extent is from 0 to 10 and the other line’s extent is from 2 to 12 on the y-axis, they will have an overlap of .667 (8 / 12).   For an example, see the Examples section. |
-| `minXGapThreshold`                         | number in inches                       | TODO: overrides?                                             |
+| `minXGapThreshold`                         | number in inches                       | The amount of overlap in inches on the x-axis above/below which two lines that overlap on an x-axis are merged into one line. |
 
 Examples
 ====
