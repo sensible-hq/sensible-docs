@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-Intelligently replaces Unicode ligatures in PDF text extraction.  For more information about ligatures, see the Notes section.
+Intelligently replaces Unicode ligatures in PDF text extraction.  For more information about ligatures, see the [Notes section](doc:ligature#section-notes).
 
 Parameters
 ----
@@ -64,9 +64,9 @@ Notes
 ….incinerating or composting toilets; \u0000re suppression systems; water softeners, conditioners or \u0000ltering systems; over\u0000ow drains for tubs and sinks; back\u0000ow prevention devices...
 ```
 
-Even if the PDF rendering looks fine, ligatures can still exist in the extracted text. In the preceding example, `fi`, `fl` and others are joined together and appear as `\u0000` in the raw text, so that you see `\u0000re` instead of `fire` and `over\u0000ow` instead of `overflow`.
+Even if the rendered PDF looks fine, ligatures can still exist in the extracted text. In the preceding example, `fi`, `fl` and others are joined together and appear as `\u0000` in the raw text, so that you see `\u0000re` instead of `fire` and `over\u0000ow` instead of `overflow`.
 
-To find out if ligatures exist in the extracted text for your PDF, you can extract all the lines in the PDF and search for unicode characters. To extract all lines into one key-value pair, you can use a config like:
+To find out if ligatures exist in the extracted text for your PDF, you can extract all the lines in the PDF and search for Unicode characters. To extract all lines into one key-value pair, you can use a config like:
 
 ```
 {

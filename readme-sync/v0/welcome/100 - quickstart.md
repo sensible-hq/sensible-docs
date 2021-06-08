@@ -344,11 +344,37 @@ Before integrating the config with an application and writing tests against it, 
 
 How can you capture the policy period reliably? 
 
-As you become more familiar with SenseML, you might guess you'd use the [Document Range](doc:document-range) method, which grabs multiple lines of text, like paragraphs, after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
+**Document Range method**
+
+As you become more familiar with SenseML, your first impulse might be to use the [Document Range](doc:document-range) method, which grabs multiple lines of text, like paragraphs, after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_2.png)
 
-There are multiple ways to tackle this problem. Here's one way: you can a [Region method](doc:region). A region is a rectangular space defined by coordinates relative to the label. 
+There's a workaround: specify to *include* the anchor in the Document Range method and filter out unwanted text in the anchor (the words "Policy period"). Try it out by replacing your existing `policy_period` field with this example:
+
+```
+   {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true,
+        "wordFilters": [
+          "policy period"
+        ],
+        "stop": {
+          "text": "for customer",
+          "type": "startsWith"
+        },
+      }
+    }
+```
+
+ 
+
+**Region method**
+
+There are multiple ways to capture the policy period. Let's explore a completely new approach: a [Region method](doc:region). A region is a rectangular space defined by coordinates relative to the anchor. 
 
 Replace your existing `policy_period` field with the following field in the editor:
 
