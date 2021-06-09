@@ -31,7 +31,7 @@ The following image shows extracting two columns from a difficult-to-recognize t
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for text table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_text_table_2.pdf) |
+| Example PDF for text table | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/text_table_2_example.pdf) |
 | -------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

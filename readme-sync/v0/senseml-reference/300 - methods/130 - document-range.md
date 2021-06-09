@@ -58,7 +58,7 @@ The following example grabs two images' coordinates:
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for image coordinates | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_image_coordinates.pdf) |
+| Example PDF for image coordinates | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates_example.pdf) |
 | --------------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

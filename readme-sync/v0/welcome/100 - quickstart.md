@@ -6,7 +6,7 @@ hidden: false
 Get structured data from an auto insurance quote
 ===
 
-Let's get started with SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, heuristics, and rules.
+Let's get started with Sensible! In this quickstart you'll learn SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, heuristics, and rules.
 
 If you can write basic SQL queries, you can write SenseML queries! SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
 
@@ -132,9 +132,9 @@ Congratulations! You've just created your first config!  If you want to process 
 How it works
 ====
 
-- Each "field" is a basic query unit in SenseML, and the field `id` is used as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
+- Each "field" is a basic query unit in Sensible, and the field `id` is used as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
-- SenseML searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, SenseML uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
+- Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
   
   - [How it works: label method](doc:quickstart#section-how-it-works-label-method)
   - [How it works: row method](doc:quickstart#section-how-it-works-row-method)
@@ -230,11 +230,11 @@ this config uses the [Row method](doc:row):
 
 
 
-This tells SenseML that:
+This tells Sensible that:
 
 - The anchor text (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
 - The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
-- SenseML should grab the second line in the row after the anchor  (`"tiebreaker": "second"`).  The tiebreaker lets you select which line in the row you want and can include maximums and minimums (`<` and `>`).
+- Sensible should grab the second line in the row after the anchor  (`"tiebreaker": "second"`).  The tiebreaker lets you select which line in the row you want and can include maximums and minimums (`<` and `>`).
 - It's not shown, but the default behavior is to grab lines to the right of the anchor  in the row (`"position":"right"`). 
 
 
@@ -296,7 +296,7 @@ The config uses the [Box method](doc:box):
       },
 ```
 
- This tells SenseML the following:
+ This tells Sensible the following:
 
 - The anchor is inside a box (`"id": "box"`).
 
@@ -313,7 +313,7 @@ The config uses the [Box method](doc:box):
   }
 ```
 
-**Note:** SenseML  grabs the box contents, but not the anchor itself. In general, SenseML returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most SenseML methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
+**Note:** Sensible grabs the box contents, but not the anchor itself. In general, Sensible returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
 
 Advanced queries
 ----
@@ -338,17 +338,43 @@ Before integrating the config with an application and writing tests against it, 
 
 2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output:
    
-   Uh oh! It looks like this policy period spills over onto the next line, so SenseML misses the end year (2021). That seems like sloppy PDF formatting, but let's work with it. 
+   Uh oh! It looks like this policy period spills over onto the next line, so Sensible misses the end year (2021). That seems like sloppy PDF formatting, but let's work with it. 
    
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_1.png)
 
 How can you capture the policy period reliably? 
 
-As you become more familiar with SenseML, you might guess you'd use the [Document Range](doc:document-range) method, which grabs multiple lines of text, like paragraphs, after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
+**Document Range method**
+
+As you become more familiar with Sensible, your first impulse might be to use the [Document Range](doc:document-range) method, which grabs multiple lines of text, like paragraphs, after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_2.png)
 
-There are multiple ways to tackle this problem. Here's one way: you can a [Region method](doc:region). A region is a rectangular space defined by coordinates relative to the label. 
+There's a workaround: specify to *include* the anchor in the Document Range method and filter out unwanted text in the anchor (the words "Policy period"). Try it out by replacing your existing `policy_period` field with this example:
+
+```
+   {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true,
+        "wordFilters": [
+          "policy period"
+        ],
+        "stop": {
+          "text": "for customer",
+          "type": "startsWith"
+        },
+      }
+    }
+```
+
+ 
+
+**Region method**
+
+There are multiple ways to capture the policy period. Let's explore a completely new approach: a [Region method](doc:region). A region is a rectangular space defined by coordinates relative to the anchor. 
 
 Replace your existing `policy_period` field with the following field in the editor:
 

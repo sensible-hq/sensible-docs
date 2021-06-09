@@ -30,7 +30,7 @@ The following image shows examples of various labels in the Sensible app:
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for label method | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_label.pdf) |
+| Example PDF for label method | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/label_example.pdf) |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 This example uses the following config:
