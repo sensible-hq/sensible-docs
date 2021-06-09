@@ -42,7 +42,7 @@ The following images show:
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for Remove Footer preprocessor | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/remove_footer_example.png).pdf) |
+| Example PDF for Remove Footer preprocessor | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/remove_footer_example.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
 
 This example uses the following config:

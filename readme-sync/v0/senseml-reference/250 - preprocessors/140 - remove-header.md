@@ -5,7 +5,7 @@ hidden: false
 
 Removes repeated elements at the tops of pages from the direct text extraction of the pages.   
 
-To recognize a header, this preprocessor starts at the top of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
+To recognize a header, this preprocessor starts at the top of the page and moves down the page, stopping as soon as it finds a nonrepeating element. 
 
 These elements are recognized as "repeating":
 
@@ -42,7 +42,7 @@ The following images show:
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for Remove Header preprocessor | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/remove_header_example.png).pdf) |
+| Example PDF for Remove Header preprocessor | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/remove_header_example.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
 
 This example uses the following config:
