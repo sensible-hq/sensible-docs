@@ -103,13 +103,11 @@ This example uses the following config:
 Overlapping lines on an x-axis
 ----
 
-The following image shows using the Min X Gap Threshold parameter to correctly extract overlapping text in a poorly formatted PDF. In this example, the default behavior is to merge the overlapping lines into one line. In other words, the second row is merged into: `Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`. 
-
-But since the overlapping lines are part of a two-column table, it's better to treat them as two lines using the Min X Gap Threshold parameter, so you can consistently use the Row method for all rows in the table:
+The following image shows using the Min X Gap Threshold parameter to correctly extract overlapping text in a poorly formatted PDF. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_minxgap_example.png)
 
-
+But since the overlapping lines are part of a two-column table, it's better to split them into  two lines using the Min X Gap Threshold parameter. That way, you can use the Row method on the lines, as in the preceding image.
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
