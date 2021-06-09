@@ -4,9 +4,9 @@ hidden: false
 ---
 Concatenates the output of two or more fields:
 
-	- If the fields are all strings, the output is a single string.
-	- If any field is an arrays, the output is an array if the array lengths match, and a string if they don't (using the first element of each array).
-	- If a string is present in the fields among arrays, its value is repeated for every element of the output.
+- If the fields outputs are all strings, the output is a single string.
+- If any field output is an array, the output is an array if the array lengths match. The output is a string if they don't (using the first element of each array).
+- If a string output is present among arrays, its value is repeated for every element of the output.
 
 
 
@@ -23,3 +23,64 @@ Parameters
 Examples
 ====
 
+The following image shows using the Concat method to concatenate two address fields into one:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/concat_example.png)
+
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example PDF for concat | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/concat_example.pdf) |
+| ---------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
+{
+  "fields": [
+    {
+      "id": "_recipient_street_address",
+      "method": {
+        "id": "label",
+        "position": "below"
+      },
+      "anchor": {
+        "match": [
+          {
+            "text": "street address (including apt",
+            "type": "startsWith"
+          }
+        ]
+      }
+    },
+    {
+      "id": "_recipient_city_state",
+      "method": {
+        "id": "label",
+        "position": "below"
+      },
+      "anchor": {
+        "match": [
+          {
+            "text": "city or town, state or province",
+            "type": "startsWith"
+          }
+        ]
+      }
+    }
+  ],
+  "computed_fields": [
+    {
+      "id": "recipient_full_address",
+      "method": {
+        "id": "concat",
+        "source_ids": [
+          "_recipient_street_address",
+          "_recipient_city_state"
+        ],
+        "delimiter": "\n"
+      }
+    }
+  ]
+}
+```

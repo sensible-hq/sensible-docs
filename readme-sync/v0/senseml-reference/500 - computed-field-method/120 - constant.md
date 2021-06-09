@@ -2,19 +2,67 @@
 title: "Constant"
 hidden: false
 ---
-Returns a constant string value.
-[block:parameters]
+Use this method to add a key/value pair to an extraction, where the value is a constant that is not necessarily present in the PDF. This lets you include information, such as vendor or form names, that may be lacking from the PDF. For example, perhaps a vendor *exclusively* issues 6-month policy quotes, so they never state the policy period in the PDF. Use the Constant method to add that information. 
+
+Parameters
+====
+
+| key   | value      | description                                              |
+| :---- | :--------- | :------------------------------------------------------- |
+| id    | `constant` |                                                          |
+| value | string     | The value to return in the field's key/value pair output |
+
+Examples
+====
+
+The following image shows adding a form name and policy duration as constants to a config's output:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/constant_example.png)
+
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example PDF for Constant | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
+| ------------------------ | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
 {
-  "data": {
-    "0-0": "id",
-    "h-0": "key",
-    "h-1": "value",
-    "h-2": "description",
-    "1-0": "value",
-    "1-1": "string",
-    "1-2": "The value to return"
-  },
-  "cols": 3,
-  "rows": 2
-}
-[/block]
+  "fields": [
+    {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true,
+        "wordFilters": [
+          "policy period"
+        ],
+        "stop": {
+          "text": "for customer",
+          "type": "startsWith"
+        },
+      }
+    }
+  ],
+  "computed_fields": [
+    {
+      "id": "form_name",
+      "method": {
+        "id": "constant",
+        "value": "quote_auto_insurance_anyco"
+      }
+    },
+      {
+        "id": "policy_duration_months",
+        "type": "number",
+        "method": {
+          "id": "constant",
+          "value": "6"
+        }
+      }
+    ]
+  }
+```
+
