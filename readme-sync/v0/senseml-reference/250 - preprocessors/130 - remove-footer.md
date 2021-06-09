@@ -3,7 +3,7 @@ title: "Remove footer"
 hidden: false
 ---
 
-Removes repeated elements at the ends of pages in the document from the direct text extraction of the page.   
+Removes repeated elements at the bottoms of pages from the direct text extraction of the pages.   
 
 To recognize a footer, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
 

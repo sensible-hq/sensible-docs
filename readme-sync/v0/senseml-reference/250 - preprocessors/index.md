@@ -2,7 +2,7 @@
 title: "Preprocessors"
 hidden: false
 ---
-The following sections describe the value of preprocessors you can use to clean up your documents before extracting structured data:
+The following sections describes preprocessors you can use to clean up your documents before extracting structured data:
 
 * [Ligature](doc:ligature)
 * [Merge Lines](doc:merge-lines)

@@ -3,9 +3,9 @@ title: "Remove header"
 hidden: false
 ---
 
-Removes repeated elements at the starts of pages in the document from the direct text extraction of the page.   
+Removes repeated elements at the tops of pages from the direct text extraction of the pages.   
 
-To recognize a header, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
+To recognize a header, this preprocessor starts at the top of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
 
 These elements are recognized as "repeating":
 

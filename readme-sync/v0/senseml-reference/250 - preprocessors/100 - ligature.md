@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-Intelligently replaces Unicode ligatures in PDF text extraction.  For more information about ligatures, see the [Notes section](doc:ligature#section-notes).
+Intelligently replaces Unicode ligatures in a PDF text extraction.  For more information about ligatures, see the [Notes section](doc:ligature#section-notes).
 
 Parameters
 ----
@@ -58,7 +58,7 @@ This config shows using a ligature mapping preprocessor and outputting the whole
 Notes
 ----
 
-*Ligatures* are two or more letters joined together into a sign glyph. They appear to be garbage Unicode characters in your direct text extraction, like this:
+*Ligatures* are two or more letters joined together into a single glyph. They appear to be garbage Unicode characters in your direct text extraction, like this:
 
 ```json
 ….incinerating or composting toilets; \u0000re suppression systems; water softeners, conditioners or \u0000ltering systems; over\u0000ow drains for tubs and sinks; back\u0000ow prevention devices...
