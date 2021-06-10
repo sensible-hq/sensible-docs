@@ -33,12 +33,16 @@ Without the preprocessor, the lines are oversplit:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_ocr_example_2.png)
 
-You can try out this example yourself in the Sensible app using the following downloadable PDF and config. To duplicate this example, remember to click **Edit Settings**  for the Document Type and set Google OCR: 
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config. 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_ocr_example_1.png)
+
 
 | Example PDF for OCR Merge Lines | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
 | ------------------------------- | ------------------------------------------------------------ |
+
+To duplicate this example, remember to click **Edit Settings**  for the Document Type and set Google OCR: 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_ocr_example_1.png)
 
 This example uses the following config:
 
