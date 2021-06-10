@@ -25,7 +25,7 @@ Handwriting OCR
 
 Sensible uses OCR to recognize handwriting text. Since handwritten text is a lot messier than typed text, the Merge Lines processor can help you clean up output, particularly for Google OCR. 
 
-The following image shows using a Merge Line preprocessor to clean up handwritten lines output by Google OCR:
+The following image shows using a Merge Line preprocessor to clean up faked handwritten data. The OCR engine used is Google OCR:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_ocr_example.png)
 
