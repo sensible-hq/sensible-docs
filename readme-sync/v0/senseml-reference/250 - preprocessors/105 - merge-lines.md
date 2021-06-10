@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor when the PDF contains oversplit lines, lines overlapping on the x-axis, or "jittery" lines misaligned on the y-axis. This preprocessor does not override the built-in line merge, but instead evaluates after it. This means you can configure the Merge Lines preprocessor to be aggressive than the built-in line merger, but not less aggressive.
+Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor when the PDF contains oversplit lines, lines overlapping on the x-axis, or "jittery" lines misaligned on the y-axis. This preprocessor does not override the built-in line merge, but instead evaluates after it. This means you can configure the Merge Lines preprocessor to be aggressive than the built-in line merger, but not less aggressive. For more information, see the Notes section.
 
 Parameters
 ----
@@ -19,6 +19,63 @@ Parameters
 
 Examples
 ====
+
+Handwriting OCR 
+----
+
+Sensible uses OCR to recognize handwriting text. Since handwriting is a lot messier than typed text, the Merge Lines processor can help you clean up output, particularly for Google OCR. 
+
+The following image shows using a Merge Line preprocessor to clean up handwritten lines output by Google OCR:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_ocr_example.png)
+
+Without the preprocessor, the lines are oversplit:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_ocr_example_2.png)
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config. To duplicate this example, remember to click **Edit Settings**  for the Document Type and set Google OCR: 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_ocr_example_1.png)
+
+| Example PDF for OCR Merge Lines | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
+| ------------------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
+{
+  "preprocessors": [
+    {
+      "type": "mergeLines",
+      "directlyAdjacentThreshold": 0.15,
+      "adjacentThreshold": 0.8,
+      "yOverlapThreshold": 0.8,
+      "minXGapThreshold": 0.1
+    }
+  ],
+  "fields": [
+    {
+      "id": "all_lines_in_doc",
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true
+      },
+      "anchor": {
+        "match": {
+          "type": "first"
+        }
+      }
+    }
+  ]
+}
+```
+
+Try modifying this config to observe the effects of the different parameters. For example:
+
+- set `"adjacentThreshold": 0.1` to see oversplit lines. 
+- set `"adjacentThreshold": 2.0` to see very aggressively merged lines. 
+- revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how text that is misaligned on the y-axis (like the email address) merges more aggressively.
+
 
 Oversplit lines
 ----
@@ -138,3 +195,25 @@ This example uses the following config:
   ]
 }
 ```
+
+Notes
+====
+Because the Merge Lines preprocessor evaluates after the built-in line merger, you can't adjust all parameters arbitrarily. See the following for constraints:
+
+**yOverlapThreshold** 
+
+In general, when you set `"yOverlapThreshold"` to 1 or leave it unspecified, then mainly you'll modify `"adjacentThreshold"` by setting it to greater than 0.6.
+
+In this situation,  "directlyAdjacentThreshold" and "adjacentThreshold" have no effect if both their values are less than 0.6. In other words, the following configuration has no effect:
+
+```json
+    {
+      "type": "mergeLines",
+      "directlyAdjacentThreshold": 0.5,
+      "adjacentThreshold": 0.5,
+     "yOverlapThreshold": 1,
+
+    }
+
+```
+
