@@ -2,7 +2,7 @@
 title: "Mapper"
 hidden: false
 ---
-Maps output from the source field using a case-sensitive lookup table. A common use case for this method is it standardize output across configs. For example, if you extract inconsistently formatted data from different vendors or documents ("6 month policy period" versus "6 mo. policy duration"), you can map to a common format using a Computed Field method.  Consistently formatted output helps your application to handle extractions consistently, without having to check for corner cases. 
+Maps output from a source field using a case-sensitive lookup table. A common use case for this method is it standardize output across configs. For example, if you extract inconsistently formatted data from different vendors or documents ("6 month policy period" versus "6 mo. policy duration"), you can map to a common format using this method.  Consistently formatted output helps your application to handle extractions with fewer checks for corner cases. 
 
 Parameters
 ====
