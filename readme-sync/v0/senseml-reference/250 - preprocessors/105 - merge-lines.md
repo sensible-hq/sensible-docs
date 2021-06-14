@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor when the PDF contains oversplit lines, lines overlapping on the x-axis, or "jittery" lines misaligned on the y-axis. This preprocessor does not override the built-in line merge, but instead evaluates after it. This means you can configure the Merge Lines preprocessor to be aggressive than the built-in line merger, but not less aggressive. For more information, see the Notes section.
+Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor to address line recognition problems caused by PDF formatting, for example poor-quality scans or handwritten text. Line problems include oversplit lines, lines overlapping on the x-axis, or "jittery" lines misaligned on the y-axis. This preprocessor does not override the built-in line merge, but instead evaluates after it. This means you can configure the Merge Lines preprocessor to be aggressive than the built-in line merger, but not less aggressive. For more information, see the Notes section.
 
 Parameters
 ----
@@ -202,7 +202,7 @@ This example uses the following config:
 
 Notes
 ====
-Because the Merge Lines preprocessor evaluates after the built-in line merger, there are limitations on the combinations of parameter values you can set. See the following for constraints:
+Because the Merge Lines preprocessor evaluates after the built-in line merger, there are limitations to the combinations of parameter values you can set. See the following for constraints:
 
 **yOverlapThreshold** 
 
