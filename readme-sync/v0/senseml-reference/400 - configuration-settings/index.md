@@ -2,12 +2,10 @@
 title: "Configuration Settings"
 hidden: false
 ---
-| Fields                | type    |
-| --------------------- | ------- |
-| preprocessors         | array   |
-| fingerprint           | object  |
-| verbosity             | integer |
-| ocr_level             | integer |
-| shared_anchor_matches | array   |
-| fields                | array   |
-| computed_fields       | array   |
+See the following pages:
+
+- [Fingerprint](doc:fingerprint)
+- [OCR level](doc:ocr-level)
+- [Shared anchor matches](doc:shared-anchor-matches)
+- [Verbosity](doc:verbosity)
+

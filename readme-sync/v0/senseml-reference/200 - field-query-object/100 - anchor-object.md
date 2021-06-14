@@ -2,7 +2,7 @@
 title: "Anchor object"
 hidden: false
 ---
-An *anchor* is a string, [Match](doc:anchor-object#section-match-object) object, or array of Match objects. 
+An *anchor* is a string, [Match](doc:anchor-object#section-match-object) object, or array of Match objects. Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible can take action based on that location, such as using a ["method"](doc:method-object) to expand out from the anchor and grab the data you want.
 
 If you want to be syntactically concise, you can define a simple string anchor like:
 
