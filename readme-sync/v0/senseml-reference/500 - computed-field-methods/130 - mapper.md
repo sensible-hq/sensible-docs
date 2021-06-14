@@ -2,7 +2,7 @@
 title: "Mapper"
 hidden: false
 ---
-Maps output from the source field using a lookup table
+Maps output from the source field using a lookup table.
 
 Parameters
 ====
@@ -15,3 +15,4 @@ Parameters
 
 Examples
 ====
+

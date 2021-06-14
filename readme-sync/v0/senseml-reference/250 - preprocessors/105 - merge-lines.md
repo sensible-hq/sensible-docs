@@ -84,7 +84,7 @@ Try modifying this config to observe the effects of the different parameters. Fo
 Oversplit lines
 ----
 
-The following image shows a PDF that has oversplit lines. For example, the phrase "premium driver discount" is split into three lines even though to the human eye it reads as one line:
+The following image shows a PDF that has oversplit lines. For example, the phrase "premium driver discount" is split into three lines even though the human eye reads it as one line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_example_oversplit_1.png)
 
