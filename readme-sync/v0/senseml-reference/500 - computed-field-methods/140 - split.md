@@ -2,7 +2,7 @@
 title: "Split"
 hidden: false
 ---
-Returns one of the components of a field's string output after splitting it with a delimiter. Common use cases for this method include discarding unwanted data from a field's output,  or separating output from one field into multiple fields.
+Returns one of the components of a field's string output after splitting it with a delimiter. Common use cases for this method include discarding unwanted data from a field's output,  and separating output from one field into multiple fields.
 
 Parameters
 ====
