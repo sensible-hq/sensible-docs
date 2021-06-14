@@ -3,7 +3,11 @@ title: "SenseML reference introduction"
 hidden: false
 ---
 
-The following pages document the schema for the SenseML query language.
+ Use SenseML to write "configs" (a collection of queries) to extract structured data from an document type, for example, auto insurance quotes or home inspection reports.
+
+
+
+See the following pages for reference documentation for the SenseML query language:
 
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
@@ -11,29 +15,30 @@ The following pages document the schema for the SenseML query language.
 - [Configuration settings](doc:configuration-settings)
 - [Computed Field methods](doc:computed-field-methods)
 
+Or, to get started quickly, see our quickstart:
 
-
-| Object                  | type    |
-| ----------------------- | ------- |
-| Field query object      | array   |
-| preprocessors           | array   |
-| Computed Fields         | array   |
-| Configuration Settings: | object  |
-| - fingerprint           |         |
-| -  verbosity            | integer |
-| - ocr_level             | integer |
-| - shared_anchor_matches | array   |
-
-
+- [Quickstart](doc:quickstart)
 
 Examples
 ====
 
-Use SenseML to write "configs" (a collection of queries) to extract structured data from an document type, for example, auto insurance quotes or home inspection reports. The following image shows a very simple config:
+ The following image of a short config shows a broad overview of the elements in the SenseML schema:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/senseml_intro_example.png)
 
+
+
+
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example SenseML Overview PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split_example.pdf) |
+| ---------------------------- | ------------------------------------------------------------ |
+
 This example uses the following config:
+
+
+
 
 ```json
 {
@@ -85,4 +90,7 @@ This example uses the following config:
 
 - The Computed Field `"driver_name_last"` takes the raw output of the `_driver_name_raw` and extracts the last name from that output. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).
 
-  
+
+
+
+
