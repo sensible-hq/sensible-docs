@@ -85,7 +85,7 @@ This example config has the following elements:
 - The [field](doc:field-query-object) `_driver_name_raw` is a query that finds a driver's name in the quote based on grabbing data below some matched text. It contains an anchor and a method: 
   - The anchor is matched text that helps narrow down a location in the PDF from which to extract data. In this example it is simply a string in this case:  (`"name of driver"`). For more information about complex anchors, see [Anchor object](doc:anchor-object).
   - The method, or way to grab the data, is a Label. The method tells Sensible that the anchor text is a label for the data to grab, and it is below the label. For more information about methods, see [Methods](doc:methods).
-- The preprocessor cuts out irrelevant pages of the PDF. For more information about using preprocessors to clean up PDFs before extracting data, see [Preprocessors](doc:preprocessors)
+- The preprocessor cuts out irrelevant pages of the PDF. For more information about using preprocessors to clean up PDFs before extracting data, see [Preprocessors](doc:preprocessors).
 - The fingerprint tells Sensible to preferentially run this config if the PDF contains the terms "anyco" or "quoted coverage changes".  For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:configuration-settings).
 - The Computed Field `"driver_name_last"` takes the raw output of the `_driver_name_raw` and extracts the last name from that output. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).
 
