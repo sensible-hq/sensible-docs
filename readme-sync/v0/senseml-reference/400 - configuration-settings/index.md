@@ -2,7 +2,7 @@
 title: "Configuration Settings"
 hidden: false
 ---
-See the following pages:
+The following pages describe configurations you can set for extracting data:
 
 - [Fingerprint](doc:fingerprint)
 - [OCR level](doc:ocr-level)

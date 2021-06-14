@@ -2,7 +2,7 @@
 title: "Methods"
 hidden: false
 ---
-The methods that are available to use in [Fields](doc:fields) are the following:
+The following pages describe methods you can use in  [Field query objects](doc:fields)  to extract structured data from documents:
 
 [Box](doc:box)
 
