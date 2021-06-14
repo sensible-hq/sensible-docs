@@ -23,7 +23,7 @@ Examples
 Handwriting OCR 
 ----
 
-Sensible uses OCR to recognize handwriting text. Since handwritten text is a lot messier than typed text, the Merge Lines processor can help you clean up output. This is particularly useful for output from Google OCR, which by default groups detected text into words rather than lines.
+Sensible uses OCR to recognize handwriting. Since handwritten text is a lot messier than typed text, the Merge Lines processor can help you clean up output. This is particularly useful for output from Google OCR, which by default groups detected text into words rather than lines.
 
 The following image shows using a Merge Line preprocessor to clean up faked handwritten data. The OCR engine used is Google OCR:
 
