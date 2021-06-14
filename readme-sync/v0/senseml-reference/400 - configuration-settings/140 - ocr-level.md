@@ -1,6 +1,6 @@
 ---
 title: "OCR Level"
-hidden: false
+hidden: true
 ---
 The OCR level for a given document type is the minimum OCR level amongst its configurations.
 

@@ -1,6 +1,6 @@
 ---
 title: "Shared Anchor Matches"
-hidden: false
+hidden: true
 ---
 Key: `shared_anchor_matches`
 
