@@ -168,7 +168,7 @@ The following image shows using the Min X Gap Threshold parameter to correctly e
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_minxgap_example.png)
 
-But since the overlapping lines are part of a two-column table, it's better to split them into  two lines using the Min X Gap Threshold parameter. That way, you can use the Row method on the lines, as in the preceding image.
+But since the overlapping lines are part of a two-column table, it's better to split them into two lines using the Min X Gap Threshold parameter. That way, you can use the Row method on the lines, as in the preceding image.
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
@@ -202,13 +202,13 @@ This example uses the following config:
 
 Notes
 ====
-Because the Merge Lines preprocessor evaluates after the built-in line merger, you can't adjust all parameters arbitrarily. See the following for constraints:
+Because the Merge Lines preprocessor evaluates after the built-in line merger, there are limitations on the combinations of parameter values you can set. See the following for constraints:
 
 **yOverlapThreshold** 
 
-In general, when you set `"yOverlapThreshold"` to 1 or leave it unspecified, then mainly you'll modify `"adjacentThreshold"` by setting it to greater than 0.6.
+In general, when you set `"yOverlapThreshold"` to 1 or leave it unspecified, then mainly you modify `"adjacentThreshold"` by setting it to greater than 0.6.
 
-In this situation,  "directlyAdjacentThreshold" and "adjacentThreshold" have no effect if both their values are less than 0.6. In other words, the following configuration has no effect:
+In this situation,  `"directlyAdjacentThreshold"` and `"adjacentThreshold"` have no effect if both their values are less than 0.6. In other words, the following configuration has **no** effect:
 
 ```json
     {
