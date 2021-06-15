@@ -1,18 +1,19 @@
----
 title: "Getting started with the API"
 hidden: true
----
+
 Let's get started with the Sensible API! We'll use Postman to get a quick sense of how the endpoints work together. 
 
 Prerequisites
 ====
 
+
+
 To follow this tutorial, you'll need an example config. For convenience, you can also download [Postman](https://www.postman.com/). 
 
 **Prerequisite: Create an example config**
 
-1. You need an example config. If you haven't already done so, follow the steps in [Create a config](doc:quickstart#section-create-the-config) to create an example `auto_insurance_quote` config. 
-2. **Important!** Remember to click **Publish** in the Sensible app to publish your config, or this request won't work:  
+1. You need an example config and doc type. If you haven't already done so, follow the steps in [Create a config](doc:quickstart#section-create-the-config) to create an example `anyco` config in an example  `auto_insurance_quote` document type. 
+2. **Important!** Remember to click **Publish** in the Sensible app to publish your config, or your requests won't work:  
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_publish_config.png).
 
@@ -24,6 +25,8 @@ For an easy way to run this cURL request, download the [Postman](https://www.pos
 
  Try the synchronous extraction endpoint
  ====
+
+
 
 Let's try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint takes a PDF file and returns extracted data synchronously. 
 
@@ -96,12 +99,14 @@ PDFs that are greater than 4.5MB in size or that require over 30 seconds of proc
 Provide a download URL
 ----
 
-To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide-a-download-url) endpoint, let's use the GitHub URL for the example auto_insurance_anyco_golden PDF:
+
+
+To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide-a-download-url) endpoint, let's use the GitHub URL for the example auto_insurance_anyco_golden PDF and the example `auto_insurance_quote` document type you created in the **Prerequisites** section:
 
 1. Copy the following code sample and replace YOUR_API_KEY with your API key:
 
    ```json
-   curl --location --request POST 'https://api.sensible.so/dev/extract_from_url/auto_insurance_quote' \
+   curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --header 'Content-Type: application/json' \
    --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf"}'
@@ -127,7 +132,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
 5. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_TOKEN:
 
    ```json
-   curl --location --request GET 'https://api.sensible.so/dev/documents/YOUR_EXTRACTION_ID' \
+   curl --location --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
    --header 'Authorization: Bearer YOUR_API_TOKEN'
    ```
    
@@ -169,4 +174,13 @@ You should see a response like the following:
 
 Generate an upload URL
 ----
+
+Generate a one-time URL for the document extraction you want to run (this URL expires within minutes)l We'll use the 
+
+```json
+curl --location --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insurance_quote' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiU2Vuc2libGUiLCJwZXJzaXN0ZW5jZSI6ImZ1bGwiLCJpYXQiOjE2MjMwOTEwODR9.y-4ngF0AnNfdx65t4LsuUfXailID6iKGsInxbdkgwaHZQ5NYgLr1c9R2fBOqf1T5FmngsFP8W2ptYH-TpTkB1A'
+```
 
