@@ -4,7 +4,7 @@
 
 ### Publishing the docs to readme
 
-To publish the markdown docs in this repository to ReadMe, use https://github.com/flowcommerce/readme-sync. this is an open source tool that uses the ReadMe API. Follow the instructions in that tool to install it locally.
+To publish the markdown docs in this repository to ReadMe at https://docs.sensible.so/docs, use https://github.com/flowcommerce/readme-sync. this is an open source tool that uses the ReadMe API. Follow the instructions in that tool to install it locally.
 
 Then to publish using a local installation of the readme-sync tool:
 
