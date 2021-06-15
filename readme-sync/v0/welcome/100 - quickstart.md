@@ -12,7 +12,7 @@ If you can write basic SQL queries, you can write SenseML queries! SenseML shiel
 
  In this quickstart, you'll:
 
-- [Write a collection of queries ( a "config")](doc:quickstart#section-create-the-config) to extract structured data from an auto insurance PDF 
+- [Write a collection of queries ( a "config")](doc:quickstart#section-create-a-config) to extract structured data from an auto insurance PDF 
 - [Learn how the config works](doc:quickstart#section-how-it-works), including key concepts like lines, anchors, and methods
 - [Sanity test the config](doc:quickstart#section-sanity-test-the-config) by trying your config out with a second PDF
 - [Use the API](doc:quickstart#section-integrate-with-your-application) to integrate your Sensible config with your application
@@ -24,7 +24,7 @@ Get an account
 
 2. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/) using your API key.
 
-Create the config
+Create a config
 ====
 
 1. Click **Create document type** and name  it "auto_insurance_quote". Leave the defaults and click **Create**.
