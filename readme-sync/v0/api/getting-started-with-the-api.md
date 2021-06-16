@@ -312,10 +312,14 @@ For asynchronous extractions, you can retrieve results using either the `/docume
 
    ```json
    {"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf",
-   "webhook": {"url":"YOUR_UNIQUE_URL","payload":"some info you want to include that is additional to the built-in payload which includes extraction id, type, and parsed doc"}}
+   "webhook": {"url":"YOUR_UNIQUE_URL","payload":"some info you want to include that is additional to the default payload, which includes extraction id, type, and parsed doc"}}
    ```
 
 4. In your request in Postman, replace the content of  the **Body** tab with the preceding code sample:
 
       ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_2.png)
 
+5. Click **Send** in Postman.
+6. Check back at your unique URL at webhook.site, and you should see a response there like the following: 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_3.png)
