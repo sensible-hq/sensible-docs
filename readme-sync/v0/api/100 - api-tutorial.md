@@ -1,4 +1,4 @@
-title: "Getting started with the API"
+title: "API tutorial"
 hidden: true
 
 Let's get started with the Sensible API! We'll use Postman to get a quick sense of how the endpoints work together. 
@@ -170,7 +170,7 @@ curl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.
 To retrieve the extraction results for the sample PDF, you have two options:
 
 - Use the `/documents` endpoint. See the following steps.
-- Use a webhook. See [Try a webhook](doc:getting-started-with-the-api#section-try-a-webhook).
+- Use a webhook. See [Try a webhook](doc:api-tutorial#section-try-a-webhook).
 
 To retrieve the results with an endpoint:
 
@@ -303,7 +303,7 @@ Try a webhook
 
 For asynchronous extractions, you can retrieve results using either the `/documents` endpoint or a webhook. Let's try using a webhook with the `/extract_from_url/` endpoint:
 
-1. Follow the steps in [Extract from a URL you provide](doc:getting-started-with-the-api#section-extract-from-a-url-you-provide).
+1. Follow the steps in [Extract from a URL you provide](doc:api-tutorial#section-extract-from-a-url-you-provide).
 2. Generate a test destination for the webhook using a free service: navigate to [https://webhook.site/](https://webhook.site/), and you should be directed to an automatically generated unique page for your testing:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_1.png)
