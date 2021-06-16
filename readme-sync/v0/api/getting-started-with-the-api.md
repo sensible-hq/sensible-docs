@@ -186,6 +186,33 @@ To retrieve the results with an endpoint:
 
 3. Click **Send**. You should see a response like the following:
 
+   ```json
+   {
+       "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
+       "created": "2021-06-15T16:44:18.917Z",
+       "status": "COMPLETE",
+       "type": "auto_insurance_quote",
+       "configuration": "anyco2",
+       "parsed_document": {
+           "policy_period": {
+               "type": "string",
+               "value": "April 14, 2021 - Oct 14, 2021"
+           },
+           "comprehensive_premium": {
+               "source": "$150",
+               "value": 150,
+               "unit": "$",
+               "type": "currency"
+           },
+           "policy_number": {
+               "type": "string",
+               "value": "123456789"
+           }
+       },
+       "download_url": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623790786&Signature=REDACTED&x-amz-security-token=REDACTED"
+   }
+   ```
+
    
 
 
@@ -270,5 +297,25 @@ You should see a response like the following:
 }
 ```
 
-**(Optional) Retrieve results with a webhook**
+
+Try a webhook
+====
+
+For asynchronous extractions, you can retrieve results using either the `/documents` endpoint or a webhook. Let's try using a webhook with the `/extract_from_url/` endpoint:
+
+1. Follow the steps in [Extract from a URL you provide](doc:getting-started-with-the-api#section-extract-from-a-url-you-provide).
+2. Generate a test destination for the webhook using a free service: navigate to [https://webhook.site/](https://webhook.site/), and you should be directed to an automatically generated unique page for your testing:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_1.png)
+
+3. Copy the unique URL generated for you by webhook.site, and paste it into the following code sample:
+
+   ```json
+   {"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf",
+   "webhook": {"url":"YOUR_UNIQUE_URL","payload":"some info you want to include that is additional to the built-in payload which includes extraction id, type, and parsed doc"}}
+   ```
+
+4. In your request in Postman, replace the content of  the **Body** tab with the preceding code sample:
+
+      ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_2.png)
 
