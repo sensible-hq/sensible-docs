@@ -35,7 +35,7 @@ curl --request POST \
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_import.png)
 
-2. Download the following example PDF, which works with the example `auto_insurance_quote` config you created previously:
+2. Download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the Prerequisites:
 
    | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
@@ -77,5 +77,4 @@ curl --request POST \
 ```
 
 **Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best! 
-
 

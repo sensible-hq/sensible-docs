@@ -156,7 +156,7 @@ Now use the one-time URL you just generated to extract data from the document:
 1. Copy the following code sample. Replace the URL with the `upload_url` that you got as a response in the previous step:
 
 ```json
-curl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/28c7e5ac-3943-4f86-bd72-8aac3fa38a43.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=wpUXfUcnoaoE2u%2FV7JSB%2FQ7iJo0%3D&x-amz-security-token=REDACTED' \
+curl --location --request PUT 'YOUR_UPLOAD_URL' \
 --header 'Content-Type: text/plain' \
 --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
 ```
