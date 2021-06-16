@@ -35,6 +35,8 @@ For an easy way to run the cURL requests, download the [Postman](https://www.pos
 Next steps
 ====
 
-Try out the endpoint with these tutorial steps:
+Try out the endpoints with these tutorial steps:
 
-- [Try ]
+- [Try synchronous extraction](doc:api-tutorial-sync)
+- [Try asynchronous extraction](doc:api-tutorial-async)
+- [Try a webhook](doc:api-tutorial-webhook)
