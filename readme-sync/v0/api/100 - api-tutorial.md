@@ -1,5 +1,9 @@
+---
 title: "API tutorial"
 hidden: true
+---
+
+
 
 Let's get started with the Sensible API! We'll use Postman to get a quick sense of how the endpoints work together. 
 
