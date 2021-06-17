@@ -5,8 +5,6 @@ hidden: false
 
  Use SenseML to write "configs" (a collection of queries) to extract structured data from an document type, for example, auto insurance quotes or home inspection reports.
 
-
-
 See the following pages for reference documentation for the SenseML query language:
 
 - [Field query object](doc:field-query-object)
@@ -87,7 +85,5 @@ This example config has the following elements:
 - The **fingerprint** tells Sensible to preferentially run this config if the PDF contains the terms "anyco" or "quoted coverage changes".  For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:configuration-settings).
 - The **computed field** `"driver_name_last"` takes the raw output of the `_driver_name_raw` and extracts the last name from that output. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).
 
-
-
-
+The output of this example config is just one key/value pair: the last name of the driver.  In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF as structured data. As a next step, check out our [Quickstart](doc:quickstart), or see the topics in this SenseML reference. Happy extracting! 
 
