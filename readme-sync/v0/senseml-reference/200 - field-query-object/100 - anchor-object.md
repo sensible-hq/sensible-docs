@@ -79,13 +79,30 @@ Here's an example of an Anchor object that uses all these parameters:
 Match object
 ====
 
-Matches are instructions for matching lines of text in a document. They are valid elements in anchors. There are three different types of Match objects including simple, regex, and first matches.  See the following sections:
+Matches are instructions for matching lines of text in a document. They are valid elements in anchors. 
+
+There are three different types of Match objects including simple, regex, and first matches.  The following parameters are available to all types of Match objects:
+
+
+
+**Parameters**
+
+| key           | values | description                                                  |
+| ------------- | ------ | ------------------------------------------------------------ |
+| minimumHeight | number | The minimum height of the matched line's boundaries, in inches. |
+| maximumHeight | number | The maximum height of the matched line's boundaries, in inches. |
+
+
+
+See the following sections for more information about each match type:
 
 - [Simple matcher](doc:anchor-object#section-simple-match)
 - [Regex match](doc:anchor-object#section-regex-match)
 - [First match](doc:anchor-object#section-first-match)
 - You can define match arrays. See [Match arrays](doc:anchor-object#section-match-arrays) 
 - The *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
+
+
 
 
 
