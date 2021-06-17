@@ -40,7 +40,7 @@ curl --request POST \
    | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
 
-3. Correct the path to your downloaded PDF in your request:
+3. Correct the path to your downloaded PDF in your request  (even if you specify a path before importing, Postman does not always import paths correctly):
 
 - **If you're in the command line:** Replace `PATH_TO_DOWNLOADED_PDF` with the local directory path to the PDF.
 - **If you're in Postman:** In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:

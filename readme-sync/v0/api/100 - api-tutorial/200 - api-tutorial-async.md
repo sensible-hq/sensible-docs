@@ -125,9 +125,8 @@ Generate a one-time URL for the document extraction you want to run (this URL ex
  1. Copy the following code sample and replace YOUR_API_KEY:
 
 ```json
-curl --location --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insurance_quote' \
+curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insurance_quote' \
 --header 'Content-Type: application/json' \
---header 'Accept: application/json' \
 --header 'Authorization: Bearer YOUR_API_KEY'
 ```
 
@@ -156,8 +155,7 @@ Now use the one-time URL you just generated to extract data from the document:
 1. Copy the following code sample. Replace the URL with the `upload_url` that you got as a response in the previous step:
 
 ```json
-curl --location --request PUT 'YOUR_UPLOAD_URL' \
---header 'Content-Type: text/plain' \
+curl --request PUT 'YOUR_UPLOAD_URL' \
 --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
 ```
 
@@ -170,7 +168,7 @@ curl --location --request PUT 'YOUR_UPLOAD_URL' \
 | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
-3. Correct the path to your downloaded PDF in your request:
+3. Correct the path to your downloaded PDF in your request (even if you specify a path before importing, Postman does not always import paths correctly):
 
 - **If you're in the command line:** Replace `PATH_TO_DOWNLOADED_PDF` with the local directory path to the PDF.
 - **If you're in Postman:** In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
@@ -178,6 +176,22 @@ curl --location --request PUT 'YOUR_UPLOAD_URL' \
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
 
 4. Click **Send** to send the request. You should see an empty 200 response. 
+
+
+
+**Troubleshooting**
+
+If you see an error response `SignatureDoesNotMatch`, a possible cause is that Postman added `Content-Type` headers. Remove all headers and try again:
+
+1. In the **Headers** tab, click the eye icon to display hidden headers:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_headers_1.png)
+
+2. Uncheck all `Content-Type` headers (you might see `Content-Type: application/pdf` and `Content-Type: text/plain` ):
+
+   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_headers_2)
+
+   
 
 
 
