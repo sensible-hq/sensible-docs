@@ -3,7 +3,7 @@ title: "API tutorial"
 hidden: false
 ---
 
-If you're new to APIs in general, this tutorial is a good starting point. We'll use Postman to get an overview of how to extract structured data from PDF documents with the Sensible API. 
+Let's get started with extracting structured data from PDF documents using the Sensible API! If you're new to APIs in general, this tutorial is a good starting point.
 
 Prerequisites
 ====
