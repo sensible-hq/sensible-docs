@@ -1,6 +1,6 @@
 ---
 title: "Try synchronous extraction"
-hidden: true
+hidden: false
 ---
 
 

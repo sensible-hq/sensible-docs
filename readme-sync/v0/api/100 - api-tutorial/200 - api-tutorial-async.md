@@ -1,6 +1,6 @@
 ---
 title: "Try asynchronous extraction"
-hidden: true
+hidden: false
 ---
 
 

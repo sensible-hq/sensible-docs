@@ -1,6 +1,6 @@
 ---
 title: "Try a webhook"
-hidden: true
+hidden: false
 ---
 
 For asynchronous extractions, you can retrieve extraction results using either the `/documents` endpoint or a webhook.  For this tutorial, let's try a webhook in combination with the `/extract_from_url/` endpoint.

@@ -1,6 +1,6 @@
 ---
 title: "API tutorial"
-hidden: true
+hidden: false
 ---
 
 
