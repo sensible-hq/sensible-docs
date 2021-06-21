@@ -52,6 +52,8 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
    }
    ```
 
+**Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best!
+
 Retrieve extraction
 ----
 
@@ -130,7 +132,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 5. Click **Send** to send the request. You should see an empty 200 response. 
 
-
+**Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best!
 
 **Troubleshooting**
 
