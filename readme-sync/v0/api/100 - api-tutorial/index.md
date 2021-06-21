@@ -5,7 +5,7 @@ hidden: false
 
 
 
-Let's get started with the Sensible API! We'll use Postman to get a quick sense of how the endpoints work together. 
+Let's get started with the Sensible API! This API allows to you extract structured data from PDF documents.  If you're new to APIs, this tutorial is a good starting point. We'll use Postman to get a quick sense of how the endpoints work together. 
 
 Prerequisites
 ====
