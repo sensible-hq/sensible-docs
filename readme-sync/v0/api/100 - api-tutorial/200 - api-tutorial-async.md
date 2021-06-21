@@ -118,17 +118,17 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 1. If you haven't already done so, download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the **Prerequisites** section:
 
-| auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
+| auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
-3. Correct the path to your downloaded PDF in your request (even if you specify a path before importing, Postman does not always import paths correctly):
+4. Correct the path to your downloaded PDF in your request (even if you specify a path before importing, Postman does not always import paths correctly):
 
 - **If you're in the command line:** Replace `PATH_TO_DOWNLOADED_PDF` with the local directory path to the PDF.
 - **If you're in Postman:** In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
 
-4. Click **Send** to send the request. You should see an empty 200 response. 
+5. Click **Send** to send the request. You should see an empty 200 response. 
 
 
 
@@ -151,10 +151,10 @@ If you see an error response `SignatureDoesNotMatch`, a possible cause is that P
 Retrieve extraction
 ----
 
-- To retrieve the extraction results for the sample PDF, you have two options:
+To retrieve the extraction results for the sample PDF, you have two options:
 
-  - Use the `/documents` endpoint. See [Try documents endpoint](doc:api-tutorial-async#section-try-documents-endpoint).
-  - Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
+- Use the `/documents` endpoint. See [Try documents endpoint](doc:api-tutorial-async#section-try-documents-endpoint).
+- Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
 
 
 

@@ -35,12 +35,12 @@ curl --request POST \
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_import.png)
 
-2. Download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the Prerequisites:
+3. Download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the Prerequisites:
 
-   | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
-   | --------------------------- | ------------------------------------------------------------ |
+| auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
+| --------------------------- | ------------------------------------------------------------ |
 
-3. Correct the path to your downloaded PDF in your request  (even if you specify a path before importing, Postman does not always import paths correctly):
+4. Correct the path to your downloaded PDF in your request  (even if you specify a path before importing, Postman does not always import paths correctly):
 
 - **If you're in the command line:** Replace `PATH_TO_DOWNLOADED_PDF` with the local directory path to the PDF.
 - **If you're in Postman:** In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
@@ -49,7 +49,7 @@ curl --request POST \
 
    
 
-7. Click **Send**, and you should see a response like this:
+5. Click **Send**, and you should see a response like this:
 
 ```json
 {
