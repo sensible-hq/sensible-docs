@@ -34,7 +34,9 @@ String anchors are expanded behind the scenes to case-insensitive `includes` mat
 
 These are the top-level components of an expanded Anchor object:
 
-**Anchor parameters**
+Anchor parameters
+----
+
 
 | key                  | values                                 | description                                                  |
 | -------------------- | -------------------------------------- | ------------------------------------------------------------ |
@@ -44,7 +46,8 @@ These are the top-level components of an expanded Anchor object:
 | end                  | string, Match, or Match array          | Defines a point in the document at which to stop searching for  the`match` you define for the anchor.  By default not included in the anchor output. If unspecified, matches to end of document.  <br/>Note that lines that "precede" the `end` line are most reliably those that are positioned *above* the end line. Lines to the right are not included, and lines to the left are only considered "preceding" if they are at exactly the same height as the `end` line on the page. In other words, a line qualifies as "preceding" the `start` line first by its y-axis position and then by its x-axis position. |
 | includeEnd           | boolean                                | Whether to include the text in the matching `end` line in the anchor output. |
 
-**Examples**
+Examples
+----
 
 Here's an example of an Anchor object that uses all these parameters: 
 
@@ -79,13 +82,15 @@ Here's an example of an Anchor object that uses all these parameters:
 Match object
 ====
 
-Matches are instructions for matching lines of text in a document. They are valid elements in anchors. 
+Matches are instructions for matching lines of text in a document. They are valid elements in anchors and other objects. 
 
 There are three different types of Match objects including simple, regex, and first matches.  The following parameters are available to all types of Match objects:
 
 
 
-**Parameters**
+Global Match Parameters
+----
+
 
 | key           | values | description                                                  |
 | ------------- | ------ | ------------------------------------------------------------ |
@@ -166,7 +171,7 @@ For an example, see the [Passthrough method example](doc:passthrough).
 First match
 ------
 
-This is a convenience or utility match to  just match the first line encountered. It is useful in conjunction with the `pageFilter` preprocessor.
+This is a convenience or utility match to find the first line encountered. 
 
 **Parameters**
 
