@@ -249,7 +249,7 @@ For an array of Match objects, all matches must be found to successfully create 
             },
             {
               "type": "startsWith",
-              "text": "...Followed by the 1st occurence of this string in another line",
+              "text": "...Followed by the 1st occurrence of this string in another line",
             },
           ]      
       },

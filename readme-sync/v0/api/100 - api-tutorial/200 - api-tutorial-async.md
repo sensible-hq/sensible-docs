@@ -29,7 +29,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
 1. Copy the following code sample and replace YOUR_API_KEY with your API key:
 
    ```json
-   curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
+   curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --header 'Content-Type: application/json' \
    --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf"}'
@@ -52,60 +52,13 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
    }
    ```
 
-Retrieve results
+Retrieve extraction
 ----
 
+ To retrieve the extraction results for the sample PDF, you have two options:
 
-   To retrieve the extraction results for the sample PDF, you have two options:
-
-- Use the `/documents` endpoint. See the following steps.
+- Use the `/documents` endpoint. See [Try documents endpoint](doc:api-tutorial-async#section-try-documents-endpoint).
 - Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
-
-To retrieve the results with an endpoint:
-
-1. Copy the document extraction `id` from the response in the previous step. You'll use it to download the PDF extraction.
-
-2. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
-
-```json
-curl --location --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
---header 'Authorization: Bearer YOUR_API_KEY'
-```
-
-3. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
-
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_2.png)
-
-You should see a response like the following:
-
-```json
-{
-    "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
-    "created": "2021-06-15T16:44:18.917Z",
-    "status": "COMPLETE",
-    "type": "auto_insurance_quote",
-    "configuration": "anyco",
-    "parsed_document": {
-        "policy_period": {
-            "type": "string",
-            "value": "April 14, 2021 - Oct 14, 2021"
-        },
-        "comprehensive_premium": {
-            "source": "$150",
-            "value": 150,
-            "unit": "$",
-            "type": "currency"
-        },
-        "policy_number": {
-            "type": "string",
-            "value": "123456789"
-        }
-    },
-    "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=ASIAR355P7ASRMWOLX6W&Expires=1623790786&Signature=REDACTED-amz-security-token=REDACTED"
-}
-```
-
-
 
 Extract from a URL Sensible provides
 ====
@@ -195,55 +148,71 @@ If you see an error response `SignatureDoesNotMatch`, a possible cause is that P
 
 
 
-Retrieve results
+Retrieve extraction
 ----
 
+- To retrieve the extraction results for the sample PDF, you have two options:
 
-To retrieve the extraction results for the sample PDF, you have two options:
+  - Use the `/documents` endpoint. See [Try documents endpoint](doc:api-tutorial-async#section-try-documents-endpoint).
+  - Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
 
-- Use the `/documents` endpoint. See the following steps.
-- Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
 
-To retrieve the results with an endpoint:
 
-1. Copy the following code sample, and replace YOUR_API_KEY and YOUR_EXTRACTION_ID.  Use the `id` you got in the response to the `/generate_upload_url` endpoint in the previous step, **Generate the upload URL**:
+Try documents endpoint
+====
 
-   ```json
-   curl --location --request GET 'https://api.sensible.so/dev/documents/YOUR_EXTRACTION_ID' \
-   --header 'Authorization: Bearer YOUR_API_KEY'
-   ```
-2. Import the code sample into Postman:
+To retrieve the extraction results with the  `/documents` endpoint, take the following steps:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_5.png)
-
-3. Click **Send**. You should see a response like the following:
+1. In a previous step on this page, you got back a result that included information like this:
 
    ```json
    {
        "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
-       "created": "2021-06-15T16:44:18.917Z",
-       "status": "COMPLETE",
-       "type": "auto_insurance_quote",
-       "configuration": "anyco2",
-       "parsed_document": {
-           "policy_period": {
-               "type": "string",
-               "value": "April 14, 2021 - Oct 14, 2021"
-           },
-           "comprehensive_premium": {
-               "source": "$150",
-               "value": 150,
-               "unit": "$",
-               "type": "currency"
-           },
-           "policy_number": {
-               "type": "string",
-               "value": "123456789"
-           }
-       },
-       "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623790786&Signature=REDACTED&x-amz-security-token=REDACTED"
-   }
+       "created": "2021-06-16T16:22:56.576Z",
+       "status": "WAITING",
    ```
 
    
+
+2. Copy the document extraction `id` from that response. You'll use it to download the PDF extraction.
+
+3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
+
+```json
+curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
+--header 'Authorization: Bearer YOUR_API_KEY'
+```
+
+3. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_2.png)
+
+4. Click **Send**. You should see a response like the following:
+
+```json
+{
+    "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
+    "created": "2021-06-15T16:44:18.917Z",
+    "status": "COMPLETE",
+    "type": "auto_insurance_quote",
+    "configuration": "anyco",
+    "parsed_document": {
+        "policy_period": {
+            "type": "string",
+            "value": "April 14, 2021 - Oct 14, 2021"
+        },
+        "comprehensive_premium": {
+            "source": "$150",
+            "value": 150,
+            "unit": "$",
+            "type": "currency"
+        },
+        "policy_number": {
+            "type": "string",
+            "value": "123456789"
+        }
+    },
+    "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=ASIAR355P7ASRMWOLX6W&Expires=1623790786&Signature=REDACTED-amz-security-token=REDACTED"
+}
+```
 
