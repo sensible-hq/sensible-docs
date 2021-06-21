@@ -3,12 +3,12 @@ title: "Try a webhook"
 hidden: true
 ---
 
-For asynchronous extractions, you can retrieve results using either the `/documents` endpoint or a webhook.  For this tutorial, let's try a webhook in combination with the `/extract_from_url/` endpoint.
+For asynchronous extractions, you can retrieve extraction results using either the `/documents` endpoint or a webhook.  For this tutorial, let's try a webhook in combination with the `/extract_from_url/` endpoint.
 
 Prerequisites
 ====
 
-Set up a working aysnchoronous `/extract_from_url/` request following the steps in [Extract from a URL you provide](doc:api-tutorial-async#section-extract-from-a-url-you-provide ).
+Set up a working asynchronous request. For this example, follow the steps in [Extract from a URL you provide](doc:api-tutorial-async#section-extract-from-a-url-you-provide ) to create an `/extract_from_url/` request.
 
 
 Set up the webhook
