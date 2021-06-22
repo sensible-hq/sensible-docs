@@ -87,7 +87,11 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
    If you don't disable these headers, you might see an error response when you send the response, for example, `SignatureDoesNotMatch`.
 
-7. Click **Send** to send the request. You should see an empty 200 response. 
+7. Click **Send** to send the request. You should see an empty 200 response:
+
+
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_200.png) 
 
 
 
