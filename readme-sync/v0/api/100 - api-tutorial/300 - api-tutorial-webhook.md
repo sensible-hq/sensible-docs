@@ -3,12 +3,14 @@ title: "Try a webhook"
 hidden: false
 ---
 
-For asynchronous extractions, you can retrieve extraction results using either the `/documents` endpoint or a webhook.  For this tutorial, let's try a webhook in combination with the `/extract_from_url/` endpoint.
+For asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook.  A webhook allows you to receive the extraction as a push, rather than waiting for responses from API endpoints.  
+
+For this tutorial, let's try a webhook in combination with the `/extract_from_url/` endpoint.
 
 Prerequisites
 ====
 
-Set up a working asynchronous request. For this example, follow the steps in [Extract from a URL you provide](doc:api-tutorial-async#section-extract-from-a-url-you-provide ) to create an `/extract_from_url/` request.
+Set up a working asynchronous request. For this example, follow the steps in [Extract from a URL you provide](doc:api-tutorial-async#section-extract-from-a-url-you-provide ) to create an `/extract_from_url/` request in Postman.
 
 
 Set up the webhook
@@ -19,9 +21,9 @@ Generate a test destination for the webhook using a free service:
 1. Navigate to [https://webhook.site/](https://webhook.site/), and you should be directed to an automatically generated unique page for your testing:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_1.png)
-**Note:** Don't use this website for production purposes. Use it only for testing. See their [Terms of service](https://webhook.site/terms).
+**Note:** Use this website [only for testing](https://webhook.site/terms). In production, you'll need to implement your own destination for the webhook payload.
 
-2. Copy the unique URL generated for you by webhook.site, and paste it into the following code sample:
+2. Copy the following code sample, and replace YOUR_UNIQUE_URL with your uniquely generated webhook.site URL:
 
 ```json
 {"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf",

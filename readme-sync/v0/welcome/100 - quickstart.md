@@ -448,10 +448,8 @@ curl --request POST \
    
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_import.png)
 
-6. Correct the path to your downloaded PDF:
+6. Correct the path to your downloaded PDF: in the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
    
-   - **If you're in the command line:** Replace `PATH_TO_DOWNLOADED_PDF` with the local directory path to the PDF.
-   - **If you're in Postman:** In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
 

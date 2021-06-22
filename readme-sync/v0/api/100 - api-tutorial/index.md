@@ -12,6 +12,7 @@ Prerequisites
 
 To follow this tutorial, you'll need:
 
+- An API key (you received this key when your Sensible account was created)
 - an example config
 -  [Postman](https://www.postman.com/) desktop app (or follow along with cURL in the command line)
 
