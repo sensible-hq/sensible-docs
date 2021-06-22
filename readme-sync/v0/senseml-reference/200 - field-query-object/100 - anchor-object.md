@@ -123,7 +123,48 @@ Match using strings.
 | text | string                                         | The string to match                                          |
 | type | `equals`, `startsWith`, `endsWith`, `includes` | `equals`: The matching line must exactly contain the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
 
-**Examples**
+For an example, see the following Examples section.
+
+
+Regex Match
+-----
+
+Match using a regular expression.
+
+**Parameters**
+
+| key                    | values                   | description                                                  |
+| ---------------------- | ------------------------ | ------------------------------------------------------------ |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. |
+| type (**required**)    | `regex`                  |                                                              |
+
+For an example, see the [Passthrough method example](doc:passthrough).
+
+
+
+
+
+First match
+------
+
+This is a convenience or utility match to find the first line encountered. 
+
+**Parameters**
+
+| key  | values  | description                                                  |
+| ---- | ------- | ------------------------------------------------------------ |
+| type | `first` | Matches the first line encountered, usually on a specified page. |
+
+For an example, see the following examples section
+
+
+
+Examples
+====
+
+Simple match
+---
 
 ```json
   {
@@ -147,40 +188,8 @@ Match using strings.
 
 ```
 
-Regex Match
------
-
-Match using a regular expression.
-
-**Parameters**
-
-| key                    | values                   | description                                                  |
-| ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. |
-| type (**required**)    | `regex`                  |                                                              |
-
-**Examples**
-
-For an example, see the [Passthrough method example](doc:passthrough).
-
-
-
-
-
 First match
-------
-
-This is a convenience or utility match to find the first line encountered. 
-
-**Parameters**
-
-| key  | values  | description                                                  |
-| ---- | ------- | ------------------------------------------------------------ |
-| type | `first` | Matches the first line encountered, usually on a specified page. |
-
-**Examples**
-
+----
 This example grabs all the lines in the document after the first line:
 
 
@@ -202,7 +211,11 @@ This example grabs all the lines in the document after the first line:
 }
 ```
 
-This example performs OCR only on a known page, which is useful since OCR is slow and computationally expensive. For example, some document types may have inserted scans on specific known pages, so you need to OCR only those pages and let Sensible perform direct text extraction on all other pages:
+Match for OCR processor
+----
+
+
+The following example performs OCR only on a set page range. It's useful to narrow the page range, since OCR is slow and computationally expensive. For example, some document types may have inserted scans on specific known pages, so you need to OCR only those pages and let Sensible perform direct text extraction on all other pages:
 
 ```json
 {
@@ -227,6 +240,9 @@ This example performs OCR only on a known page, which is useful since OCR is slo
   ],
 }
 ```
+
+
+
 Match arrays
 ----
 
@@ -272,7 +288,7 @@ In addition to the conditions you set in the Match object itself (such as `isCas
 
 In other words, if you set a Label method, then only text that qualifies as a label matches in the anchor. If the text is too far away from any other lines to be used as a label, it won't match, even if all the conditions you set in the Match object itself are otherwise met. 
 
-In the following example, the PDF contains two instances of the string "Python". Even though we set `"match":"last"` in the config, the config only matches the *first* instance of Python. Why? We set a `label` method, and only the first instance of Python is close enough to the text below it to qualify as a label for that text ( `"position":"below"`).
+In the following example, the PDF contains two instances of the string "Python". Even though we set `"match":"last"` in the config, the config only matches the *first* instance of Python. Why? We set a Label method, and only the first instance of Python is close enough to the text below it to qualify as a label for that text ( `"position":"below"`).
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_match_last_1.png)
 
