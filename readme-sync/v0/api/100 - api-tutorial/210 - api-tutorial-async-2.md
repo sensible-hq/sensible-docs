@@ -84,7 +84,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 6. Disable all `Content-Type` headers (you might see `Content-Type: application/pdf` and `Content-Type: text/plain` ):
 
-   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_headers_2)
+   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_headers_2.png)
 
    If you don't disable these headers, you might see an error response when you send the response, for example, `SignatureDoesNotMatch`.
 
