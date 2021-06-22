@@ -7,11 +7,11 @@ hidden: false
 
 PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time must use Sensible's asynchronous endpoints. You have two options for asynchronously processing your PDF:
 
-- extracting from a PDF at a URL you provide
+- Extracting from a PDF at a URL you provide. This is a good option if you host your PDFs at either publicly accessible or a pre-signed URLs. The URL must respond to GET requests with PDF bytes. 
 
-- extracting from a PDF at a Sensible-provided URL 
+- Extracting from a PDF at a Sensible-provided URL. This is a good option if you can't easily create either publicly accessible or pre-signed URLs for your PDFs.
 
-This topic covers the first option. 
+This topic covers the first option.
 
 For either option, you can specify a [webhook](doc:api-tutorial-webhook) for Sensible to push the results to as soon as they're ready.
 
@@ -38,7 +38,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
    --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf"}'
    ```
 
-   **Note:**  In the preceding code sample, the `document_url` must be a URL that responds to a GET request with PDF bytes. For testing purposes, we're using a sample PDF at this URL: `https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf`.
+   
 
 2. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
 

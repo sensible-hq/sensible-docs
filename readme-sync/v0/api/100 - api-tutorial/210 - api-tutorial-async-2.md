@@ -5,9 +5,8 @@ hidden: false
 
 PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time must use Sensible's asynchronous endpoints. You have two options for asynchronously processing your PDF:
 
-- extracting from a PDF at a URL you provide
-
-- extracting from a PDF at a Sensible-provided URL 
+- Extracting from a PDF at a URL you provide. This is a good option if you host your PDFs at either publicly accessible or a pre-signed URLs. The URL must respond to GET requests with PDF bytes. 
+- Extracting from a PDF at a Sensible-provided URL. This is a good option if you can't easily create either publicly accessible or pre-signed URLs for your PDFs.
 
 This topic covers the second option. 
 
