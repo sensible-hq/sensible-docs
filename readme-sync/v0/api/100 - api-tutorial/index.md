@@ -37,5 +37,5 @@ Next steps
 Try out the endpoints with these tutorial steps:
 
 - [Try synchronous extraction](doc:api-tutorial-sync)
-- [Try asynchronous extraction](doc:api-tutorial-async)
+- [Try asynchronous extraction](doc:api-tutorial-async-1)
 - [Try a webhook](doc:api-tutorial-webhook)
