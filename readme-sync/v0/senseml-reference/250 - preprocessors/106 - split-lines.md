@@ -1,5 +1,5 @@
 ---
-title: "Splitlines"
+title: "Split lines"
 hidden: false
 ---
 
