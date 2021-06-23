@@ -1,19 +1,57 @@
 ---
 title: "Splitlines"
-hidden: true
+hidden: false
 ---
 
-
+Use this preprocessor to split lines. This preprocessor is most useful for typewriter-style docs where whitespaces are used for formatting. 
 
 
 Parameters
 ====
 
-| key                   | value        | description                |
-| --------------------- | ------------ | -------------------------- |
-| `type` (**required**) | `splitLines` |                            |
-| minSpaces             | number       | An integer, for example 3. |
+| key                   | value        | description                                                  |
+| --------------------- | ------------ | ------------------------------------------------------------ |
+| `type` (**required**) | `splitLines` |                                                              |
+| minSpaces             | number       | The number of consecutive space characters (`&#x20;`) at or above which to split lines. |
 
 Examples
 ====
 
+The following image shows a "typewritten" style PDF in which the Split Lines preprocessor preserves columns and rows that are formatted with spaces:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/split_lines_example.png)
+
+Without this preprocessor, the lines are merged too aggressively:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/split_lines_example_2.png)
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example PDF for Split Lines | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split_lines_example.pdf) |
+| --------------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
+{
+  "preprocessors": [
+    {
+      "type": "splitLines",
+      "minSpaces": 3
+    }
+  ],
+  "fields": [
+    {
+      "id": "policy_number",
+      "method": {
+        "id": "row",
+      },
+      "anchor": "policy number",
+    }
+  ]
+}
+```
+
+
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods).
