@@ -4,10 +4,10 @@ hidden: false
 ---
 
 
-Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor to address line recognition problems caused by PDF formatting, for example poor-quality scans or handwritten text. Line problems include oversplit lines, lines overlapping on the x-axis, or "jittery" lines misaligned on the y-axis. This preprocessor does not override the built-in line merge, but instead evaluates after it. This means you can configure the Merge Lines preprocessor to be aggressive than the built-in line merger, but not less aggressive. For more information, see the Notes section.
+Merges nearby lines more aggressively than the built-in line merger. Use this preprocessor to address line recognition problems caused by PDF formatting, for example poor-quality scans or handwritten text. Line problems include oversplit lines, lines overlapping on the x-axis, or "jittery" lines misaligned on the y-axis. This preprocessor does not override the built-in line merge, but instead evaluates after it. This means you can configure the Merge Lines preprocessor to be more aggressive than the built-in line merger, but not less aggressive. For more information, see the Notes section.
 
 Parameters
-----
+====
 
 | key                                        | value                                  | description                                                  |
 | ------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ |
