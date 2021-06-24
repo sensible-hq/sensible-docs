@@ -88,7 +88,7 @@ Notes
 Anchor nuances 
 ----
 
-At first glance, you might thinking the following two anchors are two different syntaxes for the same matching text:
+At first glance, you might thinking the following two anchors are two different syntaxes for finding the same matching text:
 
 ```json
       "anchor": {
