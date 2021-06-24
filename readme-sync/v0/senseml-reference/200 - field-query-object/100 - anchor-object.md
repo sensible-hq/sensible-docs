@@ -2,7 +2,7 @@
 title: "Anchor object"
 hidden: false
 ---
-An *anchor* is a string, [Match](doc:anchor-object#section-match-object) object, or array of Match objects. Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible can take action based on that location, such as using a ["method"](doc:method-object) to expand out from the anchor and grab the data you want.
+An *anchor* is a string, [Match](doc:anchor-object#section-match-object) object, or array of Match objects. Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible can use a ["method"](doc:method-object) to expand out from the anchor and grab the data you want.
 
 If you want to be syntactically concise, you can define a simple string anchor like:
 
@@ -40,10 +40,9 @@ Anchor parameters
 
 | key                  | values                                 | description                                                  |
 | -------------------- | -------------------------------------- | ------------------------------------------------------------ |
-|                      |                                        |                                                              |
 | match (**required**) | Match object or array of match objects | See [Match object](doc:anchor-object#section-match-object).  |
-| start                | string, Match, or Match array          | Defines a point in the document at which to start searching for  the`match` you define for the anchor.  By default not included in the anchor output. This parameter can be useful if you want to limit your search to a specific section of a document. For example, you can define a `start` that matches a section heading. <br/>Note that lines that "follow" the `start` line are most reliably those that are positioned *below* the start line. Lines to the left are not included, and lines to the right are only considered "following" if they are at exactly the same height as the `start` line on the page. In other words a line qualifies as "successive" to the `start` line first by its y-axis position and then by its x-axis position. |
-| end                  | string, Match, or Match array          | Defines a point in the document at which to stop searching for  the`match` you define for the anchor.  By default not included in the anchor output. If unspecified, matches to end of document.  <br/>Note that lines that "precede" the `end` line are most reliably those that are positioned *above* the end line. Lines to the right are not included, and lines to the left are only considered "preceding" if they are at exactly the same height as the `end` line on the page. In other words, a line qualifies as "preceding" the `start` line first by its y-axis position and then by its x-axis position. |
+| start                | string, Match, or Match array          | Defines a point in the document at which to start searching for  the`match` you define for the anchor.  Not included in the anchor output. (You can capture anchor output with a Passthrough method).<br/> This parameter can be useful if you want to limit your search to a specific section of a document. For example, you can define a `start` that matches a section heading. <br/>Note that lines that "follow" the `start` line are most reliably those that are positioned *below* the start line. Lines to the left are not included, and lines to the right are only considered "following" if they are at exactly the same height as the `start` line on the page. In other words, a line qualifies as "successive" to the `start` line first by its y-axis position and then by its x-axis position. |
+| end                  | string, Match, or Match array          | Defines a point in the document at which to stop searching for  the`match` you define for the anchor.  By default, not included in the anchor output. (You can capture anchor output with a Passthrough method).<br/>If unspecified, the anchor searches for matches to the end of the document.  <br/>Note that lines that "precede" the `end` line are most reliably those that are positioned *above* the end line. Lines to the right are not included, and lines to the left are only considered "preceding" if they are at exactly the same height as the `end` line on the page. In other words, a line qualifies as "preceding" the `start` line first by its y-axis position and then by its x-axis position. |
 | includeEnd           | boolean                                | Whether to include the text in the matching `end` line in the anchor output. |
 
 Examples
@@ -57,14 +56,14 @@ Here's an example of an Anchor object that uses all these parameters:
     {
       "id": "simple_label",
       "anchor": {
-        "start": "My section heading to start matching on",
-        "end": "My footer text to stop matching on",
+        "start": "My section heading. Start matching after it",
+        "end": "My footer text. Stop matching before it",
         "includeEnd": true,
         "match": 
           [
             {
               "type": "includes",
-              "text": "Only finds anchor if you match this string in a line that is between the start and end lines (best to ensure start is above and end is below the text).",
+              "text": "Only finds anchor if you match this string in a line that is between the start and end lines (best to ensure start is above and end is below the text you want to match).",
             },
           ]      
       },
@@ -84,7 +83,7 @@ Match object
 
 Matches are instructions for matching lines of text in a document. They are valid elements in anchors and other objects. 
 
-There are three different types of Match objects including simple, regex, and first matches.  The following parameters are available to all types of Match objects:
+There are three different types of Match objects, including simple, regex, and first matches.  The following parameters are available to all types of Match objects:
 
 
 
@@ -104,8 +103,9 @@ See the following sections for more information about each match type:
 - [Simple matcher](doc:anchor-object#section-simple-match)
 - [Regex match](doc:anchor-object#section-regex-match)
 - [First match](doc:anchor-object#section-first-match)
-- You can define match arrays. See [Match arrays](doc:anchor-object#section-match-arrays) 
-- The *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
+
+You can define match arrays. See [Match arrays](doc:anchor-object#section-match-arrays) 
+The *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
 
 
 
@@ -135,7 +135,7 @@ Match using a regular expression.
 
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. |
 | type (**required**)    | `regex`                  |                                                              |
 
@@ -148,7 +148,7 @@ For an example, see the [Passthrough method example](doc:passthrough).
 First match
 ------
 
-This is a convenience or utility match to find the first line encountered. 
+This is a convenience match to find the first line encountered. 
 
 **Parameters**
 
@@ -156,7 +156,7 @@ This is a convenience or utility match to find the first line encountered.
 | ---- | ------- | ------------------------------------------------------------ |
 | type | `first` | Matches the first line encountered, usually on a specified page. |
 
-For an example, see the following examples section
+For an example, see the following examples section.
 
 
 
@@ -280,6 +280,8 @@ For an array of Match objects, all matches must be found to successfully create 
 
 
 
+Notes
+====
 
 Methods influence matches
 -----
