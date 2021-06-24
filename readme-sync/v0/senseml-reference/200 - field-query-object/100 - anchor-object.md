@@ -211,7 +211,7 @@ And the output of this example is:
     },
     {
       "type": "string",
-      "value": "Here is a B line for a 3rd time."
+      "value": "Here is a B line for the 4th time."
     },
     {
       "type": "string",
