@@ -120,13 +120,13 @@ Versus:
     
 ```
 
-To clarify the difference, the following image shows the different outputs of these anchors:
+To clarify the difference,  the following image shows the outputs of these anchors:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_1.png)
 
 This example uses the Passthrough method and `"match":all"` to display the full anchor output. It shows that:
 
-- For the `"match_array"` field, Sensible searches for the text in the last array element, and returns that text as an anchor only if it is directly preceded by the other array elements.  Since we specify `"match":all"`, Sensible finds two anchors. See the following image for an illustration of how Sensible matches two B lines: 
+- For the `"match_array"` field, Sensible searches for the text in the last array element, and anchors on that text only if it is preceded by the other array elements in order, with no intervening repetitions of matches.  Since we specify `"match":all"`, Sensible finds two anchors. See the following image for an illustration of how Sensible matches two B lines: 
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_2.png)
 
@@ -142,46 +142,7 @@ You can try out this example yourself in the Sensible app using the following do
 This example uses the following config:
 
 ```json
-{
-  "fields": [
-    {
-      "id": "match_array",
-      "match": "all",
-      "anchor": {
-        "match": [
-          {
-            "type": "startsWith",
-            "text": "here is an A line"
-          },
-          {
-            "type": "startsWith",
-            "text": "here is a B line"
-          }
-        ]
-      },
-      "method": {
-        "id": "passthrough"
-      }
-    },
-    {
-      "id": "start_and_match",
-      "match": "all",
-      "anchor": {
-        "start": {
-          "type": "startsWith",
-          "text": "here is an A line"
-        },
-        "match": {
-          "type": "startsWith",
-          "text": "here is a B line"
-        }
-      },
-      "method": {
-        "id": "passthrough"
-      }
-    }
-  ]
-}
+
 ```
 
 And the output of this example is:

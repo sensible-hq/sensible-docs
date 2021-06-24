@@ -169,7 +169,7 @@ The following example performs OCR only on a set page range. It's useful to narr
 Match arrays
 ----
 
-For an array of Match objects, all matches must be found to successfully create an anchor.  Each Match object must target a separate successive line. In other words, the second match starts its search in the line after the line matched by the first Match object in the array, and so on. 
+For an array of Match objects, all matches must be found to successfully create an anchor.  Each Match object must target a separate successive line. In other words, the second match starts its search in the line after the line matched by the first Match object in the array, and so on.  Sensible searches for the text in the last array element, and anchors on that text only if it is preceded by the other array elements in order, with no intervening repetitions of matches.
 
 ```json
 {
@@ -200,7 +200,6 @@ For an array of Match objects, all matches must be found to successfully create 
   ]
 }
 ```
-
 
 
 
