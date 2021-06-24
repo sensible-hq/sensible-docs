@@ -126,13 +126,11 @@ To clarify the difference, the following image shows the different outputs of th
 
 This example uses the Passthrough method and `"match":all"` to display the full anchor output. It shows that:
 
-- For the `"match_array"` field, Sensible searches for the text in the last array element, and returns that text as an anchor only if it is directly preceded by the other array elements. This explains why the line `Here is a B line again` is not returned as anchor output; this instance is not preceded by `Here is an A line`.  Since we specify `"match":all"`, Sensible does find the other  B line that qualifies: `Here is a B line that is the 2nd occurrence of “B following A” in the doc`.
-
-  See the following image for an illustration: 
+- For the `"match_array"` field, Sensible searches for the text in the last array element, and returns that text as an anchor only if it is directly preceded by the other array elements.  Since we specify `"match":all"`, Sensible finds two anchors. See the following image for an illustration: 
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_2.png)
 
-- For the `"start_and_match"` field, Sensible starts the anchor search after the first instance of `here is an A line`, and discards anything earlier in the document. Then, the match specifies to find **all** instances of line B after the start match, so it returns four instances.  Notice it does NOT return the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. The Stop parameter operates just as the Start parameter does, except it discards everything after the Stop matching line. See the following image for an illustration:
+- For the `"start_and_match"` field, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. Then, the match specifies to find **all** instances of line B after the start match, so it returns four instances.  Notice it does NOT return the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match.  See the following image for an illustration:
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_3.png)
 
