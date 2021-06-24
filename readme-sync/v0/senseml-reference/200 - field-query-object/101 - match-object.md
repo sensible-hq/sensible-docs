@@ -1,5 +1,5 @@
 ---
-title: "matchobject"
+title: "Match object"
 hidden: false
 ---
 
@@ -27,7 +27,7 @@ See the following sections for more information about each match type:
 - [Regex match](doc:anchor-object#section-regex-match)
 - [First match](doc:anchor-object#section-first-match)
 
-You can define match arrays. See [Match arrays](doc:anchor-object#section-match-arrays) 
+You can define match arrays. See [Match arrays](doc:match-object#section-match-arrays) 
 The *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
 
 
