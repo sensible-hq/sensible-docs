@@ -19,5 +19,18 @@ The parameters for a method vary based on the method type (defined in the `id` p
 | lineFilters      | Match object                                                 | Filters out the matched lines from the method results. A example is if you’re using a Box method, and there’s a text footer in the box that you don't want to capture, or some additional label to the main anchor label that you don't want to capture. |
 | wordFilters      | string array                                                 | Filters out unwanted matched strings from the method results. |
 | whitespaceFilter | `spaces`, `all`                                              | Remove extraneous whitespaces. Use `spaces` to remove only extra spaces and `all` to remove all whitespace characters, including new lines and tabs. |
-| xRangeFilter     | object                                                       | Parameters: <br/>`start` - `right` ,`left` <br/> `offsetX` - in inches  <br/> `width` - in inches |
+| xRangeFilter     | object                                                       | Excludes the portion of the page to the right of a starting point on the x-axis. Parameters: <br/>`start` - `right` ,`left`  - Adjusts the starting point to the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the starting point defined by the Start parameter  <br/> `width` - the width of document portion to capture, in inches |
 | xMajorSort       | boolean                                                      | Orders lines by their x-axis position. Useful in cases where the text is not well-aligned (notably with handwriting). |
+
+
+
+Examples
+====
+
+
+
+xRangeFilter
+----
+
+The X Range Filter parameter is useful in conjunction with the Document Range method to specify a portion of the document. The following  c
+
