@@ -142,7 +142,46 @@ You can try out this example yourself in the Sensible app using the following do
 This example uses the following config:
 
 ```json
-
+{
+  "fields": [
+    {
+      "id": "match_array",
+      "match": "all",
+      "anchor": {
+        "match": [
+          {
+            "type": "startsWith",
+            "text": "here is an A line"
+          },
+          {
+            "type": "startsWith",
+            "text": "here is a B line"
+          }
+        ]
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    },
+    {
+      "id": "start_and_match",
+      "match": "all",
+      "anchor": {
+        "start": {
+          "type": "startsWith",
+          "text": "here is an A line"
+        },
+        "match": {
+          "type": "startsWith",
+          "text": "here is a B line"
+        }
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    }
+  ]
+}
 ```
 
 And the output of this example is:
