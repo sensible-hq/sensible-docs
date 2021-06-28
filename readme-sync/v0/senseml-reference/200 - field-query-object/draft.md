@@ -11,9 +11,9 @@ destined for method object
 xRangeFilter 
 ----
 
-The X Range Filter parameter is useful in conjunction with the Document Range method to specify a portion of the page. 
+In combination with the Document Range method, the X Range Filter parameters defines a "column" that is bounded at the top and bottom by text.
 
-The following image shows TBD:
+The following image shows capturing a "cell" in a table:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/xrange_filter_example.png)
 
@@ -21,12 +21,9 @@ The following image shows TBD:
 
 In this example:
 
-- Document Range by itself is not a good option because it would capture the address of the importer as well as the supplier
-- Table methods are not the best option, because each mailing address in the table can have a variable number of lines. 
+- Document Range by itself is not a good option because it would capture the address of the importer as well as the supplier.
+- Table methods are not the best option, because each mailing address in the table can have a variable number of lines.  (TODO: is it really because this is a difficult table to recognize for ML combined with variable lines making it a bad candidate for fixed table?)
 - The Region method is not a good option because of the variable number of lines. For example, if all addresses were only 3 lines, the "Type of business" text might move up the page, and we could inadvertently capture that. 
-
-Instead, the X Range Filter parameter lets us define a variable "column" whose width and position we can define, that is bounded at the top and bottom by text.
-
 
 
 
