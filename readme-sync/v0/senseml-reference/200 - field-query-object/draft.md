@@ -3,12 +3,12 @@ title: "draft"
 hidden: true
 ---
 
-destined for method object
+destined for method object topic
 ====
 
 
 
-xRangeFilter 
+xRangeFilter example
 ----
 
 In combination with the Document Range method, the X Range Filter parameters defines a "column" that is bounded at the top and bottom by text.
@@ -61,3 +61,17 @@ This example uses the following config:
   ]
 }
 ```
+
+
+
+xMajorSort example
+----
+
+
+In the following example, the handwritten text "NY" is slightly taller than the text "State", so Sensible interprets "NY" as *preceding* "State": 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/changelog_July2021_xMajorSort.png)
+
+In another document, if a person wrote "NY"  in a shorter font than "State", Sensible would interpret "NY" as *succeeding* "State". To eliminate the variability,  set `"xMajorSort":"true"` so you can use "State" reliably as an anchor:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/changelog_July2021_xMajorSortSenseML.png)
