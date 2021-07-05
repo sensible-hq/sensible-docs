@@ -70,7 +70,7 @@ If all tests passed for a PDF except the "zip code must be valid" test, the extr
 	"id": "edeedb37-1c47-47d2-a64c-f355cf04835e",
 	"created": "2021-07-05T20:50:56.390Z",
 	"status": "COMPLETE",
-	"type": "auto_insurance_quote",
+	"type": "test_doc_type",
 	"configuration": "anyco",
 	"validations": [{
 		"description": "Zip code must be valid",
@@ -78,8 +78,8 @@ If all tests passed for a PDF except the "zip code must be valid" test, the extr
 	}],
 	"parsed_document": {
 		"rate": {
-			"source": "$200",
-			"value": 200,
+			"source": "$800",
+			"value": 800,
 			"unit": "$",
 			"type": "currency"
 		},
