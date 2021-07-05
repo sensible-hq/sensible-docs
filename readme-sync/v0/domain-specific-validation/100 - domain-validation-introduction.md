@@ -5,10 +5,10 @@ hidden: true
 
  
 
-Quality control your data extractions by writing document-specific validation tests in  [JsonLogic](https://jsonlogic.com/).  Sensible's extractions are largely deterministic:  with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals don't make much sense as a measure of extraction quality. Instead, write tests to quantify your extraction quality. Then write your own logic based on the tests, for example:
+Quality control your data extractions by writing domain-specific validation tests using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the tests, for example:
 
-- Pass a document extraction automatically through your pipeline if there are no errors and only 10% of warnings validations fail
-- Flag a document extraction for human review if 5% of error validations fail
+- pass a document extraction automatically through your pipeline if there are no errors and only 10% of warnings validations fail
+- flag a document extraction for human review if 5% of error validations fail
 
 
 
@@ -99,3 +99,6 @@ If all tests passed for a PDF except the "zip code must be valid" test, the extr
 
 
 
+Notes
+====
+Sensible's extractions are largely deterministic:  with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals aren't useful as a measure of extraction quality. Domain-specific validation tests are a more useful measure, because they allow you to test the output for a specific document type. 
