@@ -47,7 +47,7 @@ validations: [
 
 In the preceding example: 
 
-- The "Rate must be a round number" test retrieves the value of an extracted `rate.value` key/value pair to a `var`, use the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 100, and pass if the remainder equals 0.
+- The "Rate must be a round number" test retrieves the value of an extracted `rate.value` key/value pair using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 100, and pass if the remainder equals 0.
 - The "Zip code must be valid" test uses a Sensible-specific operation (`match`) to test if an extracted zip code value matches the regular expression `"^[0-9]{5}$"`.
 - The "Required field broker_contact_name" test uses a Sensible-specific operation (`exists`) to test if a `var`'s value is not null.
 
@@ -57,7 +57,7 @@ Parameters
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
 | description (**required**) | string              | a description of the test                                    |
-| condition                  | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, string] }`, where `string` is a JS-flavor, JSON-escaped regular expression.<br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value exists. |
+| condition                  | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, string] }`, where `string` is a JS-flavor, JSON-escaped regular expression.<br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. |
 | severity                   | `error`, `warning`  | The severity of the failing test                             |
 
 
