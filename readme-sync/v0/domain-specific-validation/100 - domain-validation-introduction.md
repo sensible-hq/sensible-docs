@@ -18,7 +18,7 @@ Parameters
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
 | description (**required**) | string              | a description of the test                                    |
-| condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, string] }`, where `string` is a Javascript-flavored, JSON-escaped regular expression.<br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null.<br/>Note that a commonly used JsonLogic operation, `var`, extracts values from the `parsed_document` field in the extraction using a field `id` key. You must escape any dots in the key (for example, `delivery\\.zip\\.code`). |
+| condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, string] }`, where `string` is a Javascript-flavored, JSON-escaped regular expression.<br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from  `parsed_document` in the extraction using field `id` keys. Note that you must escape any dots in the keys (for example, `delivery\\.zip\\.code`). |
 | severity (**required**)    | `error`, `warning`  | The severity of the failing test                             |
 
 Examples
