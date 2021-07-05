@@ -63,7 +63,7 @@ In the preceding example:
 
   
 
-If all tests passed except the "zip code must be valid" test, the output could look something like this:
+If all tests passed for a PDF except the "zip code must be valid" test, the extraction output could look something like this:
 
 ```json
 {
