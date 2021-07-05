@@ -49,7 +49,7 @@ In the preceding example:
 
 - The "Rate must be a round number" test retrieves the value of an extracted `rate.value` key/value pair using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 100, and passes the test if the remainder equals 0. Note that you must escape the dot in the key (`rate\\.value`).
 - The "Zip code must be valid" test uses a Sensible-specific operation (`match`) to test if an extracted zip code value matches the regular expression `"^[0-9]{5}$"`.
-- The "Required field broker_contact_name" test uses a Sensible-specific operation (`exists`) to test if a `var`'s value is not null.
+- The "Required field broker_contact_name" test uses a Sensible-specific operation (`exists`) to test that a `var`'s value is not null.
 
 Parameters
 ====
