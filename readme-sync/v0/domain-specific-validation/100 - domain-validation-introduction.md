@@ -85,7 +85,7 @@ If all tests passed for a PDF except the "zip code must be valid" test, the extr
 		},
 		"delivery.zip.code": {
 			"type": "string",
-			"value": "987654321"
+			"value": "9876543214985192873698450"
 		},
 
 		"broker_contact_name": {
