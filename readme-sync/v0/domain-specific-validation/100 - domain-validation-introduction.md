@@ -5,7 +5,7 @@ hidden: true
 
  
 
-Quality control your data extractions by writing document-specific validation tests in  [json logic](https://jsonlogic.com/).  Sensible's extractions are deterministic: a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals don't make any sense as a measure of extraction quality. Instead, use tests like the following example to quantify your extraction quality, then write your own logic based on the tests, for example:
+Quality control your data extractions by writing document-specific validation tests in  [JsonLogic](https://jsonlogic.com/).  Sensible's extractions are deterministic: a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals don't make any sense as a measure of extraction quality. Instead, use tests like the following example to quantify your extraction quality, then write your own logic based on the tests, for example:
 
 - Pass a PDF extraction automatically through your pipeline if there are no errors and only 10% of warnings tests are triggered
 - Flag a PDF extraction for human review if 5% of error tests are triggered
@@ -47,7 +47,7 @@ validations: [
 
 In the preceding example: 
 
-- The "Rate must be a round number" test retrieves the value of an extracted `rate.value` key/value pair using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 100, and pass if the remainder equals 0.
+- The "Rate must be a round number" test retrieves the value of an extracted `rate.value` key/value pair using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 100, and passes the test if the remainder equals 0.
 - The "Zip code must be valid" test uses a Sensible-specific operation (`match`) to test if an extracted zip code value matches the regular expression `"^[0-9]{5}$"`.
 - The "Required field broker_contact_name" test uses a Sensible-specific operation (`exists`) to test if a `var`'s value is not null.
 
