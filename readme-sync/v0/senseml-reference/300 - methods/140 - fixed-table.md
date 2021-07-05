@@ -73,5 +73,5 @@ This example uses the following config:
 
 Notes
 ====
-Use this method instead of the Table method when you are certain that the table always has the same number of columns in all the PDFs of the specified document type. 
+Use this method instead of the Table method when you are certain that the table always has the same column layout in all the PDFs of the specified document type. 
 
