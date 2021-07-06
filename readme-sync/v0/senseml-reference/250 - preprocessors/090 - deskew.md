@@ -107,17 +107,17 @@ Now, let's try out the preprocessor we just defined with our skewed example:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_3.png)
 
-We're almost there! The text lines are unskewed and are now aligned in roughly the same positions as the lines in the reference PDF. However, the Deskew Preprocessor didn't fix lines that were split by the skew. As a result, the Region starting point shifted to the middle of a single word, "tenure:"
+We're almost there! The text lines are unskewed and are now aligned in roughly the same positions as the lines in the reference PDF. However, the Deskew Preprocessor didn't fix lines that were split by the skew. As a result, the region starting point shifted to the middle of the word "tenure" instead of the middle of the complete line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_5.png)
 
-And so the Region method misses the start of the date range.
+Since the region is shifted to the right, it misses the start of the date range.
 
 To fix this, let's apply a Merge Lines preprocessor after the Deskew preprocessor: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_4.png)
 
-Now we've captured the full date range, because the Region starts from the middle of the complete line "white house tenure", which shifts it far enough to the left to capture the start of the date range:
+Now we've captured the full date range, because the region starts from the middle of the complete line "White house tenure": 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_6.png)
 
