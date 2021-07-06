@@ -2,9 +2,9 @@
 title: "Fingerprint"
 hidden: false
 ---
-If you create multiple configs for a document type, Sensible automatically chooses which config's output to return. You can configure this default behavior and potentially boost performance by adding a fingerprint to a config.
+If you create multiple configs for a document type, Sensible automatically chooses which config's output to return.  For example, if you run company A and company B quotes through a single "quotes" doc type, Sensible runs both the company A and the company B configs for a given document, then returns the best of the two extractions (i.e., the one with the highest percent of non-null values). You can configure this default behavior and potentially boost performance by adding a fingerprint to a config.
 
- A fingerprint tests for matching text before deciding to run or skip a config for a doc.  This is in contrast to the default behavior. By default, Sensible runs extractions for a document using *all* the configs you define for the doc type, then chooses the extraction from the config that has the highest percentage of non-null values. By skipping configs that fail a document's fingerprint, you can save processing time. This is particularly true if a config contains computationally expensive operations like selective OCR (including the Table and Fixed Table methods) or box recognition methods (like Box or Checkbox).  
+ A fingerprint tests for matching text in a doc, and then decides to run or skip a config for a doc.  By skipping configs that fail a fingerprint, you can save processing time. This is particularly true if a config contains computationally expensive operations like selective OCR (including the Table and Fixed Table methods) or box recognition methods (like Box or Checkbox).  
 
 For example, if you have a vendor-specific config, "anyco_life_insurance_quote" in the document type "life insurance quotes", you might write a fingerprint in the config like:
 
@@ -24,7 +24,7 @@ For example, if you have a vendor-specific config, "anyco_life_insurance_quote" 
 }
 ```
 
-This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases, and preferentially runs the config only if it finds the phrases.  
+This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases. The config preferentially runs only if the fingerprint finds the phrases.  
 
 As the previous example shows, a fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects. A test passes if all the matches defined for the test are found in the doc.  For more information, see [Match object](doc:match-object).
 
