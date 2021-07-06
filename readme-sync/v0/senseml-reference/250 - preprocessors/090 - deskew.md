@@ -19,13 +19,15 @@ Parameters
 Examples
 ----
 
-First, take a look at the following image to see the problem with extracting from a skewed PDF.  In this case, the word "tenure" is so skewed, it isn't even recognized as an anchor, and the Region method wouldn't work even if Sensible could recognize the word "tenure," because the year range isn't below the word "tenure" where we expect it to be:
+First, take a look at the following image to see the problem with extracting from a skewed PDF.  This config attempts to extract a date range using the Region method and anchoring on the text "tenure."  The config fails, because the word "tenure" is so skewed, it isn't even recognized as an anchor. Even if the anchor were recognizable, the Region method wouldn't work, because the year range is to the left rather than directly below the word "tenure":
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_1.png)
 
-To start to tackle this problem, let's first define three widely spaced points where we expect the text to be in an unskewed example of this document type:
+To start to tackle this problem, let's first define three widely spaced points where we expect the text to be in a well aligned example of this document type:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_2.png)
+
+For more information about how to choose points, see [Best Practices](doc:deskew#section-best-practices).
 
 You can try out this example yourself in the Sensible app using the following downloadable PDFs and config:
 
@@ -107,17 +109,17 @@ Now, let's try out the preprocessor we just defined with our skewed example:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_3.png)
 
-Almost there! The text lines are unskewed and are now aligned in roughly the same positions as the lines in the unskewed reference PDF. However, the Deskew Preprocessor didn't address some lines that were split by the original skew. As a result, the Region starting point shifted to the middle of a single word, "tenure:"
+We're almost there! The text lines are unskewed and are now aligned in roughly the same positions as the lines in the reference PDF. However, the Deskew Preprocessor didn't fix lines that were split by the skew. As a result, the Region starting point shifted to the middle of a single word, "tenure:"
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_5.png)
-
-
 
 When we were expecting it to start from the middle of the complete line "white house tenure":
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_6.png)
 
- To fix this, let's apply a Merge Lines preprocessor after the Deskew preprocessor: 
+And so the Region method misses the start of the date range.
+
+To fix this, let's apply a Merge Lines preprocessor after the Deskew preprocessor: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_4.png)
 
@@ -131,12 +133,6 @@ Now we've captured the full date range. This config uses the following Merge Lin
       "yOverlapThreshold": 0.1
     },
 ```
-
-
-
-
-
-
 
 
 
