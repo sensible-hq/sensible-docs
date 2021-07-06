@@ -25,7 +25,7 @@ The following image shows some problems with extracting data from a skewed PDF. 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_1.png)
 
-To solve this problem, first define three widely spaced points in a well-aligned example of this document type:
+To solve this problem, first define three widely spaced points in a well-aligned example of this document type. The following example shows using the displayed coordinates of the line starting with "first" to define the X and Y parameters for one of three Fixed Point parameters:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_2.png)
 
