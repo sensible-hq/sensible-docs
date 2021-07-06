@@ -11,3 +11,7 @@ The following pages describe preprocessors you can use to clean up your document
 * [Remove Header](doc:remove-header)
 * [Remove Footer](doc:remove-footer)
 
+
+
+Preprocessors execute in the order you define them in an array. For example, define a Page Range filter first in the Preprocessors array, then a Merge Lines preprocessor, to avoid merging lines on pages you want to ignore.
+

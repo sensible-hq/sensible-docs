@@ -21,7 +21,7 @@ Parameters
 Examples
 ----
 
-The following image shows some problems with extracting data from a skewed PDF.  This config attempts to extract a date range using a Region method anchored on the word "tenure." The config fails, because the word "tenure" too skewed for Sensible to recognize the word. The Region method also fails, because the date range is to the left rather than directly below the anchor:
+The following image shows some problems with extracting data from a skewed PDF.  This config attempts to extract a date range using a Region method anchored on the word "tenure." The config fails, because the word "tenure" too skewed for Sensible to recognize the word. The Region method independently fails, because the date range is to the left rather than directly below the anchor:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_1.png)
 
