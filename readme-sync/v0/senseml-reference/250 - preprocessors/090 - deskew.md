@@ -5,6 +5,8 @@ hidden: true
 
 Correct the alignment of PDF documents that are skewed, for example as a result of being  photographed at an angle instead of straight-on.  ID cards and receipts are common examples of such documents.  Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm)  to correct scaling, rotation, translation, and shear. 
 
+For scanned PDFs that are only slightly rotated, this preprocessor isn't necessary.   Sensible's default OCR engine (Microsoft)  corrects slight rotation automatically.
+
 
 
 Parameters
@@ -141,15 +143,19 @@ This config uses the following Merge Lines preprocessor:
 Notes
 ====
 
-Best practices
+Tips
 -----
 
-Define th
+- Click on a line in the document pane in the Sensible app to view line coordinates for the Fixed Points.
+- Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document.  Choosing the best points can take some trial and error. 
+- For the Match parameter, choose types "startsWith" or "endsWith" to avoid problems with lines split by skew.  If you choose "endsWith", then also define `"start:right"`.
+- For the aligned reference PDF, choose a slightly enlarged image of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
+- Define a Merge Lines or Split Lines preprocessor to clean up after the Deskew preprocessor. 
 
 Limitations
 -----
 
 - This preprocessor currently breaks methods that rely on pixel recognition, such as the Box method and the Checkbox method. Use the Region method instead of these methods.
-- For scanned PDFs that are only slightly rotated, this preprocessor isn't necessary.  If you select "microsoft OCR" (the default) in the app for in the document type settings, then this OCR engine corrects slight rotation by default.
-- Deskew does not correct for line jitter that may occur as a result of a skewed scan. To correct for these, configure preprocessors in addition to the Deskew preprocessor, such as the Split Lines and Merge Lines preprocessors.
+
+  
 
