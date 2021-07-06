@@ -109,7 +109,7 @@ Now, check this Deskew preprocessor against the skewed example:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_3.png)
 
-We're almost there! The text lines are unskewed and are now aligned in roughly the same positions as the lines in the reference PDF. However, the Deskew Preprocessor didn't fix lines that were split by the skew. As a result, the region starts at the middle of the word "tenure" instead of the middle of the complete line "White house tenure":
+The problem is almost solved! The text lines are unskewed and are now aligned in roughly the same positions as the lines in the reference PDF. However, the Deskew Preprocessor didn't fix lines that were split by the skew. As a result, the region starts at the middle of the word "tenure" instead of the middle of the complete line "White house tenure":
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_5.png)
 
