@@ -14,7 +14,7 @@ Parameters
 | ------------------------- | ------ | ------------------------------------------------------------ |
 | `type` (**required**)     | `deskew` |                                                    |
 | `fixedPoints` (**required**) | object | An object mapping the position of three points in the skewed document to their ideal position if the document had no skew. Define these fixed points using text anchors in an unskewed example of the document. Choose text anchors that form as large a triangle as possible, ideally at three corners of the document.  Choosing the best points can take some trial and error. Parameters:<br/>`match` - the text to match for the fixed point.  Choose types "startsWith" or "endsWith" to avoid problems with lines split by skew. See [Match object](docs:match-object) for more details.<br/>`targetPosition` - contains an `x` and a `y` parameter to define in inches, relative to the 0,0 origin at the top left corner of the page. For more information defining the positions, see the Examples section<br/> |
-| `start` | `left` , `right`. default: left | Use the coordinates of the upper-right corner of the anchor line's boundaries, vs the upper-left corner coordinates, as a Fixed Point. |
+| `start` | `left` , `right`. default: `left` | Use the coordinates of the upper-right corner of the anchor line's boundaries, vs the upper-left corner coordinates, as a Fixed Point.  Leave the default with a Match object where `"type": "startsWith"`, and use `right` with a Match object where `"type": "endsWith"`. |
 
 Examples
 ----
@@ -54,7 +54,6 @@ This example uses the following config:
             "x": 2.76,
             "y": 1.6
           },
-          "start": "left"
         },
         {
           "match": {
@@ -65,7 +64,6 @@ This example uses the following config:
             "x": 2.76,
             "y": 3.74
           },
-          "start": "left"
         },
         {
           "match": {
@@ -113,17 +111,21 @@ We're almost there! The text lines are unskewed and are now aligned in roughly t
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_5.png)
 
-When we were expecting it to start from the middle of the complete line "white house tenure":
-
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_6.png)
-
 And so the Region method misses the start of the date range.
 
 To fix this, let's apply a Merge Lines preprocessor after the Deskew preprocessor: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_4.png)
 
-Now we've captured the full date range. This config uses the following Merge Lines preprocessor:
+Now we've captured the full date range, because the Region starts from the middle of the complete line "white house tenure":
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_6.png)
+
+
+
+
+
+This config uses the following Merge Lines preprocessor:
 
 ```json
     {
