@@ -19,16 +19,116 @@ Parameters
 Examples
 ----
 
-First, let's define fixed points based on an unskewed example of an ID:
+First, take a look at the following image to see the problem with extracting from a skewed PDF.  In this case, the word "tenure" is so skewed, it isn't even recognized as an anchor, and the Region method wouldn't work even if Sensible could recognize the word "tenure," because the year range isn't below the word "tenure" where we expect it to be:
 
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_1.png)
 
+To start to tackle this problem, let's first define three widely spaced points where we expect the text to be in an unskewed example of this document type:
 
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_2.png)
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example aligned  PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_example_1.pdf) |
+| -------------------- | ------------------------------------------------------------ |
+
+| Example skewed PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_example_2.pdf) |
+| -------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
+{
+  "preprocessors": [
+    {
+      "type": "deskew",
+      "fixedPoints": [
+        {
+          "match": {
+            "type": "equals",
+            "text": "first"
+          },
+          "targetPosition": {
+            "x": 2.76,
+            "y": 1.6
+          },
+          "start": "left"
+        },
+        {
+          "match": {
+            "type": "startsWith",
+            "text": "Owner"
+          },
+          "targetPosition": {
+            "x": 2.76,
+            "y": 3.74
+          },
+          "start": "left"
+        },
+        {
+          "match": {
+            "type": "endsWith",
+            "text": "tenure:"
+          },
+          "targetPosition": {
+            "x": 7.29,
+            "y": 3.61
+          },
+          "start": "right"
+        }
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "id": "tenure",
+      "anchor": {
+        "match": {
+          "type": "endsWith",
+          "text": "tenure:"
+        }
+      },
+      "method": {
+        "id": "region",
+        "start": "below",
+        "width": 1.6,
+        "height": 0.5,
+        "offsetX": -1,
+        "offsetY": 0
+      }
+    }
+  ]
+}
 ```
 
-```
+
+
+Now, let's try out the preprocessor we just defined with our skewed example:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_3.png)
+
+Almost there! The text lines are unskewed and are now aligned in roughly the same positions as the lines in the unskewed reference PDF. However, the Deskew Preprocessor didn't address some lines that were split by the original skew. As a result, the anchor point shifted from the middle of the line "white house tenure" to the middle of a single word, "tenure." Since the anchor shifted, the Region method shifted as well, and we don't capture the whole date range.
+
+To fix this, let's apply a Merge Lines preprocessor after the Deskew preprocessor: 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_4.png)
+
+Now we've captured the full date range.
+
+
+
+
+
+
 
 Notes
-----
+====
+
+Best practices
+-----
+
+Limitations
+-----
 
 - This preprocessor currently breaks methods that rely on pixel recognition, such as the Box method and the Checkbox method. Use the Region method instead of these methods.
 - For scanned PDFs that are only slightly rotated, this preprocessor isn't necessary.  If you select "microsoft OCR" (the default) in the app for in the document type settings, then this OCR engine corrects slight rotation by default.
