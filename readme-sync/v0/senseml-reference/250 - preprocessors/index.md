@@ -4,6 +4,7 @@ hidden: false
 ---
 The following pages describe preprocessors you can use to clean up your documents before extracting structured data:
 
+* [Deskew](doc:deskew)
 * [Ligature](doc:ligature)
 * [Merge Lines](doc:merge-lines)
 * [Page Filter](doc:page-filter)
