@@ -117,7 +117,7 @@ To fix this, let's apply a Merge Lines preprocessor after the Deskew preprocesso
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_4.png)
 
-Now we've captured the full date range, because the Region starts from the middle of the complete line "white house tenure":
+Now we've captured the full date range, because the Region starts from the middle of the complete line "white house tenure", which shifts it far enough to the left to capture the start of the date range:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_6.png)
 
