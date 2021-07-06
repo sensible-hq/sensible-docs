@@ -32,3 +32,5 @@ Notes
 
 - This preprocessor currently breaks methods that rely on pixel recognition, such as the Box method and the Checkbox method. Use the Region method instead of these methods.
 - For scanned PDFs that are only slightly rotated, this preprocessor isn't necessary.  If you select "microsoft OCR" (the default) in the app for in the document type settings, then this OCR engine corrects slight rotation by default.
+- Deskew does not correct for line jitter that may occur as a result of a skewed scan. To correct for these, configure preprocessors in addition to the Deskew preprocessor, such as the Split Lines and Merge Lines preprocessors.
+
