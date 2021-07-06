@@ -13,7 +13,7 @@ Parameters
 | key                       | value   | description                                                      |
 | ------------------------- | ------ | ------------------------------------------------------------ |
 | `type` (**required**)     | `deskew` |                                                    |
-| `fixedPoints` (**required**) | object | An object mapping the position of three points in the skewed document to their ideal position if the document had no skew. Define these fixed points using text anchors in an unskewed example of the document. Choose text anchors that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. Parameters:<br/>`match` - the text to match for the fixed point. See [Match object](docs:match-object) for more details.<br/>`targetPosition` - contains an `x` and a `y` parameter to define in inches, relative to the 0,0 origin at the top left corner of the page. For more information defining the positions, see the Examples section<br/> |
+| `fixedPoints` (**required**) | object | An object mapping the position of three points in the skewed document to their ideal position if the document had no skew. Define these fixed points using text anchors in an unskewed example of the document. Choose text anchors that form as large a triangle as possible, ideally at three corners of the document.  Choosing the best points can take some trial and error. Parameters:<br/>`match` - the text to match for the fixed point.  Choose types "startsWith" or "endsWith" to avoid problems with lines split by skew. See [Match object](docs:match-object) for more details.<br/>`targetPosition` - contains an `x` and a `y` parameter to define in inches, relative to the 0,0 origin at the top left corner of the page. For more information defining the positions, see the Examples section<br/> |
 | `start` | `left` , `right`. default: left | Use the coordinates of the upper-right corner of the anchor line's boundaries, vs the upper-left corner coordinates, as a Fixed Point. |
 
 Examples
@@ -141,6 +141,8 @@ Notes
 
 Best practices
 -----
+
+Define th
 
 Limitations
 -----
