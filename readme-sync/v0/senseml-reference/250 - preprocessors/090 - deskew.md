@@ -21,7 +21,7 @@ Parameters
 Examples
 ----
 
-The following image shows some problems with extracting data from a skewed PDF.  This config attempts to extract a date range using a Region method anchored on the word "tenure." The config fails, because the word "tenure" too skewed for Sensible to recognize the word. The Region method independently fails, because the date range is to the left rather than directly below the anchor:
+The following image shows some problems with extracting data from a skewed PDF.  This config attempts to extract a date range using a Region method anchored on the word "tenure." The Region method fails, because the date range is to the left rather than directly below the anchor:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_1.png)
 
@@ -146,7 +146,7 @@ Tips
 - Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document.  Choosing the best points can take some trial and error. 
 - For the Match parameter, choose types "startsWith" or "endsWith" to avoid problems with lines split by skew.  If you choose "endsWith", then also define `"start:right"`.
 - For the aligned reference PDF, choose a slightly enlarged image of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
-- Define a Merge Lines or Split Lines preprocessor to clean up after the Deskew preprocessor. 
+- Define a Merge Lines preprocessor to clean up after the Deskew preprocessor. 
 
 Limitations
 -----
