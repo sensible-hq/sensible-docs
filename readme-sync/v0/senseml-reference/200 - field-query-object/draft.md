@@ -74,7 +74,7 @@ In the following example, the handwritten text "Nash" is slightly taller than th
 
 To eliminate the variability in order caused by short or tall handwriting,  set `"xMajorSort":"true"` so you can reliably capture the first and last name in their order along an x-axis:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/xmajor_sort_2.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/xmajor_sort_example_2.png)
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
