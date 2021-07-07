@@ -17,8 +17,8 @@ Parameters
 
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
-| description (**required**) | string              | a description of the test                                    |
-| condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, string] }`, where `string` is a Javascript-flavored, JSON-escaped regular expression.<br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from  `parsed_document` in the extraction using field `id` keys. Note that you must escape any dots in the keys (for example, `delivery\\.zip\\.code`). |
+| description (**required**) | string              | A description of the test                                    |
+| condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, string] }`, where `string` is a Javascript-flavored regular expression. Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). <br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. Note that you must escape any dots in the keys (for example, `delivery\\.zip\\.code`). |
 | severity (**required**)    | `error`, `warning`  | The severity of the failing test                             |
 
 Examples
@@ -30,7 +30,7 @@ The following shows example validations:
 validations: [
     {
       description: "Rate must be a round number",
-      condition: { "==": [{ "%": [{ var: "rate.value" }, 100] }, 0] },
+      condition: { "==": [{ "%": [{ var: "rate.value" }, 2] }, 0] },
       severity: "warning",
     },
     {
@@ -101,4 +101,4 @@ If all tests passed for a PDF except the "zip code must be valid" test, the extr
 
 Notes
 ====
-Sensible's extractions are largely deterministic:  with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals aren't useful as a measure of extraction quality. Domain-specific validation tests are a more useful measure, because they allow you to test the output for a specific document type. 
+Why does Sensible use domain-specific validation rather than confidence intervals? Sensible's extractions are largely deterministic: with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals aren't very useful as a measure of extraction quality. Domain-specific validation tests are a more useful measure, because they allow you to test the output for a specific document type. 
