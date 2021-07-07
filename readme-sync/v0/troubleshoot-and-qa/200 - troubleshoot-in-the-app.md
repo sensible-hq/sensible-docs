@@ -14,9 +14,37 @@ The SenseML pane has a built-in linter for both JSON and the SenseML model. If y
 Inspect lines and fields
 ====
 
-You can inspect the extracted text for a line (which might not match the rendered text in the PDF), its coordinates, and which fields interact with that line:
+You can inspect a line to see:
 
+- the extracted text (this text might not match the text in the rendered PDF)
+- dimensions of the line boundaries
+- which fields interact with that line:
 
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_details_example.png)
+
+Inspect all extracted text
+====
+
+To inspect all the text Sensible extracted from a document, then use the following config:
+
+```json
+{  
+  "fields": [
+    {
+      "id": "all_lines_in_doc",
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true
+      },
+      "anchor": {
+        "match": {
+          "type": "first"
+        }
+      }
+    }
+  ]
+}
+```
 
 
 
