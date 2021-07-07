@@ -22,6 +22,55 @@ The parameters for a method vary based on the method type (defined in the `id` p
 | xRangeFilter     | object                                                       | Excludes lines that do not fall fully between a starting point and an ending point along the x-axis. The starting point is defined by the start parameter plus the offsetX parameter, and the ending point is that starting point plus the width parameter Any line that only partially falls inside the defined area is excluded. Parameters: <br/>`start` - `right` ,`left`  - Adjusts the starting point to the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the starting point defined by the Start parameter.  <br/> `width` - The width of page portion to capture, in inches. |
 | xMajorSort       | boolean                                                      | The X Major Sort parameter orders lines first by their x-axis position, rather than the default behavior of ordering first by the y-axis position. This behavior applies to lines captured by a method, not to lines captured by an anchor. This is useful in cases where the text is not well aligned (notably with handwriting). With badly aligned text, slight jitter in the vertical coordinate of lines can cause Sensible to see two lines that are seemingly on the same Y coordinate as appearing in the reverse order. Use the X Major Sort parameter to fix this problem. |
 
+Examples
+====
+
+xMajorSort example
+----
+
+
+In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve": 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/xmajor_sort_example_1.png)
+
+To eliminate the variability in order caused by short or tall handwriting,  set `"xMajorSort":"true"` so you can reliably capture the first and last name in their order along an x-axis:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/xmajor_sort_example_2.png)
+
+You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+
+| Example PDF for xMajorSort | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
+| -------------------------- | ------------------------------------------------------------ |
+
+This example uses the following config:
+
+```json
+{
+  "fields": [
+    {
+      "id": "_name_joint_owner_raw",
+      "match": "last",
+      "anchor": {
+        "match": {
+          "type": "startsWith",
+          "text": "Name",
+          "isCaseSensitive": true
+        }
+      },
+      "method": {
+        "id": "region",
+        "start": "above",
+        "width": 2.3,
+        "height": 0.4,
+        "offsetX": 0.2,
+        "offsetY": -0.3,
+        "xMajorSort": true
+      }
+    }
+  ]
+}
+```
+
 
 
 
