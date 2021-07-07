@@ -1,5 +1,5 @@
 ---
-title: "Domain validation introduction"
+title: "Testing introduction"
 hidden: true
 ---
 
