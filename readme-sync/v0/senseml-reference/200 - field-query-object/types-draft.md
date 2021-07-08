@@ -9,7 +9,16 @@ TODO: add quotes to example output keys
 accountingCurrency
 ----
 
-Returns numbers designed as being in accounting format, for example, "56,999" or ""-$527.01".  Currently supports only US dollars.
+Returns US dollar numbers. 
+
+Recognizes digits ( decimal places, comma-deliminated thousands) optionally preceded by a US dollar sign ($), for example: 
+
+```
+56,999
+-$527.01
+```
+
+
 
 Example output:
 
@@ -23,7 +32,7 @@ Example output:
 }
 ```
 
-
+TODO: doesn't look like it rounds to 2 decimal places? like it would just return 4.56789798 as is?  
 
 Address
 ----
