@@ -3,7 +3,7 @@ title: "UI guide"
 hidden: true
 ---
 
-The Sensible app uses color-coded symbols to visually represent how SenseML queries operate on PDFs. Use the symbols for troubleshooting and for understanding queries. This topic explains the symbols.
+The Sensible app uses color-coded symbols to visually represent how SenseML queries operate on PDFs. This topic explains the symbols. Use the symbols for troubleshooting and for understanding queries. 
 
 Anchors and matches
 ====
