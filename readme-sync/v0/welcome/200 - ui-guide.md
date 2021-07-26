@@ -36,17 +36,37 @@ The query used to capture this anchor line is:
 }    
 ```
 
-Points and positions
+Points and boxes
 ====
 
+**Green points** represent the following:
+
+-  a starting point for recognizing a box or checkbox
+
+- a starting point for defining the coordinates of a region
+
+**Green boxes** represent boxes or regions. 
+
+Green points can be useful for troubleshooting. For example, in the following image, Sensible can't recognize the box. The green dot provides a visual clue about the problem: the green dot is right on the box border itself.
+
+ ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_position_left.png)
+
+If you specify to find the box borders by starting from the right edge of the anchor line's boundaries (`"position": "right"`), the green dot is far enough away from the box borders for Sensible to recognize the box:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_position_right.png)
 
 
-![image-20210525092225165](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20210525092225165.png)
 
 Line details
 ====
 
+Click on a "line" (text surrounded by a gray box) to see details about that line, including:
 
+- underlying extracted text
+- coordinates of the line's boundaries
+- SenseML query that relies on that text
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/changelog_July2021_x-ray_mode.png)
 
 Discarded data
 ====
@@ -67,9 +87,9 @@ Light yellow boxes represent filtered-out anchor data.
 
 For example, in the following image:
 
-- There is one filtered out "languages" anchor surrounded by a light yellow box. It is filtered out because the field's Match paramter specifies to match the last instance of this word.
+- There is one filtered out "languages" string surrounded by a light yellow box. It is filtered out because the field's Match parameter specifies to match the last instance of the string.
 
-- There are two filtered out "python" anchors surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximitey requirements.  If this query specified a Row method instead, the first "python" instance would successfully match, and would become outlined in darker yellow. 
+- There are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements.  
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
 
