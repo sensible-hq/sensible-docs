@@ -221,7 +221,7 @@ And the output of this example is:
 
 
 
-Methods influence matches
+Methods influence anchors
 -----
 
 In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies for the anchor match.

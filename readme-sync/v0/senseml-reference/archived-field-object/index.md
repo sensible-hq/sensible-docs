@@ -1,4 +1,0 @@
----
-title: "Objects"
-hidden: true
----
