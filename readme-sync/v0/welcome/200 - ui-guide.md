@@ -17,7 +17,7 @@ For example, the following image shows:
 - an anchor line outlined in yellow ("Here is a good candidate..")
 - a matched line outlined in blue ("And here's the text below..")
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_anchor_method_1.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_label_and_method_1.png)
 
 The query used to capture this anchor line is:
 
@@ -71,7 +71,7 @@ For example, in the following image:
 
 - There are two filtered out "python" anchors surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximitey requirements.  If this query specified a Row method instead, the first "python" instance would successfully match, and would become outlined in darker yellow. 
 
-  
+  ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
 
 ```json
 {
@@ -113,7 +113,7 @@ Sensible methods filter out captured data depending on parameters you set in the
 
 Light blue boxes represent filtered-out method data. For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects 11.87% and discards +2.75%:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method_row.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method.png)
 
 The query used in the following image is:
 
