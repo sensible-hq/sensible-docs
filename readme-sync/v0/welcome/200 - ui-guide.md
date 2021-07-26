@@ -8,9 +8,9 @@ The Sensible app helps you understand your SenseML queries using visual symbols.
 Anchors and matches
 ====
 
-**Yellow boxes** represent anchors. For more information about anchors, see [Anchors](doc:anchor-object).
+***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor-object).
 
-**Blue boxes** represent matches. For more information about matches, see [Match object](doc:match-object).
+***Blue boxes*** represent matches. For more information about matches, see [Match object](doc:match-object).
 
 For example, the following image shows:
 
@@ -39,13 +39,13 @@ The query used to capture this anchor line is:
 Points and boxes
 ====
 
-**Green points** represent the following:
+***Green points*** represent the following:
 
 -  a starting point for recognizing a box or checkbox
 
 - a starting point for defining the coordinates of a region
 
-**Green boxes** represent boxes or regions. 
+***Green boxes*** represent boxes or regions. 
 
 Green points can be useful for troubleshooting. For example, in the following image, Sensible can't recognize the box. The green dot provides a visual clue about the problem: the green dot is right on the box border itself.
 
@@ -60,7 +60,7 @@ If you specify to find the box borders by starting from the right edge of the an
 Line details
 ====
 
-A **purple box** represents a line with displayable details.  Click on a line to show:
+A ***purple box*** represents a line with displayable details.  Click on a line to show:
 
 - underlying extracted text
 - coordinates of the line's boundaries
@@ -78,9 +78,7 @@ The Sensible app visually represents discarded data to help you troubleshoot you
 Discarded anchor data
 ---
 
-Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. 
-
-**Light yellow boxes** represent filtered-out anchor data.
+***Light yellow boxes*** represent filtered-out anchor data. Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. 
 
 For example, in the following image:
 
@@ -127,9 +125,9 @@ Common parameters resulting in filtering include:
 Discarded method data
 ---
 
-Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. 
+***Light blue boxes*** represent filtered-out method data.  Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
-**Light blue boxes** represent filtered-out method data. For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects 11.87% and discards +2.75%:
+For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects 11.87% and discards +2.75%:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method.png)
 
