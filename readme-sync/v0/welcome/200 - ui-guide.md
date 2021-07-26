@@ -70,13 +70,10 @@ A ***purple box*** represents a line with displayable details.  Click on a line 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/changelog_July2021_x-ray_mode.png)
 
-Discarded data
-====
 
-The Sensible app visually represents discarded data to help you troubleshoot your queries. 
 
 Discarded anchor data
----
+===
 
 ***Light yellow boxes*** represent filtered-out anchor data. Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. 
 
@@ -123,7 +120,7 @@ Common parameters resulting in filtering include:
 
 
 Discarded method data
----
+===
 
 ***Light blue boxes*** represent filtered-out method data.  Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
