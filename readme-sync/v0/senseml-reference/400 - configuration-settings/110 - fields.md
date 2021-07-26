@@ -21,7 +21,7 @@ hidden: true
     "3-1": "[Methods](doc:methods)",
     "3-2": "The method to use to extract the field from the document",
     "4-0": "anchor",
-    "4-1": "[AnchorComponent](doc:anchorcomponent)",
+    "4-1": "[anchor-object](doc:anchor-object)",
     "4-2": "A string or object that determines the global positions in the document where the engine will attempt to extract data using the above methods"
   },
   "cols": 3,
@@ -47,10 +47,10 @@ Types
 Anchor
 - If `anchor` is a string, the engine will transform it into `{ match: { text: "THE_STRING", type: "includes" } }` — a standard includes matcher with no start or end
 - `start` (optional, defaults to the first line in the document)
-    - An [AnchorComponent](doc:anchorcomponent)  that sets the inclusive start point in the document for matches
+    - An [anchor-object](doc:anchor-object)  that sets the inclusive start point in the document for matches
 - `match`
-    - An [AnchorComponent](doc:anchorcomponent)  that specifies the match criteria for the field
+    - An [anchor-object](doc:anchor-object)  that specifies the match criteria for the field
     - The engine passes an array of all the lines that match the criteria to extraction method (and by default the method will return the first non-empty result, see `match` above)
 - `end` (optional, defaults to no endpoint)
-    - An [AnchorComponent](doc:anchorcomponent)  that sets the exclusive endpoint in the document for matches
+    - An [anchor-object](doc:anchor-object)  that sets the exclusive endpoint in the document for matches
     - `includesEnd` (optional, defaults to false): If true the endpoint is inclusive rather than exclusive

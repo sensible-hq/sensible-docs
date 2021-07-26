@@ -1,8 +1,8 @@
 ---
-title: "SharedAnchorMatch"
+title: "Sharedanchor-object"
 hidden: true
 ---
-An [AnchorMatch](doc:anchormatch) ] or [PageMatcher](doc:pagematcher) with an ID for reference by field anchors
+An [anchor-object](doc:anchor-object) ] or [PageMatcher](doc:pagematcher) with an ID for reference by field anchors
 
 [block:parameters]
 {
@@ -12,9 +12,9 @@ An [AnchorMatch](doc:anchormatch) ] or [PageMatcher](doc:pagematcher) with an ID
     "h-2": "description",
     "0-0": "id",
     "0-1": "String ID",
-    "0-2": "identifier for the [AnchorMatch](doc:anchormatch) or [PageMatcher](doc:pagematcher)",
+    "0-2": "identifier for the [anchor-object](doc:anchor-object) or [PageMatcher](doc:pagematcher)",
     "1-0": "matcher",
-    "1-1": "[AnchorMatch](doc:anchormatch) or [PageMatcher](doc:pagematcher)",
+    "1-1": "[anchor-object](doc:anchor-object) or [PageMatcher](doc:pagematcher)",
     "1-2": "The matcher that this id is referring to"
   },
   "cols": 3,
