@@ -8,9 +8,9 @@ The Sensible app helps you understand your SenseML queries using visual symbols.
 Anchors and matches
 ====
 
-Yellow boxes represent anchors. For more information about anchors, see [Anchors](doc:anchor-object).
+**Yellow boxes** represent anchors. For more information about anchors, see [Anchors](doc:anchor-object).
 
-Blue boxes represent matches. For more information about matches, see [Match object](doc:match-object).
+**Blue boxes** represent matches. For more information about matches, see [Match object](doc:match-object).
 
 For example, the following image shows:
 
@@ -60,11 +60,13 @@ If you specify to find the box borders by starting from the right edge of the an
 Line details
 ====
 
-Click on a "line" (text surrounded by a gray box) to see details about that line, including:
+A **purple box** represents a line with displayable details.  Click on a line to show:
 
 - underlying extracted text
 - coordinates of the line's boundaries
-- SenseML query that relies on that text
+- SenseML query or queries that rely on that text
+
+
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/changelog_July2021_x-ray_mode.png)
 
@@ -76,14 +78,9 @@ The Sensible app visually represents discarded data to help you troubleshoot you
 Discarded anchor data
 ---
 
-Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. Common parameters resulting in filtering include:
+Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. 
 
--  the field's data type (currency, date, address, etc)
--  the field's match method (first, last, all)
-- the anchor's start and end
-- the method's id (for example, a Label method filters out all lines that are not closely proximate to other lines)
-
-Light yellow boxes represent filtered-out anchor data.
+**Light yellow boxes** represent filtered-out anchor data.
 
 For example, in the following image:
 
@@ -118,20 +115,21 @@ For example, in the following image:
 }
 ```
 
+Common parameters resulting in filtering include:
 
+-  the field's data type (currency, date, address, etc)
+-  the field's match method (first, last, all)
+-  the anchor's start and end
+-  the method's id (for example, a Label method filters out all lines that are not closely proximate to other lines)
 
 
 
 Discarded method data
 ---
 
-Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. Common parameters resulting in filtering include:
+Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. 
 
-- the field's data type (currency, date, address, etc)
-- the method's stop
-- the method's tiebreaker
-
-Light blue boxes represent filtered-out method data. For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects 11.87% and discards +2.75%:
+**Light blue boxes** represent filtered-out method data. For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects 11.87% and discards +2.75%:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method.png)
 
@@ -163,7 +161,11 @@ The query used in the following image is:
 }
 ```
 
+Common parameters resulting in filtering include:
 
+- the field's data type (currency, date, address, etc)
+- the method's stop
+- the method's tiebreaker
 
 
 
