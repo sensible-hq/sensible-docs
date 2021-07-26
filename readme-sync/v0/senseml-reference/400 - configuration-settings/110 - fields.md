@@ -44,13 +44,3 @@ Types
 - `string`
 - `weight`: Currently supports pounds and kilograms
 
-Anchor
-- If `anchor` is a string, the engine will transform it into `{ match: { text: "THE_STRING", type: "includes" } }` — a standard includes matcher with no start or end
-- `start` (optional, defaults to the first line in the document)
-    - An [anchor-object](doc:anchor-object)  that sets the inclusive start point in the document for matches
-- `match`
-    - An [anchor-object](doc:anchor-object)  that specifies the match criteria for the field
-    - The engine passes an array of all the lines that match the criteria to extraction method (and by default the method will return the first non-empty result, see `match` above)
-- `end` (optional, defaults to no endpoint)
-    - An [anchor-object](doc:anchor-object)  that sets the exclusive endpoint in the document for matches
-    - `includesEnd` (optional, defaults to false): If true the endpoint is inclusive rather than exclusive

@@ -36,7 +36,7 @@ TODO: doesn't look like it rounds to 2 decimal places? like it would just return
 
 Address
 ----
-Returns USA-based addresses only, for example:
+Returns USA-based addresses. Matches PO boxes and street addresses that start with a number represented in digits. For example:
 
 ```123 Waverly Pl
 San Francisco, CA 94110
@@ -118,10 +118,15 @@ Example output:
 Date
 -----
 
-Returns date in year-month-days format. Recognizes a variety of dates in month-day-year format, for example:
+Returns date in year-month-days format. Recognizes:
+
+- Dates formatted as `MM/DD/YYYY`, and variants
+- Dates formatted as `month name, DD, YYYY`, and variants
+
+For example:
 
 ```
-5/7/2018
+5/17/2018
 november 30, 1955
 Feb 1, 21
 12/20
@@ -142,7 +147,7 @@ Example output:
 Distance
 ----
 
-Returns distances in metric and imperial units. Recognizes digits followed optionally by kilometers, miles, or their abbreviations.  For example: 
+Returns miles and kilometers. Recognizes numbers represented as digits followed optionally by kilometers, miles, or their abbreviations.  For example: 
 
 ```
 3,001.5 kilometers
@@ -164,15 +169,49 @@ Example output:
 }
 ```
 
+Images
+---
+
+Can only be used with [Document Range](https://docs.sensible.so/docs/document-range) to return image metadata.
+
+
 Name
 ----
 
 Returns one or more names. Does not recognize a list of names more than 6 lines long. 
 
-TODO: come back to this one, kinda complex
+Recognizes names of the formats below and variants:
+\- First Last
+\- First1 Last1 and First2 Last2
+\- Last, First1 and First2
+\- First1 and First2 Last
+
+For example:
+
+```json
+John R. Smith
+Richard & Ann Spangenberg
+DuBois, Renee and Lois 
+
+
+```
+
+Example output:
+
+```json
+{
+  source: "Richard & Ann Spangenberg",
+  type: "name",
+  value: "Richard Spangenberg & Ann Spangenberg",
+}
+```
+
+TODO: I didn't test the example output; todo
 
 Number
 ----
+
+LEFT OFF: cross referencing against https://docs.sensible.so/docs/fields. 
 
 TODO: no test. dig into regex (or just present it??): is it:
 
@@ -185,7 +224,7 @@ const REGEX = new RegExp(`(-?\\b(?:${amount})\\b)`, "gi");
 Paragraph
 ----
 
-TODO: ask about this one. how does it interact w documentRange? 
+A string with newlines at paragraph breaks (to be used with [Document Range](https://docs.sensible.so/docs/document-range) only. TODO: why is it necessary to specify this/why useful?
 
 Percentage
 ----
@@ -214,7 +253,7 @@ Example output:
 Weight
 ---
 
-Returns weights in metric and imperial units. Recognizes digits followed optionally by pounds, kilograms, or their abbreviations. For example: 
+Returns pounds and kilograms. Recognizes numbers represented as digits followed optionally by pounds, kilograms, or their abbreviations. For example: 
 
 ```json
 1,00.4 kg
