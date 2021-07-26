@@ -60,7 +60,7 @@ If you specify to find the box borders by starting from the right edge of the an
 Line details
 ====
 
-A ***purple box*** represents a line with displayable details.  Click on a line to show:
+If you hover on a line (text surrounded by a gray box), it will change to a ***purple box*** if it has details to display.  Click on the line to show:
 
 - underlying extracted text
 - coordinates of the line's boundaries
