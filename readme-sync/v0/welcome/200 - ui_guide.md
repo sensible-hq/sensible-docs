@@ -36,10 +36,22 @@ The query used to capture this anchor line is:
 }    
 ```
 
+Points and positions
+====
+
+
+
+![image-20210525092225165](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20210525092225165.png)
+
+Line details
+====
+
+
+
 Discarded data
 ====
 
-The Sensible app represents discarded data to help you troubleshoot your queries. 
+The Sensible app visually represents discarded data to help you troubleshoot your queries. 
 
 Discarded anchor data
 ---
@@ -134,14 +146,4 @@ The query used in the following image is:
 
 
 
-
-Points and positions
-====
-
-
-
-![image-20210525092225165](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20210525092225165.png)
-
-Line details
-====
 
