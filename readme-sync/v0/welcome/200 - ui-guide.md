@@ -19,7 +19,7 @@ For example, the following image shows:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_label_and_method_1.png)
 
-The query used to capture this anchor line is:
+The query used for the preceding image is:
 
 ```json
 {
@@ -85,6 +85,8 @@ For example, in the following image:
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
 
+The query used for the preceding image is:
+
 ```json
 {
   "fields": [
@@ -128,7 +130,7 @@ For example, in the following image, a Row method captures everything to the rig
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method.png)
 
-The query used in the following image is:
+The query used for the preceding image is:
 
 ```json
 {
