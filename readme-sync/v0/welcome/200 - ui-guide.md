@@ -124,7 +124,7 @@ Discarded method data
 
 ***Light blue boxes*** represent filtered-out method data.  Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
-For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects 11.87% and discards +2.75%:
+For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects +2.75% and discards 11.87%:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method.png)
 
