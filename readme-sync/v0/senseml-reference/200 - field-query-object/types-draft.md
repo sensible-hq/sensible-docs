@@ -18,8 +18,6 @@ Recognizes digits ( decimal places, comma-deliminated thousands) optionally prec
 -$527.01
 ```
 
-
-
 Example output:
 
 
@@ -36,15 +34,20 @@ TODO: doesn't look like it rounds to 2 decimal places? like it would just return
 
 Address
 ----
-Returns USA-based addresses. Matches PO boxes and street addresses that start with a number represented in digits. For example:
+Returns USA-based addresses. Matches:
+
+- City, State, Zip, and variants (TODO CHECK AND CHECK EXAMPLE that lacks a zip code)
+- street addresses that start with a number represented in digits. 
+- PO boxes with a number represented in digits
+
+For example:
 
 ```123 Waverly Pl
 San Francisco, CA 94110
+123 Waverly Pl San Francisco, CA 941104123
+11 Center Street, Amherst, MA
+PO BOX 1058 San Francisco, CA 94110
 ```
-
-and
-
-```PO BOX 1058 San Francisco, CA 94110```
 
 If multiple consecutive addresses are captured in a single extracted key/value  pair, Sensible correctly returns multiple addresses. 
 

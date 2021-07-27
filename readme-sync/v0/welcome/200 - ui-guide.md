@@ -3,7 +3,7 @@ title: "UI guide"
 hidden: true
 ---
 
-The Sensible app uses color-coded symbols to visually represent how SenseML queries operate on PDFs. This topic explains the symbols. Use the symbols for troubleshooting and for understanding queries. 
+The Sensible app uses color-coded symbols to visually represent how SenseML queries operate on PDFs. This topic explains the symbols. Use the symbols for troubleshooting. 
 
 Anchors and matches
 ====
@@ -26,7 +26,7 @@ The query used for the preceding image is:
   "fields": [
     {
       "id": "simple_label",
-      "anchor": "Here is a good candidate",
+      "anchor": "here is a good candidate",
       "method": {
         "id": "label",
         "position": "below"
@@ -64,7 +64,7 @@ If you hover on a line (text surrounded by a gray box), it changes to a ***purpl
 
 - underlying extracted text
 - coordinates of the line's boundaries
-- SenseML query or queries that rely on that text
+- SenseML and extracted output that relies on that text
 
 
 
@@ -75,7 +75,7 @@ If you hover on a line (text surrounded by a gray box), it changes to a ***purpl
 Discarded anchor data
 ===
 
-***Light yellow boxes*** represent filtered-out anchor data. Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. 
+***Light yellow boxes*** represent discarded anchor data. Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. 
 
 For example, in the following image:
 
@@ -124,7 +124,7 @@ Common parameters resulting in filtering include:
 Discarded method data
 ===
 
-***Light blue boxes*** represent filtered-out method data.  Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
+***Light blue boxes*** represent discarded method data.  Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects +2.75% (dark blue box) and discards 11.87% (light blue box).
 
