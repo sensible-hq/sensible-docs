@@ -28,7 +28,7 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 
 
 
-[Text Table](doc:text-table)
+
 
 | Link                                 | Image                                                        | Notes                                                        |
 | ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -43,9 +43,6 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 | [Regex](doc:regex)                   |                                                              | Use RegEx to clean up anchor lines returned through Passthrough method |
 | [Region](doc:region)                 | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_region.png) | Extract data from a rectangular region defined by coordinates. Alternative to Box method. |
 | [Row](doc:row)                       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_row.png) | Extract text aligned in a row.                               |
-| [Table](doc:table)                   | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_table.png) |                                                              |
-|                                      |                                                              |                                                              |
-|                                      |                                                              |                                                              |
-|                                      |                                                              |                                                              |
-|                                      |                                                              |                                                              |
+| [Table](doc:table)                   | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_table.png) | Extract a table whose column headings vary.                  |
+| [Text Table](doc:text-table)         | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_text_table.png) | Extract tables that are difficult for other Table methods to recognize. |
 
