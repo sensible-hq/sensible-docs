@@ -20,5 +20,5 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 | [Region](doc:region)                 | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_region.png) | Extract data from a rectangular region defined by coordinates. Alternative to Box method. |
 | [Row](doc:row)                       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_row.png) | Extract text aligned in a row.                               |
 | [Table](doc:table)                   | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_table.png) | Extract a table whose column headings vary.                  |
-| [Text Table](doc:text-table)         | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_text_table.png) | Extract tables that are difficult to recognize. Alternative to Fixed Table and Table methods. |
+| [Text Table](doc:text-table)         | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_text_table.png) | Fast but limited table extraction using only text positioning data. |
 
