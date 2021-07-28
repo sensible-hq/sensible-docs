@@ -6,8 +6,6 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 
 
 
-
-
 | Link                                 | Image                                                        | Notes                                                        |
 | ------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Box](doc:box)                       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_box.png) | Extract contents from boxes with continuous borders.         |
@@ -17,8 +15,8 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 | [Fixed Table](doc:fixed-table)       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_fixed_table.png) | Extract tables whose column headings never vary.             |
 | [Invoice](doc:invoice)               | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_invoice.png) | Extract invoice and metadata.                                |
 | [Label](doc:label)                   | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_label.png) | Extract a line of text that is proximate to another line.    |
-| [Passthrough](doc:passthrough)       |                                                              | Return anchor lines, optionally with RegEx processing.       |
-| [Regex](doc:regex)                   |                                                              | Use RegEx to clean up anchor lines returned through Passthrough method. |
+| [Passthrough](doc:passthrough)       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_passthrough_and_regex.png) | Return anchor text, optionally using RegEx.                  |
+| [Regex](doc:regex)                   |                                                              | Use RegEx capturing groups to clean up anchor lines returned through Passthrough method. |
 | [Region](doc:region)                 | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_region.png) | Extract data from a rectangular region defined by coordinates. Alternative to Box method. |
 | [Row](doc:row)                       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_row.png) | Extract text aligned in a row.                               |
 | [Table](doc:table)                   | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_table.png) | Extract a table whose column headings vary.                  |
