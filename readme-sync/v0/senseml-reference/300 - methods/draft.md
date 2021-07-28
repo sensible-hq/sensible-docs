@@ -12,11 +12,11 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 
 
 
-[Fixed Table](doc:fixed-table)
 
-[Invoice](doc:invoice)
 
-[Label](doc:label)
+
+
+
 
 [Passthrough](doc:passthrough)
 
@@ -26,7 +26,7 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 
 [Row](doc:row)
 
-[Table](doc:table)
+[Table](doc:table) ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_table.png)
 
 [Text Table](doc:text-table)
 
@@ -36,5 +36,16 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 | [Checkbox](doc:checkbox)             | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_checkbox.png) | Extract true/false from checkbox.                            |
 | [Column](doc:column)                 | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_column.png) | Extract text aligned in a column, from an anchor down to the bottom of the page. |
 | [Document Range](doc:document-range) | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_document_range.png) | Extract paragraphs                                           |
+| [Fixed Table](doc:fixed-table)       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_fixed_table.png) | Extract tables whose column headings never vary.             |
+| [Invoice](doc:invoice)               | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_invoice.png) | Extract invoice and metadata                                 |
+| [Label](doc:label)                   |                                                              |                                                              |
+|                                      |                                                              |                                                              |
+|                                      |                                                              |                                                              |
+|                                      |                                                              |                                                              |
+|                                      |                                                              |                                                              |
+|                                      |                                                              |                                                              |
+|                                      |                                                              |                                                              |
+|                                      |                                                              |                                                              |
+|                                      |                                                              |                                                              |
 |                                      |                                                              |                                                              |
 
