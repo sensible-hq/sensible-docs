@@ -4,7 +4,9 @@ hidden: false
 ---
 Use the Passthrough method to grab a line or lines of text using an anchor, and return the match or matches directly. This can be useful when you want to match using regular expressions, and you don’t want to take any additional steps after finding your matches. 
 
-
+[**Parameters**](doc:passthrough#section-parameters)
+[**Examples**](doc:passthrough#section-examples)
+[**Notes**](doc:passthrough#section-notes)
 
 Examples
 ====

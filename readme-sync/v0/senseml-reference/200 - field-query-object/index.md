@@ -5,6 +5,10 @@ hidden: false
 
 A field is the basic unit for writing a SenseML query to extract data from a PDF. The output of a field is a JSON key-value pair that structures the extracted data.  
 
+[**Parameters**](doc:field-query-object#section-parameters)
+[**Examples**](doc:field-query-object#section-examples)
+[**Notes**](doc:field-query-object#section-notes)
+
 Here is a simple example of a field: 
 
 ```json
@@ -38,7 +42,7 @@ As the preceding image shows, this is the output of the example field:
 }
 ```
 
-Field parameters
+Parameters
 ----
 
 Top-level components for a Field object are as follows:

@@ -7,10 +7,13 @@ A Method object defines how to expand out from an Anchor object and grab data yo
 
 For the full list of methods available, see [Methods](doc:methods). 
 
-Global parameters for methods
+[**Parameters**](doc:method-object#section-parameters)
+[**Examples**](doc:method-object#section-examples)
+
+Parameters
 -----
 
-The parameters for a method vary based on the method type (defined in the `id` parameter). Following are the parameters common to all methods:
+The parameters for a method vary based on the method type (defined in the `id` parameter). Following are the global parameters common to all methods:
 
 | Key              | Value                                                        | Description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |

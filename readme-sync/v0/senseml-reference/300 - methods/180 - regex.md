@@ -4,6 +4,10 @@ hidden: false
 ---
 Returns lines matching a regular expression. Often, you use a capturing group in this method to narrow down some text in a line you matched in an anchor. 
 
+[**Parameters**](doc:regex#section-parameters)
+[**Examples**](doc:regex#section-examples)
+[**Notes**](doc:regex#section-notes)
+
 Parameters
 ====
 

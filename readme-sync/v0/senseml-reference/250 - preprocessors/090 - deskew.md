@@ -7,7 +7,9 @@ Correct the alignment of PDF documents that are skewed, for example as a result 
 
 For PDFs that are only slightly rotated, this preprocessor isn't necessary.   Sensible's default OCR engine (Microsoft)  corrects slight rotation automatically.
 
-
+[**Parameters**](doc:deskew#section-parameters)
+[**Examples**](doc:deskew#section-examples)
+[**Notes**](doc:deskew#section-notes)
 
 Parameters
 ----
@@ -25,7 +27,9 @@ The following image shows some problems with extracting data from a skewed PDF. 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_1.png)
 
-To solve this problem, first define three widely spaced points in a well-aligned example of this document type. The following image shows using the displayed coordinates of the line starting with "first" to define the X and Y parameters for one of three Fixed Point parameters:
+To solve this problem:
+
+ First, define three widely spaced points in a well-aligned example of this document type. The following image shows using the displayed coordinates of a line to define the X and Y parameters for one of three Fixed Point parameters:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_2.png)
 
@@ -105,7 +109,7 @@ This example uses the following config:
 
 
 
-Now, check this Deskew preprocessor against the skewed example:
+Second, check this Deskew preprocessor against the skewed example:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_3.png)
 

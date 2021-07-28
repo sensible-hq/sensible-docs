@@ -4,6 +4,11 @@ hidden: false
 ---
 Looks for a checkbox next to the anchor and returns a boolean indicating if the checkbox contains a checkmark or not.  This method works by default with boxes that have a light background and dark, continuous borders.  
 
+[**Parameters**](doc:checkbox#section-parameters)
+[**Examples**](doc:checkbox#section-examples)
+
+
+
 Parameters
 =====
 

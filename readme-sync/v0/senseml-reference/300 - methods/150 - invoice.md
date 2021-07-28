@@ -6,6 +6,9 @@ This method is identical to the [Table method](doc:table), but also returns dete
 
 It's a best practice to create a single, flexible config that works for a variety of invoice formats.  This is because invoices typically come from such a wide variety of vendors that it would be unmanageable to create a config for each vendor. Create a flexible config by using synonymous terms to identify invoice elements. For more information, see the [Examples section](doc:invoice#section-examples). 
 
+[**Parameters**](doc:invoice#section-parameters)
+[**Examples**](doc:invoice#section-examples)
+
 Parameters
 ====
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.

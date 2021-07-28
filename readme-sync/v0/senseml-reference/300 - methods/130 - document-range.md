@@ -4,6 +4,10 @@ hidden: false
 ---
 Use the Document Range method to grab multiple consecutive lines, for example, paragraphs of legal text. Or, use it to return the coordinates of regions containing images.
 
+[**Parameters**](doc:document-range#section-parameters)
+[**Examples**](doc:document-range#section-examples)
+[**Notes**](doc:document-range#section-notes)
+
 
 
 Parameters

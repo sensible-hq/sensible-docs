@@ -4,6 +4,10 @@ hidden: false
 ---
 Matches tables based on bag-of-words scoring and returns their collated column contents. Use the Table method when dealing with tables in the same document type that have a variable number of columns.  Choose anchor text that precedes the table, for example, a table title. 
 
+[**Parameters**](doc:table#section-parameters)
+[**Examples**](doc:table#section-examples)
+
+
 Parameters
 =====
 

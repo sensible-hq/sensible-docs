@@ -4,6 +4,10 @@ hidden: false
 ---
 An *anchor* is a string, [Match](doc:match-object) object, or array of Match objects. Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible can use a ["method"](doc:method-object) to expand out from the anchor and grab the data you want.
 
+[**Parameters**](doc:anchor-object#section-parameters)
+[**Examples**](doc:anchor-object#section-examples)
+[**Notes**](doc:anchor-object#section-notes)
+
 If you want to be syntactically concise, you can define a simple string anchor like:
 
 ```json
@@ -32,10 +36,12 @@ String anchors are expanded behind the scenes to case-insensitive `includes` mat
       },
 ```
 
-These are the top-level components of an expanded Anchor object:
 
-Anchor parameters
+
+Parameters
 ----
+
+These are the top-level components of an expanded Anchor object:
 
 
 | key                  | values                                 | description                                                  |
@@ -88,7 +94,7 @@ Notes
 Anchor nuances 
 ----
 
-At first glance, you might thinking the following two anchors are two different syntaxes for finding the same matching text:
+At first glance, the following two anchors may appear to be two different syntaxes for finding the same matching text:
 
 ```json
       "anchor": {

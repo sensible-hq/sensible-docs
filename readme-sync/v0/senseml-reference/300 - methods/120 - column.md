@@ -8,7 +8,12 @@ Matches all lines below the anchor line on the current page if:
 
   Or:
 
-- The anchor line and target line overlap by at least 50% of the narrower line’s x extent.
+- The anchor line and target line overlap by at least 50% of the narrower line's x extent.
+
+[**Parameters**](doc:box#column-parameters)
+[**Examples**](doc:box#column-examples)
+
+  
 
 Parameters
 ====

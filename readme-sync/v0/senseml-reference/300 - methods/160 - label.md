@@ -8,6 +8,9 @@ Return text or lines proximate to the anchor point. This method is sensitive to 
 
 Unlike many other methods (such as Document Range), the Label method can return data that is in the *same* line as the anchor line. You can do so by specifying `position: left` or `position: right` in the Label method.
 
+[**Parameters**](doc:label#section-parameters)
+[**Examples**](doc:label#section-examples)
+
 Parameters
 ====
 

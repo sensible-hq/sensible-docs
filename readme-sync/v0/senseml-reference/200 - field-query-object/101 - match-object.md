@@ -8,7 +8,11 @@ Matches are instructions for matching lines of text in a document. They are vali
 
 There are three different types of Match objects, including simple, regex, and first matches.  The following parameters are available to all types of Match objects:
 
+[**Parameters**](doc:match-object#section-parameters)
+[**Examples**](doc:match-object#section-examples)
 
+Parameters
+===
 
 Global Match Parameters
 ----
@@ -34,7 +38,7 @@ The *type* of method you use can determine whether text qualifies for a match or
 
 
 
-Simple Match
+Simple Match Parameters
 -------
 
 Match using strings.
@@ -49,7 +53,7 @@ Match using strings.
 For an example, see the following Examples section.
 
 
-Regex Match
+Regex Match Parameters
 -----
 
 Match using a regular expression.
@@ -68,7 +72,7 @@ For an example, see the [Passthrough method example](doc:passthrough).
 
 
 
-First match
+First match Parameters
 ------
 
 This is a convenience match to find the first line encountered. 

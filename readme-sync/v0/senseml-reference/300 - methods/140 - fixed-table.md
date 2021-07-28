@@ -4,6 +4,12 @@ hidden: false
 ---
 Matches tables with a fixed number of columns and returns their collated column contents. Choose anchor text that precedes the table, for example, a table title. 
 
+[**Parameters**](doc:fixed-table#section-parameters)
+[**Examples**](doc:fixed-table#section-examples)
+[**Notes**](doc:fixed-table#section-notes)
+
+
+
 Parameters
 =====
 

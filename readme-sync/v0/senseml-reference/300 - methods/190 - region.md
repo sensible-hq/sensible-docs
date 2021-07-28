@@ -8,6 +8,10 @@ Use the Region method to grab data in a rectangular region, defined in inches. T
 
 In general, use this method when you want to grab data from an area whose formatting doesn't exactly fit other SenseML methods, such as the Box method. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to grab.
 
+[**Parameters**](doc:region#section-parameters)
+[**Examples**](doc:region#section-examples)
+[**Notes**](doc:region#section-notes)
+
 Parameters
 ====
 
