@@ -22,12 +22,12 @@ Example output:
 
 
 ```json
-{
-  source: "-$56,237",
-  type: "accountingCurrency",
-  unit: "$",
-  value: -56237,
-}
+  "accounting_1": {
+    "source": "$5.33",
+    "value": 5.33,
+    "unit": "$",
+    "type": "accountingCurrency"
+  },
 ```
 
 TODO: doesn't look like it rounds to 2 decimal places? like it would just return 4.56789798 as is?  
@@ -53,11 +53,10 @@ If multiple consecutive addresses are captured in a single extracted key/value  
 
 Example output:
 ```json
-{
-	source: "",
-	type: "address",
-	value: "123 Waverly Pl\nSan Francisco, CA 941104123",
-}
+  "address_1": {
+    "value": "123 Waverly Pl San Francisco, CA 941104123",
+    "type": "address"
+  },
 ```
 
 
@@ -164,12 +163,12 @@ Returns miles and kilometers. Recognizes numbers represented as digits followed 
 Example output:
 
 ```json
-{
-  source: "1,123,451.123 kms",
-  type: "distance",
-  unit: "kilometers",
-  value: 1123451.123,
-}
+  "distance_1": {
+    "source": "3,001.5 kilometers",
+    "value": 3001.5,
+    "unit": "kilometers",
+    "type": "distance"
+  }
 ```
 
 Images
@@ -203,9 +202,11 @@ Example output:
 
 ```json
 {
-  source: "Richard & Ann Spangenberg",
-  type: "name",
-  value: "Richard Spangenberg & Ann Spangenberg",
+  "source": "Richard & Ann Spangenberg",
+  "type": "name",
+  "value": [
+      "Richard Spangenberg",
+      "Ann Spangenberg"
 }
 ```
 
