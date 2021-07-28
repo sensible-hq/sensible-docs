@@ -6,7 +6,7 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 
 
 
-[Checkbox](doc:checkbox)
+
 
 [Column](doc:column)
 
@@ -30,11 +30,11 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 
 [Text Table](doc:text-table)
 
-| Link           | Image                                                        | Notes                                                        |
-| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Box](doc:box) | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_dark.png) | Extract contents from boxes with dark, continuous borders and light backgrounds |
-|                |                                                              |                                                              |
-|                |                                                              |                                                              |
-|                |                                                              |                                                              |
-|                |                                                              |                                                              |
+| Link                     | Image                                                        | Notes                                                        |
+| ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Box](doc:box)           | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_box.png) | Extract contents from boxes with dark, continuous borders and light backgrounds |
+| [Checkbox](doc:checkbox) | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_checkbox.png) | Extract true/false from checkbox                             |
+|                          |                                                              |                                                              |
+|                          |                                                              |                                                              |
+|                          |                                                              |                                                              |
 
