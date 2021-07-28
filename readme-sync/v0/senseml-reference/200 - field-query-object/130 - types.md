@@ -4,7 +4,7 @@ hidden: true
 ---
 Specify the Type parameter in a [Field object](doc:field-query-object) to capture data of a particular type. 
 
-For example, the following field only captures text that it recognizes as a number:
+For example, the following field returns null unless it finds data that Sensible recognizes as a number: 
 
 ```json
 {
@@ -18,6 +18,8 @@ For example, the following field only captures text that it recognizes as a numb
         "position": "right"
       }
     },
+  ]
+}
 ```
 
 The following types are available:
@@ -55,13 +57,12 @@ Example output:
 
 
 ```json
-{
-  "accounting_1": {
+ {
     "source": "($400.567)",
     "value": -400.567,
     "unit": "$",
     "type": "accountingCurrency"
-  },
+  }
 ```
 
 Address
@@ -86,10 +87,10 @@ This type **does not** match text  that lacks a zip code, such as `11 Center Str
 
 Example output:
 ```json
-  "address_1": {
+ {
     "value": "123 Waverly Pl San Francisco, CA 941104123",
     "type": "address"
-  },
+  }
 ```
 
 
@@ -142,7 +143,7 @@ Recognizes digits as follows:
 
   
 
-Recognizes abbreviated and written-out units as follows:
+Recognizes abbreviated and written-out quantities as follows:
 
 - thousand, k
 - million, mil, mm, m
@@ -163,17 +164,17 @@ $5.33
 
 ```
 
-This type **won't** match text like `one million`  or `123456789`.
+This type **does not** match text such as `one million`  or `123456789`.
 
 Example output:
 
 ```json
-{
-  source: "1 Million",
-  type: "currency",
-  unit: "$",
-  value: 1000000,
-}
+ {
+    "source": "3 bil",
+    "value": 3000000000,
+    "unit": "$",
+    "type": "currency"
+  }
 ```
 
 Date
@@ -190,17 +191,20 @@ For example:
 5/17/2018
 november 30, 1955
 Feb 1, 21
-12/20
+
 ```
+
+This type does **not** recognize text such as `12/20`.
 
 Example output:
 
 ```json
 {
-  source: "12/20",
-  type: "date",
-  value: new Date(2020, 12, 1),
+    "source": "Feb 1, 21",
+    "value": "2021-02-01T00:00:00.000Z",
+    "type": "date"
 }
+
 ```
 
 
@@ -222,7 +226,7 @@ Returns miles and kilometers. Recognizes numbers represented as digits followed 
 Example output:
 
 ```json
-  "distance_1": {
+ {
     "source": "3,001.5 kilometers",
     "value": 3001.5,
     "unit": "kilometers",
@@ -257,6 +261,8 @@ DuBois, Renee and Lois
 
 ```
 
+This type does not recognize text such as `Last1, Last2, & Last3`
+
 Example output:
 
 ```json
@@ -269,20 +275,35 @@ Example output:
 }
 ```
 
-TODO: I didn't test the example output; todo
+
 
 Number
 ----
 
-LEFT OFF: cross referencing against https://docs.sensible.so/docs/fields. 
+Recognizes numbers represented as digits and optionally:
 
-TODO: no test. dig into regex (or just present it??): is it:
+- using commas to represent the thousand place value
+- using a 
 
-positive or negative number optionally deliminated by commas , and optionally followed by a decimal point and decimal component.
+For example:
 
-const amount = "\\d+(?:(?:,\\d{3})*)(?:\\.\\d+)?|\\.\\d+";
+```
+-3.1
+3,500,053.78
+1234567890
+```
 
-const REGEX = new RegExp(`(-?\\b(?:${amount})\\b)`, "gi");
+Example output:
+
+```json
+{
+    "source": "123456789",
+    "value": 123456789,
+    "type": "number"
+}
+```
+
+
 
 Paragraph
 ----
