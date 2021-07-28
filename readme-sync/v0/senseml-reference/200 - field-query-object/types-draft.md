@@ -2,42 +2,74 @@
 title: "types draft"
 hidden: true
 ---
-TODO: add quotes to example output keys
+Specify the Type parameter in a [Field object](doc:field-query-object) to capture data of a particular type. 
 
+For example, the following field only captures text that it recognizes as a number:
 
+```json
+{
+  "fields": [
+    {
+      "id": "example_field",
+      "type": "number",
+      "anchor": "duration in years:",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
+    },
+```
+
+The following types are available:
+
+[accountingCurrency](doc:types#section-accountingcurrency)
+[address](doc:types#section-address)
+[boolean](doc:types#section-boolean)
+[currency](doc:types#section-currency)
+[date](doc:types#section-date)
+[distance](doc:types#section-distance)
+[images](doc:types#section-images)
+[name](doc:types#section-name)
+[number](doc:types#section-number)
+[paragraph](doc:types#section-paragraph)
+[percentage](doc:types#section-percentage)
+[string](doc:types#section-string)
+[table](doc:types#section-table)
+[weight](doc:types#section-weight)
 
 accountingCurrency
 ----
 
-Returns US dollar numbers. 
+Returns US dollar numbers. Supports negative numbers.
 
-Recognizes digits ( decimal places, comma-deliminated thousands) optionally preceded by a US dollar sign ($), for example: 
+Recognizes digits ( decimal places, comma-delimitated thousands) optionally preceded by a US dollar sign ($). Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`). Examples: 
 
 ```
 56,999
 -$527.01
+(1,000)
+($400.567)
 ```
 
 Example output:
 
 
 ```json
+{
   "accounting_1": {
-    "source": "$5.33",
-    "value": 5.33,
+    "source": "($400.567)",
+    "value": -400.567,
     "unit": "$",
     "type": "accountingCurrency"
   },
 ```
 
-TODO: doesn't look like it rounds to 2 decimal places? like it would just return 4.56789798 as is?  
-
 Address
 ----
 Returns USA-based addresses. Matches:
 
-- City, State, Zip, and variants (TODO CHECK AND CHECK EXAMPLE that lacks a zip code)
-- street addresses that start with a number represented in digits. 
+- City, State, Zip, and variant representations of these elements such as abbreviations
+- Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations .  TODO: According to my test, something lacking zip like 11 Center Street, Amherst, MA isn't recognized, is that right? see https://dev.sensible.so/editor/?d=test_playground_frances&c=types&g=test_types 
 - PO boxes with a number represented in digits
 
 For example:
@@ -45,11 +77,12 @@ For example:
 ```123 Waverly Pl
 San Francisco, CA 94110
 123 Waverly Pl San Francisco, CA 941104123
-11 Center Street, Amherst, MA
 PO BOX 1058 San Francisco, CA 94110
 ```
 
 If multiple consecutive addresses are captured in a single extracted key/value  pair, Sensible correctly returns multiple addresses. 
+
+This type **does not** match text  that lacks a zip code, such as `11 Center Street, Amherst, MA`.
 
 Example output:
 ```json
@@ -93,18 +126,44 @@ Example output:
 Currency
 ----
 
-Returns US dollars. Recognizes both written-out numbers and digits,  optionally preceded by a US dollar symbol ($), for example: 
+Returns US dollars as absolute values. Recognizes numbers represented as digits with the thousand place value represented with commas (common in the USA) or periods (common in Europe). 
+
+Recognizes digits as follows:
+
+- dollar sign, optional commas every three digits, optional cents
+
+- no dollar sign, commas every three digits, optional cents
+
+- digits with periods every three digits, optional cents after comma
+
+- Optional dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present
+
+- No dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present
+
+  
+
+Recognizes abbreviated and written-out units as follows:
+
+- thousand, k
+- million, mil, mm, m
+- billion, bil, b
+- trillion, t
+
+For example: 
 
 ```
 2 thousand
 $1k
 5k
-one million
+1.000.000,05
+$1,000,000.05
 1 mm
 3 bil
 $5.33
 
 ```
+
+This type **won't** match text like `one million`  or `123456789`.
 
 Example output:
 
@@ -122,8 +181,8 @@ Date
 
 Returns date in year-month-days format. Recognizes:
 
-- Dates formatted as `MM/DD/YYYY`, and variants
-- Dates formatted as `month name, DD, YYYY`, and variants
+- Dates formatted as `MM/DD/YYYY`, and variant representations of these elements such as abbreviations
+- Dates formatted as `month name, DD, YYYY`, and and variant representations of these elements such as abbreviations
 
 For example:
 
@@ -182,7 +241,7 @@ Name
 
 Returns one or more names. Does not recognize a list of names more than 6 lines long. 
 
-Recognizes names of the formats below and variants:
+Recognizes names of the formats below and and variant representations of these elements such as abbreviations:
 \- First Last
 \- First1 Last1 and First2 Last2
 \- Last, First1 and First2

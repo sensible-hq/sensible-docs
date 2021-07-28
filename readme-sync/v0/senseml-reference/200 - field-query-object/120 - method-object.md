@@ -13,7 +13,7 @@ For the full list of methods available, see [Methods](doc:methods).
 Parameters
 -----
 
-The parameters for a method vary based on the method type (defined in the `id` parameter). Following are the global parameters common to all methods:
+The parameters for a method vary based on the method type (defined in the `id` parameter). The following are global parameters common to all methods:
 
 | Key              | Value                                                        | Description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
