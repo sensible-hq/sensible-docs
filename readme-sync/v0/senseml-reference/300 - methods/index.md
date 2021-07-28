@@ -32,7 +32,7 @@ The following pages describe [methods](doc:method-object) you can use in  [Field
 
 | Link           | Image                                                        | Notes                                                        |
 | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Box](doc:box) | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_example.png | Extract contents from boxes with dark, continuous borders and light backgrounds |
+| [Box](doc:box) | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_example.png) | Extract contents from boxes with dark, continuous borders and light backgrounds |
 |                |                                                              |                                                              |
 |                |                                                              |                                                              |
 |                |                                                              |                                                              |
