@@ -283,7 +283,7 @@ Number
 Recognizes numbers represented as digits and optionally:
 
 - using commas to represent the thousand place value
-- using a 
+- using a period to represent the decimal place
 
 For example:
 
@@ -303,7 +303,7 @@ Example output:
 }
 ```
 
-
+LEFT OFF
 
 Paragraph
 ----
