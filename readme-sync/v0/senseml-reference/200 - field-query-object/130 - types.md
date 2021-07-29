@@ -26,21 +26,21 @@ The following types are available:
 
 [accountingCurrency](doc:types#accountingcurrency)
 [address](doc:types#address)
-[boolean](doc:types#section-boolean)
-[currency](doc:types#section-currency)
-[date](doc:types#section-date)
-[distance](doc:types#section-distance)
-[images](doc:types#section-images)
-[name](doc:types#section-name)
-[number](doc:types#section-number)
-[paragraph](doc:types#section-paragraph)
-[percentage](doc:types#section-percentage)
+[boolean](doc:types#boolean)
+[currency](doc:types#currency)
+[date](doc:types#date)
+[distance](doc:types#distance)
+[images](doc:types#images)
+[name](doc:types#name)
+[number](doc:types#number)
+[paragraph](doc:types#paragraph)
+[percentage](doc:types#percentage)
 
-[periodDelimitedCurrency](doc:types#section-perioddelimitedcurrency) 
+[periodDelimitedCurrency](doc:types#perioddelimitedcurrency) 
 
-[string](doc:types#section-string)
-[table](doc:types#section-table)
-[weight](doc:types#section-weight)
+[string](doc:types#string)
+[table](doc:types#table)
+[weight](doc:types#weight)
 
 
 
@@ -137,7 +137,7 @@ Example output:
 Currency
 ----
 
-Returns US dollars as absolute values. Recognizes USA formatting (i.e., 1,500.06) Recognizes abbreviated quantities such as k for thousand.  For  European formatting (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#section-perioddelimitedcurrency)  
+Returns US dollars as absolute values. Recognizes USA formatting (i.e., 1,500.06) Recognizes abbreviated quantities such as k for thousand.  For  European formatting (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 
 
@@ -344,7 +344,7 @@ Example:
 periodDelimitedCurrency
 ----
 
-Returns numbers as absolute values. Recognizes European formatting (i.e., 1.500,06). Recognizes abbreviated quantities such as k for thousand.  For  USA formatting (i.e., 1,500.06), see [currency](doc:types#section-currency)  
+Returns numbers as absolute values. Recognizes European formatting (i.e., 1.500,06). Recognizes abbreviated quantities such as k for thousand.  For  USA formatting (i.e., 1,500.06), see [currency](doc:types#currency)  
 
 
 
