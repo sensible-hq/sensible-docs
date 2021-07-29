@@ -1,6 +1,6 @@
 ---
 title: "Preprocessors"
-hidden: false
+hidden: true
 ---
 The following pages describe preprocessors you can use to clean up your documents before extracting structured data:
 
@@ -14,9 +14,9 @@ The following pages describe preprocessors you can use to clean up your document
 | [Split Lines](doc:split-lines)     | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_split_lines.png) | Solve undersplit lines.                                      |
 | [OCR](doc:ocr)                     | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_ocr.png) | Selectively OCR pages containing text images to improve processing time. |
 | [Page Filter](doc:page-filter)     |                                                              | Filters out low-scoring pages given a bag of target terms and stop terms. |
-| [Page Range](doc:page-range)       |                                                              |                                                              |
-| [Remove Header](doc:remove-header) |                                                              |                                                              |
-| [Remove Footer](doc:remove-footer) |                                                              |                                                              |
+| [Page Range](doc:page-range)       |                                                              | Ignores pages outside the start page and end page.           |
+| [Remove Header](doc:remove-header) | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_remove_header.png) | Removes repeating elements at the top of the page.           |
+| [Remove Footer](doc:remove-footer) | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_remove_footer.png) | Removes repeating elements at the bottom of the page.        |
 
 
 
