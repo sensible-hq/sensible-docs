@@ -80,7 +80,7 @@ Address
 Returns USA-based addresses. Matches:
 
 - City, State, Zip, and variant representations of these elements such as abbreviations
-- Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations .  TODO: According to my test, something lacking zip like 11 Center Street, Amherst, MA isn't recognized, is that right? see https://dev.sensible.so/editor/?d=test_playground_frances&c=types&g=test_types 
+- Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations .  
 - PO boxes with a number represented in digits
 
 For example:
@@ -312,7 +312,7 @@ Example output:
 Paragraph
 ----
 
-A string with newlines at paragraph breaks (to be used with [Document Range](https://docs.sensible.so/docs/document-range) only. TODO: why is it necessary to specify this/why useful?
+Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs as output that is separated by newlines (\n), instead of as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible does not recognize paragraphs indicated solely by indented first lines. 
 
 Percentage
 ----
