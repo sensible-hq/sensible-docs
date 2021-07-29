@@ -81,7 +81,7 @@ Try modifying this config to observe the effects of the different parameters. Fo
 
 - set `"adjacentThreshold": 0.1` to see oversplit lines. 
 - set `"adjacentThreshold": 2.0` to see very aggressively merged lines. 
-- revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how text that is misaligned on the y-axis (like the email address) merges more aggressively.
+- revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how text that is misaligned in terms of height (like the email address) merges more aggressively.
 
 
 Oversplit lines
@@ -129,7 +129,7 @@ This example uses the following config:
 Jittery lines on a y-axis
 ----
 
-The following image shows using the Y Overlap parameter to ignore "jitter" on the y-axis, where two lines that should be perfectly aligned are not  (for example, as the result of a low-quality scan or because of handwriting).
+The following image shows using the Y Overlap parameter to ignore vertical misalignment or "jitter" in lines (for example, as the result of a low-quality scan or because of handwriting).
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/merge_lines_example_yoverlap.png)
 
