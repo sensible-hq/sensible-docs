@@ -35,16 +35,26 @@ The following types are available:
 [number](doc:types#section-number)
 [paragraph](doc:types#section-paragraph)
 [percentage](doc:types#section-percentage)
+
+[periodDelimitedCurrency](doc:types#section-perioddelimitedcurrency) 
+
 [string](doc:types#section-string)
 [table](doc:types#section-table)
 [weight](doc:types#section-weight)
+
+
+
+In this topic, the following terms are used to refer to number formatting:
+
+-  "USA formatting" refers to using optional commas for the thousands separators and a period for the decimal seperator (i.e., 1,500.06)
+-  "European formatting" refers to  using optional periods for the thousands separators and a comma for the decimal seperator (i.e., 1.500,06)
 
 accountingCurrency
 ----
 
 Returns US dollar numbers. Supports negative numbers.
 
-Recognizes digits ( decimal places, comma-delimitated thousands) optionally preceded by a US dollar sign ($). Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`). Examples: 
+Recognizes digits in USA formatting (i.e., 1,500.06). The digits are optionally preceded by a US dollar sign ($). Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`). Examples: 
 
 ```
 56,999
@@ -127,21 +137,18 @@ Example output:
 Currency
 ----
 
-Returns US dollars as absolute values. Recognizes numbers represented as digits with the thousand place value represented with commas (common in the USA) or periods (common in Europe). 
+Returns US dollars as absolute values. Recognizes USA formatting (i.e., 1,500.06) Recognizes abbreviated quantities such as k for thousand.  For  European formatting (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#section-perioddelimitedcurrency)  
 
-Recognizes digits as follows:
 
-- dollar sign, optional commas every three digits, optional cents
 
-- no dollar sign, commas every three digits, optional cents
+Recognizes digits with the following formatting:
 
-- digits with periods every three digits, optional cents after comma
+- dollar sign, optional commas every three digits, optional cents after period
 
-- Optional dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present
+- no dollar sign, commas every three digits, optional cents after period
 
-- No dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present
+- optional dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present.
 
-  
 
 Recognizes abbreviated and written-out quantities as follows:
 
@@ -180,10 +187,10 @@ Example output:
 Date
 -----
 
-Returns date in year-month-days format. Recognizes:
+Returns date in year-month-days format. Recognizes the following formatting:
 
-- Dates formatted as `MM/DD/YYYY`, and variant representations of these elements such as abbreviations
-- Dates formatted as `month name, DD, YYYY`, and and variant representations of these elements such as abbreviations
+-  `MM/DD/YYYY`, and variant representations of these elements such as abbreviations
+-  `month name, DD, YYYY`, and and variant representations of these elements such as abbreviations
 
 For example:
 
@@ -207,12 +214,10 @@ Example output:
 
 ```
 
-
-
 Distance
 ----
 
-Returns miles and kilometers. Recognizes numbers represented as digits followed optionally by kilometers, miles, or their abbreviations.  For example: 
+Returns miles and kilometers. Recognizes digits followed optionally by kilometers, miles, or their abbreviations.  For example: 
 
 ```
 3,001.5 kilometers
@@ -245,7 +250,7 @@ Name
 
 Returns one or more names. Does not recognize a list of names more than 6 lines long. 
 
-Recognizes names of the formats below and and variant representations of these elements such as abbreviations:
+Recognizes names of the formats below, and and variant representations of these elements such as abbreviations:
 \- First Last
 \- First1 Last1 and First2 Last2
 \- Last, First1 and First2
@@ -280,10 +285,7 @@ Example output:
 Number
 ----
 
-Recognizes numbers represented as digits and optionally:
-
-- using commas to represent the thousand place value
-- using a period to represent the decimal place
+Recognizes digits in USA number formatting.
 
 For example:
 
@@ -292,6 +294,8 @@ For example:
 3,500,053.78
 1234567890
 ```
+
+This type does **not** recognize text such as `3.061.534,45`. Use the Currency or Period Deliminated Currency types instead. 
 
 Example output:
 
@@ -303,7 +307,7 @@ Example output:
 }
 ```
 
-LEFT OFF
+
 
 Paragraph
 ----
@@ -313,11 +317,69 @@ A string with newlines at paragraph breaks (to be used with [Document Range](htt
 Percentage
 ----
 
-looks like it recognizes any number comma-deliminated and including decimal point.
+Returns percent as an absolute value. Recognizes a percent formatted as digits in USA formatting (i.e., 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
 
-/(\b\d+(?:(?:,\d{3})*)(?:\.\d+)?|\.\d+)\s?%/gi
+For example:
 
-QUESTION/to test: looks like maybe it doesn't recognize negative #s? (-)
+```json
+20.1 %
+20.1%
+1,000.05%
+```
+
+
+
+Example:
+
+```json
+ {
+    "source": "20.5%",
+    "value": 20.5,
+    "type": "percentage"
+  }
+```
+
+
+
+periodDelimitedCurrency
+----
+
+Returns numbers as absolute values. Recognizes European formatting (i.e., 1.500,06). Recognizes abbreviated quantities such as k for thousand.  For  USA formatting (i.e., 1,500.06), see [currency](doc:types#section-currency)  
+
+
+
+Recognizes digits with the following formatting:
+
+- no dollar sign, periods every three digits, optional cents after comma
+
+- no dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present.
+
+
+Recognizes abbreviated and written-out quantities as follows:
+
+- thousand, k
+- million, mil, mm, m
+- billion, bil, b
+- trillion, t
+
+For example: 
+
+```
+2 thousand
+$1k
+5k
+1.000.000,05
+$1,000,000.05
+1 mm
+3 bil
+$5.33
+
+```
+
+This type **does not** match text such as `one million`  or `123456789`.
+
+Example output:
+
 
 String
 ----
@@ -328,16 +390,15 @@ Example output:
 
 ```
 {
-  source: "report",
-  value: "report",
-  type: "string",
+    "type": "string",
+    "value": "3 bil"
 }
 ```
 
 Weight
 ---
 
-Returns pounds and kilograms. Recognizes numbers represented as digits followed optionally by pounds, kilograms, or their abbreviations. For example: 
+Returns pounds and kilograms. Recognizes digits in USA number formatting (i.e., 1,500.06), followed optionally by pounds, kilograms, or their abbreviations. For example: 
 
 ```json
 1,00.4 kg
@@ -348,24 +409,15 @@ Returns pounds and kilograms. Recognizes numbers represented as digits followed 
 6.83
 ```
 
-Example output:
-
-```json
-{
-  source: "1,123,451 pounds",
-  type: "weight",
-  unit: "pounds",
-  value: 1123451,
-}
-```
 
 Example output:
 
 ```json
 {
-  source: "1,123,451",
-  type: "weight",
-  value: 1123451,
+    "source": "6,000.01 lbs",
+    "value": 6000.01,
+    "unit": "pounds",
+    "type": "weight"
 }
 ```
 
