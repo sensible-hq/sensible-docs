@@ -321,7 +321,7 @@ Advanced queries
 You can get more advanced with this auto insurance config. For example:
 
 - You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
-- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict x-axis alignment of lines, so you'd only be able to grab the first line. Instead, you can use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
+- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible only extracts the first line. Instead, use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
 - What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).

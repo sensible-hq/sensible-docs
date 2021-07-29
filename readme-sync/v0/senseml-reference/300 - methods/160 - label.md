@@ -105,7 +105,7 @@ The preceding example shows fields that do the following:
 
 1. The  `simple_label` field grabs a line below a label.
 2. The `one_line_label` field grabs text to the right of a label on the same line, and filters out an unwanted string. 
-3. The `hanging_indent_label` field grabs multiple lines of text by using a Stop parameter.  The method grabs indented lines (`"textAlignment": "hangingIndent"`) , and the match does **not** include lines to the left or right of matching aligned lines. For example, in the PDF, the line "But lines to the left or right aren't matched" is ignored, because it isn't aligned on a y-axis with other matching lines. 
+3. The `hanging_indent_label` field grabs multiple lines of text by using a Stop parameter.  The method grabs indented lines (`"textAlignment": "hangingIndent"`) , and the match does **not** include lines to the left or right of matching aligned lines. For example, in the PDF, the line "But lines to the left or right aren't matched" is ignored, because it isn't distributed on the same y-axis as other matching lines. 
 4. The `only_looks_like_a_label` field demonstrates that labels are sensitive to font size differences by returning `null`.
 5. The `doc_range_alternative` fields shows an alternate way to grab the line targeted by `only_looks_like_a_label`.
 
