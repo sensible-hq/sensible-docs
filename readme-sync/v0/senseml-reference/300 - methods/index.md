@@ -6,7 +6,7 @@ Use the following [methods](doc:method-object)  to extract structured data from 
 
 
 
-| Link                                     | Image                                                        | Notes                                                        |
+| Method                                   | Image                                                        | Notes                                                        |
 | ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **[Box](doc:box)**                       | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_box.png) | Extract contents from boxes with continuous borders.         |
 | **[Checkbox](doc:checkbox)**             | ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/thumbnail_checkbox.png) | Extract true/false from checkbox.                            |
