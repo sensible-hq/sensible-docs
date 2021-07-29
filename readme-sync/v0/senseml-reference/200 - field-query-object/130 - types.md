@@ -24,8 +24,8 @@ For example, the following field returns null unless it finds data that Sensible
 
 The following types are available:
 
-[accountingCurrency](doc:types#section-accountingcurrency)
-[address](doc:types#section-address)
+[accountingCurrency](doc:types#accountingcurrency)
+[address](doc:types#address)
 [boolean](doc:types#section-boolean)
 [currency](doc:types#section-currency)
 [date](doc:types#section-date)
