@@ -1,5 +1,5 @@
 ---
-title: "types draft"
+title: "Types"
 hidden: false
 ---
 Specify the Type parameter in a [Field object](doc:field-query-object) to capture data of a particular type. 
