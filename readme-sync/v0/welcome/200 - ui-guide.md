@@ -1,9 +1,9 @@
 ---
 title: "UI guide"
-hidden: true
+hidden: false
 ---
 
-The Sensible app uses color-coded symbols to visually represent how SenseML queries operate on PDFs. This topic explains the symbols. Use the symbols for troubleshooting. 
+The Sensible app uses color-coded symbols to visually represent how SenseML queries operate on PDFs.  Use these symbols to to author and troubleshoot queries.
 
 Anchors and matches
 ====
@@ -77,13 +77,9 @@ Discarded anchor data
 
 ***Light yellow boxes*** represent discarded anchor data. Sensible anchors filter out captured text depending on parameters you set in the field, the anchor, and the method. 
 
-For example, in the following image:
+For example, in the following image, there are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements:
 
-- There is one filtered out "languages" string surrounded by a light yellow box. It is filtered out because the field's Match parameter specifies to match the last instance of the string.
-
-- There are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements.  
-
-  ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
 
 The query used for the preceding image is:
 
@@ -91,23 +87,14 @@ The query used for the preceding image is:
 {
   "fields": [
     {
-      "id": "filtered_by_match",
-      "anchor": "languages",
-      "match": "last",
-      "method": {
-        "id": "label",
-        "position": "right"
-      }
-    }
-    {
-      "id": "filtered_by_method",
+      "id": "anchors_candidates_filtered_by_method",
       "anchor": "python",
       "match": "first",
       "method": {
         "id": "label",
         "position": "right"
       }
-    },
+    }
   ]
 }
 ```
@@ -126,7 +113,7 @@ Discarded method data
 
 ***Light blue boxes*** represent discarded method data.  Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
-For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects +2.75% (dark blue box) and discards 11.87% (light blue box).
+For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (light blue box).
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method.png)
 
@@ -136,22 +123,13 @@ The query used for the preceding image is:
 {
   "fields": [
     {
-      "id": "python_change_in_TIBOE_rating",
+      "id": "filtered_by_tiebreaker",
+      "anchor": "Javascript",
+      "match": "last",
       "method": {
         "id": "row",
+        "position": "right",
         "tiebreaker": "second"
-      },
-      "anchor": {
-        "match": [
-          {
-            "text": "Languages ranked by search engine",
-            "type": "startsWith"
-          },
-          {
-            "text": "Python",
-            "type": "startsWith"
-          }
-        ]
       }
     }
   ]
