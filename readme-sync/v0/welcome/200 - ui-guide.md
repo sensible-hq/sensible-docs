@@ -5,6 +5,24 @@ hidden: false
 
 This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs.  Use these symbols to to author and troubleshoot queries.
 
+| Symbol           | Represents                           | Details                                                     |
+| ---------------- | ------------------------------------ | ----------------------------------------------------------- |
+| blue box         | captured method                      | [Anchors and matches](doc:ui-guide#anchors-and-matches)     |
+| green box        | box or region                        | [Points and boxes](doc:ui-guide#points-and-boxes)           |
+| green point      | starting point for recognizing a box | [Points and boxes](doc:ui-guide#points-and-boxes)           |
+| light blue box   | discarded method data                | [Discarded method data](doc:ui-guide#discarded-method-data) |
+| light yellow box | discarded anchor data                | [Discarded anchor data](doc:ui-guide#discarded-anchor-data) |
+| purple box       | line details                         | [Purple box](doc:ui-guide#line-details)                     |
+| yellow box       | anchor                               | [Anchors and matches](doc:ui-guide#anchors-and-matches)     |
+
+
+
+
+
+
+
+
+
 Anchors and matches
 ====
 
