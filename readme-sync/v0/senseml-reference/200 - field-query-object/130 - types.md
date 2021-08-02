@@ -401,6 +401,16 @@ Example output:
 }
 ```
 
+Table
+---
+
+Use only with the Table methods:
+
+- [Invoice](doc:invoice)
+- [Fixed Table](doc:fixed-table)
+- [Table](doc:table)
+- [Text Table](doc:text-table)
+
 Weight
 ---
 
