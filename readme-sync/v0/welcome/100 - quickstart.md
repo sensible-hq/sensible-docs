@@ -134,7 +134,7 @@ How it works
 
 - Each "field" is a basic query unit in Sensible, and the field `id` is used as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
-- Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor-object). This config uses three types of methods:
+- Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible uses a "method" to expand out from the anchor and grab the data you want. For more information about defining complex anchors, see [Anchor](doc:anchor). This config uses three types of methods:
   
   - [How it works: label method](doc:quickstart#section-how-it-works-label-method)
   - [How it works: row method](doc:quickstart#section-how-it-works-row-method)
@@ -300,7 +300,7 @@ The config uses the [Box method](doc:box):
 
 - The anchor is inside a box (`"id": "box"`).
 
-- The anchor text  is "policy number". Notice that the anchor line is a little more complex than previous examples, because we also define a match type (`"type": "startsWith"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor-object).
+- The anchor text  is "policy number". Notice that the anchor line is a little more complex than previous examples, because we also define a match type (`"type": "startsWith"`). Notice you can write a simpler anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor).
 
  This returns: 
 

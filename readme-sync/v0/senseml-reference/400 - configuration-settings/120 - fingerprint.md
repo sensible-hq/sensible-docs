@@ -26,7 +26,7 @@ For example, if you have a vendor-specific config, "anyco_life_insurance_quote" 
 
 This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases. The config preferentially runs only if the fingerprint finds the phrases.  
 
-As the previous example shows, a fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects. A test passes if all the matches defined for the test are found in the doc.  For more information, see [Match object](doc:match-object).
+As the previous example shows, a fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects. A test passes if all the matches defined for the test are found in the doc.  For more information, see [Match object](doc:match).
 
 In the Sensible app or  API, configure the following levels of strictness for a document type's fingerprints:
 

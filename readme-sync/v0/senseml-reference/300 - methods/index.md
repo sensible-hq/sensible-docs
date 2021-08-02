@@ -2,7 +2,7 @@
 title: "Methods"
 hidden: false
 ---
-Use the following [methods](doc:method-object)  to extract structured data from documents:
+Use the following [methods](doc:method)  to extract structured data from documents:
 
 
 

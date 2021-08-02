@@ -8,8 +8,8 @@ Matches are instructions for matching lines of text in a document. They are vali
 
 There are three different types of Match objects, including simple, regex, and first matches.  The following parameters are available to all types of Match objects:
 
-[**Parameters**](doc:match-object#section-parameters)
-[**Examples**](doc:match-object#section-examples)
+[**Parameters**](doc:match#section-parameters)
+[**Examples**](doc:match#section-examples)
 
 Parameters
 ===
@@ -27,12 +27,12 @@ Global Match Parameters
 
 See the following sections for more information about each match type:
 
-- [Simple matcher](doc:anchor-object#section-simple-match)
-- [Regex match](doc:anchor-object#section-regex-match)
-- [First match](doc:anchor-object#section-first-match)
+- [Simple matcher](doc:anchor#section-simple-match)
+- [Regex match](doc:anchor#section-regex-match)
+- [First match](doc:anchor#section-first-match)
 
-You can define match arrays. See [Match arrays](doc:match-object#section-match-arrays) 
-The *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor-object#section-methods-influence-matches).
+You can define match arrays. See [Match arrays](doc:match#section-match-arrays) 
+The *type* of method you use can determine whether text qualifies for a match or not. See [Methods influence matches](doc:anchor#section-methods-influence-matches).
 
 
 

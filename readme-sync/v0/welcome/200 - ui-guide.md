@@ -8,9 +8,9 @@ The Sensible app uses color-coded symbols to visually represent how SenseML quer
 Anchors and matches
 ====
 
-***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor-object).
+***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
 
-***Blue boxes*** represent matches. For more information about matches, see [Match object](doc:match-object).
+***Blue boxes*** represent matches. For more information about matches, see [Match object](doc:match).
 
 For example, the following image shows:
 

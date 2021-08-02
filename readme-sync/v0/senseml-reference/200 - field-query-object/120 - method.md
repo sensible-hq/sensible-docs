@@ -7,8 +7,8 @@ A Method object defines how to expand out from an Anchor object and grab data yo
 
 For the full list of methods available, see [Methods](doc:methods). 
 
-[**Parameters**](doc:method-object#section-parameters)
-[**Examples**](doc:method-object#section-examples)
+[**Parameters**](doc:method#section-parameters)
+[**Examples**](doc:method#section-examples)
 
 Parameters
 -----

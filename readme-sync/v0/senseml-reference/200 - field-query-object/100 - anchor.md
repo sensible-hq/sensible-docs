@@ -2,11 +2,11 @@
 title: "Anchor object"
 hidden: false
 ---
-An *anchor* is a string, [Match](doc:match-object) object, or array of Match objects. Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible can use a ["method"](doc:method-object) to expand out from the anchor and grab the data you want.
+An *anchor* is a string, [Match](doc:match) object, or array of Match objects. Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location in the document where you want to extract data. Then, Sensible can use a ["method"](doc:method) to expand out from the anchor and grab the data you want.
 
-[**Parameters**](doc:anchor-object#section-parameters)
-[**Examples**](doc:anchor-object#section-examples)
-[**Notes**](doc:anchor-object#section-notes)
+[**Parameters**](doc:anchor#section-parameters)
+[**Examples**](doc:anchor#section-examples)
+[**Notes**](doc:anchor#section-notes)
 
 If you want to be syntactically concise, you can define a simple string anchor like:
 
@@ -46,7 +46,7 @@ These are the top-level components of an expanded Anchor object:
 
 | key                  | values                                 | description                                                  |
 | -------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| match (**required**) | Match object or array of match objects | See [Match object](doc:match-object).  |
+| match (**required**) | Match object or array of match objects | See [Match object](doc:match).  |
 | start                | string, Match, or Match array          | Defines a point in the document at which to start searching for  the`match` you define for the anchor.  Not included in the anchor output. (You can capture anchor output with a Passthrough method).<br/> This parameter can be useful if you want to limit your search to a specific section of a document. For example, you can define a `start` that matches a section heading. <br/>Note that lines that "follow" the `start` line are most reliably those that are positioned *below* the start line. Lines to the left are not included, and lines to the right are only considered "following" if they are at exactly the same height as the `start` line on the page. In other words, a line qualifies as "successive" to the `start` line first by its y-axis position and then by its x-axis position. |
 | end                  | string, Match, or Match array          | Defines a point in the document at which to stop searching for  the`match` you define for the anchor.  By default, not included in the anchor output. (You can capture anchor output with a Passthrough method).<br/>If unspecified, the anchor searches for matches to the end of the document.  <br/>Note that lines that "precede" the `end` line are most reliably those that are positioned *above* the end line. Lines to the right are not included, and lines to the left are only considered "preceding" if they are at exactly the same height as the `end` line on the page. In other words, a line qualifies as "preceding" the `start` line first by its y-axis position and then by its x-axis position. |
 | includeEnd           | boolean                                | Whether to include the text in the matching `end` line in the anchor output. |
