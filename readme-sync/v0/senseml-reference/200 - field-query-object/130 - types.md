@@ -1,6 +1,6 @@
 ---
 title: "types draft"
-hidden: true
+hidden: false
 ---
 Specify the Type parameter in a [Field object](doc:field-query-object) to capture data of a particular type. 
 
@@ -10,7 +10,7 @@ For example, the following field returns null unless it finds data that Sensible
 {
   "fields": [
     {
-      "id": "example_field",
+      "id": "typed_field",
       "type": "number",
       "anchor": "duration in years:",
       "method": {
@@ -24,37 +24,36 @@ For example, the following field returns null unless it finds data that Sensible
 
 The following types are available:
 
-[accountingCurrency](doc:types#accountingcurrency)
-[address](doc:types#address)
-[boolean](doc:types#boolean)
-[currency](doc:types#currency)
-[date](doc:types#date)
-[distance](doc:types#distance)
-[images](doc:types#images)
-[name](doc:types#name)
-[number](doc:types#number)
-[paragraph](doc:types#paragraph)
-[percentage](doc:types#percentage)
-
-[periodDelimitedCurrency](doc:types#perioddelimitedcurrency) 
-
-[string](doc:types#string)
-[table](doc:types#table)
-[weight](doc:types#weight)
+[Accounting Currency](doc:types#accountingcurrency)
+[Address](doc:types#address)
+[Boolean](doc:types#boolean)
+[Currency](doc:types#currency)
+[Date](doc:types#date)
+[Distance](doc:types#distance)
+[Images](doc:types#images)
+[Name](doc:types#name)
+[Number](doc:types#number)
+[Paragraph](doc:types#paragraph)
+[Percentage](doc:types#percentage)
+[Period Delimited Currency](doc:types#perioddelimitedcurrency) 
+[String](doc:types#string)
+[Table](doc:types#table)
+[Weight](doc:types#weight)
 
 
 
-In this topic, the following terms are used to refer to number formatting:
-
--  "USA formatting" refers to using optional commas for the thousands separators and a period for the decimal seperator (i.e., 1,500.06)
--  "European formatting" refers to  using optional periods for the thousands separators and a comma for the decimal seperator (i.e., 1.500,06)
-
-accountingCurrency
+Accounting Currency
 ----
 
 Returns US dollar numbers. Supports negative numbers.
 
-Recognizes digits in USA formatting (i.e., 1,500.06). The digits are optionally preceded by a US dollar sign ($). Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`). Examples: 
+Recognizes digits in USA decimal notation (i.e., 1,500.06):
+
+- digits are in the format recognized by the [Number](doc:types#number) type
+- digits are optionally preceded by a US dollar sign ($) 
+- supports negative numbers represented either with parentheses `()` or with the minus sign (`-`)
+
+Examples: 
 
 ```
 56,999
@@ -80,7 +79,7 @@ Address
 Returns USA-based addresses. Matches:
 
 - City, State, Zip, and variant representations of these elements such as abbreviations
-- Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations .  
+- Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations   
 - PO boxes with a number represented in digits
 
 For example:
@@ -137,17 +136,15 @@ Example output:
 Currency
 ----
 
-Returns US dollars as absolute values. Recognizes USA formatting (i.e., 1,500.06) Recognizes abbreviated quantities such as k for thousand.  For  European formatting (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
-
-
+Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06) Recognizes abbreviated quantities such as k for thousand.  For  European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 Recognizes digits with the following formatting:
 
 - dollar sign, optional commas every three digits, optional cents after period
 
-- no dollar sign, commas every three digits, optional cents after period
+- commas every three digits, optional cents after period
 
-- optional dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present.
+- no dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present.
 
 
 Recognizes abbreviated and written-out quantities as follows:
@@ -160,15 +157,13 @@ Recognizes abbreviated and written-out quantities as follows:
 For example: 
 
 ```
-2 thousand
 $1k
 5k
-1.000.000,05
-$1,000,000.05
+1,000,000.056
+$5.33
 1 mm
 3 bil
-$5.33
-
+2 thousand
 ```
 
 This type **does not** match text such as `one million`  or `123456789`.
@@ -285,7 +280,11 @@ Example output:
 Number
 ----
 
-Recognizes digits in USA number formatting.
+Recognizes digits in USA decimal notation. Recognizes digits as follows:
+
+- one or more digits, optionally followed by:
+  - EITHER commas preceding every three digits, optional digits after period 
+  - OR by digits after period
 
 For example:
 
@@ -312,12 +311,12 @@ Example output:
 Paragraph
 ----
 
-Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs as output that is separated by newlines (\n), instead of as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible does not recognize paragraphs indicated solely by indented first lines. 
+Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs as output that is separated by newline characters (\n), instead of as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible does not recognize paragraphs indicated solely by indented first lines. 
 
 Percentage
 ----
 
-Returns percent as an absolute value. Recognizes a percent formatted as digits in USA formatting (i.e., 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
+Returns percent as an absolute value. Recognizes a percent formatted as digits in USA decimal notation (i.e., 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
 
 For example:
 
@@ -341,18 +340,16 @@ Example:
 
 
 
-periodDelimitedCurrency
+Period Delimited Currency
 ----
 
-Returns numbers as absolute values. Recognizes European formatting (i.e., 1.500,06). Recognizes abbreviated quantities such as k for thousand.  For  USA formatting (i.e., 1,500.06), see [currency](doc:types#currency)  
-
-
+Returns numbers as absolute values. Recognizes European decimal formatting (i.e., 1.500,06). Recognizes abbreviated quantities, such as k for thousand.  For  USA decimal formatting (i.e., 1,500.06), see [currency](doc:types#currency)  
 
 Recognizes digits with the following formatting:
 
-- no dollar sign, periods every three digits, optional cents after comma
+- periods every three digits, optional cents after comma
 
-- no dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present.
+- up to six digits without periods as only line contents. Allow up to nine digits if cents following comma are present.
 
 
 Recognizes abbreviated and written-out quantities as follows:
@@ -365,20 +362,29 @@ Recognizes abbreviated and written-out quantities as follows:
 For example: 
 
 ```
-2 thousand
-$1k
+€1k
 5k
-1.000.000,05
-$1,000,000.05
+1.000.000,056
+€5,33
 1 mm
 3 bil
-$5.33
+2 thousand
 
 ```
 
-This type **does not** match text such as `one million`  or `123456789`.
+This type **does not** match text such as `one million`  or `123456789`. It does not currently support outputting units of currency.
 
 Example output:
+
+```json
+{
+    "source": "5,33",
+    "value": 5.33,
+    "type": "periodDelimitedCurrency"
+}
+```
+
+
 
 
 String
@@ -398,15 +404,21 @@ Example output:
 Weight
 ---
 
-Returns pounds and kilograms. Recognizes digits in USA number formatting (i.e., 1,500.06), followed optionally by pounds, kilograms, or their abbreviations. For example: 
+Returns pounds and kilograms. Recognizes digits in USA decimal notation (i.e., 1,500.06):
+
+- digits are in the format recognized by the [Number](doc:types#number) type
+
+- digits are followed optionally by pounds, kilograms, or their abbreviations 
+
+For example: 
 
 ```json
-1,00.4 kg
+1,000.4 kg
 1 kilo
 5.5 kilograms
-6,00 lbs
+6.00 lbs
 1 pound
-6.83
+634.83
 ```
 
 
