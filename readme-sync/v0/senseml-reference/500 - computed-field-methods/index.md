@@ -18,9 +18,12 @@ The following pages describe Computed Field methods:
 
 Parameters
 ====
+
+The following global parameters are common to all Computed Field methods.
+
 | key               | value                      | description                                                  |
 | :---------------- | :------------------------- | :----------------------------------------------------------- |
-| id (**required**) | string                     | A string that identifies the field in the output             |
+| id (**required**) | string                     | A string that identifies the field in the output.            |
 | type              | string (default: `string`) | Set the eduction type. For more information about types, see [Field query object](doc:field-query-object). Doesn't apply to the `summarizer` and `tfidf` computed field methods. |
 | method            | a Computed Field method    | The method used to create this field. See the child pages of this topic for the full list of available methods. |
 

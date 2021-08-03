@@ -5,15 +5,15 @@ hidden: false
 
 This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs.  Use these symbols to to author and troubleshoot queries.
 
-| Symbol           | Represents                           | Details                                           |
-| ---------------- | ------------------------------------ | ------------------------------------------------- |
-| blue box         | captured method data                 | [Blue box](doc:ui-guide#blue-box)                 |
-| green box        | box or region                        | [Green box](doc:ui-guide#green-box)               |
-| green point      | starting point for recognizing a box | [Green point](doc:ui-guide#green-point)           |
-| light blue box   | discarded method data                | [Light blue box](doc:ui-guide#light-blue-box)     |
-| light yellow box | discarded anchor data                | [Light yellow box](doc:ui-guide#light-yellow-box) |
-| purple box       | line details                         | [Purple box](doc:ui-guide#purple-box)             |
-| yellow box       | anchor                               | [Yellow box](doc:ui-guide#yellow-box)             |
+| Symbol                                            | Represents                           |
+| ------------------------------------------------- | ------------------------------------ |
+| [Blue box](doc:ui-guide#blue-box)                 | captured method data                 |
+| [Green box](doc:ui-guide#green-box)               | box or region                        |
+| [Green point](doc:ui-guide#green-point)           | starting point for recognizing a box |
+| [Light blue box](doc:ui-guide#light-blue-box)     | discarded method data                |
+| [Light yellow box](doc:ui-guide#light-yellow-box) | discarded anchor data                |
+| [Purple box](doc:ui-guide#purple-box)             | line details                         |
+| [Yellow box](doc:ui-guide#yellow-box)             | anchor                               |
 
 Blue box
 ====
