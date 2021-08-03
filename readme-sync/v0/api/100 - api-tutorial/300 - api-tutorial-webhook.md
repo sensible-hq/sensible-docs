@@ -38,6 +38,6 @@ Check the webhook response
 ====
 
 5. Click **Send** in Postman.
-6. Check back at your unique URL at webhook.site, and you should see a response there like the following: 
+6. Check back at your unique URL at webhook.site, and you should see a response like the following: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_3.png)

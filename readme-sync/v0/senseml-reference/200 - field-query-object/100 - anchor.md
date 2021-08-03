@@ -227,20 +227,20 @@ And the output of this example is:
 
 
 
-Methods influence anchors
+Methods filter anchors
 -----
 
 In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies for the anchor match.
 
 In other words, if you set a Label method, then Sensible only matches anchor text that is a good candidate for serving as a label. If the text is too far away from any other lines to be used as a label, it won't match, even if all the conditions you set in the Match object itself are otherwise met. 
 
-In the following example, the PDF contains two instances of the string "Python". Even though we set `"match":"last"` in the config, the config only matches the *first* instance of Python. Why? We set a Label method, and only the first instance of Python is close enough to the text below it to qualify as a label for that text ( `"position":"below"`).
+In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements (the Row method would work here instead):
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_match_last_1.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
 
- On the other hand, if we set the method to `row`, then both instances of "Python" qualify, and we successfully match the last instance:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_match_last_2.png)
+
+
 
 
 
