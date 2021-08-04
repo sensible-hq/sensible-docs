@@ -1,6 +1,6 @@
 ---
 title: "Troubleshoot in the app"
-hidden: true
+hidden: false
 ---
 
  The Sensible app offers you several ways to troubleshoot your config.

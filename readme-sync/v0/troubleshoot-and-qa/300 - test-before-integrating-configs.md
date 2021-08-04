@@ -1,6 +1,6 @@
 ---
 title: "Test before integrating configs"
-hidden: true
+hidden: false
 ---
 
 Before integrating existing config updates into your application, test the updates in a Development environment:
@@ -15,23 +15,22 @@ When you  specify `?environment=development` in an API endpoint, Sensible falls 
 
 To understand fallback behavior, let's say the document type `test_doc_type` has the following config versions, which fit a `document_a` with varying degrees of accuracy:
 
-```
-configA_v1_inprod_best_fit
-configA_v2_indev_bad_fit
-configB_v1_inprod_ok_fit
-```
+| Config  | Version in prod | Version in dev       |
+| ------- | --------------- | -------------------- |
+| configA | best fit        | bad fit              |
+| configB | ok fit          | no published version |
 
 If you specify `?environment=development`, Sensible searches for a best fit across both production and development by comparing:
 
- -  `configA_v1_inprod_best_fit` in development
- -   `configB_v1_inprod_ok_fit` in production 
+ -  `configA` in development (bad fit)
+ -   `configB` in production (ok fit)
 
-And returns output from  `configB` in production. 
+And returns output from  `configB`  in production. 
 
 If you don't specify an environment, Sensible ignores development versions and compares:
 
-- `configA` in production
-- `configB` in production
+- `configA` in production (best fit)
+- `configB` in production (ok fit)
 
 And returns output from `configA` in production.
 
