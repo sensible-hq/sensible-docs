@@ -84,5 +84,5 @@ This example uses the following config:
 Notes
 ====
 
-If  tables always have the same column layout (same column headings, same number of columns), use the [Fixed Table method](doc:fixed-table) instead. 
+If tables always have the same column layout (same column headings, same number of columns), use the [Fixed Table method](doc:fixed-table) instead. 
 
