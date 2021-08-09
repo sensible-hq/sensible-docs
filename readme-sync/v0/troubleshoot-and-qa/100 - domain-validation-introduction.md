@@ -101,4 +101,4 @@ If all tests passed for a PDF except the "zip code must be valid" test, the extr
 
 Notes
 ====
-Why does Sensible use domain-specific validation rather than confidence intervals? Sensible's extractions are largely deterministic: with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals aren't very useful as a measure of extraction quality. Domain-specific validation tests are a more useful measure, because they allow you to test the output for a specific document type. 
+Why does Sensible use domain-specific validation rather than confidence intervals? Sensible's extractions are largely deterministic: with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals aren't very useful measures of extraction quality. Domain-specific validation tests are a more useful measure, because they return deterministic results for a specific document type. 

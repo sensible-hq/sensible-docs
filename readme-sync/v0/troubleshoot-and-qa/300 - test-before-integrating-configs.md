@@ -13,7 +13,7 @@ Fallback behavior
 
 When you  specify `?environment=development` in an API endpoint, Sensible falls back to the production version for each configuration if it can't find a development version.
 
-To understand fallback behavior, let's say the document type `test_doc_type` has the following config versions, which fit a `document_a` with varying degrees of accuracy:
+To understand fallback behavior, imagine the document type `test_doc_type` has the following config versions, which fit a `document_a` with varying degrees of accuracy:
 
 | Config  | Version in prod | Version in dev       |
 | ------- | --------------- | -------------------- |
@@ -25,12 +25,12 @@ If you specify `?environment=development`, Sensible searches for a best fit acro
  -  `configA` in development (bad fit)
  -   `configB` in production (ok fit)
 
-And returns output from  `configB`  in production. 
+And returns output from  `configB`  (ok fit) in production.  Notice that even though the API call specifies  the Development environment, the call returns output from a production config because of fallback behavior.
 
 If you don't specify an environment, Sensible ignores development versions and compares:
 
 - `configA` in production (best fit)
 - `configB` in production (ok fit)
 
-And returns output from `configA` in production.
+And returns output from `configA` (best fit) in production.
 

@@ -45,13 +45,12 @@ The following types are available:
 Accounting Currency
 ----
 
-Returns US dollar numbers. Supports negative numbers.
+Returns US dollar numbers. Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`).
 
 Recognizes digits in USA decimal notation (i.e., 1,500.06):
 
 - digits are in the format recognized by the [Number](doc:types#number) type
 - digits are optionally preceded by a US dollar sign ($) 
-- supports negative numbers represented either with parentheses `()` or with the minus sign (`-`)
 
 Examples: 
 
@@ -136,7 +135,7 @@ Example output:
 Currency
 ----
 
-Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06) Recognizes abbreviated quantities such as k for thousand.  For  European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06). Recognizes abbreviated quantities, such as k for thousand.  For  European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 Recognizes digits with the following formatting:
 
