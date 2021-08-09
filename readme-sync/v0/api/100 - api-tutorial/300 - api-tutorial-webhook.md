@@ -18,7 +18,7 @@ Set up the webhook
 
 Generate a test destination for the webhook using a free service: 
 
-1. Navigate to [https://webhook.site/](https://webhook.site/), and you should be directed to an automatically generated unique page for your testing:
+1. Navigate to [https://webhook.site/](https://webhook.site/) to see an automatically generated, unique page for your testing:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_1.png)
 **Note:** Use this website [only for testing](https://webhook.site/terms). In production, you'll need to implement your own destination for the webhook payload.
