@@ -13,17 +13,15 @@ Prerequisites
 Set up a working asynchronous request. For this example, follow the steps in [Extract from a URL you provide](doc:api-tutorial-async#section-extract-from-a-url-you-provide ) to create an `/extract_from_url/` request in Postman.
 
 
-Set up the webhook
+Configure the webhook
 ====
 
-Generate a test destination for the webhook using a free service: 
-
-1. Navigate to [https://webhook.site/](https://webhook.site/) to see an automatically generated, unique page for your testing:
+1. Generate a destination for the webhook: navigate to [https://webhook.site/](https://webhook.site/) to automatically create a unique test page:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_1.png)
-**Note:** Use this website [only for testing](https://webhook.site/terms). In production, you'll need to implement your own destination for the webhook payload.
+**Note:** Use this website [only for testing](https://webhook.site/terms). In production, implement your own destination for the webhook payload.
 
-2. Copy the following code sample, and replace YOUR_UNIQUE_URL with your uniquely generated webhook.site URL:
+2. Copy the following code sample, and replace `YOUR_UNIQUE_URL` with your uniquely generated webhook.site URL:
 
 ```json
 {"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf",
@@ -38,6 +36,6 @@ Check the webhook response
 ====
 
 5. Click **Send** in Postman.
-6. Check back at your unique URL at webhook.site, and you should see a response like the following: 
+6. Visit your unique URL at webhook.site to verify there is a response like the following: 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_webhook_3.png)
