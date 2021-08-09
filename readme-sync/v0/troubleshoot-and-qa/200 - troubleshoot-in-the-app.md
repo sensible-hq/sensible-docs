@@ -9,7 +9,7 @@ Validate SenseML
 ====
 The SenseML pane has a built-in linter for both JSON and the SenseML model. If you see a warning about  invalid JSON, then hover over the red-underlined JSON to see an error message:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/linter_senseml.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/linter_senseML.png)
 
 You can also use the linter to autocomplete parameters.
 
