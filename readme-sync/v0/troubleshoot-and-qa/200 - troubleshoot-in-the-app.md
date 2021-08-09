@@ -11,6 +11,8 @@ The SenseML pane has a built-in linter for both JSON and the SenseML model. If y
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/linter_senseml.png)
 
+You can also use the linter to autocomplete parameters.
+
 Inspect lines and fields
 ====
 
