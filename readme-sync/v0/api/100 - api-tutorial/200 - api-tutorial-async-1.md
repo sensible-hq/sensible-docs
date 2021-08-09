@@ -5,15 +5,15 @@ hidden: false
 
 
 
-PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time must use Sensible's asynchronous endpoints. You have two options for asynchronously processing your PDF:
+Use Sensible's asynchronous endpoints to extract data from PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
 
-- Extracting from a PDF at a URL you provide. This is a good option if you host your PDFs at either publicly accessible or a pre-signed URLs. The URL must respond to GET requests with PDF bytes. 
+- Provide your own URLs for your documents. 
 
-- Extracting from a PDF at a Sensible-provided URL. This is a good option if you can't easily create either publicly accessible or pre-signed URLs for your PDFs.
+- Use URLs provided by Sensible for your documents. 
 
-This topic covers the first option.
+This topic covers providing your own URLs. This is a good option if you host your documents at either publicly accessible or a pre-signed URLs. The URL must respond to GET requests with PDF bytes.
 
-For either option, you can specify a [webhook](doc:api-tutorial-webhook) for Sensible to push the results to as soon as they're ready.
+For either option, you can get the results as soon as they're ready by specifying a [webhook](doc:api-tutorial-webhook).
 
 Extract from a URL you provide 
 ====
@@ -22,7 +22,7 @@ Extract from a URL you provide
 Prerequisites
 ----
 
-This tutorial assumes you've completed the [prerequisites](doc:api-tutorial#section-prerequisites). 
+See [prerequisites](doc:api-tutorial#section-prerequisites).
 
 Extract the data 
 ----
@@ -93,7 +93,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_2.png)
 
-4. Click **Send**. You should see a response like the following:
+4. Click **Send**. The response looks something like the following:
 
 ```json
 {

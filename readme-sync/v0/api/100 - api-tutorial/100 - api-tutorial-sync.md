@@ -5,14 +5,12 @@ hidden: false
 
 
 
-Let's try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint takes a PDF file and returns extracted data synchronously. 
+Let's try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a PDF file and returns extracted data synchronously. 
 
 Prerequisites
 ---
 
-This tutorial assumes you've completed the [prerequisites](doc:api-tutorial#section-prerequisites).
-
-
+See [prerequisites](doc:api-tutorial#section-prerequisites).
 
 
 Import the request
@@ -35,18 +33,18 @@ curl --request POST \
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_import.png)
 
-3. Download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the Prerequisites:
+3. Download the following example PDF, which works with the prerequisite  `auto_insurance_quote` config:
 
 | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
-4. Correct the path to your downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
+4. Correct the path to the downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
 
    
 
-5. Click **Send**, and you should see a response like this:
+5. Click **Send**. The response looks something like the following:
 
 ```json
 {
@@ -73,5 +71,5 @@ curl --request POST \
 }
 ```
 
-**Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best! 
+**Note:**  Did you notice that this API call doesn't specify a config (`anyco`)? As a convenience, Sensible evaluates all the configs for the document type  (`auto_insurance_quote`), and **automatically** chooses the one that fits best. 
 

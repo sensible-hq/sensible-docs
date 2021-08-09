@@ -3,14 +3,15 @@ title: "Try asynchronous extraction from a Sensible URL"
 hidden: false
 ---
 
-PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time must use Sensible's asynchronous endpoints. You have two options for asynchronously processing your PDF:
+Use Sensible's asynchronous endpoints to extract data from PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
 
-- Extracting from a PDF at a URL you provide. This is a good option if you host your PDFs at either publicly accessible or a pre-signed URLs. The URL must respond to GET requests with PDF bytes. 
-- Extracting from a PDF at a Sensible-provided URL. This is a good option if you can't easily create either publicly accessible or pre-signed URLs for your PDFs.
+- Provide your own URLs for your documents. 
 
-This topic covers the second option. 
+- Use URLs provided by Sensible for your documents. 
 
-For either option, you can specify a [webhook](doc:api-tutorial-webhook) for Sensible to push the results to as soon as they're ready.
+This topic covers using URLs provided by Sensible. This is a good option if you can't easily create either publicly accessible or pre-signed URLs for your PDFs.
+
+For either option, you can get the results as soon as they're ready by specifying a [webhook](doc:api-tutorial-webhook).
 
 Extract from a URL Sensible provides
 ====
@@ -18,16 +19,16 @@ Extract from a URL Sensible provides
 Prerequisites
 ----
 
-This tutorial assumes you've completed the [prerequisites](doc:api-tutorial#section-prerequisites).
+See [prerequisites](doc:api-tutorial#section-prerequisites).
 
 
 Generate the upload URL
 ----
 
 
-Generate a one-time Sensible URL for the document extraction you want to run (this URL expires within minutes). 
+Generate a one-time Sensible URL for a document (this URL expires within minutes): 
 
-  1. Copy the following code sample and replace YOUR_API_KEY:
+  1. Copy the following code sample and replace `YOUR_API_KEY` with your API key:
 
 ```json
 curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insurance_quote' \
@@ -35,11 +36,11 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insuran
 --header 'Authorization: Bearer YOUR_API_KEY'
 ```
 
-2. Import the code sample into Postman and click **Send**:
+2. Import the code sample into Postman:
 
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_3.png)
 
-You should see a response like the following:
+3. Click **Send**. The response looks something like the following:
 
 ```json
 {
@@ -55,9 +56,9 @@ Extract the data
 ----
 
 
-Now use the one-time URL you just generated to extract data from the document:
+Use the one-time URL you generated in the previous step to extract data from the document:
 
-1. Copy the following code sample. Replace the URL with the `upload_url` that you got as a response in the previous step:
+1. Copy the following code sample. Replace `YOUR_UPLOAD_URL` with the `upload_url` that you received as a response in the previous steps:
 
 ```json
 curl --request PUT 'YOUR_UPLOAD_URL' \
@@ -73,7 +74,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
-4. Correct the path to your downloaded PDF in your request: click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
+4. Correct the path to the downloaded PDF in your request: click the **Body** tab, select **binary**, then click **Select file** and select the PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
 
@@ -81,13 +82,13 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_headers_1.png)
 
-6. Disable all `Content-Type` headers (you might see `Content-Type: application/pdf` and `Content-Type: text/plain` ):
+6. To avoid errors such as `SignatureDoesNotMatch`,  disable all `Content-Type` headers (for example, `Content-Type: application/pdf` or `Content-Type: text/plain` ):
 
    ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_headers_2.png)
 
-   If you don't disable these headers, you might see an error response when you send the response, for example, `SignatureDoesNotMatch`.
+   
 
-7. Click **Send** to send the request. You should see an empty 200 response:
+7. Click **Send** to send the request. The response is  `200`:
 
 
 
@@ -99,7 +100,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 Retrieve extraction
 ----
 
- To retrieve the extraction results for the sample PDF, you have two options:
+ To retrieve the document extraction, you have two options:
 
 - Use the `/documents` endpoint. See the following steps.
 - Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
@@ -108,7 +109,7 @@ Retrieve extraction
 To retrieve the extraction results with the  `/documents` endpoint, take the following steps:
 
 
-1. In a previous step on this page, you got back a result that included information like this:
+1. In a previous step on this page,  you generated a URL and got back a response that included an ID:
 
    ```json
    {
@@ -117,7 +118,7 @@ To retrieve the extraction results with the  `/documents` endpoint, take the fol
        "status": "WAITING",
    ```
 
-2. Copy the document extraction `id` from that response. You'll use it to download the PDF extraction.
+2. Copy the document extraction `id` from that response.
 
 3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
 
@@ -130,7 +131,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_2.png)
 
-4. Click **Send**. You should see a response like the following:
+4. Click **Send**. The response looks something like the following:
 
 ```json
 {
