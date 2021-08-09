@@ -6,7 +6,7 @@ Matches tables with a fixed number of columns and returns their collated column 
 
 **Use**
 
-- Use the Fixed Table method when dealing with tables in the same document type that always have the same column layout (same headings, same number of columns).  
+- Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings, same number of columns).  
 
 **Requirements**
 
