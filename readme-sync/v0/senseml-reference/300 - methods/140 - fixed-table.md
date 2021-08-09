@@ -2,7 +2,15 @@
 title: "Fixed Table"
 hidden: false
 ---
-Matches tables with a fixed number of columns and returns their collated column contents. Choose anchor text that precedes the table, for example, a table title. 
+Matches tables with a fixed number of columns and returns their collated column contents. 
+
+**Use**
+
+- Use the Fixed Table method when dealing with tables in the same document type that always have the same column layout (same headings, same number of columns).  
+
+**Requirements**
+
+- The anchor text must be a line that precedes the table.  Do not chose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
 
 [**Parameters**](doc:fixed-table#section-parameters)
 [**Examples**](doc:fixed-table#section-examples)
@@ -79,5 +87,5 @@ This example uses the following config:
 
 Notes
 ====
-Use this method instead of the Table method when you are certain that the table always has the same column layout in all the PDFs of the specified document type. 
+If  tables have variable column layout, use the [Table method](doc:table) instead. 
 

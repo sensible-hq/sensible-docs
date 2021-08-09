@@ -2,7 +2,15 @@
 title: "Table"
 hidden: false
 ---
-Matches tables based on bag-of-words scoring and returns their collated column contents. Use the Table method when dealing with tables in the same document type that have a variable number of columns.  Choose anchor text that precedes the table, for example, a table title. 
+Matches tables based on bag-of-words scoring and returns their collated column contents.
+
+**Use**
+
+- Use the Table method when dealing with tables in the same document type that have a variable number of columns.  
+
+**Requirements**
+
+- The anchor text must be a line that precedes the table.  Do not chose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
 
 [**Parameters**](doc:table#section-parameters)
 [**Examples**](doc:table#section-examples)
@@ -72,4 +80,9 @@ This example uses the following config:
   ]
 }
 ```
+
+Notes
+====
+
+If  tables always have the same column layout (same column headings, same number of columns), use the [Fixed Table method](doc:fixed-table) instead. 
 
