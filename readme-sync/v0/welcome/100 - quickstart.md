@@ -413,7 +413,7 @@ Let's double check that this region also works with our first PDF:
 
 Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fiddle with the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures lines that are completely contained in the region. 
 
-3. Click **Publish** to save your changes to the config.
+3. Click **Publish** and choose **Production** to save your changes to the config.
 
 In a production scenario, continue testing PDFs until you're confident your configs will work with the PDF document type you've defined. 
 
@@ -436,7 +436,7 @@ curl --request POST \
   --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
 ```
 
-2. **Important!** Remember to click **Publish** in the Sensible app to publish your config, or this request won't work:  
+2. **Important!** Remember to click **Publish** in the Sensible app to publish your config to production, or this request won't work:  
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_publish_config.png).
 
