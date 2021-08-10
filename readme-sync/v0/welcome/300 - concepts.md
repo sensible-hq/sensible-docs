@@ -47,11 +47,13 @@ As the preceding image shows, this is the output of the example field:
 
 
 
-Let's explore some SenseML concepts introduced by the preceding example.
+Let's explore some SenseML concepts introduced by the preceding example:
 
-- The [**field**]() `name_of_output_key` is a query that finds some text  based on extracting data below some matched text (`"position": "below"`). Its ID is the key for the extracted data. For more information, see [Field query object](doc:field-query-object).
-- An **anchor** is matched text that helps narrow down a location in the PDF from which to extract data. Here is simply a string (`"an anchor is some text to match..."`). For information about more complex anchors, see [Anchor object](doc:anchor).
-- A **method** defines how to expand out from the anchor and grab data. Here, the Label method extracts data that is closely positioned below the anchor. For more information about methods, see [Methods](doc:methods).
+| object     | description                                                  | doc link                                               |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| **field**  | a query that finds some text  based on extracting data below some matched text (`"position": "below"`). Its ID is the key for the extracted data. Here, it's `name_of_output_key` | [Field query object](doc:field-query-object)           |
+| **anchor** | matched text that helps narrow down a location in the PDF from which to extract data. Here it's simply a string (`"an anchor is some text to match..."`). | [Anchor object](doc:anchor)                            |
+| **method** | defines how to expand out from the anchor and grab data. Here, the Label method extracts data that is closely positioned below the anchor. | [Methods](doc:methods) and [Method object](doc:method) |
 
  For a more complete SenseML example, see the [SenseML introduction](doc:senseml-reference-introduction).
 
@@ -63,9 +65,11 @@ To troubleshoot SenseML, it's helpful to understand how Sensible represents a PD
 Lines
 ----
 
- A "line" is a rectangular region containing text.  Readers of left-to-right written languages think of "lines"  as vertically ordered. But for Sensible, multiple lines  (shown as gray boxes) can exist at the same height on the page. In other words, a line is set apart from other lines by any type of whitespace,  not just by newlines:
+ A "line" is a rectangular region containing text.  Readers of left-to-right written languages think of "lines"  as vertically ordered. But for Sensible, multiple lines  (shown as gray boxes) can exist at the same height on the page:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_concept.png)
+
+ In other words, a line is set apart from other lines by any type of whitespace,  not just by newlines.
 
 
 Line sorting
