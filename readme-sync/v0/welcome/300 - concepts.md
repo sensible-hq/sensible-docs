@@ -1,5 +1,5 @@
 ---
-title: "concepts"
+title: "Concepts"
 hidden: true
 ---
 
