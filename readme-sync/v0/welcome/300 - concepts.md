@@ -73,11 +73,11 @@ Line sorting
 
 Lines are sorted primarily by their height on the page (their y-axis position) and secondarily by their left-to-right position (their x-axis position).
 
-For example, this image shows which lines preced and succeed a target line:
+For example, this image shows which lines precede and succeed a target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_1.png)
 
-Sometimes, this can be unintuitive, particularly in the case of slightly misaligned text (which oftne happens with handwriting). In the following image, the line in red reads as succeeding the target line, but for Sensible, it precedes the target line:
+Sorting can be unintutive when text is slightly misaligned vertically (which oftne happens with handwriting). In the following image, the line in red reads as succeeding the target line, but for Sensible, it precedes the target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_2.png)
 
