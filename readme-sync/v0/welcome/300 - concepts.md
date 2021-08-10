@@ -86,9 +86,7 @@ To configure this default sorting behavior, see [the XSort parameter](doc:method
 Line grouping
 ---
 
-Methods such as Label and Paragraph Range use line grouping that mimic the grouping of  a human reader's eye.  Sensible groups lines together using whitespace and x- and y-axis positions.
-
-By default, Sensible groups lines separated by vertical space only if they align at the left edge of each line boundary:
+Sensible groups lines together using whitespace and x- and y-axis positions. Usually these groupings make visual sense to a human reader. It's worth noting that by default, Sensible groups lines separated by vertical space only if they align at the left edge of each line boundary:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_grouping_example.png)
 
