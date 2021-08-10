@@ -78,7 +78,7 @@ This example uses the following config:
 
 This example config has the following elements:
 
-- The **field** `_driver_name_raw` is a query that finds a driver's name in the quote based on grabbing data below some matched text (`"position": "below"`). It contains an ID (which serves as a key for the extracted data), an anchor, and a method.  For more information, see [Field query object](doc:field-query-object).
+- The **field** `_driver_name_raw` is a query that finds a driver's name in the quote based on grabbing data below some matched text (`"position": "below"`). Its ID is the key for the extracted data.  For more information, see [Field query object](doc:field-query-object).
 - An **anchor** is matched text that helps narrow down a location in the PDF from which to extract data. In the `"_driver_name_raw"` field, it is simply a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
 - A **method** defines how to expand out from the anchor and grab data. In the `"_driver_name_raw"` field, the Label method tells Sensible to grab data that is closely positioned below the anchor. For more information about methods, see [Methods](doc:methods).
 - The **preprocessor**, `pageRange`, cuts out irrelevant pages of the PDF. For more information about using preprocessors to clean up PDFs before extracting data, see [Preprocessors](doc:preprocessors).
