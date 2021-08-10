@@ -81,7 +81,7 @@ For example, this image shows which lines precede and succeed a target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_1.png)
 
-Sorting can be unintutive when text is slightly misaligned vertically (alsooften happens with handwriting). In the following image, a human reader may intepret the red line as succeeding the target line, but for Sensible it precedes the target line:
+Sorting can be unintutive when text is slightly misaligned vertically (often the case with handwriting). In the following image, a human reader may intepret the red line as succeeding the target line, but for Sensible it *precedes* the target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_2.png)
 
