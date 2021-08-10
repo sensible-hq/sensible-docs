@@ -3,7 +3,7 @@ title: "concepts"
 hidden: true
 ---
 
-SenseML is a query language powered by ML and other techniques that lets you extract structured data from PDF documents. For documents that share a consistent format, you can define a collection of custom SenseML queries as a "config" written in JSON. If you can write basic SQL queries, you can definitely write SenseML queries! 
+SenseML is a query language powered by ML and other techniques that lets you extract structured data from PDF documents.
 
 SenseML concepts
 ====
@@ -49,20 +49,11 @@ As the preceding image shows, this is the output of the example field:
 
 Let's explore some SenseML concepts introduced by the preceding example.
 
+- The [**field**]() `name_of_output_key` is a query that finds some text  based on extracting data below some matched text (`"position": "below"`). Its ID is the key for the extracted data. For more information, see [Field query object](doc:field-query-object).
+- An **anchor** is matched text that helps narrow down a location in the PDF from which to extract data. Here is simply a string (`"an anchor is some text to match..."`). For information about more complex anchors, see [Anchor object](doc:anchor).
+- A **method** defines how to expand out from the anchor and grab data. Here, the Label method extracts data that is closely positioned below the anchor. For more information about methods, see [Methods](doc:methods).
 
-
-TODO: rewrite this stuff:
-
-- The [**field**]() `_driver_name_raw` is a query that finds a driver's name in the quote based on grabbing data below some matched text (`"position": "below"`). Its ID servers as a key for the extracted data. For more information, see [Field query object](doc:field-query-object).
-- An **anchor** is matched text that helps narrow down a location in the PDF from which to extract data. In the `"_driver_name_raw"` field, it is simply a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
-- A **method** defines how to expand out from the anchor and grab data. In the `"_driver_name_raw"` field, the Label method extracts data that is closely positioned below the anchor. For more information about methods, see [Methods](doc:methods).
-- The **preprocessor**, `pageRange`, cuts out irrelevant pages of the PDF. For more information about using preprocessors to clean up PDFs before extracting data, see [Preprocessors](doc:preprocessors).
-- The **fingerprint** tells Sensible to preferentially run this config if the PDF contains the terms "anyco" or "quoted coverage changes".  For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:configuration-settings).
-- The **computed field** `"driver_name_last"` takes the  output of the `_driver_name_raw` field and extracts the last name from that raw output. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).
-
-The output of this example config is just one key/value pair: the last name of the driver.  In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF.
-
-
+In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF.
 
 PDF extraction concepts
 ===
@@ -72,9 +63,9 @@ To best use SenseML, it's helpful to understand how Sensible represents a PDF.
 Lines
 ----
 
- A "line" is a rectangular region containing text.  Multiple lines  (shown as gray boxes) can exist on the same horizontal axis; a line is set apart from other lines by any type of whitespace,  not just by newlines.  
+ A "line" is a rectangular region containing text.  Readers of left-to-right written languages think of "lines"  as vertically ordered. But for Sensible, multiple lines  (shown as gray boxes) can exist at the same height on the page. In other words, a line is set apart from other lines by any type of whitespace,  not just by newlines:
 
-![image-20210518095334649](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20210518095334649.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_concept.png)
 
 
 Line sorting
