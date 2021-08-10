@@ -12,10 +12,6 @@ A Hello world config
 ----
 A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data.  
 
-[**Parameters**](doc:field-query-object#section-parameters)
-[**Examples**](doc:field-query-object#section-examples)
-[**Notes**](doc:field-query-object#section-notes)
-
 Here is a simple example of a field: 
 
 ```json
@@ -88,23 +84,24 @@ Lines are sorted primarily by their height on the page (their y-axis position) a
 
 For example, this image shows which lines preced and succeed a target line:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/lines_sort_example_1.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_1.png)
 
 Sometimes, this can be unintuitive, particularly in the case of slightly misaligned text (which oftne happens with handwriting). In the following image, the line in red reads as succeeding the target line, but for Sensible, it precedes the target line:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/lines_sort_example_2.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_2.png)
 
 To configure this default sorting behavior, see [the XSort parameter](doc:method).
 
 Line grouping
 ---
 
+Methods such as Label and Paragraph Range use line grouping that mimic the grouping of  a human reader's eye.  Sensible groups lines together using whitespace and x- and y-axis positions.
+
+By default, Sensible groups lines separated by vertical space only if they align at the left edge of each line boundary:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_grouping_example.png)
 
 
-
-
-
-TODO: Dots? pixel recognition? 
 
 
 
