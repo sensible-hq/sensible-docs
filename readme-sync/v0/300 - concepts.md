@@ -90,7 +90,7 @@ For example, this image shows which lines preced and succeed a target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/lines_sort_example_1.png)
 
-Sometimes, this can be unintuitive, particularly in the case of slightly misaligned text (which oftne happens with handwriting). In the following image, the line in red reads to a human as succeeding the target line, but Sensible, it precedes the target line:
+Sometimes, this can be unintuitive, particularly in the case of slightly misaligned text (which oftne happens with handwriting). In the following image, the line in red reads as succeeding the target line, but for Sensible, it precedes the target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/lines_sort_example_2.png)
 
@@ -98,6 +98,8 @@ To configure this default sorting behavior, see [the XSort parameter](doc:method
 
 Line grouping
 ---
+
+
 
 
 
