@@ -45,7 +45,7 @@ As the preceding image shows, this is the output of the example field:
 }
 ```
 
- For a more complete example, see the [SenseML introduction](doc:senseml-reference-introduction).
+
 
 Let's explore some SenseML concepts introduced by the preceding example.
 
@@ -53,12 +53,12 @@ Let's explore some SenseML concepts introduced by the preceding example.
 - An **anchor** is matched text that helps narrow down a location in the PDF from which to extract data. Here is simply a string (`"an anchor is some text to match..."`). For information about more complex anchors, see [Anchor object](doc:anchor).
 - A **method** defines how to expand out from the anchor and grab data. Here, the Label method extracts data that is closely positioned below the anchor. For more information about methods, see [Methods](doc:methods).
 
-In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF.
+ For a more complete SenseML example, see the [SenseML introduction](doc:senseml-reference-introduction).
 
 PDF extraction concepts
 ===
 
-To best use SenseML, it's helpful to understand how Sensible represents a PDF.
+To troubleshoot SenseML, it's helpful to understand how Sensible represents a PDF.
 
 Lines
 ----
@@ -77,7 +77,7 @@ For example, this image shows which lines precede and succeed a target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_1.png)
 
-Sorting can be unintutive when text is slightly misaligned vertically (which oftne happens with handwriting). In the following image, the line in red reads as succeeding the target line, but for Sensible, it precedes the target line:
+Sorting can be unintutive when text is slightly misaligned vertically (alsooften happens with handwriting). In the following image, a human reader may intepret the red line as succeeding the target line, but for Sensible it precedes the target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_2.png)
 
