@@ -28,7 +28,7 @@ The following example config:
   "fields": [
     {
       "id": "certification",
-      "anchor": "perjury",
+      "anchor": "penalties of perjury",
       "method": {
         "id": "documentRange",
         "stop": {
@@ -63,7 +63,7 @@ The output is:
 
 The config is represented visually in the PDF in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/pdf_2.png)   
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_2.png)   
 
 You should see the following extracted data in the right pane of the Sensible app:
 
