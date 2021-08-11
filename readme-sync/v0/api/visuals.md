@@ -102,11 +102,10 @@ You should see the following extracted data in the right pane of the Sensible ap
 
 -  a starting point for defining the coordinates of a region
 
-Green points can be useful for troubleshooting. For example, in the followingimage, Sensible can't recognize the box: 
+Green points can be useful for troubleshooting. For example, in the following config and PDF, Sensible can't recognize the box: 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_3.png)
-
-The config represented in this image is:
+| Example PDF | TBD  |
+| ----------- | ---- |
 
 ```json
 {
@@ -124,6 +123,10 @@ The config represented in this image is:
 }
 ```
 
+The Sensible app represents this config as follows:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_3.png
+
 The green dot provides a visual clue about why this field returns null: the green dot is *on* the box border itself as specified by `"position": "left"` .
 
 
@@ -132,7 +135,7 @@ If you change the preceding config to find the box borders by starting from the 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_4.png)
 
-And the output is:
+And the output of the modified config is:
 
 ```json
 {
