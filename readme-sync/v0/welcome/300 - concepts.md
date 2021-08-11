@@ -1,9 +1,9 @@
 ---
 title: "Concepts"
-hidden: true
+hidden: false
 ---
 
-SenseML is a query language powered by ML and other techniques that lets you extract structured data from PDF documents.
+SenseML is a query language that lets you extract structured data from PDF documents.
 
 SenseML concepts
 ====
@@ -49,7 +49,7 @@ As the preceding image shows, this is the output of the example field:
 
 This example shows the following key concepts:
 
-| object     | description                                                  | doc link                                               |
+| Object     | Description                                                  | Link                                                   |
 | ---------- | ------------------------------------------------------------ | ------------------------------------------------------ |
 | **field**  | a query that extracts data in relationship to matched text. Its ID is the key for the extracted data. In this example,  `name_of_output_key`. | [Field query object](doc:field-query-object)           |
 | **anchor** | matched text that helps narrow down a location in the PDF from which to extract data.  In this example, `"an anchor is some text to match..."`. | [Anchor object](doc:anchor)                            |
