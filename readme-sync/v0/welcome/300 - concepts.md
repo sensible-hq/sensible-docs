@@ -90,11 +90,11 @@ To configure this default sorting behavior, see [the XSort parameter](doc:method
 Line grouping
 ---
 
-For methods such as Label and Document Range, Sensible groups lines together using whitespace and x- and y-axis positions. Sometimes, Sensible's line groups are more restrictive than a human reader might expect. In particular, Sensible groups lines separated by vertical space only if they align at the *left* edge of each line boundary by default:
+For the Label method, Sensible groups lines together using whitespace and x- and y-axis positions. Sometimes, Sensible's line groups are more restrictive than a human reader might expect. In particular, Sensible groups lines separated by vertical space only if they align at the *left* edge of each line boundary by default:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_grouping_example.png)
 
-
+To capture multiple unaligned lines, use the Document Range method.
 
 
 
