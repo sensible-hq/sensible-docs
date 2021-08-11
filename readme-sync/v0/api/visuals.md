@@ -3,19 +3,25 @@ title: "visual draft"
 hidden: true
 ---
 
-ORIGINAL
+ORIGINAL STYLE
+---
+
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_sworn.png)
 
-Experiment:
+CSS MOD -1 
+----
 
 - no scrollbars, col-span 3-5-4, chrome zoom 150%
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/150.png)
 
-ALTERNATIVE - PDF ONLY:
+ALTERNATIVE - RENDERED PDF ONLY:
+----
 
-For Example:
+**Example 1** 
+
+The following example config:
 
 ```json
 {
@@ -36,7 +42,7 @@ For Example:
 }
 ```
 
-This query displays in the Sensible app as:
+Displays in the Sensible app as:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_only_1.png)
 
@@ -51,9 +57,9 @@ The output is:
 }
 ```
 
-ALTERNATIVE QUICKSTART
 
-6. Click **Publish** to publish the config.
+
+**EXAMPLE 2**
 
 The config is represented visually in the PDF in the Sensible app:
 
