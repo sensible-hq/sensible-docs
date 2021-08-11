@@ -85,7 +85,7 @@ However, when text is slightly misaligned vertically (often the case with handwr
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_2.png)
 
-To configure this default sorting behavior, see [the XSort parameter](doc:method).
+To configure this default sorting behavior, see [the XMajorSort parameter](doc:method).
 
 Line grouping
 ---
