@@ -21,7 +21,7 @@ ALTERNATIVE - RENDERED PDF ONLY:
 
 **Example 1** 
 
-The following example config:
+The following example config shows blah blah:
 
 ```json
 {
@@ -63,9 +63,9 @@ The output is:
 
 
 
-**EXAMPLE 2**
+**EXAMPLE 2 - excerpt from GSG**
 
-The config is represented visually in the PDF in the Sensible app:
+The config is represented visually in the PDF in the Sensible app as follows:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_2.png)   
 
