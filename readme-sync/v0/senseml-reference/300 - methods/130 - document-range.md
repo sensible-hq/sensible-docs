@@ -2,7 +2,9 @@
 title: "Document Range"
 hidden: false
 ---
-Use the Document Range method to grab multiple consecutive lines, for example, paragraphs of legal text. Or, use it to return the coordinates of regions containing images.
+Use the Document Range method to grab multiple consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the definition of "succeeding", see [Line sorting](doc:concepts#line-sorting).
+
+Or, use this method to return the coordinates of regions containing images.
 
 [**Parameters**](doc:document-range#section-parameters)
 [**Examples**](doc:document-range#section-examples)

@@ -49,11 +49,11 @@ As the preceding image shows, this is the output of the example field:
 
 This example shows the following key concepts:
 
-| Object     | Description                                                  | Link                                                   |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------ |
-| **field**  | a query that extracts data in relationship to matched text. Its ID is the key for the extracted data. In this example,  `name_of_output_key`. | [Field query object](doc:field-query-object)           |
-| **anchor** | matched text that helps narrow down a location in the PDF from which to extract data.  In this example, `"an anchor is some text to match..."`. | [Anchor object](doc:anchor)                            |
-| **method** | defines how to expand out from the anchor and grab data. In this example, the Label method extracts data that is closely positioned below the anchor (`"position": "below"`) | [Methods](doc:methods) and [Method object](doc:method) |
+| key                             | description                                                  |
+| ------------------------------- | ------------------------------------------------------------ |
+| [field](doc:field-query-object) | A query that extracts data in relationship to matched text. Its ID is the key for the extracted data. In this example,  `name_of_output_key`. |
+| **[anchor](doc:anchor)**        | Matched text that helps narrow down a location in the PDF from which to extract data.  In this example, `"an anchor is some text to match..."`. |
+| [method](doc:method)            | Defines how to expand out from the anchor and grab data. In this example, the Label method extracts data that is closely positioned below the anchor (`"position": "below"`). For a list of methods, see [Methods](doc:methods). |
 
  For a more complete SenseML example, see the [SenseML introduction](doc:senseml-reference-introduction).
 
