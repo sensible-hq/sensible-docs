@@ -1,16 +1,16 @@
 ---
-title: "Quickstart"
+title: "Getting started"
 hidden: false
 ---
 
 Get structured data from an auto insurance quote
 ===
 
-Let's get started with Sensible! In this quickstart you'll learn SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, heuristics, and rules.
+Let's get started with Sensible! In this tutorial, you'll learn SenseML, a JSON-formatted query language for extracting information from PDFs. SenseML is powered by a mix of techniques, including machine learning, heuristics, and rules.
 
-If you can write basic SQL queries, you can write SenseML queries! SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
+If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
 
- In this quickstart, you'll:
+ In this tutorial, you'll:
 
 - [Write a collection of queries ( a "config")](doc:quickstart#section-create-a-config) to extract structured data from an auto insurance PDF 
 - [Learn how the config works](doc:quickstart#section-how-it-works), including key concepts like lines, anchors, and methods
