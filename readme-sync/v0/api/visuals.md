@@ -42,7 +42,11 @@ The following example config:
 }
 ```
 
-Displays in the Sensible app as:
+When you use this config with the following PDF:
+
+| Example PDF for TBD | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TBD_example.pdf) |
+| ------------------- | ------------------------------------------------------------ |
+The Sensible app visually represents this config in the rendered PDF as:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_only_1.png)
 
