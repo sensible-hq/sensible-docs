@@ -51,9 +51,9 @@ Let's explore some SenseML concepts introduced by the preceding example:
 
 | object     | description                                                  | doc link                                               |
 | ---------- | ------------------------------------------------------------ | ------------------------------------------------------ |
-| **field**  | a query that finds some text  based on extracting data below some matched text (`"position": "below"`). Its ID is the key for the extracted data. Here, it's `name_of_output_key` | [Field query object](doc:field-query-object)           |
-| **anchor** | matched text that helps narrow down a location in the PDF from which to extract data. Here it's simply a string (`"an anchor is some text to match..."`). | [Anchor object](doc:anchor)                            |
-| **method** | defines how to expand out from the anchor and grab data. Here, the Label method extracts data that is closely positioned below the anchor. | [Methods](doc:methods) and [Method object](doc:method) |
+| **field**  | a query that extracts data in relationship to matched text. Its ID is the key for the extracted data. In this example,  `name_of_output_key`. | [Field query object](doc:field-query-object)           |
+| **anchor** | matched text that helps narrow down a location in the PDF from which to extract data.  In this example, `"an anchor is some text to match..."`. | [Anchor object](doc:anchor)                            |
+| **method** | defines how to expand out from the anchor and grab data. In this example, the Label method extracts data that is closely positioned below the anchor (`"position": "below"`) | [Methods](doc:methods) and [Method object](doc:method) |
 
  For a more complete SenseML example, see the [SenseML introduction](doc:senseml-reference-introduction).
 
@@ -81,7 +81,7 @@ For example, this image shows which lines precede and succeed a target line:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_1.png)
 
-Sorting can be unintutive when text is slightly misaligned vertically (often the case with handwriting). In the following image, a human reader may intepret the red line as succeeding the target line, but for Sensible it *precedes* the target line:
+However, when text is slightly misaligned vertically (often the case with handwriting), line sorting is less intuitive. In the following image, a human reader may intepret the red line as succeeding the target line, but for Sensible it *precedes* the target line because it is higher on the page:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_sort_example_2.png)
 
@@ -90,7 +90,7 @@ To configure this default sorting behavior, see [the XSort parameter](doc:method
 Line grouping
 ---
 
-Sensible groups lines together using whitespace and x- and y-axis positions. Usually these groupings make visual sense to a human reader. It's worth noting that by default, Sensible groups lines separated by vertical space only if they align at the left edge of each line boundary:
+For methods such as Label and Document Range, Sensible groups lines together using whitespace and x- and y-axis positions. Sometimes, Sensible's line groups are more restrictive than a human reader might expect. In particular, Sensible groups lines separated by vertical space only if they align at the *left* edge of each line boundary by default:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/line_grouping_example.png)
 
