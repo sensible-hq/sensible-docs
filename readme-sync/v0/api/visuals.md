@@ -90,7 +90,47 @@ You should see the following extracted data in the right pane of the Sensible ap
 }
 ```
 
-Congratulations! 
+
+
+**EXAMPLE 3 - REWRITE UI GUIDE:**
+
+
+
+***Green points*** represent the following:
+
+-  a starting point for recognizing a box or checkbox
+
+-  a starting point for defining the coordinates of a region
+
+Green points can be useful for troubleshooting. For example, in the followingimage, Sensible can't recognize the box: 
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_3.png)
+
+The config represented in this image is:
+
+```json
+{
+  "fields": [
+    {
+      "id": "box_test",
+      "anchor": "big anchor text that",
+      "method": {
+        "id": "box",
+        "position": "left",
+        "wordFilters":["cramped"]
+      }
+    }
+  ]
+}
+```
+
+The green dot provides a visual clue about the problem: the green dot is *on* the box border itself as specified by `"position": "left"` .
+
+
+
+If you change the preceding config to find the box borders by starting from the right edge of the anchor line's boundaries (`"position": "right"`), the green dot is far enough away from the box borders for Sensible to recognize the box:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/pdf_4.png)
 
 
 
