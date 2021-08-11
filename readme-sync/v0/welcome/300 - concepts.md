@@ -47,7 +47,7 @@ As the preceding image shows, this is the output of the example field:
 
 
 
-Let's explore some SenseML concepts introduced by the preceding example:
+This example shows the following key concepts:
 
 | object     | description                                                  | doc link                                               |
 | ---------- | ------------------------------------------------------------ | ------------------------------------------------------ |
