@@ -33,7 +33,7 @@ To solve this problem:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/deskew_example_2.png)
 
-For more information about choosing points, see [Best Practices](doc:deskew#section-best-practices).
+For more information about choosing points, see [Best Practices](doc:deskew#best-practices).
 
 
 2. Check the Deskew preprocessor against the skewed example to reveal a remaining problem:
@@ -136,7 +136,12 @@ This example uses the following config:
 Notes
 ====
 
-Tips
+Limitations
+-----
+
+This preprocessor breaks methods that rely on pixel recognition, such as the Box method and the Checkbox method. Use the Region method instead of these methods.
+
+Best practices
 -----
 
 - Click on a line in the document pane in the Sensible app to view line coordinates for defining the Fixed Points.
@@ -145,10 +150,7 @@ Tips
 - For the aligned reference PDF, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
 - Define a Merge Lines preprocessor to clean up oversplit lines after the Deskew preprocessor. 
 
-Limitations
------
 
-This preprocessor breaks methods that rely on pixel recognition, such as the Box method and the Checkbox method. Use the Region method instead of these methods.
 
 
 
