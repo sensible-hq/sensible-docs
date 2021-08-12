@@ -45,9 +45,9 @@ An Anchor object has the following top-level parameters:
 | key                                             | values                                      | description                                                  |
 | ----------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------ |
 | match (**required**, except for string anchors) | Match object or array of Match objects      | See [Match object](doc:match).                               |
-| start                                           | string, Match object, or Match object array | Start the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that precedes the start line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:concepts#line-sorting).<br/>The Start line is never included in anchor output. (You can extract anchor output with a Passthrough method). |
-| end                                             | string, Match, or Match array               | Stop the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that succeeds the End line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the End line. For more information, see [Line sorting](doc:concepts#line-sorting).<br/>The End line is never included in anchor output. (You can extract anchor output with a Passthrough method).<br/>If unspecified, the anchor searches for matches to the end of the document.  <br/> |
-| includeEnd                                      | boolean                                     | Whether to include the text in the matching End line in the anchor output. |
+| start                                           | string, Match object, or Match object array | Start the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that precedes the start line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:concepts#line-sorting).<br/>The Start line is never included in anchor output. (You can extract other anchor output with a Passthrough method). |
+| end                                             | string, Match, or Match array               | Stop the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that succeeds the End line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the End line. For more information, see [Line sorting](doc:concepts#line-sorting).<br/>If unspecified, the anchor searches for matches to the end of the document.  <br/> |
+| includeEnd                                      | boolean                                     | Whether to include the matching End line in the anchor output. |
 
 Examples
 ----
@@ -67,7 +67,7 @@ Here's an example of an Anchor object that uses all these parameters:
           [
             {
               "type": "includes",
-              "text": "Only finds anchor if you match this string in a line that is between the start and end lines (best to ensure start is above and end is below the text you want to match).",
+              "text": "Only finds anchor if you match this string in a line that is between the start and end lines",
             },
           ]      
       },
@@ -90,18 +90,18 @@ Notes
 Anchor nuances 
 ----
 
-At first glance, the following two anchors may appear to be two different syntaxes for finding the same matching text:
+At first glance, the following anchors may appear to be different syntaxes for finding the same matching text:
 
 ```json
       "anchor": {
         "match": [
           {
             "type": "startsWith",
-            "text": "here is a first line"
+            "text": "here is an A line"
           },
           {
             "type": "startsWith",
-            "text": "here is a second line"
+            "text": "here is a B line"
           }
         ]
       },
@@ -113,11 +113,11 @@ Versus:
       "anchor": {
         "start": {
           "type": "startsWith",
-          "text": "here is a first line"
+          "text": "here is an A line"
         },
         "match": {
           "type": "startsWith",
-          "text": "here is a second line"
+          "text": "here is a B line"
         }
     
 ```
@@ -128,11 +128,11 @@ To clarify the difference,  the following image shows the outputs of these ancho
 
 This example uses the Passthrough method and `"match":all"` to display the full anchor output. It shows that:
 
-- For the `"match_array"` field, Sensible anchors on the last Match array element only if it is preceded by the other array elements in order, with no intervening match repetitions.   `"match":all"` finds two anchors. See the following image for an illustration of how Sensible matches two B lines: 
+- For the `match_array` field, Sensible anchors on the last Match array element only if it is preceded by the other array elements in order, with no intervening match repetitions.   `"match":all"` finds two anchors. See the following image for an illustration: 
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_2.png)
 
-- For the `"start_and_match"` field, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document.  `"match":all"` finds four anchors. Notice it does NOT return the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match.  See the following image for an illustration:
+- For the `start_and_match` field, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document.  `"match":all"` finds four anchors. Notice it does NOT return the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match.  See the following image for an illustration:
 
   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_3.png)
 
@@ -223,12 +223,12 @@ And the output of this example is:
 
 
 
-Methods filter anchors
+Methods qualify anchors
 -----
 
-In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies for the anchor match.
+In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies as an anchor.
 
-In other words, if you set a Label method, then Sensible only matches anchor text that is a good candidate for serving as a label. If the text is too far away from any other lines to be used as a label, it won't match, even if all the conditions you set in the Match object itself are otherwise met. 
+For example, if you specify the Label method, Sensible only anchors on text that is a good label candidate. Any line that is too far away from other lines to be used as a label is disqualified, even if it otherwise meets the conditions in the anchor's parameters.
 
 In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements (the Row method would work here instead):
 
