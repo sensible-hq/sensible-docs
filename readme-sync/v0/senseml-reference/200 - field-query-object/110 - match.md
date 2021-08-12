@@ -54,7 +54,7 @@ The following config uses as simple match:
   {
   "fields": [
     {
-      "id": "simple_label",
+      "id": "simple_anchor_example",
       "anchor": {
         "match": {
           "type": "startsWith",
@@ -81,13 +81,11 @@ Match using a regular expression.
 
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive, "g", "m", etc. |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Remember to double escape special characters since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 | type (**required**)    | `regex`                  |                                                              |
 
 For an example, see the [Passthrough method example](doc:passthrough).
-
-
 
 First match parameters
 ------
@@ -98,24 +96,30 @@ This is a convenience match to find the first line encountered.
 
 | key  | values  | description                                                  |
 | ---- | ------- | ------------------------------------------------------------ |
-| type | `first` | Matches the first line encountered, usually on a specified page. |
+| type | `first` | Matches the first line encountered, either in the first page of document, or after another specified line. |
 
-This example grabs all the lines in the document:
+This example matches the first line after encountering a matching line:
 
 
 ```
 {
   "fields": [
     {
-      "id": "all_lines_in_doc",
+      "id": "first_line_after_match",
       "anchor": {
-        "match": {
-          "type": "first",
-        }
+        "match": [
+          {
+            "type": "includes",
+            "text": "match the first line succeeding this line"
+          },
+          {
+            "type": "first"
+          }
+        ]
       },
       "method": {
-        "id": "documentRange",
-        "includeAnchor": true
+        "id": "label",
+        "position": "below"
       }
     }
   ],
@@ -129,7 +133,14 @@ Examples
 Match arrays
 ----
 
-For an array of Match objects, all matches must be found to successfully create an anchor.  Each Match object must target a separate successive line. In other words, the second match starts its search in the line after the line matched by the first Match object in the array, and so on.  Sensible searches for the text in the last array element, and anchors on that text only if it is preceded by the other array elements in order, with no intervening repetitions of matches.
+Sensible creates an anchor using the last element in a Match array only if:
+
+- The last element is preceded by the other array elements in order, with no intervening match repetitions.
+- Each array element targets a separate successive line.
+
+
+
+This example creates an Anchor line using the last element in the array:
 
 ```json
 {
@@ -148,7 +159,11 @@ For an array of Match objects, all matches must be found to successfully create 
             },
             {
               "type": "startsWith",
-              "text": "...Followed by the 1st occurrence of this string in another line",
+              "text": "...followed by the 1st occurrence of this string in another line",
+            },
+                          {
+              "type": "startsWith",
+              "text": "...and create an Anchor line out of this last match",
             },
           ]      
       },
