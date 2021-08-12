@@ -22,8 +22,8 @@ The following global parameters available to all methods:
 | lineFilters      | Match object                                                 | Filters out the specified lines from the method match. For example, the Box method extracts all lines from a box, but you can use this parameter to filter out unwanted footer text in the box. |
 | wordFilters      | string array                                                 | Filters out the specified strings from the method results.   |
 | whitespaceFilter | `spaces`, `all`                                              | Remove extra whitespaces.<br/> `spaces` - remove only extra spaces <br/> `all` - remove all whitespace characters, including newlines and tabs. |
-| xRangeFilter     | object                                                       | In combination with the Document Range method, the X Range Filter parameter defines a "column" that is bounded at the top and bottom by text.  Any line that only partially falls inside the defined rectangular region is excluded. Parameters: <br/>`start` - `right` ,`left`  - Defines the starting point of the "column" at either the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the horizontal position of the starting point defined by the Start parameter.  <br/> `width` - The width of page portion to capture, in inches.<br/><br/> For an example, see the Examples section. |
-| xMajorSort       | boolean                                                      | Use this parameter to correct text that unexpectedly varies in height and vertical position (such as handwriting).  In such badly aligned text, slight jitter in the vertical positions of lines can cause Sensible to incorrectly sort lines that a human reader interprets as succeeding left to right.  The X Major Sort parameter corrects the problem by sorting lines primarily by their horizontal position, rather than primarily by their vertical position (the default). <br/><br/> For an example, see the Examples section. |
+| xRangeFilter     | object                                                       | In combination with the Document Range method, the X Range Filter parameter defines a "column" that is bounded at the top and bottom by text.  Any line that only partially falls inside the defined rectangular region is excluded. Parameters: <br/>`start` - `right`,`left`  - Defines the starting point of the "column" at either the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the horizontal position of the starting point defined by the Start parameter.  <br/> `width` - The width of the page portion to capture, in inches.<br/><br/> For an example, see the Examples section. |
+| xMajorSort       | boolean                                                      | Use this parameter to correctly sort text that unexpectedly varies in height and vertical position (such as handwriting).  In such badly aligned text, slight jitter in the vertical positions of lines can cause Sensible to incorrectly sort lines that a human reader interprets as following left to right.  The X Major Sort parameter corrects the problem by sorting lines primarily by their horizontal position, rather than primarily by their vertical position (the default). <br/><br/> For an example, see the Examples section. |
 
 Examples
 ====
@@ -77,7 +77,7 @@ This example uses the following config:
 X Range Filter example
 ----
 
-In combination with the Document Range method, the X Range Filter parameters defines a "column" that is bounded at the top and bottom by text.
+In combination with the Document Range method, the X Range Filter parameter defines a "column" that is bounded at the top and bottom by text.
 
 The following image shows using this parameter to extract a "cell" of text that doesn't easily fit other methods:
 
@@ -88,7 +88,7 @@ The following image shows using this parameter to extract a "cell" of text that 
 In this example, the X Range Filter parameter is the best option:
 
 - Document Range by itself is not a good option, because it captures the address of the importer as well as the supplier. 
-- The Fixed Table and Table methods are not the best options, because the table's formatting is hard to recognize.
+- The Fixed Table and Table methods are not the best options, because the table formatting is hard to recognize.
 - The Text Table method is not the best option, because it splits multi-line rows.
 
 Try out this example in the Sensible app using the following PDF and config:

@@ -96,9 +96,9 @@ This is a convenience match to find the first line encountered.
 
 | key  | values  | description                                                  |
 | ---- | ------- | ------------------------------------------------------------ |
-| type | `first` | Matches the first line encountered, either in the first page of document, or after another specified line. |
+| type | `first` | Matches the first line encountered, either in the first page of the document, or after a specified line. |
 
-This example matches the first line after encountering a matching line:
+This example matches the first line after a matched line:
 
 
 ```
@@ -110,7 +110,7 @@ This example matches the first line after encountering a matching line:
         "match": [
           {
             "type": "includes",
-            "text": "match the first line succeeding this line"
+            "text": "match this line, then anchor on the first line after it"
           },
           {
             "type": "first"

@@ -341,13 +341,13 @@ Example:
 Period Delimited Currency
 ----
 
-Returns numbers as absolute values. Recognizes European decimal formatting (i.e., 1.500,06). Recognizes abbreviated quantities, such as k for thousand.  For  USA decimal formatting (i.e., 1,500.06), see [currency](doc:types#currency)  
+Returns numbers as absolute values. Recognizes European decimal formatting (i.e., 1.500,06). Recognizes abbreviated quantities, such as k for thousand.  For  USA decimal formatting (i.e., 1,500.06), see [currency](doc:types#currency).  
 
 Recognizes digits with the following formatting:
 
-- periods every three digits, optional cents after comma
+- periods every three digits, optional cents after a comma.
 
-- up to six digits without periods as only line contents. Allow up to nine digits if cents following comma are present.
+- up to six digits without periods as only line contents. Allow up to nine digits if cents following a comma are present.
 
 
 Recognizes abbreviated and written-out quantities as follows:
