@@ -3,7 +3,7 @@ title: "Method object"
 hidden: false
 ---
 
-A Method object defines how to expand out from an Anchor object and grab data you want to extract. Methods are available within Field objects.
+A Method object defines how to expand out from an Anchor line and extract target data. Methods are available in Field objects.
 
 For the full list of methods available, see [Methods](doc:methods). 
 
@@ -13,17 +13,17 @@ For the full list of methods available, see [Methods](doc:methods).
 Parameters
 -----
 
-The parameters for a method vary based on the method type (defined in the `id` parameter). The following are global parameters common to all methods:
+The following global parameters available to all methods:
 
 | Key              | Value                                                        | Description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `id`             | [`box`](doc:box),<br/>[`checkbox`](doc:checkbox),<br/>[`column`](doc:column),<br/>[`documentRange`](doc:document-range),<br/>[`fixedTable`](doc:fixed-table),<br/> [`invoice`](doc:invoice),<br/>[`keyValue`](doc:key-value),<br/>[`label`](doc:label),<br/>[`passthrough`](doc:passthrough),<br/>[`regex`](doc:regex),<br/>[`region`](doc:region),<br/>[`row`](doc:row),<br/>[`signature`](doc:signature),<br/>[`table`](doc:table),<br/>[`textTable`](doc:text-table) | see [Methods](doc:methods).                                  |
-| tiebreaker       | `first`, `second`, `third`, `last`, `>`, `<`                 | Which element in the method match is the target. Use the comparisons `>` and `<` to grab maximum and minimum values in the row. By default the comparisons are sorted alphanumerically using [unicode values](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Less_than).  If you want to compare numeric amounts and ignore non-numbers in the match result,  then add a numeric type like  `type: currency` as a top-level parameter to the field. |
-| lineFilters      | Match object                                                 | Filters out the matched lines from the method results. A example is if you’re using a Box method, and there’s a text footer in the box that you don't want to capture, or some additional label to the main anchor label that you don't want to capture. |
-| wordFilters      | string array                                                 | Filters out unwanted matched strings from the method results. |
-| whitespaceFilter | `spaces`, `all`                                              | Remove extraneous whitespaces.<br/> `spaces` - remove only extra spaces <br/> `all` - remove all whitespace characters, including new lines and tabs. |
-| xRangeFilter     | object                                                       | Excludes lines that do not fall fully between a starting point and an ending point along an x-axis.<br/> In combination with the Document Range method, the X Range Filter parameters defines a "column" that is bounded at the top and bottom by text.  Any line that only partially falls inside the defined area is excluded. Parameters: <br/>`start` - `right` ,`left`  - Adjusts the starting point to the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the starting point defined by the Start parameter.  <br/> `width` - The width of page portion to capture, in inches.<br/> For an example, see the Examples section. |
-| xMajorSort       | boolean                                                      | The X Major Sort parameter orders lines first by their horizontal position, rather than the default behavior of ordering first by the vertical position.  This is useful in cases where the text is not well aligned (notably with handwriting). With badly aligned text, slight jitter in the vertical coordinate of lines can cause Sensible to see two lines that are seemingly on the same horizontal line as appearing in the reverse order. Use the X Major Sort parameter to fix this problem. This behavior applies to lines captured by a method, not to lines captured by an anchor.<br/> For an example, see the Examples section. |
+| tiebreaker       | `first`, `second`, `third`, `last`, `>`, `<`                 | If the method returns multiple elements (for example, a Row method), which element to extract. <br/>Use `>` and `<` to extract maximum and minimums elements [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Less_than) alphanumerically. To compare numeric amounts and ignore non-numbers in the match result, add a numeric type, for example `type: currency`, as a top-level parameter to the field. |
+| lineFilters      | Match object                                                 | Filters out the specified lines from the method match. For example, the Box method extracts all lines from a box, but you can use this parameter to filter out unwanted footer text in the box. |
+| wordFilters      | string array                                                 | Filters out the specified strings from the method results.   |
+| whitespaceFilter | `spaces`, `all`                                              | Remove extra whitespaces.<br/> `spaces` - remove only extra spaces <br/> `all` - remove all whitespace characters, including newlines and tabs. |
+| xRangeFilter     | object                                                       | In combination with the Document Range method, the X Range Filter parameter defines a "column" that is bounded at the top and bottom by text.  Any line that only partially falls inside the defined rectangular region is excluded. Parameters: <br/>`start` - `right` ,`left`  - Defines the starting point of the "column" at either the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the horizontal position of the starting point defined by the Start parameter.  <br/> `width` - The width of page portion to capture, in inches.<br/><br/> For an example, see the Examples section. |
+| xMajorSort       | boolean                                                      | Use this parameter to correct text that unexpectedly varies in height and vertical position (such as handwriting).  In such badly aligned text, slight jitter in the vertical positions of lines can cause Sensible to incorrectly sort lines that a human reader interprets as succeeding left to right.  The X Major Sort parameter corrects the problem by sorting lines primarily by their horizontal position, rather than primarily by their vertical position (the default). <br/><br/> For an example, see the Examples section. |
 
 Examples
 ====
@@ -32,15 +32,15 @@ xMajorSort example
 ----
 
 
-In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve": 
+In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader): 
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/xmajor_sort_example_1.png)
 
-To eliminate the variability in order caused by short or tall handwriting,  set `"xMajorSort":"true"` so you can reliably capture the first and last name in their order along an x-axis:
+To eliminate the variability in order caused by short or tall handwriting,  set `"xMajorSort":"true"` so you can reliably capture the first and last name in their left-to-right order:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/xmajor_sort_example_2.png)
 
-You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+Try out this example in the Sensible app using the following downloadable PDF and config:
 
 | Example PDF for xMajorSort | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
 | -------------------------- | ------------------------------------------------------------ |
