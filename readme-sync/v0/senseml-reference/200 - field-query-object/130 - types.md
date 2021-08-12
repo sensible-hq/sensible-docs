@@ -2,7 +2,7 @@
 title: "Types"
 hidden: false
 ---
-Specify the Type parameter in a [Field object](doc:field-query-object) to capture data of a particular type. 
+Filter and format extracted data using the Type parameter in a [Field object](doc:field-query-object). 
 
 For example, the following field returns null unless it finds data that Sensible recognizes as a number: 
 
@@ -260,7 +260,7 @@ DuBois, Renee and Lois
 
 ```
 
-This type does not recognize text such as `Last1, Last2, & Last3`
+This type does **not** recognize text such as `Last1, Last2, & Last3`
 
 Example output:
 
@@ -279,11 +279,10 @@ Example output:
 Number
 ----
 
-Recognizes digits in USA decimal notation. Recognizes digits as follows:
+Recognizes digits in USA decimal notation. Recognizes one or more digits, optionally followed either by: 
 
-- one or more digits, optionally followed by:
-  - EITHER commas preceding every three digits, optional digits after period 
-  - OR by digits after period
+- commas preceding every three digits, optional digits after period, or by 
+- digits after period
 
 For example:
 
@@ -293,7 +292,7 @@ For example:
 1234567890
 ```
 
-This type does **not** recognize text such as `3.061.534,45`. Use the Currency or Period Deliminated Currency types instead. 
+This type does **not** recognize text such as `3.061.534,45`. Use the Period Delimited Currency type instead. 
 
 Example output:
 
@@ -310,7 +309,7 @@ Example output:
 Paragraph
 ----
 
-Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs as output that is separated by newline characters (\n), instead of as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible does not recognize paragraphs indicated solely by indented first lines. 
+Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible does not recognize paragraphs indicated solely by indented first lines. 
 
 Percentage
 ----
@@ -371,7 +370,7 @@ For example:
 
 ```
 
-This type **does not** match text such as `one million`  or `123456789`. It does not currently support outputting units of currency.
+This type **does not** match text such as `one million`  or `123456789`. It does not output units of currency.
 
 Example output:
 
