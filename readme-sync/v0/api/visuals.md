@@ -148,10 +148,15 @@ And the output of the modified config is:
 
 FULL WIDTH with drop shadow
 ---
+NOT full length.
+
+
+
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/full_width_1.png)
 
+Google chrome zoom 200% + col-span 8/8 for PDF pane:
 
-
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/full_width_2.png)
 
 
 FULL PDFS
