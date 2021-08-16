@@ -146,6 +146,12 @@ And the output of the modified config is:
 }
 ```
 
+FULL WIDTH with drop shadow
+---
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/full_width_1.png)
+
+
+
 
 
 FULL PDFS
