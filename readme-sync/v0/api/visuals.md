@@ -148,9 +148,24 @@ And the output of the modified config is:
 
 
 
+FULL PDFS
+----
 
+**half screen on a 2560 x 1440 monitor**
 
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/full_pdf_1.png)
 
+And:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/full_pdf_2.png)
+
+And:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/full_pdf_3.png)
+
+and:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style/full_pdf_4.png)
 
 
 
