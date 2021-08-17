@@ -40,7 +40,7 @@ Imagine you have a document type "sales_quotes" with configs for
 - company_B
 - company_C
 
-For all companies, you test that the sales quote extraction is valid with the following conditions:
+For all companies, you test that the sales quote extraction with the following validations:
 
 | Description                                        | Prerequisite fields          | Condition                                                    | Severity | Notes                                                        |
 | -------------------------------------------------- | ---------------------------- | ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
