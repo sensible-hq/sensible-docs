@@ -42,12 +42,52 @@ Imagine you have a document type "sales_quotes" with configs for
 
 For all companies, you test that the sales quote extraction with the following validations:
 
-| Description                                        | Prerequisite fields          | Condition                                                    | Severity | Notes                                                        |
-| -------------------------------------------------- | ---------------------------- | ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
-| The quote value is not null                        |                              | `{ exists: [{ var: "rate.value" }] }`                        | error    | Uses the Sensible `exists` operation to test that a field's output exists. |
-| The quoted rate is a round number                  |                              | `{ "==": [{ "%": [{ var: "rate.value" }, 2] }, 0] }`         | warning  | Retrieves the value of an extracted `rate` field  using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0. |
-| Second broker's email is in `string@string` format | `["second\\.broker\\.name"]` | `match: [{ var: "second\\.broker\\.email.value" }, "^\\S+\\@\\S+$"]` | warning  | If the box for a second broker contact is filled out, then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition. |
-| The zip code is valid for USA or CA                |                              | `{"or": [`<br/>   `{"and": [`<br/>      `{"==": [{"var": "country.value"}, "US"]},`<br/>      `{"match": [{ "var": "zip_code.value" }, "^[0-9]{5}$"]} ] },`<br/> `{"and": [`<br/>    ` {"==": [{"var": "country.value"}, "CA"]},`<br/>    `{"match": [{ "var": "zip_code.value" }, "^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$"]} ] }`<br/>`]}` | warning  | Tests that the `zip_code` is a 5-digit number if the `country`  field is USA, or 6 alphanumeric characters if the `country`  field is Canada. Uses a Sensible operation (`match`) to test regular expressions. |
+**Validation 1**
+
+- **Description**:  The quote value is not null
+- **Severity**: error
+- **Condition**:`{"exists": [{"var": "rate.value" }] }`
+
+Notes: Uses the Sensible `exists` operation to test that a field's output exists
+
+**Validation 2**
+
+- **Description**:  The quoted rate is a round number
+- **Severity**: warning
+- **Condition**:`{ "==": [{ "%": [{"var": "rate.value" }, 2] }, 0] }`
+
+Notes:   Retrieves the value of an extracted `rate` field  using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
+
+**Validation 3**
+
+- **Description**:  Second broker's email is in `string@string` format
+- **Severity**: warning
+- **Prerequisite fields**: `["second\\.broker\\.name"]`
+- **Condition**: `{"match": [{"var": "second\\.broker\\.email.value" }, {"^\\S+\\@\\S+$"}]}`
+
+Notes:   If the box for a second broker contact is filled out, then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
+
+**Validation 4**
+
+- **Description**:  The zip code is valid for USA or CA
+
+- **Severity**: warning
+
+- **Condition**:
+```json
+{"or": [
+  {"and": [
+    {"==": [{"var": "country.value"}, "US"]},
+    {"match": [{ "var": "zip_code.value" }, "^[0-9]{5}$"]} ] },
+  {"and": [
+    {"==": [{"var": "country.value"}, "CA"]},
+    {"match": [{ "var": "zip_code.value" }, "^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$"]} ] }
+]} 
+```
+
+Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field is USA, or 6 alphanumeric characters if the `country`  field is Canada. Uses a Sensible operation (`match`) to test regular expressions.
+
+**Example validations output**
 
 For the preceding validations, here's an example extraction output in which:
 
