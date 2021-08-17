@@ -23,7 +23,7 @@ Each validation test you write has the following parameters:
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
 | description (**required**) | string              | A description of the test                                    |
-| condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, string] }`, where `string` is a Javascript-flavored regular expression. Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). <br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. Note that you must escape any dots in the keys (for example, `delivery\\.zip\\.code`). |
+| condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/> `{ match: [JsonLogic, regex] }`, where `regex` is a Javascript-flavored regular expression. For example, use this  regex match when you want to test that the output matches a [type](doc:type) that is not supported by Sensible. Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character).  <br>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. Note that you must escape any dots in the keys (for example, `delivery\\.zip\\.code`). |
 | severity (**required**)    | `error`, `warning`  | The severity of the failing test                             |
 
 Examples
@@ -35,55 +35,21 @@ Imagine you have a document type "sales_quotes" with configs for
 - company_B
 - company_C
 
-No matter the company, you consider an extraction 100% valid only if it: 
+No matter the company, you consider a sales quote extraction valid only if it meets the following tests:
 
-- contains a quoted rate, and that rate is a round number
-- the zip code is a 5-digit number 
-- contains a broker contact
-- the email is in the format string@string, but only if the contact information section is filled out. (if not filled out, skip it)
+| Description                             | Condition                                                    | Severity | Prerequisite fields | Notes                                                        |      |
+| --------------------------------------- | ------------------------------------------------------------ | -------- | ------------------- | ------------------------------------------------------------ | ---- |
+| The quote value is not null             | `{ exists: [{ var: "rate.value" }] }`                        | error    |                     | Uses the Sensible `exists` operation to test that a field's output exists. |      |
+| The quoted rate is a round number       | `{ "==": [{ "%": [{ var: "rate.value" }, 2] }, 0] }`         | warning  |                     | retrieves the value of an extracted `rate` key/value pair using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 100, and passes the test if the remainder equals (`"=="`) 0. |      |
+| The zip code is valid for USA or CA     | `{"or": [`<br/>   `{"and": [`<br/>      `{"==": [{"var": "country.value"}, "US"]},`<br/>      `{"match": [{ "var": "zip_code.value" }, "^[0-9]{5}$"]} ] },`<br/> `{"and": [`<br/>    ` {"==": [{"var": "country.value"}, "CA"]},`<br/>    `{"match": [{ "var": "zip_code.value" }, "^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$"]} ] }`<br/>`]}` | warning  |                     | Tests if the zip code is a 5-digit number if the country is USA, or 6 alphanumeric characters if the country  is CA. Uses a Sensible operation (`match`) to test against regular expressions. |      |
+| Second broker phone number is 10 digits | `match: [{ var: "broker2\\.phone.value" }, "^[0-9]{3}\\-[0-9]{3}\\-[0-9]{4}$"]` | warning  | broker2.name        | if the box for a second broker contact is filled out, test that the second broker's phone number has ten digits. Otherwise, skip this test. |      |
 
-TODO: required fields shows up where?
 
-The following shows example validations:
 
-```
-validations: [
-    {
-      description: "Rate must be a round number",
-      condition: { "==": [{ "%": [{ var: "rate.value" }, 2] }, 0] },
-      severity: "warning",
-    },
-    {
-      description: "Zip code must be valid",
-      condition: {
-        match: [{ var: "delivery\\.zip\\.code.0.value" }, "^[0-9]{5}$"],
-      },
-      severity: "error",
-    },
-    {
-      description: "Required field rate",
-      condition: { exists: [{ var: "rate" }] },
-      severity: "error",
-    },
-    {
-      description: "Required field broker_contact_name",
-      condition: { exists: [{ var: "broker_contact_name" }] },
-      severity: "error",
-    },
+For the preceding tests, here's an example extraction output in which:
 
-  ],
-};
-```
-
-In the preceding example: 
-
-- The "Rate must be a round number" test retrieves the value of an extracted `rate` key/value pair using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 100, and passes the test if the remainder equals (`"=="`) 0. 
-- The "Zip code must be valid" test uses a Sensible operation (`match`) to test if an extracted zip code value matches the regular expression `"^[0-9]{5}$"`.
-- The "Required field broker_contact_name" test uses a Sensible operation (`exists`) to test that a `var`'s value is not null.
-
-  
-
-If all tests passed for a PDF except the "zip code must be valid" test, the extraction output could look something like this:
+- the "zip code must be valid" test fails
+- the "second broker phone" test is skipped because the second.broker.name field doesn't exist
 
 ```json
 {
@@ -121,4 +87,7 @@ If all tests passed for a PDF except the "zip code must be valid" test, the extr
 
 Notes
 ====
-Why does Sensible use domain-specific validation rather than confidence intervals? Sensible's extractions are largely deterministic: with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals aren't very useful measures of extraction quality. Domain-specific validation tests are a more useful measure, because they return deterministic results for a specific document type. 
+Why does Sensible use validation tests rather than confidence intervals? Sensible's extractions are largely deterministic: with the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this determinism, confidence intervals aren't very useful measures of extraction quality. 
+
+
+
