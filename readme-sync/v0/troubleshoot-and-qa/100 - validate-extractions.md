@@ -42,7 +42,8 @@ Imagine you have a document type "sales_quotes" with configs for
 
 You test sales quote extractions from all the companies with the following validations:
 
-**Validation 1**
+Validation 1
+---
 
 - **Description**:  The quote value is not null
 - **Severity**: error
@@ -50,7 +51,8 @@ You test sales quote extractions from all the companies with the following valid
 
 Notes: Uses the Sensible `exists` operation to test that a field (`rate`) is not null.
 
-**Validation 2**
+Validation 2
+---
 
 - **Description**:  The quoted rate is a round number
 - **Severity**: warning
@@ -58,7 +60,8 @@ Notes: Uses the Sensible `exists` operation to test that a field (`rate`) is not
 
 Notes:  Retrieves the value of an extracted `rate` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
 
-**Validation 3**
+Validation 3
+---
 
 - **Description**:  Second broker's email is in `string@string` format
 - **Severity**: warning
@@ -67,7 +70,8 @@ Notes:  Retrieves the value of an extracted `rate` field using the JsonLogic `va
 
 Notes:  If the box for a second broker contact is filled out, then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
 
-**Validation 4**
+Validation 4
+----
 
 - **Description**:  The zip code is valid for USA or CA
 
@@ -87,7 +91,8 @@ Notes:  If the box for a second broker contact is filled out, then uses a Sensib
 
 Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field is USA, or 6 alphanumeric characters if the `country`  field is Canada. Uses a Sensible operation (`match`) to test regular expressions.
 
-**Validation output**
+Validations output
+---
 
 For the preceding validations, here's an example document extraction where:
 
