@@ -48,7 +48,7 @@ You test sales quote extractions from all the companies with the following valid
 - **Severity**: error
 - **Condition**:`{"exists": [{"var": "rate.value" }] }`
 
-Notes: Uses the Sensible `exists` operation to test that a field's output exists
+Notes: Uses the Sensible `exists` operation to test that a field (`rate`) is not null.
 
 **Validation 2**
 
@@ -56,7 +56,7 @@ Notes: Uses the Sensible `exists` operation to test that a field's output exists
 - **Severity**: warning
 - **Condition**:`{ "==": [{ "%": [{"var": "rate.value" }, 2] }, 0] }`
 
-Notes:   Retrieves the value of an extracted `rate` field  using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
+Notes:  Retrieves the value of an extracted `rate` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
 
 **Validation 3**
 
@@ -65,7 +65,7 @@ Notes:   Retrieves the value of an extracted `rate` field  using the JsonLogic `
 - **Prerequisite fields**: `["second\\.broker\\.name"]`
 - **Condition**: `{"match": [{"var": "second\\.broker\\.email.value" }, {"^\\S+\\@\\S+$"}]}`
 
-Notes:   If the box for a second broker contact is filled out, then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
+Notes:  If the box for a second broker contact is filled out, then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
 
 **Validation 4**
 
