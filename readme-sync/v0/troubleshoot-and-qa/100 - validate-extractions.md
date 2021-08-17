@@ -87,7 +87,7 @@ For the preceding conditions, here's an example extraction output in which:
 }
 ```
 
-**TODO:** if we add skipped validations to the array, document them here
+**TODO:** if we add skipped validations to the array, add them in the above response
 
 Notes
 ====
