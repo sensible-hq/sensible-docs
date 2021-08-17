@@ -49,7 +49,7 @@ For all companies, you test that the sales quote extraction with the following v
 | Second broker's email is in `string@string` format | `["second\\.broker\\.name"]` | `match: [{ var: "second\\.broker\\.email.value" }, "^\\S+\\@\\S+$"]` | warning  | If the box for a second broker contact is filled out, then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition. |
 | The zip code is valid for USA or CA                |                              | `{"or": [`<br/>   `{"and": [`<br/>      `{"==": [{"var": "country.value"}, "US"]},`<br/>      `{"match": [{ "var": "zip_code.value" }, "^[0-9]{5}$"]} ] },`<br/> `{"and": [`<br/>    ` {"==": [{"var": "country.value"}, "CA"]},`<br/>    `{"match": [{ "var": "zip_code.value" }, "^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$"]} ] }`<br/>`]}` | warning  | Tests that the `zip_code` is a 5-digit number if the `country`  field is USA, or 6 alphanumeric characters if the `country`  field is Canada. Uses a Sensible operation (`match`) to test regular expressions. |
 
-For the preceding conditions, here's an example extraction output in which:
+For the preceding validations, here's an example extraction output in which:
 
 - the " zip code is valid" test fails
 - the "second broker email" test is skipped because the prerequisite field  `second\\.broker\\.name` is null
