@@ -1,11 +1,11 @@
 ---
-title: "Testing introduction"
+title: "Validate extractions"
 hidden: true
 ---
 
  
 
-Quality control your data extractions by writing domain-specific validation tests using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the tests, for example:
+Quality control your data extractions in a document type by writing validation tests using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the tests, for example:
 
 - pass a document extraction automatically through your pipeline if there are no errors and only 10% of warnings validations fail
 - flag a document extraction for human review if 5% of error validations fail
@@ -23,6 +23,10 @@ Parameters
 
 Examples
 ====
+
+Imagine your 
+
+
 
 The following shows example validations:
 
