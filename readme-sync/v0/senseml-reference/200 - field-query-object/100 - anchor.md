@@ -124,17 +124,17 @@ Versus:
 
 To clarify the difference,  the following image shows the outputs of these anchors:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_1.png)
 
 This example uses the Passthrough method and `"match":all"` to display the full anchor output. It shows that:
 
 - For the `match_array` field, Sensible anchors on the last Match array element only if it is preceded by the other array elements in order, with no intervening match repetitions.   `"match":all"` finds two anchors. See the following image for an illustration: 
 
-  ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_2.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_2.png)
 
 - For the `start_and_match` field, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document.  `"match":all"` finds four anchors. Notice it does NOT return the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match.  See the following image for an illustration:
 
-  ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_3.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/anchor_example_3.png)
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
@@ -232,7 +232,7 @@ For example, if you specify the Label method, Sensible only anchors on text that
 
 In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements (the Row method would work here instead):
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
 
 
 

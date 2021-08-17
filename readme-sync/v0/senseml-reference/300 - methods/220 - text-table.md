@@ -29,7 +29,7 @@ The following image shows extracting two columns from a difficult-to-recognize t
 - Since this method does not recognize cells with multiple lines of data, dollar limits are returned in separate rows.
 - To prevent Sensible from returning unwanted term matches,  the config specifies a Stop parameter.
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/text_table_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/text_table_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:

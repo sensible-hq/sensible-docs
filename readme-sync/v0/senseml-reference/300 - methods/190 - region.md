@@ -32,7 +32,7 @@ Examples
 
 The following image shows extracting a social security number from a W-9 form by defining a region to grab:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/region_ssn.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/region_ssn.png)
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 

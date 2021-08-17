@@ -39,7 +39,7 @@ The following image shows extracting two columns from a fixed table in the Sensi
 - In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col4_rank_last_month` 
 - To improve performance, the config specifies a Stop parameter. This ensures Sensible only OCRs the relevant page area while looking for a table. 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/fixedtable_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/fixedtable_example.png)
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 

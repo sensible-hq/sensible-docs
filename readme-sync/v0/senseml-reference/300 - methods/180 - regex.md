@@ -28,7 +28,7 @@ The following example narrows down text that's matched in an anchor line (since 
 
 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/regex_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/regex_example.png)
 
 
 

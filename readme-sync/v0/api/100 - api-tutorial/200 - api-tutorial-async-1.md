@@ -42,7 +42,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
 
 2. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
 
-   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_1.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_1.png)
 
 3. Click **Send**, and you should see a response like:
 
@@ -91,7 +91,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 3. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/api_quickstart_postman_2.png)
 
 4. Click **Send**. The response looks something like the following:
 

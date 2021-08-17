@@ -29,7 +29,7 @@ Create a config
 
 1. Click **Create document type** and name  it "auto_insurance_quote". Leave the defaults and click **Create**.
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_doc_type.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_doc_type.png)
 
 2. Download the following PDF document:
    
@@ -42,11 +42,11 @@ Create a config
 
 5. Click the configuration name to edit the configuration:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_click_config.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_click_config.png)
 
 When the configuration opens, you see an empty config pane on the left, the PDF in the middle, and an empty output pane on the right:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_blank_config.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_blank_config.png)
 
 6. For this quickstart, let's extract only a few pieces of information:
    
@@ -98,7 +98,7 @@ When the configuration opens, you see an empty config pane on the left, the PDF 
 
 The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_config_1.png)   
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_config_1.png)   
 
 You should see the following extracted data in the right pane:
 
@@ -144,7 +144,7 @@ How it works: label method
 ----
 
 To grab the policy period from this text:
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_label_right.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_label_right.png)
 
 The config uses the [Label method](doc:label):
 
@@ -180,13 +180,13 @@ Key concept: lines
 
 See those gray boxes around the text in the following image?
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_1.png)
 
 Each gray box show the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same x-axis. 
 
 The Label method can operate within a single line, or across multiple lines. Given that, let's ask this question: could we use the Label method to grab a line in the following image? 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_4.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_4.png)
 
 For example, could we use "Bodily injury" as the anchor text and return "$25,000 each"  for an insurance limit? Would something like the following config work?  
 
@@ -203,7 +203,7 @@ Try it, and you'll see it doesn't work.
 
 This is because the Label method works only for closely proximate lines (sensitive to spacing and font size), or for text in the same line. In this case, the problem is that the gap between the two lines of text is too big:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_2.png)
 
  Let's take a look at a purpose-built Row method instead to grab text in a table. 
 
@@ -212,7 +212,7 @@ How it works: row method
 
 To grab this comprehensive premium of $150:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_row.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_row.png)
 
 this config uses the [Row method](doc:row):
 
@@ -264,7 +264,7 @@ In the app, you can visually inspect anchors and methods by looking at their col
 
 To continue the Row method example from the previous section, in the following image the orange box shows that "Comprehensive" is the anchor line:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_concept_3.png)
 
 Why are *all* the lines after "Comprehensive" colored blue, when the previous example output only included one line, $150?
 
@@ -275,7 +275,7 @@ How it works: box method
 
 To grab the policy number from this box:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_box.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_box.png)
 
 The config uses the [Box method](doc:box):
 
@@ -340,7 +340,7 @@ Before integrating the config with an application and writing tests against it, 
    
    Uh oh! It looks like this policy period spills over onto the next line, so Sensible misses the end year (2021). That seems like sloppy PDF formatting, but let's work with it. 
    
-   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_1.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_1.png)
 
 How can you capture the policy period reliably? 
 
@@ -348,7 +348,7 @@ How can you capture the policy period reliably?
 
 As you become more familiar with Sensible, your first impulse might be to use the [Document Range](doc:document-range) method, which grabs multiple lines of text, like paragraphs, after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the first line we want is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the period and only grabs the year in the method match (the blue box):
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_2.png)
 
 There's a workaround: specify to *include* the anchor in the Document Range method and filter out unwanted text in the anchor (the words "Policy period"). Try it out by replacing your existing `policy_period` field with this example:
 
@@ -405,11 +405,11 @@ Replace your existing `policy_period` field with the following field in the edit
 
 This field defines a region in inches relative to the anchor. Since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as  the Height and Start parameters), so you can visually tweak the region till you're satisfied. 
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_3.png)
 
 Let's double check that this region also works with our first PDF:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_4.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_error_4.png)
 
 Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fiddle with the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures lines that are completely contained in the region. 
 
@@ -438,7 +438,7 @@ curl --request POST \
 
 2. **Important!** Remember to click **Publish** in the Sensible app to publish your config to production, or this request won't work:  
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_publish_config.png).
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_publish_config.png).
 
 3. For an easy way to run this cURL request, download the [Postman](https://www.postman.com/) desktop app. 
 
@@ -446,12 +446,12 @@ curl --request POST \
 
 5. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
    
-   ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_import.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_import.png)
 
 6. Correct the path to your downloaded PDF: in the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
    
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/quickstart_postman_1.png)
 
 ​    
 

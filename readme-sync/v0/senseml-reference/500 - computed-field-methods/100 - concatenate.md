@@ -25,7 +25,7 @@ Examples
 
 The following image shows using the Concat method to concatenate two address fields into one:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/concat_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/concat_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:

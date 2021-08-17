@@ -53,14 +53,14 @@ The following config grabs a list of four sworn statements from a W-9 form:
 
 The following image shows this example in the Sensible app:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_sworn.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_sworn.png)
 
 Images
 ----
 
 The following example grabs two images' coordinates:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_icons.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/documentrange_icons.png)
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 

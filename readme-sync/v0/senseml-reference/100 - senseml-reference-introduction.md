@@ -22,7 +22,7 @@ Examples
 
 For an overview of the elements in the SenseML schema, see the following image of a short config:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/senseml_intro_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/senseml_intro_example.png)
 
 
 
