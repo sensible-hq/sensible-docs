@@ -13,6 +13,11 @@ The SenseML pane has a built-in linter for both JSON and the SenseML model. If y
 
 You can also use the linter to autocomplete parameters.
 
+Inspect SenseML
+====
+
+The Sensible app visually represents SenseML queries in rendered PDFs using colored symbols. For more information, see [UI guide](doc:ui-guide).
+
 Inspect lines and fields
 ====
 
@@ -27,7 +32,7 @@ You can inspect a line to see:
 Inspect all extracted text
 ====
 
-To inspect all the text Sensible extracted from a document, then use the following config:
+Sometimes, the text you see in the rendered PDF does not match the direct text extraction. To inspect all the text Sensible extracted from a document, then use the following config:
 
 ```json
 {  

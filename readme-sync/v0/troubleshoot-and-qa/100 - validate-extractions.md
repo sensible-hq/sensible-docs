@@ -40,6 +40,7 @@ No matter the company, you consider an extraction 100% valid only if it:
 - contains a quoted rate, and that rate is a round number
 - the zip code is a 5-digit number 
 - contains a broker contact
+- the email is in the format string@string, but only if the contact information section is filled out. (if not filled out, skip it)
 
 TODO: required fields shows up where?
 
