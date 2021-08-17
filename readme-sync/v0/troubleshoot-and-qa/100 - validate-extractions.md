@@ -5,7 +5,7 @@ hidden: true
 
  
 
-Quality control the data extractions in a document type by writing validation tests using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the tests, for example:
+Quality control the data extractions in a document type by writing validations using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the validations, for example:
 
 - pass a document extraction automatically through your pipeline if there are no errors and only 10% of warnings validations fail
 - flag a document extraction for human review if 5% of error validations fail
@@ -22,7 +22,7 @@ TODO: add screenshot when finalized.
 Parameters
 ====
 
-Each validation has the following parameters:
+For a field in the `parsed_document` output, write a validation that tests the field's value using boolean, logic, numeric, array, string, and misc operations. A validation has the following parameters:
 
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
