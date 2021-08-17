@@ -5,15 +5,20 @@ hidden: true
 
  
 
-Quality control your data extractions in a document type by writing validation tests using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the tests, for example:
+Quality control the data extractions in a document type by writing validation tests using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the tests, for example:
 
 - pass a document extraction automatically through your pipeline if there are no errors and only 10% of warnings validations fail
 - flag a document extraction for human review if 5% of error validations fail
 
+TODO: iron out: Write validations in the Sensible app:
 
+1. Click the document type Settings
+2. For each extracted field that you want to validate, click the plus sign.
 
 Parameters
 ====
+
+Each validation test you write has the following parameters:
 
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
@@ -24,9 +29,19 @@ Parameters
 Examples
 ====
 
-Imagine your 
+Imagine you have a document type "sales_quotes" with configs for
 
+- company_A
+- company_B
+- company_C
 
+No matter the company, you consider an extraction 100% valid only if it: 
+
+- contains a quoted rate, and that rate is a round number
+- the zip code is a 5-digit number 
+- contains a broker contact
+
+TODO: required fields shows up where?
 
 The following shows example validations:
 
