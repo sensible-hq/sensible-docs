@@ -89,7 +89,7 @@ Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field i
 
 **Validation output**
 
-For the preceding validations, here's an example extraction output in which:
+For the preceding validations, here's an example document extraction where:
 
 - the " zip code is valid" test fails
 - the "second broker email" test is skipped because the prerequisite field  `second\\.broker\\.name` is null
