@@ -40,7 +40,7 @@ Imagine you have a document type "sales_quotes" with configs for
 - company_B
 - company_C
 
-For all companies, you test that the sales quote extraction with the following validations:
+You test sales quote extractions from all the companies with the following validations:
 
 **Validation 1**
 
@@ -87,7 +87,7 @@ Notes:   If the box for a second broker contact is filled out, then uses a Sensi
 
 Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field is USA, or 6 alphanumeric characters if the `country`  field is Canada. Uses a Sensible operation (`match`) to test regular expressions.
 
-**Example validations output**
+**Validation output**
 
 For the preceding validations, here's an example extraction output in which:
 
