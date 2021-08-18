@@ -7,7 +7,7 @@ hidden: true
 
 Quality control the data extractions in a document type by writing validations using  [JsonLogic](https://jsonlogic.com/).  Then write your own logic based on the validations, for example:
 
-- pass a document extraction automatically through your pipeline if there are no errors and only 10% of warnings validations fail
+- pass a document extraction automatically through your pipeline if there are no errors and only 10% of warning validations fail
 - flag a document extraction for human review if 5% of error validations fail
 
 To write validations in the Sensible app:
@@ -17,18 +17,16 @@ To write validations in the Sensible app:
 3. Enter the parameters for the validation.
 4. Click **Create**.
 
-TODO: add screenshot when finalized.
-
 Parameters
 ====
 
-For a field in the `parsed_document` output, write a validation that tests the field's value using boolean, logic, numeric, array, string, and misc operations. A validation has the following parameters:
+For fields in the `parsed_document` output, write validations that test the fields' values using boolean, logic, numeric, array, string, and misc operations. A validation has the following parameters:
 
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
 | description (**required**) | string              | A description of the test                                    |
 | severity (**required**)    | `error`, `warning`  | The severity of the failing test                             |
-| prerequisite fields        | array               | Skip the condition if these fields are null. For example, if a "Additional fees" section of a document is often left blank, then specify a prerequisite field in that section (e.g., [`"first\\.additional\\.fee"`])  in each validation for the section's fields. If the whole section is intentionally blank, you avoid meaningless errors and warnings for the section's fields.<br/>Double escape any dots in the keys (for example, `delivery\\.zip\\.code`). |
+| prerequisite fields        | array               | Skip the condition if these fields are null. For example, if a "Additional fees" section of a document is often left blank, then specify a prerequisite field in that section (e.g., [`"first\\.additional\\.fee"`])  to verify the section is filled out. If the whole section is intentionally blank, the prerequisite field helps avoid meaningless errors and warnings for the section's fields.<br/>Double escape any dots in the keys (for example, `delivery\\.zip\\.code`). |
 | condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/><br/>`{ exists: [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. <br/><br/>`{ match: [JsonLogic, regex] }`, where `regex` is a Javascript-flavored regular expression. For example, use this  regex match when you want to test that the output matches a [type](doc:types) that is not supported by Sensible.<br/>Double escape special characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. <br><br/> For all operations, double escape any dots in the extracted field keys (for example, `delivery\\.zip\\.code`). |
 
 Examples
@@ -47,7 +45,7 @@ Validation 1
 
 - **Description**:  The quote value is not null
 - **Severity**: error
-- **Condition**:`{"exists": [{"var": "rate.value" }] }`
+- **Condition**:`{"exists":[{"var":"rate.value"}]}`
 
 Notes: Uses the Sensible `exists` operation to test that a field (`rate`) is not null.
 
@@ -56,7 +54,7 @@ Validation 2
 
 - **Description**:  The quoted rate is a round number
 - **Severity**: warning
-- **Condition**:`{ "==": [{ "%": [{"var": "rate.value" }, 2] }, 0] }`
+- **Condition**:`{ "==": [{ "%": [{"var": "rate.value"}, 2]}, 0]}`
 
 Notes:  Retrieves the value of an extracted `rate` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
 
@@ -66,9 +64,9 @@ Validation 3
 - **Description**:  Second broker's email is in `string@string` format
 - **Severity**: warning
 - **Prerequisite fields**: `["second\\.broker\\.name"]`
-- **Condition**: `{"match": [{"var": "second\\.broker\\.email.value" }, {"^\\S+\\@\\S+$"}]}`
+- **Condition**: `{"match":[{"var":"second\\.broker\\.email.value"},"^\\S+\\@\\S+$"]}`
 
-Notes:  If the box for a second broker contact is filled out, then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
+Notes:  If there's contact information for a second broker (i.e., `second.broker.name` is not null), then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
 
 Validation 4
 ----
@@ -89,15 +87,15 @@ Validation 4
 ]} 
 ```
 
-Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field is USA, or 6 alphanumeric characters if the `country`  field is Canada. Uses a Sensible operation (`match`) to test regular expressions.
+Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field equals USA, or 6 alphanumeric characters if the `country`  field equals Canada. Uses a Sensible operation (`match`) to test regular expressions.
 
 Validations output
 ---
 
 For the preceding validations, here's an example document extraction where:
 
-- the " zip code is valid" test fails
-- the "second broker email" test is skipped because the prerequisite field  `second\\.broker\\.name` is null
+- **Validation 3**  (second broker email) is skipped because the prerequisite field  `second.broker.name` is null
+- **Validation 4**  (zip code is valid) fails because  `zip_code`  is 17 digits
 
 ```json
 {
