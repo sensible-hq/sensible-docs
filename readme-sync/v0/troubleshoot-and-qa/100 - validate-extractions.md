@@ -47,7 +47,7 @@ Validation 1
 - **Severity**: error
 - **Condition**:`{"exists":[{"var":"rate.value"}]}`
 
-Notes: Uses the Sensible `exists` operation to test that a field (`rate`) is not null.
+**Notes**: Uses the Sensible `exists` operation to test that a field (`rate`) is not null.
 
 Validation 2
 ---
@@ -56,7 +56,7 @@ Validation 2
 - **Severity**: warning
 - **Condition**:`{ "==": [{ "%": [{"var": "rate.value"}, 2]}, 0]}`
 
-Notes:  Retrieves the value of an extracted `rate` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
+**Notes**:  Retrieves the value of an extracted `rate` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
 
 Validation 3
 ---
@@ -66,7 +66,7 @@ Validation 3
 - **Prerequisite fields**: `["second\\.broker\\.name"]`
 - **Condition**: `{"match":[{"var":"second\\.broker\\.email.value"},"^\\S+\\@\\S+$"]}`
 
-Notes:  If there's contact information for a second broker (i.e., `second.broker.name` is not null), then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
+**Notes**:  If there's contact information for a second broker (i.e., `second.broker.name` is not null), then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
 
 Validation 4
 ----
@@ -129,8 +129,6 @@ For the preceding validations, here's an example document extraction where:
 	"download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/edeedb37-1c47-47d2-a64c-f355cf04835e.pdf?AWSAccessKeyId=REDACTED&Expires=1625519233&Signature=REDACTEDD&x-amz-security-token=REDACTED"
 }
 ```
-
-**TODO:** if we add skipped validations to the array, add them in the above response
 
 Notes
 ====
