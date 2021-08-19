@@ -20,14 +20,14 @@ To write validations in the Sensible app:
 Parameters
 ====
 
-For fields in the `parsed_document` output, write validations that test the fields' values using boolean, logic, numeric, array, string, and misc operations. A validation has the following parameters:
+A validation has the following parameters:
 
 | id                         | value               | notes                                                        |
 | -------------------------- | ------------------- | ------------------------------------------------------------ |
 | description (**required**) | string              | A description of the test                                    |
 | severity (**required**)    | `error`, `warning`  | The severity of the failing test                             |
-| prerequisite fields        | array               | Skip the condition if these fields are null. For example, if a "Additional fees" section of a document is often left blank, then specify a prerequisite field in that section (e.g., [`"first\\.additional\\.fee"`])  to verify the section is filled out. If the section is blank, the prerequisite field helps avoid meaningless errors and warnings for the section's fields.<br/>Double escape any dots in the extracted field keys (for example, `delivery\\.zip\\.code`). |
-| condition (**required**)   | JsonLogic operation | Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/><br/>`{ "exists": [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. <br/><br/>`{ "match": [JsonLogic, "regex"] }`, where `regex` is a Javascript-flavored regular expression. For example, use a  regex match when you want to test that the output matches a [type](doc:types) that is not supported by Sensible.<br/>Double escape special characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. <br><br/> Double escape any dots in the extracted field keys (for example, `delivery\\.zip\\.code`). |
+| prerequisite fields        | array               | Use this parameter to suppress error messages when optional extracted fields are null. For example, if a broker's email address is optional, write a condition to verify  `broker_email`  contains an @ character, but specify [`"broker_email"`]  in this parameter to skip any error messages if the email is null.  <br/>Double escape any dots in the extracted field keys (for example, `delivery\\.zip\\.code`). |
+| condition (**required**)   | JsonLogic operation | Test fields in the `parsed_document` API response using boolean, logic, numeric, array, string, and misc operations Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/><br/>`{ "exists": [JsonLogic] }`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. <br/><br/>`{ "match": [JsonLogic, "regex"] }`, where `regex` is a Javascript-flavored regular expression. For example, use a  regex match when you want to test that the output matches a [type](doc:types) that is not supported by Sensible.<br/>Double escape special characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. <br><br/> Double escape any dots in the extracted field keys (for example, `delivery\\.zip\\.code`). |
 
 Examples
 ====
@@ -61,12 +61,12 @@ Validation 2
 Validation 3
 ---
 
-- **Description**:  Second broker's email is in `string@string` format
+- **Description**:  Broker's email is in `string@string` format
 - **Severity**: warning
-- **Prerequisite fields**: `["second\\.broker\\.name"]`
-- **Condition**: `{"match":[{"var":"second\\.broker\\.email.value"},"^\\S+\\@\\S+$"]}`
+- **Prerequisite fields**: `["broker\\.email"]`
+- **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`
 
-**Notes**:  If there's contact information for a second broker (i.e., `second.broker.name` is not null), then uses a Sensible operation (`match`) to test that the second broker's email matches a regular expression. Otherwise, skips this condition.
+**Notes**:  If optional email information for a broker is filled out (i.e., `broker.email` is not null), then uses a Sensible operation (`match`) to test that the email matches a regular expression. Otherwise, skips this condition.
 
 Validation 4
 ----
@@ -94,7 +94,7 @@ Validations output
 
 For the preceding validations, here's an example document extraction where:
 
-- **Validation 3**  (second broker email) is skipped because the prerequisite field  `second.broker.name` is null
+- **Validation 3**  (broker email) is skipped because the prerequisite field  `broker.email` is null
 - **Validation 4**  (zip code is valid) fails because  `zip_code`  is 17 digits
 
 ```json
@@ -115,7 +115,6 @@ For the preceding validations, here's an example document extraction where:
 			"unit": "$",
 			"type": "currency"
 		},
-        "second.broker.name": null,
 		"second.broker.email": null,
         "country": {
 			"type": "string",
