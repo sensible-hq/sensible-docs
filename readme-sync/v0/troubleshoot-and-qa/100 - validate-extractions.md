@@ -95,7 +95,7 @@ Validations output
 For the preceding validations, here's an example document extraction where:
 
 - **Validation 3**  (broker email) is skipped because the prerequisite field  `broker.email` is null
-- **Validation 4**  (zip code is valid) fails because  `zip_code`  is 17 digits
+- **Validation 4**  (zip code) fails because  `zip_code`  is 17 digits
 
 ```json
 {
