@@ -43,7 +43,7 @@ You test sales quote extractions from all the companies with the following valid
 Validation 1
 ---
 
-- **Description**:  The quote value is not null
+- **Description**:  The quoted rate value is not null
 - **Severity**: error
 - **Condition**:`{"exists":[{"var":"rate.value"}]}`
 
@@ -52,11 +52,11 @@ Validation 1
 Validation 2
 ---
 
-- **Description**:  The quoted rate is a round number
+- **Description**:  The quote duration is a round number
 - **Severity**: warning
-- **Condition**:`{ "==": [{ "%": [{"var": "rate.value"}, 2]}, 0]}`
+- **Condition**:`{ "==": [{ "%": [{"var": "quote_duration.value"}, 2]}, 0]}`
 
-**Notes**:  Retrieves the value of an extracted `rate` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
+**Notes**:  Retrieves the value of an extracted `quote_duration` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
 
 Validation 3
 ---
@@ -115,7 +115,11 @@ For the preceding validations, here's an example document extraction where:
 			"unit": "$",
 			"type": "currency"
 		},
-		"second.broker.email": null,
+        "quote_duration": {
+			"type": "number",
+			"value": "6"
+		},
+		"broker.email": null,
         "country": {
 			"type": "string",
 			"value": "USA"
