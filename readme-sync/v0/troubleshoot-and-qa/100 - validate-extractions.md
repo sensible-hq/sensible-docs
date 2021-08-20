@@ -45,16 +45,16 @@ Validation 1
 
 - **Description**:  The quoted rate value is not null
 - **Severity**: error
-- **Condition**:`{"exists":[{"var":"rate.value"}]}`
+- **Condition**:`{"exists":[{"var":"quote_rate.value"}]}`
 
-**Notes**: Uses the Sensible `exists` operation to test that a field (`rate`) is not null.
+**Notes**: Tests that a field  (`quote_rate`) is not null using the Sensible `exists` operation.
 
 Validation 2
 ---
 
 - **Description**:  The quote duration is a round number
 - **Severity**: warning
-- **Condition**:`{ "==": [{ "%": [{"var": "quote_duration.value"}, 2]}, 0]}`
+- **Condition**:`{"==":[{"%":[{"var":"quote_duration.value"},2]},0]}`
 
 **Notes**:  Retrieves the value of an extracted `quote_duration` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
 
@@ -66,7 +66,7 @@ Validation 3
 - **Prerequisite fields**: `["broker\\.email"]`
 - **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`
 
-**Notes**:  If optional email information for a broker is filled out (i.e., `broker.email` is not null), then uses a Sensible operation (`match`) to test that the email matches a regular expression. Otherwise, skips this condition.
+**Notes**:  If optional email information for a broker is filled out (i.e., `broker.email` is not null), then uses a Sensible operation (`match`) to test that the email matches a regular expression. If `broker.email` is null, skips this condition.
 
 Validation 4
 ----
@@ -77,13 +77,13 @@ Validation 4
 
 - **Condition**:
 ```json
-{"or": [
-  {"and": [
-    {"==": [{"var": "country.value"}, "US"]},
-    {"match": [{ "var": "zip_code.value" }, "^[0-9]{5}$"]} ] },
-  {"and": [
-    {"==": [{"var": "country.value"}, "CA"]},
-    {"match": [{ "var": "zip_code.value" }, "^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$"]} ] }
+{"or":[
+  {"and":[
+    {"==":[{"var":"country.value"},"US"]},
+    {"match":[{ "var":"zip_code.value" },"^[0-9]{5}$"]}]},
+  {"and":[
+    {"==":[{"var":"country.value"},"CA"]},
+    {"match":[{"var":"zip_code.value"},"^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$"]}]}
 ]} 
 ```
 
@@ -109,7 +109,7 @@ For the preceding validations, here's an example document extraction where:
 		"severity": "warning"
 	}],
 	"parsed_document": {
-		"rate": {
+		"quote_rate": {
 			"source": "$800",
 			"value": 800,
 			"unit": "$",
