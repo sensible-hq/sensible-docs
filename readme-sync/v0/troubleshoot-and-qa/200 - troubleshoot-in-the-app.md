@@ -9,7 +9,7 @@ Validate SenseML
 ====
 The SenseML pane has a built-in linter for both JSON and the SenseML model. If you see a warning about  invalid JSON, then hover over the red-underlined JSON to see an error message:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/linter_SenseML.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/linter_SenseML.png)
 
 You can also use the linter to autocomplete parameters.
 
@@ -27,7 +27,7 @@ You can inspect a line to see:
 - dimensions of the line boundaries
 - which fields interact with that line:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/line_details_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_details_example.png)
 
 Inspect all extracted text
 ====

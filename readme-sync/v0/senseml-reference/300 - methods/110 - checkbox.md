@@ -27,7 +27,7 @@ Examples
 
 The following image shows extracting three checkboxes:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/borders/checkbox_examples.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/checkbox_examples.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:

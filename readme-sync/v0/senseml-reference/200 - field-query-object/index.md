@@ -29,7 +29,7 @@ Here is a simple example of a field:
 
 The following image shows this example in the Sensible app:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/basic_field.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/basic_field.png)
 
 As the preceding image shows, this is the output of the example field: 
 

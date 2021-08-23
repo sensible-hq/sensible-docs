@@ -33,7 +33,7 @@ The following example shows that:
 - If you specify  `"type": "string"` (the default),  you get the entire column returned as a joined string.
 - If you specify a tiebreaker, you get a single element in the column.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/column_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/column_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
