@@ -13,9 +13,20 @@ To publish the markdown docs in this repository to ReadMe.io at https://docs.sen
 
 
 
-### Directory and filename requirements
+### Directory and markdown filename requirements
 
 See https://github.com/flowcommerce/readme-sync. 
+
+
+
+### Image directory conventions
+In the Images dir:
+- Save raw, unprocessed screenshots to source/
+- Save screenshots edits with callouts and other overlays to callouts/
+- the doc build process automatically applies styling to images in callouts/ and saves to borders/
+
+
+
 
 
 
