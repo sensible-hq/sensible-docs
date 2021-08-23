@@ -222,3 +222,12 @@ and
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/style/mix/pdf_5.png)
 
+
+
+screensize
+----
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style_test/full_width_150_8colspan_bigscreen.png)
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style_test/mix/full_width_150_8colspan_smallscreen.png)
+
