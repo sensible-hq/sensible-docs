@@ -227,7 +227,10 @@ and
 screensize
 ----
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style_test/full_width_150_8colspan_bigscreen.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style_tests/full_width_150_8colspan_bigscreen.png)
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style_test/mix/full_width_150_8colspan_smallscreen.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/style_tests/full_width_150_8colspan_smallscreen.png)
+
+
+
 
