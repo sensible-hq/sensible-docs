@@ -25,7 +25,7 @@ For example, the following image shows:
 - an anchor line outlined in yellow ("Here is a good candidate...")
 - a line output by the Label method outlined in blue ("And here's the text below...")
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_label_and_method_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/ui_label_and_method_1.png)
 
 The query used for the preceding image is:
 
@@ -60,11 +60,11 @@ Green box
 
 Green points can be useful for troubleshooting. For example, in the following image, Sensible can't recognize the box. The green dot provides a visual clue about the problem: the green dot is *on* the box border itself, as specified by (`"position": "left"`).
 
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_position_left.png)
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/box_position_left.png)
 
 If you specify to find the box borders by starting from the right edge of the anchor line's boundaries (`"position": "right"`), the green dot is far enough inside the borders for Sensible to recognize the box:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/box_position_right.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/box_position_right.png)
 
 
 
@@ -75,7 +75,7 @@ Light blue box
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (light blue box).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_method.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/ui_filtered_method.png)
 
 The query used for the preceding image is:
 
@@ -111,7 +111,7 @@ Light yellow box
 
 In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements (the Row method would work here instead):
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_filtered_anchor.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/ui_filtered_anchor.png)
 
 The query used for the preceding image is:
 
@@ -153,7 +153,7 @@ If you hover on a line (text surrounded by a gray box), it changes to a ***purpl
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/changelog_July2021_x-ray_mode.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/changelog_July2021_x-ray_mode.png)
 
 Yellow box
 ====
@@ -165,7 +165,7 @@ For example, the following image shows:
 - an anchor line outlined in yellow ("Here is a good candidate...")
 - a line output by the Label method outlined in blue ("And here's the text below...")
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/ui_label_and_method_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/ui_label_and_method_1.png)
 
 The query used for the preceding image is:
 

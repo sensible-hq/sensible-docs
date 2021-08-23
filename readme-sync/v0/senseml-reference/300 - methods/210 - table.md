@@ -35,7 +35,7 @@ The following example shows extracting two columns from a table that updates mon
 - In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `rank_this_month` .
 - To improve performance, the config specifies a Stop parameter. This ensures Sensible only OCRs the relevant page area while looking for a table.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/table_dynamic_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/table_dynamic_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:

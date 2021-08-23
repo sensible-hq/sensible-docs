@@ -18,7 +18,7 @@ Examples
 
 The following image shows splitting a field's output to extract a first and last name:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/split_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/split_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:

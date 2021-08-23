@@ -19,11 +19,11 @@ Examples
 
 The following image shows a "typewritten" style PDF in which the Split Lines preprocessor preserves columns and rows that are formatted with spaces:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/split_lines_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/split_lines_example.png)
 
 Without this preprocessor, the lines are merged too aggressively:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/split_lines_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/split_lines_example_2.png)
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
