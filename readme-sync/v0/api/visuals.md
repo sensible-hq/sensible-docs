@@ -44,7 +44,7 @@ The following example config shows blah blah:
 
 When you use this config with the following PDF:
 
-| Example PDF for TBD | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TBD_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TBD_example.pdf) |
 | ------------------- | ------------------------------------------------------------ |
 The Sensible app visually represents this config in the rendered PDF as:
 

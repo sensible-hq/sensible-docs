@@ -8,7 +8,7 @@ Before integrating existing config updates into your application, test the updat
 1. In the Sensible app, click **Publish** and choose **Development** to save your updates to a development environment.
 2. Add the query parameter `?environment=development` to your extraction [API calls](https://docs.sensible.so/reference) to test your updated config.
 
-Fallback behavior
+Environment fallback behavior
 ----
 
 When you  specify `?environment=development` in an API endpoint, Sensible falls back to the production version for each configuration if it can't find a development version.

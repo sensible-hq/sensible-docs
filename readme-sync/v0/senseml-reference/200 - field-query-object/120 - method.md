@@ -93,7 +93,7 @@ In this example, the X Range Filter parameter is the best option:
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF for X Range Filter | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xrange_filter_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xrange_filter_example.pdf) |
 | ------------------------------ | ------------------------------------------------------------ |
 
 This example uses the following config:

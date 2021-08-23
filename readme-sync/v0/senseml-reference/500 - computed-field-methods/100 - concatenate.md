@@ -28,9 +28,9 @@ The following image shows using the Concat method to concatenate two address fie
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/concat_example.png)
 
 
-You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF for concat | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/concat_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/concat_example.pdf) |
 | ---------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

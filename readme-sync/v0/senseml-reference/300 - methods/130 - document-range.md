@@ -62,9 +62,9 @@ The following example grabs two images' coordinates:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
 
-You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF for image coordinates | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates_example.pdf) |
 | --------------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

@@ -54,7 +54,7 @@ Modify this example to observe the effects of the different parameters. For exam
 
 Try out this example in the Sensible app using the following PDF and config: 
 
-| Example PDF for OCR Merge Lines | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
 | ------------------------------- | ------------------------------------------------------------ |
 
 To duplicate this example, click **Edit Settings**  for the Document Type and set Google OCR: 
@@ -146,7 +146,7 @@ The following image shows using the Y Overlap parameter to ignore vertical misal
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF for Y Overlap | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap_example.pdf) |
 | ------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
@@ -183,9 +183,9 @@ The following image shows using the Min X Gap Threshold parameter to correctly e
 
 The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on this document, as well as in other instances of this document in which the lines do not overlap.
 
-You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
+Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF for Min X Gap Threshold | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap_example.pdf) |
 | ----------------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
