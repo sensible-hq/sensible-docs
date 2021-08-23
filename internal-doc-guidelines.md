@@ -23,7 +23,7 @@ See https://github.com/flowcommerce/readme-sync.
 In the Images dir:
 - Save raw, unprocessed screenshots to source/
 - Save screenshots edits with callouts and other overlays to callouts/
-- the doc build process automatically applies styling to images in callouts/ and saves to borders/
+- the doc build process automatically applies styling such as drop shadows to images in callouts/ and saves to final/
 
 
 
@@ -65,7 +65,7 @@ _____
 
 
 
-- **automatic build** -  Let's use Travis or similar tool to automate calling the readme-sync tool so that on committ, the github markdown syncs to ReadMe.
+- **automatic build** -  Let's use Travis or similar tool to automate calling `make_docs.sh` whenever there's a commit to main in this repo.
 
   
 
