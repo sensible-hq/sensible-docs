@@ -25,34 +25,34 @@ Examples
 
 The following image shows that without the Deskew preprocessor, extraction from a skewed PDF fails. The Region method returns null, because the targeted date range is in an unexpected position (to the left of the anchor, `tenure`) rather than in the expected position (`below`):
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/deskew_example_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_example_1.png)
 
 To solve this problem:
 
 1.  Define three widely spaced points in a well-aligned example of this document type: The following image shows using the displayed coordinates of a line to define the X and Y parameters for one of three Fixed Point parameters:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/deskew_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_example_2.png)
 
 For more information about choosing points, see [Best Practices](doc:deskew#best-practices).
 
 
 2. Check the Deskew preprocessor against the skewed example to reveal a remaining problem:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/deskew_example_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_example_3.png)
 
 The remaining problem is that the Deskew Preprocessor  does not merge lines that were split by the skew. As a result, the region starts at the middle of the word "tenure" instead of the middle of the complete line "White house tenure". Since the region is shifted to the right, it misses the first year of the date range:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/deskew_example_5.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_example_5.png)
 
 
 
 3. To fix this problem, apply a Merge Lines preprocessor after the Deskew preprocessor: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/deskew_example_4.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_example_4.png)
 
 Now Sensible captures the full date range, because the region starts at the middle of the complete line "White house tenure": 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/deskew_example_6.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_example_6.png)
 
 Try out this example in the Sensible app using the following PDFs and config:
 

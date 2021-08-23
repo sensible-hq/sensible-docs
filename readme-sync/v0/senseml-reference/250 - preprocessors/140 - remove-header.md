@@ -35,14 +35,14 @@ The following images show:
   - Where it overlaps a repeating element, it is also treated as repeating and is removed from the direct text extraction.
   - Where it overlaps variable text, it is not considered repeating and is still included in the direct text extraction
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/remove_header_example_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_example_1.png)
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/remove_header_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_example_2.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:
 
-| Example PDF for Remove Header preprocessor | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/remove_header_example.pdf) |
+| Example PDF for Remove Header preprocessor | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_example.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
 
 This example uses the following config:

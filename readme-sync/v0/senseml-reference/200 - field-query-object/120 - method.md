@@ -34,11 +34,11 @@ X Major Sort example
 
 In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader): 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/xmajor_sort_example_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_example_1.png)
 
 To reliably capture the first and last name in their left-to-right order,  set `"xMajorSort":"true"` :
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/xmajor_sort_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_example_2.png)
 
 Try out this example in the Sensible app using the following PDF and config:
 
@@ -81,7 +81,7 @@ In combination with the Document Range method, the X Range Filter parameter defi
 
 The following image shows using this parameter to extract a "cell" of text that doesn't easily fit other methods:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/xrange_filter_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xrange_filter_example.png)
 
 
 

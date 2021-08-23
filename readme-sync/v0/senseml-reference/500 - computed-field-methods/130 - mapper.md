@@ -19,7 +19,7 @@ Examples
 
 The following image shows using a mapper to standardize a time duration:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/mapper_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mapper_example.png)
 
 
 You can try out this example yourself in the Sensible app using the following downloadable PDF and config:

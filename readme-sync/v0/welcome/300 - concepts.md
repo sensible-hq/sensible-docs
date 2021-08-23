@@ -32,7 +32,7 @@ Here is a simple example of a field:
 
 The following image shows this example in the Sensible app:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/basic_field.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/basic_field.png)
 
 As the preceding image shows, this is the output of the example field: 
 
@@ -67,7 +67,7 @@ Lines
 
  A "line" is a rectangular region containing text.  Readers of left-to-right written languages think of "lines"  as vertically ordered. But for Sensible, multiple lines  (shown as gray boxes) can exist at the same height on the page:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/line_concept.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_concept.png)
 
  In other words, a line is set apart from other lines by any type of whitespace,  not just by newlines.
 
@@ -79,11 +79,11 @@ Lines are sorted primarily by their height on the page (their y-axis position) a
 
 For example, this image shows which lines precede and succeed a target line:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/line_sort_example_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_sort_example_1.png)
 
 However, when text is slightly misaligned vertically (often the case with handwriting), line sorting is less intuitive. In the following image, a human reader may intepret the red line as succeeding the target line, but for Sensible it *precedes* the target line because it is higher on the page:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/line_sort_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_sort_example_2.png)
 
 To configure this default sorting behavior, see [the XMajorSort parameter](doc:method).
 
@@ -94,7 +94,7 @@ Line grouping
 
 For the Label method, Sensible groups lines together using whitespace and x- and y-axis positions. Sometimes, Sensible's line groups are more restrictive than a human reader might expect. In particular, Sensible groups lines separated by vertical space only if they align at the *left* edge of each line boundary by default:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/borders/line_grouping_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_grouping_example.png)
 
 To capture multiple unaligned lines, use the Document Range method.
 
