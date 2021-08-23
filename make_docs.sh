@@ -3,16 +3,16 @@ direnv allow .
 echo "updating from Github"
 git pull
 echo "applying drop shadows to any new images"
-# for any PNG that exists in ./readme-sync/assets/v0/images/ but not ./readme-sync/assets/v0/images/borders, convert to drop shadow
-# and write to borders dir
+# for any PNG that exists in ./readme-sync/assets/v0/images/ but not ./readme-sync/assets/v0/images/final, convert to drop shadow
+# and write to final dir
 for file in ./readme-sync/assets/v0/images/callouts/*.png
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
-  borderFile="${file/images\/callouts/images\/borders}"
-  if [ -f "$file" ] && [ ! -f "$borderFile" ]
+  finalFile="${file/images\/callouts/images\/final}"
+  if [ -f "$file" ] && [ ! -f "$finalFile" ]
   then
-    echo "processing $file and writing to $borderFile" 
-    convert "$file" -bordercolor white -border 0 \( +clone -background black -shadow 80x3+2+2 \) +swap -background white -layers merge +repage "$borderFile"
+    echo "processing $file and writing to $finalFile" 
+    convert "$file" -bordercolor white -border 0 \( +clone -background black -shadow 80x3+2+2 \) +swap -background white -layers merge +repage "$finalFile"
   fi
 done
 echo "syncing to Readme "
