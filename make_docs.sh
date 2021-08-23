@@ -5,10 +5,10 @@ git pull
 echo "applying drop shadows to any new images"
 # for any PNG that exists in ./readme-sync/assets/v0/images/ but not ./readme-sync/assets/v0/images/borders, convert to drop shadow
 # and write to borders dir
-for file in ./readme-sync/assets/v0/images/*.png
+for file in ./readme-sync/assets/v0/images/callouts/*.png
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
-  borderFile="${file/images/images/borders}"
+  borderFile="${file/images/callouts/images/borders}"
   if [ -f "$file" ] && [ ! -f "$borderFile" ]
   then
     echo "processing $file and writing to $borderFile" 
