@@ -135,7 +135,7 @@ Example output:
 Currency
 ----
 
-Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06). Recognizes abbreviated quantities, such as k for thousand.  For  European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06). Recognizes abbreviated quantities, such as k for thousand.  For European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 Recognizes digits with the following formatting:
 
