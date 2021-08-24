@@ -1,6 +1,6 @@
 ---
 title: "Validate extractions"
-hidden: true
+hidden: false
 ---
 
  
@@ -108,6 +108,12 @@ For the preceding validations, here's an example document extraction where:
 		"description": "Zip code must be valid",
 		"severity": "warning"
 	}],
+    "validation_summary": {
+      "fields": 5,
+      "fields_present": 4,
+      "errors": 0,
+      "warnings": 1
+    },
 	"parsed_document": {
 		"quote_rate": {
 			"source": "$800",
