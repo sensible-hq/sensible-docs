@@ -485,3 +485,12 @@ curl --request POST \
 **Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best! 
 
 Now you can use the [Sensible API](https://docs.sensible.so/reference) to generate upload and download URLs for multiple car insurance quote PDFs,  retrieve results, and integrate with your application!  
+
+
+
+Next
+====
+
+- Check out the [SenseML method reference docs](doc:methods) to write your own extractions
+- Write [validations](doc:validate-extractions) to test the qualify of your extractions in production
+
