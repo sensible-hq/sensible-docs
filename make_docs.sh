@@ -2,13 +2,13 @@
 direnv allow .
 echo "updating from Github"
 git pull
-echo "applying drop shadows to any new images"
+echo "applying drop shadows to any new filenames in screenshots but not in final"
 # for any PNG that exists in ./readme-sync/assets/v0/images/ but not ./readme-sync/assets/v0/images/final, convert to drop shadow
 # and write to final dir
-for file in ./readme-sync/assets/v0/images/callouts/*.png
+for file in ./readme-sync/assets/v0/images/screenshots/*.png
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
-  finalFile="${file/images\/callouts/images\/final}"
+  finalFile="${file/images\/screenshots/images\/final}"
   if [ -f "$file" ] && [ ! -f "$finalFile" ]
   then
     echo "processing $file and writing to $finalFile" 
