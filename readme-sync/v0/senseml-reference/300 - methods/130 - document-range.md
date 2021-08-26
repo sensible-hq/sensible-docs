@@ -2,7 +2,7 @@
 title: "Document Range"
 hidden: false
 ---
-Use the Document Range method to grab multiple consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the definition of "succeeding", see [Line sorting](doc:concepts#line-sorting).
+Use the Document Range method to extract multiple consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the definition of "succeeding", see [Line sorting](doc:concepts#line-sorting).
 
 Or, use this method to return the coordinates of regions containing images.
 
@@ -30,7 +30,7 @@ Examples
 Paragraphs and lists
 ----
 
-The following config grabs a list of four sworn statements from a W-9 form: 
+The following config extracts a list of four sworn statements from a W-9 form: 
 
 ```json
 {
@@ -58,7 +58,7 @@ The following image shows this example in the Sensible app:
 Images
 ----
 
-The following example grabs two images' coordinates:
+The following example extracts two images' coordinates:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
 
@@ -92,7 +92,7 @@ This example uses the following config:
 
 
 
-For more information on grabbing images, see the **Notes** section on this page.
+For information on extracting images rather than image metadata, see the **Notes** section on this page.
 
 
 

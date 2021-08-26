@@ -4,9 +4,9 @@ hidden: false
 
 ---
 
-Use the Region method to grab data in a rectangular region, defined in inches. The region omits lines that only partly fall inside the region. 
+Use the Region method to extract data in a rectangular region, defined in inches. The region omits lines that only partly fall inside the region. 
 
-In general, use this method when you want to grab data from an area whose formatting doesn't exactly fit other SenseML methods, such as the Box method. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to grab.
+In general, use this method when you want to extract data from an area whose formatting doesn't exactly fit other SenseML methods, such as the Box method. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to extract.
 
 [**Parameters**](doc:region#section-parameters)
 [**Examples**](doc:region#section-examples)
@@ -30,7 +30,7 @@ Parameters
 Examples
 ====
 
-The following image shows extracting a social security number from a W-9 form by defining a region to grab:
+The following image shows extracting a social security number from a W-9 form by defining a region to extract:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/region_ssn.png)
 
@@ -69,4 +69,4 @@ This example uses the following config:
 Notes
 ====
 
-If the region that you want to grab is a box that is bordered with dark lines, you can use the [Box method](doc:box) instead of the Region method.
+If the region that you want to extract is a box that is bordered with dark lines, you can use the [Box method](doc:box) instead of the Region method.

@@ -11,7 +11,7 @@ Use the Passthrough method to grab a line or lines of text using an anchor, and 
 Examples
 ====
 
-The following example config uses regular expressions to grab a list of forms that are all identified by four digits (i.e., "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the data we were looking for is already matched by the anchor, we don't need a Method object. To ignore the Method object, we set the method id to  `"passthrough"`. 
+The following example config uses regular expressions to extract a list of forms that are all identified by four digits (i.e., "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the data we were looking for is already matched by the anchor, we don't need a Method object. To ignore the Method object, we set the method id to  `"passthrough"`. 
 
 ```json
 {
