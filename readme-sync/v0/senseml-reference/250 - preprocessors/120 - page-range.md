@@ -3,8 +3,6 @@ title: "Page range"
 hidden: false
 ---
 
-
-
 Ignores pages outside the start page and end page.
 
 Parameters

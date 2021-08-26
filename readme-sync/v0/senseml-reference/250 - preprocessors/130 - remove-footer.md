@@ -3,16 +3,16 @@ title: "Remove footer"
 hidden: false
 ---
 
-Removes repeated elements at the bottoms of pages from the direct text extraction of the pages.   
+Ignores repeating elements at the bottoms of pages. These elements are removed from the direct-text extraction of the document.   
 
 To recognize a footer, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
 
 These elements are recognized as "repeating":
 
-- Elements whose y-extent does not overlap with any variable element
+- Elements whose y-extent does not overlap with any variable element on the page
 - Positively incrementing page numbers
 
-These elements are not recognized as "repeating": 
+These elements are *not* recognized as "repeating": 
 
 - Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
 - A repeating element that is missing from even one page (for example, from an intentionally blank page). 
@@ -42,7 +42,7 @@ The following images show:
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_footer_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/remove_footer_example.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
 
 This example uses the following config:
