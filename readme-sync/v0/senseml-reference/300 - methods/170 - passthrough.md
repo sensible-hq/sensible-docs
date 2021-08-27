@@ -2,7 +2,7 @@
 title: "Passthrough"
 hidden: false
 ---
-Use the Passthrough method to extract a line or lines of text using an anchor, and return the anchor match or matches directly. This can be useful when you want to match using regular expressions, and you don’t want to take any additional steps after finding your matches. 
+Use the Passthrough method to match text using an anchor, and return the anchor match or matches directly. This can be useful when you want to match using regular expressions, and you don’t want to take any additional processing steps after finding the matches. 
 
 [**Parameters**](doc:passthrough#section-parameters)
 [**Examples**](doc:passthrough#section-examples)
@@ -11,7 +11,7 @@ Use the Passthrough method to extract a line or lines of text using an anchor, a
 Examples
 ====
 
-The following example config uses regular expressions to extract a list of forms that are all identified by four digits (i.e., "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the data we were looking for is already matched by the anchor, we don't need a Method object. To ignore the Method object, we set the method id to  `"passthrough"`. 
+The following example config uses regular expressions to extract a list of forms that are all identified by four digits (i.e., "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the target data is already matched by the anchor, we don't need a Method object. To ignore the Method object, set the method id to  `"passthrough"`. 
 
 ```json
 {
@@ -48,11 +48,11 @@ Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
-| id                | value         | description                                           |
-| ----------------- | ------------- | ----------------------------------------------------- |
-| id (**required**) | `passthrough` | bypass the Method object, and return an anchor. <br/> |
+| id                | value         | description                                                  |
+| ----------------- | ------------- | ------------------------------------------------------------ |
+| id (**required**) | `passthrough` | bypass the Method object, and return the output of the anchor's Match parameter. <br/> |
 
 Notes
 -----
 
-Often, you use the Passthrough method in conjunction with an anchor that matches using regular expressions. Because anchor matches do not support regex capturing groups, the Passthrough method returns the full contents of the matched line. If you want instead to use a capturing group to return only part of a matching line, see the [Regex method](doc:regex).
+Often, you use the Passthrough method in combination with regular expressions. Because anchors do not support regex capturing groups, the Passthrough method returns the full contents of the matched line. If you want instead to use a capturing group to return only part of a matched line, see the [Regex method](doc:regex).

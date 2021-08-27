@@ -4,9 +4,12 @@ hidden: false
 
 ---
 
-Use the Region method to extract data in a rectangular region, defined in inches. The region omits lines that only partly fall inside the region. 
+Extracts data in a rectangular region, defined in inches. The region omits lines that only partly fall inside the region. 
 
-In general, use this method when you want to extract data from an area whose formatting doesn't exactly fit other SenseML methods, such as the Box method. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to extract.
+In general, use this method:
+
+- for faster performance comapred to the Box method
+-  when you want to extract data from an area whose formatting doesn't exactly fit other SenseML methods. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to extract.
 
 [**Parameters**](doc:region#section-parameters)
 [**Examples**](doc:region#section-examples)
@@ -17,15 +20,15 @@ Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
-| id                     | value                             | description                                                                                                                                                                                                                                 |
-| ---------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id (**required**)      | `region`                          |                                                                                                                                                                                                                                             |
-| start (**required**)   | `above`, `below`, `left`, `right` | A Direction specifying where to start relative to the anchor. `right`  specifies a start point at the middle of the right edge of the anchor, `below` specifies a start point at the middle of the bottom edge of the anchor, and so forth. |
-| offsetX (**required**) | number                            | The offset in inches along the X axis:<br/>- from the point defined in the Start parameter <br/>- to the top left corner of the region<br/>You can use interactive visual feedback in the Sensible app to determine this number.            |
-| offsetY (**required**) | number                            | The offset in inches along the Y axis:<br/>- from the point defined in the Start parameter <br/>- to the top left corner of the region<br/>You can use interactive visual feedback in the Sensible app to determine this number.            |
-| width (**required**)   | number                            | The width in inches of the extraction region. <br/>You can use interactive visual feedback in the Sensible app to determine this number.                                                                                                    |
-| height (**required**)  | number                            | The height in inches of the extraction region. <br/>You can use interactive visual feedback in the Sensible app to determine this number.                                                                                                   |
-| isAbsoluteOffset       | boolean. default: `false`         | Makes the offsets relative to the 0,0 origin at the top left of the page rather than to the Start parameter.                                                                                                                                |
+| id                     | value                             | description                                                  |
+| ---------------------- | --------------------------------- | ------------------------------------------------------------ |
+| id (**required**)      | `region`                          |                                                              |
+| start (**required**)   | `above`, `below`, `left`, `right` | Defines the starting point for the extraction region relative to the anchor. `right`  specifies a start point at the middle of the right edge of the anchor, `below` specifies a start point at the middle of the bottom edge of the anchor, and so forth. |
+| offsetX (**required**) | number                            | The horizontal offset in inches from the point defined in the Start parameter to the top left corner of the region.<br/>You can use interactive visual feedback in the Sensible app to determine this number. |
+| offsetY (**required**) | number                            | The vertical offset in inches from the point defined in the Start parameter to the top left corner of the region.<br/>You can use interactive visual feedback in the Sensible app to determine this number. |
+| width (**required**)   | number                            | The width in inches of the region. <br/>You can use interactive visual feedback in the Sensible app to determine this number. |
+| height (**required**)  | number                            | The height in inches of the region. <br/>You can use interactive visual feedback in the Sensible app to determine this number. |
+| isAbsoluteOffset       | boolean. default: `false`         | Makes the offsets relative to the 0,0 origin at the top left of the page rather than to the Start parameter. |
 
 Examples
 ====
