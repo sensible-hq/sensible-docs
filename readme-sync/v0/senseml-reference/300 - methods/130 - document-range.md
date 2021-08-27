@@ -2,7 +2,7 @@
 title: "Document Range"
 hidden: false
 ---
-Use the Document Range method to extract multiple consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the definition of "succeeding", see [Line sorting](doc:concepts#line-sorting).
+Use the Document Range method to extract multiple consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For more on line order, see [Line sorting](doc:concepts#line-sorting).
 
 Or, use this method to return the coordinates of regions containing images.
 
@@ -102,14 +102,14 @@ Notes
 Extracting images
 ----
 
-Currently, Document Range is the only method that supports identifying image regions. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen language to follow these general steps:
+Currently, Document Range is the only method that supports identifying image regions. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
 
 - Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
 - Convert from Sensible's region coordinates to DPI coordinates.  Sensible region coordinates follow these conventions:
   - they are in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
   - they are in inches (to convert inches to DPI, simply multiply the inches coordinates by your DPI setting. For example, an x-coordinate of 3.156 inches is approximately 227 DPI for a DPI setting of 72 (72 DPI * 3.156 inches).
   - they are ordered clockwise from top left, i.e.: top left, top right, bottom right, bottom left
-- Extract a partial bitmap defined by the coordinates from the page.
+- Extract a partial bitmap defined by the image coordinates from the page.
 - Encode the bitmap to bytes in the image format of your choice. 
 
 The following is an example of Sensible image coordinate output:

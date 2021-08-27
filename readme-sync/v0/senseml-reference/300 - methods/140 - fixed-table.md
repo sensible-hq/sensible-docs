@@ -26,18 +26,18 @@ Parameters
 
 | key                        | value                       | description                                                  |
 | :------------------------- | :-------------------------- | :----------------------------------------------------------- |
-| id (**required**)          | `fixedTable`                | When you specify the Fixed Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. |
+| id (**required**)          | `fixedTable`                | When you specify the Fixed Table method, you must also specify `"type": "table"` in the field's parameters. |
 | columnCount (**required**) | integer                     | The number of columns the tables must have.                  |
-| columns (**required**)     | array                       | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> - `index` (**required**): A zero-based column index <br/>-`type` : The type of the value in the table cell. See a list of possible types in [Field query object](doc:field-query-object) <br/> -`isRequired` (default: false): If true, Sensible does not return rows in which a value is not present in this column. If false, Sensible returns nulls for rows in which a value is not present. Bear in mind that if you set this parameter to true for an empty row in one column, Sensible leaves out that row for all other columns as well, even if that row had content under a different column. |
-| stop                       | Match object. default: none | (**Recommended**)  [Match object](doc:match)  to stop table recognition. This method uses OCR  to recognize a table. With a Stop parameter defined, Sensible OCRs only the pages from the starting anchor to the page with the stop match. Otherwise, Sensible OCRs all pages, which can impact performance. |
+| columns (**required**)     | array                       | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> - `index` (**required**): A zero-based column index <br/>-`type` : The type of the value in the table cell. For more information, see  [types](doc:types) <br/> -`isRequired` (default: false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| stop                       | Match object. default: none | (**Recommended**)  [Match object](doc:match)  to stop table recognition. Otherwise, Sensible searches all pages for tables, which can impact performance. |
 
 Examples
 =====
 
-The following image shows extracting two columns from a fixed table in the Sensible app. Notes:
+The following image shows extracting two columns from a fixed table in the Sensible app.
 
 - In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col4_rank_last_month` 
-- To improve performance, the config specifies a Stop parameter. This ensures Sensible only OCRs the relevant page area while looking for a table. 
+- To improve performance, the config specifies a Stop parameter. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/fixedtable_example.png)
 
@@ -80,10 +80,6 @@ This example uses the following config:
   ]
 }
 ```
-
-
-
-
 
 Notes
 ====
