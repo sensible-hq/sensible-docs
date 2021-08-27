@@ -16,7 +16,7 @@ Parameters
 
 | key                  | value     | description                                                  |
 | :------------------- | :-------- | :----------------------------------------------------------- |
-| id (**required**)    | `invoice` |                                                              |
+| id (**required**)    | `invoice` | When you specify this method, you must also specify `"type": "table"` in the field's parameters. |
 | columns **required** | array     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output. <br/> -`terms` (**required**): An array of strings with terms to score positively during column recognition. Sensible uses NLP techniques (such as tokenization and stemming) to score matches for the strings. Usually, you include column headings in this array. <br/> -`stopTerms`: An array of strings with terms to score negatively during column recognition. Sensible uses NLP techniques (such as tokenization and stemming) to score matches for the strings. <br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 
 

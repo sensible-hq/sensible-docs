@@ -2,7 +2,7 @@
 title: "Text Table"
 hidden: false
 ---
-Matches tables based on coordinates in inches. Choose anchor text that precedes the table, for example, a table title.  
+Matches tables based on coordinates in inches and returns their collated column contents. Choose anchor text that precedes the table, for example, a table title.  
 
 Use this method when other Table methods can't recognize a table. This method is faster than other Table methods because it does not use table recognition. However, it is more limited than other table methods because it relies on strict line alignment within the table.  As a result, if a cell has multiple lines of text, this method treats each line as its own row. For an example, see the [Examples section](doc:text-table#section-examples).
 
@@ -16,7 +16,7 @@ Parameters
 
 | key                  | value                           | description                                                  |
 | :------------------- | :------------------------------ | :----------------------------------------------------------- |
-| id **required**      | `table`                         | When you specify the Table method in a Field query object, you must also specify `"type": "table"` in the field's parameters. |
+| id **required**      | `table`                         | When you specify this method, you must also specify `"type": "table"` in the field's parameters. |
 | columns **required** | array                           | An array of objects with the following parameters:<br/> -`id` (**required**): The id for the column in the extraction output.<br/> -`minX` (**required**):  The distance in inches on the page from the left edge of the page to the left edge of the column. To determine this coordinate, open the PDF in a viewer, such as Preview or Gimp, that displays cursor coordinates.   <br/>  -`maxX` (**required**):  The distance in inches on the page from the left edge of the page to the right edge of the column.  To determine this coordinate, open the PDF in a viewer, such as Preview or Gimp, that displays cursor coordinates <br/>  -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object).<br/>   -`isRequired` (default false):  If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 | offsetY              | number                          | Defines a starting point from which to search down the page and recognize table. The starting point is offset in inches along a Y-axis from the anchor line's lower boundary. |
 | stop                 | Match object or number (inches) | (**Recommended**) [Match object](doc:match)  or number in inches to stop table recognition.   Specify this parameter to prevent false positive results.<br/>  A Match object specifies to stop table recognition when Sensible matches text.<br/> A number specifies the end of the table as the number of the inches offset along a Y-axis from the start of the table. |
