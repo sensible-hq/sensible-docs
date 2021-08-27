@@ -21,4 +21,3 @@ done
 echo "syncing to Readme "
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
-echo "pushing to github in case of newly generated images"
