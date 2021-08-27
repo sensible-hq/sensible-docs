@@ -27,7 +27,7 @@ Examples
 The following image shows extracting two columns from a difficult-to-recognize table in the Sensible app.  Notes:
 
 - Since this method does not recognize cells with multiple lines of data, dollar limits are returned in separate rows.
-- To prevent Sensible from returning unwanted term matches,  the config specifies a Stop parameter.
+- To prevent Sensible from returning unwanted term matches, the config specifies a Stop parameter.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table_example.png)
 

@@ -22,7 +22,7 @@ Parameters
 | key               | values                                       | description                                                  |
 | :---------------- | :------------------------------------------- | :----------------------------------------------------------- |
 | id (**required**) | `column`                                     |                                                              |
-| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the column's cells is the target. Use the comparisons `>` and `<` to extract maximum and minimum values in the column. By default the comparisons are [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values.  If you want to compare numeric amounts and ignore non-numbers,  then add `type: number` or `type: currency` as a top-level parameter to the field. |
+| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the column's cells is the target. Use the comparisons `>` and `<` to extract maximum and minimum values in the column. Lines are [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values. If you want to compare numeric amounts and ignore non-numbers in the row,  then add a numeric [type](doc:types) such as  `type: currency` as a top-level parameter to the field. |
 | includeAnchor     | `true`, `false`. default: false              | Includes the anchor line in the method output                |
 
 Examples
