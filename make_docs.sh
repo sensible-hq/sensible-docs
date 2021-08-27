@@ -21,3 +21,10 @@ done
 echo "syncing to Readme "
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
+# if there are local uncommited changes, commit them (for example as output of imagemagick)
+if ! git diff-index --quiet HEAD --; then
+    echo "Committing local changes to github"
+    git status
+    git add -A && git commit -m "style"
+    git push
+fi
