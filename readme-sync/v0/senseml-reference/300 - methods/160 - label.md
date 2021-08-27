@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Extracts text or lines proximate to the anchor point. This method is sensitive to font sizes and line spacing. 
+Extracts lines or parts of lines proximate to the anchor point. This method is sensitive to font sizes and line spacing. 
 
 Unlike many other methods (such as Document Range), the Label method can return data that is in the *same* line as the anchor line. You can do so by specifying `position: left` or `position: right` in the Label method.
 
