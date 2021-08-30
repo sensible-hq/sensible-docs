@@ -264,6 +264,8 @@ For example, if you specify the Label method, Sensible only anchors on text that
 
 The following example shows two anchors qualified by the Label method:
 
+**Config**
+
 ```json
 {
   "fields": [
@@ -280,22 +282,22 @@ The following example shows two anchors qualified by the Label method:
 }
 ```
 
-
-
-In the following image, these anchor candidates (surrounded by light yellow boxes) are filtered out for the example PDF because they do not meet the Label method's proximity requirements. The strings "python" are far enough away from other lines that you should use the Row method here instead: 
+**PDF**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
 
-The config returns null, but returns data if you specify the Row method instead.
-
-Try out the example using the following example PDF:
-
-
-| Example PDF for TBD | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
+**Output**
 
+The config returns null, but returns data if you specify the Row method instead.
+
+
+**Notes**
+
+In this example, the anchor candidates (surrounded by light yellow boxes) are filtered out for the example PDF because they do not meet the Label method's proximity requirements. The strings "python" are far enough away from other lines that you should use the Row method here instead. 
 
 
 
