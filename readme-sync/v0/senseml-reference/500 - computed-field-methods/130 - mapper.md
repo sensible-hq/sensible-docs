@@ -3,7 +3,7 @@ title: "Mapper"
 hidden: false
 ---
 
-Maps output from source fields using a case-sensitive lookup table. A common use case for this method is to standardize output across configs. For example, if you see inconsistently formatted data from different document sources ("6 month policy period" versus "6 mo. policy duration"), you can map those data to a common format using the Mapper method.  Consistently formatted output simplifies your application logic by allowing you to ignore distinctions between document sources.
+Maps output from source fields using a case-sensitive lookup table. A common use case for this method is to standardize output across configs. For example, if different documents inconsistently format data ("6 month policy period" versus "6 mo. policy duration"), you can map those data to a common format using the Mapper method.  Consistently formatted output simplifies your application logic by allowing you to ignore distinctions between document sources.
 
 Parameters
 ====
@@ -17,17 +17,8 @@ Parameters
 Examples
 ====
 
-The following image shows using a mapper to standardize a time duration:
+The following config shows using a mapper to standardize a time duration:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mapper_example.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/mapper_example.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
 
 ```json
 {
@@ -43,6 +34,7 @@ This example uses the following config:
   "computed_fields": [
     {
       "id": "premium_period",
+      "type": "number",
       "method": {
         "id": "mapper",
         "source_id": "_premium_period_raw",
@@ -60,3 +52,28 @@ This example uses the following config:
   ]
 }
 ```
+
+The following image shows how the Sensible app represents this config for the following example PDF:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mapper_example.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/mapper_example.pdf) |
+| ---------------------- | ------------------------------------------------------------ |
+
+
+The output is:
+
+```json
+{
+  "_premium_period_raw": {
+    "type": "string",
+    "value": "Six months"
+  },
+  "premium_period": {
+    "source": "6",
+    "value": 6,
+    "type": "number"
+  }
+}
+```
+

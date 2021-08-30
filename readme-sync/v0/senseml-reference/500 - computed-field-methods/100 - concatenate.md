@@ -17,7 +17,7 @@ Parameters
 | key                       | value                | description                                                  |
 | :------------------------ | :------------------- | :----------------------------------------------------------- |
 | id (**required**)         | `concat`             |                                                              |
-| source_ids (**required**) | array of field IDs   | a list of field `id`s to concatenate in the current config   |
+| source_ids (**required**) | array of field IDs   | a list of field `id`s to concatenate in the config           |
 | delimiter                 | string. default: " " | The delimiter with which to join the output of the source fields |
 
 Examples
