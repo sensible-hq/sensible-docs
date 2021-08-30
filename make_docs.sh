@@ -23,9 +23,10 @@ done
 if ! git diff-index --quiet HEAD --; then
     echo "Committing local changes to github"
     git status
-    sudo git add .; git add -u #git add -u
-    sudo git commit -m "updating local style changes to images"
-    sudo git push
+    echo "adding untracked files"
+    git add .; git add -u #git add -u
+    git commit -m "updating local style changes to images"
+    git push
 fi
 
 
