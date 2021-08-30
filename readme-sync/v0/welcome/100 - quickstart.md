@@ -14,7 +14,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
 - [Write a collection of queries ( a "config")](doc:quickstart#section-create-a-config) to extract structured data from an auto insurance PDF 
 - [Learn how the config works](doc:quickstart#section-how-it-works), including key concepts like lines, anchors, and methods
-- [Sanity test the config](doc:quickstart#section-sanity-test-the-config) by trying your config out with a second PDF
+- [Test the config](doc:quickstart#section-test-the-config) by running your config against a second PDF
 - [Use the API](doc:quickstart#section-integrate-with-your-application) to integrate your Sensible config with your application
 
 Get an account
@@ -326,10 +326,10 @@ You can get more advanced with this auto insurance config. For example:
 
 We'll save these and other techniques for a later tutorial!  To check out other methods, see [Methods](doc:methods).
 
-Sanity test the config
+Test the config
 ====
 
-Before integrating the config with an application and writing tests against it, let's sanity test the config by uploading another quote.
+Before integrating the config with an application and writing [validation tests](doc:validate-extractions) against it, let's double check the config by uploading another quote.
 
 1. Repeat the steps in the previous section to upload a second generic car insurance quote:
    
@@ -407,7 +407,7 @@ This field defines a region in inches relative to the anchor. Since the region o
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_3.png)
 
-Let's double check that this region also works with our first PDF:
+Let's double check that this region also works with the first PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_4.png)
 

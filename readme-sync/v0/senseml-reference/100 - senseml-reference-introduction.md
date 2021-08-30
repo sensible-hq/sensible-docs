@@ -13,9 +13,9 @@ See the following pages for reference documentation for the SenseML query langua
 - [Configuration settings](doc:configuration-settings)
 - [Computed Field methods](doc:computed-field-methods)
 
-Or, to get started quickly, see our quickstart:
+Or, to get started quickly, see:
 
-- [Quickstart](doc:quickstart)
+- [Getting Started](doc:quickstart)
 
 Examples
 ====
@@ -23,10 +23,6 @@ Examples
 For an overview of the elements in the SenseML schema, see the following image of a short config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro_example.png)
-
-
-
-
 
 Try out this example in the Sensible app using the following PDF and config:
 
@@ -78,12 +74,14 @@ This example uses the following config:
 
 This example config has the following elements:
 
-- The **field** `_driver_name_raw` is a query that finds a driver's name in the quote based on extracting data below some matched text (`"position": "below"`). Its ID is the key for the extracted data.  For more information, see [Field query object](doc:field-query-object).
+- The **field** `_driver_name_raw` is a query that extracts a driver's name by searching below some matched text (`"position": "below"`). Its ID is the key for the extracted data.  For more information, see [Field query object](doc:field-query-object).
 - An **anchor** is matched text that helps narrow down a location in the PDF from which to extract data. In the `"_driver_name_raw"` field, it is simply a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
-- A **method** defines how to expand out from the anchor and extract data. In the `"_driver_name_raw"` field, the Label method tells Sensible to extract data that is closely positioned below the anchor. For more information about methods, see [Methods](doc:methods).
+- A **method** defines how to expand out from the anchor and extract data. In this example field, the Label method tells Sensible to extract data that is closely positioned below the anchor. For more information about methods, see [Methods](doc:methods).
 - The **preprocessor**, `pageRange`, cuts out irrelevant pages of the PDF. For more information about using preprocessors to clean up PDFs before extracting data, see [Preprocessors](doc:preprocessors).
 - The **fingerprint** tells Sensible to preferentially run this config if the PDF contains the terms "anyco" or "quoted coverage changes".  For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:configuration-settings).
-- The **computed field** `"driver_name_last"` takes the  output of the `_driver_name_raw` field and extracts the last name from that raw output. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).
+- The **computed field** `"driver_name_last"` extracts the last name from the raw output of the `_driver_name_raw` field. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).
 
-The output of this example config is just one key/value pair: the last name of the driver.  In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF. As a next step, check out our [Quickstart](doc:quickstart), or see other topics in this SenseML reference. Happy extracting! 
+
+
+The output of this example config is just one key/value pair: the last name of the driver.  In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF. Happy extracting! 
 
