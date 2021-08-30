@@ -17,7 +17,9 @@ Parameters
 Examples
 ====
 
-The following config shows using a mapper to standardize a time duration:
+The following example shows using a mapper to standardize a time duration.
+
+**Config**
 
 
 ```json
@@ -53,6 +55,8 @@ The following config shows using a mapper to standardize a time duration:
 }
 ```
 
+**PDF**
+
 The following image shows how the Sensible app represents this config for the following example PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mapper_example.png)
@@ -60,6 +64,7 @@ The following image shows how the Sensible app represents this config for the fo
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/mapper_example.pdf) |
 | ---------------------- | ------------------------------------------------------------ |
 
+**Output**
 
 The output is:
 
