@@ -23,7 +23,7 @@ done
 if ! git diff-index --quiet HEAD --; then
     echo "Committing local changes to github"
     git status
-    git add -u
+    git add .; git add -u #git add -u
     git commit -m "updating local style changes to images"
     git push
 fi
