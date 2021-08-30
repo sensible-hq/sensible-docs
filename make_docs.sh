@@ -18,13 +18,17 @@ do
     convert "$file" -bordercolor white -border 0 \( +clone -background black -shadow 80x3+2+2 \) +swap -background white -layers merge +repage "$finalFile"
   fi
 done
-echo "syncing to Readme "
-npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
 # if there are local uncommited changes, commit them (for example as output of imagemagick)
 if ! git diff-index --quiet HEAD --; then
     echo "Committing local changes to github"
     git status
-    git add -A && git commit -m "style"
+    git add -u
+    git commit -m "updating local style changes to images"
     git push
 fi
+
+
+echo "syncing to Readme "
+npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
+
