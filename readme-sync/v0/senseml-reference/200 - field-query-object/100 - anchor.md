@@ -284,6 +284,8 @@ The following example shows two anchors qualified by the Label method:
 
 **PDF**
 
+The following image shows the config with an example PDF in the Sensible app:
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
 
@@ -292,8 +294,7 @@ The following example shows two anchors qualified by the Label method:
 
 **Output**
 
-The config returns null, but returns data if you specify the Row method instead.
-
+The example config returns null, but returns data if you specify the Row method instead.
 
 **Notes**
 
