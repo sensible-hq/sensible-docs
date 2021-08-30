@@ -262,9 +262,40 @@ In addition to the match conditions you specify (such as `isCaseSensitive`), the
 
 For example, if you specify the Label method, Sensible only anchors on text that is a good label candidate. Any line that is too far away from other lines to be used as a label is disqualified, even if it otherwise meets the conditions in the anchor's parameters.
 
-In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements (the Row method would work here instead):
+The following example shows two anchors qualified by the Label method:
+
+```json
+{
+  "fields": [
+    {
+      "id": "anchors_candidates_filtered_by_method",
+      "anchor": "python",
+      "match": "first",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
+    }
+  ]
+}
+```
+
+
+
+In the following image, these anchor candidates (surrounded by light yellow boxes) are filtered out for the example PDF because they do not meet the Label method's proximity requirements. The strings "python" are far enough away from other lines that you should use the Row method here instead: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
+
+
+The config returns null, but returns data if you specify the Row method instead.
+
+Try out the example using the following example PDF:
+
+
+| Example PDF for TBD | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+
+
 
 
 

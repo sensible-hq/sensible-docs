@@ -32,20 +32,13 @@ X Major Sort example
 ----
 
 
-In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader): 
+In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader) and outputs `"Nash Steve"` as the name: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_example_1.png)
 
-To reliably capture the first and last name in their left-to-right order,  set `"xMajorSort":"true"` :
+To reliably capture the first and last name in their left-to-right order,  set `"xMajorSort":"true"`, as in the following config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_example_2.png)
 
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
-This example uses the following config:
 
 ```json
 {
@@ -71,6 +64,38 @@ This example uses the following config:
       }
     }
   ]
+}
+```
+
+
+
+The following image shows how the Sensible app represents this config for the following example PDF:
+
+
+
+
+
+
+
+
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_example_2.png)
+
+Try out this example in the Sensible app using the following PDF:
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort_example.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+The output of this example is:
+
+```json
+{
+  "_name_joint_owner_raw": {
+    "type": "string",
+    "value": "Steve Nash"
+  }
 }
 ```
 
