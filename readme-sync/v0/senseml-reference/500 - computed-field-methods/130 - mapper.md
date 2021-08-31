@@ -35,7 +35,7 @@ The following example shows using a mapper to standardize a time duration.
   ],
   "computed_fields": [
     {
-      "id": "premium_period",
+      "id": "premium_period_months",
       "type": "number",
       "method": {
         "id": "mapper",
@@ -57,7 +57,7 @@ The following example shows using a mapper to standardize a time duration.
 
 **PDF**
 
-The following image shows how the Sensible app represents this config for the following example PDF:
+The following image shows the data extracted by this config for the following example PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mapper_example.png)
 
@@ -74,7 +74,7 @@ The output is:
     "type": "string",
     "value": "Six months"
   },
-  "premium_period": {
+  "premium_period_months": {
     "source": "6",
     "value": 6,
     "type": "number"
