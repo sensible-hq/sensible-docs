@@ -97,26 +97,34 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 ```json
 {
-    "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
-    "created": "2021-06-15T16:44:18.917Z",
+    "id": "b0ac180d-55d2-4946-80c0-a87243319746",
+    "created": "2021-05-20T18:02:37.019Z",
     "status": "COMPLETE",
     "type": "auto_insurance_quote",
     "configuration": "anyco",
     "parsed_document": {
+        "policy_number": {
+            "type": "string",
+            "value": "123456789"
+        },
         "policy_period": {
             "type": "string",
-            "value": "April 14, 2021 - Oct 14, 2021"
+            "value": " April 14, 2021 - Oct 14, 2021"
         },
         "comprehensive_premium": {
             "source": "$150",
             "value": 150,
             "unit": "$",
             "type": "currency"
-        },
-        "policy_number": {
-            "type": "string",
-            "value": "123456789"
         }
+    },
+    "validations": [],
+    "validation_summary": {
+        "fields": 3,
+        "fields_present": 3,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
     },
     "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=ASIAR355P7ASRMWOLX6W&Expires=1623790786&Signature=REDACTED-amz-security-token=REDACTED"
 }

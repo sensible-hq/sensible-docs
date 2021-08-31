@@ -141,7 +141,7 @@ How it works
 How it works: label method
 ----
 
-To grab the policy period from this text:
+To extract the policy period from this text:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_label_right.png)
 
 The config uses the [Label method](doc:label):
@@ -208,7 +208,7 @@ This is because the Label method works only for closely proximate lines (sensiti
 How it works: row method
 ----
 
-To grab this comprehensive premium of $150:
+To extract this comprehensive premium of $150:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_row.png)
 
@@ -307,7 +307,7 @@ The config uses the [Box method](doc:box):
   }
 ```
 
-**Note:** Sensible grabs the box contents, but not the anchor itself. In general, Sensible returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
+**Note:** Sensible extracts the box contents, but not the anchor itself. In general, Sensible returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
 
 Advanced queries
 ----
@@ -340,7 +340,7 @@ How can you capture the policy period reliably?
 
 **Document Range method**
 
-As you become more familiar with Sensible, your first impulse might be to use the [Document Range](doc:document-range) method, which grabs multiple lines of text after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the date range to extract is also part of the anchor (the orange box). As a result, the Document Range leaves out the first line of the date range and only grabs the year in the method match (the blue box):
+As you become more familiar with Sensible, your first impulse might be to use the [Document Range](doc:document-range) method, which extracts multiple lines of text after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the date range is part of the anchor line (the orange box). As a result, the Document Range leaves out the first line of the date range and only extracts the year in the method match (the blue box):
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_2.png)
 
@@ -403,7 +403,9 @@ Let's double check that this region also works with the first PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_4.png)
 
-Yes, it does. If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fiddle with the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures lines that are completely contained in the region. 
+Yes, it works too.
+
+If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures text that is almost or completely contained in the region. 
 
 3. Click **Publish** and choose **Production** to save your changes to the config.
 
@@ -455,6 +457,7 @@ curl --request POST \
     "created": "2021-05-20T18:02:37.019Z",
     "status": "COMPLETE",
     "type": "auto_insurance_quote",
+    "configuration": "anyco",
     "parsed_document": {
         "policy_number": {
             "type": "string",
@@ -470,6 +473,14 @@ curl --request POST \
             "unit": "$",
             "type": "currency"
         }
+    },
+    "validations": [],
+    "validation_summary": {
+        "fields": 3,
+        "fields_present": 3,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
     }
 }
 ```

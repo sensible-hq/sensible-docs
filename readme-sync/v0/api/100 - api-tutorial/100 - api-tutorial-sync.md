@@ -52,6 +52,7 @@ curl --request POST \
     "created": "2021-05-20T18:02:37.019Z",
     "status": "COMPLETE",
     "type": "auto_insurance_quote",
+    "configuration": "anyco",
     "parsed_document": {
         "policy_number": {
             "type": "string",
@@ -67,6 +68,14 @@ curl --request POST \
             "unit": "$",
             "type": "currency"
         }
+    },
+    "validations": [],
+    "validation_summary": {
+        "fields": 3,
+        "fields_present": 3,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
     }
 }
 ```
