@@ -109,15 +109,14 @@ Retrieve extraction
 To retrieve the extraction results with the  `/documents` endpoint, take the following steps:
 
 
-1. In a previous step on this page,  you generated a URL and got back a response that included an ID:
+1. In a previous step on this page,  you generated a URL and got back a response that included an extraction ID:
 
    ```json
    {
-       "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
-       "created": "2021-06-16T16:22:56.576Z",
-       "status": "WAITING",
+       "id": "28c7e5ac-3943-4f86-bd72-8aac3fa38a43"
+   }
    ```
-
+   
 2. Copy the document extraction `id` from that response.
 
 3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
@@ -135,8 +134,8 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 ```json
 {
-    "id": "b0ac180d-55d2-4946-80c0-a87243319746",
-    "created": "2021-05-20T18:02:37.019Z",
+    "id": "28c7e5ac-3943-4f86-bd72-8aac3fa38a43",
+    "created": "2021-06-16T16:22:56.576Z",
     "status": "COMPLETE",
     "type": "auto_insurance_quote",
     "configuration": "anyco",

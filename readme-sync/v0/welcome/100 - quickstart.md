@@ -416,45 +416,87 @@ Integrate with your application
 
 When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. 
 
-**Test the extraction API**
+Test the extraction API
+----
 
-First, make sure you can extract data using the config and PDF you created in previous steps:
+To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide-a-download-url) endpoint, let's use the config you just created and the example PDF hosted in GitHub:
 
-1. In your local file system, locate the the example [generic car insurance quote](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) you downloaded in a previous step. For this example, use something like this to extract data:
+1. Copy the following code sample and replace YOUR_API_KEY with your API key:
 
-```curl
-curl --request POST \
-  --url https://api.sensible.so/v0/extract/auto_insurance_quote \
-  --header 'Authorization: Bearer YOUR_API_KEY' \
-  --header 'Content-Type: application/pdf' \
-  --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
+   ```json
+   curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
+   --header 'Authorization: Bearer YOUR_API_KEY' \
+   --header 'Content-Type: application/json' \
+   --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf"}'
+   ```
+
+   
+
+2. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_1.png)
+
+3. Click **Send**, and you should see a response like:
+
+   ```json
+   {
+       "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
+       "created": "2021-06-15T16:29:27.875Z",
+       "status": "WAITING",
+       "type": "auto_insurance_quote",
+       "validation_summary": {
+           "fields": 0,
+           "fields_present": 0,
+           "errors": 0,
+           "warnings": 0,
+           "skipped": 0
+       }
+   }
+   ```
+
+**Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best!
+
+Retrieve extraction
+----
+
+ To retrieve the extraction results for the sample PDF, you have two options:
+
+- Use the `/documents` endpoint. See the following steps.
+- Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
+
+
+To retrieve the extraction results with the  `/documents` endpoint, take the following steps:
+
+
+1. In a previous step on this page, you got back a result that included an extraction id:
+
+   ```json
+   {
+       "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836"
+   }
+   ```
+   
+   
+   
+2. Copy the document extraction `id` from that response. You'll use it to download the PDF extraction.
+
+3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
+
+```json
+curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
+--header 'Authorization: Bearer YOUR_API_KEY'
 ```
 
-2. **Important!** Remember to click **Publish** in the Sensible app to publish your config to production, or this request won't work:  
+3. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_2.png)
 
-3. For an easy way to run this cURL request, download the [Postman](https://www.postman.com/) desktop app. 
-
-4. Copy the previous code sample.  Replace `YOUR_API_KEY` with your API key.
-
-5. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
-   
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_postman_import.png)
-
-6. Correct the path to your downloaded PDF: in the request, click the **Body** tab, select **binary**, then click **Select file** and select your PDF:
-   
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_postman_1.png)
-
-​    
-
-7. Click **Send**, and you should see a response like this:
+4. Click **Send**. The response looks something like the following:
 
 ```json
 {
-    "id": "b0ac180d-55d2-4946-80c0-a87243319746",
-    "created": "2021-05-20T18:02:37.019Z",
+    "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
+    "created": "2021-08-31T17:22:33.984Z",
     "status": "COMPLETE",
     "type": "auto_insurance_quote",
     "configuration": "anyco",
@@ -481,7 +523,8 @@ curl --request POST \
         "errors": 0,
         "warnings": 0,
         "skipped": 0
-    }
+    },
+    "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=ASIAR355P7ASRMWOLX6W&Expires=1623790786&Signature=REDACTED-amz-security-token=REDACTED"
 }
 ```
 
