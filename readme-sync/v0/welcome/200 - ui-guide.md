@@ -7,13 +7,42 @@ This topic describes the color-coded symbols in the Sensible app that visually r
 
 | Symbol                                            | Represents                           |
 | ------------------------------------------------- | ------------------------------------ |
+| [Yellow box](doc:ui-guide#yellow-box)             | anchor                               |
 | [Blue box](doc:ui-guide#blue-box)                 | captured method data                 |
 | [Green box](doc:ui-guide#green-box)               | box or region                        |
 | [Green point](doc:ui-guide#green-point)           | starting point for recognizing a box |
-| [Light blue box](doc:ui-guide#light-blue-box)     | discarded method data                |
+| [Light box](doc:ui-guide#light-blue-box)          | discarded method data                |
 | [Light yellow box](doc:ui-guide#light-yellow-box) | discarded anchor data                |
 | [Purple box](doc:ui-guide#purple-box)             | line details                         |
-| [Yellow box](doc:ui-guide#yellow-box)             | anchor                               |
+
+Yellow box
+====
+
+***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
+
+For example, the following image shows:
+
+- an anchor line outlined in yellow ("Here is a good candidate...")
+- a line output by the Label method outlined in blue ("And here's the text below...")
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
+
+The query used for the preceding image is:
+
+```json
+{
+  "fields": [
+    {
+      "id": "simple_label",
+      "anchor": "here is a good candidate",
+      "method": {
+        "id": "label",
+        "position": "below"
+      }
+    }
+  ]
+}    
+```
 
 Blue box
 ====
@@ -44,12 +73,12 @@ The query used for the preceding image is:
 }    
 ```
 
-Green point 
+Green box
 ====
 
 ***Green boxes*** represent boxes or regions.
 
-Green box
+Green point
 ====
 
 ***Green points*** represent the following:
@@ -155,31 +184,3 @@ If you hover on a line (text surrounded by a gray box), it changes to a ***purpl
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
 
-Yellow box
-====
-
-***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
-
-For example, the following image shows:
-
-- an anchor line outlined in yellow ("Here is a good candidate...")
-- a line output by the Label method outlined in blue ("And here's the text below...")
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
-
-The query used for the preceding image is:
-
-```json
-{
-  "fields": [
-    {
-      "id": "simple_label",
-      "anchor": "here is a good candidate",
-      "method": {
-        "id": "label",
-        "position": "below"
-      }
-    }
-  ]
-}    
-```
