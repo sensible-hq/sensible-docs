@@ -6,7 +6,7 @@ Matches a target line at the intersection of a horizontal line defined by an anc
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_example_1.png)
 
-This method is useful instead of the Row method when a table contains empty cells. A row's tiebreaker, like "second", can return inconsistent results if there are empty cells, where the Intersection method returns consistent results.
+The Intersection method is an alternative to the Row method when a table contains empty cells. (A row's tiebreaker, like "second", can return results from unintended columns if there are empty cells).
 
 [**Parameters**](doc:fixed-table#section-parameters)
 [**Examples**](doc:fixed-table#section-examples)
