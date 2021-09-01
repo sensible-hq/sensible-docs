@@ -1,8 +1,8 @@
 ---
 title: "Intersection"
-hidden: true
+hidden: false
 ---
-Matches a target line at the intersection of a horizontal line defined by an anchor, and a vertical line defined by a second anchor:
+Extracts a target line at the intersection of a horizontal line defined by an anchor, and a vertical line defined by a second anchor:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_example_1.png)
 
