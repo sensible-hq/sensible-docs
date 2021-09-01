@@ -4,9 +4,9 @@ hidden: true
 ---
 Matches a line at the intersection of a horizontal line defined by an anchor, and a vertical line defined by a second anchor:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/screenshots/intersection_example_1.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_example_1.png)
 
-This method is useful instead of the Row method when a table contains empty cells. With empty cells, a row's tiebreaker like "second" can return inconsistent results.
+This method is useful instead of the Row method when a table contains empty cells. A row's tiebreaker, like "second", can return inconsistent results if there are empty cells, where the Intersection method returns consistent results.
 
 [**Parameters**](doc:fixed-table#section-parameters)
 [**Examples**](doc:fixed-table#section-examples)
@@ -20,10 +20,12 @@ Parameters
 | key                           | value          | description                                                  |
 | :---------------------------- | :------------- | :----------------------------------------------------------- |
 | id (**required**)             | `intersection` |                                                              |
-| verticalAnchor (**required**) | Anchor object  | An anchor object that defines a vertical line. Sensible extracts the line that is at the intersection of this vertical line, and the horizontal line defined by the field's anchor. |
+| verticalAnchor (**required**) | Anchor object  | An anchor object that defines a vertical line. Sensible extracts the line that is at the intersection of this vertical line, and the horizontal line defined by the field's anchor. Both lines start at the midpoints of the anchors' boundaries. |
 
 Examples
 =====
+
+The following example shows using the Intersection method to extract a cell from a table that has empty cells.
 
 **Config**
 
@@ -44,7 +46,12 @@ Examples
 
 **PDF**
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/screenshots/intersection_example_2.png)
+The following image shows the data extracted by this config for the following example PDF:
+
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_example_2.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/intersection_example.pdf) |
+| ----------- | ------------------------------------------------------------ |
 
 **Output**
 

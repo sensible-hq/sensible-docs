@@ -66,8 +66,6 @@ The following image shows the data extracted by this config for the following ex
 
 **Output**
 
-The output is:
-
 ```json
 {
   "_premium_period_raw": {
