@@ -2,7 +2,7 @@
 title: "Verbosity"
 hidden: false
 ---
-Add this setting to a config in order to control the verbosity of the Sensible API response. (This setting does not control verbosity in the SenseML editor's extraction pane).
+Configures the verbosity of the Sensible API response. (This setting does not control verbosity in the SenseML editor's extraction pane).
 
 Parameters
 ====

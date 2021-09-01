@@ -2,9 +2,9 @@
 title: "Fingerprint"
 hidden: false
 ---
-If you create multiple configs for a single document type, Sensible automatically chooses which config's output to return.  For example, if you extract company A and company B quotes, Sensible runs both the company A and the company B configs for a given document, then returns the best of the two extractions (i.e., the one with the highest percent of non-null values). You can configure this default behavior and potentially boost performance by adding a fingerprint to a config.
+Tests for matching text in a doc in order to run or skip a config.  By skipping configs that fail a fingerprint, you can improve performance. This is particularly true if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. 
 
- A fingerprint tests for matching text in a doc in order to run or skip a config.  By skipping configs that fail a fingerprint, you can save processing time. This is particularly true if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods.  
+A fingerprint changes Sensible's default behavior of running *all* the configs in a single document type in order to automatically choose which config's output to return.  For example, if you extract company A and company B quotes, by default Sensible runs both the company A and the company B configs for a given document, then returns the best of the two extractions (i.e., the one with the highest percent of non-null values). 
 
 For example, to test a vendor-specific config "anyco_life_insurance_quote" in a document type "life insurance quotes", you might write a fingerprint in the config like:
 

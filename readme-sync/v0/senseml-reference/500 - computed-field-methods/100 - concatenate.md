@@ -4,7 +4,7 @@ hidden: false
 ---
 Concatenates the output of two or more fields:
 
-- If the fields outputs are all strings, the output is a single string.
+- If the fields' outputs are all strings, the output is a single string.
 - If any field output is an array, the output is an array if the array lengths match. The output is a string if the array lengths are unequal (using the first element of each array).
 - If a string output is present among arrays, its value is repeated for every element of the output.
 
