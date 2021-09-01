@@ -284,7 +284,7 @@ The following example shows two anchors qualified by the Label method:
 
 **Example PDF**
 
-The following image shows the config with an example PDF in the Sensible app:
+The following image visually represents the null output of this config for the following example PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
