@@ -18,7 +18,7 @@ The following global parameters available to all methods:
 | Key              | Value                                                        | Description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `id`             | [`box`](doc:box),<br/>[`checkbox`](doc:checkbox),<br/>[`column`](doc:column),<br/>[`documentRange`](doc:document-range),<br/>[`fixedTable`](doc:fixed-table),<br/> [`invoice`](doc:invoice),<br/>[`keyValue`](doc:key-value),<br/>[`label`](doc:label),<br/>[`passthrough`](doc:passthrough),<br/>[`regex`](doc:regex),<br/>[`region`](doc:region),<br/>[`row`](doc:row),<br/>[`signature`](doc:signature),<br/>[`table`](doc:table),<br/>[`textTable`](doc:text-table) | see [Methods](doc:methods).                                  |
-| tiebreaker       | `first`, `second`, `third`, `last`, `>`, `<`                 | If the method returns multiple elements (for example, a Row method), which element to extract. <br/>Linesare [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values. If you want to compare numeric amounts and ignore non-numbers,  then add a numeric [type](doc:types) such as  `type: currency` as a top-level parameter to the field. |
+| tiebreaker       | `first`, `second`, `third`, `last`, `>`, `<`                 | If the method returns multiple elements (for example, a Row method), which element to extract. <br/>Lines are [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values. If you want to compare numeric amounts and ignore non-numbers,  then add a numeric [type](doc:types) such as  `type: currency` as a top-level parameter to the field. |
 | lineFilters      | Match object                                                 | Filters out the specified lines from the method match. For example, the Box method extracts all lines from a box, but you can use this parameter to filter out unwanted footer text in the box. |
 | wordFilters      | string array                                                 | Filters out the specified strings from the method results.   |
 | whitespaceFilter | `spaces`, `all`                                              | Remove extra whitespaces.<br/> `spaces` - remove only extra spaces <br/> `all` - remove all whitespace characters, including newlines and tabs. |
@@ -32,13 +32,11 @@ X Major Sort example
 ----
 
 
-In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader) and outputs `"Nash Steve"` as the name: 
+In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader) and outputs `"Nash Steve"` as the name:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_example_1.png)
 
 To reliably capture the first and last name in their left-to-right order,  set `"xMajorSort":"true"`, as in the following config:
-
-
 
 ```json
 {
@@ -67,23 +65,9 @@ To reliably capture the first and last name in their left-to-right order,  set `
 }
 ```
 
-
-
-The following image shows how the Sensible app represents this config for the following example PDF:
-
-
-
-
-
-
-
-
-
-
+The following image visually represents the output of this config for the following example PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_example_2.png)
-
-Try out this example in the Sensible app using the following PDF:
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort_example.pdf) |
 | ----------- | ------------------------------------------------------------ |

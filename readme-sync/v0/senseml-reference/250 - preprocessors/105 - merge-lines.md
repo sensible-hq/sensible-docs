@@ -3,7 +3,7 @@ title: "Merge lines"
 hidden: false
 ---
 
-Merges nearby lines more aggressively than the built-in line merger. This preprocessor solves line-recognition problems caused poor-quality PDF scans, handwritten text, and other PDF formatting. This preprocessor solves:
+Merges nearby lines more aggressively than the built-in line merger. This preprocessor solves line-recognition problems caused by poor-quality PDF scans, handwritten text, and other PDF formatting. This preprocessor solves:
 
 - oversplit lines
 - lines overlapping on the x-axis
