@@ -10,7 +10,7 @@ Matches tables with a fixed number of columns and returns their collated column 
 
 **Requirements**
 
-- The anchor text must be a line that precedes the table.  Do not chose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
+- The anchor text must be a line that precedes the table.  Do not choose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
 
 [**Parameters**](doc:fixed-table#section-parameters)
 [**Examples**](doc:fixed-table#section-examples)

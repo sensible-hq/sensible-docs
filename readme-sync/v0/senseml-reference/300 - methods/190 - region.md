@@ -8,8 +8,8 @@ Extracts data in a rectangular region, defined in inches. The region omits lines
 
 In general, use this method:
 
-- for faster performance comapred to the Box method
--  when you want to extract data from an area whose formatting doesn't exactly fit other SenseML methods. For example, you can use this method when a Label method doesn't work because the anchor is separated by too much whitespace from the data to extract.
+- for faster performance compared to the Box method
+-  when you want to extract data from an area whose formatting doesn't exactly fit other SenseML methods. For example, you can use this method instead of the Label method for widely separated anchors and target lines.
 
 [**Parameters**](doc:region#section-parameters)
 [**Examples**](doc:region#section-examples)

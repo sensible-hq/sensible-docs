@@ -10,7 +10,7 @@ Matches tables based on bag-of-words scoring and returns their collated column c
 
 **Requirements**
 
-- The anchor text must be a line that precedes the table.  Do not chose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
+- The anchor text must be a line that precedes the table.  Do not choose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
 
 [**Parameters**](doc:table#section-parameters)
 [**Examples**](doc:table#section-examples)
