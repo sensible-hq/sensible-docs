@@ -5,7 +5,7 @@ hidden: false
 
 
 
-A *line* is a rectangular region containing text.  Readers of left-to-right written languages think of lines as vertically ordered. But for Sensible, multiple lines  (shown as gray boxes) can exist at the same height on the page:
+A *line* is a rectangular region containing text.  English language readers think of lines as vertically ordered. But for Sensible, multiple lines  (shown as gray boxes) can exist at the same height on the page:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_concept.png)
 
