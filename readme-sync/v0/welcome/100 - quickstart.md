@@ -48,11 +48,17 @@ When the configuration opens, you see an empty config pane on the left, the PDF 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
-6. For this tutorial, let's extract only a few pieces of information:
-   
-   - the policy number
-   - the policy period
-   - the premium for comprehensive insurance
+
+
+Extract data
+====
+
+
+For this tutorial, let's extract only a few pieces of information:
+
+- the policy number
+- the policy period
+- the premium for comprehensive insurance
 
 7. Paste in this config in the left pane in the editor to extract the data:
    
