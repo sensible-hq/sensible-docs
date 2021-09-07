@@ -2,7 +2,7 @@
 title: "Document Range"
 hidden: false
 ---
-Extracts multiple consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the full definition of "succeeding", see [Line sorting](doc:concepts#line-sorting).
+Extracts multiple consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the full definition of "succeeding", see [Line sorting](doc:lines#line-sorting).
 
 Or, use this method to return the coordinates of regions containing images.
 

@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-Intelligently replaces Unicode [ligatures](doc:concepts#ligatures) in a PDF text extraction. 
+Intelligently replaces Unicode [ligatures](doc:ligatures) in a PDF text extraction. 
 
 Parameters
 ----
