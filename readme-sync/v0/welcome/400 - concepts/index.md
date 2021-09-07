@@ -5,11 +5,11 @@ hidden: false
 
 For definitions of terms, see the following topics: 
 
-[Ligatures](doc:concepts#ligatures)
+[Ligatures](doc:ligatures)
 
-[Lines](doc:concepts#lines)
+[Lines](doc:lines)
 
-[SenseML](doc:concepts#senseml)
+[SenseML](doc:senseml)
 
 
 
