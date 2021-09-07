@@ -14,8 +14,8 @@ Parameters
 | key                    | value   | description                                                      |
 | ---------------------- | ------ | ------------------------------------------------------------ |
 | `type` (**required**)  | string | "pageFilter"                                                 |
-| `terms` (**required**) | array  | An array of strings with terms to score positively (e.g., `["number of buildings", "no. of buildings"]`) |
-| `stopTerms`            | array  | An array of strings with terms to score negatively (e.g., `["comparables"]`) |
+| `terms` (**required**) | array  | An array of terms to score positively (e.g., `["number of buildings", "no. of buildings"]`). For more information about the NLP approach, see [bag of words](doc:bag-of-words). |
+| `stopTerms`            | array  | An array of terms to score negatively (e.g., `["comparables"]`). For more information about the NLP approach, see [bag of words](doc:bag-of-words). |
 | `maxPages`             | number | The maximum number of highest-scoring pages to pass through the filter |
 
  
