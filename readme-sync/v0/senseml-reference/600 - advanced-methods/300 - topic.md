@@ -26,7 +26,7 @@ Examples
 
 
 
-The following example shows finding a paragraph
+The following example shows finding a  topic in a licensing legal code.
 
 **Config**
 
@@ -34,18 +34,18 @@ The following example shows finding a paragraph
 {
   "fields": [
     {
-      "id": "fringe_benefits_topic",
-      "anchor": "general instructions",
+      "id": "liability_limitation_topic",
+      "anchor": "creative commons corporation",
       "method": {
         "id": "topic",
-        "numLines": 23,
+        "numLines": 6,
         "terms": [
-          "fringe",
-          "benefits"
+          "limitation",
+          "liability",
+          "extent"
         ],
         "stopTerms": [
-          "see",
-          "qsehra"
+          "warranty",
         ]
       }
     }
@@ -56,7 +56,7 @@ The following example shows finding a paragraph
 **PDF**
 The following image visually represents the output of this config for the following example PDF:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TBD_example.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/topic_example.png)
 
 
 
@@ -68,9 +68,9 @@ The following image visually represents the output of this config for the follow
 
 ```json
 {
-  "fringe_benefits_topic": {
+  "liability_limitation_topic": {
     "type": "string",
-    "value": "Fringe benefits. Include all taxable fringe benefits in cost of group-term life insurance that is more than the cost box 1 of Form W-2 as wages, tips, and other of $50,000 of coverage, reduced by the amount the compensation and, if applicable, in boxes 3 and 5 as employee paid toward the insurance. Use Table 2-2 in social security and Medicare wages. Although not Pub. 15-B to determine the cost of the insurance. Also required, you may include the total value of fringe benefits show the amount in box 12 with code C. For employees, in box 14 (or on a separate statement). However, if you you must withhold social security and Medicare taxes, but provided your employee a vehicle, you must include the not federal income tax. For coverage provided to former value of any personal use in boxes 1, 3, and 5 of Form employees, the former employees must pay the employee W-2. You must withhold social security and Medicare tax, part of social security and Medicare taxes (or railroad but you have the option not to withhold federal income tax retirement taxes, if applicable) on the taxable cost of if you notify the employee and include the value of the group-term life insurance over $50,000 on Form 1040 or benefit in boxes 1, 3, 5, and 14. See Pub. 15-B for more"
+    "value": "6. Limitation on Liability. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF THE WORK, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 7. Termination"
   }
 }
 ```
