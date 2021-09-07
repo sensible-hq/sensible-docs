@@ -60,47 +60,47 @@ For this tutorial, let's extract only a few pieces of information:
 - the policy period
 - the premium for comprehensive insurance
 
-7. Paste in this config in the left pane in the editor to extract the data:
-   
-   ```json
-   {
-   "fields": [
-     {
-       "id": "policy_period",
-       "anchor": "policy period",
-       "method": {
-         "id": "label",
-         "position": "right"
-       }
-     },
-     {
-       "id": "comprehensive_premium",
-       "anchor": "comprehensive",
-       "type": "currency",
-       "method": {
-         "id": "row",
-         "tiebreaker": "second"
-       }
-     },
-     {
-       "id": "policy_number",
-       "anchor": {
-         "match": [
-           {
-             "text": "policy number",
-             "type": "startsWith"
-           }
-         ]
-       },
-       "method": {
-         "id": "box"
-       }
-     }
-   ]
-   }
-   ```
+1. Paste in this config in the left pane in the editor to extract the data:
 
-8. Click **Publish** to publish the config.
+```json
+{
+"fields": [
+  {
+    "id": "policy_period",
+    "anchor": "policy period",
+    "method": {
+      "id": "label",
+      "position": "right"
+    }
+  },
+  {
+    "id": "comprehensive_premium",
+    "anchor": "comprehensive",
+    "type": "currency",
+    "method": {
+      "id": "row",
+      "tiebreaker": "second"
+    }
+  },
+  {
+    "id": "policy_number",
+    "anchor": {
+      "match": [
+        {
+          "text": "policy number",
+          "type": "startsWith"
+        }
+      ]
+    },
+    "method": {
+      "id": "box"
+    }
+  }
+]
+}
+```
+
+2. Click **Publish** and choose **Production** to publish the config.
 
 The following image shows this example in the Sensible app:
 
