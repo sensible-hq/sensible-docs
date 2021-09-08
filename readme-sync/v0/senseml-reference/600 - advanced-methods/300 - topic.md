@@ -1,6 +1,6 @@
 ---
 title: "Topic"
-hidden: true
+hidden: false
 
 ---
 
