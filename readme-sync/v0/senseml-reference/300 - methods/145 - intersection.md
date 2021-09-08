@@ -20,7 +20,7 @@ Parameters
 | key                           | value          | description                                                  |
 | :---------------------------- | :------------- | :----------------------------------------------------------- |
 | id (**required**)             | `intersection` |                                                              |
-| verticalAnchor (**required**) | Anchor object  | An anchor object that defines a vertical line. Sensible extracts the line that is at the intersection of this vertical line, and the horizontal line defined by the field's anchor. Both lines start at the midpoints of the anchors' boundaries. |
+| verticalAnchor (**required**) | Anchor object  | An anchor object that defines a vertical line. Sensible extracts the line that is at the intersection of this vertical line, and the horizontal line defined by the field's anchor. Both lines pass through the midpoints of the anchors' boundaries. |
 
 Examples
 =====

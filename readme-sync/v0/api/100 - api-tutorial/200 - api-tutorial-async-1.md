@@ -77,10 +77,8 @@ To retrieve the extraction results with the  `/documents` endpoint, take the fol
    }
    ```
    
+   Copy the document extraction `id` from that response. You'll use it to download the PDF extraction.
    
-   
-2. Copy the document extraction `id` from that response. You'll use it to download the PDF extraction.
-
 3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
 
 ```json
