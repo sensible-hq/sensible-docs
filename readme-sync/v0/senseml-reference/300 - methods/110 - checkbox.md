@@ -30,7 +30,7 @@ The following image shows extracting three checkboxes:
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_checkbox.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/checkbox_example.pdf) |
 | -------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

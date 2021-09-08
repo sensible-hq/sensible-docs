@@ -38,7 +38,7 @@ The following example shows that:
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/example_row_column.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
 | ---------------------- | ------------------------------------------------------------ |
 
 ```json
