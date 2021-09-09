@@ -17,7 +17,7 @@ Parameters
 
 | key               | value                         | description                                                  |
 | ----------------- | ----------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `documentRange`               |                                                              |
+| id (**required**) | `documentRange`               | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
 | stop              | Match object. default: `none` | A Match object to stop extraction. Not included in the method output.  If unspecified, matches to the end of the document. |
 | includeAnchor     | boolean. default: `false`     | Includes the anchor line in the method output                |
 | includeImages     | boolean. default: `false`     | Returns the zero-indexed page number and coordinates of regions containing images in the document range .  **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns only image region coordinates, not image bytes or text lines. |
@@ -28,7 +28,9 @@ Examples
 Paragraphs and lists
 ----
 
-The following config extracts a list of four sworn statements from a W-9 form: 
+The following example extracts a list of four sworn statements from a W-9 form.
+
+**Config**
 
 ```json
 {
@@ -36,6 +38,7 @@ The following config extracts a list of four sworn statements from a W-9 form:
     {
       "id": "certification",
       "anchor": "perjury",
+      "type": "paragraph",
       "method": {
         "id": "documentRange",
         "stop": {
@@ -49,23 +52,32 @@ The following config extracts a list of four sworn statements from a W-9 form:
 }
 ```
 
-The following image shows this example in the Sensible app:
+**PDF**
+
+The following image visually represents the output of this config for the following example PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_sworn.png)
+
+| Example PDF | [Download link](https://www.irs.gov/pub/irs-pdf/fw9.pdf) |
+| ----------- | -------------------------------------------------------- |
+
+**Output**
+
+```json
+{
+  "certification": {
+    "type": "string",
+    "value": "1. The number shown on this form is my correct taxpayer identification number (or I am waiting for a number to be issued to me); and 2. I am not subject to backup withholding because: (a) I am exempt from backup withholding, or (b) I have not been notified by the Internal Revenue Service (IRS) that I am subject to backup withholding as a result of a failure to report all interest or dividends, or (c) the IRS has notified me that I am no longer subject to backup withholding; and\n3. I am a U.S. citizen or other U.S. person (defined below); and\n4. The FATCA code(s) entered on this form (if any) indicating that I am exempt from FATCA reporting is correct."
+  }
+}
+```
 
 Images
 ----
 
-The following example extracts two images' coordinates:
+The following example shows extracting two images' coordinates.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates_example.pdf) |
-| --------------------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -73,7 +85,7 @@ This example uses the following config:
     {
       "id": "python_icons",
       "type": "images",
-      "anchor": "here are some icons",
+      "anchor": "icons",
       "method": {
         "id": "documentRange",
         "includeImages": true,
@@ -88,11 +100,67 @@ This example uses the following config:
 }
 ```
 
+**PDF**
+The following image visually represents the output of this config for the following example PDF:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates_example.pdf) |
+| ----------- | ------------------------------------------------------------ |
 
 
-For information on extracting images rather than image metadata, see the **Notes** section on this page.
+**Output**
 
-
+```json
+{
+  "python_icons": {
+    "images": [
+      {
+        "page": 0,
+        "boundingPolygon": [
+          {
+            "x": 1.021,
+            "y": 2.208
+          },
+          {
+            "x": 3.156,
+            "y": 2.208
+          },
+          {
+            "x": 3.156,
+            "y": 4.333
+          },
+          {
+            "x": 1.021,
+            "y": 4.333
+          }
+        ]
+      },
+      {
+        "page": 0,
+        "boundingPolygon": [
+          {
+            "x": 1.021,
+            "y": 4.844
+          },
+          {
+            "x": 2.771,
+            "y": 4.844
+          },
+          {
+            "x": 2.771,
+            "y": 6.573
+          },
+          {
+            "x": 1.021,
+            "y": 6.573
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 Notes
 ====
