@@ -28,8 +28,8 @@ Examples
 
 The following example shows that:
 
-- If you specify  `"type": "string"` (the default),  you get the entire column returned as a joined string.
-- If you specify a tiebreaker, you get a single element in the column.
+- By default, the entire column is returned as a joined string.
+- Specifying a tiebreaker returns single element in the column.
 
 **Config**
 
