@@ -2,7 +2,7 @@
 direnv allow .
 echo "updating from Github"
 git pull
-echo "applying drop shadows to screenshots"
+echo "applying drop shadows to screenshots if any were recently committed"
 # for any PNG that exists in ./readme-sync/assets/v0/images/ but not ./readme-sync/assets/v0/images/final, convert to drop shadow
 # and write to final dir
 
@@ -17,24 +17,18 @@ do
   # if the image was committed in the last 2 days, update it. this should catch all updates as long as you sync docs soon after modifying images
   if [[ "$lastCommit" =~ .*+(second|minute|hour).* ]] 
   then
-  echo "processing $file and writing to $finalFile" 
+  echo "processing $file and writing to $finalFile because it was last committed $lastCommit" 
   convert "$file" -bordercolor white -border 0 \( +clone -background black -shadow 80x3+2+2 \) +swap -background white -layers merge +repage "$finalFile"
   fi
 done
 
-# if there are local uncommited changes, commit them (for example as output of imagemagick)
-if ! git diff-index --quiet HEAD --; then
-    echo "Committing local changes to github"
-    git status
-    echo "adding untracked files"
-    sudo git add .; git add -u 
-    echo "git status:"
-    git status
-    git commit -m "updating local style changes to images"
-    git push
-fi
 
 
 echo "syncing to Readme "
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
+
+# if there are local uncommitted changes, commit them (for example as output of imagemagick)
+if ! git diff-index --quiet HEAD --; then
+    echo "REMEMBER TO COMMIT LOCAL UNTRACKED CHANGES"
+fi
