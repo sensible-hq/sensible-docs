@@ -10,8 +10,6 @@ Or, use this method to return the coordinates of regions containing images.
 [**Examples**](doc:document-range#section-examples)
 [**Notes**](doc:document-range#section-notes)
 
-
-
 Parameters
 ====
 
