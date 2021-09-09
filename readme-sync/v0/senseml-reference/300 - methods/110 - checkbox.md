@@ -23,24 +23,16 @@ Parameters
 Examples
 ====
 
-The following image shows extracting three checkboxes:
+The following example shows extracting three checkboxes:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/checkbox_examples.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/checkbox_example.pdf) |
-| -------------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
   "fields": [
     {
       "id": "checkbox_left",
-      "anchor": "left",
+      "anchor": "checkbox",
       "method": {
         "id": "checkbox",
         "position": "left"
@@ -52,7 +44,7 @@ This example uses the following config:
       "method": {
         "id": "checkbox",
         "position": "left",
-        "offsetY": 0.5,
+        "offsetY": 0.3,
         "offsetX": 0.3
       }
     },
@@ -63,12 +55,54 @@ This example uses the following config:
         "id": "checkbox",
         "position": "right",
         "darknessThreshold": 0.4,
-        "offsetX": 0.2
+        "offsetX": 0.8
       }
     }
   ]
 }
 ```
+
+**PDF**
+The following image visually represents the output of this config for the following example PDF:
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/checkbox_examples.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/checkbox_example.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+
+
+
+**Output**
+
+```json
+{
+  "checkbox_left": {
+    "type": "boolean",
+    "value": true
+  },
+  "checkbox_below": {
+    "type": "boolean",
+    "value": true
+  },
+  "checkbox_dark": {
+    "type": "boolean",
+    "value": true
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
