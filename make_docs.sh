@@ -22,18 +22,13 @@ do
   fi
 done
 
-# if there are local uncommitted changes, commit them (for example as output of imagemagick)
-if ! git diff-index --quiet HEAD --; then
-    echo "Committing local changes to github"
-    echo "adding untracked files"
-    sudo git add .; git add -u 
-    echo "git status:"
-    git status
-    git commit -m "updating local style changes to images"
-    git push
-fi
 
 
 echo "syncing to Readme "
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
+
+# if there are local uncommitted changes, commit them (for example as output of imagemagick)
+if ! git diff-index --quiet HEAD --; then
+    echo "REMEMBER TO COMMIT LOCAL UNTRACKED CHANGES"
+fi
