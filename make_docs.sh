@@ -12,11 +12,14 @@ for file in ./readme-sync/assets/v0/images/screenshots/*.png
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
   finalFile="${file/images\/screenshots/images\/final}"
+  lastCommit=$(git log -n 1 --date=relative --format=%cd $file)
   #if [ -f "$file" ] && [ ! -f "$finalFile" ]
-  #then
+  # if the image was committed in the last 2 days, update it. this should catch all updates as long as you sync docs soon after modifying images
+  if [[ "$lastCommit" =~ .*+(second|minute|hour).* ]] 
+  then
   echo "processing $file and writing to $finalFile" 
   convert "$file" -bordercolor white -border 0 \( +clone -background black -shadow 80x3+2+2 \) +swap -background white -layers merge +repage "$finalFile"
-  #fi
+  fi
 done
 
 # if there are local uncommited changes, commit them (for example as output of imagemagick)
