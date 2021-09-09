@@ -34,19 +34,12 @@ Parameters
 Examples
 =====
 
-The following image shows extracting two columns from a fixed table in the Sensible app.
+The following example shows extracting two columns from a fixed table in the Sensible app.
 
 - In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col4_rank_last_month` 
 - To improve performance, the config specifies a Stop parameter. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/fixedtable_example.png)
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/fixed_table_example.pdf) |
-| --------------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -80,6 +73,65 @@ This example uses the following config:
   ]
 }
 ```
+
+**PDF**
+The following image visually represents the output of this config for the following example PDF:
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/fixed_table_example.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/fixed_table_example.pdf) |
+| --------------------------- | ------------------------------------------------------------ |
+
+
+**Output**
+
+```json
+{
+  "agile_risks_table": {
+    "columns": [
+      {
+        "id": "col1_risk_description",
+        "values": [
+          {
+            "value": "Poor task point estimation",
+            "type": "string"
+          },
+          {
+            "value": "Poor epic scope definition",
+            "type": "string"
+          },
+          {
+            "value": "Inadequate scrum master training",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "col4_rank_last_month",
+        "values": [
+          {
+            "source": "2",
+            "value": 2,
+            "type": "number"
+          },
+          {
+            "source": "1",
+            "value": 1,
+            "type": "number"
+          },
+          {
+            "source": "3",
+            "value": 3,
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 
 Notes
 ====
