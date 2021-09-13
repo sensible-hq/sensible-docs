@@ -35,30 +35,32 @@ The following example shows finding a  topic in a licensing legal code.
   "fields": [
     {
       "id": "liability_limitation_topic",
-      "anchor": "creative commons",
-      "method": {
-        "id": "topic",
-        "numLines": 6,
-        "terms": [
-          "limitation",
-          "liability",
-          "extent"
-        ],
-        "stopTerms": [
-          "warranty",
-        ]
+      "anchor": {
+        "match": {
+          "type": "first"
+        }
+      },
+        "method": {
+          "id": "topic",
+          "numLines": 6,
+          "terms": [
+            "limitation",
+            "liability",
+            "extent"
+          ],
+          "stopTerms": [
+            "warranty",
+          ]
+        }
       }
-    }
-  ]
-}
+    ]
+  }
 ```
 
 **PDF**
 The following image visually represents the output of this config for the following example PDF:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/topic_example.png)
-
-
 
 | Example PDF | [Download link](https://creativecommons.org/licenses/by-nc-sa/2.5/legalcode) |
 | ----------- | ------------------------------------------------------------ |
