@@ -20,23 +20,17 @@ Parameters
 | columns **required** | array     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output. <br/> -`terms` (**required**): An array of terms to score positively during column recognition. Usually, you include column heading terms in this array. For more information about the NLP approach, see [bag of words](doc:bag-of-words). <br/> -`stopTerms`: An array of terms to score negatively during column recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words).<br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 
 
+Examples
 ====
 
-The following image shows an example of using the Invoice method:
+The following example shows using the Invoice method:
 
 - It extracts the invoice table from a PDF that contains multiple tables.
 - It extracts other invoice metadata from header and footer information in the invoice.
 - This example uses a large number of synonymous terms for each invoice column, so it can parse invoices from a variety of vendors. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/invoice_example.png)
+**Config**
 
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/invoice_example.pdf) |
-| ----------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
 
 ```json
 {
@@ -131,7 +125,15 @@ This example uses the following config:
 }
 ```
 
-And the example output is the following:
+**PDF**
+The following image visually represents the output of this config for the following example PDF:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/invoice_example.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/invoice_example.pdf) |
+| ----------------------- | ------------------------------------------------------------ |
+
+**Output**
 
 ```json
 {
