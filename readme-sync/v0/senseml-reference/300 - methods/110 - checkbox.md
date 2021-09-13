@@ -63,7 +63,7 @@ The following example shows extracting three checkboxes:
 ```
 
 **PDF**
-The following image visually represents the output of this config for the following example PDF:
+The following image shows the example PDF used with this example config:
 
 
 

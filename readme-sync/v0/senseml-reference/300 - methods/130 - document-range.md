@@ -54,7 +54,7 @@ The following example extracts a list of four sworn statements from a W-9 form.
 
 **PDF**
 
-The following image visually represents the output of this config for the following example PDF:
+The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_sworn.png)
 
@@ -101,7 +101,7 @@ The following example shows extracting two images' coordinates.
 ```
 
 **PDF**
-The following image visually represents the output of this config for the following example PDF:
+The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
 

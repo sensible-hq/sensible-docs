@@ -126,7 +126,7 @@ The following example shows using the Invoice method:
 ```
 
 **PDF**
-The following image visually represents the output of this config for the following example PDF:
+The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/invoice_example.png)
 

@@ -57,7 +57,7 @@ The following example shows using a mapper to standardize a time duration.
 
 **PDF**
 
-The following image visually represents the output of this config for the following example PDF:
+The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mapper_example.png)
 
