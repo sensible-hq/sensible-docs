@@ -35,7 +35,7 @@ The following example shows finding a  topic in a licensing legal code.
   "fields": [
     {
       "id": "liability_limitation_topic",
-      "anchor": "creative commons corporation",
+      "anchor": "creative commons",
       "method": {
         "id": "topic",
         "numLines": 6,
