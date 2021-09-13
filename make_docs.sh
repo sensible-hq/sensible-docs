@@ -38,12 +38,12 @@ if ! git diff-index --quiet HEAD --; then
 fi
 
 # if there are local uncommitted changes, commit them (for example as output of imagemagick)
-#if ! git diff-index --quiet HEAD --; then
-    #echo "Committing local changes to github"
-    #echo "adding untracked files"
-    #git add .; git add -u 
-    #echo "git status:"
-    #git status
-    #git commit -m "updating local style changes to images"
-    #git push
-#fi
+if ! git diff-index --quiet HEAD --; then
+    echo "Committing local changes to github"
+    echo "adding untracked files"
+    git add .; git add -u 
+    echo "git status:"
+    git status
+    git commit -m "updating local style changes to images"
+    git push
+fi
