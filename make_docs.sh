@@ -3,8 +3,8 @@ direnv allow .
 echo "updating from Github"
 git pull
 echo "applying drop shadows to screenshots if any were recently committed"
-# for any PNG that exists in ./readme-sync/assets/v0/images/ but not ./readme-sync/assets/v0/images/final, convert to drop shadow
-# and write to final dir
+# for any PNG that was recently committed in ./readme-sync/assets/v0/images/screenshots, process and write to ./readme-sync/assets/v0/images/final, convert to drop shadow
+# this saves image processing time and should catch any updates you make to screenshots as long as you're running make_docs regularly
 
 mkdir -p ./readme-sync/assets/v0/images/final
 
@@ -13,11 +13,12 @@ do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
   finalFile="${file/images\/screenshots/images\/final}"
   lastCommit=$(git log -n 1 --date=relative --format=%cd $file)
-  #if [ -f "$file" ] && [ ! -f "$finalFile" ]
-  # if the image was committed in the last 2 days, update it. this should catch all updates as long as you sync docs soon after modifying images
+  # if [ -f "$file" ] && [ ! -f "$finalFile" ]
+  # any commits in the last 47 hrs
   if [[ "$lastCommit" =~ .*+(second|minute|hour).* ]] 
   then
   echo "updating $finalFile because its source was last committed $lastCommit" 
+  # apply a drop shadow to screenshots
   convert "$file" -bordercolor white -border 0 \( +clone -background black -shadow 80x3+2+2 \) +swap -background white -layers merge +repage "$finalFile"
   fi
 done
@@ -34,4 +35,15 @@ if ! git diff-index --quiet HEAD --; then
     echo "REMEMBER TO COMMIT LOCAL UNTRACKED CHANGES"
     echo "******************************************"
     echo "******************************************"
+fi
+
+# if there are local uncommitted changes, commit them (for example as output of imagemagick)
+if ! git diff-index --quiet HEAD --; then
+    echo "Committing local changes to github"
+    echo "adding untracked files"
+    git add .; git add -u 
+    echo "git status:"
+    git status
+    git commit -m "updating local style changes to images"
+    git push
 fi
