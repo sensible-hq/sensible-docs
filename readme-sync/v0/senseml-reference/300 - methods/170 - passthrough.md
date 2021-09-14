@@ -4,9 +4,19 @@ hidden: false
 ---
 Use the Passthrough method to match text using an anchor, and return the anchor match or matches directly. For example, this can be useful when you want to match using regular expressions, and you don’t want to take any additional extraction steps after finding the matches. 
 
-[**Parameters**](doc:passthrough#section-parameters)
-[**Examples**](doc:passthrough#section-examples)
-[**Notes**](doc:passthrough#section-notes)
+[**Parameters**](doc:passthrough#parameters)
+[**Examples**](doc:passthrough#examples)
+[**Notes**](doc:passthrough#notes)
+
+
+Parameters
+====
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+
+| id                | value         | description                                                  |
+| ----------------- | ------------- | ------------------------------------------------------------ |
+| id (**required**) | `passthrough` | bypass the Method object, and return the output of the anchor's Match parameter. <br/> |
 
 Examples
 ====
@@ -93,16 +103,9 @@ The following example uses regular expressions to extract a list of forms that a
 ```
 
 
-Parameters
-====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
-
-| id                | value         | description                                                  |
-| ----------------- | ------------- | ------------------------------------------------------------ |
-| id (**required**) | `passthrough` | bypass the Method object, and return the output of the anchor's Match parameter. <br/> |
 
 Notes
------
+===
 
 Often, you use the Passthrough method in combination with regular expressions. Because anchors do not support regex capturing groups, the Passthrough method returns the full contents of the matched line. If you want instead to use a capturing group to return only part of a matched line, see the [Regex method](doc:regex).
