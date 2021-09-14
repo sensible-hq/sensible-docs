@@ -87,6 +87,6 @@ Notes
 
 - Regular expressions are also supported in **anchor** matches.  For an example, see the [Passthrough method](doc:passthrough).
 
-- If the target data contains separator characters (for example, dashes in a phone number) then the  [Split method](doc:split) is an alternative to the Regex method.
+- If the target data contains separator characters (for example, whitespaces in a credit card number) then you can use the  [Split method](doc:split) as an alternative to the Regex method.
 
   
