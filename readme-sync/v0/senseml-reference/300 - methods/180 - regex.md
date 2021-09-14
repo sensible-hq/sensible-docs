@@ -24,40 +24,69 @@ Parameters
 Examples
 ====
 
-The following example narrows down text that's matched in an anchor line (since capturing groups are supported only in the Regex method, not in anchors):
+The following example narrows down text matched by an anchor line by using the Regex method. The Regex method extracts the last two four digits in a customer ID.
 
-
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/regex_example.png)
-
-
-
+**Config**
 
 ```json
 {
   "fields": [
     {
-      "anchor": {
-        "match": {
-          "pattern": "^(19|20)\\d{2}$",
-          "type": "regex",
-          "minimumHeight": 0.2
-        }
-      },
-      "id": "document_year",
+      "id": "last_4_digits_customer_id",
       "type": "number",
+      "anchor": {
+        "match": [
+          {
+            "type": "startsWith",
+            "text": "customer id"
+          },
+          {
+            "type": "regex",
+            "pattern": "^[A-Z]{4}\\d{4}$",
+          }
+        ]
+      },
       "method": {
         "id": "regex",
-        "pattern": "^((19|20)\\d{2})$"
-      },
-    },
+        "pattern": "\\d{4}$"
+      }
+    }
   ]
 }
 ```
+
+**PDF**
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/regex_example.png)
+
+
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/regex_example.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+
+
+
+**Output**
+
+```json
+{
+  "last_4_digits_customer_id": {
+    "source": "7890",
+    "value": 7890,
+    "type": "number"
+  }
+}
+```
+
 
 
 
 Notes
 ====
 
-Regular expressions are also supported in **anchor** matches.  For an example, see the [Passthrough method](doc:passthrough).
+- Regular expressions are also supported in **anchor** matches.  For an example, see the [Passthrough method](doc:passthrough).
+
+- If the target data contains separator characters (for example, dashes in a phone number) then the  [Split method](doc:split) is an alternative to the Regex method.
+
+  
