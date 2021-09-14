@@ -33,16 +33,11 @@ Parameters
 Examples
 ====
 
-The following image shows extracting a social security number from a W-9 form by defining a region to extract:
+The following example shows extracting a social security number from a W-9 form by defining a region to extract.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/region_ssn.png)
 
-Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/region_w9_example.pdf) |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -68,6 +63,25 @@ This example uses the following config:
   ]
 }
 ```
+
+**PDF**
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/region_ssn.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/region_w9_example.pdf) |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+
+**Output**
+```json
+{
+  "SSN": {
+    "type": "string",
+    "value": "1 2 3 4 5 7 8 9 3 – –"
+  }
+}
+```
+
 
 Notes
 ====
