@@ -24,7 +24,7 @@ Parameters
 Examples
 ====
 
-The following example narrows down text matched by an anchor line by using the Regex method. The Regex method extracts the last two four digits in a customer ID.
+The following example narrows down text matched by an anchor line by using the Regex method. The Regex method extracts the last four digits in a customer ID.
 
 **Config**
 
