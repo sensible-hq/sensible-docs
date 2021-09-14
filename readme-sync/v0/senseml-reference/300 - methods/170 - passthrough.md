@@ -2,7 +2,7 @@
 title: "Passthrough"
 hidden: false
 ---
-Use the Passthrough method to match text using an anchor, and return the anchor match or matches directly. This can be useful when you want to match using regular expressions, and you don’t want to take any additional processing steps after finding the matches. 
+Use the Passthrough method to match text using an anchor, and return the anchor match or matches directly. For example, this can be useful when you want to match using regular expressions, and you don’t want to take any additional extraction steps after finding the matches. 
 
 [**Parameters**](doc:passthrough#section-parameters)
 [**Examples**](doc:passthrough#section-examples)
@@ -11,7 +11,9 @@ Use the Passthrough method to match text using an anchor, and return the anchor 
 Examples
 ====
 
-The following example config uses regular expressions to extract a list of forms that are all identified by four digits (i.e., "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the target data is already matched by the anchor, we don't need a Method object. To ignore the Method object, set the method id to  `"passthrough"`. 
+The following example uses regular expressions to extract a list of forms that are all identified by four digits (i.e., "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the anchor already matches the target data, further extraction steps using a Method object are unnecessary. To ignore the Method object, set the method id to  `"passthrough"`. 
+
+**Config**
 
 ```json
 {
@@ -39,9 +41,57 @@ The following example config uses regular expressions to extract a list of forms
 }
 ```
 
-The following image shows this example in the Sensible app:
+**PDF**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/passthrough_regex.png)
+
+| Example PDF | [Download link](https://www.irs.gov/pub/irs-pdf/fw9.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+
+**Output**
+```json
+{
+  "forms_with_4_numbers": [
+    {
+      "type": "string",
+      "value": "• Form 1099-DIV (dividends, including those from stocks or mutual"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1099-MISC (various types of income, prizes, awards, or gross"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1099-B (stock or mutual fund sales and certain other"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1099-S (proceeds from real estate transactions)"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1099-K (merchant card and third party network transactions)"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1098 (home mortgage interest), 1098-E (student loan interest),"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1099-C (canceled debt)"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1099-A (acquisition or abandonment of secured property)"
+    },
+    {
+      "type": "string",
+      "value": "• Form 1099-INT (interest earned or paid)"
+    }
+  ]
+}
+```
+
 
 Parameters
 ====
