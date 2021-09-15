@@ -17,10 +17,12 @@ Parameters
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 
-| key                           | value          | description                                                  |
-| :---------------------------- | :------------- | :----------------------------------------------------------- |
-| id (**required**)             | `intersection` |                                                              |
-| verticalAnchor (**required**) | Anchor object  | An anchor object that defines a vertical line. Sensible extracts the line that is at the intersection of this vertical line, and the horizontal line defined by the field's anchor. Both lines pass through the midpoints of the anchors' boundaries. |
+| key                           | value                        | description                                                  |
+| :---------------------------- | :--------------------------- | :----------------------------------------------------------- |
+| id (**required**)             | `intersection`               |                                                              |
+| verticalAnchor (**required**) | Anchor object                | An anchor object that defines a vertical line. Sensible extracts the line that is at the intersection of this vertical line, and the horizontal line defined by the field's anchor. Both lines pass through the midpoints of the anchors' boundaries. |
+| offsetX                       | number in inches. default: 0 | Offsets the vertical line defined by the Vertical Anchor parameter to the left or right. |
+| offsetY                       | number in inches. default: 0 | Offsets the horizontal line defined by the anchor up or down. |
 
 Examples
 =====
