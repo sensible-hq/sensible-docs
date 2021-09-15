@@ -48,7 +48,7 @@ Extract data
 ====
 
 
-For this tutorial, let's extract only a few pieces of information:
+For this tutorial, you'll extract only a few pieces of information:
 
 - the policy number
 - the policy period
@@ -180,9 +180,9 @@ See those gray boxes around the text in the following image?
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_1.png)
 
-Each gray box show the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same x-axis.
+Each gray box show the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same height on the page.
 
-The Label method can operate within a single line, or across multiple lines. So, let's ask a question: in the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
+The Label method can operate within a single line, or across multiple lines. So, let's ask a question: for the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
 
     {
         "id": "doesnt_work_returns_null",
@@ -206,7 +206,7 @@ To extract the comprehensive premium of $150:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_row.png)
 
-this config uses the [Row method](doc:row):
+The config uses the [Row method](doc:row):
 
 ```json
       {
@@ -399,7 +399,7 @@ Replace the existing `policy_period` field with the following field in the Sensi
     },
 ```
 
-This field defines a region in inches relative to the anchor. Since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box representing the region in the editor? This box dynamically resizes as you adjust the region parameters (such as the Height and Start parameters), so you can visually tweak the region till you're satisfied. 
+This field defines a region in inches relative to the anchor. Since the region overlaps the anchor, specify a Word Filters parameter to remove the anchor text in the output. See the green box representing the region in the editor? This box dynamically resizes as you adjust the region parameters (such as the Height and Start parameters), so you can visually tweak the region till you're satisfied. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_3.png)
 
