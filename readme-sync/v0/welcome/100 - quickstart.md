@@ -331,21 +331,32 @@ Before integrating the config with an application and writing [validation tests]
    | auto_insurance_anyco_golden_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_2.pdf) |
    | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 
-2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output:
+2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output. You'll see that the policy period spills over onto the next line, so Sensible misses the end year (2021):
    
-   Uh oh! It looks like this policy period spills over onto the next line, so Sensible misses the end year (2021). That seems like sloppy PDF formatting, but let's work with it. 
+   ```json
+   {
+     "policy_period": {
+       "type": "string",
+       "value": "May 20, 2021 - Nov 20,"
+     }
+   ```
    
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_1.png)
 
-How can you capture the policy period reliably? 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_1.png)
 
-**Document Range method**
+That seems like sloppy PDF formatting, but let's work with it. There are several options for capturing the policy period reliably, including:  
 
-As you become more familiar with Sensible, your first impulse might be to use the [Document Range](doc:document-range) method, which extracts multiple lines of text after an anchor. In this case, the PDF doesn't fit neatly into the Document Range method, because the date range is part of the anchor line (the orange box). As a result, the Document Range leaves out the first line of the date range and only extracts the year in the method match (the blue box):
+- Document Range method
+- Region method
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_2.png)
+**Alternative 1: Document Range method**
 
-There's a workaround: specify to *include* the anchor in the Document Range method and filter out unwanted text in the anchor (the words "Policy period"). Try it out by replacing your existing `policy_period` field with this example:
+You can use the [Document Range](doc:document-range) method to extract the policy period. This method extracts multiple lines of text after an anchor. You'll need to configure some optional parameters, because the Document Range method by default discards anchor lines. In this case, since the date range is part of the anchor line (the line containing `"policy period"`):
+
+- Specify to *include* the anchor with `"includeAnchor": true`
+- Filter out unwanted text in the anchor (the words "Policy period") with a Word Filters parameter.
+
+Try it out by replacing your existing `policy_period` field with this example:
 
 ```
    {
@@ -365,9 +376,9 @@ There's a workaround: specify to *include* the anchor in the Document Range meth
     }
 ```
 
-**Region method**
+**Alternative 2: Region method**
 
-There are multiple ways to capture the policy period. Let's explore a completely new approach: a [Region method](doc:region). A region is a rectangular space defined by coordinates relative to the anchor. 
+Alternatively, you can use the [Region method](doc:region) to extract the policy period. A region is a rectangular space defined by coordinates relative to the anchor. 
 
 Replace the existing `policy_period` field with the following field in the Sensible app:
 
@@ -384,9 +395,9 @@ Replace the existing `policy_period` field with the following field in the Sensi
       },
       "method": {
         "id": "region",
-        "offsetX": -0.1,
+        "offsetX": -0.2,
         "offsetY": -0.1,
-        "width": 3.5,
+        "width": 3.6,
         "height": 0.45,
         "start": "left",
         "wordFilters": [
@@ -396,7 +407,7 @@ Replace the existing `policy_period` field with the following field in the Sensi
     },
 ```
 
-This field defines a region in inches relative to the anchor. Since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box in the editor? This box dynamically resizes as you adjust the region parameters (such as  the Height and Start parameters), so you can visually tweak the region till you're satisfied. 
+This field defines a region in inches relative to the anchor. Since the region overlaps the anchor, it uses `wordFilters` to remove the anchor text in the output. See the green box representing the region in the editor? This box dynamically resizes as you adjust the region parameters (such as the Height and Start parameters), so you can visually tweak the region till you're satisfied. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_3.png)
 
