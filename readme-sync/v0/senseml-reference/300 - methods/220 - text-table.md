@@ -24,20 +24,12 @@ Parameters
 Examples
 ====
 
-The following image shows extracting two columns from a difficult-to-recognize table in the Sensible app.  Notes:
+The following example shows extracting two columns from a difficult-to-recognize table in the Sensible app:
 
 - Since this method does not recognize cells with multiple lines of data, dollar limits are returned in separate rows.
 - To prevent Sensible from returning unwanted term matches, the config specifies a Stop parameter.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table_example.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/text_table_2_example.pdf) |
-| -------------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -71,4 +63,93 @@ This example uses the following config:
   ]
 }
 ```
+
+**PDF**
+
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table_example.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/text_table_2_example.pdf) |
+| -------------------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "text_table": {
+    "columns": [
+      {
+        "id": "col2_limits",
+        "values": [
+          null,
+          {
+            "source": "$25,000",
+            "value": 25000,
+            "unit": "$",
+            "type": "currency"
+          },
+          {
+            "source": "$50",
+            "value": 50,
+            "unit": "$",
+            "type": "currency"
+          },
+          {
+            "source": "0",
+            "value": 0,
+            "unit": "$",
+            "type": "currency"
+          },
+          null,
+          {
+            "source": "$20,000",
+            "value": 20000,
+            "unit": "$",
+            "type": "currency"
+          },
+          null,
+          null
+        ]
+      },
+      {
+        "id": "col4_premiums",
+        "values": [
+          null,
+          {
+            "source": "$100",
+            "value": 100,
+            "unit": "$",
+            "type": "currency"
+          },
+          null,
+          null,
+          null,
+          {
+            "source": "$10",
+            "value": 10,
+            "unit": "$",
+            "type": "currency"
+          },
+          null,
+          {
+            "source": "$150",
+            "value": 150,
+            "unit": "$",
+            "type": "currency"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+
+
+
+
+
+
 
