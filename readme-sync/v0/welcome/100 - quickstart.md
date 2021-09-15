@@ -40,11 +40,7 @@ Create a config
 
 4. Click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
 
-5. Click the configuration name to edit the configuration:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_click_config.png)
-
-When the configuration opens, you see an empty config pane on the left, the PDF in the middle, and an empty output pane on the right:
+5. Click the configuration to edit it. When the configuration opens, you see an empty config pane on the left, the PDF in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
