@@ -28,14 +28,6 @@ done
 echo "syncing to Readme "
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
-#if there are local uncommitted changes, commit them for example as output of imagemagick
-if ! git diff-index --quiet HEAD --; then
-    echo "******************************************"
-    echo "******************************************"
-    echo "REMEMBER TO COMMIT LOCAL UNTRACKED CHANGES"
-    echo "******************************************"
-    echo "******************************************"
-fi
 
 # if there are local uncommitted changes, commit them (for example as output of imagemagick)
 if ! git diff-index --quiet HEAD --; then
