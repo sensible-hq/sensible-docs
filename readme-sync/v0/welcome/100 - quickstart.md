@@ -180,9 +180,9 @@ See those gray boxes around the text in the following image?
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_1.png)
 
-Each gray box show the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same x-axis. The Label method can operate within a single line, or across multiple lines.
+Each gray box show the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same x-axis.
 
-So, let's ask a question: in the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
+The Label method can operate within a single line, or across multiple lines. So, let's ask a question: in the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
 
     {
         "id": "doesnt_work_returns_null",
@@ -240,7 +240,7 @@ This returns:
 
 But wait! Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is just a bunch of dots, "............")? 
 
-The reason is that `"tiebreaker": "second"` evaluates *after* the data type we set in the field, `"type": "currency"`. So, instead of looking for the second line after the anchor in general, it looks for the second line *that contains a currency*.  Convenient, right? There are two such lines, $250 and $150, and $150 is the second one. 
+The reason is that `"tiebreaker": "second"` evaluates *after* the data type specified in the field, `"type": "currency"`. So, instead of looking for the second line after the anchor in general, it looks for the second line *that contains a currency*.  Convenient, right? There are two such lines, $250 and $150, and $150 is the second one. 
 
 Key concept: visualize anchors and matches
 ----
@@ -255,12 +255,12 @@ To continue the Row method example from the previous section, in the following i
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_3.png)
 
-The dark and pale blue boxes show you that the Row method matches *all* the elements in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. 
+The dark and pale blue boxes show you that the Row method matches *all* the lines  in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. 
 
 How it works: box method
 ----
 
-To extract the policy number from this box:
+To extract the policy number from this document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_box.png)
 
@@ -343,10 +343,10 @@ That seems like sloppy PDF formatting, but let's work with it. There are several
 
 **Alternative 1: Document Range method**
 
-You can use the [Document Range](doc:document-range) method to extract the policy period. This method extracts multiple lines of text after an anchor. You'll need to configure some optional parameters, because the Document Range method by default discards anchor lines. In this case, since the date range is part of the anchor line (the line containing `"policy period"`):
+You can use the [Document Range](doc:document-range) method to extract the policy period. This method extracts multiple lines of text after an anchor. You need to configure some optional parameters, because the Document Range method by default discards anchor lines. Since the date range is part of the anchor line (the line containing `"policy period"`), you need to specify to:
 
-- Specify to *include* the anchor with `"includeAnchor": true`
-- Filter out unwanted text in the anchor (the words "Policy period") with a Word Filters parameter.
+- include the anchor with `"includeAnchor": true`
+- filter out unwanted text in the anchor (the words "Policy period") with a Word Filters parameter.
 
 Try it out by replacing your existing `policy_period` field with this example:
 
