@@ -12,7 +12,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
  In this tutorial, you'll:
 
-- [Write a collection of queries ( a "config")](doc:quickstart#section-create-a-config) to extract structured data from an auto insurance PDF 
+- [Write a collection of queries ( a "config")](doc:quickstart#section-create-a-config) to [extract structured data](doc:quickstart#extract-data) from an auto insurance PDF 
 - [Learn how the config works](doc:quickstart#section-how-it-works), including key concepts like lines, anchors, and methods
 - [Test the config](doc:quickstart#section-test-the-config) by running your config against a second PDF
 - [Use the API](doc:quickstart#section-integrate-with-your-application) to integrate your Sensible config with your application
@@ -184,11 +184,7 @@ See those gray boxes around the text in the following image?
 
 Each gray box show the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same x-axis. The Label method can operate within a single line, or across multiple lines.
 
-So, let's ask a question: can you use the Label method to extract a line in the following image? 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_4.png)
-
-For example, try using "Bodily injury" as the anchor text and see if it returns "$25,000 each":
+So, let's ask a question: in the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
 
     {
         "id": "doesnt_work_returns_null",
@@ -199,9 +195,7 @@ For example, try using "Bodily injury" as the anchor text and see if it returns 
         }
     }
 
-Try it, and it returns null.
-
-This is because the Label method works only for closely proximate lines (sensitive to spacing and font size), or for text in the same line. In this case, the problem is that the gap between the two lines of text is too big:
+This returns null, because the Label method works only for closely proximate lines (sensitive to spacing and font size), or for text in the same line. In this case, the problem is that the gap between the two lines of text is too big:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_2.png)
 
@@ -210,7 +204,7 @@ This is because the Label method works only for closely proximate lines (sensiti
 How it works: row method
 ----
 
-To extract this comprehensive premium of $150:
+To extract the comprehensive premium of $150:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_row.png)
 
