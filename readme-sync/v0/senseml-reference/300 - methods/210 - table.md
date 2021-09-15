@@ -33,15 +33,10 @@ Examples
 The following example shows extracting two columns from a table that updates monthly with a variable number of columns in the Sensible app.
 
 - To omit column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `rank_this_month` .
-- To improve performance, the config specifies a Stop parameter. ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_dynamic_example.png)
+- To improve performance, the config specifies a Stop parameter.
 
 
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic_example.pdf) |
-| --------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -76,6 +71,59 @@ This example uses the following config:
       }
     }
   ]
+}
+```
+**PDF**
+
+The following image shows the example PDF used with this example config: ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_dynamic_example.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic_example.pdf) |
+| --------------------- | ------------------------------------------------------------ |
+
+**Output**
+```json
+{
+  "agile_risks_table_updates_monthly": {
+    "columns": [
+      {
+        "id": "col1_risk_description",
+        "values": [
+          {
+            "value": "Poor task point estimation",
+            "type": "string"
+          },
+          {
+            "value": "Poor epic scope definition",
+            "type": "string"
+          },
+          {
+            "value": "Inadequate scrum master training",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "rank_this_month",
+        "values": [
+          {
+            "source": "3",
+            "value": 3,
+            "type": "number"
+          },
+          {
+            "source": "1",
+            "value": 1,
+            "type": "number"
+          },
+          {
+            "source": "2",
+            "value": 2,
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
