@@ -180,7 +180,7 @@ See those gray boxes around the text in the following image?
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_1.png)
 
-Each gray box show the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same height on the page.
+Each gray box shows the boundaries for a "line." Sensible recognizes lines using whitespaces (and other factors), so multiple "lines" can occupy the same height on the page.
 
 The Label method can operate within a single line, or across multiple lines. So, let's ask a question: for the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
 
@@ -300,7 +300,7 @@ The config uses the [Box method](doc:box):
   }
 ```
 
-**Note:** Sensible extracts the box contents, but not the anchor itself. In general, Sensible returns methods results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
+**Note:** Sensible extracts the box contents, but not the anchor itself. In general, Sensible returns method results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
 
 Advanced queries
 ----
@@ -308,7 +308,7 @@ Advanced queries
 You can get more advanced with this auto insurance config. For example:
 
 - You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
-- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible only extracts the first line. Instead, use the [Table method](doc:table) to more reliability capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
+- The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible only extracts the first line. Instead, use the [Table method](doc:table) to more reliably capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
 - What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 
 To check out other methods, see [Methods](doc:methods).
@@ -323,7 +323,7 @@ Before integrating the config with an application and writing [validation tests]
    | auto_insurance_anyco_golden_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_2.pdf) |
    | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 
-2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output. You'll see that the policy period spills over onto the next line, so Sensible misses the end year (2021):
+2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
    
    ```json
    {
@@ -425,5 +425,5 @@ Next
 ====
 
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
-- Write [validations](doc:validate-extractions) to test the qualify of your extractions in production
+- Write [validations](doc:validate-extractions) to test the quality of your extractions in production
 
