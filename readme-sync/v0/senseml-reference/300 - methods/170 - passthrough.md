@@ -53,7 +53,7 @@ The following example uses regular expressions to extract a list of forms that a
 
 **PDF**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/passthrough_regex.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/passthrough_example.png)
 
 | Example PDF | [Download link](https://www.irs.gov/pub/irs-pdf/fw9.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
