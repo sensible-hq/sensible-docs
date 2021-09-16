@@ -1,0 +1,106 @@
+---
+title: "Repeated Section"
+hidden: true
+---
+
+
+Parameters
+====
+
+
+| key               | value                                        | description                                                  |
+| ----------------- | -------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**) | `row`                                        |                                                              |
+| includeAnchor     | boolean. default: `false`                    | Includes the anchor line in the method output                |
+| position          | `right`, `left`. default: `right`            | Matches to the left or right                                 |
+| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the row is the target. Use the comparisons `>` and `<` to extract maximum and minimum values in the row. Lines are [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values. If you want to compare numeric amounts and ignore non-numbers in the row,  then add a number [type](doc:types) such as  `type: currency` as a top-level parameter to the field. |
+
+
+
+Examples
+====
+
+The following example shows  extracting data from two consecutive tables using the Row method:
+
+1. The first field has an anchor with two matches to avoid duplicate text in the second table. First the anchor matches the text `most popular on github`, then it anchors on the text  `first`  in a row. The method then extracts the top-ranked Github language name to the left of the anchor match. 
+2. The second field also has an anchor with two matches. It anchors on the row containing `Python`, then extracts the second percentage in the row to the right of the anchor.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "number_1_language_on_github",
+      "anchor": {
+        "match": [
+          {
+            "text": "most popular on github",
+            "type": "includes"
+          },
+          {
+            "text": "first",
+            "type": "startsWith"
+          }
+        ]
+      },
+      "method": {
+        "id": "row",
+        "position": "left",
+      }
+    },
+    {
+      "id": "python_change_in_TIBOE_rating",
+      "type": "percentage",
+      "anchor": {
+        "match": [
+          {
+            "text": "popular in search engines",
+            "type": "includes"
+          },
+          {
+            "text": "Python",
+            "type": "startsWith"
+          }
+        ]
+      },
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    }
+  ]
+}
+```
+
+**PDF**
+
+The following image shows the data extracted by this config for the following example PDF:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row_example.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
+| ------------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "number_1_language_on_github": {
+    "value": "Javascript",
+    "type": "string"
+  },
+  "python_change_in_TIBOE_rating": {
+    "source": "2.75%",
+    "value": 2.75,
+    "type": "percentage"
+  }
+}
+```
+
+Notes
+-----
+
+- To extract an entire table, see the [Table method](doc:table). 
+- To extract a column, see the [Column method](doc:column). 
+- In a row with optional empty cells, a tiebreaker can return lines from inconsistent columns. Use the [Intersection method](doc:intersection) instead.

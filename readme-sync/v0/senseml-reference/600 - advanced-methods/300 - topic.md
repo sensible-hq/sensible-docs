@@ -6,8 +6,8 @@ hidden: false
 
 Finds a range of lines in a document that most closely match a topic as determined by a bag of words NLP approach. Most useful in long, unstructured documents.
 
-[**Parameters**](doc:text-table#section-parameters)
-[**Examples**](doc:text-table#section-examples)
+[**Parameters**](doc:topic#section-parameters)
+[**Examples**](doc:topic#section-examples)
 
 Parameters
 =====

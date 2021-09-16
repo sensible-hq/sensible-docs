@@ -1,8 +1,8 @@
 ---
 title: "Methods"
-hidden: false
+hidden: true
 ---
-Use the following [methods](doc:method)  to extract structured data from documents:
+Use the following [methods](doc:method)  to extract structured data from documents.
 
 | Method                                   | Image                                                        | Notes                                                        |
 | ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
