@@ -14,7 +14,7 @@ do
   finalFile="${file/images\/screenshots/images\/final}"
   lastCommit=$(git log -n 1 --date=relative --format=%cd $file)
   # if [ -f "$file" ] && [ ! -f "$finalFile" ]
-  # any commits in the last 24+ hrs (up to 30 hrs??)
+  # any commits in the last 24 hrs (upper limit? unsure. less than 30 hrs?)
   if [[ "$lastCommit" =~ .*+(second|minute|hour).* ]] 
   then
   echo "updating $finalFile because its source was last committed $lastCommit" 
