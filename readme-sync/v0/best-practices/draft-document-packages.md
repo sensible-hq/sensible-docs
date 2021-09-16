@@ -1,6 +1,6 @@
 ---
 title: "Document packages"
-hidden: false
+hidden: true
 
 ---
 
