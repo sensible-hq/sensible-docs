@@ -8,13 +8,13 @@ Matches are instructions for matching lines of text in a document. They are vali
 
 See the following sections for more information:
 
-[**Parameters**](doc:match#parameters)
+[**Match types**](doc:match#match-types)
 
 - [Global parameters](doc:anchor#global-parameters)
-- [Simple match parameters](doc:anchor#simple-match-parameters)
-- [Regex match parameters](doc:anchor#regex-match-parameters)
-- [First match parameters](doc:anchor#first-match-parameters)
-- [Or match parameters](doc:match#or-match-parmeters)
+- [Simple match](doc:anchor#simple-match)
+- [Regex match](doc:anchor#regex-match)
+- [First match](doc:anchor#first-match)
+- [OR match](doc:match#or-match)
 
 [**Examples**](doc:match#section-examples)
 
@@ -22,7 +22,7 @@ See the following sections for more information:
 
 TODO: add section for OR MATCH
 
-Parameters
+Match types
 ===
 
 Global Parameters
@@ -38,7 +38,7 @@ The following parameters are available to all types of Match objects:
 
 
 
-Simple match parameters
+Simple match
 -------
 
 Match using strings.
@@ -49,6 +49,8 @@ Match using strings.
 | ---- | ---------------------------------------------- | ------------------------------------------------------------ |
 | text | string                                         | The string to match                                          |
 | type | `equals`, `startsWith`, `endsWith`, `includes` | `equals`: The matching line must exactly contain the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
+
+**Example**
 
 The following config uses as simple match:
 
@@ -74,7 +76,7 @@ The following config uses as simple match:
 ```
 
 
-Regex match parameters
+Regex match
 -----
 
 Match using a regular expression.
@@ -87,9 +89,11 @@ Match using a regular expression.
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 | type (**required**)    | `regex`                  |                                                              |
 
+**Example**
+
 For an example, see the [Passthrough method example](doc:passthrough).
 
-First match parameters
+First match
 ------
 
 This is a convenience match to find the first line encountered. 
@@ -99,6 +103,8 @@ This is a convenience match to find the first line encountered.
 | key  | values  | description                                                  |
 | ---- | ------- | ------------------------------------------------------------ |
 | type | `first` | Matches the first line encountered, either in the first page of the document, or after a specified line. |
+
+**Example**
 
 This example matches the first line after a matched line:
 
@@ -128,6 +134,46 @@ This example matches the first line after a matched line:
 }
 ```
 
+OR match parameters
+---
+
+Matches any of an array of of match objects.
+
+**Parameters**
+
+| key                  | values                 | description                                                  |
+| -------------------- | ---------------------- | ------------------------------------------------------------ |
+| match (**required**) | array of Match objects | Match any of the Match objects in the array. For example, this allows you to match on an array of synonymous terms if a document contains small wording variations across revisions. |
+| type (**required**)  | `or`                   |                                                              |
+
+**Example**
+
+```json
+{
+	"fields": [{
+		"anchor": {
+			"match": {
+				"type": "or",
+				"matchers": [{
+						"type": "equals",
+						"text": "load value"
+					},
+					{
+						"type": "equals",
+						"text": "cargo value"
+					}
+				]
+			}
+		},
+		"id": "cargo",
+		"method": {
+			"id": "passthrough"
+		}
+	}]
+}
+```
+
+
 
 Examples
 ====
@@ -139,8 +185,6 @@ Sensible creates an anchor using the last element in a Match array only if:
 
 - The last element is preceded by the other array elements in order, with no intervening match repetitions.
 - Each array element targets a separate successive line.
-
-
 
 This example creates an Anchor line using the last element in the array:
 
