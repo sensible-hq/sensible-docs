@@ -45,10 +45,10 @@ Match using strings.
 
 **Parameters**
 
-| key  | values                                         | description                                                  |
-| ---- | ---------------------------------------------- | ------------------------------------------------------------ |
-| text | string                                         | The string to match                                          |
-| type | `equals`, `startsWith`, `endsWith`, `includes` | `equals`: The matching line must exactly contain the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
+| key                  | values                                         | description                                                  |
+| -------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| text  (**required**) | string                                         | The string to match                                          |
+| type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes` | `equals`: The matching line must exactly contain the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
 
 **Example**
 
@@ -85,9 +85,9 @@ Match using a regular expression.
 
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
+| type (**required**)    | `regex`                  |                                                              |
 | pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Remember to double escape special characters since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
-| type (**required**)    | `regex`                  |                                                              |
 
 **Example**
 
@@ -100,9 +100,9 @@ This is a convenience match to find the first line encountered.
 
 **Parameters**
 
-| key  | values  | description                                                  |
-| ---- | ------- | ------------------------------------------------------------ |
-| type | `first` | Matches the first line encountered, either in the first page of the document, or after a specified line. |
+| key                 | values  | description                                                  |
+| ------------------- | ------- | ------------------------------------------------------------ |
+| type (**required**) | `first` | Matches the first line encountered, either in the first page of the document, or after a specified line. |
 
 **Example**
 
@@ -134,7 +134,7 @@ This example matches the first line after a matched line:
 }
 ```
 
-OR match parameters
+OR match
 ---
 
 Matches any of an array of of match objects.
@@ -143,8 +143,8 @@ Matches any of an array of of match objects.
 
 | key                  | values                 | description                                                  |
 | -------------------- | ---------------------- | ------------------------------------------------------------ |
-| match (**required**) | array of Match objects | Match any of the Match objects in the array. For example, this allows you to match on an array of synonymous terms if a document contains small wording variations across revisions. |
 | type (**required**)  | `or`                   |                                                              |
+| match (**required**) | array of Match objects | Match any of the Match objects in the array. For example, this allows you to match on an array of synonymous terms if a document contains small wording variations across revisions. |
 
 **Example**
 
