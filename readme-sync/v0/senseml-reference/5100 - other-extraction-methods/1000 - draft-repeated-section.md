@@ -18,7 +18,7 @@ Parameters
 | id (**required**)     | string                                           | the id of the section. You can have multiple sections in a document, and you can nest sections inside of other sections. |
 | range  (**required**) | object                                           | Specifies to search for repeated elements between matching Start and Stop parameters. Contains these parameters:<br/>**start**-an [Anchor](doc:anchor) or string object that defines the start of the section. Specify the same value for this parameter as for the anchor of the first field you want to extract in each repeating element. For example, in the preceding image, specify `"start": "claim number"`  .**QUESTION: so if you wanted to skip 'claim number, could you specify 'claimant last name' here, have no "claim number" field and it would work out OK? what would happen if you added the 'claim number' field but didn't have it in the range?** <br/> **stop**-a string or [Match](doc:match) object or array of Match objects that defines the end of the section. In the preceding image, for example, `"stop":"claims totals"`.<br/> |
 | fields (**required**) | array of [Field objects](doc:field-query-object) | The fields in each repeating element that you want to extract repeatedly as an array.  If the field anchor doesn't correspond to a repeating element, or if it matches to data that falls outside the Range parameter, the field returns null. |
-| computedFields        | array of [Computed fields](doc:computed-fields)  | Transform the output of the fields.                          |
+| computedFields        | array of [Computed fields](doc:computed-field-methods)  | Transform the output of the fields.                          |
 
 Examples
 ====
