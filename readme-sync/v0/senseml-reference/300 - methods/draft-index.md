@@ -4,6 +4,8 @@ hidden: true
 ---
 Use the following [methods](doc:method)  to extract structured data from documents.
 
+See also [other extraction methods](doc:other-extraction-methods) for extracting data that do not fit into one of the folllowing methods.
+
 | Method                                   | Image                                                        | Notes                                                        |
 | ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **[Box](doc:box)**                       | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/thumbnail_box.png) | Extracts contents from boxes with continuous borders.        |

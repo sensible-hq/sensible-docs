@@ -7,8 +7,6 @@ Test for matching text in a document in order to determine whether it matches a 
 - Improve performance by testing for matching text in a document in order to run or skip a config.  By skipping configs that fail a fingerprint, you can save processing time. This is particularly true if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. 
 - Handle document packages by testing for text that defines starting and ending pages for documents in the package. For more information, see [Document packages](doc:document-packages).
 
-
-
 Parameters
 ====
 
