@@ -1,5 +1,5 @@
 ---
-title: "Document packages"
+title: "Document packages-best practices"
 hidden: true
 
 ---

@@ -3,81 +3,37 @@ title: "Repeated Section"
 hidden: true
 ---
 
+Extracts data from a section of the document that contains repeated elements. Sensible returns an array of objects corresponding to the elements. The following image shows an example of a repeated section:
+
+![image-20210916143730186](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20210916143730186.png)
+
+For the preceding example, you can configure Sensible to return a `claims` array of objects, where each object contains a `claim_number`, `claim_date`, `claimant_last_name`, etc.
 
 Parameters
 ====
 
 
-| key               | value                                        | description                                                  |
-| ----------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `row`                                        |                                                              |
-| includeAnchor     | boolean. default: `false`                    | Includes the anchor line in the method output                |
-| position          | `right`, `left`. default: `right`            | Matches to the left or right                                 |
-| tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the row is the target. Use the comparisons `>` and `<` to extract maximum and minimum values in the row. Lines are [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values. If you want to compare numeric amounts and ignore non-numbers in the row,  then add a number [type](doc:types) such as  `type: currency` as a top-level parameter to the field. |
-
-
+| key                   | value                                            | description                                                  |
+| --------------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| id (**required**)     | string                                           | the id of the section. You can have multiple sections in a document, and you can nest sections inside of other sections. |
+| range  (**required**) | object                                           | Specifies to search for repeated elements between matching Start and Stop parameters. Contains these parameters:<br/>**start**-an [Anchor](doc:anchor) or string object that defines the start of the section. Specify the same value for this parameter as for the anchor of the first field you want to extract in each repeating element. For example, in the preceding image, specify `"start": "claim number"`  .**QUESTION: so if you wanted to skip 'claim number, could you specify 'claimant last name' here, have no "claim number" field and it would work out OK? what would happen if you added the 'claim number' field but didn't have it in the range?** <br/> **stop**-a string or [Match](doc:match) object or array of Match objects that defines the end of the section.<br/> |
+| fields (**required**) | array of [Field objects](doc:field-query-object) | The fields in each repeating element that you want to extract repeatedly as an array.  If the field anchor doesn't correspond to a repeating element, or if it matches to data that falls outside the Range parameter, the field returns null. |
+| computedFields        | array of [Computed fields](doc:computed-fields)  | Transform the output of the fields.                          |
 
 Examples
 ====
 
-The following example shows  extracting data from two consecutive tables using the Row method:
-
-1. The first field has an anchor with two matches to avoid duplicate text in the second table. First the anchor matches the text `most popular on github`, then it anchors on the text  `first`  in a row. The method then extracts the top-ranked Github language name to the left of the anchor match. 
-2. The second field also has an anchor with two matches. It anchors on the row containing `Python`, then extracts the second percentage in the row to the right of the anchor.
-
 **Config**
 
 ```json
-{
-  "fields": [
-    {
-      "id": "number_1_language_on_github",
-      "anchor": {
-        "match": [
-          {
-            "text": "most popular on github",
-            "type": "includes"
-          },
-          {
-            "text": "first",
-            "type": "startsWith"
-          }
-        ]
-      },
-      "method": {
-        "id": "row",
-        "position": "left",
-      }
-    },
-    {
-      "id": "python_change_in_TIBOE_rating",
-      "type": "percentage",
-      "anchor": {
-        "match": [
-          {
-            "text": "popular in search engines",
-            "type": "includes"
-          },
-          {
-            "text": "Python",
-            "type": "startsWith"
-          }
-        ]
-      },
-      "method": {
-        "id": "row",
-        "tiebreaker": "second"
-      }
-    }
-  ]
-}
+
 ```
 
 **PDF**
 
 The following image shows the data extracted by this config for the following example PDF:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/tbd_example.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
 | ------------------- | ------------------------------------------------------------ |
@@ -85,22 +41,10 @@ The following image shows the data extracted by this config for the following ex
 **Output**
 
 ```json
-{
-  "number_1_language_on_github": {
-    "value": "Javascript",
-    "type": "string"
-  },
-  "python_change_in_TIBOE_rating": {
-    "source": "2.75%",
-    "value": 2.75,
-    "type": "percentage"
-  }
-}
+
 ```
 
 Notes
 -----
 
-- To extract an entire table, see the [Table method](doc:table). 
-- To extract a column, see the [Column method](doc:column). 
-- In a row with optional empty cells, a tiebreaker can return lines from inconsistent columns. Use the [Intersection method](doc:intersection) instead.
+- You can use a repeating section to: 
