@@ -11,7 +11,7 @@ Parameters
 
 A fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects.  For more information, see [Match object](doc:match).
 
-In the Sensible app or  API, configure the following levels of strictness for a document type's fingerprints:
+In the Sensible app, configure the following levels of strictness for a document type's fingerprints:
 
 | Strictness level | Description                                                  | If multiple configs' fingerprints pass over 50%              | If no configs' fingerprint passes over 50% or if no configs contain a fingerprint |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
