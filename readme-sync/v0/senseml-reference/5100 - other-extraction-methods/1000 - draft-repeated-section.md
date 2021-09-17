@@ -9,6 +9,11 @@ Extracts data from a section of the document that contains repeated elements. Se
 
 For the preceding example, you can configure Sensible to return a `claims` array, where each object in the array contains a `claim_number`, `claimant_last_name`, `claim_date`, etc. 
 
+[**Parameters**](doc:repeated-section#section-parameters)
+[**Examples**](doc:repeated-section#section-examples)
+
+
+
 Parameters
 ====
 
