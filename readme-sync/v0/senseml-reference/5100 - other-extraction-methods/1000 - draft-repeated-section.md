@@ -29,7 +29,7 @@ Examples
 {
 	"fields": [{
 		"id": "example_field_outside_repeated_section",
-        "anchor": "unprocessed claims section",
+		"anchor": "unprocessed claims section",
 		"method": {
 			"id": "passthrough"
 		}
@@ -37,7 +37,7 @@ Examples
 	"repeatedSections": [
 
 		{
-			"id": "claims_unprocessed",
+			"id": "claims_unprocessed_section",
 			"range": {
 
 				"start": {
@@ -47,73 +47,54 @@ Examples
 				},
 				"stop": "claims totals"
 			},
-			"fields": [
 
-				{
-					"id": "claims_unprocessed_repeats",
-					"range": {
-
-						"start": {
-							"match": {
-								"type": "startsWith",
-								"text": "Claim number",
-								"isCaseSensitive": true
-							}
-						},
-						"stop": {
+			"fields": [{
+					"id": "last_name_repeats",
+					"method": {
+						"id": "label",
+						"position": "right"
+					},
+					"anchor": {
+						"match": {
 							"type": "startsWith",
-							"text": "grand totals"
+							"text": "claimant last name:"
+						}
+					}
+				},
+				{
+					"id": "claim_number_repeats",
+					"type": "number",
+					"anchor": {
+						"match": {
+							"type": "startsWith",
+							"text": "Claim number",
+							"isCaseSensitive": true
 						}
 					},
-					"fields": [{
-							"id": "last_name_repeats",
-							"method": {
-								"id": "label",
-								"position": "right"
-							},
-							"anchor": {
-								"match": {
-									"type": "startsWith",
-									"text": "claimant last name:"
-								}
-							}
-						},
-						{
-							"id": "claim_number_repeats",
-							"type": "number",
-							"anchor": {
-								"match": {
-									"type": "startsWith",
-									"text": "Claim number",
-									"isCaseSensitive": true
-								}
-							},
-							"method": {
-								"id": "label",
-								"position": "right"
-							}
-						},
-						{
-							"id": "claim_date_repeats",
-							"type": "date",
-							"anchor": {
-								"match": {
-									"type": "startsWith",
-									"text": "Date of claim",
-									"isCaseSensitive": true
-								}
-							},
-							"method": {
-								"id": "row",
-								"position": "right",
-								"tiebreaker": "first"
-							}
+					"method": {
+						"id": "label",
+						"position": "right"
+					}
+				},
+				{
+					"id": "claim_date_repeats",
+					"type": "date",
+					"anchor": {
+						"match": {
+							"type": "startsWith",
+							"text": "Date of claim",
+							"isCaseSensitive": true
 						}
-					]
+					},
+					"method": {
+						"id": "row",
+						"position": "right",
+						"tiebreaker": "first"
+					}
 				}
 			]
 		}
-	}
+	]
 }
 ```
 
