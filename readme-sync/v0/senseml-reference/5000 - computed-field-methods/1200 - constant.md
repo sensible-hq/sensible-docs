@@ -17,7 +17,7 @@ Examples
 
 The following image shows adding a form name and policy duration as constants to a config's output:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/constant_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/constant.png)
 
 
 Try out this example in the Sensible app using the following PDF and config:

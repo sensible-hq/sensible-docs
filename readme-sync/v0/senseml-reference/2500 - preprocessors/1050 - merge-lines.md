@@ -36,11 +36,11 @@ Use the Merge Lines preprocessor to clean up OCRed handwriting text. This prepro
 
 In the following image, the Merge Line preprocessor cleans up placeholder handwritten data extracted using Google OCR:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr.png)
 
 Without the preprocessor, the lines are oversplit:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_2.png)
 
 Modify this example to observe the effects of the different parameters. For example:
 
@@ -54,12 +54,12 @@ Modify this example to observe the effects of the different parameters. For exam
 
 Try out this example in the Sensible app using the following PDF and config: 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr.pdf) |
 | ------------------------------- | ------------------------------------------------------------ |
 
 To run this example, verify that you are using Google OCR (click **Edit Settings**  for the Document Type and select **Google**): 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_example_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
 
 This example uses the following config:
 
@@ -99,11 +99,11 @@ Oversplit lines
 
 The following image shows oversplit lines. For example, the phrase "premium driver discount" is split into three lines even though the human eye perceives it as one phrase:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_example_oversplit_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_1.png)
 
 The following image shows using the Merge Lines preprocessor to fix the oversplit lines and find a discount amount for a specific vehicle:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_example_oversplit_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_2.png)
 
 This example uses the following config:
 
@@ -141,12 +141,12 @@ Jittery lines on a y-axis
 
 The following image shows using the Y Overlap parameter to correct vertical misalignment or "jitter" in lines (for example, as the result of a low-quality scan or because of handwriting).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_example_yoverlap.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_yoverlap.png)
 
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap.pdf) |
 | ------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
@@ -179,13 +179,13 @@ Overlapping lines on an x-axis
 
 The following image shows using the Min X Gap Threshold parameter to correctly extract overlapping text in a poorly formatted PDF. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_minxgap_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_minxgap.png)
 
 The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on this table, as well as in other examples of this table in which the lines do not overlap.
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap.pdf) |
 | ----------------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

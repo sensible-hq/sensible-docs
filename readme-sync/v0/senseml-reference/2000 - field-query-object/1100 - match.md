@@ -54,7 +54,7 @@ The following config uses as simple match:
   {
   "fields": [
     {
-      "id": "simple_anchor_example",
+      "id": "simple_anchor",
       "anchor": {
         "match": {
           "type": "startsWith",

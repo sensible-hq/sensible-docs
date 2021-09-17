@@ -35,14 +35,14 @@ The following images show:
   - Where it overlaps a repeating element, it is also treated as repeating and is removed from the direct text extraction.
   - Where it overlaps variable text, it is not considered repeating and is still included in the direct text extraction
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_footer_example_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_footer_1.png)
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_footer_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_footer_2.png)
 
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/remove_footer_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/remove_footer.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
 
 This example uses the following config:

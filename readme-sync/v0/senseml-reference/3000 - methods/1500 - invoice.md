@@ -128,9 +128,9 @@ The following example shows using the Invoice method:
 **PDF**
 The following image shows the example PDF used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/invoice_example.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/invoice.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/invoice_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/invoice.pdf) |
 | ----------------------- | ------------------------------------------------------------ |
 
 **Output**

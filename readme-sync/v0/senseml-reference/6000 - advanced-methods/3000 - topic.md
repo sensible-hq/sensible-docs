@@ -60,7 +60,7 @@ The following example shows finding a  topic in a licensing legal code.
 **PDF**
 The following image shows the example PDF used with this example config:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/topic_example.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/topic.png)
 
 | Example PDF | [Download link](https://creativecommons.org/licenses/by-nc-sa/2.5/legalcode) |
 | ----------- | ------------------------------------------------------------ |

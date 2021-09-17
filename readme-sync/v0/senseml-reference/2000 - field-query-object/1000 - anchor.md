@@ -158,15 +158,15 @@ Here is an ending line.
 
 For **Anchor 1**, Sensible anchors on the last Match array element only if it is preceded by the other array elements in order, with no intervening match repetitions.   `"match":all"` finds two anchors. See the following image for an illustration: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_example_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_2.png)
 
 - For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document.  `"match":all"` finds four anchors. Notice it does NOT anchor on the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match.  See the following image for an illustration:
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_example_3.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_3.png)
 
 Try out this example in the Sensible app using the following PDF and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/anchor_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/anchor.pdf) |
 | ----------------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:
@@ -285,7 +285,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Example Output**
