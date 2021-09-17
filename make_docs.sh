@@ -13,8 +13,8 @@ do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
   finalFile="${file/images\/screenshots/images\/final}"
   lastCommit=$(git log -n 1 --date=relative --format=%cd $file)
-  # if [ -f "$file" ] && [ ! -f "$finalFile" ]
-  # any commits in the last 24 hrs (upper limit? unsure. less than 30 hrs?)
+  # if [ -f "$file" ] && [ ! -f "$finalFile" ] 
+  # any commits in the last 24 hrs (upper limit? unsure. less than 47 hrs?), OR if file exists in screenshots but not final dir
   if [[ "$lastCommit" =~ .*+(second|minute|hour).* ]] 
   then
   echo "updating $finalFile because its source was last committed $lastCommit" 
