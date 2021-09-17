@@ -40,6 +40,8 @@ Without a Merge Line preprocessor, the placeholder handwritten data in an exampl
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_2.png)
 
+For example, the phrase `Name (First, Middle, Last, Suffix, Trust or Custodian)` is not one line, but is instead split on every word.
+
 **SOLUTION**
 
 CONFIG
@@ -57,18 +59,15 @@ CONFIG
   ],
   "fields": [
     {
-      "id": "all_lines_in_doc",
+      "id": "name_line",
+      "anchor": "Name",
       "method": {
-        "id": "documentRange",
+        "id": "label",
+        "position": "right",
         "includeAnchor": true
       },
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      }
     }
-  ]
+]
 }
 ```
 
@@ -87,9 +86,9 @@ OUTPUT
 
 ```
 {
-  "all_lines_in_doc": {
+  "name_line": {
     "type": "string",
-    "value": "1. OWNERSHIP INFORMATION A. TYPE OF OWNERSHIP - Select One ☐ Trust - (If selecting a Trust, submit the Certificate of Entity ☐ UGMA/UTMA Custodian ☑ Natural Person(s) Ownership for Trusts form with this application.) B. OWNER ☑ Male Female ☐ Resident Alien /Citizen of: ☐ U.S. Citizen 11/13/1962 968-88-9696 Date of birth (mm/dd/yyyy) Social Security Number (all 9 digits required) or Tax ID rey Kyler lurray Name (First, Middle, Last, Suffix, Trust or Custodian) Glendale A285305 Cardinals Dr. Zip State City Street address Test Case Ties@AOL.com Mobile phone Email address Home phone C. JOINT OWNER - Not available if Owner is a Custodian, Trust or for Qualified Annuities. Joint Owner must be a natural person. ☐ Check here to designate the Joint Owners as each other's Primary Beneficiary. ☐ Female ☑ Male ☐ Resident Alien /Citizen of: ☑ U.S. Citizen 2/14/1961 668-11-3344 Date of birth (mm/dd/yyyy) Nash Social Security Number (all 9 digits required) Steve ☐ Address Same as Owner Name (First, Middle, Last, Suffix) AZ Main 85719 Tucson St State Zip City Street address Relationship to Owner L Home phone"
+    "value": "Name (First, Middle, Last, Suffix, Trust or Custodian)"
   }
 }
 ```
