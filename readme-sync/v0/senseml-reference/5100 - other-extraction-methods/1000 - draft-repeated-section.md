@@ -26,7 +26,95 @@ Examples
 **Config**
 
 ```json
+{
+	"fields": [{
+		"id": "example_field_outside_repeated_section",
+		"method": {
+			"id": "passthrough"
+		},
+		"anchor": "unprocessed claims section"
+	}],
+	"repeatedSections": [
 
+		{
+			"id": "claims_unprocessed",
+			"range": {
+
+				"start": {
+					"type": "startsWith",
+					"text": "Claim number",
+					"isCaseSensitive": true
+				},
+				"stop": "claims totals"
+			},
+			"fields": [
+
+				{
+					"id": "claims_unprocessed",
+					"range": {
+
+						"start": {
+							"match": {
+								"type": "startsWith",
+								"text": "Claim number",
+								"isCaseSensitive": true
+							}
+						},
+						"stop": {
+							"type": "startsWith",
+							"text": "grand totals"
+						}
+					},
+					"fields": [{
+							"id": "last_name",
+							"method": {
+								"id": "label",
+								"position": "right"
+							},
+							"anchor": {
+								"match": {
+									"type": "startsWith",
+									"text": "claimant last name:"
+								}
+							}
+						},
+						{
+							"id": "claim_number",
+							"type": "number",
+							"anchor": {
+								"match": {
+									"type": "startsWith",
+									"text": "Claim number",
+									"isCaseSensitive": true
+								}
+							},
+							"method": {
+								"id": "label",
+								"position": "right"
+							}
+						},
+						{
+							"id": "claim_date",
+							"type": "date",
+							"anchor": {
+								"match": {
+									"type": "startsWith",
+									"text": "Date of claim",
+									"isCaseSensitive": true
+								}
+							},
+							"method": {
+								"id": "row",
+								"position": "right",
+								"tiebreaker": "first"
+							}
+						}
+					]
+				}
+			]
+		}
+	}
+}
 ```
 
 **PDF**
