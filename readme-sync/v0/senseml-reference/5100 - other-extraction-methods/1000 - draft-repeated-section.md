@@ -1,5 +1,5 @@
 ---
-title: "Repeated Section"
+title: "Repeated section"
 hidden: true
 ---
 
@@ -47,21 +47,7 @@ Examples
 				},
 				"stop": "claims totals"
 			},
-
 			"fields": [{
-					"id": "last_name_repeats",
-					"method": {
-						"id": "label",
-						"position": "right"
-					},
-					"anchor": {
-						"match": {
-							"type": "startsWith",
-							"text": "claimant last name:"
-						}
-					}
-				},
-				{
 					"id": "claim_number_repeats",
 					"type": "number",
 					"anchor": {
@@ -77,19 +63,16 @@ Examples
 					}
 				},
 				{
-					"id": "claim_date_repeats",
-					"type": "date",
+					"id": "last_name_repeats",
+					"method": {
+						"id": "label",
+						"position": "right"
+					},
 					"anchor": {
 						"match": {
 							"type": "startsWith",
-							"text": "Date of claim",
-							"isCaseSensitive": true
+							"text": "claimant last name:"
 						}
-					},
-					"method": {
-						"id": "row",
-						"position": "right",
-						"tiebreaker": "first"
 					}
 				}
 			]
@@ -104,13 +87,64 @@ The following image shows the data extracted by this config for the following ex
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/tbd_example.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column_example.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/repeated_section_example.pdf) |
 | ------------------- | ------------------------------------------------------------ |
 
 **Output**
 
 ```json
-
+{
+  "example_field_outside_repeated_section": {
+    "type": "string",
+    "value": "Unprocessed claims section"
+  },
+  "claims_unprocessed_section": [
+    {
+      "claim_number_repeats": {
+        "source": "1223456789",
+        "value": 1223456789,
+        "type": "number"
+      },
+      "last_name_repeats": {
+        "type": "string",
+        "value": "Diaz"
+      }
+    },
+    {
+      "claim_number_repeats": {
+        "source": "9876543211",
+        "value": 9876543211,
+        "type": "number"
+      },
+      "last_name_repeats": {
+        "type": "string",
+        "value": "Badawi"
+      }
+    },
+    {
+      "claim_number_repeats": {
+        "source": "6754329876",
+        "value": 6754329876,
+        "type": "number"
+      },
+      "last_name_repeats": {
+        "type": "string",
+        "value": "Smith"
+      }
+    },
+    {
+      "claim_number_repeats": {
+        "source": "6785439210",
+        "value": 6785439210,
+        "type": "number"
+      },
+      "last_name_repeats": {
+        "type": "string",
+        "value": "Levy"
+      }
+    }
+  ]
+}
 ```
 
 Notes
