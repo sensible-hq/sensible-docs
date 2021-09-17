@@ -19,7 +19,7 @@ Extract from a URL Sensible provides
 Prerequisites
 ----
 
-See [prerequisites](doc:api-tutorial#section-prerequisites).
+See [prerequisites](doc:api-tutorial#prerequisites).
 
 
 Generate the upload URL

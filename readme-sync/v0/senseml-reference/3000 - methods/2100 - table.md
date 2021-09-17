@@ -12,14 +12,14 @@ Matches tables based on bag-of-words scoring and returns their collated column c
 
 - The anchor text must be a line that precedes the table.  Do not choose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
 
-[**Parameters**](doc:table#section-parameters)
-[**Examples**](doc:table#section-examples)
+[**Parameters**](doc:table#parameters)
+[**Examples**](doc:table#examples)
 
 
 Parameters
 =====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | key                    | value                     | description                                                  |
 | :--------------------- | :------------------------ | :----------------------------------------------------------- |

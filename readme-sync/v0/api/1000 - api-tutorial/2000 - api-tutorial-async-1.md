@@ -22,7 +22,7 @@ Extract from a URL you provide
 Prerequisites
 ----
 
-See [prerequisites](doc:api-tutorial#section-prerequisites).
+See [prerequisites](doc:api-tutorial#prerequisites).
 
 Extract the data 
 ----

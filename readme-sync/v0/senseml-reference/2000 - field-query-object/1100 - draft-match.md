@@ -16,9 +16,9 @@ See the following sections for more information:
 - [First match](doc:anchor#first-match)
 - [OR match](doc:match#or-match)
 
-[**Examples**](doc:match#section-examples)
+[**Examples**](doc:match#examples)
 
-- [Match arrays](doc:match#section-match-arrays) 
+- [Match arrays](doc:match#match-arrays) 
 
 TODO: add section for OR MATCH
 

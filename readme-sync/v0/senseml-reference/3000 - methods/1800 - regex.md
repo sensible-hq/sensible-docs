@@ -4,14 +4,14 @@ hidden: false
 ---
 Extracts lines matching a regular expression. Often, you use a capturing group in this method to narrow down text you matched in an anchor. 
 
-[**Parameters**](doc:regex#section-parameters)
-[**Examples**](doc:regex#section-examples)
-[**Notes**](doc:regex#section-notes)
+[**Parameters**](doc:regex#parameters)
+[**Examples**](doc:regex#examples)
+[**Notes**](doc:regex#notes)
 
 Parameters
 ====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 
 | key                    | value                                  | description                                                  |

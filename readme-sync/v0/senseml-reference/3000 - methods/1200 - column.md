@@ -10,8 +10,8 @@ Extracts all lines below the anchor line on the current page if:
 
 - The anchor line and target line overlap by at least 50% of the narrower line's x extent.
 
-[**Parameters**](doc:column#section-parameters)
-[**Examples**](doc:column#section-examples)
+[**Parameters**](doc:column#parameters)
+[**Examples**](doc:column#examples)
 
 Parameters
 ====

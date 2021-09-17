@@ -11,14 +11,14 @@ In general, use this method:
 - for faster performance compared to the Box method
 -  when you want to extract data from an area whose formatting doesn't exactly fit other SenseML methods. For example, you can use this method instead of the Label method for widely separated anchors and target lines.
 
-[**Parameters**](doc:region#section-parameters)
-[**Examples**](doc:region#section-examples)
-[**Notes**](doc:region#section-notes)
+[**Parameters**](doc:region#parameters)
+[**Examples**](doc:region#examples)
+[**Notes**](doc:region#notes)
 
 Parameters
 ====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | id                     | value                             | description                                                  |
 | ---------------------- | --------------------------------- | ------------------------------------------------------------ |

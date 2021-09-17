@@ -6,13 +6,13 @@ hidden: false
 
 Extracts lines or parts of lines proximate to the anchor point. This method is sensitive to font sizes and line spacing. 
 
-[**Parameters**](doc:label#section-parameters)
-[**Examples**](doc:label#section-examples)
+[**Parameters**](doc:label#parameters)
+[**Examples**](doc:label#examples)
 
 Parameters
 ====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | Key                     | Value                                                 | Description                                                  |
 | ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |

@@ -8,13 +8,13 @@ Extracts a target line at the intersection of a horizontal line defined by an an
 
 For example, the Intersection method is an alternative to the Row method when a table contains empty cells. (A row's tiebreaker, like "second", can return lines from unintended columns if there are empty cells).
 
-[**Parameters**](doc:intersection#section-parameters)
-[**Examples**](doc:intersection#section-examples)
+[**Parameters**](doc:intersection#parameters)
+[**Examples**](doc:intersection#examples)
 
 Parameters
 =====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 
 | key                           | value                        | description                                                  |

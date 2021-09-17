@@ -7,8 +7,8 @@ A Method object defines how to expand out from an Anchor line and extract target
 
 For the full list of methods available, see [Methods](doc:methods). 
 
-[**Parameters**](doc:method#section-parameters)
-[**Examples**](doc:method#section-examples)
+[**Parameters**](doc:method#parameters)
+[**Examples**](doc:method#examples)
 
 Parameters
 -----

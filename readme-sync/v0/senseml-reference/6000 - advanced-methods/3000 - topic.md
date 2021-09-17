@@ -6,13 +6,13 @@ hidden: false
 
 Finds a range of lines in a document that most closely match a topic as determined by a bag of words NLP approach. Most useful in long, unstructured documents.
 
-[**Parameters**](doc:topic#section-parameters)
-[**Examples**](doc:topic#section-examples)
+[**Parameters**](doc:topic#parameters)
+[**Examples**](doc:topic#examples)
 
 Parameters
 =====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | key                     | value        | description                                                  |
 | :---------------------- | :----------- | :----------------------------------------------------------- |

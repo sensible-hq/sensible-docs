@@ -5,9 +5,9 @@ hidden: false
 
 A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data.  
 
-[**Parameters**](doc:field-query-object#section-parameters)
-[**Examples**](doc:field-query-object#section-examples)
-[**Notes**](doc:field-query-object#section-notes)
+[**Parameters**](doc:field-query-object#parameters)
+[**Examples**](doc:field-query-object#examples)
+[**Notes**](doc:field-query-object#notes)
 
 Here is a simple example of a field: 
 

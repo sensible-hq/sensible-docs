@@ -4,9 +4,9 @@ hidden: false
 ---
 An *anchor* is a string, [Match](doc:match) object, or array of Match objects. An anchor is a computationally quick way to narrow down the location of the data you want to extract in a document. After locating the anchor, Sensible uses a ["method"](doc:method) to expand out from the anchor and extract the data you want.
 
-[**Parameters**](doc:anchor#section-parameters)
-[**Examples**](doc:anchor#section-examples)
-[**Notes**](doc:anchor#section-notes)
+[**Parameters**](doc:anchor#parameters)
+[**Examples**](doc:anchor#examples)
+[**Notes**](doc:anchor#notes)
 
 Anchors can be simple or complex. The following example is a simple string anchor:
 

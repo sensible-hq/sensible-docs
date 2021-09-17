@@ -10,7 +10,7 @@ For this tutorial, let's try a webhook in combination with the `/extract_from_ur
 Prerequisites
 ====
 
-Set up a working asynchronous request. For this example, follow the steps in [Extract from a URL you provide](doc:api-tutorial-async#section-extract-from-a-url-you-provide ) to create an `/extract_from_url/` request in Postman.
+Set up a working asynchronous request. For this example, follow the steps in [Extract from a URL you provide](doc:api-tutorial-async#extract-from-a-url-you-provide ) to create an `/extract_from_url/` request in Postman.
 
 
 Configure the webhook

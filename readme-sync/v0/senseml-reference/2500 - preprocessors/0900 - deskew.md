@@ -7,9 +7,9 @@ Corrects the alignment of text in PDF documents that are skewed, for example as 
 
 You don't need to configure this preprocessor for PDFs that are only slightly rotated. Sensible's default OCR engine (Microsoft)  corrects slight rotation automatically.
 
-[**Parameters**](doc:deskew#section-parameters)
-[**Examples**](doc:deskew#section-examples)
-[**Notes**](doc:deskew#section-notes)
+[**Parameters**](doc:deskew#parameters)
+[**Examples**](doc:deskew#examples)
+[**Notes**](doc:deskew#notes)
 
 Parameters
 ----

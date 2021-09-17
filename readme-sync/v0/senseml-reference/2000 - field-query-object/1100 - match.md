@@ -16,9 +16,9 @@ See the following sections for more information:
 - [Regex match parameters](doc:anchor#regex-match-parameters)
 - [First match parameters](doc:anchor#first-match-parameters)
 
-[**Examples**](doc:match#section-examples)
+[**Examples**](doc:match#examples)
 
-- [Match arrays](doc:match#section-match-arrays) 
+- [Match arrays](doc:match#match-arrays) 
 
 Parameters
 ===

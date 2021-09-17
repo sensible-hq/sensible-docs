@@ -11,9 +11,9 @@ Merges nearby lines more aggressively than the built-in line merger. This prepro
 
  There are limitations to the combinations of parameter values you can set. For more information, see the Notes section.
 
-[**Parameters**](doc:merge-lines#section-parameters)
-[**Examples**](doc:merge-lines#section-examples)
-[**Notes**](doc:merge-lines#section-notes)
+[**Parameters**](doc:merge-lines#parameters)
+[**Examples**](doc:merge-lines#examples)
+[**Notes**](doc:merge-lines#notes)
 
 Parameters
 ====

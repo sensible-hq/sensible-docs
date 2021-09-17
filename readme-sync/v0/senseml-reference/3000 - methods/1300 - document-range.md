@@ -6,14 +6,14 @@ Extracts multiple consecutive lines succeeding the anchor line, for example, par
 
 Or, use this method to return the coordinates of regions containing images.
 
-[**Parameters**](doc:document-range#section-parameters)
-[**Examples**](doc:document-range#section-examples)
-[**Notes**](doc:document-range#section-notes)
+[**Parameters**](doc:document-range#parameters)
+[**Examples**](doc:document-range#examples)
+[**Notes**](doc:document-range#notes)
 
 Parameters
 ====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | key               | value                         | description                                                  |
 | ----------------- | ----------------------------- | ------------------------------------------------------------ |

@@ -16,7 +16,7 @@ To follow this tutorial, you need:
 
 **Prerequisite: Create an example config**
 
-1. Follow the steps in [Create a config](doc:quickstart#section-create-the-config) to create an example `anyco` config in an example  `auto_insurance_quote` document type. 
+1. Follow the steps in [Create a config](doc:quickstart#create-the-config) to create an example `anyco` config in an example  `auto_insurance_quote` document type. 
 2. **Important!** Remember to click **Publish** in the Sensible app to publish your config. The API calls in these tutorials fail without the published example config.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).

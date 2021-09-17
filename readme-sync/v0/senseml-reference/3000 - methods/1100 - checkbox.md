@@ -4,13 +4,13 @@ hidden: false
 ---
 Searches for a checkbox next to the anchor and returns a boolean indicating if the checkbox contains a checkmark or not. This method works by default with boxes that have a light background and dark, continuous borders.  
 
-[**Parameters**](doc:checkbox#section-parameters)
-[**Examples**](doc:checkbox#section-examples)
+[**Parameters**](doc:checkbox#parameters)
+[**Examples**](doc:checkbox#examples)
 
 Parameters
 =====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | key               | values                              | description                                                  |
 | ----------------- | ----------------------------------- | ------------------------------------------------------------ |

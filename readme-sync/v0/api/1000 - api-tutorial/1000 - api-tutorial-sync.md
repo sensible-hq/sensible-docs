@@ -10,7 +10,7 @@ Try out the most commonly used endpoint, the  [/extract endpoint](https://sensib
 Prerequisites
 ---
 
-See [prerequisites](doc:api-tutorial#section-prerequisites).
+See [prerequisites](doc:api-tutorial#prerequisites).
 
 
 Import the request
