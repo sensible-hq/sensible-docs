@@ -29,10 +29,10 @@ Examples
 {
 	"fields": [{
 		"id": "example_field_outside_repeated_section",
+        "anchor": "unprocessed claims section",
 		"method": {
 			"id": "passthrough"
-		},
-		"anchor": "unprocessed claims section"
+		}
 	}],
 	"repeatedSections": [
 
@@ -50,7 +50,7 @@ Examples
 			"fields": [
 
 				{
-					"id": "claims_unprocessed",
+					"id": "claims_unprocessed_repeats",
 					"range": {
 
 						"start": {
@@ -66,7 +66,7 @@ Examples
 						}
 					},
 					"fields": [{
-							"id": "last_name",
+							"id": "last_name_repeats",
 							"method": {
 								"id": "label",
 								"position": "right"
@@ -79,7 +79,7 @@ Examples
 							}
 						},
 						{
-							"id": "claim_number",
+							"id": "claim_number_repeats",
 							"type": "number",
 							"anchor": {
 								"match": {
@@ -94,7 +94,7 @@ Examples
 							}
 						},
 						{
-							"id": "claim_date",
+							"id": "claim_date_repeats",
 							"type": "date",
 							"anchor": {
 								"match": {
