@@ -34,34 +34,15 @@ Handwriting OCR
 
 Use the Merge Lines preprocessor to clean up OCRed handwriting text. This preprocessor is particularly useful for Google OCR, which by default groups text into words rather than lines.
 
-In the following image, the Merge Line preprocessor cleans up placeholder handwritten data extracted using Google OCR:
+**PROBLEM**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr.png)
-
-Without the preprocessor, the lines are oversplit:
+Without a Merge Line preprocessor, the placeholder handwritten data in an example PDF is oversplit by Google OCR:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_2.png)
 
-Modify this example to observe the effects of the different parameters. For example:
+**SOLUTION**
 
-- set `"adjacentThreshold": 0.1` to see oversplit lines. 
-
-- set `"adjacentThreshold": 2.0` to see very aggressively merged lines. 
-
-- revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how text that is misaligned in terms of height (like the email address) merges more aggressively.
-
-  
-
-Try out this example in the Sensible app using the following PDF and config: 
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr.pdf) |
-| ------------------------------- | ------------------------------------------------------------ |
-
-To run this example, verify that you are using Google OCR (click **Edit Settings**  for the Document Type and select **Google**): 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
-
-This example uses the following config:
+CONFIG
 
 ```json
 {
@@ -91,7 +72,37 @@ This example uses the following config:
 }
 ```
 
+PDF
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+To run this example, verify that you are using Google OCR (click **Edit Settings**  for the Document Type and select **Google**): 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
+
+OUTPUT
+
+```
+{
+  "all_lines_in_doc": {
+    "type": "string",
+    "value": "1. OWNERSHIP INFORMATION A. TYPE OF OWNERSHIP - Select One ☐ Trust - (If selecting a Trust, submit the Certificate of Entity ☐ UGMA/UTMA Custodian ☑ Natural Person(s) Ownership for Trusts form with this application.) B. OWNER ☑ Male Female ☐ Resident Alien /Citizen of: ☐ U.S. Citizen 11/13/1962 968-88-9696 Date of birth (mm/dd/yyyy) Social Security Number (all 9 digits required) or Tax ID rey Kyler lurray Name (First, Middle, Last, Suffix, Trust or Custodian) Glendale A285305 Cardinals Dr. Zip State City Street address Test Case Ties@AOL.com Mobile phone Email address Home phone C. JOINT OWNER - Not available if Owner is a Custodian, Trust or for Qualified Annuities. Joint Owner must be a natural person. ☐ Check here to designate the Joint Owners as each other's Primary Beneficiary. ☐ Female ☑ Male ☐ Resident Alien /Citizen of: ☑ U.S. Citizen 2/14/1961 668-11-3344 Date of birth (mm/dd/yyyy) Nash Social Security Number (all 9 digits required) Steve ☐ Address Same as Owner Name (First, Middle, Last, Suffix) AZ Main 85719 Tucson St State Zip City Street address Relationship to Owner L Home phone"
+  }
+}
+```
+
+Modify this example to observe the effects of the different parameters on the output. For example:
+
+- set `"adjacentThreshold": 0.1` to see oversplit lines. 
+
+- set `"adjacentThreshold": 2.0` to see very aggressively merged lines. 
+
+- revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how text that is misaligned in terms of height (like the email address) merges more aggressively.
+
+  
 
 
 Oversplit lines

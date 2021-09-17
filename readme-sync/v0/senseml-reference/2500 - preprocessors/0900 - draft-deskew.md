@@ -39,9 +39,7 @@ To solve this problem:
 
 For more information about choosing points, see [Best Practices](doc:deskew#best-practices).
 
-2. Apply a Merge Lines preprocessor after the Deskew preprocessor. Otherwise, lines are split by the skew, which can result in unpredictable anchor behavior. Check the new config against a skewed PDF to verify: 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_4.png)
+2. Apply a Merge Lines preprocessor after the Deskew preprocessor. Otherwise, lines are split by the skew. For more information about merging lines, see the Notes section.
 
 CONFIG
 
@@ -115,7 +113,7 @@ CONFIG
 
 PDF
 
-Try out this example in the Sensible app using the following PDFs and config:
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_4.png)
 
 | Example aligned  PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_1.pdf) |
 | -------------------- | ------------------------------------------------------------ |
