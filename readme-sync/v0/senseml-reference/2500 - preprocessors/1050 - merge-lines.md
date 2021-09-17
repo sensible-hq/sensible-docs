@@ -40,7 +40,7 @@ Without a Merge Line preprocessor, the placeholder handwritten data in an exampl
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_2.png)
 
-For example, the phrase `Name (First, Middle, Last, Suffix, Trust or Custodian)` is not one line, but is instead split on every word.
+For example, the phrase `Name (First, Middle, Last, Suffix, Trust or Custodian)` is not one line, but is instead split on words.
 
 **SOLUTION**
 
@@ -107,15 +107,17 @@ Modify this example to observe the effects of the different parameters on the ou
 Oversplit lines
 ----
 
+**PROBLEM**
+
 The following image shows oversplit lines. For example, the phrase "premium driver discount" is split into three lines even though the human eye perceives it as one phrase:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_1.png)
 
-The following image shows using the Merge Lines preprocessor to fix the oversplit lines and find a discount amount for a specific vehicle:
+**SOLUTION**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_2.png)
+The following example shows using the Merge Lines preprocessor to fix the oversplit lines and find a discount amount for a specific vehicle.
 
-This example uses the following config:
+CONFIG
 
 ```json
 {
@@ -135,7 +137,7 @@ This example uses the following config:
       "anchor": {
         "match": {
           "type": "includes",
-          "text": "premier driver"
+          "text": "premier driver discount"
         },
         "end": {
           "type": "includes",
@@ -144,6 +146,26 @@ This example uses the following config:
       }
     }
   ]
+}
+```
+
+PDF
+
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_2.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_oversplit.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+OUTPUT
+
+```json
+{
+    "premier_driver_discount": {
+        "type": "string",
+        "value": "-$ 113.00"
+    }
 }
 ```
 Jittery lines on a y-axis
