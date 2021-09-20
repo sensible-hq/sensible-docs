@@ -54,7 +54,19 @@ Without the Split Lines preprocessor, the lines are merged too aggressively:
 
 The following image shows the example PDF used with this example config:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/split_lines.png)
+
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split_lines.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
+**Output**
+
+```json
+{
+  "policy_number": {
+    "type": "string",
+    "value": "18-376-190"
+  }
+}
+```
 
