@@ -257,7 +257,7 @@ The Min X Gap Threshold preserves the intended PDF formatting, which is a two-co
 }
 ```
 
-**Image**
+**PDF**
 
 The following image shows the example PDF used with this example config:
 
