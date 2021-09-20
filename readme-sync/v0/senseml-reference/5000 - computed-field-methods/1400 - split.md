@@ -16,17 +16,9 @@ Parameters
 Examples
 ====
 
-The following image shows splitting a field's output to extract a first and last name:
+The following example shows splitting a field's output to extract a first and last name.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/split.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split.pdf) |
-| --------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -46,7 +38,7 @@ This example uses the following config:
       "method": {
         "id": "split",
         "source_id": "_driver_name_raw",
-        "separator": ", ",
+        "separator": " ",
         "index": 1
       }
     },
@@ -55,10 +47,40 @@ This example uses the following config:
       "method": {
         "id": "split",
         "source_id": "_driver_name_raw",
-        "separator": ", ",
+        "separator": " ",
         "index": 0
       }
     }
   ],
+}
+```
+
+
+
+**PDF**
+
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/split.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split.pdf) |
+| --------------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "_driver_name_raw": {
+    "type": "string",
+    "value": "Petar Petrov"
+  },
+  "driver_name_first": {
+    "value": "Petrov",
+    "type": "string"
+  },
+  "driver_name_last": {
+    "value": "Petar",
+    "type": "string"
+  }
 }
 ```

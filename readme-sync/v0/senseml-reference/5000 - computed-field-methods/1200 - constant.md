@@ -17,14 +17,7 @@ Examples
 
 The following example shows adding a form name and policy duration as constants to a config's output.
 
-**PDF**
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/constant.png)
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
-| ------------------------ | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -63,5 +56,34 @@ This example uses the following config:
       }
     ]
   }
+```
+
+
+
+**PDF**
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/constant.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
+| ------------------------ | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "policy_period": {
+    "type": "string",
+    "value": "April 14, 2021 - Oct 14, 2021"
+  },
+  "form_name": {
+    "value": "quote_auto_insurance_anyco",
+    "type": "string"
+  },
+  "policy_duration_months": {
+    "source": "6",
+    "value": 6,
+    "type": "number"
+  }
+}
 ```
 
