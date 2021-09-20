@@ -1,6 +1,6 @@
 ---
 title: "Getting started"
-hidden: true
+hidden: false
 ---
 
 Get structured data from an auto insurance quote
@@ -414,12 +414,6 @@ If you're feeling picky, try resizing the region using the green box for visual 
 3. Click **Publish** and choose **Production** to save your changes to the config.
 
 In a production scenario, continue testing PDFs until you're confident your configs work with the PDF document type you've defined. 
-
-Validate the extraction in production
-====
-
-
-
 
 Integrate with your application
 ====

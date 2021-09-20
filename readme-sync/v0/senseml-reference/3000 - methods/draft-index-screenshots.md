@@ -19,5 +19,5 @@ Use the following [methods](doc:method)  to extract structured data from documen
 | **[Region](doc:region)**                 | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/region_ssn.png) | Extracts data from a rectangular region defined by coordinates. Faster alternative to Box method. |
 | **[Row](doc:row)**                       | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row.png) | Extracts text aligned in a row.                              |
 | **[Table](doc:table)**                   | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_dynamic.png) | Extracts a table where column headings vary.                 |
-| **[Text Table](doc:text-table)**         | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/thumbnail_text_table.png) | Extracts tables using only text-positioning data (fast but limited). |
+| **[Text Table](doc:text-table)**         | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table.png) | Extracts tables using only text-positioning data (fast but limited). |
 
