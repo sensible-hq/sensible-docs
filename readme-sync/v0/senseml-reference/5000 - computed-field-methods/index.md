@@ -24,6 +24,6 @@ The following global parameters are common to all Computed Field methods.
 | key                   | value                      | description                                                  |
 | :-------------------- | :------------------------- | :----------------------------------------------------------- |
 | id (**required**)     |                            | Sensible uses the ID as the key in the structured key/value output. In the API response, this output is in the `parsed_document` section |
-| type                  | string (default: `string`) | Set the eduction type. For more information about types, see [Field query object](doc:field-query-object). |
 | method (**required**) | object                     | The method describes the Computed Field method used to transform fields. This object's parameters vary depending on the Computed Field method.  For more information, see child pages. |
+| type                  | string (default: `string`) | Set the eduction type. For more information about types, see [Field query object](doc:field-query-object). |
 

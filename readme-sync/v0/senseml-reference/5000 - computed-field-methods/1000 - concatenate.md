@@ -23,17 +23,9 @@ Parameters
 Examples
 ====
 
-The following image shows using the Concat method to concatenate two address fields into one:
+The following example shows using the Concat method to concatenate two address fields into one.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/concat.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/concat.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -82,5 +74,31 @@ This example uses the following config:
       }
     }
   ]
+}
+```
+
+**PDF**
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/concat.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/concat.pdf) |
+| ---------------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "_recipient_street_address": {
+    "type": "string",
+    "value": "123 Anystreet"
+  },
+  "_recipient_city_state": {
+    "type": "string",
+    "value": "Anytown, AZ 12345"
+  },
+  "recipient_full_address": {
+    "value": "123 Anystreet\nAnytown, AZ 12345",
+    "type": "string"
+  }
 }
 ```
