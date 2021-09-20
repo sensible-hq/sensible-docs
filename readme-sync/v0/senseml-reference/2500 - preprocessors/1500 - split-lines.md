@@ -5,9 +5,10 @@ hidden: false
 
 Split lines. This preprocessor is most useful for typewriter-style documents where whitespaces are used for formatting. 
 
-
 Parameters
 ====
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | key                   | value        | description                                                  |
 | --------------------- | ------------ | ------------------------------------------------------------ |
@@ -17,20 +18,17 @@ Parameters
 Examples
 ====
 
-The following image shows a "typewritten" style PDF in which the Split Lines preprocessor preserves columns and rows that are formatted with spaces:
+The following example shows solving undersplit lines in a "typewritten" style PDF. The Split Lines preprocessor preserves columns and rows that are formatted with spaces.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/split_lines.png)
+**PROBLEM**
 
-Without this preprocessor, the lines are merged too aggressively:
+Without the Split Lines preprocessor, the lines are merged too aggressively:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/split_lines_2.png)
 
-Try out this example in the Sensible app using the following PDF and config:
+**SOLUTION**
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split_lines.pdf) |
-| --------------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -52,6 +50,11 @@ This example uses the following config:
 }
 ```
 
+**PDF**
+
+The following image shows the example PDF used with this example config:
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split_lines.pdf) |
+| --------------------------- | ------------------------------------------------------------ |
 
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods).
