@@ -131,6 +131,7 @@ CONFIG
   "fields": [
     {
       "id": "premier_driver_discount",
+      "type": "currency",
       "method": {
         "id": "row"
       },
@@ -162,26 +163,20 @@ OUTPUT
 
 ```json
 {
-    "premier_driver_discount": {
-        "type": "string",
-        "value": "-$ 113.00"
-    }
+  "premier_driver_discount": {
+    "source": "113.00",
+    "value": 113,
+    "unit": "$",
+    "type": "currency"
+  }
 }
 ```
 Jittery lines on a y-axis
 ----
 
-The following image shows using the Y Overlap parameter to correct vertical misalignment or "jitter" in lines (for example, as the result of a low-quality scan or because of handwriting).
+The following example shows using the Y Overlap parameter to correct vertical misalignment or "jitter" in lines (for example, as the result of a low-quality scan or because of handwriting).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_yoverlap.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap.pdf) |
-| ------------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -189,7 +184,7 @@ This example uses the following config:
     {
       "type": "mergeLines",
       "directlyAdjacentThreshold": 0.16,
-      "adjacentThreshold": 1.3,
+      "adjacentThreshold": 1.5,
       "yOverlapThreshold": 0.1
     }
   ],
@@ -206,21 +201,36 @@ This example uses the following config:
   ]
 }
 ```
+
+
+
+**PDF**
+
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_yoverlap.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap.pdf) |
+| ------------------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "merged_line": {
+    "type": "string",
+    "value": "These two lines are imperfectly aligned They have a y overlap less than 1"
+  }
+}
+```
 Overlapping lines on an x-axis
 ----
 
-The following image shows using the Min X Gap Threshold parameter to correctly extract overlapping text in a poorly formatted PDF. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
+The following example shows using the Min X Gap Threshold parameter to correctly extract overlapping text in a poorly formatted PDF. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_minxgap.png)
+The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines do not overlap.
 
-The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on this table, as well as in other examples of this table in which the lines do not overlap.
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap.pdf) |
-| ----------------------------------- | ------------------------------------------------------------ |
-
-This example uses the following config:
+**Config**
 
 ```json
 {
@@ -242,6 +252,26 @@ This example uses the following config:
   
     }
   ]
+}
+```
+
+**Image**
+
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_minxgap.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap.pdf) |
+| ----------------------------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "underinsured_limit": {
+    "type": "string",
+    "value": "500,000 USD Combined single limit incl. umbl"
+  }
 }
 ```
 
