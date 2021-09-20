@@ -3,7 +3,7 @@ title: "Split lines"
 hidden: false
 ---
 
-Split lines. This preprocessor is most useful for typewriter-style documents where whitespaces are used for formatting. 
+Splits lines. This preprocessor is most useful for typewriter-style documents where whitespaces are used for formatting. 
 
 Parameters
 ====
