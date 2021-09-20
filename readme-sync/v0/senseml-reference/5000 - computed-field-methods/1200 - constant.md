@@ -15,12 +15,11 @@ Parameters
 Examples
 ====
 
-The following image shows adding a form name and policy duration as constants to a config's output:
+The following example shows adding a form name and policy duration as constants to a config's output.
+
+**PDF**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/constant.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
 | ------------------------ | ------------------------------------------------------------ |
