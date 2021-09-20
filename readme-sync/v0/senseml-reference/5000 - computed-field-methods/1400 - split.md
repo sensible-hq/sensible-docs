@@ -34,7 +34,7 @@ The following example shows splitting a field's output to extract a first and la
   ],
   "computed_fields": [
     {
-      "id": "driver_name_first",
+      "id": "driver_name_last",
       "method": {
         "id": "split",
         "source_id": "_driver_name_raw",
@@ -43,7 +43,7 @@ The following example shows splitting a field's output to extract a first and la
       }
     },
     {
-      "id": "driver_name_last",
+      "id": "driver_name_first",
       "method": {
         "id": "split",
         "source_id": "_driver_name_raw",
@@ -74,13 +74,14 @@ The following image shows the example PDF used with this example config:
     "type": "string",
     "value": "Petar Petrov"
   },
-  "driver_name_first": {
+  "driver_name_last": {
     "value": "Petrov",
     "type": "string"
   },
-  "driver_name_last": {
+  "driver_name_first": {
     "value": "Petar",
     "type": "string"
   }
 }
 ```
+
