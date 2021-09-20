@@ -80,7 +80,7 @@ The following image shows the example PDF used with this example config:
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
-To run this example, verify that you are using Google OCR (click **Edit Settings**  for the Document Type and select **Google**): 
+To run this example, verify that you are using Google OCR (click the gear icon for the Document Type and select **Google**): 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
 

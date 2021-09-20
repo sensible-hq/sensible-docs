@@ -28,12 +28,14 @@ Parameters
 Examples
 ====
 
-The following images show:
+The following example show:
 
 - A repeating header with an incrementing page number. This element is removed from the direct text extraction.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
   - Where it overlaps a repeating element, it is also treated as repeating and is removed from the direct text extraction.
   - Where it overlaps variable text, it is not considered repeating and is still included in the direct text extraction
+  
+**Config**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_1.png)
 
