@@ -35,19 +35,8 @@ The following example show:
   - Where it overlaps a repeating element, it is also treated as repeating and is removed from the direct text extraction.
   - Where it overlaps variable text, it is not considered repeating and is still included in the direct text extraction
   
+
 **Config**
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_1.png)
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_2.png)
-
-
-Try out this example in the Sensible app using the following PDF and config:
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/remove_header.pdf) |
-| ------------------------------------------ | ------------------------------------------------------------ |
-
-This example uses the following config:
 
 ```json
 {
@@ -75,6 +64,28 @@ This example uses the following config:
       }
     }
   ]
+}
+```
+
+**PDF**
+
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_1.png)
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_2.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/remove_header.pdf) |
+| ------------------------------------------ | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "all_lines_minus_repeating_top_elements": {
+    "type": "string",
+    "value": "This is the body for the 1st page Header on the It differs from page to page. . do eiusmod tempor incididunt y-axis consectetur adipiscing elit do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ullamco laboris nisi ut aliquip ex ea commodo consequat uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. This is the page 2 body. Header on the It varies from page to page. Lorem ipsum dolor sit amet. y-axis consectetur adipiscing elit. Excepteur sint occaecat cupidatat non proident. sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem Accusantium. doloremque laudantium, totam rem aperiam, eaque ipsa quae ab llo inventore veritatis et quasi quasi architecto beatae vitae. dicta sunt explicabo."
+  }
 }
 ```
 
