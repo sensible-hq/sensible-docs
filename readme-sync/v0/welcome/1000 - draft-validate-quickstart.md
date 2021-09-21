@@ -437,17 +437,15 @@ Integrate with your application
 
 When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial.
 
-
-
 Validate extractions in production 
 ====
 
-In a previous section, we tested a few PDFs manually. Now let's scale up and quality-control the extractions by writing a few tests in JsonLogic that run for all API extractions in a doc type.
+In a previous section, we tested a few PDFs manually. Now let's scale up and quality-control the extractions by writing a few tests that run for all API extractions in a doc type.
 
-Let's validate that a few pieces of extracted information makes sense for the car insurance document:
+Use JsonLogic to validate that a few pieces of extracted information makes sense for the car insurance document:
 
-- Test that the property damage liability premium is cheaper than the comprehensive premium
-- Test that the policy number is a nine-digit number
+- Test that the property damage liability premium is cheaper than the comprehensive premium (`{"<":[{"var":"property_liability_premium.value"},{"var":"comprehensive_premium.value"}]}`)
+- Test that the policy number is a nine-digit number (`{"match":[{"var":"policy_number.value"},"\\d{9}"]}`)
 
 To add these tests:
 
@@ -457,8 +455,12 @@ To add these tests:
    - Set the **Condition** to:
 
 ```json
-  {"<=":
-  [{"var":"property_liability_premium"},{"var":"comprehensive_premium"}]}
+{"<":
+ [
+     {"var":"property_liability_premium.value"},
+     {"var":"comprehensive_premium.value"}
+ ]
+}
 ```
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_validation.png)
@@ -470,17 +472,72 @@ To add these tests:
    -  Set the **Condition** to:
 
 ```json
-{"match":[{"var":"policy_number.value"},"\\d{9}"]}
+{"match":
+  [
+      {"var":"policy_number.value"},"\\d{9}"
+  ]
+}
 ```
 
-Now, your API response includes errors and warnings if the extracted information fails these tests. For example, if you extract information from a car insurance quote where the policy number is null and the property damage liability premium is $200 more than the comprehensive premium, you see a response like:
 
 
+5. To test the validations with a PDF that is missing information, try out an API call with the followingg example PDF that has these errors:
+
+    -  the policy number is missing
+    - the property damage liability premium is $200 more than the comprehensive premium:
+
+| auto_insurance_anyco_golden_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_3.pdf) |
+| ----------------------------- | ------------------------------------------------------------ |
+
+You should receive a response with errors and warnings:
+
+```json
+{
+    "id": "11404335-1ea4-4414-a5ca-1ccef568ebec",
+    "created": "2021-09-21T17:36:56.339Z",
+    "status": "COMPLETE",
+    "type": "auto_insurance_quote",
+    "configuration": "anyco",
+    "parsed_document": {
+        "policy_period": null,
+        "comprehensive_premium": {
+            "source": "$100",
+            "value": 100,
+            "unit": "$",
+            "type": "currency"
+        },
+        "property_liability_premium": {
+            "source": "$300",
+            "value": 300,
+            "unit": "$",
+            "type": "currency"
+        },
+        "policy_number": null
+    },
+    "validations": [
+        {
+            "description": "prop. damage less than comprehensive",
+            "severity": "warning"
+        },
+        {
+            "description": "policy number is a nine-digit number",
+            "severity": "error"
+        }
+    ],
+    "validation_summary": {
+        "fields": 4,
+        "fields_present": 2,
+        "errors": 1,
+        "warnings": 1,
+        "skipped": 0
+    }
+}
+```
 
 
 Next
 ====
 
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
-- Write [validations](doc:validate-extractions) to test the quality of your extractions in production
+- Write more [validations](doc:validate-extractions) to test the quality of your extractions in production
 
