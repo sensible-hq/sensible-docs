@@ -52,7 +52,7 @@ For this tutorial, you'll extract only a few pieces of information:
 
 - the policy number
 - the policy period
-- the premium for comprehensive insurance
+- a couple of premiums
 
 1. Paste in this config in the left pane in the editor to extract the data:
 
@@ -481,7 +481,7 @@ To add these tests:
 
 
 
-5. To test the validations with a PDF that is missing information, try out an API call with the followingg example PDF that has these errors:
+5. To test the validations with a PDF that is missing information, [try out an API call](doc:api-tutorial-async-1) with the following example PDF that has these errors:
 
     -  the policy number is missing
     - the property damage liability premium is $200 more than the comprehensive premium:
@@ -539,5 +539,5 @@ Next
 ====
 
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
-- Write more [validations](doc:validate-extractions) to test the quality of your extractions in production
+- Learn more about [validations](doc:validate-extractions) to test the quality of your extractions in production
 
