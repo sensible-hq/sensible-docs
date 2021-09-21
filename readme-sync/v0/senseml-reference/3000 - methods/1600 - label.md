@@ -53,7 +53,7 @@ The following example shows various labels:
         "match": [
           {
             "type": "startsWith",
-            "text": "A label can be in one line:"
+            "text": "a label can be in one line:"
           }
         ]
       },
@@ -80,7 +80,7 @@ The following example shows various labels:
       "anchor": "This also looks",
       "method": {
         "id": "label",
-        "position": "below",
+        "position": "below"
       }
     },
     {
@@ -93,7 +93,7 @@ The following example shows various labels:
           "type": "startsWith"
         }
       }
-    },
+    }
   ]
 }
 ```
@@ -116,7 +116,10 @@ The following image shows the example PDF used with this example config:
     "type": "string",
     "value": "And here’s the text below it that we want to grab"
   },
-  "one_line_label": null,
+  "one_line_label": {
+    "type": "string",
+    "value": "grab this text"
+  },
   "hanging_indent_label": {
     "type": "string",
     "value": "It’s also called a second-line indent or a negative indent. Multiple lines of text can be indented under the first line of the hanging indent."
