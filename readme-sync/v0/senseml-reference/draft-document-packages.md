@@ -8,8 +8,8 @@ Sometimes, multiple documents are packaged into one PDF. For example, a PDF migh
 
 In this case, it is best practice to add each document to the appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, if you already have a tax docs and an invoice doc type, define your new configs in these preexisting doc types.  In order for Sensible to handle the document inside the package, specify the following:
 
-- In the config for each document that is part of a package, use the Page parameter in a fingerprint to define text matches for the starting and ending pages of the document. Sensible uses the fingerprint to find the page range in the package to which this config applies.
-- When you make an API call to extract data from the package, specify the multiple doc types in which you wrote your configs using the Document Type body parameter. For example, `"document_types": ["rate_confirmation", "bill_of_lading"]`.  The return API response then includes additional metadata in the `parsed_documents` section to help you understand how Sensible parsed the package into separate documents, including the `document_type` and configuation used for a `page_range` in the package.
+- In the config for each document in the package, use a fingerprint to define text matches for the starting and ending pages of the document. Sensible uses the fingerprint to find the page range in the package to which this config applies.
+- When you make an API call to extract data from the package, specify the multiple doc types that apply to the package. For example, `"document_types":document_types": ["rate_confirmation", "bill_of_lading"]`.  The return API response then includes additional metadata in the `parsed_documents` section to help you understand how Sensible parsed the package into separate documents, including the `document_type` and configuation used for a document ( `page_range`) in the package.
 
 **TODO: talk OCR behavior (update OCR docs too??**
 

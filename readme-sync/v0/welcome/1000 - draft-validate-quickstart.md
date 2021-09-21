@@ -430,31 +430,50 @@ If you're feeling picky, try resizing the region using the green box for visual 
 
 3. Click **Publish** and choose **Production** to save your changes to the config.
 
-In a production scenario, continue testing PDFs until you're confident your configs work with the PDF document type you've defined. 
-
-Validate extractions in production 
-====
-
-In the previous section, we tested a few PDFs manually. Now let's scale up and quality-control the extractions by writing a few tests in JsonLogic that will run for all extractions in a doc type. These tests validate whether the extracted information makes sense for the car insurance quotes:
-
-- Test that the property damage liability premium is cheaper than the comprehensive premium with the following expression:
-
-  ```json
-  {"<=":
-  [{"var":"property_liability_premium"},{"var":"comprehensive_premium"}]}
-  ```
-
-- Test that the policy number is not null, and is a nine-digit number with the following expression:
-
-```json
-{"and":
- ["exists":[{"var":"policy_number.value"}], {"match":[{"var":"policy_number.value"},"^\\d{9}$"]}           ]}
-```
+In a production scenario, continue testing PDFs until you're confident your configs work with the PDF document type you've defined.  Then, write tests to validate the extractions in production.
 
 Integrate with your application
 ====
 
 When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial.
+
+
+
+Validate extractions in production 
+====
+
+In a previous section, we tested a few PDFs manually. Now let's scale up and quality-control the extractions by writing a few tests in JsonLogic that run for all API extractions in a doc type.
+
+Let's validate that a few pieces of extracted information makes sense for the car insurance document:
+
+- Test that the property damage liability premium is cheaper than the comprehensive premium
+- Test that the policy number is a nine-digit number
+
+To add these tests:
+
+1. In the **auto_insurance_quote** document type, click **Create validation**. Add the following input to the dialog:
+   - Set the **Severity** to **Warning**
+   - Set the **Description** to "prop. damage less than comprehensive".
+   - Set the **Condition** to:
+
+```json
+  {"<=":
+  [{"var":"property_liability_premium"},{"var":"comprehensive_premium"}]}
+```
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_validation.png)
+
+3. Click **Create**.
+4. Repeat the previous steps to create another validation with the following settings:
+   -  Set the **Severity** to **Error**
+   -  Set the **Description** to "policy number is a nine-digit number"
+   -  Set the **Condition** to:
+
+```json
+{"match":[{"var":"policy_number.value"},"\\d{9}"]}
+```
+
+Now, your API response includes errors and warnings if the extracted information fails these tests. For example, if you extract information from a car insurance quote where the policy number is null and the property damage liability premium is $200 more than the comprehensive premium, you see a response like:
 
 
 
