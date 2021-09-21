@@ -300,7 +300,7 @@ The config uses the [Box method](doc:box):
   }
 ```
 
-**Note:** Sensible extracts the box contents, but not the anchor itself. In general, Sensible returns method results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
+**Note:** Sensible extracts the box contents, but not the anchor itself. By default, Sensible generally returns method results, not anchor results.
 
 Advanced queries
 ----
@@ -310,6 +310,7 @@ You can get more advanced with this auto insurance config. For example:
 - You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
 - The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible only extracts the first line. Instead, use the [Table method](doc:table) to more reliably capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
 - What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
+- You can split the policy period into two [dates](doc:types#date) using the [Split computed field method](doc:split).
 
 To check out other methods, see [Methods](doc:methods).
 
@@ -403,13 +404,13 @@ This field defines a region in inches relative to the anchor. Since the region o
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_3.png)
 
-Let's double check that this region also works with the first PDF:
+Double check that this region also works with the first PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_4.png)
 
 Yes, it works too.
 
-If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures text that is almost or completely contained in the region. 
+If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the text `For customer service` in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures text that is almost or completely contained in the region. 
 
 3. Click **Publish** and choose **Production** to save your changes to the config.
 

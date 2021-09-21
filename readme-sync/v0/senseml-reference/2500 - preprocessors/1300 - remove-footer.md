@@ -28,7 +28,7 @@ Parameters
 Examples
 ====
 
-The following images show:
+The following example shows:
 
 - A repeating footer with an incrementing page number. This element is removed from the direct text extraction.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
