@@ -58,39 +58,49 @@ For this tutorial, you'll extract only a few pieces of information:
 
 ```json
 {
-"fields": [
-  {
-    "id": "policy_period",
-    "anchor": "policy period",
-    "method": {
-      "id": "label",
-      "position": "right"
-    }
-  },
-  {
-    "id": "comprehensive_premium",
-    "anchor": "comprehensive",
-    "type": "currency",
-    "method": {
-      "id": "row",
-      "tiebreaker": "second"
-    }
-  },
-  {
-    "id": "policy_number",
-    "anchor": {
-      "match": [
-        {
-          "text": "policy number",
-          "type": "startsWith"
-        }
-      ]
+  "fields": [
+    {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
     },
-    "method": {
-      "id": "box"
+    {
+      "id": "comprehensive_premium",
+      "anchor": "comprehensive",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    },
+    {
+      "id": "property_liability_premium",
+      "anchor": "property",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    },
+    {
+      "id": "policy_number",
+      "type": "number",
+      "anchor": {
+        "match": [
+          {
+            "text": "policy number",
+            "type": "startsWith"
+          }
+        ]
+      },
+      "method": {
+        "id": "box"
+      }
     }
-  }
-]
+  ]
 }
 ```
 
@@ -104,19 +114,26 @@ You should see the following extracted data in the right pane:
 
 ```json
 {
-  "policy_number": {
-    "type": "string",
-    "value": "123456789"
-  },
   "policy_period": {
     "type": "string",
-    "value": " April 14, 2021 - Oct 14, 2021"
+    "value": "April 14, 2021 - Oct 14, 2021"
   },
   "comprehensive_premium": {
     "source": "$150",
     "value": 150,
     "unit": "$",
     "type": "currency"
+  },
+  "property_liability_premium": {
+    "source": "$10",
+    "value": 10,
+    "unit": "$",
+    "type": "currency"
+  },
+  "policy_number": {
+    "source": "123456789",
+    "value": 123456789,
+    "type": "number"
   }
 }
 ```
@@ -267,20 +284,21 @@ To extract the policy number from this document:
 The config uses the [Box method](doc:box):
 
 ```json
-      {
-        "id": "policy_number",
-        "anchor": {
-          "match": [
-            {
-              "text": "policy number",
-              "type": "startsWith"
-            }
-          ]
-        },
-        "method": {
-          "id": "box",
-        }
+{
+      "id": "policy_number",
+      "type": "number",
+      "anchor": {
+        "match": [
+          {
+            "text": "policy number",
+            "type": "startsWith"
+          }
+        ]
       },
+      "method": {
+        "id": "box"
+      }
+    }
 ```
 
  This describes the data to extract:
@@ -292,11 +310,10 @@ The config uses the [Box method](doc:box):
  This returns: 
 
 ```json
-  {
-      "policy_number": {
-          "type": "string",
-          "value": "123456789"
-      }
+  "policy_number": {
+    "source": "123456789",
+    "value": 123456789,
+    "type": "number"
   }
 ```
 
@@ -415,10 +432,32 @@ If you're feeling picky, try resizing the region using the green box for visual 
 
 In a production scenario, continue testing PDFs until you're confident your configs work with the PDF document type you've defined. 
 
+Validate extractions in production 
+====
+
+In the previous section, we tested a few PDFs manually. Now let's scale up and quality-control the extractions by writing a few tests in JsonLogic that will run for all extractions in a doc type. These tests validate whether the extracted information makes sense for the car insurance quotes:
+
+- Test that the property damage liability premium is cheaper than the comprehensive premium with the following expression:
+
+  ```json
+  {"<=":
+  [{"var":"property_liability_premium"},{"var":"comprehensive_premium"}]}
+  ```
+
+- Test that the policy number is not null, and is a nine-digit number with the following expression:
+
+```json
+{"and":
+ ["exists":[{"var":"policy_number.value"}], {"match":[{"var":"policy_number.value"},"^\\d{9}$"]}           ]}
+```
+
 Integrate with your application
 ====
 
 When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial.
+
+
+
 
 Next
 ====
