@@ -9,7 +9,8 @@ Extract data from a document
 
 1. Get an account at [sensible.so](https://www.sensible.so/get-early-access).
 2. Clone a code sample in your preferred language:
-    [Python](https://github.com/fscelliott/sens-code-example)
+  - [Python](https://github.com/fscelliott/sens-code-example)
+  - other languages TBD  
 
 
 2. Add your API_KEY to the code sample:
@@ -35,7 +36,7 @@ Extract data from a document
 
   
 
-3. Run the code sample:
+4. Run the code sample:
 
 
 
@@ -116,8 +117,6 @@ You should see a response like the following:
       3. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf).
       4. Click the **anyco** config and visually examine the PDF (middle pane), config (left pane), and parsed document (right pane) you just ran in the previous code sample:
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)
-
-
 
 
 
