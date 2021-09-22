@@ -316,7 +316,7 @@ The config uses the [Box method](doc:box):
   }
 ```
 
-**Note:** Sensible extracts the box contents, but not the anchor itself. In general, Sensible returns method results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
+**Note:** Sensible extracts the box contents, but not the anchor itself.  By default, Sensible returns method results, not anchor results.
 
 Advanced queries
 ----
