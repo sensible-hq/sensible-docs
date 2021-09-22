@@ -416,11 +416,6 @@ If you're feeling picky, try resizing the region using the green box for visual 
 
 In a production scenario, continue testing PDFs until you're confident your configs work with the PDF document type you've defined. 
 
-Validate the extraction in production
-====
-
-
-
 
 Integrate with your application
 ====
