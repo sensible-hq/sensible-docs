@@ -1,6 +1,7 @@
 ---
 title: "Getting started"
-hidden: true
+hidden: false
+
 ---
 
 Get structured data from an auto insurance quote
@@ -32,9 +33,9 @@ Create a config
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
 2. Download the following PDF document:
-   
+
    | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
-   | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+   | --------------------------- | ------------------------------------------------------------ |
 
 3. Click **Upload document**  and choose the generic  **auto_insurance_anyco_golden** car insurance quote you just downloaded.
 
@@ -52,45 +53,54 @@ For this tutorial, you'll extract only a few pieces of information:
 
 - the policy number
 - the policy period
-- the premium for comprehensive insurance
+- a couple of premiums
 
-1. Paste in this config in the left pane in the editor to extract the data:
+1. Paste this config into the left pane in the editor to extract the data:
 
 ```json
 {
-"fields": [
-  {
-    "id": "policy_period",
-    "anchor": "policy period",
-    "method": {
-      "id": "label",
-      "position": "right"
-    }
-  },
-  {
-    "id": "comprehensive_premium",
-    "anchor": "comprehensive",
-    "type": "currency",
-    "method": {
-      "id": "row",
-      "tiebreaker": "second"
-    }
-  },
-  {
-    "id": "policy_number",
-    "anchor": {
-      "match": [
-        {
-          "text": "policy number",
-          "type": "startsWith"
-        }
-      ]
+  "fields": [
+    {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
     },
-    "method": {
-      "id": "box"
+    {
+      "id": "comprehensive_premium",
+      "anchor": "comprehensive",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    },
+    {
+      "id": "property_liability_premium",
+      "anchor": "property",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    },
+    {
+      "id": "policy_number",
+      "type": "number",
+      "anchor": {
+        "match":
+          {
+            "text": "policy number",
+            "type": "startsWith"
+          }
+      },
+      "method": {
+        "id": "box"
+      }
     }
-  }
-]
+  ]
 }
 ```
 
@@ -104,19 +114,26 @@ You should see the following extracted data in the right pane:
 
 ```json
 {
-  "policy_number": {
-    "type": "string",
-    "value": "123456789"
-  },
   "policy_period": {
     "type": "string",
-    "value": " April 14, 2021 - Oct 14, 2021"
+    "value": "April 14, 2021 - Oct 14, 2021"
   },
   "comprehensive_premium": {
     "source": "$150",
     "value": 150,
     "unit": "$",
     "type": "currency"
+  },
+  "property_liability_premium": {
+    "source": "$10",
+    "value": 10,
+    "unit": "$",
+    "type": "currency"
+  },
+  "policy_number": {
+    "source": "123456789",
+    "value": 123456789,
+    "type": "number"
   }
 }
 ```
@@ -160,7 +177,7 @@ The config uses the [Label method](doc:label):
 This describes the data to extract:
 
 - The anchor (`"policy period"`) is text that is pretty close to the text to extract, so it can serve as a "label" for that text  (`"id": "label"`). 
--  The text to extract is to the right of the label (`"position": "right"`).  
+- The text to extract is to the right of the label (`"position": "right"`).  
 
 This config returns:
 
@@ -224,8 +241,8 @@ This describes the data to extract:
 
 - The anchor text (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
 - The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
-- The text to extract is the second line in the row after the anchor  (`"tiebreaker": "second"`).  Use tiebreakers to select lines in rows, including maximums and minimums (`<` and `>`).
-- It's not shown, but the default behavior is to extract lines to the right of the anchor  in the row (`"position":"right"`). 
+- The text to extract is the second line in the row after the anchor  (`"tiebreaker": "second"`).  Use tiebreakers to select lines in rows, for example maximum and minimum values (`<` and `>`).
+- By default, the Row method extracts values to the right of the anchor. You can override the default by specifying (`"position":"left"`). 
 
 This returns: 
 
@@ -267,20 +284,20 @@ To extract the policy number from this document:
 The config uses the [Box method](doc:box):
 
 ```json
-      {
-        "id": "policy_number",
-        "anchor": {
-          "match": [
-            {
-              "text": "policy number",
-              "type": "startsWith"
-            }
-          ]
-        },
-        "method": {
-          "id": "box",
-        }
+{
+      "id": "policy_number",
+      "type": "number",
+      "anchor": {
+        "match": 
+          {
+            "text": "policy number",
+            "type": "startsWith"
+          }  
       },
+      "method": {
+        "id": "box"
+      }
+    }
 ```
 
  This describes the data to extract:
@@ -292,15 +309,14 @@ The config uses the [Box method](doc:box):
  This returns: 
 
 ```json
-  {
-      "policy_number": {
-          "type": "string",
-          "value": "123456789"
-      }
+  "policy_number": {
+    "source": "123456789",
+    "value": 123456789,
+    "type": "number"
   }
 ```
 
-**Note:** Sensible extracts the box contents, but not the anchor itself. By default, Sensible generally returns method results, not anchor results.
+**Note:** Sensible extracts the box contents, but not the anchor itself. In general, Sensible returns method results, not anchor results (unless you define a [Passthrough method](doc:passthrough)).  Similarly, most Sensible methods ignore the anchor line (the line containing the anchor text) and do not include it in the output.
 
 Advanced queries
 ----
@@ -309,8 +325,8 @@ You can get more advanced with this auto insurance config. For example:
 
 - You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
 - The limits listed in the table (for example, "$25,00 each person/$50,000 per accident") are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible only extracts the first line. Instead, use the [Table method](doc:table) to more reliably capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
-- What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in your anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
-- You can split the policy period into two [dates](doc:types#date) using the [Split computed field method](doc:split).
+- What if the document listed multiple emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in a `"match":"all"` anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
+- You can split the policy period into two dates, either by using the [Split computed field method](doc:split), or by setting the [Date](doc:types#date) type on the field and using a tiebreaker.
 
 To check out other methods, see [Methods](doc:methods).
 
@@ -320,12 +336,12 @@ Test the config
 Before integrating the config with an application and writing [validation tests](doc:validate-extractions) against it, double check the config by uploading another quote.
 
 1. Repeat the steps in the previous section to upload a second generic car insurance quote:
-   
+
    | auto_insurance_anyco_golden_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_2.pdf) |
-   | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+   | ----------------------------- | ------------------------------------------------------------ |
 
 2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
-   
+
    ```json
    {
      "policy_period": {
@@ -333,7 +349,6 @@ Before integrating the config with an application and writing [validation tests]
        "value": "May 20, 2021 - Nov 20,"
      }
    ```
-   
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_1.png)
 
@@ -404,27 +419,126 @@ This field defines a region in inches relative to the anchor. Since the region o
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_3.png)
 
-Double check that this region also works with the first PDF:
+Let's double check that this region also works with the first PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_4.png)
 
 Yes, it works too.
 
-If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the text `For customer service` in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures text that is almost or completely contained in the region. 
+If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures text that is almost or completely contained in the region. 
 
 3. Click **Publish** and choose **Production** to save your changes to the config.
 
-In a production scenario, continue testing PDFs until you're confident your configs work with the PDF document type you've defined. 
-
+In a production scenario, continue testing PDFs until you're confident your configs work with the PDF document type you've defined.  Then, write tests to validate the extractions in production.
 
 Integrate with your application
 ====
 
 When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial.
 
+Validate extractions in production 
+====
+
+In a previous section, we tested a few PDFs manually. Now let's scale up and quality control the extractions by writing a few tests that run for all API extractions in a doc type.
+
+Use JsonLogic to validate that a few pieces of extracted information makes sense for the car insurance document:
+
+- Test that the property damage liability premium is cheaper than the comprehensive premium:
+  -  `{"<":[{"var":"property_liability_premium.value"},{"var":"comprehensive_premium.value"}]}`
+- Test that the policy number is a nine-digit number:
+  - `{"match":[{"var":"policy_number.value"},"\\d{9}"]}`
+
+To add these tests:
+
+1. In the **auto_insurance_quote** document type, click **Create validation**. Add the following input to the dialog:
+   - Set the **Severity** to **Warning**
+   - Set the **Description** to "prop. damage less than comprehensive".
+   - Set the **Condition** to:
+
+```json
+{"<":
+ [
+     {"var":"property_liability_premium.value"},
+     {"var":"comprehensive_premium.value"}
+ ]
+}
+```
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_validation.png)
+
+3. Click **Create**.
+4. Repeat the previous steps to create another validation with the following settings:
+   -  Set the **Severity** to **Error**
+   -  Set the **Description** to "policy number is a nine-digit number"
+   -  Set the **Condition** to:
+
+```json
+{"match":
+  [
+      {"var":"policy_number.value"},"\\d{9}"
+  ]
+}
+```
+
+
+
+5. To test the validations with a PDF that is missing information, [try out an API call](doc:api-tutorial-async-1) with the following example PDF that has these errors:
+
+   -  the policy number is missing
+   -  the property damage liability premium is $200 more than the comprehensive premium
+
+| auto_insurance_anyco_golden_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_3.pdf) |
+| ----------------------------- | ------------------------------------------------------------ |
+
+You should receive a response with errors and warnings in the Validations array:
+
+```json
+{
+    "id": "11404335-1ea4-4414-a5ca-1ccef568ebec",
+    "created": "2021-09-21T17:36:56.339Z",
+    "status": "COMPLETE",
+    "type": "auto_insurance_quote",
+    "configuration": "anyco",
+    "parsed_document": {
+        "policy_period": null,
+        "comprehensive_premium": {
+            "source": "$100",
+            "value": 100,
+            "unit": "$",
+            "type": "currency"
+        },
+        "property_liability_premium": {
+            "source": "$300",
+            "value": 300,
+            "unit": "$",
+            "type": "currency"
+        },
+        "policy_number": null
+    },
+    "validations": [
+        {
+            "description": "prop. damage less than comprehensive",
+            "severity": "warning"
+        },
+        {
+            "description": "policy number is a nine-digit number",
+            "severity": "error"
+        }
+    ],
+    "validation_summary": {
+        "fields": 4,
+        "fields_present": 2,
+        "errors": 1,
+        "warnings": 1,
+        "skipped": 0
+    }
+}
+```
+
+
 Next
 ====
 
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
-- Write [validations](doc:validate-extractions) to test the quality of your extractions in production
+- Learn more about [validations](doc:validate-extractions) to test the quality of your extractions in production
 
