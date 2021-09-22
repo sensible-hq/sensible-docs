@@ -92,13 +92,16 @@ Run an extraction on a doc
    }
    ```
 
-   (Optional) see how it works in the Sensible app
+ 
+
+
+  (Optional) see how it works in the Sensible app
    =====
 
    To see this example in the Sensible app:
 
    1. Navigate to [https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test](https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test).
-   1. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf)
+   1. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf).
    2. Click the **anyco** config and visually examine the PDF (middle pane), config (left pane), and extraction (right pane) you just ran from the code sample:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)
 
