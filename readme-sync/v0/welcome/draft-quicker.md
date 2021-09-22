@@ -7,8 +7,9 @@ hidden: true
 Extract data from a document
 =====
 
-1. Clone the code sample of your choice:
- [Python](https://github.com/fscelliott/sens-code-example)
+1. Get an account at [sensible.so](https://www.sensible.so/get-early-access).
+2. Clone the code sample of your choice:
+    [Python](https://github.com/fscelliott/sens-code-example)
 
 
 2. Add your API_KEY to the code sample:

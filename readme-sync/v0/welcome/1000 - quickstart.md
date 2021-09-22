@@ -20,7 +20,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 Get an account
 ====
 
-1. Get an account at [Sensible.so](https://www.sensible.so/get-early-access).  If you don't have an account, you can still read along to get a rough idea of how things work.
+1. Get an account at [sensible.so](https://www.sensible.so/get-early-access).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
 2. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/) using your API key.
 
