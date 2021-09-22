@@ -8,23 +8,46 @@ Run an extraction on a doc
 =====
 
 1. Clone the code sample of your choice:
+ [Python](https://github.com/fscelliott/sens-code-example)
 
-   [Python](https://github.com/fscelliott/sens-code-example)
 
 2. Add your API_KEY to the code sample:
-
-   - ​	**PYTHON:**CD to the cloned code sample directory, sens-code-example 
-
-   - Make a new file: `touch secrets.py`
-
-   - Add the API key to the file: `API_KEY = "YOUR_API_KEY"`
-
-   - Verify that `.gitignore` lists `secrets` so that you don't expose your key
+[block:code]
+{
+    "codes": [
+    {
+      "code": "1. CD to the cloned code sample directory, sens-code-example\n2. Make a new file: `touch secrets.py`\n3. Add the API key to the file: `API_KEY = \"YOUR_API_KEY\"`\n4. Verify that `.gitignore` lists `secrets` so that you don't expose your key",
+      "language": "text",
+      "name": "python"
+    },
+    {
+      "code": "",
+      "language": "text",
+      "name": "otherlangsTBD"
+    }
+    ]
+}
+[/block]
 
 3. Run the code sample:
 
-   1. **Python** : run the sample: `python extract_doc.py`
 
+[block:code]
+{
+  "codes": [
+    {
+      "code": " `python extract_doc.py`",
+      "language": "text",
+      "name": "python"
+    },
+    {
+      "code": "",
+      "language": "text",
+      "name": "otherlangsTBD"
+    }
+  ]
+}
+[/block]
     You should see a response like the following:
 
    ```json
@@ -68,12 +91,12 @@ Run an extraction on a doc
    	"download_url": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/41775922-b9ac-4d2d-b1af-4292e68947a0/EXTRACTION/234b2afd-5165-4022-a41f-bd31ad89c3ff.pdf?AWSAccessKeyId=REDACTED&x-amz-security-token=REDACTED"
    }
    ```
-   
+
    (Optional) see how it works in the Sensible app
    =====
-   
+
    To see this example in the Sensible app:
-   
+
    1. Navigate to [https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test](https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test).
    1. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf)
    2. Click the **anyco** config and visually examine the PDF (middle pane), config (left pane), and extraction (right pane) you just ran from the code sample:
