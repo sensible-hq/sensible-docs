@@ -4,7 +4,7 @@ hidden: true
 
 ---
 
-Run an extraction on a doc
+Extract data from a document
 =====
 
 1. Clone the code sample of your choice:
@@ -115,3 +115,15 @@ You should see a response like the following:
    2. Click the **anyco** config and visually examine the PDF (middle pane), config (left pane), and parsed document (right pane) you just ran in the previous code sample:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)
 
+
+
+
+
+Next
+===
+
+- Learn more with [Getting Started](doc:quickstart)
+
+- Check out the [SenseML method reference docs](doc:methods) to write your own extractions
+
+  
