@@ -21,7 +21,7 @@ Extract data from a document
   {
    "codes": [
    {
-     "code": "1. CD to the cloned code sample directory, sens-code-example\n2. Make a new file: `touch secrets.py`\n3. Add the API key to the file: `API_KEY = \"YOUR_API_KEY\"`\n4. Verify that `.gitignore` lists `secrets` so that you don't expose your key",
+     "code": "1. CD to the cloned code sample directory, sens-code-example\n2. Make a new file: `touch secrets.py`\n3. Add the API key to the file: `API_KEY = \"YOUR_API_KEY\"`\n4. Verify that `.gitignore` lists `secrets.py` so that you don't expose your key",
      "language": "text",
      "name": "python"
    },
@@ -116,7 +116,7 @@ You should see a response like the following:
       2. Navigate to [https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test](https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test).
       3. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf).
       4. Click the **anyco** config and visually examine the PDF (middle pane), config (left pane), and parsed document (right pane) you just ran in the previous code sample:
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)
+      ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)
 
 
 
