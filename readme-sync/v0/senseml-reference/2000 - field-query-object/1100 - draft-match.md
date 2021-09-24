@@ -14,7 +14,7 @@ See the following sections for more information:
 - [Simple match](doc:anchor#simple-match)
 - [Regex match](doc:anchor#regex-match)
 - [First match](doc:anchor#first-match)
-- [OR match](doc:match#or-match)
+- [Any match](doc:match#any-match)
 
 [**Examples**](doc:match#examples)
 
@@ -134,17 +134,17 @@ This example matches the first line after a matched line:
 }
 ```
 
-OR match
+Any match
 ---
 
 Matches any of an array of of match objects.
 
 **Parameters**
 
-| key                  | values                 | description                                                  |
-| -------------------- | ---------------------- | ------------------------------------------------------------ |
-| type (**required**)  | `or`                   |                                                              |
-| match (**required**) | array of Match objects | Match any of the Match objects in the array. For example, this allows you to match on an array of synonymous terms if a document contains small wording variations across revisions. |
+| key                    | values                 | description                                                  |
+| ---------------------- | ---------------------- | ------------------------------------------------------------ |
+| type (**required**)    | `any`                  |                                                              |
+| matches (**required**) | array of Match objects | Match any of the Match objects in the array. For example, this allows you to match on an array of synonymous terms if a document contains small wording variations across revisions. |
 
 **Example**
 
@@ -153,7 +153,7 @@ Matches any of an array of of match objects.
 	"fields": [{
 		"anchor": {
 			"match": {
-				"type": "and",
+				"type": "any",
 				"matches": [{
 						"type": "equals",
 						"text": "load value"
