@@ -13,8 +13,11 @@ Phone Number
 
 Returns phone numbers:
 
-- Recognizes USA phone 10-digit phone numbers either with or without a country calling code. May be optionally formatted with parentheses, dashes, spaces, plus sign (+), or periods. 
-- Recognizes international phone numbers only if prefixed by a country calling code (for example, +91 or 0091 for India).  
+- Recognizes USA 10-digit phone numbers either with or without a country calling code. May be optionally formatted with parentheses, dashes, spaces, plus sign (+), or periods. 
+
+- Recognizes international phone numbers only if prefixed by a country calling code (for example, +91 for India).
+
+Does not recognize country calling codes formatted with 00, for example, 0091 or 001. 
 
 Examples: 
 
@@ -25,6 +28,9 @@ Examples:
 888 353 3264
 888 353-3232
 (207) 312-6767
++91 9999999999
++91 9999 999999
++91 9999-999999
 
 ```
 
