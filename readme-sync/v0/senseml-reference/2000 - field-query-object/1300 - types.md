@@ -24,7 +24,7 @@ For example, the following field returns null unless it finds data that Sensible
 
 The following types are available:
 
-[Accounting Currency](doc:types#accountingcurrency)
+[Accounting Currency](doc:types#accounting-currency)
 [Address](doc:types#address)
 [Boolean](doc:types#boolean)
 [Currency](doc:types#currency)
@@ -35,7 +35,7 @@ The following types are available:
 [Number](doc:types#number)
 [Paragraph](doc:types#paragraph)
 [Percentage](doc:types#percentage)
-[Period Delimited Currency](doc:types#perioddelimitedcurrency) 
+[Period Delimited Currency](doc:types#period-delimited-currency) 
 [String](doc:types#string)
 [Table](doc:types#table)
 [Weight](doc:types#weight)
