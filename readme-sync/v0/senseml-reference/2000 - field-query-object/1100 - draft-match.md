@@ -20,7 +20,7 @@ See the following sections for more information:
 
 - [Match arrays](doc:match#match-arrays) 
 
-TODO: add section for OR MATCH
+
 
 Match types
 ===
@@ -153,8 +153,8 @@ Matches any of an array of of match objects.
 	"fields": [{
 		"anchor": {
 			"match": {
-				"type": "or",
-				"matchers": [{
+				"type": "and",
+				"matches": [{
 						"type": "equals",
 						"text": "load value"
 					},
