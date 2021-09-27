@@ -10,7 +10,7 @@ For this tutorial, let's try a webhook in combination with the `/extract_from_ur
 Prerequisites
 ====
 
-Set up a working asynchronous request. For this example, follow the steps in [Extract from a URL you provide](doc:api-tutorial-async#extract-from-a-url-you-provide ) to create an `/extract_from_url/` request in Postman.
+See [prerequisites](doc:api-tutorial#prerequisites). 
 
 
 Configure the webhook
@@ -24,19 +24,25 @@ Configure the webhook
 2. Copy the following code sample, and replace `YOUR_UNIQUE_URL` with your uniquely generated webhook.site URL:
 
 ```json
-{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf",
-"webhook": {"url":"YOUR_UNIQUE_URL","payload":"some info you want to include that is additional to the default payload, which includes extraction id, type, and parsed doc"}}
+curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
+--header 'Authorization: Bearer YOUR_API_TOKEN' \
+--header 'Content-Type: application/json' \
+--data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf",
+"webhook": {"url":"YOUR_WEBHOOK_URL","payload":"some info you want to include that is additional to the default payload, which includes extraction id, type, and parsed doc"}}'
 ```
 
-3. In your `/extract_from_url` request in Postman, replace the content of  the **Body** tab with the preceding code sample:
+3. Import the code sample into Postman: in your workspace, click **Import**, paste the code sample, and follow the prompts to import.
+
+   
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_2.png)
+
+4. Click **Send** in Postman.
 
 Check the webhook response
 ====
 
-5. Click **Send** in Postman.
-6. Visit your unique URL at webhook.site to verify there is a response at the URL like the following: 
+Visit your unique URL at webhook.site to verify there is a response at the URL like the following: 
 
 ```
 {
