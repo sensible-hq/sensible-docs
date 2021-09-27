@@ -31,7 +31,7 @@ curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto
 "webhook": {"url":"YOUR_WEBHOOK_URL","payload":"some info you want to include that is additional to the default payload, which includes extraction id, type, and parsed doc"}}'
 ```
 
-3. Import the code sample into Postman: in your workspace, click **Import**, paste the code sample, and follow the prompts to import.
+3. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
    
 

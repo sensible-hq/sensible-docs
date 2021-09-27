@@ -29,7 +29,7 @@ curl --request POST \
 
 
 
-2. In the Postman desktop app, click **Import**, select **Raw text**, and paste in the code sample:
+2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_postman_import.png)
 
