@@ -44,11 +44,11 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insuran
 
 ```json
 {
-    "id": "28c7e5ac-3943-4f86-bd72-8aac3fa38a43",
+    "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
     "created": "2021-06-16T16:22:56.576Z",
     "status": "WAITING",
     "type": "auto_insurance_quote",
-    "upload_url": "https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/28c7e5ac-3943-4f86-bd72-8aac3fa38a43.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED"
+    "upload_url": "https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED"
 }
 ```
 
@@ -113,7 +113,7 @@ To retrieve the extraction results with the  `/documents` endpoint, take the fol
 
    ```json
    {
-       "id": "28c7e5ac-3943-4f86-bd72-8aac3fa38a43"
+       "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836"
    }
    ```
    
@@ -134,7 +134,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 ```json
 {
-    "id": "28c7e5ac-3943-4f86-bd72-8aac3fa38a43",
+    "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
     "created": "2021-06-16T16:22:56.576Z",
     "status": "COMPLETE",
     "type": "auto_insurance_quote",
