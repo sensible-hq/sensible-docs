@@ -17,8 +17,6 @@ Returns phone numbers:
 
 - Recognizes international phone numbers only if prefixed by a country calling code (for example, +91 for India).
 
-Does not recognize country calling codes formatted with 00, for example, 0091 or 001. 
-
 Examples: 
 
 ```
@@ -45,3 +43,4 @@ Example output:
 }
 ```
 
+This type does *not* recognize country calling codes formatted with 00, for example, 0091 or 001. 
