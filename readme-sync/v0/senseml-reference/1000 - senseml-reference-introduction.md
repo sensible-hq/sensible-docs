@@ -22,6 +22,8 @@ Examples
 
 For an overview of the elements in the SenseML schema, see the following image of a short config:
 
+
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro.png)
 
 Try out this example in the Sensible app using the following PDF and config:
@@ -83,5 +85,22 @@ This example config has the following elements:
 
 
 
-The output of this example config is just one key/value pair: the last name of the driver.  In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF. Happy extracting! 
+The output of this example config is just the name of the driver:
+
+```json
+{
+    "_driver_name_raw": {
+        "type": "string",
+        "value": "Petrov, Petar"
+    },
+    "driver_name_last":{
+        "type": "string",
+        "value": "Petrov"
+    }
+}
+```
+
+
+
+  In production scenarios, you can extract just about any text, as well as image coordinates, from a PDF. Happy extracting! 
 
