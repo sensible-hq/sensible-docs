@@ -15,7 +15,7 @@ A fingerprint consists of an array of tests. The following table shows parameter
 | key                  | value                                                        | description                                                  |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | match (**required**) | a string, a  [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test.                    |
-| offset               | integer                                                      | Offset in pages from line defined by the Match parameter to the first or last page |
+| offset               | integer                                                      | Offset in pages from line defined by the Match parameter to a first or last page defined in the Page parameter. |
 | page                 | `first`, `last`, `every`, `any`                              | For document packages (a PDF containing multiple documents, such as an invoice, a contract, and a tax form), tests for document starts and ends to correctly segment the package. For more information see [Document packages](doc:draft-document-packages). |
 
 
@@ -33,6 +33,9 @@ The following table shows how this default behavior changes when you configure t
 
 Examples
 ====
+
+Choose between configs
+----
 
 The following fingerprint tests a vendor-specific config "anyco_life_insurance_quote" in a document type "life insurance quotes". This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases. 
 
@@ -54,3 +57,7 @@ The following fingerprint tests a vendor-specific config "anyco_life_insurance_q
 
 The config preferentially runs only if the fingerprint finds the phrases.  
 
+Parse a PDF portfolio
+----
+
+TBD TODO
