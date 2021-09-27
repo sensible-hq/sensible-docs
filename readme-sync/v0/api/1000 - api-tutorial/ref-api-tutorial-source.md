@@ -23,9 +23,9 @@ curl --request POST \
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_api_quickstart_postman_file.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/source/api_api_quickstart_postman_file.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/source/api_quickstart_postman_file.png)
 
 ```json
 curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
