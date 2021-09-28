@@ -5,7 +5,7 @@ hidden: true
 
 Extracts data from a section of the document that contains repeated elements. Sensible returns an array of objects corresponding to the elements. The following image shows an example of a repeated section:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/repeated_sections.png)
+![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_1.png)
 
 For the preceding example, you can configure Sensible to return a `unprocessed_claims` array of objects, where each object contains a `claim_number`, `claim_date`, `claimant_last_name`, etc.
 
@@ -95,7 +95,7 @@ Examples
 
 The following image shows the data extracted by this config for the following example PDF:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_2.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections.pdf) |
 | ------------------- | ------------------------------------------------------------ |
