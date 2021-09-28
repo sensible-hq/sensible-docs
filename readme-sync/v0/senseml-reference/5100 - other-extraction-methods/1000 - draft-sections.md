@@ -24,7 +24,7 @@ Parameters
 Examples
 ====
 
-The following example shows extracting a list of claims from a section containing a list of claims.
+The following example shows extracting fields repeatedly from a section containing a list of claims.
 
 **Config**
 
