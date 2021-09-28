@@ -3,7 +3,7 @@ title: "Sections"
 hidden: true
 ---
 
-Extracts data from a section of the document that contains repeated elements. Sensible returns an array of objects corresponding to the elements. The following image shows an example of a section with repeated elements:
+Extracts data from a section of the document that contains repeated elements. Use this extraction method when the repeated elements are more complex than a typical table or list. Sensible returns an array of objects corresponding to the elements. The following image shows an example of a section with repeated elements:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_1.png)
 
@@ -112,7 +112,7 @@ The following image shows the data extracted by this config for the following ex
     "value": 4,
     "type": "number"
   },
-  "unprocessed_claims": [
+  "unprocessed_claims_section": [
     {
       "claim_number": {
         "source": "1223456789",
