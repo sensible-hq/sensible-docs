@@ -3,16 +3,15 @@ title: "Sections"
 hidden: true
 ---
 
-Extracts data from a section of the document that contains repeated elements. Use this extraction method when:
-
-- the repeated elements are more complex than a typical table or list
--  as an alternative to  `"match":"all"`  in an anchor, when the repeated elements contain optional null values.
+Extracts data from a section of the document that contains repeated elements. 
 
 Sensible returns an array of objects corresponding to the elements. The following image shows an example of a section with repeated elements:
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_1.png)
 
 For the preceding example, you can configure Sensible to return a `unprocessed_claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, etc.
+
+Use this extraction method as an alternative to  `"match":"all"`  so as to handle optional null values in repeated elements (for example, in the image above, the phone number is optional). 
 
 Parameters
 ====
