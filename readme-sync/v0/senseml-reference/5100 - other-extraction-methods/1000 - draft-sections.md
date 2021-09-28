@@ -11,8 +11,6 @@ Sensible returns an array of objects corresponding to the elements. The followin
 
 For the preceding example, you can configure Sensible to return a `unprocessed_claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, etc.
 
-Use this extraction method as an alternative to  `"match":"all"`  so as to handle optional null values in repeated elements (for example, in the image above, the phone number is optional). 
-
 Parameters
 ====
 
