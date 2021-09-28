@@ -43,7 +43,7 @@ The following example shows extracting fields repeatedly from a section containi
   ],
   "sections": [
     {
-      "id": "unprocessed_claims",
+      "id": "unprocessed_claims_section",
       "range": {
         "anchor": {
           "match": {
