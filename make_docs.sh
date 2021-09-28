@@ -31,7 +31,7 @@ npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --versio
 
 
 # if there are local uncommitted changes, commit them (for example as output of imagemagick)
-if ! git diff-index --quiet HEAD --; then
+if ! git diff-index HEAD --; then
     echo "Committing local changes to github"
     echo "adding untracked files"
     git add -A 
