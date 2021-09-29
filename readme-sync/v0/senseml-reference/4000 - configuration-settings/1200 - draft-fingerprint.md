@@ -57,7 +57,7 @@ The following fingerprint tests a vendor-specific config "anyco_life_insurance_q
 
 The config preferentially runs only if the fingerprint finds the phrases.  
 
-Parse a PDF portfolio
+Extract a PDF portfolio
 ----
 
-TBD TODO
+For an example of using fingerprints to extract multiple documents combined into one PDF portfolio, see TODO LINK portfolio.
