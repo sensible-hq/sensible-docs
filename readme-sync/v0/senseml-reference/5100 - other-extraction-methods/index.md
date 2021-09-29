@@ -1,9 +1,9 @@
 ---
 title: "Other extraction methods"
-hidden: true
+hidden: false
 ---
 
-The following topics describe methods of extracting data that do not fit neatly into [methods](doc:methods).
+The following topics describe methods of extracting data that do not fall under the [Methods](doc:methods) object.
 
-- TODO: links
+- [Sections][doc:sections]
 

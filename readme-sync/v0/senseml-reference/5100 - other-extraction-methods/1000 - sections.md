@@ -1,6 +1,6 @@
 ---
 title: "Sections"
-hidden: true
+hidden: false
 ---
 
 Extracts data from a document that contains complex or repeated elements ("sections"). 
@@ -9,7 +9,7 @@ Sensible returns an array of objects corresponding to the sections. The followin
 
 ![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_1.png)
 
-For the preceding example, you can configure Sensible to return a `unprocessed_claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, etc. 
+For the preceding example, you can configure Sensible to return an `unprocessed_claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, etc. 
 
 Parameters
 ====
