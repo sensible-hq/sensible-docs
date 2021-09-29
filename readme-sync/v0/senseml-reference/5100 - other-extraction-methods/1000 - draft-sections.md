@@ -28,8 +28,8 @@ Examples
 
 The following example shows extracting fields repeatedly from a section containing a list of claims:
 
-- It captures  Sept and Oct claims by specifying a section collection range that starts with the first instance of "claim number" and ends with "november".
-- It excludes from each section intervening text that isn't part of a section but that does repeat (`monthly_number_unprocessed_claims`) using a "range:stop" parameter. Instead, it captures this info using  match:all.
+- It captures Sept and Oct claims by specifying a section collection range that starts with the first instance of "claim number" and ends with "November".
+- From each section, it excludes intervening text that isn't part of a section but that does repeat (`monthly_number_unprocessed_claims`) using a "range:stop" parameter. Instead, it captures this info outside of sections with  `"match:all"`.
 
 **Config**
 
