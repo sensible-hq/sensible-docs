@@ -48,3 +48,4 @@ fi
 
 if ! git diff-index --quiet HEAD --; then
     echo "local staged changes exist"
+fi    
