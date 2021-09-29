@@ -35,6 +35,11 @@ npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --versio
 git ls-files --others --error-unmatch . >/dev/null 2>&1; ec=$?
 if test "$ec" = 0; then
     echo some untracked files
+    git add -A 
+    echo "git status:"
+    git status
+    git commit -m "updating local style changes to images"
+    git push
 elif test "$ec" = 1; then
     echo no untracked files
 else
@@ -42,11 +47,4 @@ else
 fi
 
 if ! git diff-index --quiet HEAD --; then
-    echo "Committing local changes to github"
-    echo "adding untracked files"
-    git add -A 
-    echo "git status:"
-    git status
-    git commit -m "updating local style changes to images"
-    git push
-fi
+    echo "local staged changes exist"
