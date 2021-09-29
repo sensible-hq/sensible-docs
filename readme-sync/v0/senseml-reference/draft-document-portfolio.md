@@ -97,7 +97,7 @@ The config is the same as the one used in the Sections topic (TODO LINK), with t
 
 **Output**
 
-If you create the preceding configurations and doc types and submit the following asynchronous extraction requests against the example PDF, you get a multidoc response.
+For the preceding configurations, doc types, and example PDF portfolio, the following asynchronous extraction requests return a response with multiple extractions:
 
 1. Submit an async request:
 
