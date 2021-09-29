@@ -87,9 +87,8 @@ You should see a response like the following:
    			"type": "currency"
    		},
    		"policy_number": {
-   			"source": "123456789",
-   			"value": 123456789,
-   			"type": "number"
+   			"value": "123456789",
+   			"type": "string"
    		}
    	},
    	"validations": [],

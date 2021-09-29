@@ -88,7 +88,7 @@ For this tutorial, you'll extract only a few pieces of information:
     },
     {
       "id": "policy_number",
-      "type": "number",
+      "type": "string",
       "anchor": {
         "match":
           {
@@ -131,9 +131,8 @@ You should see the following extracted data in the right pane:
     "type": "currency"
   },
   "policy_number": {
-    "source": "123456789",
-    "value": 123456789,
-    "type": "number"
+    "value": "123456789",
+    "type": "string"
   }
 }
 ```
@@ -286,7 +285,7 @@ The config uses the [Box method](doc:box):
 ```json
 {
       "id": "policy_number",
-      "type": "number",
+      "type": "string",
       "anchor": {
         "match": 
           {
@@ -310,9 +309,8 @@ The config uses the [Box method](doc:box):
 
 ```json
   "policy_number": {
-    "source": "123456789",
-    "value": 123456789,
-    "type": "number"
+    "value": "123456789",
+    "type": "string"
   }
 ```
 

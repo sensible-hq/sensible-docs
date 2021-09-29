@@ -150,18 +150,12 @@ The response contains extractions from three documents:
                         "type": "currency"
                     },
                     "policy_number": {
-                        "source": "123456789",
-                        "value": 123456789,
-                        "type": "number"
+                        "value": "123456789",
+                        "type": "string"
                     }
                 },
                 "configuration": "anyco_claims",
-                "validations": [
-                    {
-                        "description": "policy number is a nine-digit number",
-                        "severity": "error"
-                    }
-                ],
+                "validations": [],
                 "validation_summary": {
                     "fields": 4,
                     "fields_present": 4,
@@ -195,18 +189,12 @@ The response contains extractions from three documents:
                         "type": "currency"
                     },
                     "policy_number": {
-                        "source": "987654321",
-                        "value": 987654321,
-                        "type": "number"
+                        "value": "987654321",
+                        "type": "string"
                     }
                 },
                 "configuration": "anyco_multidoc",
-                "validations": [
-                    {
-                        "description": "policy number is a nine-digit number",
-                        "severity": "error"
-                    }
-                ],
+                "validations": [],
                 "validation_summary": {
                     "fields": 4,
                     "fields_present": 4,

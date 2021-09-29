@@ -28,7 +28,7 @@
     },
     {
       "id": "policy_number",
-      "type": "number",
+      "type": "string",
       "anchor": {
         "match":
           {
