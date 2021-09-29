@@ -53,7 +53,7 @@ The config is the same as the one used in the [Getting started guide](doc:quicks
   },
 ```
 
-***Document 2**
+***Document 2***
 
 **doc type**: "loss_run"
 
@@ -97,7 +97,7 @@ The config is the same as the one used in the Sections topic (TODO LINK), with t
 
 **Output**
 
-If you create the preceding configurations in two doc types ("auto_insurance_quote" and "loss_run") and submit the following asynchronous extraction requests against the example PDF, you get a multidoc response: 
+If you create the preceding configurations and doc types and submit the following asynchronous extraction requests against the example PDF, you get a multidoc response.
 
 1. Submit an async request:
 
@@ -114,7 +114,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/{EXTRACTION_ID}' \
 --header 'Authorization: Bearer {API_TOKEN}'
 ```
 
-The response is three extracted documents:
+The response contains extractions from three documents:
 
 ```
 {
