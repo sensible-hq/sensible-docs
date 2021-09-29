@@ -17,7 +17,7 @@ Parameters
 
 | key                   | value                                                  | description                                                  |
 | --------------------- | ------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**)     | string                                                 | identifies a collection of sections to extract in the document area defined by the Range parameter. You can specify multiple sections, and you can nest sections inside of other sections. |
+| id (**required**)     | string                                                 | Identifies a collection of sections to extract in the document area defined by the Range parameter. You can specify multiple sections, and you can nest sections inside of other sections. |
 | range  (**required**) | object                                                 | Specifies to search for:<br/>- a collection of repeated sections in an area of the document <br/>- the start and optional end of each repeated section.<br/>The collection of sections can span nonrepeating text.  For example,  in the preceding image, an "unprocessed_claims" collection of sections could span multiple month headings. Contains these parameters:<br/><br/>**anchor** (**required**)-an [Anchor](doc:anchor) or string object that defines the Start, Match, and End for each repeated section anchor. For the required Match parameter, specify the first line in each repeating element for this element. For example, in the preceding image, specify `"Claim number"`. <br/> **stop** - a string or [Match](doc:match) object or array of Match objects that defines  the end of the repeated section after its anchor. In the preceding image, for example, `"Claims totals"`.<br/>For example, if you specify `"Date of claim"`, then each section would end either when it encounters the next section, or when it encounters the phrase "Date of claim", and so the section would ignore everything past the claimant's last name in each repeating element. <br/> If you leave this parameter unspecified, then the last repeating element in the section continues to the end of the document.<br/><br/>To summarize the roles of these parameters:<br/>anchor: <br>    start: ignore anything in the document before this line<br/>    match (**required**): defines the start of each repeating section *and* the start of the section collection's range<br/>    end: defines the end of the section collection's range<br/>stop: defines the end of each repeating section |
 | fields (**required**) | array of [Field objects](doc:field-query-object)       |                                                              |
 | sections              |                                                        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements. |
@@ -26,7 +26,13 @@ Parameters
 Examples
 ====
 
-The following example shows extracting fields repeatedly from a section containing a list of claims.
+The following example shows extracting fields repeatedly from a section containing a list of claims:
+
+- It captures  Sept and Oct claims by specifying a section collection range that starts with the first instance of "claim number" and ends with "november".
+
+- It excludes from each section intervening text that isn't part of a section but that does repeat (`monthly_number_unprocessed_claims`) using a "range:stop" parameter. Instead, it captures this info using  match:all.
+
+  
 
 **Config**
 
@@ -42,7 +48,7 @@ The following example shows extracting fields repeatedly from a section containi
       }
     },
     {
-      "id": "unprocessed_by_month",
+      "id": "monthly_number_unprocessed_claims",
       "match": "all",
       "anchor": {
         "match": {
