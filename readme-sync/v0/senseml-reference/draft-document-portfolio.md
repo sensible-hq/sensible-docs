@@ -8,22 +8,8 @@ Sometimes, multiple documents are packaged into one PDF file (a PDF "portfolio")
 
 In this case, it is best practice to add each document to the appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, if you already have a tax docs and an invoice doc type, define your new configs in these preexisting doc types.  In order for Sensible to handle the document inside the package, specify the following:
 
-- In the config for each document in the package, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range in the package to which this config applies.
+- In the config for each document in the package, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range of each document in the package to which this config applies.
 - When you make an asynchronous API call to extract data from the package, specify the multiple doc types that apply to the package. For example, `"types: ["insurance_quote", "insurance_loss_run"]`.  The return API response then includes additional metadata in the `parsed_documents` section to help you understand how Sensible parsed the package into separate documents, including the `document_type` and configuration used for a document ( `page_range`) in the package.
-
-```json
-{
-    "id": "a2e39ca4-0a50-4be7-91b6-0e3b686e5cf9",
-    "created": "2021-09-27T21:23:38.933Z",
-    "status": "WAITING",
-    "types": [
-        "insurance_quote",
-        "insurance_loss_run"
-    ]
-}
-```
-
-
 
 Example
 ----
@@ -32,7 +18,15 @@ The following example shows extracting three 1-page documents from a portfolio (
 
 **Config**
 
-In this example, the config in a "auto_insurance_quote" doc type for the car insurance quote documents is the same as the one used in the [Getting started guide](doc:quickstart), with the addition of the following fingerprint:
+***Document 1***
+
+**doc type**: "auto_insurance_quote"
+
+**config name**: "anyco_quote"
+
+**config content:**
+
+The config is the same as the one used in the [Getting started guide](doc:quickstart), with the addition of the following fingerprint:
 
 ```
   "fingerprint": {
@@ -59,9 +53,15 @@ In this example, the config in a "auto_insurance_quote" doc type for the car ins
   },
 ```
 
+***Document 2**
 
+**doc type**: "loss_run"
 
-The config in a "loss_run" doc type for the loss run document is the same as the one used in the Sections topic (TODO LINK), with the addition of the following fingerprint:
+**config name**: "anyco_claims"
+
+**config content:**
+
+The config is the same as the one used in the Sections topic (TODO LINK), with the addition of the following fingerprint:
 
 ```
 
@@ -89,8 +89,6 @@ The config in a "loss_run" doc type for the loss run document is the same as the
     ]
   },
 ```
-
-
 
 **PDF**
 
@@ -130,7 +128,7 @@ The response is three extracted documents:
     "documents": [
         {
             "documentType": "auto_insurance_quote",
-            "configuration": "anyco_multidoc",
+            "configuration": "anyco_quote",
             "startPage": 0,
             "endPage": 0,
             "output": {
@@ -157,7 +155,7 @@ The response is three extracted documents:
                         "type": "number"
                     }
                 },
-                "configuration": "anyco_multidoc",
+                "configuration": "anyco_claims",
                 "validations": [
                     {
                         "description": "policy number is a nine-digit number",
@@ -175,7 +173,7 @@ The response is three extracted documents:
         },
         {
             "documentType": "auto_insurance_quote",
-            "configuration": "anyco_multidoc",
+            "configuration": "anyco_quote",
             "startPage": 1,
             "endPage": 1,
             "output": {
@@ -220,7 +218,7 @@ The response is three extracted documents:
         },
         {
             "documentType": "loss_run",
-            "configuration": "loss_run_anyco_multidoc",
+            "configuration": "anyco_claims",
             "startPage": 2,
             "endPage": 2,
             "output": {
