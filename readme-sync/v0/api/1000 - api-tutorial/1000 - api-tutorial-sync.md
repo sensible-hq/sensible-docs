@@ -24,7 +24,7 @@ curl --request POST \
   --url https://api.sensible.so/v0/extract/auto_insurance_quote \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --header 'Content-Type: application/pdf' \
-  --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
+  --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco.pdf'
 ```
 
 
@@ -35,7 +35,7 @@ curl --request POST \
 
 3. Download the following example PDF, which works with the prerequisite  `auto_insurance_quote` config:
 
-| auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
+| auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
 4. Correct the path to the downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF:

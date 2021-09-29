@@ -62,7 +62,7 @@ Use the one-time URL you generated in the previous step to extract data from the
 
 ```json
 curl --request PUT 'YOUR_UPLOAD_URL' \
---data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
+--data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco.pdf'
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
@@ -71,7 +71,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 3. If you haven't already done so, download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the **Prerequisites** section:
 
-| auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
+| auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
 4. Correct the path to the downloaded PDF in your request: click the **Body** tab, select **binary**, then click **Select file** and select the PDF:

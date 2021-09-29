@@ -35,7 +35,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
    curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --header 'Content-Type: application/json' \
-   --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf"}'
+   --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"}'
    ```
 
    

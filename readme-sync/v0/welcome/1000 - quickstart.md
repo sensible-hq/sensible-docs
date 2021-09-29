@@ -34,10 +34,10 @@ Create a config
 
 2. Download the following PDF document:
 
-   | auto_insurance_anyco_golden | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf) |
+   | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
 
-3. Click **Upload document**  and choose the generic  **auto_insurance_anyco_golden** car insurance quote you just downloaded.
+3. Click **Upload document**  and choose the generic  **auto_insurance_anyco** car insurance quote you just downloaded.
 
 4. Click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
 
@@ -337,10 +337,10 @@ Before integrating the config with an application and writing [validation tests]
 
 1. Repeat the steps in the previous section to upload a second generic car insurance quote:
 
-   | auto_insurance_anyco_golden_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_2.pdf) |
+   | auto_insurance_anyco_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_2.pdf) |
    | ----------------------------- | ------------------------------------------------------------ |
 
-2. Click the **anyco** config, select the "auto_insurance_anyco_golden_2" PDF, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
+2. Click the **anyco** config, select the "auto_insurance_anyco_2" PDF, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
 
    ```json
    {
@@ -425,7 +425,7 @@ Let's double check that this region also works with the first PDF:
 
 Yes, it works too.
 
-If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_golden_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures text that is almost or completely contained in the region. 
+If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method only captures text that is almost or completely contained in the region. 
 
 3. Click **Publish** and choose **Production** to save your changes to the config.
 
@@ -487,7 +487,7 @@ To add these tests:
    -  the policy number is missing
    -  the property damage liability premium is $200 more than the comprehensive premium
 
-| auto_insurance_anyco_golden_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden_3.pdf) |
+| auto_insurance_anyco_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
 | ----------------------------- | ------------------------------------------------------------ |
 
 You should receive a response with errors and warnings in the Validations array:

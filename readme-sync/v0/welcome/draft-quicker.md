@@ -114,7 +114,7 @@ You should see a response like the following:
 
    1. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/) using your API key.
       2. Navigate to [https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test](https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test).
-      3. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf).
+      3. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf).
       4. Click the **anyco** config and visually examine the PDF (middle pane), config (left pane), and parsed document (right pane) you just ran in the previous code sample:
       ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)
 

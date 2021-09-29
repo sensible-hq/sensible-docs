@@ -27,7 +27,7 @@ Configure the webhook
 curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
 --header 'Authorization: Bearer YOUR_API_TOKEN' \
 --header 'Content-Type: application/json' \
---data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf",
+--data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf",
 "webhook": {"url":"YOUR_WEBHOOK_URL","payload":"some info you want to include that is additional to the default payload, which includes extraction id, type, and parsed doc"}}'
 ```
 
