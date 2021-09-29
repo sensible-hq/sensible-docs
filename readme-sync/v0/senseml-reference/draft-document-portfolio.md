@@ -6,10 +6,10 @@ hidden: true
 
 Sometimes, multiple documents are packaged into one PDF file (a PDF "portfolio"). For example, a PDF might contain an invoice, a tax document, and a contract. 
 
-In this case, it is best practice to add each document to the appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, if you already have a tax docs and an invoice doc type, define your new configs in these preexisting doc types.  In order for Sensible to handle the document inside the package, specify the following:
+In this case, it is best practice to add each document to the appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, if you already have a tax docs and an invoice doc type, define your new configs in these preexisting doc types.  In order for Sensible to handle the document inside the portfolio, specify the following:
 
-- In the config for each document in the package, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range of each document in the package to which this config applies.
-- When you make an asynchronous API call to extract data from the package, specify the multiple doc types that apply to the package. For example, `"types: ["insurance_quote", "insurance_loss_run"]`.  The return API response then includes additional metadata in the `parsed_documents` section to help you understand how Sensible parsed the package into separate documents, including the `document_type` and configuration used for a document ( `page_range`) in the package.
+- In the config for each document in the portfolio, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range of each document in the package to which this config applies.
+- When you make an asynchronous API call to extract data from the portfolio, specify the multiple doc types that apply to the portfolio. For example, `"types: ["insurance_quote", "insurance_loss_run"]`.  The return API response then includes multiple  `parsed_documents` sections, as well as information to help you understand how Sensible parsed the portfolio into separate documents, including the `document_type` and configuration used for a document ( `page_range`) in the package.
 
 Example
 ----
