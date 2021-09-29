@@ -32,3 +32,38 @@ to be able to work with multidocuments your fingerprints should be "stronger" th
 1.- they should be able to discriminate over a wider set of configs (not just the ones of the same doctype, but the ones on the other doctypes); 2.- if the bundles can have multiple copies of the same document, they should use the page: first/last so we can identify the end and start of different documents with the same type and config. for example, the multidoc from candor that we tested today included two documents, both of those were account summaries from the same bank, for two different periods. in a previous multidoc I've seen there were several 1040s. if you have two documents of the same type one after the other you need to be able to know where is the border between them. 
 
 **TODO** add to OCR configuration setting that it's not honored for multidoc endpoints?  The main caveat is that at least for the moment we’re not honoring the MS/Google setting and you will always get MS OCR This is because we need to OCR the doc to detect what its doc type is and the OCR engine is set at the doc type level)
+
+Example
+----
+
+
+
+**Fingerprint for car insurance quote**
+
+```
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "text": "anyco auto insurance",
+            "type": "startsWith"
+          }
+        ]
+      },
+      {
+        "page": "last",
+        "match": [
+          {
+            "text": "please be sure to review your contract for a full explanation of coverages",
+            "type": "includes"
+          }
+        ]
+      }
+    ]
+  },
+```
+
+
+
