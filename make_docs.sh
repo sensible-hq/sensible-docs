@@ -31,7 +31,17 @@ npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --versio
 
 
 # if there are local uncommitted changes, commit them (for example as output of imagemagick)
-if ! git diff-index HEAD --; then
+# https://newbedev.com/checking-for-a-dirty-index-or-untracked-files-with-git
+git ls-files --others --error-unmatch . >/dev/null 2>&1; ec=$?
+if test "$ec" = 0; then
+    echo some untracked files
+elif test "$ec" = 1; then
+    echo no untracked files
+else
+    echo error from ls-files
+fi
+
+if ! git diff-index --quiet HEAD --; then
     echo "Committing local changes to github"
     echo "adding untracked files"
     git add -A 
