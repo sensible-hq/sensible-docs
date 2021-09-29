@@ -1,5 +1,5 @@
 ---
-title: "Computed Field Methods"
+title: "Computed field methods"
 hidden: false
 ---
 Computed Field methods transform the output of one or more [Field objects](doc:field-query-object). Common use cases for computed fields include:
