@@ -4,7 +4,7 @@ hidden: false
 ---
 Use the following [methods](doc:method)  to extract structured data from documents.
 
-See also [other extraction methods](doc:other-extraction-methods) for ways of extracting data that are not contained by the Method object.
+See also [other extraction methods](doc:other-extraction-methods) for ways of extracting data that are not contained by the [Method](doc:method) object.
 
 | Method                                   | Image                                                        | Notes                                                        |
 | ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
