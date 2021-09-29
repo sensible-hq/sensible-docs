@@ -2,7 +2,9 @@
 title: "Methods"
 hidden: false
 ---
-Use the following [methods](doc:method)  to extract structured data from documents:
+Use the following [methods](doc:method)  to extract structured data from documents.
+
+See also [other extraction methods](doc:other-extraction-methods) for ways of extracting data that are not contained by the Method object.
 
 | Method                                   | Image                                                        | Notes                                                        |
 | ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
