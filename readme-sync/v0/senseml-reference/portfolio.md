@@ -11,20 +11,21 @@ In this case, it is best practice to extract each document using its appropriate
 - In the config for each document in the portfolio, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range of each document in the package to which this config applies.
 - Use https://docs.sensible.so/reference?showHidden=4007a#generate-an-upload-url-for-a-pdf-portfolio or https://docs.sensible.so/reference?showHidden=4007a#provide-a-download-url-for-a-pdf-portfolio (TODO: update links when go-live) to extract data from the portfolio. In these requests, specify the multiple doc types that apply to the portfolio. For example, `"types: ["insurance_quote", "insurance_loss_run"]`.  The return API response then includes multiple  `parsed_documents` sections, as well as information to help you understand how Sensible parsed the portfolio into separate documents, including the `document_type` and configuration used for a document ( `page_range`) in the package.
 
-Example
-----
+Examples
+===
 
 The following example shows extracting three 1-page documents from a portfolio (two car insurance quotes and one loss run).
 
-**Config**
+Config
+---
 
 ***Document 1***
 
-**doc type**: "auto_insurance_quote"
+- **doc type**: "auto_insurance_quote"
 
-**config name**: "anyco_quote"
+- **config name**: "anyco_quote"
 
-**config content:**
+- **config content:**
 
 The config is the same as the one used in the [Getting started guide](doc:quickstart), with the addition of the following fingerprint:
 
@@ -55,11 +56,11 @@ The config is the same as the one used in the [Getting started guide](doc:quicks
 
 ***Document 2***
 
-**doc type**: "loss_run"
+- **doc type**: "loss_run"
 
-**config name**: "anyco_claims"
+- **config name**: "anyco_claims"
 
-**config content:**
+- **config content:**
 
 The config is the same as the one used in the Sections topic (TODO LINK), with the addition of the following fingerprint:
 
@@ -90,16 +91,18 @@ The config is the same as the one used in the Sections topic (TODO LINK), with t
   },
 ```
 
-**PDF**
+PDF
+---
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
-**Output**
+Output
+---
 
 For the preceding configurations, doc types, and example PDF portfolio, the following asynchronous extraction requests return a response with multiple extractions:
 
-1. Submit an async request:
+1. Make an async request:
 
 ```
 curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
