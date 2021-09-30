@@ -16,7 +16,7 @@ A fingerprint consists of an array of tests. The following table shows parameter
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | match (**required**) | a string, a  [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test.                    |
 | offset               | integer                                                      | Offset in pages from line defined by the Match parameter to a first or last page defined in the Page parameter. |
-| page                 | `first`, `last`, `every`, `any`                              | - For document portfolios (a PDF containing multiple documents, such as an invoice, a contract, and a tax form), tests for document starts and ends to correctly segment the package. For more information see [Document portfolios](doc:portfolio). <br/>- For non-portfolio extractions, Sensible ignores the configured value of this parameter and treats it as  `"page":"any"`. This way, Sensible avoids strictly matching to extraneous front or back matter (e.g., fax cover page) in single documents. |
+| page                 | `first`, `last`, `every`, `any`                              | - For document portfolios (multiple documents combined into one PDF, such as an invoice, a contract, and a tax form), tests for document starts and ends to correctly segment the portfolio. For more information see [Document portfolios](doc:portfolio). <br/>- For non-portfolio extractions, Sensible ignores the configured value of this parameter and treats it as  `"page":"any"`. This way, Sensible avoids strictly matching to extraneous front or back matter (e.g., fax cover page) in single documents. |
 
 
 
