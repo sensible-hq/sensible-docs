@@ -19,7 +19,7 @@ The following example shows extracting three 1-page documents from a portfolio (
 Config
 ---
 
-***Document 1***
+***Document type 1***
 
 - **doc type**: "auto_insurance_quote"
 
@@ -54,7 +54,7 @@ The config is the same as the one used in the [Getting started guide](doc:quicks
   },
 ```
 
-***Document 2***
+***Document type 2***
 
 - **doc type**: "loss_run"
 
