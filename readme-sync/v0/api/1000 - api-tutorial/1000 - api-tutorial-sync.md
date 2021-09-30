@@ -31,7 +31,7 @@ curl --request POST \
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_import.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_import.png)
 
 3. Download the following example PDF, which works with the prerequisite  `auto_insurance_quote` config:
 
@@ -40,7 +40,7 @@ curl --request POST \
 
 4. Correct the path to the downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
    
 
