@@ -54,7 +54,7 @@ The config is the same as the one used in the [Getting started guide](doc:quicks
   },
 ```
 
-***Document  type 2***
+***Document type 2***
 
 - **doc type**: "loss_run"
 
