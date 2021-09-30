@@ -1,11 +1,11 @@
 ---
-title: "Draft fingerprint"
+title: "Fingerprint"
 hidden: true
 ---
 Test for matching text in a document in order to determine whether it matches a config or not. Use these test to:
 
-- Improve performance by testing for matching text in a document in order to run or skip a config.  By skipping configs that fail a fingerprint, you can save processing time. This is particularly true if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. 
-- Handle document packages by testing for text that defines starting and ending pages for documents in the package. For more information, see [Document portfolios](doc:portfolio).
+- Improve performance by testing for matching text in a document in order to run or skip a config in a given document type.  By skipping configs that fail a fingerprint, you can save processing time. This is particularly true if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. 
+- Handle PDF portfolios (multiple documents combined into one PDF) by testing for text that defines starting and ending pages for documents in the package. For more information, see [Document portfolios](doc:portfolio).
 
 Parameters
 ====
@@ -16,7 +16,7 @@ A fingerprint consists of an array of tests. The following table shows parameter
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | match (**required**) | a string, a  [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test.                    |
 | offset               | integer                                                      | Offset in pages from line defined by the Match parameter to a first or last page defined in the Page parameter. |
-| page                 | `first`, `last`, `every`, `any`                              | - For document portfolios (multiple documents combined into one PDF, such as an invoice, a contract, and a tax form), tests for document starts and ends to correctly segment the portfolio. For more information see [Document portfolios](doc:portfolio). <br/>- For non-portfolio extractions, Sensible ignores the configured value of this parameter and treats it as  `"page":"any"`. This way, Sensible avoids strictly matching to extraneous front or back matter (e.g., fax cover page) in single documents. |
+| page                 | `first`, `last`, `every`, `any`                              | - For PDF portfolios (multiple documents combined into one PDF, such as an invoice, a contract, and a tax form), tests for document starts and ends to correctly segment the portfolio. For more information see [Document portfolios](doc:portfolio). <br/>- For non-portfolio extractions, Sensible ignores the configured value of this parameter and treats it as  `"page":"any"`. This way, Sensible avoids strictly matching to extraneous front or back matter (e.g., fax cover page) in single documents. |
 
 
 
