@@ -1,6 +1,6 @@
 ---
 title: "Extracting from document portfolios"
-hidden: true
+hidden: false
 
 ---
 
@@ -10,6 +10,8 @@ In this case, it is best practice to extract each document using its appropriate
 
 - In the config for each document in the portfolio, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range of each document in the package to which this config applies.
 - Use [Generate upload URL for portfolio](https://docs.sensible.so/reference#generate-an-upload-url-for-a-pdf-portfolio) or [Provide download URL for portfolio](https://docs.sensible.so/reference#provide-a-download-url-for-a-pdf-portfolio) to extract data from the portfolio. In these requests, specify the multiple doc types that apply to the portfolio. For example, `"types: ["insurance_quote", "insurance_loss_run"]`.  The return API response then includes multiple  `parsed_documents` sections, as well as information to help you understand how Sensible parsed the portfolio into separate documents, including the `document_type` and configuration used for a document (`page_range`) in the package.
+
+**Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Google OCR.  
 
 Examples
 ===
