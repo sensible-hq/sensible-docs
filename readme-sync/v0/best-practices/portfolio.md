@@ -9,7 +9,7 @@ Sometimes multiple documents are packaged into one PDF file (a PDF "portfolio").
 In this case, it is best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an "income tax" doc type and an "invoice doc" type, rather than creating a "combined_tax_and_invoice" doc type.  In order for Sensible to handle the portfolio in one API extraction request, specify the following:
 
 - In the config for each document in the portfolio, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range of each document in the package to which this config applies.
-- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference#generate-an-upload-url-for-a-pdf-portfolio) or [Provide download URL for portfolio](https://docs.sensible.so/reference#provide-a-download-url-for-a-pdf-portfolio) to extract data from the portfolio. In these requests, specify the multiple doc types that apply to the portfolio. For example, `"types: ["insurance_quote", "insurance_loss_run"]`.  The return API response then includes multiple  `parsed_documents` sections, as well as information to help you understand how Sensible parsed the portfolio into separate documents, including the `document_type` and configuration used for a document (`page_range`) in the package.
+- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference#generate-an-upload-url-for-a-pdf-portfolio) or [Provide download URL for portfolio](https://docs.sensible.so/reference#provide-a-download-url-for-a-pdf-portfolio) to extract data from the portfolio. In these requests, specify the multiple doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`.  The return API response then includes multiple  `parsed_documents` sections, as well as information to help you understand how Sensible parsed the portfolio into separate documents, including the `document_type` and configuration used for a document (`page_range`) in the package.
 
 **Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Google OCR.  
 
@@ -164,7 +164,7 @@ The response contains extractions from three documents:
                 "validation_summary": {
                     "fields": 4,
                     "fields_present": 4,
-                    "errors": 1,
+                    "errors": 0,
                     "warnings": 0,
                     "skipped": 0
                 }
@@ -203,7 +203,7 @@ The response contains extractions from three documents:
                 "validation_summary": {
                     "fields": 4,
                     "fields_present": 4,
-                    "errors": 1,
+                    "errors": 0,
                     "warnings": 0,
                     "skipped": 0
                 }
