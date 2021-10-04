@@ -138,7 +138,7 @@ This example matches the first line after a matched line:
 Any match
 ---
 
-Matches any of an array of of match objects.
+Matches any of an array of Simple or Regex match objects.
 
 **Parameters**
 
