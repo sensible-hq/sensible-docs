@@ -83,7 +83,7 @@ The config is the same as the one used in the [Sections](doc:sections) topic, wi
         "page": "last",
         "match": [
           {
-            "text": "Total unprocesssed claims",
+            "text": "Total unprocessed claims",
             "type": "startsWith",
             "isCaseSensitive": true
           }
