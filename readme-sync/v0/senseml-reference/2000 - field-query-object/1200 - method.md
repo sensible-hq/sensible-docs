@@ -32,11 +32,18 @@ X Major Sort example
 ----
 
 
+
+**PROBLEM**
+
 In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader) and outputs `"Nash Steve"` as the name:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_1.png)
 
-To reliably capture the first and last name in their left-to-right order,  set `"xMajorSort":"true"`, as in the following config:
+**SOLUTION**
+
+To reliably capture the first and last name in their left-to-right order,  set `"xMajorSort":"true"`.
+
+*Config*
 
 ```json
 {
@@ -53,17 +60,19 @@ To reliably capture the first and last name in their left-to-right order,  set `
       },
       "method": {
         "id": "region",
-        "start": "above",
-        "width": 2.3,
+        "start": "left",
+        "width": 2.5,
         "height": 0.4,
         "offsetX": 0.2,
-        "offsetY": -0.3,
+        "offsetY": -0.45,
         "xMajorSort": true
       }
     }
   ]
 }
 ```
+
+*PDF*
 
 The following image shows the example PDF used with this example config:
 
@@ -72,7 +81,11 @@ The following image shows the example PDF used with this example config:
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
-The output of this example is:
+To run this example, verify that you are using Google OCR (click the gear icon for the Document Type and select **Google**): 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
+
+*Output*
 
 ```json
 {
