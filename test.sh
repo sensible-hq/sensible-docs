@@ -1,13 +1,10 @@
-#!/bin/bash
-direnv allow .
+# check broken links
+rm logs.csv
+touch logs.csv
 
+# npx linkinator https://docs.sensible.so/changelog --verbosity ERROR --recurse --format CSV >> logs.csv 
+# npx linkinator https://docs.sensible.so/reference --verbosity ERROR --recurse --format CSV >> logs.csv 
 
-if ! git diff-index --quiet HEAD --; then
-    echo "Committing local changes to github"
-    echo "adding untracked files"
-    git add -A 
-    echo "git status:"
-    git status
-    git commit -m "updating local style changes to images"
-    git push
-fi
+npx linkinator https://docs.sensible.so/docs --verbosity ERROR --recurse --format CSV >> logs.csv 
+
+cat logs.csv

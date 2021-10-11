@@ -51,6 +51,12 @@ if ! git diff-index --quiet HEAD --; then
 fi    
 
 # check broken links
-npx linkinator https://docs.sensible.so/reference --verbosity ERROR
-npx linkinator https://docs.sensible.so/changelog --verbosity ERROR
-npx linkinator https://docs.sensible.so/docs --verbosity ERROR
+rm logs.csv
+touch logs.csv
+
+# npx linkinator https://docs.sensible.so/changelog --verbosity ERROR --recurse --format CSV >> logs.csv 
+# npx linkinator https://docs.sensible.so/reference --verbosity ERROR --recurse --format CSV >> logs.csv 
+
+npx linkinator https://docs.sensible.so/docs --verbosity ERROR --recurse --format CSV >> logs.csv 
+
+cat logs.csv
