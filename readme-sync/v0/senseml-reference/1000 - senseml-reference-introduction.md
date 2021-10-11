@@ -20,7 +20,7 @@ Or, to get started quickly, see:
 Examples
 ====
 
-For an overview of the elements in the SenseML schema, see the following image of a short config:
+For an overview of the elements in the SenseML schema, see the following example of a short config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro.png)
 
