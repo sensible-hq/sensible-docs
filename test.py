@@ -45,7 +45,17 @@ def get_docs(category):
     return response_json
 
 
-#def get_doc_markdown(doc_slug):
+def get_doc_markdown(doc):
+    doc_slug = doc["slug"]
+    url = "https://dash.readme.com/api/v1/docs/{}".format(doc_slug)
+    payload={}
+    headers = {
+    'Authorization': 'Basic {}'.format(README_API_KEY),
+    'x-readme-version': 'v0',
+    'Accept': 'application/json'
+    }
+    response_json = requests.request("GET", url, headers=headers, data=payload).json()
+    return response_json
 
 if __name__ == '__main__':
     categories = get_categories()
@@ -59,11 +69,11 @@ if __name__ == '__main__':
         # flatten into 1 array of all docs
         for i in cat_docs:
             ref_docs.append(i)
-    #print(json.dumps(ref_docs, indent =2))
 
     for i in (ref_docs):
-        print(type(i))
-        print(json.dumps(i, indent=2))
-    #for i in ref_docs:
-        #i = json.loads(i)
-        #print(i)
+        doc_json = get_doc_markdown(i)
+        #print(doc_json["title"])
+        #print(doc_json["slug"])
+        #print(doc_json["body"])
+        print(json.dumps(doc_json, indent=2))
+        # left off: dang. no good way to get markdown from this unless I'm willing to only test the 'body' and save it as markdown :/
