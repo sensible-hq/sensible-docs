@@ -1,3 +1,5 @@
 .envrc
 logs.csv
 test.sh
+docs.json
+spec.json
