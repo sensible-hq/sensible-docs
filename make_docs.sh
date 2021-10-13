@@ -50,6 +50,11 @@ if ! git diff-index --quiet HEAD --; then
     echo "local staged changes exist"
 fi    
 
+# check style
+cd ../vale
+vale ../sensible-docs/readme-sync/v0
+
+
 # check broken links
 rm logs.csv
 touch logs.csv
@@ -60,3 +65,5 @@ touch logs.csv
 npx linkinator https://docs.sensible.so/docs --verbosity ERROR --recurse --format CSV >> logs.csv 
 
 cat logs.csv
+
+
