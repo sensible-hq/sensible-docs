@@ -7,7 +7,7 @@ hidden: false
 
 *SenseML* is a query language that lets you extract structured data from PDF documents. A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data.  
 
-Here is a simple example of a field: 
+Here's a simple example of a field: 
 
 ```json
 {
@@ -29,7 +29,7 @@ The following image shows this example in the Sensible app:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/basic_field.png)
 
-As the preceding image shows, this is the output of the example field: 
+As the preceding image shows, here's the output of the example field: 
 
 ```json
 {
@@ -46,7 +46,7 @@ This example shows the following key concepts:
 | ------------------------------- | ------------------------------------------------------------ |
 | [field](doc:field-query-object) | A query that extracts data in relationship to matched text. Its ID is the key for the extracted data. In this example,  `name_of_output_key`. |
 | **[anchor](doc:anchor)**        | Matched text that helps narrow down a location in the PDF from which to extract data.  In this example, `"an anchor is some text to match..."`. |
-| [method](doc:method)            | Defines how to expand out from the anchor and extract data. In this example, the Label method extracts data that is closely positioned below the anchor (`"position": "below"`). For a list of methods, see [Methods](doc:methods). |
+| [method](doc:method)            | Defines how to expand out from the anchor and extract data. In this example, the Label method extracts data that's closely positioned below the anchor (`"position": "below"`). For a list of methods, see [Methods](doc:methods). |
 
  For a more complete SenseML example, see the [SenseML introduction](doc:senseml-reference-introduction).
 

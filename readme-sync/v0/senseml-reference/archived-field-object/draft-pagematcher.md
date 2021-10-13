@@ -2,7 +2,7 @@
 title: "PageMatcher"
 hidden: true
 ---
-TEST CHANGE Instructions for matching a page with a bag of words. Will resolve to the first line on the matched page
+Instructions for matching a page with a bag of words. Will resolve to the first line on the matched page
 [block:parameters]
 {
   "data": {

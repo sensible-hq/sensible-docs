@@ -3,7 +3,7 @@ title: "UI guide"
 hidden: false
 ---
 
-This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs.  Use these symbols to to author and troubleshoot queries.
+This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs.  Use these symbols to author and troubleshoot queries.
 
 | Symbol                                            | Represents                           |
 | ------------------------------------------------- | ------------------------------------ |
@@ -22,8 +22,8 @@ Yellow box
 
 For example, the following image shows:
 
-- an anchor line outlined in yellow ("Here is a good candidate...")
-- a line output by the Label method outlined in blue ("And here's the text below...")
+- an anchor line outlined in yellow ("Here is a good candidate")
+- a line output by the Label method outlined in blue ("And here's the text below")
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
 
@@ -51,8 +51,8 @@ Blue box
 
 For example, the following image shows:
 
-- an anchor line outlined in yellow ("Here is a good candidate...")
-- a line output by the Label method outlined in blue ("And here's the text below...")
+- an anchor line outlined in yellow ("Here is a good candidate")
+- a line output by the Label method outlined in blue ("And here's the text below")
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
 
@@ -138,7 +138,7 @@ Light yellow box
 
 ***Light yellow boxes*** represent discarded anchor data, for example for queries that return null. 
 
-In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. They are filtered out because they do not meet the Label method's proximity requirements (the Row method would work here instead):
+In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. Sensible filters out the strings because they don't meet the Label method's proximity requirements:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
@@ -165,7 +165,7 @@ Common parameters resulting in filtering include:
 -  the field's data type (currency, date, address, etc)
 -  the field's match method (first, last, all)
 -  the anchor's start and end
--  the method's id (for example, a Label method filters out all lines that are not closely proximate to other lines)
+-  the method's id (for example, a Label method filters out all lines that aren't closely proximate to other lines)
 
 
 
