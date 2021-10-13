@@ -50,9 +50,6 @@ if ! git diff-index --quiet HEAD --; then
     echo "local staged changes exist"
 fi    
 
-# check style
-cd ../vale
-vale ../sensible-docs/readme-sync/v0
 
 
 # check broken links
