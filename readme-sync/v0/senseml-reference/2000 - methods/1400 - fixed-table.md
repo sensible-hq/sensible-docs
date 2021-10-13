@@ -6,11 +6,11 @@ Matches tables with a fixed number of columns and returns their collated column 
 
 **Use**
 
-- Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings, same number of columns).  
+- Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings, same number of columns). 
 
 **Requirements**
 
-- The anchor text must be a line that precedes the table.  Do not choose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
+- The anchor text must be a line that precedes the table. Do not choose a line that is a part of the table. For example, do not anchor on a table title that is inside the table borders. 
 
 [**Parameters**](doc:fixed-table#parameters)
 [**Examples**](doc:fixed-table#examples)
@@ -27,7 +27,7 @@ Parameters
 | key                        | value                       | description                                                  |
 | :------------------------- | :-------------------------- | :----------------------------------------------------------- |
 | id (**required**)          | `fixedTable`                | When you specify this, you must also specify `"type": "table"` in the field's parameters. |
-| columnCount (**required**) | integer                     | The number of columns the tables must have.                  |
+| columnCount (**required**) | integer                     | The number of columns the tables must have.                 |
 | columns (**required**)     | array                       | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> - `index` (**required**): A zero-based column index <br/>-`type` : The type of the value in the table cell. For more information, see  [types](doc:types) <br/> -`isRequired` (default: false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 | stop                       | Match object. default: none | (**Recommended**)  [Match object](doc:match)  to stop table recognition. Otherwise, Sensible searches all pages for tables, which can impact performance. |
 

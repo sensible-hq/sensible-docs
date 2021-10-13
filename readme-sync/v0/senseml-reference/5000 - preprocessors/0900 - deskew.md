@@ -3,7 +3,7 @@ title: "Deskew"
 hidden: false
 ---
 
-Corrects the alignment of text in PDF documents that are skewed, for example as a result of being  photographed at an angle instead of straight on.  ID cards and receipts are common examples of such documents.  Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) to correct scaling, rotation, translation, and shear. 
+Corrects the alignment of text in PDF documents that are skewed, for example as a result of being  photographed at an angle instead of straight on. ID cards and receipts are common examples of such documents. Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) to correct scaling, rotation, translation, and shear. 
 
 You don't need to configure this preprocessor for PDFs that are only slightly rotated. Sensible's default OCR engine (Microsoft)  corrects slight rotation automatically.
 
@@ -17,7 +17,7 @@ Parameters
 | key                       | value   | description                                                      |
 | ------------------------- | ------ | ------------------------------------------------------------ |
 | `type` (**required**)     | `deskew` |                                                    |
-| `fixedPoints` (**required**) | object | Deskews the text in a skewed document by mapping the positions of three skewed points to their ideal positions in an unskewed document. Define the ideal Fixed Points using text anchors in an unskewed example of the document. Choose text anchors that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. <br/>Parameters:<br/>`match` - the text to match for the Fixed Point.  Choose `"type": "startsWith"`  or `"type": "endsWith"` to avoid problems with lines oversplit by skew. See [Match object](docs:match-object) for more details.<br/>`targetPosition` - contains  `x` and  `y` parameters that define the coordinates of the Fixed Points in inches relative to the 0,0 origin at the top left corner of the page. For more information defining the positions, see the Examples section. |
+| `fixedPoints` (**required**) | object | Deskews the text in a skewed document by mapping the positions of three skewed points to their ideal positions in an unskewed document. Define the ideal Fixed Points using text anchors in an unskewed example of the document. Choose text anchors that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. <br/>Parameters:<br/>`match` - the text to match for the Fixed Point. Choose `"type": "startsWith"`  or `"type": "endsWith"` to avoid problems with lines oversplit by skew. See [Match object](docs:match-object) for more details.<br/>`targetPosition` - contains  `x` and  `y` parameters that define the coordinates of the Fixed Points in inches relative to the 0,0 origin at the top left corner of the page. For more information defining the positions, see the Examples section. |
 | `start` | `left` , `right`. default: `left` | Specifies whether the Fixed Point is at the upper-*left* corner of the anchor line's boundaries, or the upper-*right* corner. <br/>With a Match parameter of `"type": "startsWith"`, use `left`.<br/>With a Match parameter of `"type": "endsWith"`, use `right`. |
 
 Examples
@@ -29,7 +29,7 @@ The following image shows that without the Deskew preprocessor, extraction from 
 
 To solve this problem:
 
-1.  Define three widely spaced points in a well-aligned example of this document type: The following image shows using the displayed coordinates of a line to define the X and Y parameters for one of three Fixed Point parameters:
+1. Define three widely spaced points in a well-aligned example of this document type: The following image shows using the displayed coordinates of a line to define the X and Y parameters for one of three Fixed Point parameters:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_2.png)
 
@@ -145,8 +145,8 @@ Best practices
 -----
 
 - Click on a line in the document pane in the Sensible app to view line coordinates for defining the Fixed Points.
-- Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document.  Choosing the best points can take some trial and error. 
-- For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew.  If you choose `"endsWith"`, then also define `"start:right"`.
+- Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. 
+- For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew. If you choose `"endsWith"`, then also define `"start:right"`.
 - For the aligned reference PDF, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
 - Define a Merge Lines preprocessor to clean up oversplit lines after the Deskew preprocessor. 
 

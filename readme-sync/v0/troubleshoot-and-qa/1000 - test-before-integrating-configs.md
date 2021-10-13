@@ -25,7 +25,7 @@ If you specify `?environment=development`, Sensible searches for a best fit acro
  -  `configA` in development (bad fit)
  -   `configB` in production (ok fit)
 
-And returns output from  `configB`  (ok fit) in production.  Notice that even though the API call specifies  the Development environment, the call returns output from a *production* config because of fallback behavior.
+And returns output from  `configB`  (ok fit) in production. Notice that even though the API call specifies  the Development environment, the call returns output from a *production* config because of fallback behavior.
 
 If you don't specify an environment, Sensible ignores development versions and compares:
 

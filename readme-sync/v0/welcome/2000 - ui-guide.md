@@ -3,7 +3,7 @@ title: "UI guide"
 hidden: false
 ---
 
-This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs.  Use these symbols to author and troubleshoot queries.
+This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs. Use these symbols to author and troubleshoot queries.
 
 | Symbol                                            | Represents                           |
 | ------------------------------------------------- | ------------------------------------ |
@@ -47,7 +47,7 @@ The query used for the preceding image is:
 Blue box
 ====
 
-***Blue boxes*** represent method output. For more information about method, see [Method object](doc:method).  
+***Blue boxes*** represent method output. For more information about method, see [Method object](doc:method). 
 
 For example, the following image shows:
 
@@ -100,7 +100,7 @@ If you specify to find the box borders by starting from the right edge of the an
 Light blue box
 ===
 
-***Light blue boxes*** represent discarded method data.  Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
+***Light blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (light blue box).
 
@@ -174,7 +174,7 @@ Common parameters resulting in filtering include:
 Purple box
 ====
 
-If you hover on a line (text surrounded by a gray box), it changes to a ***purple box*** if it has details to display.  Click on the line to show:
+If you hover on a line (text surrounded by a gray box), it changes to a ***purple box*** if it has details to display. Click on the line to show:
 
 - underlying extracted text
 - coordinates of the line's boundaries

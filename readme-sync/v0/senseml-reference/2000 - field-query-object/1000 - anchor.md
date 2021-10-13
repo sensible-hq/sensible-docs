@@ -44,9 +44,9 @@ An Anchor object has the following top-level parameters:
 
 | key                                             | values                                      | description                                                  |
 | ----------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------ |
-| match (**required**, except for string anchors) | Match object or array of Match objects      | See [Match object](doc:match).                               |
+| match (**required**, except for string anchors) | Match object or array of Match objects      | See [Match object](doc:match).                              |
 | start                                           | string, Match object, or Match object array | Start the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that precedes the start line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:lines#line-sorting).<br/>The Start line is never included in anchor output. (You can extract other anchor output with a Passthrough method). |
-| end                                             | string, Match, or Match array               | Stop the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that succeeds the End line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the End line. For more information, see [Line sorting](doc:lines#line-sorting).<br/>If unspecified, the anchor searches for matches to the end of the document.  <br/> |
+| end                                             | string, Match, or Match array               | Stop the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that succeeds the End line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the End line. For more information, see [Line sorting](doc:lines#line-sorting).<br/>If unspecified, the anchor searches for matches to the end of the document. <br/> |
 | includeEnd                                      | boolean                                     | Whether to include the matching End line in the anchor output. |
 
 Examples
@@ -156,11 +156,11 @@ Here is an ending line.
 
 
 
-For **Anchor 1**, Sensible anchors on the last Match array element only if it is preceded by the other array elements in order, with no intervening match repetitions.   `"match":all"` finds two anchors. See the following image for an illustration: 
+For **Anchor 1**, Sensible anchors on the last Match array element only if it is preceded by the other array elements in order, with no intervening match repetitions.  `"match":all"` finds two anchors. See the following image for an illustration: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_2.png)
 
-- For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document.  `"match":all"` finds four anchors. Notice it does NOT anchor on the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match.  See the following image for an illustration:
+- For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it does NOT anchor on the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_3.png)
 

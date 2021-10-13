@@ -3,7 +3,7 @@ title: "Remove footer"
 hidden: false
 ---
 
-Ignores repeating elements at the bottoms of pages. These elements are removed from the direct-text extraction of the document.   
+Ignores repeating elements at the bottoms of pages. These elements are removed from the direct-text extraction of the document.  
 
 To recognize a footer, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
 
@@ -23,7 +23,7 @@ Parameters
 | key            | value   | description                                                      |
 | -------------- | ------ | ------------------------------------------------------------ |
 | type (**required**) | `removeFooter` | For an example, see the Examples section. |
-| startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. The default is 1.  Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
+| startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. The default is 1. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
 
 Examples
 ====

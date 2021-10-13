@@ -136,7 +136,7 @@ Example output:
 Currency
 ----
 
-Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06). Recognizes abbreviated quantities, such as k for thousand.  For European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 Recognizes digits with the following formatting:
 
@@ -212,7 +212,7 @@ Example output:
 Distance
 ----
 
-Returns miles and kilometers. Recognizes digits followed optionally by kilometers, miles, or their abbreviations.  For example: 
+Returns miles and kilometers. Recognizes digits followed optionally by kilometers, miles, or their abbreviations. For example: 
 
 ```
 3,001.5 kilometers
@@ -342,7 +342,7 @@ Example:
 Period Delimited Currency
 ----
 
-Returns numbers as absolute values. Recognizes European decimal formatting (i.e., 1.500,06). Recognizes abbreviated quantities, such as k for thousand.  For  USA decimal formatting (i.e., 1,500.06), see [currency](doc:types#currency).  
+Returns numbers as absolute values. Recognizes European decimal formatting (i.e., 1.500,06). Recognizes abbreviated quantities, such as k for thousand. For  USA decimal formatting (i.e., 1,500.06), see [currency](doc:types#currency). 
 
 Recognizes digits with the following formatting:
 

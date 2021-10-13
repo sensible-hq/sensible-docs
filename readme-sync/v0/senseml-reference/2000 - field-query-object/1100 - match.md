@@ -87,7 +87,7 @@ Match using a regular expression.
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
 | type (**required**)    | `regex`                  |                                                              |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead).  Remember to double escape special characters since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead). Remember to double escape special characters since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 
 **Example**

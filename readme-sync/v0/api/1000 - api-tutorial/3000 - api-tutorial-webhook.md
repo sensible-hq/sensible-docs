@@ -3,7 +3,7 @@ title: "Try a webhook"
 hidden: false
 ---
 
-For asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook.  A webhook allows you to receive the extraction as a push, rather than waiting for responses from API endpoints.  
+For asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook. A webhook allows you to receive the extraction as a push, rather than waiting for responses from API endpoints. 
 
 For this tutorial, let's try a webhook in combination with the `/extract_from_url/` endpoint.
 

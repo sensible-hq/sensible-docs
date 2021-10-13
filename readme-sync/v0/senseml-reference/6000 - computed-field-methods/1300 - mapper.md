@@ -3,7 +3,7 @@ title: "Mapper"
 hidden: false
 ---
 
-Maps output from source fields using a case-sensitive lookup table. A common use case for this method is to standardize output across configs. For example, if different documents inconsistently format data ("6 month policy period" versus "6 mo. policy duration"), you can map those data to a common format using the Mapper method.  Consistently formatted output simplifies your application logic by allowing you to ignore distinctions between document sources.
+Maps output from source fields using a case-sensitive lookup table. A common use case for this method is to standardize output across configs. For example, if different documents inconsistently format data ("6 month policy period" versus "6 mo. policy duration"), you can map those data to a common format using the Mapper method. Consistently formatted output simplifies your application logic by allowing you to ignore distinctions between document sources.
 
 Parameters
 ====

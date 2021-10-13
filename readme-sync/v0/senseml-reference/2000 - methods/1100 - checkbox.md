@@ -2,7 +2,7 @@
 title: "Checkbox"
 hidden: false
 ---
-Searches for a checkbox next to the anchor and returns a boolean indicating if the checkbox contains a checkmark or not. This method works by default with boxes that have a light background and dark, continuous borders.  
+Searches for a checkbox next to the anchor and returns a boolean indicating if the checkbox contains a checkmark or not. This method works by default with boxes that have a light background and dark, continuous borders. 
 
 [**Parameters**](doc:checkbox#parameters)
 [**Examples**](doc:checkbox#examples)
@@ -17,7 +17,7 @@ Parameters
 | id (**required**) | `checkbox`                          | The maximum checkbox size supported is a square with sides 0.3 inches long. Sensible returns true if the checkbox contains a checkmark, "Y", or "X" character. |
 | position          | `left`, `right`                     | Searches horizontally for a checkbox starting at the left or right anchor line boundaries, respectively. Sensible searches horizontally for a maximum of 0.15 inches from the Position point until it finds dark pixels signifying the box border. If the anchor line's boundaries and the checkbox are separated horizontally by more than 0.15 inches, then use  the Offset X parameter in combination with the Position parameter to find the box. |
 | offsetX           | number in inches. default: 0        | Searches for a box starting at a point offset horizontally from the point defined by the Position parameter. When you define an offset, Sensible expands out directly from the point specified to find the checkbox borders. |
-| offsetY           | number in inches. default: 0        | Searches for a box starting at a point offset vertically from the point defined by the Position parameter.  When you define an offset, Sensible expands out directly from the point specified to find the checkbox borders. |
+| offsetY           | number in inches. default: 0        | Searches for a box starting at a point offset vertically from the point defined by the Position parameter. When you define an offset, Sensible expands out directly from the point specified to find the checkbox borders. |
 | darknessThreshold | number between 1 and 0. default 0.9 | The brightness threshold below which to consider a pixel a box boundary (white is 1.0). Configure this parameter when you have a checkbox with a dark background. |
 
 Examples
