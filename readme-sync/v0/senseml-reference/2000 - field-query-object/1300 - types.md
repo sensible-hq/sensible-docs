@@ -245,7 +245,7 @@ Name
 
 Returns one or more names. Does not recognize a list of names more than 6 lines long. 
 
-Recognizes names of the formats below, and and variant representations of these elements such as abbreviations:
+Recognizes names of the formats below, and variant representations of these elements such as abbreviations:
 \- First Last
 \- First1 Last1 and First2 Last2
 \- Last, First1 and First2
