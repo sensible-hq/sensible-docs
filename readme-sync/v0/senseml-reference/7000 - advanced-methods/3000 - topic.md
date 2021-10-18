@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Finds a range of lines in a document that most closely match a topic as determined by a bag of words NLP approach. Most useful in long, unstructured documents.
+Finds a range of lines in a document that best match a topic as determined by a bag of words NLP approach. Most useful in long, unstructured documents.
 
 [**Parameters**](doc:topic#parameters)
 [**Examples**](doc:topic#examples)

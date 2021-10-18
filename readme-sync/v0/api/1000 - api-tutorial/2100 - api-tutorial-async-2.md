@@ -9,7 +9,7 @@ Use Sensible's asynchronous endpoints to extract data from PDFs that are greater
 
 - Use URLs provided by Sensible for your documents. 
 
-This topic covers using URLs provided by Sensible. This is a good option if you can't easily create either publicly accessible or pre-signed URLs for your PDFs.
+This topic covers using URLs provided by Sensible. This is a good option if you can't create either publicly accessible or pre-signed URLs for your PDFs.
 
 For either option, you can get the results as soon as they're ready by specifying a [webhook](doc:api-tutorial-webhook).
 

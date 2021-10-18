@@ -17,7 +17,7 @@ Parameters
 Examples
 ----
 
-This config shows using a Ligature preprocessor and outputting the whole document in order to check the ligature replacement accuracy: 
+This config shows using a Ligature preprocessor and outputting the whole document to check the ligature replacement accuracy: 
 
 ```
 {

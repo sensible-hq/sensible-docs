@@ -2,7 +2,7 @@
 title: "Invoice"
 hidden: false
 ---
-This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts one invoice per PDF document. If the PDF contains multiple tables, the Invoice method returns the data for the table that's most likely to be an invoice.
+This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts one invoice per PDF document. If the PDF contains multiple tables, the Invoice method returns the data for the table that is the best invoice candidate.
 
 It's a best practice to create a single, flexible config that works for a variety of invoice formats. This is because invoices typically come from such a wide variety of vendors that it would be unmanageable to create a config for each vendor. Create a flexible config by using synonymous terms to identify invoice elements. For more information, see the [Examples section](doc:invoice#examples). 
 
@@ -17,7 +17,7 @@ Parameters
 | key                  | value     | description                                                  |
 | :------------------- | :-------- | :----------------------------------------------------------- |
 | id (**required**)    | `invoice` | When you specify this method, you must also specify `"type": "table"` in the field's parameters. |
-| columns **required** | array     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output. <br/> -`terms` (**required**): An array of terms to score positively during column recognition. Usually, you include column heading terms in this array. For more information about the NLP approach, see [bag of words](doc:bag-of-words). <br/> -`stopTerms`: An array of terms to score negatively during column recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words).<br/> -`type`: The type of the value in the table cell. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| columns **required** | array     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output. <br/> -`terms` (**required**): An array of terms to score positively during column recognition. Usually, you include column heading terms in this array. For more information about the NLP approach, see [bag of words](doc:bag-of-words). <br/> -`stopTerms`: An array of terms to score negatively during column recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words).<br/> -`type`: The table cell's type. For more information about types, see [Field query object](doc:field-query-object). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 
 
 Examples

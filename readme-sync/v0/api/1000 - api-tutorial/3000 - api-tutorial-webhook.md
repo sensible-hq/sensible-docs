@@ -42,7 +42,7 @@ curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto
 Check the webhook response
 ====
 
-Visit your unique URL at webhook.site to verify there is a response at the URL like the following: 
+Visit your unique URL at webhook.site to verify there's a response at the URL like the following: 
 
 ```
 {

@@ -165,7 +165,7 @@ Common parameters resulting in filtering include:
 -  the field's data type (currency, date, address, etc)
 -  the field's match method (first, last, all)
 -  the anchor's start and end
--  the method's id (for example, a Label method filters out all lines that aren't closely proximate to other lines)
+-  the method's id (for example, a Label method filters out all lines that aren't close to other lines)
 
 
 
