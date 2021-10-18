@@ -90,7 +90,7 @@ San Francisco, CA 94110
 PO BOX 1058 San Francisco, CA 94110
 ```
 
-If multiple consecutive addresses are captured in a single extracted key/value  pair, Sensible returns multiple addresses. 
+If consecutive addresses are captured in a single extracted key/value pair, Sensible returns multiple addresses. 
 
 This type **doesn't** match text  that lacks a zip code, such as `11 Center Street, Amherst, MA`.
 

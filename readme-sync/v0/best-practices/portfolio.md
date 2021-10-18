@@ -9,7 +9,7 @@ Sometimes multiple documents are packaged into one PDF file (a PDF "portfolio").
 In this case, it's best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an "income tax" doc type and an "invoice doc" type, rather than creating a "combined_tax_and_invoice" doc type. In order for Sensible to handle the portfolio in one API extraction request, specify the following:
 
 - In each config for the documents in the portfolio, use a fingerprint to define text matches for the starting and ending pages of the document, or for every page of the document. Sensible uses the fingerprint to find the page range of each document in the portfolio that fits a given config. 
-- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference#generate-an-upload-url-for-a-pdf-portfolio) or [Provide download URL for portfolio](https://docs.sensible.so/reference#provide-a-download-url-for-a-pdf-portfolio) to extract data from the portfolio. In these requests, specify the multiple doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes multiple  parsed documents and their page ranges in the portfolio.
+- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference#generate-an-upload-url-for-a-pdf-portfolio) or [Provide download URL for portfolio](https://docs.sensible.so/reference#provide-a-download-url-for-a-pdf-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes document extractions and their page ranges in the portfolio.
 
 **Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Google OCR. 
 
@@ -102,7 +102,7 @@ PDF
 Output
 ---
 
-For the preceding configurations, doc types, and example PDF portfolio, the following asynchronous extraction requests return a response with multiple extractions:
+For the preceding configurations, doc types, and example PDF portfolio, the following asynchronous request returns a list of document extractions:
 
 1. Make an async request:
 
@@ -113,7 +113,7 @@ curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
 "types":["auto_insurance_quote","loss_run"]}'
 ```
-2. This request returns an EXTRACTION_ID. Use it to retrieve the extraction:
+2. This request returns an EXTRACTION_ID. Use it to retrieve the extractions:
 ```
 curl --request GET 'https://api.sensible.so/v0/documents/{EXTRACTION_ID}' \
 --header 'Authorization: Bearer {API_TOKEN}'

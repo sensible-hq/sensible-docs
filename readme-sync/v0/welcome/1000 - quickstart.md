@@ -198,7 +198,7 @@ See those gray boxes around the text in the following image?
 
 Each gray box shows the boundaries for a "line." Sensible recognizes lines using whitespaces and other factors, so "lines" can occupy the same height on the page.
 
-The Label method can operate in a single line, or across multiple lines. Here's a question: for the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
+The Label method can operate in a single line, or on consecutive lines. Here's a question: for the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
 
     {
         "id": "doesnt_work_returns_null",
