@@ -48,7 +48,7 @@ Accounting Currency
 
 Returns US dollar numbers. Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`).
 
-Recognizes digits in USA decimal notation (i.e., 1,500.06):
+Recognizes digits in USA decimal notation (for example, 1,500.06):
 
 - digits are in the format recognized by the [Number](doc:types#number) type
 - digits are optionally preceded by a US dollar sign ($) 
@@ -136,7 +136,7 @@ Example output:
 Currency
 ----
 
-Returns US dollars as absolute values. Recognizes USA decimal notation (i.e., 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (i.e., 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+Returns US dollars as absolute values. Recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 Recognizes digits with the following formatting:
 
@@ -315,7 +315,7 @@ Use with  [Document Range](https://docs.sensible.so/docs/document-range) solely,
 Percentage
 ----
 
-Returns percent as an absolute value. Recognizes a percent formatted as digits in USA decimal notation (i.e., 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
+Returns percent as an absolute value. Recognizes a percent formatted as digits in USA decimal notation (for example, 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
 
 For example:
 
@@ -342,7 +342,7 @@ Example:
 Period Delimited Currency
 ----
 
-Returns numbers as absolute values. Recognizes European decimal formatting (i.e., 1.500,06). Recognizes abbreviated quantities, such as k for thousand. For  USA decimal formatting (i.e., 1,500.06), see [currency](doc:types#currency). 
+Returns numbers as absolute values. Recognizes European decimal formatting (for example, 1.500,06). Recognizes abbreviated quantities, such as k for thousand. For  USA decimal formatting (for example, 1,500.06), see [currency](doc:types#currency). 
 
 Recognizes digits with the following formatting:
 
@@ -449,7 +449,7 @@ Use with the Table methods:
 Weight
 ---
 
-Returns pounds and kilograms. Recognizes digits in USA decimal notation (i.e., 1,500.06):
+Returns pounds and kilograms. Recognizes digits in USA decimal notation (for example, 1,500.06):
 
 - digits are in the format recognized by the [Number](doc:types#number) type
 

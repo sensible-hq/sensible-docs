@@ -21,7 +21,7 @@ Parameters
 Examples
 ====
 
-The following example uses regular expressions to extract a list of forms that are all identified by four digits (i.e., "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the anchor already matches the target data, further extraction steps using a Method object are unnecessary. To ignore the Method object, set the method id to  `"passthrough"`. 
+The following example uses regular expressions to extract a list of forms that are all identified by four digits (for example, "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the anchor already matches the target data, further extraction steps using a Method object are unnecessary. To ignore the Method object, set the method id to  `"passthrough"`. 
 
 **Config**
 

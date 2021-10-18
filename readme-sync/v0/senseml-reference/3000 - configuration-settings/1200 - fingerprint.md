@@ -22,7 +22,7 @@ A fingerprint consists of an array of tests. The following table shows parameter
 
 **Strictness**
 
-A fingerprint changes Sensible's default behavior of running *all* the configs in a single document type. For example, if you extract company A and company B quotes, by default Sensible runs both the company A and the company B configs for a given document, then returns the best of the two extractions (i.e., the one with the highest percent of non-null values). 
+A fingerprint changes Sensible's default behavior of running *all* the configs in a single document type. For example, if you extract company A and company B quotes, by default Sensible runs both the company A and the company B configs for a given document, then returns the best of the two extractions (the one with the highest percent of non-null values). 
 
 The following table shows how this default behavior changes when you configure the following levels of strictness for a document type's fingerprints. You can configure strictness in the Sensible app in the document type settings:
 

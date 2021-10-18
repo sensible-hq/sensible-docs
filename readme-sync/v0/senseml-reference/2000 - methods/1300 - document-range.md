@@ -174,7 +174,7 @@ Document Range is the sole method that supports identifying image regions. Sensi
 - Convert from Sensible's region coordinates to DPI coordinates. Sensible region coordinates follow these conventions:
   - they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
   - they're in inches (to convert inches to DPI, multiply the inches coordinates by your DPI setting. For example, an x-coordinate of 3.156 inches is ~227 DPI for a DPI setting of 72 (72 DPI * 3.156 inches).
-  - they're ordered clockwise from top left, i.e.: top left, top right, bottom right, bottom left
+  - they're ordered clockwise from top left: top left, top right, bottom right, bottom left
 - Extract a partial bitmap defined by the image coordinates from the page.
 - Encode the bitmap to bytes in the image format of your choice. 
 
