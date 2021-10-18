@@ -17,7 +17,7 @@ Parameters
 | key                     | value        | description                                                  |
 | :---------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)       | `topic`      |                                                              |
-| numLines (**required**) | number       | The number of consecutive lines to extract. Sensible scores every group of consecutive lines in the document and returns the highest-scoring group. If multiple groups have an equal score, then Sensible returns the last group. Sensible does not support grouping lines in a document with a column layout because of Sensible's default line sorting. For more information, see [line sorting](doc:lines#line-sorting). |
+| numLines (**required**) | number       | The number of consecutive lines to extract. Sensible scores every group of consecutive lines in the document and returns the highest-scoring group. If multiple groups have an equal score, then Sensible returns the last group. Sensible doesn't support grouping lines in a document with a column layout because of Sensible's default line sorting. For more information, see [line sorting](doc:lines#line-sorting). |
 | terms (**required**)    | string array | An array of terms to score positively during topic recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words). |
 | stopTerms               | string array | An array of terms to score negatively during topic recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words). |
 

@@ -86,4 +86,4 @@ The following image shows the example PDF used with this example config:
 Notes
 ====
 
-If the region that you want to extract is a box that is bordered with dark lines, you can use the [Box method](doc:box) instead of the Region method.
+If the region that you want to extract is a box that's bordered with dark lines, you can use the [Box method](doc:box) instead of the Region method.

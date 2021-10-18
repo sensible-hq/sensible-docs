@@ -22,7 +22,7 @@ The following global parameters available to all methods:
 | lineFilters      | Match object                                                 | Filters out the specified lines from the method match. For example, the Box method extracts all lines from a box, but you can use this parameter to filter out unwanted footer text in the box. |
 | wordFilters      | string array                                                 | Filters out the specified strings from the method results.  |
 | whitespaceFilter | `spaces`, `all`                                              | Remove extra whitespaces.<br/> `spaces` - remove only extra spaces <br/> `all` - remove all whitespace characters, including newlines and tabs. |
-| xRangeFilter     | object                                                       | Defines left and right boundaries in which to capture lines. For example, in combination with the Document Range method, the X Range Filter parameter defines a "column" that is bounded at the top and bottom by text. Any line that only partially falls inside the defined rectangular region is excluded. Parameters: <br/>`start` - `right`,`left`  - Defines the starting point of the "column" at either the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the horizontal position of the starting point defined by the Start parameter. <br/> `width` - The width of the page portion to capture, in inches.<br/><br/> For an example, see the Examples section. |
+| xRangeFilter     | object                                                       | Defines left and right boundaries in which to capture lines. For example, in combination with the Document Range method, the X Range Filter parameter defines a "column" that's bounded at the top and bottom by text. Any line that only partially falls inside the defined rectangular region is excluded. Parameters: <br/>`start` - `right`,`left`  - Defines the starting point of the "column" at either the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the horizontal position of the starting point defined by the Start parameter. <br/> `width` - The width of the page portion to capture, in inches.<br/><br/> For an example, see the Examples section. |
 | xMajorSort       | boolean                                                      | Use this parameter to correctly sort text that unexpectedly varies in height and vertical position (such as handwriting). In such badly aligned text, slight jitter in the vertical positions of lines can cause Sensible to incorrectly sort lines that a human reader interprets as following left to right. The X Major Sort parameter corrects the problem by sorting lines primarily by their horizontal position, rather than primarily by their vertical position (the default). <br/><br/> For an example, see the Examples section. |
 
 Examples
@@ -99,7 +99,7 @@ To run this example, verify that you are using Google OCR (click the gear icon f
 X Range Filter example
 ----
 
-In combination with the Document Range method, the X Range Filter parameter defines a "column" that is bounded at the top and bottom by text.
+In combination with the Document Range method, the X Range Filter parameter defines a "column" that's bounded at the top and bottom by text.
 
 The following image shows using this parameter to extract a "cell" of text that doesn't easily fit other methods:
 

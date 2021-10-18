@@ -108,4 +108,4 @@ The following example uses regular expressions to extract a list of forms that a
 Notes
 ===
 
-Often, you use the Passthrough method in combination with regular expressions. Because anchors do not support regex capturing groups, the Passthrough method returns the full contents of the matched line. If you want instead to use a capturing group to return only part of a matched line, see the [Regex method](doc:regex).
+Often, you use the Passthrough method in combination with regular expressions. Because anchors don't support regex capturing groups, the Passthrough method returns the full contents of the matched line. If you want instead to use a capturing group to return only part of a matched line, see the [Regex method](doc:regex).

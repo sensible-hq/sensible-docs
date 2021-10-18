@@ -40,7 +40,7 @@ For more information about choosing points, see [Best Practices](doc:deskew#best
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_3.png)
 
-The remaining problem is that the Deskew Preprocessor  does not merge lines that were split by the skew. As a result, the region starts at the middle of the word "tenure" instead of the middle of the complete line "White house tenure". Since the region is shifted to the right, it misses the first year of the date range:
+The remaining problem is that the Deskew Preprocessor  doesn't merge lines that were split by the skew. As a result, the region starts at the middle of the word "tenure" instead of the middle of the complete line "White house tenure". Since the region is shifted to the right, it misses the first year of the date range:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_5.png)
 

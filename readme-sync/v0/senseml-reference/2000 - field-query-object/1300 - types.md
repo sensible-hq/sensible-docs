@@ -92,7 +92,7 @@ PO BOX 1058 San Francisco, CA 94110
 
 If multiple consecutive addresses are captured in a single extracted key/value  pair, Sensible correctly returns multiple addresses. 
 
-This type **does not** match text  that lacks a zip code, such as `11 Center Street, Amherst, MA`.
+This type **doesn't** match text  that lacks a zip code, such as `11 Center Street, Amherst, MA`.
 
 Example output:
 ```json
@@ -166,7 +166,7 @@ $5.33
 2 thousand
 ```
 
-This type **does not** match text such as `one million`  or `123456789`.
+This type **doesn't** match text such as `one million`  or `123456789`.
 
 Example output:
 
@@ -310,7 +310,7 @@ Example output:
 Paragraph
 ----
 
-Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible does not recognize paragraphs indicated solely by indented first lines. 
+Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
 
 Percentage
 ----
@@ -371,7 +371,7 @@ For example:
 
 ```
 
-This type **does not** match text such as `one million`  or `123456789`. It does not output units of currency.
+This type **doesn't** match text such as `one million`  or `123456789`. It doesn't output units of currency.
 
 Example output:
 

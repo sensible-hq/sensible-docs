@@ -9,13 +9,13 @@ To recognize a footer, this preprocessor starts at the bottom of the page and mo
 
 These elements are recognized as "repeating":
 
-- Elements whose y-extent does not overlap with any variable element on the page
+- Elements whose y-extent doesn't overlap with any variable element on the page
 - Positively incrementing page numbers
 
 These elements are *not* recognized as "repeating": 
 
 - Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
-- A repeating element that is missing from even one page (for example, from an intentionally blank page). 
+- A repeating element that's missing from even one page (for example, from an intentionally blank page). 
 
 Parameters
 ====
@@ -32,8 +32,8 @@ The following example shows:
 
 - A repeating footer with an incrementing page number. This element is removed from the direct text extraction.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating element, it is also treated as repeating and is removed from the direct text extraction.
-  - Where it overlaps variable text, it is not considered repeating and is still included in the direct text extraction
+  - Where it overlaps a repeating element, it's also treated as repeating and is removed from the direct text extraction.
+  - Where it overlaps variable text, it's not considered repeating and is still included in the direct text extraction
 
 **Config**
 ```json

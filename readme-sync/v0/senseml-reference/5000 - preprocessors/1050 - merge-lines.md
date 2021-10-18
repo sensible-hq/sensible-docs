@@ -23,7 +23,7 @@ Parameters
 | `type` (**required**)                      | `mergeLines`                           |                                                              |
 | `directlyAdjacentThreshold` (**required**) | number >= 0.16                         | Usually, it's recommended to leave the default for this parameter (0.16).<br/>Sensible uses the default setting for this parameter to transform separate tokens output from Google OCR into lines.<br/>This parameter specifies the fraction of line height under which two adjacent lines distributed along an x-axis are merged without a space. For example, at 0.16, this preprocessor merges two lines separated by a small gap whose width is less than 16% of the line height. Choosing a larger number merges more aggressively. <br/> |
 | `adjacentThreshold` (**required**)         | number >= 0.6                          | Corrects oversplit lines. <br/>Specifies the fraction of line height under which two adjacent lines distributed along an x-axis are merged *with* a space. The built-in merger uses 0.6, so choosing a larger number merges more aggressively.<br> For an example, see the Examples section. |
-| `yOverlapThreshold`                        | number between 0 and 1.0. default: 1.0 | Merges lines that are not perfectly aligned at the same height on the page. <br/> Specifies the y overlap above which the Merge Lines preprocessor merges two adjacent lines. Y overlap is the portion of the joint y-axis range of two lines that is occupied by both lines. For example, if two lines share the same minimum and maximum y-axis values, their overlap is 1. If one line's extent is from 0 to 10 and the other line’s extent is from 2 to 12 on the y-axis, their overlap is .667 (8 / 12). <br/>For an example, see the Examples section. |
+| `yOverlapThreshold`                        | number between 0 and 1.0. default: 1.0 | Merges lines that are not perfectly aligned at the same height on the page. <br/> Specifies the y overlap above which the Merge Lines preprocessor merges two adjacent lines. Y overlap is the portion of the joint y-axis range of two lines that's occupied by both lines. For example, if two lines share the same minimum and maximum y-axis values, their overlap is 1. If one line's extent is from 0 to 10 and the other line’s extent is from 2 to 12 on the y-axis, their overlap is .667 (8 / 12). <br/>For an example, see the Examples section. |
 | `minXGapThreshold`                         | number in inches                       | Configure this parameter if two lines overlap on an x-axis. The default behavior is to merge these overlapping lines into one line. To split them instead, set a cap on the amount of allowable overlap. For example:<br/>0 - splits lines if their line boundaries are touching but not overlapping.<br/>0.1 - splits lines if their boundaries overlap a little, up to 0.1 inches.<br/>2.0 - splits lines even when they overlap a lot, up to 2.0 inches.<br/>For an example, see the Examples section. |
 
 Examples
@@ -101,7 +101,7 @@ Modify this example to observe the effects of the different parameters on the ou
 
 - set `"adjacentThreshold": 2.0` to see very aggressively merged lines. 
 
-- revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how text that is misaligned in terms of height (like the email address) merges more aggressively.
+- revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how text that's misaligned in terms of height (like the email address) merges more aggressively.
 
   
 
@@ -227,7 +227,7 @@ Overlapping lines on an x-axis
 
 The following example shows using the Min X Gap Threshold parameter to correctly extract overlapping text in a poorly formatted PDF. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
 
-The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines do not overlap.
+The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines don't overlap.
 
 **Config**
 
