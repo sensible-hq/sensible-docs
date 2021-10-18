@@ -2,7 +2,7 @@
 title: "Constant"
 hidden: false
 ---
-Adds a key/value pair to an extraction, where the value is a constant that's not necessarily present in the PDF. This lets you include information, such as vendor or form names, that may be lacking from the PDF. For example, imagine a vendor *exclusively* issues 6-month policy quotes, so they never state the policy duration in the PDF. Use the Constant method to add `policy_duration_months: 6`. 
+Adds a key/value pair to an extraction, where the value is a constant that's not necessarily present in the PDF. This lets you include information, such as vendor or form names, that may be lacking from the PDF. For example, imagine a vendor solely issues 6-month policy quotes, so they never state the policy duration in the PDF. Use the Constant method to add `policy_duration_months: 6`. 
 
 Parameters
 ====

@@ -105,7 +105,6 @@ You should see a response like the following:
 
  
 
-
 (Optional) see how it works in the Sensible app
 =====
 

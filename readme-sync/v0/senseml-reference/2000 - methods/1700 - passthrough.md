@@ -2,7 +2,7 @@
 title: "Passthrough"
 hidden: false
 ---
-Use the Passthrough method to match text using an anchor, and return the anchor match or matches directly. For example, this can be useful when you want to match using regular expressions, and you don’t want to take any additional extraction steps after finding the matches. 
+Use the Passthrough method to match text using an anchor, and return the anchor match or matches directly. For example, this can be useful when you want to match using regular expressions, and you don’t want to take more extraction steps after finding the matches. 
 
 [**Parameters**](doc:passthrough#parameters)
 [**Examples**](doc:passthrough#examples)
@@ -21,7 +21,7 @@ Parameters
 Examples
 ====
 
-The following example uses regular expressions to extract a list of forms that are all identified by four digits (for example, "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the anchor already matches the target data, further extraction steps using a Method object are unnecessary. To ignore the Method object, set the method id to  `"passthrough"`. 
+The following example uses regular expressions to extract a list of forms with four-digits identifiers (for example, "Form 1099") in a W-9 form. It defines a range to look in with  `start` and `stop` text. Since the anchor already matches the target data, further extraction steps using a Method object are unnecessary. To ignore the Method object, set the method id to  `"passthrough"`. 
 
 **Config**
 

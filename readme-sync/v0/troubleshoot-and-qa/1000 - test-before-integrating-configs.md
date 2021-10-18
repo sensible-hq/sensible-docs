@@ -18,19 +18,19 @@ To understand fallback behavior, imagine the document type `test_doc_type` has t
 | Config  | Version in prod | Version in dev       |
 | ------- | --------------- | -------------------- |
 | configA | best fit        | bad fit              |
-| configB | ok fit          | no published version |
+| configB | OK fit          | no published version |
 
 If you specify `?environment=development`, Sensible searches for a best fit across both production and development by comparing:
 
  -  `configA` in development (bad fit)
- -   `configB` in production (ok fit)
+ -   `configB` in production (OK fit)
 
-And returns output from  `configB`  (ok fit) in production. Notice that even though the API call specifies  the Development environment, the call returns output from a *production* config because of fallback behavior.
+And returns output from  `configB`  (OK fit) in production. Notice that even though the API call specifies  the Development environment, the call returns output from a *production* config because of fallback behavior.
 
 If you don't specify an environment, Sensible ignores development versions and compares:
 
 - `configA` in production (best fit)
-- `configB` in production (ok fit)
+- `configB` in production (OK fit)
 
 And returns output from `configA` (best fit) in production.
 

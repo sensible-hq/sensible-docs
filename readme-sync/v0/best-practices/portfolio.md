@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Sometimes multiple documents are packaged into one PDF file (a PDF "portfolio"). For example, a PDF might contain an invoice, a tax document, and a contract. 
+Sometimes a single PDF file contains multiple documents (a PDF "portfolio"). For example, a PDF portfolio might contain an invoice, a tax document, and a contract. 
 
 In this case, it's best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an "income tax" doc type and an "invoice doc" type, rather than creating a "combined_tax_and_invoice" doc type. In order for Sensible to handle the portfolio in one API extraction request, specify the following:
 

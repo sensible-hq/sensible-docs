@@ -2,7 +2,7 @@
 title: "Signature"
 hidden: false
 ---
-Returns true if more than 3% of the pixels in the specified region are darkened
+Returns true if more than 3% of the pixels in the specified region are dark.
 [block:parameters]
 {
   "data": {

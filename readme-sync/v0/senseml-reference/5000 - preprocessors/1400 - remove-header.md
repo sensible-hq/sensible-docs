@@ -7,12 +7,12 @@ Ignores repeating elements at the tops of pages. These elements are removed from
 
 To recognize a header, this preprocessor starts at the top of the page and moves down the page, stopping as soon as it finds a nonrepeating element. 
 
-These elements are recognized as "repeating":
+Sensible recognizes these elements as "repeating":
 
 - Elements whose y-extent doesn't overlap with any variable element
 - Positively incrementing page numbers
 
-These elements are not recognized as "repeating": 
+These elements aren't recognized as "repeating": 
 
 - Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
 - A repeating element that's missing from even one page (for example, from an intentionally blank page). 
@@ -30,10 +30,11 @@ Examples
 
 The following example shows:
 
-- A repeating header with an incrementing page number. This element is removed from the direct text extraction.
+- A repeating header with an incrementing page number. Sensible removes this from the direct text extraction.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating element, it's also treated as repeating and is removed from the direct text extraction.
-  - Where it overlaps variable text, it's not considered repeating and is still included in the direct text extraction
+  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it from the direct text extraction.
+  - Where it overlaps variable text, Sensible treats it as nonrepeating and includes it in the direct text extraction
+
   
 
 **Config**

@@ -84,6 +84,6 @@ curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto
 --header 'Authorization: Bearer 123abc' \
 --header 'Content-Type: application/json' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf",
-"webhook": {"url":"https://webhook.site/b37c53a3-fb75-48d6-df696ebd1388","payload":"some info you want to include that is additional to the default payload, which includes extraction id, type, and parsed doc"}}'
+"webhook": {"url":"https://webhook.site/b37c53a3-fb75-48d6-df696ebd1388","payload":"some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc"}}'
 ```
 

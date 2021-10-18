@@ -7,7 +7,7 @@ Ignores repeating elements at the bottoms of pages. These elements are removed f
 
 To recognize a footer, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
 
-These elements are recognized as "repeating":
+Sensible recognizes these elements as "repeating":
 
 - Elements whose y-extent doesn't overlap with any variable element on the page
 - Positively incrementing page numbers
@@ -30,10 +30,10 @@ Examples
 
 The following example shows:
 
-- A repeating footer with an incrementing page number. This element is removed from the direct text extraction.
+- A repeating footer with an incrementing page number. Sensible removes this from the direct text extraction.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating element, it's also treated as repeating and is removed from the direct text extraction.
-  - Where it overlaps variable text, it's not considered repeating and is still included in the direct text extraction
+  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it from the direct text extraction.
+  - Where it overlaps variable text, Sensible treats it as nonrepeating and includes it in the direct text extraction
 
 **Config**
 ```json

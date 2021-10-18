@@ -14,7 +14,7 @@ See the following pages for reference documentation for the SenseML query langua
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:section)
 
-Or, to get started quickly, see:
+Or, for a getting started tutorial, see:
 
 - [Getting Started](doc:quickstart)
 

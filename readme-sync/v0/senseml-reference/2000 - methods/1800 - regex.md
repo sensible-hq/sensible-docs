@@ -16,8 +16,8 @@ Parameters
 
 | key                    | value                                          | description                                                  |
 | ---------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)      | `regex`                                        | The anchor line is included in this method's output.        |
-| pattern (**required**) | Javascript-flavored regex                      | If the regular expression has capturing groups (for example, `([0-9])([a-z])`, Sensible returns the contents of the **first** capturing group (in the preceding example, a single numeric character). Otherwise, Sensible returns the full contents of the matched line. Note you have to double escape characters, since the regex is contained in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
+| id (**required**)      | `regex`                                        | Specifies to include the anchor line in the method's output.        |
+| pattern (**required**) | Javascript-flavored regex                      | If the regular expression has capturing groups (for example, `([0-9])([a-z])`, Sensible returns the contents of the **first** capturing group (in the preceding example, a single numeric character). Otherwise, Sensible returns the full contents of the matched line. Note you have to double escape characters, since the regex is in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
 | flags                  | Javascript-flavored regex flags. default: none | Flags to apply to the regex. For example, "i" for case-insensitive. |
 | stop                   | Match object. default: none                    | A Match object to stop extraction. Not included in the method output. If unspecified, matches to the end of the document. |
 
@@ -81,7 +81,7 @@ The following image shows the example PDF used with this example config:
 Notes
 ====
 
-- Regular expressions are also supported in **anchor** matches. For an example, see the [Passthrough method](doc:passthrough).
+-  **Anchor** matches also support regular expressions. For an example, see the [Passthrough method](doc:passthrough).
 
 - If the target data contains separator characters (for example, whitespaces in a credit card number) then you can use the  [Split method](doc:split) as an alternative to the Regex method.
 

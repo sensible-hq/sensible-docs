@@ -26,7 +26,7 @@ See the following sections for more information:
 Match types
 ===
 
-Global Parameters
+Global parameters
 ----
 
 The following parameters are available to most types of Match objects:
@@ -49,7 +49,7 @@ Match using strings.
 | key                  | values                                         | description                                                  |
 | -------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
 | text  (**required**) | string                                         | The string to match                                          |
-| type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes` | `equals`: The matching line must exactly contain the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
+| type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes` | `equals`: The matching line must equal the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
 
 **Example**
 
@@ -87,7 +87,7 @@ Match using a regular expression.
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
 | type (**required**)    | `regex`                  |                                                              |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. Capturing groups are not supported (see the [Regex method](doc:regex) instead). Remember to double escape special characters since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. This parameter doesn't support capturing groups (see the [Regex method](doc:regex) instead). Remember to double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 
 **Example**
@@ -184,7 +184,7 @@ Match arrays
 
 Sensible creates an anchor using the last element in a Match array only if:
 
-- The last element is preceded by the other array elements in order.
+- The other array elements preceed the last element in order.
 - Each array element targets a separate successive line.
 
 This example creates an Anchor line using the last element in the array:

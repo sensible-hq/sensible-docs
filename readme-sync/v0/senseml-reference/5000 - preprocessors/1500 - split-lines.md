@@ -3,7 +3,7 @@ title: "Split lines"
 hidden: false
 ---
 
-Splits lines. This preprocessor is most useful for typewriter-style documents where whitespaces are used for formatting. 
+Splits lines. This preprocessor is most useful for typewriter-style documents that use whitespaces for formatting. 
 
 Parameters
 ====
@@ -18,11 +18,11 @@ Parameters
 Examples
 ====
 
-The following example shows solving undersplit lines in a "typewritten" style PDF. The Split Lines preprocessor preserves columns and rows that are formatted with spaces.
+The following example shows solving undersplit lines in a "typewritten" style PDF. The Split Lines preprocessor preserves columns and rows in this document.
 
 **PROBLEM**
 
-Without the Split Lines preprocessor, the lines are merged too aggressively:
+Without the Split Lines preprocessor, Sensible merges the lines too aggressively:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/split_lines_2.png)
 

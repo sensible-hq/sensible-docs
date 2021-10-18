@@ -185,7 +185,7 @@ Date
 Returns date in year-month-days format. Recognizes the following formatting:
 
 -  `MM/DD/YYYY`, and variant representations of these elements such as abbreviations
--  `month name, DD, YYYY`, and and variant representations of these elements such as abbreviations
+-  `month name, DD, YYYY`, and variant representations of these elements such as abbreviations
 
 For example:
 
@@ -237,13 +237,13 @@ Example output:
 Images
 ---
 
-Can solely be used with [Document Range](https://docs.sensible.so/docs/document-range) to return image metadata.
+Use this solely with the [Document Range](https://docs.sensible.so/docs/document-range) method to return image metadata.
 
 
 Name
 ----
 
-Returns one or more names. Does not recognize a list of names more than 6 lines long. 
+Returns one or more names. Doesn't recognize a list of names more than 6 lines long. 
 
 Recognizes names of the formats below, and variant representations of these elements such as abbreviations:
 \- First Last
@@ -453,7 +453,7 @@ Returns pounds and kilograms. Recognizes digits in USA decimal notation (for exa
 
 - digits are in the format recognized by the [Number](doc:types#number) type
 
-- digits are followed optionally by pounds, kilograms, or their abbreviations 
+- "pounds", "kilograms", or their abbreviations follow the digits 
 
 For example: 
 

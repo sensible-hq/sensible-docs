@@ -25,7 +25,7 @@ Anchors can be simple or complex. The following example is a simple string ancho
 } 
 ```
 
-String anchors are expanded behind the scenes to case-insensitive `includes` matches. Sensible automatically expands the preceding example as:
+Behind the scenes, Sensible expands string anchors to case-insensitive `includes` matches. For example, Sensible automatically expands the preceding example as:
 
 ```json
       "anchor": {
@@ -160,7 +160,7 @@ For **Anchor 1**, Sensible anchors on the last Match array element if it's prece
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_2.png)
 
-- For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it does NOT anchor on the very first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
+- For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it doesn't anchor on the first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_3.png)
 
@@ -256,7 +256,7 @@ Methods qualify anchors
 
 In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies as an anchor.
 
-For example, if you specify the Label method, Sensible anchors on text that is a good label candidate. Any line that is too far away from other lines to be used as a label is disqualified, even if it otherwise meets the conditions in the anchor's parameters.
+For example, if you specify the Label method, Sensible anchors on text that is a good label candidate. Sensible disqualifies any line as a label that is too far away from other lines, even if it otherwise meets the conditions in the anchor's parameters.
 
 The following example shows two anchors qualified by the Label method:
 
@@ -294,7 +294,7 @@ The example config returns null, but returns data if you specify the Row method 
 
 **Example Notes**
 
-In this example, the anchor candidates (surrounded by light yellow boxes) are filtered out for the example PDF because they do not meet the Label method's proximity requirements. The strings "python" are far enough away from other lines that you should use the Row method here instead. 
+In this example, Sensible filters out the anchor candidates (surrounded by light yellow boxes) because they do not meet the Label method's proximity requirements. The strings "python" are far enough away from other lines that you should use the Row method here instead. 
 
 
 

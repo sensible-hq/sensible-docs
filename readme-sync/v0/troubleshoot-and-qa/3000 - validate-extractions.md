@@ -27,7 +27,7 @@ A validation has the following parameters:
 | description (**required**) | string                        | A description of the test                                    |
 | severity (**required**)    | `error`, `warning`, `skipped` | The severity of the failing test.                           |
 | prerequisite fields        | array                         | Use this parameter to generate `skipped` error messages when optional extracted fields are null. For example, if a missing broker's email address doesn't greatly affect the quality of your extraction, then write a condition to verify `broker.email` is properly formatted, but specify [`"broker\\.email"`]  in this parameter to skip the verification if the email is null. For an example, see Validation 3 in the Examples section. <br/>Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). |
-| condition (**required**)   | JsonLogic operation           | Tests fields in the `parsed_document` API response using Boolean, logic, numeric, array, string, and other operations Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/><br/>`{"exists":[JsonLogic]}`, most commonly used with the JsonLogic `var`  operation to test that an output value is not null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. <br/><br/>`{"match":[JsonLogic,"regex"]}`, where `regex` is a Javascript-flavored regular expression. For example, use a  regex match when you want to test that the output matches a [type](doc:types) that's not supported by Sensible.<br/>Double escape special characters, since the regex is contained in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. <br><br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). |
+| condition (**required**)   | JsonLogic operation           | Tests fields in the `parsed_document` API response using Boolean, logic, numeric, array, string, and other operations Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/><br/>`{"exists":[JsonLogic]}`, most commonly used with the JsonLogic `var`  operation to test that an output value isn't null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. <br/><br/>`{"match":[JsonLogic,"regex"]}`, where `regex` is a Javascript-flavored regular expression. For example, use a  regex match when you want to test that the output matches a [type](doc:types) that's not supported by Sensible.<br/>Double escape special characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. <br><br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). |
 
 Examples
 ====
@@ -43,11 +43,11 @@ You test sales quote extractions from all the companies with the following valid
 Validation 1
 ---
 
-- **Description**:  The quoted rate value is not null
+- **Description**:  The quoted rate value isn't null
 - **Severity**: error
 - **Condition**:`{"exists":[{"var":"quote_rate.value"}]}`
 
-**Notes**: Tests that a field  (`quote_rate`) is not null using the Sensible `exists` operation.
+**Notes**: Tests that a field  (`quote_rate`) isn't null using the Sensible `exists` operation.
 
 Validation 2
 ---
@@ -66,7 +66,7 @@ Validation 3
 - **Prerequisite fields**: `["broker\\.email"]`
 - **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`
 
-**Notes**:  If optional email information for a broker is filled out (for example, `broker.email` is not null), then uses a Sensible operation (`match`) to test that the email matches a regular expression. If `broker.email` is null, skips this condition.
+**Notes**:  If `broker.email` isn't null, then uses a Sensible operation (`match`) to test that the email matches a regular expression. If `broker.email` is null, skips this condition.
 
 Validation 4
 ----
@@ -94,7 +94,7 @@ Validations output
 
 For the preceding validations, here's an example document extraction where:
 
-- **Validation 3**  (broker email) is skipped because the prerequisite field  `broker.email` is null
+- **Validation 3**  Sensible skips the broker email because the prerequisite field  `broker.email` is null
 - **Validation 4**  (zip code) fails because  `zip_code`  is 17 digits
 
 ```json

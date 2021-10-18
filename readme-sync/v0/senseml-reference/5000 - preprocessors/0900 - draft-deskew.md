@@ -150,7 +150,7 @@ Best practices
 - Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. 
 - For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew. If you choose `"endsWith"`, then also define `"start:right"`.
 - For the aligned reference PDF, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
-- Define a Merge Lines preprocessor to clean up oversplit lines after the Deskew preprocessor. In the preceding example, if you don't specify a Deskew preprocessor,  the Region method starts at the middle of the word "tenure" instead of the middle of the complete line "White house tenure". Since the region is shifted to the right, it misses the first year of the date range:
+- Define a Merge Lines preprocessor to clean up oversplit lines after the Deskew preprocessor. In the preceding example, if you don't specify a Deskew preprocessor,  the Region method starts at the middle of the word "tenure" instead of the middle of the complete line "White house tenure". Since the region shifts to the right, it misses the first year of the date range:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_5.png)
 

@@ -28,7 +28,7 @@ Examples
 
 The following example shows that:
 
-- By default, the entire column is returned as a joined string.
+- By default, Sensible returns the entire column as a joined string.
 - Specifying a tiebreaker returns single element in the column.
 
 **Config**

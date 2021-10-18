@@ -22,8 +22,8 @@ The following global parameters available to all methods:
 | lineFilters      | Match object                                                 | Filters out the specified lines from the method match. For example, the Box method extracts all lines from a box, but you can use this parameter to filter out unwanted footer text in the box. |
 | wordFilters      | string array                                                 | Filters out the specified strings from the method results.  |
 | whitespaceFilter | `spaces`, `all`                                              | Remove extra whitespaces.<br/> `spaces` - remove solely extra spaces <br/> `all` - remove all whitespace characters, including newlines and tabs. |
-| xRangeFilter     | object                                                       | Defines left and right boundaries in which to capture lines. For example, in combination with the Document Range method, the X Range Filter parameter defines a "column" that's bounded at the top and bottom by text. Any line that partially falls inside the defined rectangular region is excluded. Parameters: <br/>`start` - `right`,`left`  - Defines the starting point of the "column" at either the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the horizontal position of the starting point defined by the Start parameter. <br/> `width` - The width of the page region to capture, in inches.<br/><br/> For an example, see the Examples section. |
-| xMajorSort       | boolean                                                      | Use this parameter to sort lines whose height and vertical position can be misaligned (such as handwriting). In such misaligned text, slight jitter in the vertical positions of lines can cause Sensible to incorrectly sort lines that a human reader interprets as following left to right. The X Major Sort parameter corrects the problem by sorting lines primarily by their horizontal position, rather than primarily by their vertical position (the default). <br/><br/> For an example, see the Examples section. |
+| xRangeFilter     | object                                                       | Defines left and right boundaries in which to capture lines. For example, in combination with the Document Range method, the X Range Filter parameter defines a "column" that's bounded at the top and bottom by text. This column exludes any line that partially falls outside the defined rectangular region. Parameters: <br/>`start` - `right`,`left`  - Defines the starting point of the "column" at either the right or left boundary of the anchor line.<br/> `offsetX` - Adjusts the horizontal position of the starting point defined by the Start parameter. <br/> `width` - The width of the page region to capture, in inches.<br/><br/> For an example, see the Examples section. |
+| xMajorSort       | boolean                                                      | Use this parameter to sort lines whose height and vertical position are misaligned (such as handwriting). In such misaligned text, slight jitter in the vertical positions of lines can cause Sensible to incorrectly sort lines that a human reader interprets as following left to right. The X Major Sort parameter corrects the problem by sorting lines primarily by their horizontal position, rather than primarily by their vertical position (the default). <br/><br/> For an example, see the Examples section. |
 
 Examples
 ====
@@ -81,7 +81,7 @@ The following image shows the example PDF used with this example config:
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
-To run this example, verify that you are using Google OCR (click the gear icon for the Document Type and select **Google**): 
+To run this example, verify the document type uses Google OCR (click the gear icon for the Document Type and select **Google**): 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
 
@@ -109,9 +109,9 @@ The following image shows using this parameter to extract a "cell" of text that 
 
 In this example, the X Range Filter parameter is the best option:
 
-- Document Range by itself is not a good option, because it captures the address of the importer as well as the supplier. 
-- The Fixed Table and Table methods are not the best options, because the table formatting is hard to recognize.
-- The Text Table method is not the best option, because it splits multi-line rows.
+- Document Range by itself isn't a good option, because it captures the address of the importer as well as the supplier. 
+- The Fixed Table and Table methods aren't the best options, because the table formatting is hard to recognize.
+- The Text Table method isn't the best option, because it splits multi-line rows.
 
 Try out this example in the Sensible app using the following PDF and config:
 

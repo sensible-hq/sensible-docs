@@ -19,7 +19,7 @@ Configure the webhook
 1. Generate a destination for the webhook: navigate to [https://webhook.site/](https://webhook.site/) to automatically create a unique test page:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_1.png)
-**Note:** Use this website [solely for testing](https://webhook.site/terms). In production, implement your own destination for the webhook payload.
+**Note:** Use this website [solely for testing](https://webhook.site/terms). In production, make your own destination for the webhook payload.
 
 2. Copy the following code sample, and replace `YOUR_UNIQUE_URL` with your uniquely generated webhook.site URL:
 

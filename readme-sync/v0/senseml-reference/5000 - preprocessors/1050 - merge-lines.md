@@ -21,9 +21,9 @@ Parameters
 | key                                        | value                                  | description                                                  |
 | ------------------------------------------ | -------------------------------------- | ------------------------------------------------------------ |
 | `type` (**required**)                      | `mergeLines`                           |                                                              |
-| `directlyAdjacentThreshold` (**required**) | number >= 0.16                         | Usually, it's recommended to leave the default for this parameter (0.16).<br/>Sensible uses the default setting for this parameter to transform separate tokens output from Google OCR into lines.<br/>This parameter specifies the fraction of line height under which two adjacent lines distributed along an x-axis are merged without a space. For example, at 0.16, this preprocessor merges two lines separated by a small gap whose width is less than 16% of the line height. Choosing a larger number merges more aggressively. <br/> |
-| `adjacentThreshold` (**required**)         | number >= 0.6                          | Corrects oversplit lines. <br/>Specifies the fraction of line height under which two adjacent lines distributed along an x-axis are merged *with* a space. The built-in merger uses 0.6, so choosing a larger number merges more aggressively.<br> For an example, see the Examples section. |
-| `yOverlapThreshold`                        | number between 0 and 1.0. default: 1.0 | Merges lines that are not perfectly aligned at the same height on the page. <br/> Specifies the y overlap above which the Merge Lines preprocessor merges two adjacent lines. Y overlap is the section of the joint y-axis range of two lines that's occupied by both lines. For example, if two lines share the same minimum and maximum y-axis values, their overlap is 1. If one line's extent is from 0 to 10 and the other line’s extent is from 2 to 12 on the y-axis, their overlap is .667 (8 / 12). <br/>For an example, see the Examples section. |
+| `directlyAdjacentThreshold` (**required**) | number >= 0.16                         | Usually, it's recommended to leave the default for this parameter (0.16).<br/>Sensible uses the default setting for this parameter to transform separate tokens output from Google OCR into lines.<br/>This parameter specifies the fraction of line height under which to merge two adjacent lines distributed along an x-axis without a space. For example, at 0.16, this preprocessor merges two lines separated by a small gap whose width is less than 16% of the line height. Choosing a larger number merges more aggressively. <br/> |
+| `adjacentThreshold` (**required**)         | number >= 0.6                          | Corrects oversplit lines. <br/>Specifies the fraction of line height under which to merge two adjacent lines distributed along an x-axis *with* a space. The built-in merger uses 0.6, so choosing a larger number merges more aggressively.<br> For an example, see the Examples section. |
+| `yOverlapThreshold`                        | number between 0 and 1.0. default: 1.0 | Merges lines that aren't perfectly aligned at the same height on the page. <br/> Specifies the y overlap above which the Merge Lines preprocessor merges two adjacent lines. Y overlap is the section of the joint y-axis range of two lines that's occupied by both lines. For example, if two lines share the same minimum and maximum y-axis values, their overlap is 1. If one line's extent is from 0 to 10 and the other line’s extent is from 2 to 12 on the y-axis, their overlap is .667 (8 / 12). <br/>For an example, see the Examples section. |
 | `minXGapThreshold`                         | number in inches                       | Configure this parameter if two lines overlap on an x-axis. The default behavior is to merge these overlapping lines into one line. To split them instead, set a cap on the amount of allowable overlap. For example:<br/>0 - splits lines if their line boundaries are touching but not overlapping.<br/>0.1 - splits lines if their boundaries overlap a little, up to 0.1 inches.<br/>2.0 - splits lines even when they overlap a lot, up to 2.0 inches.<br/>For an example, see the Examples section. |
 
 Examples
@@ -32,7 +32,7 @@ Examples
 Handwriting OCR 
 ----
 
-Use the Merge Lines preprocessor to clean up OCRed handwriting text. This preprocessor is particularly useful for Google OCR, which by default groups text into words rather than lines.
+Use the Merge Lines preprocessor to clean up OCRed handwriting text. This preprocessor is useful for Google OCR, which by default groups text into words rather than lines.
 
 **PROBLEM**
 
@@ -40,7 +40,7 @@ Without a Merge Line preprocessor, the placeholder handwritten data in an exampl
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_2.png)
 
-For example, the phrase `Name (First, Middle, Last, Suffix, Trust or Custodian)` is not one line, but is instead split on words.
+For example, the phrase `Name (First, Middle, Last, Suffix, Trust or Custodian)` isn't one line, but is instead split on words.
 
 **SOLUTION**
 
@@ -80,7 +80,7 @@ The following image shows the example PDF used with this example config:
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
-To run this example, verify that you are using Google OCR (click the gear icon for the Document Type and select **Google**): 
+To run this example, verify that the document type uses Google OCR (click the gear icon for the Document Type and select **Google**): 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
 
@@ -99,7 +99,7 @@ Modify this example to observe the effects of the different parameters on the ou
 
 - set `"adjacentThreshold": 0.1` to see oversplit lines. 
 
-- set `"adjacentThreshold": 2.0` to see very aggressively merged lines. 
+- set `"adjacentThreshold": 2.0` to see aggressively merged lines. 
 
 - revert Adjacent Threshold to the original setting, then set `"yOverlapThreshold": 0.2`  to observe how lines with misaligned heights (like the email address) merges more aggressively.
 
@@ -111,7 +111,7 @@ Oversplit lines
 
 **PROBLEM**
 
-The following image shows oversplit lines. For example, the phrase "premium driver discount" is split into three lines even though the human eye perceives it as one phrase:
+The following image shows oversplit lines. For example, Sensible splits the phrase "premium driver discount" into three lines even though the human eye perceives it as one phrase:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_1.png)
 

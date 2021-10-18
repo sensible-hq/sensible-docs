@@ -26,7 +26,7 @@ See the following sections for more information:
 Match types
 ===
 
-Global Parameters
+Global parameters
 ----
 
 The following parameters are available to most types of Match objects:

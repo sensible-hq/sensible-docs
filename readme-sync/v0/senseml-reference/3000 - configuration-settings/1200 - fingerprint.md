@@ -4,7 +4,7 @@ hidden: false
 ---
 Test for matching text in a document to determine whether it's a good fit for a config or not. Use these test to:
 
-- Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is particularly true if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. 
+- Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. 
 - Handle PDF portfolios (multiple documents combined into one PDF) by testing for text that defines starting and ending pages for documents in the package. For more information, see [Document portfolios](doc:portfolio).
 
 Parameters
@@ -29,7 +29,7 @@ The following table shows how this default behavior changes when you configure t
 | Strictness level | Description                                                  | If more than one config's fingerprints pass over 50%              | If no configs' fingerprint passes over 50% or if no configs contain a fingerprint |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests | Sensible chooses the output from the passing config that has the highest percentage of non-null values. | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one that has the highest percentage of non-null values. |
-| strict           | The doc type is required to have at least one config containing a fingerprint. | Sensible chooses the output from the passing config that has the highest percentage of non-null values. | Sensible returns a 400 error.                               |
+| strict           | The doc type must have at least one config containing a fingerprint. | Sensible chooses the output from the passing config that has the highest percentage of non-null values. | Sensible returns a 400 error.                               |
 
 Examples
 ====
