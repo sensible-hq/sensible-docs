@@ -71,7 +71,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_4.png)
 
-3. If you haven't already done so, download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the **Prerequisites** section:
+3. If you haven't already, download the following example PDF, which works with the example `auto_insurance_quote` config you created previously in the **Prerequisites** section:
 
 | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | --------------------------- | ------------------------------------------------------------ |

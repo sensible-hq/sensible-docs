@@ -13,7 +13,7 @@ Returns true if more than 3% of the pixels in the specified region are darkened
     "0-1": "`signature`",
     "1-0": "start",
     "1-1": "Direction, one of `above`, `below`, `left`, `right`",
-    "1-2": "A direction specifying where to start relative to the anchor point. `right` starts at the middle of the right edge, `below` starts at the middle of the bottom edge, and so forth",
+    "1-2": "A direction specifying where to start relative to the anchor point. For  example, `right` starts at the middle of the right edge, and `below` starts at the middle of the bottom edge.
     "2-0": "offsetX",
     "2-2": "The offset in inches from the starting point along the X axis",
     "2-1": "number",
