@@ -156,7 +156,7 @@ Here is an ending line.
 
 
 
-For **Anchor 1**, Sensible anchors on the last Match array element only if it is preceded by the other array elements in order, with no intervening match repetitions.  `"match":all"` finds two anchors. See the following image for an illustration: 
+For **Anchor 1**, Sensible anchors on the last Match array element if it's preceded by the other array elements in order.  `"match":all"` finds two anchors. See the following image for an illustration: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_2.png)
 
@@ -256,7 +256,7 @@ Methods qualify anchors
 
 In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies as an anchor.
 
-For example, if you specify the Label method, Sensible only anchors on text that is a good label candidate. Any line that is too far away from other lines to be used as a label is disqualified, even if it otherwise meets the conditions in the anchor's parameters.
+For example, if you specify the Label method, Sensible anchors on text that is a good label candidate. Any line that is too far away from other lines to be used as a label is disqualified, even if it otherwise meets the conditions in the anchor's parameters.
 
 The following example shows two anchors qualified by the Label method:
 

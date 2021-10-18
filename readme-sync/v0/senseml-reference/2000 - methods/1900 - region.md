@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Extracts data in a rectangular region, defined in inches. The region omits lines that only partly fall inside the region. 
+Extracts data in a rectangular region, defined in inches. The region omits text that partly falls outside the region. 
 
 In general, use this method:
 
@@ -18,7 +18,7 @@ In general, use this method:
 Parameters
 ====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
 | id                     | value                             | description                                                  |
 | ---------------------- | --------------------------------- | ------------------------------------------------------------ |

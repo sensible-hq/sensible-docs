@@ -7,7 +7,7 @@ hidden: false
 
 Quality control the data extractions in a document type by writing validations using  [JsonLogic](https://jsonlogic.com/). Test extracted fields using Boolean, logic, numeric, array, string, and other operations. Then write your own logic based on the validations, for example:
 
-- pass a document extraction automatically through your pipeline if there are no errors and only 10% of warning validations fail
+- pass a document extraction automatically through your pipeline if there are no errors and 10% of warning validations fail
 - flag a document extraction for human review if 5% of error validations fail
 
 To write validations in the Sensible app:

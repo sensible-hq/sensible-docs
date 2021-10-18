@@ -66,7 +66,7 @@ The following fingerprint tests a vendor-specific config "anyco_life_insurance_q
 }
 ```
 
-The config preferentially runs only if the fingerprint finds the phrases. 
+The config preferentially runs if the fingerprint finds the phrases. 
 
 Extract a PDF portfolio
 ----

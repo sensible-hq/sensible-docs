@@ -19,7 +19,7 @@ Matches tables based on bag-of-words scoring and returns their collated column c
 Parameters
 =====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
 | key                    | value                     | description                                                  |
 | :--------------------- | :------------------------ | :----------------------------------------------------------- |

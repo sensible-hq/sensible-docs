@@ -13,14 +13,14 @@ Or, use this method to return the coordinates of regions containing images.
 Parameters
 ====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
 | key               | value                         | description                                                  |
 | ----------------- | ----------------------------- | ------------------------------------------------------------ |
 | id (**required**) | `documentRange`               | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
 | stop              | Match object. default: `none` | A Match object to stop extraction. Not included in the method output. If unspecified, matches to the end of the document. |
 | includeAnchor     | boolean. default: `false`     | Includes the anchor line in the method output                |
-| includeImages     | boolean. default: `false`     | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns only image region coordinates, not image bytes or text lines. |
+| includeImages     | boolean. default: `false`     | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
 
 Examples
 ====
@@ -168,7 +168,7 @@ Notes
 Extracting images
 ----
 
-Document Range is the only method that supports identifying image regions. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
+Document Range is the sole method that supports identifying image regions. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
 
 - Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
 - Convert from Sensible's region coordinates to DPI coordinates. Sensible region coordinates follow these conventions:

@@ -202,11 +202,11 @@ This example creates an Anchor line using the last element in the array:
           [
             {
               "type": "includes",
-              "text": "Only finds anchor if you match this string in a line",
+              "text": "finds anchor if you match this string in a line",
             },
             {
               "type": "includes",
-              "text": "followed by the 1st occurrence of this string in another line",
+              "text": "followed by the first occurrence of this string in another line",
             },
                           {
               "type": "includes",

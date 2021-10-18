@@ -12,7 +12,7 @@ Use the Passthrough method to match text using an anchor, and return the anchor 
 Parameters
 ====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
 | id                | value         | description                                                  |
 | ----------------- | ------------- | ------------------------------------------------------------ |
@@ -108,4 +108,4 @@ The following example uses regular expressions to extract a list of forms that a
 Notes
 ===
 
-Often, you use the Passthrough method in combination with regular expressions. Because anchors don't support regex capturing groups, the Passthrough method returns the full contents of the matched line. If you want instead to use a capturing group to return only part of a matched line, see the [Regex method](doc:regex).
+Often, you use the Passthrough method in combination with regular expressions. Because anchors don't support regex capturing groups, the Passthrough method returns the full contents of the matched line. If you want instead to use a capturing group to return part of a matched line, see the [Regex method](doc:regex).

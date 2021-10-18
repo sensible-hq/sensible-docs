@@ -144,7 +144,7 @@ Recognizes digits with the following formatting:
 
 - commas every three digits, optional cents after period
 
-- no dollar sign, up to six digits without commas as only line contents. Allow up to nine digits if cents are present.
+- no dollar sign, up to six digits without commas as sole line contents. Allow up to nine digits if cents are present.
 
 
 Recognizes abbreviated and written-out quantities as follows:
@@ -237,7 +237,7 @@ Example output:
 Images
 ---
 
-Can only be used with [Document Range](https://docs.sensible.so/docs/document-range) to return image metadata.
+Can solely be used with [Document Range](https://docs.sensible.so/docs/document-range) to return image metadata.
 
 
 Name
@@ -310,7 +310,7 @@ Example output:
 Paragraph
 ----
 
-Use with  [Document Range](https://docs.sensible.so/docs/document-range) only, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
+Use with  [Document Range](https://docs.sensible.so/docs/document-range) solely, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
 
 Percentage
 ----
@@ -348,7 +348,7 @@ Recognizes digits with the following formatting:
 
 - periods every three digits, optional cents after a comma.
 
-- up to six digits without periods as only line contents. Allow up to nine digits if cents following a comma are present.
+- up to six digits without periods as sole line contents. Allow up to nine digits if cents following a comma are present.
 
 
 Recognizes abbreviated and written-out quantities as follows:
@@ -392,7 +392,7 @@ Returns phone numbers:
 
 - Recognizes USA 10-digit phone numbers either with or without a country calling code. May be optionally formatted with parentheses, dashes, spaces, plus sign (+), or periods. 
 
-- Recognizes international phone numbers only if prefixed by a country calling code (for example, +91 for India).
+- Recognizes international phone numbers if prefixed by a country calling code (for example, +91 for India).
 
 Examples: 
 
@@ -439,7 +439,7 @@ Example output:
 Table
 ---
 
-Use only with the Table methods:
+Use with the Table methods:
 
 - [Invoice](doc:invoice)
 - [Fixed Table](doc:fixed-table)

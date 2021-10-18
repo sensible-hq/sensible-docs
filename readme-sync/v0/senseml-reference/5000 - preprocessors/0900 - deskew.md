@@ -5,7 +5,7 @@ hidden: false
 
 Corrects the alignment of text in PDF documents that are skewed, for example as a result of being  photographed at an angle instead of straight on. ID cards and receipts are common examples of such documents. Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) to correct scaling, rotation, translation, and shear. 
 
-You don't need to configure this preprocessor for PDFs that are only slightly rotated. Sensible's default OCR engine (Microsoft)  corrects slight rotation automatically.
+You don't need to configure this preprocessor for PDFs that are slightly rotated. Sensible's default OCR engine (Microsoft) corrects slight rotation automatically.
 
 [**Parameters**](doc:deskew#parameters)
 [**Examples**](doc:deskew#examples)

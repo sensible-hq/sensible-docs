@@ -11,7 +11,7 @@ It's a best practice to create a single, flexible config that works for a variet
 
 Parameters
 ====
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
 
 | key                  | value     | description                                                  |

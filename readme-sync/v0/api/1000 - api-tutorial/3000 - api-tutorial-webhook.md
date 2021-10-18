@@ -19,7 +19,7 @@ Configure the webhook
 1. Generate a destination for the webhook: navigate to [https://webhook.site/](https://webhook.site/) to automatically create a unique test page:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_1.png)
-**Note:** Use this website [only for testing](https://webhook.site/terms). In production, implement your own destination for the webhook payload.
+**Note:** Use this website [solely for testing](https://webhook.site/terms). In production, implement your own destination for the webhook payload.
 
 2. Copy the following code sample, and replace `YOUR_UNIQUE_URL` with your uniquely generated webhook.site URL:
 
@@ -28,7 +28,7 @@ curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto
 --header 'Authorization: Bearer YOUR_API_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf",
-"webhook": {"url":"YOUR_WEBHOOK_URL","payload":"some info you want to include that's additional to the default payload, which includes extraction id, type, and parsed doc"}}'
+"webhook": {"url":"YOUR_WEBHOOK_URL","payload":"some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc"}}'
 ```
 
 3. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
@@ -52,7 +52,7 @@ Visit your unique URL at webhook.site to verify there is a response at the URL l
   "type": "auto_insurance_quote",
   "configuration": "anyco",
   "webhook": {
-    "payload": "some info you want to include that's additional to the default payload, which includes extraction id, type, and parsed doc",
+    "payload": "some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc",
     "url": "https://webhook.site/b37c53a3-fb75-48d6-df696ebd1388"
   },
   "parsed_document": {
@@ -80,7 +80,7 @@ Visit your unique URL at webhook.site to verify there is a response at the URL l
     "skipped": 0
   },
   "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=ASIAR355P7ASRMWOLX6W&Expires=1623790786&Signature=REDACTED-amz-security-token=REDACTED",
-  "payload": "some info you want to include that's additional to the default payload, which includes extraction id, type, and parsed doc"
+  "payload": "some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc"
 }
 ```
 

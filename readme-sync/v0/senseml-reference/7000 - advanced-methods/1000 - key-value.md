@@ -2,7 +2,7 @@
 title: "Key/Value"
 hidden: false
 ---
-Finds the most promising key/value pair (currently two-column tabular key/value representations only) in a single page of the source document. This single page and the winning key are those that score highest on the `terms` and `stopTerms`.
+Finds the most promising two-column tabular key/value pair in a single page of the source document. This single page and the winning key are those that score highest on the `terms` and `stopTerms`.
 [block:parameters]
 {
   "data": {
