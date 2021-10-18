@@ -12,7 +12,7 @@ Parameters
 | key                       | value   | description                                                      |
 | ------------------------- | ------ | ------------------------------------------------------------ |
 | `type` (**required**)     | `ligature` |                                                    |
-| `mappings` (**required**) | object | An object mapping ligature strings (e.g., `"\u0000"`) to an array of possible ligature replacements (e.g., `["ff", "ffi", "fi", "fl"]`). Sensible uses a dictionary in the target language to choose replacements that lead to known words. Sensible supports American English (en-us). This approach is conservative and may leave some Unicode characters in proper names or other non-word data. |
+| `mappings` (**required**) | object | An object mapping ligature strings (for example, `"\u0000"`) to an array of possible ligature replacements (for example, `["ff", "ffi", "fi", "fl"]`). Sensible uses a dictionary in the target language to choose replacements that lead to known words. Sensible supports American English (en-us). This approach is conservative and may leave some Unicode characters in proper names or other non-word data. |
 
 Examples
 ----
