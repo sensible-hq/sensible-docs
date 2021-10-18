@@ -12,7 +12,7 @@ See the following pages for reference documentation for the SenseML query langua
 - [Methods](doc:methods)
 - [Configuration settings](doc:configuration-settings)
 - [Computed Field methods](doc:computed-field-methods)
-- [Sections](doc:section)
+- [Sections](doc:sections)
 
 Or, for a getting started tutorial, see:
 
