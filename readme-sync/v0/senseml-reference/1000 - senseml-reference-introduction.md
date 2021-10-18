@@ -12,6 +12,7 @@ See the following pages for reference documentation for the SenseML query langua
 - [Methods](doc:methods)
 - [Configuration settings](doc:configuration-settings)
 - [Computed Field methods](doc:computed-field-methods)
+- [Sections](doc:section)
 
 Or, to get started quickly, see:
 
@@ -20,7 +21,7 @@ Or, to get started quickly, see:
 Examples
 ====
 
-For an overview of the elements in the SenseML schema, see the following example of a short config:
+For an overview, see the following example of a short config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro.png)
 
