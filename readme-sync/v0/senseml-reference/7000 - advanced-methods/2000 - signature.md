@@ -13,3 +13,4 @@ Returns true if more than 3% of the pixels in the specified region are dark.
 | width            | number                                              | The width in inches of the extraction region                 |
 | height           | number                                              | The height in inches of the extraction region                |
 | isAbsoluteOffset | `true`, `false`                                     | optional, default false  A flag to make the offsets relative to the top left of the page rather than to the anchor start point |
+
