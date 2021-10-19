@@ -84,7 +84,8 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
    
 
-5. Click **Send** to send the request. The response is  `200`:
+5. If you import the request inside a Postman collection, then navigate to the **Auth** tab and verify that the **Type** dropdown is set to **No Auth**, not the default behavior of inheriting auth from parent.
+6. Click **Send** to send the request. The response is  `200`:
 
 
 
