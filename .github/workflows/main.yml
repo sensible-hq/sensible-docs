@@ -9,7 +9,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: Vale
-      uses: errata-ai/vale-action@v1.4.0
+      uses: errata-ai/vale-action@v2.3
       with:
         # Optional
         styles: |
@@ -20,7 +20,8 @@ jobs:
         # config: https://raw.githubusercontent.com/errata-ai/vale/master/.vale.ini
 
         # Optional
-        files: all
+        files: __onlyModified #all
+
       env:
         # Required
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
