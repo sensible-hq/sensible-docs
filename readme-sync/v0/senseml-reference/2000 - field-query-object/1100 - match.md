@@ -17,10 +17,6 @@ See the following sections for more information:
 - [First match](doc:anchor#first-match)
 - [Any match](doc:match#any-match)
 
-[**Examples**](doc:match#examples)
-
-- [Match arrays](doc:match#match-arrays) 
-
 
 
 Match types
@@ -34,8 +30,8 @@ The following parameters are available to most types of Match objects:
 
 | key           | values | description                                                  |
 | ------------- | ------ | ------------------------------------------------------------ |
-| minimumHeight | number | The minimum height of the matched line's boundaries, in inches. Not valid for an Any match. |
-| maximumHeight | number | The maximum height of the matched line's boundaries, in inches. Not valid for an Any match. |
+| minimumHeight | number | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level param for an Any match, but valid for individual matches in the Any match. |
+| maximumHeight | number | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level param for an Any match, but valid for individual matches in the Any match. |
 
 
 
@@ -103,11 +99,11 @@ This is a convenience match to find the first line encountered.
 
 | key                 | values  | description                                                  |
 | ------------------- | ------- | ------------------------------------------------------------ |
-| type (**required**) | `first` | Matches the first line encountered, either in the first page of the document, or after a specified line. |
+| type (**required**) | `first` | Matches the first line encountered, either 1. in the first page of the document or 2.  after the preceding matched line in a match array. |
 
 **Example**
 
-This example matches the first line after a matched line:
+This example matches the first line after a matched line in an array:
 
 
 ```

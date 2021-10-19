@@ -23,6 +23,14 @@ See the following sections for more information:
 
 
 
+reverse  boolean  Use in a match that is the 2nd or later element in a match array. If true, searches preceding lines for a match.  For example, to find variable or common text that occurs before a unique phrase, define an array to match 1. the unique phrase and 2. the common phrase, with `"reverse":"true"` specified. 
+
+
+
+
+
+if you do 'first' matcher and set Reverse, it gives you the directly preceding line
+
 Match types
 ===
 
