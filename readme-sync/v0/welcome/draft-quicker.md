@@ -4,6 +4,12 @@ hidden: true
 
 ---
 
+
+
+MAKING TEST CHANGES
+
+to validate the new Vale config
+
 Extract data from a document
 =====
 
@@ -105,7 +111,7 @@ You should see a response like the following:
 
  
 
-(Optional) see how it works in the Sensible app
+Optional: see how it works in the Sensible app
 =====
 
    To see this example in the Sensible app:
