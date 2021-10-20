@@ -30,15 +30,15 @@ The following parameters are available to most types of Match objects:
 
 | key           | values | description                                                  |
 | ------------- | ------ | ------------------------------------------------------------ |
-| minimumHeight | number | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level param for an Any match, but valid for individual matches in the Any match. |
-| maximumHeight | number | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level param for an Any match, but valid for individual matches in the Any match. |
+| minimumHeight | number | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
+| maximumHeight | number | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
 
 
 
 Simple match
 -------
 
-Match using strings.
+Match using strings.  
 
 **Parameters**
 
@@ -49,7 +49,7 @@ Match using strings.
 
 **Example**
 
-The following config uses as simple match:
+The following config uses a simple match:
 
 ```json
   {
@@ -59,7 +59,7 @@ The following config uses as simple match:
       "anchor": {
         "match": {
           "type": "startsWith",
-          "text": "The line must start with this text",
+          "text": "The line to match must start with this text",
         }
       },
       "method": {
@@ -72,6 +72,9 @@ The following config uses as simple match:
 
 ```
 
+**Notes**
+
+For even simpler matching syntax in anchors, you can use `"anchor":"some string to match"`. For more information see [Anchor](doc:anchor).
 
 Regex match
 -----
