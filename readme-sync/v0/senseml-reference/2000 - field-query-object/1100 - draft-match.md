@@ -5,7 +5,7 @@ hidden: true
 ---
 
 
-Matches are instructions for matching lines of text in a document. They are valid elements in anchors and other objects. 
+Matches are instructions for matching lines of text in a document. They're  valid elements in anchors and other objects. 
 
 See the following sections for more information:
 
@@ -34,14 +34,14 @@ The following parameters are available to most types of Match objects:
 
 | key           | values                  | description                                                  |
 | ------------- | ----------------------- | ------------------------------------------------------------ |
-| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches.  Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
+| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
 | maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches.  Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
-| reverse       | boolean. default: false | Use with match arrays. Use with any match object except the first in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array.  For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Reverse match](doc:match#reverse-match). |
+| reverse       | boolean. default: false | Use with match arrays. Use with any match object except the first in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Reverse match](doc:match#reverse-match). |
 
 Reverse match
 ---
 
-Use the Reverse parameter to match a line that is difficult to match, but that is followed by a line that is easy to match.  You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line. 
+Use the Reverse parameter in situations where an easy-to-match line succeeds a difficult target line. You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line. 
 
 **Config**
 

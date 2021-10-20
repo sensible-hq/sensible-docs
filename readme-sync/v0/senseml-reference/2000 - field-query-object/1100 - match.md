@@ -5,7 +5,7 @@ hidden: false
 ---
 
 
-Matches are instructions for matching lines of text in a document. They are valid elements in anchors and other objects. 
+Matches are instructions for matching lines of text in a document. They're valid elements in anchors and other objects. 
 
 See the following sections for more information:
 
@@ -86,7 +86,7 @@ Match using a regular expression.
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
 | type (**required**)    | `regex`                  |                                                              |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. This parameter doesn't support capturing groups (see the [Regex method](doc:regex) instead). Remember to double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. This parameter doesn't support capturing groups. See the [Regex method](doc:regex) instead.<br/>Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character. |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 
 **Example**
@@ -181,7 +181,7 @@ Examples
 Match arrays
 ----
 
-Sensible creates an anchor using the last element in a Match array only if:
+Sensible creates an anchor using the last element in a Match array if:
 
 - The other array elements preceed the last element in order.
 - Each array element targets a separate successive line.
