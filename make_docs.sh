@@ -16,7 +16,7 @@ do
   # if [ -f "$file" ] && [ ! -f "$finalFile" ] 
   # any commits in the last 24 hrs (upper limit? unsure. less than 47 hrs?), OR if file exists in screenshots but not final dir
 
-  if [[ "$lastCommit" =~ .*+(second|minute|hour).* ]] || ([ -f "$file" ] && [ ! -f "$finalFile" ])
+  if [[ "$lastCommit" =~ .*+(second|minute|).* ]] || ([ -f "$file" ] && [ ! -f "$finalFile" ])
   then
   echo "updating $finalFile because it doesn't exist in /final or its source was last committed $lastCommit" 
   # apply a drop shadow to screenshots
