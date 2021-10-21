@@ -289,7 +289,7 @@ The following image shows the example PDF used with this example config:
 
 **Notes**
 
-Sensible searches for anchor candidates in sequence, and rules out overlapping candidates. In other words, after Sensible identifies an anchor candidate, it ignores that anchor line and its preceding lines when searching for the next candidate. The following image illustrates this behavior for the example config:
+Sensible searches for anchor candidates in sequence, and rules out overlapping match arrays. The following image illustrates this behavior for the example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/reverse_2.png)
 
