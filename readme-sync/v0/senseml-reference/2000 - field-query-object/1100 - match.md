@@ -35,7 +35,7 @@ The following parameters are available to most types of Match objects:
 | ------------- | ----------------------- | ------------------------------------------------------------ |
 | minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
 | maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
-| reverse       | boolean. default: false | Use with match arrays. Do not use with the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Reverse match](doc:match#reverse-match). |
+| reverse       | boolean. default: false | Use with match arrays. Don't use with the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Reverse match](doc:match#reverse-match). |
 
 
 
@@ -187,7 +187,7 @@ Match arrays
 
 Sensible creates an anchor using the last element in a Match array if:
 
-- The other array elements preceed the last element in order.
+- The other array elements precede the last element in order.
 - Each array element targets a separate successive line.
 
 This example creates an Anchor line using the last element in the array:
@@ -229,7 +229,7 @@ This example creates an Anchor line using the last element in the array:
 Reverse match
 ---
 
-Use the Reverse p a difficult target line. You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line. 
+Use the Reverse parameter when a difficult target line precedes an easy-to-match line. You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line. 
 
 **Config**
 

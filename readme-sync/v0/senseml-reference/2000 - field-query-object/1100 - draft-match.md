@@ -18,7 +18,9 @@ See the following sections for more information:
 - [First match](doc:anchor#first-match)
 - [Any match](doc:match#any-match)
 
-- 
+[**Examples**](doc:match#examples)
+
+- [Match arrays](doc:match#match-arrays) 
 
 
 
