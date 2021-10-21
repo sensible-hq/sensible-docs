@@ -224,5 +224,3 @@ This example creates an Anchor line using the last element in the array:
 
 
 
-[](http://afdpqwoeihbznxcvsawasldkgh189asdfasdg34t.com)
-
