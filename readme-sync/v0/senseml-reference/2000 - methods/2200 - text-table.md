@@ -4,7 +4,7 @@ hidden: false
 ---
 Matches tables based on coordinates in inches and returns their collated column contents. Choose anchor text that precedes the table, for example, a table title. 
 
-Use this method when other Table methods can't recognize a table. This method is faster than other Table methods because it doesn't use table recognition. However, it's more limited than other table methods because it relies on strict line alignment within the table. As a result, if a cell has more than one line of text, this method treats each line as its own row. For an example, see the [Examples section](doc:text-table#examples).
+Use this method when other Table methods can't recognize a table. This method's advantage is that it's faster than other Table methods because it doesn't use table recognition. Its disadvantage is that it's more limited than other table methods, because it relies on strict line alignment within the table. As a result, if a cell has more than one line of text, this method treats each line as its own row. For an example, see the [Examples section](doc:text-table#examples).
 
 [**Parameters**](doc:text-table#parameters)
 [**Examples**](doc:text-table#examples)

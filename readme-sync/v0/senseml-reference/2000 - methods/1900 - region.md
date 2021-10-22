@@ -23,7 +23,7 @@ Parameters
 | id                     | value                             | description                                                  |
 | ---------------------- | --------------------------------- | ------------------------------------------------------------ |
 | id (**required**)      | `region`                          |                                                              |
-| start (**required**)   | `above`, `below`, `left`, `right` | Defines the starting point for the extraction region relative to the anchor. For example, `right`  specifies a start point at the middle of the right edge of the anchor, and `below` specifies a start point at the middle of the bottom edge of the anchor. |
+| start (**required**)   | `above`, `below`, `left`, `right` | Defines the starting point for the extraction region relative to the anchor. For example,  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `below` specifies starting at the midpoint of the anchor line's bottom boundary. |
 | offsetX (**required**) | number                            | The horizontal offset in inches from the point defined in the Start parameter to the top left corner of the region.<br/>You can use interactive visual feedback in the Sensible app to determine this number. |
 | offsetY (**required**) | number                            | The vertical offset in inches from the point defined in the Start parameter to the top left corner of the region.<br/>You can use interactive visual feedback in the Sensible app to determine this number. |
 | width (**required**)   | number                            | The width in inches of the region. <br/>You can use interactive visual feedback in the Sensible app to determine this number. |
