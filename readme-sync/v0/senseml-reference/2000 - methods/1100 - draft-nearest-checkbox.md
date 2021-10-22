@@ -51,7 +51,7 @@ The following image shows the example PDF used with this example config:
 
 ```json
 
-}
+
 ```
 
 
