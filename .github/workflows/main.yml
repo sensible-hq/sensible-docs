@@ -1,4 +1,4 @@
-name: Linting
+name: Linting and link checking
 on: [push]
 
 jobs:
@@ -25,3 +25,34 @@ jobs:
       env:
         # Required
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  # check-links:
+  #     name: Check links
+
+  #     runs-on: ubuntu-latest
+
+  #     steps:
+  #       - name: Checkout 🛎️
+  #         uses: actions/checkout@v2
+
+  #       - name: Set up Ruby 💎
+  #         uses: ruby/setup-ruby@v1
+  #         with:
+  #           ruby-version: '2.7'
+  #           bundler-cache: true
+
+  #       - name: Install HTML Proofer 🔧
+  #         run: gem install html-proofer
+
+  #       - name: Build 🏗
+  #         # TODO  https://michaelcurrin.github.io/code-cookbook/recipes/ci-cd/github-actions/workflows/check-links/html-proofer-generic.html 
+  #         # run: bundle exec jekyll build --trace
+  #         # TODO: Supply your own build command for the Build step. And point the proofer tool at your build output directory, like build or out.
+            # TODO: can i just run ../check_links/check_links.rb ??? might have to break it up a bit? 
+  #       - name: Check for broken links 🧐🔗
+  #         run: htmlproofer --log-level :debug _site 2> links.log
+
+  #       - name: Archive checker log 🗄
+  #         uses: actions/upload-artifact@v1
+  #         with:
+  #           name: links-check.log
+  #           path: links.log   
