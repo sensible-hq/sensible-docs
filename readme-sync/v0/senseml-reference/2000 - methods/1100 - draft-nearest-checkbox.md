@@ -26,43 +26,12 @@ Parameters
 Examples
 ====
 
-The following example shows extracting three checkboxes:
+The following example shows extracting TBD:
 
 **Config**
 
 ```json
-{
-  "fields": [
-    {
-      "id": "checkbox_left",
-      "anchor": "checkbox",
-      "method": {
-        "id": "checkbox",
-        "position": "left"
-      }
-    },
-    {
-      "id": "checkbox_below",
-      "anchor": "below",
-      "method": {
-        "id": "checkbox",
-        "position": "left",
-        "offsetY": 0.3,
-        "offsetX": 0.3
-      }
-    },
-    {
-      "id": "checkbox_dark",
-      "anchor": "dark",
-      "method": {
-        "id": "checkbox",
-        "position": "right",
-        "darknessThreshold": 0.4,
-        "offsetX": 0.8
-      }
-    }
-  ]
-}
+
 ```
 
 **PDF**
@@ -70,9 +39,9 @@ The following image shows the example PDF used with this example config:
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/checkbox.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/nearestcheckbox.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/checkbox.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nearestcheckbox.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 
@@ -81,19 +50,7 @@ The following image shows the example PDF used with this example config:
 **Output**
 
 ```json
-{
-  "checkbox_left": {
-    "type": "boolean",
-    "value": true
-  },
-  "checkbox_below": {
-    "type": "boolean",
-    "value": true
-  },
-  "checkbox_dark": {
-    "type": "boolean",
-    "value": true
-  }
+
 }
 ```
 
