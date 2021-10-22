@@ -4,7 +4,7 @@ hidden: true
 ---
 Searches for the checkbox nearest to the anchor in any direction, and returns a boolean indicating if it is selected or unselected. 
 
-Use this method when the Checkbox method can't recognize a checkbox. The advantage of the Nearest Checkbox method is that it is more flexible and requires less configuration. The disadvantage is that is slower than the Checkbox method. 
+Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it is more flexible, requires less configuration, and can sometimes recognize a selection mark when the Checkbox method can't. The disadvantage is that is slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
 
 
 
@@ -18,7 +18,7 @@ Parameters
 
 | key                     | values                       | description                                                  |
 | ----------------------- | ---------------------------- | ------------------------------------------------------------ |
-| id (**required**)       | `nearestCheckbox`            | Sensible returns true if the selection mark is a checkmark, "Y", or "X" character.  Sensible returns false if the selection mark is missing or any other character.  This method can recognize selection marks with discontinuous borders, for example, `{X}`. |
+| id (**required**)       | `nearestCheckbox`            | Sensible returns true if the selection mark is a checkmark, "Y", or "X" character.  Sensible returns false if the selection mark is missing or any other character.  This method can recognize selection marks with discontinuous borders, for example, `{X}`. <br/>Note that the OCR settings you specify for a document type in the Sensible app don't affect this method's OCR settings. |
 | position (**required**) | `left`, `right`              | Defines the starting point for searching for the nearest selection mark. Sensible searches outward from this point in all directions.  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `left` specifies starting at the midpoint of the anchor line's left boundary. |
 | offsetX                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset horizontally from the point defined by the Position parameter. |
 | offsetY                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset vertically from the point defined by the Position parameter. |
