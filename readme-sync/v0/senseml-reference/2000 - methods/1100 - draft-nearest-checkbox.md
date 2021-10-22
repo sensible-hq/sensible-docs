@@ -8,7 +8,7 @@ Use this method as an alterative to the Checkbox method. The advantage of the Ne
 
 
 
-**Parameters** doc:nearest-checkbox#parameters
+**Parameters** doc:nearest-checkbox#parameters TODO: fix link syntax before go-live
 **Examples**doc:nearest-checkbox#examples
 
 Parameters
