@@ -8,8 +8,8 @@ Use this method when the Checkbox method can't recognize a checkbox. The advanta
 
 
 
-[**Parameters**](doc:nearestcheckbox#parameters)
-[**Examples**](doc:nearestcheckbox#examples)
+**Parameters** doc:nearest-checkbox#parameters
+**Examples**doc:nearest-checkbox#examples
 
 Parameters
 =====
