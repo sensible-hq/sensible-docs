@@ -17,7 +17,7 @@ See the following sections for more information:
 - [First match](doc:anchor#first-match)
 - [Any match](doc:match#any-match)
 
-[**Notes**](doc:match#notes)
+[**Match arrays**](doc:match#match-arrays)
 
 
 Match types
@@ -175,8 +175,8 @@ Matches any of an array of Simple or Regex match objects.
 }
 ```
 
-Notes
+Match arrays
 ===
 
-For information about match arrays, see [match arrays](doc:match-arrays).
+You can create complex matching conditions by using any of the preceding match types in an array. For information, see [match arrays](doc:match-arrays).
 
