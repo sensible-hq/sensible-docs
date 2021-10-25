@@ -17,10 +17,8 @@ See the following sections for more information:
 - [First match](doc:anchor#first-match)
 - [Any match](doc:match#any-match)
 
-[**Examples**](doc:match#examples)
+[**Notes**](doc:match#notes)
 
-- [Match arrays](doc:match#match-arrays) 
-- [Reverse match](doc:match#reverse-match)
 
 Match types
 ===
@@ -35,7 +33,7 @@ The following parameters are available to most types of Match objects:
 | ------------- | ----------------------- | ------------------------------------------------------------ |
 | minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
 | maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
-| reverse       | boolean. default: false | Use with match arrays. Don't use with the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Reverse match](doc:match#reverse-match). |
+| reverse       | boolean. default: false | Use with match arrays. Don't use with the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Match arrays](doc:match-arrays#reverse-match). |
 
 
 
@@ -177,119 +175,8 @@ Matches any of an array of Simple or Regex match objects.
 }
 ```
 
+Notes
+===
 
-
-Examples
-====
-
-Match arrays
-----
-
-Sensible creates an anchor using the last element in a Match array if:
-
-- The other array elements precede the last element in order.
-- Each array element targets a separate successive line.
-
-This example creates an Anchor line using the last element in the array:
-
-```json
-{
-  "fields": [
-    {
-      "id": "match_array",
-      "anchor": {
-        "start": "My section heading to start matching on",
-        "end": "My footer text to stop matching on",
-        "includeEnd": true,
-        "match": 
-          [
-            {
-              "type": "includes",
-              "text": "finds anchor if you match this string in a line",
-            },
-            {
-              "type": "includes",
-              "text": "followed by the first occurrence of this string in another line",
-            },
-                          {
-              "type": "includes",
-              "text": "and create an Anchor line out of this last match",
-            },
-          ]      
-      },
-      "method": {
-        "id": "label",
-        "position": "below"
-      }
-    }
-  ]
-}
-```
-
-Reverse match
----
-
-Use the Reverse parameter when a difficult target line precedes an easy-to-match line. You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line. 
-
-**Config**
-
-```json
-{
-  "fields": [
-    {
-      "id": "reverse_example",
-      "anchor": {
-        "match": [
-          {
-            "type": "startsWith",
-            "text": "section header"
-          },
-          {
-            "type": "startsWith",
-            "text": "an unusual line"
-          },
-          {
-            "type": "startsWith",
-            "text": "a common line",
-            "reverse": true
-          }
-        ]
-      },
-      "method": {
-        "id": "label",
-        "position": "below",
-        "textAlignment": "hangingIndent"
-      }
-    }
-  ]
-}
-```
-
-
-
-**PDF**
-
-The following image shows the example PDF used with this example config:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/reverse_1.png)
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/reverse.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
-**Output**
-
-```json
-{
-  "reverse_example": {
-    "type": "string",
-    "value": "Target data"
-  }
-}
-```
-
-**Notes**
-
-Sensible searches for anchor candidates in sequence, and rules out overlapping match arrays. The following image illustrates this behavior for the example config:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/reverse_2.png)
+For information about match arrays, see [match arrays](doc:match-arrays).
 
