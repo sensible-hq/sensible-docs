@@ -5,7 +5,9 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      run: echo "hello world"
+      - run: echo "hello world"
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
 
   prose:
     runs-on: ubuntu-latest
