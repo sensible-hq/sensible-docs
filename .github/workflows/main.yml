@@ -8,6 +8,13 @@ jobs:
       - run: echo "hello world"
       - name: Checkout 🛎️
         uses: actions/checkout@v2
+      - name: Set up Ruby 💎
+        uses: ruby/setup-ruby@v1
+          with:
+            ruby-version: '2.7'
+            bundler-cache: true
+      - name: Install HTML Proofer 🔧
+        run: gem install html-proofer
 
   prose:
     runs-on: ubuntu-latest
