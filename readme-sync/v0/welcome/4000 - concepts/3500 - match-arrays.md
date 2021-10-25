@@ -30,12 +30,12 @@ This example creates an Anchor line using the last element in the array:
               "text": "finds anchor if you match this string in a line",
             },
             {
-              "type": "includes",
-              "text": "followed by the first occurrence of this string in another line",
+              "type": "startsWith",
+              "pattern": "followed by the first occurrence of this string in another line",
             },
                           {
-              "type": "includes",
-              "text": "and create an Anchor line out of this last match",
+              "type": "regex",
+              "text": ".*create an Anchor line out of this last match",
             },
           ]      
       },

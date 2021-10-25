@@ -1,0 +1,49 @@
+---
+title: "Optimizing extraction performance"
+hidden: true
+
+---
+
+To improve extraction performance, you can optimize:
+
+- document performance
+- document type performance
+
+Note that the number of documents you submit has no noticeable effect on processing time. Each document gets its own worker in parallel.
+
+Document performance
+----
+
+
+In an ideal performance scenario, you extract data from digitally generated PDFs using only text-based or coordinate-based Sensible methods, such as Label, Row, Region, Text Table, and Document Range.
+
+In order of slowest to quickest, these factors add seconds to the ideal document processing time:
+
+**Over 10 seconds per document**
+
+| Factor                                     | Notes                                                        |
+| ------------------------------------------ | ------------------------------------------------------------ |
+| Whole-document OCR (for scanned documents) | Sensible takes 10 seconds or more to OCR an entire document. You can speed OCR up for shorter documents (5 pages or fewer) by choosing Sensible's Google OCR option for a document type. |
+| Whole-document table recognition           | Avoid configuring Sensible to search a whole document for tables. Instead, configure a table stop. For examples, see any of the Table [methods](doc:methods). |
+
+ **Under 5 seconds per document**
+
+| Factor                      | Notes                                                        |
+| --------------------------- | ------------------------------------------------------------ |
+| Selective OCR               | Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr). |
+| Selective table recognition | Sensible process tables that include a stop in less than 5 seconds. Or, convert to the faster [Fixed table](doc:fixed-table) method, which skips table recognition. |
+
+ **Under 1 second per document**
+
+Some SenseML methods use pixels, for example to recognize borders. However, pixel recognition requires rendering a PDF page, which can take a couple hundred milliseconds. To improve processing time, use coordinate-based alternatives to these methods. 
+
+| Factor                                           | Notes                                                        |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| Boxes                                            | To improve processing speed, convert the more flexible Box method to the strictly coordinate-based Region method. |
+| Signature, checkbox, image coordinate extraction | There are no alternative methods for signatures, checkboxes, and images. However, see the following section for ways to avoid running these methods except when absolutely necessary. |
+
+Document type performance
+----
+
+
+By default, Sensible runs all the configs in a document type before choosing the best one for a given document. If your document type contains many different configs with computationally expensive methods such as Table or Box, you can improve performance by selectively running and skipping configs.  Use a fingerprint to test whether a document contains matching text before skipping or running a config. For more information, see [fingerprint](doc:fingerprint).
