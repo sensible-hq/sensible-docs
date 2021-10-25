@@ -25,25 +25,25 @@ jobs:
       env:
         # Required
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  # check-links:
-  #     name: Check links
 
-  #     runs-on: ubuntu-latest
+    check_links:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout 🛎️
+          uses: actions/checkout@v2
 
-  #     steps:
-  #       - name: Checkout 🛎️
-  #         uses: actions/checkout@v2
+        - name: Set up Ruby 💎
+          uses: ruby/setup-ruby@v1
+          with:
+            ruby-version: '2.7'
+            bundler-cache: true
 
-  #       - name: Set up Ruby 💎
-  #         uses: ruby/setup-ruby@v1
-  #         with:
-  #           ruby-version: '2.7'
-  #           bundler-cache: true
+        - name: Install HTML Proofer 🔧
+          run: gem install html-proofer
 
-  #       - name: Install HTML Proofer 🔧
-  #         run: gem install html-proofer
-
-  #       - name: Build 🏗
+        - name: hello
+            run: echo "hello world"
+        # - name: Build markdown docs and check links🏗
   #         # TODO  https://michaelcurrin.github.io/code-cookbook/recipes/ci-cd/github-actions/workflows/check-links/html-proofer-generic.html 
   #         # run: bundle exec jekyll build --trace
   #         # TODO: Supply your own build command for the Build step. And point the proofer tool at your build output directory, like build or out.
