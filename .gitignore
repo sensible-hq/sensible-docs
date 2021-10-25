@@ -1,5 +1,6 @@
 .envrc
 logs.csv
 test.sh
+test.yml
 docs.json
 spec.json
