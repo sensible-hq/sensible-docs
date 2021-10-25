@@ -15,16 +15,16 @@ Document performance
 ----
 
 
-In an ideal performance scenario, you extract data from digitally generated PDFs using only text-based or coordinate-based Sensible methods, such as Label, Row, Region, Text Table, and Document Range.
+In an ideal performance scenario, you extract data from digitally generated PDFs using text-based or coordinate-based Sensible methods, such as Label, Row, Region, Text Table, and Document Range.
 
 In order of slowest to quickest, these factors add seconds to the ideal document processing time:
 
 **Over 10 seconds per document**
 
-| Factor                                     | Notes                                                        |
-| ------------------------------------------ | ------------------------------------------------------------ |
-| Whole-document OCR (for scanned documents) | Sensible takes 10 seconds or more to OCR an entire document. You can speed OCR up for shorter documents (5 pages or fewer) by choosing Sensible's Google OCR option for a document type. |
-| Whole-document table recognition           | Avoid configuring Sensible to search a whole document for tables. Instead, configure a table stop. For examples, see any of the Table [methods](doc:methods). |
+| Factor                                   | Notes                                                        |
+| ---------------------------------------- | ------------------------------------------------------------ |
+| Whole-document OCR for scanned documents | Sensible takes 10 seconds or more to OCR an entire document. You can speed OCR up for documents that are 5 pages and shorter by choosing Sensible's Google OCR option for a document type. |
+| Whole-document table recognition         | Avoid configuring Sensible to search a whole document for tables. Instead, configure a table stop. For examples, see any of the Table [methods](doc:methods). |
 
  **Under 5 seconds per document**
 
@@ -35,15 +35,15 @@ In order of slowest to quickest, these factors add seconds to the ideal document
 
  **Under 1 second per document**
 
-Some SenseML methods use pixels, for example to recognize borders. However, pixel recognition requires rendering a PDF page, which can take a couple hundred milliseconds. To improve processing time, use coordinate-based alternatives to these methods. 
+Some Sensible methods use pixels, for example to recognize borders. Pixel recognition requires rendering a PDF page, which can take a couple hundred milliseconds. To improve processing time, use coordinate-based alternatives to these methods. 
 
 | Factor                                           | Notes                                                        |
 | ------------------------------------------------ | ------------------------------------------------------------ |
 | Boxes                                            | To improve processing speed, convert the more flexible Box method to the strictly coordinate-based Region method. |
-| Signature, checkbox, image coordinate extraction | There are no alternative methods for signatures, checkboxes, and images. However, see the following section for ways to avoid running these methods except when absolutely necessary. |
+| Signature, checkbox, image coordinate extraction | These methods have no alternatives methods. However, see the following section for ways to avoid running these methods except when necessary. |
 
 Document type performance
 ----
 
 
-By default, Sensible runs all the configs in a document type before choosing the best one for a given document. If your document type contains many different configs with computationally expensive methods such as Table or Box, you can improve performance by selectively running and skipping configs.  Use a fingerprint to test whether a document contains matching text before skipping or running a config. For more information, see [fingerprint](doc:fingerprint).
+By default, Sensible runs all the configs in a document type before choosing the best one for a given document. If your document type contains configs with computationally expensive methods such as Table or Box, you can improve performance by selectively running and skipping configs.  Use a fingerprint to test whether a document contains matching text before skipping or running a config. For more information, see [fingerprint](doc:fingerprint).
