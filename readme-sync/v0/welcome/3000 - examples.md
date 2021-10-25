@@ -5,7 +5,7 @@ hidden: false
 
 Sensible configuration library
 ====
-For open source SenseML configurations for public use by Sensible, see the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library/).
+To use or to contribute to open source examples of SenseML configurations, see the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library/).
 
 Example code
 ====

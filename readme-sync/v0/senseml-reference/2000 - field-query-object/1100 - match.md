@@ -178,5 +178,5 @@ Matches any of an array of Simple or Regex match objects.
 Match arrays
 ===
 
-You can create complex matching conditions by using any of the preceding match types in an array. For information, see [match arrays](doc:match-arrays).
+You can create complex matches by using any of the preceding match types in an array. For information, see [match arrays](doc:match-arrays).
 
