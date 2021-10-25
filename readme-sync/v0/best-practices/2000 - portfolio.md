@@ -12,13 +12,12 @@ In this case, it's best practice to extract each document using its appropriate 
 
 - Use [Generate upload URL for portfolio](https://docs.sensible.so/reference/generate-an-upload-url-for-a-pdf-portfolio) or [Provide download URL for portfolio](https://docs.sensible.so/reference/provide-a-download-url-for-a-pdf-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes document extractions and their page ranges in the portfolio.
 
-
 **Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Google OCR. 
 
 Examples
 ===
 
-The following example shows extracting three 1-page documents from a portfolio (two car insurance quotes and one loss run).
+The following example shows extracting three 1-page documents from a portfolio. The portfolio contains two car insurance quotes and one loss run.
 
 Config
 ---
