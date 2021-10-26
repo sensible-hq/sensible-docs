@@ -11,7 +11,7 @@ pipeline = HTML::Pipeline.new [
 ], :gfm => true
 
 # iterate over files, and generate HTML from Markdown
-Find.find("../readme-sync/v0/") do |path|
+Find.find("/readme-sync/v0/") do |path|
   if File.extname(path) == ".md"
     contents = File.read(path)
     result = pipeline.call(contents)
