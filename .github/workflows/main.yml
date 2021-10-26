@@ -7,7 +7,6 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "hello world"
       - name: Checkout 🛎️
         uses: actions/checkout@v2 
       - name: Set up Ruby 💎
@@ -16,8 +15,7 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
       - name: Install dependencies 🔧
-      - run: cd ./scripts/check_links/
-      - run: bundle install
+        run: cd ./scripts/check_links/ && bundle install
       - name: Build markdown and check links 🏗  
         run: ruby ./scripts/check_links.rb
   # prose:
