@@ -3,12 +3,12 @@ direnv allow .
 echo "updating from Github"
 git pull
 echo "applying drop shadows to screenshots if any were recently committed"
-# for any PNG that was recently committed in ./readme-sync/assets/v0/images/screenshots, process and write to ./readme-sync/assets/v0/images/final, convert to drop shadow
+# for any PNG that was recently committed in readme-sync/assets/v0/images/screenshots, process and write to ./readme-sync/assets/v0/images/final, convert to drop shadow
 # this saves image processing time and should catch any updates you make to screenshots as long as you're running make_docs regularly
 
-mkdir -p ./readme-sync/assets/v0/images/final
+mkdir -p ../readme-sync/assets/v0/images/final
 
-for file in ./readme-sync/assets/v0/images/screenshots/*.png
+for file in ../readme-sync/assets/v0/images/screenshots/*.png
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
   finalFile="${file/images\/screenshots/images\/final}"
