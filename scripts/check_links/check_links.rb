@@ -2,7 +2,7 @@ require 'html-proofer'
 require 'html/pipeline'
 require 'find'
 
-puts File.expand_path(File.dirname(File.dirname(FILE)))
+puts Dir.pwd
 
 # make an out dir
 Dir.mkdir("out") unless File.exist?("out")
