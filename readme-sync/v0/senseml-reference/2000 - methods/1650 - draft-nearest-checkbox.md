@@ -33,7 +33,43 @@ The following example shows extracting TBD:
 LEFT OFF: TODO: https://dev.sensible.so/editor/?d=frances_test_playground&c=nearest_checkbox&g=sections_blog_bank_statement_chase
 
 ```json
-
+{
+  "fields": [
+    {
+      "id": "checkbox_below",
+      "anchor": "below",
+      "method": {
+        "id": "nearestCheckbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "checkbox_dark",
+      "anchor": "dark",
+      "method": {
+        "id": "nearestCheckbox",
+        "position": "right"
+      }
+    },
+    {
+      "id": "checkbox_no_border",
+      "anchor": "border",
+      "method": {
+        "id": "nearestCheckbox",
+        "position": "right"
+      }
+    },
+    {
+      "id": "checkbox_far",
+      "anchor": "far",
+      "method": {
+        "id": "nearestCheckbox",
+        "position": "left",
+        "offsetX": -2.0
+      }
+    }
+  ]
+}
 ```
 
 **PDF**
@@ -41,9 +77,9 @@ The following image shows the example PDF used with this example config:
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/nearestcheckbox.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main//readme-sync/assets/v0/images/final/nearest_checkbox.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nearestcheckbox.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nearest_checkbox.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 
@@ -52,7 +88,24 @@ The following image shows the example PDF used with this example config:
 **Output**
 
 ```json
-
+{
+  "checkbox_below": {
+    "type": "boolean",
+    "value": true
+  },
+  "checkbox_dark": {
+    "type": "boolean",
+    "value": true
+  },
+  "checkbox_no_border": {
+    "type": "boolean",
+    "value": true
+  },
+  "checkbox_far": {
+    "type": "boolean",
+    "value": false
+  }
+}
 
 ```
 
