@@ -2,9 +2,9 @@
 title: "Nearest checkbox"
 hidden: true
 ---
-Searches for the checkbox nearest to the anchor in any direction, and returns a boolean indicating if it is selected or unselected. 
+Searches for the checkbox nearest to the anchor in any direction, and returns a boolean indicating if it's selected or unselected. 
 
-Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it is more flexible, requires less configuration, and recognizes a wider range of checkbox formats. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
+Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it's more flexible, requires less configuration, and recognizes a wider range of checkbox formats. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
 
 
 
@@ -18,7 +18,7 @@ Parameters
 
 | key                     | values                       | description                                                  |
 | ----------------------- | ---------------------------- | ------------------------------------------------------------ |
-| id (**required**)       | `nearestCheckbox`            | Sensible returns true if the checkbox is selected and false if the checkbox is not selected. This method uses Azure Form Recognizer’s checkbox detection. This detection uses OCR and machine learning and captures a wide range of checkbox formats. |
+| id (**required**)       | `nearestCheckbox`            | Sensible returns true for selected checkboxes and false for unselected checkboxes. This method uses Azure Form Recognizer’s checkbox detection. This detection uses OCR and machine learning and captures a wide range of checkbox formats. |
 | position (**required**) | `left`, `right`              | Defines the starting point for searching for the nearest selection mark. Sensible searches outward from this point in all directions.  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `left` specifies starting at the midpoint of the anchor line's left boundary. |
 | offsetX                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset horizontally from the point defined by the Position parameter. |
 | offsetY                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset vertically from the point defined by the Position parameter. |
@@ -26,7 +26,7 @@ Parameters
 Examples
 ====
 
-The following example shows extracting the checkboxes that are nearest to the specified position:
+The following example shows extracting the checkboxes that are nearest to their respective anchors:
 
 ```json
 {
