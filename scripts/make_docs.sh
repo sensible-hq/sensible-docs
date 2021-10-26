@@ -3,12 +3,13 @@ direnv allow .
 echo "updating from Github"
 git pull
 echo "applying drop shadows to screenshots if any were recently committed"
-# for any PNG that was recently committed in readme-sync/assets/v0/images/screenshots, process and write to ./readme-sync/assets/v0/images/final, convert to drop shadow
+# for any PNG that was recently committed in ./readme-sync/assets/v0/images/screenshots, process and write to ./readme-sync/assets/v0/images/final, convert to drop shadow
 # this saves image processing time and should catch any updates you make to screenshots as long as you're running make_docs regularly
 
-mkdir -p ../readme-sync/assets/v0/images/final
 
-for file in ../readme-sync/assets/v0/images/screenshots/*.png
+mkdir -p ./readme-sync/assets/v0/images/final
+
+for file in ./readme-sync/assets/v0/images/screenshots/*.png
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
   finalFile="${file/images\/screenshots/images\/final}"
@@ -30,7 +31,7 @@ echo "syncing to Readme "
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
 
-# if there are local uncommitted changes, commit them (for example as output of imagemagick)
+# if there are local uncommitted changes, commit them. for example as output of imagemagick.
 # https://newbedev.com/checking-for-a-dirty-index-or-untracked-files-with-git
 git ls-files --others --error-unmatch . >/dev/null 2>&1; ec=$?
 if test "$ec" = 0; then
