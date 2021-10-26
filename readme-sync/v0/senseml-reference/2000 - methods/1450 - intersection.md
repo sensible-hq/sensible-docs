@@ -4,7 +4,7 @@ hidden: false
 ---
 Extracts a target line at the intersection of a horizontal line defined by an anchor, and a vertical line defined by a second anchor:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_1.png)
 
 For example, the Intersection method is an alternative to the Row method when a table contains empty cells. (A row's tiebreaker, like "second", can return lines from unintended columns if there are empty cells).
 
@@ -50,7 +50,7 @@ The following example shows using the Intersection method to extract a cell from
 
 The following image shows the example PDF used with this example config:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_2.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/intersection.pdf) |
 | ----------- | ------------------------------------------------------------ |
