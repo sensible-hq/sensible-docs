@@ -4,7 +4,7 @@ hidden: true
 ---
 Searches for the checkbox nearest to the anchor in any direction, and returns a boolean indicating if it is selected or unselected. 
 
-Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it is more flexible, requires less configuration, and can sometimes recognize a selection mark when the Checkbox method can't. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
+Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it is more flexible, requires less configuration, and recognizes a wider range of checkbox formats. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
 
 
 
@@ -18,7 +18,7 @@ Parameters
 
 | key                     | values                       | description                                                  |
 | ----------------------- | ---------------------------- | ------------------------------------------------------------ |
-| id (**required**)       | `nearestCheckbox`            | Sensible returns true if it finds a selection if the selection mark is a checkmark, "Y", or "X" character.  Sensible returns false if the selection mark is missing or any other character.  This method can recognize selection marks with discontinuous borders, for example, `{X}`. <br/>Note that the OCR settings you specify for a document type in the Sensible app don't affect this method's use of OCR. |
+| id (**required**)       | `nearestCheckbox`            | Sensible returns true if the checkbox is selected and false if the checkbox is not selected. This method uses Azure Form Recognizer’s checkbox detection. This detection uses OCR and machine learning and captures a wide range of checkbox formats. |
 | position (**required**) | `left`, `right`              | Defines the starting point for searching for the nearest selection mark. Sensible searches outward from this point in all directions.  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `left` specifies starting at the midpoint of the anchor line's left boundary. |
 | offsetX                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset horizontally from the point defined by the Position parameter. |
 | offsetY                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset vertically from the point defined by the Position parameter. |
@@ -26,26 +26,22 @@ Parameters
 Examples
 ====
 
-The following example shows extracting TBD:
-
-
-
-LEFT OFF: TODO: https://dev.sensible.so/editor/?d=frances_test_playground&c=nearest_checkbox&g=sections_blog_bank_statement_chase
+The following example shows extracting the checkboxes that are nearest to the specified position:
 
 ```json
 {
   "fields": [
     {
-      "id": "checkbox_below",
-      "anchor": "below",
+      "id": "checkbox_right",
+      "anchor": "checkbox",
       "method": {
         "id": "nearestCheckbox",
-        "position": "left"
+        "position": "right"
       }
     },
     {
-      "id": "checkbox_dark",
-      "anchor": "dark",
+      "id": "checkbox_below",
+      "anchor": "below",
       "method": {
         "id": "nearestCheckbox",
         "position": "right"
@@ -65,7 +61,7 @@ LEFT OFF: TODO: https://dev.sensible.so/editor/?d=frances_test_playground&c=near
       "method": {
         "id": "nearestCheckbox",
         "position": "left",
-        "offsetX": -2.0
+        "offsetX": -2
       }
     }
   ]
@@ -89,13 +85,13 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "checkbox_below": {
+  "checkbox_right": {
     "type": "boolean",
     "value": true
   },
-  "checkbox_dark": {
+  "checkbox_below": {
     "type": "boolean",
-    "value": true
+    "value": false
   },
   "checkbox_no_border": {
     "type": "boolean",
@@ -106,7 +102,6 @@ The following image shows the example PDF used with this example config:
     "value": false
   }
 }
-
 ```
 
 
