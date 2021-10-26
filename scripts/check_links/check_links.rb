@@ -11,12 +11,13 @@ pipeline = HTML::Pipeline.new [
 ], :gfm => true
 
 # iterate over files, and generate HTML from Markdown
-# ignore files prefixed with "draft" in the filename since those links aren't yet live
 Find.find("./readme-sync/v0") do |path| 
-  if File.extname(path) == ".md" && !File.basename.start_with?("draft") 
+  if File.extname(path) == ".md" 
     contents = File.read(path)
-    result = pipeline.call(contents)
-    File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
+    # only check published files, ignore "hidden: true" flies
+    if contents.match(/hidden\:\s*false/)  
+      result = pipeline.call(contents)
+      File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
   end
 end
 
