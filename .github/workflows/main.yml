@@ -1,5 +1,6 @@
 name: Linting and link checking
 on: [push]
+  branches: [ main ]
 
 jobs:
   check-links:
@@ -13,10 +14,8 @@ jobs:
         with:
           ruby-version: '2.7'
           bundler-cache: true
-      - name: Install HTML Proofer 🔧
-        run: gem install html-proofer
-      - name: Install HTML Pipeline 🔧
-        run: gem install html-pipeline 
+      - name: Install dependencies 🔧
+        run: bundle install
       - name: Build markdown and check links 🏗  
         run: ruby ./scripts/check_links.rb
   # prose:
