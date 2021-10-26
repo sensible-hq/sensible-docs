@@ -2,9 +2,6 @@ require 'html-proofer'
 require 'html/pipeline'
 require 'find'
 
-#puts "current dir:"
-#puts Dir.pwd
-
 # make an out dir
 Dir.mkdir("out") unless File.exist?("out")
 
@@ -14,11 +11,11 @@ pipeline = HTML::Pipeline.new [
 ], :gfm => true
 
 # iterate over files, and generate HTML from Markdown
-Find.find("./readme-sync/v0") do |path|
-  if File.extname(path) == ".md"
+# ignore files prefixed with "draft" in the filename since those links aren't yet live
+Find.find("./readme-sync/v0") do |path| 
+  if File.extname(path) == ".md" && !File.basename.start_with?("draft") 
     contents = File.read(path)
     result = pipeline.call(contents)
-
     File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
   end
 end
