@@ -15,7 +15,10 @@ jobs:
           bundler-cache: true
       - name: Install HTML Proofer 🔧
         run: gem install html-proofer
-
+      - name: Install HTML Pipeline 🔧
+        run: gem install html-pipeline 
+      - name: Build markdown and check links 🏗  
+        run: ruby ../checklinks.rb
   prose:
     runs-on: ubuntu-latest
     steps:

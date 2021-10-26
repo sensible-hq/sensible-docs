@@ -20,5 +20,5 @@ Find.find("../readme-sync/v0/") do |path|
   end
 end
 
-# test your out dir!
+# test your out dir's links!
 HTMLProofer.check_directory("./out").run
