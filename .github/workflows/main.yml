@@ -18,7 +18,7 @@ jobs:
       - name: Install HTML Pipeline 🔧
         run: gem install html-pipeline 
       - name: Build markdown and check links 🏗  
-        run: ruby ../scripts/check_links.rb
+        run: ruby ../../scripts/check_links.rb
   prose:
     runs-on: ubuntu-latest
     steps:
