@@ -7,7 +7,7 @@ Extracts data from a document that contains complex or repeated elements ("secti
 
 Sensible returns an array of objects corresponding to the sections. The following image shows an example of a document containing repeated "claims" sections:
 
-![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_1.png)
 
 For the preceding example, you can configure Sensible to return an `unprocessed_claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, etc. 
 
