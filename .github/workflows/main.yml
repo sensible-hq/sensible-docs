@@ -1,6 +1,7 @@
-name: Linting and link checking
-on: [push]
-  branches: [ main ]
+name: Linting and link checking jobs
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   check-links:
