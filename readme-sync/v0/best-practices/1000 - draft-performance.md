@@ -4,6 +4,10 @@ hidden: true
 
 ---
 
+
+
+**TODO/QUESTION FOR REVIEW** - where does NearestCheckbox fit in this? "under 5 seconds"? That jives with my experience; I did notice it took seconds when testing.
+
 To improve extraction performance, you can optimize:
 
 - document performance
