@@ -16,8 +16,8 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
       - name: Install dependencies 🔧
-        run: cd ./scripts/check_links/
-        run: bundle install
+      - run: cd ./scripts/check_links/
+      - run: bundle install
       - name: Build markdown and check links 🏗  
         run: ruby ./scripts/check_links.rb
   # prose:
