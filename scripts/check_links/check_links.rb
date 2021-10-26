@@ -14,10 +14,11 @@ pipeline = HTML::Pipeline.new [
 Find.find("./readme-sync/v0") do |path| 
   if File.extname(path) == ".md" 
     contents = File.read(path)
-    # only check published files, ignore "hidden: true" flies
+    # only check published files ("hidden: false")
     if contents.match(/hidden\:\s*false/)  
       result = pipeline.call(contents)
       File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
+    end  
   end
 end
 
