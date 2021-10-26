@@ -4,7 +4,7 @@ hidden: true
 ---
 Searches for the checkbox nearest to the anchor in any direction, and returns a boolean indicating if it is selected or unselected. 
 
-Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it is more flexible, requires less configuration, and can sometimes recognize a selection mark when the Checkbox method can't. The disadvantage is that is slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
+Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it is more flexible, requires less configuration, and can sometimes recognize a selection mark when the Checkbox method can't. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
 
 
 
@@ -28,7 +28,9 @@ Examples
 
 The following example shows extracting TBD:
 
-**Config**
+
+
+LEFT OFF: TODO: https://dev.sensible.so/editor/?d=frances_test_playground&c=nearest_checkbox&g=sections_blog_bank_statement_chase
 
 ```json
 
