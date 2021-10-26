@@ -1,6 +1,6 @@
 ---
 title: "Nearest checkbox"
-hidden: true
+hidden: false
 ---
 Searches for the checkbox nearest to the anchor in any direction, and returns a boolean indicating if it's selected or unselected. 
 
@@ -8,8 +8,8 @@ Use this method as an alterative to the Checkbox method. The advantage of the Ne
 
 
 
-**Parameters** doc:nearest-checkbox#parameters TODO: fix link syntax before go-live
-**Examples**doc:nearest-checkbox#examples
+[**Parameters**](doc:nearest-checkbox#parameters)
+[**Examples**](doc:nearest-checkbox#examples)
 
 Parameters
 =====
