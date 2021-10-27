@@ -13,6 +13,7 @@ This topic describes the color-coded symbols in the Sensible app that visually r
 | [Green point](doc:ui-guide#green-point)           | starting point for recognizing a box |
 | [Light box](doc:ui-guide#light-blue-box)          | discarded method data                |
 | [Light yellow box](doc:ui-guide#light-yellow-box) | discarded anchor data                |
+| [Pink box](doc:ui-guide#pink-box)                 | fingerprint                          |
 | [Purple box](doc:ui-guide#purple-box)             | line details                         |
 
 Yellow box
@@ -169,6 +170,31 @@ Common parameters resulting in filtering include:
 
 
 
+Pink box
+====
+***Pink boxes*** represent matching fingerprint tests.  
+In the following image, the pink text is a matching fingerprint. 
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_fingerprint.png)
+
+The query used for the preceding image is:
+
+```json
+fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "text": "anyco auto insurance",
+            "type": "startsWith"
+          }
+        ]
+      }
+    ]
+  
+```
 
 
 Purple box
