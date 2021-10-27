@@ -11,7 +11,7 @@ Parameters
 
 | key       | value              | description                                                 |
 | :-------- | :----------------- | :---------------------------------------------------------- |
-| id        | `supressOutput`    |                                                             |
+| id        | `suppressOutput`   |                                                             |
 | source_id | array of field ids | The id of the fields to exclude from the extraction output. |
 
 The following example shows suppressing a raw "driver's name" field and outputting only the computed split field with the last name.
