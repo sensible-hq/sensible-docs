@@ -6,10 +6,10 @@ Test for matching text in a document to determine whether it's a good fit for a 
 
 Types of fingerprints:
 
-| fingerprints for:    | notes                                                        |
-| -------------------- | ------------------------------------------------------------ |
-| standalone documents | Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. |
-| portfolio documents  | Handle PDF portfolios (multiple documents combined into one PDF) by testing for text that characterizes starting, ending, or every page for documents in the portfolio. For more information, see [Document portfolios](doc:portfolio). |
+| fingerprints for:                                            | notes                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| standalone documents TODO: link fingerprints-for-standalone-documents | Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. |
+| portfolio documents TODO: link fingerprints-for-portfolio-documents | Handle PDF portfolios (multiple documents combined into one PDF) by testing for text that characterizes starting, ending, or every page for documents in the portfolio. For more information, see [Document portfolios](doc:portfolio). |
 
 
 
