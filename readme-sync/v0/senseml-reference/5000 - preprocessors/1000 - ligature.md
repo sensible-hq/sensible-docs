@@ -25,11 +25,14 @@ This config shows using a Ligature preprocessor and outputting the whole documen
     {
       "type": "ligature",
       "mappings": {
-        "\u0013": [
-          "gg"
+        "\u0000": [
+          "ff",
+          "fi",
+          "fl"
         ],
-        ",": [
-          "fi"
+        "\u0001": [
+          "ti",
+          "tl"
         ]
       }
     }

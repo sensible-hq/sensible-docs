@@ -1,0 +1,67 @@
+---
+title: "Ligature"
+hidden: true
+---
+
+
+Intelligently replaces Unicode [ligatures](doc:ligatures) in a PDF text extraction. 
+
+Parameters
+----
+
+| key                       | value   | description                                                      |
+| ------------------------- | ------ | ------------------------------------------------------------ |
+| `type` (**required**)     | `ligature` |                                                    |
+| `mappings` (**required**) | object | An object mapping ligature strings (for example, `"\u0000"`) to an array of possible ligature replacements (for example, `["ff", "ffi", "fi", "fl"]`). Sensible uses a dictionary in the target language to choose replacements that lead to known words. Sensible supports American English (en-us). In details, Sensible identifies words with ligatures, checks every possible replacement in the array for that word against an English dictionary, and chooses the first word that it's on dictionary. If there is no combination that matches a word on dictionary, Sensible leaves the ligature. This approach is conservative and may leave some Unicode characters in proper names or other non-word data.</br> |
+| conservative | true | If false, specifies to bypass the diciontary lookup and always replace a ligature with the first replacement listed in the mappings array.  This is useful in situations where:<br/>- There is always a 1:1 relationship between ligatures and characters (i.e., "fi" always replaces ""\u0000").  In this case, you're saving a bit of processing and writing clearer SenseML.<br/>- The words containing ligatures are not in the en-us dictionary (i.e., they are in another language or are unusual words). |
+
+
+
+Examples
+----
+
+This config shows using a Ligature preprocessor and outputting the whole document to check the ligature replacement accuracy: 
+
+```
+{
+  "preprocessors": [
+    {
+      "type": "ligature",
+      "mappings": {
+        "\u0000": [
+          "ff",
+          "fi",
+          "fl"
+        ],
+        "\u0001": [
+          "ti",
+          "tl"
+        ]
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "all_lines_in_doc",
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true
+      },
+      "anchor": {
+        "match": {
+          "type": "first"
+        }
+      }
+    }
+  ]
+}
+```
+
+
+
+
+
+
+
+
+
