@@ -46,4 +46,4 @@ Document type performance
 ----
 
 
-By default, Sensible runs all the configs in a document type before choosing the best one for a given document. If your document type contains configs with computationally expensive methods such as Table or Box, you can improve performance by selectively running and skipping configs.  Use fingerprints to test whether a document contains matching text before skipping or running a config. For more information, see [fingerprint](doc:fingerprint).
+By default, Sensible runs all the configs in a document type before choosing the best one for a given document. If your document type contains configs with computationally expensive methods such as Table or Box, you can improve performance by selectively running and skipping configs.  Use fingerprints to test whether documents contain matching text before skipping or running configs. For more information, see [fingerprint](doc:fingerprint).
