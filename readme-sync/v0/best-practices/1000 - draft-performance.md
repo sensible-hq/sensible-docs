@@ -1,10 +1,8 @@
 ---
 title: "Optimizing extraction performance"
-hidden: true
+hidden: false
 
 ---
-
-
 
 To improve extraction performance, you can optimize:
 
@@ -39,10 +37,10 @@ In order of slowest to quickest, these factors add seconds to the ideal document
 
 Some Sensible methods use pixels, for example to recognize borders. Pixel recognition requires rendering a PDF page, which can take a couple hundred milliseconds. To improve processing time, use coordinate-based alternatives to these methods. 
 
-| Factor                                                      | Notes                                                        |
-| ----------------------------------------------------------- | ------------------------------------------------------------ |
-| Box method                                                  | To improve processing speed, convert the more flexible Box method to the strictly coordinate-based Region method. |
-| Signature, Checkbox methods and image coordinate extraction | These methods have no alternatives methods. However, see the following section for ways to avoid running these methods except when necessary. |
+| Factor                                                       | Notes                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Box method                                                   | To improve processing speed, convert the more flexible Box method to the strictly coordinate-based Region method. |
+| Signature method, Checkbox method, and image coordinate extraction | These methods have no alternatives. See the following section for ways to avoid running these methods except when necessary. |
 
 Document type performance
 ----
