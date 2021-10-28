@@ -196,7 +196,7 @@ fingerprint": {
   
 ```
 
-**Note** The pink highlighting for fingerprint text isn't compatible with preprocessors that change line indices,  such as Split Lines, Merge Lines.
+**Note** The pink highlighting for fingerprint text isn't compatible with preprocessors that change line indices, such as Split Lines and Merge Lines.
 
 Purple box
 ====

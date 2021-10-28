@@ -2,14 +2,12 @@
 title: "Fingerprint"
 hidden: true
 ---
-Test for matching text in a document to determine whether it's a good fit for a config or not.  There are two types of fingerprints, one for standalone documents, and one for segmenting PDF portfolios into separate documents. If you use a config for both  "portfolio" and "standalone" versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint.
-
-Types of fingerprints:
+Fingerprints test for matching text in a document to determine whether it's a good fit for a config or not.  There are two types of fingerprints, one for standalone documents, and one for segmenting PDF portfolios into separate documents. If you use a config for both  "portfolio" and "standalone" versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint.
 
 | fingerprints for:                                            | notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | standalone documents TODO: link fingerprints-for-standalone-documents | Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. |
-| portfolio documents TODO: link fingerprints-for-portfolio-documents | Handle PDF portfolios (multiple documents combined into one PDF) by testing for text that characterizes starting, ending, or every page for documents in the portfolio. For more information, see [Document portfolios](doc:portfolio). |
+| portfolio documents TODO: link fingerprints-for-portfolio-documents | Segment PDF portfolios (multiple documents combined into one PDF) into standalone documents by testing for text that characterizes starting, ending, or every page for documents in the portfolio. For more information, see [Document portfolios](doc:portfolio). |
 
 
 
@@ -18,7 +16,9 @@ Fingerprints for standalone documents
 
 **Parameters**
 
-A fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects. For more information, see [Match object](doc:match). Behind the scenes, Sensible automatically expands this syntax to the portfolio fingerprints' syntax using `"page":"any"`. 
+A fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects. For more information, see [Match object](doc:match).
+
+ Behind the scenes, Sensible automatically expands this syntax to the syntax for portfolio fingerprints syntax using `"page":"any"`. 
 
 **Examples**
 
