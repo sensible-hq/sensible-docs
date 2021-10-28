@@ -31,11 +31,11 @@ This example creates an Anchor line using the last element in the array:
             },
             {
               "type": "startsWith",
-              "pattern": "followed by the first occurrence of this string in another line",
+              "text": "followed by the first occurrence of this string in another line",
             },
                           {
               "type": "regex",
-              "text": ".*create an Anchor line out of this last match",
+              "pattern": ".*create an Anchor line out of this last match",
             },
           ]      
       },

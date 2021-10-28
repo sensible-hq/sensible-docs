@@ -6,7 +6,7 @@ Matches tables based on bag-of-words scoring and returns their collated column c
 
 **Use**
 
-- Use the Table method for tables in the same document type that have a variable column formatting.
+- Use the Table method for tables that have variable column formatting.
 
 **Requirements**
 

@@ -9,7 +9,7 @@ To improve extraction performance, you can optimize:
 - document performance
 - document type performance
 
-Note that the number of documents you submit has no noticeable effect on performance. Each document gets its own worker in parallel.
+Note that the number of documents you submit for extraction has no noticeable effect on performance. Each document gets its own worker in parallel.
 
 Document performance
 ----

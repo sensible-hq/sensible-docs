@@ -11,10 +11,10 @@ See the following sections for more information:
 
 [**Match types**](doc:match#match-types)
 
-- [Global parameters](doc:anchor#global-parameters)
-- [Simple match](doc:anchor#simple-match)
-- [Regex match](doc:anchor#regex-match)
-- [First match](doc:anchor#first-match)
+- [Global parameters](doc:match#global-parameters)
+- [Simple match](doc:match#simple-match)
+- [Regex match](doc:match#regex-match)
+- [First match](doc:match#first-match)
 - [Any match](doc:match#any-match)
 
 [**Match arrays**](doc:match#match-arrays)
