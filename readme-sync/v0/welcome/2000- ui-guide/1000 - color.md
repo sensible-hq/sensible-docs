@@ -7,14 +7,14 @@ This topic describes the color-coded symbols in the Sensible app that visually r
 
 | Symbol                                            | Represents                           |
 | ------------------------------------------------- | ------------------------------------ |
-| [Yellow box](doc:ui-guide#yellow-box)             | anchor                               |
-| [Blue box](doc:ui-guide#blue-box)                 | captured method data                 |
-| [Green box](doc:ui-guide#green-box)               | box or region                        |
-| [Green point](doc:ui-guide#green-point)           | starting point for recognizing a box |
-| [Light box](doc:ui-guide#light-blue-box)          | discarded method data                |
-| [Light yellow box](doc:ui-guide#light-yellow-box) | discarded anchor data                |
-| [Pink box](doc:ui-guide#pink-box)                 | fingerprint                          |
-| [Purple box](doc:ui-guide#purple-box)             | line details                         |
+| [Yellow box](doc:color#yellow-box)             | anchor                               |
+| [Blue box](doc:color#blue-box)                 | captured method data                 |
+| [Green box](doc:color#green-box)               | box or region                        |
+| [Green point](doc:color#green-point)           | starting point for recognizing a box |
+| [Light box](doc:color#light-blue-box)          | discarded method data                |
+| [Light yellow box](doc:color#light-yellow-box) | discarded anchor data                |
+| [Pink box](doc:color#pink-box)                 | fingerprint                          |
+| [Purple box](doc:color#purple-box)             | line details                         |
 
 Yellow box
 ====

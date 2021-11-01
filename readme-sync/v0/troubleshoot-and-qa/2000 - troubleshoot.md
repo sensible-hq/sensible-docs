@@ -49,7 +49,7 @@ You can inspect a line to see:
 Inspect SenseML
 -----
 
-The Sensible app visually represents SenseML queries in rendered PDFs using colored symbols. For more information, see [UI guide](doc:ui-guide).
+The Sensible app visually represents SenseML queries in rendered PDFs using colored symbols. For more information, see [UI guide](doc:color).
 
 Lint SenseML
 ----
