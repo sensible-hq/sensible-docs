@@ -1,10 +1,10 @@
 ---
-title: "UI guide"
+title: "App guide"
 hidden: false
 ---
 
-See the following topics for UI guides:
+See the following topics for guides to the Sensible web app:
 
-- [SenseML color coding](doc:color)
+- [SenseML color coding](doc:highlight)
 - [UI overview](doc:ui)
 
