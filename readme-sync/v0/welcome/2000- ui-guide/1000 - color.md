@@ -1,5 +1,5 @@
 ---
-title: "SenseML color coding"
+title: "Color coding"
 hidden: false
 ---
 
