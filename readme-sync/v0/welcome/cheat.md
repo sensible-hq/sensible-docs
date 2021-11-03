@@ -35,7 +35,7 @@ Check out the answers and explanations:
       "type": "table",
       "method": {
         "id": "fixedTable",
-        "columnCount": 6,
+        "columnCount": 7,
         "columns": [
           {
             "id": "column_in_table",
@@ -43,7 +43,7 @@ Check out the answers and explanations:
           },
           {
             "id": "another_column",
-            "index": 4,
+            "index": 5,
             "type": "percentage"
           }
         ],
@@ -81,7 +81,7 @@ TBD explanations
       "type": "table",
       "method": {
         "id": "fixedTable",
-        "columnCount": 6,
+        "columnCount": 7,
         "columns": [
           {
             "id": "column_in_table",
@@ -89,7 +89,7 @@ TBD explanations
           },
           {
             "id": "another_column",
-            "index": 4,
+            "index": 5,
             "type": "phoneNumber"
           }
         ],
