@@ -49,7 +49,7 @@ Check out the answers and explanations:
         ],
         "stop": {
           "type": "startsWith",
-          "text": "try it out"
+          "text": "mix it up"
         }
       }
     }
@@ -95,7 +95,7 @@ TBD explanations
         ],
         "stop": {
           "type": "startsWith",
-          "text": "try it out"
+          "text": "mix it up"
         }
       }
     }
@@ -141,7 +141,7 @@ TBD explanations
         ],
         "stop": {
           "type": "startsWith",
-          "text": "try it out"
+          "text": "challenges"
         }
       }
     }
