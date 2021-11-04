@@ -5,7 +5,7 @@ hidden: false
 Test for matching text in a document to determine whether it's a good fit for a config or not. Use these test to:
 
 - Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. 
-- Handle PDF portfolios (multiple documents combined into one PDF) by testing for text that characterizes certain pages for documents in the package. For more information, see [Document portfolios](doc:portfolio).
+- Handle PDF portfolios (multiple documents combined into one PDF) by testing for text that characterizes specified pages for documents in the package. For more information, see [Document portfolios](doc:portfolio).
 
 Parameters
 ====
