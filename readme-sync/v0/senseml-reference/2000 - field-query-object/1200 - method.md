@@ -40,7 +40,7 @@ In the following example, the handwritten text "Nash" is slightly taller than th
 
 **SOLUTION**
 
-To reliably capture the first and last name in their left-to-right order,  set `"sortLines":"true"`.
+To reliably capture the first and last name in their left-to-right order,  set `"sortLines": "readingOrderLeftToRight"`.
 
 *Config*
 
