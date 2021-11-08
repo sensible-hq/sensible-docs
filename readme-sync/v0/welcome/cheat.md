@@ -6,10 +6,12 @@ hidden: true
 
 THIS IS A DRAFT, needs polish! 
 
-
+TODO: add TOC
 
 If you landed on this page, you got a bit stumped by our in-app tutorial at <TBD URL..linking possible?>.
 
+Part 2
+===
 
 
 Check out the answers and explanations:
@@ -150,3 +152,185 @@ TBD explanations
 
 ```
 
+
+
+Part 3
+====
+
+Starting state
+---
+
+**TBD explanation**
+
+```json
+{
+  "fields": [
+    {
+      "id": "preference_monday_oatmeal",
+      "anchor": {
+        "match": [
+          {
+            "type": "includes",
+            "text": "monday"
+          },
+          {
+            "type": "includes",
+            "text": "oatmeal"
+          }
+        ]
+      },
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "preference_wed_oatmeal",
+      "anchor": {
+        "match": [
+          {
+            "type": "includes",
+            "text": "wednesday"
+          },
+          {
+            "type": "includes",
+            "text": "oatmeal"
+          }
+        ]
+      },
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "disclaimer_paragraph",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "please note"
+        }
+      },
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true,
+        "stop": {
+          "type": "startsWith",
+          "text": "try it out"
+        }
+      },
+      "type": "paragraph"
+    }
+  ]
+}
+```
+
+
+
+After Try it Out
+---
+
+```json
+{
+  "fields": [
+    {
+      "id": "preference_monday_oatmeal",
+      "anchor": {
+        "match": [
+          {
+            "type": "includes",
+            "text": "monday"
+          },
+          {
+            "type": "includes",
+            "text": "oatmeal"
+          }
+        ]
+      },
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "preference_wed_oatmeal",
+      "anchor": {
+        "match": [
+          {
+            "type": "includes",
+            "text": "tuesday"
+          },
+          {
+            "type": "includes",
+            "text": "oatmeal"
+          }
+        ]
+      },
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "disclaimer_paragraph",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "please note"
+        }
+      },
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true,
+        "stop": {
+          "type": "startsWith",
+          "text": "challenges"
+        }
+      },
+      "type": "paragraph"
+    }
+  ]
+}
+```
+
+
+
+{
+
+ "fields": [
+
+  {
+
+   "id": "my_data_439",
+
+   "anchor": {
+
+​    "match": {
+
+​     "type": "includes",
+
+​     "text": "please note"
+
+​    }
+
+   },
+
+   "method": {
+
+​    "id": "region",
+
+​    "height": 1,
+
+​    "offsetX": 0,
+
+​    "offsetY": -1,
+
+​    "start": "below"
+
+   }
+
+  }
+
+ ]
+
+}

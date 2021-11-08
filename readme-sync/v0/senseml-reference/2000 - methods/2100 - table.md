@@ -26,6 +26,7 @@ Parameters
 | id (**required**)      | `table`                   | When you specify this method, you must also specify `"type": "table"` in the field's parameters. |
 | columns (**required**) | array                     | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output. <br/>  -`terms` (**required**): An array of terms to score positively during column recognition. Usually, you include column heading terms in this array. For more information about the NLP approach, see [bag of words](doc:bag-of-words). <br/> -`stopTerms`: An array of terms to score negatively during column recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words). <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 | stop                   | [Match object](doc:match) | (**Recommended**)  [Match object](doc:match)  to stop table recognition. Otherwise, Sensible searches all pages for tables, which can impact performance. |
+| startOnRow             | integer. default: 0       | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. |
 
 Examples
 ====
