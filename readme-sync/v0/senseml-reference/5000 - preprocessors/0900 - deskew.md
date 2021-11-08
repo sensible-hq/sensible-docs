@@ -136,14 +136,6 @@ This example uses the following config:
 Notes
 ====
 
-Limitations
------
-
-This preprocessor breaks methods that rely on pixel recognition, such as the Box method and the Checkbox method. Use the Region method instead of these methods.
-
-Best practices
------
-
 - Click on a line in the document pane in the Sensible app to view line coordinates for defining the Fixed Points.
 - Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. 
 - For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew. If you choose `"endsWith"`, then also define `"start:right"`.
