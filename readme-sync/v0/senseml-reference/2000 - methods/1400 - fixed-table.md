@@ -37,7 +37,7 @@ Examples
 
 The following example shows extracting two columns from a fixed table in the Sensible app.
 
-- In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col4_rank_last_month` 
+- In order to omit column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col4_rank_last_month` . You can also use `"startOnRow":1` to omit headings.
 - To improve performance, the config specifies a Stop parameter. 
 
 **Config**

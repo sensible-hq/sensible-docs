@@ -33,7 +33,7 @@ Examples
 
 The following example shows extracting two columns from a table that updates monthly with a variable number of columns in the Sensible app.
 
-- To omit column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `rank_this_month` .
+- To omit column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `rank_this_month`. You can also use `"startOnRow":1` to omit headings.
 - To improve performance, the config specifies a Stop parameter.
 
 
