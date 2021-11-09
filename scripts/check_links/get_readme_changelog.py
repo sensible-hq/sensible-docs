@@ -11,15 +11,18 @@ so the main check_links.rb can convert it to HTML with the rest of the markdown 
 '''
 
 def get_changelogs():
-import requests
     url = "https://dash.readme.com/api/v1/changelogs?perPage=10&page=1"
+    payload={}
     headers = {
     'Accept': 'application/json',
     'Authorization': 'Basic {}'.format(README_API_KEY),
     'x-readme-version': 'v0'
     }
     response_json = requests.request("GET", url, headers=headers, data=payload).json()
-    print(response_json)
+    #print(json.dumps(response_json, indent=2))
+    for page in response_json:
+      print(json.dumps(page['html'], indent=2))
+      # left off: write each html to some ./out dir, same as the ruby one...
 
 
 def get_doc_slugs(cat_id):
