@@ -4,6 +4,24 @@ import json
 
 README_API_KEY = os.environ['README_API_KEY']
 
+'''
+the check_links.rb is the main checking script
+this is a helper script that uses the readme API to download the changelogs (authored at dash.readme) to markdown 
+so the main check_links.rb can convert it to HTML with the rest of the markdown and check the links
+'''
+
+def get_changelogs():
+import requests
+    url = "https://dash.readme.com/api/v1/changelogs?perPage=10&page=1"
+    headers = {
+    'Accept': 'application/json',
+    'Authorization': 'Basic {}'.format(README_API_KEY),
+    'x-readme-version': 'v0'
+    }
+    response_json = requests.request("GET", url, headers=headers, data=payload).json()
+    print(response_json)
+
+
 def get_doc_slugs(cat_id):
     url = "https://dash.readme.com/api/v1/categories/document-types/docs"
     payload={}
@@ -58,6 +76,9 @@ def get_doc_markdown(doc):
     return response_json
 
 if __name__ == '__main__':
+    get_changelogs()
+    
+    '''
     categories = get_categories()
     ref_categories = get_ref_categories(categories)
     #print(json.dumps(ref_categories, indent=2))
@@ -77,3 +98,4 @@ if __name__ == '__main__':
         #print(doc_json["body"])
         print(json.dumps(doc_json, indent=2))
         # left off: dang. no good way to get markdown from this unless I'm willing to only test the 'body' and save it as markdown :/
+     '''   
