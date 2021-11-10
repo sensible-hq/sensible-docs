@@ -21,13 +21,20 @@ def get_changelogs():
     }
     response_json = requests.request("GET", url, headers=headers, data=payload).json()
     #print(json.dumps(response_json, indent=2))
+
+    script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+    rel_path = "./out/all_changelogs.html"
+    abs_file_path = os.path.join(script_dir, rel_path)
+    print("PATHS: current:", script_dir)
+    print("PATHS: dest:", abs_file_path)
+
     for page in response_json:
       #print(json.dumps(page['html'], indent=2))
       # left off: write each html to some ./out dir, same as the ruby one...
-      with open(./out/all_changelogs.html, 'a+') as f:
+      with open(abs_file_path, 'a+') as f:
           f.write(page['html'])
     print("ALL CHANGELOGS")
-    with open(./out/all_changelogs.html, 'r') as fin:
+    with open(abs_file_path, 'r') as fin:
       print(fin.read())
 
 def get_doc_slugs(cat_id):
