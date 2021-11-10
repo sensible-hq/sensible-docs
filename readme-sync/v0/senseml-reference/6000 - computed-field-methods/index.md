@@ -5,7 +5,7 @@ hidden: false
 Computed Field methods transform the output of one or more [Field objects](doc:field-query-object). Common use cases for computed fields include:
 
 - Clean up raw output:  If the output contains extra characters, strings, etc, you can often use a Computed Field method to strip out the unwanted data. Or, you can split or join data from different fields.
-- Standardize output across configs:  If you extract inconsistently formatted data from different vendors or documents, for example "6 month policy period" versus "6 mo. policy duration", you can map to a common format. Consistently formatted output helps your application to handle extractions with fewer checks for corner cases.
+- Standardize output across configs:  If you extract inconsistently formatted data from different vendors or documents, for example "6 month policy period" versus "six mo. policy duration", you can map to a common format. Consistently formatted output helps your application to handle extractions with fewer checks for corner cases.
 - Add metadata: If a PDF lacks information that you want to include in the extraction, you can add it.
 
 
