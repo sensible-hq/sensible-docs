@@ -30,7 +30,7 @@ Parameters
 | columnCount (**required**) | integer                     | The number of columns the tables must have.                  |
 | columns (**required**)     | array                       | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output <br/> - `index` (**required**): A zero-based column index <br/>-`type` : The table cell's type. For more information, see  [types](doc:types) <br/> -`isRequired` (default: false): If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 | stop                       | Match object. default: none | (**Recommended**)  [Match object](doc:match)  to stop table recognition. Otherwise, Sensible searches all pages for tables, which can impact performance. |
-| startOnRow                 | integer. default: 0         | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. |
+| startOnRow                 | integer. default: 0         | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section). |
 
 Examples
 =====
