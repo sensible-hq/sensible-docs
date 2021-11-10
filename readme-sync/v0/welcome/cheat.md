@@ -371,12 +371,10 @@ After Challenges
     {
       "id": "preference_tuesday_grits",
       "anchor": {
-        "match": [
-          {
-            "type": "includes",
-            "text": "grits"
-          }
-        ]
+        "match": {
+          "type": "includes",
+          "text": "grits",
+        }
       },
       "method": {
         "id": "checkbox",
