@@ -8,6 +8,7 @@ README_API_KEY = os.environ['README_API_KEY']
 the check_links.rb is the main checking script
 this is a helper script that uses the readme API to download the changelogs (authored at dash.readme) to markdown 
 so the main check_links.rb can convert it to HTML with the rest of the markdown and check the links
+extra defs are included for eventually getting API reference pages for checking links in descriptions (tricker task)
 '''
 
 def get_changelogs():
@@ -82,6 +83,7 @@ if __name__ == '__main__':
     get_changelogs()
     
     '''
+    # get the API reference documents:
     categories = get_categories()
     ref_categories = get_ref_categories(categories)
     #print(json.dumps(ref_categories, indent=2))

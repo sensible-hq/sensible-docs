@@ -16,6 +16,8 @@ jobs:
       - name: Install dependencies 🔧 
         run: cd ./scripts/check_links/ && python -m pip install requests
       - name: fetch changelog markdown and save markdown locally 🏗  
+        env:
+          README_API_KEY: ${{ secrets.README_API_KEY}}
         run: python ./scripts/check_links/get_readme_changelog.py # LEFT OFF
   check-links:
     runs-on: ubuntu-latest
