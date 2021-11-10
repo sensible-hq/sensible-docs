@@ -22,9 +22,13 @@ def get_changelogs():
     response_json = requests.request("GET", url, headers=headers, data=payload).json()
     #print(json.dumps(response_json, indent=2))
     for page in response_json:
-      print(json.dumps(page['html'], indent=2))
+      #print(json.dumps(page['html'], indent=2))
       # left off: write each html to some ./out dir, same as the ruby one...
-
+      with open(./out/all_changelogs.html, 'a+') as f:
+          f.write(page['html'])
+    print("ALL CHANGELOGS")
+    with open(./out/all_changelogs.html, 'r') as fin:
+      print(fin.read())
 
 def get_doc_slugs(cat_id):
     url = "https://dash.readme.com/api/v1/categories/document-types/docs"
