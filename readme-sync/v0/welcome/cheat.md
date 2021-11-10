@@ -10,6 +10,49 @@ TODO: add TOC
 
 If you landed on this page, you got a bit stumped by our in-app tutorial at <TBD URL..linking possible?>.
 
+
+
+Part 1
+===
+
+**starting state**
+
+```json
+{
+  "fields": [
+    {
+      "id": "your_first_extracted_field",
+      "anchor": "welcome",
+      "method": {
+        "id": "label",
+        "position": "below"
+      }
+    }
+  ]
+}
+```
+
+
+
+**after Try it out **
+
+```json
+{
+  "fields": [
+    {
+      "id": "your_first_extracted_field",
+      "anchor": "use this anchor line",
+      "method": {
+        "id": "box",
+        "position": "below"
+      }
+    }
+  ]
+}
+```
+
+
+
 Part 2
 ===
 
@@ -166,7 +209,7 @@ Starting state
 {
   "fields": [
     {
-      "id": "preference_monday_oatmeal",
+      "id": "preference_monday_fruit",
       "anchor": {
         "match": [
           {
@@ -175,7 +218,7 @@ Starting state
           },
           {
             "type": "includes",
-            "text": "oatmeal"
+            "text": "fruit"
           }
         ]
       },
@@ -185,7 +228,7 @@ Starting state
       }
     },
     {
-      "id": "preference_wed_oatmeal",
+      "id": "preference_wed_fruit",
       "anchor": {
         "match": [
           {
@@ -194,13 +237,25 @@ Starting state
           },
           {
             "type": "includes",
-            "text": "oatmeal"
+            "text": "fruit"
           }
         ]
       },
       "method": {
         "id": "checkbox",
         "position": "left"
+      }
+    },
+    {
+      "id": "all_options_wednesday",
+      "anchor": "wednesday",
+      "method": {
+        "id": "region",
+        "start": "below",
+        "width": 5,
+        "height": 0.5,
+        "offsetX": -0.5,
+        "offsetY": 0
       }
     },
     {
@@ -216,7 +271,7 @@ Starting state
         "includeAnchor": true,
         "stop": {
           "type": "startsWith",
-          "text": "try it out"
+          "text": "try it"
         }
       },
       "type": "paragraph"
@@ -234,26 +289,7 @@ After Try it Out
 {
   "fields": [
     {
-      "id": "preference_monday_oatmeal",
-      "anchor": {
-        "match": [
-          {
-            "type": "includes",
-            "text": "monday"
-          },
-          {
-            "type": "includes",
-            "text": "oatmeal"
-          }
-        ]
-      },
-      "method": {
-        "id": "checkbox",
-        "position": "left"
-      }
-    },
-    {
-      "id": "preference_wed_oatmeal",
+      "id": "preference_tuesday_fruit",
       "anchor": {
         "match": [
           {
@@ -262,7 +298,7 @@ After Try it Out
           },
           {
             "type": "includes",
-            "text": "oatmeal"
+            "text": "fruit"
           }
         ]
       },
@@ -272,7 +308,38 @@ After Try it Out
       }
     },
     {
-      "id": "disclaimer_paragraph",
+      "id": "preference_wed_fruit",
+      "anchor": {
+        "match": [
+          {
+            "type": "includes",
+            "text": "wednesday"
+          },
+          {
+            "type": "includes",
+            "text": "fruit"
+          }
+        ]
+      },
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "all_options_wednesday",
+      "anchor": "wednesday",
+      "method": {
+        "id": "region",
+        "start": "below",
+        "width": 5,
+        "height": 0.5,
+        "offsetX": -0.5,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "disclaimer_paragraph_and_try_it_out_section",
       "anchor": {
         "match": {
           "type": "includes",
@@ -293,44 +360,79 @@ After Try it Out
 }
 ```
 
+After Challenges
+---
 
 
+
+```json
 {
-
- "fields": [
-
-  {
-
-   "id": "my_data_439",
-
-   "anchor": {
-
-​    "match": {
-
-​     "type": "includes",
-
-​     "text": "please note"
-
-​    }
-
-   },
-
-   "method": {
-
-​    "id": "region",
-
-​    "height": 1,
-
-​    "offsetX": 0,
-
-​    "offsetY": -1,
-
-​    "start": "below"
-
-   }
-
-  }
-
- ]
-
+  "fields": [
+    {
+      "id": "preference_tuesday_grits",
+      "anchor": {
+        "match": [
+          {
+            "type": "includes",
+            "text": "grits"
+          }
+        ]
+      },
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "preference_wed_fruit",
+      "anchor": {
+        "match": [
+          {
+            "type": "includes",
+            "text": "wednesday"
+          },
+          {
+            "type": "includes",
+            "text": "fruit"
+          }
+        ]
+      },
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "all_options_tues",
+      "anchor": "tues",
+      "method": {
+        "id": "region",
+        "start": "below",
+        "width": 6,
+        "height": 0.5,
+        "offsetX": -0.5,
+        "offsetY": 0
+      }
+    },
+    {
+      "id": "disclaimer_paragraph_and_try_it_out_section",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "please note"
+        }
+      },
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true,
+        "stop": {
+          "type": "startsWith",
+          "text": "challenges"
+        }
+      },
+      "type": "paragraph"
+    }
+  ]
 }
+```
+
