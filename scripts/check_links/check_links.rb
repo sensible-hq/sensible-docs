@@ -24,3 +24,4 @@ end
 
 # test your out dir's links!
 HTMLProofer.check_directory("./out").run
+#HTMLProofer.check_directory("./out", {log_level: debug}).run

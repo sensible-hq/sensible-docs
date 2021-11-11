@@ -8,6 +8,7 @@ README_API_KEY = os.environ['README_API_KEY']
 the check_links.rb is the main checking script
 this is a helper script that uses the readme API to download the changelogs (authored at dash.readme) to markdown 
 so the main check_links.rb can convert it to HTML with the rest of the markdown and check the links
+extra defs are included for eventually getting API reference pages for checking links in descriptions (tricker task)
 '''
 
 def get_changelogs():
@@ -20,10 +21,21 @@ def get_changelogs():
     }
     response_json = requests.request("GET", url, headers=headers, data=payload).json()
     #print(json.dumps(response_json, indent=2))
-    for page in response_json:
-      print(json.dumps(page['html'], indent=2))
-      # left off: write each html to some ./out dir, same as the ruby one...
 
+    script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+    rel_path = "/out/all_changelogs.html"
+    abs_file_path = os.path.join(script_dir, rel_path)
+    print("PATHS: current:", script_dir)
+    print("PATHS: dest:", abs_file_path)
+
+    for page in response_json:
+      #print(json.dumps(page['html'], indent=2))
+      # left off: write each html to some ./out dir, same as the ruby one...
+      with open(abs_file_path, 'a+') as f:
+          f.write(page['html'])
+    print("ALL CHANGELOGS")
+    with open(abs_file_path, 'r') as fin:
+      print(fin.read())
 
 def get_doc_slugs(cat_id):
     url = "https://dash.readme.com/api/v1/categories/document-types/docs"
@@ -82,6 +94,7 @@ if __name__ == '__main__':
     get_changelogs()
     
     '''
+    # get the API reference documents:
     categories = get_categories()
     ref_categories = get_ref_categories(categories)
     #print(json.dumps(ref_categories, indent=2))
