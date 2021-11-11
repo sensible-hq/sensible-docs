@@ -27,7 +27,7 @@ def get_changelogs():
     abs_file_path = os.path.join(script_dir, rel_path)
     print("PATHS: current:", script_dir)
     print("PATHS: dest:", abs_file_path)
-
+    # left off TODO: make an out dir?
     for page in response_json:
       #print(json.dumps(page['html'], indent=2))
       # left off: write each html to some ./out dir, same as the ruby one...
