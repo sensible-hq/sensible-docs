@@ -2,15 +2,7 @@
 title: "Table"
 hidden: false
 ---
-Matches tables based on bag-of-words scoring and returns their collated column contents.
-
-**Use**
-
-- Use the Table method for tables that have variable column formatting.
-
-**Requirements**
-
-- The anchor text must be a line that precedes the table. Do not choose a line that's a part of the table. For example, don't anchor on a table title that's inside the table borders. 
+Matches tables based on bag-of-words scoring and returns their collated column contents. Use the Table method for tables that have variable column formatting.
 
 [**Parameters**](doc:table#parameters)
 [**Examples**](doc:table#examples)

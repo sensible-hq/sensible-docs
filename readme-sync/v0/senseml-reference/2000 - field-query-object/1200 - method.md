@@ -3,7 +3,7 @@ title: "Method object"
 hidden: false
 ---
 
-A Method object defines how to expand out from an Anchor line and extract target data. Methods are available in Field objects.
+A Method object defines how to expand out from an Anchor line and extract target data. The following methods are available in Field objects.
 
 For the full list of methods available, see [Methods](doc:methods). 
 
