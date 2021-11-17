@@ -66,7 +66,7 @@ The following example shows using the Summarizer method to extract the monthly r
           {
             "prompt": "Rent is due in advance on the ist day of each and every week, at $954.00 per week, beginning on November 15, 2015, payable to Owner/Agent at 123 Main Blvd., Sacramento, CA 95864. Payments made in person may be delivered to Owner/Agent between the hours of 24/Z.",
             "values": [
-              "$3,954.00",
+              "$954.00",
               "week"
             ]
           },
@@ -82,7 +82,7 @@ The following example shows using the Summarizer method to extract the monthly r
 
 
 
-TODO: fill this out with a more permenant example. for now seehttps://dev.sensible.so/editor/?d=frances_test_playground&c=summarizer&g=summarizer_lease_8
+TODO: fill this out with a more permanent example. for now see https://dev.sensible.so/editor/?d=frances_test_playground&c=summarizer&g=summarizer_lease_8
 
 
 
@@ -90,7 +90,7 @@ The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summarizer.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/concat.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
 | ---------------------- | ------------------------------------------------------------ |
 
 **Output**
