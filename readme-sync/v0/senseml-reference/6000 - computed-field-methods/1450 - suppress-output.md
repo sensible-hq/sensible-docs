@@ -9,6 +9,8 @@ Specifies fields to exclude from the extraction output. For example, if you use 
 Parameters
 ====
 
+The following parameters are contained in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+
 | key        | value              | description                                                 |
 | :--------- | :----------------- | :---------------------------------------------------------- |
 | id         | `suppressOutput`   |                                                             |

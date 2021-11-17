@@ -7,6 +7,8 @@ Adds a key/value pair to an extraction, where the value is a constant that's not
 Parameters
 ====
 
+The following parameters are contained in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+
 | key   | value      | description                                              |
 | :---- | :--------- | :------------------------------------------------------- |
 | id    | `constant` |                                                          |

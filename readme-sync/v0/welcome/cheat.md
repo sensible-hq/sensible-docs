@@ -434,3 +434,64 @@ After Challenges
 }
 ```
 
+Part 4
+====
+
+
+
+```json
+{
+  "fields": [
+    {
+      "id": "grand_total",
+      "type": "currency",
+      "anchor": "grand total",
+      "method": {
+        "id": "row",
+        "tiebreaker": ">"
+      }
+    },
+    {
+      "id": "doc_date",
+      "type": "date",
+      "anchor": "document date",
+      "method": {
+        "id": "label",
+        "position": "below",
+        "textAlignment": "hangingIndent"
+      }
+    },
+    {
+      "id": "customer_address",
+      "type": "address",
+      "anchor": "prepared for",
+      "method": {
+        "id": "box"
+      }
+    },
+    {
+      "id": "reflective_finish",
+      "anchor": "reflective",
+      "method": {
+        "id": "checkbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "terms_paragraphs",
+      "anchor": "subject to",
+      "type": "paragraph",
+      "method": {
+        "id": "documentRange"
+      }
+    }
+  ]
+}
+```
+
+
+
+OUTPUT:
+
+TODO: add in?
+

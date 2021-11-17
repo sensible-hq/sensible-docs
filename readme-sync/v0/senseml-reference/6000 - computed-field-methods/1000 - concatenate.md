@@ -13,6 +13,8 @@ Concatenates the output of two or more fields:
 Parameters
 ====
 
+The following parameters are contained in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+
 
 | key                       | value                | description                                                  |
 | :------------------------ | :------------------- | :----------------------------------------------------------- |

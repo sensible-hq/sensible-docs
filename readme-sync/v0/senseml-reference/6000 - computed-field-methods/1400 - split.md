@@ -6,6 +6,9 @@ Returns one of the components of a field's string output after splitting it with
 
 Parameters
 ====
+
+The following parameters are contained in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+
 | key       | value         | description                                                  |
 | :-------- | :------------ | :----------------------------------------------------------- |
 | id        | `split`       |                                                              |
