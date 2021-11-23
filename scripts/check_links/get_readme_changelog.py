@@ -25,12 +25,11 @@ def get_changelogs():
     # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
     rel_path = "./out/"
     if not os.path.exists(rel_path):
-      os.makedirs(rel_path, 0o755)
+      # os.makedirs(rel_path, 0o755)
+      os.makedirs(rel_path)
     file_path = os.path.join(rel_path + "all_changelogs" + "." + "html")  
     print("PATHS: current:", os.getcwd())
     print("PATHS: intended dest:", file_path)
-    if not os.path.exists(file_path):
-        print("dest doesn't exist!")
     # left off TODO: make an out dir?
     for page in response_json:
       #print(json.dumps(page['html'], indent=2))
