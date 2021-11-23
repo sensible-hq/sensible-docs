@@ -15,10 +15,10 @@ pipeline = HTML::Pipeline.new [
 Find.find("./readme-sync/v0") do |path| 
   if File.extname(path) == ".md" 
     contents = File.read(path)
-    # only check published files ("hidden: false")
+    # only check published files ("hidden: true" are unpublished)
     if not contents.match(/hidden\:\s*true/)  
       result = pipeline.call(contents)
-      puts "checking file:" #{path}
+      puts "checking file:" #{File}
       File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
     end  
   end
