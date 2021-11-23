@@ -4,37 +4,17 @@ hidden: true
 
 ---
 
-THIS IS A DRAFT, needs polish! 
+If you landed on this page, you're probably looking for answers for our in-app tutorials. 
 
-TODO: add TOC
-
-If you landed on this page, you got a bit stumped by our in-app tutorial at <TBD URL..linking possible?>.
+[Part 1](doc:cheat#part-1)
 
 
 
 Part 1
 ===
 
-**starting state**
-
-```json
-{
-  "fields": [
-    {
-      "id": "your_first_extracted_field",
-      "anchor": "welcome",
-      "method": {
-        "id": "label",
-        "position": "below"
-      }
-    }
-  ]
-}
-```
-
-
-
-**after Try it out **
+Solution
+---
 
 ```json
 {
@@ -44,6 +24,38 @@ Part 1
       "anchor": "use this anchor line",
       "method": {
         "id": "box",
+        "position": "below"
+      }
+    }
+  ]
+}
+```
+
+Explanation
+---
+
+| change                             | explanation                                                  | image                                                        |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `"anchor": "use this anchor line"` | The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).  The blue box shows the target line to extract. | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_.png) |
+|                                    |                                                              |                                                              |
+|                                    |                                                              |                                                              |
+
+
+
+Initial config
+----
+
+If you want to undo all your changes, paste the following config into the left pane of the SenseML editor:
+
+
+```json
+{
+  "fields": [
+    {
+      "id": "your_first_extracted_field",
+      "anchor": "welcome",
+      "method": {
+        "id": "label",
         "position": "below"
       }
     }
