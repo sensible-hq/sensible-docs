@@ -44,7 +44,7 @@ Here are some explanations of the effects of some of the steps you take in this 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_1.png)
 
-The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).   For more information, see [Label](doc:lable).
+The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).   For more information, see [Label](doc:label).
 
 The blue box shows the target line to extract. 
 
@@ -61,7 +61,7 @@ Instead of treating the anchor as a label, Sensible searches outward from the an
 Initial config
 ----
 
-If you want to undo all your changes to the Part 1 config, paste the following config into the left pane of the SenseML editor:
+To undo all your changes in Part 1, paste the following config into the left pane of the SenseML editor:
 
 
 ```json
@@ -96,6 +96,8 @@ Explanation
 
 Initial config
 ---
+
+To undo all your changes in Part 2, paste the following config into the left pane of the SenseML editor:
 
 ```json
 {
