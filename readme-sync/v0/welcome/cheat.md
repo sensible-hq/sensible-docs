@@ -74,9 +74,9 @@ To undo all your changes in Part 1, paste the following config into the left pan
 Part 2
 ===
 
-**Solution**
+**Solution: Mix it up**
 
-After you've completed all the steps in the tutorial, the final config is:
+After you've completed all the Mix it up steps in the tutorial, the final config is:
 
 ```
 {
@@ -117,6 +117,52 @@ After you've completed all the steps in the tutorial, the final config is:
     }
   ]
 }
+```
+
+**Solution: Challenges**
+
+After you've completed all the Challenges steps in the tutorial, the final config is:
+
+```json
+{
+  "fields": [
+    {
+      "id": "second_most_popular_snack",
+      "anchor": "second",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "position": "right",
+        "tiebreaker": ">"
+      }
+    },
+    {
+      "id": "table_with_specified_columns",
+      "anchor": "mix it up",
+      "type": "table",
+      "method": {
+        "id": "fixedTable",
+        "columnCount": 3,
+        "columns": [
+          {
+            "id": "column_in_table",
+            "index": 0
+          },
+          {
+            "id": "another_column",
+            "index": 2,
+            "type": "string"
+          }
+        ],
+        "stop": {
+          "type": "startsWith",
+          "text": "challenges"
+        }
+      }
+    }
+  ]
+}
+
 ```
 
 
@@ -176,107 +222,12 @@ To undo all your changes in Part 2, paste the following config into the left pan
 }
 ```
 
-**Mix it up answers**
-
-TBD explanations
-
-```json
-{
-  "fields": [
-    {
-      "id": "second_most_popular_snack",
-      "anchor": "second",
-      "type": "string",
-      "method": {
-        "id": "row",
-        "position": "right",
-        "tiebreaker": "first"
-      }
-    },
-    {
-      "id": "table_with_specified_columns",
-      "anchor": "tables and rows",
-      "type": "table",
-      "method": {
-        "id": "fixedTable",
-        "columnCount": 7,
-        "columns": [
-          {
-            "id": "column_in_table",
-            "index": 2
-          },
-          {
-            "id": "another_column",
-            "index": 5,
-            "type": "phoneNumber"
-          }
-        ],
-        "stop": {
-          "type": "startsWith",
-          "text": "mix it up"
-        }
-      }
-    }
-  ]
-}
-
-```
-
-**Challenges solutions**
-
-TBD explanations
-
-```json
-{
-  "fields": [
-    {
-      "id": "second_most_popular_snack",
-      "anchor": "second",
-      "type": "currency",
-      "method": {
-        "id": "row",
-        "position": "right",
-        "tiebreaker": ">"
-      }
-    },
-    {
-      "id": "table_with_specified_columns",
-      "anchor": "mix it up",
-      "type": "table",
-      "method": {
-        "id": "fixedTable",
-        "columnCount": 3,
-        "columns": [
-          {
-            "id": "column_in_table",
-            "index": 0
-          },
-          {
-            "id": "another_column",
-            "index": 2,
-            "type": "string"
-          }
-        ],
-        "stop": {
-          "type": "startsWith",
-          "text": "challenges"
-        }
-      }
-    }
-  ]
-}
-
-```
-
 
 
 Part 3
 ====
 
-Starting state
----
-
-**TBD explanation**
+**Initial config**
 
 ```json
 {
@@ -353,10 +304,7 @@ Starting state
 }
 ```
 
-
-
-After Try it Out
----
+**Solution: Mix it up**
 
 ```json
 {
@@ -433,10 +381,7 @@ After Try it Out
 }
 ```
 
-After Challenges
----
-
-
+**Solution: Challenges**
 
 ```json
 {
