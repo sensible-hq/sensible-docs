@@ -24,7 +24,7 @@ Solution
       "anchor": "use this anchor line",
       "method": {
         "id": "box",
-        "position": "below"
+        "position": "right"
       }
     }
   ]
@@ -34,11 +34,23 @@ Solution
 Explanation
 ---
 
-| change                             | explanation                                                  | image                                                        |
-| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `"anchor": "use this anchor line"` | The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).  The blue box shows the target line to extract. | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_1.png) |
-|                                    |                                                              |                                                              |
-|                                    |                                                              |                                                              |
+**Change 1**
+
+- `"anchor": "use this anchor line"`
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_1.png)
+
+The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).   For more information, see [Label](doc:lable).
+
+The blue box shows the target line to extract. 
+
+
+
+**Change 3**
+
+- `"id": "box"`
+
+Sensible searches outward from the anchor line to find dark box borders, then grabs all the text inside the box except the anchor line itself. For more information, see [Box](doc:box).
 
 
 
