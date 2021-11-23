@@ -1,18 +1,18 @@
 ---
-title: "Cheat sheet"
+title: "Cheatsheets"
 hidden: true
 
 ---
 
-If you landed on this page, you're probably looking for answers for our in-app tutorials.  See the following links:
+For answers to the Sensible in-app tutorials, see the following links:
 
-[Part 1: Hello world](doc:cheat#part-1)
+[Part 1](doc:part-1)
 
-[Part 2:](doc:cheat#part-2)
+[Part 2](doc:part-2)
 
-[Part 3](doc:cheat#part-3)
+[Part 3](doc:part-3)
 
-[Part 4](doc:cheat#part-4)
+[Part 4](doc:part-4)
 
 
 
