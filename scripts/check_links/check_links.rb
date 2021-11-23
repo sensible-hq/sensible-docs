@@ -4,9 +4,19 @@ require 'find'
 require 'open3'
 
 # make an out dir
-puts "current dir in which to make out dir"
-puts Dir.pwd
-Dir.mkdir("out") unless File.exist?("out")
+# puts "current dir in which to make out dir"
+# puts Dir.pwd
+# Dir.mkdir("out") unless File.exist?("out")
+
+
+puts "contents of Out:"
+Dir.chdir("out") do
+  system "pwd"
+  system "ls"
+end
+
+
+
 pipeline = HTML::Pipeline.new [
   HTML::Pipeline::MarkdownFilter,
   HTML::Pipeline::TableOfContentsFilter

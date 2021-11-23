@@ -36,9 +36,9 @@ def get_changelogs():
       # left off: write each html to some ./out dir, same as the ruby one...
       with open(file_path, 'a+') as f:
         f.write(page['html'])
-    print("ALL CHANGELOGS")
-    with open(file_path, 'r') as fin:
-      print(fin.read())
+    #print("ALL CHANGELOGS")
+    #with open(file_path, 'r') as fin:
+      #print(fin.read())
     print("in OUT dir:")
     print(os.path.abspath(rel_path))
     print(os.listdir(rel_path))
