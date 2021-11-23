@@ -26,7 +26,7 @@ def get_changelogs():
     rel_path = "./out"
     if not os.path.exists(rel_path):
       os.makedirs(rel_path, 0o755)
-    file_path = os.path.join(rel_path, "all_changelogs, ".", html")  
+    file_path = os.path.join(rel_path, "all_changelogs, ".", "html")  
     print("PATHS: current:", os.getcwd())
     print("PATHS: intended dest:", file_path)
     if not os.path.exists(file_path):
