@@ -27,8 +27,8 @@ def get_changelogs():
     if not os.path.exists(rel_path):
       os.makedirs(rel_path, 0o755)
     abs_file_path = os.path.join(script_dir, rel_path)
-    print("PATHS: current:", script_dir)
-    print("PATHS: dest:", abs_file_path)
+    print("PATHS: current:", os.getcwd())
+    print("PATHS: intended dest:", abs_file_path)
     if not os.path.exists(abs_file_path):
         print("dest doesn't exist!")
     # left off TODO: make an out dir?
