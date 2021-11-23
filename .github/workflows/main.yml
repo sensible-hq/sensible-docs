@@ -3,9 +3,10 @@ on:
   push:
     branches: [ main ]
 jobs:
-  get-changelogs:
+  check-links:
     runs-on: ubuntu-latest
     steps:
+      # get the changelogs and save locally so you can check those links
       - name: Checkout 🛎️
         uses: actions/checkout@v2 
       - name: Set up Python 🐍
@@ -18,10 +19,8 @@ jobs:
       - name: fetch changelog markdown and save markdown locally 🏗  
         env:
           README_API_KEY: ${{ secrets.README_API_KEY}}
-        run: python ./scripts/check_links/get_readme_changelog.py # LEFT OFF
-  check-links:
-    runs-on: ubuntu-latest
-    steps:
+        run: python ./scripts/check_links/get_readme_changelog.py 
+      # check the links for everything including changelogs
       - name: Checkout 🛎️
         uses: actions/checkout@v2 
       - name: Set up Ruby 💎
