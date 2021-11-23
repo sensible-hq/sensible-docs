@@ -18,7 +18,7 @@ Find.find("./readme-sync/v0") do |path|
     # only check published files ("hidden: true" are unpublished)
     if not contents.match(/hidden\:\s*true/)  
       result = pipeline.call(contents)
-      puts "checking file:" #{File}
+      puts "checking file: #{File}"
       File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
     end  
   end
