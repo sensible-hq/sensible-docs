@@ -44,7 +44,6 @@ def get_changelogs():
     print(os.listdir(rel_path))
 
 
-
 def get_doc_slugs(cat_id):
     url = "https://dash.readme.com/api/v1/categories/document-types/docs"
     payload={}

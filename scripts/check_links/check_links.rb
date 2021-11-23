@@ -6,10 +6,9 @@ require 'open3'
 # make an out dir
 # puts "current dir in which to make out dir"
 # puts Dir.pwd
-# Dir.mkdir("out") unless File.exist?("out")
+Dir.mkdir("out") unless File.exist?("out")
 
-
-puts "contents of Out:"
+puts "contents of Out (TODO: should include the all_changelogs.html from prev. step):"
 Dir.chdir("out") do
   system "pwd"
   system "ls"
