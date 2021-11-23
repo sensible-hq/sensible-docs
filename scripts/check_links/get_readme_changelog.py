@@ -34,8 +34,8 @@ def get_changelogs():
     for page in response_json:
       #print(json.dumps(page['html'], indent=2))
       # left off: write each html to some ./out dir, same as the ruby one...
-      with open(os.join(rel_path, "all_changelogs, ".", html"), 'a+') as f:
-          f.write(page['html'])
+      with open(os.path.join(rel_path, "all_changelogs, ".", html"), 'a+') as f:
+        f.write(page['html'])
     print("ALL CHANGELOGS")
     with open(abs_file_path, 'r') as fin:
       print(fin.read())
