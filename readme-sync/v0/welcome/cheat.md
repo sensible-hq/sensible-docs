@@ -16,7 +16,7 @@ Part 1
 Solution
 ---
 
-After you've completed all the steps, the final config is:
+After you've completed all the steps in the tutorial, the final config is:
 
 ```json
 {
@@ -36,7 +36,7 @@ After you've completed all the steps, the final config is:
 Explanation
 ---
 
-Here are some explanations of the effects of some of the changes you make in this tutorial:
+Here are some explanations of the effects of some of the steps you take in this tutorial:
 
 **Change 1**
 
@@ -84,10 +84,18 @@ If you want to undo all your changes to the Part 1 config, paste the following c
 Part 2
 ===
 
+Solution
+---
 
-Check out the answers and explanations:
+After you've completed all the steps in the tutorial, the final config is:
 
-**Starting state**
+
+
+Explanation
+---
+
+Initial config
+---
 
 ```json
 {
