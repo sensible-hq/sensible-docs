@@ -19,8 +19,7 @@ If you landed on this page, you're probably looking for answers for our in-app t
 Part 1
 ===
 
-Solution
----
+**Solution**
 
 After you've completed all the steps in the tutorial, the final config is:
 
@@ -39,10 +38,9 @@ After you've completed all the steps in the tutorial, the final config is:
 }
 ```
 
-Learn more
----
+**Learn more**
 
-To learn more about some of the changes you made in this tutorial, see:
+To learn more about the steps you took in the tutorial, see:
 
 | Link                      | Notes                                                        |
 | ------------------------- | ------------------------------------------------------------ |
@@ -51,10 +49,7 @@ To learn more about some of the changes you made in this tutorial, see:
 | [Box](doc:box)            | The box method is a frequently used extraction method.       |
 | [Color coding](doc:color) | Explains the yellow, blue, or green boxes you see overlaid on the PDF in the Sensible app. |
 
-
-
-Initial config
-----
+**Initial config**
 
 To undo all your changes in Part 1, paste the following config into the left pane of the SenseML editor:
 
@@ -79,18 +74,64 @@ To undo all your changes in Part 1, paste the following config into the left pan
 Part 2
 ===
 
-Solution
----
+**Solution**
 
 After you've completed all the steps in the tutorial, the final config is:
 
+```
+{
+  "fields": [
+    {
+      "id": "second_most_popular_snack",
+      "anchor": "second",
+      "type": "string",
+      "method": {
+        "id": "row",
+        "position": "right",
+        "tiebreaker": "last"
+      }
+    },
+    {
+      "id": "snack_table",
+      "anchor": "tables and rows",
+      "type": "table",
+      "method": {
+        "id": "fixedTable",
+        "columnCount": 7,
+        "columns": [
+          {
+            "id": "second_column",
+            "index": 2
+          },
+          {
+            "id": "sixth_column",
+            "index": 5,
+            "type": "phoneNumber"
+          }
+        ],
+        "stop": {
+          "type": "startsWith",
+          "text": "mix it up"
+        }
+      }
+    }
+  ]
+}
+```
 
 
-Learn more
----
 
-Initial config
----
+**Learn more**
+
+To learn more about the steps you took in the tutorial, see:
+
+| Link               | Notes |
+| ------------------ | ----- |
+| [Row](doc:row)     |       |
+| [Table](doc:table) |       |
+| [Types](doc:types) |       |
+
+**Initial config**
 
 To undo all your changes in Part 2, paste the following config into the left pane of the SenseML editor:
 
