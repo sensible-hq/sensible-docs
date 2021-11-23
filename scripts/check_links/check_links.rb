@@ -1,6 +1,7 @@
 require 'html-proofer'
 require 'html/pipeline'
 require 'find'
+require 'open3'
 
 # make an out dir
 puts "current dir in which to make out dir"
@@ -18,12 +19,15 @@ Find.find("./readme-sync/v0") do |path|
     # only check published files ("hidden: true" are unpublished)
     if not contents.match(/hidden\:\s*true/)  
       result = pipeline.call(contents)
-      puts "checking file: #{File.basename(path)}"
+      # puts "converting file: #{File.basename(path)}"
       File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
     end  
   end
 end
 
 # test your out dir's links!
-HTMLProofer.check_directory("./out").run
-#HTMLProofer.check_directory("./out", {log_level: debug}).run
+#HTMLProofer.check_directory("./out").run
+options = {
+  :log_level => :debug,
+}
+HTMLProofer.check_directory("./out", options).run
