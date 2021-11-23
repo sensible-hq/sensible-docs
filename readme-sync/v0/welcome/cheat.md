@@ -16,6 +16,8 @@ Part 1
 Solution
 ---
 
+After you've completed all the steps, the final config is:
+
 ```json
 {
   "fields": [
@@ -34,9 +36,11 @@ Solution
 Explanation
 ---
 
+Here are some explanations of the effects of some of the changes you make in this tutorial:
+
 **Change 1**
 
-- `"anchor": "use this anchor line"`
+- change `"anchor": "welcome"` to `"anchor": "use this anchor line"`
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_1.png)
 
@@ -48,16 +52,16 @@ The blue box shows the target line to extract.
 
 **Change 3**
 
-- `"id": "box"`
+- change `"id": "label"` to  `"id": "box"`
 
-Sensible searches outward from the anchor line to find dark box borders, then grabs all the text inside the box except the anchor line itself. For more information, see [Box](doc:box).
+Instead of treating the anchor as a label, Sensible searches outward from the anchor line to find dark box borders. Once Sensible recognizes the box, it grabs all the text inside the box except the anchor line itself. For more information, see [Box](doc:box).
 
 
 
 Initial config
 ----
 
-If you want to undo all your changes, paste the following config into the left pane of the SenseML editor:
+If you want to undo all your changes to the Part 1 config, paste the following config into the left pane of the SenseML editor:
 
 
 ```json
