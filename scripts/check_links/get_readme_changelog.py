@@ -25,7 +25,7 @@ def get_changelogs():
     script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
     rel_path = "/out/all_changelogs.html"
     if not os.path.exists(rel_path):
-      os.makedirs(rel_path)
+      os.makedirs(rel_path, 0755)
     abs_file_path = os.path.join(script_dir, rel_path)
     print("PATHS: current:", script_dir)
     print("PATHS: dest:", abs_file_path)
