@@ -4,7 +4,8 @@ require 'find'
 
 # make an out dir
 Dir.mkdir("out") unless File.exist?("out")
-
+p "current working dir in which /out is made:"
+p File.expand_path(File.dirname(FILE))
 pipeline = HTML::Pipeline.new [
   HTML::Pipeline::MarkdownFilter,
   HTML::Pipeline::TableOfContentsFilter
