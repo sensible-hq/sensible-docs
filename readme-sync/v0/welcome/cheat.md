@@ -36,7 +36,7 @@ Explanation
 
 | change                             | explanation                                                  | image                                                        |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `"anchor": "use this anchor line"` | The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).  The blue box shows the target line to extract. | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_.png) |
+| `"anchor": "use this anchor line"` | The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).  The blue box shows the target line to extract. | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_1.png) |
 |                                    |                                                              |                                                              |
 |                                    |                                                              |                                                              |
 
