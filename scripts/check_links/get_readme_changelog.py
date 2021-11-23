@@ -29,6 +29,8 @@ def get_changelogs():
     abs_file_path = os.path.join(script_dir, rel_path)
     print("PATHS: current:", script_dir)
     print("PATHS: dest:", abs_file_path)
+    if not os.path.exists(abs_file_path):
+        print("dest doesn't exist!")
     # left off TODO: make an out dir?
     for page in response_json:
       #print(json.dumps(page['html'], indent=2))
