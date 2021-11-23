@@ -16,7 +16,7 @@ jobs:
           architecture: 'x64'
       - name: Install dependencies 🔧 
         run: cd ./scripts/check_links/ && python -m pip install requests
-      - name: fetch changelog markdown and save markdown locally 🏗  
+      - name: fetch changelog markdown and save as HTML 🏗  
         env:
           README_API_KEY: ${{ secrets.README_API_KEY}}
         run: python ./scripts/check_links/get_readme_changelog.py 
@@ -30,7 +30,7 @@ jobs:
           bundler-cache: true
       - name: Install dependencies 🔧
         run: cd ./scripts/check_links/ && bundle install
-      - name: Build markdown and check links 🏗  
+      - name: Build HTML frm markdown and check links 🏗  
         run: ruby ./scripts/check_links/check_links.rb
   prose:
     runs-on: ubuntu-latest

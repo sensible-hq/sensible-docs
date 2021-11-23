@@ -28,6 +28,14 @@ end
 # test your out dir's links!
 #HTMLProofer.check_directory("./out").run
 options = {
-  :log_level => :debug,
+  :log_level => :info,
 }
+
+puts "contents of Out:"
+Dir.chdir("out") do
+  system "pwd"
+  system "ls"
+end
+
+
 HTMLProofer.check_directory("./out", options).run

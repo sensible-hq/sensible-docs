@@ -39,6 +39,11 @@ def get_changelogs():
     print("ALL CHANGELOGS")
     with open(file_path, 'r') as fin:
       print(fin.read())
+    print("in OUT dir:")
+    print(os.path.abspath(rel_path))
+    print(os.listdir(rel_path))
+
+
 
 def get_doc_slugs(cat_id):
     url = "https://dash.readme.com/api/v1/categories/document-types/docs"
