@@ -8,6 +8,12 @@ If you landed on this page, you're probably looking for answers for our in-app t
 
 [Part 1](doc:cheat#part-1)
 
+[Part 2](doc:cheat#part-2)
+
+[Part 3](doc:cheat#part-3)
+
+[Part 4](doc:cheat#part-4)
+
 
 
 Part 1
@@ -33,28 +39,17 @@ After you've completed all the steps in the tutorial, the final config is:
 }
 ```
 
-Explanation
+Learn more
 ---
 
-Here are some explanations of the effects of some of the steps you take in this tutorial:
+To learn more about some of the changes you made in this tutorial, see:
 
-**Change 1**
-
-- change `"anchor": "welcome"` to `"anchor": "use this anchor line"`
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cheat_1_1.png)
-
-The line starting with "Use this anchor line" becomes the new anchor, as shown by the yellow box. The anchor serves as a label (`"id":"label"`) for the target line below the anchor (`"position":"below"`).   For more information, see [Label](doc:label).
-
-The blue box shows the target line to extract. 
-
-
-
-**Change 3**
-
-- change `"id": "label"` to  `"id": "box"`
-
-Instead of treating the anchor as a label, Sensible searches outward from the anchor line to find dark box borders. Once Sensible recognizes the box, it grabs all the text inside the box except the anchor line itself. For more information, see [Box](doc:box).
+| Link                      | Notes                                                        |
+| ------------------------- | ------------------------------------------------------------ |
+| [Anchor](doc:anchor)      | Fundamental concepts such as anchors and methods.            |
+| [Label](doc:label)        | The label method is a frequently used extraction method.     |
+| [Box](doc:box)            | The box method is a frequently used extraction method.       |
+| [Color coding](doc:color) | Explains the yellow, blue, or green boxes you see overlaid on the PDF in the Sensible app. |
 
 
 
@@ -91,7 +86,7 @@ After you've completed all the steps in the tutorial, the final config is:
 
 
 
-Explanation
+Learn more
 ---
 
 Initial config
@@ -113,7 +108,7 @@ To undo all your changes in Part 2, paste the following config into the left pan
       }
     },
     {
-      "id": "table_with_specified_columns",
+      "id": "snack_table",
       "anchor": "tables and rows",
       "type": "table",
       "method": {
@@ -121,11 +116,11 @@ To undo all your changes in Part 2, paste the following config into the left pan
         "columnCount": 7,
         "columns": [
           {
-            "id": "column_in_table",
+            "id": "second_column",
             "index": 1
           },
           {
-            "id": "another_column",
+            "id": "sixth_column",
             "index": 5,
             "type": "percentage"
           }
@@ -138,7 +133,6 @@ To undo all your changes in Part 2, paste the following config into the left pan
     }
   ]
 }
-
 ```
 
 **Mix it up answers**
