@@ -56,7 +56,7 @@ puts (Dir.entries(rel_path))
 # make an out dir
 # puts "current dir in which to make out dir"
 # puts Dir.pwd
-if File.exist?("out") do
+if File.exist?("out") then
   puts ("OUT ALREADY EXISTS!")
 end  
 
