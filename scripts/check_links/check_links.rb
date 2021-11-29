@@ -21,6 +21,7 @@ if !response.success?
 end  
 
 response_json = JSON.parse(response.body)
+puts JSON.pretty_generate(response_json)
 
 # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
 
@@ -28,19 +29,17 @@ rel_path = "out_changelogs"
 
 Dir.mkdir(rel_path) unless File.exist?(rel_path)
 
-
-file_path = File.join(rel_path + "/all_changelogs.html")  
+ 
 puts "FILE PATH: "
 puts  file_path
 #print("PATHS: current:", os.getcwd())
 #print("PATHS: intended dest:", file_path)
 # left off TODO: make an out dir?
 for page in response_json do
+  file_path = File.join(rel_path + "/" + page['title'] + "html") 
   File.open(file_path, 'a+') {|f| f.write(page['html']) }
 end  
-# troubleshooting: print statement
-puts ("ALL CHANGELOGS")
-File.open(file_path, 'r') {|f| f.read() }
+
 
 puts "in out_changelogs dir:"
 puts (Dir.entries(rel_path))
