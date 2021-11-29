@@ -3,6 +3,9 @@ require 'html/pipeline'
 require 'find'
 require 'open3'
 require 'faraday'
+require 'json'
+
+README_API_KEY = ENV['README_API_KEY']
 
 # get changelogs
 url = URI("https://dash.readme.com/api/v1/changelogs?perPage=10&page=1")
