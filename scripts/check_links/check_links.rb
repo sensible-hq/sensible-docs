@@ -29,7 +29,7 @@ rel_path = "out_changelogs"
 Dir.mkdir(rel_path) unless File.exist?(rel_path)
 
 
-file_path = File.join(rel_path + "all_changelogs.html")  
+file_path = File.join(rel_path + "/all_changelogs.html")  
 puts "FILE PATH: "
 puts  file_path
 #print("PATHS: current:", os.getcwd())
