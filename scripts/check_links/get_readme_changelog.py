@@ -22,20 +22,27 @@ def get_changelogs():
     response_json = requests.request("GET", url, headers=headers, data=payload).json()
     #print(json.dumps(response_json, indent=2))
 
-    script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
-    rel_path = "/out/all_changelogs.html"
-    abs_file_path = os.path.join(script_dir, rel_path)
-    print("PATHS: current:", script_dir)
-    print("PATHS: dest:", abs_file_path)
+    # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+    rel_path = "./out_changelogs/"
+    if not os.path.exists(rel_path):
+      # os.makedirs(rel_path, 0o755)
+      os.makedirs(rel_path)
+    file_path = os.path.join(rel_path + "all_changelogs" + "." + "html")  
+    print("PATHS: current:", os.getcwd())
+    print("PATHS: intended dest:", file_path)
     # left off TODO: make an out dir?
     for page in response_json:
       #print(json.dumps(page['html'], indent=2))
       # left off: write each html to some ./out dir, same as the ruby one...
-      with open(abs_file_path, 'a+') as f:
-          f.write(page['html'])
-    print("ALL CHANGELOGS")
-    with open(abs_file_path, 'r') as fin:
-      print(fin.read())
+      with open(file_path, 'a+') as f:
+        f.write(page['html'])
+    #print("ALL CHANGELOGS")
+    #with open(file_path, 'r') as fin:
+      #print(fin.read())
+    print("in out_changelogs dir:")
+    print(os.path.abspath(rel_path))
+    print(os.listdir(rel_path))
+
 
 def get_doc_slugs(cat_id):
     url = "https://dash.readme.com/api/v1/categories/document-types/docs"
