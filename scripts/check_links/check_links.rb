@@ -2,6 +2,51 @@ require 'html-proofer'
 require 'html/pipeline'
 require 'find'
 require 'open3'
+require 'faraday'
+
+# get changelogs
+url = URI("https://dash.readme.com/api/v1/changelogs?perPage=10&page=1")
+
+response = Faraday.get(url) do |req|
+  req.headers['Content-Type'] = 'application/json'
+  req.headers["Authorization"] = "Basic #{README_API_KEY}"
+  req.headers["x-readme-version"] = "v0"
+end 
+
+if !response.success?
+  abort "The request failed: #{response.status} #{response.reason_phrase}"
+end  
+
+response_json = JSON.parse(response.body)
+
+# script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+
+
+Dir.mkdir("out_changelogs") unless File.exist?("out_changelogs")
+
+
+file_path = File.join("out_changelogs" + "all_changelogs.html")  
+#print("PATHS: current:", os.getcwd())
+#print("PATHS: intended dest:", file_path)
+# left off TODO: make an out dir?
+for page in response_json do
+  #print(json.dumps(page['html'], indent=2))
+  # left off: write each html to some ./out dir, same as the ruby one...
+  # created if not exists:
+  File.open(file_path, 'a+') {|f| f.write(page['html']) }
+end  
+#print("ALL CHANGELOGS")
+#with open(file_path, 'r') as fin:
+  #print(fin.read())
+puts "in out_changelogs dir:"
+puts (os.listdir(rel_path))
+
+
+
+
+
+
+
 
 # make an out dir
 # puts "current dir in which to make out dir"
