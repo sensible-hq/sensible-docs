@@ -46,5 +46,8 @@ Dir.chdir("out") do
   system "ls"
 end
 
-
+# check the guides 
 HTMLProofer.check_directory("./out", options).run
+
+# check the changelog HTML pulled from ReadmeAPI in a previous step
+HTMLProofer.check_directory("./out_changelogs", options).run 

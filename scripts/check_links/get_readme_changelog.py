@@ -23,7 +23,7 @@ def get_changelogs():
     #print(json.dumps(response_json, indent=2))
 
     # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
-    rel_path = "./out/"
+    rel_path = "./out_changelogs/"
     if not os.path.exists(rel_path):
       # os.makedirs(rel_path, 0o755)
       os.makedirs(rel_path)
@@ -39,7 +39,7 @@ def get_changelogs():
     #print("ALL CHANGELOGS")
     #with open(file_path, 'r') as fin:
       #print(fin.read())
-    print("in OUT dir:")
+    print("in out_changelogs dir:")
     print(os.path.abspath(rel_path))
     print(os.listdir(rel_path))
 
