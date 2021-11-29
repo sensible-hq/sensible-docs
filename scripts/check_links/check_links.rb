@@ -23,7 +23,7 @@ if !response.success?
 end  
 
 response_json = JSON.parse(response.body)
-puts JSON.pretty_generate(response_json)
+#puts JSON.pretty_generate(response_json)
 
 # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
 
