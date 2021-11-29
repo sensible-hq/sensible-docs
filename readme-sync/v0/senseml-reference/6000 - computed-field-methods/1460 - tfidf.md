@@ -2,7 +2,7 @@
 title: "TFIDF"
 hidden: true
 ---
-Classifies the output of source fields against how closely they are related to sample snippets of text that you provide. Outputs classifications of the source fields.  For example, an array of source fields like this:
+Classifies the output of source fields against how closely they are related to sample snippets of text that you provide. Outputs classifications of the source fields as a parallel array.  For example, for an array of source fields like this:
 
 ```json
 {
