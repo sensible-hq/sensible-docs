@@ -39,7 +39,6 @@ Dir.mkdir(rel_path) unless File.exist?(rel_path)
 # left off TODO: make an out dir?
 for page in response_json do
   file_path = File.join(rel_path + "/" + page['slug'] + ".html") 
-  puts file_path
   File.open(file_path, 'a+') {|f| f.write(page['html']) }
 end  
 
