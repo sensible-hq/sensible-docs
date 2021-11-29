@@ -24,11 +24,12 @@ response_json = JSON.parse(response.body)
 
 # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
 
+rel_path = "out_changelogs"
 
-Dir.mkdir("out_changelogs") unless File.exist?("out_changelogs")
+Dir.mkdir(rel_path) unless File.exist?(rel_path)
 
 
-file_path = File.join("out_changelogs" + "all_changelogs.html")  
+file_path = File.join(rel_path + "all_changelogs.html")  
 #print("PATHS: current:", os.getcwd())
 #print("PATHS: intended dest:", file_path)
 # left off TODO: make an out dir?
@@ -42,7 +43,7 @@ end
 #with open(file_path, 'r') as fin:
   #print(fin.read())
 puts "in out_changelogs dir:"
-puts (os.listdir(rel_path))
+puts (Dir.entries(rel_path))
 
 
 
