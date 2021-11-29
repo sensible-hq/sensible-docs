@@ -39,7 +39,8 @@ for page in response_json do
   # created if not exists:
   File.open(file_path, 'a+') {|f| f.write(page['html']) }
 end  
-#print("ALL CHANGELOGS")
+puts ("ALL CHANGELOGS")
+File.open(file_path, 'r') {|f| f.read() }
 #with open(file_path, 'r') as fin:
   #print(fin.read())
 puts "in out_changelogs dir:"
@@ -55,6 +56,10 @@ puts (Dir.entries(rel_path))
 # make an out dir
 # puts "current dir in which to make out dir"
 # puts Dir.pwd
+if File.exist?("out") do
+  puts ("OUT ALREADY EXISTS!")
+end  
+
 Dir.mkdir("out") unless File.exist?("out")
 
 puts "contents of Out (TODO: should include the all_changelogs.html from prev. step):"
@@ -89,11 +94,11 @@ options = {
   :log_level => :info,
 }
 
-puts "contents of Out:"
-Dir.chdir("out") do
-  system "pwd"
-  system "ls"
-end
+# puts "contents of Out:"
+# Dir.chdir("out") do
+#   system "pwd"
+#   system "ls"
+# end
 
 # check the guides 
 HTMLProofer.check_directory("./out", options).run
