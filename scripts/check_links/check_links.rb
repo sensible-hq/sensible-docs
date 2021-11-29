@@ -7,7 +7,9 @@ require 'json'
 
 README_API_KEY = ENV['README_API_KEY']
 
+# #################
 # get changelogs
+# #################
 url = URI("https://dash.readme.com/api/v1/changelogs?perPage=10&page=1")
 
 response = Faraday.get(url) do |req|
@@ -30,26 +32,28 @@ rel_path = "out_changelogs"
 Dir.mkdir(rel_path) unless File.exist?(rel_path)
 
  
-puts "FILE PATH: "
-puts  file_path
+# puts "FILE PATH: "
+# puts  file_path
 #print("PATHS: current:", os.getcwd())
 #print("PATHS: intended dest:", file_path)
 # left off TODO: make an out dir?
 for page in response_json do
-  file_path = File.join(rel_path + "/" + page['title'] + "html") 
+  file_path = File.join(rel_path + "/" + page['slug'] + ".html") 
   File.open(file_path, 'a+') {|f| f.write(page['html']) }
 end  
 
 
-puts "in out_changelogs dir:"
-puts (Dir.entries(rel_path))
+# puts "in out_changelogs dir:"
+# puts (Dir.entries(rel_path))
 
 
 
 
 
 
-
+# #################
+# Convert existing local MD files to HTML
+# #################
 
 # make an out dir
 
@@ -77,8 +81,10 @@ Find.find("./readme-sync/v0") do |path|
   end
 end
 
+# #################
 # test your out dir's links!
-#HTMLProofer.check_directory("./out").run
+# #################
+
 options = {
   :log_level => :info,
 }
