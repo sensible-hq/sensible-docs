@@ -62,7 +62,6 @@ Use the one-time URL you generated in the previous step to extract data from the
 
 ```json
 curl --request PUT 'YOUR_UPLOAD_URL' \
---header 'Content-Type: ' \
 --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
 ```
 
@@ -70,9 +69,13 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_4.png)
 
-Note: If Postman automatically specifies authorization for the request, then specify **No Auth** in the request's **Auth** tab :
+**Troubleshoot**: Postman can automatically add authorization and content-type headers that cause errors:
+
+- If Postman automatically specifies authorization for the request, then specify **No Auth** in the request's **Auth** tab :
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_no_auth.png)
+
+- If Postman automatically specifies content types, then deselect any Content-Type checkboxes in the **Headers** tab.
 
 
 
