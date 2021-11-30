@@ -2,7 +2,7 @@
 title: "TFIDF"
 hidden: true
 ---
-Classifies the output of source fields against how closely they are related to sample snippets of text that you provide. Outputs classifications of the source fields as a parallel array.  For example, for an array of source fields like this:
+Classifies fields by comparing them to sample snippets of text that you provide. Outputs classifications of the source fields as a parallel array.  For example, for an array of source fields like this:
 
 ```json
 {
@@ -32,15 +32,15 @@ You can use the TFIDF computed field method to output:
  "classified_menu_items": [
      {
          "id":"dessert",
-         "document":"sorbet, cake, ice cream, custard, creme brulee, pudding"
+         "document":"sorbet, cake, ice cream, custard, creme brulee, pudding, chocolate, cookie, mousse, flan"
      },
      {
          "id":"meat_entree",
-         "value":"steak, chicken, lamb, pork, beef, turkey, goat"
+         "value":"steak, chicken, lamb, pork, beef, turkey, goat, leg, breast, shank, hamburger, filet"
      },
           {
          "type":"dessert",
-         "value":"sorbet, cake, ice cream, custard, creme brulee, pudding"
+         "value":"sorbet, cake, ice cream, custard, creme brulee, pudding, chocolate, cookie, mousse, flan"
      }
      
  ]   
@@ -48,7 +48,7 @@ You can use the TFIDF computed field method to output:
 }
 ```
 
-
+TFIDF  (term frequency--inverse document frequency) is an NLP technique that matches extracted text to a relevant Document parameter.  Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for all of a restaurant's "meat entrees" rather than a short list of keywords.
 
 
 
@@ -61,8 +61,8 @@ The following parameters are contained in the computed field's [global Method](d
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)        | `tfidf`      |                                                              |
-| source_id (**required**) | field ID     | Usually, you use the `match:all` parameter to extract an array of values for a single field, then run those values through the TFIDF computed field method. |
-| corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category/classification you want applied to any text from the source ID output that scores highly against this corpus object.<br/>`document` - a short string of example free text containing the key words against which you want to score the output of the source ID. |
+| source_id (**required**) | field ID     | The TFIDF method works with a source field that outputs an array. For example, the `match:all` parameter returns an array. |
+| corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. There is no character limit for this parameter. |
 
 Examples
 ====
