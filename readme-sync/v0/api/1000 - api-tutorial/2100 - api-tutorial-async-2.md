@@ -63,13 +63,18 @@ Use the one-time URL you generated in the previous step to extract data from the
 ```json
 curl --request PUT 'YOUR_UPLOAD_URL' \
 --header 'Content-Type: ' \
---header 'Authorization: ' \
 --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_4.png)
+
+Note: If Postman automatically specifies authorization for the request, then specify **No Auth** in the request's **Auth** tab :
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_no_auth.png)
+
+
 
 3. If you haven't already, download the following example PDF, which works with the example `auto_insurance_quote` config you created in the **Prerequisites** section:
 
