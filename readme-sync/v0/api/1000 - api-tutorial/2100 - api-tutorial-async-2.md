@@ -77,7 +77,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 - If Postman automatically specifies content types, then deselect any Content-Type checkboxes in the **Headers** tab.
 
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_headers_2.png)
 
 3. If you haven't already, download the following example PDF, which works with the example `auto_insurance_quote` config you created in the **Prerequisites** section:
 
@@ -88,12 +88,9 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_headers_2.png)
+  
 
-   
-
-5. If you import the request inside a Postman collection, then navigate to the **Auth** tab and verify that the **Type** dropdown is set to **No Auth**, not the default behavior of inheriting auth from parent.
-6. Click **Send** to send the request. The response is  `200`:
+5. Click **Send** to send the request. The response is  `200`:
 
 
 
