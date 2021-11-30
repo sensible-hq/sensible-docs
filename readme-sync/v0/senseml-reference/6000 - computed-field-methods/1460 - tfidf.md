@@ -48,7 +48,7 @@ You can use the TFIDF computed field method to output:
 }
 ```
 
-TFIDF  (term frequency--inverse document frequency) is an NLP technique that matches extracted text to a relevant Document parameter.  Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for all of a restaurant's "meat entrees" rather than a short list of keywords.
+Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for all of a restaurant's "meat entrees" rather than a short list of keywords.
 
 
 
@@ -60,7 +60,7 @@ The following parameters are contained in the computed field's [global Method](d
 
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)        | `tfidf`      |                                                              |
+| id (**required**)        | `tfidf`      | TFIDF  (term frequency--inverse document frequency) is an NLP technique that matches extracted text to a relevant Document parameter. |
 | source_id (**required**) | field ID     | The TFIDF method works with a source field that outputs an array. For example, the `match:all` parameter returns an array. |
 | corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. There is no character limit for this parameter. |
 
