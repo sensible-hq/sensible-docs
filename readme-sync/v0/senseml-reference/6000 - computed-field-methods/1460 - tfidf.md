@@ -61,7 +61,7 @@ The following parameters are contained in the computed field's [global Method](d
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)        | `tfidf`      | TFIDF  (term frequency--inverse document frequency) is an NLP technique that matches extracted text to a relevant Document parameter. |
-| source_id (**required**) | field ID     | The TFIDF method works with a source field that outputs an array. For example, the `match:all` parameter returns an array. |
+| source_id (**required**) | field ID     | For every field you want to classify, create a TFIDF computed field and specify the field ID.  To minimize creating multiple TFIDF fields (which can result in a long config), look for opportunities to create a source field that outputs an array. In this case, the TFIDF computed field returns multiple classifications as a parallel array to the input array. |
 | corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. There is no character limit for this parameter. |
 
 Examples
