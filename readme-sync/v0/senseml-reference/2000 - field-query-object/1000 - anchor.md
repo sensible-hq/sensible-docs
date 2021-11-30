@@ -44,8 +44,8 @@ An Anchor object has the following top-level parameters:
 
 | key                                             | values                                      | description                                                  |
 | ----------------------------------------------- | ------------------------------------------- | ------------------------------------------------------------ |
-| match (**required**, except for string anchors) | Match object or array of Match objects      | See [Match object](doc:match).                              |
-| start                                           | string, Match object, or Match object array | Start the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that precedes the start line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:lines#line-sorting).<br/>The Start line is never included in anchor output. (You can extract other anchor output with a Passthrough method). |
+| match (**required**, except for string anchors) | Match object or array of Match objects      | See [Match object](doc:match).                               |
+| start                                           | string, Match object, or Match object array | Start the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that precedes the start line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:lines#line-sorting).<br/>You can extract anchor output with a Passthrough method. |
 | end                                             | string, Match, or Match array               | Stop the search for the anchor's Match parameter at a line of text in the document, and ignore all the text that succeeds the End line. <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the End line. For more information, see [Line sorting](doc:lines#line-sorting).<br/>If unspecified, the anchor searches for matches to the end of the document. <br/> |
 | includeEnd                                      | boolean                                     | Whether to include the matching End line in the anchor output. |
 
@@ -60,7 +60,7 @@ Here's an example of an Anchor object that uses all these parameters:
     {
       "id": "simple_label",
       "anchor": {
-        "start": "My section heading. Start matching after it",
+        "start": "My section heading. Start matching at the start of this line",
         "end": "My footer text. Stop matching before it",
         "includeEnd": true,
         "match": 
