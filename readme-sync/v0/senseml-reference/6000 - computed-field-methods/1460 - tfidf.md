@@ -25,7 +25,7 @@ Classifies fields by comparing them to sample snippets of text that you provide.
 }
 ```
 
-You can use output classifications like this:
+You can output a classification for each source field, like this:
 
 ```json
 {
@@ -48,7 +48,7 @@ You can use output classifications like this:
 }
 ```
 
-Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for a restaurant's "meat entrees" rather than a short list of keywords.
+To produce this output, you specify classifications and corresponding example text ("documents") in the TFIDF computed field method. Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for a restaurant's "meat entrees" rather than a short list of keywords.
 
 Parameters
 ====
@@ -59,7 +59,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)        | `tfidf`      | TFIDF  (term frequency--inverse document frequency) is an NLP technique that determine a category for the extracted text by matching it to a relevant Document parameter. |
-| source_id (**required**) | field ID     | For every field you want to classify, create a TFIDF computed field and specify the field ID. |
+| source_id (**required**) | field ID     | For every field you want to classify, create a TFIDF computed field and specify the field ID. If the source field outputs an array, then this method returns the classifications as a parallel array. |
 | corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object. It's best practice to choose categories that are mutually exclusive. If the categories aren't mutually exclusive, then Sensible chooses a winning category using the greatest overlap of rare words between the source field and the document.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. This parameter has no character limit. |
 
 Examples
