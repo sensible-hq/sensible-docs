@@ -7,7 +7,7 @@ Automatically extracts key/value pairs from short snippets of free text using [O
 Parameters
 ====
 
-The following parameters are contained in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 
 | key                      | value        | description                                                  |

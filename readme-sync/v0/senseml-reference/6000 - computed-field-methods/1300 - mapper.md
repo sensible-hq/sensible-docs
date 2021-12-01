@@ -8,7 +8,7 @@ Maps output from source fields using a case-sensitive lookup table. A common use
 Parameters
 ====
 
-The following parameters are contained in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 | key       | value                                   | description                                                  |
 | :-------- | :-------------------------------------- | :----------------------------------------------------------- |
