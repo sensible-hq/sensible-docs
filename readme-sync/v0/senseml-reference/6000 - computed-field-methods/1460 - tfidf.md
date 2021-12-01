@@ -1,6 +1,6 @@
 ---
 title: "TFIDF"
-hidden: true
+hidden: false
 ---
 Classifies fields by comparing them to sample snippets of text that you provide. Outputs classifications of the source fields as a parallel array.  For example, for an array of source fields like this:
 
@@ -50,8 +50,6 @@ You can use the TFIDF computed field method to output:
 
 Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for all of a restaurant's "meat entrees" rather than a short list of keywords.
 
-
-
 Parameters
 ====
 
@@ -60,19 +58,96 @@ The following parameters are contained in the computed field's [global Method](d
 
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)        | `tfidf`      | TFIDF  (term frequency--inverse document frequency) is an NLP technique that matches extracted text to a relevant Document parameter. |
+| id (**required**)        | `tfidf`      | TFIDF  (term frequency--inverse document frequency) is an NLP technique that matches extracted text to a relevant Document parameter in order to determine a category for the extracted text. |
 | source_id (**required**) | field ID     | For every field you want to classify, create a TFIDF computed field and specify the field ID.  To minimize creating multiple TFIDF fields (which can result in a long config), look for opportunities to create a source field that outputs an array. In this case, the TFIDF computed field returns multiple classifications as a parallel array to the input array. |
-| corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. There is no character limit for this parameter. |
+| corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object. It's best practice to choose categories that are mutually exclusive. If the categories aren't mutually exclusive, then Sensible chooses a winning category using the greatest overlap of rare words between the source field and the document.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. There is no character limit for this parameter. |
 
 Examples
 ====
 
-
+The following example classifies the items on a restaurant menu.
 
 **Config**
 
 ```json
-
+{
+  "fields": [
+    {
+      "id": "dinner_specials",
+      "match": "all",
+      "anchor": {
+        "start": {
+          "text": "dinner specials",
+          "type": "equals"
+        },
+        "match": {
+          "type": "regex",
+          "pattern": "^~ [A-Z].*$"
+        },
+        "end": {
+          "text": "dessert specials",
+          "type": "startsWith"
+        }
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    },
+    {
+      "id": "dessert_specials",
+      "match": "all",
+      "anchor": {
+        "start": {
+          "text": "dessert specials",
+          "type": "equals"
+        },
+        "match": {
+          "type": "regex",
+          "pattern": "^~ [A-Z].*$"
+        }
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    }
+  ],
+  "computed_fields": [
+    {
+      "id": "classified_dinners",
+      "method": {
+        "id": "tfidf",
+        "source_id": "dinner_specials",
+        "corpus": [
+          {
+            "id": "meat_entree",
+            "document": "Seared beef with fingerling potatoes and asparagus, Chicken breast stuffed with asiago cheese, with scalloped potatoes, apricot-braised lamb shank with couscous and mixed greens, curried lamb with peas, carrots, and flatbread, chicken, pork, veal, beef, duck, goose, turkey, breast, leg, sirloin"
+          },
+          {
+            "id": "fish_entree",
+            "document": "Grilled salmon with almond rice pilaf and spinach with pine nuts, sea bass with root vegetables and peas, trout with almonds and rice pilaf, buttered seared shrimp puffs, scallops, crab, fish, flounder, tuna, swordfish, catfish, crayfish, mussels, herring, lox "
+          }
+        ]
+      }
+    },
+    {
+      "id": "classified_desserts",
+      "method": {
+        "id": "tfidf",
+        "source_id": "dessert_specials",
+        "corpus": [
+          {
+            "id": "french_desserts",
+            "document": "creme brulee, Strawberry tart with creme patissiere and caramel sauce, brioche bread pudding with chocolate glaze, mille-feuille, madeleine, crepe, palmiers, souffle"
+          },
+          {
+            "id": "italian_desserts",
+            "document": "tiramisu with raspberries, cannoli cake with candied lavender, mascarpone cheesecake with blueberry ice cream, panettone, panna cotta, semifreddo, biscotti "
+          }
+        ]
+      }
+    }
+  ]
+}
 ```
 
 **PDF**
@@ -87,5 +162,78 @@ The following image shows the example PDF used with this example config:
 **Output**
 
 ```json
-
+{
+  "dinner_specials": [
+    {
+      "type": "string",
+      "value": "~ Grilled salmon with almond rice pilaf and spinach with pine nuts"
+    },
+    {
+      "type": "string",
+      "value": "~ Seared beef with fingerling potatoes and asparagus"
+    },
+    {
+      "type": "string",
+      "value": "~ Chicken breast stuffed with asiago cheese, with scalloped potatoes and"
+    },
+    {
+      "type": "string",
+      "value": "~ Apricot-braised lamb shank with couscous and mixed greens"
+    }
+  ],
+  "dessert_specials": [
+    {
+      "type": "string",
+      "value": "~ Cannoli cake with candied lavender"
+    },
+    {
+      "type": "string",
+      "value": "~ Creme brulee"
+    },
+    {
+      "type": "string",
+      "value": "~ Tiramisu with raspberries"
+    },
+    {
+      "type": "string",
+      "value": "~ Strawberry tart with creme patissiere and caramel sauce"
+    }
+  ],
+  "classified_dinners": [
+    {
+      "id": "fish_entree",
+      "document": "Grilled salmon with almond rice pilaf and spinach with pine nuts, sea bass with root vegetables and peas, trout with almonds and rice pilaf, buttered seared shrimp puffs, scallops, crab, fish, flounder, tuna, swordfish, catfish, crayfish, mussels, herring, lox "
+    },
+    {
+      "id": "meat_entree",
+      "document": "Seared beef with fingerling potatoes and asparagus, Chicken breast stuffed with asiago cheese, with scalloped potatoes, apricot-braised lamb shank with couscous and mixed greens, curried lamb with peas, carrots, and flatbread, chicken, pork, veal, beef, duck, goose, turkey, breast, leg, sirloin"
+    },
+    {
+      "id": "meat_entree",
+      "document": "Seared beef with fingerling potatoes and asparagus, Chicken breast stuffed with asiago cheese, with scalloped potatoes, apricot-braised lamb shank with couscous and mixed greens, curried lamb with peas, carrots, and flatbread, chicken, pork, veal, beef, duck, goose, turkey, breast, leg, sirloin"
+    },
+    {
+      "id": "meat_entree",
+      "document": "Seared beef with fingerling potatoes and asparagus, Chicken breast stuffed with asiago cheese, with scalloped potatoes, apricot-braised lamb shank with couscous and mixed greens, curried lamb with peas, carrots, and flatbread, chicken, pork, veal, beef, duck, goose, turkey, breast, leg, sirloin"
+    }
+  ],
+  "classified_desserts": [
+    {
+      "id": "italian_desserts",
+      "document": "tiramisu with raspberries, cannoli cake with candied lavender, mascarpone cheesecake with blueberry ice cream, panettone, panna cotta, semifreddo, biscotti "
+    },
+    {
+      "id": "french_desserts",
+      "document": "creme brulee, Strawberry tart with creme patissiere and caramel sauce, brioche bread pudding with chocolate glaze, mille-feuille, madeleine, crepe, palmiers, souffle"
+    },
+    {
+      "id": "italian_desserts",
+      "document": "tiramisu with raspberries, cannoli cake with candied lavender, mascarpone cheesecake with blueberry ice cream, panettone, panna cotta, semifreddo, biscotti "
+    },
+    {
+      "id": "french_desserts",
+      "document": "creme brulee, Strawberry tart with creme patissiere and caramel sauce, brioche bread pudding with chocolate glaze, mille-feuille, madeleine, crepe, palmiers, souffle"
+    }
+  ]
+}
 ```
