@@ -2,7 +2,7 @@
 title: "TFIDF"
 hidden: false
 ---
-Classifies fields by comparing them to sample snippets of text that you provide. Outputs classifications of the source fields as a parallel array.  For example, for an array of source fields like this:
+Classifies fields by comparing them to sample snippets of text that you provide. Outputs classifications of the source fields as a parallel array. For example, for an array of source fields like this:
 
 ```json
 {
@@ -25,7 +25,7 @@ Classifies fields by comparing them to sample snippets of text that you provide.
 }
 ```
 
-You can use the TFIDF computed field method to output:
+You can use output classifications like this:
 
 ```json
 {
@@ -48,24 +48,24 @@ You can use the TFIDF computed field method to output:
 }
 ```
 
-Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for all of a restaurant's "meat entrees" rather than a short list of keywords.
+Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for a restaurant's "meat entrees" rather than a short list of keywords.
 
 Parameters
 ====
 
-The following parameters are contained in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)        | `tfidf`      | TFIDF  (term frequency--inverse document frequency) is an NLP technique that matches extracted text to a relevant Document parameter in order to determine a category for the extracted text. |
-| source_id (**required**) | field ID     | For every field you want to classify, create a TFIDF computed field and specify the field ID.  To minimize creating multiple TFIDF fields (which can result in a long config), look for opportunities to create a source field that outputs an array. In this case, the TFIDF computed field returns multiple classifications as a parallel array to the input array. |
-| corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object. It's best practice to choose categories that are mutually exclusive. If the categories aren't mutually exclusive, then Sensible chooses a winning category using the greatest overlap of rare words between the source field and the document.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. There is no character limit for this parameter. |
+| id (**required**)        | `tfidf`      | TFIDF  (term frequency--inverse document frequency) is an NLP technique that determine a category for the extracted text by matching it to a relevant Document parameter. |
+| source_id (**required**) | field ID     | For every field you want to classify, create a TFIDF computed field and specify the field ID. |
+| corpus                   | object array | Array of corpus objects. Each contains the following parameters:<br/>`id`: the category or classification you want applied to an element in the source ID array, if it scores highly against this corpus object. It's best practice to choose categories that are mutually exclusive. If the categories aren't mutually exclusive, then Sensible chooses a winning category using the greatest overlap of rare words between the source field and the document.<br/>`document` - example free text containing the key words against which you want to score the output of the source ID. This parameter has no character limit. |
 
 Examples
 ====
 
-The following example classifies the items on a restaurant menu.
+The following example classifies the items on a restaurant menu. For the sake of concise syntax, the two source fields use `"match":"all"` to return arrays, and the TFIDF computed fields return classifications as parallel arrays to the input arrays.
 
 **Config**
 
