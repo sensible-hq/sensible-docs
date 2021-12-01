@@ -2,7 +2,7 @@
 title: "TFIDF"
 hidden: false
 ---
-Classifies fields by comparing them to sample snippets of text that you provide. Outputs classifications of the source fields as a parallel array. For example, for an array of source fields like this:
+Classifies fields by comparing them to sample snippets of text that you provide. For example, for an array of source fields like this:
 
 ```json
 {
