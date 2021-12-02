@@ -31,8 +31,8 @@ The following parameters are available to most types of Match objects:
 
 | key           | values                  | description                                                  |
 | ------------- | ----------------------- | ------------------------------------------------------------ |
-| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
-| maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match, but valid for individual matches in the Any match. |
+| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match array, but valid for individual matches in the array. |
+| maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match array, but valid for individual matches in the array. |
 | reverse       | boolean. default: false | Use with match arrays. Don't use with the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Match arrays](doc:match-arrays#reverse-match). |
 
 

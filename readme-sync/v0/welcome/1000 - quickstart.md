@@ -423,8 +423,6 @@ Let's double check that this region also works with the first PDF:
 
 Yes, it works too.
 
-If you're feeling picky, try resizing the region using the green box for visual feedback, until the lower edge of the box doesn't overlap the customer service line in the first PDF (auto_insurance_anyco_1.pdf). But even if you don't fine tune the region size, you can rest easy that you won't accidently capture the customer service line. This is because the Region method excludes text that partly lies outside a region. 
-
 3. Click **Publish** and choose **Production** to save your changes to the config.
 
 In a production scenario, continue testing PDFs until you have confidence your configs work with the PDF document type you've defined.  Then, write tests to validate the extractions in production.
