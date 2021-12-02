@@ -5,16 +5,16 @@ hidden: false
 
 This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs. Use these symbols to author and troubleshoot queries.
 
-| Symbol                                            | Represents                           |
-| ------------------------------------------------- | ------------------------------------ |
-| [Yellow box](doc:color#yellow-box)             | anchor                               |
-| [Blue box](doc:color#blue-box)                 | captured method data                 |
-| [Green box](doc:color#green-box)               | box or region                        |
-| [Green point](doc:color#green-point)           | starting point for recognizing a box |
-| [Light box](doc:color#light-blue-box)          | discarded method data                |
-| [Light yellow box](doc:color#light-yellow-box) | discarded anchor data                |
-| [Pink box](doc:color#pink-box)                 | fingerprint                          |
-| [Purple box](doc:color#purple-box)             | line details                         |
+| Symbol                                           | Represents                           |
+| ------------------------------------------------ | ------------------------------------ |
+| [Yellow box](doc:color#yellow-box)               | anchor                               |
+| [Blue box](doc:color#blue-box)                   | captured method data                 |
+| [Green box](doc:color#green-box)                 | box or region                        |
+| [Green point](doc:color#green-point)             | starting point for recognizing a box |
+| [Dotted blue box](doc:color#dotted-blue-box)     | discarded method data                |
+| [Dotted yellow box](doc:color#dotted-yellow-box) | discarded anchor data                |
+| [Pink box](doc:color#pink-box)                   | fingerprint                          |
+| [Purple box](doc:color#purple-box)               | line details                         |
 
 Yellow box
 ====
@@ -98,10 +98,10 @@ If you specify to find the box borders by starting from the right edge of the an
 
 
 
-Light blue box
+Dotted blue box
 ===
 
-***Light blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
+***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (light blue box).
 
@@ -134,10 +134,10 @@ Common parameters resulting in filtering include:
 
 
 
-Light yellow box
+Dotted yellow box
 ===
 
-***Light yellow boxes*** represent discarded anchor data, for example for queries that return null. 
+***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. 
 
 In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. Sensible filters out the strings because they don't meet the Label method's proximity requirements:
 

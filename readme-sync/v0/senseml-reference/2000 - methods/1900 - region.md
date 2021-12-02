@@ -22,7 +22,7 @@ Parameters
 
 | id                     | value                             | description                                                  |
 | ---------------------- | --------------------------------- | ------------------------------------------------------------ |
-| id (**required**)      | `region`                          | Extracts lines contained in the region, where "contained" means:<br/> the x extent of either the region or the line overlaps by >90%<br/> AND<br/> the y extent of either the region or the line overlaps by  >90%. |
+| id (**required**)      | `region`                          | Extracts lines contained in the region, where "contained" means:<br/>  - the region and the line overlap for at least 90% of either the region *or* the line's width ("x extent").<br/> AND<br/> - the region and the line overlap for at least 90% of either the region *or* the line's y  height ("extent"). |
 | start (**required**)   | `above`, `below`, `left`, `right` | Defines the starting point for the extraction region relative to the anchor. For example,  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `below` specifies starting at the midpoint of the anchor line's bottom boundary. |
 | offsetX (**required**) | number                            | The horizontal offset in inches from the point defined in the Start parameter to the top left corner of the region.<br/>You can use interactive visual feedback in the Sensible app to determine this number. |
 | offsetY (**required**) | number                            | The vertical offset in inches from the point defined in the Start parameter to the top left corner of the region.<br/>You can use interactive visual feedback in the Sensible app to determine this number. |
