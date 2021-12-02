@@ -103,7 +103,7 @@ Dotted blue box
 
 ***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
-For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (light blue box).
+For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (dotted blue box).
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_method.png)
 
@@ -139,13 +139,9 @@ Dotted yellow box
 
 ***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. 
 
-In the following image, there are two filtered out "python" strings surrounded by light yellow boxes. Sensible filters out the strings because they don't meet the Label method's proximity requirements:
+For example, for the following config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
-
-The query used for the preceding image is:
-
-```json
+```
 {
   "fields": [
     {
@@ -160,6 +156,12 @@ The query used for the preceding image is:
   ]
 }
 ```
+
+Sensible filters out "python" strings that don't meet the Label method's proximity requirements. For example, in the following image, the "python" string works for the Row method, but not the Label method:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
+
+
 
 Common parameters resulting in filtering include:
 
