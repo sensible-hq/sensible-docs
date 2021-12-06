@@ -2,7 +2,7 @@
 title: "Advanced computed field methods"
 hidden: false
 ---
-The following pages contain references to advanced computed field methods:
+The following topics describe advanced computed field methods:
 
 - [TFIDF](doc:tfidf)
 - [Summarizer](doc:summarizer)
