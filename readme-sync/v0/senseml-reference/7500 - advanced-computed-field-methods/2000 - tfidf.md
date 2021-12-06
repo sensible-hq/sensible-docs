@@ -2,7 +2,7 @@
 title: "TFIDF"
 hidden: false
 ---
-Classifies fields by comparing them to sample snippets of text that you provide. For example, for a source field like this:
+Classifies fields by comparing them to sample snippets of free text that you provide. For example, for a source field like this:
 
 ```json
 {
@@ -25,7 +25,7 @@ Classifies fields by comparing them to sample snippets of text that you provide.
 }
 ```
 
-You can return a classification for each array element output by the source field, like this:
+You can return a classification for each array element as a parallel array , like this:
 
 ```json
 {
@@ -48,7 +48,7 @@ You can return a classification for each array element output by the source fiel
 }
 ```
 
-To produce this output, you specify classifications and corresponding example text ("documents") in the TFIDF computed field method. Unlike the preceding simplified example, you can enter natural language in the Document parameter. For example, you can list the full text for a restaurant's "meat entrees" rather than a short list of keywords.
+To produce this output, you specify classifications and corresponding example text ("documents") in the TFIDF computed field method. Unlike the preceding simplified example, you can enter long natural language examples in the Document parameter. For example, you can list the full text for a restaurant's "meat entrees" rather than a short list of keywords.
 
 Parameters
 ====

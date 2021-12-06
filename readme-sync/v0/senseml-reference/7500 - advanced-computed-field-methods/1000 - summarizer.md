@@ -1,6 +1,6 @@
 ---
 title: "Summarizer"
-hidden: true
+hidden: false
 ---
 Automatically extracts key/value pairs from short snippets of free text using [OpenAI](https://openai.com/) machine learning (ML). The Summarizer compute field method takes a snippet of text extracted using the [Topic](doc:topic) method as input, and extracts key/value pairs informed by a few short samples of extracted values. 
 
