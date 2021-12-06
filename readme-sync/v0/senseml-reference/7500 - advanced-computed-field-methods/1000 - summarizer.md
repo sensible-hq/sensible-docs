@@ -13,9 +13,9 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)        | `summarizer` |                                                              |
-| source_id (**required**) | field ID     | Specifies a field that uses a [Topic](doc:topic) method, and whose output contains the relevant snippet of text containing the key/value information you want to extract. |
+| source_id (**required**) | field ID     | Specifies a field that uses a [Topic](doc:topic) method to output the relevant snippet of text containing the key/value information you want to extract. |
 | fields                   | string array | Names of the keys you want to extract. These names have an impact on the free-text extraction, so choose names that have a meaningful relationship to the target data to extract. For example, for a dollar amount of rent to extract,  `rent`, `rents`, and `rent_in_dollars` are good naming choices. |
-| samples                  | object       | Short snippets of text containing examples of how to extract information. Contains these parameters:<br/>`prompt`: a free text example of the information you want to extract.<br/>`values` The target information to extract from the prompt, generally a single word or number. List the values in the same order as you listed corresponding fields in the Fields parameter.<br/>If Sensible can't find the target information in the Source ID parameter, then the ML engine returns values from the sample set or generates a value. |
+| samples                  | object       | Short snippets of text containing examples of how to extract information. Contains these parameters:<br/>`prompt`: A free-text example of the information you want to extract.<br/>`values`: The target information to extract from the prompt, generally a single word or number. List the values in the same order as you list corresponding fields in the Fields parameter.<br/>If Sensible can't find the target information in the Source ID parameter, then the ML engine returns values from the sample set or generates a value. |
 
 Examples
 ====
@@ -103,4 +103,3 @@ The following image shows the example PDF used with this example config:
   ]
 }
 ```
-
