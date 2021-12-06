@@ -20,7 +20,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 Examples
 ====
 
-The following example shows using the Summarizer method to extract the monthly rent and the payment frequency.
+The following example shows using the Summarizer method to extract the monthly rent and the payment frequency from a lease.
 
 **Config**
 
