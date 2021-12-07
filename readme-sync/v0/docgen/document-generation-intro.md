@@ -5,7 +5,7 @@ hidden: true
 
  You can programmatically fill in templated forms with structured data using Sensible. As an overview, if you create a fillable form, either PDF or HTML, and add unique identifier to fillable elements, like this: 
 
-![image-20211207124138972](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20211207124138972.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-1.png)
 
 then you can use Sensible's generation API to feed in data to the fillable elements:
 
@@ -17,17 +17,28 @@ then you can use Sensible's generation API to feed in data to the fillable eleme
     "last_name": "Doe",
     "birth_date": "06/24/1979"
   },
+
+  "addresses":[
+      {
+          "street_address": "111 Center Street",
+          "zip_code": "78123"
+      },
+      {
+          "street_address": "123 Main Street",
+          "zip_code": "78125"
+      }
+  ],
   "contract": {
-    "start_date": "01/01/2022",
+    "start_date": "01/01/2022",  
   },
 }
 
 
 ```
 
-and return a completed document, like this:
+and return a filled document, like this:
 
-![image-20211207124059598](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20211207124059598.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-2.png)
 
 Complete these setup tasks for each fillable form:
 
@@ -42,12 +53,14 @@ Complete these setup tasks for each fillable form:
       "name": "customer_contract"
     },
     "mapping": {
-      "contractStartDate": "contract.start_date",
-      "customerName": {
+     "customerName": {
         "method": "concat",
         "sources": ["customer.first_name", "customer.last_name"]
       },
-      "customerDob": "customer.birth_date"
+      "customerDob": "customer.birth_date",  
+      "customerStrAdr": "addresses.1.street_address",
+      "contractStart": "contract.start_date",
+
     }
   }
 ]
