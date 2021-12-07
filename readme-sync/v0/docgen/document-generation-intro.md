@@ -7,7 +7,7 @@ hidden: true
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-1.png)
 
-then you can use Sensible's generation API to feed in data to the fillable elements:
+then you can use Sensible's [generation API](https://docs.sensible.so/reference/fill-form) to feed in data to the fillable elements:
 
 ```json
 {
