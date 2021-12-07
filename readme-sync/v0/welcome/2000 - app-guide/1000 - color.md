@@ -115,7 +115,6 @@ The query used for the preceding image is:
     {
       "id": "filtered_by_tiebreaker",
       "anchor": "Javascript",
-      "match": "last",
       "method": {
         "id": "row",
         "position": "right",
