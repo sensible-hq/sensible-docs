@@ -265,13 +265,13 @@ In the app, you can visually inspect anchors and methods by looking at their col
 
 - Orange boxes show lines matched by the Anchor object.
 - Blue boxes show lines matched by the Method object.
-- Pale blue boxes show lines discarded by the Method object. Seeing the entire method match in the app can help you troubleshoot unexpected output.
+- Dotted blue boxes show lines discarded by the Method object. Seeing the entire method match in the app can help you troubleshoot unexpected output.
 
 To continue the Row method example from the previous section, in the following image the orange box shows that "Comprehensive" is the anchor line:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_3.png)
 
-The dark and pale blue boxes show you that the Row method matches *all* the lines  in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. 
+The dotted blue boxes show you that the Row method matches *all* the lines  in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. 
 
 How it works: Box method
 ----
