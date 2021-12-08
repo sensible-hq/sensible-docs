@@ -31,7 +31,6 @@ The following example shows various labels:
 2. The `one_line_label` field extracts text to the right of a label on the same line, and filters out an unwanted string. 
 3. The `hanging_indent_label` field extracts consecutive lines of text by using a Stop parameter. The method extracts indented lines (`"textAlignment": "hangingIndent"`) , and the match does **not** include lines to the left or right of matching aligned lines. 
 4. The `only_looks_like_a_label` field demonstrates that labels are sensitive to font size differences by returning `null`.
-5. The `doc_range_alternative` fields shows an alternate way to extract the line targeted by `only_looks_like_a_label`.
 
 **Config**
 
@@ -82,17 +81,6 @@ The following example shows various labels:
         "id": "label",
         "position": "below"
       }
-    },
-    {
-      "id": "doc_range_alternative",
-      "anchor": "This also looks",
-      "method": {
-        "id": "documentRange",
-        "stop": {
-          "text": "to work",
-          "type": "startsWith"
-        }
-      }
     }
   ]
 }
@@ -124,11 +112,7 @@ The following image shows the example PDF used with this example config:
     "type": "string",
     "value": "It’s also called a second-line indent or a negative indent. Multiple lines of text can be indented under the first line of the hanging indent."
   },
-  "only_looks_like_a_label": null,
-  "doc_range_alternative": {
-    "type": "string",
-    "value": "But labels are sensitive to font size (as well as spacing, alignment, etc), so this one happens not to work. Try the Document Range method instead or the Region method."
-  }
+  "only_looks_like_a_label": null
 }
 ```
 

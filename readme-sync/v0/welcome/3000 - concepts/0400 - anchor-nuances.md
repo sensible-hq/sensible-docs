@@ -189,7 +189,19 @@ The following example shows two anchors qualified by the Label method:
 **Example Config**
 
 ```json
-{  "fields": [    {      "id": "anchors_candidates_filtered_by_method",      "anchor": "python",      "match": "first",      "method": {        "id": "label",        "position": "right"      }    }  ]}
+{
+  "fields": [
+    {
+      "id": "anchors_candidates_filtered_by_method",
+      "anchor": "python",
+      "match": "first",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
+    }
+  ]
+}
 ```
 
 **Example PDF**

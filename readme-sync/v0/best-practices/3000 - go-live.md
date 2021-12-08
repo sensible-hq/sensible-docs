@@ -9,6 +9,6 @@ You've written your configs and tested your reference PDFs and you're ready to m
 - [ ] Have you published the latest version of all your configurations across all document types to production? (In the Sensible app, select a document type, select a config, then click **Publish** and select **Production**).
 - [ ] If you're working with multiple configurations per document type, is the variable naming consistent across different configurations? (for example, if you extract a field with the ID `customer_full_name` in one config, you shouldn't name it `customer_fullname` in another config).
 - [ ] In your code, have you handled the case where a field in the response object can be null?
-- [ ]  Does your system properly handle an error response from the Sensible API?
-- [ ]  Do you have logging around which API calls triggered an error response so that you can retry those documents?
+- [ ] Does your system properly handle an error response from the Sensible API? 
+- [ ] Do you have logging around which API calls triggered an error response so that you can retry those documents? 
 
