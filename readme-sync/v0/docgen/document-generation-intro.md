@@ -71,7 +71,7 @@ This mapping specifies, for example:
 
 - To fill the PDF field `customerName`, take the values of the json keys `customer.first_name`, `customer.last_name` in the API request and concatenate them. 
 - To fill the PDF field `customerStrAdr`, get the second element in the addresses array in the API request, then get the value of the `street_address` key.
-- To fill the PDF field `contractStart`, look for the json key `contract.start_date` in the API request. If Sensible doesn't find that key, then fallback to the alternative, `policy.start_date`.
+- To fill the PDF field `contractStart`, look for the json key `contract.start_date` in the API request. If Sensible doesn't find that key, then fallback to an alternative and synonymous key, `policy.start_date`.
 
 TODO: what other methods do we provide except concat?  will we allow any other params except method and sources? 
 
@@ -86,7 +86,7 @@ TODO: what other methods do we provide except concat?  will we allow any other p
 Portfolio generation
 ----
 
-You can generate a portfolio file containing multiple documents in one file.  For example, if you write a config like this:
+You can generate a portfolio file containing multiple filled documents in one file.  For example, if you write a mapping like this:
 
 ```json
 [
@@ -115,7 +115,7 @@ You can generate a portfolio file containing multiple documents in one file.  Fo
 
 You can use one API request with one JSON payload to generate a portfolio file containing two separate filled out forms, an auto policy declaration and an umbrella policy declaration.
 
-
+QUESTION: duplicate keys across the mappings (`policyStart`) OK?
 
 Notes
 ---
