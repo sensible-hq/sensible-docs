@@ -3,7 +3,7 @@ title: "Document generation introduction"
 hidden: true
 ---
 
- You can programmatically fill in templated forms with structured data using Sensible. First, create a fillable template document, either PDF or HTML, and add unique identifier to fillable field elements, like this: 
+ You can programmatically fill in templated forms with structured data using Sensible. First, create a fillable template PDF document, and use a PDF editor to add unique identifier to fillable field elements, like this: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-1.png)
 
