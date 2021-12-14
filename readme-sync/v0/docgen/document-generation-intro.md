@@ -121,6 +121,6 @@ Notes
 
 Sensible currently supports the following:
 
-- filling text fields, not Boolean form elements like checkboxes or radio buttons
-- PDF templates, not HTML
-- the concat method, not split, join, etc.
+- fillable text fields, not for example checkboxes or radio buttons.
+- PDF templates, not for example HTML.
+- the concat method, not for example split or join.
