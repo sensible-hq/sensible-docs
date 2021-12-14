@@ -40,17 +40,28 @@ and return a filled document, like this:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-2.png)
 
-Complete these setup tasks for each unique fillable form:
+Get started
+---
 
-1. Email the fillable form you created to Sensible customer support at support@sensible.so. Sensible stores the form as a template for all subsequent API calls you make for that particular document.
-2. Write a config to map between the IDs you created in the fillable form and the JSON keys you submit to the generation API,and email it to Sensible customer support. For example, the following JSON maps the fillable field ID `customerDob` in a fillable PDF named "customer_contract" to a JSON key used in the API call, `customer.birth_date` (using JSON  dot notation):
+For each unique fillable form you create, email the following to Sensible customer support at support@sensible.so to get started with calling the API: 
+
+- The fillable form  
+
+- A mapping you write between the IDs you created in the fillable form and the JSON keys you submit to the generation API. See [Mappings](doc:document-generation-intro#mappings) for more information. 
+
+- A name for the 'generator' for this fillable form. A generator can contain multiple templates and mappings.  For example, if you submit a `6_month_customer_contract.pdf` template, Sensible can store it in a `customer_contracts` generator along with a `3_month_customer_contract.pdf` and other related templates and their mappings.
+
+Mappings
+----
+The following example JSON maps the fillable field ID `customerDob` in a fillable PDF named "customer_contract" to a JSON key used in the API call, `customer.birth_date` (using JSON  dot notation):
+
 
 ```json
 [
   {
-    "document": {
+    "template": {
       "type": "pdf",
-      "name": "customer_contract"
+      "name": "customer_contract_6_months"
     },
     "mapping": {
      "customerName": {
@@ -77,12 +88,6 @@ TODO: what other methods do we provide except concat?  will we allow any other p
 
 **Notes (todo, put somewhere about fallbacks not just in the notes above)**
 
-
-
-
-
-
-
 Portfolio generation
 ----
 
@@ -91,7 +96,7 @@ You can generate a portfolio file containing multiple filled documents in one fi
 ```json
 [
   {
-    "document": {
+    "template": {
       "type": "pdf",
       "name": "auto_policy_declaration"
     },
@@ -101,7 +106,7 @@ You can generate a portfolio file containing multiple filled documents in one fi
     }
   },
   {
-    "document": {
+    "template": {
       "type": "pdf",
       "name": "umbrella_policy_declaration"
     },
