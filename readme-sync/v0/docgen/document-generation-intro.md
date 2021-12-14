@@ -49,7 +49,7 @@ For each unique fillable template you create, email the following to Sensible cu
 
 - A mapping you write between the field IDs you created in the fillable document template  and the JSON keys you submit to the generation API. See [Mappings](doc:document-generation-intro#mappings) for more information. 
 
-- A name for the "generator" for this fillable form. A generator can contain multiple templates and mappings.  For example, if you submit a `6_month_customer_contract.pdf` template, Sensible can store it in a `customer_contracts` generator along with a `3_month_customer_contract.pdf` and other related templates and their mappings.
+- A name for the "generator" for this fillable form. A generator can contain related templates and mappings. For example, if you submit a `6_month_customer_contract.pdf` template, Sensible can store it in a `customer_contracts` generator along with a `3_month_customer_contract.pdf` and other related templates and their mappings.
 
 Mappings
 ----
@@ -87,7 +87,7 @@ This mapping specifies, for example:
 Portfolio generation
 ----
 
-You can generate a portfolio file containing multiple filled documents in one file.  For example, if you write a mapping like this:
+You can generate a portfolio file containing filled documents packaged into one "portfolio" file. For example, if you write a mapping like this:
 
 ```json
 [
@@ -124,3 +124,4 @@ Sensible currently supports the following:
 - fillable text fields, not for example checkboxes or radio buttons.
 - PDF templates, not for example HTML.
 - the concat method, not for example split or join.
+
