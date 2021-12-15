@@ -113,7 +113,7 @@ You can generate a portfolio file containing filled documents packaged into one 
 ]
 ```
 
-You can use one API request with one JSON payload to generate a portfolio file containing two separate filled out forms, an auto policy declaration and an umbrella policy declaration.
+You can use one API request with one JSON payload to generate a portfolio file containing two separate filled-out forms: an auto policy declaration and an umbrella policy declaration.
 
 Notes
 ---
