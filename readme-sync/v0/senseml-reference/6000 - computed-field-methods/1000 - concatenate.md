@@ -16,11 +16,11 @@ Parameters
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 
-| key                       | value                | description                                                  |
-| :------------------------ | :------------------- | :----------------------------------------------------------- |
-| id (**required**)         | `concat`             |                                                              |
-| source_ids (**required**) | array of field IDs   | a list of field `id`s to concatenate in the config           |
-| delimiter                 | string. default: " " | The delimiter with which to join the output of the source fields |
+| key                       | value                                    | description                                                  |
+| :------------------------ | :--------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)         | `concat`                                 |                                                              |
+| source_ids (**required**) | array of field IDs in the current config | a list of field `id`s to concatenate in the config           |
+| delimiter                 | string. default: " "                     | The delimiter with which to join the output of the source fields |
 
 Examples
 ====

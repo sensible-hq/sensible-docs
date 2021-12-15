@@ -9,10 +9,10 @@ Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key   | value      | description                                              |
-| :---- | :--------- | :------------------------------------------------------- |
-| id    | `constant` |                                                          |
-| value | string     | The value to return in the field's key/value pair output |
+| key                  | value      | description                                              |
+| :------------------- | :--------- | :------------------------------------------------------- |
+| id (**required**)    | `constant` |                                                          |
+| value (**required**) | string     | The value to return in the field's key/value pair output |
 
 Examples
 ====

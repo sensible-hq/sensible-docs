@@ -9,12 +9,12 @@ Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key       | value         | description                                                  |
-| :-------- | :------------ | :----------------------------------------------------------- |
-| id        | `split`       |                                                              |
-| source_id | id of a field | The id of the field to split                                 |
-| separator | string        | The separator to use in the split                            |
-| index     | integer       | The zero-based index of the component to return after the split |
+| key                      | value                            | description                                                  |
+| :----------------------- | :------------------------------- | :----------------------------------------------------------- |
+| id (**required**)        | `split`                          |                                                              |
+| source_id (**required**) | a field id in the current config | The id of the field to split into substrings.                |
+| separator (**required**) | string                           | The separator to use in the split.                           |
+| index                    | integer                          | The zero-based index of the substring to return after the split. If unspecified, returns all the split substrings as an array. |
 
 Examples
 ====

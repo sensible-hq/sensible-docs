@@ -10,11 +10,11 @@ Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key       | value                                   | description                                                  |
-| :-------- | :-------------------------------------- | :----------------------------------------------------------- |
-| id        | `mapper`                                |                                                              |
-| source_id | a field id in the current configuration | The id of the field to map                                   |
-| mappings  | object                                  | An object with mappings from strings or numbers to output strings represented as key/value pairs, for example, `{ "03/04": "March 4th" }`. Key value pairs are case sensitive. |
+| key                      | value                                   | description                                                  |
+| :----------------------- | :-------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)        | `mapper`                                |                                                              |
+| source_id (**required**) | a field id in the current configuration | The id of the field to map                                   |
+| mappings (**required**)  | object                                  | An object with mappings from strings or numbers to output strings represented as key/value pairs, for example, `{ "03/04": "March 4th" }`. Key value pairs are case sensitive. |
 
 Examples
 ====
