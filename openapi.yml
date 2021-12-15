@@ -68,14 +68,26 @@ components:
           type: currency
         pickup_date: null  
     Validations:
-      type: object
+      type: array
+      items:
+        $ref: '#/components/schemas/Validation' 
       example:
-        - description: TODO
+        - description: load weight should be over 1 ton
           severity: warning
-        - description: TODO2
+        - description: carrier email must be in format string@string
           severity: skipped
+          message: Missing prerequisites - carrier_email
         
-        
+    Validation:
+      type: object
+      properties:
+        description:
+          type: string
+        severity: 
+          type: string
+        message:
+          type: string
+          
     Extraction:
       type: object
       properties:
