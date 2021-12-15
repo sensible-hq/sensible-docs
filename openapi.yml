@@ -67,6 +67,16 @@ components:
           unit: $
           type: currency
         pickup_date: null  
+    
+    Validation:
+      type: object
+      properties:
+        description:
+          type: string
+        severity: 
+          type: string
+        message:
+          type: string
     Validations:
       type: array
       items:
@@ -78,16 +88,29 @@ components:
           severity: skipped
           message: Missing prerequisites - carrier_email
         
-    Validation:
+    ValidationsSummary:
       type: object
       properties:
-        description:
-          type: string
-        severity: 
-          type: string
-        message:
-          type: string
-          
+        fields:
+          type: integer
+          description: the numbers of fields specified in the config to extract from the document
+          example: 6
+        fields_present:
+          type: integer
+          description: the actual number of non-null fields extracted from the document
+          example: 4
+        errors:
+          type: number
+          description: the number of errors in the extraction
+          example: 0
+        warnings:
+          type: number
+          description: the number of warnings in the extraction
+          example: 1
+        skipped:
+          type: number
+          description: the number of fields skipped in the extraction because a prerequisite field was null
+          example: 1          
     Extraction:
       type: object
       properties:
@@ -115,7 +138,8 @@ components:
           $ref: '#/components/schemas/ParsedDocument'  
         validations:
           $ref: '#/components/schemas/Validations'  
-
+        validations_summary:
+          $ref: '#/components/schemas/ValidationsSummary' 
 
   responses: 
     404:
@@ -131,7 +155,7 @@ components:
       name: type
       required: true
       in: path
-      description: The type of document you want to parse, e.g., rate_confirmation, certificate_of_insurance, or home_inspection_report
+      description: The type of document you want to extract data from, e.g., rate_confirmation, certificate_of_insurance, or home_inspection_report. Define this in the Sensible app.
       schema:
         type: string
       example: policy_declaration
