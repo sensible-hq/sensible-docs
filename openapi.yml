@@ -14,7 +14,7 @@ info:
   description: |
     Extract structured data from PDF documents with the Sensible API
 paths:
-  /v1/extract/{type}:
+  /v0/extract/{type}:
     post:
       operationId: extract_doc
       summary: extract structured data from a PDF submitted as bytes array
@@ -30,7 +30,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/type'
       tags:
-      - actions
+      - extract-sync
       responses:
         '200':
           content:
@@ -41,6 +41,33 @@ paths:
         '404':
           $ref: '#/components/responses/404'
   
+  /v0/generate_upload_url/{type}:
+    post:
+      operationId: extract_doc_at_url
+      summary: extract structured data from a PDF at a URL. 
+      description:
+       TBD
+      parameters:
+        - $ref: '#/components/parameters/type'
+      
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+      tags:
+      - extract-async
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extraction'
+          description: the structured data extracted from the document and metadata
+        '404':
+          $ref: '#/components/responses/404'
+
+
 
 components:
   schemas:
@@ -141,6 +168,13 @@ components:
         validations_summary:
           $ref: '#/components/schemas/ValidationsSummary' 
 
+    Webhook:
+      type: object
+      properties: 
+        url:
+          type: string
+        payload:
+          type: object
   responses: 
     404:
       description: Not found response
@@ -159,6 +193,16 @@ components:
       schema:
         type: string
       example: policy_declaration
+    environment:
+      name: environment
+      in: query
+      description: Parse doc preferentially using config versions published to the development environment in the Sensible app. For each config run in the extraction, falls back to production version if no development version exists.
+      schema:
+        type: string
+      example: development
+
+            
+      
   securitySchemes:
     # tokenAuth:
       # type: apiKey
