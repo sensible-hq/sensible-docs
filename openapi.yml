@@ -1,0 +1,111 @@
+openapi: 3.0.3
+servers: # TODO: fill in
+  - url: https://api.example.com/v1
+    description: Production server (uses live data)
+  - url: https://sandbox-api.example.com:8443/v1
+    description: Sandbox server (uses test data)
+info:
+  title: Sensible API
+  version: 1.0.0
+  license: # TODO: fill in
+    name: TBD
+    url: https://www.TBD.org/licenses/LICENSE-2.0.html
+
+  description: |
+    Extract structured data from PDF documents with the Sensible API
+paths:
+  /v1/extract/{type}:
+    post:
+      operationId: extract_doc
+      summary: extract structured data from a PDF submitted as bytes array
+      description:
+        Submits a document of a particular type (e.g., a rate confirmation, 
+        certificate of insurance, or home inspection report) to Sensible. 
+        Sensible will automatically detect which format your document is in. 
+        Note that this automatic detection only works for supported formats. 
+        As part of your onboarding you've received a list of document types 
+        and document formats enabled on your account.
+        For a step-by-step tutorial on calling this endpoint, 
+        see [Try synchronous extraction](doc:api-tutorial-sync).
+      parameters:
+        - $ref: '#/components/parameters/type'
+      tags:
+      - actions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Extraction'
+          description: the structured data extracted from the document and metadata
+        '404':
+          $ref: '#/components/responses/404'
+  
+
+components:
+  schemas:
+    ParsedDocument:
+      type: object
+      properties:
+        weight:
+          type: string
+          example: 5lb
+    Extraction:
+      type: object
+      properties:
+        id: 
+          type: string
+          format: uuid
+          description: unique ID for the extraction, used to retreive the extraction
+        created:
+          type: string
+          format: date
+          description: date the extraction was created.
+        type:
+          type: string
+          description: the name of the document type.
+          example: rate_confirmation
+        configuration:
+          type: string
+          description: the name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically 
+          example: anyco_rate_confirmation
+        status:
+          type: string
+          description: the extraction status (WAITING, COMPLETE, FAILED)
+          example: COMPLETE
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument'  
+
+
+  responses: 
+    404:
+      description: Not found response
+      content:
+        text/plain:
+          schema:
+            title: Not found
+            type: string
+            example: Not found
+  parameters:
+    type:
+      name: type
+      required: true
+      in: path
+      description: The type of document you want to parse, e.g., rate_confirmation, certificate_of_insurance, or home_inspection_report
+      schema:
+        type: string
+      example: policy_declaration
+  securitySchemes:
+    # tokenAuth:
+      # type: apiKey
+      # in: header
+      # name: Authorization
+      # description: Token-based authentication with required prefix "Token"
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: X-API-KEY  # name of the header, query parameter or cookie
+      description: Send API Key as request header named X-API-Key
+# Apply the API key globally to all operations
+security:
+  - ApiKeyAuth: []
