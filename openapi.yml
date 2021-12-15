@@ -46,10 +46,36 @@ components:
   schemas:
     ParsedDocument:
       type: object
-      properties:
+      example:
         weight:
+          source: 0.0lbs
+          value: 0
+          unit: pounds
+          type: weight
+        distance:
+          source: 193mi
+          value: 193
+          unit: miles
+          type: distance
+        load_number:
           type: string
-          example: 5lb
+          value: Wk91242
+        carrier_email: null
+        price:
+          source: $695.00
+          value: 695
+          unit: $
+          type: currency
+        pickup_date: null  
+    Validations:
+      type: object
+      example:
+        - description: TODO
+          severity: warning
+        - description: TODO2
+          severity: skipped
+        
+        
     Extraction:
       type: object
       properties:
@@ -75,6 +101,8 @@ components:
           example: COMPLETE
         parsed_document:
           $ref: '#/components/schemas/ParsedDocument'  
+        validations:
+          $ref: '#/components/schemas/Validations'  
 
 
   responses: 
