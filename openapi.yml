@@ -17,7 +17,7 @@ paths:
   /v0/extract/{type}:
     post:
       operationId: extract_doc
-      summary: extract structured data from a PDF submitted as bytes array
+      summary: extract structured data from a document submitted as bytes array
       description:
         Submits a document of a particular type (e.g., a rate confirmation, 
         certificate of insurance, or home inspection report) to Sensible. 
@@ -43,8 +43,8 @@ paths:
   
   /v0/generate_upload_url/{type}:
     post:
-      operationId: extract_doc_at_url
-      summary: extract structured data from a PDF at a URL. 
+      operationId: extract_doc_at_sensible_url
+      summary: extract structured data from a document at a URL Sensible generates. 
       description:
        TBD
       parameters:
@@ -62,8 +62,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncExtractionResponse'
-          description: the status and ID of the extraction job
+                $ref: '#/components/schemas/AsyncUploadResponse'
+          description: returns the upload_url at which to PUT the PDF for extraction 
         '404':
           $ref: '#/components/responses/404'
 
@@ -146,17 +146,13 @@ components:
         created:
           $ref: '#/components/schemas/ExtractionCreated' 
         type:
-          type: string
-          description: the name of the document type.
-          example: rate_confirmation
+         $ref: '#/components/schemas/ExtractionType' 
         configuration:
           type: string
           description: the name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically 
           example: anyco_rate_confirmation
         status:
-          type: string
-          description: the extraction status (WAITING, COMPLETE, FAILED)
-          example: COMPLETE
+         $ref: '#/components/schemas/ExtractionStatus'  
         parsed_document:
           $ref: '#/components/schemas/ParsedDocument'  
         validations:
@@ -166,9 +162,32 @@ components:
     AsyncExtractionResponse:
       type: object
       properties:
-        id:
+        id: 
           $ref: '#/components/schemas/ExtractionId'  
+        created:
+          $ref: '#/components/schemas/ExtractionCreated' 
+        type:
+         $ref: '#/components/schemas/ExtractionType'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus'  
+    AsyncUploadResponse:
+      type: object
+      properties:
+        id: 
+          $ref: '#/components/schemas/ExtractionId'  
+        created:
+          $ref: '#/components/schemas/ExtractionCreated' 
+        type:
+         $ref: '#/components/schemas/ExtractionType'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus' 
+        upload_url:
+         type: string
+         format: url
+         description: The URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+         example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
           
+
     ExtractionId:
       type: string
       format: uuid
@@ -179,6 +198,15 @@ components:
       type: string
       format: date
       description: date the extraction was created.  
+    
+    ExtractionType:
+      type: string
+      description: the name of the document type.
+      example: rate_confirmation  
+    ExtractionStatus:
+      type: string
+      description: the extraction status (WAITING, COMPLETE, FAILED)
+      example: COMPLETE
     
     Webhook:
       type: object
