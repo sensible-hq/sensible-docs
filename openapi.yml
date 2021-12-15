@@ -113,6 +113,33 @@ paths:
         '404':
           $ref: '#/components/responses/404'
 
+  /v0/documents/{id}:
+    post:
+      operationId: retrieve_extraction
+      summary: Get the extraction using the ID. 
+      description:
+       TBD
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/environment' 
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractFromUrlRequest'
+      tags:
+      - retrieve-extraction
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: returns the ID to use to retrieve the extraction 
+        '404':
+          $ref: '#/components/responses/404'
+
+
 components:
   schemas:
     ParsedDocument:
@@ -286,6 +313,13 @@ components:
             type: string
             example: Not found
   parameters:
+    id:
+      name: id
+      required: true
+      in: path
+      description: unique ID for the extraction, used to retreive the extraction
+      schema:
+        $ref: '#/components/schemas/ExtractionId' 
     type:
       name: type
       required: true
