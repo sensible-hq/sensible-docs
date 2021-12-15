@@ -10,10 +10,11 @@ Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key                   | value        | description                                                  |
-| --------------------- | ------------ | ------------------------------------------------------------ |
-| `type` (**required**) | `splitLines` |                                                              |
-| minSpaces             | number       | The number of consecutive space characters (`&#x20;`) at or above which to split lines. |
+| key                      | value        | description                                                  |
+| ------------------------ | ------------ | ------------------------------------------------------------ |
+| type (**required**)      | `splitLines` | splits lines distributed along a horizontal axis.            |
+| minSpaces (**required**) | number       | The number of consecutive space characters (`&#x20;`) at or above which to split lines. |
+| separator                | string       | The separator to use to split lines, for example `-`.        |
 
 Examples
 ====
