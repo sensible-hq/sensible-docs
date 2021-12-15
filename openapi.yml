@@ -142,9 +142,7 @@ components:
       type: object
       properties:
         id: 
-          type: string
-          format: uuid
-          description: unique ID for the extraction, used to retreive the extraction
+          $ref: '#/components/schemas/ExtractionId'  
         created:
           type: string
           format: date
@@ -167,14 +165,29 @@ components:
           $ref: '#/components/schemas/Validations'  
         validations_summary:
           $ref: '#/components/schemas/ValidationsSummary' 
-
+    AsyncExtractionResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'  
+    ExtractionId:
+      type: string
+      format: uuid
+      description: unique ID for the extraction, used to retreive the extraction
+      example: 246a6f60-0e5b-11eb-b720-295a6fba723e
+      
+    
     Webhook:
       type: object
+      description: If you include this parameter, Sensible will call the defined webhook when your document is processed (your results will be in the parsed_document field of the request body). Sensible will also call this webhook on error, in which case parsed_document will have a single field, error, with a status and error message
       properties: 
         url:
           type: string
+          format: url
+          example: YOUR_WEBHOOK_URL
         payload:
-          type: object
+          type: string
+          example: some info you want to include in addition to the default extraction payload
   responses: 
     404:
       description: Not found response
