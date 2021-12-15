@@ -3,37 +3,36 @@ title: "Document generation introduction"
 hidden: true
 ---
 
- You can programmatically fill in templated forms with structured data using Sensible. First, create a fillable template PDF document, and use a PDF editor to add unique identifier to fillable field elements, like this: 
+ You can programmatically fill in templated forms with structured data using Sensible. First, create a template PDF document, and use a PDF editor to add unique identifier to fillable field elements, like this: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-1.png)
 
-then you can use Sensible's [generation API](https://docs.sensible.so/reference/fill-form) to specify the data you want to use to populate the fillable fields:
+As an initial set-up task, write a [mapping](doc:document-generation-intro#mapping). After that, you can use Sensible's [generation API](https://docs.sensible.so/reference/fill-form) to specify the data you want to use to populate the fillable fields:
 
 ```json
 {
+	"data": {
 
-  "customer": {
-    "first_name": "John",
-    "last_name": "Doe",
-    "birth_date": "06/24/1979"
-  },
+		"customer": {
+			"first_name": "John",
+			"last_name": "Doe",
+			"birth_date": "06/24/1979"
+		},
 
-  "addresses":[
-      {
-          "street_address": "111 Center Street",
-          "zip_code": "78123"
-      },
-      {
-          "street_address": "123 Main Street",
-          "zip_code": "78125"
-      }
-  ],
-  "contract": {
-    "start_date": "01/01/2022",  
-  },
+		"addresses": [{
+				"street_address": "111 Center Street",
+				"zip_code": "78123"
+			},
+			{
+				"street_address": "123 Main Street",
+				"zip_code": "78125"
+			}
+		],
+		"contract": {
+			"start_date": "01/01/2022",
+		}
+	}
 }
-
-
 ```
 
 and return a filled document, like this:
@@ -45,15 +44,15 @@ Get started
 
 For each unique fillable template you create, email the following to Sensible customer support at support@sensible.so to get started with calling the API: 
 
-- The fillable template document.
+- The fillable template document containing unique IDs for the fields you want to fill.
 
-- A mapping you write between the field IDs you created in the fillable document template  and the JSON keys you submit to the generation API. See [Mappings](doc:document-generation-intro#mappings) for more information. 
+- A mapping you write between the field IDs you created in the fillable document template and the JSON keys you submit to the generation API. See [Mappings](doc:document-generation-intro#mappings) for more information. 
 
 - A name for the "generator" for this fillable form. A generator can contain related templates and mappings. For example, if you submit a `6_month_customer_contract.pdf` template, Sensible can store it in a `customer_contracts` generator along with a `3_month_customer_contract.pdf` and other related templates and their mappings.
 
 Mappings
 ----
-The following example JSON maps the names of field IDs in a fillable PDF named `customer_contract_6_months` to JSON keys used in the API call (using JSON  dot notation):
+The following example JSON maps the names of field IDs in a fillable PDF named `customer_contract_6_months` to JSON keys used in the API call:
 
 
 ```json
