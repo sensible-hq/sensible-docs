@@ -62,8 +62,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Extraction'
-          description: the structured data extracted from the document and metadata
+                $ref: '#/components/schemas/AsyncExtractionResponse'
+          description: the status and ID of the extraction job
         '404':
           $ref: '#/components/responses/404'
 
@@ -144,9 +144,7 @@ components:
         id: 
           $ref: '#/components/schemas/ExtractionId'  
         created:
-          type: string
-          format: date
-          description: date the extraction was created.
+          $ref: '#/components/schemas/ExtractionCreated' 
         type:
           type: string
           description: the name of the document type.
@@ -170,12 +168,17 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/ExtractionId'  
+          
     ExtractionId:
       type: string
       format: uuid
       description: unique ID for the extraction, used to retreive the extraction
       example: 246a6f60-0e5b-11eb-b720-295a6fba723e
-      
+    
+    ExtractionCreated:
+      type: string
+      format: date
+      description: date the extraction was created.  
     
     Webhook:
       type: object
