@@ -27,8 +27,26 @@ paths:
         and document formats enabled on your account.
         For a step-by-step tutorial on calling this endpoint, 
         see [Try synchronous extraction](doc:api-tutorial-sync).
+        
+        There are two options for posting the PDF bytes.
+          1. (often preferred) specify the non-encoded PDF bytes as the entire request body, 
+          and specify the content-type as "application/pdf".   
+          2. Base64 encode the PDF bytes, specify them in a body "document" field, and specify application/json for the content type. 
       parameters:
         - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/environment'         
+      requestBody:
+        description:  There are two options for posting the PDF bytes.
+          1. (often preferred) specify the non-encoded PDF bytes as the entire request body, 
+          and specify the content-type as "application/pdf".   
+          2. Base64 encode the PDF bytes, specify them in a body "document" field, and specify application/json for the content type. 
+        required: true
+        content:
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+
       tags:
       - extract-sync
       responses:
@@ -49,6 +67,7 @@ paths:
        TBD
       parameters:
         - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/environment' 
       
       requestBody:
         content:
@@ -67,7 +86,32 @@ paths:
         '404':
           $ref: '#/components/responses/404'
 
-
+  
+  /v0/extract_from_url/{type}:
+    post:
+      operationId: extract_doc_at_your_url
+      summary: extract structured data from a document at your URL. 
+      description:
+       TBD
+      parameters:
+        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/environment' 
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractFromUrlRequest'
+      tags:
+      - extract-async
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: returns the upload_url at which to PUT the PDF for extraction 
+        '404':
+          $ref: '#/components/responses/404'
 
 components:
   schemas:
@@ -159,7 +203,7 @@ components:
           $ref: '#/components/schemas/Validations'  
         validations_summary:
           $ref: '#/components/schemas/ValidationsSummary' 
-    AsyncExtractionResponse:
+    AsyncResponse:
       type: object
       properties:
         id: 
@@ -187,7 +231,14 @@ components:
          description: The URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
          example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
           
-
+    ExtractFromUrlRequest:
+      type: object
+      properties:
+        webhook:
+          $ref: '#/components/schemas/Webhook' 
+        document_url:
+          $ref: '#/components/schemas/DocumentUrl' 
+    
     ExtractionId:
       type: string
       format: uuid
@@ -219,6 +270,11 @@ components:
         payload:
           type: string
           example: some info you want to include in addition to the default extraction payload
+    DocumentUrl:
+      type: string
+      format: url
+      description: A URL that responds to a GET request with the bytes of the PDF portfolio to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication.
+      example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
   responses: 
     404:
       description: Not found response
