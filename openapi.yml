@@ -109,7 +109,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AsyncResponse'
-          description: returns the upload_url at which to PUT the PDF for extraction 
+          description: returns the ID to use to retrieve the extraction 
         '404':
           $ref: '#/components/responses/404'
 
@@ -238,6 +238,7 @@ components:
           $ref: '#/components/schemas/Webhook' 
         document_url:
           $ref: '#/components/schemas/DocumentUrl' 
+
     
     ExtractionId:
       type: string
@@ -272,8 +273,8 @@ components:
           example: some info you want to include in addition to the default extraction payload
     DocumentUrl:
       type: string
-      format: url
-      description: A URL that responds to a GET request with the bytes of the PDF portfolio to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication.
+      format: url 
+      description: A URL that responds to a GET request with the bytes of the PDF portfolio to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication. # TODO: how to indicate this is required whereas webhook is not? 
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
   responses: 
     404:
