@@ -14,7 +14,6 @@ Parameters
 | ------------------------ | ------------ | ------------------------------------------------------------ |
 | type (**required**)      | `splitLines` | splits lines distributed along a horizontal axis.            |
 | minSpaces (**required**) | number       | The number of consecutive space characters (`&#x20;`) at or above which to split lines. |
-| separator                | string       | The separator to use to split lines, for example `-`.        |
 
 Examples
 ====
