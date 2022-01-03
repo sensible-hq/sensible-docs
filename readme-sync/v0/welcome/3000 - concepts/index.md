@@ -3,13 +3,9 @@ title: "Concepts"
 hidden: false
 ---
 
-For definitions of terms, see the following topics: 
+For concept topics covering both basic definitions and advanced use, see the child topics of this topic. 
 
-[Ligatures](doc:ligatures)
 
-[Lines](doc:lines)
-
-[SenseML](doc:senseml)
 
 
 
