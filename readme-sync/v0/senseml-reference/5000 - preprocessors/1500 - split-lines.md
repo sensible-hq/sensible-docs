@@ -3,7 +3,7 @@ title: "Split lines"
 hidden: false
 ---
 
-Splits lines. This preprocessor is most useful for typewriter-style documents that use whitespaces for formatting. 
+Splits lines distributed along a horizontal axis. This preprocessor is most useful for typewriter-style documents that use whitespaces for formatting. 
 
 Parameters
 ====
@@ -13,7 +13,8 @@ Parameters
 | key                      | value        | description                                                  |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
 | type (**required**)      | `splitLines` | splits lines distributed along a horizontal axis.            |
-| minSpaces (**required**) | number       | The number of consecutive space characters (`&#x20;`) at or above which to split lines. |
+| minSpaces (**required**) | number       | The number of consecutive whitespace characters (`&#x20;`) at or above which to split lines. |
+| separator                | string       | Modifies the Min Spaces parameter to split on the specified character, for example "-", instead of the default whitespace character. For example, if you specify `"-"` for this parameter and `2` for the Min Spaces parameter, then Sensible splits lines when it finds `--`. |
 
 Examples
 ====
