@@ -182,7 +182,7 @@ Example output:
 Date
 -----
 
-Returns date in year-month-days format.  Recognizes the following formatting:
+Returns date in year-month-days format. Sensible outputs the time as midnight UTC. Recognizes the following formatting:
 
 -  `MM/DD/YYYY`, and variant representations of these elements such as abbreviations
 -  `month name, DD, YYYY`, and variant representations of these elements such as abbreviations
@@ -212,7 +212,7 @@ Example output:
 
 ```
 
-Sensible outputs dates as midnight UTC.
+
 
 Distance
 ----
