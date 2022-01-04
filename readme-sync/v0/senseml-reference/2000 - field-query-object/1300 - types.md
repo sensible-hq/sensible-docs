@@ -195,6 +195,7 @@ For example:
 5/17/2018
 november 30, 1955
 Feb 1, 21
+June 7th, 2021
 
 ```
 
