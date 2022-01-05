@@ -57,7 +57,7 @@ Extract data from an example document
           poll_count = 0
           # In production you'd use a webhook to avoid polling
           while document_extraction["status"] == "WAITING":
-              # Wait a few seconds for the extraction to complete on each iteration
+              # Wait a few seconds before each poll until the extraction completes
               time.sleep(3)
               poll_count += 1
               response = requests.request(
