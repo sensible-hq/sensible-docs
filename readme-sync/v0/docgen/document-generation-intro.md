@@ -7,7 +7,7 @@ hidden: true
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-1.png)
 
-As an initial set-up task, write a [mapping](doc:document-generation-intro#mapping). After that, you can use Sensible's [generation API](https://docs.sensible.so/reference/fill-form) to specify the data you want to use to populate the fillable fields:
+As an initial set-up task, write a [mapping](doc:document-generation-intro#mapping). After that, you can use Sensible's [generation API](https://docs.sensible.so/reference/fill-doc) to specify the data you want to use to populate the fillable fields:
 
 ```json
 {
