@@ -7,6 +7,20 @@ hidden: true
 Extract data from an example document
 =====
 
+
+
+TODOs:
+
+- add a link to this quickstart from the last cheatsheet?? 
+
+- add a link to this quickstart at the top of the getting started explaining this is quick vs the GSG is conceptual.
+
+- fix all links
+
+  
+
+  
+
 1. Get an account at [sensible.so](https://www.sensible.so/get-early-access).
 2. Clone a code sample in your preferred language:
   - [Python](https://github.com/fscelliott/sens-code-example) TODO: take the code sample below and put in dir and verify it works.
