@@ -4,64 +4,89 @@ hidden: true
 
 ---
 
-
-
-MAKING TEST CHANGES
-
-to validate the new Vale config
-
-Extract data from a document
+Extract data from an example document
 =====
 
 1. Get an account at [sensible.so](https://www.sensible.so/get-early-access).
 2. Clone a code sample in your preferred language:
-  - [Python](https://github.com/fscelliott/sens-code-example)
+  - [Python](https://github.com/fscelliott/sens-code-example) TODO: take the code sample below and put in dir and verify it works.
   - other languages TBD  
 
 
-2. Add your API_KEY to the code sample:
+2. Add your api key to the code sample. For example, in the Python example, replace `"YOUR_API_KEY"` with your key. Find your API key in the dashboard at [TBD LINK TO ACCOUNT PAGE].
 
   
 
-  [block:code]
-  {
-   "codes": [
-   {
-     "code": "1. CD to the cloned code sample directory, sens-code-example\n2. Make a new file: `touch secrets.py`\n3. Add the API key to the file: `API_KEY = \"YOUR_API_KEY\"`\n4. Verify that `.gitignore` lists `secrets.py` so that you don't expose your key",
-     "language": "text",
-     "name": "python"
-   },
-   {
-     "code": "",
-     "language": "text",
-     "name": "otherlangsTBD"
-   }
-   ]
-  }
-  [/block]
+  ```python
+  #!/usr/local/bin/python
+  
+  '''
+  This script asynchronously extracts structured data from the specified PDF.
+  For more information, see https://docs.sensible.so/docs/api-tutorial-async-1.
+  '''
+  
+  import time
+  import json
+  import requests
+  
+  # The name of a document type in Sensible, e.g., auto_insurance_quote
+  DOCUMENT_TYPE = "tutorials"
+  # The URL of the PDF you'd like to extract from
+  DOCUMENT_URL = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/walkthrough_1.pdf"
+  # Your Sensible API key
+  API_KEY = "YOUR_API_KEY"
+  
+  
+  def extract_from_doc_url():
+      headers = {
+          'Authorization': 'Bearer {}'.format(API_KEY),  'Content-Type': 'application/json'
+      }
+      body = json.dumps({"document_url": DOCUMENT_URL})
+      response = requests.request(
+          "POST",
+          "https://api.sensible.so/v0/extract_from_url/{}".format(
+              DOCUMENT_TYPE),
+          headers=headers,
+          data=body)
+      try:
+          response.raise_for_status()
+      except requests.RequestException:
+          print(response.text)
+      else:
+          document_extraction = response.json()
+          poll_count = 0
+          # In production you'd use a webhook to avoid polling
+          while document_extraction["status"] == "WAITING":
+              # Wait a few seconds for the extraction to complete on each iteration
+              time.sleep(3)
+              poll_count += 1
+              response = requests.request(
+                  "GET",
+                  "https://api.sensible.so/v0/documents/{}".format(document_extraction['id']),
+                  headers=headers)
+              try:
+                  response.raise_for_status()
+              except requests.RequestException:
+                  print(response.text)
+                  break
+              else:
+                  document_extraction = response.json()
+                  print("Poll attempt: {}, status: {}".format(
+                      poll_count, document_extraction["status"]))
+          print(json.dumps(document_extraction, indent=2))
+  
+  
+  if __name__ == '__main__':
+      extract_from_doc_url()
+  ```
+
+
 
   
 
-4. Run the code sample:
+4. Run the code sample. In the command line in the cloned directory, run `python extract_example_doc.py`.
 
 
-
-[block:code]
-{
-  "codes": [
-    {
-      "code": " `python extract_doc.py`",
-      "language": "text",
-      "name": "python"
-    },
-    {
-      "code": "",
-      "language": "text",
-      "name": "otherlangsTBD"
-    }
-  ]
-}
-[/block]
 
 
 You should see a response like the following:
@@ -69,44 +94,27 @@ You should see a response like the following:
 
 
 ```json
-   {
-   	"id": "234b2afd-5165-4022-a41f-bd31ad89c3ff",
-   	"created": "2021-09-22T20:16:34.841Z",
-   	"status": "COMPLETE",
-   	"type": "auto_insurance_quote_api_test",
-   	"configuration": "anyco",
-   	"parsed_document": {
-   		"policy_period": {
-   			"type": "string",
-   			"value": "April 14, 2021 - Oct 14, 2021"
-   		},
-   		"comprehensive_premium": {
-   			"source": "$150",
-   			"value": 150,
-   			"unit": "$",
-   			"type": "currency"
-   		},
-   		"property_liability_premium": {
-   			"source": "$10",
-   			"value": 10,
-   			"unit": "$",
-   			"type": "currency"
-   		},
-   		"policy_number": {
-   			"value": "123456789",
-   			"type": "string"
-   		}
-   	},
-   	"validations": [],
-   	"validation_summary": {
-   		"fields": 4,
-   		"fields_present": 4,
-   		"errors": 0,
-   		"warnings": 0,
-   		"skipped": 0
-   	},
-   	"download_url": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/41775922-b9ac-4d2d-b1af-4292e68947a0/EXTRACTION/234b2afd-5165-4022-a41f-bd31ad89c3ff.pdf?AWSAccessKeyId=REDACTED&x-amz-security-token=REDACTED"
-   }
+{
+    "id": "1b86d404-6dc5-4878-a495-6fce40c7ea06",
+    "created": "2022-01-05T17:02:02.283Z",
+    "status": "COMPLETE",
+    "type": "auto_insurance_quote",
+    "configuration": "anyco_multidoc",
+    "parsed_document": {
+  "your_first_extracted_field": {
+    "type": "string",
+    "value": "Welcome to your first document"
+  }
+},
+    "validations": [],
+    "validation_summary": {
+        "fields": 1,
+        "fields_present": 1,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
+    }
+}
 ```
 
  
@@ -117,10 +125,9 @@ Optional: see how it works in the Sensible app
    To see this example in the Sensible app:
 
    1. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/) using your API key.
-      2. Navigate to [https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test](https://app.sensible.so/dashboard/?d=auto_insurance_quote_api_test).
-      3. Click **Upload document** and upload the [example PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf).
-      4. Click the **anyco** config and visually examine the PDF (middle pane), config (left pane), and parsed document (right pane) you just ran in the previous code sample:
-      ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)
+      2. Navigate to https://dev.sensible.so/editor/?d=senseml_basics&c=walkthrough_1&g=walkthrough_1.
+      3.  Visually examine the PDF (middle pane), config (left pane), and extracted data (right pane) you just ran in the previous code sample:
+         ![image-20220105100032719](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220105100032719.png)
 
 
 
