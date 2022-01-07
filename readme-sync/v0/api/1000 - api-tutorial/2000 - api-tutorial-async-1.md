@@ -29,10 +29,12 @@ Extract the data
 
 To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide-a-download-url) endpoint, let's use an example PDF hosted in GitHub:
 
+1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
+
 1. Copy the following code sample and replace YOUR_API_KEY with your API key:
 
    ```json
-   curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
+   curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote?environment=development' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --header 'Content-Type: application/json' \
    --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"}'
@@ -55,7 +57,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
    }
    ```
 
-**Note:** You don't have to specify the config you created (`anyco`) in this call. Sensible looks at all the configs for the document type you made in this quickstart (`auto_insurance_quote`), and **automatically** chooses the one that fits best!
+**Note:** You don't have to specify the config you created ("anyco") in this call. Sensible looks at all the configs for the document type you made in this quickstart ("auto_insurance_quote"), and **automatically** chooses the one that fits best!
 
 Retrieve extraction
 ----

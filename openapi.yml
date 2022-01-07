@@ -136,7 +136,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Extraction'
           description: returns the extraction # TODO LEFT OFF: new schema;  it ALSO returns a download_url  download_url"""https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED"
-}
         '404':
           $ref: '#/components/responses/404'
 

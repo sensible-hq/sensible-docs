@@ -16,6 +16,7 @@ See [prerequisites](doc:api-tutorial#prerequisites).
 Configure the webhook
 ====
 
+1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
 1. Generate a destination for the webhook: navigate to [https://webhook.site/](https://webhook.site/) to automatically create a unique test page:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_1.png)
@@ -24,7 +25,7 @@ Configure the webhook
 2. Copy the following code sample, and replace `YOUR_UNIQUE_URL` with your uniquely generated webhook.site URL:
 
 ```json
-curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote' \
+curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote?environment=development' \
 --header 'Authorization: Bearer YOUR_API_TOKEN' \
 --header 'Content-Type: application/json' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf",
