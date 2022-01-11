@@ -21,7 +21,7 @@ paths:
       description:
         Submits a document of a particular type (e.g., a rate confirmation, 
         certificate of insurance, or home inspection report) to Sensible. 
-        Sensible will automatically detect which format your document is in. 
+        Sensible automatically detects which format your document is in. 
         Note that this automatic detection only works for supported formats. 
         As part of your onboarding you've received a list of document types 
         and document formats enabled on your account.
@@ -48,7 +48,7 @@ paths:
               format: binary
 
       tags:
-      - extract-sync
+      - extract_sync
       responses:
         '200':
           content:
@@ -62,7 +62,7 @@ paths:
   /v0/generate_upload_url/{type}:
     post:
       operationId: extract_doc_at_sensible_url
-      summary: extract structured data from a document at a URL Sensible generates. 
+      summary: extract doc at a Sensible URL
       description:
        TBD
       parameters:
@@ -75,7 +75,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Webhook'
       tags:
-      - extract-async
+      - extract_async
       responses:
         '200':
           content:
@@ -90,7 +90,7 @@ paths:
   /v0/extract_from_url/{type}:
     post:
       operationId: extract_doc_at_your_url
-      summary: extract structured data from a document at your URL. 
+      summary: extract doc at your URL. 
       description:
        TBD
       parameters:
@@ -102,7 +102,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - extract-async
+      - extract_async
       responses:
         '200':
           content:
@@ -112,6 +112,34 @@ paths:
           description: returns the ID to use to retrieve the extraction 
         '404':
           $ref: '#/components/responses/404'
+
+  /v0/generate_upload_url:
+    post:
+      operationId: extract_portfolio_at_sensible_url
+      summary: extract portfolio at a Sensible URL
+      description:
+       TBD
+      parameters:
+        - $ref: '#/components/parameters/environment' 
+        
+      
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioRequest'
+                # PortfolioRequest
+      tags:
+      - extract_portfolio
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncUploadResponse'
+          description: returns the upload_url at which to PUT the PDF for extraction 
+        '404':
+          $ref: '#/components/responses/404'         
 
   /v0/documents/{id}:
     post:
@@ -128,14 +156,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - retrieve-extraction
+      - retrieve_extraction
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Extraction'
-          description: returns the extraction # TODO LEFT OFF: new schema;  it ALSO returns a download_url  download_url"""https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED"
+                $ref: '#/components/schemas/ExtractionAsyncResult'
+          description: returns the extraction 
         '404':
           $ref: '#/components/responses/404'
 
@@ -209,6 +237,21 @@ components:
           type: number
           description: the number of fields skipped in the extraction because a prerequisite field was null
           example: 1          
+    PortfolioRequest:
+      allOf:
+        - $ref: '#/components/schemas/Webhook'
+        - type: object
+          properties:                
+            types:
+              name: types
+              required: true
+              in: body
+              description: Specifies the document types contained in the PDF portfolio.
+              schema:
+                type: array
+                items:
+                  type: string
+                example: tax_returns, bank_statements, credit_reports
     Extraction:
       type: object
       properties:
@@ -230,6 +273,15 @@ components:
           $ref: '#/components/schemas/Validations'  
         validations_summary:
           $ref: '#/components/schemas/ValidationsSummary' 
+    ExtractionAsyncResult:
+      allOf:
+        - $ref: '#/components/schemas/Extraction'
+        - type: object
+          properties:
+            download_url:
+              type: string
+              description: the URL of the PDF that was extracted from #question: true?
+              example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
     AsyncResponse:
       type: object
       properties:
@@ -289,15 +341,20 @@ components:
     
     Webhook:
       type: object
-      description: If you include this parameter, Sensible will call the defined webhook when your document is processed (your results will be in the parsed_document field of the request body). Sensible will also call this webhook on error, in which case parsed_document will have a single field, error, with a status and error message
+      description: If you include this parameter, Sensible calls the defined webhook when your document is processed (your results will be in the parsed_document field of the request body). Sensible will also call this webhook on error, in which case parsed_document will have a single field, error, with a status and error message
       properties: 
-        url:
-          type: string
-          format: url
-          example: YOUR_WEBHOOK_URL
-        payload:
-          type: string
-          example: some info you want to include in addition to the default extraction payload
+        webhook:
+          type: object
+          properties:
+            url:
+              type: string
+              format: url
+              description: the webhook destination
+              example: YOUR_WEBHOOK_URL
+            payload:
+              type: string
+              description: additional information to send to the webhook besides the API response
+              example: info extra to the default extraction payload
     DocumentUrl:
       type: string
       format: url 
@@ -328,6 +385,7 @@ components:
       schema:
         type: string
       example: policy_declaration
+
     environment:
       name: environment
       in: query
