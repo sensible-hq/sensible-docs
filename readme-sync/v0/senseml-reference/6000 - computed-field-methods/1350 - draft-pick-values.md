@@ -4,25 +4,19 @@ hidden: true
 
 ---
 
-Extract values from a group of fields. For example, extract the selected boxes from a checkbox group, or extract all "yes" answers from a group of fields with a yes/no/maybe dropdowns.
+Extract specified values from a group of fields. For example, extract the selected boxes from a checkbox group, or extract all "yes" answers from a group of fields with yes/no/maybe dropdowns.
 
 Parameters
 ====
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key                       | value                                    | description                                                  |
-| :------------------------ | :--------------------------------------- | :----------------------------------------------------------- |
-| id (**required**)         | `pickValues`                             |                                                              |
-| source_ids (**required**) | array of field ids in the current config | The id of the fields from which to pick. Returns those fields whose value matches that specified in the Value parameter. |
-| match                     | `one`, `all`                             | So for a radio button-style use case where we only expect one item to be checked (think corporate entity type. It returns null if none are check or more than one is checked <br/> value specified in the Value parameter, or all fields with the matching value. TODO: verify enums, verify in Types.ts, and add to index.md (also...add screenshots?) https://sensiblehq.slack.com/archives/C0215T9K86P/p1641413717020300 |
-| value                     | null, boolean, string, or string array   | The value to pick. Sensible converts checkbox and radio button selection marks to true and false. For example, to pick selected checkboxes, specify `true`. As another example, to return dropdown questions set to "maybe" in a list of fields, specify `"maybe"`.<br/>`null` would give you back the list of source IDs that are null, like in the case where we aren’t able to find a checkbox or other field |
-
-It will be “one” and “all” (may need to update the configs)
-
-![img](https://ca.slack-edge.com/T017UPRAE94-U01U55EFU86-5a71df1991bd-48)
-
-**[Frances Elliott](https://app.slack.com/team/U01U55EFU86)**[1 minute ago](https://sensiblehq.slack.com/archives/C0215T9K86P/p1641417897022300?thread_ts=1641413717.020300&cid=C0215T9K86P)
+| key                       | value                                                   | description                                                  |
+| :------------------------ | :------------------------------------------------------ | :----------------------------------------------------------- |
+| id (**required**)         | `pickValues`                                            |                                                              |
+| source_ids (**required**) | array of field ids in the current config                | The id of the fields from which to pick values. Returns the fields whose values matches that specified in the Value parameter. |
+| match                     | `one`, `all`. default: `all`                            | `one`:  Select this option for mutually exclusive field groups, for example, a group of radio buttons where the user can select a single item.  If no fields in the group have the specified value, or if more than one field has the expected value, then Sensible returns null. <br/><br/> `all`: Returns all fields in the group with the specified value. |
+| value                     | null, boolean, string, or string array. default: `True` | The value to pick. Sensible converts checkbox and radio button selection marks to true and false. For example, to pick selected checkboxes, specify `true`.  Or, to return dropdown questions set to "yes", specify `"yes"`.<br/>`null` returns the list of source IDs that are null, like in the case where we aren’t able to find a checkbox or other field |
 
 
 
@@ -31,7 +25,82 @@ The following example shows TBD
 **Config**
 
 ```json
-
+{
+  "fields": [
+    {
+      "id": "individual",
+      "anchor": "individual",
+      "method": {
+        "id": "nearestCheckbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "partnership",
+      "anchor": "partnership",
+      "method": {
+        "id": "nearestCheckbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "llc",
+      "anchor": "limited liability",
+      "method": {
+        "id": "nearestCheckbox",
+        "position": "left"
+      }
+    },
+    {
+      "id": "income_over_100k",
+      "anchor": "in excess of",
+      "method": {
+        "id": "row"
+      }
+    },
+    {
+      "id": "out_of_state_income",
+      "anchor": "out-of-state",
+      "method": {
+        "id": "row"
+      }
+    },
+    {
+      "id": "professional_services",
+      "anchor": "professional services",
+      "method": {
+        "id": "row"
+      }
+    }
+  ],
+  "computed_fields": [
+    {
+      "id": "business_classification",
+      "method": {
+        "id": "pickValues",
+        "match": "one",
+        "source_ids": [
+          "individual",
+          "partnership",
+          "llc"
+        ]
+      }
+    },
+    {
+      "id": "income_questions",
+      "method": {
+        "id": "pickValues",
+        "match": "all",
+        "value": "yes",
+        "source_ids": [
+          "income_over_100k",
+          "out_of_state_income",
+          "professional_services"
+        ]
+      }
+    }
+  ]
+}
 ```
 
 
@@ -48,6 +117,45 @@ The following image shows the example PDF used with this example config:
 **Output**
 
 ```json
-
+{
+  "individual": {
+    "type": "boolean",
+    "value": false
+  },
+  "partnership": {
+    "type": "boolean",
+    "value": true
+  },
+  "llc": {
+    "type": "boolean",
+    "value": false
+  },
+  "income_over_100k": {
+    "type": "string",
+    "value": "yes"
+  },
+  "out_of_state_income": {
+    "type": "string",
+    "value": "no"
+  },
+  "professional_services": {
+    "type": "string",
+    "value": "yes"
+  },
+  "business_classification": {
+    "value": "partnership",
+    "type": "string"
+  },
+  "income_questions": [
+    {
+      "value": "income_over_100k",
+      "type": "string"
+    },
+    {
+      "value": "professional_services",
+      "type": "string"
+    }
+  ]
+}
 ```
 
