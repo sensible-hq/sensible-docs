@@ -7,7 +7,7 @@ hidden: true
 TODOS on publish:
 
 - 1 last comparison to types.ts
-- add to INDEX
+-  add to INDEX + add some wording to it (and to Methods?) about pick values?
 
 
 
