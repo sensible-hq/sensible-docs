@@ -2,7 +2,7 @@
 title: "Table"
 hidden: false
 ---
-Matches tables based on bag-of-words scoring and returns their collated column contents. Use the Table method for tables that have variable column formatting.
+Extracts tables based on bag-of-words scoring and returns their collated column contents. Use the Table method for tables that have variable column formatting.  This method can extract tables that span multiple pages.
 
 [**Parameters**](doc:table#parameters)
 [**Examples**](doc:table#examples)
