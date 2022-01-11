@@ -22,10 +22,10 @@ The following parameters are in the computed field's [global Method](doc:compute
 | :------------------------ | :------------------------------------------------------ | :----------------------------------------------------------- |
 | id (**required**)         | `pickValues`                                            |                                                              |
 | source_ids (**required**) | array of field ids in the current config                | The id of the fields from which to pick values. Returns the fields whose values matches that specified in the Value parameter. |
-| match                     | `one`, `all`. default: `all`                            | `one`:  Select this option for mutually exclusive field groups, for example, a group of radio buttons where the user can select a single item.  If no fields in the group have the specified value, or if more than one field has the expected value, then Sensible returns null. <br/><br/> `all`: Returns all fields in the group with the specified value. |
+| match                     | `one`, `all`. default: `all`                            | `one`:  Select this option for mutually exclusive field groups, for example, a group of radio buttons where the user can select a single item. If no fields in the group have the specified value, or if more than one field has the expected value, then Sensible returns null. <br/><br/> `all`: Returns all fields in the group with the specified value. |
 | value                     | null, boolean, string, or string array. default: `True` | The value to pick. Sensible converts checkbox and radio button selection marks to true and false. For example, to pick selected checkboxes, specify `true`.  Or, to return dropdown questions set to "yes", specify `"yes"`.<br/>`null` returns the list of source IDs with null values, for example when Sensible can't find a checkbox. |
 
-The following example shows returning a single value from a radio button group, and multiple values from a group of dropdowns.
+The following example shows returning a single value from a radio button group, and two values from a group of dropdowns.
 
 **Config**
 
