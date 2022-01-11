@@ -2,7 +2,7 @@
 title: "Text Table"
 hidden: true
 ---
-This method can recognize tables that span multiple pages. If the table repeats column names on subsequent pages, this method discards the repetitions.
+This method can extract tables that span multiple pages and ignores repeated column titles on subsequent pages.
 
 ```json
 
