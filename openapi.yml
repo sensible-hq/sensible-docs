@@ -1,5 +1,5 @@
 openapi: 3.0.3
-servers: # TODO: fill in
+servers: # TODO: fill in # LEFT OFF: need to proofread the endpoints against existing doc; remember unpublished endpoint don't delete it cause can't add it here...
   - url: https://api.sensible.so/v0
     description: Production server (uses live data)
 info:
