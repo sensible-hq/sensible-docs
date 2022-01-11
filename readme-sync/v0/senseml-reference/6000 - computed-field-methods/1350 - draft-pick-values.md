@@ -20,7 +20,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 
 
-The following example shows TBD
+The following example shows returning a single value from a radio button group, and multiple values from a group of dropdowns.
 
 **Config**
 
@@ -87,7 +87,7 @@ The following example shows TBD
       }
     },
     {
-      "id": "income_questions",
+      "id": "income_yes_answers",
       "method": {
         "id": "pickValues",
         "match": "all",
@@ -96,6 +96,20 @@ The following example shows TBD
           "income_over_100k",
           "out_of_state_income",
           "professional_services"
+        ]
+      }
+    },
+    {
+      "id": "cleanup_output",
+      "method": {
+        "id": "suppressOutput",
+        "source_ids": [
+          "income_over_100k",
+          "out_of_state_income",
+          "professional_services",
+          "individual",
+          "partnership",
+          "llc"
         ]
       }
     }
@@ -118,35 +132,11 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "individual": {
-    "type": "boolean",
-    "value": false
-  },
-  "partnership": {
-    "type": "boolean",
-    "value": true
-  },
-  "llc": {
-    "type": "boolean",
-    "value": false
-  },
-  "income_over_100k": {
-    "type": "string",
-    "value": "yes"
-  },
-  "out_of_state_income": {
-    "type": "string",
-    "value": "no"
-  },
-  "professional_services": {
-    "type": "string",
-    "value": "yes"
-  },
   "business_classification": {
     "value": "partnership",
     "type": "string"
   },
-  "income_questions": [
+  "income_yes_answers": [
     {
       "value": "income_over_100k",
       "type": "string"
