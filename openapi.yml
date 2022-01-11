@@ -73,7 +73,7 @@ paths:
         content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: '#/components/schemas/GenerateUrlRequest'
       tags:
       - extract_async
       responses:
@@ -141,6 +141,7 @@ paths:
         '404':
           $ref: '#/components/responses/404'         
 
+
   /v0/documents/{id}:
     post:
       operationId: retrieve_extraction
@@ -167,6 +168,30 @@ paths:
         '404':
           $ref: '#/components/responses/404'
 
+  /v0/extract_from_url/:
+    post:
+      operationId: extract_portfolio_at_your_url
+      summary: extract portfolio at your URL. 
+      description:
+       TBD
+      parameters:
+        - $ref: '#/components/parameters/environment' 
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractFromUrlRequest'
+      tags:
+      - extract_portfolio
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: returns the ID to use to retrieve the extraction 
+        '404':
+          $ref: '#/components/responses/404'
 
 components:
   schemas:
@@ -317,7 +342,11 @@ components:
           $ref: '#/components/schemas/Webhook' 
         document_url:
           $ref: '#/components/schemas/DocumentUrl' 
-
+    GenerateUrlRequest:
+      type: object
+      properties:
+        webhook:
+          $ref: '#/components/schemas/Webhook' 
     
     ExtractionId:
       type: string
@@ -341,24 +370,25 @@ components:
     
     Webhook:
       type: object
-      description: If you include this parameter, Sensible calls the defined webhook when your document is processed (your results will be in the parsed_document field of the request body). Sensible will also call this webhook on error, in which case parsed_document will have a single field, error, with a status and error message
-      properties: 
-        webhook:
-          type: object
-          properties:
-            url:
-              type: string
-              format: url
-              description: the webhook destination
-              example: YOUR_WEBHOOK_URL
-            payload:
-              type: string
-              description: additional information to send to the webhook besides the API response
-              example: info extra to the default extraction payload
+      description: |
+        If you include this, Sensible calls the defined webhook when your document is processed 
+        (your results will be in the parsed_document field of the request body). 
+        Sensible also calls this webhook on error, in which case parsed_document has a single field, error, 
+        with a status and error message.
+      properties:
+        url:
+          type: string
+          format: url
+          description: the webhook destination
+          example: YOUR_WEBHOOK_URL
+        payload:
+          type: string
+          description: additional information to send to the webhook besides the API response
+          example: info extra to the default extraction payload
     DocumentUrl:
       type: string
       format: url 
-      description: A URL that responds to a GET request with the bytes of the PDF portfolio to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication. # TODO: how to indicate this is required whereas webhook is not? 
+      description: A URL that responds to a GET request with the bytes of the PDF to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication. # TODO: how to indicate this is required whereas webhook is not? 
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
   responses: 
     404:
