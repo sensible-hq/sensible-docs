@@ -9,19 +9,10 @@ Extract data from an example document
 
 
 
-TODOs:
-
-- add a link to this quickstart from the last cheatsheet?? 
-
-- add a link to this quickstart at the top of the getting started explaining this is quick vs the GSG is conceptual.
-
-- fix all links
-
-  
-
-  
-
 1. Get an account at [sensible.so](https://www.sensible.so/get-early-access).
+
+    **NOTE** In the Sensible app,don't modify the name of the default doc type (**walkthroughs**) or delete the **walkthrough 1** config, or this example won't work. 
+
 2. Clone a code sample in your preferred language:
   - [Python](https://github.com/fscelliott/sens-code-example) TODO: take the code sample below and put in dir and verify it works.
   - other languages TBD  
@@ -153,3 +144,13 @@ Next
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
 
   
+
+draft todos
+----
+TODOs:
+
+- add a link to this quickstart from the last cheatsheet?? 
+
+- add a link to this quickstart at the top of the getting started explaining this is quick vs the GSG is conceptual.
+
+- fix all links
