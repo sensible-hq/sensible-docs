@@ -294,14 +294,14 @@ components:
         - $ref: '#/components/schemas/Webhook'
         - type: object
           properties:                
-            types:
-              required: true
-              description: Specifies the document types contained in the PDF portfolio.
-              schema:
-                type: array
-                items:
-                  type: string
-                example: tax_returns, bank_statements, credit_reports
+            types:      
+              type: array
+              items:
+                type: string 
+              example: tax_returns, bank_statements, credit_reports
+        
+
+   
     Extraction:
       type: object
       properties:
