@@ -1,9 +1,7 @@
 openapi: 3.0.3
-servers: # TODO: fill in
-  - url: https://api.example.com/v1
+servers: # TODO: fill in # LEFT OFF: need to proofread the endpoints against existing doc; remember unpublished endpoint don't delete it cause can't add it here...
+  - url: https://api.sensible.so/v0
     description: Production server (uses live data)
-  - url: https://sandbox-api.example.com:8443/v1
-    description: Sandbox server (uses test data)
 info:
   title: Sensible API
   version: 1.0.0
@@ -12,16 +10,26 @@ info:
     url: https://www.TBD.org/licenses/LICENSE-2.0.html
 
   description: |
-    Extract structured data from PDF documents with the Sensible API
+    Extract structured data from PDF documents with the Sensible API. If you have any questions, 
+    please reach out to support@sensible.so and we'd be happy to help you out.<br/>
+    Sensible provides both synchronous and asynchronous endpoints for you to extract data out of your documents.
+    <br/>The majority of our users can use our /extract endpoint, 
+    which takes a PDF file and returns extracted data synchronously.
+    <br/> Use the asynchronous endpoints for PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time. 
+    <br/>You have two options for asynchronously processing your PDF: extract a doc at a URL you provide, our upload the doc to 
+    a Sensible URL.  
+    <br/>You can then call the `retreive results` endpoint to get the results, 
+    or specify a webhook for us to push the results to as soon as they're ready.
+    If you're new to APIs, then check out our [API tutorial](doc:api-tutorial) for a step-by-step guide to calling Sensible endpoints. 
 paths:
-  /v0/extract/{type}:
+  /extract/{type}:
     post:
       operationId: extract_doc
       summary: extract structured data from a document submitted as bytes array
       description:
         Submits a document of a particular type (e.g., a rate confirmation, 
         certificate of insurance, or home inspection report) to Sensible. 
-        Sensible will automatically detect which format your document is in. 
+        Sensible automatically detects which format your document is in. 
         Note that this automatic detection only works for supported formats. 
         As part of your onboarding you've received a list of document types 
         and document formats enabled on your account.
@@ -48,7 +56,7 @@ paths:
               format: binary
 
       tags:
-      - extract-sync
+      - extract_sync
       responses:
         '200':
           content:
@@ -59,12 +67,22 @@ paths:
         '404':
           $ref: '#/components/responses/404'
   
-  /v0/generate_upload_url/{type}:
+  /generate_upload_url/{type}:
     post:
       operationId: extract_doc_at_sensible_url
-      summary: extract structured data from a document at a URL Sensible generates. 
-      description:
-       TBD
+      summary: extract doc at a Sensible URL
+      description: |
+        You must use this endpoint or extract_from_url to parse PDFs are over 4.5MB or require over 30 seconds to process.<br/>
+        Generates an upload URL for a document of a particular type (for example, a rate confirmation, certificate of insurance, 
+        or home inspection report). <br/>After calling this endpoint, PUT the PDF file to the pre-signed upload_url endpoint, and then 
+        you can retrieve the parsed data with the GET documents/{id} endpoint.<br/>  
+        This sample curl command will upload a PDF to the upload_url:<br/>
+        `curl -T ./sample.pdf "YOUR_UPLOAD_URL"`<br/>
+        Note: the pre-signed upload_url does not support 
+        Base64 encoded PDFs. You PUT the PDF bytes directly to the endpoint and must omit the content-type header.<br/>
+        For a step-by-step tutorial on calling this endpoint, see 
+        [Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2).
+       
       parameters:
         - $ref: '#/components/parameters/type'
         - $ref: '#/components/parameters/environment' 
@@ -73,9 +91,9 @@ paths:
         content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: '#/components/schemas/GenerateUrlRequest'
       tags:
-      - extract-async
+      - extract_async
       responses:
         '200':
           content:
@@ -87,12 +105,17 @@ paths:
           $ref: '#/components/responses/404'
 
   
-  /v0/extract_from_url/{type}:
+  /extract_from_url/{type}:
     post:
       operationId: extract_doc_at_your_url
-      summary: extract structured data from a document at your URL. 
-      description:
-       TBD
+      summary: extract doc at your URL 
+      description: |
+        Use this endpoint or other async endpoints to parse PDFs that are over 4.5MB or require over 30 seconds to process.<br/>
+        Retrieves a document of a particular document type (for example, a rate confirmation, certificate of insurance, or 
+        home inspection report) from the provided document_url and runs an extraction.
+        <br/>After the extraction is complete, 
+        or to check on its status, you can retrieve the parsed data with the GET documents/{id} endpoint. 
+        <br/>For a step-by-step tutorial on calling this endpoint, see Try asynchronous extraction from your URL.
       parameters:
         - $ref: '#/components/parameters/type'
         - $ref: '#/components/parameters/environment' 
@@ -102,7 +125,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - extract-async
+      - extract_async
       responses:
         '200':
           content:
@@ -113,12 +136,45 @@ paths:
         '404':
           $ref: '#/components/responses/404'
 
-  /v0/documents/{id}:
+  /generate_upload_url:
     post:
-      operationId: retrieve_extraction
-      summary: Get the extraction using the ID. 
+      operationId: extract_portfolio_at_sensible_url
+      summary: extract portfolio at a Sensible URL
       description:
        TBD
+      parameters:
+        - $ref: '#/components/parameters/environment' 
+        
+      
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioRequest'
+                # PortfolioRequest
+      tags:
+      - extract_portfolio
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncUploadResponse'
+          description: returns the upload_url at which to PUT the PDF for extraction 
+        '404':
+          $ref: '#/components/responses/404'         
+
+
+  /documents/{id}:
+    post:
+      operationId: retrieve_extraction
+      summary: Get extraction by id 
+      description: |
+        Retrieves results from asynchronous extractions,
+        using the id returned by the asynchronous request.<br/> 
+        You can also use this endpoint to retrieve the results for documents parsed using the synchronous /extract endpoint.<br/>
+        After Sensible processes the document, it marks status as  COMPLETE and returns the the parsed_document in the response. 
+        For fields in the parsed document that Sensible couldn't find any value for, the result is null.
       parameters:
         - $ref: '#/components/parameters/id'
         - $ref: '#/components/parameters/environment' 
@@ -128,17 +184,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - retrieve-extraction
+      - retrieve_extraction
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Extraction'
-          description: returns the extraction # TODO LEFT OFF: new schema;  it ALSO returns a download_url  download_url"""https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED"
+                $ref: '#/components/schemas/ExtractionAsyncResult'
+          description: returns the extraction 
         '404':
           $ref: '#/components/responses/404'
 
+  /extract_from_url/:
+    post:
+      operationId: extract_portfolio_at_your_url
+      summary: extract portfolio at your URL. 
+      description:
+       TBD
+      parameters:
+        - $ref: '#/components/parameters/environment' 
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractFromUrlRequest'
+      tags:
+      - extract_portfolio
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: returns the ID to use to retrieve the extraction 
+        '404':
+          $ref: '#/components/responses/404'
 
 components:
   schemas:
@@ -209,6 +289,21 @@ components:
           type: number
           description: the number of fields skipped in the extraction because a prerequisite field was null
           example: 1          
+    PortfolioRequest:
+      allOf:
+        - $ref: '#/components/schemas/Webhook'
+        - type: object
+          properties:                
+            types:
+              name: types
+              required: true
+              in: body
+              description: Specifies the document types contained in the PDF portfolio.
+              schema:
+                type: array
+                items:
+                  type: string
+                example: tax_returns, bank_statements, credit_reports
     Extraction:
       type: object
       properties:
@@ -230,6 +325,15 @@ components:
           $ref: '#/components/schemas/Validations'  
         validations_summary:
           $ref: '#/components/schemas/ValidationsSummary' 
+    ExtractionAsyncResult:
+      allOf:
+        - $ref: '#/components/schemas/Extraction'
+        - type: object
+          properties:
+            download_url:
+              type: string
+              description: the URL of the PDF that was extracted from #question: true?
+              example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
     AsyncResponse:
       type: object
       properties:
@@ -265,7 +369,11 @@ components:
           $ref: '#/components/schemas/Webhook' 
         document_url:
           $ref: '#/components/schemas/DocumentUrl' 
-
+    GenerateUrlRequest:
+      type: object
+      properties:
+        webhook:
+          $ref: '#/components/schemas/Webhook' 
     
     ExtractionId:
       type: string
@@ -289,19 +397,25 @@ components:
     
     Webhook:
       type: object
-      description: If you include this parameter, Sensible will call the defined webhook when your document is processed (your results will be in the parsed_document field of the request body). Sensible will also call this webhook on error, in which case parsed_document will have a single field, error, with a status and error message
-      properties: 
+      description: |
+        If you include this, Sensible calls the defined webhook when your document is processed 
+        (your results will be in the parsed_document field of the request body). 
+        Sensible also calls this webhook on error, in which case parsed_document has a single field, error, 
+        with a status and error message.
+      properties:
         url:
           type: string
           format: url
+          description: the webhook destination
           example: YOUR_WEBHOOK_URL
         payload:
           type: string
-          example: some info you want to include in addition to the default extraction payload
+          description: additional information to send to the webhook besides the API response
+          example: info extra to the default extraction payload
     DocumentUrl:
       type: string
       format: url 
-      description: A URL that responds to a GET request with the bytes of the PDF portfolio to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication. # TODO: how to indicate this is required whereas webhook is not? 
+      description: A URL that responds to a GET request with the bytes of the PDF to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication. # TODO: how to indicate this is required whereas webhook is not? 
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
   responses: 
     404:
@@ -328,6 +442,7 @@ components:
       schema:
         type: string
       example: policy_declaration
+
     environment:
       name: environment
       in: query
@@ -339,16 +454,14 @@ components:
             
       
   securitySchemes:
-    # tokenAuth:
-      # type: apiKey
-      # in: header
-      # name: Authorization
-      # description: Token-based authentication with required prefix "Token"
-    ApiKeyAuth:        # arbitrary name for the security scheme
-      type: apiKey
-      in: header       # can be "header", "query" or "cookie"
-      name: X-API-KEY  # name of the header, query parameter or cookie
-      description: Send API Key as request header named X-API-Key
-# Apply the API key globally to all operations
+    bearerAuth:       # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      description: |
+        Sensible uses API keys to authenticate requests. You should have received a key as a part of onboarding, 
+        but if you're having trouble with your current key, please reach out to support@sensible.so. 
+        Keep your API keys secure and do not share them publicly accessible areas such as GitHub, client-side code, etc.
+        Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
+# Apply the auth globally to all operations
 security:
-  - ApiKeyAuth: []
+  - bearerAuth: []
