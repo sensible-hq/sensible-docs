@@ -295,9 +295,7 @@ components:
         - type: object
           properties:                
             types:
-              name: types
               required: true
-              in: body
               description: Specifies the document types contained in the PDF portfolio.
               schema:
                 type: array
