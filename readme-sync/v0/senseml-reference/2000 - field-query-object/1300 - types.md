@@ -86,8 +86,15 @@ For example:
 
 ```123 Waverly Pl
 San Francisco, CA 94110
+
 123 Waverly Pl San Francisco, CA 941104123
+
 PO BOX 1058 San Francisco, CA 94110
+
+123 Waverly Pl
+San Francisco, CA
+941104123
+
 ```
 
 If consecutive addresses are captured in a single extracted key/value pair, Sensible returns multiple addresses. 
@@ -97,7 +104,7 @@ This type **doesn't** match text  that lacks a zip code, such as `11 Center Stre
 Example output:
 ```json
  {
-    "value": "123 Waverly Pl San Francisco, CA 941104123",
+    "value": "123 Waverly Pl\nSan Francisco, CA\n941104123",
     "type": "address"
   }
 ```
