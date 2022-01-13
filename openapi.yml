@@ -184,7 +184,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - async extraction
+      - asynchronous
       responses:
         '200':
           content:
