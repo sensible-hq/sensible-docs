@@ -56,7 +56,7 @@ paths:
               format: binary
 
       tags:
-      - synchronous extraction
+      - synchronous
       responses:
         '200':
           content:
@@ -92,8 +92,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenerateUrlRequest'
-      #tags:
-      #- extraction
+      tags:
+      - asynchronous
       responses:
         '200':
           content:
@@ -124,8 +124,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
-      #tags:
-      #- extraction
+      tags:
+      - asynchronous
       responses:
         '200':
           content:
@@ -152,8 +152,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/PortfolioRequest'
                 # PortfolioRequest
-      #tags:
-      #- extraction
+      tags:
+      - portfolio
       responses:
         '200':
           content:
@@ -183,8 +183,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
-      #tags:
-      #- extraction
+      tags:
+      - async extraction
       responses:
         '200':
           content:
@@ -208,8 +208,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
-      #tags:
-      #- extraction
+      tags:
+      - portfolio
       responses:
         '200':
           content:
