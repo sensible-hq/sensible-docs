@@ -55,8 +55,8 @@ paths:
               type: string
               format: binary
 
-      #tags:
-      #- extraction
+      tags:
+      - synchronous extraction
       responses:
         '200':
           content:
