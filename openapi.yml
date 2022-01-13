@@ -110,7 +110,7 @@ paths:
       operationId: extract_doc_at_your_url
       summary: extract doc at your URL 
       description: |
-        Use this endpoint or other async endpoints to parse PDFs that are over 4.5MB or require over 30 seconds to process.<br/>
+        Use this endpoint or other async endpoints to extract from PDFs that are over 4.5MB or require over 30 seconds to process.<br/>
         Retrieves a document of a particular document type (for example, a rate confirmation, certificate of insurance, or 
         home inspection report) from the provided document_url and runs an extraction.
         <br/>After the extraction is complete, 
