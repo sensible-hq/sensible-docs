@@ -3,7 +3,7 @@ servers: # TODO: fill in # LEFT OFF: need to proofread the endpoints against exi
   - url: https://api.sensible.so/v0
     description: Production server (uses live data)
 info:
-  title: Sensible API
+  title: Extraction
   version: 1.0.0
   license: # TODO: fill in
     name: TBD
@@ -25,7 +25,7 @@ paths:
   /extract/{type}:
     post:
       operationId: extract_doc
-      summary: extract structured data from a document submitted as bytes array
+      summary: extract data from a document
       description:
         Submits a document of a particular type (e.g., a rate confirmation, 
         certificate of insurance, or home inspection report) to Sensible. 
@@ -55,8 +55,8 @@ paths:
               type: string
               format: binary
 
-      tags:
-      - extraction
+      #tags:
+      #- extraction
       responses:
         '200':
           content:
@@ -92,8 +92,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenerateUrlRequest'
-      tags:
-      - extraction
+      #tags:
+      #- extraction
       responses:
         '200':
           content:
@@ -124,8 +124,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
-      tags:
-      - extraction
+      #tags:
+      #- extraction
       responses:
         '200':
           content:
@@ -152,8 +152,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/PortfolioRequest'
                 # PortfolioRequest
-      tags:
-      - extraction
+      #tags:
+      #- extraction
       responses:
         '200':
           content:
@@ -183,8 +183,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
-      tags:
-      - extraction
+      #tags:
+      #- extraction
       responses:
         '200':
           content:
@@ -198,7 +198,7 @@ paths:
   /extract_from_url/:
     post:
       operationId: extract_portfolio_at_your_url
-      summary: extract portfolio at your URL. 
+      summary: extract portfolio at your URL 
       description:
        TBD
       parameters:
@@ -208,8 +208,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
-      tags:
-      - extraction
+      #tags:
+      #- extraction
       responses:
         '200':
           content:
