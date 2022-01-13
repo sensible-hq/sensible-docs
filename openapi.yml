@@ -56,7 +56,7 @@ paths:
               format: binary
 
       tags:
-      - extract_sync
+      - extraction
       responses:
         '200':
           content:
@@ -93,7 +93,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenerateUrlRequest'
       tags:
-      - extract_async
+      - extraction
       responses:
         '200':
           content:
@@ -125,7 +125,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - extract_async
+      - extraction
       responses:
         '200':
           content:
@@ -153,7 +153,7 @@ paths:
                 $ref: '#/components/schemas/PortfolioRequest'
                 # PortfolioRequest
       tags:
-      - extract_portfolio
+      - extraction
       responses:
         '200':
           content:
@@ -184,7 +184,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - retrieve_extraction
+      - extraction
       responses:
         '200':
           content:
@@ -209,7 +209,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - extract_portfolio
+      - extraction
       responses:
         '200':
           content:
