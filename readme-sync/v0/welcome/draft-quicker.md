@@ -18,7 +18,7 @@ Extract data from an example document
   - other languages TBD  
 
 
-2. Add your api key to the code sample. For example, in the Python example, replace `"YOUR_API_KEY"` with your key. Find your API key in the dashboard at [TBD LINK TO ACCOUNT PAGE].
+2. Add your api key to the code sample. For example, in the Python example, replace `"YOUR_API_KEY"` with your key. Find your API key in the dashboard at [https://app.sensible.so/account/].
 
   
 
@@ -129,7 +129,7 @@ Optional: see how it works in the Sensible app
 
    To see this example in the Sensible app:
 
-   1. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/) using your API key.
+   1. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/).
       2. Navigate to https://dev.sensible.so/editor/?d=senseml_basics&c=walkthrough_1&g=walkthrough_1.
       3.  Visually examine the PDF (middle pane), config (left pane), and extracted data (right pane) you just ran in the previous code sample:
          ![image-20220105100032719](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220105100032719.png)
