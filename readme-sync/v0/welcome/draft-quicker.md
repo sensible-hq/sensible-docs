@@ -9,7 +9,7 @@ Extract data from an example document
 
 
 
-1. Get an account at [sensible.so](https://www.sensible.so/get-early-access).
+1. Get an account at [sensible.so](https://app.sensible.so/register).
 
     **NOTE** In the Sensible app,don't modify the name of the default doc type (**walkthroughs**) or delete the **walkthrough 1** config, or this example won't work. 
 

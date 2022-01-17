@@ -10,7 +10,7 @@ Prerequisites
 
 To follow this tutorial, you need:
 
-- An API key (you receive this key when you sign up for a [Sensible account](https://www.sensible.so/get-early-access)) 
+- An API key (you receive this key when you sign up for a [Sensible account](https://app.sensible.so/register)) 
 -  [Postman](https://www.postman.com/) desktop app (or follow along with cURL in the command line)
 -  An example config. See the following section.
 
