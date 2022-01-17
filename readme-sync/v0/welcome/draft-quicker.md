@@ -129,7 +129,7 @@ Optional: see how it works in the Sensible app
 
    To see this example in the Sensible app:
 
-   1. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/).
+   1. Log into the [Sensible app](https://app.sensible.so/signin/).
       2. Navigate to https://dev.sensible.so/editor/?d=senseml_basics&c=walkthrough_1&g=walkthrough_1.
       3.  Visually examine the PDF (middle pane), config (left pane), and extracted data (right pane) you just ran in the previous code sample:
          ![image-20220105100032719](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220105100032719.png)

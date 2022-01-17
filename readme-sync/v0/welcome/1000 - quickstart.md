@@ -23,7 +23,7 @@ Get an account
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
-2. Log into the Sensible app at [app.sensible.so](https://app.sensible.so/).
+2. Log into the [Sensible app](https://app.sensible.so/signin/).
 
 Create a config
 ====
