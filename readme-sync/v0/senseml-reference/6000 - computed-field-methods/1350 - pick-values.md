@@ -1,17 +1,10 @@
 ---
 title: "Pick values"
-hidden: true
+hidden: false
 
 ---
 
-TODOS on publish:
-
-- 1 last comparison to types.ts
--  add to INDEX + add some wording to it (and to Methods?) about pick values?
-
-
-
-Extract specified values from a group of fields. For example, extract the selected boxes from a checkbox group, or extract all "yes" answers from a group of fields with yes/no/maybe dropdowns.
+Extracts specified values from a group of fields. For example, extracts the selected boxes from a checkbox group, or extract all "yes" answers from a group of fields with yes/no/maybe dropdowns.
 
 Parameters
 ====
