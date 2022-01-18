@@ -4,6 +4,11 @@ hidden: true
 
 ---
 
+TODO on publish:
+
+- link to this doc from very last cheatsheet?
+- add link to GSG? (if you just want the quick intro to the API, see the quickstart...if you want more indepth concepts, continue w this GSG)
+
 Extract example document data
 =====
 
