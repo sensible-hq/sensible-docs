@@ -1,5 +1,5 @@
 ---
-title: "Quicker start"
+title: "Quick start"
 hidden: true
 
 ---
