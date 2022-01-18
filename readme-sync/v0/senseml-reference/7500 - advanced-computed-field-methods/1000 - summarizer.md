@@ -2,7 +2,7 @@
 title: "Summarizer"
 hidden: false
 ---
-Automatically extracts key/value pairs from short snippets of free text using [OpenAI](https://openai.com/) machine learning (ML). The Summarizer computed field method takes as input a snippet of free text extracted using the [Topic](doc:topic) method, and extracts key/value pairs informed by short samples of extracted values. 
+Automatically extracts key/value pairs from short snippets of free text using [OpenAI](https://openai.com/) machine learning (ML). The Summarizer computed field method takes as input a snippet of free text extracted using the [Topic](doc:topic) method, and extracts key/value pairs informed by short samples of extracted values you provide. 
 
 Parameters
 ====

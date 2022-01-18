@@ -4,153 +4,84 @@ hidden: true
 
 ---
 
-Extract data from an example document
+Extract example document data
 =====
 
-
+To run an API call and return extracted data from an example document: 
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
 
-    **NOTE** In the Sensible app,don't modify the name of the default doc type (**walkthroughs**) or delete the **walkthrough 1** config, or this example won't work. 
+    **NOTE** In the Sensible app,don't modify the name of the default doc type (**senseml_basics**) or delete the **1_extract_your_first_data1** config, or this example fails. 
 
-2. Clone a code sample in your preferred language:
-  - [Python](https://github.com/fscelliott/sens-code-example) TODO: take the code sample below and put in dir and verify it works.
-  - other languages TBD  
+2. Copy the following code example:
 
+    ```curl
+    curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf  --output 1_extract_your_first_data.pdf && \
+    curl --request POST \
+      --url "https://api.sensible.so/v0/extract/senseml_basics" \
+      --header "Authorization: Bearer e08b909f931072f8ba45ad7fd512a0b4e48ac59c4a03278dc1ebe062dfa0d98f90eff12a5b61fdc55e6102d7cf06e33aa8de5e90c6ea33a56b001210255c2d8d" \
+      --header "Content-Type: application/pdf" \
+      --data-binary "@1_extract_your_first_data.pdf" \
+    | json_pp
+    
+    ```
 
-2. Add your api key to the code sample. For example, in the Python example, replace `"YOUR_API_KEY"` with your key. Find your API key in the dashboard at [https://app.sensible.so/account/].
+    
 
-  
+2. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find it on your [account page][https://app.sensible.so/account/].
 
-  ```python
-  #!/usr/local/bin/python
-  
-  '''
-  This script asynchronously extracts structured data from the specified PDF.
-  For more information, see https://docs.sensible.so/docs/api-tutorial-async-1.
-  '''
-  
-  import time
-  import json
-  import requests
-  
-  # The name of a document type in Sensible, e.g., auto_insurance_quote
-  DOCUMENT_TYPE = "tutorials"
-  # The URL of the PDF you'd like to extract from
-  DOCUMENT_URL = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/walkthrough_1.pdf"
-  # Your Sensible API key
-  API_KEY = "YOUR_API_KEY"
-  
-  
-  def extract_from_doc_url():
-      headers = {
-          'Authorization': 'Bearer {}'.format(API_KEY),  'Content-Type': 'application/json'
-      }
-      body = json.dumps({"document_url": DOCUMENT_URL})
-      response = requests.request(
-          "POST",
-          "https://api.sensible.so/v0/extract_from_url/{}".format(
-              DOCUMENT_TYPE),
-          headers=headers,
-          data=body)
-      try:
-          response.raise_for_status()
-      except requests.RequestException:
-          print(response.text)
-      else:
-          document_extraction = response.json()
-          poll_count = 0
-          # In production you'd use a webhook to avoid polling
-          while document_extraction["status"] == "WAITING":
-              # Wait a few seconds before each poll until the extraction completes
-              time.sleep(3)
-              poll_count += 1
-              response = requests.request(
-                  "GET",
-                  "https://api.sensible.so/v0/documents/{}".format(document_extraction['id']),
-                  headers=headers)
-              try:
-                  response.raise_for_status()
-              except requests.RequestException:
-                  print(response.text)
-                  break
-              else:
-                  document_extraction = response.json()
-                  print("Poll attempt: {}, status: {}".format(
-                      poll_count, document_extraction["status"]))
-          print(json.dumps(document_extraction, indent=2))
-  
-  
-  if __name__ == '__main__':
-      extract_from_doc_url()
-  ```
+4. Run the code sample: In a **Linux** or **Mac** command line, paste in the code example. (For **Windows** command prompt, modify the code by replacing multiline indicators (\) with backticks (`) ).
 
 
-
-  
-
-4. Run the code sample. In the command line in the cloned directory, run `python extract_example_doc.py`.
-
-
-
-
-You should see a response like the following:
+You should see an API response like the following:
 
 
 
 ```json
 {
-    "id": "1b86d404-6dc5-4878-a495-6fce40c7ea06",
-    "created": "2022-01-05T17:02:02.283Z",
-    "status": "COMPLETE",
-    "type": "auto_insurance_quote",
-    "configuration": "anyco_multidoc",
-    "parsed_document": {
-  "your_first_extracted_field": {
-    "type": "string",
-    "value": "Welcome to your first document"
-  }
-},
-    "validations": [],
-    "validation_summary": {
-        "fields": 1,
-        "fields_present": 1,
-        "errors": 0,
-        "warnings": 0,
-        "skipped": 0
-    }
+   "configuration" : "1_extract_your_first_data",
+   "created" : "2022-01-18T19:44:48.967Z",
+   "errors" : [],
+   "id" : "7b675925-a7d8-487e-bc20-61f2c8e6c635",
+   "parsed_document" : {
+      "your_first_extracted_field" : {
+         "type" : "string",
+         "value" : "Welcome to your first document"
+      }
+   },
+   "status" : "COMPLETE",
+   "type" : "senseml_basics",
+   "validation_summary" : {
+      "errors" : 0,
+      "fields" : 1,
+      "fields_present" : 1,
+      "skipped" : 0,
+      "warnings" : 0
+   },
+   "validations" : []
 }
 ```
 
  
 
-Optional: see how it works in the Sensible app
+(Optional) See how it works in the Sensible app
 =====
 
    To see this example in the Sensible app:
 
    1. Log into the [Sensible app](https://app.sensible.so/signin/).
-      2. Navigate to https://dev.sensible.so/editor/?d=senseml_basics&c=walkthrough_1&g=walkthrough_1.
-      3.  Visually examine the PDF (middle pane), config (left pane), and extracted data (right pane) you just ran in the previous code sample:
-         ![image-20220105100032719](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220105100032719.png)
+      2. Navigate to [https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data).
+      
+      3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
+      
+         ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png) 
 
 
 
 Next
 ===
 
-- Learn more with [Getting Started](doc:quickstart)
+- Learn more concepts with [Getting Started](doc:quickstart)
 
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
 
-  
-
-draft todos
-----
-TODOs:
-
-- add a link to this quickstart from the last cheatsheet?? 
-
-- add a link to this quickstart at the top of the getting started explaining this is quick vs the GSG is conceptual.
-
-- fix all links
