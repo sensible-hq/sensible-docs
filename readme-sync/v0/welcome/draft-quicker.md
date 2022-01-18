@@ -70,14 +70,15 @@ To run an API call and return extracted data from an example document:
 (Optional) See how it works in the Sensible app
 =====
 
-   To see this example in the Sensible app:
+To see this example in the Sensible app:
 
-   1. Log into the [Sensible app](https://app.sensible.so/signin/).
-      2. Navigate to [https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data).
+1. Log into the [Sensible app](https://app.sensible.so/signin/).
+
+2. Navigate to [https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data).
       
-      3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
+3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
       
-         ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png) 
 
 
 
