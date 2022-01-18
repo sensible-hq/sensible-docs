@@ -35,9 +35,9 @@ To run an API call and return extracted data from an example document:
 [/block]
 
 
-2. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find it on your [account page](https://app.sensible.so/account/).
+2. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find your key on your [account page](https://app.sensible.so/account/).
 
-4. Run the code sample in a command prompt. You should see an API response like the following:
+4. Run the code sample in a command prompt. The API returns a response like the following:
 
 ```json
 {
@@ -84,7 +84,7 @@ To see this example in the Sensible app:
 Next
 ===
 
-- Learn more concepts with [Getting Started](doc:quickstart)
+- Learn concepts with a more detailed example in the [Getting Started Guide](doc:quickstart)
 
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
 
