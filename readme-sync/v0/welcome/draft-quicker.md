@@ -38,12 +38,7 @@ To run an API call and return extracted data from an example document:
 
 2. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find it on your [account page][https://app.sensible.so/account/].
 
-4. Run the code sample: In a **Linux** or **Mac** command line, paste in the code example. (For **Windows** command prompt, modify the code by replacing multiline indicators (\) with backticks (`) ).
-
-
-You should see an API response like the following:
-
-
+4. Run the code sample in a command prompt. You should see an API response like the following:
 
 ```json
 {
