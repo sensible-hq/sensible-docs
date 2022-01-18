@@ -16,16 +16,17 @@ To run an API call and return extracted data from an example document:
 2. Copy the following code example:
 
    
+
 [block:code]
 {
   "codes": [
     {
-      "code": "curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf  --output 1_extract_your_first_data.pdf && \\\ncurl --request POST \\\n  --url \"https://api.sensible.so/v0/extract/senseml_basics\" \\\n  --header \"Authorization: Bearer e08b909f931072f8ba45ad7fd512a0b4e48ac59c4a03278dc1ebe062dfa0d98f90eff12a5b61fdc55e6102d7cf06e33aa8de5e90c6ea33a56b001210255c2d8d\" \\\n  --header \"Content-Type: application/pdf\" \\\n  --data-binary \"@1_extract_your_first_data.pdf\" \\\n| json_pp\n",
+      "code": "curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf  --output 1_extract_your_first_data.pdf && \\\ncurl --request POST \\\n  --url \"https://api.sensible.so/v0/extract/senseml_basics\" \\\n  --header \"Authorization: Bearer <YOUR_API_TOKEN>\" \\\n  --header \"Content-Type: application/pdf\" \\\n  --data-binary \"@1_extract_your_first_data.pdf\" \\\n| json_pp\n",
       "language": "shell",
       "name": "Windows/Mac"
     },
     {
-      "code": "curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf  --output 1_extract_your_first_data.pdf && ^\ncurl --request POST ^\n  --url \"https://api.sensible.so/v0/extract/senseml_basics\" ^\n  --header \"Authorization: Bearer e08b909f931072f8ba45ad7fd512a0b4e48ac59c4a03278dc1ebe062dfa0d98f90eff12a5b61fdc55e6102d7cf06e33aa8de5e90c6ea33a56b001210255c2d8d\" ^\n  --header \"Content-Type: application/pdf\" ^\n  --data-binary \"@1_extract_your_first_data.pdf\" \n",
+      "code": "curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf  --output 1_extract_your_first_data.pdf && ^\ncurl --request POST ^\n  --url \"https://api.sensible.so/v0/extract/senseml_basics\" ^\n  --header \"Authorization: Bearer <YOUR_API_TOKEN>\" ^\n  --header \"Content-Type: application/pdf\" ^\n  --data-binary \"@1_extract_your_first_data.pdf\" \n",
       "language": "shell",
       "name": "Windows"
     }
@@ -33,7 +34,7 @@ To run an API call and return extracted data from an example document:
 }
 [/block]
 
-    
+​    
 
 2. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find it on your [account page][https://app.sensible.so/account/].
 
