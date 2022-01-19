@@ -4,6 +4,11 @@ hidden: true
 
 ---
 
+TODO on publish:
+
+- link to this doc from very last cheatsheet?
+- add link to GSG? (if you just want the quick intro to the API, see the quickstart...if you want more indepth concepts, continue w this GSG)
+
 Extract example document data
 =====
 
@@ -72,9 +77,10 @@ To see this example in the Sensible app:
 1. Log into the [Sensible app](https://app.sensible.so/signin/).
 
 2. Navigate to [https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data).
-      
+   
 3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
-      
+   
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png) 
 
 
@@ -83,6 +89,5 @@ Next
 ===
 
 - Learn concepts with a more detailed example in the [Getting Started Guide](doc:quickstart)
-
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
-
+- See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples).
