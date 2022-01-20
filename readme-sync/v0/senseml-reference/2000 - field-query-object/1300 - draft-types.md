@@ -14,9 +14,9 @@ Date
 | key               | value                  | description                                                  |
 | ----------------- | ---------------------- | ------------------------------------------------------------ |
 | id (**required**) | `date`                 | Returns datetime.  Sensible outputs the time as midnight UTC. |
-| format            | string or string array | If unspecified, accepts default formats. Or, specify additional custom formats using field descriptors (see following table).  The default formats Sensible recognizes are: <br/> "%m/%d/%Y", </br>  "%m/%d/%y", </br>  "%m/%Y", </br>  "%b %d,? %Y", </br>  "%b %d,? %y", </br>  "%b %dst,? %Y", </br>  "%b %dst,? %y", </br>  "%b %dnd,? %Y", </br>  "%b %dnd,? %y", </br>  "%b %dth,? %Y", </br>  "%b %dth,? %y", </br>  "%b %drd,? %Y", </br>  "%b %drd,? %y", </br>  "%m-%d-%Y", </br>  "%m-%d-%y", </br>  "%Y-%m-%d", </br>  "%Y%M%D" |
+| format            | string or string array | If unspecified, accepts default formats. Or, specify additional custom formats using field descriptors (see following table).  The default formats Sensible recognizes are: <br/> "%m/%d/%Y"</br> "%m/%d/%y", </br>  "%m/%Y", </br>  "%b %d,? %Y", </br>  "%b %d,? %y", </br>  "%b %dst,? %Y", </br>  "%b %dst,? %y", </br>  "%b %dnd,? %Y", </br>  "%b %dnd,? %y", </br>  "%b %dth,? %Y", </br>  "%b %dth,? %y", </br>  "%b %drd,? %Y", </br>  "%b %drd,? %y", </br>  "%m-%d-%Y", </br>  "%m-%d-%y", </br>  "%Y-%m-%d", </br>  "%Y%M%D" |
 
-The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the preceding table. For example, to recognize the date format JAN-01-02, specify ``%b-%D-%y`  in the Format parameter.
+The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the preceding table. For example, to recognize the date format JAN-01-02, specify `%b-%D-%y`  in the Format parameter.
 
 | **field descriptor** | **meaning**                                                  | **example**                                             |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
