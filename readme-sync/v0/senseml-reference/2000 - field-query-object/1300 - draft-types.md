@@ -1,6 +1,6 @@
 ---
 title: "Types"
-hidden: false
+hidden: true
 ---
 
 
