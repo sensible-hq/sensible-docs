@@ -34,6 +34,8 @@ The following table lists the field descriptors you can use to define a custom f
 
 **Example input**
 
+The following are examples of date formats that Sensible recognizes by default:
+
 ```
 5/17/2018
 november 30, 1955
