@@ -1,5 +1,5 @@
 ---
-title: "Quick start"
+title: "Developer quickstart"
 hidden: false
 
 ---
@@ -11,7 +11,7 @@ To run an API call and return extracted data from an example document:
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
 
-    **NOTE** In the Sensible app, don't modify the name of the default doc type (**senseml_basics**) or delete the **1_extract_your_first_data1** config, or this example fails. 
+    **NOTE** In the Sensible app, don't rename of the default doc type (**senseml_basics**) or delete the **1_extract_your_first_data1** config, or this example fails. 
 
 2. Copy the following code example:
 
