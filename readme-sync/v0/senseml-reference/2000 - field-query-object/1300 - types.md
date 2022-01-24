@@ -191,6 +191,8 @@ Date
 
 You can define the Date type using concise syntax, `"type":"date"`, or you can use expanded syntax and configure the following parameters:
 
+
+
 **Parameters**
 
 | key               | value                  | description                                                  |
@@ -198,7 +200,15 @@ You can define the Date type using concise syntax, `"type":"date"`, or you can u
 | id (**required**) | `date`                 | Returns datetime.  Sensible outputs the time as midnight UTC. |
 | format            | string or string array | If unspecified, recognizes default date formats. See the following table for a list of the field descriptors you can use to define custom formats. The custom formats override the defaults. The default formats Sensible recognizes are: <br/> "%m/%d/%Y"</br> "%m/%d/%y", </br>  "%m/%Y", </br>  "%b %d,? %Y", </br>  "%b %d,? %y", </br>  "%b %dst,? %Y", </br>  "%b %dst,? %y", </br>  "%b %dnd,? %Y", </br>  "%b %dnd,? %y", </br>  "%b %dth,? %Y", </br>  "%b %dth,? %y", </br>  "%b %drd,? %Y", </br>  "%b %drd,? %y", </br>  "%m-%d-%Y", </br>  "%m-%d-%y", </br>  "%Y-%m-%d", </br>  "%Y%M%D" |
 
-The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the preceding table. For example, to recognize the date format JAN-01-02, specify `%b-%D-%y`  in the Format parameter.
+The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the preceding table. For example, to recognize the date format JAN-01-02 (and ignore all default formats), you could specify:
+
+```
+"type":
+  {
+    "id": "date",
+    "format": "%b-%D-%y"   
+  }
+```
 
 | **field descriptor** | **meaning**                                                  | **example**                                             |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
