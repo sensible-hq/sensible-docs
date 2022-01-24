@@ -16,7 +16,7 @@ See the following pages for reference documentation for the SenseML query langua
 
 Or, for a getting started tutorial, see:
 
-- [Getting Started](doc:quickstart)
+- [Getting Started](doc:getting-started)
 
 Examples
 ====

@@ -30,7 +30,7 @@ Config
 
 - **config content:**
 
-The config is the same as the one used in the [Getting started guide](doc:quickstart), with the addition of the following fingerprint:
+The config is the same as the one used in the [Getting started guide](doc:getting-started), with the addition of the following fingerprint:
 
 ```
   "fingerprint": {

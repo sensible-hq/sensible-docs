@@ -83,6 +83,6 @@ To see this example in the Sensible app:
 Next
 ===
 
-- Learn concepts with more detailed examples in the [Getting Started Guide](doc:quickstart)
+- Learn concepts with more detailed examples in the [Getting Started Guide](doc:getting-started)
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
 - See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples)
