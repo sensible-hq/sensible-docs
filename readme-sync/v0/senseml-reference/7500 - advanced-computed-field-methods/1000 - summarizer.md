@@ -2,7 +2,7 @@
 title: "Summarizer"
 hidden: false
 ---
-Automatically extracts key/value pairs from short snippets of free text using [OpenAI](https://openai.com/) machine learning (ML). The Summarizer computed field method takes as input a snippet of free text extracted using the [Topic](doc:topic) method, and extracts key/value pairs informed by short samples of extracted values you provide. 
+Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text extracted using the [Topic](doc:topic) method, and extracts key/value pairs informed by short samples of extracted values you provide. 
 
 Parameters
 ====
@@ -13,9 +13,9 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)        | `summarizer` |                                                              |
-| source_id (**required**) | field ID     | Specifies a field that uses a [Topic](doc:topic) method to output the relevant snippet of text containing the key/value information you want to extract. |
+| source_id (**required**) | field ID     | Specifies a field whose output is a snippet of text with the key/value information you want to extract. If the snippet doesn't occur at a predictable location in the document, then you can use the [Topic](doc:topic) method to find it. |
 | fields                   | string array | Names of the keys you want to extract. These names have an impact on the free-text extraction, so choose names that have a meaningful relationship to the target data to extract. For example, for a dollar amount of rent to extract,  `rent`, `rents`, and `rent_in_dollars` are good naming choices. |
-| samples                  | object       | Short snippets of text containing examples of how to extract information. Contains these parameters:<br/>`prompt`: A free-text example of the information you want to extract.<br/>`values`: The target information to extract from the prompt, generally a single word or number. List the values in the same order as you list corresponding fields in the Fields parameter.<br/>If Sensible can't find the target information in the Source ID parameter, then it returns values from the sample set or generates a value. |
+| samples                  | object       | Short snippets of text containing examples of how to extract information. Contains these parameters:<br/>`prompt` (string): A free-text example of the information you want to extract.<br/>`values` (string array):  The target information to extract from this prompt. This array is a parallel array to the Fields parameter's array (the same length and same sequence). If GPT-3 can't find the target information in the Source ID parameter, it can generate an arbitrary value. If you anticipate cases with missing data, then add an example value showing the output to generate in such a case.<br/> |
 
 Examples
 ====
