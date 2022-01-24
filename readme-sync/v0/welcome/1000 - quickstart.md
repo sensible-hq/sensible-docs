@@ -71,7 +71,7 @@ To see this example in the Sensible app:
 
 1. Log into the [Sensible app](https://app.sensible.so/signin/).
 
-2. Navigate to [first tutorial](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data).
+2. Navigate to the [first tutorial](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data) config.
    
 3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
    
