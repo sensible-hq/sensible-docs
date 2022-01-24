@@ -430,7 +430,7 @@ In a production scenario, continue testing PDFs until you have confidence your c
 Integrate with your application
 ====
 
-When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial.
+When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial. 
 
 Validate extractions in production 
 ====

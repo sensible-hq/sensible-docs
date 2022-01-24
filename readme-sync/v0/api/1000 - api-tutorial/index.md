@@ -3,7 +3,9 @@ title: "API tutorial"
 hidden: false
 ---
 
-Get started with extracting structured data from PDF documents using the Sensible API. If you're new to APIs in general, this tutorial is a good starting point.
+Get started with extracting structured data from PDF documents using the Sensible API.
+
+If you're new to APIs in general, this tutorial is a good starting point. Or, if you're familiar with APIs, see the [quickstart](doc:quickstart) to quickly get a sample API response.
 
 Prerequisites
 ====
