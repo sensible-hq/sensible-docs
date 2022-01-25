@@ -222,6 +222,40 @@ paths:
 
 components:
   schemas:
+    ValidationsSummary:
+      type: object
+      description:  |
+            Metadata about how Sensible chose the config to use for this extraction.
+            Sensible chooses the config extraction to return using:
+            1. the config with the greatest number of fingerprintMatched
+            2. if there are no fingerprints or there's a tie, the config with the highest score.
+      properties:
+        configuration:
+          type: string
+          example: anyco.json
+          description: the config tested
+        fingerprintMatched:  
+          type: integer
+          example: 1
+          description: number of this config's fingerprints that Sensible found in the document
+        fingerprintTotal:
+          type: integer
+          example: 1
+          description: total
+        score:
+          type: object  
+          $ref: '#/components/schemas/Score'
+    Score: 
+      type: object
+      properties:
+        score:
+          type: integer
+          example: 17
+          description: |
+            score is presentFields minus penalties, where errors are 1 penality point and warnings are 0.5 points.
+           
+    
+    
     ParsedDocument:
       type: object
       example:
