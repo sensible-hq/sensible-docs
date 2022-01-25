@@ -237,7 +237,7 @@ components:
         fingerprint_matched:  
           type: integer
           example: 1
-          description: number of the fingerprints defined in this config that Sensible found in the document
+          description: number of this config's fingerprints that Sensible found in the document
         fingerprint_total:
           type: integer
           example: 1
@@ -251,15 +251,15 @@ components:
         score:
           type: integer
           example: 17
-          description: fieldsPresent minus penalty points
+          description: fields_present minus penalty points
         fields_present:
           type: integer
           example: 17
-          description: number of non-null fields Sensible returned using this config for the document   
+          description: number of non-null fields Sensible extracted from the document using this config   
         penalties:
           type: number
           example: 1.5
-          description: errors are 1 penality point and warnings are 0.5 points
+          description: errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.
     
     ParsedDocument:
       type: object
