@@ -72,10 +72,10 @@ The following example shows using the Summarizer method to extract the monthly r
             ]
           },
           {
-            "prompt": "Leesee must pay rents by the first day of the month.For the dollar amount due, see addedendum A.",
+            "prompt": "Leesee must pay rents biweekly. For the dollar amount due, see addedendum A.",
             "values": [
               "not found",
-              "month"
+              "biweekly"
             ]
           }
         ]
