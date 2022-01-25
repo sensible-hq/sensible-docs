@@ -222,26 +222,26 @@ paths:
 
 components:
   schemas:
-    ValidationsSummary:
+    ClassificationsSummary:
       type: object
       description:  |
             Metadata about how Sensible chose the config to use for this extraction.
-            Sensible chooses the config extraction to return using:
-            1. the config with the greatest number of fingerprintMatched
-            2. if there are no fingerprints or there's a tie, the config with the highest score.
+            Sensible compares all configs in the document type, then returns the extraction using a combination 
+            of fingerprints and score (or using only the highest score, if there are no fingerprints).
+            For more details, see https://docs.sensible.so/docs/fingerprint#notes
       properties:
         configuration:
           type: string
           example: anyco.json
           description: the config tested
-        fingerprintMatched:  
+        fingerprint_matched:  
           type: integer
           example: 1
-          description: number of this config's fingerprints that Sensible found in the document
-        fingerprintTotal:
+          description: number of the fingerprints defined in this config that Sensible found in the document
+        fingerprint_total:
           type: integer
           example: 1
-          description: total
+          description: number of fingerprints defined in this config
         score:
           type: object  
           $ref: '#/components/schemas/Score'
@@ -251,10 +251,15 @@ components:
         score:
           type: integer
           example: 17
-          description: |
-            score is presentFields minus penalties, where errors are 1 penality point and warnings are 0.5 points.
-           
-    
+          description: fieldsPresent minus penalty points
+        fields_present:
+          type: integer
+          example: 17
+          description: number of non-null fields Sensible returned using this config for the document   
+        penalties:
+          type: number
+          example: 1.5
+          description: errors are 1 penality point and warnings are 0.5 points
     
     ParsedDocument:
       type: object
