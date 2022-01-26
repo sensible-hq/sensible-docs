@@ -26,13 +26,8 @@ paths:
     post:
       operationId: extract_doc
       summary: extract data from a document
-      description:
-        Submits a document of a particular type (e.g., a rate confirmation, 
-        certificate of insurance, or home inspection report) to Sensible. 
-        Sensible automatically detects which format your document is in. 
-        Note that this automatic detection only works for supported formats. 
-        As part of your onboarding you've received a list of document types 
-        and document formats enabled on your account.
+      description: |
+        Extract data from a local document synchronously. 
         For a step-by-step tutorial on calling this endpoint, 
         see [Try synchronous extraction](doc:api-tutorial-sync).
         
@@ -66,20 +61,26 @@ paths:
           description: the structured data extracted from the document and metadata
         '404':
           $ref: '#/components/responses/404'
-  
+        '400':
+          $ref: '#/components/responses/400'  
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'    
   /generate_upload_url/{type}:
     post:
       operationId: extract_doc_at_sensible_url
       summary: extract doc at a Sensible URL
       description: |
-        You must use this endpoint or extract_from_url to parse PDFs are over 4.5MB or require over 30 seconds to process.<br/>
-        Generates an upload URL for a document of a particular type (for example, a rate confirmation, certificate of insurance, 
-        or home inspection report). <br/>After calling this endpoint, PUT the PDF file to the pre-signed upload_url endpoint, and then 
-        you can retrieve the parsed data with the GET documents/{id} endpoint.<br/>  
-        This sample curl command will upload a PDF to the upload_url:<br/>
-        `curl -T ./sample.pdf "YOUR_UPLOAD_URL"`<br/>
-        Note: the pre-signed upload_url does not support 
-        Base64 encoded PDFs. You PUT the PDF bytes directly to the endpoint and must omit the content-type header.<br/>
+        Extract data asynchronously from a document with the following steps - 
+        1. Use this endpoint to generate a Sensible URL.
+        2. PUT the PDF you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received 
+        from this endpoint's response. For example, `curl -T ./sample.pdf "SENSIBLE_UPLOAD_URL"`. 
+        Note: the pre-signed upload_url does not support Base64 encoded PDFs. You PUT the PDF bytes directly to the endpoint 
+        and must omit the content-type header.
+        3.  To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the 
+        GET documents/{id} endpoint.
+        You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process.
         For a step-by-step tutorial on calling this endpoint, see 
         [Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2).
        
@@ -110,12 +111,13 @@ paths:
       operationId: extract_doc_at_your_url
       summary: extract doc at your URL 
       description: |
-        Use this endpoint or other async endpoints to extract from PDFs that are over 4.5MB or require over 30 seconds to process.<br/>
-        Retrieves a document of a particular document type (for example, a rate confirmation, certificate of insurance, or 
-        home inspection report) from the provided document_url and runs an extraction.
-        <br/>After the extraction is complete, 
-        or to check on its status, you can retrieve the parsed data with the GET documents/{id} endpoint. 
-        <br/>For a step-by-step tutorial on calling this endpoint, see Try asynchronous extraction from your URL.
+        Extract data asynchronously from a document at the specified `document_url`.<br/> 
+        You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process.
+        Take these steps - 
+        1. Run this endpoint.
+        2. To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the 
+        GET documents/{id} endpoint. For a step-by-step tutorial on calling this endpoint, 
+        see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1).
       parameters:
         - $ref: '#/components/parameters/type'
         - $ref: '#/components/parameters/environment' 
@@ -226,8 +228,8 @@ components:
       type: object
       description:  |
             Metadata about how Sensible chose the config to use for this extraction.
-            Sensible compares all configs in the document type, then returns the extraction using a combination 
-            of fingerprints and score (or using only the highest score, if there are no fingerprints).
+            Sensible compares all configs in the document type, then chooses the best extraction using
+            fingerprints, scores, or a combination of the two.
             For more details, see https://docs.sensible.so/docs/fingerprint#notes
       properties:
         configuration:
@@ -435,24 +437,27 @@ components:
     Webhook:
       type: object
       description: |
-        If you include this, Sensible calls the defined webhook when your document is processed 
-        (your results will be in the parsed_document field of the request body). 
-        Sensible also calls this webhook on error, in which case parsed_document has a single field, error, 
-        with a status and error message.
+        Specifies to return extraction results to the defined webhook as soon as they're complete, 
+        so you don't have to poll for results status. Sensible also calls this webhook on error.
       properties:
         url:
           type: string
           format: url
-          description: the webhook destination
+          description: the webhook destination. Sensible will POST to this URL when the extraction is complete.
           example: YOUR_WEBHOOK_URL
         payload:
           type: string
-          description: additional information to send to the webhook besides the API response
+          description: Include info additional to the API response, for example a UUID for verification.
           example: info extra to the default extraction payload
     DocumentUrl:
       type: string
       format: url 
-      description: A URL that responds to a GET request with the bytes of the PDF to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication. # TODO: how to indicate this is required whereas webhook is not? 
+      description:  |
+        URL that responds to a GET request with the bytes of the PDF to be extracted. 
+        This URL must be either publicly accessible, or presigned with a security token as part of the URL path. 
+        To check if the URL meets these criteria, open the URL with a web browser. 
+        The browser must either render the PDF as a full-page view with no other data, or download the PDF, 
+        without prompting for authentication.
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
   responses: 
     404:
@@ -463,6 +468,48 @@ components:
             title: Not found
             type: string
             example: Not found
+    401:
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
+    400:
+      description: Bad Request
+      content:
+        text/plain:
+          schema:
+            title: Bad Request
+            type: string
+            example: |
+              One of the following error messages -
+              Must specify a document type
+              Specified document type does not exist
+              Must provide the Content-Type header when request body is present
+              Missing request body or body.document
+              Body must be a valid JSON object
+              This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct
+              This PDF is empty
+              This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches
+              This PDF exceeds the maximum size for OCR of 20MB
+    415:
+      description: Unsupported Media Type
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: Content-Type must be application/json or application/pdf
+    500:
+      description: Internal Server Error
+      content:
+        text/plain:
+          schema:
+            title: Sensible encountered an unknown error
+            type: string
+            example: Sensible encountered an unknown error      
   parameters:
     id:
       name: id
@@ -475,7 +522,13 @@ components:
       name: type
       required: true
       in: path
-      description: The type of document you want to extract data from, e.g., rate_confirmation, certificate_of_insurance, or home_inspection_report. Define this in the Sensible app.
+      description: |
+        The document type of the PDF to extract from. 
+        Create the type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). 
+        As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the 
+        document type.  For example, if you create an `auto_insurance_quotes` type, you can add `carrier 1`, `carrier 2`, and 
+        `carrier 3` configs to the type in the Sensible app so that you can extract data from all these carriers using the same 
+        `type`, without specifying the carrier in the API request.
       schema:
         type: string
       example: policy_declaration
@@ -483,10 +536,14 @@ components:
     environment:
       name: environment
       in: query
-      description: Parse doc preferentially using config versions published to the development environment in the Sensible app. For each config run in the extraction, falls back to production version if no development version exists.
+      description: |
+        If unspecified, defaults to production. If you specify `development`, extracts preferentially using config versions 
+        published to the development environment in the Sensible app. The extraction runs all configs in the doc type before 
+        picking the best fit. For each config, falls back to production version if no development version of the config exists.
       schema:
         type: string
-      example: development
+        enum: [production, development]
+     
 
             
       
