@@ -7,8 +7,6 @@ hidden: true
 
 
 
-
-
 The following images show the differing behaviors of sections vs vertical sections:
 
 Sections
@@ -36,3 +34,4 @@ Sensible:
 1. Finds the vertical range (y-extent) in which to recognize columns.  Ignores any non-column text above or below columns in the range, except if the Stop parameter is unspecified, uses non-column text as a criteria to end the range. 
 2. (repeats) Recognizes columns based on whitespace, searching left-to-right and across page breaks. If columnSelection is specified, extract only from those target columns, and treat other columns as row labels, whose text is appended to the target columns. Extract anything in the column in the range (can include nested tables or other complex data). Usually it’s in a repeated structure.
 
+TODO: talk about how STOP parameter can influence column recognition??? if that's a thing?
