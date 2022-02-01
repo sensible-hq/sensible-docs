@@ -39,7 +39,7 @@ To give a broad overview of other possible uses of vertical sections:
 
 
 
-In the preceding image, to capture both the Sections and their Columns, 1 define a section then 2.  define a nested vertical section.  Using abbreviated YML notation to give a brief idea of the more complex JSON for the actual SenseML: 
+In the preceding image, to capture both the Sections and their Columns, 1 define a section then 2.  define a nested vertical section.  Using abbreviated YML notation to give a brief idea of the more complex SenseML JSON: 
 
 ```yml
 sections:
@@ -65,7 +65,7 @@ sections:
       
 ```
 
-With this approach, you can output something like the following, using abbreviated YML notation to give a brief idea of the more complex actual JSON API response:
+With this approach, you can output something like the following, using abbreviated YML notation to give a brief idea of the more complex JSON API response:
 ```yml
 parentSections:
   - sectionTitle: Section 1
