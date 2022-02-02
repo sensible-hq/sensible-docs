@@ -384,6 +384,9 @@ components:
           $ref: '#/components/schemas/Validations'  
         validations_summary:
           $ref: '#/components/schemas/ValidationsSummary' 
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationsSummary' 
+      
     ExtractionAsyncResult:
       allOf:
         - $ref: '#/components/schemas/Extraction'
