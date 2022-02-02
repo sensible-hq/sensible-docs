@@ -51,7 +51,7 @@ paths:
               format: binary
 
       tags:
-      - synchronous
+      - document
       responses:
         '200':
           content:
@@ -94,7 +94,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenerateUrlRequest'
       tags:
-      - asynchronous
+      - document
       responses:
         '200':
           content:
@@ -127,7 +127,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - asynchronous
+      - document
       responses:
         '200':
           content:
@@ -193,7 +193,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - asynchronous
+      - document
       responses:
         '200':
           content:
