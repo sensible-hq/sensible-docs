@@ -35,30 +35,68 @@ To run an API call and return extracted data from an example document:
 
 2. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find your key on your [account page](https://app.sensible.so/account/).
 
-4. Run the code sample in a command prompt. The API returns a response like the following:
+4. Run the code sample in a command prompt. The API returns a `parsed_document` object with the extracted data, as well as metadata about the extraction, in a response like the following:
 
 ```json
 {
-   "configuration" : "1_extract_your_first_data",
-   "created" : "2022-01-18T19:44:48.967Z",
-   "errors" : [],
-   "id" : "7b675925-a7d8-487e-bc20-61f2c8e6c635",
-   "parsed_document" : {
-      "your_first_extracted_field" : {
-         "type" : "string",
-         "value" : "Welcome to your first document"
+   "id":"153753e0-5673-466f-aa61-5175200c210d",
+   "created":"2022-02-02T21:30:01.981Z",
+   "status":"COMPLETE",
+   "type":"senseml_basics",
+   "configuration":"1_extract_your_first_data",
+   "parsed_document":{
+      "your_first_extracted_field":{
+         "type":"string",
+         "value":"Welcome to your first document"
       }
    },
-   "status" : "COMPLETE",
-   "type" : "senseml_basics",
-   "validation_summary" : {
-      "errors" : 0,
-      "fields" : 1,
-      "fields_present" : 1,
-      "skipped" : 0,
-      "warnings" : 0
+   "validations":[
+      
+   ],
+   "validation_summary":{
+      "fields":1,
+      "fields_present":1,
+      "errors":0,
+      "warnings":0,
+      "skipped":0
    },
-   "validations" : []
+   "classification_summary":[
+      {
+         "configuration":"1_extract_your_first_data",
+         "score":{
+            "value":1,
+            "fields_present":1,
+            "penalties":0
+         }
+      },
+      {
+         "configuration":"2_tables_and_rows",
+         "score":{
+            "value":0,
+            "fields_present":0,
+            "penalties":0
+         }
+      },
+      {
+         "configuration":"3_checkboxes_paragraphs_and_regions",
+         "score":{
+            "value":0,
+            "fields_present":0,
+            "penalties":0
+         }
+      },
+      {
+         "configuration":"4_extract_from_scratch",
+         "score":{
+            "value":0,
+            "fields_present":0,
+            "penalties":0
+         }
+      }
+   ],
+   "errors":[
+      
+   ]
 }
 ```
 
