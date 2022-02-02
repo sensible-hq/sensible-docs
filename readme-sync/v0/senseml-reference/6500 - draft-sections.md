@@ -31,9 +31,12 @@ Examples
 Vertical sections: complex tables
 ----
 
-vertical_section_table_in_table.pdf
+The following example shows:
 
+- using a vertical section to handle row labels in a table with the Column Selection parameter.
+- extracting nested table using a nested section.
 
+**Config**
 
 ```
 {
@@ -66,8 +69,9 @@ vertical_section_table_in_table.pdf
           "id": "employee_benefit",
           "anchor": "Employee benefit",
           "method": {
-            "id": "label",
-            "position": "right"
+            "id": "row",
+            "position": "right",
+            "tiebreaker": "first"
           }
         }
       ],
@@ -121,10 +125,112 @@ vertical_section_table_in_table.pdf
 }
 ```
 
+**PDF**
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_table_in_table.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
+| ----------- | ------------------------------------------------------------ |
 
 
 
+**Output**
 
+```json
+{
+  "sections": [
+    {
+      "employee_benefit": {
+        "value": "100% of salary, max $100k",
+        "type": "string"
+      },
+      "benefit_reduction": [
+        {
+          "age": {
+            "source": "65",
+            "value": 65,
+            "type": "number"
+          },
+          "reduction": {
+            "source": "35%",
+            "value": 35,
+            "type": "percentage"
+          }
+        },
+        {
+          "age": {
+            "source": "70",
+            "value": 70,
+            "type": "number"
+          },
+          "reduction": {
+            "source": "60%",
+            "value": 60,
+            "type": "percentage"
+          }
+        },
+        {
+          "age": {
+            "source": "75",
+            "value": 75,
+            "type": "number"
+          },
+          "reduction": {
+            "source": "75%",
+            "value": 75,
+            "type": "percentage"
+          }
+        }
+      ]
+    },
+    {
+      "employee_benefit": {
+        "value": "50% of salary, max $50k",
+        "type": "string"
+      },
+      "benefit_reduction": [
+        {
+          "age": {
+            "source": "65",
+            "value": 65,
+            "type": "number"
+          },
+          "reduction": {
+            "source": "35%",
+            "value": 35,
+            "type": "percentage"
+          }
+        },
+        {
+          "age": {
+            "source": "70",
+            "value": 70,
+            "type": "number"
+          },
+          "reduction": {
+            "source": "60%",
+            "value": 60,
+            "type": "percentage"
+          }
+        },
+        {
+          "age": {
+            "source": "75",
+            "value": 75,
+            "type": "number"
+          },
+          "reduction": {
+            "source": "75%",
+            "value": 75,
+            "type": "percentage"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
 
 
 

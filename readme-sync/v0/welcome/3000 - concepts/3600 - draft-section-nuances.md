@@ -16,9 +16,9 @@ Sections
 
 Sensible:
 
-1. Finds the vertical range (y-extent) for a section in the group based on text matching. if no Range:Stop, next section's range starts at next Anchor:Match +yOffset. This ensures sections’ ranges never overlap. 
+1. Finds the vertical range (y-extent) for a section in the group using Match and Stop lines. Range can span pages. if no Stop, next section's range starts at next Anchor:Match +yOffset. This ensures sections’ ranges never overlap. 
 2.  (repeats) Continues finding ranges for sections, searching down the page and across page breaks.
-3. Extracts fields from each section in the group. Extract anythingin the y-extent (can include tables or other complex data); usually the data is in a repeated structure
+3. Extracts fields from each section in the group. Extract anything the y-extent (can include tables or other complex data); usually the data is in a repeated structure
 
  
 
@@ -31,8 +31,8 @@ Vertical sections
 
 Sensible:
 
-1. Finds the vertical range (y-extent) in which to recognize columns.  Ignores any non-column text above or below columns in the range, except if the Stop parameter is unspecified, uses non-column text as a criteria to end the range. 
-2. (repeats) Recognizes columns based on whitespace, searching left-to-right and across page breaks. 
+1. Finds the vertical range (y-extent) in which to recognize columns using Match and Stop lines. Range can span pages.  Ignores any non-column text above or below columns in the range, except if the Stop parameter is unspecified, uses non-column text as a criteria to end the range. 
+2. (repeats) Recognizes columns based on whitespace, searching left-to-right. 
 
 TODO: talk about how STOP parameter can influence column recognition??? if that's a thing?
 
