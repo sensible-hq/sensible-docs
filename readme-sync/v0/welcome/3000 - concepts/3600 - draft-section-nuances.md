@@ -49,7 +49,7 @@ For example, if you configure `"columnSelection": [1,2]` for the following table
 
 - have the Nutrition and Notes columns available as anchors, where the anchors retain the spacial layout of the original table in relationship to the target columns
 
--  ignore the other target columns
+-  ignore other target columns when processing the current target column.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
 
