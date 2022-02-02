@@ -267,7 +267,7 @@ components:
     Score: 
       type: object
       properties:
-        score:
+        value:
           type: integer
           example: 17
           description: fields_present minus penalty points

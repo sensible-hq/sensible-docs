@@ -133,15 +133,10 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_2.png)
 
-4. Click **Send**. The response looks something like the following:
+4. Click **Send**. The response includes a `parsed_document` object that looks something like the following:
 
 ```json
 {
-    "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
-    "created": "2021-06-16T16:22:56.576Z",
-    "status": "COMPLETE",
-    "type": "auto_insurance_quote",
-    "configuration": "anyco",
     "parsed_document": {
         "policy_number": {
             "type": "string",
@@ -157,16 +152,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
             "unit": "$",
             "type": "currency"
         }
-    },
-    "validations": [],
-    "validation_summary": {
-        "fields": 3,
-        "fields_present": 3,
-        "errors": 0,
-        "warnings": 0,
-        "skipped": 0
-    },
-    "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=ASIAR355P7ASRMWOLX6W&Expires=1623790786&Signature=REDACTED-amz-security-token=REDACTED"
+    }
 }
 ```
 

@@ -45,15 +45,10 @@ curl --request POST \
 
    
 
-5. Click **Send**. The response looks something like the following:
+5. Click **Send**. The response includes a `parsed_document` object that looks something like the following:
 
 ```json
 {
-    "id": "b0ac180d-55d2-4946-80c0-a87243319746",
-    "created": "2021-05-20T18:02:37.019Z",
-    "status": "COMPLETE",
-    "type": "auto_insurance_quote",
-    "configuration": "anyco",
     "parsed_document": {
         "policy_number": {
             "type": "string",
@@ -69,14 +64,6 @@ curl --request POST \
             "unit": "$",
             "type": "currency"
         }
-    },
-    "validations": [],
-    "validation_summary": {
-        "fields": 3,
-        "fields_present": 3,
-        "errors": 0,
-        "warnings": 0,
-        "skipped": 0
     }
 }
 ```
