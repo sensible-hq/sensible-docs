@@ -31,7 +31,10 @@ Vertical sections
 
 Sensible:
 
-1. Finds the vertical range (y-extent) in which to recognize columns using Match and Stop lines. Range can span pages.  Ignores any non-column text above or below columns in the range, except if the Stop parameter is unspecified, uses non-column text as a criteria to end the range. 
+1. Finds the vertical range (y-extent) in which to recognize columns using Match and Stop lines. Range can span pages.  If non-columnar text is present in the y-extent, it can affect column recognition as follows:
+   1.  If any non-columnar text is *below* the columns and if the Stop parameter is unspecified, Sensible uses the non-column text as a criteria to end the range. 
+   2. If any non-columnlar text is *above* the columns in the y-extent, it can break column recognition.  Exclude the text from the y-extent using the Offset Y parameter.
+
 2. (repeats) Recognizes columns based on whitespace, searching left-to-right. 
 
 TODO: talk about how STOP parameter can influence column recognition??? if that's a thing?

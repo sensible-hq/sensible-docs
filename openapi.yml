@@ -47,8 +47,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Extraction'
           description: the structured data extracted from the document and metadata
-        '404':
-          $ref: '#/components/responses/404'
+        '401':
+          $ref: '#/components/responses/401'
         '400':
           $ref: '#/components/responses/400'  
         '415':
@@ -90,8 +90,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AsyncUploadResponse'
           description: returns the upload_url at which to PUT the PDF for extraction 
-        '404':
-          $ref: '#/components/responses/404'
+        '401':
+          $ref: '#/components/responses/401'
 
   
   /extract_from_url/{type}:
@@ -123,8 +123,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AsyncResponse'
           description: returns the ID to use to retrieve the extraction 
-        '404':
-          $ref: '#/components/responses/404'
+        '401':
+          $ref: '#/components/responses/401'
 
   /generate_upload_url:
     post:
@@ -157,8 +157,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AsyncUploadResponse'
           description: returns the upload_url at which to PUT the PDF for extraction 
-        '404':
-          $ref: '#/components/responses/404'         
+        '401':
+          $ref: '#/components/responses/401'         
 
 
   /documents/{id}:
@@ -189,8 +189,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractionAsyncResult'
           description: returns the extraction 
-        '404':
-          $ref: '#/components/responses/404'
+        '401':
+          $ref: '#/components/responses/401'
 
   /extract_from_url/:
     post:
@@ -224,8 +224,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AsyncResponse'
           description: returns the ID to use to retrieve the extraction 
-        '404':
-          $ref: '#/components/responses/404'
+        '401':
+          $ref: '#/components/responses/401'
 
 components:
   schemas:
@@ -473,14 +473,7 @@ components:
         without prompting for authentication.
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
   responses: 
-    404:
-      description: Not found response
-      content:
-        text/plain:
-          schema:
-            title: Not found
-            type: string
-            example: Not found
+
     401:
       description: Not authorized
       content:
