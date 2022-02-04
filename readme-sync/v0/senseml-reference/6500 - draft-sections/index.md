@@ -23,6 +23,8 @@ Parameters
 
 See the following table for details about the Range object parameters:
 
+**Range parameters**
+
 | key                       | value                                                        | description                                                  |
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **anchor** (**required**) | [Anchor](anchor) object, or array of Match objects           | Anchor parameters have a special meaning in the context of sections, as follows:<br/> **start**: ignores anything in the document before this line. if undefined, the section group starts at the beginning of the document  <br/>**match** (**required**): specifies the repeated starting line of each section. The section's top boundary is a horizontal line defined by the top boundary of this starting line. For example, in the preceding image, specify `"Claim number"`. If the start of the section lacks an easy-to-match line, you can use the Require Stop and Offset Y parameters to start the section on a line other than the one matched by this parameter. <br/>**end**: ignores anything in the document after this line. If unspecified, the section group continues to the end of the document. For example, to extract solely September claims in the preceding image, specify `"October"`. |
