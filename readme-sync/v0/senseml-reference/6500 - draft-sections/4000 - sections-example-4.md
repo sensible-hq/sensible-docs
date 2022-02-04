@@ -76,7 +76,7 @@ car_models:
    
 ```
 
-Full example
+Example details
 ----
 
 The following elaborates on the preceding brief overview using JSON instead of YML and including notes:

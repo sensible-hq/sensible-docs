@@ -12,15 +12,17 @@ hidden: true
 Vertical sections: sections and columns
 ----
 
-To give a broad overview using vertical sections for columns:
+To give a broad overview using vertical sections for columns, the following image shows capturing numbered sections and their columns with these steps:
+
+1 define a section
+
+2. define a nested vertical section 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_col_sect.png)
 
 
 
-
-
-In the preceding image, to capture both the Sections and their Columns, 1 define a section then 2.  define a nested vertical section.  Using abbreviated YML notation to give a brief idea of the more complex SenseML JSON: 
+The following config uses abbreviated YML notation to give an overview of the more complex SenseML JSON: 
 
 ```yml
 sections:
@@ -45,7 +47,7 @@ sections:
       
 ```
 
-With this approach, you can output something like the following, using abbreviated YML notation to give a brief idea of the more complex JSON API response:
+With this approach, you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON API response:
 
 ```yml
 parentSections:
@@ -62,36 +64,7 @@ parentSections:
    
 ```
 
-Vertical sections: table grid
------
+Example details
+----
+The following elaborates on the preceding brief overview using JSON instead of YML
 
-To give a broad overview of using vertical sections for a grid of tables with repeated format:
-
-```json
-sections:
-  - id: carModel
-    range:
-      anchor: Section
-    fields:
-      - id: sectionTitle
-        anchor: Section
-        method:
-          id: passthrough
-   sections:
-     - id: nestedColumns
-       range:
-         direction: vertical
-         anchor: column
-       fields:
-         - id: columnTitle
-           anchor: column
-           method:
-             id: passthrough    
-```
-
-
-
-Notes
-===
-
-To better understand vertical sections, see sectio

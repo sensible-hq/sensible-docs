@@ -10,12 +10,13 @@ Vertical sections: complex tables
 
 The following example shows:
 
-- using a vertical section group to handle row labels in a table with the Column Selection parameter.
-- extracting nested table using a nested section group. In the nested section group, each row of the nested table is its own section. (The regular expression to find these "row" sections also generates zero-height sections that Sensible ignores).
+- using the Column Selection parameter in a vertical sections group to handle row labels in a table.
+- Since table recognition works on the whole page, use  a nested section group to extract a nested table instead.  In the nested section group, each row of the nested table is its own section. (The regular expression to find these "row" sections also generates zero-height sections that Sensible ignores). 
+- To illustrate each section's scope, the config outputs the entire contents of each section. 
 
 **Config**
 
-TODO: test config works with regex change I made...
+
 
 ```
 {
@@ -28,14 +29,13 @@ TODO: test config works with regex change I made...
   "fields": [],
   "sections": [
     {
-      "id": "sections",
+      "id": "table_columns_w_row_labels",
       "range": {
         "direction": "vertical",
         "columnSelection": [
           1,
           2
         ],
-        "minSpace": 0,
         "offsetY": -0.5,
         "anchor": "Employee benefit",
         "stop": {
@@ -52,12 +52,25 @@ TODO: test config works with regex change I made...
             "position": "right",
             "tiebreaker": "first"
           }
+        },
+        {
+          "id": "everything_in_this_section",
+          "method": {
+            "id": "documentRange",
+            "includeAnchor": true
+          },
+          "anchor": {
+            "match": {
+              "type": "first"
+            }
+          }
         }
       ],
       "sections": [
         {
           "id": "benefit_reduction",
           "range": {
+            "offsetY": 0.1,
             "anchor": {
               "start": "Benefit reduction",
               "match": {
@@ -95,6 +108,18 @@ TODO: test config works with regex change I made...
               "method": {
                 "id": "passthrough"
               }
+            },
+            {
+              "id": "everything_in_this_subsection",
+              "method": {
+                "id": "documentRange",
+                "includeAnchor": true
+              },
+              "anchor": {
+                "match": {
+                  "type": "first"
+                }
+              }
             }
           ]
         }
@@ -118,11 +143,15 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "sections": [
+  "table_columns_w_row_labels": [
     {
       "employee_benefit": {
         "value": "100% of salary, max $100k",
         "type": "string"
+      },
+      "everything_in_this_section": {
+        "type": "string",
+        "value": "Employees paid \u0000100k  Notes Employee benefit 100% of salary, max $100k  After a 3 month waiting period Common carrier Not included  Benefit reduction Age Reduction   Not adjusted for 65 35%   inflation 70 60%   75 75%  "
       },
       "benefit_reduction": [
         {
@@ -135,6 +164,10 @@ The following image shows the example PDF used with this example config:
             "source": "35%",
             "value": 35,
             "type": "percentage"
+          },
+          "everything_in_this_subsection": {
+            "type": "string",
+            "value": "65 35%   inflation    "
           }
         },
         {
@@ -147,6 +180,10 @@ The following image shows the example PDF used with this example config:
             "source": "60%",
             "value": 60,
             "type": "percentage"
+          },
+          "everything_in_this_subsection": {
+            "type": "string",
+            "value": "70 60%    "
           }
         },
         {
@@ -159,6 +196,10 @@ The following image shows the example PDF used with this example config:
             "source": "75%",
             "value": 75,
             "type": "percentage"
+          },
+          "everything_in_this_subsection": {
+            "type": "string",
+            "value": "75 75%  "
           }
         }
       ]
@@ -168,6 +209,10 @@ The following image shows the example PDF used with this example config:
         "value": "50% of salary, max $50k",
         "type": "string"
       },
+      "everything_in_this_section": {
+        "type": "string",
+        "value": "All other employees Notes Employee benefit  50% of salary, max $50k After a 3 month waiting period Common carrier  Not included Benefit reduction   Age Reduction Not adjusted for   65 35% inflation   70 60%   75 75%"
+      },
       "benefit_reduction": [
         {
           "age": {
@@ -179,6 +224,10 @@ The following image shows the example PDF used with this example config:
             "source": "35%",
             "value": 35,
             "type": "percentage"
+          },
+          "everything_in_this_subsection": {
+            "type": "string",
+            "value": "65 35% inflation    "
           }
         },
         {
@@ -191,6 +240,10 @@ The following image shows the example PDF used with this example config:
             "source": "60%",
             "value": 60,
             "type": "percentage"
+          },
+          "everything_in_this_subsection": {
+            "type": "string",
+            "value": "70 60%  "
           }
         },
         {
@@ -203,6 +256,10 @@ The following image shows the example PDF used with this example config:
             "source": "75%",
             "value": 75,
             "type": "percentage"
+          },
+          "everything_in_this_subsection": {
+            "type": "string",
+            "value": "75 75%"
           }
         }
       ]
@@ -210,7 +267,3 @@ The following image shows the example PDF used with this example config:
   ]
 }
 ```
-
-
-
-n-nuances.

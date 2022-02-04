@@ -3,6 +3,9 @@ title: "Sections"
 hidden: true
 ---
 
+Sections: claims loss run
+====
+
 The following example shows extracting repeated fields from a section containing a list of claims:
 
 - It captures Sept and Oct claims by specifying  sections that start with "claim number" and  collection range that starts with "September" and ends with "November".
