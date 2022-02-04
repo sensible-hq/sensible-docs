@@ -1,5 +1,5 @@
 ---
-title: "Sections"
+title: "Sections example 2"
 hidden: true
 ---
 

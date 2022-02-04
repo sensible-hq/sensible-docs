@@ -1,16 +1,14 @@
 ---
-title: "Sections"
+title: "Sections example 3"
 hidden: true
 
 ---
 
-
-
-
-----
-
 Vertical sections: sections and columns
-----
+===
+
+Brief overview
+-----
 
 To give a broad overview using vertical sections for columns, the following image shows capturing numbered sections and their columns with these steps:
 
