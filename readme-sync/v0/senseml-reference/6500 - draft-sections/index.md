@@ -20,8 +20,6 @@ Parameters
 | id (**required**)     | string | Identifies a group of sections to extract in the document area defined by the Range parameter. You can define an array of section groups, and you can nest sections inside of other sections. |
 | range  (**required**) | object | Identifies a group of sections to extract in the document area defined by the Range parameter. You can define an array of section groups, and you can nest sections inside of other sections. The Range parameter specifies both:<br/>- a group of repeated sections in an area of the document <br/>- the start and end of each repeated section.<br/><br/>The sections group can span pages and nonrepeating text. For example,  in the preceding image, an "unprocessed_claims" section group can span month headings.<br/><br/>For Range parameters, see the following table.<br/><br/> |
 | sections              |        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements. Each nested section is scoped by each the parent section's Range parameter. |
-|                       |        |                                                              |
-|                       |        |                                                              |
 
 See the following table for details about the Range object parameters:
 
