@@ -5,10 +5,6 @@ hidden: true
 ---
 
 
-
-
-
-
 Vertical sections: table grid
 ====
 
@@ -221,7 +217,7 @@ The following example shows:
 **PDF**
 The following image shows the example PDF used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_table_grid_1.png.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_table_grid_1.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_table_grid.pdf) |
 | ----------- | ------------------------------------------------------------ |
