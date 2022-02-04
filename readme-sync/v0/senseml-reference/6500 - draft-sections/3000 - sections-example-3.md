@@ -66,5 +66,170 @@ parentSections:
 
 Example details
 ----
-The following elaborates on the preceding brief overview using JSON instead of YML
+The following elaborates on the preceding brief overview using JSON instead of YML.
+
+**Config**
+
+```json
+{
+  "fields": [],
+  "sections": [
+    {
+      "id": "sections",
+      "range": {
+        "anchor": {
+          "match": {
+            "type": "startsWith",
+            "text": "Section"
+          }
+        }
+      },
+      "fields": [
+        {
+          "id": "number",
+          "type": "number",
+          "method": {
+            "id": "label",
+            "position": "right"
+          },
+          "anchor": {
+            "match": {
+              "type": "startsWith",
+              "text": "Section"
+            }
+          }
+        }
+      ],
+      "sections": [
+        {
+          "id": "columns",
+          "range": {
+            "direction": "vertical",
+            "offsetY": 0,
+            "anchor": {
+              "match": {
+                "type": "startsWith",
+                "text": "Column"
+              }
+            }
+          },
+          "fields": [
+            {
+              "id": "letter",
+              "method": {
+                "id": "label",
+                "position": "right"
+              },
+              "anchor": {
+                "match": {
+                  "type": "startsWith",
+                  "text": "Column"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+**PDF**
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_col_sect_1.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_col_section.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "sections": [
+    {
+      "number": {
+        "source": "1",
+        "value": 1,
+        "type": "number"
+      },
+      "columns": [
+        {
+          "letter": {
+            "type": "string",
+            "value": "A"
+          }
+        },
+        {
+          "letter": {
+            "type": "string",
+            "value": "B"
+          }
+        },
+        {
+          "letter": {
+            "type": "string",
+            "value": "C"
+          }
+        }
+      ]
+    },
+    {
+      "number": {
+        "source": "2",
+        "value": 2,
+        "type": "number"
+      },
+      "columns": [
+        {
+          "letter": {
+            "type": "string",
+            "value": "A"
+          }
+        },
+        {
+          "letter": {
+            "type": "string",
+            "value": "B"
+          }
+        },
+        {
+          "letter": {
+            "type": "string",
+            "value": "C"
+          }
+        }
+      ]
+    },
+    {
+      "number": {
+        "source": "3",
+        "value": 3,
+        "type": "number"
+      },
+      "columns": [
+        {
+          "letter": {
+            "type": "string",
+            "value": "A"
+          }
+        },
+        {
+          "letter": {
+            "type": "string",
+            "value": "B"
+          }
+        },
+        {
+          "letter": {
+            "type": "string",
+            "value": "C"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
 
