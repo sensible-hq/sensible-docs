@@ -13,7 +13,7 @@ paths:
   /extract/{type}:
     post:
       operationId: extract_doc
-      summary: extract data from a document
+      summary: Extract data from a document
       description: |
         Extract data from a local document synchronously. 
         For a step-by-step tutorial on calling this endpoint, 
@@ -58,9 +58,9 @@ paths:
   /generate_upload_url/{type}:
     post:
       operationId: extract_doc_at_sensible_url
-      summary: extract doc at a Sensible URL
+      summary: Extract doc at a Sensible URL
       description: |
-        Extract data asynchronously from a document with the following steps - 
+        Extract data asynchronously from a document with the following steps. 
         1. Use this endpoint to generate a Sensible URL.
         2. PUT the PDF you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received 
         from this endpoint's response. For example, `curl -T ./sample.pdf "SENSIBLE_UPLOAD_URL"`. 
@@ -97,14 +97,14 @@ paths:
   /extract_from_url/{type}:
     post:
       operationId: extract_doc_at_your_url
-      summary: extract doc at your URL 
+      summary: Extract doc at your URL 
       description: |
         Extract data asynchronously from a document at the specified `document_url`.<br/> 
         You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process.
-        Take these steps - 
+        Take the following steps. 
         1. Run this endpoint.
-        2. To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the 
-        GET documents/{id} endpoint. For a step-by-step tutorial on calling this endpoint, 
+        2. To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the GET documents/{id} endpoint.
+        For a step-by-step tutorial on calling this endpoint, 
         see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1).
       parameters:
         - $ref: '#/components/parameters/type'
@@ -129,11 +129,11 @@ paths:
   /generate_upload_url:
     post:
       operationId: extract_portfolio_at_sensible_url
-      summary: extract portfolio at a Sensible URL
+      summary: Extract portfolio at a Sensible URL
       description:  |
         Use this endpoint with multiple documents that are packaged into one PDF file (a PDF "portfolio"). 
         Segments a PDF at the specified `document_url` into the specified document types (for example, 1099, w2, and bank_statement) 
-        and then runs extractions asynchronously for each document Sensible finds in the PDF portfolio. Take these steps -
+        and then runs extractions asynchronously for each document Sensible finds in the PDF portfolio. Take the following steps.
         1. Run this endpoint.
         2. To retrieve the extraction results or poll status, use the extraction `id` returned in the response to call 
         the GET documents/{id} endpoint.
@@ -195,7 +195,7 @@ paths:
   /extract_from_url/:
     post:
       operationId: extract_portfolio_at_your_url
-      summary: extract portfolio at your URL 
+      summary: Extract portfolio at your URL 
       description:  |
         Use this endpoint with multiple documents that are packaged into one PDF file (a PDF "portfolio").
         Segments a PDF into the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions 
@@ -543,12 +543,13 @@ components:
       name: environment
       in: query
       description: |
-        If unspecified, defaults to production. If you specify `development`, extracts preferentially using config versions 
+        If you specify `development`, extracts preferentially using config versions 
         published to the development environment in the Sensible app. The extraction runs all configs in the doc type before 
         picking the best fit. For each config, falls back to production version if no development version of the config exists.
       schema:
         type: string
         enum: [production, development]
+        default: production
      
 
             
