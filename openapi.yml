@@ -60,7 +60,7 @@ paths:
       operationId: extract_doc_at_sensible_url
       summary: Extract doc at a Sensible URL
       description: |
-        Extract data asynchronously from a document with the following steps. 
+        Extract data asynchronously from a document with the following steps. You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process. 
           1. Use this endpoint to generate a Sensible URL.
           2. PUT the PDF you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received 
         from this endpoint's response.
@@ -69,7 +69,7 @@ paths:
         and must omit the content-type header.
           3.  To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the 
         GET documents/{id} endpoint.
-        You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process.
+        
         For a step-by-step tutorial on calling this endpoint, see 
         [Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2).
        
@@ -183,11 +183,10 @@ paths:
   /documents/{id}:
     post:
       operationId: retrieve_extraction
-      summary: Get extraction by id 
+      summary: Retrieve extraction
       description: |
-        Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results 
-        (using the `id` field returned by asynchronous request). You can also use this endpoint to retrieve the results 
-        for documents extractions from the synchronous /extract endpoint.
+        Use this endpoint to send the extraction ID returned by asynchronous extractions, and return the extraction in the response.
+        You can also use this endpoint to retrieve the results for documents extractions from the synchronous /extract endpoint.
         To poll extraction status, check the `status` field in this endpoint's response. 
         When the extraction completes, the returned status is `COMPLETE` and the response includes results in the 
         `parsed_document` field.  For fields in the extraction for which Sensible couldn't find a value, Sensible returns null.
