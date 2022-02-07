@@ -12,7 +12,7 @@ info:
 paths:
   /extract/{type}:
     post:
-      operationId: extract_doc
+      operationId: extract-data-from-a-document
       summary: Extract data from a document
       description: |
         Extract data from a local document synchronously. 
@@ -57,7 +57,7 @@ paths:
           $ref: '#/components/responses/500'    
   /generate_upload_url/{type}:
     post:
-      operationId: extract_doc_at_sensible_url
+      operationId: generate-an-upload-url
       summary: Extract doc at a Sensible URL
       description: |
         Extract data asynchronously from a document with the following steps. You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process. 
@@ -103,7 +103,7 @@ paths:
   
   /extract_from_url/{type}:
     post:
-      operationId: extract_doc_at_your_url
+      operationId: provide-a-download-url
       summary: Extract doc at your URL 
       description: |
         Extract data asynchronously from a document at the specified `document_url`.<br/> 
@@ -141,7 +141,7 @@ paths:
 
   /generate_upload_url:
     post:
-      operationId: extract_portfolio_at_sensible_url
+      operationId: generate-an-upload-url-for-a-pdf-portfolio
       summary: Extract portfolio at a Sensible URL
       description:  |
         Use this endpoint with multiple documents that are packaged into one PDF file (a PDF "portfolio"). 
@@ -182,7 +182,7 @@ paths:
 
   /documents/{id}:
     post:
-      operationId: retrieve_extraction
+      operationId: retrieving-results
       summary: Retrieve extraction
       description: |
         Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results. 
@@ -218,7 +218,7 @@ paths:
 
   /extract_from_url/:
     post:
-      operationId: extract_portfolio_at_your_url
+      operationId: provide-a-download-url-for-a-pdf-portfolio
       summary: Extract portfolio at your URL 
       description:  |
         Use this endpoint with multiple documents that are packaged into one PDF file (a PDF "portfolio").
