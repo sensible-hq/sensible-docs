@@ -290,7 +290,7 @@ components:
       items:
         $ref: '#/components/schemas/Classification'
       example:
-        - configuration: anyco
+        - configuration: anyco_rate_confirmation
           fingerprints: 2
           fingerprints_present: 2
           score:
