@@ -12,8 +12,6 @@ info:
 paths:
   /extract/{type}:
     post:
-      security: # todo remove this and other redundant security defs (already defined globaly) if we ever migrate from readme to redoc
-        - bearerAuth: []
       operationId: extract_doc
       summary: Extract data from a document
       description: |
