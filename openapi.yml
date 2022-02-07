@@ -264,7 +264,7 @@ components:
       properties:
         configuration:
           type: string
-          example: anyco.json
+          example: anyco
           description: the config tested
         fingerprint_present:  
           type: integer
