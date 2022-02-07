@@ -259,15 +259,8 @@ paths:
 
 components:
   schemas:
-    ClassificationSummary:
+    Classification:
       type: object
-      description:  |
-            Metadata about how Sensible chose the config to use for this extraction.
-            Sensible compares all configs in the document type, then chooses the best extraction using
-            fingerprints, scores, or a combination of the two. 
-            (When two extractions tie by score and fingerprints, Sensible chooses the 
-            first configuration in alphabetic order).
-            For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)
       properties:
         configuration:
           type: string
@@ -284,6 +277,34 @@ components:
         score:
           type: object  
           $ref: '#/components/schemas/Score'
+
+    ClassificationSummary:
+      type: array
+      description:  |
+            Metadata about how Sensible chose the config to use for this extraction.
+            Sensible compares all configs in the document type, then chooses the best extraction using
+            fingerprints, scores, or a combination of the two. 
+            (When two extractions tie by score and fingerprints, Sensible chooses the 
+            first configuration in alphabetic order).
+            For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)
+      items:
+        $ref: '#/components/schemas/Classification'
+      example:
+        - configuration: anyco
+          fingerprints: 2
+          fingerprints_present: 2
+          score:
+            value: 3.5
+            fields_present: 4
+            penalities: 0.5
+        - configuration: acme_co
+          fingerprints: 2
+          fingerprints_present: 2
+          score:
+            value: 0.5
+            fields_present: 2
+            penalities: 1.5
+      
     Score: 
       type: object
       properties:
