@@ -61,12 +61,13 @@ paths:
       summary: Extract doc at a Sensible URL
       description: |
         Extract data asynchronously from a document with the following steps. 
-        1. Use this endpoint to generate a Sensible URL.
-        2. PUT the PDF you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received 
-        from this endpoint's response. For example, `curl -T ./sample.pdf "SENSIBLE_UPLOAD_URL"`. 
+          1. Use this endpoint to generate a Sensible URL.
+          2. PUT the PDF you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received 
+        from this endpoint's response.
+        For example, `curl -T ./sample.pdf "SENSIBLE_UPLOAD_URL"`. 
         Note: the pre-signed upload_url does not support Base64 encoded PDFs. You PUT the PDF bytes directly to the endpoint 
         and must omit the content-type header.
-        3.  To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the 
+          3.  To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the 
         GET documents/{id} endpoint.
         You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process.
         For a step-by-step tutorial on calling this endpoint, see 
@@ -469,8 +470,7 @@ components:
         URL that responds to a GET request with the bytes of the PDF to be extracted. 
         This URL must be either publicly accessible, or presigned with a security token as part of the URL path. 
         To check if the URL meets these criteria, open the URL with a web browser. 
-        The browser must either render the PDF as a full-page view with no other data, or download the PDF, 
-        without prompting for authentication.
+        The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication.
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
   responses: 
 
