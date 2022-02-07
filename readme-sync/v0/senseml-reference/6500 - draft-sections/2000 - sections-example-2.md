@@ -11,8 +11,8 @@ Vertical sections: complex table
 The following example shows:
 
 - using the Column Selection parameter in a vertical sections group to handle row labels in a table.
-- Since table recognition works on the whole page, the example uses a nested section group to extract a nested table.  In the nested section group, each row of the nested table is its own section. (The regular expression to find these "row" sections also generates zero-height sections that Sensible ignores. For more information, see TODO LINK section-nuances#multiple anchor matches.). 
-- To illustrate each section's range, the config includes a field that outputs the entire contents of each section.. 
+- Since table recognition works on the whole page, the example uses a nested section group to extract a nested table.  In the nested section group, each row of the nested table is its own section. For more information, see TODO LINK section-nuances#multiple anchor matches. 
+- To illustrate each section's range, the config includes a field that outputs the entire contents of each section.
 
 **Config**
 
