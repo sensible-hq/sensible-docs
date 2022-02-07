@@ -31,13 +31,13 @@ Sensible:
 
 1. Finds the section group's range (y-extent) in which to recognize columns using Match and Stop lines. A range can span pages.
 
-1. (repeats) Recognizes columns inside the range, based on whitespace gutters and searching left-to-right.  If non-columnar text is present in the range, it can affect column recognition as follows:
+2. (repeats) Recognizes columns inside the range, based on whitespace gutters and searching left-to-right.  If non-columnar text is present in the range, it can affect column recognition as follows:
    
    - If any non-columnar text is *below* the columns and if the Stop parameter is unspecified, Sensible uses the non-column text as a criteria to end the range. 
 
    - If any non-columnlar text is *above* the columns in the y-extent, it can break column recognition.  Exclude the text from the y-extent using the Offset Y parameter.
    
-   
+3. Extracts fields from each column in the group, using a limited subset of SenseML methods. For more information about available methods, see TODO link to the Range parameters table.. Usually the data is in a repeated structure for each section.
 
 Column Selection
 ----
