@@ -10,14 +10,19 @@ Vertical sections: table grid
 
 
 
-Brief overview
+Overview
 ----
 
 To give a broad overview using vertical sections for a table grid:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_table_grid.png)
 
-In the preceding image, 1. define a section then 2.  define a nested vertical section.  Using abbreviated YML notation to give a brief idea of the more complex SenseML JSON: 
+In the preceding image, 1. define a section then 2.  define a nested vertical section.  The following abbreviated YML notation to give a brief idea of the more complex SenseML JSON, and shows:
+
+- Using the Offset Y parameter in a vertical section to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
+- The parent section group, `car_model`, uses an offset to include the heading with car model and year. 
+- The parent section demonstrates that without a Require Stop parameter, Sensible starts the next section on the first repeated instance of `trim` that follows the starting line vertically, but ignores repeats on the same horizontal line as the starting line. The nested section demonstrates the same behavior with the match-all regex `.+` . For more information, see TODO LINK section-nuances#multiple anchor matches.
+- Configuring column recognition in a vertical section with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps within each trim specs column. 
 
 ```yml
 sections:
@@ -26,7 +31,7 @@ sections:
       anchor: trim
       offsetY: -1.1
     fields:
-      - id: car_make_model_year
+      - id: car_heading
         anchor:
           match:
             type: first
@@ -76,16 +81,10 @@ car_models:
    
 ```
 
-Example details
+Details
 ----
 
-The following elaborates on the preceding brief overview using JSON instead of YML and including notes:
-
-The following example shows:
-
-- Using the Offset Y parameter in a vertical section to exclude non-columnar text  (for example, "2014 Toyota Camry") so as not to break column recognition.
-- Configuring column recognition with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps within each trim specs column.
-- The example includes passthrough text output of each section to illustrate each section's scope. 
+The following elaborates on the preceding brief overview using JSON instead of YML. To illustrate each section's range and for troubleshooting purposes, the config outputs the entire contents of each section.
 
 **Config**
 

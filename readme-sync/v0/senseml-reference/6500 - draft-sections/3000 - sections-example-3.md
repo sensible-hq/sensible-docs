@@ -7,18 +7,15 @@ hidden: true
 Vertical sections: sections and columns
 ===
 
-Brief overview
+Overview
 -----
 
-To give a broad overview using vertical sections for columns, the following image shows capturing numbered sections and their columns with these steps:
+To give a brief overview of using vertical sections for columns, the following image shows capturing numbered sections and their columns with these steps:
 
-1 define a section
-
-2. define a nested vertical section 
+1. define a section group
+2. define a nested vertical section  group
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_col_sect.png)
-
-
 
 The following config uses abbreviated YML notation to give an overview of the more complex SenseML JSON: 
 
@@ -62,9 +59,9 @@ parentSections:
    
 ```
 
-Example details
+Details
 ----
-The following elaborates on the preceding brief overview using JSON instead of YML.
+The following elaborates on the preceding overview using JSON instead of YML.
 
 **Config**
 
@@ -73,7 +70,7 @@ The following elaborates on the preceding brief overview using JSON instead of Y
   "fields": [],
   "sections": [
     {
-      "id": "sections",
+      "id": "parentSections",
       "range": {
         "anchor": {
           "match": {
@@ -84,7 +81,7 @@ The following elaborates on the preceding brief overview using JSON instead of Y
       },
       "fields": [
         {
-          "id": "number",
+          "id": "sectionNumber",
           "type": "number",
           "method": {
             "id": "label",
@@ -100,7 +97,7 @@ The following elaborates on the preceding brief overview using JSON instead of Y
       ],
       "sections": [
         {
-          "id": "columns",
+          "id": "nestedColumns",
           "range": {
             "direction": "vertical",
             "offsetY": 0,
@@ -113,7 +110,7 @@ The following elaborates on the preceding brief overview using JSON instead of Y
           },
           "fields": [
             {
-              "id": "letter",
+              "id": "columnLetter",
               "method": {
                 "id": "label",
                 "position": "right"
@@ -145,28 +142,28 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "sections": [
+  "parentSections": [
     {
-      "number": {
+      "sectionNumber": {
         "source": "1",
         "value": 1,
         "type": "number"
       },
-      "columns": [
+      "nestedColumns": [
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "A"
           }
         },
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "B"
           }
         },
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "C"
           }
@@ -174,26 +171,26 @@ The following image shows the example PDF used with this example config:
       ]
     },
     {
-      "number": {
+      "sectionNumber": {
         "source": "2",
         "value": 2,
         "type": "number"
       },
-      "columns": [
+      "nestedColumns": [
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "A"
           }
         },
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "B"
           }
         },
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "C"
           }
@@ -201,26 +198,26 @@ The following image shows the example PDF used with this example config:
       ]
     },
     {
-      "number": {
+      "sectionNumber": {
         "source": "3",
         "value": 3,
         "type": "number"
       },
-      "columns": [
+      "nestedColumns": [
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "A"
           }
         },
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "B"
           }
         },
         {
-          "letter": {
+          "columnLetter": {
             "type": "string",
             "value": "C"
           }
