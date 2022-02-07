@@ -84,7 +84,7 @@ car_models:
 Details
 ----
 
-The following elaborates on the preceding brief overview using JSON instead of YML. To illustrate each section's range and for troubleshooting purposes, the config outputs the entire contents of each section.
+The following elaborates on the preceding brief overview using JSON instead of YML. To illustrate each section's range and for troubleshooting purposes, the config includes a field that outputs the entire contents of each section.
 
 **Config**
 
@@ -179,32 +179,7 @@ The following elaborates on the preceding brief overview using JSON instead of Y
                 }
               }
             },
-            {
-              "id": "transmission",
-              "method": {
-                "id": "row",
-                "position": "right"
-              },
-              "anchor": {
-                "match": {
-                  "type": "startsWith",
-                  "text": "transmission"
-                }
-              }
-            },
-            {
-              "id": "transmission",
-              "method": {
-                "id": "row",
-                "position": "right"
-              },
-              "anchor": {
-                "match": {
-                  "type": "startsWith",
-                  "text": "transmission"
-                }
-              }
-            }
+            
           ]
         }
       ]
@@ -248,10 +223,6 @@ The following image shows the example PDF used with this example config:
           "engine": {
             "type": "string",
             "value": "178.0-hp, 2.5-liter, 4"
-          },
-          "transmission": {
-            "type": "string",
-            "value": "6-speed A/T"
           }
         },
         {
@@ -266,10 +237,6 @@ The following image shows the example PDF used with this example config:
           "engine": {
             "type": "string",
             "value": "268.0-hp, 3.5-liter, V6"
-          },
-          "transmission": {
-            "type": "string",
-            "value": "6-speed A/T"
           }
         }
       ]
@@ -296,10 +263,6 @@ The following image shows the example PDF used with this example config:
           "engine": {
             "type": "string",
             "value": "180.0-hp, 1.5-liter, 4"
-          },
-          "transmission": {
-            "type": "string",
-            "value": "CVT Transmission"
           }
         },
         {
@@ -314,10 +277,6 @@ The following image shows the example PDF used with this example config:
           "engine": {
             "type": "string",
             "value": "158.0-hp, 2.0-liter, 4"
-          },
-          "transmission": {
-            "type": "string",
-            "value": "CVT Transmission"
           }
         }
       ]
