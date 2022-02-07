@@ -36,12 +36,8 @@ See the following table for details about the Range object parameters:
 | stopOffsetY           | number in inches                                   | Specifies the number of inches to offset the section's end from the top boundary of the anchor's Stop parameter. |
 | direction             | `horizontal`, `vertical`. default: `horizontal`    | If set to `vertical`, Sensible searches left-to-right for columns in the first-found document area defined by the Range parameter, rather than the default behavior of repeatedly searching for document areas that match the Range parameter. For an illustration, see [section nuances]doc:section-nuances TODO LINK). Use this, for example, to extract tables nested in tables, tables with row labels,  or other complex text layouts. In the vertical section's  fields, you can use methods such as the Row method, Label method, and Document Range method. You can't use pixel-recognition based methods such as Table, or coordinate-based methods such as Region or Text Table. See the following section for examples. TODO: link to specific example. |
 | columnSelection       | integer array. default: capture all columns        | Use only with vertical sections ( `"direction":"vertical"`). Use to:<br/>- Select the columns you want to output using zero-based column indices or indices ranges. <br>- Specify to treat *unselected* columns as row labels. The text in unselected columns is "in scope" for each selected column section and can be used as anchors for that column's fields. For an illustration, see section-nuances#column-selection TODO LINK.<br/>For example, in a 7-column table `[0-5]` selects columns 1 through 6, and treats column 7 as row labels. <br/>`[1,3,-1]`  selects columns 2, 4, and the second-to-last column,<br/> `[1,3-7]` selects column 2, and columns 4 through 8 .<br/> Use negative indices to indicate offsetting from the last element of the column array. <br/>  For more information, see the Examples section. TODO specify which examples now that they link out |
-| ignoreColumns         | integer array.                                     | TODO: check naming Use only with vertical sections ( `"direction":"vertical"`). Use to remove unwanted columns from both the output and from the SenseML search scope. This is useful, for example, if the columns contain text that interfers with anchoring on other columns. (Note that in contrast the Column Selection parameter removes unselected columns from the output but still makes them available to selected columns for field anchoring purposes.) |
-| minColumnGap          | number in inches. default: 0                       | Use only with vertical sections ( `"direction":"vertical"`).   Configures column recognition by specifying the minimum width of the gutters separating the columns. For example, if text in a column contains whitespace gaps such that Sensible can split 1 column into 2, set a minimum gap that is larger than the gaps within the column. The default (0) means "draw zero-width vertical lines to define column boundaries." TODO: link to the specific example that uses this. |
-
-
-
-
+| ignoredColumns        | integer array.                                     | Use only with vertical sections ( `"direction":"vertical"`). Use to remove unwanted columns from both the output *and* from the SenseML search scope. This is useful, for example, if the columns contain text that interferes with anchoring on other columns. Note that, in contrast, the Column Selection parameter removes unselected columns from the extraction output but still makes them available as anchors for selected columns' fields. |
+| minColumnGap          | number in inches. default: 0                       | Use only with vertical sections ( `"direction":"vertical"`).   Configures column recognition by specifying the minimum width of the gutters separating the columns. For example, if text in a column contains whitespace gaps such that Sensible can split one column into two, set a minimum gap that is larger than the gaps within the column. The default (0) means "draw zero-width vertical lines to define column boundaries." TODO: link to the specific example that uses this. |
 
 Examples
 ====
@@ -52,8 +48,6 @@ See the following topics:
 - [Example 2](doc:sections-example-2)
 - [Example 3](doc:sections-example-3)
 - [Example 4](doc:sections-example-4)
-
-
 
 Notes
 ===
