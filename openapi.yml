@@ -4,7 +4,7 @@ servers: # TODO: fill in # LEFT OFF: need to proofread the endpoints against exi
     description: Production server (uses live data)
 info:
   title: Extraction
-  version: 1.0.0
+  version: 0.0.0
   license: # TODO: fill in
     name: Sensible API
     url: https://www.TBD.org/licenses/LICENSE-2.0.html
