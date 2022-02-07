@@ -37,7 +37,7 @@ Sensible:
 
    - If any non-columnlar text is *above* the columns in the y-extent, it can break column recognition.  Exclude the text from the y-extent using the Offset Y parameter.
    
-3. Extracts fields from each column in the group, using a limited subset of SenseML methods. For more information about available methods, see TODO link to the Range parameters table. Sensible expects but doesn't require that the data is in a repeated structure for each section
+3. Extracts fields from each column in the group, using a limited subset of SenseML methods. For more information about available methods, see TODO link to the Range parameters table. Sensible expects but doesn't require that the data is in a repeated structure for each column.
 
 Column Selection
 ----
