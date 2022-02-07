@@ -16,7 +16,7 @@ Sensible finds the sections as follows:
 
 1. Finds the range (y-extent) for a section in the group using Match and Stop lines. The range  can span pages. if no Stop, next section's range starts at next anchor's Match + yOffset parameters. This behavior ensures sections’ ranges never overlap. 
 2.  (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the section group ends with the End parameter, or Sensible reaches the end of the document.
-3. Extracts fields from each section in the group, using any SenseML methods. Usually the data is in a repeated structure for each section.
+3. Extracts fields from each section in the group, using any SenseML methods. Sensible expects but doesn't require that the data is in a repeated structure for each section.
 
  
 
@@ -37,7 +37,7 @@ Sensible:
 
    - If any non-columnlar text is *above* the columns in the y-extent, it can break column recognition.  Exclude the text from the y-extent using the Offset Y parameter.
    
-3. Extracts fields from each column in the group, using a limited subset of SenseML methods. For more information about available methods, see TODO link to the Range parameters table.. Usually the data is in a repeated structure for each section.
+3. Extracts fields from each column in the group, using a limited subset of SenseML methods. For more information about available methods, see TODO link to the Range parameters table. Sensible expects but doesn't require that the data is in a repeated structure for each section
 
 Column Selection
 ----
