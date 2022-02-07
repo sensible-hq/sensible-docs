@@ -93,6 +93,12 @@ paths:
           description: returns the upload_url at which to PUT the PDF for extraction 
         '401':
           $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'  
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'  
 
   
   /extract_from_url/{type}:
@@ -126,6 +132,12 @@ paths:
           description: returns the ID to use to retrieve the extraction 
         '401':
           $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'  
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'  
 
   /generate_upload_url:
     post:
@@ -159,7 +171,13 @@ paths:
                 $ref: '#/components/schemas/AsyncUploadResponse'
           description: returns the upload_url at which to PUT the PDF for extraction 
         '401':
-          $ref: '#/components/responses/401'         
+          $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'  
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'           
 
 
   /documents/{id}:
@@ -192,6 +210,12 @@ paths:
           description: returns the extraction 
         '401':
           $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'  
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'  
 
   /extract_from_url/:
     post:
@@ -227,6 +251,12 @@ paths:
           description: returns the ID to use to retrieve the extraction 
         '401':
           $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'  
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'  
 
 components:
   schemas:
