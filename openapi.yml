@@ -185,7 +185,7 @@ paths:
       operationId: retrieve_extraction
       summary: Retrieve extraction
       description: |
-        Use this endpoint to send the extraction ID returned by asynchronous extractions, and return the extraction in the response.
+        Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results. 
         You can also use this endpoint to retrieve the results for documents extractions from the synchronous /extract endpoint.
         To poll extraction status, check the `status` field in this endpoint's response. 
         When the extraction completes, the returned status is `COMPLETE` and the response includes results in the 
@@ -460,7 +460,7 @@ components:
     ExtractionId:
       type: string
       format: uuid
-      description: unique ID for the extraction, used to retreive the extraction
+      description: unique ID for the extraction, used to retrieve the extraction
       example: 246a6f60-0e5b-11eb-b720-295a6fba723e
     
     ExtractionCreated:
