@@ -506,7 +506,8 @@ components:
       example: rate_confirmation  
     ExtractionStatus:
       type: string
-      description: the extraction status (WAITING, COMPLETE, FAILED)
+      description: the extraction status
+      enum: [WAITING, COMPLETE, FAILED]
       example: COMPLETE
     
     Webhook:
