@@ -32,10 +32,11 @@ Recognizes names of the formats below, and variant representations of these elem
 **Example input**
 
 ```json
-John R. Smith
-JOHN R. SMITH
+John R. Smith Sr
+JOHN R. SMITH SR
 Richard & Ann Spangenberg
 DuBois, Renee and Lois 
+DUBOIS, RENEE AND LOIS
 
 
 
