@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Extracts specified values from a group of fields. For example, extracts the selected boxes from a checkbox group, or extract all "yes" answers from a group of fields with yes/no/maybe dropdowns.
+Extracts specified values from a group of fields. For example, extracts the selected boxes from a checkbox group, or extracts all "yes" answers from a group of fields with yes/no/maybe dropdowns.
 
 Parameters
 ====
