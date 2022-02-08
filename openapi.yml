@@ -307,6 +307,7 @@ components:
       
     Score: 
       type: object
+      description: The score for the extraction, used to help choose the best extraction.
       properties:
         value:
           type: integer
@@ -351,10 +352,19 @@ components:
       properties:
         description:
           type: string
+          description: Description of the validation
+          example: Dollar amount should be more than $100
         severity: 
           type: string
+          enum: [error, warning, skipped]
+          example: warning
+          description: Severity of the failing validation
         message:
           type: string
+          description: Messages about why the validation failed
+          example: |-
+            Missing prerequisites: broker.email
+
     Validations:
       description: which extracted fields failed validation rules you write in the Sensible app.
       type: array
@@ -369,6 +379,7 @@ components:
         
     ValidationsSummary:
       type: object
+      description: Summary of the extracted fields that failed validation rules you write in the Sensible app.
       properties:
         fields:
           type: integer
