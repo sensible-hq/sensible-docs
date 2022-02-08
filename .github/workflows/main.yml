@@ -9,21 +9,6 @@ jobs:
       # get the changelogs and save locally so you can check those links
       - name: Checkout 🛎️
         uses: actions/checkout@v2 
-      # - name: Set up Python 🐍
-      #   uses: actions/setup-python@v2
-      #   with:
-      #     python-version: '3.x'
-      #     architecture: 'x64'
-      # - name: Install dependencies 🔧 
-      #   run: cd ./scripts/check_links/ && python -m pip install requests
-      # - name: fetch changelog markdown and save as HTML 🏗  
-      #   env:
-      #     README_API_KEY: ${{ secrets.README_API_KEY}}
-      #   run: python ./scripts/check_links/get_readme_changelog.py 
-        
-      # check the links for everything including changelogs
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2 
       - name: Set up Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
