@@ -39,7 +39,7 @@ paths:
               format: binary
 
       tags:
-      - document
+      - Document
       responses:
         '200':
           content:
@@ -83,7 +83,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenerateUrlRequest'
       tags:
-      - document
+      - Document
       responses:
         '200':
           content:
@@ -122,7 +122,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - document
+      - Document
       responses:
         '200':
           content:
@@ -162,7 +162,7 @@ paths:
                 $ref: '#/components/schemas/PortfolioRequest'
                 # PortfolioRequest
       tags:
-      - portfolio
+      - Portfolio
       responses:
         '200':
           content:
@@ -199,7 +199,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - document
+      - Document
       responses:
         '200':
           content:
@@ -240,7 +240,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
-      - portfolio
+      - Portfolio
       responses:
         '200':
           content:
