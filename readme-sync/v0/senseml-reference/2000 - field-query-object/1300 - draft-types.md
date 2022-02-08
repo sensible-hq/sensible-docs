@@ -58,27 +58,3 @@ Example output:
 
 
 
-**Example input**
-
-The following are examples of date formats that Sensible recognizes by default:
-
-```
-5/17/2018
-november 30, 1955
-Feb 1, 21
-June 7th, 2021
-Jan 9th, 09
-
-```
-
-**Example output**
-
-```json
-{
-    "source": "Feb 1, 21",
-    "value": "2021-02-01T00:00:00.000Z",
-    "type": "date"
-}
-
-```
-
