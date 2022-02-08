@@ -11,10 +11,10 @@ You can define the Name type using concise syntax, `"type":"name"`, or you can u
 
 **Parameters**
 
-| key               | value                                           | description                                                  |
-| ----------------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `name`                                          |                                                              |
-| capitalization    | `allCaps`, `firstLetter`. default: `firstLeter` | Recognize names in all uppercase, or names with the first letter capitalized. |
+| key               | value                                            | description                                                  |
+| ----------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| id (**required**) | `name`                                           |                                                              |
+| capitalization    | `allCaps`, `firstLetter`. default: `firstLetter` | Recognize names in all uppercase, or names with the first letter capitalized. |
 
 
 
