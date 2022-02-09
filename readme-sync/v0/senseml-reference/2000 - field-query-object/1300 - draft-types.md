@@ -35,10 +35,6 @@ Recognizes names of the formats below, and variant representations of these elem
 John R. Smith Sr
 Richard & Ann Spangenberg
 DuBois, Renee and Lois 
-
-
-
-
 ```
 
 This type does **not** recognize text such as `Last1, Last2, & Last3`
