@@ -37,7 +37,7 @@ Richard & Ann Spangenberg
 DuBois, Renee and Lois 
 ```
 
-This type does **not** recognize text such as `Last1, Last2, & Last3`
+This type does **not** recognize lists of three or more names such as `last1, last2, & last3`
 
 Example output:
 
