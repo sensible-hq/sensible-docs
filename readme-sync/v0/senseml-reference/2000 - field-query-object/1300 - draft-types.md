@@ -14,7 +14,7 @@ You can define the Name type using concise syntax, `"type":"name"`, or you can u
 | key               | value                                                        | description                                                  |
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | id (**required**) | `name`                                                       |                                                              |
-| capitalization    | `allCaps`, `firstLetter`. default: no change to source capitalization | Formats the output names in all uppercase, or with only the first letter capitalized. |
+| capitalization    | `allCaps`, `firstLetter`. default: no change to source capitalization | Formats the output in all uppercase, or with only the first letter of each word capitalized. |
 
 
 
