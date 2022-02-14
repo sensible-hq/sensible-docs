@@ -22,8 +22,8 @@ Parameters
 
 | key                 | value               | description                                                  |
 | ------------------- | ------------------- | ------------------------------------------------------------ |
-| type (**required**) | `removeFooter`      | For an example, see the Examples section.                   |
-| startsOnPage        | integer. default: 1 | The first page number on which to start checking for repeated elements. The default is 1. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
+| type (**required**) | `removeFooter`      | For an example, see the Examples section.                    |
+| startsOnPage        | integer. default: 1 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
 
 Examples
 ====
