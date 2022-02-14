@@ -2,7 +2,7 @@
 title: "Paragraph"
 hidden: true
 ---
-Extracts paragraphs by recognizing various paragraph layouts, including columnar text. 
+Extracts paragraphs by recognizing various paragraph layouts, including paragraphs in columns and paragraphs that span pages. 
 
 
 
@@ -17,7 +17,7 @@ Parameters
 
 | key               | value       | description                                                  |
 | ----------------- | ----------- | ------------------------------------------------------------ |
-| id (**required**) | `paragraph` | Prints to console the array of detected "paragraphs". A "paragraph" is a set of lines where each one is not more than 0.5*fontSize below the previous one is considered a paragraph |
+| id (**required**) | `paragraph` | Prints to console the array of detected "paragraphs". A "paragraph" is a set of lines where each one is not more than 0.5*fontSize below the previous one is considered a paragraph. The anchor can't span multiple lines (this can be a problem if the paragraph 'reflows' and its breaks aren't predictible) |
 |                   |             |                                                              |
 |                   |             |                                                              |
 |                   |             | .                                                            |
