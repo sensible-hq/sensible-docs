@@ -35,7 +35,7 @@ Sensible:
    
    - If any non-columnar text is *below* the columns and if there's no Stop parameter, Sensible uses the non-column text as a criteria to end the range. 
 
-   - If any non-columnlar text is *above* the columns in the range, it can break column recognition. Exclude the text from the range using the Offset Y parameter.
+   - If any non-columnar text is *above* the columns in the range, it can break column recognition. Exclude the text from the range using the Offset Y parameter.
    
 3. Extracts fields from each column in the group, using a limited subset of SenseML methods. For more information about available methods, see TODO link to the Range parameters table. Sensible expects but doesn't require that the data is in a repeated structure for each column.
 
