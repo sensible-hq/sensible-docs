@@ -3,6 +3,8 @@ title: "Section nuances"
 hidden: true
 ---
 
+TODO before publishing: adjust for new Stop, filterLines, selectLines
+
 **Note:** If you're familiar with Sensible, this detailed topic is for you. If you're new to Sensible, see [sections](doc:sections).
 
 The following images show the differing behaviors of sections and vertical sections:
