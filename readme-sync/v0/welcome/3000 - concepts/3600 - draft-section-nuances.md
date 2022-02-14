@@ -87,13 +87,16 @@ And return something like:
 
 
 
-Multiple anchor matches
+Multiple anchors in section
 ----
 
 You can handle multiple matches for the range's Match parameter inside a section as follows:
 
 - If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter.  Even if you leave this parameter unspecified, Sensible ignore matches that are on the same horizontal line to the left of the anchor's Match parameter.
-- Or, you can use Sensible's default behavior to split a section group range containing multiple anchors into sections. For example, assume that the anchor's Match line is the regular expression `.+`, meaning match any characters. In this case, if you already defined the start and end of the section group, then Sensible splits text into "rows" at each newline for sections, and into "columns" for vertical sections. (The regular expression to find these "row" sections also generates zero-height sections that Sensible ignores).
+- Or, you can use Sensible's default behavior to split a section group range containing multiple anchors into sections. For example, assume that the anchor's Match line is the regular expression `.+`, meaning match any characters. In this case, if you already defined the start and end of the section group, then:
+  - For sections, Sensible splits text into "rows" at each newline
+  - For vertical sections, Sensible splits text into "columns".
+
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
