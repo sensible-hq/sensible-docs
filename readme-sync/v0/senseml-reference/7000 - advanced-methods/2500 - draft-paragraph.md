@@ -21,9 +21,7 @@ Parameters
 | key               | value       | description |
 | ----------------- | ----------- | ----------- |
 | id (**required**) | `paragraph` |             |
-|                   |             |             |
-|                   |             |             |
-|                   |             |             |
+
 
 Examples
 ====
@@ -91,15 +89,7 @@ The following image shows the example PDF used with this example config:
 ```
 
 
-
-
-
-
-
-
-
-
 Notes
 ====
 
-paragraphs method vs document range method:
+This method uses document layout to detect paragraphs. In contrast, the Document Range method extracts all the text between an upper and a lower bound. 
