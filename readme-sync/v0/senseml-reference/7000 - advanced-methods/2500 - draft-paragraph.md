@@ -6,8 +6,11 @@ Extracts paragraphs in various layouts, including paragraphs in columns and para
 
 TODOs before publish: 
 
-- include link to this method from Types paragraph section
+- wait to hear back from Horacio RE paragraph type w this method. if we decide it should be compatible, include link to this method from Types paragraph section
+
 - include notes in Document Range abt differences
+
+  
 
 [**Parameters**](doc:document-range#parameters)
 [**Examples**](doc:document-range#examples)
