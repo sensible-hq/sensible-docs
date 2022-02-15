@@ -1,11 +1,11 @@
 ---
-title: "Sections example 4"
+title: "Advanced: table grid example"
 hidden: true
 
 ---
 
 
-Vertical sections: table grid
+Advanced: table grid
 ====
 
 Overview
@@ -15,7 +15,13 @@ To give a broad overview using vertical sections for a table grid:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_table_grid.png)
 
-In the preceding image, 1. define a section then 2.  define a nested vertical section.  The following abbreviated YML notation to give a brief idea of the more complex SenseML JSON, and shows:
+In the preceding image,
+
+1. define a section for each car model.
+
+2. define a nested vertical section for each car trim.
+
+The following abbreviated YML notation to give a brief idea of the more complex SenseML JSON, and shows:
 
 - Using the Offset Y parameter in a vertical section to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
 - The parent section group, `car_model`, uses an offset to include the heading with car model and year. 

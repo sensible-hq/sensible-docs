@@ -1,11 +1,8 @@
 ---
-title: "Sections example 3"
+title: "Advanced: nested columns example"
 hidden: true
 
 ---
-
-Vertical sections: sections and columns
-===
 
 Overview
 -----

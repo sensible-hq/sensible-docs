@@ -1,10 +1,7 @@
 ---
-title: "Sections example 1"
+title: "Claims loss run example"
 hidden: true
 ---
-
-Sections: claims loss run
-====
 
 The following example shows extracting repeated fields from a section containing a list of claims:
 

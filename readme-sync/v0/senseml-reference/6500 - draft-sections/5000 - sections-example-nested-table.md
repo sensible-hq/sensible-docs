@@ -1,12 +1,7 @@
 ---
-title: "Sections example 2"
+title: "Advanced: nested table example"
 hidden: true
 ---
-
-
-
-Vertical sections: complex table
-===
 
 The following example shows:
 
