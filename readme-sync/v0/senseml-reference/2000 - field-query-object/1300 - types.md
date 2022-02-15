@@ -275,7 +275,7 @@ To recognize the date format JAN-01-02, and ignore all default formats, you can 
 | key               | value                  | description                                                  |
 | ----------------- | ---------------------- | ------------------------------------------------------------ |
 | id (**required**) | `date`                 | Returns datetime.  Sensible outputs the time as midnight UTC. |
-| format            | string or string array | If unspecified, recognizes default date formats. See the following table for a list of the field descriptors you can use to define custom formats. The custom formats override the defaults listed in the simple syntax section. |
+| format            | string or string array | See the following table for a list of the field descriptors you can use to define custom formats. The custom formats override the defaults listed in the simple syntax section. |
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 

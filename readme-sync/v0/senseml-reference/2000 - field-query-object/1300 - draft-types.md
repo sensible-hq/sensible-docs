@@ -54,7 +54,7 @@ Example output:
 Currency
 ====
 
-You can define the Currency type using concise syntax,  or you can use expanded syntax and configure options.
+You can define this type using concise syntax,  or you can configure options with expanded syntax.
 
 Simple syntax
 ----
@@ -63,7 +63,7 @@ Simple syntax
 
 `"type":"currency"`
 
-**Output**
+**Output example** 
 
 Returns US dollars as absolute values.  For example,
 
@@ -78,7 +78,7 @@ Returns US dollars as absolute values.  For example,
 
 **Formats recognized** 
 
-Sensible by default recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+Sensible by default recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For default recognition of European decimal notation (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 Recognizes digits with the following formatting:
 
@@ -115,31 +115,45 @@ Configurable syntax
 
 **Example syntax **
 
+```json
+"type":
+  {
+    "id": "currency",
+    "currencySymbol": "€",
+    "requireCurrencySymbol": true,  
+    "thousandsSeparator": ".",
+    "decimalSeparator": ",", 
+    "maxValue": 10000,
+  }
+```
+
 **Example output**
 
-
+```json
+{
+    "source": "€3.567,01",
+    "value": 3567.01,
+    "unit": "€",
+    "type": "currency"
+  }
+```
 
 **Parameters**
 
-| key                       | value      | description          |
-| ------------------------- | ---------- | -------------------- |
-| id (**required**)         | `currency` |                      |
-| requireCurrencySymbol     | boolean    |                      |
-| currencySymbol            | string     | the currency symbol, |
-| requireThousandsSeparator | boolean    |                      |
-| thousandsSeparator        | string     |                      |
-| decimalSeparator          | string     |                      |
-| maxValue                  | number     |                      |
-| minValue                  | number     |                      |
+| key                       | value      | description                                                  |
+| ------------------------- | ---------- | ------------------------------------------------------------ |
+| id (**required**)         | `currency` |                                                              |
+| requireCurrencySymbol     | boolean    | Requires a currency symbol preceeding the amount.            |
+| currencySymbol            | string     | The currency symbol to require, for example €. The symbol must precede the amount. |
+| requireThousandsSeparator | boolean    | Requires a thousands separator in numbers with a thousands place. |
+| thousandsSeparator        | string     | The separator to require, for example `,` or `.`             |
+| decimalSeparator          | string     | Fo numbers with a decimal place, specify the separator, for example `,` or `.` |
+| maxValue                  | number     | The maximum currency amount to recognize. Use this, for example, as an alternative to the Tiebreaker parameter or to extract a currency in a known amount range given multiple currencies (in a box or paragraph, for example). |
+| minValue                  | number     | The minimum currency amount to recognize.                    |
 
 
 
 
 
 
-
-
-
-
------
 
