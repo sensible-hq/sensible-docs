@@ -51,5 +51,71 @@ Example output:
 }
 ```
 
+Currency
+----
 
+You can define the Currency type using concise syntax, `"type":"currency"`, or you can use expanded syntax and configure the following parameters:
+
+**Parameters**
+
+| key                       | value      | description |
+| ------------------------- | ---------- | ----------- |
+| id (**required**)         | `currency` |             |
+| requireCurrency           | boolean    |             |
+| currencySymbol            | string     |             |
+| requireThousandsSeparator | boolean    |             |
+| thousandsSeparator        | string     |             |
+| decimalSeparator          | string     |             |
+| maxValue                  | number     |             |
+| minValue                  | number     |             |
+
+
+
+
+
+Returns US dollars as absolute values. Recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+
+Recognizes digits with the following formatting:
+
+- dollar sign, optional commas every three digits, optional cents after period
+
+- commas every three digits, optional cents after period
+
+- no dollar sign, up to six digits without commas as sole line contents. Allow up to nine digits if cents are present.
+
+
+Recognizes abbreviated and written-out quantities as follows:
+
+- thousand, k
+- million, mil, mm, m
+- billion, bil, b
+- trillion, t
+
+For example: 
+
+```
+$1k
+5k
+1,000,000.056
+$5.33
+1 mm
+3 bil
+2 thousand
+```
+
+This type **doesn't** match text such as `one million`  or `123456789`.
+
+Example output:
+
+```json
+ {
+    "source": "3 bil",
+    "value": 3000000000,
+    "unit": "$",
+    "type": "currency"
+  }
+```
+
+
+-----
 
