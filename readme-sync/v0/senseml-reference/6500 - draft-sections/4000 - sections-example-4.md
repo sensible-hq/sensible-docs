@@ -8,8 +8,6 @@ hidden: true
 Vertical sections: table grid
 ====
 
-
-
 Overview
 ----
 

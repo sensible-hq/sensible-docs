@@ -54,26 +54,28 @@ Example output:
 Currency
 ----
 
-You can define the Currency type using concise syntax, `"type":"currency"`, or you can use expanded syntax and configure the following parameters:
+You can define the Currency type using concise syntax,  or you can use expanded syntax and configure options.
 
-**Parameters**
+**Simple syntax**
 
-| key                       | value      | description |
-| ------------------------- | ---------- | ----------- |
-| id (**required**)         | `currency` |             |
-| requireCurrency           | boolean    |             |
-| currencySymbol            | string     |             |
-| requireThousandsSeparator | boolean    |             |
-| thousandsSeparator        | string     |             |
-| decimalSeparator          | string     |             |
-| maxValue                  | number     |             |
-| minValue                  | number     |             |
+If you use the syntax`"type":"currency"`:
+
+**Returns**
+
+Returns US dollars as absolute values.  For example,
+
+ {
+    "source": "3 bil",
+    "value": 3000000000,
+    "unit": "$",
+    "type": "currency"
+  }
 
 
 
+**Recognizes** 
 
-
-Returns US dollars as absolute values. Recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
 Recognizes digits with the following formatting:
 
@@ -105,16 +107,28 @@ $5.33
 
 This type **doesn't** match text such as `one million`  or `123456789`.
 
-Example output:
+**Configurable syntax**
 
-```json
- {
-    "source": "3 bil",
-    "value": 3000000000,
-    "unit": "$",
-    "type": "currency"
-  }
-```
+**Parameters**
+
+| key                       | value      | description          |
+| ------------------------- | ---------- | -------------------- |
+| id (**required**)         | `currency` |                      |
+| requireCurrencySymbol     | boolean    |                      |
+| currencySymbol            | string     | the currency symbol, |
+| requireThousandsSeparator | boolean    |                      |
+| thousandsSeparator        | string     |                      |
+| decimalSeparator          | string     |                      |
+| maxValue                  | number     |                      |
+| minValue                  | number     |                      |
+
+
+
+
+
+
+
+
 
 
 -----
