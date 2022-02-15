@@ -44,7 +44,7 @@ The following types are available:
 
 
 Accounting Currency
-----
+====
 
 Returns US dollar numbers. Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`).
 
@@ -75,7 +75,7 @@ Example output:
 ```
 
 Address
-----
+====
 Returns USA-based addresses. Matches:
 
 - City, State, Zip, and variant representations of these elements such as abbreviations
@@ -112,7 +112,7 @@ Example output:
 
 
 Boolean
-----
+====
 
 Returns true for the following case-insensitive strings:
 
@@ -141,7 +141,7 @@ Example output:
 ```
 
 Currency
-----
+====
 
 Returns US dollars as absolute values. Recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
 
@@ -187,7 +187,7 @@ Example output:
 ```
 
 Date
------
+====
 
 You can define the Date type using concise syntax, `"type":"date"`, or you can use expanded syntax and configure the following parameters:
 
@@ -245,7 +245,7 @@ Jan 9th, 09
 ```
 
 Distance
-----
+====
 
 Returns miles and kilometers. Recognizes digits followed optionally by kilometers, miles, or their abbreviations. For example: 
 
@@ -270,13 +270,13 @@ Example output:
 ```
 
 Images
----
+====
 
 Use this solely with the [Document Range](https://docs.sensible.so/docs/document-range) method to return image metadata.
 
 
 Name
-----
+====
 
 Returns one or more names. Doesn't recognize a list of names more than 6 lines long. 
 
@@ -313,7 +313,7 @@ Example output:
 
 
 Number
-----
+====
 
 Recognizes digits in USA decimal notation. Recognizes one or more digits, optionally followed either by: 
 
@@ -343,12 +343,12 @@ Example output:
 
 
 Paragraph
-----
+====
 
 Use with  [Document Range](https://docs.sensible.so/docs/document-range) solely, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
 
 Percentage
-----
+====
 
 Returns percent as an absolute value. Recognizes a percent formatted as digits in USA decimal notation (for example, 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
 
@@ -375,7 +375,7 @@ Example:
 
 
 Period Delimited Currency
-----
+====
 
 Returns numbers as absolute values. Recognizes European decimal formatting (for example, 1.500,06). Recognizes abbreviated quantities, such as k for thousand. For  USA decimal formatting (for example, 1,500.06), see [currency](doc:types#currency). 
 
@@ -421,7 +421,7 @@ Example output:
 
 
 Phone Number
-----
+====
 
 Returns phone numbers:
 
@@ -458,7 +458,7 @@ This type does *not* recognize country calling codes formatted with 00, for exam
 
 
 String
-----
+====
 
 Returns strings.
 
@@ -472,7 +472,7 @@ Example output:
 ```
 
 Table
----
+====
 
 Use with the Table methods:
 
@@ -482,7 +482,7 @@ Use with the Table methods:
 - [Text Table](doc:text-table)
 
 Weight
----
+====
 
 Returns pounds and kilograms. Recognizes digits in USA decimal notation (for example, 1,500.06):
 
