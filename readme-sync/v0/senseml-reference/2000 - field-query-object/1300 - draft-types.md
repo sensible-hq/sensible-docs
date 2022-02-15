@@ -173,6 +173,8 @@ Defined a custom type using regular expressions. For example, define types for z
 
 **Example output**
 
+This type outputs strings. For example:
+
 ```json
 {
     "source": "14:01",
