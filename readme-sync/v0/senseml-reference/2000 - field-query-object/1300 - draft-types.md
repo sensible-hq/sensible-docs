@@ -54,6 +54,10 @@ Example output:
 Currency
 ====
 
+TODO BEFORE PUBLISH: remove periodDelimitedCurrency
+
+
+
 You can define this type using concise syntax,  or you can configure options with expanded syntax.
 
 Simple syntax
@@ -148,12 +152,40 @@ Configurable syntax
 | requireThousandsSeparator | boolean    | Requires a thousands separator in numbers with a thousands place. |
 | thousandsSeparator        | string     | The separator to require, for example `,` or `.`             |
 | decimalSeparator          | string     | Fo numbers with a decimal place, specify the separator, for example `,` or `.` |
-| maxValue                  | number     | The maximum currency amount to recognize. Use this, for example, as an alternative to the Tiebreaker parameter or to extract a currency in a known amount range given multiple currencies (in a box or paragraph, for example). |
-| minValue                  | number     | The minimum currency amount to recognize.                    |
+| maxValue                  | number     | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one amount among several returned by a method like the Document Range or Box method. |
+| minValue                  | number     | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
 
+Custom
+====
 
+Defined a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, social security numbers, invoice numbers, etc.
 
+**Example syntax**
 
+```
+"type":
+  {
+    "id": "custom",
+    "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+    "type": "time_24_hr_military"
+  }
+```
 
+**Example output**
 
+```json
+{
+    "source": "14:01",
+    "value": "14:01",
+    "type": "time_24_hr_military"
+  }
+```
+
+**Parameters**
+
+| key                    | value                    | description                                                  |
+| ---------------------- | ------------------------ | ------------------------------------------------------------ |
+| id (**required**)      | `custom`                 |                                                              |
+| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. This parameter doesn't support capturing groups. See the [Regex method](doc:regex) instead.<br/>Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character. |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 
