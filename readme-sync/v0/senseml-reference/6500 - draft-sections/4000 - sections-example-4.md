@@ -20,7 +20,7 @@ In the preceding image, 1. define a section then 2.  define a nested vertical se
 - Using the Offset Y parameter in a vertical section to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
 - The parent section group, `car_model`, uses an offset to include the heading with car model and year. 
 - The parent section demonstrates that without a Require Stop parameter, Sensible starts the next section on the first repeated instance of `trim` that follows the starting line vertically, but ignores repeats on the same horizontal line as the starting line. The nested section demonstrates the same behavior with the match-all regex `.+` . For more information, see TODO LINK section-nuances#multiple anchor matches.
-- Configuring column recognition in a vertical section with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps within each trim specs column. 
+- Configuring column recognition in a vertical section with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps in each trim specs column. 
 
 ```yml
 sections:
