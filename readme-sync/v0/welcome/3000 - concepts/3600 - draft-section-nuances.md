@@ -35,9 +35,9 @@ Sensible:
 
 2. (repeats) Recognizes columns inside the range, based on whitespace gutters and searching left-to-right. If non-columnar text is present in the range, it can affect column recognition as follows:
    
-   - If any non-columnar text is *below* the columns and if there's no Stop parameter, Sensible uses the non-column text as a criteria to end the range. 
+   - If there's a Stop parameter, Sensible adds the non-column text to each column. Each column then has a nonlinear, irregular shape. For example, this allows each column to use a table title that spans multiple columns as an anchor. 
 
-   - If any non-columnar text is *above* the columns in the range, it can break column recognition. Exclude the text from the range using the Offset Y parameter.
+   - If there's no Stop parameter, any non-columnar text in the range breaks column recognition. Exclude the text from the range using the offset parameters or the Lines Filter parameter.
    
 3. Extracts fields from each column in the group, using a limited subset of SenseML methods. For more information about available methods, see TODO link to the Range parameters table. Sensible expects but doesn't require that the data is in a repeated structure for each column.
 
