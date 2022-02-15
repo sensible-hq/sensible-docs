@@ -158,7 +158,7 @@ Configurable syntax
 Custom
 ====
 
-Defined a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, social security numbers, invoice numbers, etc.
+Defined a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, order numbers, etc.
 
 **Example syntax**
 
