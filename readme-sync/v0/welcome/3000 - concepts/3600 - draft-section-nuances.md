@@ -16,8 +16,11 @@ Sections
 
 Sensible finds the sections as follows:
 
-1. Finds the range, or y-extent, for a section in the group using Match and Stop lines. The range  can span pages. if no Stop, next section's range starts at next anchor's Match + yOffset parameters. This behavior ensures sections’ ranges never overlap. 
-2.  (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the section group ends with the End parameter, or Sensible reaches the end of the document.
+1. Finds the range, or y-extent, for a section in the group using Match and Stop lines.  Sections’  ranges never overlap, and ranges can span pages. In detail:
+   - If there's no Stop parameter, the next section's range starts at the next anchor's Match + yOffset parameters. 
+   - If there's an optional Stop parameter, the next sections starts *either* with the next anchor's Match + yOffset parameter, *or* at the Stop line. This option lets you specify text at the end of the section group in order to prevent the last section in the group from extending to the end of the document.   TODO: include a link to the Rate Confirmation Sections example 
+   - If there's a required Stop, the next section only starts at the next Stop line, and Sensible ignores any intervening anchor matches.
+2. (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the section group ends with the End parameter, or Sensible reaches the end of the document.
 3. Extracts fields from each section in the group. Sensible expects but doesn't require that the data is in a repeated structure for each section.
 
  
