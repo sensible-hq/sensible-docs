@@ -53,7 +53,7 @@ Use the Column Selection parameter with vertical sections to:
 - use text in excluded columns as anchors for fields in the target columns. For example, if a table has row labels, then configure the Column Selection parameter so that the row labels become available to all target columns.
 
 
-For example, if you configure `"columnSelection": [1,2]` for the following table, then the Apples and Bananas columns both:
+For example, if you exclude the first and last columns by configuring `"columnSelection": [[1,-1]]` for the following table, then the Apples and Bananas columns both:
 
 - have the Nutrition and Notes columns available as anchors, where the anchors keep the spatial layout of the original table in relationship to the target columns
 
@@ -90,7 +90,7 @@ And return something like:
  }
  ```
 
-
+TODO: link to the full example
 
 Multiple anchors in section
 ----
