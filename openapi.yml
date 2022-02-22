@@ -19,21 +19,29 @@ paths:
         For a step-by-step tutorial on calling this endpoint, 
         see [Try synchronous extraction](doc:api-tutorial-sync).
         
-        There are two options for posting the PDF bytes.
-          1. (often preferred) specify the non-encoded PDF bytes as the entire request body, 
-          and specify the content-type as "application/pdf".   
-          2. Base64 encode the PDF bytes, specify them in a body "document" field, and specify application/json for the content type. 
+        There are two options for posting the document bytes.
+          1. (often preferred) specify the non-encoded document bytes as the entire request body, 
+          and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png", as appropriate.
+          2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type. 
       parameters:
         - $ref: '#/components/parameters/type'
         - $ref: '#/components/parameters/environment'         
       requestBody:
-        description:  There are two options for posting the PDF bytes.
+        description:  There are two options for posting the document bytes.
           1. (often preferred) specify the non-encoded PDF bytes as the entire request body, 
-          and specify the content-type as "application/pdf".   
+          and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png", as appropriate.
           2. Base64 encode the PDF bytes, specify them in a body "document" field, and specify application/json for the content type. 
         required: true
         content:
           application/pdf:
+            schema:
+              type: string
+              format: binary
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+          image/png:
             schema:
               type: string
               format: binary
@@ -62,11 +70,12 @@ paths:
       description: |
         Extract data asynchronously from a document with the following steps. You must use this or other asynchronous endpoints for PDFs that are over 4.5MB in size or require over 30 seconds to process. 
           1. Use this endpoint to generate a Sensible URL.
-          2. PUT the PDF you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received 
+          2. PUT the document you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received 
         from this endpoint's response.
         For example, `curl -T ./sample.pdf "SENSIBLE_UPLOAD_URL"`. 
-        Note: the pre-signed upload_url does not support Base64 encoded PDFs. You PUT the PDF bytes directly to the endpoint 
-        and must omit the content-type header.
+        Note: the pre-signed upload_url does not support Base64 encoded documents. You PUT the document bytes directly to the endpoint, 
+        and you must match the "Content-Type" header to that specified in the POST that creates the URL. If you omit the parameter, you
+        must omit the header, and if you specify the parameter, you must include the exact header in the PUT.
           3.  To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the 
         GET documents/{id} endpoint.
         
@@ -483,11 +492,15 @@ components:
           $ref: '#/components/schemas/Webhook' 
         document_url:
           $ref: '#/components/schemas/DocumentUrl' 
+        content_type:
+          $ref: '#/components/schemas/ContentType'
     GenerateUrlRequest:
       type: object
       properties:
         webhook:
           $ref: '#/components/schemas/Webhook' 
+        content_type:
+          $ref: '#/components/schemas/ContentType'
     
     ExtractionId:
       type: string
@@ -534,6 +547,12 @@ components:
         To check if the URL meets these criteria, open the URL with a web browser. 
         The browser must either render the PDF as a full-page view with no other data, or download the PDF, without prompting for authentication.
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
+    ContentType:
+      type: string
+      enum: ["application/pdf", "image/jpeg", "image/png"]
+      description: |
+        The content type of the document being presented for extraction. This field is optional, but if supplied must be presented consistently
+        in all interactions.
   responses: 
 
     401:
