@@ -4,6 +4,7 @@ hidden: true
 ---
 
 - PLAN: show an otherwise simple table with both row and column labels. Maybe the fruit nutrition table?
+- TODO: link from zip method to here (and from other table methods) for complex tables?
 
 **Config**
 
