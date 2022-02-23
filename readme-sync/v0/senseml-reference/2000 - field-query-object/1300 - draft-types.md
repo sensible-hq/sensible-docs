@@ -176,16 +176,16 @@ Use configurable syntax to change the default recognized formats.
 
 **Parameters**
 
-| key                       | value      | description                                                  |
-| ------------------------- | ---------- | ------------------------------------------------------------ |
-| id (**required**)         | `currency` |                                                              |
-| requireCurrencySymbol     | boolean    | Requires a currency symbol preceeding the amount.            |
-| currencySymbol            | string     | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parater in the output. |
-| requireThousandsSeparator | boolean    | Requires a thousands separator in numbers with a thousands place. |
-| thousandsSeparator        | string     | The separator to require, for example `,` or `.`             |
-| decimalSeparator          | string     | For numbers with a decimal place, specify the separator, for example `,` or `.` |
-| maxValue                  | number     | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one amount among several returned by a method like the Document Range or Box method. |
-| minValue                  | number     | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
+| key                       | value                     | description                                                  |
+| ------------------------- | ------------------------- | ------------------------------------------------------------ |
+| id (**required**)         | `currency`                |                                                              |
+| requireCurrencySymbol     | boolean. Default: false   | Requires a currency symbol preceeding the amount.            |
+| currencySymbol            | string. Default: `$`      | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parater in the output. |
+| requireThousandsSeparator | boolean.  Default: false  | Requires a thousands separator in numbers with a thousands place. |
+| thousandsSeparator        | string. Default: `,`      | The separator to require, for example `,` or `.`             |
+| decimalSeparator          | string. Default: `.`      | For numbers with a decimal place, specify the separator, for example `,` or `.` |
+| maxValue                  | number. Default: infinity | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
+| minValue                  | number. Default: infinity | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
 
 Custom
 ====
