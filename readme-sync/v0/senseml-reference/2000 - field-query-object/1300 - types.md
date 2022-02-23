@@ -28,6 +28,7 @@ The following types are available:
 [Address](doc:types#address)
 [Boolean](doc:types#boolean)
 [Currency](doc:types#currency)
+[Custom](doc:types#custom)
 [Date](doc:types#date)
 [Distance](doc:types#distance)
 [Images](doc:types#images)
@@ -143,7 +144,33 @@ Example output:
 Currency
 ====
 
-Returns US dollars as absolute values. Recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand. For European decimal notation  (for example, 1.500,06), see [periodDelimitedCurrency](doc:types#perioddelimitedcurrency)  
+You can define this type using concise syntax, or you can configure options with expanded syntax.
+
+Simple syntax
+----
+
+**Syntax example**
+
+`"type": "currency"`
+
+**Output example** 
+
+Returns US dollars as absolute values.  For example,
+
+``` json
+{
+    "source": "3 bil",
+    "value": 3000000000,
+    "unit": "$",
+    "type": "currency"
+  }
+```
+
+**Formats recognized** 
+
+Sensible by default recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand.
+
+To recognize European decimal notation (for example, 1.500,06), see the following configurable syntax section.
 
 Recognizes digits with the following formatting:
 
@@ -175,19 +202,90 @@ $5.33
 
 This type **doesn't** match text such as `one million`  or `123456789`.
 
-Example output:
+Configurable syntax
+----
+
+Use configurable syntax to change the default recognized formats.
+
+**Example syntax **
 
 ```json
- {
-    "source": "3 bil",
-    "value": 3000000000,
-    "unit": "$",
+"type":
+  {
+    "id": "currency",
+    "currencySymbol": "€",
+    "requireCurrencySymbol": true,  
+    "thousandsSeparator": ".",
+    "decimalSeparator": ",", 
+    "maxValue": 10000,
+  }
+```
+
+**Example output**
+
+```json
+{
+    "source": "€3.567,01",
+    "value": 3567.01,
+    "unit": "€",
     "type": "currency"
   }
 ```
 
+**Parameters**
+
+| key                       | value                     | description                                                  |
+| ------------------------- | ------------------------- | ------------------------------------------------------------ |
+| id (**required**)         | `currency`                |                                                              |
+| requireCurrencySymbol     | boolean. Default: false   | Requires a currency symbol preceeding the amount.            |
+| currencySymbol            | string. Default: `$`      | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parater in the output. |
+| requireThousandsSeparator | boolean.  Default: false  | Requires a thousands separator in numbers with a thousands place. |
+| thousandsSeparator        | string. Default: `,`      | The separator to require, for example `.`                    |
+| decimalSeparator          | string. Default: `.`      | For numbers with a decimal place, specify the separator, for example `,`. |
+| maxValue                  | number. Default: infinity | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
+| minValue                  | number. Default: infinity | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
+
+Custom
+====
+
+Defines a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, order numbers, etc.
+
+**Example syntax**
+
+```
+"type":
+  {
+    "id": "custom",
+    "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+    "type": "time_24_hr_military"
+  }
+```
+
+**Example output**
+
+This type outputs strings. For example:
+
+```json
+{
+    "source": "14:01",
+    "value": "14:01",
+    "type": "time_24_hr_military"
+  }
+```
+
+**Parameters**
+
+| key                    | value                    | description                                                  |
+| ---------------------- | ------------------------ | ------------------------------------------------------------ |
+| id (**required**)      | `custom`                 |                                                              |
+| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. This parameter doesn't support capturing groups.<br/>Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character. |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
+
+
+
 Date
 ====
+
 You can define this type using concise syntax,  or you can configure options with expanded syntax.
 
 Simple syntax
@@ -321,31 +419,19 @@ Images
 
 Use this solely with the [Document Range](https://docs.sensible.so/docs/document-range) method to return image metadata.
 
-
 Name
 ====
 
-Returns one or more names. Doesn't recognize a list of names more than 6 lines long. 
+Simple syntax
+----
 
-Recognizes names of the formats below, and variant representations of these elements such as abbreviations:
-\- First Last
-\- First1 Last1 and First2 Last2
-\- Last, First1 and First2
-\- First1 and First2 Last
+**Syntax example**
 
-For example:
+`"type": "name"`
 
-```json
-John R. Smith
-Richard & Ann Spangenberg
-DuBois, Renee and Lois 
+**Output example** 
 
-
-```
-
-This type does **not** recognize text such as `Last1, Last2, & Last3`
-
-Example output:
+Returns one or more names. For example:
 
 ```json
 {
@@ -357,7 +443,61 @@ Example output:
 }
 ```
 
+**Formats recognized** 
 
+Doesn't recognize a list of names more than 6 words long.  Does **not** recognize lists of three or more names such as `last1, last2, & last3`
+
+Recognizes names of the formats below, and variant representations of these elements such as abbreviations. 
+
+\- first last
+\- first1 last1 and first2 last2
+\- last, first1 and first2
+\- first1 and first2 last
+
+For example:
+
+```
+John R. Smith Sr
+Richard & Ann Spangenberg
+DuBois, Renee and Lois 
+```
+
+Configurable syntax
+----
+
+**Example syntax **
+
+```json
+"type":
+  {
+    "id": "name",
+    "capitalization": "allCaps"
+  }
+```
+
+**Example output**
+
+```json
+{
+  "source": "Richard & Ann Spangenberg",
+  "type": "name",
+  "value": [
+      "RICHARD SPANGENBERG",
+      "ANN SPANGENBERG"
+}
+```
+
+**Parameters**
+
+| key               | value                                                        | description                                                  |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| id (**required**) | `name`                                                       |                                                              |
+| capitalization    | `allCaps`, `firstLetter`. Default: no change to source capitalization | Formats the output in all uppercase, or with only the first letter of each word capitalized. |
+
+
+
+
+====
 
 Number
 ====
@@ -420,50 +560,6 @@ Example:
 ```
 
 
-
-Period Delimited Currency
-====
-
-Returns numbers as absolute values. Recognizes European decimal formatting (for example, 1.500,06). Recognizes abbreviated quantities, such as k for thousand. For  USA decimal formatting (for example, 1,500.06), see [currency](doc:types#currency). 
-
-Recognizes digits with the following formatting:
-
-- periods every three digits, optional cents after a comma.
-
-- up to six digits without periods as sole line contents. Allow up to nine digits if cents following a comma are present.
-
-
-Recognizes abbreviated and written-out quantities as follows:
-
-- thousand, k
-- million, mil, mm, m
-- billion, bil, b
-- trillion, t
-
-For example: 
-
-```
-€1k
-5k
-1.000.000,056
-€5,33
-1 mm
-3 bil
-2 thousand
-
-```
-
-This type **doesn't** match text such as `one million`  or `123456789`. It doesn't output units of currency.
-
-Example output:
-
-```json
-{
-    "source": "5,33",
-    "value": 5.33,
-    "type": "periodDelimitedCurrency"
-}
-```
 
 
 
