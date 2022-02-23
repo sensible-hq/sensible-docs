@@ -79,6 +79,8 @@ Configurable syntax
 | id (**required**) | `name`                                                       |                                                              |
 | capitalization    | `allCaps`, `firstLetter`. Default: no change to source capitalization | Formats the output in all uppercase, or with only the first letter of each word capitalized. |
 
+
+
 Currency
 ====
 
@@ -194,7 +196,7 @@ Defines a custom type using regular expressions. For example, define types for z
 "type":
   {
     "id": "custom",
-    "pattern": "[0-9][0-9]:[0-9][0-9]",
+    "pattern": "[ ]+[0-9][0-9]:[0-9][0-9][ ]+",
     "type": "time_24_hr_military"
   }
 ```
@@ -205,7 +207,7 @@ This type outputs strings. For example:
 
 ```json
 {
-    "source": "14:01",
+    "source": " 14:01 ",
     "value": "14:01",
     "type": "time_24_hr_military"
   }
