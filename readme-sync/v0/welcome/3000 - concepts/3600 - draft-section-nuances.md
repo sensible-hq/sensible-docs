@@ -17,9 +17,12 @@ Sections
 Sensible finds the sections as follows:
 
 1. Finds the range, or y-extent, for a section in the group using Match and Stop lines.  Sections’  ranges never overlap, and ranges can span pages. In detail:
-   - If there's *no* Stop parameter, the next section's range starts at the next anchor's Match + Y Offset parameters. 
-   - If there's an *optional* Stop parameter, the next sections starts *either* with the next anchor's Match + Y Offset parameter, *or* below the next Stop line + Stop Y Offset parameter. This option lets you specify text at the end of the section group that doesn't occur inside the section group, in order to prevent the last section in the group from extending to the end of the document.   TODO: include a link to the Rate Confirmation Sections example showing this behavior. author example based on: https://dev.sensible.so/editor/?d=blog_test_rate_confirmation&c=ch_robinson_sections&g=ch_robinson_1
-   - If there's a *required* Stop, the next section only starts below the next Stop line, and Sensible ignores any intervening anchor matches.
+   - If there's *no* Stop parameter, the current section's range stops above the next anchor's Match + Y Offset parameters. 
+   - If there's an *optional* Stop parameter, the current section stops either:
+     -  above the next anchor's Match + Y Offset parameter, *or*
+     - above the next Stop line + Stop Y Offset parameter. 
+     - Use an *optional* stop to prevent the last section in the group from extending to the end of the document. For an example, see TODO: include a link to the Rate Confirmation Sections example showing this behavior. author example based on: https://dev.sensible.so/editor/?d=blog_test_rate_confirmation&c=ch_robinson_sections&g=ch_robinson_1
+   - If there's a *required* Stop, the next section stops above the next Stop line + Stop Y Offset parameter, and Sensible ignores any intervening anchor matches.
 2. (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the section group ends with the End parameter, or Sensible reaches the end of the document.
 3. Extracts fields from each section in the group. Sensible expects but doesn't require that the data is in a repeated structure for each section.
 
