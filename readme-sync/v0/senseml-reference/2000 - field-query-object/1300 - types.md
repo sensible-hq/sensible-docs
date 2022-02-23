@@ -242,6 +242,7 @@ Use configurable syntax to change the default recognized formats.
 | requireThousandsSeparator | boolean.  Default: false  | Requires a thousands separator in numbers with a thousands place. |
 | thousandsSeparator        | string. Default: `,`      | The separator to require, for example `.`                    |
 | decimalSeparator          | string. Default: `.`      | For numbers with a decimal place, specify the separator, for example `,`. |
+| maxDecimalDigits          | number. Default: 4        | The maximum number of decimal digits to recognize.           |
 | maxValue                  | number. Default: infinity | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
 | minValue                  | number. Default: infinity | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
 
