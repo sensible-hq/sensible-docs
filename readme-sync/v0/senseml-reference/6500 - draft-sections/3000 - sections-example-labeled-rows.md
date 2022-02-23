@@ -5,7 +5,7 @@ hidden: true
 
 The following examples shows using a vertical section to capture a table that has both column labels and row labels. It also shows:
 
-- Using the Column Selection parameter to output the second through second-to-last columns and make other columns available as anchoring information for each output column.
+- Using the Column Selection parameter to exclude the first and last columns from the output but make their text available as anchoring information for each outputted column.
 - To aid column recognition, excluding the anchor from the vertical section using the Offset Y parameter.
 - To illustrate each section's range, the config includes a field that outputs the entire contents of each section.
 
@@ -21,12 +21,7 @@ The following examples shows using a vertical section to capture a table that ha
       "id": "nutrition_per_fruit",
       "range": {
         "direction": "vertical",
-        "columnSelection": [
-          [
-            1,
-            -1
-          ]
-        ],
+        "columnSelection": [[1,-2]],
         "anchor": {
           "match": {
             "type": "equals",
