@@ -7,6 +7,7 @@ The following examples shows using a vertical section to capture a table that ha
 
 - Using the Column Selection parameter to output the second through second-to-last columns and make other columns available as anchoring information for each output column.
 - To aid column recognition, excluding the anchor from the vertical section using the Offset Y parameter.
+- To illustrate each section's range, the config includes a field that outputs the entire contents of each section.
 
 
 
@@ -21,7 +22,10 @@ The following examples shows using a vertical section to capture a table that ha
       "range": {
         "direction": "vertical",
         "columnSelection": [
-          [1, -1]
+          [
+            1,
+            -1
+          ]
         ],
         "anchor": {
           "match": {
@@ -48,7 +52,7 @@ The following examples shows using a vertical section to capture a table that ha
         },
         {
           "id": "fiber",
-          "type":"number",
+          "type": "number",
           "anchor": {
             "match": {
               "text": "fiber",
@@ -58,6 +62,18 @@ The following examples shows using a vertical section to capture a table that ha
           "method": {
             "id": "row",
             "tiebreaker": "first"
+          }
+        },
+        {
+          "id": "everything_in_this_section",
+          "method": {
+            "id": "documentRange",
+            "includeAnchor": true
+          },
+          "anchor": {
+            "match": {
+              "type": "first"
+            }
           }
         }
       ]
@@ -89,6 +105,10 @@ The following image shows the data extracted by this config for the following ex
         "source": "2.4",
         "value": 2.4,
         "type": "number"
+      },
+      "everything_in_this_section": {
+        "type": "string",
+        "value": "Nutrition Apple   Notes Calories 50   Per 100 g Fiber (g) 2.4   Skin on, if applicable Protein (g) 0.5  "
       }
     },
     {
@@ -100,6 +120,10 @@ The following image shows the data extracted by this config for the following ex
         "source": "3.1",
         "value": 3.1,
         "type": "number"
+      },
+      "everything_in_this_section": {
+        "type": "string",
+        "value": "Nutrition  Banana  Notes Calories  90  Per 100 g Fiber (g)  3.1  Skin on, if applicable Protein (g)  1.3 "
       }
     },
     {
@@ -111,6 +135,10 @@ The following image shows the data extracted by this config for the following ex
         "source": "0.9",
         "value": 0.9,
         "type": "number"
+      },
+      "everything_in_this_section": {
+        "type": "string",
+        "value": "Nutrition   Cantelope Notes Calories   34 Per 100 g Fiber (g)   0.9 Skin on, if applicable Protein (g)   0.8"
       }
     }
   ]
