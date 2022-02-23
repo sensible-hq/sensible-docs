@@ -198,7 +198,7 @@ Defines a custom type using regular expressions. For example, define types for z
 "type":
   {
     "id": "custom",
-    "pattern": "\\s+[0-9][0-9]:[0-9][0-9]\\s+",
+    "pattern": "^[0-9][0-9]:[0-9][0-9]$",
     "type": "time_24_hr_military"
   }
 ```
@@ -209,7 +209,7 @@ This type outputs strings. For example:
 
 ```json
 {
-    "source": " 14:01 ",
+    "source": "14:01",
     "value": "14:01",
     "type": "time_24_hr_military"
   }
