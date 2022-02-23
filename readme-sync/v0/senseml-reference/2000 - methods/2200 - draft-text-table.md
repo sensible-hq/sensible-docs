@@ -19,14 +19,14 @@ Parameters
 | *offsetY*              | *number*                                                   | *Defines a starting point from which to search down the page and recognize a  table. The starting point is offset in inches along a Y-axis from the anchor line's lower boundary.* |
 | *stop*                 | *Match object, array of Match objects, or number (inches)* | *(**Recommended**) Line to match or number in inches to stop table recognition.  Specify this parameter to prevent false positive results and to enable recognizing a table that spans pages.<br/>  A Match object or array specifies to stop table recognition when Sensible matches text.<br/> A number specifies the end of the table as the number of the inches offset along a Y-axis from the start of the table.* |
 | *startOnRow*           | *integer. default: 0*                                      | *Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section).* |
-| detectMultilineCells   | boolean                                                    | If true,                                                     |
+| detectMultilineCells   | boolean. default: false                                    | If true, Sensible detects if a table cell contains multiple lines. If the vertical gap between two lines is less than half the height of the second line, Sensible treats them as belonging to the same cell and adjusts the row height to accommodate the tallest cell.<br/>Set this to false if row gutters are narrow (for example, line breaks inside the cells are the same width as row gutters), or else Sensible can incorrectly merge multiple rows into one. |
 
 Examples
 ====
 
 The following example shows extracting two columns from a difficult-to-recognize table in the Sensible app:
 
-- Since this method doesn't recognize cells with more than one line of data, Sensible returns dollar limits in separate rows.
+- Since this method doesn't recognize cells with more than one line of data, Sensible returns dollar limits in separate rows. TODO: update
 - To prevent Sensible from returning unwanted term matches, the config specifies a Stop parameter.
 
 **Config**
