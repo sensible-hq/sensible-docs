@@ -37,7 +37,7 @@ Vertical sections
 
 Sensible:
 
-1. Finds the section group's range in which to recognize columns using Match and Stop lines. A range can span pages.
+1. (one time) Finds the section group's range in which to recognize columns using Match and Stop lines. A range can span pages.
 
 2. (repeats) Recognizes columns inside the range, based on whitespace gutters and searching left-to-right. If non-columnar text is present in the range, it can affect column recognition as follows:
    
