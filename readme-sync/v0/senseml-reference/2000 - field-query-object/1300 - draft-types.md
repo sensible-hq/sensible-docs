@@ -147,6 +147,8 @@ This type **doesn't** match text such as `one million`  or `123456789`.
 Configurable syntax
 ----
 
+Use configurable syntax to change the default recognized formats.
+
 **Example syntax **
 
 ```json
