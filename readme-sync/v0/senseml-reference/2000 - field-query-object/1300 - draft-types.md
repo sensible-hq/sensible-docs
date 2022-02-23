@@ -7,18 +7,18 @@ hidden: true
 Name
 ====
 
-You can define the Name type using concise syntax, `"type":"name"`, or you can use expanded syntax and configure the following parameters:
+You can define the Name type using concise syntax, `"type": "name"`, or you can use expanded syntax and configure the following parameters:
 
 **Parameters**
 
 | key               | value                                                        | description                                                  |
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | id (**required**) | `name`                                                       |                                                              |
-| capitalization    | `allCaps`, `firstLetter`. default: no change to source capitalization | Formats the output in all uppercase, or with only the first letter of each word capitalized. |
+| capitalization    | `allCaps`, `firstLetter`. Default: no change to source capitalization | Formats the output in all uppercase, or with only the first letter of each word capitalized. |
 
 
 
-Returns one or more names. Doesn't recognize a list of names more than 6 lines long. 
+Returns one or more names. Doesn't recognize a list of names more than 6 words long. 
 
 Recognizes names of the formats below, and variant representations of these elements such as abbreviations. 
 
@@ -26,8 +26,6 @@ Recognizes names of the formats below, and variant representations of these elem
 \- first1 last1 and first2 last2
 \- last, first1 and first2
 \- first1 and first2 last
-
-
 
 **Example input**
 
@@ -65,7 +63,7 @@ Simple syntax
 
 **Syntax example**
 
-`"type":"currency"`
+`"type": "currency"`
 
 **Output example** 
 
@@ -148,17 +146,17 @@ Configurable syntax
 | ------------------------- | ---------- | ------------------------------------------------------------ |
 | id (**required**)         | `currency` |                                                              |
 | requireCurrencySymbol     | boolean    | Requires a currency symbol preceeding the amount.            |
-| currencySymbol            | string     | The currency symbol to require, for example €. The symbol must precede the amount. |
+| currencySymbol            | string     | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parater in the output. |
 | requireThousandsSeparator | boolean    | Requires a thousands separator in numbers with a thousands place. |
 | thousandsSeparator        | string     | The separator to require, for example `,` or `.`             |
-| decimalSeparator          | string     | Fo numbers with a decimal place, specify the separator, for example `,` or `.` |
+| decimalSeparator          | string     | For numbers with a decimal place, specify the separator, for example `,` or `.` |
 | maxValue                  | number     | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one amount among several returned by a method like the Document Range or Box method. |
 | minValue                  | number     | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
 
 Custom
 ====
 
-Defined a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, order numbers, etc.
+Defines a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, order numbers, etc.
 
 **Example syntax**
 
@@ -166,7 +164,7 @@ Defined a custom type using regular expressions. For example, define types for z
 "type":
   {
     "id": "custom",
-    "pattern": "^[0-9][0-9]:[0-9][0-9]$",
+    "pattern": "[0-9][0-9]:[0-9][0-9]",
     "type": "time_24_hr_military"
   }
 ```
