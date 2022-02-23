@@ -1,6 +1,6 @@
 ---
 title: "Text Table"
-hidden: false
+hidden: true
 ---
 Use this method when other Table methods can't recognize a table. This method's advantage is that it's faster than other Table methods because it doesn't use table recognition. Its disadvantage is that it's more limited than other table methods, because it relies on strict line alignment within the table.
 
