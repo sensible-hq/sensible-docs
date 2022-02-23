@@ -178,3 +178,8 @@ Document Range is the sole method that supports images Sensible returns the imag
 - Extract a partial bitmap defined by the image region coordinates from the page.
 - Encode the bitmap to bytes in the image format of your choice. 
 
+Document range versus paragraphs
+----
+
+The Document Range method extracts all the text between an upper and a lower bound.  If you want to extract paragraphs, not a range, use the [Paragraph](doc:paragraph) method to detect paragraphs.
+
