@@ -3,12 +3,10 @@ title: "Labled rows example"
 hidden: true
 ---
 
-The following examples shows using a vertical section to capture a table that has both column and row labels. It also shows:
+The following examples shows using a vertical section to capture a table that has both column labels and row labels. It also shows:
 
 - Using the Column Selection parameter to output the second through second-to-last columns and make other columns available as anchoring information for each output column.
-- Using the Offset Y parameter to exclude the anchor from the vertical section.
-
-
+- To aid column recognition, excluding the anchor from the vertical section using the Offset Y parameter.
 
 
 
