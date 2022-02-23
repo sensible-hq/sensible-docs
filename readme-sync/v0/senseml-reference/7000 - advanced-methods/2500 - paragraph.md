@@ -1,16 +1,8 @@
 ---
 title: "Paragraph"
-hidden: true
+hidden: false
 ---
 Extracts paragraphs in various layouts, including paragraphs in columns and paragraphs that span pages. 
-
-TODOs before publish: 
-
-- wait to hear back from Horacio RE paragraph type w this method. if we decide it should be compatible, include link to this method from Types paragraph section
-
-- include notes in Document Range abt differences
-
-  
 
 [**Parameters**](doc:document-range#parameters)
 [**Examples**](doc:document-range#examples)
@@ -38,7 +30,6 @@ Examples
   "fields": [
     {
       "id": "repair_completion",
-      "type": "paragraph",
       "anchor": {
         "match": {
           "text": "may not repair",
@@ -73,6 +64,8 @@ The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/paragraph.png)
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/paragraph_1.png)
+
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/paragraph.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
@@ -96,3 +89,4 @@ Notes
 ====
 
 This method uses document layout to detect paragraphs. In contrast, the Document Range method extracts all the text between an upper and a lower bound. 
+
