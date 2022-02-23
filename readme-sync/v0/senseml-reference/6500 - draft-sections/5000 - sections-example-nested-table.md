@@ -27,10 +27,7 @@ The following example shows:
       "id": "table_columns_w_row_labels",
       "range": {
         "direction": "vertical",
-        "columnSelection": [
-          1,
-          2
-        ],
+        "columnSelection": [1,2],
         "offsetY": -0.5,
         "anchor": "Employee benefit",
         "stop": {
