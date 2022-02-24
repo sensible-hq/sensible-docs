@@ -21,7 +21,7 @@ Parameters
 | --------------------- | ------ | ------------------------------------------------------------ |
 | id (**required**)     | string | Specifies an ID for a group of sections to extract in the document area defined by the Range parameter. You can define an array of section groups, and you can nest sections inside of other sections. |
 | range  (**required**) | object | Specifies the document area from which to extract a group of sections. You can define an array of section groups in one document, and you can nest sections inside of other sections. The Range parameter specifies both:<br/>- a group of repeated sections in an area of the document <br/>- the start and end of each repeated section.<br/><br/>The sections group can span pages and nonrepeating text. For example,  in the preceding image, an "unprocessed_claims" section group can span month headings.<br/><br/>For the Range object's parameters, see the following table.<br/><br/> |
-| sections              |        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements. Each nested section searches for its range inside the parent section's range. |
+| sections              |        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements, for example, a grid of tables. TODO link to table grid. Each nested section searches for its range inside the parent section's range. |
 
 **Range parameters**
 
@@ -52,29 +52,24 @@ The following table shows Range parameters specific to vertical sections.
 Examples
 ====
 
-See the following topics:
+See the following topics: TODO link to examples. :
 
-- TODO link to examples:
+- sections-example-loss-run
 
-- loss run
+- sections-example-labeled-rows
 
-- columns
+- ADVANCED: sections-example-nested-columns
 
-- labeled rows
+- Advanced:  sections-example-nested-table
 
-- Advanced: nested columns
+- Advanced: sections-example-table-grid 
 
-- Advanced: nested table
-
-- Advanced: table grid 
-
-- TODO: take a look at an example like grid of ID cards like travelers_4_5_ pg 3  in [Vertical sections](https://dev.sensible.so/editor/?d=vertical_test&c=travelers&g=travelers_auto_1) ... can use column approach here? but the columns aren't identical ... maybe just horizontal sections...? 
-
-- ![image-20220215150851540](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220215150851540.png)
+- 
 
   
+
   
-  
+
 
 Notes
 ===
