@@ -52,7 +52,7 @@ Returns US dollar numbers. Supports negative numbers represented either with par
 Recognizes digits in USA decimal notation (for example, 1,500.06):
 
 - digits are in the format recognized by the [Number](doc:types#number) type
-- digits are optionally preceded by a US dollar sign ($) 
+- digits are optionally preceded by a USA dollar sign ($) 
 
 Examples: 
 
@@ -82,6 +82,7 @@ Returns USA-based addresses. Matches:
 - City, State, Zip, and variant representations of these elements such as abbreviations
 - Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations   
 - PO boxes with a number represented in digits
+- Lists of addresses in the preceding formats
 
 For example:
 
@@ -97,8 +98,6 @@ San Francisco, CA
 941104123
 
 ```
-
-If consecutive addresses are captured in a single extracted key/value pair, Sensible returns multiple addresses. 
 
 This type **doesn't** match text  that lacks a zip code, such as `11 Center Street, Amherst, MA`.
 
@@ -155,7 +154,7 @@ Simple syntax
 
 **Output example** 
 
-Returns US dollars as absolute values.  For example,
+Returns USA dollars as absolute value. For example,
 
 ``` json
 {
@@ -446,7 +445,7 @@ Returns one or more names. For example:
 
 **Formats recognized** 
 
-Doesn't recognize a list of names more than 6 words long.  Does **not** recognize lists of three or more names such as `last1, last2, & last3`
+Doesn't recognize a list of names more than 6 words long. **Doesn't** recognize lists of three or more names such as `last1, last2, & last3`
 
 Recognizes names of the formats below, and variant representations of these elements such as abbreviations. 
 
@@ -493,7 +492,7 @@ Configurable syntax
 | key               | value                                                        | description                                                  |
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | id (**required**) | `name`                                                       |                                                              |
-| capitalization    | `allCaps`, `firstLetter`. Default: no change to source capitalization | Formats the output in all uppercase, or with only the first letter of each word capitalized. |
+| capitalization    | `allCaps`, `firstLetter`. Default: no change to source capitalization | Formats the output in all uppercase, or with the first letter of each word capitalized. |
 
 
 
