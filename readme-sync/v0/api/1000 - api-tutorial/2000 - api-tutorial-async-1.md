@@ -5,13 +5,13 @@ hidden: false
 
 
 
-Use Sensible's asynchronous endpoints to extract data from PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
+Use Sensible's asynchronous endpoints to extract data from documents that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
 
 - Provide your own URLs for your documents. 
 
 - Use URLs provided by Sensible for your documents. 
 
-This topic covers providing your own URLs. This is a good option if you host your documents at either publicly accessible or a pre-signed URLs. The URL must respond to GET requests with PDF bytes.
+This topic covers providing your own URLs. This is a good option if you host your documents at either publicly accessible or a pre-signed URLs. The URL must respond to GET requests with document bytes.
 
 For either option, you can get the results as soon as they're ready by specifying a [webhook](doc:api-tutorial-webhook).
 
@@ -27,7 +27,7 @@ See [prerequisites](doc:api-tutorial#prerequisites).
 Extract the data 
 ----
 
-To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide-a-download-url) endpoint, let's use an example PDF hosted in GitHub:
+To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide-a-download-url) endpoint, let's use an example document hosted in GitHub:
 
 1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
 
@@ -62,7 +62,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
 Retrieve extraction
 ----
 
- To retrieve the extraction results for the sample PDF, you have two options:
+ To retrieve the extraction results for the sample document, you have two options:
 
 - Use the `/documents` endpoint. See the following steps.
 - Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
@@ -79,7 +79,7 @@ To retrieve the extraction results with the  `/documents` endpoint, take the fol
    }
    ```
    
-   Copy the document extraction `id` from that response. You'll use it to download the PDF extraction.
+   Copy the document extraction `id` from that response. You'll use it to download the document extraction.
    
 3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
 

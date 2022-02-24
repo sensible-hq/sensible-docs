@@ -150,7 +150,7 @@ The following example classifies the items on a restaurant menu. For the sake of
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

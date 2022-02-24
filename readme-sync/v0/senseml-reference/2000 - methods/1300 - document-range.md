@@ -52,7 +52,7 @@ The following example extracts a list of four sworn statements from a W-9 form.
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 
@@ -100,7 +100,7 @@ The following example shows extracting two images' coordinates.
 }
 ```
 
-**PDF**
+**Example document**
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)

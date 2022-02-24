@@ -67,7 +67,7 @@ The following example shows extracting two columns from a fixed table in the Sen
 }
 ```
 
-**PDF**
+**Example document**
 The following image shows the example PDF used with this example config:
 
 

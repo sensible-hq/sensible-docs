@@ -85,7 +85,7 @@ The following example shows using the Summarizer method to extract the monthly r
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

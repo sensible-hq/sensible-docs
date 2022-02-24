@@ -77,7 +77,7 @@ The following examples shows using a vertical section to capture a table that ha
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the data extracted by this config for the following example PDF:
 

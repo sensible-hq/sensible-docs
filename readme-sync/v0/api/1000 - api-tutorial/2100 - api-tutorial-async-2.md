@@ -3,13 +3,13 @@ title: "Try asynchronous extraction from a Sensible URL"
 hidden: false
 ---
 
-Use Sensible's asynchronous endpoints to extract data from PDFs that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
+Use Sensible's asynchronous endpoints to extract data from documents that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
 
 - Provide your own URLs for your documents. 
 
 - Use URLs provided by Sensible for your documents. 
 
-This topic covers using URLs provided by Sensible. This is a good option if you can't create either publicly accessible or pre-signed URLs for your PDFs.
+This topic covers using URLs provided by Sensible. This is a good option if you can't create either publicly accessible or pre-signed URLs for your documents.
 
 For either option, you can get the results as soon as they're ready by specifying a [webhook](doc:api-tutorial-webhook).
 
@@ -80,12 +80,12 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_headers_2.png)
 
-3. If you haven't already, download the following example PDF, which works with the example `auto_insurance_quote` config you created in the **Prerequisites** section:
+3. If you haven't already, download the following example document, which works with the example `auto_insurance_quote` config you created in the **Prerequisites** section:
 
 | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
-4. Correct the path to the downloaded PDF in your request: click the **Body** tab, select **binary**, then click **Select file** and select the PDF:
+4. Correct the path to the downloaded document in your request: click the **Body** tab, select **binary**, then click **Select file** and select the document:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 

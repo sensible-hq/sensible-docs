@@ -46,7 +46,7 @@ The following example shows using the Intersection method to extract a cell from
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

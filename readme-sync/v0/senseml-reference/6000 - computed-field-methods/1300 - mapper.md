@@ -57,7 +57,7 @@ The following example shows using a mapper to standardize a time duration.
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

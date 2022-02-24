@@ -105,7 +105,7 @@ The following example shows extracting repeated fields from a section containing
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the data extracted by this config for the following example PDF:
 

@@ -59,7 +59,7 @@ Examples
 }
 ```
 
-**PDF**
+**Example document**
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/paragraph.png)

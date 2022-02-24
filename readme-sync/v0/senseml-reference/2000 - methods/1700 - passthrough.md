@@ -51,7 +51,7 @@ The following example uses regular expressions to extract a list of forms with f
 }
 ```
 
-**PDF**
+**Example document**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/passthrough.png)
 

@@ -203,7 +203,7 @@ The following example shows using the Y Overlap parameter to correct vertical mi
 
 
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 
@@ -254,7 +254,7 @@ The Min X Gap Threshold preserves the intended PDF formatting, which is a two-co
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

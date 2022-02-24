@@ -117,7 +117,7 @@ The following example shows returning a single value from a radio button group, 
 
 
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

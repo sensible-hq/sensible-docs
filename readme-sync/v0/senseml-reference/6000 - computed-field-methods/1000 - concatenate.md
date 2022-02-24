@@ -79,7 +79,7 @@ The following example shows using the Concat method to concatenate two address f
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

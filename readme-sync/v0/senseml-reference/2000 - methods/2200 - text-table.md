@@ -65,7 +65,7 @@ The following example shows extracting two columns from a difficult-to-recognize
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

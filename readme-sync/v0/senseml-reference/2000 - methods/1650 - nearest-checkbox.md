@@ -68,7 +68,7 @@ The following example shows extracting the checkboxes that are nearest to their 
 }
 ```
 
-**PDF**
+**Example document**
 The following image shows the example PDF used with this example config:
 
 

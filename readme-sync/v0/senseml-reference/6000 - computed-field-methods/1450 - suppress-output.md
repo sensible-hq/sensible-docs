@@ -57,7 +57,7 @@ The following example shows suppressing a raw "driver's name" field and outputti
 
 
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

@@ -86,7 +86,7 @@ The following example shows various labels:
 }
 ```
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

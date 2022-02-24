@@ -89,7 +89,7 @@ Use the Reverse parameter when a difficult target line precedes an easy-to-match
 
 
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

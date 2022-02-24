@@ -60,7 +60,7 @@ The following example shows splitting a field's output to extract a first and la
 
 
 
-**PDF**
+**Example document**
 
 The following image shows the example PDF used with this example config:
 

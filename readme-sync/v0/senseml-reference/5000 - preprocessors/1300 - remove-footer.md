@@ -61,7 +61,7 @@ The following example shows:
 }
 ```
 
-**PDF**
+**Example document**
 
 The following images show the example PDF used with this example config:
 

@@ -5,7 +5,7 @@ hidden: true
 
 
 
-Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a PDF file and returns extracted data synchronously. 
+Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. 
 
 Prerequisites TODO: rewrite in API readme interface and...use preseeded?
 ---
