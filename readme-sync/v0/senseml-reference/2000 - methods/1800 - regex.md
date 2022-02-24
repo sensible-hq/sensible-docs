@@ -17,7 +17,7 @@ Parameters
 | key                    | value                                                 | description                                                  |
 | ---------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |
 | id (**required**)      | `regex`                                               | Specifies to include the anchor line in the method's output. |
-| pattern (**required**) | Javascript-flavored regex                             | If the regular expression has capturing groups (for example, `([0-9])([a-z])`, Sensible returns the contents of the **first** capturing group (in the preceding example, a single numeric character). Otherwise, Sensible returns the full contents of the matched line. Note you have to double escape characters, since the regex is in a JSON object (for example, `\\s` not `\s` to represent a whitespace character). |
+| pattern (**required**) | Javascript-flavored regex                             | Returns the first capturing group. To capture more than one group, you can use one field for each group, then concatenate them with the [Concatenate](doc:concatenate) computed field method. <br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character. |
 | flags                  | Javascript-flavored regex flags. default: none        | Flags to apply to the regex. For example, "i" for case-insensitive. |
 | stop                   | Match object or array of match objects. default: none | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document. |
 
