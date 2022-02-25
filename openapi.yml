@@ -61,6 +61,8 @@ paths:
           $ref: '#/components/responses/400'  
         '415':
           $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'    
   /generate_upload_url/{type}:
@@ -106,6 +108,8 @@ paths:
           $ref: '#/components/responses/400'  
         '415':
           $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'  
 
@@ -145,6 +149,8 @@ paths:
           $ref: '#/components/responses/400'  
         '415':
           $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'  
 
@@ -185,6 +191,8 @@ paths:
           $ref: '#/components/responses/400'  
         '415':
           $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'           
 
@@ -263,6 +271,8 @@ paths:
           $ref: '#/components/responses/400'  
         '415':
           $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'  
 
