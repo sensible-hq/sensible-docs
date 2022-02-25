@@ -552,16 +552,29 @@ components:
             title: Bad Request
             type: string
             example: |
-              One of the following error messages -
-              Must specify a document type
+              Either a specific set of messages about fields in the request, or one of the following error messages -
+              Not available to logged in users
+              To use the asynchronous flow you must have persistence enabled
               Specified document type does not exist
+              Specified document type ${named type} does not exist
+              No published configurations found for environment ${environment}
+              Specified golden does not exist
+              Specified configuration/version does not exist
+              Specified configuration/version is not valid
               Must provide the Content-Type header when request body is present
+              Content-Type must be application/json
               Missing request body or body.document
-              Body must be a valid JSON object
+              Could not determine the content type of the document
+              Document is not present
+              Document is not a PDF
+              Could not determine the content type of the document. Please check that the document was correctly encoded as Base64
               This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct
+              This PDF is password protected. Please resubmit with password protection disabled
               This PDF is empty
               This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches
-              This PDF exceeds the maximum size for OCR of 20MB
+              This PDF exceeds the maximum size for OCR of 50MB
+              No fingerprints match for this PDF and fingerprint_mode is set to strict
+              Content type of ${found} does not match declared type of ${expected}
     415:
       description: Unsupported Media Type
       content:
@@ -569,7 +582,22 @@ components:
           schema:
             title: Unsupported Media Type
             type: string
-            example: Content-Type must be application/json or application/pdf
+            example: |
+              One of the following error messages -
+              Content-Type must be application/json
+              Content-Type must be application/json or application/pdf or image/jpeg or image/png
+    429:
+      description: Too Many Requests
+      content:
+        text/plain:
+          schema:
+            title: Unsupported Media Type
+            type: string
+            example: |
+              One of the following error messages -
+              Attempt limit exceeded, please retry after some time.
+              Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls.
+              Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
     500:
       description: Internal Server Error
       content:
