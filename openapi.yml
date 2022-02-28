@@ -294,7 +294,6 @@ components:
           example: 1
           description: number of fingerprints defined in this config
         score:
-          type: object  
           $ref: '#/components/schemas/Score'
 
     ClassificationSummary:
@@ -313,14 +312,14 @@ components:
           fingerprints: 2
           fingerprints_present: 2
           score:
-            value: 3.5
+            value: 3
             fields_present: 4
             penalities: 0.5
         - configuration: acme_co
           fingerprints: 2
           fingerprints_present: 2
           score:
-            value: 0.5
+            value: 0
             fields_present: 2
             penalities: 1.5
       
@@ -421,16 +420,16 @@ components:
           description: the number of fields skipped in the extraction because a prerequisite field was null
           example: 1          
     PortfolioRequest:
-      allOf:
-        - $ref: '#/components/schemas/Webhook'
-        - type: object
-          properties:                
-            types:      
-              type: array
-              description: Specifies the document types contained in the PDF portfolio.
-              items:
-                type: string 
-              example: tax_returns, bank_statements, credit_reports
+      type: object
+      properties: 
+        webhook:
+          $ref: '#/components/schemas/Webhook'               
+        types:      
+          type: array
+          description: Specifies the document types contained in the PDF portfolio.
+          items:
+            type: string 
+          example: [tax_returns, bank_statements, credit_reports]
         
 
    
@@ -543,7 +542,7 @@ components:
           type: string
           format: url
           description: the webhook destination. Sensible will POST to this URL when the extraction is complete.
-          example: YOUR_WEBHOOK_URL
+          example: https://example.com/example_webhook_url
         payload:
           type: string
           description: Include info additional to the API response, for example a UUID for verification.
