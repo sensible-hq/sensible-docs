@@ -11,9 +11,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: readmeio/github-readme-sync@v2
         env:
-          some_key: ${{ secrets.README_API_KEY }}  
-        with:
-          readme-oas-key: some_key
+          readme-oas-key: ${{ secrets.README_API_KEY }}  
+        #with:
+          #readme-oas-key: some_key
           
           
            
