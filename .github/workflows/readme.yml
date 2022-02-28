@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: readmeio/github-readme-sync@v2
-        env:
-          readme-oas-key: ${{ secrets.README_API_KEY }}  
-        #with:
-          #readme-oas-key: some_key
+        #env:
+          #readme-oas-key: ${{ secrets.README_API_KEY }}  
+        with:
+          readme-oas-key: ${{ secrets.README_API_KEY }}
           
           
            
