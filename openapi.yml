@@ -594,8 +594,6 @@ components:
               Content-Type must be application/json
               Missing request body or body.document
               Could not determine the content type of the document
-              Document is not present
-              Document is not a PDF
               Could not determine the content type of the document. Please check that the document was correctly encoded as Base64
               This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct
               This PDF is password protected. Please resubmit with password protection disabled
@@ -604,6 +602,8 @@ components:
               This PDF exceeds the maximum size for OCR of 50MB
               No fingerprints match for this PDF and fingerprint_mode is set to strict
               Content type of ${found} does not match declared type of ${expected}
+              Document is not present
+              
     415:
       description: Unsupported Media Type
       content:
