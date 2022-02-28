@@ -233,7 +233,7 @@ paths:
         '500':
           $ref: '#/components/responses/500'  
 
-  /extract_from_url/:
+  /extract_from_url:
     post:
       operationId: provide-a-download-url-for-a-pdf-portfolio
       summary: Extract portfolio at your URL 
