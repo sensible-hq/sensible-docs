@@ -1,4 +1,4 @@
-name: Linting
+name: Linting style
 on: [push]
 
 jobs:
