@@ -1,31 +1,13 @@
-name: Linting and link checking jobs
+name: Linting 
 on:
   push:
     branches: [ main ]
 jobs:
-  check-links:
-    runs-on: ubuntu-latest
-    steps:
-      # get the changelogs and save locally so you can check those links
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2 
-      - name: Set up Ruby 💎
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '2.7'
-          bundler-cache: true
-      - name: Install dependencies 🔧
-        run: cd ./scripts/check_links/ && bundle install
-      - name: Build HTML frm markdown and check links 🏗  
-        run: ruby ./scripts/check_links/check_links.rb
-        env:
-          README_API_KEY: ${{ secrets.README_API_KEY}}
   prose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       - name: Vale
         uses: errata-ai/vale-action@master
         with:
