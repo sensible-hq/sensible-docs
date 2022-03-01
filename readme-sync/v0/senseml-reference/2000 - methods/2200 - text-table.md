@@ -21,7 +21,7 @@ Parameters
 | offsetY                   | number                                                   | Defines a starting point from which to search down the page and recognize a  table. The starting point is offset in inches along a Y-axis from the anchor line's lower boundary. |
 | stop                      | Match object, array of Match objects, or number (inches) | (**Recommended**) Line to match or number in inches to stop table recognition.  Specify this parameter to prevent false positive results and to enable recognizing a table that spans pages.<br/>  A Match object or array specifies to stop table recognition when Sensible matches text.<br/> A number specifies the end of the table as the number of the inches offset along a Y-axis from the start of the table. |
 | startOnRow                | integer. default: 0                                      | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section). |
-| detectMultipleLinesPerRow | boolean. default: false                                  | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same width as row gutters, Sensible can incorrectly merge multiple rows into one. In detail, Sensible detects a cell with multiple lines if the vertical gap between two lines is less than half the height of the second line. Sensible adjusts the row height to accommodate the tallest cell. |
+| detectMultipleLinesPerRow | boolean. default: false                                  | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same height as row gutters, Sensible can incorrectly merge multiple rows into one. In detail, Sensible detects a cell with multiple lines if the vertical gap between two lines is less than half the height of the second line. Sensible adjusts the row height to accommodate the tallest cell. |
 
 Examples
 ====
@@ -30,7 +30,7 @@ The following example shows extracting two columns from a difficult-to-recognize
 
 - To prevent Sensible from returning unwanted term matches, the config specifies a Stop parameter.
 - To handle cells with multiple lines, the config specifies true for the Detect Multiple Lines Per Row parameter.
-- To exclude column headings, the config sets the Is Requried parameter to true for column 4 and specifies the cell contents must be a currency.
+- To exclude column headings, the config sets the Is Required parameter to true for column 4 and specifies the cell contents must be a currency.
 
 **Config**
 
