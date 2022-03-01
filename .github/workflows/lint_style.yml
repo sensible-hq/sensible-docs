@@ -14,7 +14,7 @@ jobs:
         # Optional
         styles: |
           https://github.com/errata-ai/Google/releases/latest/download/Google.zip
-           https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
+          https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
 
         # Optional
         config: https://raw.githubusercontent.com/errata-ai/vale/master/.vale.ini
