@@ -580,7 +580,7 @@ components:
             title: Bad Request
             type: string
             example: |
-              Either a specific set of messages about fields in the request, or one of the following error messages -
+              Either a specific set of messages about fields in the request, or error messages like the following examples -
               Not available to logged in users
               To use the asynchronous flow you must have persistence enabled
               Specified document type does not exist
