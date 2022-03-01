@@ -1,20 +1,24 @@
-name: Sync OAS to ReadMe
+name: Sync OpenAPI definition to ReadMe
+
+# Run workflow for every push to the `main` branch
 on:
   push:
     branches:
-      - master
       - main
+
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: readmeio/github-readme-sync@v2 
+      - name: Checkout this repo
+        uses: actions/checkout@v2.4.0
+
+      # Run GitHub Action to sync OpenAPI file at [path-to-file.json]
+      - name: GitHub Action
+        # We recommend specifying a fixed version, i.e. @6.5.0
+        # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
+        uses: readmeio/rdme@6.5.0
         with:
-          readme-oas-key: ${{ secrets.README_OAS_KEY }}
-          
-          
-           
-          # OPTIONAL CONFIG, use if necessary
-          # oas-file-path: './swagger.json'
-          # api-version: 'v0.0.0'
+          rdme: openapi openapi.yml --key=${{ secrets.README_API_KEY }} --id=6201a25efa760de40382e060
+
+
