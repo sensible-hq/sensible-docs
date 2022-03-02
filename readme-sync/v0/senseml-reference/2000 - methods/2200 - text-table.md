@@ -129,6 +129,10 @@ The following image shows the example PDF used with this example config:
 ```
 
 
+Notes
+====
+
+For examples of extracting from complex tables, such as tables inside tables or tables with labled rows and columns, see [Sections](doc:sections#examples).
 
 
 
