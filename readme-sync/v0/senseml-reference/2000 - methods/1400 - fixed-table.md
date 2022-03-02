@@ -134,3 +134,4 @@ Notes
 ====
 If  tables have variable column layout, use the [Table method](doc:table) instead. 
 
+For examples of extracting from complex tables, such as tables inside tables or tables with labled rows and columns, see [Sections](doc:sections#examples).
