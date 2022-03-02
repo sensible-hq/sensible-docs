@@ -91,7 +91,7 @@ And return something like:
  }
  ```
 
-TODO: link to the full example
+For details about this example, see [Labeled rows and labeled columns table example](doc:sections-example-labeled-rows)
 
 Multiple anchors in section
 ----
@@ -106,7 +106,7 @@ You can handle multiple matches for the range's Match parameter inside a section
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
-For examples of using the default behavior shown in the preceding images, see TODO: link to specific examples for vertical sections and TODO link for sections.
+For an example of using the default behavior shown in the preceding images, see [Table grid example](doc:sections-example-table-grid)
 
 
 

@@ -19,7 +19,7 @@ Parameters
 | --------------------- | ------ | ------------------------------------------------------------ |
 | id (**required**)     | string | Specifies an ID for a group of sections to extract in the document area defined by the Range parameter. You can define an array of section groups, and you can nest sections inside of other sections. |
 | range  (**required**) | object | Specifies the document area from which to extract a group of sections. You can define an array of section groups in one document, and you can nest sections inside of other sections. The Range parameter specifies both:<br/>- a group of repeated sections in an area of the document <br/>- the start and end of each repeated section.<br/><br/>The sections group can span pages and nonrepeating text. For example,  in the preceding image, an "unprocessed_claims" section group can span month headings.<br/><br/>For the Range object's parameters, see the following table.<br/><br/> |
-| sections              |        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements, for example, a grid of tables. TODO link to table grid. Each nested section searches for its range inside the parent section's range. |
+| sections              |        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements, for example, [a grid of tables](doc:sections-example-table-grid). Each nested section searches for its range inside the parent section's range. |
 
 **Range parameters**
 
@@ -52,17 +52,18 @@ Examples
 
 See the following topics: TODO link to examples. :
 
-- sections-example-loss-run
 
-- sections-example-labeled-rows
+- [Loss run example](doc:sections-example-loss-run)
 
-- ADVANCED: sections-example-nested-columns
+- [Labeled rows and labeled columns table example](doc:sections-example-labeled-rows)
 
-- Advanced:  sections-example-nested-table
+- Advanced: [Nested columns example](doc:sections-example-nested-columns)
 
-- Advanced: sections-example-table-grid 
+- Advanced: [Nested table example](doc:sections-example-nested-table)
 
-- 
+- Advanced: [Table grid example](doc:sections-example-table-grid)
+
+ 
 
   
 
