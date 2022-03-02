@@ -104,7 +104,7 @@ For this tutorial, you'll extract these fields:
 }
 ```
 
-2. Click **Publish** and choose **Production** to publish the config.
+2. Click **Publish** and choose **Development** to enable using the config with the Sensible API.
 
 The following image shows this example in the Sensible app:
 
