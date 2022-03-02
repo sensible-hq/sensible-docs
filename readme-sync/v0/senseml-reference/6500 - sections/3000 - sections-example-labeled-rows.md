@@ -1,6 +1,6 @@
 ---
-title: "Labled rows example"
-hidden: true
+title: "Labeled rows example"
+hidden: false
 ---
 
 The following examples shows using a vertical section to capture a table that has both column labels and row labels. It also shows:

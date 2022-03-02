@@ -1,6 +1,6 @@
 ---
 title: "Advanced: table grid example"
-hidden: true
+hidden: false
 
 ---
 

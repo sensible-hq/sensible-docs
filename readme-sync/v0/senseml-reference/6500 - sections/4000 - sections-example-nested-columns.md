@@ -1,6 +1,6 @@
 ---
 title: "Advanced: nested columns example"
-hidden: true
+hidden: false
 
 ---
 

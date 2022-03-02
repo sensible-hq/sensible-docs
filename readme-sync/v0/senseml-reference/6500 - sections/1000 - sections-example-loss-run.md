@@ -1,6 +1,6 @@
 ---
 title: "Claims loss run example"
-hidden: true
+hidden: false
 ---
 
 The following example shows extracting repeated fields from a section containing a list of claims:

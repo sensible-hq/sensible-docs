@@ -1,6 +1,6 @@
 ---
 title: "Advanced: nested table example"
-hidden: true
+hidden: false
 ---
 
 The following example shows:
