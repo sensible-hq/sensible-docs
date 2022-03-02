@@ -98,7 +98,7 @@ Multiple anchors in section
 
 You can handle multiple matches for the range's Match parameter inside a section as follows:
 
-- If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter.  Even if you leave this parameter unspecified, Sensible ignore matches that are on the same horizontal line to the left of the anchor's Match parameter.
+- If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter.  Even if you leave this parameter unspecified, Sensible ignores matches that are on the same horizontal line to the left of the anchor's Match parameter.
 - Or, you can use Sensible's default behavior to split a section group range containing multiple anchors into sections. For example, assume that the anchor's Match line is the regular expression `.+`, meaning match any characters. In this case, if you already defined the start and end of the section group, then:
   - For sections, Sensible splits text into "rows" at each newline. If the rows are at all vertically misaligned, Sensible can also generate some small empty sections.
   - For vertical sections, Sensible splits text into "columns".
