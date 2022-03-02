@@ -5,28 +5,17 @@ hidden: true
 
 Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. 
 
-Prerequisites
----
 
-See [prerequisites](doc:api-tutorial#prerequisites).
 
-Run the request in postman
+Run the request in Postman
 ----
 
 Click through the following slides to see how to run a Sensible API request in Postman.
 
-
-
-
-
-[block:html]
-{
-  "html": "<div style=\"position: relative; padding-bottom: calc(49.296875% + 41px); height: 0;\"><iframe src=\"https://demo.arcade.software/9o6EcG8ufjz322xHVN85/\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
-}
-[/block]
 To follow along, you'll need:
 
-- this sample code:
+- A document type and config in the Sensible app. See the [prerequisites](doc:api-tutorial#prerequisites).
+- the sample code:
 
 
 ```curl
@@ -42,6 +31,24 @@ curl --request POST \
 
 | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | -------------------- | ------------------------------------------------------------ |
+
+
+
+[block:html]
+{
+  "html": "<div style=\"position: relative; padding-bottom: calc(49.296875% + 41px); height: 0;\"><iframe src=\"https://demo.arcade.software/9o6EcG8ufjz322xHVN85/\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
+}
+[/block]
+
+
+
+[block:html]
+{
+  "html": "<div style="position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;"><iframe src="https://demo.arcade.software/tVM0vGLWefFuTzVNBW75/" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>"
+}
+[/block]
+
+
 
 
 
