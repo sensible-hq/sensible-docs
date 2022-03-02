@@ -32,8 +32,7 @@ To run an API call and return extracted data from an example document:
 }
 [/block]
 
-
-2. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find your key on your [account page](https://app.sensible.so/account/).
+3. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find your key on your [account page](https://app.sensible.so/account/).
 
 4. Run the code sample in a command prompt. The API returns a `parsed_document` object with the extracted data, as well as metadata about the extraction, in a response like the following:
 
