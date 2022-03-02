@@ -42,11 +42,6 @@ curl --request POST \
 
 
 
-[block:html]
-{
-  "html": "<div style="position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;"><iframe src="https://demo.arcade.software/tVM0vGLWefFuTzVNBW75/" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>"
-}
-[/block]
 
 
 
