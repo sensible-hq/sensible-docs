@@ -1,5 +1,5 @@
 ---
-title: "TEST ARCADE Try synchronous extraction"
+title: "Try synchronous extraction"
 hidden: true
 ---
 
