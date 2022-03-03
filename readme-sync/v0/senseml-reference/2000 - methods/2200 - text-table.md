@@ -7,7 +7,7 @@ Matches tables based on coordinates in inches and returns their collated column 
 This method's advantages are:
 
 - It's faster than other Table methods because it doesn't use table recognition.
-- It can find tables that other Table methods can't.
+- It can extract unusally formatted tables that other Table methods can't recognize.
 
 Its disadvantage is that it's more limited than other table methods, because it relies on line alignment to find the table. For an example, see the [Examples section](doc:text-table#examples).
 
