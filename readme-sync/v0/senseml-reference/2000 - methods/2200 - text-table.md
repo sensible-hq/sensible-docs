@@ -4,7 +4,12 @@ hidden: false
 ---
 Matches tables based on coordinates in inches and returns their collated column contents.  Anchor on the table title, or use a negative Offset Y parameter to enable anchoring on a column heading.
 
-Use this method when other Table methods can't recognize a table. This method's advantage is that it's faster than other Table methods because it doesn't use table recognition. Its disadvantage is that it's more limited than other table methods, because it relies on line alignment in the table. For an example, see the [Examples section](doc:text-table#examples).
+This method's advantages are:
+
+- It's faster than other Table methods because it doesn't use table recognition.
+- It can find tables that other Table methods can't.
+
+Its disadvantage is that it's more limited than other table methods, because it relies on line alignment to find the table. For an example, see the [Examples section](doc:text-table#examples).
 
 [**Parameters**](doc:text-table#parameters)
 [**Examples**](doc:text-table#examples)
