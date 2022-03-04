@@ -3,11 +3,11 @@ title: "Advanced: nested table example"
 hidden: false
 ---
 
-The following example shows:
+The following example:
 
-- using the Column Selection parameter in a vertical sections group to handle row labels in a table.
-- Since table recognition works on the whole page, the example uses a nested section group to extract a nested table.  In the nested section group, each row of the nested table is its own section. For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section). 
-- To illustrate each section's range, the config includes a field that outputs the entire contents of each section.
+- Uses the Column Selection parameter in a vertical sections group to treat row labels as anchors in a table.
+- Uses relative column coordinates to find nested tables in each column table. (`"columnsRelativeToAnchor":"true"`).
+- Illustrates each section's range with a field that outputs the entire contents of each section.
 
 **Config**
 
@@ -24,10 +24,13 @@ The following example shows:
   "fields": [],
   "sections": [
     {
-      "id": "table_columns_w_row_labels",
+      "id": "table_columns",
       "range": {
         "direction": "vertical",
-        "columnSelection": [1,2],
+        "columnSelection": [
+          1,
+          2
+        ],
         "offsetY": -0.5,
         "anchor": "Employee benefit",
         "stop": {
@@ -36,6 +39,17 @@ The following example shows:
         }
       },
       "fields": [
+        {
+          "id": "employee_category",
+          "anchor": {
+            "match": {
+              "type": "first"
+            }
+          },
+          "method": {
+            "id": "passthrough"
+          }
+        },
         {
           "id": "employee_benefit",
           "anchor": "Employee benefit",
@@ -46,7 +60,41 @@ The following example shows:
           }
         },
         {
-          "id": "everything_in_this_section",
+          "id": "reduction_subtable",
+          "type": "table",
+          "method": {
+            "id": "textTable",
+            "columnsRelativeToAnchor": true,
+            "offsetY": -0.3,
+            "columns": [
+              {
+                "id": "col1_age",
+                "minX": -0.1,
+                "maxX": 0.5,
+                "type":"number"
+              },
+              {
+                "id": "col2_reduction",
+                "minX": 0.5,
+                "maxX": 2.4,
+                "type": "percentage",
+                "isRequired": true
+              }
+            ],
+            "stop": {
+              "type": "startsWith",
+              "text": "for more details about coverage"
+            }
+          },
+          "anchor": {
+            "match": {
+              "type": "startsWith",
+              "text": "age"
+            }
+          }
+        },
+        {
+          "id": "everything_in_this_vertical_section",
           "method": {
             "id": "documentRange",
             "includeAnchor": true
@@ -56,64 +104,6 @@ The following example shows:
               "type": "first"
             }
           }
-        }
-      ],
-      "sections": [
-        {
-          "id": "benefit_reduction",
-          "range": {
-            "offsetY": 0.1,
-            "anchor": {
-              "start": "Benefit reduction",
-              "match": {
-                "type": "regex",
-                "pattern": ".+"
-              }
-            }
-          },
-          "fields": [
-            {
-              "id": "age",
-              "type": "number",
-              "anchor": {
-                "match": {
-                  "type": "first"
-                }
-              },
-              "method": {
-                "id": "passthrough"
-              }
-            },
-            {
-              "id": "reduction",
-              "type": "percentage",
-              "anchor": {
-                "match": [
-                  {
-                    "type": "first"
-                  },
-                  {
-                    "type": "first"
-                  }
-                ]
-              },
-              "method": {
-                "id": "passthrough"
-              }
-            },
-            {
-              "id": "everything_in_this_subsection",
-              "method": {
-                "id": "documentRange",
-                "includeAnchor": true
-              },
-              "anchor": {
-                "match": {
-                  "type": "first"
-                }
-              }
-            }
-          ]
         }
       ]
     }
@@ -135,126 +125,122 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "table_columns_w_row_labels": [
+  "table_columns": [
     {
+      "employee_category": {
+        "type": "string",
+        "value": "Employees paid \u0000100k"
+      },
       "employee_benefit": {
         "value": "100% of salary, max $100k",
         "type": "string"
       },
-      "everything_in_this_section": {
-        "type": "string",
-        "value": "Employees paid \u0000100k  Notes Employee benefit 100% of salary, max $100k  After a 3 month waiting period Common carrier Not included  Benefit reduction Age Reduction   Not adjusted for 65 35%   inflation 70 60%   75 75%  "
+      "reduction_subtable": {
+        "columns": [
+          {
+            "id": "col1_age",
+            "values": [
+              {
+                "source": "65",
+                "value": 65,
+                "type": "number"
+              },
+              {
+                "source": "70",
+                "value": 70,
+                "type": "number"
+              },
+              {
+                "source": "75",
+                "value": 75,
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "id": "col2_reduction",
+            "values": [
+              {
+                "source": "35%",
+                "value": 35,
+                "type": "percentage"
+              },
+              {
+                "source": "60%",
+                "value": 60,
+                "type": "percentage"
+              },
+              {
+                "source": "75%",
+                "value": 75,
+                "type": "percentage"
+              }
+            ]
+          }
+        ]
       },
-      "benefit_reduction": [
-        {
-          "age": {
-            "source": "65",
-            "value": 65,
-            "type": "number"
-          },
-          "reduction": {
-            "source": "35%",
-            "value": 35,
-            "type": "percentage"
-          },
-          "everything_in_this_subsection": {
-            "type": "string",
-            "value": "65 35%   inflation    "
-          }
-        },
-        {
-          "age": {
-            "source": "70",
-            "value": 70,
-            "type": "number"
-          },
-          "reduction": {
-            "source": "60%",
-            "value": 60,
-            "type": "percentage"
-          },
-          "everything_in_this_subsection": {
-            "type": "string",
-            "value": "70 60%    "
-          }
-        },
-        {
-          "age": {
-            "source": "75",
-            "value": 75,
-            "type": "number"
-          },
-          "reduction": {
-            "source": "75%",
-            "value": 75,
-            "type": "percentage"
-          },
-          "everything_in_this_subsection": {
-            "type": "string",
-            "value": "75 75%  "
-          }
-        }
-      ]
+      "everything_in_this_vertical_section": {
+        "type": "string",
+        "value": "Employees paid \u0000100k  Notes Employee benefit 100% of salary, max $100k  After a 3 month waiting period Common carrier Not included  Benefit reduction Age Reduction   Not adjusted for 65 35%   inflation 70 60%   75 75%   For more details about coverage and benefits, see the following sections."
+      }
     },
     {
+      "employee_category": {
+        "type": "string",
+        "value": "All other employees"
+      },
       "employee_benefit": {
         "value": "50% of salary, max $50k",
         "type": "string"
       },
-      "everything_in_this_section": {
-        "type": "string",
-        "value": "All other employees Notes Employee benefit  50% of salary, max $50k After a 3 month waiting period Common carrier  Not included Benefit reduction   Age Reduction Not adjusted for   65 35% inflation   70 60%   75 75%"
+      "reduction_subtable": {
+        "columns": [
+          {
+            "id": "col1_age",
+            "values": [
+              {
+                "source": "65",
+                "value": 65,
+                "type": "number"
+              },
+              {
+                "source": "70",
+                "value": 70,
+                "type": "number"
+              },
+              {
+                "source": "75",
+                "value": 75,
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "id": "col2_reduction",
+            "values": [
+              {
+                "source": "35%",
+                "value": 35,
+                "type": "percentage"
+              },
+              {
+                "source": "60%",
+                "value": 60,
+                "type": "percentage"
+              },
+              {
+                "source": "75%",
+                "value": 75,
+                "type": "percentage"
+              }
+            ]
+          }
+        ]
       },
-      "benefit_reduction": [
-        {
-          "age": {
-            "source": "65",
-            "value": 65,
-            "type": "number"
-          },
-          "reduction": {
-            "source": "35%",
-            "value": 35,
-            "type": "percentage"
-          },
-          "everything_in_this_subsection": {
-            "type": "string",
-            "value": "65 35% inflation    "
-          }
-        },
-        {
-          "age": {
-            "source": "70",
-            "value": 70,
-            "type": "number"
-          },
-          "reduction": {
-            "source": "60%",
-            "value": 60,
-            "type": "percentage"
-          },
-          "everything_in_this_subsection": {
-            "type": "string",
-            "value": "70 60%  "
-          }
-        },
-        {
-          "age": {
-            "source": "75",
-            "value": 75,
-            "type": "number"
-          },
-          "reduction": {
-            "source": "75%",
-            "value": 75,
-            "type": "percentage"
-          },
-          "everything_in_this_subsection": {
-            "type": "string",
-            "value": "75 75%"
-          }
-        }
-      ]
+      "everything_in_this_vertical_section": {
+        "type": "string",
+        "value": "All other employees Notes Employee benefit  50% of salary, max $50k After a 3 month waiting period Common carrier  Not included Benefit reduction   Age Reduction Not adjusted for   65 35% inflation   70 60%   75 75% For more details about coverage and benefits, see the following sections."
+      }
     }
   ]
 }
