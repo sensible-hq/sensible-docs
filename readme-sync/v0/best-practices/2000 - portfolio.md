@@ -4,7 +4,7 @@ hidden: true
 
 ---
 
-This topic covers tips and tricks for extracting handwriting:
+This topic contains tips and tricks for extracting handwriting:
 
 - **Choosing an OCR engine** Google OCR instead of Microsoft OCR. To configure OCR, click the gear icon for the Document Type and select **Google**: 
 
