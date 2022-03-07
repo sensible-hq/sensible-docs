@@ -328,7 +328,7 @@ components:
       description: The score for the extraction, used to help choose the best extraction.
       properties:
         value:
-          type: integer
+          type: number
           example: 17
           description: the score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
         fields_present:
@@ -416,7 +416,7 @@ components:
           description: the number of warnings in the extraction
           example: 1
         skipped:
-          type: number
+          type: integer
           description: the number of fields skipped in the extraction because a prerequisite field was null
           example: 1          
     PortfolioRequest:
