@@ -14,7 +14,7 @@ This topic contains tips and tricks for extracting handwriting:
 
 - **Defining regions** can occupy an unpredictable region or even overlap other lines. Rather than attempting to draw a large region to encapsulate the handwriting, it's sometimes better to draw a box with a small height and long width that runs through the middle of the handwriting, as the following image shows:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/handwriting_1.png) 
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/handwriting_1.png) 
 
   For more information about how Sensible determines whether to extract a line that partially overlaps a region, see [Region](doc:region).
 
