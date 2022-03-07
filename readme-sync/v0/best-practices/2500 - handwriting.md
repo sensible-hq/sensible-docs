@@ -1,6 +1,6 @@
 ---
 title: "Extracting handwriting"
-hidden: true
+hidden: false
 ---
 
 This topic contains tips and tricks for extracting handwriting:
