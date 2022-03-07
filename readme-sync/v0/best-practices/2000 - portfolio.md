@@ -1,7 +1,6 @@
 ---
 title: "Extracting from document portfolios"
 hidden: false
-
 ---
 
 Sometimes a single PDF file contains multiple documents (a PDF "portfolio"). For example, a PDF portfolio might contain an invoice, a tax document, and a contract. 
