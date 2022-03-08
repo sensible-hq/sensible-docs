@@ -3,7 +3,7 @@ title: "Try synchronous extraction"
 hidden: false
 ---
 
-Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. 
+Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. To run a quick API command, also check out the [quickstart](doc:quickstart).
 
 Prerequisites
 ---
