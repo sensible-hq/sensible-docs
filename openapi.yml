@@ -14,7 +14,7 @@ paths:
     post:
       operationId: extract-data-from-a-document
       summary: Extract data from a document
-      description: |
+      description: >-
         Extract data from a local document synchronously. 
         For a step-by-step tutorial on calling this endpoint, 
         see [Try synchronous extraction](doc:api-tutorial-sync).
@@ -648,7 +648,7 @@ components:
       in: path
       description: |
         The type of document to extract from. 
-        Create the type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). 
+        Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). 
         As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type. 
         For example, if you create an `auto_insurance_quotes` type, you can add `carrier 1`, `carrier 2`, and 
         `carrier 3` configs to the type in the Sensible app so that you can extract data from all these carriers using the same 
