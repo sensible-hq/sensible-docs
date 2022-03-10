@@ -17,9 +17,20 @@ Prerequisites
 
 See [prerequisites](doc:api-tutorial#prerequisites).
 
-
-Import the request
+Run the request in Postman
 ----
+
+Click through the following slides to see how to run a Sensible API request in the [Postman web app](https://www.postman.com/planetary-meteor-85425/workspace/new-team-workspace/documentation/18249768-38adacb4-d8f7-4365-9ee0-fa1d59a3bd03).  You'll need the code sample and the example PDF listed in the following steps.
+
+[block:html]
+{
+  "html": "<div style=\"position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;\"><iframe src=\"https://demo.arcade.software/jgr2VsTcHXr3xI9zk25P/\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
+}
+[/block]
+
+
+
+If you don't want to click through the slides, follow these steps instead:
 
 
 1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).

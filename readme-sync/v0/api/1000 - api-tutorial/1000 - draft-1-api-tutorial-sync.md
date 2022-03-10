@@ -20,8 +20,6 @@ See [prerequisites](doc:api-tutorial#prerequisites).
 Run the request in Postman
 ----
 
-Click through the following slides to see how to run a Sensible API request in the [Postman web app](https://www.postman.com/planetary-meteor-85425/workspace/new-team-workspace/documentation/18249768-38adacb4-d8f7-4365-9ee0-fa1d59a3bd03).
-
 To follow along, you'll need:
 
 - A document type and config in the Sensible app. See the [prerequisites](doc:api-tutorial#prerequisites).
@@ -41,6 +39,12 @@ curl --request POST \
 
 | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | -------------------- | ------------------------------------------------------------ |
+
+
+
+
+
+
 
 
 
