@@ -20,7 +20,7 @@ See [prerequisites](doc:api-tutorial#prerequisites).
 Run the request in Postman
 ----
 
-Click through the following slides to see how to run a Sensible API request in Postman.
+Click through the following slides to see how to run a Sensible API request in the [Postman web app](https://www.postman.com/planetary-meteor-85425/workspace/new-team-workspace/documentation/18249768-38adacb4-d8f7-4365-9ee0-fa1d59a3bd03).
 
 To follow along, you'll need:
 
@@ -44,27 +44,11 @@ curl --request POST \
 
 
 
-OLD ONE: https://demo.arcade.software/9o6EcG8ufjz322xHVN85/ 
-
-
-
-2nd test:
-
-[block:html]
-{
-  "html": "<div style=\"position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;\"><iframe src=\"https://demo.arcade.software/tVM0vGLWefFuTzVNBW75/\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
-}
-[/block]
-
-
-
 [block:html]
 {
   "html": "<div style=\"position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;\"><iframe src=\"https://demo.arcade.software/jgr2VsTcHXr3xI9zk25P/\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
 }
 [/block]
-
-
 
 
 
