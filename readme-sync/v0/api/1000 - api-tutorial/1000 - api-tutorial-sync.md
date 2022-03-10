@@ -3,7 +3,14 @@ title: "Try synchronous extraction"
 hidden: false
 ---
 
-Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. To run a quick API command, also check out the [quickstart](doc:quickstart).
+Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. 
+
+Audience
+---
+
+If you're new to APIs, use this tutorial to return meaningful document data from an example insurance quote.
+
+To instead run a quick "hello world" API command without prerequisites, check out the [quickstart](doc:quickstart).
 
 Prerequisites
 ---
