@@ -28,7 +28,7 @@ another test edit
 | ---------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
 | *text  (**required**)* | *string*                                                | *The string to match*                                        |
 | *type (**required**)*  | *`equals`, `startsWith`, `endsWith`, `includes`*        | *`equals`: The matching line must equal the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line* |
-| **editDistance**       | integer. the number of allowed edits for a fuzzy match. | Configure this parameter to allow *fuzzy*, or approximate, string matching. This is useful for OCR text, like scanned documents or handwriting. For example, if you configure 3, then Sensible matches `kitten` in the document for `sitting` in the Text parameter.  Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). TODO: link to edit distance from handwriting topic once this param is published. |
+| **editDistance**       | integer. the number of allowed edits for a fuzzy match. | Configure this parameter to allow *fuzzy*, or approximate, string matching. This is useful for OCR text, like scanned documents or handwriting. For example, if you configure 3, then Sensible matches `kitten` in the document for `sitting` in the Text parameter.  Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). TODO: link to edit distance from handwriting best practices topic once this param is published. |
 
 
 
