@@ -20,10 +20,6 @@ Simple match
 
 Match using strings.  
 
-TEST EDIT VALE
-
-2nd test edit vale
-
 **Parameters**
 
 | *key*                  | *values*                                                | *description*                                                |
