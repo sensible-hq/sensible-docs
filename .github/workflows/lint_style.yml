@@ -9,11 +9,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    # - name: Get Changed Files
-    #   id: get_changed_files
-    #   uses: lots0logs/gh-action-get-changed-files@2.1.4
-    #   with:
-    #     token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Get Changed Files
+      id: get_changed_files
+      uses: lots0logs/gh-action-get-changed-files@2.1.4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Vale
       if: always()
@@ -27,8 +27,8 @@ jobs:
         # Optional
         config: https://raw.githubusercontent.com/errata-ai/vale/master/.vale.ini
 
-        # Optional
-        # files: '${{ steps.get_changed_files.outputs.all }}'
+        #Optional
+        files: '${{ steps.get_changed_files.outputs.all }}'
       env:
         # Required, set by GitHub actions automatically:
         # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
