@@ -16,6 +16,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Vale
+      if: always()
       uses: errata-ai/vale-action@v1
       with:
         # Optional
