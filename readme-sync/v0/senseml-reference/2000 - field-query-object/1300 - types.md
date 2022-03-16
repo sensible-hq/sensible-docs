@@ -348,7 +348,7 @@ Configurable syntax
 
 **Syntax example**
 
-To recognize the date format JAN-01-02, and ignore all default formats, you can specify:
+To recognize the date format JAN-31-22, and ignore all default formats, you can specify:
 
 ````json
 "type":
@@ -362,8 +362,8 @@ To recognize the date format JAN-01-02, and ignore all default formats, you can 
 
 ```
 {
-    "source": "JAN-01-24",
-    "value": "2022-01-24T00:00:00.000Z",
+    "source": "JAN-31-22",
+    "value": "2022-01-31T00:00:00.000Z",
     "type": "date"
 }
 ```

@@ -20,4 +20,51 @@ A
 Examples
 ====
 
-TODO: an example with a box for typeFilters??
+The following example shows using the Types Filter parameter to extract delivery notes from a box.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "delivery_notes",
+      "type": "string",
+      "anchor": "delivery information",
+      "method": {
+        "id": "box",
+        "offsetY": 1,
+        "typeFilters": [
+          "address",
+          {
+            "id": "date",
+            "format": "%b_%D_%y"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**PDF**
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/types_filter.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/types_filter.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+
+**Output**
+
+```json
+{
+  "delivery_notes": {
+    "type": "string",
+    "value": "Please leave package at door"
+  }
+}
+```
+
+
+
