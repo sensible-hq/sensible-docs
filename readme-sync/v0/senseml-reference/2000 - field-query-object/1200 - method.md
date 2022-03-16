@@ -96,10 +96,10 @@ To run this example, verify the document type uses Google OCR (click the gear ic
 }
 ```
 
-Types Filter example
+Type Filters example
 ----
 
-The following example shows using the Types Filter parameter to extract delivery notes from a box.
+The following example shows using the Type Filters parameter to extract delivery notes from a box.
 
 **Config**
 
