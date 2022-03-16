@@ -162,7 +162,7 @@ In this example, the X Range Filter parameter is the best option:
 
 - Document Range by itself isn't a good option, because it captures the address of the importer as well as the supplier. 
 - The Fixed Table and Table methods aren't the best options, because the table formatting is hard to recognize.
-- The Text Table method isn't the best option, because it splits multi-line rows.
+- The Text Table method with `"detectMultipleLinesPerRow": true` configured is an alternate solution for this example.
 
 Try out this example in the Sensible app using the following PDF and config:
 
