@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-**Note** Use this tutorial if you want a guided tour of SenseML concepts. If you instead want to explore without much explanation, then check out our interactive in-app tutorials: [hello world](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
+**Note** Use this tutorial if you want a guided tour of Sensible concepts. If you instead want to explore without much explanation, then check out our interactive in-app tutorials: [hello world](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
 
 Get structured data from an auto insurance quote
 ===
@@ -19,7 +19,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 - [Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods
 - [Test the config](doc:getting-started#test-the-config) by running your config against a second PDF
 - [Use the API](doc:getting-started#integrate-with-your-application) to integrate your Sensible config with your application
-- [Validate extractions in production](doc:getting-started#validate-extractions-in-production) by flagging unexpected extracted values as warnings or errors
+- [Validate extractions in production](doc:getting-started#validate-extractions-in-production) by using JsonLogic to define expected extracted values and flag unexpected values as warnings or errors
 
 Get an account
 ====
