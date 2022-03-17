@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-**Note** Use this tutorial if you want a guided tour of Sensible concepts. If you instead want to explore without much explanation, then check out our interactive in-app tutorials: [hello world](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
+**Note:** Use this tutorial if you want a guided tour of Sensible concepts. If you instead want to explore without much explanation, then check out our interactive in-app tutorials: [hello world](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
 
 Get structured data from an auto insurance quote
 ===
@@ -241,7 +241,7 @@ The config uses the [Row method](doc:row):
 
 This describes the data to extract:
 
-- The anchor text (`"comprehensive"`) is part of a row in a table (`"id": "row"`).
+- The anchor text (`"comprehensive"`) is part of a row of lines (`"id": "row"`).
 - The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
 - The text to extract is the second line in the row after the anchor  (`"tiebreaker": "second"`).  Use tiebreakers to select lines in rows, for example maximum and minimum values (`<` and `>`).
 - By default, the Row method extracts values to the right of the anchor. You can override the default by specifying (`"position":"left"`). 
