@@ -19,6 +19,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 - [Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods
 - [Test the config](doc:getting-started#test-the-config) by running your config against a second PDF
 - [Use the API](doc:getting-started#integrate-with-your-application) to integrate your Sensible config with your application
+- [Validate extractions in production](doc:getting-started#validate-extractions-in-production) so you can flag extracted fields as warnings or errors
 
 Get an account
 ====
