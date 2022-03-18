@@ -539,7 +539,6 @@ components:
       description: the extraction status (WAITING, COMPLETE, FAILED)
       enum: [WAITING, COMPLETE, FAILED]
       example: COMPLETE
-    
     Types:
       type: array
       description: Specifies the document types contained in the PDF portfolio.
