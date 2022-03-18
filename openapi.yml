@@ -180,7 +180,7 @@ paths:
                     $ref: '#/components/schemas/Webhook'               
                   types:      
                     $ref: '#/components/schemas/Types'
-                    required: true
+                    #required: true
                 
       tags:
       - Portfolio
@@ -228,10 +228,10 @@ paths:
                 properties:
                   document_url:
                     $ref: '#/components/schemas/DocumentUrl' 
-                    required: true             
+                    #required: true             
                   types:      
                     $ref: '#/components/schemas/Types'
-                    required: true
+                    #required: true
                   webhook:
                     $ref: '#/components/schemas/Webhook'    
       tags:
@@ -508,7 +508,7 @@ components:
           $ref: '#/components/schemas/Webhook' 
         document_url:
           $ref: '#/components/schemas/DocumentUrl' 
-          required: true
+          #required: true
         content_type:
           $ref: '#/components/schemas/ContentType'
     GenerateUrlRequest:
