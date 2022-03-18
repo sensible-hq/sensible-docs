@@ -180,8 +180,8 @@ paths:
                     $ref: '#/components/schemas/Webhook'               
                   types:      
                     $ref: '#/components/schemas/Types'
-                    #required: true
-                
+                required:
+                  - types
       tags:
       - Portfolio
       responses:
@@ -227,13 +227,14 @@ paths:
                 type: object
                 properties:
                   document_url:
-                    $ref: '#/components/schemas/DocumentUrl' 
-                    #required: true             
+                    $ref: '#/components/schemas/DocumentUrl'           
                   types:      
                     $ref: '#/components/schemas/Types'
-                    #required: true
                   webhook:
-                    $ref: '#/components/schemas/Webhook'    
+                    $ref: '#/components/schemas/Webhook' 
+                required:
+                  - types
+                  - document_url       
       tags:
       - Portfolio
       responses:
@@ -508,9 +509,10 @@ components:
           $ref: '#/components/schemas/Webhook' 
         document_url:
           $ref: '#/components/schemas/DocumentUrl' 
-          #required: true
         content_type:
           $ref: '#/components/schemas/ContentType'
+      required:
+        - document_url    
     GenerateUrlRequest:
       type: object
       properties:
@@ -518,7 +520,7 @@ components:
           $ref: '#/components/schemas/Webhook' 
         content_type:
           $ref: '#/components/schemas/ContentType'
-    
+      
     ExtractionId:
       type: string
       format: uuid
