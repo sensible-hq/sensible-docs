@@ -267,12 +267,6 @@ paths:
         `parsed_document` field.  For fields in the extraction for which Sensible couldn't find a value, Sensible returns null.
       parameters:
         - $ref: '#/components/parameters/id'
-        - $ref: '#/components/parameters/environment' 
-      requestBody:
-        content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExtractFromUrlRequest'
       tags:
       - Document
       responses:
