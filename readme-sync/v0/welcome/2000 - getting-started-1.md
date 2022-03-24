@@ -219,7 +219,7 @@ The Label method can operate in a single line, or on consecutive lines. Here's a
         }
     }
 
-This returns null, because the Label method works for text in the same line or in proximate lines, sensitive to spacing and font size. In this case, the problem is that the gap between the two lines of text is too big:
+This returns null, because the Label method works for text in the same line or in proximate lines. In this case, the problem is that the gap between the two lines of text is more than 0.2 inches:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_2.png)
 

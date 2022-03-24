@@ -30,7 +30,7 @@ The following example shows various labels:
 1. The  `simple_label` field extracts a line below a label.
 2. The `one_line_label` field extracts text to the right of a label on the same line, and filters out an unwanted string. 
 3. The `hanging_indent_label` field extracts consecutive lines of text by using a Stop parameter. The method extracts indented lines (`"textAlignment": "hangingIndent"`) , and the match does **not** include lines to the left or right of matching aligned lines. 
-4. The `only_looks_like_a_label` field demonstrates that labels are sensitive to font size differences by returning `null`.
+4. The `only_looks_like_a_label` field returns `null` because labels don't work for lines separated by more than 0.2 inches.
 
 **Config**
 
