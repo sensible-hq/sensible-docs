@@ -5,6 +5,10 @@ servers:
 info:
   title: Document Type
   version: 0.0.1
+  description: document types and configurations
+  license: # TODO: fill in
+    name: Sensible API
+    url: https://www.TBD.org/licenses/LICENSE-2.0.html
 paths:
   /document_types:
     get:
@@ -255,6 +259,9 @@ paths:
       - $ref: '#/components/parameters/ArtifactName'
     get:
       operationId: get_configuration_versions
+      summary: Delete an identified configuration
+      tags:
+      - Configuration
       responses:
         200:
           description: Version information for the identified configuration
