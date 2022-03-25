@@ -504,7 +504,7 @@ paths:
 # Apply the auth globally to all operations
 components:
   parameters:
-    DocumentTypeId:
+    DocumentTypeId: #do I really need this? get rid of it? 
       name: id
       required: true
       in: path
