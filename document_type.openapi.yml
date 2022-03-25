@@ -10,6 +10,8 @@ paths:
     get:
       operationId: list_document_types
       summary: Retrieve all document types for the current account
+      tags:
+      - Configuration
       responses:
         200:
           content:
@@ -28,6 +30,8 @@ paths:
     post:
       operationId: create_document_type
       summary: Create a new document type
+      tags:
+      - Configuration
       requestBody:
         required: true
         content:
@@ -55,6 +59,8 @@ paths:
     get:
       operationId: get_document_type
       summary: Retrieve an identified document type
+      tags:
+      - Configuration
       responses:
         200:
           content:
@@ -75,6 +81,8 @@ paths:
     put:
       operationId: replace_document_type
       summary: Modify an indentified document type
+      tags:
+      - Configuration
       requestBody:
         required: true
         content:
@@ -101,6 +109,8 @@ paths:
     delete:
       operationId: delete_document_type
       summary: Delete an identified document type
+      tags:
+      - Configuration
       responses:
         204:
           description: successful deletion
@@ -114,12 +124,14 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_type/{id}/configurations:
+  /document_types/{id}/configurations:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
     get:
       operationId: list_configurations
       summary: list all configurations in the identified document type
+      tags:
+      - Configuration
       responses:
         200:
           content:
@@ -140,6 +152,8 @@ paths:
     post:
       operationId: create_configuration
       summary: create a new configuration in the identified document type
+      tags:
+      - Configuration
       requestBody:
         required: true
         content:
@@ -163,13 +177,15 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_type/{id}/configurations/{name}:
+  /document_types/{id}/configurations/{name}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
       - $ref: '#/components/parameters/ArtifactName'
     get:
       operationId: get_configuration
       summary: retrieve an identified configuration
+      tags:
+      - Configuration
       responses:
         200:
           content:
@@ -190,6 +206,8 @@ paths:
     put:
       operationId: replace_configuration
       summary: update an identified configuration
+      tags:
+      - Configuration
       requestBody:
         required: true
         content:
@@ -216,6 +234,8 @@ paths:
     delete:
       operationId: delete_configuration
       summary: Delete an identified configuration
+      tags:
+      - Configuration
       responses:
         204:
           description: successful deletion
@@ -260,6 +280,8 @@ paths:
     get:
       operationId: get_configuration_by_version
       summary: retrieve an identified configuration
+      tags:
+      - Configuration
       responses:
         200:
           content:
@@ -280,6 +302,8 @@ paths:
     put:
       operationId: publish_configuration_by_version
       summary: publish the identified configuration to the supplied environment
+      tags:
+      - Configuration
       requestBody:
         required: true
         content:
@@ -306,6 +330,8 @@ paths:
     delete:
       operationId: delete_configuration_by_version
       summary: delete a draft version of a configuration, or remove the publication tag from a published configuration
+      tags:
+      - Configuration
       responses:
         204:
           description: successful deletion
@@ -325,6 +351,8 @@ paths:
     get:
       operationId: list_goldens
       summary: list all reference documents (goldens) in the identified document type
+      tags:
+      - Configuration
       responses:
         200:
           content:
@@ -345,6 +373,8 @@ paths:
     post:
       operationId: create_golden
       summary: create a new reference document with the supplied parameters in the identified document type
+      tags:
+      - Configuration
       requestBody:
         required: true
         content:
@@ -375,6 +405,8 @@ paths:
     get:
       operationId: get_golden
       summary: retrieve an identified reference document
+      tags:
+      - Configuration
       responses:
         200:
           content:
@@ -395,6 +427,8 @@ paths:
     put:
       operationId: update_golden
       summary: update details of an identified reference document
+      tags:
+      - Configuration
       requestBody:
         required: true
         content:
@@ -421,6 +455,8 @@ paths:
     delete:
       operationId: delete_golden
       summary: Delete an identified reference document
+      tags:
+      - Configuration
       responses:
         204:
           description: successful deletion
@@ -441,6 +477,8 @@ paths:
     delete:
       operationId: delete_golden_configuration
       summary: Remove the associated configuration from the identified reference document
+      tags:
+      - Configuration
       responses:
         204:
           description: successful deletion
