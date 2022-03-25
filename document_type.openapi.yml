@@ -6,7 +6,7 @@ info:
   title: Document Type
   version: 0.0.1
 paths:
-  /document_type:
+  /document_types:
     get:
       operationId: list_document_types
       summary: Retrieve all document types for the current account
@@ -49,7 +49,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_type/{id}:
+  /document_types/{id}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
     get:
