@@ -140,7 +140,7 @@ paths:
     get:
       operationId: list_configurations
       summary: List configurations in a document type
-      description: Get the document type id from the List document types endpoint.
+      description: List configurations in a document type.
       tags:
       - Configuration
       responses:
@@ -531,7 +531,7 @@ components:
       name: id
       required: true
       in: path
-      description: unique document type identifier in v4 UUID format
+      description: unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
       schema:
         $ref: '#/components/schemas/UniqueId'
     ConfigurationName:
@@ -787,6 +787,8 @@ components:
           $ref: '#/components/schemas/Name'
         configuration:
           $ref: '#/components/schemas/StringifiedConfiguration'
+          example: |
+            { 	"fingerprint": { 		"tests": [ 			"anyco", 			"quoted coverage changes" 		] 	}, 	"preprocessors": [{ 		"type": "pageRange", 		"startPage": 0, 		"endPage": 2 	}], 	"fields": [{ 		"id": "_driver_name_raw", 		"anchor": "name of driver", 		"method": { 			"id": "label", 			"position": "below" 		} 	}], 	"computed_fields": [{ 			"id": "driver_name_last", 			"method": { 				"id": "split", 				"source_id": "_driver_name_raw", 				"separator": ", ", 				"index": 1 			} 		}  	] }
         publish_as:
           $ref: '#/components/schemas/Environment'
       required:
@@ -800,23 +802,8 @@ components:
         For example, test this parameter by creating and validating the configuration in the Sensible app, 
         then stringify it using a tool like https://onlinetexttools.com/json-stringify-text, then copy it into this parameter.
         To support publishing drafts, this API doesn’t reject requests with configuration errors.
-        The latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
-      example: |
-        {\n  \"fingerprint\": {\n    \"tests\":[\n      \"anyco\",\n      \"quoted coverage changes\"\n    ],\n  },\n  
-        \"preprocessors\": [\n    {\n      \"type\": \"pageRange\",\n      \"startPage\": 0,\n      \"endPage\": 2\n    
-        }\n  ],\n  \"fields\": [\n    {\n      \"id\": \"_driver_name_raw\",\n      \"anchor\": \"name of driver\",\n      
-        \"method\": {\n        \"id\": \"label\",\n        \"position\": \"below\"\n      }\n    }\n  ],\n  \"computed_fields\": [\n    
-        {\n      \"id\": \"driver_name_last\",\n      \"method\": {\n        \"id\": \"split\",\n        \"source_id\": \"_driver_name_raw\",\n       
-         \"separator\": \", \",\n        \"index\": 1\n      }\n    },\n\n  ],\n}
-    # Environment:
-    #   type: string
-    #   pattern: ^[a-z0-9_]*$
-    #   minLength: 3
-    #   maxLength: 128
-    #   description: >-
-    #     Destination environment for publication, as a target for later extraction.
-    #     "production" is a special environment used as a default when no environment is specified during extraction
-    #     if supplied, the configuration must be valid
+        To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
+
 
     Environment:
       type: string

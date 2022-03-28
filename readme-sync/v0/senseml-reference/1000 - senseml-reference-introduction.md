@@ -35,41 +35,36 @@ This example uses the following config:
 
 ```json
 {
-  "fingerprint": {
-    "tests":[
-      "anyco",
-      "quoted coverage changes"
-    ],
-  },
-  "preprocessors": [
-    {
-      "type": "pageRange",
-      "startPage": 0,
-      "endPage": 2
-    }
-  ],
-  "fields": [
-    {
-      "id": "_driver_name_raw",
-      "anchor": "name of driver",
-      "method": {
-        "id": "label",
-        "position": "below"
-      }
-    }
-  ],
-  "computed_fields": [
-    {
-      "id": "driver_name_last",
-      "method": {
-        "id": "split",
-        "source_id": "_driver_name_raw",
-        "separator": ", ",
-        "index": 1
-      }
-    },
+	"fingerprint": {
+		"tests": [
+			"anyco",
+			"quoted coverage changes"
+		]
+	},
+	"preprocessors": [{
+		"type": "pageRange",
+		"startPage": 0,
+		"endPage": 2
+	}],
+	"fields": [{
+		"id": "_driver_name_raw",
+		"anchor": "name of driver",
+		"method": {
+			"id": "label",
+			"position": "below"
+		}
+	}],
+	"computed_fields": [{
+			"id": "driver_name_last",
+			"method": {
+				"id": "split",
+				"source_id": "_driver_name_raw",
+				"separator": ", ",
+				"index": 1
+			}
+		}
 
-  ],
+	]
 }
 ```
 
