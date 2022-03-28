@@ -738,7 +738,7 @@ components:
         type: object
         properties:
           name:
-            $ref: '#/components/schemas/ConfigurationName'
+            $ref: '#/components/schemas/Name'
           created: 
             $ref: '#/components/schemas/Date'
           versions:
