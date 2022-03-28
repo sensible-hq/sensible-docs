@@ -1,10 +1,9 @@
-
-
+# openapi 3
 401:
-      description: Not authorized
-      content:
-        text/plain:
-          schema:
-            title: Unauthorized
-            type: string
-            example: Unauthorized
+  description: Not authorized
+  content:
+    text/plain:
+      schema:
+        title: Unauthorized
+        type: string
+        example: Unauthorized
