@@ -455,7 +455,7 @@ paths:
     put:
       operationId: update_golden
       summary: Update metadata for a reference document
-      Description: Update metadata for a reference document
+      description: Update metadata for a reference document
       tags:
       - Reference document
       requestBody:
