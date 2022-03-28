@@ -14,12 +14,16 @@ jobs:
         uses: actions/checkout@v3
 
       # Run GitHub Action to sync OpenAPI file at [path-to-file.json]
-      - name: Sync API definitions
+      - name: Sync API definition 1 (extraction)
         # We recommend specifying a fixed version, i.e. @6.5.0
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@6.5.0
         with:
           rdme: openapi openapi.yml --key=${{ secrets.README_API_KEY }} --id=6201a25efa760de40382e060
+      - name: Sync API definition 2 (configuration)
+        # We recommend specifying a fixed version, i.e. @6.5.0
+        # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
+        uses: readmeio/rdme@6.5.0       
         with:
           rdme: openapi openapi_configuration.yml --key=${{ secrets.README_API_KEY }} --id=62421e0fcfbb26002e84f619
 
