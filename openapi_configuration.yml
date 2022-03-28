@@ -66,7 +66,7 @@ paths:
     get:
       operationId: get_document_type
       summary: Get document type by id
-      description: Find the document type id using the Get all document types endpoint.
+      description: Find the document type id using the `/document_types` endpoint.
       tags:
       - Document type
       responses:
@@ -196,6 +196,7 @@ paths:
     get:
       operationId: get_configuration
       summary: Get a configuration
+      description: Get a configuration as a string.
       tags:
       - Configuration
       responses:
@@ -217,7 +218,8 @@ paths:
           $ref: '#/components/responses/500'
     put:
       operationId: replace_configuration
-      summary: Update a configuration
+      summary: Replace current draft of a configuration
+      description: Get the current draft id from the `/document_types/id/configurations/name/versions` endpoint.
       tags:
       - Configuration
       requestBody:
@@ -246,6 +248,7 @@ paths:
     delete:
       operationId: delete_configuration
       summary: Delete a configuration
+      description: Delete a configuration and its versions.
       tags:
       - Configuration
       responses:
@@ -268,6 +271,7 @@ paths:
     get:
       operationId: get_configuration_versions
       summary: Get all versions for a configuration
+      description: Get the version ids for a configuration.
       tags:
       - Configuration
       responses:
@@ -294,7 +298,8 @@ paths:
       - $ref: '#/components/parameters/VersionIdentifier'
     get:
       operationId: get_configuration_by_version
-      summary: Get a configuration version
+      summary: Get a configuration by version
+      description: Get a configuration as a string by version id.
       tags:
       - Configuration
       responses:
@@ -317,6 +322,7 @@ paths:
     put:
       operationId: publish_configuration_by_version
       summary: Publish a configuration to an environment
+      description: The configuration must be [valid](https://app.sensible.so/schemas/configuration.schema.json).
       tags:
       - Configuration
       requestBody:
@@ -345,6 +351,7 @@ paths:
     delete:
       operationId: delete_configuration_by_version
       summary: Delete draft or unpublish configuration
+      description: If the version id is a 
       tags:
       - Configuration
       responses:
@@ -417,7 +424,7 @@ paths:
   /document_types/{id}/goldens/{name}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/DocumentName'
     get:
       operationId: get_golden
       summary: Get a reference document
@@ -489,7 +496,7 @@ paths:
   /document_types/{id}/goldens/{name}/configuration:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/DocumentName'
     delete:
       operationId: delete_golden_configuration
       summary: Unassociate reference document and configuration
@@ -523,11 +530,18 @@ components:
       name: name
       required: true
       in: path
-      description: unique name for a configuration. Find it in the Sensible app or in the List configurations endpoint.
+      description: unique name for a configuration. Find it in the Sensible app or in the `/document_types/id/configurations` endpoint.
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
-
+    DocumentName:
+      name: name
+      required: true
+      in: path
+      description: unique name for a document. Find it in the Sensible app.
+      example: best_scan_form_no_1234
+      schema:
+        $ref: '#/components/schemas/Name'
     VersionIdentifier:
       name: version
       required: true
@@ -724,7 +738,7 @@ components:
         type: object
         properties:
           name:
-            $ref: '#/components/schemas/Name'
+            $ref: '#/components/schemas/ConfigurationName'
           created: 
             $ref: '#/components/schemas/Date'
           versions:
