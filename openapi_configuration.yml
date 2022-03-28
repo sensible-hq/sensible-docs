@@ -530,7 +530,7 @@ components:
       name: name
       required: true
       in: path
-      description: unique name for a configuration. Find it in the Sensible app or in the `/document_types/id/configurations` endpoint.
+      description: unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
@@ -538,7 +538,7 @@ components:
       name: name
       required: true
       in: path
-      description: unique name for a document. Find it in the Sensible app.
+      description: unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
