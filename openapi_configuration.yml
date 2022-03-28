@@ -351,7 +351,7 @@ paths:
     delete:
       operationId: delete_configuration_by_version
       summary: Delete draft or unpublish configuration
-      description: If the version id is a 
+      description: Delete a draft version of a configuration, or remove the publication tag from a published configuration
       tags:
       - Configuration
       responses:
@@ -374,6 +374,7 @@ paths:
     get:
       operationId: list_goldens
       summary: List all reference documents in a document type
+      description: List all reference documents in a document type
       tags:
       - Reference document
       responses:
