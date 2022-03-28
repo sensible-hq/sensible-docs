@@ -337,7 +337,7 @@ paths:
           $ref: './components/responses.yml#/500'
     delete:
       operationId: delete_configuration_by_version
-      summary: Delete a draft version of a configuration, or remove the publication tag from a published configuration
+      summary: Delete draft or unpublish configuration
       tags:
       - Configuration
       responses:
@@ -381,7 +381,7 @@ paths:
           $ref: './components/responses.yml#/500'
     post:
       operationId: create_golden
-      summary: Create a new reference document in a document type
+      summary: Create a new reference document
       tags:
       - Reference documents
       requestBody:
@@ -609,16 +609,22 @@ components:
             - 4
           type: number
         validations:
+          description: Array of validations. See https://docs.sensible.so/docs/validate-extractions 
           items:
             $ref: "#/components/schemas/DocumentValidation"
           type: array
     DocumentValidation:
       type: object
       additionalProperties: false
+      description: See https://docs.sensible.so/docs/validate-extractions 
       properties:
         description:
           type: string
+          description: user-friendly description for the test
+          example: Broker's email is in string@string format
         condition:
+          description: test for extraction written in JsonLogic
+          example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
           anyOf:
             - type: string
             - type: number
@@ -628,10 +634,13 @@ components:
               additionalProperties: true
         fields:
           type: array
+          description: preprequisite fields required to run this validation
+          example: ["broker\\.email"]
           items:
             type: string
         severity:
           type: string
+          description: The severity of the failing test
           enum:
             - warning
             - error
