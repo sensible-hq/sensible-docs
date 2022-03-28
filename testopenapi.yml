@@ -129,230 +129,230 @@ paths:
           $ref: './components/responses.yml#/415'
         500:
           $ref: './components/responses.yml#/500'
-  # /document_types/{id}/configurations:
-  #   parameters:
-  #     - $ref: '#/components/parameters/DocumentTypeId'
-  #   get:
-  #     operationId: list_configurations
-  #     summary: list all configurations in the identified document type
-  #     tags:
-  #     - Configuration
-  #     responses:
-  #       200:
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/GetAllConfigurations'
-  #         description: List of document types for the current account
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  #   post:
-  #     operationId: create_configuration
-  #     summary: create a new configuration in the identified document type
-  #     tags:
-  #     - Configuration
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/PostConfiguration'
-  #     responses:
-  #       200:
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ConfigurationResponse'
-  #         description: The created configuration
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  # /document_types/{id}/configurations/{name}:
-  #   parameters:
-  #     - $ref: '#/components/parameters/DocumentTypeId'
-  #     - $ref: '#/components/parameters/ArtifactName'
-  #   get:
-  #     operationId: get_configuration
-  #     summary: retrieve an identified configuration
-  #     tags:
-  #     - Configuration
-  #     responses:
-  #       200:
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ConfigurationResponse'
-  #         description: The identified configuration
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  #   put:
-  #     operationId: replace_configuration
-  #     summary: update an identified configuration
-  #     tags:
-  #     - Configuration
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/PutConfiguration'
-  #     responses:
-  #       200:
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ConfigurationResponse'
-  #         description: The created configuration
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  #   delete:
-  #     operationId: delete_configuration
-  #     summary: Delete an identified configuration
-  #     tags:
-  #     - Configuration
-  #     responses:
-  #       204:
-  #         description: successful deletion
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  # /document_types/{id}/configurations/{name}/versions:
-  #   parameters:
-  #     - $ref: '#/components/parameters/DocumentTypeId'
-  #     - $ref: '#/components/parameters/ArtifactName'
-  #   get:
-  #     operationId: get_configuration_versions
-  #     summary: Delete an identified configuration
-  #     tags:
-  #     - Configuration
-  #     responses:
-  #       200:
-  #         description: Version information for the identified configuration
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ConfigurationVersionsResponse'
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  # /document_types/{id}/configurations/{name}/{version}:
-  #   parameters:
-  #     - $ref: '#/components/parameters/DocumentTypeId'
-  #     - $ref: '#/components/parameters/ArtifactName'
-  #     - $ref: '#/components/parameters/VersionIdentifier'
-  #   get:
-  #     operationId: get_configuration_by_version
-  #     summary: retrieve an identified configuration
-  #     tags:
-  #     - Configuration
-  #     responses:
-  #       200:
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ConfigurationResponse'
-  #         description: The identified configuration
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  #   put:
-  #     operationId: publish_configuration_by_version
-  #     summary: publish the identified configuration to the supplied environment
-  #     tags:
-  #     - Configuration
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/PublishConfigurationVersion'
-  #     responses:
-  #       200:
-  #         content:
-  #           application/json:
-  #             schema:
-  #               $ref: '#/components/schemas/ConfigurationResponse'
-  #         description: The identified configuration
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
-  #   delete:
-  #     operationId: delete_configuration_by_version
-  #     summary: delete a draft version of a configuration, or remove the publication tag from a published configuration
-  #     tags:
-  #     - Configuration
-  #     responses:
-  #       204:
-  #         description: successful deletion
-  #       400:
-  #         $ref: './components/responses.yml#/400'
-  #       401:
-  #         $ref: './components/responses.yml#/401'
-  #       404:
-  #         $ref: './components/responses.yml#/404'
-  #       415:
-  #         $ref: './components/responses.yml#/415'
-  #       500:
-  #         $ref: './components/responses.yml#/500'
+  /document_types/{id}/configurations:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+    get:
+      operationId: list_configurations
+      summary: list all configurations in the identified document type
+      tags:
+      - Configuration
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllConfigurations'
+          description: List of document types for the current account
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    post:
+      operationId: create_configuration
+      summary: create a new configuration in the identified document type
+      tags:
+      - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostConfiguration'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The created configuration
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  /document_types/{id}/configurations/{name}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/ArtifactName'
+    get:
+      operationId: get_configuration
+      summary: retrieve an identified configuration
+      tags:
+      - Configuration
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The identified configuration
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    put:
+      operationId: replace_configuration
+      summary: update an identified configuration
+      tags:
+      - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutConfiguration'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The created configuration
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    delete:
+      operationId: delete_configuration
+      summary: Delete an identified configuration
+      tags:
+      - Configuration
+      responses:
+        204:
+          description: successful deletion
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  /document_types/{id}/configurations/{name}/versions:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/ArtifactName'
+    get:
+      operationId: get_configuration_versions
+      summary: Delete an identified configuration
+      tags:
+      - Configuration
+      responses:
+        200:
+          description: Version information for the identified configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationVersionsResponse'
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  /document_types/{id}/configurations/{name}/{version}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/ArtifactName'
+      - $ref: '#/components/parameters/VersionIdentifier'
+    get:
+      operationId: get_configuration_by_version
+      summary: retrieve an identified configuration
+      tags:
+      - Configuration
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The identified configuration
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    put:
+      operationId: publish_configuration_by_version
+      summary: publish the identified configuration to the supplied environment
+      tags:
+      - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishConfigurationVersion'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResponse'
+          description: The identified configuration
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    delete:
+      operationId: delete_configuration_by_version
+      summary: delete a draft version of a configuration, or remove the publication tag from a published configuration
+      tags:
+      - Configuration
+      responses:
+        204:
+          description: successful deletion
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
 
   /document_types/{id}/goldens:
     parameters:
@@ -383,7 +383,7 @@ paths:
       operationId: create_golden
       summary: create a new reference document with the supplied parameters in the identified document type
       tags:
-      - - Reference documents
+      - Reference documents
       requestBody:
         required: true
         content:
@@ -415,7 +415,7 @@ paths:
       operationId: get_golden
       summary: retrieve an identified reference document
       tags:
-      - - Reference documents
+      - Reference documents
       responses:
         200:
           content:
@@ -437,7 +437,7 @@ paths:
       operationId: update_golden
       summary: update details of an identified reference document
       tags:
-      - - Reference documents
+      - Reference documents
       requestBody:
         required: true
         content:
@@ -700,7 +700,129 @@ components:
       maxLength: 128
       description: user-friendly name of the configuration to associate to the reference document
  
-    
+    GetAllConfigurations:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/Name'
+          created: 
+            $ref: '#/components/schemas/Date'
+          versions:
+            type: array
+            items:
+              $ref: '#/components/schemas/ConfigurationVersion'
+        required:
+          - name
+          - created
+          - versions
+        additionalProperties: false  
+    ConfigurationVersion:
+      type: object
+      properties:
+        version_id:
+          type: string
+        datetime:
+          $ref: '#/components/schemas/Date'
+        environments:
+          type: array
+          items:
+            type: string
+        draft:
+          type: boolean
+      required:
+        - version_id
+        - datetime
+        - draft
+      additionalProperties: false
+
+
+    PostConfiguration:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        configuration:
+          $ref: '#/components/schemas/StringifiedConfiguration'
+        publish_as:
+          $ref: '#/components/schemas/Environment'
+      required:
+        - name
+        - configuration
+      additionalProperties: false
+    StringifiedConfiguration:
+      type: string
+      description: |
+        JSON-stringified version of the configuration, as defined by #/components/schemas/Configuration,
+        with errors allowed for draft configurations
+    Environment:
+      type: string
+      pattern: ^[a-z0-9_]*$
+      minLength: 3
+      maxLength: 128
+      description: |
+        Destination environment for publication, as a target for later extraction.
+        "production" is a special environment used as a default when no environment is specified during extraction
+        if supplied, the configuration must be valid
+
+    ConfigurationResponse:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        created: 
+          $ref: '#/components/schemas/Date'
+        configuration:
+          $ref: '#/components/schemas/StringifiedConfiguration'
+        version_id:
+          type: string
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigurationVersion'
+      required:
+        - name
+        - created
+        - configuration
+        - version_id
+        - versions
+      additionalProperties: false
+    PutConfiguration:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        configuration:
+          $ref: '#/components/schemas/StringifiedConfiguration'
+        publish_as:
+          $ref: '#/components/schemas/Environment'
+        current_draft:
+          type: string
+          description: |
+            version ID of the current draft of the configuration, if the current draft exists and is being replaced.
+            if the configuration is currently in draft and this is not supplied or does not match, the operation will fail
+      additionalProperties: false
+
+    PublishConfigurationVersion:
+      type: object
+      properties:
+        publish_as:
+          $ref: '#/components/schemas/Environment'
+      required:
+        - publish_as
+      additionalProperties: false
+    ConfigurationVersionsResponse:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigurationVersion'
+      required:
+        - versions
+      additionalProperties: false
+
   securitySchemes:
     bearerAuth:       # arbitrary name for the security scheme
       type: http
