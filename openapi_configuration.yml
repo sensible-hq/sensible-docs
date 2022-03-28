@@ -3,7 +3,7 @@ servers:
   - url: https://api.sensible.so/v0
     description: Production server (uses live data)
 info:
-  title: Document Type
+  title: Configuration
   version: 0.0.1
   description: document types and configurations
   license: # TODO: fill in
