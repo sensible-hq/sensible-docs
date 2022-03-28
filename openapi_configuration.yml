@@ -218,8 +218,8 @@ paths:
           $ref: '#/components/responses/500'
     put:
       operationId: replace_configuration
-      summary: Replace current draft of a configuration
-      description: Get the current draft id from the `/document_types/id/configurations/name/versions` endpoint.
+      summary: Replace configuration
+      description: Replace a published or draft version of the configuration.
       tags:
       - Configuration
       requestBody:
