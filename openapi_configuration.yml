@@ -140,6 +140,7 @@ paths:
     get:
       operationId: list_configurations
       summary: List configurations in a document type
+      description: Get the document type id from the List document types endpoint.
       tags:
       - Configuration
       responses:
@@ -162,6 +163,7 @@ paths:
     post:
       operationId: create_configuration
       summary: Create new configuration in a document type
+      description: Pass the configuration as a string.
       tags:
       - Configuration
       requestBody:
