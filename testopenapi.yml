@@ -10,12 +10,13 @@ info:
     name: Sensible API
     url: https://www.TBD.org/licenses/LICENSE-2.0.html
 paths:
+
   /document_types:
     get:
       operationId: list_document_types
       summary: Retrieve all document types for the current account
       tags:
-      - Configuration
+      - Document type
       responses:
         200:
           content:
@@ -24,14 +25,484 @@ paths:
                 $ref: '#/components/schemas/GetAllDocumentTypes'
           description: List of document types for the current account
         400:
-          $ref: '#/components/responses/400'
+          $ref: './components/responses.yml#/400'
         401:
-          $ref: './components/responses.yml#/401' 
+          $ref: './components/responses.yml#/401'
         415:
-          $ref: '#/components/responses/415'
+          $ref: './components/responses.yml#/415'
         500:
-          $ref: '#/components/responses/500'
-    
+          $ref: './components/responses.yml#/500'
+    post:
+      operationId: create_document_type
+      summary: Create a new document type
+      tags:
+      - Document type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostDocumentType'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentType'
+          description: List of document types for the current account
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  /document_types/{id}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+    get:
+      operationId: get_document_type
+      summary: Retrieve an identified document type
+      tags:
+      - Document type
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentType'
+          description: Identified document type
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    put:
+      operationId: replace_document_type
+      summary: Modify an indentified document type
+      tags:
+      - Document type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutDocumentType'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentType'
+          description: Identified document type
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    delete:
+      operationId: delete_document_type
+      summary: Delete an identified document type
+      tags:
+      - Document type
+      responses:
+        204:
+          description: successful deletion
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  # /document_types/{id}/configurations:
+  #   parameters:
+  #     - $ref: '#/components/parameters/DocumentTypeId'
+  #   get:
+  #     operationId: list_configurations
+  #     summary: list all configurations in the identified document type
+  #     tags:
+  #     - Configuration
+  #     responses:
+  #       200:
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/GetAllConfigurations'
+  #         description: List of document types for the current account
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  #   post:
+  #     operationId: create_configuration
+  #     summary: create a new configuration in the identified document type
+  #     tags:
+  #     - Configuration
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/PostConfiguration'
+  #     responses:
+  #       200:
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ConfigurationResponse'
+  #         description: The created configuration
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  # /document_types/{id}/configurations/{name}:
+  #   parameters:
+  #     - $ref: '#/components/parameters/DocumentTypeId'
+  #     - $ref: '#/components/parameters/ArtifactName'
+  #   get:
+  #     operationId: get_configuration
+  #     summary: retrieve an identified configuration
+  #     tags:
+  #     - Configuration
+  #     responses:
+  #       200:
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ConfigurationResponse'
+  #         description: The identified configuration
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  #   put:
+  #     operationId: replace_configuration
+  #     summary: update an identified configuration
+  #     tags:
+  #     - Configuration
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/PutConfiguration'
+  #     responses:
+  #       200:
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ConfigurationResponse'
+  #         description: The created configuration
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  #   delete:
+  #     operationId: delete_configuration
+  #     summary: Delete an identified configuration
+  #     tags:
+  #     - Configuration
+  #     responses:
+  #       204:
+  #         description: successful deletion
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  # /document_types/{id}/configurations/{name}/versions:
+  #   parameters:
+  #     - $ref: '#/components/parameters/DocumentTypeId'
+  #     - $ref: '#/components/parameters/ArtifactName'
+  #   get:
+  #     operationId: get_configuration_versions
+  #     summary: Delete an identified configuration
+  #     tags:
+  #     - Configuration
+  #     responses:
+  #       200:
+  #         description: Version information for the identified configuration
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ConfigurationVersionsResponse'
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  # /document_types/{id}/configurations/{name}/{version}:
+  #   parameters:
+  #     - $ref: '#/components/parameters/DocumentTypeId'
+  #     - $ref: '#/components/parameters/ArtifactName'
+  #     - $ref: '#/components/parameters/VersionIdentifier'
+  #   get:
+  #     operationId: get_configuration_by_version
+  #     summary: retrieve an identified configuration
+  #     tags:
+  #     - Configuration
+  #     responses:
+  #       200:
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ConfigurationResponse'
+  #         description: The identified configuration
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  #   put:
+  #     operationId: publish_configuration_by_version
+  #     summary: publish the identified configuration to the supplied environment
+  #     tags:
+  #     - Configuration
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/PublishConfigurationVersion'
+  #     responses:
+  #       200:
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ConfigurationResponse'
+  #         description: The identified configuration
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+  #   delete:
+  #     operationId: delete_configuration_by_version
+  #     summary: delete a draft version of a configuration, or remove the publication tag from a published configuration
+  #     tags:
+  #     - Configuration
+  #     responses:
+  #       204:
+  #         description: successful deletion
+  #       400:
+  #         $ref: './components/responses.yml#/400'
+  #       401:
+  #         $ref: './components/responses.yml#/401'
+  #       404:
+  #         $ref: './components/responses.yml#/404'
+  #       415:
+  #         $ref: './components/responses.yml#/415'
+  #       500:
+  #         $ref: './components/responses.yml#/500'
+
+  /document_types/{id}/goldens:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+    get:
+      operationId: list_goldens
+      summary: list all reference documents (goldens) in the identified document type
+      tags:
+      - Reference documents
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAllGoldens'
+          description: List of reference documents for the current account
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    post:
+      operationId: create_golden
+      summary: create a new reference document with the supplied parameters in the identified document type
+      tags:
+      - - Reference documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGolden'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoldenResponse'
+          description: The created reference document
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  /document_types/{id}/goldens/{name}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/ArtifactName'
+    get:
+      operationId: get_golden
+      summary: retrieve an identified reference document
+      tags:
+      - - Reference documents
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoldenResponse'
+          description: The identified reference document
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    put:
+      operationId: update_golden
+      summary: update details of an identified reference document
+      tags:
+      - - Reference documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutGolden'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoldenResponse'
+          description: The updated reference document
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+    delete:
+      operationId: delete_golden
+      summary: Delete an identified reference document
+      tags:
+      - Reference documents
+      responses:
+        204:
+          description: successful deletion
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  /document_types/{id}/goldens/{name}/configuration:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/ArtifactName'
+    delete:
+      operationId: delete_golden_configuration
+      summary: Remove the associated configuration from the identified reference document
+      tags:
+      - Reference documents
+      responses:
+        204:
+          description: successful deletion
+        400:
+          $ref: './components/responses.yml#/400'
+        401:
+          $ref: './components/responses.yml#/401'
+        404:
+          $ref: './components/responses.yml#/404'
+        415:
+          $ref: './components/responses.yml#/415'
+        500:
+          $ref: './components/responses.yml#/500'
+  
+
 components:
   parameters:
     DocumentTypeId: #do I really need this? get rid of it? 
@@ -66,7 +537,27 @@ components:
       minLength: 3
       maxLength: 128
       description: user-friendly name
-    
+    Date:
+      type: string
+      format: date-time
+      description: ISO-formatted date-time
+    DocumentType:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        id:
+          $ref: '#/components/schemas/UniqueId'
+        created: 
+          $ref: '#/components/schemas/Date'
+        schema:
+          $ref: '#/components/schemas/OutputSchema'
+      required:
+        - name
+        - id
+        - created
+        - schema
+      additionalProperties: false
     GetAllDocumentTypes:
       type: array
       items: 
@@ -83,37 +574,133 @@ components:
           - id
           #- created
         additionalProperties: false
-   
+    PostDocumentType:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        schema:
+          $ref: '#/components/schemas/OutputSchema'
+      required:
+        - name
+        - schema
+      additionalProperties: false  
+    OutputSchema:
+      type: object
+      additionalProperties: false
+      properties:
+        fingerprint_mode:
+          enum:
+            - strict
+            - fallback_to_all
+          type: string
+        ocr_engine:
+          enum:
+            - microsoft
+            - amazon
+            - google
+          type: string
+        ocr_level:
+          enum:
+            - 0
+            - 2
+            - 4
+          type: number
+        validations:
+          items:
+            $ref: "#/components/schemas/DocumentValidation"
+          type: array
+    DocumentValidation:
+      type: object
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        condition:
+          anyOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: array
+            - type: object
+              additionalProperties: true
+        fields:
+          type: array
+          items:
+            type: string
+        severity:
+          type: string
+          enum:
+            - warning
+            - error
+      required:
+        - description
+        - condition
 
-  responses:
-    400:
-      description: blah
-      content:
-        text/plain:
-          schema:
-            title: Unauthorized
-            type: string
-    404:
-      description: Not Found
-      content:
-        text/plain:
-          schema:
-            title: Not Found
-            type: string
-    415:
-      description: Unsupported Media Type
-      content:
-        text/plain:
-          schema:
-            title: Unsupported Media Type
-            type: string
-    500:
-      description: Internal Server Error
-      content:
-        text/plain:
-          schema:
-            title: Sensible encountered an unknown error
-            type: string
+    PutDocumentType:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        schema:
+          $ref: '#/components/schemas/OutputSchema'
+      additionalProperties: false
+    GetAllGoldens:
+      type: array
+      items:
+        $ref: '#/components/schemas/GoldenResponse'
+    GoldenResponse:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        created: 
+          $ref: '#/components/schemas/Date'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+        error:
+          type: string
+          description: Any errors that occurred processing the reference document
+        upload_url:
+          type: string
+          description: if present, the URL to which a reference document can be PUT. 
+        download_url:
+          type: string
+          description: if present, the URL to GET to retrieve the reference document
+        thumbnail_url:
+          type: string
+          description: if present, the URL to GET to retrieve a thumbnail image of the first page of the reference document
+      required:
+        - name
+        - created
+      additionalProperties: false
+    PostGolden:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+      required:
+        - name
+      additionalProperties: false
+    PutGolden:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/Name'
+        configuration:
+          $ref: '#/components/schemas/AssociatedConfigurationName'
+      additionalProperties: false
+
+    AssociatedConfigurationName:
+      type: string
+      pattern: ^[a-z0-9_]*$
+      minLength: 3
+      maxLength: 128
+      description: user-friendly name of the configuration to associate to the reference document
+ 
+    
   securitySchemes:
     bearerAuth:       # arbitrary name for the security scheme
       type: http
