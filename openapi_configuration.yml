@@ -85,7 +85,7 @@ paths:
           $ref: './components/responses.yml#/500'
     put:
       operationId: replace_document_type
-      summary: Modify a document type
+      summary: Update a document type
       tags:
       - Document type
       requestBody:
@@ -185,7 +185,7 @@ paths:
   /document_types/{id}/configurations/{name}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ArtifactName'
+      - $ref: '#/components/parameters/ConfigurationName'
     get:
       operationId: get_configuration
       summary: Get a configuration by id
@@ -257,10 +257,10 @@ paths:
   /document_types/{id}/configurations/{name}/versions:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ArtifactName'
+      - $ref: '#/components/parameters/ConfigurationName'
     get:
       operationId: get_configuration_versions
-      summary: Get a configuration's verions
+      summary: Get all versions for a configuration
       tags:
       - Configuration
       responses:
@@ -283,7 +283,7 @@ paths:
   /document_types/{id}/configurations/{name}/{version}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ArtifactName'
+      - $ref: '#/components/parameters/ConfigurationName'
       - $ref: '#/components/parameters/VersionIdentifier'
     get:
       operationId: get_configuration_by_version
@@ -410,7 +410,7 @@ paths:
   /document_types/{id}/goldens/{name}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ArtifactName'
+      - $ref: '#/components/parameters/ConfigurationName'
     get:
       operationId: get_golden
       summary: Get a reference document
@@ -482,7 +482,7 @@ paths:
   /document_types/{id}/goldens/{name}/configuration:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ArtifactName'
+      - $ref: '#/components/parameters/ConfigurationName'
     delete:
       operationId: delete_golden_configuration
       summary: Remove association between reference document and configuration
@@ -512,13 +512,15 @@ components:
       description: unique document type identifier in v4 UUID format
       schema:
         $ref: '#/components/schemas/UniqueId'
-    ArtifactName:
+    ConfigurationName:
       name: name
       required: true
       in: path
-      description: unique name for an internal artifact
+      description: unique name for a configuration
+      example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
+
     VersionIdentifier:
       name: version
       required: true
@@ -723,6 +725,7 @@ components:
       properties:
         version_id:
           type: string
+          example: fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm  
         datetime:
           $ref: '#/components/schemas/Date'
         environments:
