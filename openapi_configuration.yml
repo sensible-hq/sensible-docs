@@ -85,7 +85,7 @@ paths:
           $ref: '#/components/responses/500'
     put:
       operationId: replace_document_type
-      summary: Update a document type
+      summary: Replace a document type
       tags:
       - Document type
       requestBody:
