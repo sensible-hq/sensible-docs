@@ -825,6 +825,8 @@ components:
           $ref: '#/components/schemas/Date'
         configuration:
           $ref: '#/components/schemas/StringifiedConfiguration'
+          example: |
+            "{\r\n\t\"fingerprint\": {\r\n\t\t\"tests\": [\r\n\t\t\t\"anyco\",\r\n\t\t\t\"quoted coverage changes\"\r\n\t\t]\r\n\t},\r\n\t\"preprocessors\": [{\r\n\t\t\"type\": \"pageRange\",\r\n\t\t\"startPage\": 0,\r\n\t\t\"endPage\": 2\r\n\t}],\r\n\t\"fields\": [{\r\n\t\t\"id\": \"_driver_name_raw\",\r\n\t\t\"anchor\": \"name of driver\",\r\n\t\t\"method\": {\r\n\t\t\t\"id\": \"label\",\r\n\t\t\t\"position\": \"below\"\r\n\t\t}\r\n\t}],\r\n\t\"computed_fields\": [{\r\n\t\t\t\"id\": \"driver_name_last\",\r\n\t\t\t\"method\": {\r\n\t\t\t\t\"id\": \"split\",\r\n\t\t\t\t\"source_id\": \"_driver_name_raw\",\r\n\t\t\t\t\"separator\": \", \",\r\n\t\t\t\t\"index\": 1\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t]\r\n}"  
         version_id:
           type: string
         versions:
