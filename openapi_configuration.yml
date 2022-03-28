@@ -847,6 +847,10 @@ components:
           $ref: '#/components/schemas/Name'
         configuration:
           $ref: '#/components/schemas/StringifiedConfiguration'
+          example: |
+            { "fields": [{ 		"id": "updated_name_field", 		"anchor": "name of driver", 		"method": { 			"id": "label", 			"position": "below" 		} 	}], 	"computed_fields": [{ 			"id": "driver_name_last", 			"method": { 				"id": "split", 				"source_id": "_driver_name_raw", 				"separator": ", ", 				"index": 1 			} 		}  	] }
+       
+          
         publish_as:
           $ref: '#/components/schemas/Environment'
         current_draft:
