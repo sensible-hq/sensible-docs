@@ -397,6 +397,9 @@ paths:
     post:
       operationId: create_golden
       summary: Create a new reference document
+      description: >-
+        Specify document metadata in the request, and get back an `upload_url` at which to put the PDF, 
+        for example with `curl -T ./sample.pdf`.
       tags:
       - Reference document
       requestBody:
@@ -428,7 +431,8 @@ paths:
       - $ref: '#/components/parameters/DocumentName'
     get:
       operationId: get_golden
-      summary: Get a reference document
+      summary: Get reference document metadata
+      description: Get download URL and other metadata for a reference document.
       tags:
       - Reference document
       responses:
@@ -451,6 +455,7 @@ paths:
     put:
       operationId: update_golden
       summary: Update metadata for a reference document
+      Description: Update metadata for a reference document
       tags:
       - Reference document
       requestBody:
@@ -479,6 +484,7 @@ paths:
     delete:
       operationId: delete_golden
       summary: Delete a reference document
+      description: Delete a reference document and break associations to any configs.
       tags:
       - Reference document
       responses:
@@ -501,6 +507,7 @@ paths:
     delete:
       operationId: delete_golden_configuration
       summary: Unassociate reference document and configuration
+      description: Break the association between a reference document and a configuration. 
       tags:
       - Reference document
       responses:
@@ -709,6 +716,7 @@ components:
       additionalProperties: false
     PostGolden:
       type: object
+      description: The upload url for putting the document
       properties:
         name:
           $ref: '#/components/schemas/Name'
