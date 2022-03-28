@@ -14,7 +14,7 @@ paths:
   /document_types:
     get:
       operationId: list_document_types
-      summary: Retrieve all document types for the current account
+      summary: Get all document types for this account
       tags:
       - Document type
       responses:
@@ -63,7 +63,7 @@ paths:
       - $ref: '#/components/parameters/DocumentTypeId'
     get:
       operationId: get_document_type
-      summary: Retrieve an identified document type
+      summary: Get document type by id
       tags:
       - Document type
       responses:
@@ -85,7 +85,7 @@ paths:
           $ref: './components/responses.yml#/500'
     put:
       operationId: replace_document_type
-      summary: Modify an indentified document type
+      summary: Modify a document type
       tags:
       - Document type
       requestBody:
@@ -113,7 +113,7 @@ paths:
           $ref: './components/responses.yml#/500'
     delete:
       operationId: delete_document_type
-      summary: Delete an identified document type
+      summary: Delete a document type
       tags:
       - Document type
       responses:
@@ -134,7 +134,7 @@ paths:
       - $ref: '#/components/parameters/DocumentTypeId'
     get:
       operationId: list_configurations
-      summary: list all configurations in the identified document type
+      summary: List configurations in a document type
       tags:
       - Configuration
       responses:
@@ -156,7 +156,7 @@ paths:
           $ref: './components/responses.yml#/500'
     post:
       operationId: create_configuration
-      summary: create a new configuration in the identified document type
+      summary: Create new configuration in a document type
       tags:
       - Configuration
       requestBody:
@@ -188,7 +188,7 @@ paths:
       - $ref: '#/components/parameters/ArtifactName'
     get:
       operationId: get_configuration
-      summary: retrieve an identified configuration
+      summary: Get a configuration by id
       tags:
       - Configuration
       responses:
@@ -210,7 +210,7 @@ paths:
           $ref: './components/responses.yml#/500'
     put:
       operationId: replace_configuration
-      summary: update an identified configuration
+      summary: Update a configuration
       tags:
       - Configuration
       requestBody:
@@ -238,7 +238,7 @@ paths:
           $ref: './components/responses.yml#/500'
     delete:
       operationId: delete_configuration
-      summary: Delete an identified configuration
+      summary: Delete a configuration
       tags:
       - Configuration
       responses:
@@ -260,7 +260,7 @@ paths:
       - $ref: '#/components/parameters/ArtifactName'
     get:
       operationId: get_configuration_versions
-      summary: Delete an identified configuration
+      summary: Get a configuration's verions
       tags:
       - Configuration
       responses:
@@ -287,7 +287,7 @@ paths:
       - $ref: '#/components/parameters/VersionIdentifier'
     get:
       operationId: get_configuration_by_version
-      summary: retrieve an identified configuration
+      summary: Get a configuration version
       tags:
       - Configuration
       responses:
@@ -309,7 +309,7 @@ paths:
           $ref: './components/responses.yml#/500'
     put:
       operationId: publish_configuration_by_version
-      summary: publish the identified configuration to the supplied environment
+      summary: Publish a configuration to an environment
       tags:
       - Configuration
       requestBody:
@@ -337,7 +337,7 @@ paths:
           $ref: './components/responses.yml#/500'
     delete:
       operationId: delete_configuration_by_version
-      summary: delete a draft version of a configuration, or remove the publication tag from a published configuration
+      summary: Delete a draft version of a configuration, or remove the publication tag from a published configuration
       tags:
       - Configuration
       responses:
@@ -359,7 +359,7 @@ paths:
       - $ref: '#/components/parameters/DocumentTypeId'
     get:
       operationId: list_goldens
-      summary: list all reference documents (goldens) in the identified document type
+      summary: List all reference documents in a document type
       tags:
       - Reference documents
       responses:
@@ -381,7 +381,7 @@ paths:
           $ref: './components/responses.yml#/500'
     post:
       operationId: create_golden
-      summary: create a new reference document with the supplied parameters in the identified document type
+      summary: Create a new reference document in a document type
       tags:
       - Reference documents
       requestBody:
@@ -413,7 +413,7 @@ paths:
       - $ref: '#/components/parameters/ArtifactName'
     get:
       operationId: get_golden
-      summary: retrieve an identified reference document
+      summary: Get a reference document
       tags:
       - Reference documents
       responses:
@@ -435,7 +435,7 @@ paths:
           $ref: './components/responses.yml#/500'
     put:
       operationId: update_golden
-      summary: update details of an identified reference document
+      summary: Update metadata for a reference document
       tags:
       - Reference documents
       requestBody:
@@ -463,7 +463,7 @@ paths:
           $ref: './components/responses.yml#/500'
     delete:
       operationId: delete_golden
-      summary: Delete an identified reference document
+      summary: Delete a reference document
       tags:
       - Reference documents
       responses:
@@ -485,7 +485,7 @@ paths:
       - $ref: '#/components/parameters/ArtifactName'
     delete:
       operationId: delete_golden_configuration
-      summary: Remove the associated configuration from the identified reference document
+      summary: Remove association between reference document and configuration
       tags:
       - Reference documents
       responses:
@@ -753,15 +753,25 @@ components:
       additionalProperties: false
     StringifiedConfiguration:
       type: string
-      description: |
-        JSON-stringified version of the configuration, as defined by #/components/schemas/Configuration,
-        with errors allowed for draft configurations
+      description: >-
+        JSON-stringified version of the configuration. 
+        For example, test this parameter by creating and validating the configuration in the Sensible app, 
+        then stringify it using a tool like https://onlinetexttools.com/json-stringify-text, then copy it into this parameter.
+        To support publishing drafts, this API doesn’t reject requests with configuration errors.
+        The latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
+      example: |
+        {\n  \"fingerprint\": {\n    \"tests\":[\n      \"anyco\",\n      \"quoted coverage changes\"\n    ],\n  },\n  
+        \"preprocessors\": [\n    {\n      \"type\": \"pageRange\",\n      \"startPage\": 0,\n      \"endPage\": 2\n    
+        }\n  ],\n  \"fields\": [\n    {\n      \"id\": \"_driver_name_raw\",\n      \"anchor\": \"name of driver\",\n      
+        \"method\": {\n        \"id\": \"label\",\n        \"position\": \"below\"\n      }\n    }\n  ],\n  \"computed_fields\": [\n    
+        {\n      \"id\": \"driver_name_last\",\n      \"method\": {\n        \"id\": \"split\",\n        \"source_id\": \"_driver_name_raw\",\n       
+         \"separator\": \", \",\n        \"index\": 1\n      }\n    },\n\n  ],\n}
     Environment:
       type: string
       pattern: ^[a-z0-9_]*$
       minLength: 3
       maxLength: 128
-      description: |
+      description: >-
         Destination environment for publication, as a target for later extraction.
         "production" is a special environment used as a default when no environment is specified during extraction
         if supplied, the configuration must be valid
@@ -799,7 +809,7 @@ components:
           $ref: '#/components/schemas/Environment'
         current_draft:
           type: string
-          description: |
+          description: >-
             version ID of the current draft of the configuration, if the current draft exists and is being replaced.
             if the configuration is currently in draft and this is not supplied or does not match, the operation will fail
       additionalProperties: false
@@ -827,7 +837,7 @@ components:
     bearerAuth:       # arbitrary name for the security scheme
       type: http
       scheme: bearer
-      description: |
+      description: >-
         Sensible uses API keys to authenticate requests. You should have received a key as a part of onboarding, 
         but if you're having trouble with your current key, please reach out to support@sensible.so. 
         Keep your API keys secure and do not share them publicly accessible areas such as GitHub, client-side code, etc.
