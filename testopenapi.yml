@@ -24,7 +24,7 @@ paths:
                 $ref: '#/components/schemas/GetAllDocumentTypes'
           description: List of document types for the current account
         400:
-          $ref: '#/components/responses/400'
+          $ref: './components/responses.yml/400'
         401:
           $ref: '#/components/responses/401'
         415:
@@ -86,13 +86,6 @@ components:
    
 
   responses:
-    400:
-      description: Bad Request
-      content:
-        text/plain:
-          schema:
-            title: Bad Request
-            type: string
     401:
       description: Not authorized
       content:

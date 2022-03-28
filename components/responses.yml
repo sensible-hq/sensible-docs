@@ -1,0 +1,10 @@
+
+
+401:
+      description: Not authorized
+      content:
+        text/plain:
+          schema:
+            title: Unauthorized
+            type: string
+            example: Unauthorized
