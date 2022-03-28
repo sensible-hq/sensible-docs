@@ -361,7 +361,7 @@ paths:
       operationId: list_goldens
       summary: List all reference documents in a document type
       tags:
-      - Reference documents
+      - Reference document
       responses:
         200:
           content:
@@ -383,7 +383,7 @@ paths:
       operationId: create_golden
       summary: Create a new reference document
       tags:
-      - Reference documents
+      - Reference document
       requestBody:
         required: true
         content:
@@ -415,7 +415,7 @@ paths:
       operationId: get_golden
       summary: Get a reference document
       tags:
-      - Reference documents
+      - Reference document
       responses:
         200:
           content:
@@ -437,7 +437,7 @@ paths:
       operationId: update_golden
       summary: Update metadata for a reference document
       tags:
-      - Reference documents
+      - Reference document
       requestBody:
         required: true
         content:
@@ -465,7 +465,7 @@ paths:
       operationId: delete_golden
       summary: Delete a reference document
       tags:
-      - Reference documents
+      - Reference document
       responses:
         204:
           description: successful deletion
@@ -487,7 +487,7 @@ paths:
       operationId: delete_golden_configuration
       summary: Unassociate reference document and configuration
       tags:
-      - Reference documents
+      - Reference document
       responses:
         204:
           description: successful deletion

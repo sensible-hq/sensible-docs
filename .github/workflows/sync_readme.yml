@@ -1,4 +1,4 @@
-name: Sync OpenAPI definition to ReadMe
+name: Sync OpenAPI definitions to ReadMe
 
 # Run workflow for every push to the `main` branch
 on:
