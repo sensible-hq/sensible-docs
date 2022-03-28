@@ -65,7 +65,7 @@ paths:
       - $ref: '#/components/parameters/DocumentTypeId'
     get:
       operationId: get_document_type
-      summary: Get document type by id
+      summary: Get document type metadata
       description: Find the document type id using the `/document_types` endpoint.
       tags:
       - Document type
