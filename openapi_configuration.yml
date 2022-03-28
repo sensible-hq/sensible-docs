@@ -188,7 +188,7 @@ paths:
       - $ref: '#/components/parameters/ConfigurationName'
     get:
       operationId: get_configuration
-      summary: Get a configuration by id
+      summary: Get a configuration
       tags:
       - Configuration
       responses:
@@ -485,7 +485,7 @@ paths:
       - $ref: '#/components/parameters/ConfigurationName'
     delete:
       operationId: delete_golden_configuration
-      summary: Remove association between reference document and configuration
+      summary: Unassociate reference document and configuration
       tags:
       - Reference documents
       responses:
@@ -516,7 +516,7 @@ components:
       name: name
       required: true
       in: path
-      description: unique name for a configuration
+      description: unique name for a configuration. Find it in the Sensible app or in the List configurations endpoint.
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
@@ -778,15 +778,26 @@ components:
         \"method\": {\n        \"id\": \"label\",\n        \"position\": \"below\"\n      }\n    }\n  ],\n  \"computed_fields\": [\n    
         {\n      \"id\": \"driver_name_last\",\n      \"method\": {\n        \"id\": \"split\",\n        \"source_id\": \"_driver_name_raw\",\n       
          \"separator\": \", \",\n        \"index\": 1\n      }\n    },\n\n  ],\n}
+    # Environment:
+    #   type: string
+    #   pattern: ^[a-z0-9_]*$
+    #   minLength: 3
+    #   maxLength: 128
+    #   description: >-
+    #     Destination environment for publication, as a target for later extraction.
+    #     "production" is a special environment used as a default when no environment is specified during extraction
+    #     if supplied, the configuration must be valid
+
     Environment:
       type: string
-      pattern: ^[a-z0-9_]*$
+      enum: [production, development]
+      default: production 
       minLength: 3
       maxLength: 128
       description: >-
         Destination environment for publication, as a target for later extraction.
-        "production" is a special environment used as a default when no environment is specified during extraction
-        if supplied, the configuration must be valid
+        "production" is a special environment used as a default when no environment is specified during extraction.
+        If you specify "production," the configuration must be valid.  
 
     ConfigurationResponse:
       type: object
