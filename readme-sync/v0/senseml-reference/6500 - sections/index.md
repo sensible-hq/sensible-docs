@@ -63,12 +63,6 @@ See the following topics:
 
 - Advanced: [Table grid example](doc:sections-example-table-grid)
 
- 
-
-  
-
-  
-
 
 Notes
 ===
