@@ -634,7 +634,7 @@ components:
               additionalProperties: true
         fields:
           type: array
-          description: preprequisite fields required to run this validation
+          description: skip this test unless prerequisite fields are present (non-null)
           example: ["broker\\.email"]
           items:
             type: string
