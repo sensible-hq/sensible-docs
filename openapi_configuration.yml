@@ -15,6 +15,7 @@ paths:
     get:
       operationId: list_document_types
       summary: Get all document types for this account
+      description: Get all document types for this account
       tags:
       - Document type
       responses:
@@ -35,6 +36,7 @@ paths:
     post:
       operationId: create_document_type
       summary: Create a new document type
+      description: Create a document type, including [validations](https://docs.sensible.so/docs/validate-extractions).
       tags:
       - Document type
       requestBody:
@@ -64,6 +66,7 @@ paths:
     get:
       operationId: get_document_type
       summary: Get document type by id
+      description: Find the document type id using the Get all document types endpoint.
       tags:
       - Document type
       responses:
@@ -86,6 +89,7 @@ paths:
     put:
       operationId: replace_document_type
       summary: Replace a document type
+      description: Replace an existing document type with new information.
       tags:
       - Document type
       requestBody:
@@ -114,6 +118,7 @@ paths:
     delete:
       operationId: delete_document_type
       summary: Delete a document type
+      description: Delete a document type and its configurations. #todo: check
       tags:
       - Document type
       responses:
