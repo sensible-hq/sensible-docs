@@ -521,7 +521,7 @@ paths:
       - $ref: '#/components/parameters/DocumentName'
     delete:
       operationId: delete-reference-document-association
-      summary: Unassociate reference document and configuration
+      summary: Unassociate reference document from configuration
       description: Break the association between a reference document and its configuration. 
       tags:
       - Reference document
