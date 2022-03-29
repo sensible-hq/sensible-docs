@@ -656,13 +656,14 @@ components:
         condition:
           description: test for extraction written in JsonLogic
           example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
-          anyOf:
-            - type: string
-            - type: number
-            - type: boolean
-            - type: array
-            - type: object
-              additionalProperties: true
+          type: string
+          # anyOf:
+          #   - type: string
+          #   - type: number
+          #   - type: boolean
+          #   - type: array
+          #   - type: object
+          # additionalProperties: true
         fields:
           type: array
           description: skip this test unless prerequisite fields are present (non-null)
