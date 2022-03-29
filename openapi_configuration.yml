@@ -351,7 +351,9 @@ paths:
     delete:
       operationId: delete_configuration_by_version
       summary: Delete draft or unpublish configuration
-      description: Delete a draft version of a configuration, or remove the publication tag from a published configuration
+      description: >-
+        If a draft version of a configuration exists, delete it. If no draft exists, 
+        remove the publication tag from the current published configuration and revert to draft.
       tags:
       - Configuration
       responses:
