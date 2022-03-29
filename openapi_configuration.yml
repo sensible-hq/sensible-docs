@@ -640,14 +640,14 @@ components:
             - strict
             - fallback_to_all
           type: string
-          default: fallback_to_all
+          description: the Sensible app defaults to fallback_to_all
         ocr_engine:
           enum:
             - microsoft
             - amazon
             - google
           type: string
-          default: microsoft
+          description: the Sensible app defaults to Microsoft
         ocr_level:
           enum:
             - 0
@@ -657,7 +657,7 @@ components:
           default: 2
           description: |
             0: no OCR.
-            2: Sensible averages the number of lines per page in the document, and if it's fewer than 10, 
+            2: (Sensible app default) - Sensible averages the number of lines per page in the document, and if it's fewer than 10, 
             Sensible renders the first page to determine whether to run OCR on the whole document.
             4: Sensible always renders the first page to determine whether to run OCR on the whole document.
         validations:
