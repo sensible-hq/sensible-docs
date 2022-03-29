@@ -522,7 +522,7 @@ paths:
     delete:
       operationId: delete_golden_configuration
       summary: Unassociate reference document and configuration
-      description: Break the association between a reference document and a configuration. 
+      description: Break the association between a reference document and its configuration. 
       tags:
       - Reference document
       responses:
