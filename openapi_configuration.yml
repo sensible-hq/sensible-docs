@@ -366,7 +366,7 @@ paths:
           required: true
           description: >-
             if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.)
-            If deleting a draft, the unique name for a configuration version.
+            If deleting a draft, the version number of the current draft.
           schema:
             type: string
       responses:
