@@ -25,5 +25,5 @@ jobs:
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@6.5.0       
         with:
-          rdme: openapi openapi_configuration.yml --key=${{ secrets.README_API_KEY }} --id=624221549abbc20014e1810f
+          rdme: openapi openapi_configuration.yml --key=${{ secrets.README_API_KEY }} --id=6243535fd727c300827515b3
 
