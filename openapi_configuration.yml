@@ -358,6 +358,17 @@ paths:
         
       tags:
       - Configuration
+      parameters:
+        - $ref: '#/components/parameters/DocumentTypeId'
+        - $ref: '#/components/parameters/ConfigurationName'
+        - in: path
+          name: version
+          required: true
+          description: >-
+            if unpublishing a configuration from an environment, the name of the environment (`development`, `production`.)
+            If deleting a draft, the unique name for a configuration version.
+          schema:
+            type: string
       responses:
         204:
           description: successful deletion
