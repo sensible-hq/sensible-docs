@@ -35,7 +35,7 @@ paths:
           $ref: '#/components/responses/500'
     post:
       operationId: create-document-type
-      summary: Create a new document type
+      summary: Create new document type
       description: Create a document type, including [validations](https://docs.sensible.so/docs/validate-extractions).
       tags:
       - Document type
@@ -88,7 +88,7 @@ paths:
           $ref: '#/components/responses/500'
     put:
       operationId: update-document-type
-      summary: Update a document type
+      summary: Update document type
       description: Replace an existing document type with new information.
       tags:
       - Document type
@@ -117,7 +117,7 @@ paths:
           $ref: '#/components/responses/500'
     delete:
       operationId: delete-document-type
-      summary: Delete a document type
+      summary: Delete document type
       description: Delete a document type and its configurations. #todo: check
       tags:
       - Document type
@@ -195,7 +195,7 @@ paths:
       - $ref: '#/components/parameters/ConfigurationName'
     get:
       operationId: get-configuration
-      summary: Get a configuration
+      summary: Get configuration
       description: Get a configuration as a string.
       tags:
       - Configuration
@@ -247,7 +247,7 @@ paths:
           $ref: '#/components/responses/500'
     delete:
       operationId: delete-configuration
-      summary: Delete a configuration
+      summary: Delete configuration
       description: Delete a configuration and its versions.
       tags:
       - Configuration
@@ -270,7 +270,7 @@ paths:
       - $ref: '#/components/parameters/ConfigurationName'
     get:
       operationId: get-configuration-versions
-      summary: Get all versions for a configuration
+      summary: List versions for a configuration
       description: Get the version ids for a configuration.
       tags:
       - Configuration
@@ -298,7 +298,7 @@ paths:
       - $ref: '#/components/parameters/VersionIdentifier'
     get:
       operationId: get-configuration-by-version
-      summary: Get a configuration by version
+      summary: Get configuration by version
       description: Get a configuration as a string by version id.
       tags:
       - Configuration
@@ -321,7 +321,7 @@ paths:
           $ref: '#/components/responses/500'
     put:
       operationId: publish-configuration-by-version
-      summary: Publish a configuration to an environment
+      summary: Publish configuration to an environment
       description: The configuration must be [valid](https://app.sensible.so/schemas/configuration.schema.json).
       tags:
       - Configuration
@@ -411,7 +411,7 @@ paths:
           $ref: '#/components/responses/500'
     post:
       operationId: create-reference-document
-      summary: Create a new reference document
+      summary: Create new reference document
       description: >-
         Specify document metadata in the request, and get back an `upload_url` at which to put the PDF, 
         for example with `curl -T ./sample.pdf`.
@@ -498,7 +498,7 @@ paths:
           $ref: '#/components/responses/500'
     delete:
       operationId: delete-reference-document
-      summary: Delete a reference document
+      summary: Delete reference document
       description: Delete a reference document and break associations to any configs.
       tags:
       - Reference document
