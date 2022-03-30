@@ -35,7 +35,7 @@ paths:
                   document:
                     type: string
                     description: |
-                      this parameter shows option 2 for posting PDF bytes. To test this endpoint using the `Try It` button in this interactive explorer,
+                      This parameter shows option \#2 for posting PDF bytes. To test this endpoint using the `Try It` button in this interactive explorer,
                       you can encode an [example document](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf) using a free online PDF-to-base64 encoder and paste the resulting bytes into this parameter.                      
                       Alternatively, (often preferred) specify the non-encoded document bytes as the entire request body,
                       (i.e., no `document` field in the body), and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png". 
