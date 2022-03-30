@@ -657,8 +657,10 @@ components:
           default: 2
           description: |
             0: no OCR.
+            If not 0, Sensible automatically OCRs documents if they contain unmapped fonts or low-quality embedded text that is likely the result of OCR.
+            You can further configure OCR behavior as follows:
             2: (Sensible app default) - Sensible averages the number of lines per page in the document, and if it's fewer than 10, 
-            Sensible renders the first page to determine whether to run OCR on the whole document.
+            Sensible runs OCR on the whole document.
             4: Sensible always renders the first page to determine whether to run OCR on the whole document.
     #     validations:
     #       description: Array of validations. See https://docs.sensible.so/docs/validate-extractions 
