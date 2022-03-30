@@ -660,25 +660,25 @@ components:
             2: (Sensible app default) - Sensible averages the number of lines per page in the document, and if it's fewer than 10, 
             Sensible renders the first page to determine whether to run OCR on the whole document.
             4: Sensible always renders the first page to determine whether to run OCR on the whole document.
-        validations:
-          description: Array of validations. See https://docs.sensible.so/docs/validate-extractions 
-          items:
-            $ref: "#/components/schemas/DocumentValidation"
-          type: array
-    DocumentValidation:
-      type: object
-      additionalProperties: false
-      description: See https://docs.sensible.so/docs/validate-extractions 
-      properties:
-        description:
-          type: string
-          description: user-friendly description for the test
-          example: Broker's email is in string@string format
-        condition:
-          description: test for extraction written in JsonLogic
-          example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
-          type: object
-          additionalProperties: true
+    #     validations:
+    #       description: Array of validations. See https://docs.sensible.so/docs/validate-extractions 
+    #       items:
+    #         $ref: "#/components/schemas/DocumentValidation"
+    #       type: array
+    # DocumentValidation:
+    #   type: object
+    #   additionalProperties: false
+    #   description: See https://docs.sensible.so/docs/validate-extractions 
+    #   properties:
+    #     description:
+    #       type: string
+    #       description: user-friendly description for the test
+    #       example: Broker's email is in string@string format
+    #     condition:
+    #       description: test for extraction written in JsonLogic
+    #       example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
+    #       type: object
+    #       additionalProperties: true
             
         fields:
           type: array
