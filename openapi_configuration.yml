@@ -35,8 +35,8 @@ paths:
           $ref: '#/components/responses/500'
     post:
       operationId: create-document-type
-      summary: Create new document type
-      description: Create a document type, including [validations](https://docs.sensible.so/docs/validate-extractions).
+      summary: Create document type
+      description: Create a document type.
       tags:
       - Document type
       requestBody:
@@ -162,8 +162,8 @@ paths:
           $ref: '#/components/responses/500'
     post:
       operationId: create-configuration
-      summary: Create new configuration in a document type
-      description: Pass the configuration as a string.
+      summary: Create configuration in a document type
+      description: Pass the configuration as stringified JSON.
       tags:
       - Configuration
       requestBody:
@@ -411,7 +411,7 @@ paths:
           $ref: '#/components/responses/500'
     post:
       operationId: create-reference-document
-      summary: Create new reference document
+      summary: Create reference document
       description: >-
         Specify document metadata in the request, and get back an `upload_url` at which to put the PDF, 
         for example with `curl -T ./sample.pdf`.
