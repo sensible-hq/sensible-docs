@@ -810,6 +810,12 @@ components:
           $ref: '#/components/schemas/StringifiedConfiguration'
           example: |
             { 	"fingerprint": { 		"tests": [ 			"anyco", 			"quoted coverage changes" 		] 	}, 	"preprocessors": [{ 		"type": "pageRange", 		"startPage": 0, 		"endPage": 2 	}], 	"fields": [{ 		"id": "_driver_name_raw", 		"anchor": "name of driver", 		"method": { 			"id": "label", 			"position": "below" 		} 	}], 	"computed_fields": [{ 			"id": "driver_name_last", 			"method": { 				"id": "split", 				"source_id": "_driver_name_raw", 				"separator": ", ", 				"index": 1 			} 		}  	] }
+          description: |
+            If you test this endpoint using the **Try It** button in this interactive API explorer, 
+            the explorer stringifies the JSON for you when you paste the configuration into this parameter. 
+            To support publishing drafts, this API doesn’t reject requests with configuration errors.
+            To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
+
         publish_as:
           $ref: '#/components/schemas/Environment'
       required:
@@ -818,12 +824,8 @@ components:
       additionalProperties: false
     StringifiedConfiguration:
       type: string
-      description: >-
-        JSON-stringified version of the configuration. 
-        For example, test this parameter by creating and validating the configuration in the Sensible app, 
-        then stringify it using a tool like https://onlinetexttools.com/json-stringify-text, then copy it into this parameter.
-        To support publishing drafts, this API doesn’t reject requests with configuration errors.
-        To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
+      description: |
+        JSON-stringified configuration.
 
 
     Environment:
@@ -870,7 +872,13 @@ components:
           $ref: '#/components/schemas/StringifiedConfiguration'
           example: |
             { "fields": [{ 		"id": "updated_name_field", 		"anchor": "name of driver", 		"method": { 			"id": "label", 			"position": "below" 		} 	}], 	"computed_fields": [{ 			"id": "driver_name_last", 			"method": { 				"id": "split", 				"source_id": "_driver_name_raw", 				"separator": ", ", 				"index": 1 			} 		}  	] }
-       
+          description: |
+            If you test this endpoint using the **Try It** button in this interactive API explorer, 
+            the explorer stringifies the JSON for you when you paste the configuration into this parameter. 
+            To support publishing drafts, this API doesn’t reject requests with configuration errors.
+            To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
+
+
           
         publish_as:
           $ref: '#/components/schemas/Environment'
