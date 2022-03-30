@@ -682,21 +682,21 @@ components:
     #       type: object
     #       additionalProperties: true
             
-        fields:
-          type: array
-          description: skip this test unless prerequisite fields are present (non-null)
-          example: ["broker\\.email"]
-          items:
-            type: string
-        severity:
-          type: string
-          description: The severity of the failing test
-          enum:
-            - warning
-            - error
-      required:
-        - description
-        - condition
+      #   fields:
+      #     type: array
+      #     description: skip this test unless prerequisite fields are present (non-null)
+      #     example: ["broker\\.email"]
+      #     items:
+      #       type: string
+      #   severity:
+      #     type: string
+      #     description: The severity of the failing test
+      #     enum:
+      #       - warning
+      #       - error
+      # required:
+      #   - description
+      #   - condition
 
     PutDocumentType:
       type: object
