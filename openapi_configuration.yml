@@ -198,7 +198,7 @@ paths:
     get:
       operationId: get-configuration
       summary: Get configuration
-      description: Get a configuration as a string.
+      description: Get a configuration as stringified JSON.
       tags:
       - Configuration
       responses:
@@ -354,9 +354,9 @@ paths:
       operationId: delete-configuration-by-version
       summary: Delete draft or unpublish configuration
       description: >-
-        Specify a version number in the `version` parameter to delete a draft version.
-        If the configuration is published to an environment, then enter the environment name in the `version` parameter, for example, 
-        `development`, to unpublish the configuration from that environment. 
+        To delete a draft, specify a version name in the `version` parameter.
+        To unpublish a configuration, then enter the publication environment name in the `version` parameter, for example, 
+        `development`. 
         
       tags:
       - Configuration
