@@ -829,13 +829,13 @@ components:
     Environment:
       type: string
       enum: [production, development]
-      default: production 
       minLength: 3
       maxLength: 128
       description: >-
         Destination environment for publication, as a target for later extraction.
-        "production" is a special environment used as a default when no environment is specified during extraction.
-        If you specify an environment, the configuration must be valid.  
+        If you specify an environment, the configuration must be valid.
+        The extraction endpoints default to "production" if you don't specify an extraction environment.
+          
 
     ConfigurationResponse:
       type: object
