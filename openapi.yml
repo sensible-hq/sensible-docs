@@ -36,8 +36,8 @@ paths:
                     type: string
                     description: |
                       this parameter shows option 2 for posting PDF bytes. Alternatively, 
-                      (often preferred) specify the non-encoded document bytes as the entire request body, 
-                      and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png". 
+                      (often preferred) specify the non-encoded document bytes as the entire request body,
+                      (i.e., no `document` field in the body), and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png". 
                 required:
                   - document
                       
