@@ -118,7 +118,7 @@ paths:
     delete:
       operationId: delete-document-type
       summary: Delete document type
-      description: Delete a document type and its configurations. #todo: check
+      description: Delete a document type and everything it contains (configurations, reference PDfs), but not its extraction history.
       tags:
       - Document type
       responses:

@@ -14,10 +14,9 @@ paths:
     post:
       operationId: extract-data-from-a-document
       summary: Extract data from a document
-      description: >-
+      description: |
         Extract data from a local document synchronously. 
-        For a step-by-step tutorial on calling this endpoint, 
-        see [Try synchronous extraction](doc:api-tutorial-sync).
+        For a step-by-step tutorial on calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
         
         There are two options for posting the document bytes.
           1. (often preferred) specify the non-encoded document bytes as the entire request body, 
@@ -25,26 +24,42 @@ paths:
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type. 
       parameters:
         - $ref: '#/components/parameters/type'
-        - $ref: '#/components/parameters/environment'         
+        - $ref: '#/components/parameters/environment' 
       requestBody:
-        description:  There are two options for posting the document bytes.
-          1. (often preferred) specify the non-encoded document bytes as the entire request body, 
-          and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png", as appropriate.
-          2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type. 
         required: true
         content:
-          application/pdf:
+          application/json:
             schema:
-              type: string
-              format: binary
-          image/jpeg:
-            schema:
-              type: string
-              format: binary
-          image/png:
-            schema:
-              type: string
-              format: binary
+                type: object
+                properties:
+                  document:
+                    type: string
+                    description: |
+                      this parameter shows option 2 for posting PDF bytes. Alternatively, 
+                      (often preferred) specify the non-encoded document bytes as the entire request body, 
+                      and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png". 
+                required:
+                  - document
+                      
+      # requestBody:
+      #   description:  There are two options for posting the document bytes.
+      #     1. (often preferred) specify the non-encoded document bytes as the entire request body, 
+      #     and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png", as appropriate.
+      #     2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type. 
+      #   required: true
+      #   content:
+      #     application/pdf:
+      #       schema:
+      #         type: string
+      #         format: binary
+      #     image/jpeg:
+      #       schema:
+      #         type: string
+      #         format: binary
+      #     image/png:
+      #       schema:
+      #         type: string
+      #         format: binary
 
       tags:
       - Document
