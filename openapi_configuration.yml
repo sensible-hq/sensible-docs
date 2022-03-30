@@ -807,25 +807,24 @@ components:
         name:
           $ref: '#/components/schemas/Name'
         configuration:
-          $ref: '#/components/schemas/StringifiedConfiguration'
+          $ref: '#/components/schemas/StringifiedConfigurationRequest'
           example: |
             { 	"fingerprint": { 		"tests": [ 			"anyco", 			"quoted coverage changes" 		] 	}, 	"preprocessors": [{ 		"type": "pageRange", 		"startPage": 0, 		"endPage": 2 	}], 	"fields": [{ 		"id": "_driver_name_raw", 		"anchor": "name of driver", 		"method": { 			"id": "label", 			"position": "below" 		} 	}], 	"computed_fields": [{ 			"id": "driver_name_last", 			"method": { 				"id": "split", 				"source_id": "_driver_name_raw", 				"separator": ", ", 				"index": 1 			} 		}  	] }
-          description: |
-            If you test this endpoint using the **Try It** button in this interactive API explorer, 
-            the explorer stringifies the JSON for you when you paste the configuration into this parameter. 
-            To support publishing drafts, this API doesn’t reject requests with configuration errors.
-            To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
-
         publish_as:
           $ref: '#/components/schemas/Environment'
       required:
         - name
         - configuration
       additionalProperties: false
-    StringifiedConfiguration:
+    StringifiedConfigurationRequest:
       type: string
       description: |
         JSON-stringified configuration.
+        If you test this endpoint using the **Try It** button in this interactive API explorer, 
+        the explorer stringifies the JSON for you when you paste the configuration into this parameter. 
+        To support publishing drafts, this API doesn’t reject requests with configuration errors.
+        To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
+
 
 
     Environment:
@@ -847,7 +846,8 @@ components:
         created: 
           $ref: '#/components/schemas/Date'
         configuration:
-          $ref: '#/components/schemas/StringifiedConfiguration'
+          type: string
+          description: configuration as stringified JSON 
           example: |
             "{\r\n\t\"fingerprint\": {\r\n\t\t\"tests\": [\r\n\t\t\t\"anyco\",\r\n\t\t\t\"quoted coverage changes\"\r\n\t\t]\r\n\t},\r\n\t\"preprocessors\": [{\r\n\t\t\"type\": \"pageRange\",\r\n\t\t\"startPage\": 0,\r\n\t\t\"endPage\": 2\r\n\t}],\r\n\t\"fields\": [{\r\n\t\t\"id\": \"_driver_name_raw\",\r\n\t\t\"anchor\": \"name of driver\",\r\n\t\t\"method\": {\r\n\t\t\t\"id\": \"label\",\r\n\t\t\t\"position\": \"below\"\r\n\t\t}\r\n\t}],\r\n\t\"computed_fields\": [{\r\n\t\t\t\"id\": \"driver_name_last\",\r\n\t\t\t\"method\": {\r\n\t\t\t\t\"id\": \"split\",\r\n\t\t\t\t\"source_id\": \"_driver_name_raw\",\r\n\t\t\t\t\"separator\": \", \",\r\n\t\t\t\t\"index\": 1\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t]\r\n}"  
         version_id:
@@ -869,16 +869,10 @@ components:
         name:
           $ref: '#/components/schemas/Name'
         configuration:
-          $ref: '#/components/schemas/StringifiedConfiguration'
+          $ref: '#/components/schemas/StringifiedConfigurationRequest'
           example: |
             { "fields": [{ 		"id": "updated_name_field", 		"anchor": "name of driver", 		"method": { 			"id": "label", 			"position": "below" 		} 	}], 	"computed_fields": [{ 			"id": "driver_name_last", 			"method": { 				"id": "split", 				"source_id": "_driver_name_raw", 				"separator": ", ", 				"index": 1 			} 		}  	] }
-          description: |
-            If you test this endpoint using the **Try It** button in this interactive API explorer, 
-            the explorer stringifies the JSON for you when you paste the configuration into this parameter. 
-            To support publishing drafts, this API doesn’t reject requests with configuration errors.
-            To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
-
-
+       
           
         publish_as:
           $ref: '#/components/schemas/Environment'
