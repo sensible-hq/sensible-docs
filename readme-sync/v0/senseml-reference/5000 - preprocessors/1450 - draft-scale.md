@@ -28,12 +28,46 @@ The following example shows:
 **Config**
 
 ```json
-
+{
+  "preprocessors": [
+    {
+      "type": "scale",
+      "perPage": true,
+      "samples": [
+        {
+          "match": {
+            "type": "equals",
+            "text": "First dog ID card"
+          },
+          "targetHeight": 0.218
+        }
+      ]
+    }
+  ],
+  "fields": [
+    
+    {
+      "id": "white_house_tenure",
+      "anchor": "tenure",
+      "match": "all",
+      "method": {
+        "id": "region",
+        "start": "below",
+        "offsetX": -1.7,
+        "offsetY": 0,
+        "width": 1.5,
+        "height": 0.6
+      }
+    }
+  ]
+}
 ```
 
 **Example document**
 
-TODO add in pic
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/scale.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/scale.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
