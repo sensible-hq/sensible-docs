@@ -837,6 +837,7 @@ components:
       description: >-
         Destination environment for publication, as a target for later extraction.
         If you specify an environment, the configuration must be valid.
+        If you don't specify an environment, Sensible saves the configuration as a draft.
         The extraction endpoints default to "production" if you don't specify an extraction environment.
           
 
@@ -882,7 +883,7 @@ components:
           type: string
           description: >-
             version ID of the current draft of the configuration, if the current draft exists and is being replaced.
-            if the configuration is currently in draft and this is not supplied or does not match, the operation will fail
+            if the configuration is currently in draft and this parameter is not supplied or does not match, the operation fails
       additionalProperties: false
 
     PublishConfigurationVersion:
