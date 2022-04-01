@@ -17,13 +17,7 @@ Parameters
 Examples
 ====
 
-The following example shows:
-
-- A repeating header with an incrementing page number. Sensible removes this from the direct text extraction.
-
-  
-
-  
+The following example shows using the Per Page parameter to scale an ID card that has a different size on each page, where the second page contains the target scale.
 
 **Config**
 
@@ -36,10 +30,11 @@ The following example shows:
       "samples": [
         {
           "match": {
-            "type": "equals",
-            "text": "First dog ID card"
+            "type": "includes",
+            "text": "First",
+            "isCaseSensitive": true
           },
-          "targetHeight": 0.218
+          "targetHeight": 0.22
         }
       ]
     }
@@ -75,6 +70,21 @@ The following image shows the example document used with this example config:
 **Output**
 
 ```json
-
+{
+  "white_house_tenure": [
+    {
+      "type": "string",
+      "value": "1940-1945"
+    },
+    {
+      "type": "string",
+      "value": "1940-1945"
+    },
+    {
+      "type": "string",
+      "value": "1940-1945"
+    }
+  ]
+}
 ```
 
