@@ -838,7 +838,6 @@ components:
         Destination environment for publication, as a target for later extraction.
         If you specify an environment, the configuration must be valid.
         If you don't specify an environment, Sensible saves the configuration as a draft.
-        The extraction endpoints default to "production" if you don't specify an extraction environment.
           
 
     ConfigurationResponse:
