@@ -808,6 +808,7 @@ components:
             type: string
         draft:
           type: boolean
+          example: false
       required:
         - version_id
         - datetime
