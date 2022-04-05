@@ -606,7 +606,7 @@ components:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/Name'
+          $ref: '#/components/schemas/DocumentTypeName'
         id:
           $ref: '#/components/schemas/UniqueId'
         created: 
@@ -639,7 +639,7 @@ components:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/Name'
+          $ref: '#/components/schemas/DocumentTypeName'
         schema:
           $ref: '#/components/schemas/OutputSchema'
       required:
@@ -669,7 +669,6 @@ components:
             - 2
             - 4
           type: number
-          default: 2
           description: |
             0: no OCR.
             If you choose 2 or 4, Sensible automatically OCRs documents if they contain unmapped fonts or low-quality embedded text that is likely the result of OCR.
