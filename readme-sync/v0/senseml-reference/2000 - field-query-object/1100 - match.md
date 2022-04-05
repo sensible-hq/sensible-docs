@@ -77,7 +77,7 @@ For even simpler matching syntax in anchors, you can use `"anchor":"some string 
 
 **EDIT DISTANCE EXAMPLE**
 
-The following example shows setting the Edit Distance parameter for a poor-quality photographed document, so that the anchor  `6 City state and ZIP code` matches the incorrect OCR output of  `6 Chi state and ZIP code`. 
+The following example shows setting the Edit Distance parameter on a simple match for a poor-quality photographed document, so that the anchor  `6 City state and ZIP code` matches the incorrect OCR output of  `6 Chi state and ZIP code`. 
 
 
 
