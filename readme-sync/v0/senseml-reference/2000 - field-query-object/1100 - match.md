@@ -35,8 +35,6 @@ The following parameters are available to most types of Match objects:
 | maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match array, but valid for individual matches in the array. |
 | reverse       | boolean. default: false | Use with match arrays. Don't use with the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Match arrays](doc:match-arrays#reverse-match). |
 
-
-
 Simple match
 -------
 
@@ -44,12 +42,13 @@ Match using strings.
 
 **Parameters**
 
-| key                  | values                                         | description                                                  |
-| -------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
-| text  (**required**) | string                                         | The string to match                                          |
-| type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes` | `equals`: The matching line must equal the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
+| key                  | values                                                  | description                                                  |
+| -------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
+| text  (**required**) | string                                                  | The string to match                                          |
+| type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes`          | `equals`: The matching line must equal the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
+| editDistance         | integer. the number of allowed edits for a fuzzy match. | Sensible recommends avoiding setting this parameter in combination with the `includes` match type.<br/>Configure this parameter to allow *fuzzy*, or approximate, string matching. This is useful for OCR text, like poor-quality scans or handwriting. For example, if you configure 3, then Sensible matches `kitten` in the document for `sitting` in the Text parameter.  Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). <br/>Sensible recommends avoiding setting this parameter on short matches, like "A:" or "Sub", because an edit distance as low as 2 on a short match can result in a large number of of line matches and impact performance. Generally, you increase edit distances values as you increase the length of the text match. See the Examples section for an example. |
 
-**Example**
+**SYNTAX EXAMPLE**
 
 The following config uses a simple match:
 
@@ -74,9 +73,61 @@ The following config uses a simple match:
 
 ```
 
-**Notes**
-
 For even simpler matching syntax in anchors, you can use `"anchor":"some string to match"`. For more information see [Anchor](doc:anchor).
+
+**EDIT DISTANCE EXAMPLE**
+
+The following example shows setting the Edit Distance parameter for a poor-quality photographed document, so that the anchor  `6 City state and ZIP code` matches the incorrect OCR output of  `6 Chi state and ZIP code`. 
+
+
+
+*Config*
+
+```json
+{
+  "fields": [
+    {
+      "id": "simple_anchor",
+    
+      "anchor": {
+        "match": {
+          "editDistance": 3,
+          "isCaseSensitive": false,
+          "type": "startsWith",
+          "text": "6 city state and zip code"
+        }
+      },
+      "method": {
+        "id": "label",
+        "position": "below"
+      }
+    }
+  ]
+}
+```
+
+*Example document*
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/edit_distance.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/edit_distance_.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+
+
+*Output*
+
+```json
+{
+  "simple_anchor": {
+    "type": "string",
+    "value": "SomeCity, NJ, $70101"
+  }
+}
+```
+
+
 
 Regex match
 -----
