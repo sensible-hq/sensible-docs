@@ -1,14 +1,14 @@
 ---
 title: "Scale"
-hidden: true
+hidden: false
 ---
 
-TODO on publish: correct links, add Scale to the preprocessors index page, 
+
 
 Corrects the size of text in PDF documents whose size varies, for example as a result of being scanned or photographed at different scales. ID cards and receipts are common examples of such documents. This preprocessor enables coordinates-based methods, such as the Region or Text Table methods, to work with such unpredictably scaled documents.
 
-**Parameters**]( doc:scale#parameters)
-**Examples**]( doc:scale#examples)
+[**Parameters**]( doc:scale#parameters)
+[**Examples**]( doc:scale#examples)
 
 
 Parameters
