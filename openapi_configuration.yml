@@ -846,17 +846,18 @@ components:
       enum: [production, development]
       minLength: 3
       maxLength: 128
+      example: development
       description: >-
         Destination environment for publication, as a target for later extraction.
         If you specify an environment, the configuration must be valid.
-        If you don't specify an environment, Sensible saves the configuration as a draft.
+        If you don't specify an environment, Sensible saves the configuration as the current draft.
           
 
     ConfigurationResponse:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/Name'
+          $ref: '#/components/schemas/ConfigurationName'
         created: 
           $ref: '#/components/schemas/Date'
         configuration:
