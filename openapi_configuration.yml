@@ -125,7 +125,7 @@ paths:
       - Document type
       responses:
         204:
-          description: successful deletion
+          $ref: '#/components/responses/204'
         400:
           $ref: '#/components/responses/400'
         401:
@@ -255,7 +255,7 @@ paths:
       - Configuration
       responses:
         204:
-          description: successful deletion
+          $ref: '#/components/responses/204'
         400:
           $ref: '#/components/responses/400'
         401:
@@ -373,7 +373,7 @@ paths:
             type: string
       responses:
         204:
-          description: successful deletion
+          $ref: '#/components/responses/204'
         400:
           $ref: '#/components/responses/400'
         401:
@@ -506,7 +506,7 @@ paths:
       - Reference document
       responses:
         204:
-          description: successful deletion
+          $ref: '#/components/responses/204'
         400:
           $ref: '#/components/responses/400'
         401:
@@ -529,7 +529,7 @@ paths:
       - Reference document
       responses:
         204:
-          description: successful deletion
+          $ref: '#/components/responses/204'
         400:
           $ref: '#/components/responses/400'
         401:
@@ -916,6 +916,14 @@ components:
         - versions
       additionalProperties: false
   responses:
+    204:
+      description: No content
+      content:
+        text/plain:
+          schema:
+            title: No Content
+            type: string
+            example: No Content  
     400:
       description: Bad Request
       content:
