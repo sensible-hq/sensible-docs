@@ -301,7 +301,7 @@ paths:
     get:
       operationId: get-configuration-by-version
       summary: Get configuration by version
-      description: Get a configuration as a string by version id.
+      description: Get a configuration as stringified JSON by version id.
       tags:
       - Configuration
       responses:
@@ -324,7 +324,7 @@ paths:
     put:
       operationId: publish-configuration-by-version
       summary: Publish configuration to an environment
-      description: The configuration must be [valid](https://app.sensible.so/schemas/configuration.schema.json).
+      description: To publish to an environment (not as the current draft), the configuration must be [valid](https://app.sensible.so/schemas/configuration.schema.json).
       tags:
       - Configuration
       requestBody:
@@ -728,7 +728,7 @@ components:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/Name'
+          $ref: '#/components/schemas/DocumentName'
         created: 
           $ref: '#/components/schemas/Date'
         configuration:
@@ -754,7 +754,7 @@ components:
       description: The upload url for putting the document
       properties:
         name:
-          $ref: '#/components/schemas/Name'
+          $ref: '#/components/schemas/DocumentName'
         configuration:
           $ref: '#/components/schemas/AssociatedConfigurationName'
       required:
@@ -764,7 +764,7 @@ components:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/Name'
+          $ref: '#/components/schemas/DocumentName'
         configuration:
           $ref: '#/components/schemas/AssociatedConfigurationName'
       additionalProperties: false
