@@ -775,6 +775,7 @@ components:
       minLength: 3
       maxLength: 128
       description: user-friendly name of the configuration to associate to the reference document
+      example: anyco_auto_insurance_quote
  
     GetAllConfigurations:
       type: array
@@ -782,7 +783,7 @@ components:
         type: object
         properties:
           name:
-            $ref: '#/components/schemas/Name'
+            $ref: '#/components/schemas/ConfigurationName'
           created: 
             $ref: '#/components/schemas/Date'
           versions:
