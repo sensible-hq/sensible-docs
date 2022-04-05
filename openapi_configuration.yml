@@ -807,6 +807,7 @@ components:
           type: array
           items:
             type: string
+          example: production, development  
         draft:
           type: boolean
           example: false
