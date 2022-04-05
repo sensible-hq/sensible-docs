@@ -567,6 +567,7 @@ components:
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
+    
     VersionIdentifier:
       name: version
       required: true
@@ -579,12 +580,24 @@ components:
       type: string
       format: uuid
       description: unique identifier
-    Name:
+    Name: #used for params
       type: string
       pattern: ^[a-z0-9_]*$
       minLength: 3
       maxLength: 128
       description: user-friendly name
+    DocumentTypeName:
+      description: unique user-friendly name for a document type. 
+      example: auto_insurance_quotes_all_carriers
+      type: string  
+    ConfigurationName:
+      description: unique user-friendly name for a configuration. 
+      example: anyco_auto_insurance_quote
+      type: string
+    DocumentName:
+      description: unique user-friendly name for a document. 
+      example: best_scan_form_num_1234
+      type: string
     Date:
       type: string
       format: date-time
@@ -612,7 +625,7 @@ components:
         type: object
         properties:
           name:
-            $ref: '#/components/schemas/Name'
+            $ref: '#/components/schemas/DocumentTypeName'
           id:
             $ref: '#/components/schemas/UniqueId'
           #created: 
