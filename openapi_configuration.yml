@@ -822,7 +822,7 @@ components:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/Name'
+          $ref: '#/components/schemas/ConfigurationName'
         configuration:
           $ref: '#/components/schemas/StringifiedConfigurationRequest'
           example: |
@@ -840,7 +840,7 @@ components:
         If you test this endpoint using the **Try It** button in this interactive API explorer, 
         the explorer stringifies the JSON for you when you paste the configuration into this parameter. 
         To support publishing drafts, this API doesn’t reject requests with configuration errors.
-        To validate, compare your configuration to the latest version of the configuration schema is published at https://app.sensible.so/schemas/configuration.schema.json.
+        To validate, compare your configuration to the latest version of the configuration schema, published at https://app.sensible.so/schemas/configuration.schema.json.
 
 
 
