@@ -150,11 +150,11 @@ Scale and skew are related. For example, skew often results in scaling issues. T
 
 - Click on a line in the document pane in the Sensible app to view line coordinates for defining the Fixed Points.
 - Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take trial and error. 
-- For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew. If you choose `"endsWith"`, then also define `"start:right"`.
+- For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew. If you choose `"endsWith"`, then also define `"start:right"`. You can also define a Merge Lines preprocessor to clean up oversplit lines.
+
 - For the aligned reference PDF, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
-- Define a Merge Lines preprocessor to clean up oversplit lines after the Deskew preprocessor. 
 
-
+  
 
 
 
