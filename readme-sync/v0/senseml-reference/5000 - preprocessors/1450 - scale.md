@@ -10,6 +10,8 @@ Corrects the size of text in PDF documents whose size varies, for example as a r
 [**Parameters**]( doc:scale#parameters)
 [**Examples**]( doc:scale#examples)
 
+[**Notes**]( doc:scale#notes)
+
 
 Parameters
 ====
@@ -93,4 +95,9 @@ The following image shows the example document used with this example config:
   ]
 }
 ```
+
+Notes
+---
+
+If a document contains pages that are both scaled and skewed, use the [Deskew preprocessor](doc:deskew) to fix both the scale and skew. If you're confident the pages are solely scaled and unskewed, use the Scale preprocessor as an easier-to-configure and more robust alternative.
 

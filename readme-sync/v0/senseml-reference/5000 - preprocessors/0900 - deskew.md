@@ -136,11 +136,18 @@ This example uses the following config:
 Notes
 ====
 
+The following are best practices for defining Fixed Points:
+
 - Click on a line in the document pane in the Sensible app to view line coordinates for defining the Fixed Points.
 - Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. 
 - For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew. If you choose `"endsWith"`, then also define `"start:right"`.
 - For the aligned reference PDF, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
 - Define a Merge Lines preprocessor to clean up oversplit lines after the Deskew preprocessor. 
+
+The following are notes on choosing between the Deskew and [Scale](doc:scale) preprocessors:
+
+- If a document contains pages that are both scaled and skewed, use the [Deskew preprocessor](doc:deskew) to fix both the scale and skew.
+- If you're confident the pages are solely scaled and unskewed, use the Scale preprocessor as an easier-to-configure and more robust alternative.
 
 
 
