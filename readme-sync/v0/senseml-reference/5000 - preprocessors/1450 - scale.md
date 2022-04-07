@@ -99,5 +99,11 @@ The following image shows the example document used with this example config:
 Notes
 ---
 
-If a document contains pages that are both scaled and skewed, use the [Deskew preprocessor](doc:deskew) to fix both the scale and skew. If you're confident the pages are solely scaled and unskewed, use the Scale preprocessor as an easier-to-configure and more robust alternative.
+Scale and skew are related. For example, skew often results in scaling issues. To choose when to configure the Scale or Deskew preprocessors, use the following tips:
+
+- If a document contains pages that are slightly skewed, you don't need a preprocessor. Sensible's default OCR engine (Microsoft) corrects slight rotation automatically.
+- If the pages are scaled, but unskewed or slightly skewed, use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
+- If a document contains pages that are both scaled and skewed, use the [Deskew preprocessor](doc:deskew) to fix both the scale and skew.
+
+
 

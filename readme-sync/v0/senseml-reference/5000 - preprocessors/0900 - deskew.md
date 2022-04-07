@@ -5,7 +5,7 @@ hidden: false
 
 Corrects the alignment of text in PDF documents that are skewed, for example as a result of being  photographed at an angle instead of straight on. ID cards and receipts are common examples of such documents. Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) to correct scaling, rotation, translation, and shear. 
 
-You don't need to configure this preprocessor for PDFs that are slightly rotated. Sensible's default OCR engine (Microsoft) corrects slight rotation automatically.
+See the Notes section for when *not* to use this preprocessor and for alternatives.  
 
 [**Parameters**](doc:deskew#parameters)
 [**Examples**](doc:deskew#examples)
@@ -136,7 +136,17 @@ This example uses the following config:
 Notes
 ====
 
-The following are best practices for defining Fixed Points:
+**Alternatives to Deskew**
+
+Scale and skew are related. For example, skew often results in scaling issues. To choose when to configure the Scale or Deskew preprocessors, use the following tips:
+
+- If a document contains pages that are slightly skewed, you don't need a preprocessor. Sensible's default OCR engine (Microsoft) corrects slight rotation automatically.
+- If the pages are scaled, but unskewed or slightly skewed, use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
+- If a document contains pages that are both scaled and skewed, use the [Deskew preprocessor](doc:deskew) to fix both the scale and skew.
+
+
+
+**Fixed Points tips**
 
 - Click on a line in the document pane in the Sensible app to view line coordinates for defining the Fixed Points.
 - Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take some trial and error. 
@@ -144,10 +154,7 @@ The following are best practices for defining Fixed Points:
 - For the aligned reference PDF, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
 - Define a Merge Lines preprocessor to clean up oversplit lines after the Deskew preprocessor. 
 
-The following are notes on choosing between the Deskew and [Scale](doc:scale) preprocessors:
 
-- If a document contains pages that are both scaled and skewed, use the [Deskew preprocessor](doc:deskew) to fix both the scale and skew.
-- If you're confident the pages are solely scaled and unskewed, use the Scale preprocessor as an easier-to-configure and more robust alternative.
 
 
 
