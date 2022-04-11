@@ -5,7 +5,7 @@ servers:
 info:
   title: Configuration
   version: 0.0.1
-  description: document types and configurations
+  description: The Sensible API for document types, configurations, and reference documents.
   license: # TODO: fill in
     name: Sensible API
     url: https://www.TBD.org/licenses/LICENSE-2.0.html
@@ -548,14 +548,14 @@ components:
       name: id
       required: true
       in: path
-      description: unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
+      description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
       schema:
         $ref: '#/components/schemas/UniqueId'
     ConfigurationName:
       name: name
       required: true
       in: path
-      description: unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
+      description: The unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
@@ -563,7 +563,7 @@ components:
       name: name
       required: true
       in: path
-      description: unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
+      description: The unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
@@ -572,37 +572,37 @@ components:
       name: version
       required: true
       in: path
-      description: unique identifier for a configuration version
+      description: The unique identifier for a configuration version.
       schema:
         type: string
   schemas:
     UniqueId:
       type: string
       format: uuid
-      description: unique identifier
+      description: The unique identifier.
       example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
     Name: #used for params
       type: string
       pattern: ^[a-z0-9_]*$
       minLength: 3
       maxLength: 128
-      description: user-friendly name
+      description: A user-friendly name.
     DocumentTypeName:
-      description: unique user-friendly name for a document type. 
+      description: A unique user-friendly name for a document type. 
       example: auto_insurance_quotes_all_carriers
       type: string  
     ConfigurationName:
-      description: unique user-friendly name for a configuration. 
+      description: A unique user-friendly name for a configuration. 
       example: anyco_auto_insurance_quote
       type: string
     DocumentName:
-      description: unique user-friendly name for a document. 
+      description: A unique user-friendly name for a document. 
       example: best_scan_form_num_1234
       type: string
     Date:
       type: string
       format: date-time
-      description: ISO-formatted date-time
+      description: ISO-formatted date-time.
     DocumentType:
       type: object
       properties:
@@ -656,14 +656,14 @@ components:
             - fallback_to_all
             - strict
           type: string
-          description: the Sensible app defaults to fallback_to_all
+          description: The Sensible app defaults to `fallback_to_all``.
         ocr_engine:
           enum:
             - microsoft
             - amazon
             - google
           type: string
-          description: the Sensible app defaults to Microsoft
+          description: The Sensible app defaults to `Microsoft`.
         ocr_level:
           enum:
             - 2
@@ -688,23 +688,23 @@ components:
     #   properties:
     #     description:
     #       type: string
-    #       description: user-friendly description for the test
+    #       description: The user-friendly description for the test.
     #       example: Broker's email is in string@string format
     #     condition:
-    #       description: test for extraction written in JsonLogic
+    #       description: The test for extraction written in JsonLogic.
     #       example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
     #       type: object
     #       additionalProperties: true
             
       #   fields:
       #     type: array
-      #     description: skip this test unless prerequisite fields are present (non-null)
+      #     description: Skip this test unless prerequisite fields are non-null.
       #     example: ["broker\\.email"]
       #     items:
       #       type: string
       #   severity:
       #     type: string
-      #     description: The severity of the failing test
+      #     description: The severity of the failing test.
       #     enum:
       #       - warning
       #       - error
@@ -738,13 +738,13 @@ components:
           description: Any errors that occurred processing the reference document
         upload_url:
           type: string
-          description: if present, the URL to which a reference document can be PUT. 
+          description: If present, the URL to which a reference document can be PUT. 
         download_url:
           type: string
-          description: if present, the URL to GET to retrieve the reference document
+          description: If present, the URL to GET to retrieve the reference document.
         thumbnail_url:
           type: string
-          description: if present, the URL to GET to retrieve a thumbnail image of the first page of the reference document
+          description: If present, the URL to GET to retrieve a thumbnail image of the first page of the reference document.
       required:
         - name
         - created
@@ -774,7 +774,7 @@ components:
       pattern: ^[a-z0-9_]*$
       minLength: 3
       maxLength: 128
-      description: user-friendly name of the configuration to associate to the reference document
+      description: The user-friendly name of the configuration to associate to the reference document.
       example: anyco_auto_insurance_quote
  
     GetAllConfigurations:
@@ -865,7 +865,7 @@ components:
           $ref: '#/components/schemas/Date'
         configuration:
           type: string
-          description: configuration as stringified JSON 
+          description: The configuration as stringified JSON. 
           example: |
             "{\r\n\t\"fingerprint\": {\r\n\t\t\"tests\": [\r\n\t\t\t\"anyco\",\r\n\t\t\t\"quoted coverage changes\"\r\n\t\t]\r\n\t},\r\n\t\"preprocessors\": [{\r\n\t\t\"type\": \"pageRange\",\r\n\t\t\"startPage\": 0,\r\n\t\t\"endPage\": 2\r\n\t}],\r\n\t\"fields\": [{\r\n\t\t\"id\": \"_driver_name_raw\",\r\n\t\t\"anchor\": \"name of driver\",\r\n\t\t\"method\": {\r\n\t\t\t\"id\": \"label\",\r\n\t\t\t\"position\": \"below\"\r\n\t\t}\r\n\t}],\r\n\t\"computed_fields\": [{\r\n\t\t\t\"id\": \"driver_name_last\",\r\n\t\t\t\"method\": {\r\n\t\t\t\t\"id\": \"split\",\r\n\t\t\t\t\"source_id\": \"_driver_name_raw\",\r\n\t\t\t\t\"separator\": \", \",\r\n\t\t\t\t\"index\": 1\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t]\r\n}"  
         version_id:

@@ -71,7 +71,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Extraction'
-          description: the structured data extracted from the document and metadata
+          description: The structured data extracted from the document and (https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -118,7 +118,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AsyncUploadResponse'
-          description: returns the upload_url at which to PUT the document for extraction 
+          description: Returns the upload_url at which to PUT the document for extraction 
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -159,7 +159,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AsyncResponse'
-          description: returns the ID to use to retrieve the extraction 
+          description: Returns the ID to use to retrieve the extraction 
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -207,7 +207,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AsyncUploadResponse'
-          description: returns the upload_url at which to PUT the document for extraction 
+          description: Returns the upload_url at which to PUT the document for extraction 
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -260,7 +260,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AsyncResponse'
-          description: returns the ID to use to retrieve the extraction 
+          description: Returns the ID to use to retrieve the extraction 
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -292,7 +292,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractionAsyncResult'
-          description: returns the extraction 
+          description: Returns the extraction. 
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -312,15 +312,15 @@ components:
         configuration:
           type: string
           example: anyco
-          description: the config tested
+          description: The config tested
         fingerprint_present:  
           type: integer
           example: 1
-          description: number of this config's fingerprints that Sensible found in the document
+          description: The number of this config's fingerprints that Sensible found in the document.
         fingerprints:
           type: integer
           example: 1
-          description: number of fingerprints defined in this config
+          description: The number of fingerprints defined in this config.
         score:
           $ref: '#/components/schemas/Score'
 
@@ -358,18 +358,18 @@ components:
         value:
           type: number
           example: 17
-          description: the score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
+          description: The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
         fields_present:
           type: integer
           example: 17
-          description: number of non-null fields Sensible extracted from the document using this config   
+          description: The number of non-null fields Sensible extracted from the document using this config.   
         penalties:
           type: number
           example: 1.5
-          description: errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.
+          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.
     
     ParsedDocument:
-      description: data extracted from the document, structured as an array of fields
+      description: Data extracted from the document, structured as an array of fields
       type: object
       example:
         weight:
@@ -412,14 +412,14 @@ components:
             Missing prerequisites: broker.email
 
     Validations:
-      description: which extracted fields failed validation rules you write in the Sensible app.
+      description: Which extracted fields failed validation rules you write in the Sensible app.
       type: array
       items:
         $ref: '#/components/schemas/Validation' 
       example:
-        - description: load weight should be over 1 ton
+        - description: Load weight should be over 1 ton
           severity: warning
-        - description: carrier email must be in format string@string
+        - description: Carrier email must be in format string@string
           severity: skipped
           message: Missing prerequisites - carrier_email
         
@@ -429,23 +429,23 @@ components:
       properties:
         fields:
           type: integer
-          description: the numbers of fields specified in the config to extract from the document
+          description: The numbers of fields specified in the config to extract from the document.
           example: 6
         fields_present:
           type: integer
-          description: the actual number of non-null fields extracted from the document
+          description: The actual number of non-null fields extracted from the document.
           example: 4
         errors:
           type: number
-          description: the number of errors in the extraction
+          description: The number of errors in the extraction.
           example: 0
         warnings:
           type: number
-          description: the number of warnings in the extraction
+          description: The number of warnings in the extraction.
           example: 1
         skipped:
           type: integer
-          description: the number of fields skipped in the extraction because a prerequisite field was null
+          description: The number of fields skipped in the extraction because a prerequisite field was null.
           example: 1          
 
 
@@ -463,7 +463,7 @@ components:
          $ref: '#/components/schemas/ExtractionType' 
         configuration:
           type: string
-          description: the name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically 
+          description: The name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.
           example: anyco_rate_confirmation
         status:
          $ref: '#/components/schemas/ExtractionStatus'  
@@ -483,7 +483,7 @@ components:
           properties:
             download_url:
               type: string
-              description: the URL of the document 
+              description: The URL of the document.
               example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
     AsyncResponse:
       type: object
@@ -535,21 +535,21 @@ components:
     ExtractionId:
       type: string
       format: uuid
-      description: unique ID for the extraction, used to retrieve the extraction
+      description: The unique ID for the extraction, used to retrieve the extraction.
       example: 246a6f60-0e5b-11eb-b720-295a6fba723e
     
     ExtractionCreated:
       type: string
       format: date
-      description: date the extraction was created.  
+      description: The date the extraction was created.  
     
     ExtractionType:
       type: string
-      description: the name of the document type.
+      description: The name of the document type.
       example: rate_confirmation  
     ExtractionStatus:
       type: string
-      description: the extraction status (WAITING, COMPLETE, FAILED)
+      description: The extraction status (WAITING, COMPLETE, FAILED).
       enum: [WAITING, COMPLETE, FAILED]
       example: COMPLETE
     Types:
@@ -567,7 +567,7 @@ components:
         url:
           type: string
           format: url
-          description: the webhook destination. Sensible will POST to this URL when the extraction is complete.
+          description: The webhook destination. Sensible will POST to this URL when the extraction is complete.
           example: https://example.com/example_webhook_url
         payload:
           type: string
@@ -665,7 +665,7 @@ components:
       name: id
       required: true
       in: path
-      description: unique ID for the extraction, used to retreive the extraction
+      description: The unique ID for the extraction, used to retreive the extraction.
       schema:
         $ref: '#/components/schemas/ExtractionId' 
     type:
