@@ -656,7 +656,7 @@ components:
             - fallback_to_all
             - strict
           type: string
-          description: The Sensible app defaults to `fallback_to_all``.
+          description: The Sensible app defaults to `fallback_to_all`.
         ocr_engine:
           enum:
             - microsoft
