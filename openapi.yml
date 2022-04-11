@@ -260,7 +260,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AsyncResponse'
-          description: Returns the ID to use to retrieve the extraction 
+          description: Returns the ID to use to retrieve the extraction.
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -312,7 +312,7 @@ components:
         configuration:
           type: string
           example: anyco
-          description: The config tested
+          description: The config tested for fingerprints
         fingerprint_present:  
           type: integer
           example: 1
@@ -362,7 +362,7 @@ components:
         fields_present:
           type: integer
           example: 17
-          description: The number of non-null fields Sensible extracted from the document using this config.   
+          description: Number of non-null fields Sensible extracted from the document using this config   
         penalties:
           type: number
           example: 1.5
@@ -412,7 +412,7 @@ components:
             Missing prerequisites: broker.email
 
     Validations:
-      description: Which extracted fields failed validation rules you write in the Sensible app.
+      description: Which extracted fields failed validation rules you write in the Sensible app
       type: array
       items:
         $ref: '#/components/schemas/Validation' 
@@ -429,23 +429,23 @@ components:
       properties:
         fields:
           type: integer
-          description: The numbers of fields specified in the config to extract from the document.
+          description: Number of fields specified in the SenseML config to extract from the document
           example: 6
         fields_present:
           type: integer
-          description: The actual number of non-null fields extracted from the document.
+          description: Actual number of non-null fields extracted from the document
           example: 4
         errors:
           type: number
-          description: The number of errors in the extraction.
+          description: Number of errors in the extraction
           example: 0
         warnings:
           type: number
-          description: The number of warnings in the extraction.
+          description: Number of warnings in the extraction
           example: 1
         skipped:
           type: integer
-          description: The number of fields skipped in the extraction because a prerequisite field was null.
+          description: Number of fields skipped in the extraction because a prerequisite field was null
           example: 1          
 
 
@@ -463,7 +463,7 @@ components:
          $ref: '#/components/schemas/ExtractionType' 
         configuration:
           type: string
-          description: The name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.
+          description: Name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.
           example: anyco_rate_confirmation
         status:
          $ref: '#/components/schemas/ExtractionStatus'  
@@ -483,7 +483,7 @@ components:
           properties:
             download_url:
               type: string
-              description: The URL of the document.
+              description: URL of the document
               example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
     AsyncResponse:
       type: object
@@ -510,7 +510,7 @@ components:
         upload_url:
          type: string
          format: url
-         description: The URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+         description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
          example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
           
     ExtractFromUrlRequest:
@@ -535,21 +535,21 @@ components:
     ExtractionId:
       type: string
       format: uuid
-      description: The unique ID for the extraction, used to retrieve the extraction.
+      description: Unique ID for the extraction, used to retrieve the extraction
       example: 246a6f60-0e5b-11eb-b720-295a6fba723e
     
     ExtractionCreated:
       type: string
       format: date
-      description: The date the extraction was created.  
+      description: Date the extraction was created  
     
     ExtractionType:
       type: string
-      description: The name of the document type.
+      description: User-friendly name of the document type
       example: rate_confirmation  
     ExtractionStatus:
       type: string
-      description: The extraction status (WAITING, COMPLETE, FAILED).
+      description: Extraction status (WAITING, COMPLETE, FAILED)
       enum: [WAITING, COMPLETE, FAILED]
       example: COMPLETE
     Types:
@@ -567,11 +567,11 @@ components:
         url:
           type: string
           format: url
-          description: The webhook destination. Sensible will POST to this URL when the extraction is complete.
+          description: Webhook destination. Sensible will POST to this URL when the extraction is complete.
           example: https://example.com/example_webhook_url
         payload:
           type: string
-          description: Include info additional to the API response, for example a UUID for verification.
+          description: Information additional to the API response, for example a UUID for verification.
           example: info extra to the default extraction payload
     DocumentUrl:
       type: string
@@ -586,7 +586,7 @@ components:
       type: string
       enum: ["application/pdf", "image/jpeg", "image/png"]
       description: >-
-        The content type of the document being presented for extraction. This field is optional, but if supplied must be presented consistently
+        Content type of the document being presented for extraction. This field is optional, but if supplied must be presented consistently
         in all interactions.
   responses: 
 
@@ -665,7 +665,7 @@ components:
       name: id
       required: true
       in: path
-      description: The unique ID for the extraction, used to retreive the extraction.
+      description: Unique ID for the extraction, used to retreive the extraction.
       schema:
         $ref: '#/components/schemas/ExtractionId' 
     type:
@@ -673,7 +673,7 @@ components:
       required: true
       in: path
       description: |
-        The type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).
+        Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).
         To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf).
         As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type. 
         For example, if you create an `auto_insurance_quotes` type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs 

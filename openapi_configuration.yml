@@ -5,7 +5,7 @@ servers:
 info:
   title: Configuration
   version: 0.0.1
-  description: The Sensible API for document types, configurations, and reference documents.
+  description: Sensible API for configuring document types, SenseML configurations, and reference documents.
   license: # TODO: fill in
     name: Sensible API
     url: https://www.TBD.org/licenses/LICENSE-2.0.html
@@ -688,7 +688,7 @@ components:
     #   properties:
     #     description:
     #       type: string
-    #       description: The user-friendly description for the test.
+    #       description: User-friendly description for the test
     #       example: Broker's email is in string@string format
     #     condition:
     #       description: The test for extraction written in JsonLogic.
@@ -704,7 +704,7 @@ components:
       #       type: string
       #   severity:
       #     type: string
-      #     description: The severity of the failing test.
+      #     description: Severity of the failing test
       #     enum:
       #       - warning
       #       - error
@@ -738,20 +738,20 @@ components:
           description: Any errors that occurred processing the reference document
         upload_url:
           type: string
-          description: If present, the URL to which a reference document can be PUT. 
+          description: If present, the URL to which a reference document can be PUT 
         download_url:
           type: string
-          description: If present, the URL to GET to retrieve the reference document.
+          description: If present, the URL to GET to retrieve the reference document
         thumbnail_url:
           type: string
-          description: If present, the URL to GET to retrieve a thumbnail image of the first page of the reference document.
+          description: If present, the URL to GET to retrieve a thumbnail image of the first page of the reference document
       required:
         - name
         - created
       additionalProperties: false
     PostGolden:
       type: object
-      description: The upload url for putting the document
+      description: Upload url for putting the document
       properties:
         name:
           $ref: '#/components/schemas/DocumentName'
@@ -774,7 +774,7 @@ components:
       pattern: ^[a-z0-9_]*$
       minLength: 3
       maxLength: 128
-      description: The user-friendly name of the configuration to associate to the reference document.
+      description: User-friendly name of the configuration to associate to the reference document
       example: anyco_auto_insurance_quote
  
     GetAllConfigurations:
@@ -865,7 +865,7 @@ components:
           $ref: '#/components/schemas/Date'
         configuration:
           type: string
-          description: The configuration as stringified JSON. 
+          description: Configuration returned as stringified JSON. 
           example: |
             "{\r\n\t\"fingerprint\": {\r\n\t\t\"tests\": [\r\n\t\t\t\"anyco\",\r\n\t\t\t\"quoted coverage changes\"\r\n\t\t]\r\n\t},\r\n\t\"preprocessors\": [{\r\n\t\t\"type\": \"pageRange\",\r\n\t\t\"startPage\": 0,\r\n\t\t\"endPage\": 2\r\n\t}],\r\n\t\"fields\": [{\r\n\t\t\"id\": \"_driver_name_raw\",\r\n\t\t\"anchor\": \"name of driver\",\r\n\t\t\"method\": {\r\n\t\t\t\"id\": \"label\",\r\n\t\t\t\"position\": \"below\"\r\n\t\t}\r\n\t}],\r\n\t\"computed_fields\": [{\r\n\t\t\t\"id\": \"driver_name_last\",\r\n\t\t\t\"method\": {\r\n\t\t\t\t\"id\": \"split\",\r\n\t\t\t\t\"source_id\": \"_driver_name_raw\",\r\n\t\t\t\t\"separator\": \", \",\r\n\t\t\t\t\"index\": 1\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t]\r\n}"  
         version_id:
@@ -897,7 +897,7 @@ components:
         current_draft:
           type: string
           description: >-
-            version ID of the current draft of the configuration, if the current draft exists and is being replaced.
+            Version ID of the current draft of the configuration, if the current draft exists and is being replaced.
             if the configuration is currently in draft and this parameter is not supplied or does not match, the operation fails
       additionalProperties: false
 
