@@ -607,7 +607,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PostGoldenExtraction'
+              $ref: '#/components/schemas/GetGoldenExtraction' # todo it's a get, figure out the request...
       responses:
           '200':
             content:
