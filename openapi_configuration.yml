@@ -541,25 +541,38 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /extract-from-golden/{type}:
+  /extract-from-golden/{type}: #LEFT OFF
     parameters:
-      - $ref: '#/components/parameters/DocumentType'
+      - $ref: '#/components/parameters/DocumentTypeId'
     post: 
-      operationId: extract_from-reference-document
-      summary: Extract from all reference documents in a document type TODO with all configs?
-      description: Extract from all reference documents in a document type 
+      operationId: extract-from-reference-document
+      summary: extract from a reference document in a document type
+      description: ->
+        Extract from a specified reference documents in a document type, 
+         choose the best extraction from the 
+        configurations in the document type using the normal scoring method 
       tags:
       - Reference document exraction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGoldenExtraction'
       responses:
-        204:
-          $ref: '#/components/responses/204' 
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResponseGoldenExtraction'
+            description: The structured data extracted from the reference document 
 
   /extract-from-golden/{type}/{configuration}:
     parameters:
-      - $ref: '#/components/parameters/DocumentType'
-      - $ref: '#/components/parameters/ConfigurationId'
+      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/ConfigurationName'
     post: 
-      operationId: extract_from-reference-document-and-config
+      operationId: extract-from-reference-document-and-config
       summary: Extract from a reference document using the specified configuration
       description: Extract from a reference document using the specified configuration
       tags:
@@ -570,18 +583,31 @@ paths:
 
   /extract-from-golden/{type}/{configuration}/{version}/{golden}:
     parameters:
-      - $ref: '#/components/parameters/DocumentType'
-      - $ref: '#/components/parameters/ConfigurationId'
-    post: 
-      operationId: extract_from-reference-document-and-config
-      summary: Extract from a reference document using the specified configuration
-      description: Extract from a reference document using the specified configuration
+      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/VersionIdentifier'
+    get: 
+      operationId: tbd
+      summary: tbd
+      description: tbd
       tags:
       - Reference document exraction
       responses:
         204:
           $ref: '#/components/responses/204' 
 
+  /extract-text-from-golden/{type}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentTypeId'
+    post: 
+      operationId: tbd2
+      summary: tbd
+      description: tbd
+      tags:
+      - Get all the text (lines) for a reference document as a direct extrction, without any metadata such as text positioning or lines TODO including lines metatdata?
+      responses:
+        204:
+          $ref: '#/components/responses/204'
 
 components:
   parameters:
@@ -960,6 +986,32 @@ components:
       required:
         - versions
       additionalProperties: false
+    PostGoldenExtraction:
+      type: object
+      properties:
+        golden:
+          type: string
+          description: user-friendly name for the reference document
+          example: best_scan_doc_num_1234
+    ResponseGoldenExtraction:
+      type: object
+      properties:
+        type: 
+          type: string
+          description: the document type
+  # TODO: add these props, and/or copy from the Extraction model in openapi.yml        
+  # export type GoldenExtraction = {
+  #   type: string;
+  #   configuration?: string;
+  #   golden: string;
+  #   parsed_document: ParsedDocument;
+  #   validations: DocumentValidationOutput[];
+  #   validation_summary: ValidationSummary;
+  #   errors: ExtractionError[];
+  #   text?: StandardizedText;
+  #   parsed_document_with_metadata?: ParsedDocumentWithMetadata;
+  #   fingerprints?: AnchorPoint[];
+  
   responses:
     204:
       description: No content
