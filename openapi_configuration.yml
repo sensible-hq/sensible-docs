@@ -540,7 +540,48 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  
+
+  /extract-from-golden/{type}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentType'
+    post: 
+      operationId: extract_from-reference-document
+      summary: Extract from all reference documents in a document type TODO with all configs?
+      description: Extract from all reference documents in a document type 
+      tags:
+      - Reference document exraction
+      responses:
+        204:
+          $ref: '#/components/responses/204' 
+
+  /extract-from-golden/{type}/{configuration}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentType'
+      - $ref: '#/components/parameters/ConfigurationId'
+    post: 
+      operationId: extract_from-reference-document-and-config
+      summary: Extract from a reference document using the specified configuration
+      description: Extract from a reference document using the specified configuration
+      tags:
+      - Reference document exraction
+      responses:
+        204:
+          $ref: '#/components/responses/204' 
+
+  /extract-from-golden/{type}/{configuration}/{version}/{golden}:
+    parameters:
+      - $ref: '#/components/parameters/DocumentType'
+      - $ref: '#/components/parameters/ConfigurationId'
+    post: 
+      operationId: extract_from-reference-document-and-config
+      summary: Extract from a reference document using the specified configuration
+      description: Extract from a reference document using the specified configuration
+      tags:
+      - Reference document exraction
+      responses:
+        204:
+          $ref: '#/components/responses/204' 
+
 
 components:
   parameters:
