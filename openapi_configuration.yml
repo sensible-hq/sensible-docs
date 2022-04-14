@@ -573,13 +573,23 @@ paths:
       - $ref: '#/components/parameters/ConfigurationName'
     post: 
       operationId: extract-from-reference-document-and-config
-      summary: Extract from a reference document using the specified configuration
+      summary: Extract from a reference document using the specified configuration. TODO - which version is it
       description: Extract from a reference document using the specified configuration
       tags:
       - Reference document exraction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGoldenExtraction'
       responses:
-        204:
-          $ref: '#/components/responses/204' 
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResponseGoldenExtraction'
+            description: The structured data extracted from the reference document 
 
   /extract-from-golden/{type}/{configuration}/{version}/{golden}:
     parameters:
@@ -587,14 +597,24 @@ paths:
       - $ref: '#/components/parameters/ConfigurationName'
       - $ref: '#/components/parameters/VersionIdentifier'
     get: 
-      operationId: tbd
-      summary: tbd
+      operationId: extract-from-reference-document-and-config-version
+      summary: Extract from a reference document using the specified version of a configuration
       description: tbd
       tags:
       - Reference document exraction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGoldenExtraction'
       responses:
-        204:
-          $ref: '#/components/responses/204' 
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResponseGoldenExtraction'
+            description: The structured data extracted from the reference document 
 
   /extract-text-from-golden/{type}:
     parameters:
