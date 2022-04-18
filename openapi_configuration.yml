@@ -620,6 +620,7 @@ paths:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
       - $ref: '#/components/parameters/versionIdentifier'
+      - $ref: '#/components/parameters/documentName'
       - $ref: '#/components/parameters/environment' 
     get: 
       operationId: extract-from-reference-document-and-config-version
@@ -668,8 +669,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostGoldenExtraction'
       responses: 
-        200:
-          $ref: '#/components/schemas/ResponseStandardizedText' # todo response:
+        204:
+          $ref: '#/components/responses/204' # todo response: $ref: '#/components/schemas/ResponseStandardizedText' 
         400: # todo I didn't verify 40x responses for any extract_from_goldens, just assumed
           $ref: '#/components/responses/400'
         401:
@@ -1292,14 +1293,14 @@ components:
           description: The number of fingerprints defined in this config.
         score:
           $ref: '#/components/schemas/Score' 
-    ResponseStandardizedText:
-      type: object
-      description: array of pages with lines
-      properties:
-        pages:
-          type: array
-          items:
-            type: string 
+    # ResponseStandardizedText:
+    #   type: object
+    #   description: array of pages with lines
+    #   properties:
+    #     pages:
+    #       type: array
+    #       items:
+    #         type: string 
             # todo not actually string, array of ojbects:
             # description: array of pages containing lines and metadata about their positions
             # example: # TODO  
