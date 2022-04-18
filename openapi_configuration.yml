@@ -442,7 +442,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/goldens/{name}:
+  /document_types/{id}/goldens/{document-name}:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/documentName'
@@ -517,7 +517,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/goldens/{name}/configuration:
+  /document_types/{id}/goldens/{document-name}/configuration:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/documentName'
@@ -699,7 +699,7 @@ components:
       schema:
         $ref: '#/components/schemas/Name'
     documentName:
-      name: name
+      name: document-document
       required: true
       in: path
       description: The unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
@@ -1294,6 +1294,7 @@ components:
           $ref: '#/components/schemas/Score' 
     ResponseStandardizedText:
       type: object
+      additionalProperties: true
       description: array of pages containing lines and metadata about their positions
       # example: # TODO  
       # TODO: properties or just example?
