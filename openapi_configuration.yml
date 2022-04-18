@@ -1255,7 +1255,7 @@ components:
     ResponseStandardizedText:
       type: object
       description: array of pages containing lines and metadata about their positions
-      example: # TODO  
+      # example: # TODO  
       # TODO: properties or just example?
         # pages:
         #   export interface StandardizedPage {
