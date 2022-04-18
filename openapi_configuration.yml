@@ -593,7 +593,7 @@ paths:
 
   /extract_from_golden/{type}/{configuration}/{version}/{golden}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/DocumentTypeName'
       - $ref: '#/components/parameters/ConfigurationName'
       - $ref: '#/components/parameters/VersionIdentifier'
     get: 
