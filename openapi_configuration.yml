@@ -62,7 +62,7 @@ paths:
           $ref: '#/components/responses/500'
   /document_types/{id}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/documentTypeId'
     get:
       operationId: get-document-type
       summary: Get document type metadata
@@ -138,7 +138,7 @@ paths:
           $ref: '#/components/responses/500'
   /document_types/{id}/configurations:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/documentTypeId'
     get:
       operationId: list-configurations
       summary: List configurations in a document type
@@ -193,8 +193,8 @@ paths:
           $ref: '#/components/responses/500'
   /document_types/{id}/configurations/{name}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/configurationName'
     get:
       operationId: get-configuration
       summary: Get configuration
@@ -268,8 +268,8 @@ paths:
           $ref: '#/components/responses/500'
   /document_types/{id}/configurations/{name}/versions:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/configurationName'
     get:
       operationId: get-configuration-versions
       summary: List versions for a configuration
@@ -295,9 +295,9 @@ paths:
           $ref: '#/components/responses/500'
   /document_types/{id}/configurations/{name}/{version}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
-      - $ref: '#/components/parameters/VersionIdentifier'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/configurationName'
+      - $ref: '#/components/parameters/versionIdentifier'
     get:
       operationId: get-configuration-by-version
       summary: Get configuration by version
@@ -361,8 +361,8 @@ paths:
       tags:
       - Configuration
       parameters:
-        - $ref: '#/components/parameters/DocumentTypeId'
-        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/documentTypeId'
+        - $ref: '#/components/parameters/configurationName'
         - in: path
           name: version
           required: true
@@ -387,7 +387,7 @@ paths:
 
   /document_types/{id}/goldens:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/documentTypeId'
     get:
       operationId: list-reference-documents
       summary: List all reference documents in a document type
@@ -444,8 +444,8 @@ paths:
           $ref: '#/components/responses/500'
   /document_types/{id}/goldens/{name}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/DocumentName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/documentName'
     get:
       operationId: get-reference-document
       summary: Get reference document metadata
@@ -519,8 +519,8 @@ paths:
           $ref: '#/components/responses/500'
   /document_types/{id}/goldens/{name}/configuration:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/DocumentName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/documentName'
     delete:
       operationId: delete-reference-document-association
       summary: Unassociate reference document from configuration
@@ -543,7 +543,7 @@ paths:
 
   /extract_from_golden/{type}:  # TODO: are there env query params? ie  environmentQueryStringSchema? check
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeName'
+      - $ref: '#/components/parameters/documentTypeName'
     post: 
       operationId: extract-from-reference-document
       summary: extract from a reference document in a document type
@@ -569,8 +569,8 @@ paths:
 
   /extract_from_golden/{type}/{configuration}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeName'
-      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/documentTypeName'
+      - $ref: '#/components/parameters/configurationName'
     post: 
       operationId: extract-from-reference-document-and-config
       summary: Extract from a reference document using the specified published configuration. 
@@ -593,9 +593,9 @@ paths:
 
   /extract_from_golden/{type}/{configuration}/{version}/{golden}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeName'
-      - $ref: '#/components/parameters/ConfigurationName'
-      - $ref: '#/components/parameters/VersionIdentifier'
+      - $ref: '#/components/parameters/documentTypeName'
+      - $ref: '#/components/parameters/configurationName'
+      - $ref: '#/components/parameters/versionIdentifier'
     get: 
       operationId: extract-from-reference-document-and-config-version
       summary: Extract from a reference document using the specified version of a configuration
@@ -616,9 +616,10 @@ paths:
                   $ref: '#/components/schemas/ResponseGoldenExtraction'
             description: The structured data extracted from the reference document 
 
+
   /extract_text_from_golden/{type}: # question: configuration: configurationSchema doesn't make sense in the body request here but it looks like it's allowed?
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/documentTypeName'
     post: 
       operationId: tbd2
       summary: tbd
@@ -637,14 +638,14 @@ paths:
 
 components:
   parameters:
-    DocumentTypeId: #do I really need this? get rid of it? 
+    documentTypeId: #do I really need this? get rid of it? 
       name: id
       required: true
       in: path
       description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
       schema:
         $ref: '#/components/schemas/UniqueId'
-    ConfigurationName:
+    configurationName:
       name: name
       required: true
       in: path
@@ -652,7 +653,7 @@ components:
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
-    DocumentName:
+    documentName:
       name: name
       required: true
       in: path
@@ -660,7 +661,7 @@ components:
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
-    DocumentTypeName:
+    documentTypeName:
       name: type
       required: true
       in: path
@@ -668,13 +669,24 @@ components:
       schema:
         $ref: '#/components/schemas/DocumentTypeName'    
     
-    VersionIdentifier:
+    versionIdentifier:
       name: version
       required: true
       in: path
       description: The unique identifier for a configuration version.
       schema:
+        type: string        
+    environment:
+      name: environment
+      in: query
+      description: >-
+        If you specify `development`, extracts preferentially using config versions 
+        published to the development environment in the Sensible app. The extraction runs all configs in the doc type before 
+        picking the best fit. For each config, falls back to production version if no development version of the config exists.
+      schema:
         type: string
+        enum: [production, development]
+        default: production
   schemas:
     UniqueId:
       type: string
