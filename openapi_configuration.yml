@@ -579,7 +579,7 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type}/{name}: # question we call it {name} in other endpoints and {configuration} in other endpoints. I went with {name} here
+  /extract_from_golden/{type}/{name}: # question we call it {name} in other endpoints and {configuration} in other endpoints in serverless.yml. I went with {name} here
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
