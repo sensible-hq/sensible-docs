@@ -541,16 +541,17 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type}:  # TODO: are there env query params? ie  environmentQueryStringSchema? check
+  /extract_from_golden/{type}:  
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
+      - $ref: '#/components/parameters/environment' 
     post: 
       operationId: extract-from-reference-document
       summary: extract from a reference document in a document type
       description: ->
         Extract from a specified reference document in a document type. 
         Return the best-scoring extraction from the configurations in the document type, or from the
-        specified configuration. # question: true? I was having trouble with the stringified json so didn't test successfully
+        specified configuration. # question: 'specified config' true? I was having trouble with the stringified json so didn't test successfully
       tags:
       - Reference document exraction
       requestBody:
@@ -571,10 +572,11 @@ paths:
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
+      - $ref: '#/components/parameters/environment' 
     post: 
       operationId: extract-from-reference-document-and-config
       summary: Extract from a reference document using the specified published configuration. 
-      description: Extract from a reference document using the specified configuration
+      description: Extract from a reference document using the specified published configuration
       tags:
       - Reference document exraction
       requestBody:
@@ -596,6 +598,7 @@ paths:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
       - $ref: '#/components/parameters/versionIdentifier'
+      - $ref: '#/components/parameters/environment' 
     get: 
       operationId: extract-from-reference-document-and-config-version
       summary: Extract from a reference document using the specified version of a configuration
@@ -607,7 +610,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GetGoldenExtraction' # todo it's a get, figure out the request...
+              $ref: '#/components/schemas/ResponseGoldenExtraction' # todo it's a get, figure out the request and response which I think is different from other responses..?...
       responses:
           '200':
             content:
@@ -618,23 +621,25 @@ paths:
 
 
   /extract_text_from_golden/{type}: # question: configuration: configurationSchema doesn't make sense in the body request here but it looks like it's allowed?
-    parameters:
+    parameters: 
       - $ref: '#/components/parameters/documentTypeName'
+      - $ref: '#/components/parameters/environment' # questioN: this param is in the handler, but doesn't make sense in the context, pdfs don't have an env...
     post: 
-      operationId: tbd2
-      summary: tbd
-      description: tbd
+      operationId: extract-all-text-from-reference-document
+      summary: extract all text from reference document
+      description: extract all text from reference document
       tags:
-      - Get all the text (lines) for a reference document as a direct extrction, without any metadata such as text positioning or lines TODO including lines metatdata?
+      - Get all the text (lines) for a reference document as a direct extrction, as an array of pages with metadata such as text positioning
       requestBody:
           required: true
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PostGoldenExtraction'
-      responses: # TODO LEFT OFF
+      responses: 
         204:
-          $ref: '#/components/responses/204'
+          $ref: '#/components/schemas/ResponseStandardizedText' # todo response:
+
 
 components:
   parameters:
@@ -1246,7 +1251,26 @@ components:
           example: 1
           description: The number of fingerprints defined in this config.
         score:
-          $ref: '#/components/schemas/Score'   
+          $ref: '#/components/schemas/Score' 
+    ResponseStandardizedText:
+      type: object
+      description: array of pages containing lines and metadata about their positions
+      example: # TODO  
+      # TODO: properties or just example?
+        # pages:
+        #   export interface StandardizedPage {
+        #   rotation: number;
+        #   transform: Matrix;
+        #      import { Matrix } from "transformation-matrix";
+        #   height: number;
+        #   width: number;
+        #   lines: StandardizedLine[];
+        #       export interface StandardizedLine {
+        #       text: string;
+        #       boundingPolygon: Polygon;
+        #       isAnnotation?: boolean;
+}
+}
   
   responses:
     204:
