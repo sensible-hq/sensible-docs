@@ -1269,8 +1269,7 @@ components:
         #       text: string;
         #       boundingPolygon: Polygon;
         #       isAnnotation?: boolean;
-}
-}
+
   
   responses:
     204:
