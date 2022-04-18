@@ -541,16 +541,15 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /extract-from-golden/{type}: #LEFT OFF
+  /extract_from_golden/{type}:  #todo/question: should this be dash not understacore, compare other paths.. 
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
     post: 
       operationId: extract-from-reference-document
       summary: extract from a reference document in a document type
       description: ->
-        Extract from a specified reference documents in a document type, 
-         choose the best extraction from the 
-        configurations in the document type using the normal scoring method 
+        Extract from a specified reference document in a document type. 
+        Return the best-scoring extraction from the configurations in the document type.
       tags:
       - Reference document exraction
       requestBody:
@@ -567,7 +566,7 @@ paths:
                   $ref: '#/components/schemas/ResponseGoldenExtraction'
             description: The structured data extracted from the reference document 
 
-  /extract-from-golden/{type}/{configuration}:
+  /extract_from_golden/{type}/{configuration}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
       - $ref: '#/components/parameters/ConfigurationName'
@@ -591,7 +590,7 @@ paths:
                   $ref: '#/components/schemas/ResponseGoldenExtraction'
             description: The structured data extracted from the reference document 
 
-  /extract-from-golden/{type}/{configuration}/{version}/{golden}:
+  /extract_from_golden/{type}/{configuration}/{version}/{golden}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
       - $ref: '#/components/parameters/ConfigurationName'
@@ -616,7 +615,7 @@ paths:
                   $ref: '#/components/schemas/ResponseGoldenExtraction'
             description: The structured data extracted from the reference document 
 
-  /extract-text-from-golden/{type}:
+  /extract_text_from_golden/{type}:
     parameters:
       - $ref: '#/components/parameters/DocumentTypeId'
     post: 
@@ -1011,26 +1010,217 @@ components:
       properties:
         golden:
           type: string
-          description: user-friendly name for the reference document
+          description: user-friendly name for the reference document #question: seems inconsistent that other parts of the internal API require doc type ID, not userfriendly name
           example: best_scan_doc_num_1234
+        configuration:
+          type: string
+          description: SenseML configuration as stringified JSON. If you leave out this parameter, then Sensible returns the best-scoring extraction from the configurations in the document type.  #question: response doesn't seem to include classification summary, why not? 
+    
+    # NOTE: all the Extraction schema stuff is duplicated in openapi.yml it would be nicer to single source them but then we'd need a tool to combine the ymls since readme-cli doesn't seem to handle it well...
     ResponseGoldenExtraction:
+      allOf:
+        - $ref: '#/components/schemas/Extraction'
+        - type: object
+          properties:
+            parsed_document_with_metadata:
+              type: object
+              description: the verbose extraction output 
+            errors:
+              type: array
+              description: errors
+            text: 
+              type: array
+              description: the standardized text output extracted from the docment  
+            fingerprints:
+              type: object
+              description: the Anchor point arrays   
+
+    Extraction:
       type: object
       properties:
-        type: 
+        id: 
+          $ref: '#/components/schemas/ExtractionId'  
+        created:
+          $ref: '#/components/schemas/ExtractionCreated' 
+        type:
+          $ref: '#/components/schemas/ExtractionType' 
+        configuration:
           type: string
-          description: the document type
-  # TODO: add these props, and/or copy from the Extraction model in openapi.yml        
-  # export type GoldenExtraction = {
-  #   type: string;
-  #   configuration?: string;
-  #   golden: string;
-  #   parsed_document: ParsedDocument;
-  #   validations: DocumentValidationOutput[];
-  #   validation_summary: ValidationSummary;
-  #   errors: ExtractionError[];
-  #   text?: StandardizedText;
-  #   parsed_document_with_metadata?: ParsedDocumentWithMetadata;
-  #   fingerprints?: AnchorPoint[];
+          description: Name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.
+          example: anyco_rate_confirmation
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'  
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument'  
+        validations:
+          $ref: '#/components/schemas/Validations'  
+        validations_summary:
+          $ref: '#/components/schemas/ValidationsSummary' 
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary' 
+
+    ParsedDocument:
+      description: Data extracted from the document, structured as an array of fields
+      type: object
+      example:
+        weight:
+          source: 0.0lbs
+          value: 0
+          unit: pounds
+          type: weight
+        distance:
+          source: 193mi
+          value: 193
+          unit: miles
+          type: distance
+        load_number:
+          type: string
+          value: Wk91242
+        carrier_email: null
+        price:
+          source: $695.00
+          value: 695
+          unit: $
+          type: currency
+        pickup_date: null  
+    
+    Validation:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the validation
+          example: Dollar amount should be more than $100
+        severity: 
+          type: string
+          enum: [error, warning, skipped]
+          example: warning
+          description: Severity of the failing validation (error, warning, skipped)
+        message:
+          type: string
+          description: Messages about why the validation failed
+          example: >-
+            Missing prerequisites: broker.email
+
+    Validations:
+      description: Which extracted fields failed validation rules you write in the Sensible app
+      type: array
+      items:
+        $ref: '#/components/schemas/Validation' 
+      example:
+        - description: Load weight should be over 1 ton
+          severity: warning
+        - description: Carrier email must be in format string@string
+          severity: skipped
+          message: Missing prerequisites - carrier_email
+        
+    ValidationsSummary:
+      type: object
+      description: Summary of the extracted fields that failed validation rules you write in the Sensible app.
+      properties:
+        fields:
+          type: integer
+          description: Number of fields specified in the SenseML config to extract from the document
+          example: 6
+        fields_present:
+          type: integer
+          description: Actual number of non-null fields extracted from the document
+          example: 4
+        errors:
+          type: number
+          description: Number of errors in the extraction
+          example: 0
+        warnings:
+          type: number
+          description: Number of warnings in the extraction
+          example: 1
+        skipped:
+          type: integer
+          description: Number of fields skipped in the extraction because a prerequisite field was null
+          example: 1          
+
+          
+    ExtractionId:
+      type: string
+      format: uuid
+      description: Unique ID for the extraction, used to retrieve the extraction
+      example: 246a6f60-0e5b-11eb-b720-295a6fba723e
+    
+    ExtractionCreated:
+      type: string
+      format: date
+      description: Date the extraction was created  
+    
+    ExtractionType:
+      type: string
+      description: User-friendly name of the document type
+      example: rate_confirmation  
+    ExtractionStatus:
+      type: string
+      description: Extraction status (WAITING, COMPLETE, FAILED)
+      enum: [WAITING, COMPLETE, FAILED]
+      example: COMPLETE      
+
+    ClassificationSummary:
+      type: array
+      description:  >-
+            Metadata about how Sensible chose the config to use for this extraction.
+            Sensible compares all configs in the document type, then chooses the best extraction using
+            fingerprints, scores, or a combination of the two. 
+            (When two extractions tie by score and fingerprints, Sensible chooses the 
+            first configuration in alphabetic order).
+            For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)
+      items:
+        $ref: '#/components/schemas/Classification'
+      example:
+        - configuration: anyco_rate_confirmation
+          fingerprints: 2
+          fingerprints_present: 2
+          score:
+            value: 3
+            fields_present: 4
+            penalities: 0.5
+        - configuration: acme_co
+          fingerprints: 2
+          fingerprints_present: 2
+          score:
+            value: 0
+            fields_present: 2
+            penalities: 1.5
+      
+    Score: 
+      type: object
+      description: The score for the extraction, used to help choose the best extraction.
+      properties:
+        value:
+          type: number
+          example: 17
+          description: The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
+        fields_present:
+          type: integer
+          example: 17
+          description: Number of non-null fields Sensible extracted from the document using this config   
+        penalties:
+          type: number
+          example: 1.5
+          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.   
+    Classification:
+      type: object
+      properties:
+        configuration:
+          type: string
+          example: anyco
+          description: The config tested for fingerprints
+        fingerprint_present:  
+          type: integer
+          example: 1
+          description: The number of this config's fingerprints that Sensible found in the document.
+        fingerprints:
+          type: integer
+          example: 1
+          description: The number of fingerprints defined in this config.
+        score:
+          $ref: '#/components/schemas/Score'   
   
   responses:
     204:
