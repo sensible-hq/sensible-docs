@@ -541,15 +541,16 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type}:  #todo/question: should this be dash not understacore, compare other paths.. 
+  /extract_from_golden/{type}:  
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/DocumentTypeName'
     post: 
       operationId: extract-from-reference-document
       summary: extract from a reference document in a document type
       description: ->
         Extract from a specified reference document in a document type. 
-        Return the best-scoring extraction from the configurations in the document type.
+        Return the best-scoring extraction from the configurations in the document type, or from the
+        specified configuration. # question: true? I was having trouble with the stringified json so didn't test successfully
       tags:
       - Reference document exraction
       requestBody:
@@ -568,7 +569,7 @@ paths:
 
   /extract_from_golden/{type}/{configuration}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/DocumentTypeName'
       - $ref: '#/components/parameters/ConfigurationName'
     post: 
       operationId: extract-from-reference-document-and-config
@@ -653,6 +654,13 @@ components:
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
+    DocumentTypeName:
+      name: type
+      required: true
+      in: path
+      description: The user-friendly name for a document type. 
+      schema:
+        $ref: '#/components/schemas/DocumentTypeName'    
     
     VersionIdentifier:
       name: version
@@ -1024,16 +1032,16 @@ components:
           properties:
             parsed_document_with_metadata:
               type: object
-              description: the verbose extraction output 
+              description: the verbose extraction output, including information about line coordinates.
             errors:
               type: array
               description: errors
-            text: 
-              type: array
-              description: the standardized text output extracted from the docment  
+            text:  # question how/when is this optionally returned? I didn't see a param to request it in /extract_from_golden/{type}
+              type: object
+              description: the standardized text output extracted from the docment  # todo make schema and example for this
             fingerprints:
               type: object
-              description: the Anchor point arrays   
+              description: the page and line indexes for the fingerprints found  # todo: make schema and example for this  
 
     Extraction:
       type: object
