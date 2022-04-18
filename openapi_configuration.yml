@@ -699,7 +699,7 @@ components:
       schema:
         $ref: '#/components/schemas/Name'
     documentName:
-      name: document-document
+      name: document-name
       required: true
       in: path
       description: The unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
