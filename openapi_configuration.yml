@@ -1294,6 +1294,12 @@ components:
           $ref: '#/components/schemas/Score' 
     ResponseStandardizedText:
       type: object
+      properties:
+        pages:
+          type: array
+          items:
+            type: string 
+            # todo not actually string, array of ojbects:
       # description: array of pages containing lines and metadata about their positions
       # example: # TODO  
       # TODO: properties or just example?
