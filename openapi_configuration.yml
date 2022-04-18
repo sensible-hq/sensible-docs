@@ -573,7 +573,7 @@ paths:
       - $ref: '#/components/parameters/ConfigurationName'
     post: 
       operationId: extract-from-reference-document-and-config
-      summary: Extract from a reference document using the specified configuration. TODO - which version is it
+      summary: Extract from a reference document using the specified published configuration. 
       description: Extract from a reference document using the specified configuration
       tags:
       - Reference document exraction
