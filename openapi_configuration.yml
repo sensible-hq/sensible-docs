@@ -579,7 +579,7 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type}/{name}: # question we call it {name} in other endpoints and {configuration} in other endpoints in serverless.yml. I went with {name} here
+  /extract_from_golden/{type}/{name}: # question we call it {name} in other endpoints and {configuration} in other endpoints in serverless.yml. I went with {name} here but actually would prefer to rename as {configuration-name}
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
@@ -615,7 +615,7 @@ paths:
           500:
             $ref: '#/components/responses/500' 
 
-  /extract_from_golden/{type}/{name}/{version}/{golden}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
+  /extract_from_golden/{type}/{name}/{version}/{document-name}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
@@ -1294,27 +1294,28 @@ components:
           $ref: '#/components/schemas/Score' 
     ResponseStandardizedText:
       type: object
+      description: array of pages with lines
       properties:
         pages:
           type: array
           items:
             type: string 
             # todo not actually string, array of ojbects:
-      # description: array of pages containing lines and metadata about their positions
-      # example: # TODO  
-      # TODO: properties or just example?
-        # pages:
-        #   export interface StandardizedPage {
-        #   rotation: number;
-        #   transform: Matrix;
-        #      import { Matrix } from "transformation-matrix";
-        #   height: number;
-        #   width: number;
-        #   lines: StandardizedLine[];
-        #       export interface StandardizedLine {
-        #       text: string;
-        #       boundingPolygon: Polygon;
-        #       isAnnotation?: boolean;
+            # description: array of pages containing lines and metadata about their positions
+            # example: # TODO  
+            # TODO: properties or just example?
+              # pages:
+              #   export interface StandardizedPage {
+              #   rotation: number;
+              #   transform: Matrix;
+              #      import { Matrix } from "transformation-matrix";
+              #   height: number;
+              #   width: number;
+              #   lines: StandardizedLine[];
+              #       export interface StandardizedLine {
+              #       text: string;
+              #       boundingPolygon: Polygon;
+              #       isAnnotation?: boolean;
 
   
   responses:
