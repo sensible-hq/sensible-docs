@@ -1294,8 +1294,7 @@ components:
           $ref: '#/components/schemas/Score' 
     ResponseStandardizedText:
       type: object
-      additionalProperties: true
-      description: array of pages containing lines and metadata about their positions
+      # description: array of pages containing lines and metadata about their positions
       # example: # TODO  
       # TODO: properties or just example?
         # pages:
@@ -1377,18 +1376,18 @@ components:
               Example error messages -
               Content-Type must be application/json
               Content-Type must be application/json or application/pdf or image/jpeg or image/png
-    429:
-      description: Too Many Requests
-      content:
-        text/plain:
-          schema:
-            title: Unsupported Media Type
-            type: string
-            example: >-
-              Example error messages -
-              Attempt limit exceeded, please retry after some time.
-              Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls.
-              Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
+    # 429:
+    #   description: Too Many Requests
+    #   content:
+    #     text/plain:
+    #       schema:
+    #         title: Unsupported Media Type
+    #         type: string
+    #         example: >-
+    #           Example error messages -
+    #           Attempt limit exceeded, please retry after some time.
+    #           Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls.
+    #           Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
     500:
       description: Internal Server Error
       content:
