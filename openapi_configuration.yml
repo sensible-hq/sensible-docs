@@ -579,7 +579,7 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type}/{configuration}:
+  /extract_from_golden/{type}/{name}: # question we call it {name} in other endpoints and {configuration} in other endpoints. I went with {name} here
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
@@ -615,7 +615,7 @@ paths:
           500:
             $ref: '#/components/responses/500' 
 
-  /extract_from_golden/{type}/{configuration}/{version}/{golden}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
+  /extract_from_golden/{type}/{name}/{version}/{golden}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
