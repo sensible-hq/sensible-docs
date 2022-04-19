@@ -1088,7 +1088,8 @@ components:
         configuration:
           type: object
           description: >-
-            SenseML configuration as a JSON object, not stringified JSON. If you leave out this parameter, then Sensible returns the best-scoring extraction 
+            SenseML configuration as a JSON object, not stringified JSON, for example, `"configuration": {"fields":[]}`.
+            If you leave out this parameter, then Sensible returns the best-scoring extraction 
             from the configurations in the document type.  
           example: {"fields":[]}  
     
