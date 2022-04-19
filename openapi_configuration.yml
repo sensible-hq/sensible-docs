@@ -666,7 +666,10 @@ paths:
                 $ref: '#/components/schemas/PostGoldenExtraction'
       responses: 
         200:
-          $ref: '#/components/schemas/ResponseStandardText'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStandardText'
         400: 
           $ref: '#/components/responses/400'
         401:
@@ -1106,7 +1109,7 @@ components:
                 All the text in the document. To return this, set `"verbosity": 3"` in the specified configuration 
             fingerprints:
               type: object
-              description: the page and line indexes for the fingerprints found    
+              description: the page and line indexes for the fingerprints found  # todo - provide example   
 
     Extraction:
       type: object
