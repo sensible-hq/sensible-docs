@@ -655,7 +655,7 @@ paths:
       summary: Extract all text from reference document
       description: >-
         Get all the text (lines) for a reference document as standardized output. The output is an array of pages with metadata such as text positioning.
-        If you specify a configuration, Sensible uses any preprocessors defined in the configuration to extract the text.
+        If you specify a configuration, Sensible uses any preprocessors defined in the configuration to process the text.
       tags:
       - Reference document exraction
       requestBody:
