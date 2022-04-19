@@ -105,5 +105,5 @@ To choose when to configure the Scale or Deskew preprocessors, use the following
 
 - If a document contains pages that are rotated but otherwise untransformed, you don't need a preprocessor. Sensible's default OCR engine (Microsoft) corrects rotation automatically.
 - If pages are affected by scale, rotation, or both, but are otherwise untransformed,  use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
-- If  pages are affected by [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) in addition to or instead of rotation and scale, such as translation and shear, use the [Deskew preprocessor](doc:deskew).
+- If  pages are affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) in addition to or instead of rotation and scale, use the [Deskew preprocessor](doc:deskew).
 
