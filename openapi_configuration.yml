@@ -670,6 +670,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseStandardText'
+          description: All the text in the document      
         400: 
           $ref: '#/components/responses/400'
         401:
