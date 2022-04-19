@@ -548,7 +548,7 @@ paths:
     post: 
       operationId: extract-from-reference-document
       summary: Extract from reference document
-      description: ->
+      description: >-
         Extract from a specified reference document in a document type. 
         Return the best-scoring extraction from the configurations in the document type, or from the
         specified configuration. 
@@ -625,7 +625,7 @@ paths:
     get: 
       operationId: extract-from-reference-document-and-config-version
       summary: Extract from reference document using configuration version
-      description: Extract from a reference document using the specified version of a configuration
+      description: Extract from a reference document using the specified version of a configuration.
       tags:
       - Reference document exraction
       responses:
