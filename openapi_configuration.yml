@@ -586,7 +586,7 @@ paths:
       - $ref: '#/components/parameters/environment' 
     post: 
       operationId: extract-from-reference-document-and-config
-      summary: Extract from reference document using configuration. 
+      summary: Extract from reference document using configuration 
       description: Extract from a reference document using the specified published configuration
       tags:
       - Reference document exraction
@@ -702,7 +702,7 @@ components:
       name: config-name
       required: true
       in: path
-      description: Unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
+      description: Unique name for a configuration. Find it in the Sensible app or from the `/document_types/{type-id}/configurations` endpoint.
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
@@ -710,7 +710,7 @@ components:
       name: document-name
       required: true
       in: path
-      description: Unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
+      description: Unique name for a document. Find it in the Sensible app or from the `/document_types/{type-id}}/goldens` endpoint.
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
