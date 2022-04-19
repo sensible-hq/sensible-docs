@@ -60,7 +60,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}:
+  /document_types/{type-id}:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
     get:
@@ -136,7 +136,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations:
+  /document_types/{type-id}/configurations:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
     get:
@@ -191,7 +191,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations/{config-name}:
+  /document_types/{type-id}/configurations/{config-name}:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/configurationName'
@@ -385,7 +385,7 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /document_types/{id}/goldens:
+  /document_types/{type-id}/goldens:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
     get:
@@ -517,7 +517,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/goldens/{document-name}/configuration:
+  /document_types/{type-id}/goldens/{document-name}/configuration:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/documentName'
