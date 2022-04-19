@@ -666,7 +666,7 @@ paths:
                 $ref: '#/components/schemas/PostGoldenExtraction'
       responses: 
         200:
-          $ref: '#/components/schemas/ResponseStandardizedText'
+          $ref: '#/components/schemas/ResponseStandardText'
         400: # todo I didn't verify 40x responses for any extract_from_goldens, just assumed
           $ref: '#/components/responses/400'
         401:
@@ -1101,7 +1101,7 @@ components:
               type: array
               description: errors
             text:  
-              $ref: '#/components/schemas/ResponseStandardizedText'  
+              $ref: '#/components/schemas/ResponseStandardText'  
               description: >-
                 All the text in the document. To return this, set `"verbosity": 3"` in the specified configuration 
             fingerprints:
@@ -1156,7 +1156,54 @@ components:
           unit: $
           type: currency
         pickup_date: null  
-    
+    ResponseStandardText:
+      description: >-
+        all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
+      type: object
+      example:
+        pages:
+        - width: 8.5
+          height: 11
+          rotation: 0
+          transform:
+            a: 1
+            c: 0
+            e: 0
+            b: 0
+            d: 1
+            f: 0
+          lines:
+          - text: Extract your first data
+            boundingPolygon:
+            - x: 1.111
+              y: 0.472
+            - x: 4.661
+              y: 0.472
+            - x: 4.661
+              y: 0.806
+            - x: 1.111
+              y: 0.806
+          - text: Hello world!
+            boundingPolygon:
+            - x: 0.444
+              y: 1.792
+            - x: 2.07
+              y: 1.792
+            - x: 2.07
+              y: 2.083
+            - x: 0.444
+              y: 2.083
+          - text: Inside documents,
+            boundingPolygon:
+            - x: 4.25
+              y: 2.042
+            - x: 5.982
+              y: 2.042
+            - x: 5.982
+              y: 2.236
+            - x: 4.25
+              y: 2.236    
+
     Validation:
       type: object
       properties:
@@ -1260,56 +1307,6 @@ components:
             value: 0
             fields_present: 2
             penalities: 1.5
-      
-
-    ResponseStandardizedText:
-      description: >-
-        all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
-      type: object
-      example:
-        pages:
-        - width: 8.5
-          height: 11
-          rotation: 0
-          transform:
-            a: 1
-            c: 0
-            e: 0
-            b: 0
-            d: 1
-            f: 0
-          lines:
-          - text: Extract your first data
-            boundingPolygon:
-            - x: 1.111
-              y: 0.472
-            - x: 4.661
-              y: 0.472
-            - x: 4.661
-              y: 0.806
-            - x: 1.111
-              y: 0.806
-          - text: Hello world!
-            boundingPolygon:
-            - x: 0.444
-              y: 1.792
-            - x: 2.07
-              y: 1.792
-            - x: 2.07
-              y: 2.083
-            - x: 0.444
-              y: 2.083
-          - text: Inside documents,
-            boundingPolygon:
-            - x: 4.25
-              y: 2.042
-            - x: 5.982
-              y: 2.042
-            - x: 5.982
-              y: 2.236
-            - x: 4.25
-              y: 2.236
-
     Classification:
       type: object
       properties:
