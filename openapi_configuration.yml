@@ -547,7 +547,7 @@ paths:
       - $ref: '#/components/parameters/environment' 
     post: 
       operationId: extract-from-reference-document
-      summary: extract from a reference document in a document type
+      summary: Extract from reference document
       description: ->
         Extract from a specified reference document in a document type. 
         Return the best-scoring extraction from the configurations in the document type, or from the
@@ -586,7 +586,7 @@ paths:
       - $ref: '#/components/parameters/environment' 
     post: 
       operationId: extract-from-reference-document-and-config
-      summary: Extract from a reference document using the specified published configuration. 
+      summary: Extract from reference document using configuration. 
       description: Extract from a reference document using the specified published configuration
       tags:
       - Reference document exraction
@@ -624,7 +624,7 @@ paths:
       - $ref: '#/components/parameters/environment' 
     get: 
       operationId: extract-from-reference-document-and-config-version
-      summary: Extract from a reference document using the specified version of a configuration
+      summary: Extract from reference document using configuration version
       description: Extract from a reference document using the specified version of a configuration
       tags:
       - Reference document exraction
@@ -652,7 +652,7 @@ paths:
       # - $ref: '#/components/parameters/environment' # note: not documenting the env parameter that, while in the handler, is ignored for this endpoint
     post: 
       operationId: extract-all-text-from-reference-document
-      summary: extract all text from a reference document
+      summary: Extract all text from reference document
       description: >-
         Get all the text (lines) for a reference document as standardized output. The output is an array of pages with metadata such as text positioning.
         If you specify a configuration, Sensible uses any preprocessors defined in the configuration to extract the text.
@@ -695,14 +695,14 @@ components:
       name: type-name
       required: true
       in: path
-      description: The user-friendly name for a document type. 
+      description: User-friendly name for a document type 
       schema:
         $ref: '#/components/schemas/DocumentTypeName'  
     configurationName:
       name: config-name
       required: true
       in: path
-      description: The unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
+      description: Unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
@@ -710,7 +710,7 @@ components:
       name: document-name
       required: true
       in: path
-      description: The unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
+      description: Unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
@@ -720,7 +720,7 @@ components:
       name: version
       required: true
       in: path
-      description: The unique identifier for a configuration version.
+      description: Unique identifier for a configuration version.
       schema:
         type: string        
     environment:
@@ -738,24 +738,24 @@ components:
     UniqueId:
       type: string
       format: uuid
-      description: The unique identifier.
+      description: Unique identifier
       example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
     Name: #used for params
       type: string
       pattern: ^[a-z0-9_]*$
       minLength: 3
       maxLength: 128
-      description: A user-friendly name.
+      description: User-friendly name
     DocumentTypeName:
-      description: A unique user-friendly name for a document type. 
+      description: Unique user-friendly name for a document type 
       example: auto_insurance_quotes_all_carriers
       type: string  
     ConfigurationName:
-      description: A unique user-friendly name for a configuration. 
+      description: Unique user-friendly name for a configuration 
       example: anyco_auto_insurance_quote
       type: string
     DocumentName:
-      description: A unique user-friendly name for a document. 
+      description: Unique user-friendly name for a document 
       example: best_scan_form_num_1234
       type: string
     Date:
