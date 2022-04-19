@@ -1086,7 +1086,7 @@ components:
           description: user-friendly name for the reference document 
           example: best_scan_doc_num_1234
         configuration:
-          type: string
+          type: object
           description: >-
             SenseML configuration as a JSON object, not stringified JSON. If you leave out this parameter, then Sensible returns the best-scoring extraction 
             from the configurations in the document type.  
