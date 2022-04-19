@@ -649,7 +649,7 @@ paths:
   /extract_text_from_golden/{type-name}: # question: configuration: configurationSchema doesn't make sense in the body request here but it looks like it's allowed?
     parameters: 
       - $ref: '#/components/parameters/documentTypeName'
-      - $ref: '#/components/parameters/environment' # questioN: this param is in the handler, but doesn't make sense in the context, pdfs don't have an env...
+      # - $ref: '#/components/parameters/environment' # note: not documenting the env parameter that, while in the handler, is ignored for this endpoint
     post: 
       operationId: extract-all-text-from-reference-document
       summary: extract all text from reference document
