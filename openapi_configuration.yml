@@ -646,7 +646,7 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_text_from_golden/{type-name}: # question: configuration: configurationSchema doesn't make sense in the body request here but it looks like it's allowed?
+  /extract_text_from_golden/{type-name}: 
     parameters: 
       - $ref: '#/components/parameters/documentTypeName'
       # - $ref: '#/components/parameters/environment' # note: not documenting the env parameter that, while in the handler, is ignored for this endpoint
