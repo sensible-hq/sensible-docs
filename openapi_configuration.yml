@@ -1263,7 +1263,8 @@ components:
       
 
     ResponseStandardizedText:
-      description: all the text in the document, standardized as an array of pages with lines and their positioning metadata
+      description: >-
+        all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
       type: object
       example:
         pages:
