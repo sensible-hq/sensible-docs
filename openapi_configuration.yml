@@ -60,9 +60,9 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}:
+  /document_types/{type-id}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/documentTypeId'
     get:
       operationId: get-document-type
       summary: Get document type metadata
@@ -136,9 +136,9 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations:
+  /document_types/{type-id}/configurations:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/documentTypeId'
     get:
       operationId: list-configurations
       summary: List configurations in a document type
@@ -191,10 +191,10 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations/{name}:
+  /document_types/{type-id}/configurations/{config-name}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/configurationName'
     get:
       operationId: get-configuration
       summary: Get configuration
@@ -266,10 +266,10 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations/{name}/versions:
+  /document_types/{type-id}/configurations/{config-name}/versions:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/configurationName'
     get:
       operationId: get-configuration-versions
       summary: List versions for a configuration
@@ -293,11 +293,11 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations/{name}/{version}:
+  /document_types/{type-id}/configurations/{config-name}/{version}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/ConfigurationName'
-      - $ref: '#/components/parameters/VersionIdentifier'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/configurationName'
+      - $ref: '#/components/parameters/versionIdentifier'
     get:
       operationId: get-configuration-by-version
       summary: Get configuration by version
@@ -361,8 +361,8 @@ paths:
       tags:
       - Configuration
       parameters:
-        - $ref: '#/components/parameters/DocumentTypeId'
-        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/documentTypeId'
+        - $ref: '#/components/parameters/configurationName'
         - in: path
           name: version
           required: true
@@ -385,9 +385,9 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /document_types/{id}/goldens:
+  /document_types/{type-id}/goldens:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
+      - $ref: '#/components/parameters/documentTypeId'
     get:
       operationId: list-reference-documents
       summary: List all reference documents in a document type
@@ -442,10 +442,10 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/goldens/{name}:
+  /document_types/{type-id}/goldens/{document-name}:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/DocumentName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/documentName'
     get:
       operationId: get-reference-document
       summary: Get reference document metadata
@@ -517,10 +517,10 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/goldens/{name}/configuration:
+  /document_types/{type-id}/goldens/{document-name}/configuration:
     parameters:
-      - $ref: '#/components/parameters/DocumentTypeId'
-      - $ref: '#/components/parameters/DocumentName'
+      - $ref: '#/components/parameters/documentTypeId'
+      - $ref: '#/components/parameters/documentName'
     delete:
       operationId: delete-reference-document-association
       summary: Unassociate reference document from configuration
@@ -540,41 +540,200 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  
+
+  /extract_from_golden/{type-name}:  
+    parameters:
+      - $ref: '#/components/parameters/documentTypeName'
+      - $ref: '#/components/parameters/environment' 
+    post: 
+      operationId: extract-from-reference-document
+      summary: extract from a reference document in a document type
+      description: ->
+        Extract from a specified reference document in a document type. 
+        Return the best-scoring extraction from the configurations in the document type, or from the
+        specified configuration. 
+      tags:
+      - Reference document exraction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGoldenExtraction'
+      responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResponseGoldenExtraction'
+            description: The structured data extracted from the reference document 
+
+          400: # todo I didn't verify 40x responses for any extract_from_goldens, just assumed
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'
+          404:
+            $ref: '#/components/responses/404'
+          415:
+            $ref: '#/components/responses/415'
+          500:
+            $ref: '#/components/responses/500'
+
+  /extract_from_golden/{type-name}/{config-name}:
+    parameters:
+      - $ref: '#/components/parameters/documentTypeName'
+      - $ref: '#/components/parameters/configurationName'
+      - $ref: '#/components/parameters/environment' 
+    post: 
+      operationId: extract-from-reference-document-and-config
+      summary: Extract from a reference document using the specified published configuration. 
+      description: Extract from a reference document using the specified published configuration
+      tags:
+      - Reference document exraction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGoldenExtraction'
+      responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResponseGoldenExtraction'
+            description: The structured data extracted from the reference document
+
+          400: 
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'
+          404:
+            $ref: '#/components/responses/404'
+          415:
+            $ref: '#/components/responses/415'
+          500:
+            $ref: '#/components/responses/500' 
+
+  /extract_from_golden/{type-name}/{config-name}/{version}/{document-name}: 
+    parameters:
+      - $ref: '#/components/parameters/documentTypeName'
+      - $ref: '#/components/parameters/configurationName'
+      - $ref: '#/components/parameters/versionIdentifier'
+      - $ref: '#/components/parameters/documentName'
+      - $ref: '#/components/parameters/environment' 
+    get: 
+      operationId: extract-from-reference-document-and-config-version
+      summary: Extract from a reference document using the specified version of a configuration
+      description: Extract from a reference document using the specified version of a configuration
+      tags:
+      - Reference document exraction
+      responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ResponseGoldenExtraction'
+            description: The structured data extracted from the reference document 
+          400: 
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'
+          404:
+            $ref: '#/components/responses/404'
+          415:
+            $ref: '#/components/responses/415'
+          500:
+            $ref: '#/components/responses/500'
+
+  /extract_text_from_golden/{type-name}: 
+    parameters: 
+      - $ref: '#/components/parameters/documentTypeName'
+      # - $ref: '#/components/parameters/environment' # note: not documenting the env parameter that, while in the handler, is ignored for this endpoint
+    post: 
+      operationId: extract-all-text-from-reference-document
+      summary: extract all text from a reference document
+      description: >-
+        Get all the text (lines) for a reference document as standardized output. The output is an array of pages with metadata such as text positioning.
+        If you specify a configuration, Sensible uses any preprocessors defined in the configuration to extract the text.
+      tags:
+      - Reference document exraction
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostGoldenExtraction'
+      responses: 
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStandardText'
+          description: All the text in the document      
+        400: 
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+        415:
+          $ref: '#/components/responses/415'
+        500:
+          $ref: '#/components/responses/500'
 
 components:
   parameters:
-    DocumentTypeId: #do I really need this? get rid of it? 
-      name: id
+    documentTypeId: 
+      name: type-id
       required: true
       in: path
       description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
       schema:
         $ref: '#/components/schemas/UniqueId'
-    ConfigurationName:
-      name: name
+    documentTypeName:
+      name: type-name
+      required: true
+      in: path
+      description: The user-friendly name for a document type. 
+      schema:
+        $ref: '#/components/schemas/DocumentTypeName'  
+    configurationName:
+      name: config-name
       required: true
       in: path
       description: The unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
       example: anyco_auto_insurance_quote
       schema:
         $ref: '#/components/schemas/Name'
-    DocumentName:
-      name: name
+    documentName:
+      name: document-name
       required: true
       in: path
       description: The unique name for a document. Find it in the Sensible app or from the `/document_types/id/goldens` endpoint.
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
+  
     
-    VersionIdentifier:
+    versionIdentifier:
       name: version
       required: true
       in: path
       description: The unique identifier for a configuration version.
       schema:
+        type: string        
+    environment:
+      name: environment
+      in: query
+      description: >-
+        If you specify `development`, extracts preferentially using config versions 
+        published to the development environment in the Sensible app. The extraction runs all configs in the doc type before 
+        picking the best fit. For each config, falls back to production version if no development version of the config exists.
+      schema:
         type: string
+        enum: [production, development]
+        default: production
   schemas:
     UniqueId:
       type: string
@@ -919,6 +1078,273 @@ components:
       required:
         - versions
       additionalProperties: false
+    PostGoldenExtraction:
+      type: object
+      properties:
+        golden:
+          type: string
+          description: user-friendly name for the reference document 
+          example: best_scan_doc_num_1234
+        configuration:
+          type: string
+          description: >-
+            SenseML configuration as a JSON object, not stringified JSON. If you leave out this parameter, then Sensible returns the best-scoring extraction 
+            from the configurations in the document type.  
+          example: {"fields":[]}  
+    
+    # NOTE: all the Extraction schema stuff is duplicated in openapi.yml it would be nicer to single source them but then we'd need a tool to combine the ymls since readme-cli doesn't seem to handle it well...
+    ResponseGoldenExtraction:
+      allOf:
+        - $ref: '#/components/schemas/Extraction'
+        - type: object
+          properties:
+            parsed_document_with_metadata:
+              type: object
+              description: the verbose extraction output, including information about line coordinates.
+            errors:
+              type: array
+              description: errors
+            text:  
+              $ref: '#/components/schemas/ResponseStandardText'  
+              description: >-
+                All the text in the document. To return this, set `"verbosity": 3"` in the specified configuration 
+            fingerprints:
+              type: object
+              description: the page and line indexes for the fingerprints found  # todo - provide example   
+
+    Extraction:
+      type: object
+      properties:
+        id: 
+          $ref: '#/components/schemas/ExtractionId'  
+        created:
+          $ref: '#/components/schemas/ExtractionCreated' 
+        type:
+          $ref: '#/components/schemas/ExtractionType' 
+        configuration:
+          type: string
+          description: Name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.
+          example: anyco_rate_confirmation
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'  
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument'  
+        validations:
+          $ref: '#/components/schemas/Validations'  
+        validations_summary:
+          $ref: '#/components/schemas/ValidationsSummary' 
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary' 
+
+    ParsedDocument:
+      description: Data extracted from the document, structured as an array of fields
+      type: object
+      example:
+        weight:
+          source: 0.0lbs
+          value: 0
+          unit: pounds
+          type: weight
+        distance:
+          source: 193mi
+          value: 193
+          unit: miles
+          type: distance
+        load_number:
+          type: string
+          value: Wk91242
+        carrier_email: null
+        price:
+          source: $695.00
+          value: 695
+          unit: $
+          type: currency
+        pickup_date: null  
+    ResponseStandardText:
+      description: >-
+        all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
+      type: object
+      example:
+        pages:
+        - width: 8.5
+          height: 11
+          rotation: 0
+          transform:
+            a: 1
+            c: 0
+            e: 0
+            b: 0
+            d: 1
+            f: 0
+          lines:
+          - text: Extract your first data
+            boundingPolygon:
+            - x: 1.111
+              y: 0.472
+            - x: 4.661
+              y: 0.472
+            - x: 4.661
+              y: 0.806
+            - x: 1.111
+              y: 0.806
+          - text: Hello world!
+            boundingPolygon:
+            - x: 0.444
+              y: 1.792
+            - x: 2.07
+              y: 1.792
+            - x: 2.07
+              y: 2.083
+            - x: 0.444
+              y: 2.083
+          - text: Inside documents,
+            boundingPolygon:
+            - x: 4.25
+              y: 2.042
+            - x: 5.982
+              y: 2.042
+            - x: 5.982
+              y: 2.236
+            - x: 4.25
+              y: 2.236  
+    Validation:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the validation
+          example: Dollar amount should be more than $100
+        severity: 
+          type: string
+          enum: [error, warning, skipped]
+          example: warning
+          description: Severity of the failing validation (error, warning, skipped)
+        message:
+          type: string
+          description: Messages about why the validation failed
+          example: >-
+            Missing prerequisites: broker.email
+
+    Validations:
+      description: Which extracted fields failed validation rules you write in the Sensible app
+      type: array
+      items:
+        $ref: '#/components/schemas/Validation' 
+      example:
+        - description: Load weight should be over 1 ton
+          severity: warning
+        - description: Carrier email must be in format string@string
+          severity: skipped
+          message: Missing prerequisites - carrier_email
+        
+    ValidationsSummary:
+      type: object
+      description: Summary of the extracted fields that failed validation rules you write in the Sensible app.
+      properties:
+        fields:
+          type: integer
+          description: Number of fields specified in the SenseML config to extract from the document
+          example: 6
+        fields_present:
+          type: integer
+          description: Actual number of non-null fields extracted from the document
+          example: 4
+        errors:
+          type: number
+          description: Number of errors in the extraction
+          example: 0
+        warnings:
+          type: number
+          description: Number of warnings in the extraction
+          example: 1
+        skipped:
+          type: integer
+          description: Number of fields skipped in the extraction because a prerequisite field was null
+          example: 1          
+
+          
+    ExtractionId:
+      type: string
+      format: uuid
+      description: Unique ID for the extraction, used to retrieve the extraction
+      example: 246a6f60-0e5b-11eb-b720-295a6fba723e
+    
+    ExtractionCreated:
+      type: string
+      format: date
+      description: Date the extraction was created  
+    
+    ExtractionType:
+      type: string
+      description: User-friendly name of the document type
+      example: rate_confirmation  
+    ExtractionStatus:
+      type: string
+      description: Extraction status (WAITING, COMPLETE, FAILED)
+      enum: [WAITING, COMPLETE, FAILED]
+      example: COMPLETE      
+
+    ClassificationSummary:
+      type: array
+      description:  >-
+            Metadata about how Sensible chose the config to use for this extraction.
+            Sensible compares all configs in the document type, then chooses the best extraction using
+            fingerprints, scores, or a combination of the two. 
+            (When two extractions tie by score and fingerprints, Sensible chooses the 
+            first configuration in alphabetic order).
+            For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)
+      items:
+        $ref: '#/components/schemas/Classification'
+      example:
+        - configuration: anyco_rate_confirmation
+          fingerprints: 2
+          fingerprints_present: 2
+          score:
+            value: 3
+            fields_present: 4
+            penalities: 0.5
+        - configuration: acme_co
+          fingerprints: 2
+          fingerprints_present: 2
+          score:
+            value: 0
+            fields_present: 2
+            penalities: 1.5
+    Classification:
+      type: object
+      properties:
+        configuration:
+          type: string
+          example: anyco
+          description: The config tested for fingerprints
+        fingerprint_present:  
+          type: integer
+          example: 1
+          description: The number of this config's fingerprints that Sensible found in the document.
+        fingerprints:
+          type: integer
+          example: 1
+          description: The number of fingerprints defined in this config.
+        score:
+          $ref: '#/components/schemas/Score' 
+    
+    Score: 
+      type: object
+      description: The score for the extraction, used to help choose the best extraction.
+      properties:
+        value:
+          type: number
+          example: 17
+          description: The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
+        fields_present:
+          type: integer
+          example: 17
+          description: Number of non-null fields Sensible extracted from the document using this config   
+        penalties:
+          type: number
+          example: 1.5
+          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.   
+    
   responses:
     204:
       description: No content
@@ -984,18 +1410,18 @@ components:
               Example error messages -
               Content-Type must be application/json
               Content-Type must be application/json or application/pdf or image/jpeg or image/png
-    429:
-      description: Too Many Requests
-      content:
-        text/plain:
-          schema:
-            title: Unsupported Media Type
-            type: string
-            example: >-
-              Example error messages -
-              Attempt limit exceeded, please retry after some time.
-              Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls.
-              Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
+    # 429:
+    #   description: Too Many Requests
+    #   content:
+    #     text/plain:
+    #       schema:
+    #         title: Unsupported Media Type
+    #         type: string
+    #         example: >-
+    #           Example error messages -
+    #           Attempt limit exceeded, please retry after some time.
+    #           Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls.
+    #           Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls.
     500:
       description: Internal Server Error
       content:

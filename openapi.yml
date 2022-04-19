@@ -71,7 +71,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Extraction'
-          description: The structured data extracted from the document and (https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf
+          description: The structured data extracted from the document 
         '401':
           $ref: '#/components/responses/401'
         '400':

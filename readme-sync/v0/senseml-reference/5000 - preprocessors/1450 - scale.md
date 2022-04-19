@@ -5,7 +5,7 @@ hidden: false
 
 
 
-Corrects the size of text in PDF documents whose size varies, for example as a result of being scanned or photographed at different scales. ID cards and receipts are common examples of such documents. This preprocessor enables coordinates-based methods, such as the Region or Text Table methods, to work with such unpredictably scaled documents.
+Corrects the size of text in PDF documents whose size varies, for example as a result of being photographed at different distances. ID cards and receipts are common examples of such documents. This preprocessor enables coordinates-based methods, such as the Region or Text Table methods, to work with such unpredictably scaled documents.
 
 [**Parameters**]( doc:scale#parameters)
 [**Examples**]( doc:scale#examples)
@@ -99,11 +99,11 @@ The following image shows the example document used with this example config:
 Notes
 ---
 
-Scale and skew are related. For example, skew often results in scaling issues. To choose when to configure the Scale or Deskew preprocessors, use the following tips:
+**Alternatives to Scale preprocessor** 
 
-- If a document contains pages that are slightly skewed, you don't need a preprocessor. Sensible's default OCR engine (Microsoft) corrects slight rotation automatically.
-- If the pages are scaled, but unskewed or slightly skewed, use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
-- If a document contains pages that are both scaled and skewed, use the [Deskew preprocessor](doc:deskew) to fix both the scale and skew.
+To choose when to configure the Scale or Deskew preprocessors, use the following tips:
 
-
+- If a document contains pages that are rotated but otherwise untransformed, you don't need a preprocessor. Sensible's default OCR engine (Microsoft) corrects rotation automatically.
+- If pages are affected by scale, rotation, or both, but are otherwise untransformed,  use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
+- If  pages are affected by [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) in addition to or instead of rotation and scale, such as translation and shear, use the [Deskew preprocessor](doc:deskew).
 
