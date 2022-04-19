@@ -1084,8 +1084,9 @@ components:
         configuration:
           type: string
           description: >-
-            SenseML configuration. If you leave out this parameter, then Sensible returns the best-scoring extraction 
+            SenseML configuration as a JSON object, not stringified JSON. If you leave out this parameter, then Sensible returns the best-scoring extraction 
             from the configurations in the document type.  # todo not stringified, see if i can get this to work
+          example: {"fields":[]}  
     
     # NOTE: all the Extraction schema stuff is duplicated in openapi.yml it would be nicer to single source them but then we'd need a tool to combine the ymls since readme-cli doesn't seem to handle it well...
     ResponseGoldenExtraction:
