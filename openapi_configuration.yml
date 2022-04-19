@@ -1261,42 +1261,10 @@ components:
             fields_present: 2
             penalities: 1.5
       
-    Score: 
-      type: object
-      description: The score for the extraction, used to help choose the best extraction.
-      properties:
-        value:
-          type: number
-          example: 17
-          description: The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
-        fields_present:
-          type: integer
-          example: 17
-          description: Number of non-null fields Sensible extracted from the document using this config   
-        penalties:
-          type: number
-          example: 1.5
-          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.   
-    Classification:
-      type: object
-      properties:
-        configuration:
-          type: string
-          example: anyco
-          description: The config tested for fingerprints
-        fingerprint_present:  
-          type: integer
-          example: 1
-          description: The number of this config's fingerprints that Sensible found in the document.
-        fingerprints:
-          type: integer
-          example: 1
-          description: The number of fingerprints defined in this config.
-        score:
-          $ref: '#/components/schemas/Score' 
+
     ResponseStandardizedText:
-      type: object
       description: all the text in the document, standardized as an array of pages with lines and their positioning metadata
+      type: object
       example:
         pages:
         - width: 8.5
@@ -1341,7 +1309,41 @@ components:
             - x: 4.25
               y: 2.236
 
-  
+    Classification:
+      type: object
+      properties:
+        configuration:
+          type: string
+          example: anyco
+          description: The config tested for fingerprints
+        fingerprint_present:  
+          type: integer
+          example: 1
+          description: The number of this config's fingerprints that Sensible found in the document.
+        fingerprints:
+          type: integer
+          example: 1
+          description: The number of fingerprints defined in this config.
+        score:
+          $ref: '#/components/schemas/Score' 
+    
+    Score: 
+      type: object
+      description: The score for the extraction, used to help choose the best extraction.
+      properties:
+        value:
+          type: number
+          example: 17
+          description: The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score.
+        fields_present:
+          type: integer
+          example: 17
+          description: Number of non-null fields Sensible extracted from the document using this config   
+        penalties:
+          type: number
+          example: 1.5
+          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.   
+    
   responses:
     204:
       description: No content
