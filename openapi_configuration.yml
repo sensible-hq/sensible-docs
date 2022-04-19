@@ -191,7 +191,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations/{name}:
+  /document_types/{id}/configurations/{config-name}:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/configurationName'
@@ -266,7 +266,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations/{name}/versions:
+  /document_types/{type-id}/configurations/{config-name}/versions:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/configurationName'
@@ -293,7 +293,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/configurations/{name}/{version}:
+  /document_types/{type-id}/configurations/{config-name}/{version}:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/configurationName'
@@ -442,7 +442,7 @@ paths:
           $ref: '#/components/responses/415'
         500:
           $ref: '#/components/responses/500'
-  /document_types/{id}/goldens/{document-name}:
+  /document_types/{type-id}/goldens/{document-name}:
     parameters:
       - $ref: '#/components/parameters/documentTypeId'
       - $ref: '#/components/parameters/documentName'
@@ -541,7 +541,7 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type}:  
+  /extract_from_golden/{type-name}:  
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/environment' 
@@ -551,7 +551,7 @@ paths:
       description: ->
         Extract from a specified reference document in a document type. 
         Return the best-scoring extraction from the configurations in the document type, or from the
-        specified configuration. # question: 'specified config' true? I was having trouble with the stringified json so didn't test successfully
+        specified configuration. 
       tags:
       - Reference document exraction
       requestBody:
@@ -579,7 +579,7 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type}/{name}: # question we call it {name} in other endpoints and {configuration} in other endpoints in serverless.yml. I went with {name} here but actually would prefer to rename as {configuration-name}
+  /extract_from_golden/{type-name}/{config-name}: # question we call it {name} in other endpoints and {configuration} in other endpoints in serverless.yml. I went with {name} here but actually would prefer to rename as {configuration-name}
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
@@ -615,7 +615,7 @@ paths:
           500:
             $ref: '#/components/responses/500' 
 
-  /extract_from_golden/{type}/{name}/{version}/{document-name}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
+  /extract_from_golden/{type-id}/{config-name}/{version}/{document-name}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
@@ -628,12 +628,6 @@ paths:
       description: tbd
       tags:
       - Reference document exraction
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResponseGoldenExtraction' # todo it's a get, figure out the request and response which I think is different from other responses..?...
       responses:
           '200':
             content:
@@ -652,7 +646,7 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_text_from_golden/{type}: # question: configuration: configurationSchema doesn't make sense in the body request here but it looks like it's allowed?
+  /extract_text_from_golden/{type-name}: # question: configuration: configurationSchema doesn't make sense in the body request here but it looks like it's allowed?
     parameters: 
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/environment' # questioN: this param is in the handler, but doesn't make sense in the context, pdfs don't have an env...
@@ -685,14 +679,21 @@ paths:
 components:
   parameters:
     documentTypeId: #do I really need this? get rid of it? 
-      name: id
+      name: type-id
       required: true
       in: path
       description: The unique document type identifier in v4 UUID format. Find IDs using the `/document_types` endpoint.
       schema:
         $ref: '#/components/schemas/UniqueId'
+    documentTypeName:
+      name: type-name
+      required: true
+      in: path
+      description: The user-friendly name for a document type. 
+      schema:
+        $ref: '#/components/schemas/DocumentTypeName'  
     configurationName:
-      name: name
+      name: config-name
       required: true
       in: path
       description: The unique name for a configuration. Find it in the Sensible app or from the `/document_types/id/configurations` endpoint.
@@ -707,13 +708,7 @@ components:
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
-    documentTypeName:
-      name: type
-      required: true
-      in: path
-      description: The user-friendly name for a document type. 
-      schema:
-        $ref: '#/components/schemas/DocumentTypeName'    
+  
     
     versionIdentifier:
       name: version
@@ -1086,7 +1081,9 @@ components:
           example: best_scan_doc_num_1234
         configuration:
           type: string
-          description: SenseML configuration as stringified JSON. If you leave out this parameter, then Sensible returns the best-scoring extraction from the configurations in the document type.  #question: response doesn't seem to include classification summary, why not? 
+          description: >-
+            SenseML configuration. If you leave out this parameter, then Sensible returns the best-scoring extraction 
+            from the configurations in the document type.  # todo not stringified, see if i can get this to work
     
     # NOTE: all the Extraction schema stuff is duplicated in openapi.yml it would be nicer to single source them but then we'd need a tool to combine the ymls since readme-cli doesn't seem to handle it well...
     ResponseGoldenExtraction:
