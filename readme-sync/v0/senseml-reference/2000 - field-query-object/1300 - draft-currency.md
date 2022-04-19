@@ -1,0 +1,83 @@
+---
+title: "currency"
+hidden: true
+---
+
+
+
+Currency
+====
+
+You can define this type using concise syntax, or you can configure options with expanded syntax.
+
+Simple syntax
+----
+
+**Syntax example**
+
+`"type": "currency"`
+
+**Output example** 
+
+Returns USA dollars as absolute value. For example,
+
+``` json
+{
+    "source": "3 bil",
+    "value": 3000000000,
+    "unit": "$",
+    "type": "currency"
+  }
+```
+
+**Formats recognized** 
+
+Sensible by default recognizes USA decimal notation (for example, 1,500.06). Recognizes abbreviated quantities, such as k for thousand.
+
+To recognize European decimal notation (for example, 1.500,06), see the following configurable syntax section.
+
+Recognizes digits with the following formatting:
+
+- dollar sign, optional commas every three digits, optional cents after period
+
+- commas every three digits, optional cents after period
+
+- no dollar sign, up to six digits without commas as sole line contents. Allow up to nine digits if cents are present.
+
+
+Recognizes abbreviated and written-out quantities as follows:
+
+- thousand, k
+- million, mil, mm, m
+- billion, bil, b
+- trillion, t
+
+For example: 
+
+```
+$1k
+5k
+1,000,000.056
+$5.33
+1 mm
+3 bil
+2 thousand
+```
+
+This type **doesn't** match text such as `one million`  or `123456789`.
+
+**Parameters**
+
+| key                       | value                     | description                                                  |
+| ------------------------- | ------------------------- | ------------------------------------------------------------ |
+| id (**required**)         | `currency`                |                                                              |
+| requireCurrencySymbol     | boolean. Default: false   | Requires a currency symbol preceeding the amount.            |
+| currencySymbol            | string. Default: `$`      | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parater in the output. |
+| requireThousandsSeparator | boolean.  Default: false  | Requires a thousands separator in numbers with a thousands place. |
+| thousandsSeparator        | string. Default: `,`      | The separator to require, for example `.`                    |
+| decimalSeparator          | string. Default: `.`      | For numbers with a decimal place, specify the separator, for example `,`. |
+| maxDecimalDigits          | number. Default: 4        | The maximum number of decimal digits to recognize.           |
+| maxValue                  | number. Default: infinity | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
+| minValue                  | number. Default: infinity | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
+| relaxedWithCents          | Boolean. default: false   | Use this parameter when poor quality scans or photographed documents result in erroneous OCR output for the decimal separator.  If true, Sensible overrides any other parameters, such as  the Decimal Separator parameter, and recognizes the following format as a currency:<br/>/(?<integer>[ .,;:_\d]+)[ .,;:_](?<cents>\d\d)([^\d]  <br/>any number of digits followed by any of these characters:` .,;:-` |
+
