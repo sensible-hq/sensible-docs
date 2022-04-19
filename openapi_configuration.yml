@@ -579,7 +579,7 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type-name}/{config-name}: # question we call it {name} in other endpoints and {configuration} in other endpoints in serverless.yml. I went with {name} here but actually would prefer to rename as {configuration-name}
+  /extract_from_golden/{type-name}/{config-name}:
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
@@ -615,7 +615,7 @@ paths:
           500:
             $ref: '#/components/responses/500' 
 
-  /extract_from_golden/{type-name}/{config-name}/{version}/{document-name}: # question this one is pretty confusing to me. why is the golden in the path instead of body like the others? why is it a get not post? I didn't dig deep
+  /extract_from_golden/{type-name}/{config-name}/{version}/{document-name}: 
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
       - $ref: '#/components/parameters/configurationName'
@@ -625,7 +625,7 @@ paths:
     get: 
       operationId: extract-from-reference-document-and-config-version
       summary: Extract from a reference document using the specified version of a configuration
-      description: tbd
+      description: Extract from a reference document using the specified version of a configuration
       tags:
       - Reference document exraction
       responses:
@@ -1079,13 +1079,13 @@ components:
       properties:
         golden:
           type: string
-          description: user-friendly name for the reference document #question: seems inconsistent that other parts of the internal API require doc type ID, not userfriendly name
+          description: user-friendly name for the reference document 
           example: best_scan_doc_num_1234
         configuration:
           type: string
           description: >-
             SenseML configuration as a JSON object, not stringified JSON. If you leave out this parameter, then Sensible returns the best-scoring extraction 
-            from the configurations in the document type.  # todo not stringified, see if i can get this to work
+            from the configurations in the document type.  
           example: {"fields":[]}  
     
     # NOTE: all the Extraction schema stuff is duplicated in openapi.yml it would be nicer to single source them but then we'd need a tool to combine the ymls since readme-cli doesn't seem to handle it well...
@@ -1100,12 +1100,13 @@ components:
             errors:
               type: array
               description: errors
-            text:  # question how/when is this optionally returned? I didn't see a param to request it in /extract_from_golden/{type}
+            text:  
               type: object
-              description: the standardized text output extracted from the docment  # todo make schema and example for this
+              description: >-
+                all the text in the document, extracted in a standardized output. To return this, set `"verbosity": 3"` in the specified configuration 
             fingerprints:
               type: object
-              description: the page and line indexes for the fingerprints found  # todo: make schema and example for this  
+              description: the page and line indexes for the fingerprints found    
 
     Extraction:
       type: object
