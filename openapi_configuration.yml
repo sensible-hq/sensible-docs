@@ -665,8 +665,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostGoldenExtraction'
       responses: 
-        204:
-          $ref: '#/components/responses/204' # todo response: $ref: '#/components/schemas/ResponseStandardizedText' 
+        200:
+          $ref: '#/components/schemas/ResponseStandardizedText'
         400: # todo I didn't verify 40x responses for any extract_from_goldens, just assumed
           $ref: '#/components/responses/400'
         401:
@@ -1101,9 +1101,9 @@ components:
               type: array
               description: errors
             text:  
-              type: object
+              $ref: '#/components/schemas/ResponseStandardizedText'  
               description: >-
-                all the text in the document, extracted in a standardized output. To return this, set `"verbosity": 3"` in the specified configuration 
+                All the text in the document. To return this, set `"verbosity": 3"` in the specified configuration 
             fingerprints:
               type: object
               description: the page and line indexes for the fingerprints found    
@@ -1294,30 +1294,52 @@ components:
           description: The number of fingerprints defined in this config.
         score:
           $ref: '#/components/schemas/Score' 
-    # ResponseStandardizedText:
-    #   type: object
-    #   description: array of pages with lines
-    #   properties:
-    #     pages:
-    #       type: array
-    #       items:
-    #         type: string 
-            # todo not actually string, array of ojbects:
-            # description: array of pages containing lines and metadata about their positions
-            # example: # TODO  
-            # TODO: properties or just example?
-              # pages:
-              #   export interface StandardizedPage {
-              #   rotation: number;
-              #   transform: Matrix;
-              #      import { Matrix } from "transformation-matrix";
-              #   height: number;
-              #   width: number;
-              #   lines: StandardizedLine[];
-              #       export interface StandardizedLine {
-              #       text: string;
-              #       boundingPolygon: Polygon;
-              #       isAnnotation?: boolean;
+    ResponseStandardizedText:
+      type: object
+      description: all the text in the document, standardized as an array of pages with lines and their positioning metadata
+      example:
+        pages:
+        - width: 8.5
+          height: 11
+          rotation: 0
+          transform:
+            a: 1
+            c: 0
+            e: 0
+            b: 0
+            d: 1
+            f: 0
+          lines:
+          - text: Extract your first data
+            boundingPolygon:
+            - x: 1.111
+              y: 0.472
+            - x: 4.661
+              y: 0.472
+            - x: 4.661
+              y: 0.806
+            - x: 1.111
+              y: 0.806
+          - text: Hello world!
+            boundingPolygon:
+            - x: 0.444
+              y: 1.792
+            - x: 2.07
+              y: 1.792
+            - x: 2.07
+              y: 2.083
+            - x: 0.444
+              y: 2.083
+          - text: Inside documents,
+            boundingPolygon:
+            - x: 4.25
+              y: 2.042
+            - x: 5.982
+              y: 2.042
+            - x: 5.982
+              y: 2.236
+            - x: 4.25
+              y: 2.236
 
   
   responses:
