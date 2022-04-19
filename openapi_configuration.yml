@@ -652,12 +652,12 @@ paths:
       # - $ref: '#/components/parameters/environment' # note: not documenting the env parameter that, while in the handler, is ignored for this endpoint
     post: 
       operationId: extract-all-text-from-reference-document
-      summary: extract all text from reference document
+      summary: extract all text from a reference document
       description: >-
-        Extracts all text from reference document. If you specify a configuration, Sensible uses any preprocessors 
-        defined in the configuration to extract the text.
+        Get all the text (lines) for a reference document as standardized output. The output is an array of pages with metadata such as text positioning.
+        If you specify a configuration, Sensible uses any preprocessors defined in the configuration to extract the text.
       tags:
-      - Get all the text (lines) for a reference document as a direct extrction, as an array of pages with metadata such as text positioning
+      - Reference document exraction
       requestBody:
           required: true
           content:
