@@ -1090,7 +1090,7 @@ components:
           description: >-
             SenseML configuration as a JSON object, not stringified JSON, for example, `"configuration": {"fields":[]}`.
             If you leave out this parameter, then Sensible returns the best-scoring extraction 
-            from the configurations in the document type.  
+            from the configurations in the document type.  If you specify it, Sensible ignores the `environment` parameter.
           example: {"fields":[]}  
     
     # NOTE: all the Extraction schema stuff is duplicated in openapi.yml it would be nicer to single source them but then we'd need a tool to combine the ymls since readme-cli doesn't seem to handle it well...
