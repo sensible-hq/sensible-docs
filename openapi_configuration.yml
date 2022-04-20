@@ -579,72 +579,72 @@ paths:
           500:
             $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type-name}/{config-name}:
-    parameters:
-      - $ref: '#/components/parameters/documentTypeName'
-      - $ref: '#/components/parameters/configurationName'
-      - $ref: '#/components/parameters/environment' 
-    post: 
-      operationId: extract-from-reference-document-and-config
-      summary: Extract from reference document using configuration 
-      description: Extract from a reference document using the specified published configuration
-      tags:
-      - Reference document exraction
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostGoldenExtraction'
-      responses:
-          '200':
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ResponseGoldenExtraction'
-            description: The structured data extracted from the reference document
+  # /extract_from_golden/{type-name}/{config-name}:
+  #   parameters:
+  #     - $ref: '#/components/parameters/documentTypeName'
+  #     - $ref: '#/components/parameters/configurationName'
+  #     - $ref: '#/components/parameters/environment' 
+  #   post: 
+  #     operationId: extract-from-reference-document-and-config
+  #     summary: Extract from reference document using configuration 
+  #     description: Extract from a reference document using the specified published configuration
+  #     tags:
+  #     - Reference document exraction
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/PostGoldenExtraction'
+  #     responses:
+  #         '200':
+  #           content:
+  #             application/json:
+  #               schema:
+  #                 $ref: '#/components/schemas/ResponseGoldenExtraction'
+  #           description: The structured data extracted from the reference document
 
-          400: 
-            $ref: '#/components/responses/400'
-          401:
-            $ref: '#/components/responses/401'
-          404:
-            $ref: '#/components/responses/404'
-          415:
-            $ref: '#/components/responses/415'
-          500:
-            $ref: '#/components/responses/500' 
+  #         400: 
+  #           $ref: '#/components/responses/400'
+  #         401:
+  #           $ref: '#/components/responses/401'
+  #         404:
+  #           $ref: '#/components/responses/404'
+  #         415:
+  #           $ref: '#/components/responses/415'
+  #         500:
+  #           $ref: '#/components/responses/500' 
 
-  /extract_from_golden/{type-name}/{config-name}/{version}/{document-name}: 
-    parameters:
-      - $ref: '#/components/parameters/documentTypeName'
-      - $ref: '#/components/parameters/configurationName'
-      - $ref: '#/components/parameters/versionIdentifier'
-      - $ref: '#/components/parameters/documentName'
-      - $ref: '#/components/parameters/environment' 
-    get: 
-      operationId: extract-from-reference-document-and-config-version
-      summary: Extract from reference document using configuration version
-      description: Extract from a reference document using the specified version of a configuration.
-      tags:
-      - Reference document exraction
-      responses:
-          '200':
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ResponseGoldenExtraction'
-            description: The structured data extracted from the reference document 
-          400: 
-            $ref: '#/components/responses/400'
-          401:
-            $ref: '#/components/responses/401'
-          404:
-            $ref: '#/components/responses/404'
-          415:
-            $ref: '#/components/responses/415'
-          500:
-            $ref: '#/components/responses/500'
+  # /extract_from_golden/{type-name}/{config-name}/{version}/{document-name}: 
+  #   parameters:
+  #     - $ref: '#/components/parameters/documentTypeName'
+  #     - $ref: '#/components/parameters/configurationName'
+  #     - $ref: '#/components/parameters/versionIdentifier'
+  #     - $ref: '#/components/parameters/documentName'
+  #     - $ref: '#/components/parameters/environment' 
+  #   get: 
+  #     operationId: extract-from-reference-document-and-config-version
+  #     summary: Extract from reference document using configuration version
+  #     description: Extract from a reference document using the specified version of a configuration.
+  #     tags:
+  #     - Reference document exraction
+  #     responses:
+  #         '200':
+  #           content:
+  #             application/json:
+  #               schema:
+  #                 $ref: '#/components/schemas/ResponseGoldenExtraction'
+  #           description: The structured data extracted from the reference document 
+  #         400: 
+  #           $ref: '#/components/responses/400'
+  #         401:
+  #           $ref: '#/components/responses/401'
+  #         404:
+  #           $ref: '#/components/responses/404'
+  #         415:
+  #           $ref: '#/components/responses/415'
+  #         500:
+  #           $ref: '#/components/responses/500'
 
   /extract_text_from_golden/{type-name}: 
     parameters: 
