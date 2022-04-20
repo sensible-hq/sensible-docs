@@ -16,7 +16,8 @@ paths:
       summary: Extract data from a document
       description: |
         Extract data from a local document synchronously. 
-        For a step-by-step tutorial on calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
+        To get a quick "hello world" response to this endpoint, see the [quickstart](doc:quickstart).
+        For a more detailed, step-by-step tutorial on calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
         
         There are two options for posting the document bytes.
           1. (often preferred) specify the non-encoded document bytes as the entire request body, 
