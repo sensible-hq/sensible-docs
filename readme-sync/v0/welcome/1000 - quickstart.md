@@ -12,7 +12,7 @@ In this quickstart, use an example SenseML configuration and example PDF to get 
 
 - If you instead want a guided tour of SenseML concepts, see [Getting started](doc:getting-started).
 
-- If you instead want to explore SenseML without much explanation, then [sign up]((https://app.sensible.so/register)) for an account and check out our interactive in-app tutorials: [1_extract_your_first_extracted_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
+- If you instead want to explore SenseML without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials: [1_extract_your_first_extracted_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
 
 
 Extract example document data
