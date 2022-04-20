@@ -6,7 +6,7 @@ Extracts tables with a fixed number of columns and returns their collated column
 
 
 
-Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings, same number of columns).  This method can extract tables that span multiple pages and ignores repeated column titles on subsequent pages.
+Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings in the same order, same number of columns).  This method can extract tables that span multiple pages and ignores repeated column titles on subsequent pages.
 
 [**Parameters**](doc:fixed-table#parameters)
 [**Examples**](doc:fixed-table#examples)

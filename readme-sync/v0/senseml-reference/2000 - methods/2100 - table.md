@@ -127,7 +127,7 @@ The following image shows the example PDF used with this example config: ![Click
 Notes
 ====
 
-If tables always have the same column layout (same column headings, same number of columns), use the [Fixed Table method](doc:fixed-table) instead. 
+If tables always have the same column layout (same column headings in the same order, same number of columns), use the [Fixed Table method](doc:fixed-table) instead. 
 
 For examples of extracting from complex tables, such as tables inside tables or tables with labled rows and columns, see [Sections](doc:sections#examples).
 
