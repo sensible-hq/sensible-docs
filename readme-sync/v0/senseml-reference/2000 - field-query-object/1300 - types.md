@@ -244,11 +244,12 @@ Use configurable syntax to change the default recognized formats.
 | maxDecimalDigits          | number. Default: 4        | The maximum number of decimal digits to recognize.           |
 | maxValue                  | number. Default: infinity | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
 | minValue                  | number. Default: infinity | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
+| relaxedWithCents          | Boolean. default: false   | Use this parameter when poor-quality scans or photographed documents result in erroneous OCR output for the decimal separator or thousands separator.  <br/> If true, Sensible overrides all other Currency type parameters, outputs USD currency, and recognizes the following number format as a currency:<br/><br/>- any number of digits mixed with `<fuzzySeparator>` characters, followed by<br/>- one `<fuzzySeparator>` character, followed by<br/>- two digits (for the cents)<br/><br/>where a `<fuzzySeparator>` character is any of the following common erroneous OCR outputs for a period or comma: <br/>`.,;: _ `  (period, comma, semicolon, colon, space, underscore)<br/><br/>For example, if you set this parameter to true, then for the erroneous OCR output  `"7.859:36"`, Sensible returns: <br>{"source": "7.859:36",<br/>"type": "currency",<br/>"unit": "$",<br/>"value": 7859.36} |
 
 Custom
 ====
 
-Defines a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, order numbers, etc.
+Defines a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, and order numbers.
 
 **Example syntax**
 
