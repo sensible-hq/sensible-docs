@@ -450,10 +450,12 @@ Doesn't recognize a list of names more than 6 words long. **Doesn't** recognize 
 
 Recognizes names of the formats below, and variant representations of these elements such as abbreviations. 
 
-\- first last
-\- first1 last1 and first2 last2
-\- last, first1 and first2
-\- first1 and first2 last
+- first last
+- first1 last1 and first2 last2
+- last, first1 and first2
+- first1 and first2 last
+- first1 last1, first2 last2,... firstN, lastN
+
 
 For example:
 
@@ -461,6 +463,7 @@ For example:
 John R. Smith Sr
 Richard & Ann Spangenberg
 DuBois, Renee and Lois 
+Argos Fullington, Jax Odenson, Ollie Longstreet
 ```
 
 Configurable syntax
