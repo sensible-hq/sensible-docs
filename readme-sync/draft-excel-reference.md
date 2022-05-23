@@ -7,7 +7,7 @@ QUESTIONS:
 - how does a whole stringified row (no tiebreaker) or column get handled?
 - how about the arrays from https://docs.sensible.so/docs/pick-values ? 
 - how about https://docs.sensible.so/docs/key-value ? (I don't know what it outputs, single value?)
-- how about handling the zipped output of table methods into row objects? https://docs.sensible.so/docs/zip
+- how about handling the zipped output of table methods into row objects? https://docs.sensible.so/docs/zip 
 
 How does the data convert from the JSON extraction to excel sheets?
 
@@ -62,12 +62,20 @@ turns into (TODO: make it RICHARD SPANGENBERG, ANN SPANGENBERG:
 
 - For fields that output an array as a result of `"match":"all"`, each field gets its own sheet (TODO: example/verify)
 
-Tables
+Tables 
 ===
+
+Each table gets its own CSV or Excel sheet.
 
 Invoice
 ====
 
+Since sensible expects one invoice per PDF, each invoice gets its own Excel document with no other sheets, or 1 CSV with no other CSVs.
+
 Sections
 ===
 
+Sections are output as:
+
+- a fields sheet/csv for all the 'simple fields'
+- each table or other complex field gets its own sheet/csv
