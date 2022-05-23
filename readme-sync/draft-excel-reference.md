@@ -4,8 +4,10 @@ hidden: true
 ---
 
 QUESTIONS:
-- how does a whole stringified row (no tiebreaker) get handled?
-- 
+- how does a whole stringified row (no tiebreaker) or column get handled?
+- how about the arrays from https://docs.sensible.so/docs/pick-values ? 
+- how about https://docs.sensible.so/docs/key-value ? (I don't know what it outputs, single value?)
+- how about handling the zipped output of table methods into row objects? https://docs.sensible.so/docs/zip
 
 How does the data convert from the JSON extraction to excel sheets?
 
