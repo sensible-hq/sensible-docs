@@ -1,0 +1,71 @@
+---
+title: "excel reference"
+hidden: true
+---
+
+QUESTIONS:
+- how does a whole stringified row (no tiebreaker) get handled?
+- 
+
+How does the data convert from the JSON extraction to excel sheets?
+
+simple fields
+====
+
+
+- "simple" fields with no nested info structures, like labels, boxes, regions, etc, convert to a "fields" sheet like this:
+
+![image-20220523133444762](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220523133444762.png)
+
+**notes**
+
+- Any extra information except the value gets stripped out.  For example, a field like this:
+
+``` json
+  {
+      "id": "total_percentage_sold",
+   "source": "20.5%",
+      "value": 20.5,
+      "type": "percentage"
+    }
+```
+
+Would get output in the excel/csv sheet simply as:
+
+```csv
+total_percentage_sold	20.5
+```
+
+
+
+- Arrays get handled in a variety of ways:
+  - For types that *always* output an array, for example the name type, the output turns into a stringifed array.  For example, this output:
+
+
+
+```json
+{
+"source": "Richard & Ann Spangenberg",
+  "type": "name",
+  "value": [
+      "RICHARD SPANGENBERG",
+      "ANN SPANGENBERG"
+}
+
+```
+
+turns into (TODO: make it RICHARD SPANGENBERG, ANN SPANGENBERG:
+
+![image-20220523133956948](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220523133956948.png)
+
+- For fields that output an array as a result of `"match":"all"`, each field gets its own sheet (TODO: example/verify)
+
+Tables
+===
+
+Invoice
+====
+
+Sections
+===
+

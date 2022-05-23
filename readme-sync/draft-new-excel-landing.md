@@ -1,0 +1,27 @@
+---
+title: "new landing"
+hidden: true
+
+---
+
+Welcome to Sensible!
+
+What's your use case?
+
+|                    |                                                     |                                                              |
+| ------------------ | --------------------------------------------------- | ------------------------------------------------------------ |
+|                    |                                                     |                                                              |
+| if you're a...     | business analyst                                    | low-code developer                                           |
+| and you want to... | Turn commonly available PDF forms into Excel tables | I want to get structured JSON from semi-structured PDFs to build workflows |
+| start here...      | [Get started](TBD LINK)                             | [Get started](doc:quickstart)                                |
+
+
+
+TODO: add images to the table under an 'example' row?
+
+
+
+
+
+
+
