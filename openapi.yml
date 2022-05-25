@@ -274,7 +274,7 @@ paths:
           $ref: '#/components/responses/500'  
 
   /documents/{id}:
-    post:
+    get:
       operationId: retrieving-results
       summary: Retrieve extraction
       description: >-
