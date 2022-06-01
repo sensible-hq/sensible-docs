@@ -29,6 +29,7 @@ done
 
 
 echo "syncing to Readme "
+# change ENVRC_README_API_KEY in this repo's python .envrc file which git ignores.
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $ENVRC_README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0 #npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
 
