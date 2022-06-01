@@ -132,6 +132,14 @@ This example uses the following config:
 Notes
 ====
 
+**Tips for viewing skewed documents**
+
+To view the deskewed document in the Sensible app, click the document, then click the eye (👁) icon:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_5.png)
+
+
+
 **Alternatives to Deskew**
 
  To choose when to configure the Scale or Deskew preprocessors, use the following tips:
