@@ -47,7 +47,7 @@ The following example extracts a list of four sworn statements from a W-9 form.
           "isCaseSensitive": true
         }
       }
-    },
+    }
   ]
 }
 ```
