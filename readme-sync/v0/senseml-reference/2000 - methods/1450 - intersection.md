@@ -20,9 +20,9 @@ Parameters
 | key                           | value                        | description                                                  |
 | :---------------------------- | :--------------------------- | :----------------------------------------------------------- |
 | id (**required**)             | `intersection`               |                                                              |
-| verticalAnchor (**required**) | Anchor object                | An anchor object that defines a vertical line. Sensible extracts the line that's at the intersection of this vertical line, and the horizontal line defined by the field's anchor. Both lines pass through the midpoints of the anchors' boundaries. The Vertical Anchor can be on a different page from the anchor. |
-| offsetX                       | number in inches. default: 0 | Offsets the vertical line defined by the Vertical Anchor parameter.  Positive values offset to the right, negative values offset to the left. |
-| offsetY                       | number in inches. default: 0 | Offsets the horizontal line defined by the anchor. Positive values offset down the page, negative values offset up the page. |
+| verticalAnchor (**required**) | Anchor object                | An anchor object that defines a vertical line that bisects that anchor. Sensible extracts the line that's at the intersection of this vertical line, and the horizontal line defined by the field's anchor. The Vertical Anchor can be on a different page from the anchor. |
+| offsetX                       | number in inches. default: 0 | Offsets the vertical line that bisects the vertical anchor.  Positive values offset to the right, negative values offset to the left. |
+| offsetY                       | number in inches. default: 0 | Offsets the horizontal line that bisects the anchor. Positive values offset down the page, negative values offset up the page. |
 
 Examples
 =====

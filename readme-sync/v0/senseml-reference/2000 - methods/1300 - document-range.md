@@ -19,7 +19,7 @@ Parameters
 | ----------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
 | id (**required**) | `documentRange`                                         | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
 | stop              | Match object or array of Match objects. default: `none` | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document. |
-| includeAnchor     | boolean. default: `false`                               | Includes the anchor line in the method output                |
+| includeAnchor     | boolean. default: `false`                               | Includes the anchor line in the method output.               |
 | includeImages     | boolean. default: `false`                               | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
 
 Examples
