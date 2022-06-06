@@ -5,6 +5,7 @@ require 'open3'
 require 'faraday'
 require 'json'
 
+# edit this in https://github.com/sensible-hq/sensible-docs/settings/secrets/actions
 README_API_KEY = ENV['README_API_KEY']
 
 # #################
