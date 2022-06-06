@@ -21,7 +21,7 @@ Parameters
 | stop              | Match object or array of Match objects. default: `none` | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document. |
 | includeAnchor     | boolean. default: `false`                               | Includes the anchor line in the method output.               |
 | includeImages     | boolean. default: `false`                               | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
-| offsetY           |                                                         | Offsets the start of the document range. Positive values offset down the page, negative values offset up the page. For an example, see the Examples section.<br/> |
+| offsetY           | number in inches.                                       | Offsets the start of the document range. Positive values offset down the page, negative values offset up the page. For an example, see the Examples section.<br/> |
 
 Examples
 ====
