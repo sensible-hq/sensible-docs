@@ -43,7 +43,9 @@ The following example shows using an Offset Y parameter with the Document Range 
               "type": "startsWith"
             },
             "offsetY": -0.3,
-            "typeFilters": ["date"]
+            "typeFilters": [
+              "date"
+            ]
           },
           "anchor": {
             "match": {
