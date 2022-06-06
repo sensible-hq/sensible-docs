@@ -17,7 +17,7 @@ Examples
 
 **Config**
 
-The following example shows using an Offset Y parameter with the Document Range method to extract multiline rows. Since the target cell precedes the anchor, the example uses a negative offset to capture the cell contents. 
+The following example shows using an Offset Y parameter to extract content that precedes the anchor. This is an example of using the Document Range as an alternative to the Row method to extract multiline rows. 
 
 ```json
 {
