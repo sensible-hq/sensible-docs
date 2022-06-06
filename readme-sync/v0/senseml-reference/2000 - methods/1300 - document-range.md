@@ -21,6 +21,7 @@ Parameters
 | stop              | Match object or array of Match objects. default: `none` | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document. |
 | includeAnchor     | boolean. default: `false`                               | Includes the anchor line in the method output.               |
 | includeImages     | boolean. default: `false`                               | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
+| offsetY           |                                                         | Offsets the start of the document range. Positive values offset down the page, negative values offset up the page. For an example, see the Examples section.<br/> |
 
 Examples
 ====
@@ -159,6 +160,93 @@ The following image shows the example PDF used with this example config:
       }
     ]
   }
+}
+```
+
+Offset Y parameter
+----
+
+
+**Config**
+
+The following example shows using an Offset Y parameter to extract content that precedes the anchor. This example also shows:
+
+- using the Document Range as an alternative to the Row method to extract multiline rows. 
+- using the Type Filter parameter to remove unwanted matched lines, in this example, the claims dates.
+
+```json
+{
+  "fields": [],
+  "sections": [
+    {
+      "id": "injuries",
+      "range": {
+        "anchor": {
+          "match": {
+            "type": "includes",
+            "text": "claim number"
+          }
+        }
+      },
+      "fields": [
+        {
+          "id": "injury_multiline",
+          "method": {
+            "id": "documentRange",
+            "stop": {
+              "text": "Claim date",
+              "type": "startsWith"
+            },
+            "offsetY": -0.3,
+            "typeFilters": [
+              "date"
+            ]
+          },
+          "anchor": {
+            "match": {
+              "type": "startsWith",
+              "text": "Injury"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_range_yoffset.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/document_range_yoffset.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "injuries": [
+    {
+      "injury_multiline": {
+        "type": "string",
+        "value": "Slip and fall, from threshold of foyer"
+      }
+    },
+    {
+      "injury_multiline": {
+        "type": "string",
+        "value": "Slip and fall"
+      }
+    },
+    {
+      "injury_multiline": {
+        "type": "string",
+        "value": "Slip and fall, on wet breakroom tile"
+      }
+    }
+  ]
 }
 ```
 
