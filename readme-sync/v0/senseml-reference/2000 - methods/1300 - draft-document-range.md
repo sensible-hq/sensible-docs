@@ -15,7 +15,9 @@ hidden: true
 Examples
 ====
 
-The following example shows using an Offset Y parameter with the Document Range method
+**Config**
+
+The following example shows using an Offset Y parameter with the Document Range method to extract multiline rows. Since the target cell precedes the anchor, the example uses a negative offset to capture the cell contents. 
 
 ```json
 {
@@ -27,7 +29,7 @@ The following example shows using an Offset Y parameter with the Document Range 
         "anchor": {
           "match": {
             "type": "includes",
-            "text": "Claim number"
+            "text": "claim number"
           }
         }
       },
@@ -40,7 +42,8 @@ The following example shows using an Offset Y parameter with the Document Range 
               "text": "Claim date",
               "type": "startsWith"
             },
-            "offsetY": -0.3
+            "offsetY": -0.3,
+            "typeFilters": ["date"]
           },
           "anchor": {
             "match": {
@@ -55,3 +58,37 @@ The following example shows using an Offset Y parameter with the Document Range 
 }
 ```
 
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_range_yoffset.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/document_range_yoffset.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "injuries": [
+    {
+      "injury_multiline": {
+        "type": "string",
+        "value": "Slip and fall, from threshold of foyer"
+      }
+    },
+    {
+      "injury_multiline": {
+        "type": "string",
+        "value": "Slip and fall"
+      }
+    },
+    {
+      "injury_multiline": {
+        "type": "string",
+        "value": "Slip and fall, on wet breakroom tile"
+      }
+    }
+  ]
+}
+```
