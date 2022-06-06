@@ -17,7 +17,7 @@ Examples
 
 **Config**
 
-The following example shows using an Offset Y parameter to extract content that precedes the anchor. This is also an example of:
+The following example shows using an Offset Y parameter to extract content that precedes the anchor. This example also shows:
 
 - using the Document Range as an alternative to the Row method to extract multiline rows. 
 - using the Type Filter parameter to remove unwanted matched lines,  in this example, the claims dates.
