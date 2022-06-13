@@ -130,7 +130,7 @@ This example uses the following config:
 
 
 Notes
-====
+----
 
 **Tips for viewing skewed documents**
 
