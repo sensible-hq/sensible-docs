@@ -21,6 +21,10 @@ TODO: add images to the table under an 'example' row?
 
 
 
+TODO: do I need 2 new folders under welcome? 1 for Excel/CSV/spreadsheet, 1 for developers?  or a whole new section for 'outputs' to also include yamls? json5 etc? 
+
+
+
 
 
 COULD BE LIKE THIS (with some nice visuals):
