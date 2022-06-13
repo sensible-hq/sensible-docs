@@ -138,6 +138,8 @@ To view the deskewed document in the Sensible app, click the document, then clic
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_5.png)
 
+This visual representation of how the Sensible app deskews documents can be useful for authoring configs and for troubleshooting.
+
 
 
 **Alternatives to Deskew**
