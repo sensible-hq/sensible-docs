@@ -27,7 +27,25 @@ COULD BE LIKE THIS (with some nice visuals):
 
 
 
-https://docs.launchdarkly.com/home
+https://docs.launchdarkly.com/home < add icons w headings and talbe (with icons?) below for quick cheap nickeness...remember those open source icons...
+
+
+
+https://www.prisma.io/docs/getting-started
+
+https://rasa.com/docs/
+
+https://docs.timescale.com/ <- how to do in readme? 
+
+https://docs.docker.com/ <--- nice! Icons! 
+
+
+
+
+
+
+
+"which tutorial is right for me?"
 
 
 
