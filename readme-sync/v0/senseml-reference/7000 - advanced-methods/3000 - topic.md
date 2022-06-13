@@ -68,7 +68,7 @@ The following image shows the example PDF used with this example config:
 
 **Output**
 
-```json
+```* May changelist
 {
   "liability_limitation_topic": {
     "type": "string",
