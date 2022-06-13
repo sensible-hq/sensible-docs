@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Finds a range of lines in a document that best match a topic as determined by a bag of words NLP approach. Most useful in long, unstructured documents. For example, this method in conjunction with the [Summarizer method](doc:summarizer) can extract key-value pairs from free text using machine learning.
+Finds a range of lines in a document that best match a topic as determined by a bag of words NLP approach. Most useful in long, unstructured documents. For example, this method in conjunction with the [Summarizer method](doc:summarizer) can extract key-value pairs from free text using ML (machine learning).
 
 [**Parameters**](doc:topic#parameters)
 [**Examples**](doc:topic#examples)
