@@ -3,7 +3,17 @@ title: "excel reference"
 hidden: true
 ---
 
+DEMO IFRAME:
+
+
+
+<div>
+  <iframe width="800" height="200" scrolling="auto"  src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTKF1zRWnckY3ujq0I7treACgOtSmUuhTDdbzoD7FY3LdMFTYYvK409nLb1MjtT_KOSWj2i6DxZPP90/pubhtml?widget=true&amp;headers=false"></iframe>
+</div>
+
+
 QUESTIONS:
+
 - how does a whole stringified row (no tiebreaker) or column get handled?
 - how about the arrays from https://docs.sensible.so/docs/pick-values ? 
 - how about https://docs.sensible.so/docs/key-value ? (I don't know what it outputs, single value?)
@@ -79,3 +89,20 @@ Sections are output as:
 
 - a fields sheet/csv for all the 'simple fields'
 - each table or other complex field gets its own sheet/csv
+
+**EXAMPLES**
+
+**Simple fields output**
+
+TODO: iframes or just links?? 
+
+[Row](docs:row)
+
+<iframe here>
+
+</iframe>
+
+[Box](docs:box)
+
+<iframe here>
+
