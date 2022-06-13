@@ -31,21 +31,21 @@ The following example shows finding a  topic in a licensing legal code.
           "type": "first"
         }
       },
-        "method": {
-          "id": "topic",
-          "numParagraphs": 1,
-          "terms": [
-            "limitation",
-            "liability",
-            "extent"
-          ],
-          "stopTerms": [
-            "warranty",
-          ]
-        }
+      "method": {
+        "id": "topic",
+        "numParagraphs": 1,
+        "terms": [
+          "limitation",
+          "liability",
+          "extent"
+        ],
+        "stopTerms": [
+          "warranty"
+        ]
       }
-    ]
-  }
+    }
+  ]
+}
 ```
 
 **Example document**
@@ -63,7 +63,7 @@ The following image shows the example PDF used with this example config:
 {
   "liability_limitation_topic": {
     "type": "string",
-    "value": "6. Limitation on Liability. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF THE WORK, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 7. Termination"
+    "value": "6. Limitation on Liability. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF THE WORK, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES."
   }
 }
 ```
