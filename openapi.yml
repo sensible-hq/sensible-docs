@@ -197,7 +197,7 @@ paths:
                   webhook:
                     $ref: '#/components/schemas/Webhook'               
                   types:      
-                    $ref: '#/components/schemas/Types'
+                    $ref: '#/components/schemas/ExtractionTypes'
                 required:
                   - types
       tags:
@@ -207,7 +207,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncUploadResponse'
+                $ref: '#/components/schemas/AsyncUploadResponsePortfolio'
           description: Returns the upload_url at which to PUT the document for extraction 
         '401':
           $ref: '#/components/responses/401'
@@ -247,7 +247,7 @@ paths:
                   document_url:
                     $ref: '#/components/schemas/DocumentUrl'           
                   types:      
-                    $ref: '#/components/schemas/Types'
+                    $ref: '#/components/schemas/ExtractionTypes'
                   webhook:
                     $ref: '#/components/schemas/Webhook' 
                 required:
@@ -260,7 +260,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncResponse'
+                $ref: '#/components/schemas/AsyncResponsePortfolio'
           description: Returns the ID to use to retrieve the extraction.
         '401':
           $ref: '#/components/responses/401'
@@ -496,7 +496,18 @@ components:
         type:
          $ref: '#/components/schemas/ExtractionType'
         status:
-         $ref: '#/components/schemas/ExtractionStatus'  
+         $ref: '#/components/schemas/ExtractionStatus' 
+    AsyncResponsePortfolio:
+      type: object
+      properties:
+        id: 
+          $ref: '#/components/schemas/ExtractionId'  
+        created:
+          $ref: '#/components/schemas/ExtractionCreated' 
+        types:
+         $ref: '#/components/schemas/ExtractionTypes'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus'          
     AsyncUploadResponse:
       type: object
       properties:
@@ -514,6 +525,24 @@ components:
          description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
          example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
           
+    AsyncUploadResponsePortfolio:
+      type: object
+      properties:
+        id: 
+          $ref: '#/components/schemas/ExtractionId'  
+        created:
+          $ref: '#/components/schemas/ExtractionCreated' 
+        types:
+         $ref: '#/components/schemas/ExtractionTypes'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus' 
+        upload_url:
+         type: string
+         format: url
+         description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+         example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+     
+
     ExtractFromUrlRequest:
       type: object
       properties:
@@ -553,7 +582,7 @@ components:
       description: Extraction status (WAITING, COMPLETE, FAILED)
       enum: [WAITING, COMPLETE, FAILED]
       example: COMPLETE
-    Types:
+    ExtractionTypes:
       type: array
       description: Specifies the document types contained in the PDF portfolio.
       items:
