@@ -9,8 +9,9 @@ The following topic describes how Sensible converts extracted document data to C
   - has a  single `value` parameter (link in doc to example)
   - has short stringified array output
 - `field_id` sheet - If  a field has complex or long output, e.g. Table or an array from `"match":"all"` it gets its own sheet:
-  - output is a table
+  - output is a table (link to doc examples)
   - output is an array
+- sections sheets - Sections have the same patterns as previously mentioned methods, with indexes to handle repeating output. For example, a sheet name can be: `section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
 
 
 
