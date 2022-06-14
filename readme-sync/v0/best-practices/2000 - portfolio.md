@@ -282,6 +282,7 @@ The response contains extractions from three documents:
             }
         }
     ],
+    "page_count": 3,
     "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/MULTIDOC_EXTRACTION/7c269ef2-f9f1-4271-82e0-79b60887f45a.pdf?AWSAccessKeyId=REDACTED"
 }
 ```
