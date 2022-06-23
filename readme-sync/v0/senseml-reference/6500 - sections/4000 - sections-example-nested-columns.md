@@ -7,7 +7,7 @@ hidden: false
 Overview
 -----
 
-To give a brief overview of using vertical sections for columns, the following image shows capturing numbered sections and their columns with these steps:
+To give a brief overview of using vertical sections for columns, the following image shows extracting numbered headings and their columns with these steps:
 
 1. define a section group
 2. define a nested vertical section  group
@@ -17,43 +17,73 @@ To give a brief overview of using vertical sections for columns, the following i
 The following config uses abbreviated YML notation to give an overview of the more complex SenseML JSON: 
 
 ```yml
+fields: []
 sections:
-  - id: parentSections
+- id: parentSections
+  range:
+    anchor:
+      match:
+        type: startsWith
+        text: heading
+  fields:
+  - id: sectionTitle
+    method:
+      id: passthrough
+    anchor:
+      match:
+        type: startsWith
+        text: heading
+  sections:
+  - id: nestedColumns
     range:
-      anchor: Section
+      direction: vertical
+      anchor:
+        match:
+          type: startsWith
+          text: column
     fields:
-      - id: sectionTitle
-        anchor: Section
-        method:
-          id: passthrough
-   sections:
-     - id: nestedColumns
-       range:
-         direction: vertical
-         anchor: column
-       fields:
-         - id: columnTitle
-           anchor: column
-           method:
-             id: passthrough    
-      
+    - id: columnTitle
+      method:
+        id: passthrough
+      anchor:
+        match:
+          type: startsWith
+          text: column
+
 ```
 
 With this approach, you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON API response:
 
 ```yml
+---
 parentSections:
-  - sectionTitle: Section 1
-    nestedColumns:
-      columnTitle: Column A
-      columnTitle: Column B
-      columnTitle: Column C
- - sectionTitle: Section 2
-    nestedColumns:
-      columnTitle: Column A
-      columnTitle: Column B
-      columnTitle: Column C  
-   
+- sectionTitle:
+    type: string
+    value: Heading 1
+  nestedColumns:
+  - columnTitle:
+      type: string
+      value: Column A
+  - columnTitle:
+      type: string
+      value: Column B
+  - columnTitle:
+      type: string
+      value: Column C
+- sectionTitle:
+    type: string
+    value: Heading 2
+  nestedColumns:
+  - columnTitle:
+      type: string
+      value: Column D
+  - columnTitle:
+      type: string
+      value: Column E
+  - columnTitle:
+      type: string
+      value: Column F
+
 ```
 
 Details
@@ -72,22 +102,20 @@ The following elaborates on the preceding overview using JSON instead of YML.
         "anchor": {
           "match": {
             "type": "startsWith",
-            "text": "Section"
+            "text": "heading"
           }
         }
       },
       "fields": [
         {
-          "id": "sectionNumber",
-          "type": "number",
+          "id": "sectionTitle",
           "method": {
-            "id": "label",
-            "position": "right"
+            "id": "passthrough"
           },
           "anchor": {
             "match": {
               "type": "startsWith",
-              "text": "Section"
+              "text": "heading"
             }
           }
         }
@@ -97,25 +125,23 @@ The following elaborates on the preceding overview using JSON instead of YML.
           "id": "nestedColumns",
           "range": {
             "direction": "vertical",
-            "offsetY": 0,
             "anchor": {
               "match": {
                 "type": "startsWith",
-                "text": "Column"
+                "text": "column"
               }
             }
           },
           "fields": [
             {
-              "id": "columnLetter",
+              "id": "columnTitle",
               "method": {
-                "id": "label",
-                "position": "right"
+                "id": "passthrough"
               },
               "anchor": {
                 "match": {
                   "type": "startsWith",
-                  "text": "Column"
+                  "text": "column"
                 }
               }
             }
@@ -141,82 +167,53 @@ The following image shows the example PDF used with this example config:
 {
   "parentSections": [
     {
-      "sectionNumber": {
-        "source": "1",
-        "value": 1,
-        "type": "number"
+      "sectionTitle": {
+        "type": "string",
+        "value": "Heading 1"
       },
       "nestedColumns": [
         {
-          "columnLetter": {
+          "columnTitle": {
             "type": "string",
-            "value": "A"
+            "value": "Column A"
           }
         },
         {
-          "columnLetter": {
+          "columnTitle": {
             "type": "string",
-            "value": "B"
+            "value": "Column B"
           }
         },
         {
-          "columnLetter": {
+          "columnTitle": {
             "type": "string",
-            "value": "C"
+            "value": "Column C"
           }
         }
       ]
     },
     {
-      "sectionNumber": {
-        "source": "2",
-        "value": 2,
-        "type": "number"
+      "sectionTitle": {
+        "type": "string",
+        "value": "Heading 2"
       },
       "nestedColumns": [
         {
-          "columnLetter": {
+          "columnTitle": {
             "type": "string",
-            "value": "A"
+            "value": "Column D"
           }
         },
         {
-          "columnLetter": {
+          "columnTitle": {
             "type": "string",
-            "value": "B"
+            "value": "Column E"
           }
         },
         {
-          "columnLetter": {
+          "columnTitle": {
             "type": "string",
-            "value": "C"
-          }
-        }
-      ]
-    },
-    {
-      "sectionNumber": {
-        "source": "3",
-        "value": 3,
-        "type": "number"
-      },
-      "nestedColumns": [
-        {
-          "columnLetter": {
-            "type": "string",
-            "value": "A"
-          }
-        },
-        {
-          "columnLetter": {
-            "type": "string",
-            "value": "B"
-          }
-        },
-        {
-          "columnLetter": {
-            "type": "string",
-            "value": "C"
+            "value": "Column F"
           }
         }
       ]
