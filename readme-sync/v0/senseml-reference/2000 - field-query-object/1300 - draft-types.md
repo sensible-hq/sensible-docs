@@ -363,7 +363,7 @@ Recognizes the following date formats and ignore all default formats:
 
 | format               | recognizes                             | example value output                   | notes                                                        |
 | -------------------- | -------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| `%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  | Excludes four-digit year formats like FEB-3rd-2022.   Not you can include regular expressions in the date format, but you don't need to escape special character separators between date field descriptors (`-\`). |
+| `%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  | Excludes four-digit year formats like FEB-3rd-2022 (`%y$`).   Not you can include regular expressions in the date format, but you don't need to escape special character separators between date field descriptors (`-\`). |
 | %y%M%D               | 800325                                 | `"value": "1980-03-25T00:00:00.000Z",` |                                                              |
 
 
