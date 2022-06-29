@@ -379,7 +379,7 @@ The following table lists the field descriptors you can use to define a custom f
 
 You can also mix in regular expressions in with these field descriptors, except that you don't need to escape special characters between field descriptors.
 
-| **field descriptor** | stands for following regex:                                  | **notes**                                                    | **example**                                                  |
+| **field descriptor** | regex                                                        | **notes**                                                    | **example**                                                  |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `%b`                 | for each month, case-insensitive pattern like `january|jan\.?` | Abbreviated month name, with or without periods, or full month name. | Jan, Feb, ..., Dec.<br/>January, February, ..., December<br/> |
 | `%y`                 | `[0-9]{2}`                                                   | Two-digit year. If you want to exclude four-digit years, use `%y$`.  Values in the range 69–99 refer to years in the twentieth century (1969–1999); values in the range 00–68 refer to years in the twenty-first century (2000–2068). | 00, 01, ..., 99                                              |
