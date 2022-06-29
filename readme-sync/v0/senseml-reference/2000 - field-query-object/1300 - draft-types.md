@@ -363,8 +363,8 @@ Recognizes the following date formats and ignore all default formats:
 
 | format               | recognizes                             | example value output                   | notes                                                        |
 | -------------------- | -------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| `%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  | Excludes four-digit year formats like FEB-3rd-2022 (`%y$`).   Not you can include regular expressions in the date format, but you don't need to escape special character separators between date field descriptors (`-\`). |
-| %y%M%D               | 800325                                 | `"value": "1980-03-25T00:00:00.000Z",` | Excludes four digit years by default, without the use of `$`. |
+| `%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  | Excludes four-digit year formats like FEB-3rd-2022 with the `$` special character (`%y$`).   Not you can include regular expressions in the date format, but you don't need to escape special character separators between date field descriptors (`-\`). |
+| %y%M%D               | 800325                                 | `"value": "1980-03-25T00:00:00.000Z",` | Excludes four-digit years by default, without the use of `$`. |
 
 
 
@@ -381,7 +381,7 @@ You can also mix in regular expressions in with these field descriptors, except 
 
 | **field descriptor** | regex                                                        | **notes**                                                    | **example**                                                  |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `%b`                 | for each month, case-insensitive pattern like `january|jan\.?` | Abbreviated month name, with or without periods, or full month name. | Jan, Feb, ..., Dec.<br/>January, February, ..., December<br/> |
+| `%b`                 | for each month, case-insensitive pattern like `january` or `jan\.?` | Abbreviated month name, with or without periods, or full month name. | Jan, Feb, ..., Dec.<br/>January, February, ..., December<br/> |
 | `%y`                 | `[0-9]{2}`                                                   | Two-digit year. If you want to exclude four-digit years, use `%y$`.  Values in the range 69–99 refer to years in the twentieth century (1969–1999); values in the range 00–68 refer to years in the twenty-first century (2000–2068). | 00, 01, ..., 99                                              |
 | `%Y`                 | `[0-9]{4}`                                                   | Four-digit year (year with century as a decimal number).     | 2013, 2019 etc.                                              |
 | `%m`                 | `[0-9]{1,2}`                                                 | The month number, unpadded or zero-padded.                   | 1,...,12<br>01,...,12                                        |
