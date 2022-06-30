@@ -359,7 +359,7 @@ The following example:
   }
 ````
 
-Recognizes the following date formats and ignore all default formats:
+Recognizes the following date formats and ignores all default formats:
 
 | format               | recognizes                             | example value output                   | notes                                                        |
 | -------------------- | -------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
@@ -377,12 +377,12 @@ Recognizes the following date formats and ignore all default formats:
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 
-You can also mix in regular expressions in with these field descriptors, except that you don't need to escape special characters between field descriptors.
+You can use regular expressions with these field descriptors. The field descriptors are concise syntax for regular expressions. 
 
 | **field descriptor** | regex                                                        | **notes**                                                    | **example**                                                  |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `%b`                 | for each month, case-insensitive pattern like `january` OR  `jan\.?` | Abbreviated month name, with or without periods, or full month name. | Jan, Feb, ..., Dec.<br/>January, February, ..., December<br/> |
-| `%y`                 | `[0-9]{2}`                                                   | Two-digit year.<br/>Values in the range 69–99 refer to years in the twentieth century (1969–1999); values in the range 00–68 refer to years in the twenty-first century (2000–2068).<br/>**Tip:** Use the end-of-line regex special character `$`  in formats like  `%m/%d/%y$`  so that you don't incorrectly match dates like `02/03/1998` as `2019-02-03T00:00:00.000Z`. If you want to match both two- and four-digit years, specify the four-digit format first, like `[%b-%d-%Y', '%b-%d-%y']`.<br/> | 00, 01, ..., 99                                              |
+| `%y`                 | `[0-9]{2}`                                                   | Two-digit year.<br/>Values in the range 69–99 refer to years in the twentieth century (1969–1999); values in the range 00–68 refer to years in the twenty-first century (2000–2068).<br/>**Tips:** If you want to recognize two-digit years and exclude four-digit years, add an end-of-line regex special character `$`  in formats like  `%m/%d/%y$`  so that you don't incorrectly match dates like `02/03/1998` as `2019-02-03T00:00:00.000Z`. <br/>If you want to match both two- and four-digit years, you don't need the $ character. Instead you need to specify the four-digit format first, like `[%b-%d-%Y', '%b-%d-%y']`.<br/> | 00, 01, ..., 99                                              |
 | `%Y`                 | `[0-9]{4}`                                                   | Four-digit year (year with century as a decimal number).     | 2013, 2019 etc.                                              |
 | `%m`                 | `[0-9]{1,2}`                                                 | The month number, unpadded or zero-padded.                   | 1,...,12<br>01,...,12                                        |
 | `%M`                 | `[0-9]{2}`                                                   | Two-digit ("zero-padded") month number  (01-12).             | 01,...,12                                                    |
