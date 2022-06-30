@@ -28,7 +28,7 @@ The following example shows using the Summarizer method to extract the monthly r
 {
   "fields": [
     {
-      "id": "rent_raw",
+      "id": "rent_topic_paragraphs",
       "anchor": {
         "match": {
           "type": "first"
@@ -36,12 +36,12 @@ The following example shows using the Summarizer method to extract the monthly r
       },
       "method": {
         "id": "topic",
-        "numLines": 3,
+        "numParagraphs": 2,
         "terms": [
           "pay",
           "leesee",
           "rent",
-          "dollar"
+          "dollars"
         ]
       }
     }
@@ -51,7 +51,7 @@ The following example shows using the Summarizer method to extract the monthly r
       "id": "rent_computed",
       "method": {
         "id": "summarizer",
-        "source_id": "rent_raw",
+        "source_id": "rent_topic_paragraphs",
         "fields": [
           "rent_in_dollars",
           "payment_time_period"
@@ -72,7 +72,7 @@ The following example shows using the Summarizer method to extract the monthly r
             ]
           },
           {
-            "prompt": "Leesee must pay rents biweekly. For the dollar amount due, see addedendum A.",
+            "prompt": "Leesee must pay rents biweekly. For the dollar amount due, see addendum A.",
             "values": [
               "not found",
               "biweekly"
@@ -98,13 +98,13 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "rent_raw": {
+  "rent_topic_paragraphs": {
     "type": "string",
-    "value": "1. 2 RENTS AND CHARGES Lessee shall pay 895.00 dollars per month for rent. The first month’s rent and/or prorated rent amount shall be due prior to move-in."
+    "value": "Lessee shall pay 895.00 dollars per month for rent. The first month's rent and/or prorated rent amount shall be due prior to move-in. For any move in date that is after the 15th of the month, Tenant must pay a full month of rent in order to gain possession of the home. The prorated rent amount will be due the second month of lease. Every month thereafter, Lessee must pay rent on or before the 1st day of each month with 5 days of grace period. The following late fees will apply for payments made after the grace period:"
   },
   "rent_computed": [
     {
-      "rent_in_dollars": "$895.00",
+      "rent_in_dollars": "895.00",
       "payment_time_period": "month"
     }
   ]
