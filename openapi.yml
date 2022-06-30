@@ -34,8 +34,9 @@ paths:
         - see the [quickstart](doc:quickstart)
         - Use this interactive API explorer:
           - Paste your API key into the **Bearer** field in the left pane of this interactive explorer.
-          - For the **type** path parameter, right-click the field and select **Use Example Value**.
-          - For the **document** body parameter, right-click the field and select **Use Example Value**.
+          - For the **type** path parameter, scroll down, right-click the field, and select **Use Example Value**.
+          - For the **document** body parameter, scroll down, right-click the field, and select **Use Example Value**.
+          - Click *Try It!* in the left pane. In the left pane, you should see a 200 response that includes a `parsed_document` object.
 
         For a more detailed, step-by-step tutorial on calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
         
