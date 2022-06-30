@@ -365,7 +365,7 @@ Recognizes the following date formats and ignores all default formats:
 | -------------------- | -------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
 | `%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  | You can use Javascript-flavored regular expressions in the date format. For example, exclude four-digit year formats like FEB-3rd-2022 with the `$` special character (`%y$`). |
 | `%y%M%D`             | 800325                                 | `"value": "1980-03-25T00:00:00.000Z",` |                                                              |
-| `%b\\%d\\%Y`         | JAN\31\2022                            | `"value": "2022-01-31T00:00:00.000Z"`  | You don't need to double escape special characters  (for example, Sensible accepts  `\s` , to represent a whitespace character). |
+| `%b\\%d\\%Y`         | JAN\31\2022                            | `"value": "2022-01-31T00:00:00.000Z"`  | Double escape special characters  (for example,`\\s` , to represent a whitespace character). |
 | `%b\\s*?%Y`          | jan 2022                               | `"value": "2022-01-01T00:00:00.000Z"`  |                                                              |
 
 
@@ -375,7 +375,7 @@ Recognizes the following date formats and ignores all default formats:
 | key               | value                            | description                                                  |
 | ----------------- | -------------------------------- | ------------------------------------------------------------ |
 | id (**required**) | `date`                           | Returns datetime.  Sensible outputs the time as midnight UTC. |
-| format            | JS regex or array of   JS regexs | See the following table for a list of the field descriptors. The field descriptors are concise syntax for regular expressions. You can use Javascript-flavored regular expressions ("regex") with these field descriptors to define custom date formats.<br/>The custom formats override the defaults listed in the simple syntax section.<br/> |
+| format            | JS regex or array of   JS regexs | Custom date formats override the defaults listed in the simple syntax section.<br/>See the following table for a list of the field descriptors. The field descriptors are concise syntax for regular expressions. You can use Javascript-flavored regular expressions ("regex") with these field descriptors to define custom date formats. Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character.<br/><br/> |
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 
