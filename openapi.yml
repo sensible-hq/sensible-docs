@@ -29,7 +29,14 @@ paths:
        
       description: |
         Extract data from a local document synchronously. 
-        To get a quick "hello world" response to this endpoint, see the [quickstart](doc:quickstart).
+
+        To get a quick "hello world" response to this endpoint, take one of the following steps:
+        - see the [quickstart](doc:quickstart)
+        - Use this interactive API explorer:
+          - Paste your API key into the **Bearer** field in the left pane of this interactive explorer.
+          - For the **type** path parameter, right-click the field and select **Use Example Value**.
+          - For the **document** body parameter, right-click the field and select **Use Example Value**.
+
         For a more detailed, step-by-step tutorial on calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
         
         There are two options for posting the document bytes.
