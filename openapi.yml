@@ -42,34 +42,28 @@ paths:
         - $ref: '#/components/parameters/environment' 
       requestBody:
         required: true
-        content:
+
+        content:         
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+          image/png:
+            schema:
+              type: string
+              format: binary
           application/pdf:
             schema:
-              $ref: '#/components/schemas/Pdf'
+              type: string
+              format: binary
+              description: non-encoded document bytes as the entire request body
           application/json:
             schema:
               $ref: "#/components/schemas/encodedPdf"
 
                       
-      # requestBody:
-      #   description:  There are two options for posting the document bytes.
-      #     1. (often preferred) specify the non-encoded document bytes as the entire request body, 
-      #     and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png", as appropriate.
-      #     2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type. 
-      #   required: true
-      #   content:
-      #     application/pdf:
-      #       schema:
-      #         type: string
-      #         format: binary
-      #     image/jpeg:
-      #       schema:
-      #         type: string
-      #         format: binary
-      #     image/png:
-      #       schema:
-      #         type: string
-      #         format: binary
+
+
 
       tags:
       - Document
@@ -745,10 +739,7 @@ components:
       description: >-
         Content type of the document being presented for extraction. This field is optional, but if supplied must be presented consistently
         in all interactions.
-    Pdf:
-      type: string
-      format: binary
-      description: non-encoded document bytes as the entire request body
+
 
     encodedPdf:
       type: object
