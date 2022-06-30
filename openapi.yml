@@ -23,8 +23,8 @@ paths:
       description: |
         Extract data from a local document synchronously. 
 
-        To get a quick "hello world" response to this endpoint, take one of the following steps:
-        - See the [quickstart](doc:quickstart).
+        To get a quick "hello world" response to this endpoint:
+        - See the [quickstart](doc:quickstart), or.
         - Use this interactive API explorer:
           - Paste your API key into the **Bearer** field in the right pane of this interactive explorer.
           - For the **type** path parameter, scroll down, right-click the field, and select **Use Example Value**.
