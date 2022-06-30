@@ -19,6 +19,10 @@ paths:
     post:
       operationId: extract-data-from-a-document
       summary: Extract data from a document
+      # TODO:         - Take the following steps in this interactive API explorer:
+      #- Paste your API key into the **Bearer** field in the left pane of this interactive explorer.
+      #- Scroll to the **BODY PARAMS** section, right-click the **document** field and select **Use Example Value**
+       
       description: |
         Extract data from a local document synchronously. 
         To get a quick "hello world" response to this endpoint, see the [quickstart](doc:quickstart).
