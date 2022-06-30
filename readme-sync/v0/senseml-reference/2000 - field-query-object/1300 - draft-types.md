@@ -370,14 +370,14 @@ Recognizes the following date formats and ignores all default formats:
 
 **Parameters**
 
-| key               | value                  | description                                                  |
-| ----------------- | ---------------------- | ------------------------------------------------------------ |
-| id (**required**) | `date`                 | Returns datetime.  Sensible outputs the time as midnight UTC. |
-| format            | string or string array | See the following table for a list of the field descriptors you can use to define custom formats. The custom formats override the defaults listed in the simple syntax section. |
+| key               | value                                        | description                                                  |
+| ----------------- | -------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**) | `date`                                       | Returns datetime.  Sensible outputs the time as midnight UTC. |
+| format            | array of   Javascript-flavored regex objects | See the following table for a list of the field descriptors you can use to define custom formats. The custom formats override the defaults listed in the simple syntax section. The field descriptors are concise syntax for regular expressions.  You can use regular expressions in combination with these field descriptors. |
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 
-You can use regular expressions with these field descriptors. The field descriptors are concise syntax for regular expressions. 
+
 
 | **field descriptor** | regex                                                        | **notes**                                                    | **example**                                                  |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
