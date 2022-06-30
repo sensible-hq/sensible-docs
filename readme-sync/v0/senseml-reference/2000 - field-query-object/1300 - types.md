@@ -361,7 +361,7 @@ The following example:
 
 Recognizes the following date formats and ignores all default formats:
 
-| format                | examples                               | example value output                   | notes                                                        |
+| format                | example                                | example output                         | notes                                                        |
 | --------------------- | -------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
 | `"%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  | You can use Javascript-flavored regular expressions in the date format. For example, exclude four-digit year formats like FEB-3rd-2022 with the `$` special character (`%y$`). |
 | `"%y%M%D"`            | 800325                                 | `"value": "1980-03-25T00:00:00.000Z",` |                                                              |
