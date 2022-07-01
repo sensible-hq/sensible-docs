@@ -23,7 +23,9 @@ To run an API call and return extracted, structured data from a downloaded examp
 
     **NOTE** In the Sensible app, don't rename of the default doc type (**senseml_basics**) or delete the **1_extract_your_first_data** config, or this example fails. 
 
-2. Copy the following code example:
+1. Copy your API key from your [account page](https://app.sensible.so/account/).
+
+2. Copy the following code example into a plain-text application and replace <YOUR_API_TOKEN> with your API key:
 
 [block:code]
 {
@@ -42,9 +44,7 @@ To run an API call and return extracted, structured data from a downloaded examp
 }
 [/block]
 
-3. Replace `<YOUR_API_TOKEN>` with your API key in the preceding code example. Find your key on your [account page](https://app.sensible.so/account/).
-
-4. Run the code sample in a command prompt. The API returns a `parsed_document` object with the extracted data, as well as metadata about the extraction, in a response like the following:
+3. Run the code sample in a command prompt. The API returns a `parsed_document` object with the extracted data, as well as metadata about the extraction, in a response like the following:
 
 ```json
 {
