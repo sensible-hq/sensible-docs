@@ -34,7 +34,7 @@ Get an account
 Create a config
 ====
 
-1. Click **Create document type** and name  it "auto_insurance_quote." Leave the defaults and click **Create**.
+1. Click **+ New**  to create a new document type and name  it "auto_insurance_quote." Leave the defaults and click **Create**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
