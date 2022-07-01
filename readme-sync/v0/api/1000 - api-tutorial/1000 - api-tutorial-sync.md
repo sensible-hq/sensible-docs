@@ -34,6 +34,9 @@ If you don't want to click through the slides, follow these steps instead:
 
 
 1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png)
+
 1. Copy the following code sample, and replace `YOUR_API_KEY` with your API key:
 
 ```curl

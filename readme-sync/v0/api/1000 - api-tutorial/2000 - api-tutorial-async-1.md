@@ -31,7 +31,9 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
 
 1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
 
-1. Copy the following code sample and replace YOUR_API_KEY with your [API key](https://app.sensible.so/account/):
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
+
+2. Copy the following code sample and replace YOUR_API_KEY with your [API key](https://app.sensible.so/account/):
 
    ```json
    curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_quote?environment=development' \
@@ -42,7 +44,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
 
    
 
-2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
+3. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_1.png)
 

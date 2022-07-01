@@ -40,7 +40,7 @@ Create a config
 
 2. Download the following PDF document:
 
-   | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+   | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
 
 3. Click **Upload document**  and choose the generic  **auto_insurance_anyco** car insurance quote you just downloaded.
@@ -109,8 +109,6 @@ For this tutorial, you'll extract these fields:
   ]
 }
 ```
-
-2. To enable using the config with the Sensible API, click **Publish** , then click **Development** .
 
 The following image shows this example in the Sensible app:
 
@@ -436,7 +434,10 @@ In a production scenario, continue testing PDFs until you have confidence your c
 Integrate with your application
 ====
 
-When you're satisfied with your config, use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial. 
+When you're ready to integrate with your application, enable using the config with the Sensible API by taking the following steps:
+
+1. Click **Publish**.  Since the config is still a work in progress, click **Development** so you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
+2.  use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial. 
 
 Validate extractions in production 
 ====
