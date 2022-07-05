@@ -372,10 +372,10 @@ Recognizes the following date formats and ignores all default formats:
 
 **Parameters**
 
-| key               | value                            | description                                                  |
-| ----------------- | -------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `date`                           | Returns datetime.  Sensible outputs the time as midnight UTC. |
-| format            | JS regex or array of   JS regexs | Custom date formats override the defaults listed in the simple syntax section.<br/>See the following table for a list of the field descriptors. The field descriptors are concise syntax for regular expressions. You can use Javascript-flavored regular expressions ("regex") with these field descriptors to define custom date formats. Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character).<br/><br/> |
+| key               | value                          | description                                                  |
+| ----------------- | ------------------------------ | ------------------------------------------------------------ |
+| id (**required**) | `date`                         | Returns datetime.  Sensible outputs the time as midnight UTC. |
+| format            | JS regex or array of JS regexs | Custom date formats override the defaults listed in the simple syntax section.<br/>See the following table for a list of the field descriptors. The field descriptors are concise syntax for regular expressions. You can use Javascript-flavored regular expressions ("regex") with these field descriptors to define custom date formats. Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character).<br/><br/> |
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 
