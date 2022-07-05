@@ -355,7 +355,7 @@ The following example:
 "type":
   {
     "id": "date",
-    "format": ["%b-%d[a-z]{2}-%y$", "%y%M%D", "%b\\\\%d\\\\%Y"]   
+    "format": ["%b-%d[a-z]{2}-%y$", "%y%M%D", "%b\\\\%d\\\\%Y", "%b\\s*?%Y"]   
   }
 ````
 
