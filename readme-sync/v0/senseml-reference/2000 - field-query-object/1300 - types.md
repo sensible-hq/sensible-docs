@@ -361,12 +361,12 @@ The following example:
 
 Recognizes the following date formats and ignores all default formats:
 
-| format                | example                                | example output                         | notes                                                        |
-| --------------------- | -------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| `"%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  | You can use Javascript-flavored regular expressions in the date format. For example, exclude four-digit year formats like FEB-3rd-2022 with the `$` special character (`%y$`). |
-| `"%y%M%D"`            | 800325                                 | `"value": "1980-03-25T00:00:00.000Z",` |                                                              |
-| `"%b\\\\%d\\\\%Y"`    | JAN\31\2022                            | `"value": "2022-01-31T00:00:00.000Z"`  | Double escape special characters  (for example,`\\s` , to represent a whitespace character). |
-| `"%b\\s*?%Y"`         | jan 2022                               | `"value": "2022-01-01T00:00:00.000Z"`  |                                                              |
+| format                | example                                | example output                         |
+| --------------------- | -------------------------------------- | -------------------------------------- |
+| `"%b-%d[a-z]{2}-%y$"` | JAN-31st-22,<br/> February-3rd-21<br/> | `"value": "2022-01-31T00:00:00.000Z"`  |
+| `"%y%M%D"`            | 800325                                 | `"value": "1980-03-25T00:00:00.000Z",` |
+| `"%b\\\\%d\\\\%Y"`    | JAN\31\2022                            | `"value": "2022-01-31T00:00:00.000Z"`  |
+| `"%b\\s*?%Y"`         | jan 2022                               | `"value": "2022-01-01T00:00:00.000Z"`  |
 
 
 
