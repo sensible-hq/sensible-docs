@@ -553,7 +553,7 @@ paths:
         Return the best-scoring extraction from the configurations in the document type, or from the
         specified configuration. 
       tags:
-      - Reference document exraction
+      - Reference document extraction
       requestBody:
         required: true
         content:
@@ -589,7 +589,7 @@ paths:
   #     summary: Extract from reference document using configuration 
   #     description: Extract from a reference document using the specified published configuration
   #     tags:
-  #     - Reference document exraction
+  #     - Reference document extraction
   #     requestBody:
   #       required: true
   #       content:
@@ -627,7 +627,7 @@ paths:
   #     summary: Extract from reference document using configuration version
   #     description: Extract from a reference document using the specified version of a configuration.
   #     tags:
-  #     - Reference document exraction
+  #     - Reference document extraction
   #     responses:
   #         '200':
   #           content:
@@ -657,7 +657,7 @@ paths:
         Get all the text (lines) for a reference document as standardized output. The output is an array of pages with metadata such as text positioning.
         If you specify a configuration, Sensible uses any preprocessors defined in the configuration to process the text.
       tags:
-      - Reference document exraction
+      - Reference document extraction
       requestBody:
           required: true
           content:
