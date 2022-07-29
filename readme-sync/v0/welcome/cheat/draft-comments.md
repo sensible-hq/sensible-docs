@@ -126,7 +126,7 @@ TODO doublecheck senseml
       "id": "tuesday_all_options", //ID for extracted target data
       "anchor": "tuesday",
       "method": {
-        "id": "region", //target data is all text in rectangular region
+        "id": "region", //target data is all the text in a rectangular region
         "start": "below", //region is below anchor with following inch coordinates...
         "width": 9.0, //...for example, watch the green-outlined region resize as you change the "width" number
         "height": 0.5,
@@ -138,8 +138,8 @@ TODO doublecheck senseml
       "id": "disclaimer_paragraph", //ID for extracted target data
       "anchor": {
         "match": {
-          "type": "startsWith",
-          "text": "please note" //anchor line *starts* with this string
+          "type": "startsWith", //anchor line *starts* with "please note"
+          "text": "please note" 
         }
       },
       "method": {
