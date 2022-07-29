@@ -89,12 +89,12 @@ TODO doublecheck senseml
       "anchor": {
         "match": [
           {
-            "type": "includes",
+            "type": "includes", //search for target data near anchor line...
             "text": "monday"
           },
           {
             "type": "includes",
-            "text": "fruit" //search for target data near anchor line including 'fruit' and preceded by line including 'monday'
+            "text": "fruit" //...including 'fruit' and preceded by line including 'monday'
           }
         ]
       },
