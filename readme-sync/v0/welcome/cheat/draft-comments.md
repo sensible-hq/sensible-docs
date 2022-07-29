@@ -240,12 +240,12 @@ https://docs.sensible.so/docs/senseml-reference-introduction
           "position": "below" //target is below anchor line
         }
     }],
-    "computed_fields": [{
-            "id": "driver_name_last", //ID for extracted target data
+    "computed_fields": [{ //target data is a transformation of already-extracted data
+            "id": "driver_name_last", //ID for transformed target data
             "method": {
-                "source_id": "_driver_name_raw", //target data is transformed from this already-extracted data
+                "source_id": "_driver_name_raw", //already-extracted data to transform
                 "id": "split", //target data is substring in already-extracted data 
-                "separator": ", ", //split the target on commas into substring array 
+                "separator": ", ", //split the already-extracted data on commas into substring array 
                 "index": 1 // target is 2nd element in substring array
             }
         }
