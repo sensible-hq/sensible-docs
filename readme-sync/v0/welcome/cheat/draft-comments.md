@@ -14,10 +14,10 @@ TODO I think this isn't source of turth
 {
   "fields": [
     {
-      "id": "your_first_extracted_field", //output ID for target data
+      "id": "your_first_extracted_field", //ID for extracted target data
       "anchor": "hello world", //search for target data near line containing "hello world" in doc
       "method": {
-        "id": "label", //target data is a single line near anchor line
+        "id": "label", //target to extract is a single line near anchor line
         "position": "below" //target is below anchor line
       }
     }
@@ -37,32 +37,32 @@ TODO I think this isn't source of turth but change tyruth to include zero-index 
 {
   "fields": [
     {
-      "id": "second_most_popular_snack", //output ID for target data
+      "id": "second_most_popular_snack", //ID for extracted target data
       "anchor": "second", //search for target data near anchor line containing "second"
       "type": "string",
       "method": {
-        "id": "row", //target is a row
+        "id": "row", //target to extract is in a row
         "position": "left", //target is to left of anchor in row
         "tiebreaker": 0 // target is 1st row cell (left of anchor)
       }
     },
     {
-      "id": "snack_table", //output ID for target data
+      "id": "snack_table", //ID for extracted target data
       "anchor": "snack", //search for target data near anchor line containing "snack"  
       "type": "table",
       "method": {
-        "id": "fixedTable", //target data is table below anchor with fixed column count
+        "id": "fixedTable", //target is in table below anchor with fixed column count
         "columnCount": 6,
         "columns": [
           {
-            "id": "ranking", //output ID for table column
-            "index": 1 //outputs cells in table's 2nd column
+            "id": "ranking", //ID for extracted table column
+            "index": 1 //extracts cells in table's 2nd column
           },
           {
-            "id": "liked_by",
-            "index": 5, //outputs cells in table's 6th column...
+            "id": "liked_by", //ID for extracted table column
+            "index": 5, //extracts cells in table's 6th column...
             "type": "percentage", // ...if cell is percentage...
-            "isRequired": true // ...else omit row containing cell from all outputted columns
+            "isRequired": true // ...else omit row containing cell from all extracted columns
           }
         ],
         "stop": {
@@ -85,7 +85,7 @@ TODO I think this isn't source of turth
 {
   "fields": [
     {
-      "id": "preference_monday_fruit", //output ID for target data
+      "id": "preference_monday_fruit", //ID for extracted target data
       "anchor": {
         "match": [
           {
@@ -99,12 +99,12 @@ TODO I think this isn't source of turth
         ]
       },
       "method": {
-        "id": "checkbox", //target data is a checkbox
+        "id": "checkbox", //target to extract is a checkbox
         "position": "left" //target is to left of anchor line
       }
     },
     {
-      "id": "preference_wed_fruit", //output ID for target data
+      "id": "preference_wed_fruit", //ID for extracted target data
       "anchor": {
         "match": [
           {
@@ -123,7 +123,7 @@ TODO I think this isn't source of turth
       }
     },
     {
-      "id": "tuesday_all_options", //output ID for target data
+      "id": "tuesday_all_options", //ID for extracted target data
       "anchor": "tuesday",
       "method": {
         "id": "region", //target data is all text in rectangular region
@@ -135,7 +135,7 @@ TODO I think this isn't source of turth
       }
     },
     {
-      "id": "disclaimer_paragraph", //output ID for target data
+      "id": "disclaimer_paragraph", //ID for extracted target data
       "anchor": {
         "match": {
           "type": "startsWith",
@@ -144,7 +144,7 @@ TODO I think this isn't source of turth
       },
       "method": {
         "id": "documentRange", //target data is paragraph-like
-        "includeAnchor": true, //includes anchor line in target data output
+        "includeAnchor": true, //extracts anchor line along with target data
         "stop": {
           "type": "startsWith",
           "text": "in part 2"//target ends before line starting with this string
@@ -165,15 +165,15 @@ https://dev.sensible.so/editor/?d=auto_insurance_quote&c=anyco&g=auto_insurance_
 {
   "fields": [
     {
-      "id": "policy_period", //output ID for target data
+      "id": "policy_period", //ID for extracted target data
       "anchor": "policy period", //search for target data near line containing "policy period" in doc
       "method": {
-        "id": "label", //target data is a single line near anchor line
+        "id": "label", //target to extract is a single line near anchor line
         "position": "right" //target is to right of anchor line
       }
     },
     {
-      "id": "comprehensive_premium", //output ID for target data
+      "id": "comprehensive_premium", //ID for extracted target data
       "anchor": "comprehensive", //anchor line contains "comprehensive"
       "type": "currency", //target is a currency
       "method": {
@@ -183,7 +183,7 @@ https://dev.sensible.so/editor/?d=auto_insurance_quote&c=anyco&g=auto_insurance_
       }
     },
     {
-      "id": "property_liability_premium", //output ID for target data
+      "id": "property_liability_premium", //ID for extracted target data
       "anchor": "property",
       "type": "currency",
       "method": {
@@ -193,7 +193,7 @@ https://dev.sensible.so/editor/?d=auto_insurance_quote&c=anyco&g=auto_insurance_
       }
     },
     {
-      "id": "policy_number", //output ID for target data
+      "id": "policy_number", //ID for extracted target data
       "type": "string",
       "anchor": {
         "match": {
