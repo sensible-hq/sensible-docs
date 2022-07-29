@@ -8,7 +8,7 @@ For answers to the Sensible in-app tutorials, see the following links:
 
 [Part 1: Extract your first data](doc:cheat-1)
 
-TODO I think this isn't source of turth
+TODO doublecheck senseml
 
 ```json
 {
@@ -31,7 +31,7 @@ TODO I think this isn't source of turth
 
 
 
-TODO I think this isn't source of turth but change tyruth to include zero-index tiebrearker
+TODO doublecheck senseml. and update for zero-index tiebrearker
 
 ```json
 {
@@ -79,7 +79,7 @@ TODO I think this isn't source of turth but change tyruth to include zero-index 
 
 [Part 3: Checkboxes, paragraphs, and regions](doc:cheat-3)
 
-TODO I think this isn't source of turth
+TODO doublecheck senseml
 
 ```json
 {
@@ -157,7 +157,9 @@ TODO I think this isn't source of turth
 
 
 
-GETTING STARTED -> **UPDATED SOURCE OF TRUTH**
+GETTING STARTED -> 
+
+TODO: UPDATED SOURCE OF TRUTH (position for rows) from this + update PDFs
 
 https://dev.sensible.so/editor/?d=auto_insurance_quote&c=anyco&g=auto_insurance_anyco_golden
 
