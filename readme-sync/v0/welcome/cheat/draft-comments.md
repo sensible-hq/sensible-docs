@@ -213,5 +213,68 @@ https://dev.sensible.so/editor/?d=auto_insurance_quote&c=anyco&g=auto_insurance_
 
 
 
+SENSEML INTRO
 
+https://docs.sensible.so/docs/senseml-reference-introduction
+
+
+
+```json
+{
+    "fingerprint": { //preferentially run this config if doc contains the test strings
+        "tests": [ 
+            "anyco",
+            "quoted coverage changes"
+        ]
+    },
+    "preprocessors": [{
+        "type": "pageRange", //cuts out irrelevant doc pages before extraction
+        "startPage": 0,
+        "endPage": 2
+    }],
+    "fields": [{
+        "id": "_driver_name_raw", //ID for extracted target data
+        "anchor": "name of driver", //search for target data near line containing "name of driver" in doc
+        "method": {
+          "id": "label", //target to extract is a single line near anchor line
+          "position": "below" //target is below anchor line
+        }
+    }],
+    "computed_fields": [{
+            "id": "driver_name_last", //ID for extracted target data
+            "method": {
+                "source_id": "_driver_name_raw", //target data is transformed from this already-extracted data
+                "id": "split", //target data is substring in already-extracted data 
+                "separator": ", ", //split the target substring on commas
+                "index": 1 // grab 2nd substring
+            }
+        }
+
+    ]
+}
+```
+
+
+
+SenseML concepts
+
+
+
+https://docs.sensible.so/docs/senseml
+
+```json
+{
+
+  "fields": [
+    {
+      "id": "name_of_output_key",
+      "anchor": "an anchor is some text to match. An anchor can be an array of matches",
+      "method": {
+        "id": "label",
+         "position": "below"
+      }
+    },
+  ]
+}
+```
 
