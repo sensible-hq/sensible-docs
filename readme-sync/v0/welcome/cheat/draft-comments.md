@@ -246,7 +246,7 @@ https://docs.sensible.so/docs/senseml-reference-introduction
                 "source_id": "_driver_name_raw", //target data is transformed from this already-extracted data
                 "id": "split", //target data is substring in already-extracted data 
                 "separator": ", ", //split the target substring on commas
-                "index": 1 // grab 2nd substring
+                "index": 1 // target is 2nd substring
             }
         }
 
