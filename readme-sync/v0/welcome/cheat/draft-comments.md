@@ -4,7 +4,7 @@ hidden: true
 
 ---
 
-For answers to the Sensible in-app tutorials, see the following links:
+
 
 [Part 1: Extract your first data](doc:cheat-1)
 
@@ -56,13 +56,13 @@ TODO doublecheck senseml. and update for zero-index tiebrearker
         "columns": [
           {
             "id": "ranking", //ID for extracted table column
-            "index": 1 //extracts cells in table's 2nd column
+            "index": 1 //extract cells in table's 2nd column
           },
           {
             "id": "liked_by", //ID for extracted table column
-            "index": 5, //extracts cells in table's 6th column...
+            "index": 5, //extract cells in table's 6th column...
             "type": "percentage", // ...if cell is percentage...
-            "isRequired": true // ...else omit row containing cell from all extracted columns
+            "isRequired": true // ...else omit row containing cell from all extracted columns in table
           }
         ],
         "stop": {
@@ -144,7 +144,7 @@ TODO doublecheck senseml
       },
       "method": {
         "id": "documentRange", //target data is paragraph-like
-        "includeAnchor": true, //extracts anchor line along with target data
+        "includeAnchor": true, //extract anchor line along with target data
         "stop": {
           "type": "startsWith",
           "text": "in part 2"//target ends before line starting with this string
