@@ -35,36 +35,36 @@ This example uses the following config:
 
 ```json
 {
-	"fingerprint": {
-		"tests": [
-			"anyco",
-			"quoted coverage changes"
-		]
-	},
-	"preprocessors": [{
-		"type": "pageRange",
-		"startPage": 0,
-		"endPage": 2
-	}],
-	"fields": [{
-		"id": "_driver_name_raw",
-		"anchor": "name of driver",
-		"method": {
-			"id": "label",
-			"position": "below"
-		}
-	}],
-	"computed_fields": [{
-			"id": "driver_name_last",
-			"method": {
-				"id": "split",
-				"source_id": "_driver_name_raw",
-				"separator": ", ",
-				"index": 1
-			}
-		}
+    "fingerprint": { // preferentially run this config if doc contains the test strings
+        "tests": [ 
+            "anyco",
+            "quoted coverage changes"
+        ]
+    },
+    "preprocessors": [{
+        "type": "pageRange", // cuts out irrelevant doc pages before extraction
+        "startPage": 0,
+        "endPage": 2
+    }],
+    "fields": [{
+        "id": "_driver_name_raw", // ID for extracted target data
+        "anchor": "name of driver", // search for target data near text "name of driver" in doc
+        "method": {
+          "id": "label", // target to extract is a single line near anchor line
+          "position": "below" // target is below anchor line
+        }
+    }],
+    "computed_fields": [{ // target data is a transformation of already extracted data
+            "id": "driver_name_last", // ID for transformed target data
+            "method": {
+                "source_id": "_driver_name_raw", // extracted data to transform
+                "id": "split", // target data is substring in extracted data 
+                "separator": ", ", // use commas to split the extracted data into substring array 
+                "index": 1 // target is 2nd element in substring array
+            }
+        }
 
-	]
+    ]
 }
 ```
 
