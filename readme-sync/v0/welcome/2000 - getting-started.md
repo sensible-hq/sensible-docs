@@ -76,7 +76,7 @@ For this tutorial, you'll extract these fields:
         /* target to extract is a single line 
         near anchor line ("policy period") */
         "id": "label",
-        /* target data is to right of anchor line */              
+        /* target data is to right of anchor line */       
         "position": "right"
       }
     },
