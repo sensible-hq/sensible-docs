@@ -67,7 +67,7 @@ For this tutorial, you'll extract these fields:
 {
   "fields": [
     {
-      /* ID for target data (policy period) */
+      /* ID for target data */
       "id": "policy_period",
       /* search for target data 
       near text "policy period" in doc*/
