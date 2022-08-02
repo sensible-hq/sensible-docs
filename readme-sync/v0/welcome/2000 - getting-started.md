@@ -67,43 +67,59 @@ For this tutorial, you'll extract these fields:
 {
   "fields": [
     {
+      /* ID for target data (policy period) */
       "id": "policy_period",
+      /* search for target data 
+      near text "policy period" in doc*/
       "anchor": "policy period",
       "method": {
+        /* target to extract is a single line 
+        near anchor line ("policy period") */
         "id": "label",
+        /* target data is to right of anchor line */              
         "position": "right"
       }
     },
     {
+      /* target data is near text "comprehensive" */
       "id": "comprehensive_premium",
       "anchor": "comprehensive",
+      /* target data is a currency, else return null */
       "type": "currency",
       "method": {
+        /* target to extract is in a row */ 
         "id": "row",
+        /* target is to right of anchor ("comprehensive") in row */
+        "position": "right",
+        /* grab 2nd cell (right of anchor) */
         "tiebreaker": "second"
       }
     },
     {
+      /* target data is a currency in a row, 
+      in the 2nd cell right of text "property"*/  
       "id": "property_liability_premium",
       "anchor": "property",
       "type": "currency",
       "method": {
         "id": "row",
+        "position": "right",
         "tiebreaker": "second"
       }
     },
+    /* target data is all the text in box
+    with anchor "policy number" */  
     {
       "id": "policy_number",
       "type": "string",
       "anchor": {
-        "match":
-          {
-            "text": "policy number",
-            "type": "startsWith"
-          }
+        "match": {
+          "text": "policy number",
+          "type": "startsWith" 
+        }
       },
       "method": {
-        "id": "box"
+        "id": "box" 
       }
     }
   ]
