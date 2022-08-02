@@ -97,7 +97,7 @@ For this tutorial, you'll extract these fields:
     },
     {
       /* target data is a currency in a row, 
-      in the 2nd cell right of text "property"*/  
+      in the 2nd row cell right of text "property"*/  
       "id": "property_liability_premium",
       "anchor": "property",
       "type": "currency",
