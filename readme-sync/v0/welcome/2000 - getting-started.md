@@ -91,7 +91,7 @@ For this tutorial, you'll extract these fields:
         "id": "row",
         /* target is to right of anchor ("comprehensive") in row */
         "position": "right",
-        /* grab 2nd cell (right of anchor) */
+        /* grab 2nd row cell (right of anchor) */
         "tiebreaker": "second"
       }
     },
