@@ -504,7 +504,7 @@ components:
               example:  macOS Version 11.2 (Build 20D64) Quartz PDFContext
             producer:
               type: string
-              description: Information about the PDF software used to create or edit the PDF.
+              description: Information about the PDF software used to create or edit the PDF. # todo/question took a guess based on example output, is it more nuanced?
               example: Preview
             creationDate:
               type: string
