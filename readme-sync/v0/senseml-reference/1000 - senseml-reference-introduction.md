@@ -51,7 +51,7 @@ This example uses the following config:
         "anchor": "name of driver", // search for target data near text "name of driver" in doc
         "method": {
           "id": "label", // target to extract is a single line near anchor line
-          "position": "below" // target is below anchor line
+          "position": "below" // target is below anchor line ("name of driver")
         }
     }],
     "computed_fields": [{ // target data is a transformation of already extracted data
