@@ -495,7 +495,7 @@ components:
               example:
             title:
               type: string
-              description: Title of the
+              description: Filename of the PDF.
               example:
             creator:
               type: string
