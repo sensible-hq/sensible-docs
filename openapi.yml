@@ -481,42 +481,42 @@ components:
       properties:
         metadata:
           type: object
-          description: raw metadata about the PDF, returned without data normalization. #todo question: under what circumastances is it returned? saw lot of test extractions without it.
+          description: raw metadata embedded in the PDF, returned without data normalization. #todo question: under what circumastances is it returned? saw lot of test extractions without it.
         error:
           type: string
-          description: test
+          description: descriptions of any errors Sensible encountered when attempting to retrieve metadata
         info:
           type: object
           description: normalized metadata about the PDF.
           properties:
             author:
               type: string
-              description: test
+              description: author of the PDF # todo/question: is this the last person who touched the file? is there no file history for multiple authors?
               example:
             title:
               type: string
-              description: test
+              description: Title of the
               example:
             creator:
               type: string
-              description: test
-              example:
+              description: Information about the dependencies of the `producer`.
+              example:  macOS Version 11.2 (Build 20D64) Quartz PDFContext
             producer:
               type: string
-              description: test
-              example:
+              description: Information about the PDF software used to create or edit the PDF.
+              example: Preview
             creationDate:
               type: string
-              description: test
-              example:
+              description: File creation date
+              example: 2022-08-02T18:09:31.000+00:00
             modificationDate:
               type: string
-              description: test
-              example:
+              description: File modification date
+              example: 2022-08-03T15:09:23.000+00:00
             error:
               type: string
               description: test
-              example:
+              example: # todo/question: what error categories here?
 
     Score:
       type: object
