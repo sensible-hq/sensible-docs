@@ -478,25 +478,26 @@ components:
       description:  >-
         Metadata about the PDF file, for example author, authoring tool, and modified date.
         Some of this information is only available for digitally generated PDFs, not for scans.
+        # todo question: any more info to add here? like scans maybe only offer creation date, I'd guess? maybe the scanning software under producer??
       properties:
         metadata:
           type: object
           description: raw metadata embedded in the PDF, returned without data normalization. #todo question: under what circumastances is it returned? saw lot of test extractions without it.
         error:
           type: string
-          description: descriptions of any errors Sensible encountered when attempting to retrieve metadata
+          description: Errors Sensible encountered when attempting to retrieve metadata # todo: example string?
         info:
           type: object
           description: normalized metadata about the PDF.
           properties:
             author:
               type: string
-              description: author of the PDF # todo/question: is this the last person who touched the file? is there no file history for multiple authors?
-              example:
+              description: author of the PDF # todo/question: is this the last person who touched the file? is there no file history for multiple authors? is
+              example: Jay S. Schiller
             title:
               type: string
               description: Filename of the PDF.
-              example:
+              example: file123.pdf
             creator:
               type: string
               description: Information about the dependencies of the `producer`.
