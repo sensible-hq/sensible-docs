@@ -473,7 +473,7 @@ components:
             fields_present: 2
             penalities: 1.5
 
-    FileMetatdata:
+    FileMetadata:
       type: object
       description:  >-
         Metadata about the PDF file, for example author, authoring tool, and modified date.
@@ -643,7 +643,7 @@ components:
         classification_summary:
           $ref: '#/components/schemas/ClassificationSummary'
         file_metadata:
-          $ref: TODO LEFT OFF
+          $ref: '#/components/schemas/FileMetadata'
 
     ExtractionAsyncResult:
       allOf:
