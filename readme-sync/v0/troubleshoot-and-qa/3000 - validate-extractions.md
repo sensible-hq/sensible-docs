@@ -92,33 +92,13 @@ Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field e
 Validations output
 ---
 
-For the preceding validations, here's an example document extraction where:
+The following document extraction excerpt shows validating test data with the preceding conditions: 
 
 - **Validation 3**  Sensible skips the broker email because the prerequisite field  `broker.email` is null
 - **Validation 4**  (zip code) fails because  `zip_code`  is 17 digits
 
 ```json
 {
-	"id": "edeedb37-1c47-47d2-a64c-f355cf04835e",
-	"created": "2021-07-05T20:50:56.390Z",
-	"status": "COMPLETE",
-	"type": "test_doc_type",
-	"configuration": "anyco",
-	"validations": [{
-		"description": "Zip code must be valid",
-		"severity": "warning"
-	}, {
-		"description": "Broker's email is in string@string format",
-		"severity": "skipped",
-		"message": "Missing prerequisites: broker.email"
-	}],
-	"validation_summary": {
-		"fields": 5,
-		"fields_present": 4,
-		"errors": 0,
-		"warnings": 1,
-		"skipped": 1
-	},
 	"parsed_document": {
 		"quote_rate": {
 			"source": "$800",
@@ -138,9 +118,23 @@ For the preceding validations, here's an example document extraction where:
 		"zip_code": {
 			"type": "number",
 			"value": "12345678901234456"
+		},
+		"validations": [{
+			"description": "Zip code must be valid",
+			"severity": "warning"
+		}, {
+			"description": "Broker's email is in string@string format",
+			"severity": "skipped",
+			"message": "Missing prerequisites: broker.email"
+		}],
+		"validation_summary": {
+			"fields": 5,
+			"fields_present": 4,
+			"errors": 0,
+			"warnings": 1,
+			"skipped": 1
 		}
-	},
-	"download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/edeedb37-1c47-47d2-a64c-f355cf04835e.pdf?AWSAccessKeyId=REDACTED&Expires=1625519233&Signature=REDACTEDD&x-amz-security-token=REDACTED"
+	}
 }
 ```
 
