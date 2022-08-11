@@ -20,7 +20,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 Examples
 ====
 
-The following example shows using the Copy To Field method to add a global policy number, listed once in the document, to every extracted claim. 
+The following example shows using the Copy To Field method to add a policy number, which is listed once in the document and which is globally applicable, to every extracted claim. 
 
 **Config**
 
