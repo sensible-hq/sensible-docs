@@ -44,68 +44,16 @@ To run an API call and return extracted, structured data from a downloaded examp
 }
 [/block]
 
-3. Run the code sample in a command prompt. The code downloads an example PDF (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`senseml_basics`). The API returns a `parsed_document` object with the extracted data, as well as metadata about the extraction, in a response like the following:
+3. Run the code sample in a command prompt. The code downloads an example PDF (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`senseml_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: 
 
 ```json
 {
-   "id":"153753e0-5673-466f-aa61-5175200c210d",
-   "created":"2022-02-02T21:30:01.981Z",
-   "status":"COMPLETE",
-   "type":"senseml_basics",
-   "configuration":"1_extract_your_first_data",
    "parsed_document":{
       "your_first_extracted_field":{
          "type":"string",
          "value":"Welcome to your first document"
       }
-   },
-   "validations":[
-      
-   ],
-   "validation_summary":{
-      "fields":1,
-      "fields_present":1,
-      "errors":0,
-      "warnings":0,
-      "skipped":0
-   },
-   "classification_summary":[
-      {
-         "configuration":"1_extract_your_first_data",
-         "score":{
-            "value":1,
-            "fields_present":1,
-            "penalties":0
-         }
-      },
-      {
-         "configuration":"2_tables_and_rows",
-         "score":{
-            "value":0,
-            "fields_present":0,
-            "penalties":0
-         }
-      },
-      {
-         "configuration":"3_checkboxes_paragraphs_and_regions",
-         "score":{
-            "value":0,
-            "fields_present":0,
-            "penalties":0
-         }
-      },
-      {
-         "configuration":"4_extract_from_scratch",
-         "score":{
-            "value":0,
-            "fields_present":0,
-            "penalties":0
-         }
-      }
-   ],
-   "errors":[
-      
-   ]
+   }
 }
 ```
 
@@ -123,7 +71,7 @@ To see this example in the Sensible app:
 3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
    
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png) 
+![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png) 
 
 
 
