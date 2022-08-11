@@ -73,7 +73,7 @@ The following example shows extracting repeated fields from a section containing
           "isCaseSensitive": true
         }
       },
-      /* return each claim as object containg claim # 
+      /* return each claim as object containing claim # 
       and phone # fields */
       "fields": [
         {
