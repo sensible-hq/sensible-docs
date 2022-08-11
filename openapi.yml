@@ -477,29 +477,21 @@ components:
       type: object
       description:  >-
         Metadata about the PDF file, for example author, authoring tool, and modified date.
-        Some of this information is only available for digitally generated PDFs, not for scans.
-        # todo question: any more info to add here? like scans maybe only offer creation date, I'd guess? maybe the scanning software under producer??
-        # sam says: I think the scanning software should be recorded as the Producer (and/or possibly Creator, but I'm not sure.) Also Author and the creation / modification dates should come through as well (in theory). 
-        # Since there's a lot we don't know, we might want to keep the description as vague as possible, or just add "if available" to the end.
       properties:
         metadata:
           type: object
-          description: raw metadata embedded in the PDF, returned without data normalization. #todo question: under what circumastances is it returned? saw lot of test extractions without it.
-          #sam says: according to Adobe PDF Reference, both the info and metadata entries are optional. So, both are returned if they are available in the PDF file. Most PDFs I've tested don't have a metadata entry. 
+          description: Raw metadata embedded in the PDF. Returned if available, without data normalization.
         error:
           type: string
-          description: Errors Sensible encountered when attempting to retrieve metadata # todo: example string?
-          #sam says: Here are the only two that I've seen:
-          #{ error: 'Error retrieving PDF metadata: No password given' } (on a password protected PDF)
-          #{ error: 'Error retrieving PDF metadata: Invalid PDF structure.' } (on a corrupt / invalid PDF)
+          description: Errors Sensible encountered when attempting to retrieve metadata
+          example: "Error retrieving PDF metadata: Invalid PDF structure"
         info:
           type: object
-          description: normalized metadata about the PDF.
+          description: Normalized metadata about the PDF, returned if available.
           properties:
             author:
               type: string
-              description: author of the PDF # todo/question: is this the last person who touched the file? is there no file history for multiple authors? is
-              #sam says: The description of this is just "The name of the person who created the document". It doesn't appear that there is a file history.
+              description: The name of the person who created the document.
               example: Jay S. Schiller
             title:
               type: string
@@ -507,28 +499,23 @@ components:
               example: file123.pdf
             creator:
               type: string
-              description: Information about the dependencies of the `producer`.
-              # sam says: here is the official description: "If the document was converted to PDF from another format, the name of the application that created the original document from which it was converted"
+              description: If the document was converted to PDF from another format, the name of the application that created the original document from which it was converted.
               example:  macOS Version 11.2 (Build 20D64) Quartz PDFContext
             producer:
               type: string
-              description: Information about the PDF software used to create or edit the PDF. # todo/question took a guess based on example output, is it more nuanced?
-              # sam says: here is the official description: "If the document was converted to PDF from another format, the name of the application that converted it to PDF"
+              description: If the document was converted to PDF from another format, the name of the application that converted it to PDF
               example: Preview
-            creationDate:
+            creation_date:
               type: string
               description: File creation date
               example: 2022-08-02T18:09:31.000+00:00
-            modificationDate:
+            modification_date:
               type: string
               description: File modification date
               example: 2022-08-03T15:09:23.000+00:00
             error:
               type: string
-              description: test
-              example: # todo/question: what error categories here?
-              #sam says: The only response is "Error retrieving PDF metadata:" and then the message of any error that bubbled up during the process. As far as I can tell, the only thing that would be generating error
-              #messages would be pdfjs.getDocument(). Unfortunately, Mozilla doesn't have good docs for pdf.js, and there isn't a lot of information about potential errors that I saw.
+              description: Errors Sensible encountered when attempting to retrieve metadata.
 
     Score:
       type: object
