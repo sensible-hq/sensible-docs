@@ -1,16 +1,8 @@
 ---
-title: "copy to section"
+title: "Copy to Section"
 hidden: true
 ---
-https://dev.sensible.so/editor/?d=frances_test_playground&c=copy_to_section_computed&g=copy_to_section_loss_run
-
-
-
-
-
-Copies a field into each section in a section group, or from a parent section into each section in a nested section group. (TODO, image showing this with generic yaml and arrows?)
-
-
+Copies a field into each section in a section group, or from a parent section into each section in a nested section group. 
 
 
 
@@ -20,11 +12,10 @@ Parameters
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 
-| key                      | value                                    | description                                        |
-| :----------------------- | :--------------------------------------- | :------------------------------------------------- |
-| id (**required**)        | `copy_to_section`                        |                                                    |
-| source_id (**required**) | array of field IDs in the current config | a list of field `id`s to concatenate in the config |
-|                          |                                          |                                                    |
+| key                      | value                                 | description                                                  |
+| :----------------------- | :------------------------------------ | :----------------------------------------------------------- |
+| id (**required**)        | `copy_to_section`                     |                                                              |
+| source_id (**required**) | source field ID in the current config | the source ID to copy must be in a field array or section that is one level up in the hierarchy relative to the destination section. For example, in a section, copy from the base fields array. In a subsection, copy from the parent section's field array. |
 
 Examples
 ====
@@ -37,47 +28,113 @@ The following example shows using
 {
   "fields": [
     {
-      "id": "_recipient_street_address",
+      /* capture raw policy # to copy into 
+      each claim using copy_to_section */
+      "id": "_raw_policy_number",
+      "type": "number",
+      "anchor": "policy number",
       "method": {
         "id": "label",
-        "position": "below"
-      },
-      "anchor": {
-        "match": [
-          {
-            "text": "street address (including apt",
-            "type": "startsWith"
-          }
-        ]
+        "position": "right"
       }
     },
     {
-      "id": "_recipient_city_state",
-      "method": {
-        "id": "label",
-        "position": "below"
-      },
+      /* get monthly claims totals 
+      with match all (simpler alternative to sections) */
+      "id": "monthly_total_unprocessed_claims",
+      "match": "all",
       "anchor": {
-        "match": [
-          {
-            "text": "city or town, state or province",
-            "type": "startsWith"
-          }
-        ]
+        "match": {
+          "type": "includes",
+          "text": "unprocessed claims:",
+          "isCaseSensitive": true
+        },
+        "end": {
+          "text": "total claims",
+          "type": "startsWith"
+        }
+      },
+      "method": {
+        "id": "row",
+        "position": "right",
+        "includeAnchor": true
       }
     }
   ],
-  "computed_fields": [
+  /* get first 2 claims sections in doc.  
+     each claim starts with "claim number" and ends with 
+     "unprocessed claims" */
+  "sections": [
     {
-      "id": "recipient_full_address",
-      "method": {
-        "id": "concat",
-        "source_ids": [
-          "_recipient_street_address",
-          "_recipient_city_state"
-        ],
-        "delimiter": "\n"
-      }
+      "id": "unprocessed_sept_oct_claims_sections",
+      "range": {
+        "anchor": {
+          "start": {
+            "text": "September",
+            "type": "startsWith",
+            "isCaseSensitive": true
+          },
+          "match": {
+            "type": "includes",
+            "text": "claim number"
+          },
+          "end": {
+            "type": "startsWith",
+            "text": "November",
+            "isCaseSensitive": true
+          }
+        },
+        "stop": {
+          "type": "includes",
+          "text": "unprocessed claims:",
+          "isCaseSensitive": true
+        }
+      },
+      /* return each claim as object containg claim # 
+      and phone # fields */
+      "fields": [
+        {
+          "id": "claim_number",
+          "type": "number",
+          "anchor": {
+            "match": {
+              "type": "startsWith",
+              "text": "Claim number:",
+              "isCaseSensitive": true
+            }
+          },
+          "method": {
+            "id": "label",
+            "position": "right"
+          }
+        },
+        {
+          "id": "phone_number",
+          "type": "phoneNumber",
+          "anchor": {
+            "match": {
+              "type": "includes",
+              "text": "Phone number",
+              "isCaseSensitive": true
+            }
+          },
+          "method": {
+            "id": "row",
+            "position": "right"
+          }
+        }
+      ],
+      /* copy policy number from outside sections
+         into each claim */
+      "computed_fields": [
+        {
+          "id": "policy_number",
+          "method": {
+            "id": "copy_to_section",
+            "source_id": "_raw_policy_number"
+          }
+        }
+      ]
     }
   ]
 }
@@ -96,17 +153,73 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "_recipient_street_address": {
-    "type": "string",
-    "value": "123 Anystreet"
+  "_raw_policy_number": {
+    "source": "5501234567",
+    "value": 5501234567,
+    "type": "number"
   },
-  "_recipient_city_state": {
-    "type": "string",
-    "value": "Anytown, AZ 12345"
-  },
-  "recipient_full_address": {
-    "value": "123 Anystreet\nAnytown, AZ 12345",
-    "type": "string"
-  }
+  "monthly_total_unprocessed_claims": [
+    {
+      "type": "string",
+      "value": "Sept unprocessed claims: 2"
+    },
+    {
+      "type": "string",
+      "value": "Oct unprocessed claims: 1"
+    },
+    {
+      "type": "string",
+      "value": "Nov unprocessed claims: 2"
+    }
+  ],
+  "unprocessed_sept_oct_claims_sections": [
+    {
+      "claim_number": {
+        "source": "1223456789",
+        "value": 1223456789,
+        "type": "number"
+      },
+      "phone_number": {
+        "type": "phoneNumber",
+        "source": "512 409 8765",
+        "value": "+15124098765"
+      },
+      "policy_number": {
+        "source": "5501234567",
+        "value": 5501234567,
+        "type": "number"
+      }
+    },
+    {
+      "claim_number": {
+        "source": "9876543211",
+        "value": 9876543211,
+        "type": "number"
+      },
+      "phone_number": null,
+      "policy_number": {
+        "source": "5501234567",
+        "value": 5501234567,
+        "type": "number"
+      }
+    },
+    {
+      "claim_number": {
+        "source": "6785439210",
+        "value": 6785439210,
+        "type": "number"
+      },
+      "phone_number": {
+        "type": "phoneNumber",
+        "source": "505 238 8765",
+        "value": "+15052388765"
+      },
+      "policy_number": {
+        "source": "5501234567",
+        "value": 5501234567,
+        "type": "number"
+      }
+    }
+  ]
 }
 ```

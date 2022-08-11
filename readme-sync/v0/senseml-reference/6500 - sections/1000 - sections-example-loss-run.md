@@ -22,7 +22,9 @@ The following example shows extracting repeated fields from a section containing
       }
     },
     {
-      "id": "monthly_number_unprocessed_claims",
+      /* get monthly claims totals 
+      with match all (simpler alternative to sections) */
+      "id": "monthly_total_unprocessed_claims",
       "match": "all",
       "anchor": {
         "match": {
@@ -42,9 +44,12 @@ The following example shows extracting repeated fields from a section containing
       }
     }
   ],
+  /* get first 2 claims sections in doc.  
+     each claim starts with "claim number" and ends with 
+     "unprocessed claims" */
   "sections": [
     {
-      "id": "unprocessed_sept_oct_claims",
+      "id": "unprocessed_sept_oct_claims_sections",
       "range": {
         "anchor": {
           "start": {
@@ -68,6 +73,8 @@ The following example shows extracting repeated fields from a section containing
           "isCaseSensitive": true
         }
       },
+      /* return each claim as object containg claim # 
+      and phone # fields */
       "fields": [
         {
           "id": "claim_number",
@@ -123,7 +130,7 @@ The following image shows the data extracted by this config for the following ex
     "value": 5,
     "type": "number"
   },
-  "monthly_number_unprocessed_claims": [
+  "monthly_total_unprocessed_claims": [
     {
       "type": "string",
       "value": "Sept unprocessed claims: 2"
@@ -137,7 +144,7 @@ The following image shows the data extracted by this config for the following ex
       "value": "Nov unprocessed claims: 2"
     }
   ],
-  "unprocessed_sept_oct_claims": [
+  "unprocessed_sept_oct_claims_sections": [
     {
       "claim_number": {
         "source": "1223456789",
