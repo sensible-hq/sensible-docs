@@ -67,5 +67,8 @@ See the following topics:
 Notes
 ===
 
-For details about vertical sections, see [Section nuances](doc:section-nuances#vertical-sections).
+- For details about vertical sections, see [Section nuances](doc:section-nuances#vertical-sections).
+- See the [Copy To Section](doc:copy-to-section) computed field method to add globally applicable document information to sections. 
+
+
 
