@@ -19,6 +19,28 @@ We'll be working with some mock car quotes and their extracted data. To configur
 
 ```
 {
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "text": "anyco auto insurance",
+            "type": "startsWith"
+          }
+        ]
+      },
+      {
+        "page": "last",
+        "match": [
+          {
+            "text": "please be sure to review your contract for a full explanation of coverages",
+            "type": "includes"
+          }
+        ]
+      }
+    ]
+  },
   "fields": [
     {
       "id": "policy_number",
@@ -93,6 +115,12 @@ We'll be working with some mock car quotes and their extracted data. To configur
 }
 ```
 
+Select **Publish** and select **Production**: TODO reuse screenshot.
+
+Test the extraction using the **quick extraction** dashboard so you'll have test data for the initial Zapier integration later.
+
+TODO screenshots.
+
 
 
 
@@ -135,11 +163,33 @@ In the **Event** dropdown, select the **New Document Extraction** trigger.
 
 
 
-Select your Sensible account, and enter your API key from your [dashboard] TODO LINK to connect your Sensible account to your Zapier account
+Follow the prompts to select your Sensible account, and enter your API key from your [dashboard] TODO LINK to connect your Sensible account to your Zapier account
 
 TODO screenshot.
 
 
+
+Select **Test trigger** (TODO: will nahual fix the 'reduce scope to specified doc type?'). Select the recent extraction that used the `zpaier_test` config you created in the **Prerequisites** section. If you can't find it, re-extract using the quick extraction pane and wait for Zapier to pull in the extraction (this make take a few minutes). Click  **Continue**.
+
+![image-20220815104719300](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815104719300.png)
+
+
+
+In the Action dropdown, select **Airtable**. In the **Event** dropdown, select **Create new record**. Click **Continue**
+
+![image-20220815104925851](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815104925851.png)
+
+Follow the prompts to connect your Zapier and Airtable accounts.
+
+In the **Set up action** pane:
+
+- Select your **Sensible test** base.
+- Select your **Anyco auto insurance quote** table.
+- For the columns you created, select the corresponding extracted value. For example, for the `driver_name` column, select the `name_insured` extracted field. Zapier displays test values from the recent extraction.  ![image-20220815105309097](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815105309097.png)
+- When complete, the **Set up action** pane looks like the following image:
+- ![image-20220815105523183](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815105523183.png)
+
+Click **test and continue**, then check in airtable that the record was created. This may take a few minutes:
 
 
 
