@@ -80,10 +80,12 @@ Use configurable syntax to change the default recognized formats.
 **Example output**
 
 ```json
+{
     {
       "type": "address",
-      "value": "4010 San Amaro Drive\nCoral Gables, FL 33146"
+      "value": "4010 San Amaro Drive\nCoral Gables, FL\n33146"
     }
+  }
 ```
 
 **Parameters**
