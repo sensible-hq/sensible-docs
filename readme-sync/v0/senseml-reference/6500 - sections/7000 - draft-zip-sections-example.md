@@ -121,7 +121,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
             "isCaseSensitive": true
           }
         },
-        /* don't include the heading in the section */
+        /* don't include the "schedule of coverages" heading in the section */
         "offsetY": 0.3
       },
       "fields": [
