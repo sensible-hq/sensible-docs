@@ -15,7 +15,7 @@ Advanced: Zip table sections
 
 The following example shows zipping multiple tables together by treating each table as a section.
 
-As an overview, this example shows creating an array of `vehicle_description_and_coverages` objects, where each object contains information from the vehicles table and limitations table.
+As an overview, this example shows creating a  `zipped_vehicle_description_and_coverages` array, where each  object in the array contains information from the vehicles table and limitations table.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_zip.png)
 
@@ -75,16 +75,10 @@ As an overview, this example shows creating an array of `vehicle_description_and
       },
       "fields": [
         {
-          /* each vertical section is like a table slice that 
-             combines the first two columns with one of the
-             vehicle columns. in that table slice the 3rd
-             cell in the row that starts with "bodily injury liability"
-             is always the premium for that section's vehicle */
-          "id": "vehicle_vin",
-          "type": "number",
+          "id": "vehicle_description",
           "method": {
             "id": "row",
-            "tiebreaker": 1
+            "tiebreaker": 0
           },
           "anchor": {
             "match": {
@@ -127,10 +121,17 @@ As an overview, this example shows creating an array of `vehicle_description_and
             "isCaseSensitive": true
           }
         },
+        /* don't include the heading in the section */
         "offsetY": 0.3
       },
       "fields": [
         {
+          /* each vertical section is a table slice determined
+             by columnSelection that 
+             combines the first two columns with one of the
+             vehicle columns. In each table slice the 3rd
+             cell in the row that starts with "bodily injury liability"
+             is always the injury premium for that section's vehicle */
           "id": "bodily_liability_premium",
           "type": "number",
           "method": {
@@ -162,7 +163,7 @@ As an overview, this example shows creating an array of `vehicle_description_and
     /* get a section that combines vehicle
        info with coverage info */
     {
-      "id": "zipped_vehicles_and_coverages",
+      "id": "zipped_vehicle_description_and_coverages",
       "method": {
         "id": "zip",
         "source_ids": [
@@ -171,7 +172,6 @@ As an overview, this example shows creating an array of `vehicle_description_and
         ]
       }
     },
-    
     /* to clean up output, remove the source
        sections. illustrates execution order nuances */
     {
@@ -179,7 +179,7 @@ As an overview, this example shows creating an array of `vehicle_description_and
       "method": {
         "id": "suppressOutput",
         "source_ids": [
-          "vehicles",
+          "_vehicles",
           "_coverages_per_vehicle"
         ]
       }
