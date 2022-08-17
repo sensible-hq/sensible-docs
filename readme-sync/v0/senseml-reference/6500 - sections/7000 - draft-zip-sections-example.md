@@ -4,17 +4,20 @@ hidden: true
 
 ---
 
+TODOS before publish: link to this from section nuances concept topic. - publish 'execution order concepts topic' - link from zip topic
+
+
 
 Advanced: Zip table sections
 ====
 
-TODOS before publish: link to this from section nuances concept topic. - publish 'execution order concepts topic'
+
 
 The following example shows zipping multiple tables together by treating each table as a section.
 
 As an overview, this example shows creating an array of `vehicle_description_and_coverages` objects, where each object contains information from the vehicles table and limitations table.
 
- TODO picture: 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_zip.png)
 
 
 
