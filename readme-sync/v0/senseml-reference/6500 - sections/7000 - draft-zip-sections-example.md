@@ -160,7 +160,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
         }
       ],
     },
-    /* get a section that combines vehicle
+    /* output a zipped section that combines vehicle
        info with coverage info */
     {
       "id": "zipped_vehicle_description_and_coverages",
