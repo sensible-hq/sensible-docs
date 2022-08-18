@@ -45,6 +45,9 @@ Filter configurations with fingerprints
 
 Reduce the number of configurations that Sensible runs on the document to improve performance. Without fingerprints, Sensible runs every configuration in the document type. With them, Sensible can test if an “ACME_CO_INSURANCE” config should run on an “ACME_quote.pdf” or not. 
 
+- Score each configuration's test against its configured fingerprints, if present.  
+- Return a set of configurations to run extractions for.
+
 For more information, see [Fingerprints](doc:fingerprint).
 
 ```json
@@ -53,23 +56,40 @@ todo add example
 
 
 
-Run SenseML
+Create extractions
 ----
 
-Extract candidate output for the document using the SenseML configurations in the document type.
+Extract candidate output for the document using the SenseML configurations in the document type. For the set of configs determined in the previous sets, run the config:
 
-- Determine whether to run a config (test fingerprints if present)
-- Run a config: 
-  - Run any preprocessors (e.g., removeHeaders)We then apply a final global preprocessor where we remove repeated whitespace
-  - Extract the fields in the fields array
-  - Run computed fields, which transform fields outputt
-  - Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
+**Preprocessors**
+
+- Run any preprocessors (e.g., removeHeaders), in the order in which the user specified them in the SenseML array. Sensible then applies a final global preprocessor to remove repeated whitespaces. 
+
+**Fields**
+
+- Extract the fields in the fields array.  Fields can be specified like this:
+
+
+
+
+
+
+
+- Run computed fields, which transform fields outputt
+- Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
+
 - Return all fields, computed fields, and sections
+
+```json
+todo: add a senseML config
+```
 
 
 
 Score extractions
 ---
+
+
 
 
 Return results
