@@ -43,23 +43,23 @@ Take the raw text representation (from OCR or directly from the PDF), clean it, 
 Filter configurations with fingerprints
 ----
 
-Reduce the number of configurations that Sensible runs on the document to improve performance. Without fingerprints, Sensible runs every configuration in the document type. With them, Sensible can test if an “ACME_CO_INSURANCE” config should run on an “ACME_quote.pdf” or not. 
+Reduce the number of configurations that Sensible runs on the document to improve performance. Without fingerprints, Sensible runs every configuration in the document type. With them, Sensible can test if an "ACME_CO_INSURANCE" config should run on an "ACME_quote.pdf" by examining the PDF's standardized text output for key text like "ACME" and "insurance" and filtering out documents that don't contain the key phrases. 
 
-- Score each configuration's test against its configured fingerprints, if present.  
-- Return a set of configurations to run extractions for.
+- Score each configuration against its configured fingerprint tests, if present.  
+- Return a set of configurations to create extractions for.
 
 For more information, see [Fingerprints](doc:fingerprint).
 
 ```json
-todo add example
+todo add example fingerprint
 ```
 
-
+Note that fingerprints serve a second purpose for determining document page ranges in portfolio extractions (TODO Links).
 
 Create extractions
 ----
 
-Extract candidate output for the document using the SenseML configurations in the document type. For the set of configs determined in the previous sets, run the config:
+Extract candidate output for the document using the SenseML configurations in the document type. For the set of configs determined in the previous step, run the config:
 
 **Preprocessors**
 
@@ -67,7 +67,30 @@ Extract candidate output for the document using the SenseML configurations in th
 
 **Fields**
 
-- Extract the fields in the fields array.  Fields can be specified like this:
+- Extract fields in the order in which they're written in the SenseML array.  Sensible adds each field to the output array sequentially after extracting it. You can specify fields, computed fields, and sections as sibling arrays, like this:
+
+  ```
+  {
+   "fields": [],
+   "computed_fields": [],
+   "sections": []
+  }
+  ```
+
+  Or you can use the following alternative syntax:
+
+  ```json
+  {
+      "fields": 
+      [
+          /* include all fields, computed fields, and sections in one array. Add "type": sections` to sections field IDs,
+             otherwise syntax is unchanged. */
+      ]
+      
+  }
+  ```
+
+  These syntax alternatives 
 
 
 
