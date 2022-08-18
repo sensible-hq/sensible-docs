@@ -57,19 +57,19 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
             "type": "regex",
             "pattern": ".+"
           },
-          /* to force the section group to end before "Schedule of Coverages",
-             define the same stop and end, plus a stopOffsetY
+          /* to force the section group to end before "Schedule of coverages",
+             define identical matches for stop and end, plus a stopOffsetY
            */
           "end": {
             "type": "startsWith",
-            "text": "Schedule of Coverages",
+            "text": "Schedule of coverages",
             "isCaseSensitive": true
           },
         },
         "stopOffsetY": -1.0,
         "stop": {
           "type": "startsWith",
-          "text": "Schedule of Coverages",
+          "text": "Schedule of coverages",
           "isCaseSensitive": true
         },
       },
@@ -117,7 +117,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
         "anchor": {
           "match": {
             "type": "startsWith",
-            "text": "Schedule of Coverages",
+            "text": "Schedule of coverages",
             "isCaseSensitive": true
           }
         },
