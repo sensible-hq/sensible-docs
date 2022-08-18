@@ -2,7 +2,7 @@
 title: "Zip"
 hidden: true
 ---
-Zips the folllowing:
+Zips the following:
 
 - zips the output of fields together into an array of objects
 - zips the output of a single Table method into row objects
@@ -16,10 +16,21 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                        | value                                    | description                                                  |
 | :------------------------- | :--------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)          | `zip`                                    |                                                              |
-| source_ids  (**required**) | array of field IDs in the current config | Depending on the intended zip: <br/><br/>- the IDs of the fields to zip together. If you mix array source IDs with one or more table source IDs, the Zip method zips the first table and ignores everything else (tables take precedence over arrays for zipping).<br/><br/>- a single ID for a field that returns a table.<br/><br/>- the IDs of the sections to zip together.<br/><br/> If the output of the source IDs are arrays (for example, if you specify `"match: all"`, or if the source IDs are sections), the Zip method joins them up to their maximum shared length. For example, if you zip arrays that have 4, 5, and 6 elements respectively, the zipped array has 4 elements. |
+| source_ids  (**required**) | array of field IDs in the current config | Depending on the intended zip: <br/><br/>- the IDs of the fields to zip together. If you mix array source IDs with one or more table source IDs, the Zip method zips the first table and ignores everything else (tables take precedence over arrays for zipping).<br/><br/>- a single ID for a field that returns a table.<br/><br/>- the IDs of the sections to zip together. If you mix section source IDS with non-section IDs, the Zip method ignores the non-section IDs and outputs the sections.<br/><br/> If the output of the source IDs are arrays (for example, if you specify `"match: all"`, or if the source IDs are sections), the Zip method joins them up to their maximum shared length. For example, if you zip arrays that have 4, 5, and 6 elements respectively, the zipped array has 4 elements. |
 
 Examples
 ====
+
+Sections zip
+---
+
+For an example of zipping sections together, see TODO 
+
+
+
+Table zip
+----
+
 
 The following example shows using the Zip method to extract each row from a table of vehicles as a vehicle object.
 

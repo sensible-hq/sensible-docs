@@ -4,7 +4,7 @@ hidden: true
 
 ---
 
-TODOS before publish: link to this from section nuances concept topic. - publish 'execution order concepts topic' - link from zip topic
+TODOS before publish: link to this from section nuances concept topic. - publish 'execution order concepts topic' - link from zip topic - spell check code comments
 
 
 
@@ -54,17 +54,22 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
             "isCaseSensitive": true
           },
           "match": {
+            /* Extract each row as a section. The underlying behavior is to 
+              search for non-empty lines with regex ".+", then eliminate overlapping 
+              horizontal sections and empty sections. */
             "type": "regex",
             "pattern": ".+"
           },
           /* to force the section group to end before "Schedule of coverages",
-             define identical matches for stop and end, plus a stopOffsetY
+             define identical matches for end and stop
+             (must define both to force the ".+" regex to end), 
+             plus a stopOffsetY.
            */
           "end": {
             "type": "startsWith",
             "text": "Schedule of coverages",
             "isCaseSensitive": true
-          },
+          }
         },
         "stopOffsetY": -1.0,
         "stop": {
@@ -179,7 +184,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "method": {
         "id": "suppressOutput",
         "source_ids": [
-          "_vehicles",
+          "vehicles",
           "_coverages_per_vehicle"
         ]
       }
