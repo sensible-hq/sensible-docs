@@ -169,3 +169,8 @@ Return the extraction, and other information, to the user as an API response.
 todo: json example
 ```
 
+INCOMING LINKS:
+
+- merge lines preprocessor?
+- zip sections?
+- 
