@@ -7,7 +7,7 @@ hidden: true
 
 This topic gives an overview of the Sensible's extraction engine, including the order of execution for SenseML, for example, preprocessors, fields, computed fields, and sections.
 
-Read text
+1. Read text
 ---
 
 Transform the bytes of the document into raw text. Determine whether the document needs OCR:
@@ -23,7 +23,7 @@ Transform the bytes of the document into raw text. Determine whether the documen
 
 - Return the direct PDF text if possible, and otherwise the OCR output.
 
-Standardize text
+2. Standardize text
 ----
 
 Take the raw text representation (from OCR or directly from the PDF), clean it, and put it in a standard format for Sensible to use.
@@ -40,7 +40,7 @@ Take the raw text representation (from OCR or directly from the PDF), clean it, 
 
   
 
-Filter configurations with fingerprints
+3. Filter configurations with fingerprints
 ----
 
 Reduce the number of configurations that Sensible runs on the document to improve performance. Without fingerprints, Sensible runs every configuration in the document type. With them, Sensible can test if an "ACME_CO_INSURANCE" config should run on an "ACME_quote.pdf" by examining the PDF's standardized text output for key text like "ACME" and "insurance" and filtering out documents that don't contain the key phrases. 
@@ -56,70 +56,70 @@ todo add example fingerprint
 
 Note that fingerprints serve a second purpose for determining document page ranges in portfolio extractions (TODO Links).
 
-Create extractions
+4. Create extractions
 ----
 
-Extract candidate output for the document using the SenseML configurations in the document type. For the set of configs determined in the previous step, run the config:
+Extract candidate output for the document using the SenseML configurations in the document type. For the set of configs determined in the previous step, run the SenseML:
 
 **1. Preprocessors**
 
-- Run any preprocessors (e.g., removeHeaders), in the order in which the user specified them in the SenseML array. Sensible then applies a final global preprocessor to remove repeated whitespaces. 
+Run any preprocessors (e.g., removeHeaders), in the order in which the user specified them in the SenseML array. Sensible then applies a final global preprocessor to remove repeated whitespaces. 
 
 **2. Fields**
 
-- Extract fields in the order in which they're written in the SenseML array.  Sensible adds each field to the output array sequentially after extracting it. You can specify fields, computed fields, and sections as sibling arrays, like this:
+Extract fields in the order in which they're written in the SenseML array.  Sensible adds each field to the output array sequentially after extracting it. You can specify fields, computed fields, and sections as sibling arrays, like this:
 
-  ```
-  {
-   "fields": [],
-   "computed_fields": [],
-   "sections": []
-  }
-  ```
+```
+{
+ "fields": [],
+ "computed_fields": [],
+ "sections": []
+}
+```
 
-  In which case Sensible extracts by default in the following order: 
+In which case Sensible extracts by default in the following order: 
 
-  1. Run fields array.
-  2. Run computed fields, which transform fields output.
-  3. Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
+1. Run fields array.
+2. Run computed fields, which transform fields output.
+3. Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
 
-  4. Return all fields, computed fields, and sections
+4. Return all fields, computed fields, and sections
 
-  
 
-  Or you can use the following alternative syntax to change the order in which to extract fields:
 
-  ```json
-  {
-      "fields": 
-      [
-          /* include all fields, computed fields, and sections in one array. Add "type": "sections" to section group field IDs,
-             otherwise syntax is unchanged. */
-      ]
-      
-  }
-  ```
+Or you can use the following alternative syntax to change the order in which to extract fields:
 
-  This syntax alternative allows you to change execution order. For example if you specify:
+```json
+{
+    "fields": 
+    [
+        /* include all fields, computed fields, and sections in one array. Add "type": "sections" to section group field IDs,
+           otherwise syntax is unchanged. */
+    ]
+    
+}
+```
 
-  
+This syntax alternative allows you to change execution order. For example if you specify:
 
-  ````json
-  {
-      "fields": 
-      [
-         {/* sections_ID_1 */},
-         {/* sections_ID_2 */},
-         {/* zip_computed_field_ID that uses first two sections as sources */}, 
-         {/* suppressOutput_computed_field_ that suppresses first two source sections for cleaner outpu */} 
-      ]
-      
-  }
-  ````
 
-  
 
-   With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.  QUESTION TODO: so if you specified a computed field BEFORE its source fields in the fields array, that would fail too right?  For an example of using this behavior, see TODO LINK sections-example-zip.
+````json
+{
+    "fields": 
+    [
+       {/* sections_ID_1 */},
+       {/* sections_ID_2 */},
+       {/* zip_computed_field_ID that uses first two sections as sources */}, 
+       {/* suppressOutput_computed_field_ that suppresses first two source sections for cleaner outpu */} 
+    ]
+    
+}
+````
+
+
+
+ With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.  QUESTION TODO: so if you specified a computed field BEFORE its source fields in the fields array, that would fail too right?  For an example of using this behavior, see TODO LINK sections-example-zip.
 
 
 
@@ -164,4 +164,8 @@ Return the extraction, and other information, to the user as an API response.
   - Validation summary
   - Classification summary
   - File metadata
+
+```json
+todo: json example
+```
 
