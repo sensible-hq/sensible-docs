@@ -61,11 +61,11 @@ Create extractions
 
 Extract candidate output for the document using the SenseML configurations in the document type. For the set of configs determined in the previous step, run the config:
 
-**Preprocessors**
+**1. Preprocessors**
 
 - Run any preprocessors (e.g., removeHeaders), in the order in which the user specified them in the SenseML array. Sensible then applies a final global preprocessor to remove repeated whitespaces. 
 
-**Fields**
+**2. Fields**
 
 - Extract fields in the order in which they're written in the SenseML array.  Sensible adds each field to the output array sequentially after extracting it. You can specify fields, computed fields, and sections as sibling arrays, like this:
 
@@ -77,34 +77,54 @@ Extract candidate output for the document using the SenseML configurations in th
   }
   ```
 
-  Or you can use the following alternative syntax:
+  In which case Sensible extracts by default in the following order: 
+
+  1. Run fields array.
+  2. Run computed fields, which transform fields output.
+  3. Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
+
+  4. Return all fields, computed fields, and sections
+
+  
+
+  Or you can use the following alternative syntax to change the order in which to extract fields:
 
   ```json
   {
       "fields": 
       [
-          /* include all fields, computed fields, and sections in one array. Add "type": sections` to sections field IDs,
+          /* include all fields, computed fields, and sections in one array. Add "type": "sections" to section group field IDs,
              otherwise syntax is unchanged. */
       ]
       
   }
   ```
 
-  These syntax alternatives 
+  This syntax alternative allows you to change execution order. For example if you specify:
+
+  
+
+  ````json
+  {
+      "fields": 
+      [
+         {/* sections_ID_1 */},
+         {/* sections_ID_2 */},
+         {/* zip_computed_field_ID that uses first two sections as sources */}, 
+         {/* suppressOutput_computed_field_ that suppresses first two source sections for cleaner outpu */} 
+      ]
+      
+  }
+  ````
+
+  
+
+   With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.  QUESTION TODO: so if you specified a computed field BEFORE its source fields in the fields array, that would fail too right?  For an example of using this behavior, see TODO LINK sections-example-zip.
 
 
-
-
-
-
-
-- Run computed fields, which transform fields outputt
-- Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
-
-- Return all fields, computed fields, and sections
 
 ```json
-todo: add a senseML config
+todo: add a senseML config example
 ```
 
 
@@ -112,13 +132,36 @@ todo: add a senseML config
 Score extractions
 ---
 
+Determine the best extraction, which is the one Sensible returns data from.
+
+Score each configuration's extraction based on how much data it found, and its [validations](doc:validate-extractions):
+
+- For each field that returns non-null data, +1 point
+- For each validation error, -1 point.
+- For each validation warning, -0.5 points.
+
+The configuration with the highest score wins
+Summarize the scores for the end user.
+
+```json
+todo: add json example
+```
+
 
 
 
 Return results
 ----
 
+Return the extraction, and other information, to the user as an API response. 
 
+- Use the winning configuration data from the previous step
 
-
+- Package it with extraction metadata:
+  -  Basic metadata (ID, created date, status, document type, environment)
+  - Validation list
+  - Error list
+  - Validation summary
+  - Classification summary
+  - File metadata
 
