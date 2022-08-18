@@ -63,5 +63,7 @@ This syntax alternative allows you to change execution order. For example if you
 
 
 
- With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.  QUESTION TODO: so if you specified a computed field BEFORE its source fields in the fields array, that would fail too right?  For an example of using this behavior, see TODO LINK sections-example-zip.
+ With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.   For an example of using this behavior, see TODO LINK sections-example-zip.
+
+QUESTION TODO: so if you specified a computed field BEFORE its source fields in the fields array, that would fail too right?  (TODO test)
 
