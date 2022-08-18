@@ -24,7 +24,7 @@ Examples
 Sections zip
 ---
 
-For an example of zipping sections together, see TODO 
+For an example of zipping sections together, see TODO Zip sections example](doc:sections-example-zip).
 
 
 
