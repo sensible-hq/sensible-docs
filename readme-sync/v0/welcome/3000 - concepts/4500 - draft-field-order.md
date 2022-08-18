@@ -22,7 +22,10 @@ Default field extraction order
 In which case Sensible extracts by default in the following order: 
 
 1. Run fields array.
-2. Run computed fields, which transform fields output.
+2. Run computed fields, which transform fields output:
+   1. Run all computed fields that aren't Suppress Output methods.
+   2. Run Suppress Output fields.
+
 3. Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
 
 4. Return all fields, computed fields, and sections

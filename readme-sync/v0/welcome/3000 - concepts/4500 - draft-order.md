@@ -67,17 +67,7 @@ Run any preprocessors (e.g., removeHeaders), in the order in which the user spec
 
 **2. Fields**
 
-Extract fields in the order in which they're written in the SenseML array.  Sensible adds each field to the output array sequentially after extracting it. You can specify fields, computed fields, and sections as sibling arrays, like this:
-
-```
-{
- "fields": [],
- "computed_fields": [],
- "sections": []
-}
-```
-
-In which case Sensible extracts by default in the following order: 
+Extract fields in the order in which they're written in the SenseML array.  Sensible adds each field to the output array sequentially after extracting it. The default order is:
 
 1. Run fields array.
 2. Run computed fields, which transform fields output.
