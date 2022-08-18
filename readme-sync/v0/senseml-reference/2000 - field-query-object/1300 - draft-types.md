@@ -6,7 +6,7 @@ hidden: true
 
 Address 
 ====
-Returns USA-based addresses.  By default, Sensible recognizes  single- or multi-line addresses isolated from other lines in "block" format, for example the formatting on a shipping label. For example, `"type":"address"` recognizes address such as:
+Returns USA-based addresses.  By default, Sensible recognizes  single- or multi-line addresses isolated from other lines in "block" format. For example, `"type":"address"` recognizes address such as:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/type_address_block.png)
 
@@ -17,7 +17,7 @@ Use the Block Format parameter to recognize addresses embedded in non-address li
         "block_format": false
       } 
 
-to find text in a paragraph:
+to find addresses in paragraphs:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/type_address_paragraph.png)
 
