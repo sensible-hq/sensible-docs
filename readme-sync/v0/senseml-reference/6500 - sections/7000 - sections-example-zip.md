@@ -176,7 +176,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       }
     },
     /* to clean up output, remove the source
-       sections. illustrates configurable field execution order nuances */
+       section groups. illustrates configurable field execution order nuances */
     {
       "id": "cleanup_raw_source_sections",
       "method": {
