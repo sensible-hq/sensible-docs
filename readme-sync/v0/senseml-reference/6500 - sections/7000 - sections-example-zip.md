@@ -41,7 +41,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
          (last section in group continues to end of doc unless forced)
       */
       "range": {
-        /* avoid including the column headings in the section
+        /* avoid including the column headings as a section
            using offsetY */
         "offsetY": 0.2,
         /* section group starts with 1st column heading in table */
@@ -110,7 +110,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "range": {
         "direction": "vertical",
         /* treat 1st two columns as row labels,
-           output 2nd thru last columns */
+           output 2nd thru last columns as sections */
         "columnSelection": [
           [
             2,
@@ -124,7 +124,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
             "isCaseSensitive": true
           }
         },
-        /* don't include the "schedule of coverages" heading in the section */
+        /* don't include the "schedule of coverages" heading in section group */
         "offsetY": 0.3
       },
       "fields": [
@@ -132,7 +132,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
           /* each vertical section is a table slice determined
              by columnSelection that 
              combines the first two columns with one of the
-             vehicle columns. In each table slice the 2rd
+             vehicle columns. In each table slice, the 2rd
              cell in the row that starts with "bodily injury liability"
              is always the injury premium for that section's vehicle */
           "id": "bodily_liability_premium",
@@ -163,7 +163,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
         }
       ],
     },
-    /* output a zipped section that combines vehicle
+    /* output a zipped section group that combines vehicle
        info with coverage info */
     {
       "id": "zipped_vehicle_description_and_coverages",
@@ -176,7 +176,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       }
     },
     /* to clean up output, remove the source
-       sections. illustrates execution order nuances */
+       sections. illustrates configurable field execution order nuances */
     {
       "id": "cleanup_raw_source_sections",
       "method": {
