@@ -63,6 +63,8 @@ See the following topics:
 
 - Advanced: [Table grid example](doc:sections-example-table-grid)
 
+- Advanced: [Zip sections example](doc:sections-example-zip)
+
 
 Notes
 ===
