@@ -2,7 +2,13 @@
 title: "Checkbox"
 hidden: false
 ---
-Searches for a checkbox next to the anchor and returns a boolean indicating if it is selected or unselected. This method works by default with boxes that have a light background and dark, continuous borders. 
+Searches for a checkbox near to the anchor and returns a boolean indicating if it is selected or unselected. 
+
+Sensible uses one of two data sources, pixels or metadata, to extract selection status:
+
+- If the document is a PDF that contains checkbox metadata, then Sensible preferentially uses the metadata to extract selection status.  
+
+- If there's no metadata, Sensible falls back to pixel recognition. By default Sensible recognizes pixels as checkboxes if they have a light background and dark, continuous borders. The maximum checkbox size supported by default for pixel recognition is a square with sides 0.3 inches long. Sensible returns true if  there are more that 5% darkened pixels within the box, indicating that it contains a selection mark.  Sensible  returns false if the box is empty. 
 
 [**Parameters**](doc:checkbox#parameters)
 [**Examples**](doc:checkbox#examples)
@@ -14,13 +20,13 @@ Parameters
 
 | key               | values                          | description                                                  |
 | ----------------- | ------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `checkbox`                      | The maximum checkbox size supported by default is a square with sides 0.3 inches long. Sensible returns true if  there are more that 5% darkened pixels within the box, indicating that it contains a selection mark. Sensible  returns false if the box is empty. |
-| position          | `left`, `right`                 | Searches horizontally for a checkbox starting at the left or right anchor line boundaries, respectively. Sensible searches horizontally for a maximum of 0.15 inches from the Position point until it finds dark pixels signifying the box border. If more than 0.15 inches of whitespace separate the anchor line's boundaries and the checkbox, then use  the Offset X parameter in combination with the Position parameter to find the box. |
-| offsetX           | number in inches. default: 0    | Searches for checkbox starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. When you define an offset, Sensible expands out in all directions from the point specified to find either 1. the checkbox borders and selection mark 2. solely the selection mark, if you set Width and Height parameters. |
-| offsetY           | number in inches. default: 0    | Searches for box starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page. When you define an offset, Sensible expands out in all directions from the point specified to find either 1. the checkbox borders and selection mark 2. solely the selection mark, if you set Width and Height parameters. |
-| width             | number in inches. default: none | Searches for a selection mark, not box borders, inside a region defined by the Width and Height parameters. Use these parameters for checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders. Specify a region inside the checkbox borders that doesn't touch the borders. |
-| height            | number in inches. default: none | Searches for a selection mark, not box borders, inside a region defined by the Width and Height parameters. Use these parameters for checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders. Specify a region inside the checkbox borders that doesn't touch the borders. |
-| darknessThreshold | number between 1 and 0.         | The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document. |
+| id (**required**) | `checkbox`                      |                                                              |
+| position          | `left`, `right`                 | Searches horizontally for a checkbox starting at the left or right anchor line boundaries and ending at the page margin. <br/> |
+| offsetX           | number in inches. default: 0    | Indicates a point inside the checkbox. Instead of searching horizontally, Sensible  expands the search out in all directions from the point specified to find the checkbox bounding box.<br/><br/> For difficult pixel recognition, for example for large checkboxes or selection marks with no borders,  use the offset parameters in combination with Width and Height parameters to define the selection mark region.<br/> |
+| offsetY           | number in inches. default: 0    | Indicates a point inside the checkbox. Instead of searching horizontally, Sensible  expands the search out in all directions from the point specified to find the checkbox bounding box.<br/><br/>For difficult pixel recognition, for example for large checkboxes or selection marks with no borders,  use the offset parameters in combination with Width and Height parameters to define the selection mark region.<br/> |
+| width             | number in inches. default: none | **For pixel recognition:**  Configure this parameter for pixel recognition of checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders.<br/><br/>The Width and Height parameters define a region in which to find a selection mark. Specify a region inside the checkbox borders that doesn't touch the borders. <br/> |
+| height            | number in inches. default: none | **For pixel recognition:**  Configure this parameter for pixel recognition of checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders.<br/><br/>The Width and Height parameters define a region in which to find a selection mark. Specify a region inside the checkbox borders that doesn't touch the borders. <br/> |
+| darknessThreshold | number between 1 and 0.         | **For pixel recognition:**  The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document.<br/> |
 
 Examples
 ====
@@ -96,7 +102,10 @@ The following image shows the example PDF used with this example config:
 }
 ```
 
+Notes
+---
 
+See also: [Nearest Checkbox method](doc:nearest-checkbox)
 
 
 
