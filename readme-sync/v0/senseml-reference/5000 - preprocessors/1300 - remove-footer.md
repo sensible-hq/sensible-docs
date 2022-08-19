@@ -5,6 +5,11 @@ hidden: false
 
 Ignores repeating elements at the bottoms of pages. These elements are removed from the direct-text extraction of the document.  
 
+Sensible recognizes footers in one of two ways:
+
+
+
+
 To recognize a footer, this preprocessor starts at the bottom of the page and moves up the page, stopping as soon as it finds a nonrepeating element. 
 
 Sensible recognizes these elements as "repeating":
