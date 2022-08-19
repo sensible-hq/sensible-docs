@@ -17,15 +17,15 @@ To give a broad overview using vertical sections for a table grid:
 
 In the preceding image,
 
-1. define a section for each car model.
+1. define sections for car models, including their trims.
 
-2. define a nested vertical section for each car trim.
+2. define nested vertical sections for car trims.
 
 The following abbreviated YML notation to give a brief idea of the more complex SenseML JSON, and shows:
 
-- Using the Offset Y parameter in a vertical section to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
+- Using the Offset Y parameter in vertical sections to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
 - The parent section group, `car_model`, uses an offset to include the heading with car model and year. 
-- The parent section demonstrates that without a Require Stop parameter, Sensible starts the next section on the first repeated instance of `trim` that follows the starting line vertically, but ignores repeats on the same horizontal line as the starting line. The nested section demonstrates the same behavior with the match-all regex `.+` . For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
+- The parent section group demonstrates that without a Require Stop parameter, Sensible starts the next section on the first repeated instance of `trim` that follows the starting line vertically, but ignores repeats on the same horizontal line as the starting line. The nested section group demonstrates the same behavior with the match-all regex `.+` . For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
 - Configuring column recognition in a vertical section with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps in each trim specs column. 
 
 ```yml

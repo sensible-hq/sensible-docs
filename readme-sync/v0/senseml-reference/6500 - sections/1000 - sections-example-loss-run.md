@@ -3,10 +3,10 @@ title: "Claims loss run example"
 hidden: false
 ---
 
-The following example shows extracting repeated fields from a section containing a list of claims:
+The following example shows extracting repeated fields from a section group containing a list of claims:
 
-- It captures Sept and Oct claims by specifying  sections that start with "claim number" and  collection range that starts with "September" and ends with "November".
-- From each section, it excludes intervening text that isn't part of a section but that does repeat (`monthly_number_unprocessed_claims`) using a Stop parameter. Instead, it captures this info outside of sections with  `"match:all"`.
+- It captures Sept and Oct claims by specifying  sections that start with "claim number" and  section group range that starts with "September" and ends with "November".
+- From each section, it excludes intervening text that isn't part of a section but that does repeat (`monthly_number_unprocessed_claims`) using a Stop parameter. Instead, it captures this information outside of sections with  `"match:all"`.
 
 **Config**
 
@@ -44,8 +44,8 @@ The following example shows extracting repeated fields from a section containing
       }
     }
   ],
-  /* get first 2 claims sections in doc.  
-     each claim starts with "claim number" and ends with 
+  /* define a section group that excludes November claims  
+     each claim section starts with "claim number" and ends with 
      "unprocessed claims" */
   "sections": [
     {
