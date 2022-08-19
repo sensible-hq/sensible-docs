@@ -182,7 +182,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "method": {
         "id": "suppressOutput",
         "source_ids": [
-          "vehicles",
+          "_vehicles",
           "_coverages_per_vehicle"
         ]
       }
