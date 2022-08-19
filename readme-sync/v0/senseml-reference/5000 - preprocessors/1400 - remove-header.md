@@ -14,20 +14,22 @@ Sensible recognizes headers in one of two ways:
 Parameters
 ====
 
-| key                 | value               | description                                                  |
-| ------------------- | ------------------- | ------------------------------------------------------------ |
-| type (**required**) | `removeHeader`      | For an example, see the Examples section.                    |
-| startsOnPage        | integer. default: 1 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
+| key                 | value                                               | description                                                  |
+| ------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
+| type (**required**) | `removeHeader`                                      | For an example, see the Examples section.                    |
+| startsOnPage        | integer. default: 1                                 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
+| match               | [Match](doc:match) object or array of Match objects | Bypasses automatic header recognition.<br/>Removes all text on the page above the top boundary of the matched line. |
+| offsetY             | number in inches. default: 0                        | Use with the Match parameter. <br/>Offsets from the top boundary of the matched line to define a new point at which to start text removal. Positive values offset down the page, negative values offset up the page. |
 
 Examples
 ====
 
 The following example shows:
 
-- A repeating header with an incrementing page number. Sensible removes this from the direct text extraction.
+- A repeating header with an incrementing page number. Sensible removes this.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it from the direct text extraction.
-  - Where it overlaps variable text, Sensible treats it as nonrepeating and includes it in the direct text extraction
+  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it.
+  - Where it overlaps variable text, Sensible treats it as nonrepeating and retains it.
 
   
 

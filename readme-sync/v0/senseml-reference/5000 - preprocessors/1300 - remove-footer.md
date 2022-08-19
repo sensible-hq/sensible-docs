@@ -20,7 +20,7 @@ Parameters
 | -------------- | ------ | ------------------------------------------------------------ |
 | type (**required**) | `removeFooter` | For an example, see the Examples section. |
 | startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
-| match | [Match](doc:match) object or array of Match objects | Bypasses automatic footer recogntion.<br/>Removes all text on the page below the bottom boundary of the matched line from the direct-text extraction. |
+| match | [Match](doc:match) object or array of Match objects | Bypasses automatic footer recognition.<br/>Removes all text on the page below the bottom boundary of the matched line. |
 | offsetY | number in inches. default: 0 | Use with the Match parameter. <br/>Offsets from the bottom boundary of the matched line to define a new point at which to start text removal. Positive values offset down the page, negative values offset up the page. |
 
 Examples
