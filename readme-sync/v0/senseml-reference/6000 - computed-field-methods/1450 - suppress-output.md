@@ -11,10 +11,10 @@ Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key                       | value                                    | description                                                 |
-| :------------------------ | :--------------------------------------- | :---------------------------------------------------------- |
-| id (**required**)         | `suppressOutput`                         |                                                             |
-| source_ids (**required**) | array of field ids in the current config | The id of the fields to exclude from the extraction output. |
+| key                       | value                                    | description                                                  |
+| :------------------------ | :--------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)         | `suppressOutput`                         |                                                              |
+| source_ids (**required**) | array of field ids in the current config | The id of the fields to exclude from the extraction output. In advanced use cases, configure [field execution order](doc:field-order) to prevent unintential null output from other computed field methods. |
 
 The following example shows suppressing a raw "driver's name" field and outputting only the computed split field with the last name.
 
