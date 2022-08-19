@@ -9,7 +9,7 @@ Sensible recognizes footers in one of two ways:
 
 - (Default)  Sensible searches for repeated text at the bottom of the page. For more information about automatic footer recognition, see [Notes](doc:remove-footer#notes). 
 
-- (Configurable) To bypass automatic footer recognition, for example to recognize footer text that varies slightly, configure a text match. Sensible removes all text above the top boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match. 
+- (Configurable) To bypass automatic footer recognition, for example to recognize footer text that varies slightly, configure a text match. Sensible removes all text below the bottom boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match. 
 
 
 
@@ -20,8 +20,8 @@ Parameters
 | -------------- | ------ | ------------------------------------------------------------ |
 | type (**required**) | `removeFooter` | For an example, see the Examples section. |
 | startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
-| match | [Match](doc:match) object or array of Match objects | Bypasses automatic footer recogntion.<br/>Removes all text on the page above the top boundary of the matched line from the direct-text extraction. |
-| offsetY | number in inches. default: 0 | Use with the Match parameter. <br/>Offsets from the top boundary of the matched line to define a new point at which to start text removal. Positive values offset down the page, negative values offset up the page. |
+| match | [Match](doc:match) object or array of Match objects | Bypasses automatic footer recogntion.<br/>Removes all text on the page below the bottom boundary of the matched line from the direct-text extraction. |
+| offsetY | number in inches. default: 0 | Use with the Match parameter. <br/>Offsets from the bottom boundary of the matched line to define a new point at which to start text removal. Positive values offset down the page, negative values offset up the page. |
 
 Examples
 ====
