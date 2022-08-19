@@ -1,10 +1,8 @@
 ---
 title: "Advanced: Zip sections"
-hidden: true
+hidden: false
 
 ---
-
-TODOS before publish: link to this from section nuances concept topic. - publish 'execution order concepts topic' - link from zip topic - spell check code comments
 
 
 
@@ -13,9 +11,9 @@ Advanced: Zip table sections
 
 
 
-The following example shows zipping multiple tables together by treating each table as a section.
+The following example shows zipping multiple tables together by treating each table as a section group and each row or column as a section.
 
-As an overview, this example shows creating a  `zipped_vehicle_description_and_coverages` array, where each  object in the array contains information from the vehicles table and limitations table.
+As an overview, this example shows creating a  `zipped_vehicle_description_and_coverages` array, where each  object in the array contains information from the vehicles table and from the limitations table in the following image:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_zip.png)
 
@@ -23,9 +21,9 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
 
  It also illustrates the following sections behavior:
 
-- Splitting tables into sections where each section is a row, agnostic of the text in the table.  For an illustration of this behavior, see [Section nuances](doc:section-nuances#multiple-anchors-in-section).
-- Splitting tables into vertical sections where each vertical section is a column, and treating "label" columns as anchoring data. For an illustration of this behavior, see  [Section nuances](docs/section-nuances#column-selection).
-- Using SenseML execution order to output the zipped sections and suppress the source sections. See [SenseML execution order] TODO link doc:order. 
+- Splitting tables into section group where each section is a row, agnostic of the text in the table.  For an illustration of this behavior, see [Section nuances](doc:section-nuances#multiple-anchors-in-section).
+- Splitting tables into vertical section groups where each vertical section is a column, and treating "label" columns as anchoring data. For an illustration of this behavior, see  [Section nuances](docs/section-nuances#column-selection).
+- Using SenseML execution order to output the zipped sections and suppress the source sections. See [Field extraction order](doc:field-order).
 
 
 

@@ -1,6 +1,6 @@
 ---
 title: "Field extraction order"
-hidden: true
+hidden: false
 ---
 
 **Note:** If you're familiar with Sensible, this advanced topic is for you. 
@@ -19,16 +19,16 @@ Default field extraction order
 }
 ```
 
-In which case Sensible extracts by default in the following order: 
+In this case, Sensible extracts by default in the following order: 
 
 1. Run fields array.
 2. Run computed fields, which transform fields output:
    1. Run all computed fields that aren't Suppress Output methods.
    2. Run Suppress Output fields.
 
-3. Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
+3. Run sections (“documents inside documents”). Sensible cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
 
-4. Return all fields, computed fields, and sections
+4. Return all fields, computed fields, and sections.
 
 Configurable extraction order
 ----
@@ -47,7 +47,7 @@ You can use the following alternative syntax to change the order in which to ext
 }
 ```
 
-This syntax alternative allows you to change execution order. For example if you specify:
+This syntax alternative allows you to change execution order. For example, you can specify:
 
 
 
@@ -58,7 +58,7 @@ This syntax alternative allows you to change execution order. For example if you
        {/* sections_ID_1 */},
        {/* sections_ID_2 */},
        {/* zip_computed_field_ID that uses first two sections as sources */}, 
-       {/* suppressOutput_computed_field_ that suppresses first two source sections for cleaner outpu */} 
+       {/* suppressOutput_computed_field_ that suppresses first two source sections for cleaner output */} 
     ]
     
 }
@@ -66,7 +66,5 @@ This syntax alternative allows you to change execution order. For example if you
 
 
 
- With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.   For an example of using this behavior, see TODO LINK sections-example-zip.
-
-QUESTION TODO: so if you specified a computed field BEFORE its source fields in the fields array, that would fail too right?  (TODO test)
+With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.   For an example of using this behavior, see [Zip sections example](sections-example-zip).
 
