@@ -16,7 +16,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | id (**required**)         | `suppressOutput`                         |                                                              |
 | source_ids (**required**) | array of field ids in the current config | The id of the fields to exclude from the extraction output.<br/> In advanced use cases, configure [field execution order](doc:field-order) to prevent unintential null output from other computed field methods. For an example, see [Zip sections example](doc:sections-example-zip). |
 
-The following example shows suppressing a raw "driver's name" field and outputting the last name. 
+The following example shows suppressing a raw "driver's name" field and outputting the split last name. 
 
 **Config**
 
