@@ -34,7 +34,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
   "fields": [
     {
       "id": "_vehicles",
-      "type": "section",
+      "type": "sections",
       /* to get each row in vehicle table as a section,
          using start and end to define the section group range
          and .+ regex to match all rows as sections
@@ -106,7 +106,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
     },
     {
       "id": "_coverages_per_vehicle",
-      "type": "section",
+      "type": "sections",
       "range": {
         "direction": "vertical",
         /* treat 1st two columns as row labels,
@@ -175,7 +175,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
         ]
       }
     },
-    /* to clean up output, remove the source
+    /* for cleaner output, remove the source
        section groups. illustrates configurable field execution order nuances */
     {
       "id": "cleanup_raw_source_sections",
