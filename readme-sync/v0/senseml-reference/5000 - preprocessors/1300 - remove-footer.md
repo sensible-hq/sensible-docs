@@ -3,13 +3,13 @@ title: "Remove footer"
 hidden: false
 ---
 
-Ignores repeating elements at the bottoms of pages. These elements are removed from the direct-text extraction of the document.  
+Ignores repeating elements at the bottoms of pages.
 
 Sensible recognizes footers in one of two ways:
 
-- (Default)  Sensible searches for repeated text at the bottom of the page. For more information about automatic footer recognition, see [Notes](doc:remove-footer#notes). 
+- (Default)  Sensible searches for repeated text at the bottom of the page. For more information about automatic recognition, see [Notes](doc:remove-footer#notes). 
 
-- (Configurable) To bypass automatic footer recognition, for example to recognize footer text that varies slightly, configure a text match. Sensible removes all text below the bottom boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match. 
+- (Configurable) To bypass automatic recognition, for example to recognize footer text that varies slightly, configure a text match. Sensible removes all text below the bottom boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match. 
 
 
 
@@ -28,10 +28,10 @@ Examples
 
 The following example shows using automatic footer recognition. The example document contains:
 
-- A repeating footer with an incrementing page number. Sensible removes this from the direct text extraction.
+- A repeating footer with an incrementing page number. Sensible removes this.
 - A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it from the direct text extraction.
-  - Where it overlaps variable text, Sensible treats it as nonrepeating and includes it in the direct text extraction
+  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it.
+  - Where it overlaps variable text, Sensible treats it as nonrepeating and retains it.
 
 **Config**
 

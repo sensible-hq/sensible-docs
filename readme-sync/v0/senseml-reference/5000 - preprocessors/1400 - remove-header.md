@@ -3,19 +3,13 @@ title: "Remove header"
 hidden: false
 ---
 
-Ignores repeating elements at the tops of pages. These elements are removed from the direct-text extraction of the document.
+Ignores repeating elements at the tops of pages.
 
-To recognize a header, this preprocessor starts at the top of the page and moves down the page, stopping as soon as it finds a nonrepeating element. 
+Sensible recognizes headers in one of two ways:
 
-Sensible recognizes these elements as "repeating":
+- (Default)  Sensible searches for repeated text at the top of the page. For more information about automatic recognition, see [Notes](doc:remove-header#notes). 
 
-- Elements whose y-extent doesn't overlap with any variable element
-- Positively incrementing page numbers
-
-These elements aren't recognized as "repeating": 
-
-- Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
-- A repeating element that's missing from even one page (for example, from an intentionally blank page). 
+- (Configurable) To bypass automatic recognition, for example to recognize header text that varies slightly, configure a text match. Sensible removes all text above the top boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match 
 
 Parameters
 ====
@@ -90,3 +84,19 @@ The following images show the example PDF used with this example config:
 }
 ```
 
+Notes
+----
+
+**Automatic header recognition**
+
+To recognize a header, this preprocessor starts at the top of the page and moves down the page, stopping as soon as it finds a nonrepeating element. 
+
+Sensible recognizes these elements as "repeating":
+
+- Elements whose y-extent doesn't overlap with any variable element
+- Positively incrementing page numbers
+
+These elements aren't recognized as "repeating": 
+
+- Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
+- A repeating element that's missing from even one page (for example, from an intentionally blank page).
