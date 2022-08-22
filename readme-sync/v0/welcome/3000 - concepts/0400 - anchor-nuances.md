@@ -50,6 +50,11 @@ Versus:
     
 ```
 
+The difference between these two is:
+
+- anchor 1 finds  line B preceded by line A.
+- anchor 2 filters out everything in the document preceding and including line A, then searches for line B. 
+
 To clarify the difference,  consider a simple PDF with the following content:
 
 ```
