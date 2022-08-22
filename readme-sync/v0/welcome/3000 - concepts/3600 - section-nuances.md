@@ -106,7 +106,7 @@ You can handle multiple matches for the range's Match parameter inside a section
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
-For an example of using the default behavior shown in the preceding images, see [Table grid example](doc:sections-example-table-grid).
+For an example of using the default behavior shown in the preceding images, see [Table grid example](doc:sections-example-table-grid) and [Zip sections example](doc:sections-example-zip).
 
 
 
