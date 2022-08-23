@@ -312,20 +312,18 @@ paths:
         Use this endpoint in conjunction with extraction requests to retrieve your results as an Excel spreadsheet.
         To poll extraction status, check the `status` field in the `GET /documents/{id}` endpoint's response.
         When the extraction completes, the returned status is `COMPLETE` and the response includes results in the
-        `parsed_document` field. At that point, you can call this endpoint to get a binary Excel file in response.
+        `parsed_document` field. After that, you can call this endpoint to get a redirect to the
+        download link of the binary Excel file.
       parameters:
         - $ref: '#/components/parameters/id'
       tags:
       - Retrieve extraction
       responses:
-        '200':
-          description: "document extraction to Excel conversion succeeded"
-          content:
+        '308': # todo what's the proper redirect code?
+          description: "document extraction to Excel conversion succeeded, redirects to AWS download URL"
+          # todo: how to describe redirect? poor openapi spport? examples: https://gist.github.com/rpgreen/c127aa4ebbcaa9026be7  https://micronaut-projects.github.io/micronaut-openapi/latest/guide/
             # todo or if it's .xlsx I think it's application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-            application/vnd.ms-excel:
-              schema:
-                type: string
-                format: binary
+
         '401':
           $ref: '#/components/responses/401'
         '400':
