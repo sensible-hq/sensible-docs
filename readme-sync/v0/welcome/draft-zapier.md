@@ -125,6 +125,13 @@ Test the extraction using the **quick extraction** dashboard so you'll have test
 
 TODO screenshots.
 
+ALTERNATE PREREQ
+----
+
+Use the quick extract pane (link) to extract info from an example Geico page: https://github.com/sensible-hq/sensible-configuration-library/blob/main/auto_policy_declaration_pages/geico/geico_sample.pdf 
+
+![image-20220823112424601](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220823112424601.png)
+
 
 
 
