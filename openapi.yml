@@ -319,8 +319,9 @@ paths:
       - Retrieve extraction
       responses:
         '200':
-          description: "JSON to Excel conversion succeeded"
+          description: "document extraction to Excel conversion succeeded"
           content:
+            # todo or if it's .xlsx I think it's application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
             application/vnd.ms-excel:
               schema:
                 type: string
