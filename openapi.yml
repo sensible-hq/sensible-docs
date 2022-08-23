@@ -319,12 +319,12 @@ paths:
       - Retrieve extraction
       responses:
         '200':
+          description: "JSON to Excel conversion succeeded"
           content:
-            application/pdf:
+            application/vnd.ms-excel:
               schema:
                 type: string
                 format: binary
-          description: Returns the extraction.
         '401':
           $ref: '#/components/responses/401'
         '400':
