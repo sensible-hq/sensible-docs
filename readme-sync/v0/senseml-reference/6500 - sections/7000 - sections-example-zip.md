@@ -33,6 +33,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
 {
   "fields": [
     {
+      /* section group for 1st table */  
       "id": "_vehicles",
       "type": "sections",
       /* to get each row in vehicle table as a section,
@@ -105,6 +106,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       ]
     },
     {
+      /* section group for 2nd table */
       "id": "_coverages_per_vehicle",
       "type": "sections",
       "range": {
@@ -124,7 +126,8 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
             "isCaseSensitive": true
           }
         },
-        /* don't include the "schedule of coverages" heading in section group */
+        /* exclude "schedule of coverages" heading from section group 
+           to avoid breaking column recognition */
         "offsetY": 0.3
       },
       "fields": [
