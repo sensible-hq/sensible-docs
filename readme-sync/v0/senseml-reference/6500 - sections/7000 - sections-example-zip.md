@@ -110,7 +110,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "range": {
         "direction": "vertical",
         /* treat 1st two columns as row labels,
-           output 2nd thru last columns as sections */
+           output 3rd thru last columns as sections */
         "columnSelection": [
           [
             2,
