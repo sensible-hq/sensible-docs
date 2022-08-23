@@ -25,9 +25,9 @@ A validation has the following parameters:
 | id                         | value                         | notes                                                        |
 | -------------------------- | ----------------------------- | ------------------------------------------------------------ |
 | description (**required**) | string                        | A description of the test                                    |
-| severity (**required**)    | `error`, `warning`, `skipped` | The severity of the failing test.                           |
+| severity (**required**)    | `error`, `warning`, `skipped` | The severity of the failing test.                            |
 | prerequisite fields        | array                         | Use this parameter to generate `skipped` error messages when optional extracted fields are null. For example, if a missing broker's email address doesn't greatly affect the quality of your extraction, then write a condition to verify `broker.email` is properly formatted, but specify [`"broker\\.email"`]  in this parameter to skip the verification if the email is null. For an example, see Validation 3 in the Examples section. <br/>Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). |
-| condition (**required**)   | JsonLogic operation           | Tests fields in the `parsed_document` API response using Boolean, logic, numeric, array, string, and other operations Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/><br/>`{"exists":[JsonLogic]}`, most commonly used with the JsonLogic `var`  operation to test that an output value isn't null. The  `var` operation retrieves values from the  `parsed_document` object in the extraction using field `id` keys. <br/><br/>`{"match":[JsonLogic,"regex"]}`, where `regex` is a Javascript-flavored regular expression. For example, use a  regex match when you want to test that the output matches a [type](doc:types) that's not supported by Sensible.<br/>Double escape special characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. <br><br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). |
+| condition (**required**)   | JsonLogic operation           | Tests extracted fields using Boolean, logic, numeric, array, string, and other operations. Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with the following Sensible operations:<br/><br/>`{"exists":[JsonLogic]}`, most commonly used with the JsonLogic `var`  operation to test that an output value isn't null. The  `var` operation retrieves extracted field values using field `id` keys. <br/><br/>`{"match":[JsonLogic,"regex"]}`, where `regex` is a Javascript-flavored regular expression. For example, use a  regex match when you want to test that the output matches a [type](doc:types) that's not supported by Sensible.<br/>Double escape special characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. <br><br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). |
 
 Examples
 ====
@@ -92,7 +92,7 @@ Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field e
 Validations output
 ---
 
-The following document extraction excerpt shows validating test data with the preceding conditions: 
+The following extraction excerpt shows validating test data with the preceding conditions: 
 
 - **Validation 3**  Sensible skips the broker email because the prerequisite field  `broker.email` is null
 - **Validation 4**  (zip code) fails because  `zip_code`  is 17 digits
