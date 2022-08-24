@@ -37,7 +37,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "id": "_vehicles",
       "type": "sections",
       /* to get each row in vehicle table as a section,
-         using start and end to define the section group range
+         use start and end to define the section group range
          and .+ regex to match all rows as sections
          (last section in group continues to end of doc unless forced)
       */
