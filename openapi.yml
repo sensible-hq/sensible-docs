@@ -310,7 +310,6 @@ paths:
       summary: Get Excel extraction
       description: >-
         Use this endpoint in conjunction with extraction endpoints to convert your JSON document extraction to an Excel spreadsheet.
-        This endpoint responds with a redirect to the download link of the Excel file.
         Call this endpoint after an extraction completes. For more information about checking extraction status,
         see the `GET /documents/{id}` endpoint.
       parameters:
