@@ -17,13 +17,13 @@ You can define "horizontal" section groups, as shown in the preceding image, or 
 
 **Horizontal sections:**
 
-The following image shows horizontal sections. For more information, see [Section nuances](doc:section-nuances).
+The following image shows horizontal sections. For more information, see the following Parameters section, and see [Section nuances](doc:section-nuances).
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_concept_horizontal.png)
 
 **Vertical sections:**
 
-The following image shows vertical sections. For more information, see [Section nuances](doc:section-nuances).
+The following image shows vertical sections.  For more information, see the following Parameters section, and see [Section nuances](doc:section-nuances).
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_concept_vertical.png)
 
