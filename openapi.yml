@@ -320,10 +320,10 @@ paths:
         '303':
           description: |
             Indicates the extraction successfully converted to an Excel file. This response is a redirect to the AWS download URL for the Excel file.
-            The GET redirect request must not include any headers from the initial request to this endpoint.
             If your client follows the redirect automatically and encounters an error,
-            troubleshoot by extracting the URL from the `Location` header of the redirect
-            and make a new `GET` request to that URL with no headers.
+            troubleshoot by checking if the client included headers from the initial request to this endpoint in the `GET` redirect request.
+            If those headers are present, extract the URL from the `Location` header of the redirect,
+            and make a new `GET` request to that URL that strips out those headers.
           headers:
             Location:
               schema:
