@@ -11,6 +11,22 @@ The following image shows an example of a document containing a group of "claims
 
 For the preceding example, you can configure Sensible to return an `unprocessed_claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, etc. 
 
+
+
+You can define "horizontal" section groups, as shown in the preceding image, or you can define "vertical" section groups (`"direction":"vertical"`, which rely on column layout detection rather than text to define sections. 
+
+**Horizontal sections:**
+
+The following image shows horizontal sections. For more information, see [Section nuances](doc:section-nuances).
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_concept_horizontal.png)
+
+**Vertical sections:**
+
+The following image shows vertical sections. For more information, see [Section nuances](doc:section-nuances).
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_concept_vertical.png)
+
 Parameters
 ====
 
