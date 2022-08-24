@@ -309,23 +309,28 @@ paths:
       operationId: get-excel-extraction
       summary: Get Excel extraction
       description: >-
-        Use this endpoint in conjunction with extraction requests to retrieve your results as an Excel spreadsheet.
-        To poll extraction status, check the `status` field in the `GET /documents/{id}` endpoint's response.
-        When the extraction completes, the returned status is `COMPLETE` and the response includes results in the
-        `parsed_document` field. After that, you can call this endpoint to get a redirect to the
-        download link of the binary Excel file.
+        Use this endpoint in conjunction with extraction endpoints to convert your JSON extraction to an Excel spreadsheet.
+        This endpoint responds with a redirect to the download link of the Excel file.
+        Call this endpoint after an extraction completes. For more information about checking extraction status,
+        see the `GET /documents/{id}` endpoint.
       parameters:
         - $ref: '#/components/parameters/id'
       tags:
       - Retrieve extraction
       responses:
-        '308': # todo what's the proper redirect code?
-          description: "document extraction to Excel conversion succeeded, redirects to AWS download URL for Excel file"
-          # todo: how to describe redirect? poor openapi spport? examples:
-          # https://gist.github.com/rpgreen/c127aa4ebbcaa9026be7
-          # https://micronaut-projects.github.io/micronaut-openapi/latest/guide/
-          #  https://lightrun.com/answers/swagger-api-swagger-ui-redirect-endpoint-returning-a-302-redirect-to-aws-s3---generating-an-auth-problem
-
+        '303':
+          description: |
+            Indicates the document extraction successfully converted to an Excel file. This response is a redirect to the AWS download URL for the Excel file.
+            The GET redirect request must not include any headers from the initial request to this endpoint.
+            If your client follows the redirect automatically and encounters an error,
+            troubleshoot by extracting the URL from the `Location` header of the redirect
+            and make a new `GET` request to that URL with no headers.
+          headers:
+            Location:
+              schema:
+                type: string
+                format: url
+                description: download URL for the Excel file
 
         '401':
           $ref: '#/components/responses/401'
