@@ -13,7 +13,7 @@ For the preceding example, you can configure Sensible to return an `unprocessed_
 
 
 
-You can define "horizontal" section groups, as shown in the preceding image, or you can define "vertical" section groups (`"direction":"vertical"`), which rely on column layout detection rather than text matches to define sections. 
+You can define "horizontal" section groups, as shown in the preceding image, or you can define "vertical" section groups (`"direction":"vertical"`), which use column layout detection rather than text matches to define sections. 
 
 **Horizontal sections:**
 
