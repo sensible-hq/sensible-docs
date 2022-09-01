@@ -45,7 +45,7 @@ The following example shows extracting repeated fields from a section group cont
     }
   ],
   /* define a section group that excludes November claims  
-     each claim section starts with "claim number" and ends with 
+     each claim section starts with "claim number" and ends before 
      "unprocessed claims" */
   "sections": [
     {
@@ -104,6 +104,19 @@ The following example shows extracting repeated fields from a section group cont
           "method": {
             "id": "row",
             "position": "right"
+          }
+        },
+          /* to illustrate section range, print out all text in this section */
+        {
+          "id": "everything_in_this_section",
+          "method": {
+            "id": "documentRange",
+            "includeAnchor": true
+          },
+          "anchor": {
+            "match": {
+              "type": "first"
+            }
           }
         }
       ]
