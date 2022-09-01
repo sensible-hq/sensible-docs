@@ -105,19 +105,6 @@ The following example shows extracting repeated fields from a section group cont
             "id": "row",
             "position": "right"
           }
-        },
-          /* to illustrate section range, print out all text in this section */
-        {
-          "id": "everything_in_this_section",
-          "method": {
-            "id": "documentRange",
-            "includeAnchor": true
-          },
-          "anchor": {
-            "match": {
-              "type": "first"
-            }
-          }
         }
       ]
     }

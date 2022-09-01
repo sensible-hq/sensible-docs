@@ -52,6 +52,7 @@ Returns US dollar numbers. Supports negative numbers represented either with par
 Recognizes digits in USA decimal notation (for example, 1,500.06):
 
 - digits are in the format recognized by the [Number](doc:types#number) type
+- digits are optionally preceded or succeeded by a negative sign (-) 
 - digits are optionally preceded by a USA dollar sign ($) 
 
 Examples: 
@@ -59,6 +60,7 @@ Examples:
 ```
 56,999
 -$527.01
+$527.01-
 (1,000)
 ($400.567)
 ```
