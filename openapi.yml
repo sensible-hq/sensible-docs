@@ -317,13 +317,17 @@ paths:
       tags:
       - Retrieve extraction
       responses:
-        '303':
+        '200':
           description: |
-            Indicates the extraction successfully converted to an Excel file. This response is a redirect to the AWS download URL for the Excel file.
-            If your client follows the redirect automatically and encounters an error,
-            troubleshoot by checking if the client included headers from the initial request to this endpoint in the `GET` redirect request.
-            If those headers are present, you can extract the URL from the `Location` header of the redirect,
-            and make a new `GET` request to that URL that strips out those headers.
+            Indicates the extraction successfully converted to an Excel file. This response contains the download URL for the Excel file.
+          content:
+            application/json:
+              schema:
+                properties:
+                  url:
+                    type: string
+                    format: url
+                    description: The download URL for the Excel file
           headers:
             Location:
               schema:
