@@ -315,7 +315,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/id'
       tags:
-      - Retrieve extraction
+      - Get Excel from PDF
       responses:
         '200':
           description: |
