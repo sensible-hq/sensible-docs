@@ -328,12 +328,6 @@ paths:
                     type: string
                     format: url
                     description: The download URL for the Excel file
-          headers:
-            Location:
-              schema:
-                type: string
-                format: url
-                description: download URL for the Excel file
 
         '401':
           $ref: '#/components/responses/401'
