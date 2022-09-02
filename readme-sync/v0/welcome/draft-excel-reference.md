@@ -3,25 +3,19 @@ title: "excel reference"
 hidden: true
 ---
 
-DEMO IFRAME:
+This topic describes how Sensible converts JSON document extractions to Excel sheets.
 
 
 
-[block:html]
-{
-  "html": "<div>\n  <iframe width=\"800\" height=\"200\" scrolling=\"auto\"  src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTKF1zRWnckY3ujq0I7treACgOtSmUuhTDdbzoD7FY3LdMFTYYvK409nLb1MjtT_KOSWj2i6DxZPP90/pubhtml?widget=true&amp;headers=false\"></iframe>\n</div>\n"
-}
-[/block]
+Example
+====
+
+For the 
 
 
-QUESTIONS:
 
-- how does a whole stringified row (no tiebreaker) or column get handled?
-- how about the arrays from https://docs.sensible.so/docs/pick-values ? 
-- how about https://docs.sensible.so/docs/key-value ? (I don't know what it outputs, single value?)
-- how about handling the zipped output of table methods into row objects? https://docs.sensible.so/docs/zip 
 
-How does the data convert from the JSON extraction to excel sheets?
+
 
 simple fields
 ====
