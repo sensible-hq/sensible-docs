@@ -287,7 +287,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/id'
       tags:
-      - Document
+      - Retrieve extraction
       responses:
         '200':
           content:
@@ -304,6 +304,45 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
+  /documents/generate_excel/{id}:
+    get:
+      operationId: get-excel-extraction
+      summary: Get Excel extraction
+      description: >-
+        Use this endpoint in conjunction with extraction endpoints to convert your JSON document extraction to an Excel spreadsheet.
+        Call this endpoint after an extraction completes. For more information about checking extraction status,
+        see the `GET /documents/{id}` endpoint.
+      parameters:
+        - $ref: '#/components/parameters/id'
+      tags:
+      - Retrieve extraction
+      responses:
+        '200':
+          description: |
+            Indicates the extraction successfully converted to an Excel file. This response contains the download URL for the Excel file.
+          content:
+            application/json:
+              schema:
+                properties:
+                  url:
+                    type: string
+                    format: url
+                    description: The download URL for the Excel file
+          headers:
+            Location:
+              schema:
+                type: string
+                format: url
+                description: download URL for the Excel file
+
+        '401':
+          $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
 
 
 components:
