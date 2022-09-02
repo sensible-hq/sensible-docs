@@ -309,8 +309,8 @@ paths:
       operationId: get-excel-extraction
       summary: Get Excel extraction
       description: >-
-        Use this endpoint in conjunction with extraction endpoints to convert your JSON document extraction to an Excel spreadsheet.
-        You can use endpoint to get Excel files from JPEG and PNG documents as well from PDF documents.
+        You can use this endpoint to get Excel files PDF documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
+        This endpoint also works with JPEG and PNG documents.
         Call this endpoint after an extraction completes. For more information about checking extraction status,
         see the `GET /documents/{id}` endpoint.
       parameters:
