@@ -1,11 +1,11 @@
 ---
-title: "Excel quickstart"
+title: "PDF to Excel quickstart"
 hidden: true
 ---
 
 
 
-If you're trying to convert a PDF into an Excel spreadsheet, you'll often find tools that simply visually map the PDF layout onto a spreadsheet, with no meaningful relationship to the underlying cells. In contrast, Sensible structures document data into meaningfully labeled column/row pairs and linked sheets, so you can represent document tables, checkboxes, paragraphs, and even complex repeating section layouts in spreadsheets.
+If you're trying to convert a PDF into an Excel spreadsheet, you'll often find tools that simply visually map the PDF layout onto a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. In contrast, Sensible structures document data into meaningfully labeled column/row pairs and linked sheets, so you can convert document tables, checkboxes, paragraphs, and even complex repeating section layouts into spreadsheets.
 
 In this quickstart, convert an example tax form to a spreadsheet using an existing SenseML configuration. 
 
@@ -52,7 +52,7 @@ Next
 ----
 
 - For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](doc:excel-reference).
-- 
+- See the [Getting started guide](doc:getting-started) to learn how to extract from your custom documents or tweak Sensible's [open-source configuration library](https://app.sensible.so/library/).
 
 
 
