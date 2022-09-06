@@ -3,15 +3,13 @@ title: "excel reference"
 hidden: true
 ---
 
-This topic describes how Sensible converts JSON document extractions to Excel sheets.
+This topic describes how Sensible converts documents such as PDFs into Excel sheets. To get Excel output structured as labeled columns, Sensible transforms its JSON API extraction output using the following rules:
 
 
 
-As a brief overview, Sensible converts:
+- "simple" fields that output single values, output into column label/value pairs in a `fields` sheet. Like this:
 
-- "simple" fields that output single values all output into column label/value pairs in a `fields` sheet. Like this:
-
-  ![image-20220523133444762](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220523133444762.png)
+  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false"></iframe>
 
 - fields with array output get handled a few different ways:
 
@@ -127,3 +125,4 @@ TODO: iframes or just links??
 [Box](docs:box)
 
 <iframe here>
+
