@@ -3,12 +3,19 @@ title: "excel examples"
 hidden: true
 ---
 
-This topic describes how Sensible converts documents such as PDFs into Excel sheets. To get output from a document structured as an Excel file with labeled columns, you must first:
+This topic describes how Sensible converts documents such as PDFs into Excel spreadsheets. To get output from a document structured as a spreadsheet with labeled columns, you must first:
 
 - Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](app.sensible.com/library). TODO UPDATE LINK. 
-- Run an extraction on a target document that belongs to your document type using the [Sensible app](app.sensible.com/quick-extract) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download an Excel file of the extraction results.
+- Run an extraction on a target document that belongs to your document type using the [Sensible app](app.sensible.com/quick-extract) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download a spreadsheet of the extraction results.
 
 Sensible transforms its JSON API extraction output using the following rules:
+
+- Each document transforms into one Excel file. In the file;
+- the `fields` sheet lists each piece of document data that can be represented as a single cell value. For example, an extracted total monthly mortgage dollar amount.
+- `<field_id>` sheets hold more complex pieces of document data. For example, an extracted table.
+- `<field_id>.<index>` sheets hold complex repeating document data. For example, an extracted claims loss run.
+
+For more information, see the following sections.
 
 `fields` sheet
 ====
@@ -19,11 +26,12 @@ The `fields` sheet lists fields and their values as key-value dictionary, with t
 
 - outputs a predictably short array of values that can easily be stringified in a single cell. Typically this is the result of a [Type](doc:types) configuration, for example, the [Name](doc:types#name) type always outputs an array.
 
-**Example** 
+Example
+-----
 
 Sensible converts the JSON extraction output from the [auto_insurance_anyco](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started guide](doc:getting-started) to the following spreadsheet:
 
-
+**Spreadsheet output**
 
 [block:html]
 {
@@ -33,7 +41,20 @@ Sensible converts the JSON extraction output from the [auto_insurance_anyco](htt
 
 
 
-The following JSON extraction output is the source for this spreadsheet:
+**Example document**
+
+The preceding spreadsheet contains data from the following example document:
+
+| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Example configuration**
+
+See the [Getting started guide](doc:getting-started)  for the SenseML configuration for this example.
+
+**JSON output**
+
+The following JSON document extraction output is the source for this spreadsheet:
 
   ```json
   {
@@ -69,12 +90,13 @@ The following JSON extraction output is the source for this spreadsheet:
 
 Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a field to this sheet if the field outputs multiple values. For example: 
 
-- the Table methods, [sections](doc:sections), and other methods that output nested JSON objects. For more information about sections output, see the following section.
+- the Table methods, invoices, and other methods that output nested JSON objects.
 - methods that output arrays of unpredictable length, for example, fields with `"match":"all"` configured.
 
-**Examples**
+Example
+-----
 
-Sensible converts the JSON output from the [example PDF]() listed in the [Table](doc:table) method to the following spreadsheet:
+Sensible converts the example JSON output from the [example PDF](TODO) described in the [Table](doc:table#examples) method to the following spreadsheet:
 
 [block:html]
 {
@@ -84,7 +106,22 @@ Sensible converts the JSON output from the [example PDF]() listed in the [Table]
 
 The preceding example shows that the `fields` sheet lists the corresponding sheets for fields that have complex output.  In this case, you must click on the `agile_risks_table_updates_monthly` sheet to view the table output.
 
+**Example document**
 
+The preceding spreadsheet contains data from the following example document: 
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+
+
+**Example configuration**
+
+See the [Table method](doc:table#examples)  for the SenseML configuration for this example.
+
+
+
+**JSON output**
 
 The following JSON extraction output is the source for this spreadsheet:
 
@@ -136,59 +173,8 @@ The following JSON extraction output is the source for this spreadsheet:
 
 
 
+`<field_id>.<index>` sheets
+====
 
-
-
-
-- sections sheets - Sections have the same patterns as previously mentioned methods, with indexes to handle repeating output. For example, a sheet name can be: `section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
-
-
-
-Simple extracted values
----
-
-Fields with a single value convert to a "fields" sheet.  For example, Sensible outputs these fields from [Getting started](doc:getting-started)
-
-```json
-{
-  "fields": [
-    {
-      "id": "policy_period",
-      "anchor": "policy period",
-      "method": {
-        "id": "label",
-        "position": "right"
-      }
-    },
-    {
-      "id": "comprehensive_premium",
-      "anchor": "comprehensive",
-      "type": "currency",
-      "method": {
-        "id": "row",
-        "tiebreaker": "second"
-      }
-    }
- }      
-```
-
- to the following CSV:
-
-![image-20220614102120649](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220614102120649.png)
-
-Examples of methods that output single-value output include the following methods where match-all or other array params are disabled:
-
-
-
-|      |      |      |
-| ---- | ---- | ---- |
-|      |      |      |
-|      |      |      |
-|      |      |      |
-|      |      |      |
-|      |      |      |
-|      |      |      |
-|      |      |      |
-|      |      |      |
-|      |      |      |
+Sensible uses [Sections](doc:sections) often have complex output. Sections output spreadsheets using the same rules previously described in this topic.  In addition, sections use indices in sheet names handle repeating output. For example, a sheet name can be: `section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
 
