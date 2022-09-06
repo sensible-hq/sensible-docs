@@ -3,18 +3,70 @@ title: "excel examples"
 hidden: true
 ---
 
-The following topic describes how Sensible converts extracted document data to CSV or spreadsheet format. The general principles are:
+This topic describes how Sensible converts documents such as PDFs into Excel sheets. To get output from a document structured as an Excel file with labeled columns, you must first:
 
-- `fields` sheet - a sheet that lists fields as key-value dictionary, with the field id as the column heading and value as the row. Eg Box, Label, etc. Fields go here if it:
-  
-  - has a  single `value` parameter (link in doc to example)
-  - has short stringified array output
-  - **Example:** The converts to the following Excel sheet:
-  -   <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false"></iframe>
-- `<field_id>` sheet - If  a field has complex or long output, e.g. Table or an array from `"match":"all"` it gets its own sheet:
-  
-  - output is a table (link to doc examples)
-  - output is an array
+- Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](app.sensible.com/library). TODO UPDATE LINK. 
+- Run an extraction on a target document that belongs to your document type using the [Sensible app](app.sensible.com/quick-extract) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download an Excel file of the extraction results.
+
+Sensible transforms its JSON API extraction output using the following rules:
+
+`fields` sheet
+====
+
+The `fields` sheet lists fields and their values as key-value dictionary, with the field ID as the column heading and value as the row. Sensible outputs a field to this sheet if the field:
+
+- outputs a single `value`. For example, the [Box](doc:box), [Label](doc:label), [Row](doc:row) and [Region](doc:region) methods each output a single value.
+
+- outputs a predictably short array of values that can easily be stringified in a single cell. Typically this is the result of a [Type](doc:types) configuration, for example, the [Name](doc:types#name) type always outputs an array.
+
+**Example** 
+
+Sensible converts the following extraction output from the [auto_insurance_anyco](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started guide](doc:getting-started):
+
+  ```json
+  {
+    "policy_period": {
+      "type": "string",
+      "value": "April 14, 2021 - Oct 14, 2021"
+    },
+    "comprehensive_premium": {
+      "source": "$150",
+      "value": 150,
+      "unit": "$",
+      "type": "currency"
+    },
+    "property_liability_premium": {
+      "source": "$10",
+      "value": 10,
+      "unit": "$",
+      "type": "currency"
+    },
+    "policy_number": {
+      "value": "123456789",
+      "type": "string"
+    }
+  }
+  ```
+
+
+to the  following Excel sheet:
+
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false"></iframe>
+
+`<field_id>` sheets
+====
+
+Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a field to this sheet if the field outputs multiple values. For example: 
+
+- the Table methods, [sections](doc:sections), and other methods that output nested JSON objects 
+- methods that output arrays of unpredictable length, for example, fields with `"match":"all"` configured.
+
+**Examples**
+
+
+
+
+
 - sections sheets - Sections have the same patterns as previously mentioned methods, with indexes to handle repeating output. For example, a sheet name can be: `section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
 
 
