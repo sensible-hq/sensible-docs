@@ -41,7 +41,7 @@ Convert document data to Excel spreadsheet
 
 [block:html]
 {
-  "html": "<div>  <iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vQZEvCIXgC5QbJ5-XnV61GjyVSJsdLbLqogiS9b1HIz4T0DwbcfEDsSseHuE1sfzjliKlBWTkbm9ITI/pubhtml?widget=true&amp;headers=false\" width=\"800\"  </iframe></div>\n\n<style></style>"
+  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vQZEvCIXgC5QbJ5-XnV61GjyVSJsdLbLqogiS9b1HIz4T0DwbcfEDsSseHuE1sfzjliKlBWTkbm9ITI/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style></style>"
 }
 [/block]
 
