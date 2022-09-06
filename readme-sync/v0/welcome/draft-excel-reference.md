@@ -63,7 +63,12 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 
 **Examples**
 
+Sensible converts the following output from the [example PDF]() listed in the [Table](doc:table) method:
 
+```json
+```
+
+To the following Excel output:
 
 
 
