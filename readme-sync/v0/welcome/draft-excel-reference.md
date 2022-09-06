@@ -14,6 +14,7 @@ Sensible transforms its JSON API extraction output using the following rules:
 - the `fields` sheet lists each piece of document data that can be represented as a single cell value. For example, an extracted total monthly mortgage dollar amount.
 - `<field_id>` sheets hold more complex pieces of document data. For example, an extracted table.
 - `<field_id>.<index>` sheets hold complex repeating document data. For example, an extracted claims loss run.
+- TBD TODO: invoices?
 
 For more information, see the following sections.
 
@@ -176,5 +177,19 @@ The following JSON extraction output is the source for this spreadsheet:
 `<field_id>.<index>` sheets
 ====
 
-Sensible uses [Sections](doc:sections) often have complex output. Sections output spreadsheets using the same rules previously described in this topic.  In addition, sections use indices in sheet names handle repeating output. For example, a sheet name can be: `section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
+Each  `<field_id>.<index>` sheet lists the output of a single field that contains complex repeating data. This is the case for [Sections](doc:sections) output.
+
+
+
+
+
+
+
+`section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
+
+
+invoices
+====
+
+
 
