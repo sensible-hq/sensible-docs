@@ -66,9 +66,56 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 Sensible converts the following output from the [example PDF]() listed in the [Table](doc:table) method:
 
 ```json
+{
+  "agile_risks_table_updates_monthly": {
+    "columns": [
+      {
+        "id": "col1_risk_description",
+        "values": [
+          {
+            "value": "Poor task point estimation",
+            "type": "string"
+          },
+          {
+            "value": "Poor epic scope definition",
+            "type": "string"
+          },
+          {
+            "value": "Inadequate scrum master training",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "rank_this_month",
+        "values": [
+          {
+            "source": "3",
+            "value": 3,
+            "type": "number"
+          },
+          {
+            "source": "1",
+            "value": 1,
+            "type": "number"
+          },
+          {
+            "source": "2",
+            "value": 2,
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
 To the following Excel output:
+
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false"></iframe>
+
+The preceding example shows that the `fields` sheet refers to sheets containing complex output. In this case, you must click on the `agile_risks_table_updates_monthly` sheet to view the table output.
 
 
 
