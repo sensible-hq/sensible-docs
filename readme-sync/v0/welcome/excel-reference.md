@@ -41,13 +41,13 @@ Sensible converts the JSON extraction output from the [auto_insurance_anyco](htt
 
 
 
-
-
 [block:html]
 {
   "html": "<div>  <iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false\" width=\"800\"  </iframe></div>\n\n<style></style>"
 }
 [/block]
+
+
 
 
 
@@ -110,9 +110,11 @@ Sensible converts the example JSON output from the [example PDF](https://raw.git
 
 [block:html]
 {
-  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false\" width=\"800\" ></iframe></div>\n\n<style></style>"
+  "html": "<div>  <iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false\" width=\"800\"  </iframe></div>\n\n<style></style>"
 }
 [/block]
+
+
 
 The preceding example shows that the `fields` sheet lists the corresponding sheets for fields that have complex output.  In this case, you must click on the `agile_risks_table_updates_monthly` sheet to view the table output.
 
@@ -193,9 +195,11 @@ Example
 
 Sensible converts the example JSON output from the [example PDF](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
 
+
+
 [block:html]
 {
-  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTVfCgSQir-GkJsYrDv3TBlHcuH11YPt9P3CGXp9gHFnrFoopKEVz0wQ2jPhezpiE1uHip08LqO7lmV/pubhtml?widget=true&amp;headers=false\" width=\"800\" ></iframe></div>\n\n<style></style>"
+  "html": "<div>  <iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTVfCgSQir-GkJsYrDv3TBlHcuH11YPt9P3CGXp9gHFnrFoopKEVz0wQ2jPhezpiE1uHip08LqO7lmV/pubhtml?widget=true&amp;headers=false\" width=\"800\"  </iframe></div>\n\n<style></style>"
 }
 [/block]
 

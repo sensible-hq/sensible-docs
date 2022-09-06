@@ -22,7 +22,7 @@ Convert document data to Excel spreadsheet
 
 5. Select **tax_forms / Auto select** from the dropdown in the upper left corner:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/excel_quickstart_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
 
 7. Download the following example tax form. 
 
@@ -33,13 +33,15 @@ Convert document data to Excel spreadsheet
 
 9. Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. Select **Download Excel** to view the document data converted to Excel.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/excel_quickstart_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 
   The following spreadsheet shows the example output:
 
+
+
 [block:html]
 {
-  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vQZEvCIXgC5QbJ5-XnV61GjyVSJsdLbLqogiS9b1HIz4T0DwbcfEDsSseHuE1sfzjliKlBWTkbm9ITI/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style></style>"
+  "html": "<div>  <iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vQZEvCIXgC5QbJ5-XnV61GjyVSJsdLbLqogiS9b1HIz4T0DwbcfEDsSseHuE1sfzjliKlBWTkbm9ITI/pubhtml?widget=true&amp;headers=false\" width=\"800\"  </iframe></div>\n\n<style></style>"
 }
 [/block]
 
@@ -47,7 +49,7 @@ Convert document data to Excel spreadsheet
 
 11. (**Optional**) View the document and its configuration in the Sensible app at https://app.sensible.so/editor/?d=tax_forms&c=1040_2021&g=1040_2021_sample to explore or tweak the SenseML rules for extracting data from this tax form.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/excel_quickstart_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_3.png)
 
 Next
 ----
