@@ -115,7 +115,7 @@ To the following Excel output:
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false"></iframe>
 
-The preceding example shows that the `fields` sheet refers to sheets containing complex output. In this case, you must click on the `agile_risks_table_updates_monthly` sheet to view the table output.
+The preceding example shows that the `fields` sheet lists the corresponding sheets for fields that have complex output.  In this case, you must click on the `agile_risks_table_updates_monthly` sheet to view the table output.
 
 
 
