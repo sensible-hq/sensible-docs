@@ -37,7 +37,6 @@ Convert document data to Excel spreadsheet
 
   The following spreadsheet shows the example output:
 
-
 [block:html]
 {
   "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vQZEvCIXgC5QbJ5-XnV61GjyVSJsdLbLqogiS9b1HIz4T0DwbcfEDsSseHuE1sfzjliKlBWTkbm9ITI/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style></style>"
@@ -47,6 +46,8 @@ Convert document data to Excel spreadsheet
 
 
 11. (**Optional**) View the document and its configuration in the Sensible app at https://app.sensible.so/editor/?d=tax_forms&c=1040_2021&g=1040_2021_sample to explore or tweak the SenseML rules for extracting data from this tax form.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/excel_quickstart_3.png)
 
 Next
 ----
