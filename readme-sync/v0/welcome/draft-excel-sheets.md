@@ -6,9 +6,13 @@ hidden: true
 The following topic describes how Sensible converts extracted document data to CSV or spreadsheet format. The general principles are:
 
 - `fields` sheet - a sheet that lists fields as key-value dictionary, with the field id as the column heading and value as the row. Eg Box, Label, etc. Fields go here if it:
+  
   - has a  single `value` parameter (link in doc to example)
   - has short stringified array output
-- `field_id` sheet - If  a field has complex or long output, e.g. Table or an array from `"match":"all"` it gets its own sheet:
+  - **Example:** The converts to the following Excel sheet:
+  -   <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false"></iframe>
+- `<field_id>` sheet - If  a field has complex or long output, e.g. Table or an array from `"match":"all"` it gets its own sheet:
+  
   - output is a table (link to doc examples)
   - output is an array
 - sections sheets - Sections have the same patterns as previously mentioned methods, with indexes to handle repeating output. For example, a sheet name can be: `section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
