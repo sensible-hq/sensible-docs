@@ -420,7 +420,7 @@ components:
       name: id
       required: true
       in: path
-      description: Unique ID for the extraction, used to retreive the extraction.
+      description: Unique ID for the extraction, used to retrieve the extraction.
       schema:
         $ref: '#/components/schemas/ExtractionId'
     type:
