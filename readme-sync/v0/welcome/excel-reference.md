@@ -10,7 +10,7 @@ This topic describes how Sensible converts documents such as PDFs into Excel spr
 To get output from a document structured as a spreadsheet with labeled columns, you must first:
 
 - Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](https://app.sensible.com/library).   
-- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.com/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download a spreadsheet of the extraction results.
+- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.com/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). You can download a spreadsheet after the extraction completes.
 
 **Overview**
 
@@ -41,7 +41,7 @@ Sensible converts the JSON extraction output from the [auto_insurance_anyco](htt
 
 [block:html]
 {
-  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style></style>"
+  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false\"> <width="600"></iframe></div>\n\n<style></style>"
 }
 [/block]
 
