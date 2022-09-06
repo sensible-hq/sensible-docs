@@ -5,16 +5,15 @@ hidden: true
 
 This topic describes how Sensible converts documents such as PDFs into Excel spreadsheets. To get output from a document structured as a spreadsheet with labeled columns, you must first:
 
-- Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](app.sensible.com/library). TODO UPDATE LINK. 
-- Run an extraction on a target document that belongs to your document type using the [Sensible app](app.sensible.com/quick-extract) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download a spreadsheet of the extraction results.
+- Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](app.sensible.com/library).   
+- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](app.sensible.com/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download a spreadsheet of the extraction results.
 
-Sensible transforms its JSON API extraction output using the following rules:
+Sensible transforms its JSON API extraction output to a spreadsheet using the following rules:
 
-- Each document transforms into one Excel file. In the file;
+- Each document transforms into one Excel file. In the file:
 - the `fields` sheet lists each piece of document data that can be represented as a single cell value. For example, an extracted total monthly mortgage dollar amount.
 - `<field_id>` sheets hold more complex pieces of document data. For example, an extracted table.
 - `<field_id>.<index>` sheets hold complex repeating document data. For example, an extracted claims loss run.
-- TBD TODO: invoices?
 
 For more information, see the following sections.
 
@@ -97,7 +96,7 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 Example
 -----
 
-Sensible converts the example JSON output from the [example PDF](TODO) described in the [Table](doc:table#examples) method to the following spreadsheet:
+Sensible converts the example JSON output from the [example PDF](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [Table](doc:table#examples) method to the following spreadsheet:
 
 [block:html]
 {
@@ -177,15 +176,164 @@ The following JSON extraction output is the source for this spreadsheet:
 `<field_id>.<index>` sheets
 ====
 
-Each  `<field_id>.<index>` sheet lists the output of a single field that contains complex repeating data. This is the case for [Sections](doc:sections) output.
+Each  `<field_id>.<index>` sheet lists the output of a single field that contains complex repeating data, for example,  [Sections](doc:sections) output.
+
+Example
+----
+
+Sensible converts the example JSON output from the [example PDF](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
+
+[block:html]
+{
+  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTVfCgSQir-GkJsYrDv3TBlHcuH11YPt9P3CGXp9gHFnrFoopKEVz0wQ2jPhezpiE1uHip08LqO7lmV/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style></style>"
+}
+[/block]
 
 
 
+The preceding example shows that Sensible outputs nested sections in linked, indexed sheets.
+
+**Example document**
+
+The preceding spreadsheet contains data from the following example document: 
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Example configuration**
+
+See the [Advanced Sections nested table example](doc:sections-example-nested-table) topic for the SenseML configuration for this example.
 
 
 
+**JSON output**
 
-`section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
+The following JSON extraction output is the source for this spreadsheet:
+
+```json
+{
+  "table_columns": [
+    {
+      "employee_category": {
+        "type": "string",
+        "value": "Employees paid \u0000100k"
+      },
+      "employee_benefit": {
+        "value": "100% of salary, max $100k",
+        "type": "string"
+      },
+      "reduction_subtable": {
+        "columns": [
+          {
+            "id": "col1_age",
+            "values": [
+              {
+                "source": "65",
+                "value": 65,
+                "type": "number"
+              },
+              {
+                "source": "70",
+                "value": 70,
+                "type": "number"
+              },
+              {
+                "source": "75",
+                "value": 75,
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "id": "col2_reduction",
+            "values": [
+              {
+                "source": "35%",
+                "value": 35,
+                "type": "percentage"
+              },
+              {
+                "source": "60%",
+                "value": 60,
+                "type": "percentage"
+              },
+              {
+                "source": "75%",
+                "value": 75,
+                "type": "percentage"
+              }
+            ]
+          }
+        ]
+      },
+      "everything_in_this_vertical_section": {
+        "type": "string",
+        "value": "Employees paid \u0000100k  Notes Employee benefit 100% of salary, max $100k  After a 3 month waiting period Common carrier Not included  Benefit reduction Age Reduction   Not adjusted for 65 35%   inflation 70 60%   75 75%   For more details about coverage and benefits, see the following sections."
+      }
+    },
+    {
+      "employee_category": {
+        "type": "string",
+        "value": "All other employees"
+      },
+      "employee_benefit": {
+        "value": "50% of salary, max $50k",
+        "type": "string"
+      },
+      "reduction_subtable": {
+        "columns": [
+          {
+            "id": "col1_age",
+            "values": [
+              {
+                "source": "65",
+                "value": 65,
+                "type": "number"
+              },
+              {
+                "source": "70",
+                "value": 70,
+                "type": "number"
+              },
+              {
+                "source": "75",
+                "value": 75,
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "id": "col2_reduction",
+            "values": [
+              {
+                "source": "35%",
+                "value": 35,
+                "type": "percentage"
+              },
+              {
+                "source": "60%",
+                "value": 60,
+                "type": "percentage"
+              },
+              {
+                "source": "75%",
+                "value": 75,
+                "type": "percentage"
+              }
+            ]
+          }
+        ]
+      },
+      "everything_in_this_vertical_section": {
+        "type": "string",
+        "value": "All other employees Notes Employee benefit  50% of salary, max $50k After a 3 month waiting period Common carrier  Not included Benefit reduction   Age Reduction Not adjusted for   65 35% inflation   70 60%   75 75% For more details about coverage and benefits, see the following sections."
+      }
+    }
+  ]
+}
+```
+
+
 
 
 invoices
