@@ -125,4 +125,46 @@ TODO: iframes or just links??
 [Box](docs:box)
 
 <iframe here>
+TODO convert to table, some have examples, some don't??? 
 
+- Box
+
+- Checkbox
+
+- (document range?? passthrough?)
+
+- Intersection
+
+- Invoice `metadata` output
+
+- Label
+
+- Nearest Checkbox
+
+- Regex
+
+- Region
+
+- Row(?)
+
+- **computed**
+
+- Concatenate
+
+- Constant
+
+- Mapper
+
+- (pick values?)
+
+- Split
+
+  
+
+For more examples, see the following: 
+
+| simple fields    | TODO: use when adding docs to topics                         |                                                              |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| anyco            | https://docs.google.com/spreadsheets/d/1S5W9NO-5W51xxif29Aws6sojBiitONUpb-g4-6ANtaA/edit?usp=sharing | [Getting started][getting-started](doc:getting-started#csv-output) |
+| invoice metadata | https://docs.google.com/spreadsheets/d/1vIiiFGwLYjT6CLx9BHBZdur9PdZ50lY-G3ae2CoPf9w/edit#gid=0 | [Invoice][doc:invoice#csv-output]                            |
+|                  |                                                              |                                                              |

@@ -21,7 +21,19 @@ The `fields` sheet lists fields and their values as key-value dictionary, with t
 
 **Example** 
 
-Sensible converts the following extraction output from the [auto_insurance_anyco](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started guide](doc:getting-started):
+Sensible converts the JSON extraction output from the [auto_insurance_anyco](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started guide](doc:getting-started) to the following spreadsheet:
+
+
+
+[block:html]
+{
+  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style></style>"
+}
+[/block]
+
+
+
+The following JSON extraction output is the source for this spreadsheet:
 
   ```json
   {
@@ -49,9 +61,8 @@ Sensible converts the following extraction output from the [auto_insurance_anyco
   ```
 
 
-to the  following Excel sheet:
 
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false"></iframe>
+
 
 `<field_id>` sheets
 ====
@@ -63,7 +74,19 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 
 **Examples**
 
-Sensible converts the following output from the [example PDF]() listed in the [Table](doc:table) method:
+Sensible converts the JSON output from the [example PDF]() listed in the [Table](doc:table) method to the following spreadsheet:
+
+[block:html]
+{
+  "html": "<div><iframe src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style></style>"
+}
+[/block]
+
+The preceding example shows that the `fields` sheet lists the corresponding sheets for fields that have complex output.  In this case, you must click on the `agile_risks_table_updates_monthly` sheet to view the table output.
+
+
+
+The following JSON extraction output is the source for this spreadsheet:
 
 ```json
 {
@@ -111,11 +134,9 @@ Sensible converts the following output from the [example PDF]() listed in the [T
 }
 ```
 
-To the following Excel output:
 
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false"></iframe>
 
-The preceding example shows that the `fields` sheet lists the corresponding sheets for fields that have complex output.  In this case, you must click on the `agile_risks_table_updates_monthly` sheet to view the table output.
+
 
 
 
@@ -157,53 +178,17 @@ Fields with a single value convert to a "fields" sheet.  For example, Sensible o
 
 Examples of methods that output single-value output include the following methods where match-all or other array params are disabled:
 
-TODO convert to table, some have examples, some don't??? 
 
-- Box
 
-- Checkbox
-
-- (document range?? passthrough?)
-
-- Intersection
-
-- Invoice `metadata` output
-
-- Label
-
-- Nearest Checkbox
-
-- Regex
-
-- Region
-
-- Row(?)
-
-- **computed**
-
-- Concatenate
-
-- Constant
-
-- Mapper
-
-- (pick values?)
-
-- Split
-
-  
-
-For more examples, see the following: 
-
-| simple fields    | TODO: use when adding docs to topics                         |                                                              |
-| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| anyco            | https://docs.google.com/spreadsheets/d/1S5W9NO-5W51xxif29Aws6sojBiitONUpb-g4-6ANtaA/edit?usp=sharing | [Getting started][getting-started](doc:getting-started#csv-output) |
-| invoice metadata | https://docs.google.com/spreadsheets/d/1vIiiFGwLYjT6CLx9BHBZdur9PdZ50lY-G3ae2CoPf9w/edit#gid=0 | [Invoice][doc:invoice#csv-output]                            |
-|                  |                                                              |                                                              |
-|                  |                                                              |                                                              |
-|                  |                                                              |                                                              |
-|                  |                                                              |                                                              |
-|                  |                                                              |                                                              |
-|                  |                                                              |                                                              |
-|                  |                                                              |                                                              |
+|      |      |      |
+| ---- | ---- | ---- |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
 
