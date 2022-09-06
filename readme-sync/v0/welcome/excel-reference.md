@@ -1,12 +1,18 @@
 ---
-title: "excel examples"
+title: "SenseML to spreadsheet reference"
 hidden: true
 ---
 
-This topic describes how Sensible converts documents such as PDFs into Excel spreadsheets. To get output from a document structured as a spreadsheet with labeled columns, you must first:
+This topic describes how Sensible converts documents such as PDFs into Excel spreadsheets. 
 
-- Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](app.sensible.com/library).   
-- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](app.sensible.com/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download a spreadsheet of the extraction results.
+**Prerequisites**
+
+To get output from a document structured as a spreadsheet with labeled columns, you must first:
+
+- Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](https://app.sensible.com/library).   
+- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.com/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download a spreadsheet of the extraction results.
+
+**Overview**
 
 Sensible transforms its JSON API extraction output to a spreadsheet using the following rules:
 
