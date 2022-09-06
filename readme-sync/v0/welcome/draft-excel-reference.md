@@ -1,128 +1,157 @@
 ---
-title: "excel reference"
+title: "excel examples"
 hidden: true
 ---
 
-This topic describes how Sensible converts documents such as PDFs into Excel sheets. To get Excel output structured as labeled columns, Sensible transforms its JSON API extraction output using the following rules:
+This topic describes how Sensible converts documents such as PDFs into Excel sheets. To get output from a document structured as an Excel file with labeled columns, you must first:
 
+- Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](app.sensible.com/library). TODO UPDATE LINK. 
+- Run an extraction on a target document that belongs to your document type using the [Sensible app](app.sensible.com/quick-extract) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Both these options then allow you to download an Excel file of the extraction results.
 
+Sensible transforms its JSON API extraction output using the following rules:
 
-- "simple" fields that output single values, output into column label/value pairs in a `fields` sheet. Like this:
-
-  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false"></iframe>
-
-- fields with array output get handled a few different ways:
-
-  - For fields configured with a  type that *always* output an array, for example a field with `"type": "name"` specified, the output turns into a stringifed array in the `fields` sheet. Like this:
-    ![image-20220523133956948](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220523133956948.png)
-
-  - A field with `"match":"all` configured gets its own sheet. For example a `covered_cars`  field with  `"match":"all`  gets a `covered_car` sheet that lists all the cars found. Liked this (IMAGE)
-  
-- Fields that output objects with nested structures get their own sheets. For example, tables and sections. 
-
-- Invoices are a special case. Sensible outputs one Excel file per invoice. (TODO verify)
-
-Examples
+`fields` sheet
 ====
 
-The following example document and extraction:
+The `fields` sheet lists fields and their values as key-value dictionary, with the field ID as the column heading and value as the row. Sensible outputs a field to this sheet if the field:
 
+- outputs a single `value`. For example, the [Box](doc:box), [Label](doc:label), [Row](doc:row) and [Region](doc:region) methods each output a single value.
 
+- outputs a predictably short array of values that can easily be stringified in a single cell. Typically this is the result of a [Type](doc:types) configuration, for example, the [Name](doc:types#name) type always outputs an array.
 
-- simple fields
-- table
-- section + fields array
-- nested sections
+**Example** 
 
+Sensible converts the following extraction output from the [auto_insurance_anyco](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started guide](doc:getting-started):
 
-
-
-
-
-
-
-simple fields
-====
-
-
-- "simple" fields with no nested info structures, like labels, boxes, regions, etc, convert to a "fields" sheet like this:
-
-
-
-**notes**
-
-- Any extra information except the value gets stripped out.  For example, a field like this:
-
-``` json
+  ```json
   {
-      "id": "total_percentage_sold",
-   "source": "20.5%",
-      "value": 20.5,
-      "type": "percentage"
+    "policy_period": {
+      "type": "string",
+      "value": "April 14, 2021 - Oct 14, 2021"
+    },
+    "comprehensive_premium": {
+      "source": "$150",
+      "value": 150,
+      "unit": "$",
+      "type": "currency"
+    },
+    "property_liability_premium": {
+      "source": "$10",
+      "value": 10,
+      "unit": "$",
+      "type": "currency"
+    },
+    "policy_number": {
+      "value": "123456789",
+      "type": "string"
     }
-```
-
-Would get output in the excel/csv sheet simply as:
-
-```csv
-total_percentage_sold	20.5
-```
+  }
+  ```
 
 
+to the  following Excel sheet:
 
-- Arrays get handled in a variety of ways:
-  - For types that *always* output an array, for example the name type, the output turns into a stringifed array.  For example, this output:
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false"></iframe>
+
+`<field_id>` sheets
+====
+
+Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a field to this sheet if the field outputs multiple values. For example: 
+
+- the Table methods, [sections](doc:sections), and other methods that output nested JSON objects. For more information about sections output, see the following section.
+- methods that output arrays of unpredictable length, for example, fields with `"match":"all"` configured.
+
+**Examples**
 
 
+
+
+
+- sections sheets - Sections have the same patterns as previously mentioned methods, with indexes to handle repeating output. For example, a sheet name can be: `section_group_id.*section_index*.child_group_id.*child_index*.field_id` 
+
+
+
+Simple extracted values
+---
+
+Fields with a single value convert to a "fields" sheet.  For example, Sensible outputs these fields from [Getting started](doc:getting-started)
 
 ```json
 {
-"source": "Richard & Ann Spangenberg",
-  "type": "name",
-  "value": [
-      "RICHARD SPANGENBERG",
-      "ANN SPANGENBERG"
-}
-
+  "fields": [
+    {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
+    },
+    {
+      "id": "comprehensive_premium",
+      "anchor": "comprehensive",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    }
+ }      
 ```
 
-turns into (TODO: make it RICHARD SPANGENBERG, ANN SPANGENBERG:
+ to the following CSV:
 
-![image-20220523133956948](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220523133956948.png)
+![image-20220614102120649](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220614102120649.png)
 
-- For fields that output an array as a result of `"match":"all"`, each field gets its own sheet (TODO: example/verify)
+Examples of methods that output single-value output include the following methods where match-all or other array params are disabled:
 
-Tables 
-===
+TODO convert to table, some have examples, some don't??? 
 
-Each table gets its own CSV or Excel sheet.
+- Box
 
-Invoice
-====
+- Checkbox
 
-Since sensible expects one invoice per PDF, each invoice gets its own Excel document with no other sheets, or 1 CSV with no other CSVs.
+- (document range?? passthrough?)
 
-Sections
-===
+- Intersection
 
-Sections are output as:
+- Invoice `metadata` output
 
-- a fields sheet/csv for all the 'simple fields'
-- each table or other complex field gets its own sheet/csv
+- Label
 
-**EXAMPLES**
+- Nearest Checkbox
 
-**Simple fields output**
+- Regex
 
-TODO: iframes or just links?? 
+- Region
 
-[Row](docs:row)
+- Row(?)
 
-<iframe here>
+- **computed**
 
-</iframe>
+- Concatenate
 
-[Box](docs:box)
+- Constant
 
-<iframe here>
+- Mapper
+
+- (pick values?)
+
+- Split
+
+  
+
+For more examples, see the following: 
+
+| simple fields    | TODO: use when adding docs to topics                         |                                                              |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| anyco            | https://docs.google.com/spreadsheets/d/1S5W9NO-5W51xxif29Aws6sojBiitONUpb-g4-6ANtaA/edit?usp=sharing | [Getting started][getting-started](doc:getting-started#csv-output) |
+| invoice metadata | https://docs.google.com/spreadsheets/d/1vIiiFGwLYjT6CLx9BHBZdur9PdZ50lY-G3ae2CoPf9w/edit#gid=0 | [Invoice][doc:invoice#csv-output]                            |
+|                  |                                                              |                                                              |
+|                  |                                                              |                                                              |
+|                  |                                                              |                                                              |
+|                  |                                                              |                                                              |
+|                  |                                                              |                                                              |
+|                  |                                                              |                                                              |
+|                  |                                                              |                                                              |
 
