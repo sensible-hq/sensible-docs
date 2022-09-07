@@ -26,7 +26,7 @@ For more information, see the following sections.
 `fields` sheet
 ====
 
-The `fields` sheet lists fields and their values as key-value dictionary, with the field ID as the column heading and value as the row. Sensible outputs a field to this sheet if the field:
+The `fields` sheet lists fields and their values as key-value dictionaries, with the field ID as the column heading and value as the row. Sensible outputs a field to this sheet if the field:
 
 - outputs a single `value`. For example, the [Box](doc:box), [Label](doc:label), [Row](doc:row) and [Region](doc:region) methods each output a single value.
 
@@ -114,7 +114,7 @@ Sensible converts the example JSON output from the [example PDF](https://raw.git
 
 [block:html]
 {
-  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style>.spreadsheet{width:100%;}</style>"
+  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style>.spreadsheet{width:100%;}</style>"
 }
 [/block]
 
