@@ -3,7 +3,7 @@ title: "SenseML to spreadsheet reference"
 hidden: false
 ---
 
-This topic describes how Sensible converts documents such as PDFs into Excel spreadsheets. 
+This topic describes the rules Sensible uses to transform documents such as PDFs into Excel spreadsheets. These rules are based on the SenseML configuration you use to extract data from the document.
 
 **Prerequisites**
 
