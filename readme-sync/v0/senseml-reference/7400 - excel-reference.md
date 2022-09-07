@@ -1,6 +1,6 @@
 ---
 title: "SenseML to spreadsheet reference"
-hidden: true
+hidden: false
 ---
 
 This topic describes how Sensible converts documents such as PDFs into Excel spreadsheets. 
