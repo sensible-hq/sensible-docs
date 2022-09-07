@@ -1,5 +1,5 @@
 ---
-title: "Quickstart: PDF to Excel"
+title: "Quickstart PDF to Excel"
 hidden: false
 ---
 
