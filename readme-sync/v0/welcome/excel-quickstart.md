@@ -14,7 +14,7 @@ Convert document data to Excel spreadsheet
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
 
-2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this quickstart, select **Tax forms**.
+2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
 
 3. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
 

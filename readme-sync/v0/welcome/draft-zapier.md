@@ -4,13 +4,13 @@ hidden: true
 
 ---
 
-TODO: rewrite for preexisting geico example???  C:\Users\franc\Documents\GitHub\sensible-configuration-library\auto_policy_declaration_pages\geico
-
-
-
-Getting your document data into a variety of destinations is easy  with Sensible's Zapier integration. This tutorial describes getting data from an example document into the Airtable database from Sensible using Zapier. 
+Getting your document data into a variety of destinations is easy  with Sensible's Zapier integration. This topic describes getting data from an example document into the Airtable database from Sensible using Zapier. 
 
 Go from documents like this:
+
+
+
+TODO: REPLACE WITH 1040 screenshot
 
 ![image-20220815094925837](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815094925837.png)
 
@@ -21,150 +21,74 @@ TODO screenshot with MULTIPLE records.
 
 
 Prerequisites
----
-
-We'll be working with some mock car quotes and their extracted data. To configure their data extraction, you'll need to create an `auto_insurance_quote` doc type in the Sensible app. In the doc type, create a config named `zapier_test` and paste in the following config:
-
-```
-{
-  "fingerprint": {
-    "tests": [
-      {
-        "page": "first",
-        "match": [
-          {
-            "text": "anyco auto insurance",
-            "type": "startsWith"
-          }
-        ]
-      },
-      {
-        "page": "last",
-        "match": [
-          {
-            "text": "please be sure to review your contract for a full explanation of coverages",
-            "type": "includes"
-          }
-        ]
-      }
-    ]
-  },
-  "fields": [
-    {
-      "id": "policy_number",
-      "type": "string",
-      "anchor": {
-        "match": {
-          "text": "policy number",
-          "type": "startsWith"
-        }
-      },
-      "method": {
-        "id": "box"
-      }
-    },
-    {
-      "id": "name_insured",
-      "anchor": "name of driver",
-      "method": {
-        "id": "label",
-        "position": "below"
-      }
-    },
-    {
-      "id": "comprehensive_premium",
-      "anchor": "comprehensive",
-      "type": "currency",
-      "method": {
-        "id": "row",
-        "position": "right",
-        "tiebreaker": "second"
-      }
-    },
-    {
-      "id": "property_liability_premium",
-      "anchor": "property",
-      "type": "currency",
-      "method": {
-        "id": "row",
-        "position": "right",
-        "tiebreaker": "second"
-      }
-    },
-    {
-      "id": "_raw_policy_period",
-      "anchor": "policy period",
-      "method": {
-        "id": "label",
-        "position": "right"
-      }
-    },
-  ],
-  "computed_fields": [
-    {
-      "id": "policy_start",
-      "method": {
-        "id": "split",
-        "source_id": "_raw_policy_period",
-        "separator": "-",
-        "index": 0
-      }
-    },
-    {
-      "id": "policy_end",
-      "method": {
-        "id": "split",
-        "source_id": "_raw_policy_period",
-        "separator": "-",
-        "index": 1
-      }
-    }
-  ]
-}
-```
-
-Select **Publish** and select **Production**: TODO reuse screenshot.
-
-Test the extraction using the **quick extraction** dashboard so you'll have test data for the initial Zapier integration later.
-
-TODO screenshots.
-
-ALTERNATE PREREQ
-----
-
-Use the quick extract pane (link) to extract info from an example Geico page: https://github.com/sensible-hq/sensible-configuration-library/blob/main/auto_policy_declaration_pages/geico/geico_sample.pdf 
-
-![image-20220823112424601](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220823112424601.png)
-
-
+===
 
 
 
 Make an empty destination database
 ----
 
-In Airtable, make a new base and name it "Sensible test":
+Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. For this tutorial, we'll use example data from 1040 tax forms. Take the following steps:
+
+1. Create an Airtable account.
+2. In Airtable, make a new base and name it "Sensible test":
 
 ![image-20220815101632157](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815101632157.png)
 
 
 
-In the base, create columns for the values from the document that you want to extract. Let's say we want to extract:
+In the base, create a column for each piece of data from the document that you want to extract. 
 
-- Driver's name
-- Policy number
-- Policy start and end dates
-- Dollar amount of comprehensive premium
-- Dollar amount of property liability premium.
+TODO: what if you want to extract a table?? computed fields??
+
+Since this tutorial uses an existing open-source [SenseML configurations](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040) for 1040 tax forms, let's extract the following pieces of information available in that configuration: 
+
+- tax year (`year`)
+
+- taxpayer name (`name`)
+
+- taxable income ()`taxable_income`)
+
+- overpaid amout (`overpaid_amount`)
+
+- total tax owed (`total_tax`)
+
+  
 
 Create a table named **Anyco auto insrance quote** and create columns in the table that correspond to the previously listed values. **Optional**: Right-click a column heading to edit its type, for example, currency, date, or string. 
 
 ![image-20220815102002800](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815102002800.png)
 
-
-
-Configure Zapier 
+Create a test Sensible extraction
 ----
+
+In Zapier, you need access to a recent document extraction as an example for configuring the integration. Take the following steps to create an extraction:
+
+1. Get an account at [sensible.so](https://app.sensible.so/register).
+
+2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
+
+3. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
+
+4. Navigate to the [quick extraction](https://app.sensible.so/library/) tab.
+
+5. Select **tax_forms / Auto select** from the dropdown in the upper left corner:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
+
+7. Download the following example tax form. 
+
+   | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
+   | ----------- | ------------------------------------------------------------ |
+
+8. Select **Upload Document** and upload the document you downloaded in the previous step.
+
+9. Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. You'll use this example extraction in the following steps.
+
+
+
+Configure Zapier using the test extraction
+====
 
 In Zapier:
 
