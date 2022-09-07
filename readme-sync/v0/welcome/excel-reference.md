@@ -7,9 +7,9 @@ This topic describes how Sensible converts documents such as PDFs into Excel spr
 
 **Prerequisites**
 
-To get output from a document structured as a spreadsheet with labeled columns, you must first:
+To get document output as a spreadsheet with labeled columns, you must first:
 
-- Configure extractions for a document type, either using Sensible's using [SenseML](doc:senseml-reference-introduction) or using Sensible's [open-source configuration library](https://app.sensible.com/library).   
+- Configure extractions for a document type, either using Sensible's [SenseML](doc:senseml-reference-introduction) for custom documents or using Sensible's [open-source configuration library](https://app.sensible.com/library) for common document types.   
 - Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.com/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). You can download a spreadsheet after the extraction completes.
 
 **Overview**
