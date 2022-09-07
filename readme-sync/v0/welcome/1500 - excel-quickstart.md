@@ -13,7 +13,7 @@ Introduction
 
 If you're trying to convert a PDF into an Excel spreadsheet, you'll often find tools that simply visually map the PDF layout onto a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
 
-In contrast, this tutorial shows you how to use Sensible to convert document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labled column/row pairs and linked sheets.
+In contrast, this tutorial shows you how to use Sensible to convert document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labled column/row pairs and linked sheets. You can convert documents formatted as PDFs, PNG, and JPEG.
 
 Convert document data to Excel spreadsheet
 ----
