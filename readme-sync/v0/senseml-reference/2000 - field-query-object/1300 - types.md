@@ -109,11 +109,11 @@ With either block or in-line address, Sensible recognizes these formats:
 
 Sensible is less sensitive to non-address text if you configure `"block_format": false`:
 
-|                                                              | Block | In-line |      |
-| ------------------------------------------------------------ | ----- | ------- | ---- |
-| Newlines optional                                            | yes   | yes     |      |
-| Trailing or leading non-address text allowed in starting or ending address lines | no    | yes     |      |
-| Non-address text allowed between address elements            | no    | no      |      |
+|                                                              | Block | In-line |
+| ------------------------------------------------------------ | ----- | ------- |
+| Newlines optional                                            | yes   | yes     |
+| Trailing or leading non-address text allowed in starting or ending address lines | no    | yes     |
+| Non-address text allowed between address elements            | no    | no      |
 
 For example:
 
