@@ -14,7 +14,7 @@ To get a document's data into a spreadsheet, you must first:
 
 **Overview**
 
-Sensible transforms its JSON API extraction output to a spreadsheet using the following rules:
+Sensible transforms the output of its extraction API from JSON to a spreadsheet using the following rules:
 
 - Each document transforms into one Excel file. In the file:
 - the `fields` sheet lists each piece of document data that can be represented as a single cell value. For example, an extracted total monthly mortgage dollar amount.
@@ -28,7 +28,7 @@ For more information, see the following sections.
 
 The `fields` sheet lists fields and their values as key-value dictionaries, with the field ID as the column heading and value as the row. Sensible outputs a field to this sheet if the field:
 
-- outputs a single `value`. For example, the [Box](doc:box), [Label](doc:label), [Row](doc:row) and [Region](doc:region) methods each output a single value.
+- outputs a single `value`. For example, the [Box](doc:box), [Label](doc:label), [Row](doc:row) and [Region](doc:region) methods each output a single value by default.
 
 - outputs a predictably short array of values that can easily be stringified in a single cell. Typically this is the result of a [Type](doc:types) configuration, for example, the [Name](doc:types#name) type always outputs an array.
 
@@ -46,10 +46,6 @@ Sensible converts the JSON extraction output from the [auto_insurance_anyco](htt
   "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRJO_nwPRVe84ZdAi-gc6mny0zhRO9iz4nclfEKSBFQWHotARcgUkwfcinpGJTzPM4GIoIvf6PcN7zv/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style>.spreadsheet{width:100%;}</style>"
 }
 [/block]
-
-
-
-
 
 
 
@@ -92,8 +88,6 @@ The following JSON document extraction output is the source for this spreadsheet
     }
   }
   ```
-
-
 
 
 
@@ -209,10 +203,6 @@ Sensible converts the example JSON output from the [example PDF](https://raw.git
 
 
 
-
-
-
-
 The preceding example shows that Sensible outputs nested sections in linked, indexed sheets.
 
 **Example document**
@@ -224,7 +214,7 @@ The preceding spreadsheet contains data from the following example document:
 
 **Example configuration**
 
-See the [Advanced Sections nested table example](doc:sections-example-nested-table) topic for the SenseML configuration for this example.
+See the [Advanced sections nested table example](doc:sections-example-nested-table) topic for the SenseML configuration for this example.
 
 
 
