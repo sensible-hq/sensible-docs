@@ -36,7 +36,7 @@ You can author the docs in Github-flavored Markdown, with the following minor re
 
 - **links** - The preferred linking method is to use Readme's syntax like this: `[some title](doc:some-doc-slug)`. or `[Some title](ref:some-api-endpoint-slug)`. (Not recommended: you can also use relative links, but  then you have to leave out the .md extension. Like this: `[syntax for relative link to a doc](./readme-sync/v0/some-file-name-no-textension)`. (Future improvement: should be easy to modify readme-sync code to strip out .md extensions if we want working relative links in the markdown stored in github)
 
-- **images** - You can't use relative links  `[like this syntax](./images/some-image)`. We'll use hyperlinks instead to images stored on the master branch like this: `![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/some_image.png)` . 
+- **images** - You can't use relative links,   `[like this syntax](./images/some-image)`. We'll use hyperlinks instead to images stored on the master branch like this: `![](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/images/v0/some_image.png)` . 
 
 - **be careful with heading markup** - ReadMe gets confused if you use a code block snippet that indicates the language IN CONJUNCTION with headings that use hashtags (#). In this instance it erratically interprets #code comments as heading markdown syntax. 
 
@@ -44,7 +44,7 @@ You can author the docs in Github-flavored Markdown, with the following minor re
 
   `# Heading 1`
 
-  and only use this syntax:
+  and only use this style syntax:
 
 ```
 Heading 1
@@ -65,7 +65,7 @@ _____
 
 
 
-- **automatic build** -  Let's use Travis or similar tool to automate calling `make_docs.sh` whenever there's a commit to main in this repo.
+- **automatic build** -  Let's use GH actions/husky/or similar tools to automate `make_docs.sh` whenever there's a commit to main in this repo.
 
   
 
