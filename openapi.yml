@@ -304,7 +304,7 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
-  /documents/generate_excel/{id}:
+  /generate_excel/{id}:
     get:
       operationId: get-excel-extraction
       summary: Get Excel extraction
