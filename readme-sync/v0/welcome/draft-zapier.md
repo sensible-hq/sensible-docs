@@ -6,6 +6,16 @@ hidden: true
 
 Getting your document data into a variety of destinations is easy  with Sensible's Zapier integration. This topic describes getting data from an example document into the Airtable database from Sensible using Zapier. 
 
+
+
+TODO:
+
+- so it's easy to COPY base so I'm set there. https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide 
+
+- copying a zap isn't as pre-configured as I'd like??  https://zapier.com/shared/sensible-to-airtable/b328ec83630c9ad8bc1e7f5db237def212ba204b  ... TODO: YES do senseml_basics, maybe the B&B menu since json tables don't translate well?? or even just hello_world.
+
+
+
 Go from documents like this:
 
 
