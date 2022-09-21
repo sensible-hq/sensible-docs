@@ -23,7 +23,7 @@ With Sensible's Zapier integration, you can transform data in PDFs and other doc
 
 
 
-Into a spreadsheet, email, database, or other supported Zapier destinations. This tutorial shows transforming the data into a database, for example:
+Into a spreadsheet, email, database, or other supported Zapier destinations. This tutorial shows transforming 1040 tax data into a database, for example:
 
 
 
@@ -36,16 +36,19 @@ Create an empty destination database
 
 
 
-Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. This tutorial uses example data from 1040 tax forms. 
+Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. Take the following steps:
 
-Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example extraction. You don't need to follow the last step of downloading an Excel sheet. 
+1. Create an Airtable account.
+2. In Airtable, make a new base and name it "Sensible test":
+1. Sign in or create an [Airtable account](https://airtable.com/).
+2. Navigate to the [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  
 
-
+The example base contains a record, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
 
 Create an example Sensible extraction
 ----
 
-Zapier needs access to a recent example of a document extraction so you can configure the Zapier integration. Follow steps 1-9 in [PDF to Excel quickstart](doc:excel-quickstart) to create an example extraction. 
+To configure Zapier, you'll use a recent example of a document extraction. Follow steps 1-9 in [PDF to Excel quickstart](doc:excel-quickstart) to create an example extraction. 
 
 Configure Zapier
 ----
@@ -53,6 +56,20 @@ Configure Zapier
 Take the following steps to connect Sensible to Airtable using Zapier:
 
 1. Sign in or create a [Zapier account](https://zapier.com/).
+2. Navigate to the [Sensible example Zap](https://zapier.com/shared/sensible-to-airtable/b328ec83630c9ad8bc1e7f5db237def212ba204b), and click **Try this Zap**.
+3. Take the following steps to connect your Sensible account to Zapier:
+   1. Click to expand the **Trigger** section.
+   2. Click to expand the **Choose account** section, then follow the prompts to enter your Sensible [API key](https://app.sensible.so/account/).
+4. In the **Set up trigger** section, select the **tax_forms** document type you created in the previous steps, select the **Production** environment, and select the **Complete** status. 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_1.png)
+
+5. Continue to the **Test trigger** section and follow the prompts to test. Verify that the recent document extraction you created in previous steps is selected:
+
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_2.png)
+
+6. Continue to the **Action** section and follow the prompts to connect your **Airtable** account to Zapier.
+7. 
 
 
 
