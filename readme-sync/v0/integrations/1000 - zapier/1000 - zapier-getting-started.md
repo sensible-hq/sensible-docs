@@ -23,7 +23,7 @@ Before you can integrate Sensible with Airtable, you need to set up a destinatio
 
 The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
 
-3. (Optional) examine the [example extraction](https://app.sensible.so/quick-extraction/) you created in the previous section. To add more data from the extraction to Airtable, create corresponding fields (columns). For example, create a `Total taxes owed` column.
+3. (Optional) examine the [example extraction](https://app.sensible.so/quick-extraction/) you created in the previous section. To add more data from the extraction to Airtable, create corresponding columns, also called fields. For example, create a `Total taxes owed` column.
 
 Configure Zapier
 ----
