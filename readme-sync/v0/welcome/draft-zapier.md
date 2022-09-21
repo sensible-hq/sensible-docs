@@ -60,7 +60,7 @@ Configure Zapier
 Take the following steps to connect Sensible to Airtable using Zapier:
 
 1. Sign in or create a [Zapier account](https://zapier.com/).
-2. Navigate to the [Sensible example Zap](https://zapier.com/shared/sensible-to-airtable/b328ec83630c9ad8bc1e7f5db237def212ba204b), and click **Try this Zap**.
+2. Navigate to the [Sensible example Zap](https://zapier.com/shared/cb6b2637ef466ddf140ed14c3be66a5969acef29), and click **Try this Zap**.
 3. Take the following steps to connect your Sensible account to Zapier:
    1. Click to expand the **Trigger** section.
    2. Click to expand the **Choose account** section, then follow the prompts to enter your Sensible [API key](https://app.sensible.so/account/).
