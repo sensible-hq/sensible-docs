@@ -21,13 +21,20 @@ Introduction
 
 With Sensible's Zapier integration, you can transform data in PDFs and other documents, for example the adjusted gross income numbers in 1040 tax forms: 
 
-
+TODO PIC
 
 Into a spreadsheet, email, database, or other supported Zapier destinations. This tutorial shows transforming 1040 tax data into a database, for example:
 
 
 
-TODO PICTURE
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
+
+
+
+Create an example Sensible extraction
+----
+
+To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example JSON extraction.
 
 
 
@@ -43,10 +50,9 @@ Before you can integrate Sensible with Airtable, you need to set up a destinatio
 
 The example base contains a record, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
 
-Create an example Sensible extraction
-----
+3. (Optional) examine the example extraction you created in the previous step. To add more data from the extraction to Airtable, create corresponding columns. For example, create a `Total taxes owed` column.
 
-To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example JSON extraction.
+
 
 Configure Zapier
 ----
@@ -71,7 +77,9 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
 
-8. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) as a row in Airtable:
+8. (Optional) If you created extra columns in the database, map each one.
+
+9. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) as a row in Airtable:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_4.png)
 
@@ -80,7 +88,7 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 (Optional) Add more document data to Airtable 
 ---
 
-Congratulations, your integration is up and running! Take the following steps to continue building a database from your documents:
+Congratulations, your integration is up and running! Take the following steps to continue building a database from example documents:
 
 1. Navigate to the Sensible [quick extraction tab](https://app.sensible.so/quick-extraction/).
 2. Upload and run extractions for the following example 1040 documents:
@@ -88,7 +96,7 @@ Congratulations, your integration is up and running! Take the following steps to
    - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2019/1040_2019_sample.pdf)
    - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2019/1040_2020_sample.pdf)
 
-3. Verify the extractions show up in Airtable. Zapier polls Sensible every 15 minutes, so to avoid waiting, manually run the Zap in the Zap list.
+3. Verify the extractions show up in Airtable. Zapier polls Sensible every 15 minutes. To avoid waiting, manually run the Zap in the Zap list.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
 
