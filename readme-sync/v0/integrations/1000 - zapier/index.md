@@ -23,7 +23,7 @@ Sensible trigger
 ---
 
 
-Every time you run an extraction using the Sensible [app]((https://app.sensible.so/quick-extraction) or [API](ref:choosing-an-endpoint), you can automatically send the data to a destination, for example an email or database, using a **Sensible trigger**: 
+Every time you run an extraction using the Sensible [app](https://app.sensible.so/quick-extraction) or [API](ref:choosing-an-endpoint), you can automatically send the data to a destination, for example an email or database, using a **Sensible trigger**: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_trigger.png)
 
