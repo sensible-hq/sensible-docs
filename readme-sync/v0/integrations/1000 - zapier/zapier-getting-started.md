@@ -1,6 +1,6 @@
 ---
 title: "Zapier tutorial"
-hidden: true
+hidden: false
 
 ---
 

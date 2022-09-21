@@ -1,6 +1,6 @@
 ---
-title: "Zapier"
-hidden: true
+title: "Zapier overview"
+hidden: false
 
 ---
 
