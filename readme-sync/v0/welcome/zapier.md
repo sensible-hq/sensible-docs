@@ -29,7 +29,7 @@ For more information, see the [Zapier getting started guide](doc:zapier-getting-
 Multistep Zaps
 ---
 
-You can trigger Sensible extractions by uploading documents to Google drive, emailing attachments to yourself, or by performing other supported Zapier file actions. Then send the extraction to the destination of your choice.
+You can bypass the Sensible app or API by triggering Sensible extractions with file actions in Google drive, email, or other supported Zapier apps. Then send the extraction to the destination of your choice.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_app.png)
 
