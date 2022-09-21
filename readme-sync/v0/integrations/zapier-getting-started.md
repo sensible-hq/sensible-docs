@@ -1,5 +1,5 @@
 ---
-title: "Zapier to Airtable tutorial"
+title: "Zapier tutorial"
 hidden: true
 
 ---
