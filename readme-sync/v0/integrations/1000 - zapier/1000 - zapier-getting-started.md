@@ -71,7 +71,7 @@ Congratulations, your integration is now published and running! Take the followi
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
 
-Zapier polls Sensible every 1-15 minutes. To avoid waiting, manually run the Zap in the Zap list.
+Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, manually run the Zap in the Zap list.
 
 
 
