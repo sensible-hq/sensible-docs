@@ -17,7 +17,9 @@ Create an empty destination database
 Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable to hold the extracted data Sensible creates. Take the following steps:
 
 1. Sign in or create an [Airtable account](https://airtable.com/).
-2. Navigate to the example [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  
+2. Navigate to the example [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  Or, create your own Airtable destination using the following image as a guide:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_7.png)
 
 The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
 
