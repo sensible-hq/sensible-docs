@@ -37,7 +37,9 @@ Convert document data to Excel spreadsheet
 
 8. Select **Upload Document** and upload the document you downloaded in the previous step.
 
-9. Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. Select **Download Excel** to view the document data converted to Excel.
+9. Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. 
+
+10. Select **Download Excel** to convert the extracted data to Excel.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 

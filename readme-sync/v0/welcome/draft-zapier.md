@@ -27,84 +27,34 @@ Into a spreadsheet, email, database, or other supported Zapier destinations. Thi
 
 
 
-
-
-
-
-Prerequisites
-===
+TODO PICTURE
 
 
 
 Create an empty destination database
 ----
 
-Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. This tutorial uses example data from 1040 tax forms. Take the following steps:
 
-1. Sign in or create an [Airtable account](https://airtable.com/).
-2. In the [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), click **Copy base**. 
 
- The example base contains a record, or column, for each piece of document data to extract. When you extract from a document, Zapier adds a row that document.
+Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. This tutorial uses example data from 1040 tax forms. 
 
-Configure Sensible extraction
+Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example extraction. You don't need to follow the last step of downloading an Excel sheet. 
+
+
+
+Create an example Sensible extraction
 ----
 
-This tutorial uses open-source [SenseML configurations](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040) for 1040 tax forms. To copy the configurations into your Sensible account:
+Zapier needs access to a recent example of a document extraction so you can configure the Zapier integration. Follow steps 1-9 in [PDF to Excel quickstart](doc:excel-quickstart) to create an example extraction. 
 
-1. 
-
-
-
- let's extract the following pieces of information available in that configuration: 
-
-- tax year (`year`)
-
-- taxpayer name (`name`)
-
-- taxable income ()`taxable_income`)
-
-- overpaid amout (`overpaid_amount`)
-
-- total tax owed (`total_tax`)
-
-  
-
-Create a table named **Anyco auto insrance quote** and create columns in the table that correspond to the previously listed values. **Optional**: Right-click a column heading to edit its type, for example, currency, date, or string. 
-
-![image-20220815102002800](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815102002800.png)
-
-Create a test Sensible extraction
+Configure Zapier
 ----
 
-In Zapier, you need access to a recent document extraction as an example for configuring the integration. Take the following steps to create an extraction:
+Take the following steps to connect Sensible to Airtable using Zapier:
 
-1. Get an account at [sensible.so](https://app.sensible.so/register).
-
-2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
-
-3. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
-
-4. Navigate to the [quick extraction](https://app.sensible.so/library/) tab.
-
-5. Select **tax_forms / Auto select** from the dropdown in the upper left corner:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
-
-7. Download the following example tax form. 
-
-   | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
-   | ----------- | ------------------------------------------------------------ |
-
-8. Select **Upload Document** and upload the document you downloaded in the previous step.
-
-9. Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. You'll use this example extraction in the following steps.
+1. Sign in or create a [Zapier account](https://zapier.com/).
 
 
-
-Configure Zapier using the test extraction
-====
-
-In Zapier:
 
 Click **Create Zap**. In the search bar, type **Sensible** and select the Sensible app:
 
