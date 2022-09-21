@@ -16,7 +16,7 @@ And send the data to spreadsheets, emails, databases, or other supported Zapier 
 
 When creating a Zapier integration, you can either:
 
-- Run extractions and then act on the data a **Sensible trigger**.
+- Run extractions and then act on the data with a **Sensible trigger**.
 - Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
 
 Sensible trigger
