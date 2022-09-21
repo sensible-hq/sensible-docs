@@ -97,3 +97,6 @@ Congratulations, your integration is up and running! Take the following steps to
 Next steps
 ----
 
+- Explore other Zapier examples.
+
+  
