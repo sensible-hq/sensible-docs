@@ -71,6 +71,20 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
 
+8. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) as a row in Airtable:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_4.png)
+
+9. Follow the prompts to publish your Zap. 
+
+Add document data to Airtable 
+---
+
+Congratulations, your integration is up and running! Now you can 
+
+
+
+
 
 
 
