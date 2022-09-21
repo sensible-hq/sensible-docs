@@ -1,5 +1,5 @@
 ---
-title: "Zapier to airtable integration tutorial"
+title: "Zapier to Airtable tutorial"
 hidden: true
 
 ---
@@ -23,7 +23,13 @@ With Sensible's Zapier integration, you can transform data in PDFs and other doc
 
 TODO PIC
 
-Into a spreadsheet, email, database, or other supported Zapier destinations. This tutorial shows transforming 1040 tax data into a database, for example:
+Into a spreadsheet, email, database, or other supported Zapier destinations. This tutorial shows transforming 1040 tax data into a database. For example, data in a document like the following:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_6.png)
+
+
+
+transforms into a row like the following:
 
 
 
