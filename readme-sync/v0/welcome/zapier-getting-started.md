@@ -4,50 +4,15 @@ hidden: true
 
 ---
 
-Send your document data to a variety of destinations using Sensible's Zapier integration. This topic describes getting data from an example document into the Airtable database from Sensible using Zapier. 
-
-
-
-TODO:
-
-- so it's easy to COPY base so I'm set there. 
-
-- copying a zap isn't as pre-configured as I'd like??  https://zapier.com/shared/sensible-to-airtable/b328ec83630c9ad8bc1e7f5db237def212ba204b  ... TODO: YES do senseml_basics, maybe the B&B menu since json tables don't translate well?? or even just hello_world.
-
-
-
-Introduction
-----
-
-With Sensible's Zapier integration, you can transform data in PDFs and other documents, for example the adjusted gross income numbers in 1040 tax forms: 
-
-TODO PIC
-
-Into a spreadsheet, email, database, or other supported Zapier destinations. This tutorial shows transforming 1040 tax data into a database. For example, data in a document like the following:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_6.png)
-
-
-
-transforms into a row like the following:
-
-
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
-
-
+This topic describes getting data from an example document into the Airtable database from Sensible using Zapier. 
 
 Create an example Sensible extraction
 ----
 
 To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example JSON extraction.
 
-
-
 Create an empty destination database
 ----
-
-
 
 Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. Take the following steps:
 
@@ -57,8 +22,6 @@ Before you can integrate Sensible with Airtable, you need to set up a destinatio
 The example base contains a record, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
 
 3. (Optional) examine the example extraction you created in the previous step. To add more data from the extraction to Airtable, create corresponding columns. For example, create a `Total taxes owed` column.
-
-
 
 Configure Zapier
 ----
@@ -108,20 +71,7 @@ Congratulations, your integration is up and running! Take the following steps to
 
 
 
-Next steps
-----
 
-
-
-The preceding tutorial showed starting  a Zap by triggering on recent Sensible extractions and selecting a destination, for example email or database, for the extraction: 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_trigger.png)
-
-
-
-Alternatively, you can start the Sensible extraction by triggering on a file action in another application, for example uploading a file to Google drive or emailing an attached doc, then send the document to the destination of your choice.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_app.png)
 
 
 
