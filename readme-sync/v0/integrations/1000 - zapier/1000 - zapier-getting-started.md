@@ -4,12 +4,12 @@ hidden: false
 
 ---
 
-This topic describes sending data from example documents into an Airtable database from Sensible using Zapier. 
+This topic describes sending extracted data from example documents into an Airtable database using Sensible's Zapier integration. 
 
 Create an example Sensible extraction
 ----
 
-To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example JSON extraction.
+To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example JSON extraction from a 1040 tax form.
 
 Create an empty destination database
 ----
