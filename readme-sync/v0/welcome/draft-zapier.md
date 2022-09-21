@@ -38,8 +38,6 @@ Create an empty destination database
 
 Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. Take the following steps:
 
-1. Create an Airtable account.
-2. In Airtable, make a new base and name it "Sensible test":
 1. Sign in or create an [Airtable account](https://airtable.com/).
 2. Navigate to the [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  
 
@@ -69,9 +67,15 @@ Take the following steps to connect Sensible to Airtable using Zapier:
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_2.png)
 
 6. Continue to the **Action** section and follow the prompts to connect your **Airtable** account to Zapier.
-7. 
+7. In the **Set up action** section, map Sensible field names to the corresponding Airtable record names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
+
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
 
 
+
+
+
+TODO DELETE:
 
 Click **Create Zap**. In the search bar, type **Sensible** and select the Sensible app:
 
