@@ -10,7 +10,7 @@ For example, you can extract data in 1040 tax forms:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_6.png)
 
-And send the data to spreadsheets, emails, databases, or other supported Zapier destinations. The following image shows turning 1040 data from several documents into rows in an Airtable database: 
+And send the data to spreadsheets, emails, databases, or other supported Zapier destinations. The following image shows data from 1040s, where each document is a record, or row, in an Airtable database: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
 
