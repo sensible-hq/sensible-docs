@@ -10,11 +10,14 @@ For example, you can extract data in 1040 tax forms:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_6.png)
 
-And send the data to spreadsheets, emails, databases, or other supported Zapier destinations. The following image shows data from 1040s, where each document is a record, or row, in an Airtable database: 
+And send the data to spreadsheets, emails, databases, or other supported Zapier destinations. The following image shows how Zapier can add each extracted document as a record, or row, in an Airtable database: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
 
+When creating a Zapier integration, you can either:
 
+- Run extractions and then act on the data a **Sensible trigger**.
+- Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
 
 Sensible trigger
 ---
@@ -35,10 +38,10 @@ You can bypass the Sensible app or API and instead trigger Sensible extractions 
 
 For more information, see an  [example Zap](https://zapier.com/shared/89bc08c43e753cae2483de6909dea250dbb47155).
 
-**Limitations**
+**Action Limitations**
 
-- For the Sensible action, If you select **New file in folder**  event in Google drive folder, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
-- Sensible's Zapier action can't filter extraction status, so Zapier can send incomplete or failed extractions to the data destination. To avoid this, add a Zapier delay in your Zap.
+- If you select **New file in folder**  event in Google drive folder, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
+- The Sensible action can't filter extraction status, so Zapier can send incomplete or failed extractions to the data destination. To avoid this, add a Zapier delay in your Zap.
 
 
 
