@@ -35,8 +35,6 @@ You can trigger Sensible extractions by uploading documents to Google drive, ema
 
 For more information, see an  [example Zap](https://zapier.com/shared/89bc08c43e753cae2483de6909dea250dbb47155).
 
-
-
 **Note** If you select **New file in folder**  event in Google drive folder, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
 
 
