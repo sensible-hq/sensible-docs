@@ -4,29 +4,30 @@ hidden: true
 
 ---
 
-Getting your document data into a variety of destinations is easy  with Sensible's Zapier integration. This topic describes getting data from an example document into the Airtable database from Sensible using Zapier. 
+Send your document data to a variety of destinations using Sensible's Zapier integration. This topic describes getting data from an example document into the Airtable database from Sensible using Zapier. 
 
 
 
 TODO:
 
-- so it's easy to COPY base so I'm set there. https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide 
+- so it's easy to COPY base so I'm set there. 
 
 - copying a zap isn't as pre-configured as I'd like??  https://zapier.com/shared/sensible-to-airtable/b328ec83630c9ad8bc1e7f5db237def212ba204b  ... TODO: YES do senseml_basics, maybe the B&B menu since json tables don't translate well?? or even just hello_world.
 
 
 
-Go from documents like this:
+Introduction
+----
+
+With Sensible's Zapier integration, you can transform data in PDFs and other documents, for example the adjusted gross income numbers in 1040 tax forms: 
 
 
 
-TODO: REPLACE WITH 1040 screenshot
+Into a spreadsheet, email, database, or other supported Zapier destinations. This tutorial shows transforming the data into a database, for example:
 
-![image-20220815094925837](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815094925837.png)
 
-To a database like this:
 
-TODO screenshot with MULTIPLE records.
+
 
 
 
@@ -35,23 +36,26 @@ Prerequisites
 
 
 
-Make an empty destination database
+Create an empty destination database
 ----
 
-Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. For this tutorial, we'll use example data from 1040 tax forms. Take the following steps:
+Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. This tutorial uses example data from 1040 tax forms. Take the following steps:
 
-1. Create an Airtable account.
-2. In Airtable, make a new base and name it "Sensible test":
+1. Sign in or create an [Airtable account](https://airtable.com/).
+2. In the [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), click **Copy base**. 
 
-![image-20220815101632157](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220815101632157.png)
+ The example base contains a record, or column, for each piece of document data to extract. When you extract from a document, Zapier adds a row that document.
+
+Configure Sensible extraction
+----
+
+This tutorial uses open-source [SenseML configurations](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040) for 1040 tax forms. To copy the configurations into your Sensible account:
+
+1. 
 
 
 
-In the base, create a column for each piece of data from the document that you want to extract. 
-
-TODO: what if you want to extract a table?? computed fields??
-
-Since this tutorial uses an existing open-source [SenseML configurations](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040) for 1040 tax forms, let's extract the following pieces of information available in that configuration: 
+ let's extract the following pieces of information available in that configuration: 
 
 - tax year (`year`)
 
