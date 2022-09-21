@@ -102,7 +102,7 @@ Congratulations, your integration is up and running! Take the following steps to
    - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2019/1040_2019_sample.pdf)
    - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2019/1040_2020_sample.pdf)
 
-3. Verify the extractions show up in Airtable. Zapier polls Sensible every 15 minutes. To avoid waiting, manually run the Zap in the Zap list.
+3. Verify the extractions show up in Airtable. Zapier polls Sensible every 1-15 minutes. To avoid waiting, manually run the Zap in the Zap list.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
 
@@ -111,6 +111,21 @@ Congratulations, your integration is up and running! Take the following steps to
 Next steps
 ----
 
-- Explore other Zapier examples.
 
-  
+
+The preceding tutorial showed starting  a Zap by triggering on recent Sensible extractions and selecting a destination, for example email or database, for the extraction: 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_trigger.png)
+
+
+
+Alternatively, you can start the Sensible extraction by triggering on a file action in another application, for example uploading a file to Google drive or emailing an attached doc, then send the document to the destination of your choice.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_app.png)
+
+
+
+
+
+
+
