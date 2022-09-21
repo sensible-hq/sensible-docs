@@ -20,16 +20,16 @@ Single-step Zaps
 ---
 
 
-Every time you create a Sensible extraction, you can automatically send the data to a destination, for example email or database: 
+Every time you run an extraction using the Sensible [app]((https://app.sensible.so/quick-extraction) or [API](ref:choosing-an-endpoint), you can automatically send the data to a destination, for example an email or database: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_trigger.png)
 
-For more information, see the [Zapier getting started guide](doc:zapier-getting-started).
+For more information, see the [Zapier getting started guide](doc:zapier-getting-started) or [example Zap](https://zapier.com/shared/cb6b2637ef466ddf140ed14c3be66a5969acef29).
 
 Multistep Zaps
 ---
 
-You can trigger Sensible extractions by uploading documents to Google drive, emailing attachments to yourself, or by using other supported Zapier file actions. Then send the extraction to the destination of your choice.
+You can trigger Sensible extractions by uploading documents to Google drive, emailing attachments to yourself, or by performing other supported Zapier file actions. Then send the extraction to the destination of your choice.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_app.png)
 

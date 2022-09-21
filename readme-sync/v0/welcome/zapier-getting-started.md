@@ -14,7 +14,7 @@ To configure Zapier, you'll use a recent example of a document extraction. Follo
 Create an empty destination database
 ----
 
-Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for the extracted data Sensible creates. Take the following steps:
+Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable to hold the extracted data Sensible creates. Take the following steps:
 
 1. Sign in or create an [Airtable account](https://airtable.com/).
 2. Navigate to the example [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  
@@ -41,7 +41,7 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_2.png)
 
-6. Continue to the **Action** section and follow the prompts to connect your **Airtable** account to Zapier.
+6. Continue to the **Action** section and follow the prompts to connect your Airtable account to Zapier.
 7. In the **Set up action** section, map Sensible field names to the corresponding Airtable record names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
@@ -57,7 +57,7 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 (Optional) Add more document data to Airtable 
 ---
 
-Congratulations, your integration is up and running! Take the following steps to continue building a database from example documents:
+Congratulations, your integration is now published and running! Take the following steps to continue building a database from example documents:
 
 1. Navigate to the Sensible [quick extraction tab](https://app.sensible.so/quick-extraction/).
 2. Upload and run extractions for the following example 1040 documents:
