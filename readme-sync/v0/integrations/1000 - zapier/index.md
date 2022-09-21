@@ -35,10 +35,10 @@ You can bypass the Sensible app or API and instead trigger Sensible extractions 
 
 For more information, see an  [example Zap](https://zapier.com/shared/89bc08c43e753cae2483de6909dea250dbb47155).
 
-**Multistep limitations**
+**Limitations**
 
-- If you select **New file in folder**  event in Google drive folder, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
-- Sensible's Zapier action can't filter extraction status, so Zapier can send incomplete or failed extractions to the data destination.
+- For the Sensible action, If you select **New file in folder**  event in Google drive folder, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
+- Sensible's Zapier action can't filter extraction status, so Zapier can send incomplete or failed extractions to the data destination. To avoid this, add a Zapier delay in your Zap.
 
 
 
