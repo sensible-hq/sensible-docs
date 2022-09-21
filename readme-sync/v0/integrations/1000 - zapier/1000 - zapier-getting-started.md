@@ -23,7 +23,7 @@ Before you can integrate Sensible with Airtable, you need to set up a destinatio
 
 The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
 
-3. (Optional) examine the example extraction you created in the previous step. To add more data from the extraction to Airtable, create corresponding columns. For example, create a `Total taxes owed` column.
+3. (Optional) examine the [example extraction]() you created in the previous section. To add more data from the extraction to Airtable, create corresponding fields (columns). For example, create a `Total taxes owed` column.
 
 Configure Zapier
 ----
@@ -44,11 +44,11 @@ Take the following steps to connect Sensible to Airtable using Zapier:
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_2.png)
 
 6. Continue to the **Action** section and follow the prompts to connect your Airtable account to Zapier.
-7. In the **Set up action** section, map Sensible field names to the corresponding Airtable record names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
+7. In the **Set up action** section, map Sensible field names to the corresponding Airtable column (field) names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
 
-8. (Optional) If you created extra columns in the database, map each one.
+8. (Optional) If you created extra fields in the database, map each one.
 
 9. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) as a row in Airtable:
 
