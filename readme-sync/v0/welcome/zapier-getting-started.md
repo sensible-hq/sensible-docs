@@ -4,7 +4,7 @@ hidden: true
 
 ---
 
-This topic describes getting data from an example document into the Airtable database from Sensible using Zapier. 
+This topic describes sending data from example documents into an Airtable database from Sensible using Zapier. 
 
 Create an example Sensible extraction
 ----
@@ -14,12 +14,12 @@ To configure Zapier, you'll use a recent example of a document extraction. Follo
 Create an empty destination database
 ----
 
-Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for Sensible's extracted document data. Take the following steps:
+Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable for the extracted data Sensible creates. Take the following steps:
 
 1. Sign in or create an [Airtable account](https://airtable.com/).
-2. Navigate to the [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  
+2. Navigate to the example [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  
 
-The example base contains a record, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
+The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
 
 3. (Optional) examine the example extraction you created in the previous step. To add more data from the extraction to Airtable, create corresponding columns. For example, create a `Total taxes owed` column.
 
