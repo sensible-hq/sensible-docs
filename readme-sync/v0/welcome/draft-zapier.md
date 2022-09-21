@@ -46,7 +46,7 @@ The example base contains a record, or column, for each piece of document data t
 Create an example Sensible extraction
 ----
 
-To configure Zapier, you'll use a recent example of a document extraction. Follow steps 1-9 in [PDF to Excel quickstart](doc:excel-quickstart) to create an example extraction. 
+To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create an example JSON extraction.
 
 Configure Zapier
 ----
@@ -77,14 +77,20 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
 9. Follow the prompts to publish your Zap. 
 
-Add document data to Airtable 
+(Optional) Add more document data to Airtable 
 ---
 
-Congratulations, your integration is up and running! Now you can 
+Congratulations, your integration is up and running! Take the following steps to continue building a database from your documents:
+
+1. Navigate to the Sensible [quick extraction tab](https://app.sensible.so/quick-extraction/).
+2. Upload and run extractions for the following example 1040 documents:
+   - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2018/1040_2018_sample.pdf)
+   - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2019/1040_2019_sample.pdf)
 
 
+3. Verify the extractions show up in Airtable. You may have to wait up to 15 minutes. To avoid waiting, manually run the Zap in the Zap list.
 
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
 
 
 

@@ -19,27 +19,25 @@ Convert document data to Excel spreadsheet
 ----
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
-
 2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
-
 3. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
-
-4. Navigate to the [quick extraction](https://app.sensible.so/library/) tab.
-
-5. Select **tax_forms / Auto select** from the dropdown in the upper left corner:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
 
 7. Download the following example tax form: 
 
    | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-8. Select **Upload Document** and upload the document you downloaded in the previous step.
+8. Navigate to the [quick extraction](https://app.sensible.so/library/) tab.
 
-9. Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. 
+9. Upload the document you downloaded in the previous step.
 
-10. Select **Download Excel** to convert the extracted data to Excel.
+10. Select **tax_form** in the **Document type** dropdown and click **Run extraction**.
+
+    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
+
+    Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. 
+
+11. Select **Download Excel** to convert the extracted data to Excel.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 
