@@ -21,9 +21,9 @@ Before you can integrate Sensible with Airtable, you need to set up a destinatio
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_7.png)
 
-The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a row for each new document you extract from.
+The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a record, or row, for each new document you extract from.
 
-3. (Optional) examine the [example extraction](https://app.sensible.so/quick-extraction/) you created in the previous section. To add more data from the extraction to Airtable, create corresponding fields. For example, create a `Total taxes owed` column.
+3. (Optional) examine the [example extraction](https://app.sensible.so/quick-extraction/) you created in the previous section. To add more data from the extraction, create corresponding Airtable fields. For example, create a `Total taxes owed` field.
 
 Configure Zapier
 ----
@@ -44,7 +44,7 @@ Take the following steps to connect Sensible to Airtable using Zapier:
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_2.png)
 
 6. Continue to the **Action** section and follow the prompts to connect your Airtable account to Zapier.
-7. In the **Set up action** section, map Sensible field names to the corresponding Airtable field names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
+7. In the **Set up action** section, map Sensible extracted field ids to the corresponding Airtable field names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
 
