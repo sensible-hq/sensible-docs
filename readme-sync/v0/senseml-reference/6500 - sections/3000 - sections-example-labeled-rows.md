@@ -18,18 +18,29 @@ The following example shows using a vertical section group to capture a table th
   "fields": [],
   "sections": [
     {
-      "id": "nutrition_per_fruit",
+      "id": "nutrition_table",
       "range": {
         "direction": "vertical",
-        "columnSelection": [[1,-2]],
+        /*  extract data from 2nd to 2nd-to-last columns
+            treat 1st and last columns as labeling data */
+        "columnSelection": [
+          [
+            1,
+            -2
+          ]
+        ],
         "anchor": {
           "match": {
             "type": "equals",
-            "text": "Nutrition info",
+            "text": "Nutrition",
             "isCaseSensitive": true
           }
         },
-        "offsetY": 0.3
+        "stop": "skin on",
+        /* since anchor and stop occur in table, set offsets to avoid 
+           cutting off table text */
+        "stopOffsetY": 0.2,
+        "offsetY": -0.3
       },
       "fields": [
         {
@@ -90,7 +101,7 @@ The following image shows the data extracted by this config for the following ex
 
 ```json
 {
-  "nutrition_per_fruit": [
+  "nutrition_table": [
     {
       "fruit_name": {
         "value": "Apple",
@@ -103,7 +114,7 @@ The following image shows the data extracted by this config for the following ex
       },
       "everything_in_this_section": {
         "type": "string",
-        "value": "Nutrition Apple   Notes Calories 50   Per 100 g Fiber (g) 2.4   Skin on, if applicable Protein (g) 0.5  "
+        "value": "Nutrition Apple Notes Calories 50 Per 100 g Protein (g) 0.5 Fiber (g) 2.4 Skin on, if applicable"
       }
     },
     {
@@ -118,7 +129,7 @@ The following image shows the data extracted by this config for the following ex
       },
       "everything_in_this_section": {
         "type": "string",
-        "value": "Nutrition  Banana  Notes Calories  90  Per 100 g Fiber (g)  3.1  Skin on, if applicable Protein (g)  1.3 "
+        "value": "Nutrition Banana Notes Calories 90 Per 100 g Protein (g) 1.3 Fiber (g) 3.1 Skin on, if applicable"
       }
     },
     {
@@ -133,7 +144,7 @@ The following image shows the data extracted by this config for the following ex
       },
       "everything_in_this_section": {
         "type": "string",
-        "value": "Nutrition   Cantelope Notes Calories   34 Per 100 g Fiber (g)   0.9 Skin on, if applicable Protein (g)   0.8"
+        "value": "Nutrition Cantelope Notes Calories 34 Per 100 g Protein (g) 0.8 Fiber (g) 0.9 Skin on, if applicable"
       }
     }
   ]
