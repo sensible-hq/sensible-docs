@@ -10,12 +10,21 @@ Quality control the data extractions in a document type by writing validations u
 - pass a document extraction automatically through your pipeline if there are no errors and 10% of warning validations fail
 - flag a document extraction for human review if 5% of error validations fail
 
-To write validations in the Sensible app:
+Create validations
+----
+
+**Sensible app**
+
+To create validations in the Sensible app:
 
 1. Click the document type.
 2. Click **Create validation**.
 3. Enter the parameters for the validation.
 4. Click **Create**.
+
+**API**
+
+You can create validations through the Sensible API. For more information, see the [API reference](https://docs.sensible.so/reference/update-document-type).
 
 Parameters
 ====
