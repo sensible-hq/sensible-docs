@@ -8,7 +8,7 @@ hidden: false
 
 The following example shows using the Copy from Sections computed method to flatten complex sections  output. 
 
-In this example, the config uses paired section groups nested in a parent section group to extract complete auto declarations:
+In this example, the config uses paired section groups nested in a parent section group to extract complete vehicle insurance declarations:
 
 1. A parent section group's range contains the entire vehicle declaration.
 
@@ -102,7 +102,7 @@ The following elaborates on the preceding overview using JSON instead of YML.
                 "isCaseSensitive": true
               },
             },
-            /* each section in group ends after "vehicle no" line */
+            /* each section in group ends after "vehicle no." line */
             "stop": {
               "type": "startsWith",
               "text": "Vehicle no",
@@ -164,7 +164,7 @@ The following elaborates on the preceding overview using JSON instead of YML.
             {
               /* In each vertical section, the injury premium for each vehicle is always the 2nd cell to the right
                  of the cell containing "bodily injury liability",
-                 as determined by columnSelection */
+                 as configured by columnSelection */
               "id": "bodily_liability_premium",
               "type": "number",
               "method": {
