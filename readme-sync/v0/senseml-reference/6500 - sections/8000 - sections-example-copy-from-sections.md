@@ -6,7 +6,7 @@ hidden: false
 
 
 
-The following example shows using the Copy from Sections computed method to flatten complex sections  output. 
+The following example shows using the Copy from Sections computed method to flatten the output of nested and zipped sections. 
 
 In this example, the config uses paired section groups nested in a parent section group to extract complete vehicle insurance declarations:
 
