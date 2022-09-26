@@ -18,7 +18,9 @@ In this example, the config uses paired section groups nested in a parent sectio
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/copy_from_sections_2.png)
 
-If you [zip the child sections together](doc:sections-example-zip), you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON API response:
+If you [zip the child sections together](doc:sections-example-zip), you can output something like the following example output, and then clean it up with the Copy From Sections method. 
+
+The following uses abbreviated YML notation to give an overview of the more complex JSON API response:
 
 ```yaml
 parent_section_group_declarations:
@@ -42,7 +44,7 @@ parent_section_group_declarations:
       value: 140.8
 ```
 
-This example shows flattening the repeated `_zipped_vehicle_description_and_coverages` arrays, using the Copy From Sections method to produce something like the following:
+In the preceding output, the  `zipped_vehicle-description_and_coverages` field is extraneous and the resulting nested structure is unnecessary. This example shows simplifying the output, using the Copy From Sections method to produce something like the following:
 
 ```json
 flattened_declarations:
