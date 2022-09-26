@@ -102,8 +102,8 @@ paths:
               name: pay_stubs
               schema:
                 validations:
-                  - description: employer's email is in string@string format
-                    condition: {"match":[{"var":"employer\\.email.value"},"^\\S+\\@\\S+$"]}
+                  - description: total pay is listed in paystub
+                    condition: {"exists":[{"var":"total_pay.value"}]}
                     severity: warning
 
       responses:
