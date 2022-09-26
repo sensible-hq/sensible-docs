@@ -22,7 +22,7 @@ In this example, the config uses paired section groups nested in a parent sectio
 
 
 
-If you [zip the child sections together](doc:sections-example-zip), the JSON output is something like the following abbreviated YAML output:
+If you [zip the child sections together](doc:sections-example-zip), you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON API response:
 
 ```yaml
 parent_section_group_declarations:
@@ -46,22 +46,26 @@ parent_section_group_declarations:
       value: 140.8
 ```
 
-This example shows flattening the repeated `_zipped_vehicle_description_and_coverages` arrays into one array using the Copy From Sections method.
+This example shows flattening the repeated `_zipped_vehicle_description_and_coverages` arrays into one array using the Copy From Sections method:
 
 ```json
-"copied_from_zipped_child_sections": {
-    			{
-				"vin": "123",
-				"bodily_injury_liability": "89.70"
-
-			},
-			{
-				"vin": "0123",
-				"bodily_injury_liability": "138.66"
-                
-                
-                
-                
+flattened_declarations:
+  - vehicle_description:
+      value: 2003 Mits Lancer Es
+    bodily_liability_premium:
+      value: 89.7
+  - vehicle_description:
+      value: 2019 Nissan Pathfinder
+    bodily_liability_premium:
+      value: 138.66
+  - vehicle_description:
+      value: 2010 Toyota Corolla
+    bodily_liability_premium:
+      value: 100.1
+  - vehicle_description:
+      value: 2012 Honda Accord
+    bodily_liability_premium:
+      value: 140.8
 ```
 
 The following example shows TBD.. 
