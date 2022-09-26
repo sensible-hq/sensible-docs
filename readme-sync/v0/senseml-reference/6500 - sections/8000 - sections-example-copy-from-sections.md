@@ -6,54 +6,48 @@ hidden: false
 
 
 
-For example you'll need a nested structure:
+The following example shows using the Copy from Sections computed method to flatten complex sections  output. 
 
-- to capture repeating verical sections
--  to capture groups that belong togethter, nest them inside a parent horizontal section then zip them together. 
+In this example, the config uses paired section groups nested in a parent section group to extract complete auto declarations:
 
-These approaches can yield a complex output. For example: 
+1. A parent section group's range contains the entire vehicle declaration.
 
-1. parent section that captures the entire vehicle declaration (2 tables )
+2. A child section group captures data such as the vehicle description and VIN.
 
-2. child horizontal section that captures vehicle info like VIN
+3. A child section group captures data such as the coverages and premiums:
 
-3. child vertical section that captures vehicle info like coverages:
-
-   
+   TODO Finalize image
 
 ![image-20220924101429584](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220924101429584.png)
 
 
 
-If you zip the child sections together, the output for this type of nested sections will be:
+If you [zip the child sections together](doc:sections-example-zip), the output is something like the following:
 
 ```json
-TODO VALIDATE
+
 {
-    // 1 in image above
-	"parent_section": {
-        // config uses zip computed method to zip 1 and 2 in image above
-        // for an example config taht does this see /sections-example-zip
-		"zipped_child_sections": {
+	"parent_section_group": {
+		"zipped_child_section_groups": {
 			{
-				"vin": "123",
+				"description": "2003 Mits Lancer Es",
 				"bodily_injury_liability": "89.70"
 
 			},
 			{
-				"vin": "0123",
+				"description": "2019 Nissan Pathfinder",
 				"bodily_injury_liability": "138.66"
 
 			}
 		},
 {
 			{
-				"vin": "555",
+				"description": "2010 Toyta Corolla",
 				"bodily_injury_liability": "100.10"
 
 			},
 			{
-				"vin": "9999",
+				"vin": "2012 Honda Accord",
 				"bodily_injury_liability": "140.80"
 
 			}
