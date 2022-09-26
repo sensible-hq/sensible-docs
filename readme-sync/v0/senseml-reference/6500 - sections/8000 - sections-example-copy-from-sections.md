@@ -46,7 +46,7 @@ parent_section_group_declarations:
       value: 140.8
 ```
 
-This isn't the greatest structured of output, because you have repeated `_zipped_vehicle_description_and_coverages` arrays. To combine these arrays into one, 
+This example shows flattening the repeated `_zipped_vehicle_description_and_coverages` arrays into one array using the Copy From Sections method.
 
 ```json
 "copied_from_zipped_child_sections": {
