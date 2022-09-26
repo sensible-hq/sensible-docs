@@ -16,11 +16,7 @@ In this example, the config uses paired section groups nested in a parent sectio
 
 3. A child section group captures data such as the coverages and premiums:
 
-   TODO Finalize image
-
-![image-20220924101429584](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20220924101429584.png)
-
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/copy_from_sections_2.png)
 
 If you [zip the child sections together](doc:sections-example-zip), you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON API response:
 
@@ -46,7 +42,7 @@ parent_section_group_declarations:
       value: 140.8
 ```
 
-This example shows flattening the repeated `_zipped_vehicle_description_and_coverages` arrays into one array using the Copy From Sections method:
+This example shows flattening the repeated `_zipped_vehicle_description_and_coverages` arrays, using the Copy From Sections method to produce something like the following:
 
 ```json
 flattened_declarations:
@@ -68,7 +64,14 @@ flattened_declarations:
       value: 140.8
 ```
 
-The following example shows TBD.. 
+
+
+Details
+----
+
+The following elaborates on the preceding overview using JSON instead of YML.
+
+
 
 **Config**
 
@@ -113,7 +116,7 @@ The following example shows TBD..
                 "id": "label",
                 "position": "right"
               },
-              "anchor": "Description"
+              "anchor": "description:"
             },
             /* to illustrate section range, print out all text in this section */
             {
@@ -249,7 +252,7 @@ The following image shows the example PDF used with this example config:
         {
           "vehicle_description": {
             "type": "string",
-            "value": ": 2003 Mits Lancer Es"
+            "value": "2003 Mits Lancer Es"
           },
           "_everything_in_this_covered_vehicle_section": {
             "type": "string",
@@ -268,7 +271,7 @@ The following image shows the example PDF used with this example config:
         {
           "vehicle_description": {
             "type": "string",
-            "value": ":2019 Nissan Pathfinder"
+            "value": "2019 Nissan Pathfinder"
           },
           "_everything_in_this_covered_vehicle_section": {
             "type": "string",
@@ -291,7 +294,7 @@ The following image shows the example PDF used with this example config:
         {
           "vehicle_description": {
             "type": "string",
-            "value": ": 2010 Toyota Corolla"
+            "value": "2010 Toyota Corolla"
           },
           "_everything_in_this_covered_vehicle_section": {
             "type": "string",
@@ -310,7 +313,7 @@ The following image shows the example PDF used with this example config:
         {
           "vehicle_description": {
             "type": "string",
-            "value": ": 2012 Honda Accord"
+            "value": "2012 Honda Accord"
           },
           "_everything_in_this_covered_vehicle_section": {
             "type": "string",
@@ -333,7 +336,7 @@ The following image shows the example PDF used with this example config:
     {
       "vehicle_description": {
         "type": "string",
-        "value": ": 2003 Mits Lancer Es"
+        "value": "2003 Mits Lancer Es"
       },
       "_everything_in_this_covered_vehicle_section": {
         "type": "string",
@@ -352,7 +355,7 @@ The following image shows the example PDF used with this example config:
     {
       "vehicle_description": {
         "type": "string",
-        "value": ":2019 Nissan Pathfinder"
+        "value": "2019 Nissan Pathfinder"
       },
       "_everything_in_this_covered_vehicle_section": {
         "type": "string",
@@ -371,7 +374,7 @@ The following image shows the example PDF used with this example config:
     {
       "vehicle_description": {
         "type": "string",
-        "value": ": 2010 Toyota Corolla"
+        "value": "2010 Toyota Corolla"
       },
       "_everything_in_this_covered_vehicle_section": {
         "type": "string",
@@ -390,7 +393,7 @@ The following image shows the example PDF used with this example config:
     {
       "vehicle_description": {
         "type": "string",
-        "value": ": 2012 Honda Accord"
+        "value": "2012 Honda Accord"
       },
       "_everything_in_this_covered_vehicle_section": {
         "type": "string",
