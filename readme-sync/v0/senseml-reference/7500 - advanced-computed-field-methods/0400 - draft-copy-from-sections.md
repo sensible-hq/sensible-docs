@@ -12,7 +12,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 | key                            | value                                            | description |
 | :----------------------------- | :----------------------------------------------- | :---------- |
-| id (**required**)              | `copy_to_section`                                |             |
+| id (**required**)              | `copy_from_sections`                             |             |
 | source_sections (**required**) | The ID of the source section group.              |             |
 | source_field (**required**)    | The ID of the source field in the section group. |             |
 
