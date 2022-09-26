@@ -1,5 +1,5 @@
 openapi: 3.0.3
-servers: 
+servers:
   - url: https://api.sensible.so/v0
     description: Production server (uses live data)
 info:
@@ -89,7 +89,7 @@ paths:
     put:
       operationId: update-document-type
       summary: Update document type
-      description: Replace an existing document type with new information.
+      description: Update an existing document type with new information. For example, use this endpoint to add validations.
       tags:
       - Document type
       requestBody:
@@ -98,6 +98,14 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PutDocumentType'
+            example:
+              name: pay_stubs
+              schema:
+                validations:
+                  - description: employer's email is in string@string format
+                    condition: {"match":[{"var":"employer\\.email.value"},"^\\S+\\@\\S+$"]}
+                    severity: warning
+
       responses:
         200:
           content:
@@ -119,7 +127,7 @@ paths:
       operationId: delete-document-type
       summary: Delete document type
       description: |
-        Delete a document type and everything it contains (configurations, reference PDfs), 
+        Delete a document type and everything it contains (configurations, reference PDfs),
         but not its extraction history displayed in the Sensible app.
       tags:
       - Document type
@@ -355,9 +363,9 @@ paths:
       summary: Delete draft or unpublish configuration
       description: >-
         To delete a draft, specify a version name in the `version` parameter.
-        To unpublish a configuration, then enter the publication environment name in the `version` parameter, for example, 
-        `development`. 
-        
+        To unpublish a configuration, enter the publication environment name in the `version` parameter, for example,
+        `development`.
+
       tags:
       - Configuration
       parameters:
@@ -415,7 +423,7 @@ paths:
       operationId: create-reference-document
       summary: Create reference document
       description: >-
-        Specify document metadata in the request, and get back an `upload_url` at which to put the PDF, 
+        Specify document metadata in the request, and get back an `upload_url` at which to put the PDF,
         for example with `curl -T ./sample.pdf`.
       tags:
       - Reference document
@@ -524,7 +532,7 @@ paths:
     delete:
       operationId: delete-reference-document-association
       summary: Unassociate reference document from configuration
-      description: Break the association between a reference document and its configuration. 
+      description: Break the association between a reference document and its configuration.
       tags:
       - Reference document
       responses:
@@ -541,17 +549,17 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type-name}:  
+  /extract_from_golden/{type-name}:
     parameters:
       - $ref: '#/components/parameters/documentTypeName'
-      - $ref: '#/components/parameters/environment' 
-    post: 
+      - $ref: '#/components/parameters/environment'
+    post:
       operationId: extract-from-reference-document
       summary: Extract from reference document
       description: >-
-        Extract from a specified reference document in a document type. 
+        Extract from a specified reference document in a document type.
         Return the best-scoring extraction from the configurations in the document type, or from the
-        specified configuration. 
+        specified configuration.
       tags:
       - Reference document extraction
       requestBody:
@@ -566,7 +574,7 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ResponseGoldenExtraction'
-            description: The structured data extracted from the reference document 
+            description: The structured data extracted from the reference document
 
           400: # todo I didn't verify 40x responses for any extract_from_goldens, just assumed
             $ref: '#/components/responses/400'
@@ -583,10 +591,10 @@ paths:
   #   parameters:
   #     - $ref: '#/components/parameters/documentTypeName'
   #     - $ref: '#/components/parameters/configurationName'
-  #     - $ref: '#/components/parameters/environment' 
-  #   post: 
+  #     - $ref: '#/components/parameters/environment'
+  #   post:
   #     operationId: extract-from-reference-document-and-config
-  #     summary: Extract from reference document using configuration 
+  #     summary: Extract from reference document using configuration
   #     description: Extract from a reference document using the specified published configuration
   #     tags:
   #     - Reference document extraction
@@ -604,7 +612,7 @@ paths:
   #                 $ref: '#/components/schemas/ResponseGoldenExtraction'
   #           description: The structured data extracted from the reference document
 
-  #         400: 
+  #         400:
   #           $ref: '#/components/responses/400'
   #         401:
   #           $ref: '#/components/responses/401'
@@ -613,16 +621,16 @@ paths:
   #         415:
   #           $ref: '#/components/responses/415'
   #         500:
-  #           $ref: '#/components/responses/500' 
+  #           $ref: '#/components/responses/500'
 
-  # /extract_from_golden/{type-name}/{config-name}/{version}/{document-name}: 
+  # /extract_from_golden/{type-name}/{config-name}/{version}/{document-name}:
   #   parameters:
   #     - $ref: '#/components/parameters/documentTypeName'
   #     - $ref: '#/components/parameters/configurationName'
   #     - $ref: '#/components/parameters/versionIdentifier'
   #     - $ref: '#/components/parameters/documentName'
-  #     - $ref: '#/components/parameters/environment' 
-  #   get: 
+  #     - $ref: '#/components/parameters/environment'
+  #   get:
   #     operationId: extract-from-reference-document-and-config-version
   #     summary: Extract from reference document using configuration version
   #     description: Extract from a reference document using the specified version of a configuration.
@@ -634,8 +642,8 @@ paths:
   #             application/json:
   #               schema:
   #                 $ref: '#/components/schemas/ResponseGoldenExtraction'
-  #           description: The structured data extracted from the reference document 
-  #         400: 
+  #           description: The structured data extracted from the reference document
+  #         400:
   #           $ref: '#/components/responses/400'
   #         401:
   #           $ref: '#/components/responses/401'
@@ -646,11 +654,11 @@ paths:
   #         500:
   #           $ref: '#/components/responses/500'
 
-  /extract_text_from_golden/{type-name}: 
-    parameters: 
+  /extract_text_from_golden/{type-name}:
+    parameters:
       - $ref: '#/components/parameters/documentTypeName'
       # - $ref: '#/components/parameters/environment' # note: not documenting the env parameter that, while in the handler, is ignored for this endpoint
-    post: 
+    post:
       operationId: extract-all-text-from-reference-document
       summary: Extract all text from reference document
       description: >-
@@ -664,14 +672,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PostGoldenExtraction'
-      responses: 
+      responses:
         200:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseStandardText'
-          description: All the text in the document      
-        400: 
+          description: All the text in the document
+        400:
           $ref: '#/components/responses/400'
         401:
           $ref: '#/components/responses/401'
@@ -684,7 +692,7 @@ paths:
 
 components:
   parameters:
-    documentTypeId: 
+    documentTypeId:
       name: type-id
       required: true
       in: path
@@ -695,9 +703,9 @@ components:
       name: type-name
       required: true
       in: path
-      description: User-friendly name for a document type 
+      description: User-friendly name for a document type
       schema:
-        $ref: '#/components/schemas/DocumentTypeName'  
+        $ref: '#/components/schemas/DocumentTypeName'
     configurationName:
       name: config-name
       required: true
@@ -714,21 +722,21 @@ components:
       example: best_scan_form_no_1234
       schema:
         $ref: '#/components/schemas/Name'
-  
-    
+
+
     versionIdentifier:
       name: version
       required: true
       in: path
       description: Unique identifier for a configuration version.
       schema:
-        type: string        
+        type: string
     environment:
       name: environment
       in: query
       description: >-
-        If you specify `development`, extracts preferentially using config versions 
-        published to the development environment in the Sensible app. The extraction runs all configs in the doc type before 
+        If you specify `development`, extracts preferentially using config versions
+        published to the development environment in the Sensible app. The extraction runs all configs in the doc type before
         picking the best fit. For each config, falls back to production version if no development version of the config exists.
       schema:
         type: string
@@ -747,15 +755,15 @@ components:
       maxLength: 128
       description: User-friendly name
     DocumentTypeName:
-      description: Unique user-friendly name for a document type 
+      description: Unique user-friendly name for a document type
       example: auto_insurance_quotes_all_carriers
-      type: string  
+      type: string
     ConfigurationName:
-      description: Unique user-friendly name for a configuration 
+      description: Unique user-friendly name for a configuration
       example: anyco_auto_insurance_quote
       type: string
     DocumentName:
-      description: Unique user-friendly name for a document 
+      description: Unique user-friendly name for a document
       example: best_scan_form_num_1234
       type: string
     Date:
@@ -769,10 +777,10 @@ components:
           $ref: '#/components/schemas/DocumentTypeName'
         id:
           $ref: '#/components/schemas/UniqueId'
-        created: 
+        created:
           $ref: '#/components/schemas/Date'
         schema:
-          $ref: '#/components/schemas/OutputSchema'
+          $ref: '#/components/schemas/DocumentTypeOutput'
       required:
         - name
         - id
@@ -781,14 +789,14 @@ components:
       additionalProperties: false
     GetAllDocumentTypes:
       type: array
-      items: 
+      items:
         type: object
         properties:
           name:
             $ref: '#/components/schemas/DocumentTypeName'
           id:
             $ref: '#/components/schemas/UniqueId'
-          #created: 
+          #created:
             #$ref: '#/components/schemas/Date'
         required:
           - name
@@ -801,12 +809,13 @@ components:
         name:
           $ref: '#/components/schemas/DocumentTypeName'
         schema:
-          $ref: '#/components/schemas/OutputSchema'
+          $ref: '#/components/schemas/DocumentTypeOutput'
       required:
         - name
         - schema
-      additionalProperties: false  
-    OutputSchema:
+      additionalProperties: false
+
+    DocumentTypeOutput:
       type: object
       additionalProperties: false
       properties:
@@ -823,12 +832,12 @@ components:
             - google
           type: string
           description: |
-            The Sensible app defaults to `Microsoft`.  
-            Microsoft is the default engine and suited to typewritten and long documents. 
-            Google is faster and suited to handwriting and short documents (25 pages or under). 
+            The Sensible app defaults to `Microsoft`.
+            Microsoft is the default engine and suited to typewritten and long documents.
+            Google is faster and suited to handwriting and short documents (25 pages or under).
             The Google engine doesn't merge words into lines automatically. Use the mergeLines preprocessor in your configurations to do so.
-            Amazon is suited for short documents (25 pages or under), and is an alternative to experiment with if other engines aren't recognizing text you need. 
-      
+            Amazon is suited for short documents (25 pages or under), and is an alternative to experiment with if other engines aren't recognizing text you need.
+
         ocr_level:
           enum:
             - 2
@@ -841,41 +850,12 @@ components:
             Choosing 2 or 4 further configures OCR behavior as follows:
             2: (Sensible app default) - Sensible averages the number of lines per page in the document, and if it's fewer than 10, Sensible runs OCR on the whole document.
             4: Sensible always renders the first page and tests it to determine whether to run OCR on the whole document.
-    #     validations:
-    #       description: Array of validations. See https://docs.sensible.so/docs/validate-extractions 
-    #       items:
-    #         $ref: "#/components/schemas/DocumentValidation"
-    #       type: array
-    # DocumentValidation:
-    #   type: object
-    #   additionalProperties: false
-    #   description: See https://docs.sensible.so/docs/validate-extractions 
-    #   properties:
-    #     description:
-    #       type: string
-    #       description: User-friendly description for the test
-    #       example: Broker's email is in string@string format
-    #     condition:
-    #       description: The test for extraction written in JsonLogic.
-    #       example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
-    #       type: object
-    #       additionalProperties: true
-            
-      #   fields:
-      #     type: array
-      #     description: Skip this test unless prerequisite fields are non-null.
-      #     example: ["broker\\.email"]
-      #     items:
-      #       type: string
-      #   severity:
-      #     type: string
-      #     description: Severity of the failing test
-      #     enum:
-      #       - warning
-      #       - error
-      # required:
-      #   - description
-      #   - condition
+        validations:
+          description: Array of validations. See https://docs.sensible.so/docs/validate-extractions
+          items:
+            $ref: "#/components/schemas/ValidationRequest"
+          type: array
+
 
     PutDocumentType:
       type: object
@@ -883,8 +863,10 @@ components:
         name:
           $ref: '#/components/schemas/Name'
         schema:
-          $ref: '#/components/schemas/OutputSchema'
+          $ref: '#/components/schemas/DocumentTypeOutput'
       additionalProperties: false
+
+
     GetAllGoldens:
       type: array
       items:
@@ -894,7 +876,7 @@ components:
       properties:
         name:
           $ref: '#/components/schemas/DocumentName'
-        created: 
+        created:
           $ref: '#/components/schemas/Date'
         configuration:
           $ref: '#/components/schemas/AssociatedConfigurationName'
@@ -903,7 +885,7 @@ components:
           description: Any errors that occurred processing the reference document
         upload_url:
           type: string
-          description: If present, the URL to which a reference document can be PUT 
+          description: If present, the URL to which a reference document can be PUT
         download_url:
           type: string
           description: If present, the URL to GET to retrieve the reference document
@@ -941,7 +923,7 @@ components:
       maxLength: 128
       description: User-friendly name of the configuration to associate to the reference document
       example: anyco_auto_insurance_quote
- 
+
     GetAllConfigurations:
       type: array
       items:
@@ -949,7 +931,7 @@ components:
         properties:
           name:
             $ref: '#/components/schemas/ConfigurationName'
-          created: 
+          created:
             $ref: '#/components/schemas/Date'
           versions:
             type: array
@@ -959,13 +941,13 @@ components:
           - name
           - created
           - versions
-        additionalProperties: false  
+        additionalProperties: false
     ConfigurationVersion:
       type: object
       properties:
         version_id:
           type: string
-          example: fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm  
+          example: fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm
         datetime:
           $ref: '#/components/schemas/Date'
         environments:
@@ -1002,8 +984,8 @@ components:
       type: string
       description: |
         JSON-stringified configuration.
-        If you test this endpoint using the **Try It** button in this interactive API explorer, 
-        the explorer stringifies the JSON for you when you paste the configuration into this parameter. 
+        If you test this endpoint using the **Try It** button in this interactive API explorer,
+        the explorer stringifies the JSON for you when you paste the configuration into this parameter.
         To support publishing drafts, this API doesn’t reject requests with configuration errors.
         To validate, compare your configuration to the latest version of the configuration schema, published at https://app.sensible.so/schemas/configuration.schema.json.
 
@@ -1019,20 +1001,20 @@ components:
         Destination environment for publication, as a target for later extraction.
         If you specify an environment, the configuration must be valid.
         If you don't specify an environment, Sensible saves the configuration as the current draft.
-          
+
 
     ConfigurationResponse:
       type: object
       properties:
         name:
           $ref: '#/components/schemas/ConfigurationName'
-        created: 
+        created:
           $ref: '#/components/schemas/Date'
         configuration:
           type: string
-          description: Configuration returned as stringified JSON. 
+          description: Configuration returned as stringified JSON.
           example: |
-            "{\r\n\t\"fingerprint\": {\r\n\t\t\"tests\": [\r\n\t\t\t\"anyco\",\r\n\t\t\t\"quoted coverage changes\"\r\n\t\t]\r\n\t},\r\n\t\"preprocessors\": [{\r\n\t\t\"type\": \"pageRange\",\r\n\t\t\"startPage\": 0,\r\n\t\t\"endPage\": 2\r\n\t}],\r\n\t\"fields\": [{\r\n\t\t\"id\": \"_driver_name_raw\",\r\n\t\t\"anchor\": \"name of driver\",\r\n\t\t\"method\": {\r\n\t\t\t\"id\": \"label\",\r\n\t\t\t\"position\": \"below\"\r\n\t\t}\r\n\t}],\r\n\t\"computed_fields\": [{\r\n\t\t\t\"id\": \"driver_name_last\",\r\n\t\t\t\"method\": {\r\n\t\t\t\t\"id\": \"split\",\r\n\t\t\t\t\"source_id\": \"_driver_name_raw\",\r\n\t\t\t\t\"separator\": \", \",\r\n\t\t\t\t\"index\": 1\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t]\r\n}"  
+            "{\r\n\t\"fingerprint\": {\r\n\t\t\"tests\": [\r\n\t\t\t\"anyco\",\r\n\t\t\t\"quoted coverage changes\"\r\n\t\t]\r\n\t},\r\n\t\"preprocessors\": [{\r\n\t\t\"type\": \"pageRange\",\r\n\t\t\"startPage\": 0,\r\n\t\t\"endPage\": 2\r\n\t}],\r\n\t\"fields\": [{\r\n\t\t\"id\": \"_driver_name_raw\",\r\n\t\t\"anchor\": \"name of driver\",\r\n\t\t\"method\": {\r\n\t\t\t\"id\": \"label\",\r\n\t\t\t\"position\": \"below\"\r\n\t\t}\r\n\t}],\r\n\t\"computed_fields\": [{\r\n\t\t\t\"id\": \"driver_name_last\",\r\n\t\t\t\"method\": {\r\n\t\t\t\t\"id\": \"split\",\r\n\t\t\t\t\"source_id\": \"_driver_name_raw\",\r\n\t\t\t\t\"separator\": \", \",\r\n\t\t\t\t\"index\": 1\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t]\r\n}"
         version_id:
           type: string
         versions:
@@ -1055,8 +1037,8 @@ components:
           $ref: '#/components/schemas/StringifiedConfigurationRequest'
           example: |
             { "fields": [{ 		"id": "updated_name_field", 		"anchor": "name of driver", 		"method": { 			"id": "label", 			"position": "below" 		} 	}], 	"computed_fields": [{ 			"id": "driver_name_last", 			"method": { 				"id": "split", 				"source_id": "_driver_name_raw", 				"separator": ", ", 				"index": 1 			} 		}  	] }
-       
-          
+
+
         publish_as:
           $ref: '#/components/schemas/Environment'
         current_draft:
@@ -1089,16 +1071,16 @@ components:
       properties:
         golden:
           type: string
-          description: user-friendly name for the reference document 
+          description: user-friendly name for the reference document
           example: best_scan_doc_num_1234
         configuration:
           type: object
           description: >-
             SenseML configuration as a JSON object, not stringified JSON, for example, `"configuration": {"fields":[]}`.
-            If you leave out this parameter, then Sensible returns the best-scoring extraction 
+            If you leave out this parameter, then Sensible returns the best-scoring extraction
             from the configurations in the document type.  If you specify it, Sensible ignores the `environment` parameter.
-          example: {"fields":[]}  
-    
+          example: {"fields":[]}
+
     # NOTE: all the Extraction schema stuff is duplicated in openapi.yml it would be nicer to single source them but then we'd need a tool to combine the ymls since readme-cli doesn't seem to handle it well...
     ResponseGoldenExtraction:
       allOf:
@@ -1111,37 +1093,37 @@ components:
             errors:
               type: array
               description: errors
-            text:  
-              $ref: '#/components/schemas/ResponseStandardText'  
+            text:
+              $ref: '#/components/schemas/ResponseStandardText'
               description: >-
-                All the text in the document. To return this, set `"verbosity": 3"` in the specified configuration 
+                All the text in the document. To return this, set `"verbosity": 3"` in the specified configuration
             fingerprints:
               type: object
-              description: the page and line indexes for the fingerprints found  # todo - provide example   
+              description: the page and line indexes for the fingerprints found  # todo - provide example
 
     Extraction:
       type: object
       properties:
-        id: 
-          $ref: '#/components/schemas/ExtractionId'  
+        id:
+          $ref: '#/components/schemas/ExtractionId'
         created:
-          $ref: '#/components/schemas/ExtractionCreated' 
+          $ref: '#/components/schemas/ExtractionCreated'
         type:
-          $ref: '#/components/schemas/ExtractionType' 
+          $ref: '#/components/schemas/ExtractionType'
         configuration:
           type: string
           description: Name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.
           example: anyco_rate_confirmation
         status:
-          $ref: '#/components/schemas/ExtractionStatus'  
+          $ref: '#/components/schemas/ExtractionStatus'
         parsed_document:
-          $ref: '#/components/schemas/ParsedDocument'  
+          $ref: '#/components/schemas/ParsedDocument'
         validations:
-          $ref: '#/components/schemas/Validations'  
+          $ref: '#/components/schemas/Validations'
         validations_summary:
-          $ref: '#/components/schemas/ValidationsSummary' 
+          $ref: '#/components/schemas/ValidationsSummary'
         classification_summary:
-          $ref: '#/components/schemas/ClassificationSummary' 
+          $ref: '#/components/schemas/ClassificationSummary'
 
     ParsedDocument:
       description: Data extracted from the document, structured as an array of fields
@@ -1166,7 +1148,7 @@ components:
           value: 695
           unit: $
           type: currency
-        pickup_date: null  
+        pickup_date: null
     ResponseStandardText:
       description: >-
         all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
@@ -1213,15 +1195,46 @@ components:
             - x: 5.982
               y: 2.236
             - x: 4.25
-              y: 2.236  
-    Validation:
+              y: 2.236
+
+    ValidationRequest:
+      type: object
+      additionalProperties: false
+      description: See https://docs.sensible.so/docs/validate-extractions.
+      properties:
+        description:
+          type: string
+          description: User-friendly description for the test
+          example: Broker's email is in string@string format
+        condition:
+          description: The test for extraction written in JsonLogic.
+          example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
+          type: object
+          additionalProperties: true
+        fields:
+          type: array
+          description: Skip this test unless prerequisite fields are non-null.
+          example: ["broker\\.email"]
+          items:
+            type: string
+        severity:
+          type: string
+          description: Severity of the failing test
+          enum:
+            - warning
+            - error
+      required:
+        - description
+        - condition
+
+    ValidationResponse:
       type: object
       properties:
         description:
           type: string
           description: Description of the validation
           example: Dollar amount should be more than $100
-        severity: 
+        severity:
           type: string
           enum: [error, warning, skipped]
           example: warning
@@ -1232,18 +1245,21 @@ components:
           example: >-
             Missing prerequisites: broker.email
 
+
+
+
     Validations:
       description: Which extracted fields failed validation rules you write in the Sensible app
       type: array
       items:
-        $ref: '#/components/schemas/Validation' 
+        $ref: '#/components/schemas/ValidationResponse'
       example:
         - description: Load weight should be over 1 ton
           severity: warning
         - description: Carrier email must be in format string@string
           severity: skipped
           message: Missing prerequisites - carrier_email
-        
+
     ValidationsSummary:
       type: object
       description: Summary of the extracted fields that failed validation rules you write in the Sensible app.
@@ -1267,37 +1283,37 @@ components:
         skipped:
           type: integer
           description: Number of fields skipped in the extraction because a prerequisite field was null
-          example: 1          
+          example: 1
 
-          
+
     ExtractionId:
       type: string
       format: uuid
       description: Unique ID for the extraction, used to retrieve the extraction
       example: 246a6f60-0e5b-11eb-b720-295a6fba723e
-    
+
     ExtractionCreated:
       type: string
       format: date
-      description: Date the extraction was created  
-    
+      description: Date the extraction was created
+
     ExtractionType:
       type: string
       description: User-friendly name of the document type
-      example: rate_confirmation  
+      example: rate_confirmation
     ExtractionStatus:
       type: string
       description: Extraction status (WAITING, COMPLETE, FAILED)
       enum: [WAITING, COMPLETE, FAILED]
-      example: COMPLETE      
+      example: COMPLETE
 
     ClassificationSummary:
       type: array
       description:  >-
             Metadata about how Sensible chose the config to use for this extraction.
             Sensible compares all configs in the document type, then chooses the best extraction using
-            fingerprints, scores, or a combination of the two. 
-            (When two extractions tie by score and fingerprints, Sensible chooses the 
+            fingerprints, scores, or a combination of the two.
+            (When two extractions tie by score and fingerprints, Sensible chooses the
             first configuration in alphabetic order).
             For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)
       items:
@@ -1324,7 +1340,7 @@ components:
           type: string
           example: anyco
           description: The config tested for fingerprints
-        fingerprint_present:  
+        fingerprint_present:
           type: integer
           example: 1
           description: The number of this config's fingerprints that Sensible found in the document.
@@ -1333,9 +1349,9 @@ components:
           example: 1
           description: The number of fingerprints defined in this config.
         score:
-          $ref: '#/components/schemas/Score' 
-    
-    Score: 
+          $ref: '#/components/schemas/Score'
+
+    Score:
       type: object
       description: The score for the extraction, used to help choose the best extraction.
       properties:
@@ -1346,12 +1362,12 @@ components:
         fields_present:
           type: integer
           example: 17
-          description: Number of non-null fields Sensible extracted from the document using this config   
+          description: Number of non-null fields Sensible extracted from the document using this config
         penalties:
           type: number
           example: 1.5
-          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.   
-    
+          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.
+
   responses:
     204:
       description: No content
@@ -1360,7 +1376,7 @@ components:
           schema:
             title: No Content
             type: string
-            example: No Content  
+            example: No Content
     400:
       description: Bad Request
       content:
@@ -1398,7 +1414,7 @@ components:
           schema:
             title: Unauthorized
             type: string
-            example: Unauthorized          
+            example: Unauthorized
     404:
       description: Not Found
       content:
@@ -1436,14 +1452,14 @@ components:
           schema:
             title: Sensible encountered an unknown error
             type: string
-            example: Sensible encountered an unknown error 
+            example: Sensible encountered an unknown error
   securitySchemes:
     bearerAuth:       # arbitrary name for the security scheme
       type: http
       scheme: bearer
       description: >-
-        Sensible uses API keys to authenticate requests. You should have received a key as a part of onboarding, 
-        but if you're having trouble with your current key, please reach out to support@sensible.so. 
+        Sensible uses API keys to authenticate requests. You should have received a key as a part of onboarding,
+        but if you're having trouble with your current key, please reach out to support@sensible.so.
         Keep your API keys secure and do not share them publicly accessible areas such as GitHub, client-side code, etc.
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 # Apply the auth globally to all operations
