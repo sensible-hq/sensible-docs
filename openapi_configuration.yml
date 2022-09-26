@@ -103,7 +103,7 @@ paths:
               schema:
                 validations:
                   - description: employer's email is in string@string format
-                    condition: '{"match":[{"var":"employer\\.email.value"},"^\\S+\\@\\S+$"]}'
+                    condition: {"match":[{"var":"employer\\.email.value"},"^\\S+\\@\\S+$"]}
                     severity: warning
 
       responses:
