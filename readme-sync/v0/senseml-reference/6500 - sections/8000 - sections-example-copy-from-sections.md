@@ -22,41 +22,31 @@ In this example, the config uses paired section groups nested in a parent sectio
 
 
 
-If you [zip the child sections together](doc:sections-example-zip), the output is something like the following:
+If you [zip the child sections together](doc:sections-example-zip), the JSON output is something like the following abbreviated YAML output:
 
-```json
-
-{
-	"parent_section_group": {
-		"zipped_child_section_groups": {
-			{
-				"description": "2003 Mits Lancer Es",
-				"bodily_injury_liability": "89.70"
-
-			},
-			{
-				"description": "2019 Nissan Pathfinder",
-				"bodily_injury_liability": "138.66"
-
-			}
-		},
-{
-			{
-				"description": "2010 Toyta Corolla",
-				"bodily_injury_liability": "100.10"
-
-			},
-			{
-				"vin": "2012 Honda Accord",
-				"bodily_injury_liability": "140.80"
-
-			}
-		}
-	}
-}
+```yaml
+parent_section_group_declarations:
+- _zipped_vehicle_description_and_coverages:
+  - vehicle_description:
+      value: 2003 Mits Lancer Es
+    bodily_liability_premium:
+      value: 89.7
+  - vehicle_description:
+      value: 2019 Nissan Pathfinder
+    bodily_liability_premium:
+      value: 138.66
+- _zipped_vehicle_description_and_coverages:
+  - vehicle_description:
+      value: 2010 Toyota Corolla
+    bodily_liability_premium:
+      value: 100.1
+  - vehicle_description:
+      value: 2012 Honda Accord
+    bodily_liability_premium:
+      value: 140.8
 ```
 
-This isn't the greatest structured of output, because the parent gropu section (1) breaks the declarations up into two objects. use the copy_to_section to flatten the output like:
+This isn't the greatest structured of output, because you have repeated `_zipped_vehicle_description_and_coverages` arrays. To combine these arrays into one, 
 
 ```json
 "copied_from_zipped_child_sections": {
