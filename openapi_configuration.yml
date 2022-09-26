@@ -90,7 +90,7 @@ paths:
       operationId: update-document-type
       summary: Update document type
       description: |
-        Update an existing document type with new information. For example, use this endpoint to add validations with requests like the following:
+        Update an existing document type with new information. For example, use this endpoint to add validations:
 
         ```curl
         curl --location --request PUT 'https://api.sensible.so/v0/document_types/<TYPE_ID>' \
