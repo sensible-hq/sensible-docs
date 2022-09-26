@@ -44,7 +44,7 @@ parent_section_group_declarations:
       value: 140.8
 ```
 
-In the preceding output, the  `zipped_vehicle-description_and_coverages` field is extraneous and the resulting nested structure is unnecessary. This example shows simplifying the output, using the Copy From Sections method to produce something like the following:
+In the preceding output, the  `zipped_vehicle-description_and_coverages` field is extraneous and results in an unnecessarily complex nested structure. This example shows simplifying the output, using the Copy From Sections method to produce something like the following:
 
 ```json
 flattened_declarations:
