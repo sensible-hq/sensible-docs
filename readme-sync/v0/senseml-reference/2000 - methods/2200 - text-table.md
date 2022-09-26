@@ -22,7 +22,7 @@ Parameters
 | key                       | value                                                    | description                                                  |
 | :------------------------ | :------------------------------------------------------- | :----------------------------------------------------------- |
 | id **required**           | `table`                                                  | When you specify this method, you must also specify `"type": "table"` in the field's parameters. |
-| columns **required**      | array                                                    | An array of objects with the following parameters:<br/> -`id` (**required**): The id for the column in the extraction output.<br/> -`minX` (**required**):  The distance in inches on the page from the left edge of the page to the left edge of the column. To determine this coordinate, open the PDF in a viewer, such as Preview or Gimp, that displays cursor coordinates.  <br/>  -`maxX` (**required**):  The distance in inches on the page from the left edge of the page to the right edge of the column. To determine this coordinate, open the PDF in a viewer, such as Preview or Gimp, that displays cursor coordinates <br/>  -`type`: The table cell's type. For more information about types, see [Field query object](doc:field-query-object).<br/>   -`isRequired` (default false):  If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| columns **required**      | array                                                    | An array of objects with the following parameters:<br/> -`id` (**required**): The id for the column in the extraction output.<br/> -`minX` (**required**):  The distance in inches on the page from the left edge of the page to the left edge of the column. To determine this coordinate, open the PDF in a viewer, such as Preview or Gimp, that displays cursor coordinates.  <br/>  -`maxX` (**required**):  The distance in inches on the page from the left edge of the page to the right edge of the column. To determine this coordinate, open the PDF in a viewer, such as Preview or Gimp, that displays cursor coordinates <br/>  -`type`: The table cell's type. For more information about types, see [Field query object](doc:field-query-object).<br/>   -`isRequired` (default false):  If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns.<br/><br/>You can define columns with overlapping coordinates in order to output data in a single column as multiple columns. For more information, see the Examples section. |
 | offsetY                   | number in inches.                                        | Defines a starting point for recognizing a table, offset vertically from the anchor line's lower boundary. <br/>For example, if no table title precedes the table, then anchor instead on a column heading and use a negative Offset Y parameter to define a starting point above the table. |
 | stop                      | Match object, array of Match objects, or number (inches) | (**Recommended**) Line to match or number in inches to stop table recognition.  Specify this parameter to prevent false positive results and to enable recognizing a table that spans pages.<br/>  A Match object or array specifies to stop table recognition when Sensible matches text.<br/> A number specifies the end of the table as the number of the inches offset along a Y-axis from the start of the table. |
 | startOnRow                | integer. default: 0                                      | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section). |
@@ -31,6 +31,9 @@ Parameters
 
 Examples
 ====
+
+Example 1
+----
 
 The following example shows extracting two columns from a difficult-to-recognize table in the Sensible app:
 
@@ -44,7 +47,7 @@ The following example shows extracting two columns from a difficult-to-recognize
 {
   "fields": [
     {
-      "id": "text_table",
+      "id": "text_table_example",
       "anchor": "outline",
       "type": "table",
       "method": {
@@ -87,7 +90,7 @@ The following image shows the example PDF used with this example config:
 
 ```json
 {
-  "text_table": {
+  "text_table_example": {
     "columns": [
       {
         "id": "col2_limits",
@@ -134,11 +137,128 @@ The following image shows the example PDF used with this example config:
 }
 ```
 
+Example 2
+---
+
+This example shows defining two columns with the same coordinates, in order to split data in the column into two columns determined by type.
+
+
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "split_column_into_two",
+      "anchor": "credit card",
+      "type": "table",
+      "method": {
+        "id": "textTable",
+        "detectMultipleLinesPerRow": true,
+        "columns": [
+          {
+            /* extract account number from 1st column
+               as its own column */
+            "id": "account_number",
+            "type": "number",
+            "minX": 1.0,
+            "maxX": 2.5
+          },
+          {
+            /* extract bank name from 1st column
+               as its on column */
+            "id": "institution_name",
+            "type": {
+              "id": "custom",
+              "pattern": "\\D+",
+              "type": "nonNumber"
+            },
+            "minX": 1.0,
+            "maxX": 2.5
+          },
+        ],
+        "stop": {
+          "text": "computed",
+          "type": "includes"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table_overlap.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/text_table_overlap.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "split_column_into_two": {
+    "columns": [
+      {
+        "id": "account_number",
+        "values": [
+          {
+            "source": "1234",
+            "value": 1234,
+            "type": "number"
+          },
+          {
+            "source": "5432",
+            "value": 5432,
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "institution_name",
+        "values": [
+          {
+            "source": "Chase Bank ",
+            "value": "Chase Bank ",
+            "type": "custom",
+            "customType": "nonNumber"
+          },
+          {
+            "source": "Amex ",
+            "value": "Amex ",
+            "type": "custom",
+            "customType": "nonNumber"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+
+You can output the issuing financial institution and the displayed account number as separate columns, with a configuration like the following configuration.
 
 Notes
 ====
 
-For examples of extracting from complex tables, such as tables inside tables or tables with labled rows and columns, see [Sections](doc:sections#examples).
+- For examples of extracting from complex tables, such as tables inside tables or tables with labled rows and columns, see [Sections](doc:sections#examples).
+
+
+
+
+
+  
+
+  
+
+  
+
+  
 
 
 
