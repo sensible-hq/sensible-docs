@@ -10,12 +10,33 @@ Quality control the data extractions in a document type by writing validations u
 - pass a document extraction automatically through your pipeline if there are no errors and 10% of warning validations fail
 - flag a document extraction for human review if 5% of error validations fail
 
-To write validations in the Sensible app:
+Create validations
+----
+
+**Sensible app**
+
+To create validations in the Sensible app:
 
 1. Click the document type.
 2. Click **Create validation**.
 3. Enter the parameters for the validation.
 4. Click **Create**.
+
+**API**
+
+To create validations using the Sensible API, send a request like the following:
+
+```curl
+curl --location --request PUT 'https://api.sensible.so/v0/document_types/<TYPE_ID>' \
+--header 'Authorization: Bearer <YOUR_API_TOKEN>' \
+--header 'Content-Type: application/json' \
+--data-raw '{"schema":{"validations":[{"description":"example validation to test broker email format","condition":{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]},"severity":"warning","fields":["test"]}]}} '
+```
+
+For more information, see the [API reference](https://docs.sensible.so/reference/update-document-type).
+
+
+
 
 Parameters
 ====
@@ -64,7 +85,7 @@ Validation 3
 - **Description**:  Broker's email is in string@string format
 - **Severity**: warning
 - **Prerequisite fields**: `["broker\\.email"]`
-- **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`
+- **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`   
 
 **Notes**:  If `broker.email` isn't null, then uses a Sensible operation (`match`) to test that the email matches a regular expression. If `broker.email` is null, skips this condition.
 
