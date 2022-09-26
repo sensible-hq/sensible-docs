@@ -1,6 +1,6 @@
 ---
 title: "Copy from section"
-hidden: true
+hidden: false
 ---
 Returns an array of the values for a field in a section group. This is useful for flattening the output of complex nested sections.
 
