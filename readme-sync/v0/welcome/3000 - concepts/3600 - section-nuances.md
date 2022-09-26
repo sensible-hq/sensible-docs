@@ -36,14 +36,14 @@ Vertical sections
 Sensible:
 
 1. (one time) Finds the section group's range in which to recognize columns using Match and Stop lines. A range can span pages.
-
 2. (repeats) Recognizes columns inside the range, based on whitespace gutters and searching left-to-right. If non-columnar text is present in the range, it can affect column recognition as follows:
-   
+
    - If there's a Stop parameter, Sensible adds the non-column text to each column. Each column then has a nonlinear, irregular shape. For example, this allows each column to use a table title that spans multiple columns as an anchor. 
 
    - If there's no Stop parameter, any non-columnar text in the range breaks column recognition. Exclude the text from the range using the offset parameters or the Lines Filter parameter.
-   
 3. Extracts fields from each column in the group. Sensible expects but doesn't require that the data is in a repeated structure for each column.
+
+**Tip:** To extract repeated vertical section groups, nest them in a parent section group. 
 
 Column Selection
 ----
