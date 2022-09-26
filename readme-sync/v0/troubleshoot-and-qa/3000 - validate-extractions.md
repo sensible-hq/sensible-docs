@@ -22,10 +22,6 @@ To create validations in the Sensible app:
 3. Enter the parameters for the validation.
 4. Click **Create**.
 
-**API**
-
-You can create validations through the Sensible API. For more information, see the [API reference](https://docs.sensible.so/reference/update-document-type).
-
 Parameters
 ====
 
