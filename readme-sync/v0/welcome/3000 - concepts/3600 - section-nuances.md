@@ -18,9 +18,9 @@ Sensible finds the sections as follows:
    - If there's *no* Stop parameter, the current section's range stops above the next anchor's Match + Y Offset parameters. 
    - If there's an *optional* Stop parameter, the current section stops either:
      -  above the next anchor's Match + Y Offset parameter, *or*
-     - above the next Stop line + Stop Y Offset parameter. 
+     - below the next Stop line + Stop Y Offset parameter. 
      - Use an *optional* stop to prevent the last section in the group from extending to the end of the document.
-   - If there's a *required* Stop, the next section stops above the next Stop line + Stop Y Offset parameter, and Sensible ignores any intervening anchor matches.
+   - If there's a *required* Stop, the next section stops below the next Stop line + Stop Y Offset parameter, and Sensible ignores any intervening anchor matches.
 2. (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the section group ends with the End parameter, or Sensible reaches the end of the document.
 3. Extracts fields from each section in the group. Sensible expects but doesn't require that the data is in a repeated structure for each section.
 
@@ -73,7 +73,7 @@ For example, if you exclude the first and last columns by configuring `"columnSe
          }
   ```
 
-3. The Banana column has access to the same anchoring information in the same spatial layout. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.
+3. The Banana column has access as the Apple column to anchoring information, in the same spatial layout. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
 
@@ -84,10 +84,16 @@ Multiple anchors in section
 
 You can handle multiple matches for the range's Match parameter inside a section as follows:
 
-- If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter.  Even if you leave this parameter unspecified, Sensible ignores matches that are on the same horizontal line to the left of the anchor's Match parameter.
-- Or, you can use Sensible's default behavior to split a section group range containing multiple anchors into sections. For example, assume that the anchor's Match line is the regular expression `.+`, meaning match any characters. In this case, if you already defined the start and end of the section group, then:
-  - For sections, Sensible splits text into "rows" at each newline. 
+- If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter. You don't need to configure this parameter for matches that are on the same horizontal line as the anchor's Match parameter.
+- If you want to create sections out of rows or columns, without matching on specific text in those sections, take the following steps :
+  - Define a section group with specific text matches for the Start and End parameters of the section group.
+  - Specify an anchor match that uses the regular expression `.+`, which matches any characters.
+
+  In this case, Sensible creates sections as follows:
+  
+  - For horizontal sections, Sensible splits text into "rows" at each newline. 
   - For vertical sections, Sensible splits text into "columns".
+  
 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
