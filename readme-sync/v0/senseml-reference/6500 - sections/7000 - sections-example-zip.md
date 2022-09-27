@@ -111,7 +111,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "type": "sections",
       "range": {
         "direction": "vertical",
-        /* treat 1st two columns as row labels,
+        /* treat 1st two columns as anchoring candidates,
            output 3rd thru last columns as sections */
         "columnSelection": [
           [
@@ -134,7 +134,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
         {
           /* each vertical section is a table slice determined
              by columnSelection that 
-             combines the "labeling" columns with one of the
+             combines the "anchoring" columns with one of the
              vehicle columns. In each table slice, the 2nd
              cell to the right of "bodily injury liability"
              is always the injury premium for that section's vehicle */
