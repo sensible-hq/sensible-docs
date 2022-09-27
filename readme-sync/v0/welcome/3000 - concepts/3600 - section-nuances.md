@@ -43,7 +43,7 @@ Sensible:
    - If there's no Stop parameter, any non-columnar text in the range breaks column recognition. Exclude the text from the range using the offset parameters or the Lines Filter parameter.
 3. Extracts fields from each column in the group. Sensible expects but doesn't require that the data is in a repeated structure for each column.
 
-**Tip:** To extract repeated vertical section groups, nest them in a parent section group. 
+**Tip:** To extract repeated vertical section groups, nest them in a parent section group.  For an example, see [Advanced: nested columns example](doc:sections-example-nested-columns).
 
 Column Selection
 ----

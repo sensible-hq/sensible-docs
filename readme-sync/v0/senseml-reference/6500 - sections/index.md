@@ -27,7 +27,7 @@ The following image shows vertical sections.  For more information, see the foll
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_concept_vertical.png)
 
-**Tip:** To extract repeated vertical section groups, nest them in a parent section group. 
+**Tip:** To extract repeated vertical section groups, nest them in a parent section group.  For an example, see [Advanced: nested columns example](doc:sections-example-nested-columns).
 
 Parameters
 ====
