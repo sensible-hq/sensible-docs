@@ -7,7 +7,6 @@ The following example:
 
 - Uses the Column Selection parameter in a vertical sections group to treat row labels as anchors in a table.
 - Uses relative column coordinates to find nested tables in each column table. (`"columnsRelativeToAnchor":"true"`).
-- Illustrates each section's range with a field that outputs the entire contents of each section.
 
 **Config**
 
