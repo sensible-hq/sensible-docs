@@ -53,7 +53,7 @@ See the following table for details about the Range object parameters:
 
 **Range parameters for columns**
 
-Use `"direction":"vertical"` in the Range object to define a "vertical section" in which to find text in column-like layouts. For example, use vertical sections to extract tables nested in tables, tables with row labels, or other complex text layouts. 
+Use `"direction":"vertical"` in the Range object to define a "vertical sections group", where each section is a column-like layout. For example, use vertical sections to extract tables nested in tables, tables with row labels, or other complex text layouts. 
 
 The following table shows Range parameters specific to vertical sections.
 
