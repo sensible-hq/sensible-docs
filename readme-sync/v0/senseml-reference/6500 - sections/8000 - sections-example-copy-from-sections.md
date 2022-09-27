@@ -104,7 +104,7 @@ The following elaborates on the preceding overview using JSON instead of YML.
                 "isCaseSensitive": true
               },
             },
-            /* each section in group ends after "vehicle no." line */
+            /* each section in group ends below "vehicle no." line */
             "stop": {
               "type": "startsWith",
               "text": "Vehicle no",
