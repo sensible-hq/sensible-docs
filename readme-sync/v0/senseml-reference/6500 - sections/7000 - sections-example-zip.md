@@ -134,15 +134,15 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
         {
           /* each vertical section is a table slice determined
              by columnSelection that 
-             combines the first two columns with one of the
-             vehicle columns. In each table slice, the 2rd
-             cell in the row that starts with "bodily injury liability"
+             combines the "labeling" columns with one of the
+             vehicle columns. In each table slice, the 2nd
+             cell to the right of "bodily injury liability"
              is always the injury premium for that section's vehicle */
           "id": "bodily_liability_premium",
           "type": "number",
           "method": {
             "id": "row",
-            "tiebreaker": 1
+            "tiebreaker": "second"
           },
           "anchor": {
             "match": {
