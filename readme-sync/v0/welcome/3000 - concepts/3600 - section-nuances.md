@@ -56,7 +56,11 @@ Use the Column Selection parameter with vertical sections to:
 For example, if you exclude the first and last columns by configuring `"columnSelection": [[1,-2]]` for the table in the following image, then:
 
 1. Sensible selects the Apples and Bananas columns for output.
-2. For the Apples column, Sensible creates a section that is a table slice containing the Apples column, with Nutrition and Notes columns available as anchors. For example, you can extract the cell containing `95` in the Apples column with:
+2. For the Apples column, Sensible creates a section that is a table slice containing:
+   1. the Apples column
+   2. the Nutrition and Notes, columns available as anchors.
+   For example, you can extract the cell containing `95` in the Apples column with:
+
 
   ```json
       {
@@ -69,11 +73,11 @@ For example, if you exclude the first and last columns by configuring `"columnSe
          }
   ```
 
-3. The section containing Banana data has the same Nutrition and Notes anchoring candidates available, where the anchors keep the spatial layout of the original table in relationship to the target columns.  For example, you can find the cell containing `105` in the Bananas column using the *same* `fruit_calories` field as in the preceding step. 
+3. The Banana column has access to the same anchoring information in the same spatial layout. For example, you can find the cell containing `105` in the Bananas column using the *same* `fruit_calories` field as in the preceding step. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
 
-For details about this example, see [Labeled rows and labeled columns table example](doc:sections-example-labeled-rows)
+For more information about this example, see [Labeled rows and labeled columns table example](doc:sections-example-labeled-rows)
 
 Multiple anchors in section
 ----
