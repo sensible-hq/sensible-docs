@@ -82,22 +82,28 @@ For more information about this example, see [Labeled rows and labeled columns t
 Multiple anchors in section
 ----
 
-You can handle multiple matches for the range's Match parameter inside a section as follows:
+See the following options for handling a section that contains multiple matches for the range's Match parameter.
 
-- If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter. You don't need to configure this parameter for matches that are on the same horizontal line as the anchor's Match parameter.
-- For horizontal sections, if you want to create sections out of rows, without matching on specific text in those sections, take the following steps :
-  - Define a section group with specific text matches for the Start and End parameters of the section group.
-  - Specify the anchor's Match parameter using the regular expression `.+`, which matches any characters.
+**Ignore multiple anchors**
 
-  In this case, Sensible creates sections by splitting text into "rows" at each newline:
-  
+If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter. You don't need to configure this parameter for matches that are on the same horizontal line as the anchor's Match parameter.
+
+**Match on all text**
+
+For horizontal sections, you can create a section with each newline if you match on all text for the Match parameter. Take the following steps:
+
+- Define a section group with specific text matches for the Start and End parameters of the section group.
+
+- Specify the anchor's Match parameter using the regular expression `.+`, which matches any characters.
+
+In this case, Sensible creates sections by splitting text into "rows" at each newline. For more information about the behavior shown in the following image, see the  [Zip sections example](doc:sections-example-zip).
 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
-For more information about the behavior shown in the preceding example, see the  [Zip sections example](doc:sections-example-zip).
+​       
 
-- For vertical sections, Sensible splits text into "columns" by default. For repeating vertical sections that lack good anchor candidates, use the regular expression `".+"` for the anchor's Match parameter and nest the section group in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
+For vertical sections, specifying the regular expression `".+"`   for the Match parameter is useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the section group in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
 
 
 
