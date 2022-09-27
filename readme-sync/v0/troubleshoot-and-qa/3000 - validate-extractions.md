@@ -22,6 +22,7 @@ To create validations in the Sensible app:
 3. Enter the parameters for the validation.
 4. Click **Create**.
 
+
 Parameters
 ====
 
@@ -69,7 +70,7 @@ Validation 3
 - **Description**:  Broker's email is in string@string format
 - **Severity**: warning
 - **Prerequisite fields**: `["broker\\.email"]`
-- **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`
+- **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`   
 
 **Notes**:  If `broker.email` isn't null, then uses a Sensible operation (`match`) to test that the email matches a regular expression. If `broker.email` is null, skips this condition.
 
