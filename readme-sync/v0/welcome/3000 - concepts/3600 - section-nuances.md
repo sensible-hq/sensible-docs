@@ -90,7 +90,7 @@ If you want to ignore multiple anchor matches inside the section, use the Requir
 
 **Match on all text**
 
-For horizontal sections, you can create a section with each newline if you match on all text for the Match parameter. Take the following steps:
+For horizontal sections, you can create a section starting at each newline if you match on all text for the Match parameter. Take the following steps:
 
 - Define a section group with specific text matches for the Start and End parameters of the section group.
 
