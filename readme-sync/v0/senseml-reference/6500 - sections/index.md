@@ -63,7 +63,7 @@ The following table shows Range parameters specific to vertical sections.
 | columnSelection | array of index selections where each "index selection" can be:<br/>- a column index or comma-delimited indices<br><br>- an array with two comma-delimited indices, meaning all the columns in the indices range<br/><br/> default: capture all columns (`[]`) | Use to:<br/>- Select the columns you want to output using zero-based column indices or indices ranges. <br>- Specify to treat *unselected* columns as anchor candidates, for example as row labels.  Each selected column can use the text in unselected columns as anchors for its fields, in the same relative position. For example, each column can use the same tiebreaker relative to an unselected column. For an illustration, see [Section nuances](doc:section-nuances#column-selection).<br/> `[[0,5]]` selects 1st through 6th columns. Any other columns are treated as row labels. <br/>`[1,3,-1]`  selects 2nd, 4th, and the last columns. Use negative indices to offset from the last column. <br/> `[1,[3,7]]` selects the 2nd column and the 4th through 8th columns .<br/>  `[[0, -2]]` selects 1st through 2nd-to-last columns.<br/><br/> |
 | ignoredColumns  | integer array.                                               | Use to remove unwanted columns from both the output *and* from the SenseML search scope. For example, this is useful if the columns contain text that interferes with anchoring on other columns. |
 | minColumnGap    | number in inches. default: 0                                 | Configures column recognition by specifying the smallest allowed width of the gutters separating the columns. For an example, see [Table grid example](doc:sections-example-table-grid). Use when text in a column contains whitespace gaps such that Sensible can split one column into two. To avoid this split, set a minimum gap that's larger than the gaps inside the column. The default (0) means that zero-width vertical lines define the column boundaries. |
-| lineFilters     | Match object, or array of Match objects                      | Use to ignore lines that span columns and break column recognition. For example, if the lines occur mid-column, use this parameter rather than an offset parameter to exclude the lines. Sensible excludes the lines both from the output and from the SenseML search scope.<br/>You don't need to configure this parameter if you specify a Stop parameter. For more information, see [Section nuances](doc:section-nuances#vertical-sections). |
+| lineFilters     | Match object, or array of Match objects                      | Use to ignore lines that span columns and break column recognition. For example, if the lines occur mid-column, use this parameter rather than a Stop parameter to exclude the lines. Sensible excludes the lines both from the output and from the SenseML search scope.<br/>You don't need to configure this parameter if you specify a Stop parameter. For more information, see [Section nuances](doc:section-nuances#vertical-sections). |
 
 Examples
 ====
@@ -82,6 +82,8 @@ See the following topics:
 - Advanced: [Table grid example](doc:sections-example-table-grid)
 
 - Advanced: [Zip sections example](doc:sections-example-zip)
+
+- Advanced: [Zip and flatten nested sections](doc:sections-example-copy-from-sections)
 
 
 Notes
