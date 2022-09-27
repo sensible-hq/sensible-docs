@@ -103,7 +103,7 @@ In this case, Sensible creates sections by splitting text into "rows" at each ne
 
 ​       
 
-For vertical sections, specifying the regular expression `".+"`   for the Match parameter is useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the section group in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
+For vertical sections, specifying the regular expression `".+"`   for the Match parameter can be useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the section group in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
 
 
 
