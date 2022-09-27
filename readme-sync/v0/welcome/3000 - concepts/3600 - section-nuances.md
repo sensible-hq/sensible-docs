@@ -87,7 +87,7 @@ You can handle multiple matches for the range's Match parameter inside a section
 - If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter. You don't need to configure this parameter for matches that are on the same horizontal line as the anchor's Match parameter.
 - If you want to create sections out of rows or columns, without matching on specific text in those sections, take the following steps :
   - Define a section group with specific text matches for the Start and End parameters of the section group.
-  - Specify an anchor match that uses the regular expression `.+`, which matches any characters.
+  - Specify the anchor's Match parameter using the regular expression `.+`, which matches any characters.
 
   In this case, Sensible creates sections as follows:
   
