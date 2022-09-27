@@ -73,7 +73,7 @@ For example, if you exclude the first and last columns by configuring `"columnSe
          }
   ```
 
-3. The Banana column has access as the Apple column to anchoring information, in the same spatial layout. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.
+3. The Banana column has the same access as the Apple column to anchoring information, in the same spatial layout. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
 
