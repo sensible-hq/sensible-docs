@@ -18,9 +18,9 @@ Sensible finds the sections as follows:
    - If there's *no* Stop parameter, the current section's range stops above the next anchor's Match + Y Offset parameters. 
    - If there's an *optional* Stop parameter, the current section stops either:
      -  above the next anchor's Match + Y Offset parameter, *or*
-     - above the next Stop line + Stop Y Offset parameter. 
+     - below the next Stop line + Stop Y Offset parameter. 
      - Use an *optional* stop to prevent the last section in the group from extending to the end of the document.
-   - If there's a *required* Stop, the next section stops above the next Stop line + Stop Y Offset parameter, and Sensible ignores any intervening anchor matches.
+   - If there's a *required* Stop, the next section stops below the next Stop line + Stop Y Offset parameter, and Sensible ignores any intervening anchor matches.
 2. (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the section group ends with the End parameter, or Sensible reaches the end of the document.
 3. Extracts fields from each section in the group. Sensible expects but doesn't require that the data is in a repeated structure for each section.
 
@@ -43,70 +43,71 @@ Sensible:
    - If there's no Stop parameter, any non-columnar text in the range breaks column recognition. Exclude the text from the range using the offset parameters or the Lines Filter parameter.
 3. Extracts fields from each column in the group. Sensible expects but doesn't require that the data is in a repeated structure for each column.
 
-**Tip:** To extract repeated vertical section groups, nest them in a parent section group. 
+**Tip:** To extract repeated vertical section groups, nest them in a parent section group.  For an example, see [Advanced: nested columns example](doc:sections-example-nested-columns).
 
 Column Selection
 ----
 
 Use the Column Selection parameter with vertical sections to:
 
-- exclude columns from output
-- use text in excluded columns as anchors for fields in the target columns. For example, if a table has row labels, then configure the Column Selection parameter so that the row labels become available to all target columns.
+- Exclude columns from output.
+- Use text in excluded columns as anchors for fields in the target columns. For example, if a table has row labels, then configure the Column Selection parameter so that the row labels become available to all target columns.
+
+For example, if you exclude the first and last columns by configuring `"columnSelection": [[1,-2]]` for the table in the following image, then:
+
+1. Sensible selects the Apple and Banana columns for output.
+2. For the Apple column, Sensible creates a section that is a table slice containing:
+   1. the Apple column
+   2. the Nutrition and Notes, columns available as anchors.
+   For example, you can extract the cell containing `95` in the Apple column with:
 
 
-For example, if you exclude the first and last columns by configuring `"columnSelection": [[1,-2]]` for the following table, then the Apples and Bananas columns both:
-
-- have the Nutrition and Notes columns available as anchors, where the anchors keep the spatial layout of the original table in relationship to the target columns
-
-- ignore other target columns when processing the current target column.
-
-This behavior means that for the following table, you can specify a field in the vertical section like:
-
+  ```json
+      {
+           "id": "fruit_calories",
+           "anchor": "calories",
+           "method": {
+             "id": "row",
+             "tiebreaker": "first"
+           }
+         }
   ```
-     {
-          "id": "calories",
-          "anchor": "calories",
-          "method": {
-            "id": "row",
-            "tiebreaker": "first"
-          }
-        }
-  ```
 
-  
+3. The Banana column has the same access as the Apple column to anchoring information, in the same spatial layout. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
 
-And return something like:
-
- ```
- {
-   "fruit": [
-     {
-       "calories": 95,
-     {
-       "calories": 105,
-     }
-   ]
- }
- ```
-
-For details about this example, see [Labeled rows and labeled columns table example](doc:sections-example-labeled-rows)
+For more information about this example, see [Labeled rows and labeled columns table example](doc:sections-example-labeled-rows)
 
 Multiple anchors in section
 ----
 
-You can handle multiple matches for the range's Match parameter inside a section as follows:
+See the following options for handling a section that contains multiple matches for the range's Match parameter.
 
-- If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter.  Even if you leave this parameter unspecified, Sensible ignores matches that are on the same horizontal line to the left of the anchor's Match parameter.
-- Or, you can use Sensible's default behavior to split a section group range containing multiple anchors into sections. For example, assume that the anchor's Match line is the regular expression `.+`, meaning match any characters. In this case, if you already defined the start and end of the section group, then:
-  - For sections, Sensible splits text into "rows" at each newline. 
-  - For vertical sections, Sensible splits text into "columns".
+**Ignore multiple anchors**
+
+If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter. You don't need to configure this parameter for matches that are on the same horizontal line as the anchor's Match parameter.
+
+**Match on all text**
+
+For horizontal sections, you can create a section starting at each newline if you match on all text for the Match parameter. Take the following steps:
+
+- Define a section group with specific text matches for the Start and End parameters of the section group.
+
+- Specify the anchor's Match parameter using the regular expression `.+`, which matches any characters.
+
+In this case, Sensible creates sections by splitting text into "rows" at each newline. For more information about the behavior shown in the following image, see the  [Zip sections example](doc:sections-example-zip).
 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
-For an example of using the default behavior shown in the preceding images, see [Table grid example](doc:sections-example-table-grid) and [Zip sections example](doc:sections-example-zip).
+​       
+
+For vertical sections, specifying the regular expression `".+"`   for the Match parameter can be useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the section group in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
+
+
+
+
 
 
 

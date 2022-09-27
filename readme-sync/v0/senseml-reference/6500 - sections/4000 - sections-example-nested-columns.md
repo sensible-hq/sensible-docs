@@ -4,6 +4,8 @@ hidden: false
 
 ---
 
+This example shows using nested sections to extract repeating vertical section groups.
+
 Overview
 -----
 

@@ -111,7 +111,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "type": "sections",
       "range": {
         "direction": "vertical",
-        /* treat 1st two columns as row labels,
+        /* treat 1st two columns as anchoring candidates,
            output 3rd thru last columns as sections */
         "columnSelection": [
           [
@@ -134,15 +134,15 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
         {
           /* each vertical section is a table slice determined
              by columnSelection that 
-             combines the first two columns with one of the
-             vehicle columns. In each table slice, the 2rd
-             cell in the row that starts with "bodily injury liability"
+             combines the "anchoring" columns with one of the
+             vehicle columns. In each table slice, the 2nd
+             cell to the right of "bodily injury liability"
              is always the injury premium for that section's vehicle */
           "id": "bodily_liability_premium",
           "type": "number",
           "method": {
             "id": "row",
-            "tiebreaker": 1
+            "tiebreaker": "second"
           },
           "anchor": {
             "match": {
@@ -197,7 +197,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
 **Example document**
 The following image shows the example PDF used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_zip.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_zip.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections_zip.pdf) |
 | ----------- | ------------------------------------------------------------ |
