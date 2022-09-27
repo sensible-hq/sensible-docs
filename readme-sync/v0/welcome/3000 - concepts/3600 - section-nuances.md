@@ -50,16 +50,16 @@ Column Selection
 
 Use the Column Selection parameter with vertical sections to:
 
-- exclude columns from output
-- use text in excluded columns as anchors for fields in the target columns. For example, if a table has row labels, then configure the Column Selection parameter so that the row labels become available to all target columns.
+- Exclude columns from output.
+- Use text in excluded columns as anchors for fields in the target columns. For example, if a table has row labels, then configure the Column Selection parameter so that the row labels become available to all target columns.
 
 For example, if you exclude the first and last columns by configuring `"columnSelection": [[1,-2]]` for the table in the following image, then:
 
-1. Sensible selects the Apples and Bananas columns for output.
-2. For the Apples column, Sensible creates a section that is a table slice containing:
-   1. the Apples column
+1. Sensible selects the Apple and Banana columns for output.
+2. For the Apple column, Sensible creates a section that is a table slice containing:
+   1. the Apple column
    2. the Nutrition and Notes, columns available as anchors.
-   For example, you can extract the cell containing `95` in the Apples column with:
+   For example, you can extract the cell containing `95` in the Apple column with:
 
 
   ```json
