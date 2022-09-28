@@ -6,7 +6,7 @@ Extracts a target line at the intersection of a horizontal line defined by an an
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_1.png)
 
-For example, the Intersection method is an alternative to the Row method when a table contains empty cells. (A row's tiebreaker, like "second", can return lines from unintended columns if there are empty cells).
+For example, the Intersection method is an alternative to the Row method when a table contains empty cells. A row's tiebreaker, like "second", can return lines from unintended columns if there are empty cells.
 
 [**Parameters**](doc:intersection#parameters)
 [**Examples**](doc:intersection#examples)
@@ -23,8 +23,8 @@ Parameters
 | verticalAnchor (**required**) | Anchor object                | An anchor object that defines a vertical line that bisects that anchor. Sensible extracts the line that's at the intersection of this vertical line, and the horizontal line defined by the field's anchor. The Vertical Anchor can be on a different page from the anchor. |
 | offsetX                       | number in inches. default: 0 | Offsets the vertical line that bisects the vertical anchor.  Positive values offset to the right, negative values offset to the left. |
 | offsetY                       | number in inches. default: 0 | Offsets the horizontal line that bisects the anchor. Positive values offset down the page, negative values offset up the page. |
-| height                        | number in inches. default: 0 | When specified, Sensible creates a rectangle region at the intersection point.  question: is width then required?<br />*a polygon is generated at the intersection point and `xOverlap` and/or `yOverlap` are called to determine the overlap with the target line's bounding box.* |
-| width                         | number in inches. default: 0 | When specified, a polygon is generated at the intersection point and `xOverlap` and/or `yOverlap` are called to determine the overlap with the target line's bounding box. |
+| height                        | number in inches. default: 0 | When specified in combination with the Width parameter, Sensible creates a region centered at the intersection point. Sensible extracts lines contained in the region, where "contained" means:<br/>  - the region and the line overlap for at least 90% of either the region *or* the line's width ("x extent").<br/>  - the region and the line overlap for at least 90% of either the region *or* the line's y  height ("extent").<br /> |
+| width                         | number in inches. default: 0 | When specified in combination with the Height parameter, Sensible creates a region centered at the intersection point. Sensible extracts lines contained in the region, where "contained" means:<br/>  - the region and the line overlap for at least 90% of either the region *or* the line's width ("x extent").<br/>  - the region and the line overlap for at least 90% of either the region *or* the line's y  height ("extent").<br /> |
 
 Examples
 =====
