@@ -1,8 +1,8 @@
 ---
-title: "Copy from section"
+title: "Copy from sections"
 hidden: false
 ---
-Returns an array of the values for a field in a section group. This is useful for flattening the output of complex nested sections.
+Returns an array of the values for a field in a source section group. This is useful for flattening the output of complex nested sections.
 
 Parameters
 ====
