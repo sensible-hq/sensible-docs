@@ -5,7 +5,7 @@ hidden: false
 
 The following example:
 
-- Uses the Column Selection parameter in a vertical sections group to treat row labels as anchors in a table.
+- Uses the Column Selection parameter in a vertical sections group to make sections out of table "slices". For more information about the Column Selection parameter, see [Section nuances](doc:section-nuances#column-selection).
 - Uses relative column coordinates to find nested tables in each column table. (`"columnsRelativeToAnchor":"true"`).
 
 **Config**

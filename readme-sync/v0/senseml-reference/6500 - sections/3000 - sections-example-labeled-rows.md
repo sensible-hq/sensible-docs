@@ -3,9 +3,7 @@ title: "Labeled rows example"
 hidden: false
 ---
 
-The following example shows using a vertical section group to capture a table that has both column labels and row labels. It also shows:
-
-- Using the Column Selection parameter to exclude the first and last columns from the output but make their text available as anchoring information for each outputted column.
+The following example shows using a vertical section group to capture a table that has both column labels and row labels. It also shows using the Column Selection parameter to create sections out of all but the last and first columns. For more information about the Column Selection parameter, see [Section nuances](doc:section-nuances#column-selection).
 
 
 
@@ -19,8 +17,9 @@ The following example shows using a vertical section group to capture a table th
       "id": "nutrition_table",
       "range": {
         "direction": "vertical",
-        /* treat 1st and last columns as anchor candidates,
-           output 2nd thru 2nd-to-last columns as sections */
+        /* columnSelection specifies that each vertical section is a table slice that
+           combines the first and last columns ("kept" columns) with one of the
+           "fruit" columns (2rd through 2nd-to-last columns). */
         "columnSelection": [
           [
             1,
@@ -41,12 +40,10 @@ The following example shows using a vertical section group to capture a table th
         "offsetY": -0.3
       },
       "fields": [
-        /* each vertical section is a table slice determined
-             by columnSelection that 
-             combines the "anchoring" columns with one of the
-             fruit columns. In each table slice, the 1st
+         /* In each vertical section, the 1st
              cell to the right of "Nutrition"
-             is always the name for that section's fruit */
+             is always the name for that section's fruit,
+             as configured by columnSelection */
         {
           "id": "fruit_name",
           "anchor": {

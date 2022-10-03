@@ -48,34 +48,41 @@ Sensible:
 Column Selection
 ----
 
-Use the Column Selection parameter with vertical sections to:
+By default, Sensible creates a section from each column it detects in the section group range. You can configure Sensible to handle columns in the following ways:
 
-- Exclude columns from output.
-- Use text in excluded columns as anchors for fields in the target columns. For example, if a table has row labels, then configure the Column Selection parameter so that the row labels become available to all target columns.
+- "Selected" columns: Sensible creates a section for each column specified in the Column Selection parameter.
 
-For example, if you exclude the first and last columns by configuring `"columnSelection": [[1,-2]]` for the table in the following image, then:
+- "Kept" columns: If you configure the Column Selection parameter, Sensible adds the lines in any *unspecified* columns to each section.
+- "Ignored" columns:  Sensible ignores any columns specified in the Ignored Columns parameter, including excluding them from the "kept" columns.
 
-1. Sensible selects the Apple and Banana columns for output.
+For example, if you select the "Apple" and "Banana" columns by configuring `"columnSelection": [[1,-2]]` for the table in the following image, then:
+
+1. Sensible detects four columns. Sensible targets two columns to create sections from: the Apple column and the Banana column.
 2. For the Apple column, Sensible creates a section that is a table slice containing:
-   1. the Apple column
-   2. the Nutrition and Notes, columns available as anchors.
-   For example, you can extract the cell containing `95` in the Apple column with:
+   - A  "selected" column: the Apple column
+   
+   - "kept" columns: the Nutrition and Notes columns. The lines in these columns are then available as anchoring or output data in this section.
+     For example, you can extract the cell containing `95` in the Apple column with:
 
 
   ```json
       {
            "id": "fruit_calories",
+           /* anchor on data in the first column, a "kept" column */
            "anchor": "calories",
            "method": {
+             /* returns 95 for the first section and 105 for the second section */  
              "id": "row",
              "tiebreaker": "first"
            }
          }
   ```
 
-3. The Banana column has the same access as the Apple column to anchoring information, in the same spatial layout. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.
+3. The Banana section contains the Banana, Nutrition, and Notes columns. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.  
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
+
+As steps 2 and 3 in the previous image illustrate, the varying gap sizes between columns in each section mean that you can't use coordinate-based methods such as the Region method for fields in these sections.
 
 For more information about this example, see [Labeled rows and labeled columns table example](doc:sections-example-labeled-rows)
 

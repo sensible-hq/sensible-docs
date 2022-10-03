@@ -142,7 +142,7 @@ The following elaborates on the preceding overview using JSON instead of YML.
           "range": {
             "direction": "vertical",
             /* columnSelection specifies that each vertical section is a table slice that
-               combines the first two columns with one of the
+               combines the first two "kept" columns with one of the
                numbered vehicle columns (3rd through last columns). */
             "columnSelection": [
               [
@@ -164,7 +164,7 @@ The following elaborates on the preceding overview using JSON instead of YML.
           },
           "fields": [
             {
-              /* In each vertical section, the injury premium for each vehicle is always the 2nd cell to the right
+              /* In each vertical section, the injury premium for each vehicle is always                  the 2nd cell to the right
                  of the cell containing "bodily injury liability",
                  as configured by columnSelection */
               "id": "bodily_liability_premium",
