@@ -308,7 +308,7 @@ This type outputs strings. For example:
 | key                    | value                    | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
 | id (**required**)      | `custom`                 |                                                              |
-| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group. To capture more than one group, you can use one field for each group, then concatenate them with the [Concatenate](doc:concatenate) computed field method.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character. |
+| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group. To capture more than one group, you can use one field for each group, then concatenate them with the [Concatenate](doc:concatenate) computed field method.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 
 
