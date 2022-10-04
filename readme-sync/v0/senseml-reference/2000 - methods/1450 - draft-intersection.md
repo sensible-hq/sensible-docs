@@ -41,7 +41,9 @@ The following example shows using the Intersection method to extract a cell from
       "anchor": "item 1b",
       "method": {
         "id": "intersection",
-        "verticalAnchor": "col3"
+        "verticalAnchor": "col3",
+        "width": 1.2,
+        "height": 0.4
       }
     }
   ]
