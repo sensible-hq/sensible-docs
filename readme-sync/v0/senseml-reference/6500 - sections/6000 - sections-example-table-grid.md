@@ -1,32 +1,28 @@
 ---
-title: "Advanced: table grid example"
+title: "Advanced: Table grid example"
 hidden: false
 
 ---
 
+This example shows:
 
-Advanced: table grid
-====
+- Finding repeating vertical sections by nesting them in parent sections.
+- Ignoring repeated multiple anchor matches. For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
 
 Overview
 ----
 
-To give a broad overview using vertical sections for a table grid:
+To give a broad overview of using vertical sections for a table grid, see the following image:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_table_grid.png)
 
-In the preceding image,
+In the preceding image, the config uses sections as follows:
 
-1. define sections for car models, including their trims.
+1. Defines sections for car models, including their trims.
 
-2. define nested vertical sections for car trims.
+2. Defines nested vertical sections for car trims.
 
-The following abbreviated YML notation to give a brief idea of the more complex SenseML JSON, and shows:
-
-- Using the Offset Y parameter in vertical sections to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
-- The parent section group, `car_model`, uses an offset to include the heading with car model and year. 
-- The parent section group demonstrates that without a Require Stop parameter, Sensible starts the next section on the first repeated instance of `trim` that follows the starting line vertically, but ignores repeats on the same horizontal line as the starting line. The nested section group demonstrates the same behavior with the match-all regex `.+` . For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
-- Configuring column recognition in a vertical section with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps in each trim specs column. 
+The following abbreviated YML notation to give a brief idea of the more complex SenseML JSON:
 
 ```yml
 sections:
@@ -99,9 +95,15 @@ The following elaborates on the preceding brief overview using JSON instead of Y
     {
       "id": "car_models",
       "range": {
+        /* uses an offset to include the heading with car model and year */
         "offsetY": -1.1,
         "anchor": {
           "match": {
+            /* Sensible starts the next section on the first repeated instance of `trim` that 
+            follows the starting line vertically. Sensible ignores repeated `trim` instances
+            that occur on the same horizontal line as the starting line, so there's no need 
+            to configure requireStop.
+            */
             "type": "endsWith",
             "text": "trim"
           }
@@ -137,10 +139,18 @@ The following elaborates on the preceding brief overview using JSON instead of Y
           "id": "trim_specs",
           "range": {
             "direction": "vertical",
+            /* exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
+               Sensible recognizes each trim table as one column */
             "offsetY": 0.5,
+            /* use a large minColumnGap so column recognition doesn't break on the whitespace gaps in each trim specs column */
             "minColumnGap": 0.5,
             "anchor": {
               "match": {
+                /* 
+                  Since the parent section group defines the range for the child vertical section group,
+                  you don't need to find specific text matches in the trim spec tables.
+                  Match on all text with ".+" 
+               */
                 "type": "regex",
                 "pattern": ".+"
               }
@@ -183,7 +193,6 @@ The following elaborates on the preceding brief overview using JSON instead of Y
                 }
               }
             },
-            
           ]
         }
       ]
