@@ -23,6 +23,9 @@ Parameters
 | verticalAnchor (**required**) | Anchor object                | An anchor object that defines a vertical line that bisects that anchor. Sensible extracts the line that's at the intersection of this vertical line, and the horizontal line defined by the field's anchor. The Vertical Anchor can be on a different page from the anchor. |
 | offsetX                       | number in inches. default: 0 | Offsets the vertical line that bisects the vertical anchor.  Positive values offset to the right, negative values offset to the left. |
 | offsetY                       | number in inches. default: 0 | Offsets the horizontal line that bisects the anchor. Positive values offset down the page, negative values offset up the page. |
+| height                        | number in inches. default: 0 | Specifies to create a rectangular region centered at the intersection point. Sensible extracts lines that overlap to any extent with the region. If you don't specify the Width parameter, Sensible sets it to 0. |
+| width                         | number in inches. default: 0 | Specifies to create a rectangular region centered at the intersection point. Sensible extracts lines that overlap to any extent with the region. If you don't specify the Height parameter, Sensible sets it to 0. |
+
 
 Examples
 =====
@@ -39,7 +42,9 @@ The following example shows using the Intersection method to extract a cell from
       "anchor": "item 1b",
       "method": {
         "id": "intersection",
-        "verticalAnchor": "col3"
+        "verticalAnchor": "col3",
+        "width": 1.2,
+        "height": 0.4
       }
     }
   ]
