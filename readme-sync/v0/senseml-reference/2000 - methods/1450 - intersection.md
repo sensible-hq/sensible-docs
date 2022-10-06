@@ -6,7 +6,7 @@ Extracts a target line at the intersection of a horizontal line defined by an an
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_1.png)
 
-For example, the Intersection method is an alternative to the Row method when a table contains empty cells.  A row's tiebreaker can return lines from unintended columns if there are empty cells.
+For example, the Intersection method is an alternative to the Row method when a table contains optionally empty cells.  A row's tiebreaker can return lines from unintended columns if cells are unpredictably populated.
 
 [**Parameters**](doc:intersection#parameters)
 [**Examples**](doc:intersection#examples)
