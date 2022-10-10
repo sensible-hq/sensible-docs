@@ -115,7 +115,7 @@ The following example shows using `"match":"allWithNull"` as an alternative to [
       }
     },
     {
-      /* 5-element array outputted with either `all` or 
+      /* 5-element array results with either `all` or 
          `allWithNull`, because no last 
          names are missing in doc */
       "id": "last_name",
