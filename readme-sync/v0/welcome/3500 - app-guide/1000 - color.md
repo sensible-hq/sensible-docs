@@ -202,13 +202,13 @@ fingerprint": {
 Purple box
 ====
 
-If you hover on a line (text surrounded by a gray box), it changes to a ***purple box*** if it has details to display. Click on the line to show:
+If you click on a line, it changes to a ***purple box*** and shows the following details:
 
 - underlying extracted text
 - coordinates of the line's boundaries
 - SenseML and extracted output that relies on that text
 
-
+You can select multiple lines to see their combined details.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
 
