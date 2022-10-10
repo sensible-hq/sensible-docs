@@ -66,5 +66,5 @@ This syntax alternative allows you to change execution order. For example, you c
 
 
 
-With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.   For an example of using this behavior, see [Zip sections example](sections-example-zip).
+With the default execution order, the previous syntax would fail, because the computed fields would execute before the sections, so the first two sections would be suppressed from the output and the zipped computed field would return null.   For an example of using this behavior, see [Zip sections example](doc:sections-example-zip).
 

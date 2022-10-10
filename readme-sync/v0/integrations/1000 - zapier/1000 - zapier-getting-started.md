@@ -63,9 +63,9 @@ Congratulations, your integration is now published and running! Take the followi
 
 1. Navigate to the Sensible [quick extraction tab](https://app.sensible.so/quick-extraction/).
 2. Upload and run extractions for the following example 1040 documents:
-   - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2018/1040_2018_sample.pdf)
-   - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2019/1040_2019_sample.pdf)
-   - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2019/1040_2020_sample.pdf)
+   - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018)
+   - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)
+   - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)
 
 3. Verify the extractions show up in Airtable: 
 
