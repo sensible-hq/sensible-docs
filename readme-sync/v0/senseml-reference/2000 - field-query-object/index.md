@@ -85,9 +85,7 @@ The following example shows all the top-level parameters of the Field object:
 Example 2
 ----
 
-The following example shows using `"match":"allWithNull"` to return parallel arrays of phones and last names. If you used `"match":"all"`, the missing phone number for claimant Badawi would result in that claimant's omission from the zipped `name_and_phone` array.
-
-
+The following example shows using `"match":"allWithNull"` as an alternative to [sections](doc:sections) to return parallel arrays of phones and last names. If you used `"match":"all"`, the missing phone number for claimant Badawi would result in that claimant's omission from the zipped `name_and_phone` array.
 
 **Config**
 
