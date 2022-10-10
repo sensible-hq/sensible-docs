@@ -100,9 +100,9 @@ The following example shows using `"match":"allWithNull"` to return parallel arr
   ],
   "fields": [
     {
-      /* using `allWithNull` creates a 5-element array
+      /* using `allWithNull` outputs a 5-element array
          with one null element (phone for Badawi).
-         Using `all  would create a 4-element array  */
+         Using `all  would output a 4-element array  */
       "id": "phone_number",
       "match": "allWithNull",
       "anchor": {
@@ -116,7 +116,7 @@ The following example shows using `"match":"allWithNull"` to return parallel arr
       }
     },
     {
-      /* 5 element array results from either `all` or 
+      /* 5-element array outputted with either `all` or 
          `allWithNull`, because no last 
          names are missing in doc */
       "id": "last_name",
