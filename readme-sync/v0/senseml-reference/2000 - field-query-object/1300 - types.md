@@ -35,8 +35,7 @@ The following types are available:
 [Name](doc:types#name)
 [Number](doc:types#number)
 [Paragraph](doc:types#paragraph)
-[Percentage](doc:types#percentage)
-[Period Delimited Currency](doc:types#period-delimited-currency) 
+[Percentage](doc:types#percentage) 
 [Phone Number](doc:types#phone-number)
 [String](doc:types#string)
 [Table](doc:types#table)
@@ -556,7 +555,7 @@ For example:
 1234567890
 ```
 
-This type does **not** recognize text such as `3.061.534,45`. Use the Period Delimited Currency type instead. 
+This type does **not** recognize text such as `3.061.534,45`. Configure the Currency type instead. 
 
 Example output:
 
