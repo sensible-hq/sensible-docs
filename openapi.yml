@@ -312,6 +312,7 @@ paths:
       summary: Get Excel extraction
       description: >-
         You can use this endpoint to get Excel files PDF documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
+        For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
         This endpoint also works with JPEG and PNG documents.
         Call this endpoint after an extraction completes. For more information about checking extraction status,
         see the `GET /documents/{id}` endpoint.

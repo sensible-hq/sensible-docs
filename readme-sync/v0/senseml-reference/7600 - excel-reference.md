@@ -10,7 +10,7 @@ This topic describes the rules Sensible uses to transform documents such as PDFs
 To get a document's data into a spreadsheet, you must first:
 
 - Configure extractions for a document type, either using Sensible's [SenseML](doc:senseml-reference-introduction) for custom documents or using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
-- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). You can download the extraction as a spreadsheet after the extraction completes.
+- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). You can download the extraction as a spreadsheet after the extraction completes. For more information, see [Quickstart PDF to Excel](doc:excel-quickstart).
 
 **Overview**
 
