@@ -293,7 +293,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExtractionAsyncResult'
+                oneOf:
+                 - $ref: '#/components/schemas/ExtractionAsyncResult'
+                 - $ref: '#/components/schemas/ExtractionPortfolioAsyncResult'
           description: Returns the extraction.
         '401':
           $ref: '#/components/responses/401'
@@ -463,13 +465,16 @@ components:
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 
   schemas:
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
+
     Classification:
       type: object
       properties:
         configuration:
-          type: string
-          example: anyco
-          description: The config tested for fingerprints
+          $ref: '#/components/schemas/ConfigurationName'
         fingerprint_present:
           type: integer
           example: 1
@@ -480,6 +485,11 @@ components:
           description: The number of fingerprints defined in this config.
         score:
           $ref: '#/components/schemas/Score'
+
+    ConfigurationName:
+          type: string
+          example: anyco
+          description: The config tested for fingerprints
 
     ClassificationSummary:
       type: array
@@ -594,6 +604,8 @@ components:
           type: currency
         pickup_date: null
 
+
+
     Validation:
       type: object
       properties:
@@ -650,9 +662,6 @@ components:
           example: 1
 
 
-
-
-
     Extraction:
       type: object
       properties:
@@ -685,9 +694,51 @@ components:
         - type: object
           properties:
             download_url:
-              type: string
-              description: URL of the document
-              example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
+              $ref: '#/components/schemas/DownloadUrlDocument'
+
+    ExtractionPortfolioAsyncResult:
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        types:
+         $ref: '#/components/schemas/ExtractionTypes'
+        page_count:
+          type: integer
+          example: 100
+          description: Total number of pages in the portfolio.
+        download_url:
+          $ref: '#/components/schemas/DownloadUrlDocument'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractionInPortfolio'
+
+    DownloadUrlDocument:
+      type: string
+      description: URL of the document
+      example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
+
+    ExtractionInPortfolio:
+      type: object
+      properties:
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        startPage:
+          type: integer
+          description: Page in the portfolio on which the document for this extraction starts.
+          example: 2
+        endPage:
+          type: integer
+          description: Page in the portfolio on which this document for this extraction ends.
+          example: 6
+        output:
+          $ref: '#/components/schemas/Extraction'
+
+
     AsyncResponse:
       type: object
       properties:
