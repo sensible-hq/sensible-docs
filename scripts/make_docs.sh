@@ -12,7 +12,7 @@ cd ../
 
 mkdir -p ./readme-sync/assets/v0/images/final
 
-for file in ./readme-sync/assets/v0/images/screenshots/*.png
+for file in ./readme-sync/assets/v0/images/screenshots/*.png #TODO add *.jpeg
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
   finalFile="${file/images\/screenshots/images\/final}"
@@ -33,7 +33,7 @@ echo "syncing to Readme "
 # change ENVRC_README_API_KEY in this repo's python direnv's .envrc file which git ignores.
 npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $ENVRC_README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0 #npx ts-node ~/Github/readme-sync/sync/index.ts --apiKey $README_API_KEY --version v0 --docs ~/Github/sensible-docs/readme-sync/v0
 
-
+# TODO: shouldn't this come before readme sync?
 # if there are local uncommitted changes, commit them. for example as output of imagemagick.
 # https://newbedev.com/checking-for-a-dirty-index-or-untracked-files-with-git
 git ls-files --others --error-unmatch . >/dev/null 2>&1; ec=$?
