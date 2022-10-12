@@ -693,32 +693,27 @@ components:
 
     ExtractionResponse:
       allOf:
-        - $ref: '#/components/schemas/Extraction'
+        - $ref: '#/components/schemas/ExtractionSingle'
         - type: object
           properties:
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
 
     ExtractionPortfolioResponse:
-      properties:
-        id:
-          $ref: '#/components/schemas/ExtractionId'
-        created:
-          $ref: '#/components/schemas/ExtractionCreated'
-        types:
-         $ref: '#/components/schemas/DocumentTypeNames'
-        status:
-         $ref: '#/components/schemas/ExtractionStatus'
-        page_count:
-          type: integer
-          example: 100
-          description: Total number of pages in the portfolio.
-        download_url:
-          $ref: '#/components/schemas/DownloadUrlDocument'
-        documents:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentInPortfolio'
+      allOf:
+        - $ref: '#/components/schemas/AsyncResponsePortfolio'
+        - type: object
+          properties:
+            page_count:
+              type: integer
+              example: 100
+              description: Total number of pages in the portfolio.
+            download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'
+            documents:
+              type: array
+              items:
+                $ref: '#/components/schemas/DocumentInPortfolio'
 
     DownloadUrlDocument:
       type: string
