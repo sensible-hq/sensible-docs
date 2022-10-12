@@ -294,8 +294,8 @@ paths:
             application/json:
               schema:
                 oneOf:
-                 - $ref: '#/components/schemas/ExtractionAsyncResult'
-                 - $ref: '#/components/schemas/ExtractionPortfolioAsyncResult'
+                 - $ref: '#/components/schemas/ExtractionResponse'
+                 - $ref: '#/components/schemas/ExtractionPortfolioResponse'
           description: Returns the extraction.
         '401':
           $ref: '#/components/responses/401'
@@ -688,7 +688,7 @@ components:
         file_metadata:
           $ref: '#/components/schemas/FileMetadata'
 
-    ExtractionAsyncResult:
+    ExtractionResponse:
       allOf:
         - $ref: '#/components/schemas/Extraction'
         - type: object
@@ -696,7 +696,7 @@ components:
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
 
-    ExtractionPortfolioAsyncResult:
+    ExtractionPortfolioResponse:
       properties:
         id:
           $ref: '#/components/schemas/ExtractionId'
