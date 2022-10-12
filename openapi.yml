@@ -491,7 +491,6 @@ components:
       description: >-
         Name of the "configuration",  a collection of SenseML queries for extracting document data.
       example: anyco_rate_confirmation
-
     ClassificationSummary:
       type: array
       description:  >-
@@ -668,6 +667,8 @@ components:
 
 
     Extraction: #used in portfolio extraction response
+      type: object
+      properties:
         configuration:
           $ref: '#/components/schemas/ConfigurationName'
         parsed_document:
