@@ -475,7 +475,7 @@ components:
       properties:
         configuration:
           $ref: '#/components/schemas/ConfigurationName'
-        fingerprint_present:
+        fingerprints_present:
           type: integer
           example: 1
           description: The number of this config's fingerprints that Sensible found in the document.
