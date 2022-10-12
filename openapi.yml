@@ -487,9 +487,10 @@ components:
           $ref: '#/components/schemas/Score'
 
     ConfigurationName:
-          type: string
-          example: anyco
-          description: The config tested for fingerprints
+      type: string
+      description: >-
+        Name of the "configuration",  a collection of SenseML queries for extracting document data.
+      example: anyco_rate_confirmation
 
     ClassificationSummary:
       type: array
@@ -497,8 +498,8 @@ components:
             Metadata about how Sensible chose the config to use for this extraction.
             Sensible compares all configs in the document type, then chooses the best extraction using
             fingerprints, scores, or a combination of the two.
-            (When two extractions tie by score and fingerprints, Sensible chooses the
-            first configuration in alphabetic order).
+            When two extractions tie by score and fingerprints, Sensible chooses the
+            first configuration in alphabetic order.
             For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)
       items:
         $ref: '#/components/schemas/Classification'
@@ -672,9 +673,7 @@ components:
         type:
          $ref: '#/components/schemas/ExtractionType'
         configuration:
-          type: string
-          description: Name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.
-          example: anyco_rate_confirmation
+          $ref: '#/components/schemas/ConfigurationName'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
         parsed_document:
