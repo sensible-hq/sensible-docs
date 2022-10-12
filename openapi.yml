@@ -465,6 +465,10 @@ components:
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 
   schemas:
+
+    # TODO: as much as possible, rename schemas (esp response schemas) to be in line with what's in extract/entityt.ts
+    # for easier review
+
     DocumentTypeName:
       description: Unique user-friendly name for a document type
       example: auto_insurance_quotes_all_carriers
