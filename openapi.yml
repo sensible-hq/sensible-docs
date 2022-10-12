@@ -198,7 +198,7 @@ paths:
                   webhook:
                     $ref: '#/components/schemas/Webhook'
                   types:
-                    $ref: '#/components/schemas/ExtractionTypes'
+                    $ref: '#/components/schemas/DocumentTypeNames'
                 required:
                   - types
       tags:
@@ -248,7 +248,7 @@ paths:
                   document_url:
                     $ref: '#/components/schemas/DocumentUrl'
                   types:
-                    $ref: '#/components/schemas/ExtractionTypes'
+                    $ref: '#/components/schemas/DocumentTypeNames'
                   webhook:
                     $ref: '#/components/schemas/Webhook'
                 required:
@@ -651,41 +651,44 @@ components:
           example: 4
         errors:
           type: number
-          description: Number of errors in the extraction
+          description: Number of validation errors in the extraction
           example: 0
         warnings:
           type: number
-          description: Number of warnings in the extraction
+          description: Number of validation warnings in the extraction
           example: 1
         skipped:
           type: integer
           description: Number of fields skipped in the extraction because a prerequisite field was null
           example: 1
+    Errors:
+      #todo flesh out errors more?
+      type: array
+      description: Extraction error messages.
 
 
-    Extraction:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/ExtractionId'
-        created:
-          $ref: '#/components/schemas/ExtractionCreated'
-        type:
-         $ref: '#/components/schemas/ExtractionType'
+    Extraction: #used in portfolio extraction response
         configuration:
           $ref: '#/components/schemas/ConfigurationName'
-        status:
-         $ref: '#/components/schemas/ExtractionStatus'
         parsed_document:
           $ref: '#/components/schemas/ParsedDocument'
         validations:
           $ref: '#/components/schemas/Validations'
-        validations_summary:
-          $ref: '#/components/schemas/ValidationsSummary'
-        classification_summary:
-          $ref: '#/components/schemas/ClassificationSummary'
         file_metadata:
           $ref: '#/components/schemas/FileMetadata'
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary'
+        validations_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        errors:
+           $ref: '#/components/schemas/Errors'
+
+    ExtractionSingle: #single doc extraction
+      allOf:
+        - $ref: '#/components/schemas/AsyncResponse'
+        - $ref: '#/components/schemas/Extraction'
+
+
 
     ExtractionResponse:
       allOf:
@@ -702,7 +705,9 @@ components:
         created:
           $ref: '#/components/schemas/ExtractionCreated'
         types:
-         $ref: '#/components/schemas/ExtractionTypes'
+         $ref: '#/components/schemas/DocumentTypeNames'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus'
         page_count:
           type: integer
           example: 100
@@ -712,14 +717,14 @@ components:
         documents:
           type: array
           items:
-            $ref: '#/components/schemas/ExtractionInPortfolio'
+            $ref: '#/components/schemas/DocumentInPortfolio'
 
     DownloadUrlDocument:
       type: string
       description: URL of the document
       example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
 
-    ExtractionInPortfolio:
+    DocumentInPortfolio:
       type: object
       properties:
         documentType:
@@ -746,7 +751,7 @@ components:
         created:
           $ref: '#/components/schemas/ExtractionCreated'
         type:
-         $ref: '#/components/schemas/ExtractionType'
+         $ref: '#/components/schemas/DocumentTypeName'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
     AsyncResponsePortfolio:
@@ -757,25 +762,20 @@ components:
         created:
           $ref: '#/components/schemas/ExtractionCreated'
         types:
-         $ref: '#/components/schemas/ExtractionTypes'
+         $ref: '#/components/schemas/DocumentTypeNames'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
     AsyncUploadResponse:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/ExtractionId'
-        created:
-          $ref: '#/components/schemas/ExtractionCreated'
-        type:
-         $ref: '#/components/schemas/ExtractionType'
-        status:
-         $ref: '#/components/schemas/ExtractionStatus'
-        upload_url:
-         type: string
-         format: url
-         description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
-         example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+      allOf:
+        - $ref: '#/components/schemas/AsyncResponse'
+        - type: object
+          properties:
+            upload_url:
+              type: string
+              format: url
+              description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+              example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+
 
     AsyncUploadResponsePortfolio:
       type: object
@@ -785,7 +785,7 @@ components:
         created:
           $ref: '#/components/schemas/ExtractionCreated'
         types:
-         $ref: '#/components/schemas/ExtractionTypes'
+         $ref: '#/components/schemas/DocumentTypeNames'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
         upload_url:
@@ -825,16 +825,12 @@ components:
       format: date
       description: Date the extraction was created
 
-    ExtractionType:
-      type: string
-      description: User-friendly name of the document type
-      example: rate_confirmation
     ExtractionStatus:
       type: string
       description: Extraction status (WAITING, COMPLETE, FAILED)
       enum: [WAITING, COMPLETE, FAILED]
       example: COMPLETE
-    ExtractionTypes:
+    DocumentTypeNames:
       type: array
       description: Specifies the document types contained in the PDF portfolio.
       items:
