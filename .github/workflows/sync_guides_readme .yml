@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'readme-guides/v0/**.md'
+      - 'readme-sync/v0/**.md'
 
 jobs:
   sync:
