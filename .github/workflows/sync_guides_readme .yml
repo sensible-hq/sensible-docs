@@ -9,7 +9,7 @@ on:
       - 'readme-sync/v0/**.md'
 
 jobs:
-  sync:
+  sync-guides:
     runs-on: ubuntu-latest
 
     steps:

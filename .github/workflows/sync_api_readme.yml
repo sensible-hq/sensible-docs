@@ -8,7 +8,7 @@ on:
     paths:
       - './**.yml'
 jobs:
-  sync:
+  sync-api:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout this repo
