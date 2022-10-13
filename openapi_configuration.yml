@@ -137,7 +137,7 @@ paths:
       operationId: delete-document-type
       summary: Delete document type
       description: |
-        Delete a document type and everything it contains (configurations, reference PDfs),
+        Delete a document type and everything it contains, for example configurations and reference PDfs,
         but not its extraction history displayed in the Sensible app.
       tags:
       - Document type
