@@ -9,7 +9,7 @@ on:
       - 'readme-sync/assets/v0/images/screenshots/**'
 
 jobs:
-  sync:
+  images:
     runs-on: ubuntu-latest
 
     steps:
