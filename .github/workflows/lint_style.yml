@@ -1,7 +1,10 @@
 name: Style linting
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - 'readme-guides/v0/**.md'
 
 jobs:
   prose:
