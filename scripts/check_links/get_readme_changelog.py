@@ -6,7 +6,7 @@ README_API_KEY = os.environ['README_API_KEY']
 
 '''
 the check_links.rb is the main checking script
-this is a helper script that uses the readme API to download the changelogs (authored at dash.readme) to markdown 
+this is a helper script that uses the readme API to download the changelogs (authored at dash.readme rather than locally) to markdown
 so the main check_links.rb can convert it to HTML with the rest of the markdown and check the links
 extra defs are included for eventually getting API reference pages for checking links in descriptions (tricker task)
 '''
@@ -27,7 +27,7 @@ def get_changelogs():
     if not os.path.exists(rel_path):
       # os.makedirs(rel_path, 0o755)
       os.makedirs(rel_path)
-    file_path = os.path.join(rel_path + "all_changelogs" + "." + "html")  
+    file_path = os.path.join(rel_path + "all_changelogs" + "." + "html")
     print("PATHS: current:", os.getcwd())
     print("PATHS: intended dest:", file_path)
     # left off TODO: make an out dir?
@@ -60,7 +60,7 @@ def get_ref_categories(categories):
     for i in categories:
       if i["reference"] == True:
           ref_categories.append(i)
-    return ref_categories 
+    return ref_categories
 
 def get_categories():
     url = "https://dash.readme.com/api/v1/categories"
@@ -99,7 +99,7 @@ def get_doc_markdown(doc):
 
 if __name__ == '__main__':
     get_changelogs()
-    
+
     '''
     # get the API reference documents:
     categories = get_categories()
@@ -121,4 +121,4 @@ if __name__ == '__main__':
         #print(doc_json["body"])
         print(json.dumps(doc_json, indent=2))
         # left off: dang. no good way to get markdown from this unless I'm willing to only test the 'body' and save it as markdown :/
-     '''   
+     '''
