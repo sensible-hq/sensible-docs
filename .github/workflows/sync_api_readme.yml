@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - '**.yml'
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -23,7 +24,6 @@ jobs:
       - name: Sync API definition 2 (configuration)
         # We recommend specifying a fixed version, i.e. @6.5.0
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
-        uses: readmeio/rdme@6.5.0       
+        uses: readmeio/rdme@6.5.0
         with:
           rdme: openapi openapi_configuration.yml --key=${{ secrets.README_API_KEY }} --id=6243535fd727c300827515b3
-
