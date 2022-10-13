@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'readme-guides/assets/v0/images/screenshots/**'
+      - 'readme-sync/assets/v0/images/screenshots/**'
 
 jobs:
   sync:

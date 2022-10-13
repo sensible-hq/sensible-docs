@@ -1,6 +1,6 @@
 
 
-for file in ./readme-guides/assets/v0/images/screenshots/*.png #TODO add *.jpeg
+for file in ./readme-sync/assets/v0/images/screenshots/*.png #TODO add *.jpeg
 do
   # regex replacment: ${baseString/patternToMatch/replacePatternWithThis}
   finalFile="${file/images\/screenshots/images\/final}"
