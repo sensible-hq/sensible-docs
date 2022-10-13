@@ -531,7 +531,7 @@ components:
             Metadata about how Sensible chose the config to use for this extraction.
             The summary doesn't return fingerprints information for portfolio extractions.
       items:
-        $ref: '#/components/schemas/Classification'
+        $ref: '#/components/schemas/ClassificationPortfolio'
       example:
         - configuration: anyco_rate_confirmation
           score:
