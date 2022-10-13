@@ -491,11 +491,13 @@ components:
         score:
           $ref: '#/components/schemas/Score'
 
+
     ConfigurationName:
       type: string
       description: >-
         Name of the "configuration",  a collection of SenseML queries for extracting document data.
       example: anyco_rate_confirmation
+
     ClassificationSummary:
       type: array
       description:  >-
@@ -522,6 +524,34 @@ components:
             value: 0
             fields_present: 2
             penalities: 1.5
+
+    ClassificationSummaryPortfolio:
+      type: array
+      description:  >-
+            Metadata about how Sensible chose the config to use for this extraction.
+            The summary doesn't return fingerprints information for portfolio extractions.
+      items:
+        $ref: '#/components/schemas/Classification'
+      example:
+        - configuration: anyco_rate_confirmation
+          score:
+            value: 3
+            fields_present: 4
+            penalities: 0.5
+        - configuration: acme_co
+          score:
+            value: 0
+            fields_present: 2
+            penalities: 1.5
+
+    ClassificationPortfolio:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        score:
+          $ref: '#/components/schemas/Score'
+
 
     FileMetadata:
       type: object
@@ -671,7 +701,7 @@ components:
       description: Extraction error messages.
 
 
-    Extraction: #used in portfolio extraction response
+    Extraction:
       type: object
       properties:
         configuration:
@@ -682,8 +712,6 @@ components:
           $ref: '#/components/schemas/Validations'
         file_metadata:
           $ref: '#/components/schemas/FileMetadata'
-        classification_summary:
-          $ref: '#/components/schemas/ClassificationSummary'
         validations_summary:
           $ref: '#/components/schemas/ValidationsSummary'
         errors:
@@ -693,6 +721,18 @@ components:
       allOf:
         - $ref: '#/components/schemas/AsyncResponse'
         - $ref: '#/components/schemas/Extraction'
+        - type: object
+          properties:
+            classification_summary:
+              $ref: '#/components/schemas/ClassificationSummary'
+
+    ExtractionPortfolio: # portfolio extraction
+      allOf:
+        - $ref: '#/components/schemas/Extraction'
+        - type: object
+          properties:
+            classification_summary:
+              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
 
 
 
@@ -741,7 +781,7 @@ components:
           description: Page in the portfolio on which this document for this extraction ends.
           example: 6
         output:
-          $ref: '#/components/schemas/Extraction'
+          $ref: '#/components/schemas/ExtractionPortfolio'
 
 
     AsyncResponse:
@@ -755,6 +795,7 @@ components:
          $ref: '#/components/schemas/DocumentTypeName'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
+
     AsyncResponsePortfolio:
       type: object
       properties:
@@ -766,6 +807,7 @@ components:
          $ref: '#/components/schemas/DocumentTypeNames'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
+
     AsyncUploadResponse:
       allOf:
         - $ref: '#/components/schemas/AsyncResponse'
