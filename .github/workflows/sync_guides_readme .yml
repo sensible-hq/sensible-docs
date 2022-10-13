@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+        # using flowcommerce CLI rather than Readme's GH action for syncing b/c Readme's appears less powerful
       - name: clone readme-sync
         run: |
           git clone https://github.com/flowcommerce/readme-sync readme-cli-tool
