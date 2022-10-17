@@ -44,3 +44,22 @@ Parameters
 
 
 
+SCREENSHOTS
+----
+
+ready to update: 
+
+sections_2
+
+vertical_section_table_grid_1
+
+
+
+NOT UPDATING YET:
+
+
+
+- buggy: vertical_sections_labeled_rows.png 
+- buggy: vertical_sections_table_in_table.png 
+- suprress output problem (pending fix?):  vertical_sections_zip.png
+- supress output: copy_from_sections.png 
