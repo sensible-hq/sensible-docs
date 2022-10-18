@@ -4,12 +4,7 @@
 
 ### Publishing the docs to readme
 
-To publish the markdown docs in this repository to ReadMe.io at https://docs.sensible.so/docs:
-
-1. Install  https://github.com/flowcommerce/readme-sync. this is an open source tool that uses the ReadMe API. 
-2.  Install [ImageMagick](https://imagemagick.org/). We use this to apply drop shadows to new images (rather than customizing the CSS in ReadMe).
-3. In your local clone of the readme-sync repo, install `direnv` and specify a README_API_KEY to your `.envrc`. To get the apiKey for ReadMe , navigate in the dash of  docs project to the Configuration pane.
-4.  Run `make_docs.sh`.
+To publish the markdown docs in this repository to ReadMe.io at https://docs.sensible.so/docs, commit to main. This triggers Github Actions that perform actions conditionally, such as syncing the API reference, syncing the guide docs, checking links, and styling images.
 
 
 
@@ -24,8 +19,6 @@ In the Images dir:
 - Save all screenshots to /screenshots
 - If you edit the screenshot with callouts/arrows/etc, then save an unedited version of the image to source/
 - the doc build process automatically applies styling such as drop shadows to images in screenshots/ and saves to final/
-
-
 
 
 
@@ -57,17 +50,8 @@ _____
 
   - Why?  If someone doesn't know better, they could edit the docs in dash.readme... but those edits will be overwritten the next time someone runs the readme-sync. There's no mechanism in dash.readme to warn them not to edit.  Likewise, any suggested edits in ReadMe need to be manually merged to the Github docs rather than merged using ReadMe's mechanism. 
 
-  
 
 
-
-### Future improvements
-
-
-
-- **automatic build** -  Let's use GH actions/husky/or similar tools to automate `make_docs.sh` whenever there's a commit to main in this repo.
-
-  
 
 
 
