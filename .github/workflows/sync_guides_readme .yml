@@ -22,7 +22,7 @@ jobs:
         # using flowcommerce CLI rather than Readme's offical GH action for syncing b/c Readme's appears less powerful
       - name: clone readme-sync
         run: |
-          git clone https://github.com/flowcommerce/readme-sync readme-cli-tool
+          git clone https://github.com/flowcommerce/readme-sync --branch v0.0.23 readme-cli-tool
       - name: install readme-sync
         run: |
            cd ./readme-cli-tool
