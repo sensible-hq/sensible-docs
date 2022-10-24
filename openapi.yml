@@ -119,7 +119,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncUploadResponse'
+                $ref: '#/components/schemas/ExtractionFromUploadUrlResponse'
           description: Returns the upload_url at which to PUT the document for extraction
         '401':
           $ref: '#/components/responses/401'
@@ -160,7 +160,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncResponse'
+                $ref: '#/components/schemas/ExtractionResponseBase'
           description: Returns the ID to use to retrieve the extraction
         '401':
           $ref: '#/components/responses/401'
@@ -294,7 +294,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                 - $ref: '#/components/schemas/ExtractionResponse'
+                 - $ref: '#/components/schemas/SingleExtractionResponse'
                  - $ref: '#/components/schemas/ExtractionPortfolioResponse'
           description: Returns the extraction.
         '401':
@@ -475,6 +475,61 @@ components:
       example: auto_insurance_quotes_all_carriers
       type: string
 
+
+
+    EnvironmentName:
+      description: Name of the environment to which the configuration used by this extraction was published.
+      example: development
+
+    StandardizedText:
+      description: >-
+        all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
+      type: object
+      example:
+        pages:
+        - width: 8.5
+          height: 11
+          rotation: 0
+          checkboxes:
+          transform:
+            a: 1
+            c: 0
+            e: 0
+            b: 0
+            d: 1
+            f: 0
+          lines:
+          - text: Extract your first data
+            boundingPolygon:
+            - x: 1.111
+              y: 0.472
+            - x: 4.661
+              y: 0.472
+            - x: 4.661
+              y: 0.806
+            - x: 1.111
+              y: 0.806
+          - text: Hello world!
+            boundingPolygon:
+            - x: 0.444
+              y: 1.792
+            - x: 2.07
+              y: 1.792
+            - x: 2.07
+              y: 2.083
+            - x: 0.444
+              y: 2.083
+          - text: Inside documents,
+            boundingPolygon:
+            - x: 4.25
+              y: 2.042
+            - x: 5.982
+              y: 2.042
+            - x: 5.982
+              y: 2.236
+            - x: 4.25
+              y: 2.236
+
     Classification:
       type: object
       properties:
@@ -641,7 +696,7 @@ components:
 
 
 
-    Validation:
+    DocumentValidationOutput:
       type: object
       properties:
         description:
@@ -659,11 +714,15 @@ components:
           example: >-
             Missing prerequisites: broker.email
 
+
+
+
+
     Validations:
       description: Which extracted fields failed validation rules you write in the Sensible app
       type: array
       items:
-        $ref: '#/components/schemas/Validation'
+        $ref: '#/components/schemas/DocumentValidationOutput'
       example:
         - description: Load weight should be over 1 ton
           severity: warning
@@ -698,74 +757,79 @@ components:
     Errors:
       #todo flesh out errors more?
       type: array
+      description: Error messages.
+    ExtractionErrors:
+      type: array
       description: Extraction error messages.
 
 
-    Extraction:
-      type: object
-      properties:
-        configuration:
-          $ref: '#/components/schemas/ConfigurationName'
-        parsed_document:
-          $ref: '#/components/schemas/ParsedDocument'
-        validations:
-          $ref: '#/components/schemas/Validations'
-        file_metadata:
-          $ref: '#/components/schemas/FileMetadata'
-        validations_summary:
-          $ref: '#/components/schemas/ValidationsSummary'
-        errors:
-           $ref: '#/components/schemas/Errors'
 
-    ExtractionSingle: #single doc extraction
+    SingleExtractionResponse: # TODO replace extractionSingle refs
       allOf:
-        - $ref: '#/components/schemas/AsyncResponse'
-        - $ref: '#/components/schemas/Extraction'
+        - $ref: '#/components/schemas/ExtractionResponseBase'
         - type: object
           properties:
+            type:
+              $ref: '#/components/schemas/DocumentTypeName'
+            configuration:
+              $ref: '#/components/schemas/ConfigurationName'
+            environment:
+              $ref: '#/components/schemas/EnvironmentName'
+            parsed_document:
+              $ref: '#/components/schemas/ParsedDocument'
+            text:
+              $ref: '#/components/schemas/StandardizedText'
+            validations:
+                $ref: '#/components/schemas/DocumentValidationOutput'
+            validations_summary:
+                    $ref: '#/components/schemas/ValidationsSummary'
+            errors:
+              $ref: '#/components/schemas/ExtractionErrors'
             classification_summary:
               $ref: '#/components/schemas/ClassificationSummary'
+            file_metadata:
+              $ref: '#/components/schemas/FileMetadata'
+          required:
+            - type
+            - errors
 
-    ExtractionPortfolio: # portfolio extraction
+
+
+
+
+
+    # ExtractionPortfolio: # portfolio extraction
+    #   allOf:
+    #     - $ref: '#/components/schemas/Extraction'
+    #     - type: object
+    #       properties:
+    #         classification_summary:
+    #           $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+
+
+
+    MultiExtractionResponse:
       allOf:
-        - $ref: '#/components/schemas/Extraction'
+        - $ref: '#/components/schemas/ExtractionResponseBase'
         - type: object
           properties:
-            classification_summary:
-              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
-
-
-
-    ExtractionResponse:
-      allOf:
-        - $ref: '#/components/schemas/ExtractionSingle'
-        - type: object
-          properties:
-            download_url:
-              $ref: '#/components/schemas/DownloadUrlDocument'
-
-    ExtractionPortfolioResponse:
-      allOf:
-        - $ref: '#/components/schemas/AsyncResponsePortfolio'
-        - type: object
-          properties:
+            types:
+              $ref: '#/components/schemas/Types'
+            documents:
+              type: array
+              items:
+                $ref: '#/components/schemas/MultiExtractDocument'
             page_count:
               type: integer
               example: 100
               description: Total number of pages in the portfolio.
-            download_url:
-              $ref: '#/components/schemas/DownloadUrlDocument'
-            documents:
-              type: array
-              items:
-                $ref: '#/components/schemas/DocumentInPortfolio'
 
     DownloadUrlDocument:
       type: string
       description: URL of the document
       example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
 
-    DocumentInPortfolio:
+    MultiExtractDocument: # TODO
       type: object
       properties:
         documentType:
@@ -783,18 +847,49 @@ components:
         output:
           $ref: '#/components/schemas/ExtractionPortfolio'
 
+    # TODO.rename. used in portfolio?
+    Extraction:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument'
+        validations:
+          $ref: '#/components/schemas/Validations'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+        validations_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        errors:
+           $ref: '#/components/schemas/Errors'
 
-    AsyncResponse:
+
+    ExtractionResponseBase:
       type: object
       properties:
         id:
           $ref: '#/components/schemas/ExtractionId'
         created:
           $ref: '#/components/schemas/ExtractionCreated'
-        type:
-         $ref: '#/components/schemas/DocumentTypeName'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
+        webhook:
+          $ref: '#/components/schemas/Webhook'
+        download_url:
+          $ref: '#/components/schemas/DownloadUrlDocument'
+        error:
+          type: string
+          description: Extraction errors
+      required:
+        - id
+        - created
+        - status
+
+
+
+
+
 
     AsyncResponsePortfolio:
       type: object
@@ -808,9 +903,9 @@ components:
         status:
          $ref: '#/components/schemas/ExtractionStatus'
 
-    AsyncUploadResponse:
+    ExtractionFromUploadUrlResponse:
       allOf:
-        - $ref: '#/components/schemas/AsyncResponse'
+        - $ref: '#/components/schemas/ExtractionResponseBase'
         - type: object
           properties:
             upload_url:
@@ -876,7 +971,7 @@ components:
     Webhook:
       type: object
       description: >-
-        Specifies to return extraction results to the defined webhook as soon as they're complete,
+        Webhook destination for copmleted extraction results,
         so you don't have to poll for results status. Sensible also calls this webhook on error.
       properties:
         url:
