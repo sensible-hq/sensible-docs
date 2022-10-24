@@ -295,7 +295,7 @@ paths:
               schema:
                 oneOf:
                  - $ref: '#/components/schemas/SingleExtractionResponse'
-                 - $ref: '#/components/schemas/ExtractionPortfolioResponse'
+                 - $ref: '#/components/schemas/MultiExtractionResponse'
           description: Returns the extraction.
         '401':
           $ref: '#/components/responses/401'
@@ -797,24 +797,13 @@ components:
 
 
 
-
-    # ExtractionPortfolio: # portfolio extraction
-    #   allOf:
-    #     - $ref: '#/components/schemas/Extraction'
-    #     - type: object
-    #       properties:
-    #         classification_summary:
-    #           $ref: '#/components/schemas/ClassificationSummaryPortfolio'
-
-
-
     MultiExtractionResponse:
       allOf:
         - $ref: '#/components/schemas/ExtractionResponseBase'
         - type: object
           properties:
             types:
-              $ref: '#/components/schemas/Types'
+              $ref: '#/components/schemas/DocumentTypeNames'
             documents:
               type: array
               items:
@@ -829,13 +818,20 @@ components:
       description: URL of the document
       example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
 
-    MultiExtractDocument: # TODO
+
+    DocConfig:
       type: object
       properties:
         documentType:
           $ref: '#/components/schemas/DocumentTypeName'
         configuration:
           $ref: '#/components/schemas/ConfigurationName'
+
+    MultiExtractDocument: # TODO
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/DocConfig'
+      properties:
         startPage:
           type: integer
           description: Page in the portfolio on which the document for this extraction starts.
@@ -845,9 +841,42 @@ components:
           description: Page in the portfolio on which this document for this extraction ends.
           example: 6
         output:
-          $ref: '#/components/schemas/ExtractionPortfolio'
+          $ref: '#/components/schemas/SingleExtractOutput'
 
-    # TODO.rename. used in portfolio?
+
+    SingleExtractOutput:
+      type: object
+      properties:
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument' # TODO check same
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        validations:
+          $ref: '#/components/schemas/DocumentValidationOutput'
+        parsedDocumentWithMetadata?: ParsedDocumentWithMetadata;
+        text:
+          $ref: '#/components/schemas/StandardizedText
+        fingerprintMatches?: AnchorPoint[];
+        errors:
+          $ref: '#/components/schemas/ExtractionErrors'
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary'
+        verbosity:
+          $ref: '#/components/schemas/ExtractionVerbosity'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+      required:
+        - parsed_document
+        - configuration
+        - validations
+        - errors
+
+    ExtractionVerbosity:
+      type: number
+      enum: [0, 1, 3]
+
+
+    TODO.rename. used in portfolio?
     Extraction:
       type: object
       properties:
