@@ -853,10 +853,12 @@ components:
           $ref: '#/components/schemas/ConfigurationName'
         validations:
           $ref: '#/components/schemas/DocumentValidationOutput'
-        parsedDocumentWithMetadata?: ParsedDocumentWithMetadata;
+        #parsedDocumentWithMetadata?: ParsedDocumentWithMetadata; # TODO
         text:
-          $ref: '#/components/schemas/StandardizedText
-        fingerprintMatches?: AnchorPoint[];
+          $ref: '#/components/schemas/StandardizedText'
+        fingerprintMatches:
+          type: object
+          description: Fingerprint matches. # TODO doc better
         errors:
           $ref: '#/components/schemas/ExtractionErrors'
         classification_summary:
