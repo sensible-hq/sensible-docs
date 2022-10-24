@@ -72,7 +72,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Extraction'
+                $ref: '#/components/schemas/SingleExtractionResponse'
           description: The structured data extracted from the document
         '401':
           $ref: '#/components/responses/401'
@@ -120,7 +120,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExtractionFromUploadUrlResponse'
-          description: Returns the upload_url at which to PUT the document for extraction
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -878,7 +877,6 @@ components:
       enum: [0, 1, 3]
 
 
-    TODO.rename. used in portfolio?
     Extraction:
       type: object
       properties:
@@ -934,21 +932,11 @@ components:
         status:
          $ref: '#/components/schemas/ExtractionStatus'
 
-    ExtractionFromUploadUrlResponse:
+
+    ExtractionFromUploadUrlResponse: #official name
+      description: Returns the upload_url at which to PUT the document for extraction
       allOf:
         - $ref: '#/components/schemas/ExtractionResponseBase'
-        - type: object
-          properties:
-            upload_url:
-              type: string
-              format: url
-              description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
-              example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
-
-
-    AsyncUploadResponsePortfolio:
-      allOf:
-        - $ref: '#/components/schemas/AsyncResponsePortfolio'
         - type: object
           properties:
             upload_url:
