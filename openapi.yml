@@ -479,7 +479,7 @@ components:
 
     StandardizedText:
       description: >-
-        all the text in the document, standardized as an array of pages with lines and their metadata, including positioning
+        All the text in the document, standardized as an array of pages with lines and their metadata, including positioning. Configure verbosity in the SenseML configuration to receive this in the response.
       type: object
       example:
         pages:
