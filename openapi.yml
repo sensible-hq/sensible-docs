@@ -156,7 +156,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExtractionResponseBase'
+                $ref: '#/components/schemas/ExtractFromUrlResponse'
           description: Returns the ID to use to retrieve the extraction
         '401':
           $ref: '#/components/responses/401'
@@ -789,6 +789,8 @@ components:
             - type
             - errors
 
+
+
     SingleExtractionRetrievalResponse: # note - not in entity.ts
       allOf:
         - $ref: '#/components/schemas/SingleExtractionResponse'
@@ -906,8 +908,8 @@ components:
           $ref: '#/components/schemas/ExtractionCreated'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
-        webhook:
-          $ref: '#/components/schemas/Webhook'
+        # webhook:
+        #   $ref: '#/components/schemas/Webhook'
         # /extract/{doc_type_name} doesn't return download_url
         # since doc is never uploaded to Amazon.
         # so I have to add it to other models, unlike what's in extract/entity.ts
@@ -974,6 +976,20 @@ components:
           $ref: '#/components/schemas/ContentType'
       required:
         - document_url
+
+
+     ExtractFromUrlRespone:
+      type: object
+      properties:
+        webhook:
+          $ref: '#/components/schemas/Webhook'
+        document_url:
+          $ref: '#/components/schemas/DocumentUrl'
+        content_type:
+          $ref: '#/components/schemas/ContentType'
+      required:
+        - document_url
+
     GenerateUrlRequest:
       type: object
       properties:
