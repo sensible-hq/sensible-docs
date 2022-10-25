@@ -61,10 +61,6 @@ paths:
             schema:
               $ref: "#/components/schemas/encodedPdf"
 
-
-
-
-
       tags:
       - Document
       responses:
@@ -294,7 +290,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                 - $ref: '#/components/schemas/SingleExtractionResponse'
+                 - $ref: '#/components/schemas/SingleExtractionRetrievalResponse'
                  - $ref: '#/components/schemas/MultiExtractionResponse'
           description: Returns the extraction.
         '401':
@@ -793,7 +789,13 @@ components:
             - type
             - errors
 
-
+    SingleExtractionRetrievalResponse: # note - not in entity.ts
+      allOf:
+        - $ref: '#/components/schemas/SingleExtractionResponse'
+        - type: object
+          properties:
+            download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'
 
 
 
@@ -908,7 +910,7 @@ components:
           $ref: '#/components/schemas/Webhook'
         # /extract/{doc_type_name} doesn't return download_url
         # since doc is never uploaded to Amazon.
-        # so I have to add it to other models, unliked what's in extract/entity.ts
+        # so I have to add it to other models, unlike what's in extract/entity.ts
         # download_url:
         #   $ref: '#/components/schemas/DownloadUrlDocument'
         error:
