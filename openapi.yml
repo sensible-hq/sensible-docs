@@ -467,7 +467,7 @@ components:
 
   schemas:
 
-    # TODO: as much as possible, rename schemas (esp response schemas) to be in line with what's in extract/entityt.ts
+    # TODO: as much as possible, rename schemas (esp response schemas) to be in line with what's in api/extract/entityt.ts
     # for easier review
 
     DocumentTypeName:
@@ -667,7 +667,7 @@ components:
         penalties:
           type: number
           example: 1.5
-          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.
+          description: Errors are 1 penality point and warnings are 0.5 points. See the validation_summary for a breakdown.
 
     ParsedDocument:
       description: Data extracted from the document, structured as an array of fields
@@ -730,7 +730,7 @@ components:
       #     severity: skipped
       #     message: Missing prerequisites - carrier_email
 
-    ValidationsSummary:
+    ValidationSummary:
       type: object
       description: Summary of the extracted fields that failed validation rules you write in the Sensible app.
       properties:
@@ -781,8 +781,8 @@ components:
               $ref: '#/components/schemas/StandardizedText'
             validations:
                 $ref: '#/components/schemas/Validations'
-            validations_summary:
-                    $ref: '#/components/schemas/ValidationsSummary'
+            validation_summary:
+                    $ref: '#/components/schemas/ValidationSummary'
             errors:
               $ref: '#/components/schemas/ExtractionErrors'
             classification_summary:
@@ -889,8 +889,8 @@ components:
           $ref: '#/components/schemas/Validations'
         file_metadata:
           $ref: '#/components/schemas/FileMetadata'
-        validations_summary:
-          $ref: '#/components/schemas/ValidationsSummary'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationSummary'
         errors:
            $ref: '#/components/schemas/Errors'
 
@@ -906,8 +906,11 @@ components:
          $ref: '#/components/schemas/ExtractionStatus'
         webhook:
           $ref: '#/components/schemas/Webhook'
-        download_url:
-          $ref: '#/components/schemas/DownloadUrlDocument'
+        # /extract/{doc_type_name} doesn't return download_url
+        # since doc is never uploaded to Amazon.
+        # so I have to add it to other models, unliked what's in extract/entity.ts
+        # download_url:
+        #   $ref: '#/components/schemas/DownloadUrlDocument'
         error:
           type: string
           description: Extraction errors
