@@ -490,7 +490,7 @@ components:
         - width: 8.5
           height: 11
           rotation: 0
-          checkboxes:
+          checkboxes: []
           transform:
             a: 1
             c: 0
@@ -719,16 +719,16 @@ components:
 
 
     Validations:
-      description: Which extracted fields failed validation rules you write in the Sensible app
+      description: Which validation rules you write in the Sensible app failed in this extraction
       type: array
       items:
         $ref: '#/components/schemas/DocumentValidationOutput'
-      example:
-        - description: Load weight should be over 1 ton
-          severity: warning
-        - description: Carrier email must be in format string@string
-          severity: skipped
-          message: Missing prerequisites - carrier_email
+      # example:
+      #   - description: Load weight should be over 1 ton
+      #     severity: warning
+      #   - description: Carrier email must be in format string@string
+      #     severity: skipped
+      #     message: Missing prerequisites - carrier_email
 
     ValidationsSummary:
       type: object
@@ -780,7 +780,7 @@ components:
             text:
               $ref: '#/components/schemas/StandardizedText'
             validations:
-                $ref: '#/components/schemas/DocumentValidationOutput'
+                $ref: '#/components/schemas/Validations'
             validations_summary:
                     $ref: '#/components/schemas/ValidationsSummary'
             errors:
@@ -852,7 +852,7 @@ components:
         configuration:
           $ref: '#/components/schemas/ConfigurationName'
         validations:
-          $ref: '#/components/schemas/DocumentValidationOutput'
+          $ref: '#/components/schemas/Validations'
         #parsedDocumentWithMetadata?: ParsedDocumentWithMetadata; # TODO
         text:
           $ref: '#/components/schemas/StandardizedText'
