@@ -160,7 +160,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncResponse'
+                $ref: '#/components/schemas/ExtractFromUrlResponse'
           description: Returns the ID to use to retrieve the extraction
         '401':
           $ref: '#/components/responses/401'
@@ -467,8 +467,10 @@ components:
 
   schemas:
 
-    # TODO: as much as possible, rename schemas (esp response schemas) to be in line with what's in extract/entityt.ts
-    # for easier review
+    EnvironmentName:
+      description: Name of the environment to which the configuration used by this extraction was published.
+      example: development
+      type: string
 
     DocumentTypeName:
       description: Unique user-friendly name for a document type
@@ -725,6 +727,8 @@ components:
           properties:
             classification_summary:
               $ref: '#/components/schemas/ClassificationSummary'
+            environment:
+              $ref: '#/components/schemas/EnvironmentName'
 
     ExtractionPortfolio: # portfolio extraction
       allOf:
@@ -736,7 +740,7 @@ components:
 
 
 
-    ExtractionSingleRetrievalResponse:
+    ExtractionSingleRetrievalResponse: # through /documents/{id} endpoint
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleResponse'
         - type: object
@@ -795,6 +799,17 @@ components:
          $ref: '#/components/schemas/DocumentTypeName'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
+
+    ExtractFromUrlResponse:
+      allOf:
+        - $ref: '#/components/schemas/AsyncResponse'
+        - type: object
+          properties:
+            environment:
+              $ref: '#/components/schemas/EnvironmentName'
+            errors:
+              $ref: '#/components/schemas/Errors'
+
 
     AsyncResponsePortfolio:
       type: object
