@@ -333,6 +333,7 @@ paths:
                     type: string
                     format: url
                     description: The download URL for the Excel file
+                    example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.xlsx?REDACTED
 
         '401':
           $ref: '#/components/responses/401'
