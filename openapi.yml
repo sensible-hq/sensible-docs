@@ -874,7 +874,8 @@ components:
 
     ExtractionCreated:
       type: string
-      format: date
+      format: date-time
+      example: 2022-10-27T20:52:20.957Z
       description: Date the extraction was created
 
     ExtractionStatus:
