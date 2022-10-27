@@ -72,7 +72,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Extraction'
+                $ref: '#/components/schemas/ExtractionSingleResponse'
           description: The structured data extracted from the document
         '401':
           $ref: '#/components/responses/401'
@@ -717,7 +717,7 @@ components:
         errors:
            $ref: '#/components/schemas/Errors'
 
-    ExtractionSingle: #single doc extraction
+    ExtractionSingleResponse: #single doc extraction
       allOf:
         - $ref: '#/components/schemas/AsyncResponse'
         - $ref: '#/components/schemas/Extraction'
