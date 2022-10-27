@@ -261,7 +261,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncResponsePortfolio'
+                $ref: '#/components/schemas/AsyncResponseExtractFromUrlPortfolio'
           description: Returns the ID to use to retrieve the extraction.
         '401':
           $ref: '#/components/responses/401'
@@ -811,6 +811,19 @@ components:
               $ref: '#/components/schemas/Errors'
 
 
+
+
+    AsyncUploadResponse:
+      allOf:
+        - $ref: '#/components/schemas/AsyncResponse'
+        - type: object
+          properties:
+            upload_url:
+              type: string
+              format: url
+              description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+              example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+
     AsyncResponsePortfolio:
       type: object
       properties:
@@ -823,16 +836,13 @@ components:
         status:
          $ref: '#/components/schemas/ExtractionStatus'
 
-    AsyncUploadResponse:
+    AsyncResponseExtractFromUrlPortfolio:
       allOf:
-        - $ref: '#/components/schemas/AsyncResponse'
+        - $ref: '#/components/schemas/AsyncResponsePortfolio'
         - type: object
           properties:
-            upload_url:
-              type: string
-              format: url
-              description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
-              example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+            types:
+              $ref: '#/components/schemas/DocumentTypeNames'
 
 
     AsyncUploadResponsePortfolio:
@@ -875,7 +885,7 @@ components:
     ExtractionCreated:
       type: string
       format: date-time
-      example: 2022-10-27T20:52:20.957Z
+      example: T20:52:20.957Z
       description: Date the extraction was created
 
     ExtractionStatus:
