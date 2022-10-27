@@ -796,6 +796,8 @@ components:
           $ref: '#/components/schemas/ExtractionId'
         created:
           $ref: '#/components/schemas/ExtractionCreated'
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted' # todo test where else shows up in dev.
         type:
          $ref: '#/components/schemas/DocumentTypeName'
         status:
@@ -885,7 +887,13 @@ components:
       type: string
       format: date-time
       example: T20:52:20.957Z
-      description: Date the extraction was created
+      description: Date and time the extraction was created
+
+    ExtractionCompleted:
+      type: string
+      format: date-time
+      example: T20:52:20.957Z
+      description: Date and time the extraction's status was set to COMPLETED
 
     ExtractionStatus:
       type: string
