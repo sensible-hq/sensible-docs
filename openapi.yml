@@ -294,7 +294,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                 - $ref: '#/components/schemas/ExtractionResponse'
+                 - $ref: '#/components/schemas/ExtractionSingleRetrievalResponse'
                  - $ref: '#/components/schemas/ExtractionPortfolioResponse'
           description: Returns the extraction.
         '401':
@@ -736,9 +736,9 @@ components:
 
 
 
-    ExtractionResponse:
+    ExtractionSingleRetrievalResponse:
       allOf:
-        - $ref: '#/components/schemas/ExtractionSingle'
+        - $ref: '#/components/schemas/ExtractionSingleResponse'
         - type: object
           properties:
             download_url:
