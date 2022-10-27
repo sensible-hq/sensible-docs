@@ -1159,6 +1159,7 @@ components:
           unit: $
           type: currency
         pickup_date: null
+    # rename StandardizedText TODO?
     ResponseStandardText:
       description: >-
         all the text in the document, standardized as an array of pages with lines and their metadata, including positioning

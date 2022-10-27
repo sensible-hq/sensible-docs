@@ -61,10 +61,6 @@ paths:
             schema:
               $ref: "#/components/schemas/encodedPdf"
 
-
-
-
-
       tags:
       - Document
       responses:
@@ -72,7 +68,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Extraction'
+                $ref: '#/components/schemas/SingleExtractionResponse'
           description: The structured data extracted from the document
         '401':
           $ref: '#/components/responses/401'
@@ -119,7 +115,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncUploadResponse'
+                $ref: '#/components/schemas/ExtractionFromUploadUrlResponse'
           description: Returns the upload_url at which to PUT the document for extraction
         '401':
           $ref: '#/components/responses/401'
@@ -160,7 +156,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AsyncResponse'
+                $ref: '#/components/schemas/ExtractFromUrlResponse'
           description: Returns the ID to use to retrieve the extraction
         '401':
           $ref: '#/components/responses/401'
@@ -294,8 +290,8 @@ paths:
             application/json:
               schema:
                 oneOf:
-                 - $ref: '#/components/schemas/ExtractionResponse'
-                 - $ref: '#/components/schemas/ExtractionPortfolioResponse'
+                 - $ref: '#/components/schemas/SingleExtractionRetrievalResponse'
+                 - $ref: '#/components/schemas/MultiExtractionResponse'
           description: Returns the extraction.
         '401':
           $ref: '#/components/responses/401'
@@ -467,13 +463,68 @@ components:
 
   schemas:
 
-    # TODO: as much as possible, rename schemas (esp response schemas) to be in line with what's in extract/entityt.ts
+    # TODO: as much as possible, rename schemas (esp response schemas) to be in line with what's in api/extract/entityt.ts
     # for easier review
 
     DocumentTypeName:
       description: Unique user-friendly name for a document type
       example: auto_insurance_quotes_all_carriers
       type: string
+
+
+
+    EnvironmentName:
+      description: Name of the environment to which the configuration used by this extraction was published.
+      example: development
+
+    StandardizedText:
+      description: >-
+        All the text in the document, standardized as an array of pages with lines and their metadata, including positioning. Configure verbosity in the SenseML configuration to receive this in the response.
+      type: object
+      example:
+        pages:
+        - width: 8.5
+          height: 11
+          rotation: 0
+          checkboxes: []
+          transform:
+            a: 1
+            c: 0
+            e: 0
+            b: 0
+            d: 1
+            f: 0
+          lines:
+          - text: Extract your first data
+            boundingPolygon:
+            - x: 1.111
+              y: 0.472
+            - x: 4.661
+              y: 0.472
+            - x: 4.661
+              y: 0.806
+            - x: 1.111
+              y: 0.806
+          - text: Hello world!
+            boundingPolygon:
+            - x: 0.444
+              y: 1.792
+            - x: 2.07
+              y: 1.792
+            - x: 2.07
+              y: 2.083
+            - x: 0.444
+              y: 2.083
+          - text: Inside documents,
+            boundingPolygon:
+            - x: 4.25
+              y: 2.042
+            - x: 5.982
+              y: 2.042
+            - x: 5.982
+              y: 2.236
+            - x: 4.25
+              y: 2.236
 
     Classification:
       type: object
@@ -612,7 +663,7 @@ components:
         penalties:
           type: number
           example: 1.5
-          description: Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown.
+          description: Errors are 1 penality point and warnings are 0.5 points. See the validation_summary for a breakdown.
 
     ParsedDocument:
       description: Data extracted from the document, structured as an array of fields
@@ -641,7 +692,7 @@ components:
 
 
 
-    Validation:
+    DocumentValidationOutput:
       type: object
       properties:
         description:
@@ -659,19 +710,23 @@ components:
           example: >-
             Missing prerequisites: broker.email
 
+
+
+
+
     Validations:
-      description: Which extracted fields failed validation rules you write in the Sensible app
+      description: Which validation rules you write in the Sensible app failed in this extraction
       type: array
       items:
-        $ref: '#/components/schemas/Validation'
-      example:
-        - description: Load weight should be over 1 ton
-          severity: warning
-        - description: Carrier email must be in format string@string
-          severity: skipped
-          message: Missing prerequisites - carrier_email
+        $ref: '#/components/schemas/DocumentValidationOutput'
+      # example:
+      #   - description: Load weight should be over 1 ton
+      #     severity: warning
+      #   - description: Carrier email must be in format string@string
+      #     severity: skipped
+      #     message: Missing prerequisites - carrier_email
 
-    ValidationsSummary:
+    ValidationSummary:
       type: object
       description: Summary of the extracted fields that failed validation rules you write in the Sensible app.
       properties:
@@ -698,7 +753,133 @@ components:
     Errors:
       #todo flesh out errors more?
       type: array
+      description: Error messages.
+    ExtractionErrors:
+      type: array
       description: Extraction error messages.
+
+
+
+    SingleExtractionResponse: # TODO replace extractionSingle refs
+      allOf:
+        - $ref: '#/components/schemas/ExtractionResponseBase'
+        - type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/DocumentTypeName'
+            configuration:
+              $ref: '#/components/schemas/ConfigurationName'
+            environment:
+              $ref: '#/components/schemas/EnvironmentName'
+            parsed_document:
+              $ref: '#/components/schemas/ParsedDocument'
+            text:
+              $ref: '#/components/schemas/StandardizedText'
+            validations:
+                $ref: '#/components/schemas/Validations'
+            validation_summary:
+                    $ref: '#/components/schemas/ValidationSummary'
+            errors:
+              $ref: '#/components/schemas/ExtractionErrors'
+            classification_summary:
+              $ref: '#/components/schemas/ClassificationSummary'
+            file_metadata:
+              $ref: '#/components/schemas/FileMetadata'
+          required:
+            - type
+            - errors
+
+
+
+    SingleExtractionRetrievalResponse: # note - not in entity.ts
+      allOf:
+        - $ref: '#/components/schemas/SingleExtractionResponse'
+        - type: object
+          properties:
+            download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'
+
+
+
+    MultiExtractionResponse:
+      allOf:
+        - $ref: '#/components/schemas/ExtractionResponseBase'
+        - type: object
+          properties:
+            types:
+              $ref: '#/components/schemas/DocumentTypeNames'
+            documents:
+              type: array
+              items:
+                $ref: '#/components/schemas/MultiExtractDocument'
+            page_count:
+              type: integer
+              example: 100
+              description: Total number of pages in the portfolio.
+
+    DownloadUrlDocument:
+      type: string
+      description: URL of the document
+      example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
+
+
+    DocConfig:
+      type: object
+      properties:
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+
+    MultiExtractDocument: # TODO
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/DocConfig'
+      properties:
+        startPage:
+          type: integer
+          description: Page in the portfolio on which the document for this extraction starts.
+          example: 2
+        endPage:
+          type: integer
+          description: Page in the portfolio on which this document for this extraction ends.
+          example: 6
+        output:
+          $ref: '#/components/schemas/SingleExtractOutput'
+
+
+    SingleExtractOutput:
+      type: object
+      properties:
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument' # TODO check same
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        validations:
+          $ref: '#/components/schemas/Validations'
+        #parsedDocumentWithMetadata?: ParsedDocumentWithMetadata; # TODO
+        text:
+          $ref: '#/components/schemas/StandardizedText'
+        fingerprintMatches:
+          type: object
+          description: Fingerprint matches. # TODO doc better
+        errors:
+          $ref: '#/components/schemas/ExtractionErrors'
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary'
+        verbosity:
+          $ref: '#/components/schemas/ExtractionVerbosity'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+      required:
+        - parsed_document
+        - configuration
+        - validations
+        - errors
+
+    ExtractionVerbosity:
+      type: number
+      enum: [0, 1, 3]
 
 
     Extraction:
@@ -712,89 +893,40 @@ components:
           $ref: '#/components/schemas/Validations'
         file_metadata:
           $ref: '#/components/schemas/FileMetadata'
-        validations_summary:
-          $ref: '#/components/schemas/ValidationsSummary'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationSummary'
         errors:
            $ref: '#/components/schemas/Errors'
 
-    ExtractionSingle: #single doc extraction
-      allOf:
-        - $ref: '#/components/schemas/AsyncResponse'
-        - $ref: '#/components/schemas/Extraction'
-        - type: object
-          properties:
-            classification_summary:
-              $ref: '#/components/schemas/ClassificationSummary'
 
-    ExtractionPortfolio: # portfolio extraction
-      allOf:
-        - $ref: '#/components/schemas/Extraction'
-        - type: object
-          properties:
-            classification_summary:
-              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
-
-
-
-    ExtractionResponse:
-      allOf:
-        - $ref: '#/components/schemas/ExtractionSingle'
-        - type: object
-          properties:
-            download_url:
-              $ref: '#/components/schemas/DownloadUrlDocument'
-
-    ExtractionPortfolioResponse:
-      allOf:
-        - $ref: '#/components/schemas/AsyncResponsePortfolio'
-        - type: object
-          properties:
-            page_count:
-              type: integer
-              example: 100
-              description: Total number of pages in the portfolio.
-            download_url:
-              $ref: '#/components/schemas/DownloadUrlDocument'
-            documents:
-              type: array
-              items:
-                $ref: '#/components/schemas/DocumentInPortfolio'
-
-    DownloadUrlDocument:
-      type: string
-      description: URL of the document
-      example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
-
-    DocumentInPortfolio:
-      type: object
-      properties:
-        documentType:
-          $ref: '#/components/schemas/DocumentTypeName'
-        configuration:
-          $ref: '#/components/schemas/ConfigurationName'
-        startPage:
-          type: integer
-          description: Page in the portfolio on which the document for this extraction starts.
-          example: 2
-        endPage:
-          type: integer
-          description: Page in the portfolio on which this document for this extraction ends.
-          example: 6
-        output:
-          $ref: '#/components/schemas/ExtractionPortfolio'
-
-
-    AsyncResponse:
+    ExtractionResponseBase:
       type: object
       properties:
         id:
           $ref: '#/components/schemas/ExtractionId'
         created:
           $ref: '#/components/schemas/ExtractionCreated'
-        type:
-         $ref: '#/components/schemas/DocumentTypeName'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
+        # webhook:
+        #   $ref: '#/components/schemas/Webhook'
+        # /extract/{doc_type_name} doesn't return download_url
+        # since doc is never uploaded to Amazon.
+        # so I have to add it to other models, unlike what's in extract/entity.ts
+        # download_url:
+        #   $ref: '#/components/schemas/DownloadUrlDocument'
+        error:
+          type: string
+          description: Extraction errors
+      required:
+        - id
+        - created
+        - status
+
+
+
+
+
 
     AsyncResponsePortfolio:
       type: object
@@ -808,9 +940,10 @@ components:
         status:
          $ref: '#/components/schemas/ExtractionStatus'
 
-    AsyncUploadResponse:
+
+    ExtractionFromUploadUrlResponse: # in-code name
       allOf:
-        - $ref: '#/components/schemas/AsyncResponse'
+        - $ref: '#/components/schemas/ExtractionResponseBase'
         - type: object
           properties:
             upload_url:
@@ -819,8 +952,7 @@ components:
               description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
               example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
 
-
-    AsyncUploadResponsePortfolio:
+    AsyncUploadResponsePortfolio: # TODO couldnt find corresponding reponse in code
       allOf:
         - $ref: '#/components/schemas/AsyncResponsePortfolio'
         - type: object
@@ -830,6 +962,7 @@ components:
               format: url
               description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
               example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+
 
 
     ExtractFromUrlRequest:
@@ -843,6 +976,20 @@ components:
           $ref: '#/components/schemas/ContentType'
       required:
         - document_url
+
+
+     ExtractFromUrlRespone:
+      type: object
+      properties:
+        webhook:
+          $ref: '#/components/schemas/Webhook'
+        document_url:
+          $ref: '#/components/schemas/DocumentUrl'
+        content_type:
+          $ref: '#/components/schemas/ContentType'
+      required:
+        - document_url
+
     GenerateUrlRequest:
       type: object
       properties:
@@ -876,7 +1023,7 @@ components:
     Webhook:
       type: object
       description: >-
-        Specifies to return extraction results to the defined webhook as soon as they're complete,
+        Webhook destination for copmleted extraction results,
         so you don't have to poll for results status. Sensible also calls this webhook on error.
       properties:
         url:
