@@ -852,7 +852,7 @@ components:
         prevent_default_merge_lines:
           type: boolean
           description: |
-            Prevents the default line merging that occurs before  the
+            Prevents the built-in line merging that occurs before  the
             [Merge Lines](doc:merge-lines) preprocessor.
 
         ocr_level:
