@@ -596,7 +596,7 @@ components:
 
 
 
-    ExtractionPortfolio: # portfolio extraction
+    ExtractionContentPortfolio: # portfolio extraction
       allOf:
         - $ref: '#/components/schemas/ExtractionContent'
         - type: object
@@ -620,7 +620,7 @@ components:
           description: Page in the portfolio on which this document for this extraction ends.
           example: 6
         output:
-          $ref: '#/components/schemas/ExtractionPortfolio'
+          $ref: '#/components/schemas/ExtractionContentPortfolio'
 
 
     GenerateUrlRequest:
