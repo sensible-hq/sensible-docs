@@ -835,6 +835,7 @@ components:
             - strict
           type: string
           description: The Sensible app defaults to `fallback_to_all`.
+
         ocr_engine:
           enum:
             - microsoft
@@ -847,6 +848,12 @@ components:
             Google is faster and suited to handwriting and short documents (25 pages or under).
             The Google engine doesn't merge words into lines automatically. Use the mergeLines preprocessor in your configurations to do so.
             Amazon is suited for short documents (25 pages or under), and is an alternative to experiment with if other engines aren't recognizing text you need.
+
+        prevent_default_merge_lines:
+          type: boolean
+          description: |
+            Prevents the default line merging that occurs before  the
+            [Merge Lines](doc:merge-lines) preprocessor.
 
         ocr_level:
           enum:
