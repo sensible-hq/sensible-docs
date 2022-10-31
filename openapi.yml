@@ -558,6 +558,8 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
         type:
          $ref: '#/components/schemas/DocumentTypeName'
         status:
