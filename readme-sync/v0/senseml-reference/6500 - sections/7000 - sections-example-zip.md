@@ -184,6 +184,7 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
       "method": {
         "id": "suppressOutput",
         "source_ids": [
+            /* remove these IDs to see section ranges displayed in the Sensible app */
           "_vehicles",
           "_coverages_per_vehicle"
         ]

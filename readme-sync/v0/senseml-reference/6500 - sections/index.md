@@ -33,11 +33,12 @@ Parameters
 ====
 
 
-| key                   | value  | description                                                  |
-| --------------------- | ------ | ------------------------------------------------------------ |
-| id (**required**)     | string | Specifies an ID for a group of sections to extract in the document area defined by the Range parameter. You can define an array of section groups, and you can nest sections inside of other sections. |
-| range  (**required**) | object | Specifies the document area from which to extract a group of sections. The Range parameter specifies both:<br/>- a group of repeated sections in an area of the document <br/>- the start and end of each repeated section.<br/><br/> **horizontal sections:**  The sections group can span pages and nonrepeating text. For example,  in the preceding image, an "unprocessed_claims" section group can span month headings.<br/><br/> **vertical sections:** The section group can span pages. By default, the group can't span text that breaks the column format.<br/>For the Range object's parameters, see the following table.<br/><br/> |
-| sections              |        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements, for example, [a grid of tables](doc:sections-example-table-grid). Each nested section searches for its range inside the parent section's range. |
+| key                   | value                  | description                                                  |
+| --------------------- | ---------------------- | ------------------------------------------------------------ |
+| id (**required**)     | string                 | Specifies an ID for a group of sections to extract in the document area defined by the Range parameter. You can define an array of section groups, and you can nest sections inside of other sections. |
+| range  (**required**) | object                 | Specifies the document area from which to extract a group of sections. The Range parameter specifies both:<br/>- a group of repeated sections in an area of the document <br/>- the start and end of each repeated section.<br/><br/> **horizontal sections:**  The sections group can span pages and nonrepeating text. For example,  in the preceding image, an "unprocessed_claims" section group can span month headings.<br/><br/> **vertical sections:** The section group can span pages. By default, the group can't span text that breaks the column format.<br/>For the Range object's parameters, see the following table.<br/><br/> |
+| sections              |                        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements, for example, [a grid of tables](doc:sections-example-table-grid). Each nested section searches for its range inside the parent section's range. |
+| display               | boolean. Default: true | Specifies to display  the start and end of each section in a section group  as brackets overlaid on the rendered PDF in the Sensible app. Useful for troubleshooting.<br/> |
 
 **Range parameters**
 

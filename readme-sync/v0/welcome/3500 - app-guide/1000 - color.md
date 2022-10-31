@@ -11,6 +11,7 @@ This topic describes the color-coded symbols in the Sensible app that visually r
 | [Blue box](doc:color#blue-box)                   | captured method data                 |
 | [Green box](doc:color#green-box)                 | box or region                        |
 | [Green point](doc:color#green-point)             | starting point for recognizing a box |
+| [Green brackets]                                 | ranges for sections                  |
 | [Dotted blue box](doc:color#dotted-blue-box)     | discarded method data                |
 | [Dotted yellow box](doc:color#dotted-yellow-box) | discarded anchor data                |
 | [Pink box](doc:color#pink-box)                   | fingerprint                          |
@@ -95,6 +96,17 @@ Green points can be useful for troubleshooting. For example, in the following im
 If you specify to find the box borders by starting from the right edge of the anchor line's boundaries (`"position": "right"`), the green dot is far enough inside the borders for Sensible to recognize the box:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_position_right.png)
+
+
+
+Green brackets
+===
+
+**Green brackets** represent the start and end of each section in a section group:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_sections.png)
+
+
 
 
 

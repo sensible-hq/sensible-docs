@@ -214,6 +214,8 @@ The following elaborates on the preceding overview using JSON instead of YML.
           "method": {
             "id": "suppressOutput",
             "source_ids": [
+              /* remove these IDs to display
+                 section ranges in Sensible app */
               "_coverages_per_vehicle",
               "_covered_vehicles",
             ]
