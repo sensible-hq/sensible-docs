@@ -902,7 +902,7 @@ components:
       type: string
       format: date-time
       example: 2022-10-31T16:27:53.433
-      description: Date and time Sensible started the extraction
+      description: Date and time Sensible created the extraction
 
     ExtractionCompleted:
       type: string
