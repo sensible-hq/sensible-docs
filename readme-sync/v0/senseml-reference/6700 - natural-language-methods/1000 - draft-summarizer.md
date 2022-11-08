@@ -2,7 +2,7 @@
 title: "Summarizer draft"
 hidden: true
 ---
-Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs informed by instructions or short samples of extracted values you provide. 
+Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. 
 
 Parameters
 ====
@@ -21,7 +21,13 @@ The following parameters are in the computed field's [global Method](doc:compute
 Examples
 ====
 
-Instructions example
+Example 1
+---
+
+
+
+
+Example 2
 ----
 
 The following example shows using the Summarizer method configured with the Instructions parameter to extract the following information from a lease:
@@ -30,7 +36,7 @@ The following example shows using the Summarizer method configured with the Inst
 - payment frequency 
 - payment due date
 
-In a production scenario, you can use the Samples parameter in addition to the Instructions parameter to increase GPT-3's accuracy.
+In a production scenario, you can use the Samples parameter in addition to the Instructions parameter if you want to increase GPT-3's accuracy.
 
 
 
@@ -102,7 +108,7 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Samples example
+Example 3
 ----
 
 The following example shows using the Summarizer method configured with the Samples parameter to extract the following information from a lease:
@@ -110,7 +116,7 @@ The following example shows using the Summarizer method configured with the Samp
 - monthly rent
 - payment frequency 
 
-In a production scenario, you can use the Samples parameter in addition to the Instructions parameter to increase GPT-3's accuracy.
+In a production scenario, you can use the Samples parameter in addition to the Instructions parameter if you want to increase GPT-3's accuracy.
 
 **Config**
 
