@@ -68,7 +68,7 @@ With either block or in-line address, Sensible recognizes these formats:
 - Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations   
 - PO boxes with a number represented in digits
 - Lists of addresses in the preceding formats
-- Dates that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.
+- Addresses that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and finds the type in the joined text.
 
 
 
@@ -285,7 +285,7 @@ Date
 
 You can define this type using concise syntax,  or you can configure options with expanded syntax.
 
-Sensible matches dates that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.
+Sensible matches dates that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and finds the type in the joined text.
 
 Simple syntax
 ----
