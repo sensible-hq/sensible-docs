@@ -24,6 +24,96 @@ Examples
 Example 1
 ---
 
+The following example shows using the Summarizer method configured with the Instructions parameter to extract disease prevelance  information from a research article.
+
+In a production scenario, you can use the Samples parameter in addition to the Instructions parameter if you want to increase GPT-3's accuracy.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "_source_results_topic",
+      "anchor": {
+        "match": {
+          "type": "first"
+        }
+      },
+      "method": {
+        "id": "topic",
+        "terms": [
+          "prevalence",
+          "per"
+        ],
+        "numLines": 10
+      }
+    }
+  ],
+  "computed_fields": [
+    {
+      "id": "diseases_summarized",
+      "method": {
+        "id": "summarizer",
+        "source_id": "_source_results_topic",
+        "instructions": "List all the diseases and disease subtypes mentioned below along with their population prevalence, country or region, and year, if applicable",
+        "fields": [
+          "disease",
+          "prevalence",
+          "region_or_country",
+          "year"
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summarizer_pubmed.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_pubmed.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+
+**Output**
+
+```json
+{
+  "_source_results_topic": {
+    "type": "string",
+    "value": "NTDs per 10,000 births, including live and stillborn cases. Results: The meta-analysis included 20 studies consisting of 752,936 individuals. The pooled prevalence of all NTDs 2 per 10,000 births in Eastern Africa was 33.30 (95% CI: 21.58 to 51.34). Between-study heterogeneity was high (I = 97%, p < 0.0001), The rate was highest in Ethiopia (60 per 10,000). Birth prevalence of spina bifida (20 per 10,000) was higher than anencephaly (9 per 10,000) and encephalocele (2.33 per 10,000). No studies on NTDs were identified in 70% of the UN Eastern Africa region. Birth prevalence increased by 4% per year from 1983 to 2018. The level of evidence as qualified with GRADE was moderate. Conclusion: The birth prevalence of NTDs in the United Nations region of Eastern Africa is 5 times as high as observed in Western countries with mandatory folic acid supplementation in place. Therefore, mandatory folic acid"
+  },
+  "diseases_summarized": [
+    {
+      "disease": "neural tube defects",
+      "prevalence": "33.30 per 10,000 births",
+      "region_or_country": "Eastern Africa",
+      "year": ""
+    },
+    {
+      "disease": "spina bifida",
+      "prevalence": "20 per 10,000 births",
+      "region_or_country": "Eastern Africa",
+      "year": ""
+    },
+    {
+      "disease": "anencephaly",
+      "prevalence": "9 per 10,000 births",
+      "region_or_country": "Eastern Africa",
+      "year": ""
+    },
+    {
+      "disease": "encephalocele",
+      "prevalence": "2.33 per 10,000 births",
+      "region_or_country": "Eastern Africa",
+      "year": ""
+    }
+  ]
+}
+```
+
 
 
 
