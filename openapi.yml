@@ -15,7 +15,7 @@ security:
   - bearerAuth: []
 
 paths:
-  /extract/{type}:
+  /extract/{document_type}:
     post:
       operationId: extract-data-from-a-document
       summary: Extract data from a document
@@ -34,7 +34,7 @@ paths:
           1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png".
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
       parameters:
-        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
       requestBody:
         required: true
@@ -80,7 +80,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /generate_upload_url/{type}:
+  /generate_upload_url/{document_type}:
     post:
       operationId: generate-an-upload-url
       summary: Extract doc at a Sensible URL
@@ -100,7 +100,7 @@ paths:
         [Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2).
 
       parameters:
-        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
 
       requestBody:
@@ -129,7 +129,7 @@ paths:
           $ref: '#/components/responses/500'
 
 
-  /extract_from_url/{type}:
+  /extract_from_url/{document_type}:
     post:
       operationId: provide-a-download-url
       summary: Extract doc at your URL
@@ -142,7 +142,7 @@ paths:
         For a step-by-step tutorial on calling this endpoint,
         see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1).
       parameters:
-        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
       requestBody:
         content:
@@ -423,7 +423,7 @@ components:
       description: Unique ID for the extraction, used to retrieve the extraction.
       schema:
         $ref: '#/components/schemas/ExtractionId'
-    type:
+    document_type:
       name: type
       required: true
       in: path
