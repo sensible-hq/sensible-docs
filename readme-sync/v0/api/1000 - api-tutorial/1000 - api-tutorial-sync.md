@@ -10,7 +10,13 @@ Audience
 
 If you're new to APIs, use this tutorial to return meaningful document data from an example insurance quote.
 
-To instead run a quick "hello world" API command without prerequisites, check out the [quickstart](doc:quickstart).
+Or, if you're familiar with APIs:
+
+- see the [quickstart](doc:quickstart) to get a sample API response.
+
+- explore the Sensible Postman collection:
+
+![Run in Postman](https://run.pstmn.io/button.svg) 
 
 Prerequisites
 ---

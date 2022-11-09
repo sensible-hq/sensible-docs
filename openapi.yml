@@ -23,15 +23,12 @@ paths:
       description: |
         Extract data from a local document synchronously.
 
-        To get a quick "hello world" response to this endpoint:
-        - See the [quickstart](doc:quickstart), or
-        - Use this interactive API explorer:
-          1. Paste your [API key](https://app.sensible.so/account/) into the **Bearer** field in the right pane of this interactive explorer.
-          2. For the **type** path parameter, scroll down, right-click the field, and select **Use Example Value**.
-          3. For the **document** body parameter, scroll down, right-click the field, and select **Use Example Value**.
-          4. Click **Try It!** in the right pane. In the right pane, you should see a 200 response that includes a `parsed_document` object.
+        To explore this endpoint, use this interactive API reference, or use one of the following options:
 
-        For a more detailed, step-by-step tutorial on calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
+        - For a quick "hello world" response to this endpoint, see the [quickstart](doc:quickstart)
+        - For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
+        - Run this endpoint in the Sensible Postman collection.
+          [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)
 
         There are two options for posting the document bytes.
           1. (often preferred) specify the non-encoded document bytes as the entire request body,
