@@ -35,7 +35,7 @@ To try out the [extract_from_url](https://sensiblehq.readme.io/reference#provide
    curl --request POST 'https://api.sensible.so/v0/extract_from_url/tax_forms' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --header 'Content-Type: application/json' \
-   --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-configuration-library/tax_forms/1040/2021/1040_2021_sample.pdf"}'
+   --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf"}'
    ```
 
    
