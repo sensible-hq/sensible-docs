@@ -21,17 +21,15 @@ Prerequisites
 
 To follow these tutorials, you need:
 
-- An API key (you receive this key when you sign up for a [Sensible account](https://app.sensible.so/register)) 
+- An [API key](https://app.sensible.so/account). You receive this key when you sign up for a [Sensible account](https://app.sensible.so/register). 
 -  [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed.
 -  An example extraction configuration. See the following section.
 
 **Prerequisite: Create example extraction configuration**
 
-1. Get an account at [sensible.so](https://app.sensible.so/register).
+1. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
 
-2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
-
-3. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
+2. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
 
 
 
