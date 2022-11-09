@@ -31,8 +31,7 @@ paths:
           [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)
 
         There are two options for posting the document bytes.
-          1. (often preferred) specify the non-encoded document bytes as the entire request body,
-          and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png", as appropriate.
+          1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the content-type as one of "application/pdf", "image/jpeg", or "image/png".
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
       parameters:
         - $ref: '#/components/parameters/type'
