@@ -424,7 +424,7 @@ components:
       schema:
         $ref: '#/components/schemas/ExtractionId'
     document_type:
-      name: type
+      name: document_type
       required: true
       in: path
       description: |
