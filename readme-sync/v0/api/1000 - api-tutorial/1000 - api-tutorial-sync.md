@@ -8,7 +8,7 @@ Try out the most commonly used endpoint, the  [/extract endpoint](https://sensib
 Audience
 ---
 
-If you're new to APIs, use this tutorial to return meaningful document data from an example insurance quote.
+If you're new to APIs, use this tutorial to return document data from an example tax form.
 
 Or, if you're familiar with APIs:
 
@@ -26,45 +26,32 @@ See [prerequisites](doc:api-tutorial#prerequisites).
 Run the request in Postman
 ----
 
-Click through the following slides to see how to run a Sensible API request in the [Postman web app](https://www.postman.com/planetary-meteor-85425/workspace/new-team-workspace/documentation/18249768-38adacb4-d8f7-4365-9ee0-fa1d59a3bd03).  You'll need the code sample and the example PDF listed in the following steps.
+To run a Sensible API request in Postman, follow these steps:
 
-[block:html]
-{
-  "html": "<div style=\"position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;\"><iframe src=\"https://demo.arcade.software/jgr2VsTcHXr3xI9zk25P/\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
-}
-[/block]
-
-
-
-If you don't want to click through the slides, follow these steps instead:
-
-
-1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png)
 
 1. Copy the following code sample, and replace `YOUR_API_KEY` with your API key:
 
+
 ```curl
 curl --request POST \
-  --url 'https://api.sensible.so/v0/extract/auto_insurance_quote?environment=development' \
+  --url 'https://api.sensible.so/v0/extract/tax_forms' \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --header 'Content-Type: application/pdf' \
-  --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco.pdf'
+  --data-binary '@/PATH_TO_DOWNLOADED_PDF.pdf'
 ```
-
-
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_import.png)
 
-3. Download the following example PDF, which works with the prerequisite  `auto_insurance_quote` config:
+3. Download the following example PDF, which works with the prerequisite  **tax_forms**  document type:
 
-| auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
-| --------------------------- | ------------------------------------------------------------ |
+Download the following example tax form: 
 
-4. Correct the path to the downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF:
+| Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+4.  Correct the path to the downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF you downloaded:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
@@ -74,23 +61,59 @@ curl --request POST \
 
 ```json
 {
-    "parsed_document": {
-        "policy_number": {
-            "type": "string",
-            "value": "123456789"
-        },
-        "policy_period": {
-            "type": "string",
-            "value": " April 14, 2021 - Oct 14, 2021"
-        },
-        "comprehensive_premium": {
-            "source": "$150",
-            "value": 150,
-            "unit": "$",
-            "type": "currency"
-        }
-    }
+	"parsed_document": {
+		"year": {
+			"type": "string",
+			"value": "2021"
+		},
+		"filing_status.single": {
+			"type": "boolean",
+			"value": true
+		},
+		"filing_status.married_filing_jointly": {
+			"type": "boolean",
+			"value": false
+		},
+		"filing_status.married_filing_separately": {
+			"type": "boolean",
+			"value": false
+		},
+		"filing_status.head_of_household": {
+			"type": "boolean",
+			"value": false
+		},
+		"filing_status.qualifying_widow": {
+			"type": "boolean",
+			"value": false
+		},
+		"name": {
+			"type": "string",
+			"value": "Connor Roy"
+		},
+		"ssn": {
+			"type": "string",
+			"value": "337-18-2333"
+		}
+	}
 }
 ```
 
-**Note:**  Did you notice that this API call doesn't specify a config (`anyco`)? As a convenience, Sensible evaluates all the configs for the document type  (`auto_insurance_quote`), and **automatically** chooses the one that fits best.
+**Note:**  Did you notice that this API call doesn't specify a config (`1040_2021`)? As a convenience, Sensible evaluates all the configs for the document type  (`tax_forms`), and **automatically** chooses the one that fits best.
+
+(Optional) See how it works in the Sensible app
+=====
+
+To see this example in the Sensible app:
+
+1. Log into the [Sensible app](https://app.sensible.so/signin/).
+
+2. Navigate to the [1040 configuration](https://app.sensible.so/editor/?d=tax_forms&c=1040_2021&g=1040_2021_sample) in the **tax forms** document type.
+
+3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the configuration for the API call you just ran:
+
+![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_app.png)
+
+
+
+
+

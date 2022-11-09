@@ -19,20 +19,21 @@ Or, if you're familiar with APIs:
 Prerequisites
 ====
 
-To follow this tutorial, you need:
+To follow these tutorials, you need:
 
 - An API key (you receive this key when you sign up for a [Sensible account](https://app.sensible.so/register)) 
--  [Postman](https://www.postman.com/) desktop app (or follow along with cURL in the command line)
--  An example config. See the following section.
+-  [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed.
+-  An example extraction configuration. See the following section.
 
-**Prerequisite: Create an example config**
+**Prerequisite: Create example extraction configuration**
 
-1. Follow the steps in [Create a config](doc:getting-started#create-the-config) to create an example `anyco` config in an example  `auto_insurance_quote` document type. 
-2. **Important!** Remember to click **Publish** in the Sensible app to publish your config. The API calls in these tutorials fail without the published example config.
+1. Get an account at [sensible.so](https://app.sensible.so/register).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
+2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
 
- 
+3. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
+
+
 
 Next steps
 ====

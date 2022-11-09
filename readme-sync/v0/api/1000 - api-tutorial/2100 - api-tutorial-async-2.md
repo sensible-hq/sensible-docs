@@ -28,14 +28,11 @@ Generate the upload URL
 
 Generate a one-time Sensible URL for a document (this URL expires within minutes): 
 
-  1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
-
-     ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png)
-
   1. Copy the following code sample and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
 
+
 ```json
-curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insurance_quote?environment=development' \
+curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer YOUR_API_KEY'
 ```
@@ -51,7 +48,7 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insuran
     "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
     "created": "2021-06-16T16:22:56.576Z",
     "status": "WAITING",
-    "type": "auto_insurance_quote",
+    "type": "tax_forms",
     "upload_url": "https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED"
 }
 ```
@@ -66,7 +63,7 @@ Use the one-time URL you generated in the previous step to extract data from the
 
 ```json
 curl --request PUT 'YOUR_UPLOAD_URL' \
---data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco_golden.pdf'
+--data-binary '@/PATH_TO_DOWNLOADED_PDF.pdf'
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
@@ -83,9 +80,9 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_headers_2.png)
 
-3. If you haven't already, download the following example document, which works with the example `auto_insurance_quote` config you created in the **Prerequisites** section:
+3. If you haven't already, download the following example document, which works with the example `tax_forms` document type you created in the **Prerequisites** section:
 
-| auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
 4. Correct the path to the downloaded document in your request: click the **Body** tab, select **binary**, then click **Select file** and select the document:
@@ -140,22 +137,40 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 ```json
 {
-    "parsed_document": {
-        "policy_number": {
-            "type": "string",
-            "value": "123456789"
-        },
-        "policy_period": {
-            "type": "string",
-            "value": " April 14, 2021 - Oct 14, 2021"
-        },
-        "comprehensive_premium": {
-            "source": "$150",
-            "value": 150,
-            "unit": "$",
-            "type": "currency"
-        }
-    }
+	"parsed_document": {
+		"year": {
+			"type": "string",
+			"value": "2021"
+		},
+		"filing_status.single": {
+			"type": "boolean",
+			"value": true
+		},
+		"filing_status.married_filing_jointly": {
+			"type": "boolean",
+			"value": false
+		},
+		"filing_status.married_filing_separately": {
+			"type": "boolean",
+			"value": false
+		},
+		"filing_status.head_of_household": {
+			"type": "boolean",
+			"value": false
+		},
+		"filing_status.qualifying_widow": {
+			"type": "boolean",
+			"value": false
+		},
+		"name": {
+			"type": "string",
+			"value": "Connor Roy"
+		},
+		"ssn": {
+			"type": "string",
+			"value": "337-18-2333"
+		}
+	}
 }
 ```
 

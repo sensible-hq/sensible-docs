@@ -30,7 +30,7 @@ Convert document data to Excel spreadsheet
 
 9. Upload the document you downloaded in the previous step.
 
-10. Select **tax_form** in the **Document type** dropdown and click **Run extraction**.
+10. Select **tax_forms** in the **Document type** dropdown and click **Run extraction**.
 
     ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
 
