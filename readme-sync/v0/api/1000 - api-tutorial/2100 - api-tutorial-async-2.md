@@ -26,7 +26,7 @@ Generate the upload URL
 ----
 
 
-Generate a one-time Sensible URL for a document (this URL expires in minutes): 
+Generate a temporary, one-time Sensible URL for a document: 
 
   1. Copy the following code sample and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
 
@@ -37,7 +37,7 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \
 --header 'Authorization: Bearer YOUR_API_KEY'
 ```
 
-2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
+2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import the code sample.
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_3.png)
 
