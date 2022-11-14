@@ -26,7 +26,7 @@ Generate the upload URL
 ----
 
 
-Generate a one-time Sensible URL for a document (this URL expires within minutes): 
+Generate a one-time Sensible URL for a document (this URL expires in minutes): 
 
   1. Copy the following code sample and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
 
