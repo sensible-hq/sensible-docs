@@ -9,7 +9,7 @@ In this case, it's best practice to extract each document using its appropriate 
 
 - In each config for the documents in the portfolio, use a fingerprint to define text matches on specified pages of the document.  Sensible uses the fingerprint to find the page range of each document in the portfolio that fits a given config. 
 
-- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference/generate-an-upload-url-for-a-pdf-portfolio) or [Provide download URL for portfolio](https://docs.sensible.so/reference/provide-a-download-url-for-a-pdf-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes document extractions and their page ranges in the portfolio.
+- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference/generate-upload-url-portfolio) or [Extract from URL for portfolio](https://docs.sensible.so/reference/extract-from-url-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes document extractions and their page ranges in the portfolio.
 
 **Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Microsoft OCR. 
 
