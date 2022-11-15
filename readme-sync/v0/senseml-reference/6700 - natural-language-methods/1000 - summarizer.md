@@ -1,6 +1,6 @@
 ---
-title: "Summarizer draft"
-hidden: true
+title: "Summarizer"
+hidden: false
 ---
 Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. 
 
