@@ -48,6 +48,10 @@ paths:
             schema:
               type: string
               format: binary
+          image/tiff:
+            schema:
+              type: string
+              format: binary
           application/pdf:
             schema:
               type: string
@@ -309,7 +313,7 @@ paths:
       description: >-
         You can use this endpoint to get Excel files PDF documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
         For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
-        This endpoint also works with JPEG and PNG documents.
+        This endpoint also works with JPEG, TIFF, and PNG documents.
         Call this endpoint after an extraction completes. For more information about checking extraction status,
         see the `GET /documents/{id}` endpoint.
       parameters:
@@ -394,7 +398,7 @@ components:
             example: >-
               One of the following error messages -
               Content-Type must be application/json
-              Content-Type must be application/json or application/pdf or image/jpeg or image/png
+              Content-Type must be application/json or application/pdf or image/jpeg or image/png or image/tiff
     429:
       description: Too Many Requests
       content:
@@ -943,7 +947,7 @@ components:
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
     ContentType:
       type: string
-      enum: ["application/pdf", "image/jpeg", "image/png"]
+      enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff"]
       description: >-
         Content type of the document being presented for extraction. This field is optional, but if supplied must be presented consistently
         in all interactions.
