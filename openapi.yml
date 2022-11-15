@@ -35,9 +35,13 @@ paths:
              See the following for supported content types.
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
 
-        The Sensible API supports extracting data from PDFs and from documents formatted as images (JPEG, PNG, and TIFF).
-        - For TIFF documents, Sensible doesn't support using pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method.
-        - Sensible supports image-formatted documents through the API, not the Sensible app.
+        The Sensible API supports extracting data from the following file formats:
+          - PDF
+          - JPEG
+          - PNG
+          - TIFF
+        - For TIFF documents, Sensible doesn't support pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method.
+        - The Sensible app supports solely PDFs.
 
       parameters:
         - $ref: '#/components/parameters/document_type'
