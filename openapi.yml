@@ -32,7 +32,7 @@ paths:
 
         There are two options for posting the document bytes.
           1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the content-type, for example,"application/pdf" or "image/jpeg".
-             See the following for supported content types.
+             See the following for supported file formats.
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
 
         The Sensible API supports extracting data from the following file formats:
