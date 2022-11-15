@@ -40,7 +40,7 @@ The following example shows using the Summarizer method with the Topic method to
       },
       "method": {
         "id": "topic",
-        /* grab Results paragraph 
+        /* grab Results snippet 
            as input for Summarizer method */
         "terms": [
           "prevalence",
@@ -55,8 +55,9 @@ The following example shows using the Summarizer method with the Topic method to
       "id": "summarized",
       "method": {
         "id": "summarizer",
+        /* field ID containing the source snippet */
         "source_id": "_source_results_topic",
-        /* instructions for GPT3 for extracting data from source paragraph*/
+        /* instructions for GPT3 for extracting data from source snippet*/
         "instructions": "List all the diseases and disease subtypes mentioned below along with their population prevalence, country or region, and year, if applicable",
         /* the field IDs GPT3 must apply to the extracted data */
         "fields": [
@@ -67,8 +68,8 @@ The following example shows using the Summarizer method with the Topic method to
         ],
         /* OPTIONAL SAMPLES:
           examples of which values to extract
-          from a text snippet
-          similar to _source_results_topic   */
+          from a text snippets
+          similar to source snippet   */
         "samples": [
           {
             "prompt": "Prevelance of diabetes was 3 in 10,000, CHD was 10 in 10,000, and cancer was 7 in 10,000 across the population sampled in the United States, 2008-2010.",
@@ -163,7 +164,7 @@ The following example shows using the Summarizer method and the Topic method to 
 {
   "fields": [
     {
-      /* grab Rents paragraph 
+      /* grab Rents snippet 
            as input for Summarizer method */
       "id": "_source_rent_topic_paragraphs",
       "anchor": {
@@ -188,8 +189,9 @@ The following example shows using the Summarizer method and the Topic method to 
       "id": "rent_computed",
       "method": {
         "id": "summarizer",
+        /* field ID containing the source snippet */
         "source_id": "_source_rent_topic_paragraphs",
-        /* instructions for GPT3 for extracting data from source paragarph */
+        /* instructions for GPT3 for extracting data from source snippet */
         "instructions": "list the rents, how often the rent must be paid, and when the rent is due",
         /* the field IDs GPT3 must apply to the extracted data */
         "fields": [
@@ -200,7 +202,7 @@ The following example shows using the Summarizer method and the Topic method to 
         /* OPTIONAL SAMPLES:
           examples of which values to extract
           from text snippets
-          similar to _source_rent_topic_paragraphs   */
+          similar to source snippet   */
         "samples": [
           {
             "prompt": "Rent 8. Subject to the provisions of this short-term Lease, the rent for the Property is $234.00 on Monday each and every week (the \"Rent\").",
