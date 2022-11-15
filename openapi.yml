@@ -52,6 +52,7 @@ paths:
             schema:
               type: string
               format: binary
+              description: Sensible doesn't support using pixel-based methods, such as Box, Checkbox, Signature, and image coordinates, with TIFF-formatted documents.
           application/pdf:
             schema:
               type: string
