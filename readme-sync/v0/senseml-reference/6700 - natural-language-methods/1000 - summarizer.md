@@ -67,7 +67,7 @@ The following example shows using the Summarizer method with the Topic method to
           "year"
         ],
         /* OPTIONAL SAMPLES:
-          examples of which values to extract
+          examples of what data to extract
           from a text snippets
           similar to source snippet   */
         "samples": [
@@ -200,7 +200,7 @@ The following example shows using the Summarizer method and the Topic method to 
           "payment_due"
         ],
         /* OPTIONAL SAMPLES:
-          examples of which values to extract
+          examples of what data to extract
           from text snippets
           similar to source snippet   */
         "samples": [
