@@ -696,7 +696,7 @@ components:
       type: string
       description: >-
         Name of the "configuration",  a collection of SenseML queries for extracting document data.
-      example: anyco_rate_confirmation
+      example: config_for_x_company
 
     ClassificationSummary:
       type: array
@@ -710,7 +710,7 @@ components:
       items:
         $ref: '#/components/schemas/Classification'
       example:
-        - configuration: anyco_rate_confirmation
+        - configuration: config_for_x_company
           fingerprints: 2
           fingerprints_present: 2
           score:
@@ -733,7 +733,7 @@ components:
       items:
         $ref: '#/components/schemas/ClassificationPortfolio'
       example:
-        - configuration: anyco_rate_confirmation
+        - configuration: config_for_x_company
           score:
             value: 3
             fields_present: 4
@@ -877,11 +877,11 @@ components:
       items:
         $ref: '#/components/schemas/Validation'
       example:
-        - description: Load weight should be over 1 ton
-          severity: warning
-        - description: Carrier email must be in format string@string
+        - description: Policy number must be 11 digits
+          severity: error
+        - description: Company email must be in format string@string
           severity: skipped
-          message: Missing prerequisites - carrier_email
+          message: Missing prerequisites - company_email
 
     ValidationsSummary:
       type: object
