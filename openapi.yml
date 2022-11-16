@@ -35,7 +35,7 @@ paths:
              See the following for supported file formats.
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
 
-        The Sensible API supports extracting data from the following file formats:
+        The Sensible API supports extracting document data from the following file formats:
           - PDF
           - JPEG
           - PNG
