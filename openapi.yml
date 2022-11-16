@@ -90,10 +90,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExtractionSingleResponse'
           description: |
-            The structured data extracted from the documents.
-            Configure the verbosity parameter in the SenseML configuration to return
-            extraction metadata, such as page numbers and the bounding polygons that
-            define line coordinates.
+            The structured data extracted from the document.
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -821,6 +818,9 @@ components:
     ParsedDocument:
       description: |
         Data extracted from the document, structured as an array of fields.
+        Configure the verbosity parameter in the SenseML configuration to return
+        extraction metadata, such as page numbers and the bounding polygons that
+        define line coordinates.
       type: object
       example:
         policy_number:
