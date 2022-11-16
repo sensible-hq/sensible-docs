@@ -40,8 +40,13 @@ paths:
           - JPEG
           - PNG
           - TIFF
-        - For TIFF documents, Sensible doesn't support pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method.
-        - The Sensible app supports solely PDFs.
+
+        The Sensible app supports solely PDFs.
+        For TIFF documents, Sensible doesn't support:
+          - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method
+          - Key/Value method
+          - Fixed Table method with Stop specified.
+
 
       parameters:
         - $ref: '#/components/parameters/document_type'
