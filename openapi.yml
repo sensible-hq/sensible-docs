@@ -815,31 +815,43 @@ components:
           description: Errors are 1 penality point and warnings are 0.5 points. See the validation_summary for a breakdown.
 
     ParsedDocument:
-      description: Data extracted from the document, structured as an array of fields
+      description: |
+        Data extracted from the document, structured as an array of fields.
+        Configure the verbosity parameter in the SenseML configuration to see
+        extraction metadata, such as page numbers and the bounding polygons that
+        define line coordinates.
       type: object
       example:
-        weight:
-          source: 0.0lbs
-          value: 0
-          unit: pounds
-          type: weight
-        distance:
-          source: 193mi
-          value: 193
-          unit: miles
-          type: distance
-        load_number:
+        policy_number:
+          type: number
+          value: 123456789
+          lines:
+          - text: '123456789'
+            page: 0
+            boundingPolygon:
+            - x: 6.458
+              y: 2.601
+            - x: 7.354
+              y: 2.601
+            - x: 7.354
+              y: 2.767
+            - x: 6.458
+              y: 2.767
+        name_insured:
           type: string
-          value: Wk91242
-        carrier_email: null
-        price:
-          source: $695.00
-          value: 695
-          unit: $
-          type: currency
-        pickup_date: null
-
-
+          value: Petar Petrov
+          lines:
+          - text: Petar Petrov
+            page: 0
+            boundingPolygon:
+            - x: 1
+              y: 5.515
+            - x: 1.935
+              y: 5.515
+            - x: 1.935
+              y: 5.674
+            - x: 1
+              y: 5.674
 
     Validation:
       type: object
