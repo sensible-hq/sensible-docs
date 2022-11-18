@@ -14,7 +14,7 @@ If you're trying to convert a PDF into an Excel spreadsheet, you'll often find t
 
 In contrast, this tutorial shows you how to use Sensible to convert document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. You can convert documents formatted as PDFs, PNGs, TIFFs, and JPEGs.
 
-Convert document data to Excel spreadsheet
+Extract sample document data
 ----
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
@@ -30,13 +30,17 @@ Convert document data to Excel spreadsheet
 
 9. Upload the document you downloaded in the previous step.
 
-10. Select **tax_forms** in the **Document type** dropdown and click **Run extraction**.
+7. Select **tax_forms** in the **Document type** dropdown and click **Run extraction**.
 
-    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
 
-    Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. 
+   Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. 
 
-11. Select **Download Excel** to convert the extracted data to Excel.
+Convert to spreadsheet
+----
+
+
+11. Select **Download Excel** to convert the extracted document data to Excel.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 
