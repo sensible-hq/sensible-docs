@@ -3,8 +3,6 @@ title: "Welcome"
 hidden: true
 ---
 
-
-
 Welcome to Sensible's documentation! Sensible extracts structured data from documents, for example PDFs of business forms.
 
 Check out the following use cases and roles for where to get started.
