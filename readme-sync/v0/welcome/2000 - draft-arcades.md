@@ -17,12 +17,6 @@ API tutorial arcade - outdated needs re-created to config library
 
 
 
-
-
-
-
-
-
 Get structured data from an auto insurance quote
 ===
 
