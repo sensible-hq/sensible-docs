@@ -13,11 +13,11 @@ Roles
 Non-developer
 -----
 
-|                                  |                       |                   |
-| -------------------------------- | --------------------- | ----------------- |
-| Extract docs in the sensible app | UI                    | walkthrough       |
-|                                  | Getting started guide | detailed concepts |
-|                                  |                       |                   |
+|                                       |                         |                   |
+| ------------------------------------- | ----------------------- | ----------------- |
+| Extract docs in the sensible app      | UI                      | walkthrough       |
+|                                       | Getting started guide   | detailed concepts |
+| Turn PDF docs into excel spreadsheets | Quickstart PDF to Excel |                   |
 
 
 
@@ -28,10 +28,14 @@ Developer
 |                                                              |                                       |      |
 | ------------------------------------------------------------ | ------------------------------------- | ---- |
 | Test the API                                                 | developer quickstart                  |      |
+|                                                              |                                       |      |
+|                                                              |                                       |      |
+|                                                              |                                       |      |
 | Extract from custom doc types or tweak existing extraction configs using SenseML. | SenseML reference intro               |      |
 |                                                              | interactive API tutorials             |      |
 | Integrate with your toolchain and go to production           | Zapier                                |      |
 |                                                              | code examples for the API (/examples) |      |
+|                                                              | API reference                         |      |
 
 
 
