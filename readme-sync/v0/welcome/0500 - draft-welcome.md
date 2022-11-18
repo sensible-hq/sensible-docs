@@ -52,29 +52,22 @@ Developer
 
 | goals                                              | topics                                                       | notes                                                        |
 | -------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Test the API                                       | [developer quickstart](doc:quickstart)                       | Hello world                                                  |
+| Test the API                                       | [Developer Quickstart](doc:quickstart)                       | Hello world                                                  |
+| Explore the API                                    | [API reference](doc:reference)                               | Interactive API reference and Postman collection.            |
 | Extract from custom doc types                      | [extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data)<br/>[tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows)<br/> [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions)<br/>  [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch) | Learn SenseML with interactive tutorials                     |
 | Tweak existing extraction configs                  | [SenseML reference introduction](doc:senseml-reference-introduction) | Explore the full SenseML reference                           |
 | Test in dev                                        | [Test before integrating](doc:test-before-integrating)       | Test extraction configurations before going live             |
 | Integrate with your toolchain and go to production | [Zapier overview](doc:zapier)<br/>[Code examples](doc:examples) | Integrate using Zapier,  or leverage code samples to integrate with your codebase |
-|                                                    |                                                              |                                                              |
-|                                                    |                                                              |                                                              |
-|                                                    | code examples for the API (/examples)                        |                                                              |
-|                                                    | API reference                                                |                                                              |
-|                                                    |                                                              |                                                              |
 
 
-
-
-QA
+QA and testing
 ----
 
-|                           |           |      |
-| ------------------------- | --------- | ---- |
-| Validate extractions      | validate  |      |
-| Troubleshoot API response | verbosity |      |
-| performance tips          |           |      |
-|                           |           |      |
+| Goal                      | topics                                               | notes                                                        |
+| ------------------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
+| Validate extractions      | [Validate extractions](doc:validate-extractions)     | Trigger errors about incorrectly extracted data by writing rules. |
+| Troubleshoot API response | [Troubleshoot](doc:troubleshoot)                     | Get verbose API output.                                      |
+| Performance tips          | [Optimizing extraction performance](doc:performance) | Speed up extraction.                                         |
 
 
 
