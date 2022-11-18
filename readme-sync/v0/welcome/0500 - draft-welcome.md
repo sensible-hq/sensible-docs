@@ -9,17 +9,6 @@ Welcome to Sensible's documentation! Sensible extracts structured data from docu
 
 Check out the following use cases and roles for where to get started.
 
-Roles
-----
-
-**Developer**
-
-**QA**
-
-**Non-developer**
-
-
-
 Use cases
 ====
 
