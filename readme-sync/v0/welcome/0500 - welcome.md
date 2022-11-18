@@ -13,11 +13,11 @@ Roles
 Non-developer
 -----
 
-|      |      |      |
-| ---- | ---- | ---- |
-|      |      |      |
-|      |      |      |
-|      |      |      |
+|                                  |                       |                   |
+| -------------------------------- | --------------------- | ----------------- |
+| Extract docs in the sensible app | UI                    | walkthrough       |
+|                                  | Getting started guide | detailed concepts |
+|                                  |                       |                   |
 
 
 
@@ -25,11 +25,13 @@ Non-developer
 Developer
 -----
 
-|                                                    |      |      |
-| -------------------------------------------------- | ---- | ---- |
-| Test the API                                       |      |      |
-|                                                    |      |      |
-| Integrate with your toolchain and go to production |      |      |
+|                                                              |                                       |      |
+| ------------------------------------------------------------ | ------------------------------------- | ---- |
+| Test the API                                                 | developer quickstart                  |      |
+| Extract from custom doc types or tweak existing extraction configs using SenseML. | SenseML reference intro               |      |
+|                                                              | interactive API tutorials             |      |
+| Integrate with your toolchain and go to production           | Zapier                                |      |
+|                                                              | code examples for the API (/examples) |      |
 
 
 
