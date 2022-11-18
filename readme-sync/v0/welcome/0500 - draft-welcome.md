@@ -12,8 +12,7 @@ Use cases
 
 | extract from these documents                                 | topics                                                       | notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Common business documents, including:<br/><br/>- home, renters, and auto insurance declarations<br/>- pay stubs<br/>explanations of benefits<br/>-  tax forms | [Extract sample dataC                                        | Choose from our library of pre-built parsers to extract data from your common business docs. |
-| Excel documents                                              | [Convert to spreadsheet](doc:excel-quickstart#convert-to-spreadsheet) | Convert extracted document data to Excel as tables, labeled columns, and linked sheets. |
+| Common business documents, including:<br/><br/>- home, renters, and auto insurance declarations<br/>- pay stubs<br/>explanations of benefits<br/>-  tax forms | [Quickstart PDF to Excel](doc:excel-quickstart)              | Get started in minutes using pre-built parsers for common business documents. |
 | Free-text documents, for example contracts or research documents | [How to use GPT-3 to parse free-text documents](https://www.sensible.so/blog/how-to-use-gpt-3-to-parse-free-text-documents)<br/><br/>[Summarizer method](doc:summarizer) | Walk through a guided tutorial on extracting key info from a lease, or take a look at  the reference docs. |
 
 
