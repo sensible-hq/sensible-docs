@@ -6,8 +6,6 @@ hidden: false
 
 Introduction
 ====
-Sensible extracts structured data from documents, for example PDFs of business forms, using SenseML, a JSON-formatted query language. Write SenseML to extract from your custom documents, or leverage our open-source [SenseML configuration library](https://github.com/sensible-hq/sensible-configuration-library/) for common business document types.
-
 In this quickstart, use an example SenseML configuration and example PDF to get a quick "hello world" API response. 
 
 - If you instead want a guided tour of SenseML concepts so you extract data from your own custom documents, see [Getting started](doc:getting-started).
