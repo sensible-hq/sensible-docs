@@ -1,6 +1,6 @@
 ---
-title: "Welcome"
-hidden: true
+title: "Overview"
+hidden: false
 ---
 
 Welcome to Sensible's documentation! Sensible extracts structured data from documents.
@@ -16,7 +16,7 @@ Business forms
 Free-text documents
 ----
 
-Walk through a guided tutorial on extracting key info from a lease, or take a look at  the reference docs.
+Walk through a guided tutorial on extracting key info from an unstructured, natural-language document, or take a look at  the reference docs.
 
 - [How to use GPT-3 to parse free-text documents](https://www.sensible.so/blog/how-to-use-gpt-3-to-parse-free-text-documents)
 - [Summarizer method](doc:summarizer)

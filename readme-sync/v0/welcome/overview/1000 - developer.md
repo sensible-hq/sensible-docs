@@ -1,6 +1,6 @@
 ---
 title: "Developer resources"
-hidden: true
+hidden: false
 ---
 
 Get started with API keys and integrations.
@@ -35,5 +35,4 @@ Test and go live
 
 - [Test before integrating](doc:test-before-integrating-configs)
 - [Go-live checklist](doc:go-live)
-
 

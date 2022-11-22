@@ -1,6 +1,6 @@
 ---
 title: "No-code resources"
-hidden: true
+hidden: false
 ---
 
 Get started without writing code.
@@ -25,5 +25,4 @@ Tweak existing document extractions
 If you're comfortable reading JSON syntax, you can learn enough SenseML to tweak our prewritten parsers to get the docs info you need. 
 
 - [Getting started guide](doc:getting-started)
-
 
