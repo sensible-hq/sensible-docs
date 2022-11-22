@@ -15,7 +15,7 @@ Common business forms
 Custom business forms
 ---
 
-Write SenseML queries to extract information from your custom business forms. If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs
+Write SenseML queries to extract information from your custom business documents. If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs
 
 - [Getting started guide](doc:getting-started)
 
