@@ -3,7 +3,7 @@ title: "Quickstart PDF to Excel"
 hidden: false
 ---
 
-In this quickstart, extract data from an example tax form PDF and convert the data to a spreadsheet with no coding involved.
+In this quickstart, extract data from an example tax form PDF and convert the document data to a spreadsheet with no coding involved.
 
 - If you instead want a guided tour of SenseML concepts so you extract data from your own custom documents, see [Getting started](doc:getting-started).
 

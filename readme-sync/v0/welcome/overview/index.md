@@ -8,14 +8,14 @@ Welcome to Sensible's documentation!  Sensible extracts structured data from doc
 Common business forms
 ----
 
- Get started in minutes using pre-built, open-source SenseML parsers to extract information from common business documents.
+ Get started in minutes using pre-built, open-source SenseML parsers to extract information from common business documents and forms.
 
 - [Quickstart PDF to Excel](doc:excel-quickstart)
 
 Custom business forms
 ---
 
-Write SenseML queries to extract information from your custom business documents. If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs.
+Write SenseML queries to extract information from your custom business documents and forms. If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs.
 
 - [Getting started guide](doc:getting-started)
 
