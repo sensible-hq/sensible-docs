@@ -19,7 +19,6 @@ We'll explore two types of queries:
 |                         | Natural language queries                                     | Layout-based queries                                         |
 | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Description             | Ask a question about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
-| Difficulty              | low                                                          | low to high                                                  |
 | Handles complex layouts | no                                                           | yes                                                          |
 
 If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
@@ -78,7 +77,7 @@ For this tutorial, you'll extract these fields:
       /* ID for target data */
       "id": "bodily_liability_premium",
       /* search for target data 
-      on page containing this text*/
+      on page containing this anchor line*/
       "anchor": "anyco auto insurance",
       /* target data is a currency */
       "type": "currency",

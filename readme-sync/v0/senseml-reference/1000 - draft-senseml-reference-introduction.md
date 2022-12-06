@@ -55,7 +55,7 @@ This example uses the following config:
       /* ID for target data */
       "id": "policy_period",
       /* search for target data 
-      on page containing this anchoring text*/
+      on page containing this anchor line */
       "anchor": "anyco auto insurance",
       "method": {
         "id": "question",
