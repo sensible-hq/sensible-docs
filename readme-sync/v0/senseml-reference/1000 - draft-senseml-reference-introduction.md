@@ -121,7 +121,8 @@ This example config has the following elements:
 
   |                         | [Natural language methods](doc:natural-language-methods)     | Layout-based [methods](doc:methods)                          |
   | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Description             | Ask questions about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
+  | Notes                   | Ask questions about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
+  | Deterministic           | no                                                           | yes                                                          |
   | Handles complex layouts | no                                                           | yes                                                          |
 
 - The **preprocessor**, `pageRange`, cuts out irrelevant pages of the document. For more information about using preprocessors to clean up documents before extracting data, see [Preprocessors](doc:preprocessors).

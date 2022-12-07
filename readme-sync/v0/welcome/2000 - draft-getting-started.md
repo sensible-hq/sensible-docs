@@ -16,9 +16,10 @@ Let's get started with Sensible! In this tutorial, you'll learn SenseML, a JSON-
 
 We'll explore two types of queries:
 
-|                         | Natural language queries                                     | Layout-based queries                                         |
+|                         | Natural-language queries                                     | Layout-based queries                                         |
 | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Description             | Ask a question about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
+| Notes                   | Ask a question about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
+| Deterministic           | no                                                           | yes                                                          |
 | Handles complex layouts | no                                                           | yes                                                          |
 
 If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
@@ -64,9 +65,9 @@ Extract data
 
 For this tutorial, you'll extract these fields:
 
+- a couple of premiums
 - the policy number
 - the policy period
-- a couple of premiums
 
 1. Paste this config into the left pane in the editor to extract the data:
 
@@ -79,8 +80,6 @@ For this tutorial, you'll extract these fields:
       /* search for target data 
       on page containing this anchor line*/
       "anchor": "anyco auto insurance",
-      /* target data is a currency */
-      "type": "currency",
       "method": {
         "id": "question",
         /* ask a free-text question.
@@ -231,7 +230,7 @@ The config uses the Question method to ask, `in the table, what's the bolidy inj
 This describes the data to extract:
 
 - To improve performance, the anchor ("anyco auto insurance") narrows down the search to the page in the quote form that containing the answer.
-- Since the question method makes limited use of layout information, the question clarifies that the information is in a table.
+- Since the question method uses layout information, the question clarifies that the information is in a table.
 
 This config returns:
 
@@ -262,10 +261,10 @@ The config uses the [Label method](doc:label):
       }
 ```
 
-This describes the data to extract:
+This describes the layout of the data to extract relative to the anchor:
 
 - The anchor (`"policy period"`) is text that's pretty close to the text to extract, so it can serve as a "label" for that text  (`"id": "label"`). 
-- The text to extract is to the right of the label (`"position": "right"`).  
+- The text to extract is to the right of the anchor (`"position": "right"`).  
 
 This config returns:
 
@@ -343,7 +342,7 @@ This returns:
     }
 ```
 
-But wait! Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is just a bunch of dots, "............")? 
+But wait! Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is `............`)? 
 
 The reason is that `"tiebreaker": "second"` evaluates *after* the data type specified in the field, `"type": "currency"`. Instead of looking for the second line after the anchor in general, Sensible looks for the second line *that contains a currency*.  Convenient, right?
 
