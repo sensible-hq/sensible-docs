@@ -115,7 +115,7 @@ This example config has the following elements:
 
 - An **anchor** is matched text that helps narrow down a location in the document from which to extract data. In the `"_driver_name_raw"` field, Sensible matches a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
 
-- A **method** defines how to expand out from the anchor and extract data. In this example field, the Label method tells Sensible to extract data that's below and close to the anchor. 
+- A **method** defines how to extract data after the anchor narrows down the data's location. In this example field, the Label method tells Sensible to extract data that's below and close to the anchor. 
 
   There are two broad categories of methods:
 
