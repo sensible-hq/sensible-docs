@@ -8,7 +8,7 @@ TODO: update index parent page topic link.
 
 
 
-Finds the answer to a simple, free-text question. Best suited to questions that have a a single-value, labeled answer in the document. 
+Finds the answer to a simple, free-text question. Best suited to questions that have a single-value, labeled answer in the document. 
 
 
 
@@ -18,7 +18,7 @@ Finds the answer to a simple, free-text question. Best suited to questions that 
 Parameters
 =====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method-object#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 | key                     | value                                | description                                                  |
 | :---------------------- | :----------------------------------- | :----------------------------------------------------------- |
@@ -151,7 +151,7 @@ Parameters
 | :---------------------- | :----------------------------------- | :----------------------------------------------------------- |
 | id (**required**)       | `question`                           |                                                              |
 | question (**required**) | string                               | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. |
-| confidence              | number between 0 and 1. default: 0.6 | Return answer if confidence is equal to or greater than the specified value, else return null. In practice, confidence is often either very low or above 0.6. |
+| confidence              | number between 0 and 1. default: 0.6 | Return answer if confidence is equal to or greater than the specified value, else return null. |
 
 Examples
 ====
