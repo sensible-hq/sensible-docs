@@ -201,13 +201,11 @@ The easiest way to start extracting simple information is to ask a natural-langu
 
 For example, to extract the bodily injury liability:
 
-TODO: screenshot
-
-![image-20221206142043182](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20221206142043182.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_question.png)
 
 
 
-The config uses the Question method to ask, `in the table, what's the bolidy injury premium?`:  TODO link:
+The config uses the [Question](doc:question) method to ask, `in the table, what's the bolidy injury premium?`:  
 
 ```
 {
@@ -226,11 +224,6 @@ The config uses the Question method to ask, `in the table, what's the bolidy inj
       }
     
 ```
-
-This describes the data to extract:
-
-- To improve performance, the anchor ("anyco auto insurance") narrows down the search to the page in the quote form that containing the answer.
-- Since the question method uses layout information, the question clarifies that the information is in a table.
 
 This config returns:
 
