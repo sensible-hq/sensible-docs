@@ -44,6 +44,7 @@ paths:
         The Sensible app supports solely PDFs.
         For TIFF documents, Sensible doesn't support:
           - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method
+          - OCR preprocessor
           - Key/Value method
           - Fixed Table and Table methods with the Stop parameter specified. Use the Text Table method as an alternative.
 
