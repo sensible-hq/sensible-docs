@@ -137,9 +137,13 @@ For this tutorial, you'll extract these fields:
 }
 ```
 
-The following image shows this example in the Sensible app TODO update:
+The following image shows this example in the Sensible app:
 
-   ![image-20221206142104462](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20221206142104462.png)
+ 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_after_paste.png
+
+
 
 You should see the following extracted data in the right pane:
 
