@@ -40,8 +40,8 @@ The following example shows using the Summarizer method with the Topic method to
       },
       "method": {
         "id": "topic",
-        /* grab snippet 
-           as input for Summarizer method */
+        /* grab snippet as 
+           input for Summarizer method */
         "terms": [
           "global ending stocks"
         ],
