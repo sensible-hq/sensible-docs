@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Extracts the answer to a simple, free-text question. Best suited to questions that have a single-value, labeled answer in the document.  This method is in a beta release.
+Extracts the answer to a simple, free-text question. Suited to questions that have a single-value, labeled answer in the document.  This method is a beta release.
 
 
 
