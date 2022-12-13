@@ -14,6 +14,14 @@ Get structured data from an auto insurance quote
 
 Let's get started with Sensible! In this tutorial, you'll learn SenseML, a JSON-formatted query language for extracting structured data from documents, for example PDFs of business forms. SenseML uses a mix of techniques, including machine learning, heuristics, and rules.
 
+We'll explore two types of queries:
+
+|                         | [Natural language methods](doc:natural-language-methods)     | Layout-based [methods](doc:methods)                          |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Notes                   | Ask a question about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
+| Deterministic           | no                                                           | yes                                                          |
+| Handles complex layouts | no                                                           | yes                                                          |
+
 If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
 
  In this tutorial, you'll:
@@ -40,10 +48,10 @@ Create a config
 
 2. Download the following PDF document:
 
-   | auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+   | Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
 
-3. Click **Upload document**  and choose the generic  **auto_insurance_anyco** car insurance quote you just downloaded.
+3. Click **Upload document**  and choose the generic car insurance quote you just downloaded.
 
 4. Click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
 
@@ -57,15 +65,30 @@ Extract data
 
 For this tutorial, you'll extract these fields:
 
+- a couple of premiums
 - the policy number
 - the policy period
-- a couple of premiums
 
 1. Paste this config into the left pane in the editor to extract the data:
 
 ```json
 {
   "fields": [
+    {
+      /* ID for target data */
+      "id": "bodily_liability_premium",
+      /* search for target data 
+      on page containing this anchor line*/
+      "anchor": "anyco auto insurance",
+      "method": {
+        "id": "question",
+        /* ask a free-text question.
+          best suited to simple questions
+          that have one label and one answer 
+          in the document. */
+        "question": "in the table, what's the bodily injury premium?"
+      }
+    },
     {
       /* ID for target data */
       "id": "policy_period",
@@ -76,7 +99,7 @@ For this tutorial, you'll extract these fields:
         /* target to extract is a single line 
         near anchor line ("policy period") */
         "id": "label",
-        /* target data is to right of anchor line */       
+        /* target data is to right of anchor line */
         "position": "right"
       }
     },
@@ -87,7 +110,7 @@ For this tutorial, you'll extract these fields:
       /* target data is a currency, else return null */
       "type": "currency",
       "method": {
-        /* target to extract is in a row */ 
+        /* target to extract is in a row */
         "id": "row",
         /* target is to right of anchor ("comprehensive") in row */
         "position": "right",
@@ -95,45 +118,39 @@ For this tutorial, you'll extract these fields:
         "tiebreaker": "second"
       }
     },
-    {
-      /* target data is a currency in a row, 
-      in the 2nd row cell right of text "property"*/  
-      "id": "property_liability_premium",
-      "anchor": "property",
-      "type": "currency",
-      "method": {
-        "id": "row",
-        "position": "right",
-        "tiebreaker": "second"
-      }
-    },
     /* target data is all the text in box
-    with anchor "policy number" */  
+    with anchor "policy number" */
     {
       "id": "policy_number",
       "type": "string",
       "anchor": {
         "match": {
           "text": "policy number",
-          "type": "startsWith" 
+          "type": "startsWith"
         }
       },
       "method": {
-        "id": "box" 
+        "id": "box"
       }
     }
   ]
 }
 ```
 
-The following image shows this example in the Sensible app:
+The following image shows this example in the Sensible app TODO update:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_config_1.png)   
+   ![image-20221206142104462](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20221206142104462.png)
 
 You should see the following extracted data in the right pane:
 
 ```json
 {
+  "bodily_liability_premium": {
+    "source": "$100",
+    "value": 100,
+    "unit": "$",
+    "type": "currency"
+  },
   "policy_period": {
     "type": "string",
     "value": "April 14, 2021 - Oct 14, 2021"
@@ -144,15 +161,9 @@ You should see the following extracted data in the right pane:
     "unit": "$",
     "type": "currency"
   },
-  "property_liability_premium": {
-    "source": "$10",
-    "value": 10,
-    "unit": "$",
-    "type": "currency"
-  },
   "policy_number": {
-    "value": "123456789",
-    "type": "string"
+    "type": "string",
+    "value": "123456789"
   }
 }
 ```
@@ -167,12 +178,62 @@ How it works
 ====
 
 - Each "field" is a basic query unit in Sensible. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
+
 - Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location of the target data to extract. For more information about defining complex anchors, see [Anchor](doc:anchor). 
+
 - Then, Sensible uses a "method" to expand out from the anchor and extract the data you want. For more information about methods, see [Methods](doc:methods).
+
 - This config uses three types of methods:
-  - [How it works: label method](doc:getting-started#how-it-works-label-method)
-  - [How it works: row method](doc:getting-started#how-it-works-row-method)
-  - [How it works: box method](doc:getting-started#how-it-works-box-method)
+
+  | Type of method   | explanation                                                  | description                                                  |
+  | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+  | natural language | [How it works: question method](doc:getting-started#how-it-works-question-method) | Ask a free-text question about simple information in the document |
+  | layout           | [How it works: label method](doc:getting-started#how-it-works-label-method) | Grab info immediately proximate to labeling text.            |
+  | layout           | [How it works: row method](doc:getting-started#how-it-works-row-method) | Grab info from a cell in a row.                              |
+  | layout           | [How it works: box method](doc:getting-started#how-it-works-box-method) | Grab info from a box.                                        |
+  
+  
+
+How it works: Question method
+---
+
+The easiest way to start extracting simple information is to ask a natural-language question, as you would ask a chatbot.
+
+For example, to extract the bodily injury liability:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_question.png)
+
+
+
+The config uses the [Question](doc:question) method to ask, `in the table, what's the bolidy injury premium?`:  
+
+```
+{
+      /* ID for target data */
+      "id": "bodily_liability_premium",
+      /* search for target data 
+      on page containing this text*/
+      "anchor": "anyco auto insurance",
+      "method": {
+        "id": "question",
+        /* ask a free-text question.
+          best suited to simple questions
+          that have one label and one answer 
+          in the document. */
+        "question": "in the table, what's the bodily injury premium?"
+      }
+    
+```
+
+This config returns:
+
+```json
+  "bodily_liability_premium": {
+    "type": "string",
+    "value": "$100"
+```
+
+Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
 
 How it works: Label method
 ----
@@ -193,10 +254,10 @@ The config uses the [Label method](doc:label):
       }
 ```
 
-This describes the data to extract:
+This describes the layout of the data to extract relative to the anchor:
 
 - The anchor (`"policy period"`) is text that's pretty close to the text to extract, so it can serve as a "label" for that text  (`"id": "label"`). 
-- The text to extract is to the right of the label (`"position": "right"`).  
+- The text to extract is to the right of the anchor (`"position": "right"`).  
 
 This config returns:
 
@@ -274,7 +335,7 @@ This returns:
     }
 ```
 
-But wait! Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is just a bunch of dots, "............")? 
+But wait! Why didn't `"tiebreaker": "second"` select $250 instead of $150, since $250 is the second line after the anchor (the first line is `............`)? 
 
 The reason is that `"tiebreaker": "second"` evaluates *after* the data type specified in the field, `"type": "currency"`. Instead of looking for the second line after the anchor in general, Sensible looks for the second line *that contains a currency*.  Convenient, right?
 

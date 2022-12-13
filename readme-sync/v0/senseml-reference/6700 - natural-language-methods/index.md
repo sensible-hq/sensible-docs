@@ -11,6 +11,7 @@ The following topics describe natural language methods:
 
 - [Summarizer](doc:summarizer) computed field method
 - [Topic](doc:topic) method
+- (Beta) [Question](doc:question) method
 
 
 

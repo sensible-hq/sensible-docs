@@ -1,14 +1,10 @@
 ---
-title: "Question"
-hidden: true
+title: "(Beta) Question"
+hidden: false
 
 ---
 
-TODO: update index parent page topic link.
-
-
-
-Finds the answer to a simple, free-text question. Best suited to questions that have a single-value, labeled answer in the document. 
+Extracts the answer to a simple, free-text question. Best suited to questions that have a single-value, labeled answer in the document.  This method is in a beta release.
 
 
 
