@@ -42,7 +42,7 @@ paths:
           - TIFF
 
         The Sensible app supports solely PDFs.
-        For TIFF documents, Sensible doesn't support:
+        For TIFF documents, any SenseML that attempts to return a rendered page returns an error. As a result, Se TODO  doesn't support:
           - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method
           - OCR preprocessor
           - Key/Value method

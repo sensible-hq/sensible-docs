@@ -24,7 +24,7 @@ Examples
 Example 1
 ---
 
-The following example shows using the Summarizer method with the Topic method to extract disease prevalence  information from a research article.
+The following example shows using the Summarizer method with the Topic method to extract agricultural data from a USDA report.
 
 **Config**
 
@@ -32,7 +32,7 @@ The following example shows using the Summarizer method with the Topic method to
 {
   "fields": [
     {
-      "id": "_source_results_topic",
+      "id": "_source_ending_stock",
       "anchor": {
         "match": {
           "type": "first"
@@ -40,63 +40,64 @@ The following example shows using the Summarizer method with the Topic method to
       },
       "method": {
         "id": "topic",
-        /* grab Results snippet 
+        /* grab snippet 
            as input for Summarizer method */
         "terms": [
-          "prevalence",
-          "per"
+          "global ending stocks"
         ],
-        "numLines": 10
+        "numLines": 15
       }
     }
   ],
   "computed_fields": [
     {
-      "id": "summarized",
+      "id": "ending_stocks_summarized",
       "method": {
         "id": "summarizer",
         /* field ID containing the source snippet */
-        "source_id": "_source_results_topic",
+        "source_id": "_source_ending_stock",
         /* instructions for GPT3 for extracting data from source snippet*/
-        "instructions": "List all the diseases and disease subtypes mentioned below along with their population prevalence, country or region, and year, if applicable",
+        "instructions": "list the ranges, in million metric tons (MMT), of changes in 2022/23 for ending stocks by countries mentioned in the following text excerpt. Don't list countries not mentioned in the excerpt.",
         /* the field IDs GPT3 must apply to the extracted data */
         "fields": [
-          "disease",
-          "prevalence",
           "region_or_country",
-          "year"
+          "range_of_change_in_ending_stock",
         ],
-        /* OPTIONAL SAMPLES:
-          examples of what data to extract
-          from a text snippets
-          similar to source snippet   */
         "samples": [
+          /* OPTIONAL SAMPLES:
+          examples of what data to extract
+          from text snippets
+          similar to source snippet   */
           {
-            "prompt": "Prevelance of diabetes was 3 in 10,000, CHD was 10 in 10,000, and cancer was 7 in 10,000 across the population sampled in the United States, 2008-2010.",
+            "prompt": "Stocks in the USA are up 0.7 MMT to 3.8 MMT",
             "values": [
               [
-                "diabetes",
-                "3 in 10,000",
-                "United States",
-                "2008-2010"
+                "USA",
+                "0.7 MMT to 3.8 MMT",
               ],
+            ]
+          },
+          {
+            "prompt": "Stocks in Bangladesh remain unchanged, at 1.5 MMT",
+            "values": [
               [
-                "CHD",
-                "10 in 10,000",
-                "United States",
-                "2008-2010"
+                "USA",
+                "no change",
               ],
+            ]
+          },
+          {
+            "prompt": "Data are unavailable for ending stocks in Brazil",
+            "values": [
               [
-                "cancer",
-                "7 in 10,000",
-                "United States",
-                "2008-2010"
-              ]
+                "Brazil",
+                "no data available",
+              ],
             ]
           }
         ]
       }
-    }
+    },
   ]
 }
 ```
@@ -104,7 +105,7 @@ The following example shows using the Summarizer method with the Topic method to
 **Example document**
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summarizer_pubmed.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summarizer_crop.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_pubmed.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -113,34 +114,46 @@ The following image shows the example document used with this example config:
 
 ```json
 {
-  "_source_results_topic": {
+  "_source_ending_stock": {
     "type": "string",
-    "value": "NTDs per 10,000 births, including live and stillborn cases. Results: The meta-analysis included 20 studies consisting of 752,936 individuals. The pooled prevalence of all NTDs 2 per 10,000 births in Eastern Africa was 33.30 (95% CI: 21.58 to 51.34). Between-study heterogeneity was high (I = 97%, p < 0.0001), The rate was highest in Ethiopia (60 per 10,000). Birth prevalence of spina bifida (20 per 10,000) was higher than anencephaly (9 per 10,000) and encephalocele (2.33 per 10,000). No studies on NTDs were identified in 70% of the UN Eastern Africa region. Birth prevalence increased by 4% per year from 1983 to 2018. The level of evidence as qualified with GRADE was moderate. Conclusion: The birth prevalence of NTDs in the United Nations region of Eastern Africa is 5 times as high as observed in Western countries with mandatory folic acid supplementation in place. Therefore, mandatory folic acid"
+    "value": "Slight Relief for 2022/23 Global Ending Stocks 2022/23 global ending stocks are projected up 0.3 MMT to 267.8 MMT but remain the tightest since 2016/17 (figure 10). China accounts for more than 50 percent of 2022/23 global ending stocks but its stocks are largely not available to the public. When China is removed from the global picture, stocks are even tighter at 123.5 MMT, the lowest since 2007/08. Major exporters' stocks are forecasted down 0.1 MMT to 55.6 MMT. Stocks in Australia are raised 0.5 MMT to 3.7 MMT with higher domestic production. Despite a production decline Argentina's stocks are raised 0.2 MMT to 1.4 MMT as exports will be limited with restricted supplies. Higher exports for the European Union and Kazakhstan cut their ending stocks by 0.5 MMT to 9.5 MMT and 0.2 MMT to 1.2 MMT, respectively. Stronger food use in the United States results in lower ending stocks (-0.1 MMT to 15.5 MMT). Canada, Ukraine, and Russia's stocks remain anchored at 4.2 MMT, 4.7 MMT, and 15.4 MMT, respectively. Stocks for India are raised 0.5 MMT to 12.0 MMT as exports remain restricted, but this still would be the tightest in 6 years. Figure 10 Global ending stocks, 2016/17–2022/23"
   },
-  "summarized": [
+  "ending_stocks_summarized": [
     {
-      "disease": "NTDs",
-      "prevalence": "2 per 10,000",
-      "region_or_country": "Eastern Africa",
-      "year": "1983-2018"
+      "region_or_country": "Australia",
+      "range_of_change_in_ending_stock": "0.5 MMT to 3.7 MMT"
     },
     {
-      "disease": "spina bifida",
-      "prevalence": "20 per 10,000",
-      "region_or_country": "Eastern Africa",
-      "year": "1983-2018"
+      "region_or_country": "Argentina",
+      "range_of_change_in_ending_stock": "0.2 MMT to 1.4 MMT"
     },
     {
-      "disease": "anencephaly",
-      "prevalence": "9 per 10,000",
-      "region_or_country": "Eastern Africa",
-      "year": "1983-2018"
+      "region_or_country": "EU",
+      "range_of_change_in_ending_stock": "-0.5 MMT to 9.5 MMT"
     },
     {
-      "disease": "encephalocele",
-      "prevalence": "2.33 per 10,000",
-      "region_or_country": "Eastern Africa",
-      "year": "1983-2018"
+      "region_or_country": "Kazakhstan",
+      "range_of_change_in_ending_stock": "-0.2 MMT to 1.2 MMT"
+    },
+    {
+      "region_or_country": "USA",
+      "range_of_change_in_ending_stock": "-0.1 MMT to 15.5 MMT"
+    },
+    {
+      "region_or_country": "Canada",
+      "range_of_change_in_ending_stock": "no change"
+    },
+    {
+      "region_or_country": "Ukraine",
+      "range_of_change_in_ending_stock": "no change"
+    },
+    {
+      "region_or_country": "Russia",
+      "range_of_change_in_ending_stock": "no change"
+    },
+    {
+      "region_or_country": "India",
+      "range_of_change_in_ending_stock": "0.5 MMT to 12.0 MMT"
     }
   ]
 }
