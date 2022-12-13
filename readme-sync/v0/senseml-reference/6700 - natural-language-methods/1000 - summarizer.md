@@ -24,7 +24,7 @@ Examples
 Example 1
 ---
 
-The following example shows using the Summarizer method with the Topic method to extract agricultural data from a USDA report.
+The following example shows using the Summarizer method with the Topic method to extract agricultural data from a government report.
 
 **Config**
 
@@ -107,7 +107,7 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summarizer_crop.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_pubmed.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_crop.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
