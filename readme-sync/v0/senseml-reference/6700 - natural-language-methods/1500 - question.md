@@ -19,7 +19,7 @@ Parameters
 | key                     | value                                | description                                                  |
 | :---------------------- | :----------------------------------- | :----------------------------------------------------------- |
 | id (**required**)       | `question`                           | Powered by a fork of [LayoutLM](https://github.com/microsoft/unilm/tree/master/layoutlm).  Returns one answer per document. Generally the answer is one line or a substring in a line.<br/> Doesn't support anchors at granularity below the page level. To improve performance,  anchor on text that's on the page containing the answer. If you specify `"match": { "type": "first" }`, Sensible searches the whole document for the answer. <br/>Doesn't support SenseML that uses multiple anchor match candidates. For example, doesn't support Sections, `"match":"all"` or `"match":"last"`. |
-| question (**required**) | string                               | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. Best suited to simple questions that have one label and one answer in the document.<br/> |
+| question (**required**) | string                               | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. Best suited to simple questions that have one label and one answer in the document. |
 | confidence              | number between 0 and 1. default: 0.6 | Return answer if confidence is equal to or greater than the specified value, else return null. |
 
 Examples 
