@@ -139,9 +139,8 @@ For this tutorial, you'll extract these fields:
 
 The following image shows this example in the Sensible app:
 
- 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_after_paste.png
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_after_paste.png)
 
 
 
