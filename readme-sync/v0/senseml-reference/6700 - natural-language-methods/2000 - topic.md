@@ -16,7 +16,7 @@ Parameters
 
 | key                                       | value        | description                                                  |
 | :---------------------------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)                         | `topic`      |                                                              |
+| id (**required**)                         | `topic`      | The Anchor parameter is optional for fields that use the Topic method. |
 | numParagraphs  or numLines (**required**) | number       | The number of  paragraphs or consecutive lines to extract, respectively. <br/><br/><br/> If you set the Num Paragraphs parameter, Sensible scores every paragraph in the document and returns the highest-scoring paragraph.  For more information about paragraph recognition, see the [Paragraph method](doc:paragraph) .<br/><br/>If you set the Num Lines parameter, Sensible scores every group of consecutive lines in the document and returns the highest-scoring group. For information about the definition of "consecutive", see [line sorting](doc:lines#line-sorting).<br/><br/>If line groups or paragraphs have equal scores, then Sensible returns the last one.<br/> |
 | terms (**required**)                      | string array | An array of terms to score positively during topic recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words). |
 | stopTerms                                 | string array | An array of terms to score negatively during topic recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words). |
@@ -35,11 +35,7 @@ The following example shows finding a  topic in a licensing legal code.
   "fields": [
     {
       "id": "liability_limitation_topic",
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      },
+      /* anchor is optional for Topic method */
       "method": {
         "id": "topic",
         "numParagraphs": 1,

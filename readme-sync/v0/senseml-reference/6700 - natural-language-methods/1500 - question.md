@@ -18,7 +18,7 @@ Parameters
 
 | key                     | value                                | description                                                  |
 | :---------------------- | :----------------------------------- | :----------------------------------------------------------- |
-| id (**required**)       | `question`                           | Powered by a fork of [LayoutLM](https://github.com/microsoft/unilm/tree/master/layoutlm).  Returns one answer per document. Generally the answer is one line or a substring in a line.<br/> Doesn't support anchors at granularity below the page level. To improve performance,  anchor on text that's on the page containing the answer. If you specify `"match": { "type": "first" }`, Sensible searches the whole document for the answer. <br/>Doesn't support SenseML that uses multiple anchor match candidates. For example, doesn't support Sections, `"match":"all"` or `"match":"last"`. |
+| id (**required**)       | `question`                           | Powered by a fork of [LayoutLM](https://github.com/microsoft/unilm/tree/master/layoutlm).  Returns one answer per document. Generally the answer is one line or a substring in a line.<br/> The Anchor parameter is optional for fields that use the Question method. If you don't specify an anchor, Sensible searches the whole document for the answer. To improve performance,  anchor on text that's on the page containing the answer. Doesn't support anchors at granularity below the page level.   <br/>Doesn't support SenseML that uses multiple anchor match candidates. For example, doesn't support Sections, `"match":"all"` or `"match":"last"`. |
 | question (**required**) | string                               | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. Best suited to simple questions that have one label and one answer in the document. |
 | confidence              | number between 0 and 1. default: 0.6 | Return answer if confidence is equal to or greater than the specified value, else return null. |
 
@@ -35,12 +35,7 @@ Examples
       "id": "policy_period_end_date",
       /* target data is a date */
       "type": "date",
-      /* search whole document for answer */
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      },
+      /* search whole document for answer by omitting optional anchor */
       "method": {
         "id": "question",
         /* ask a free-text question.
@@ -48,7 +43,7 @@ Examples
           that have one label and one answer 
           in the document. */
         "question": "What are the policy period dates?",
-        /* the question method returns a line containing two dates.
+        /* the question method returns a line containing two dates;
            return the larger (later) date.
            Or, remove the tiebreaker and ask,
            "when does the policy period end? */
@@ -57,11 +52,6 @@ Examples
     },
     {
       "id": "comprehensive_premium",
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      },
       /* target data is a currency, else return null */
       "type": "currency",
       "method": {
@@ -72,11 +62,8 @@ Examples
     {
       "id": "policy_number",
       "type": "string",
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      },
+      /* search 1 page for answer using optional anchor */
+      "anchor": "anyco auto insurance",
       "method": {
         "id": "question",
         "question": "policy number"
@@ -85,11 +72,6 @@ Examples
     {
       "id": "driver_email",
       "type": "string",
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      },
       "method": {
         "id": "question",
         "question": "insured's email address"
