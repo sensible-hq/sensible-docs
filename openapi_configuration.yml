@@ -843,7 +843,6 @@ components:
             - google
           type: string
           description: |
-            The Sensible app defaults to `Microsoft`.
             Microsoft is the default engine and suited to typewritten and long documents.
             Google is faster and suited to handwriting and short documents (25 pages or under).
             The Google engine doesn't merge words into lines automatically. Use the mergeLines preprocessor in your configurations to do so.

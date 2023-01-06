@@ -5,7 +5,7 @@ hidden: false
 
 This topic contains tips and tricks for extracting handwriting:
 
-- **Choosing an OCR engine:** Choose Google OCR instead of Microsoft OCR. To configure OCR, click the gear icon for the Document Type and select **Google**: 
+- **Choosing an OCR engine:** Choose Google OCR. To configure OCR, click the gear icon for the Document Type and select **Google**: 
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
 
