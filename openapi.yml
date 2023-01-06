@@ -339,7 +339,7 @@ paths:
         Call this endpoint after an extraction completes. For more information about checking extraction status,
         see the `GET /documents/{id}` endpoint.
       parameters:
-        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/ids'
       tags:
       - Get Excel from PDFs
       responses:
