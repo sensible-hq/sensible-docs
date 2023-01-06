@@ -3,7 +3,7 @@ title: "SenseML to spreadsheet reference"
 hidden: false
 ---
 
-This topic describes the rules Sensible uses to transform data extracted from documents such as PDFs into Excel spreadsheets. Sensible extracts the data as JSON using SenseML configurations, then applies the rules to create spreadsheet data such as tables, labeled columns, and linked sheets.
+This topic describes the rules Sensible uses to transform data extracted from a document, such as a PDF, into an Excel spreadsheet. Sensible extracts the data as JSON using a SenseML configuration, then applies the rules to create spreadsheet data such as tables, labeled columns, and linked sheets.
 
 **Prerequisites**
 

@@ -58,6 +58,14 @@ Convert to spreadsheet
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_3.png)
 
+
+
+Compile PDFs into one spreadsheet
+----
+
+To combine multiple PDFs  into one spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).   For the best compiled results, configure your SenseML so that the PDFs output identically named fields.
+
+
 Next
 ----
 

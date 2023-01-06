@@ -45,7 +45,7 @@ paths:
         When extracting from image file formats, Sensible ignore OCR or OCR preprocessor settings you configure in the document type or SenseML configuration.
 
         For TIFF documents, SenseML that attempts to return a rendered page returns an error, including:
-          - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method
+          - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range methodf
           - Key/Value method
           - Fixed Table and Table methods with the Stop parameter specified. Use the Text Table method as an alternative.
 
@@ -325,12 +325,15 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
-  /generate_excel/{id}:
+  /generate_excel/{ids}:
     get:
       operationId: get-excel-extraction
       summary: Get Excel extraction
       description: >-
-        You can use this endpoint to get Excel files PDF documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
+        You can use this endpoint to get Excel files from PDF documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
+        To compile multiple PDF documents into one Excel file, specify the IDs of their recent extractions in the request separated by commas, for example,
+        `/generate_excel/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
+        For the best compiled spreadsheet results, configure your SenseML so that the PDFs output identically named fields.
         For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
         This endpoint also works with JPEG, TIFF, and PNG documents.
         Call this endpoint after an extraction completes. For more information about checking extraction status,
@@ -446,6 +449,16 @@ components:
       description: Unique ID for the extraction, used to retrieve the extraction.
       schema:
         $ref: '#/components/schemas/ExtractionId'
+    ids:
+      name: ids
+      required: true
+      in: path
+      description: Comma-deliminted list of unique extraction ID.
+      schema:
+        $ref: '#/components/schemas/ExtractionId'
+
+
+
     document_type:
       name: document_type
       required: true
