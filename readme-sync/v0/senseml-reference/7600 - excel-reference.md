@@ -3,21 +3,56 @@ title: "SenseML to spreadsheet reference"
 hidden: false
 ---
 
-This topic describes the rules Sensible uses to transform data extracted from a document, such as a PDF, into an Excel spreadsheet. Sensible extracts the data as JSON using a SenseML configuration, then applies the rules to create spreadsheet data such as tables, labeled columns, and linked sheets.
+This topic describes the rules Sensible uses to:
+
+- convert data extracted from one document, such as a PDF, into an Excel spreadsheet
+
+- combine data extracted from multiple documents into one spreadsheet
+
+
+Sensible extracts the data as JSON using a SenseML configuration, then applies the rules to create spreadsheet data such as tables, labeled columns, and linked sheets.
 
 **Prerequisites**
 
 To get a document's data into a spreadsheet, you must first:
 
 - Configure extractions for a document type, either using Sensible's [SenseML](doc:senseml-reference-introduction) for custom documents or using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
-- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). You can download the extraction as a spreadsheet after the extraction completes. For more information, see [Quickstart PDF to Excel](doc:excel-quickstart).
+- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction).  For more information about single-document Excel sheets, see [Quickstart PDF to Excel](doc:excel-quickstart).
+
+
+
+Multi-document spreadsheet
+====
+
+To combine document extractions into one spreadsheet file, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
+
+- In the `<fields>`sheet, Sensible appends data as rows under the same column if it finds a matching field ID from another extraction , or under a new column if it doesn't find a matching field ID. For example, if document A outputs fields `car_model` and `car_year`, and document B outputs `car_model` and `manufacture_year`,  Sensible creates a spreadsheet like the following:
+
+[block:html]
+{
+  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vRkj6u0ukgEr9VpHP19vuzohqtqJYJOOtzYzNGi3ZFJYJQ3hLVBowJDjbTcjeBahZoz9_rULfFO3Hu6/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n\n<style>.spreadsheet{width:100%;}</style>"
+}
+[/block]  
+
+  To avoid manually merging the similarly named columns in the preceding example,  it's a good practice to use the same field IDs across different SenseML configs in a  document type. 
+
+ 
+
+- For all sheets other than the `<fields>` sheet, Sensible creates a new sheet for each document, and prefixes each sheet name with a zero-indexed document number, for example `doc_0` or `doc_1`.
+
+
+
+Single-document spreadsheet
+====
+
+
+
 
 **Overview**
 
-Sensible transforms the output of its extraction API from JSON to a spreadsheet using the following rules:
+Sensible transforms JSON data extracted from a single document  to a spreadsheet using the following rules:
 
-- Each document transforms into one Excel file. In the file:
-- the `fields` sheet lists each piece of document data that can be represented as a single cell value. For example, an extracted total monthly mortgage dollar amount.
+- the `fields` sheet lists each piece of document data that can be represented as a single-cell value. For example, an extracted total monthly mortgage dollar amount.
 - `<field_id>` sheets hold more complex pieces of document data. For example, an extracted table.
 - `<field_id>.<index>` sheets hold complex repeating document data. For example, an extracted claims loss run.
 
