@@ -69,7 +69,7 @@ To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible
 Next
 ----
 
-- For more information about how Sensible converts JSON document extractions to Excel and combines multiple documents into spreadsheet, see [SenseML to spreadsheet reference](doc:excel-reference).
+- For more information about how Sensible converts JSON document extractions to Excel and combines multiple documents into one spreadsheet, see [SenseML to spreadsheet reference](doc:excel-reference).
 - See the [Getting started guide](doc:getting-started) to learn how to extract from your custom documents or tweak Sensible's [open-source configuration library](https://app.sensible.so/library/).
 
 
