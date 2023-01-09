@@ -63,7 +63,7 @@ Convert to spreadsheet
 Compile PDFs into one spreadsheet
 ----
 
-To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).   For the cleanest compiled results, configure your SenseML so that extracted fields are identically named across different document configs in the same document type.
+To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
 
 
 Next
