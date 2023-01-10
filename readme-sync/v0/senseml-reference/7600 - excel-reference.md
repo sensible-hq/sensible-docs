@@ -27,7 +27,7 @@ Multi-document spreadsheet
 To combine document extractions into one spreadsheet file, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
 
 - For all sheets other than the `<fields>` sheet, Sensible creates a new sheet for each document, and prefixes each sheet name with a zero-indexed document number, for example `doc_0` or `doc_1`.
-- For the `<fields>`sheet, Sensible appends data as rows under the same column if it finds a matching field ID from another extraction , or under a new column if it doesn't find a matching field ID. For example, if document A outputs fields `car_model` and `car_year`, and document B outputs `car_model` and `manufacture_year`,  Sensible creates a spreadsheet like the following:
+- For the `<fields>`sheet, Sensible appends data as rows under the same column if it finds a matching field ID from another extraction in your call to the `/generate_excel` API endpoint, or under a new column if it doesn't find a matching field ID. For example, if document A outputs fields `car_model` and `car_year`, and document B outputs `car_model` and `manufacture_year`,  Sensible creates a spreadsheet like the following:
 
 [block:html]
 {

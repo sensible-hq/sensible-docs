@@ -180,11 +180,7 @@ The following example shows using the Summarizer method and the Topic method to 
       /* grab Rents snippet 
            as input for Summarizer method */
       "id": "_source_rent_topic_paragraphs",
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      },
+      /* if you don't specify an anchor, Sensible searches the whole doc*/
       "method": {
         "id": "topic",
         "numParagraphs": 2,
