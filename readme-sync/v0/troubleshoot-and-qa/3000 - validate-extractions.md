@@ -5,7 +5,12 @@ hidden: false
 
  
 
-Quality control the data extractions in a document type by writing validations using  [JsonLogic](https://jsonlogic.com/). Test extracted fields using Boolean, logic, numeric, array, string, and other operations. Then write your own logic based on the validations, for example:
+Quality control the data extractions in a document type by writing validations using  [JsonLogic](https://jsonlogic.com/):
+
+- Test extracted fields using Boolean, logic, numeric, array, string, and other operations.
+- If Sensible extracted a field from OCR'd text,  additionally test the confidence score for the field's anchor and value.
+
+Then write your own logic based on the validations, for example:
 
 - pass a document extraction automatically through your pipeline if there are no errors and 10% of warning validations fail
 - flag a document extraction for human review if 5% of error validations fail
@@ -38,7 +43,7 @@ A validation has the following parameters:
 Examples
 ====
 
-Imagine you have a document type "sales_quotes" with configs for
+Imagine you have a document type for scanned sales quotes, called "sales_quotes", with configs for
 
 - company_A
 - company_B
@@ -49,13 +54,33 @@ You test sales quote extractions from all the companies with the following valid
 Validation 1
 ---
 
+- **Description**:  The quoted rate value comes from a high-quality scan that's not too blurry
+- **Severity**: warning
+- **Condition**:
+```
+  {"and":[
+    {"exists":{"var":"quote_rate.valueConfidence"}},
+    {">=":[{"var":"quote_rate.valueConfidence"},"0.90"]},
+    {">=":[{"var":"quote_rate.anchorConfidence"},"0.90"]}]}
+```
+
+**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it did, test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation works if you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
+
+
+Validation 2
+---
+
 - **Description**:  The quoted rate value isn't null
+
 - **Severity**: error
-- **Condition**:`{"exists":[{"var":"quote_rate.value"}]}`
+
+- **Condition**:
+
+```{"exists":[{"var":"quote_rate.value"}]}```
 
 **Notes**: Tests that a field  (`quote_rate`) isn't null using the Sensible `exists` operation.
 
-Validation 2
+Validation 3
 ---
 
 - **Description**:  The quote duration is a round number
@@ -64,7 +89,7 @@ Validation 2
 
 **Notes**:  Retrieves the value of an extracted `quote_duration` field using the JsonLogic `var` operation, then uses the JsonLogic [modulo operation (%)](https://jsonlogic.com/operations.html#%25/) to divide the rate by 2 and passes the test if the remainder equals (`"=="`) 0.
 
-Validation 3
+Validation 4
 ---
 
 - **Description**:  Broker's email is in string@string format
@@ -74,7 +99,7 @@ Validation 3
 
 **Notes**:  If `broker.email` isn't null, then uses a Sensible operation (`match`) to test that the email matches a regular expression. If `broker.email` is null, skips this condition.
 
-Validation 4
+Validation 5
 ----
 
 - **Description**:  The zip code is valid for USA or CA
@@ -144,9 +169,7 @@ The following extraction excerpt shows validating test data with the preceding c
 }
 ```
 
-Notes
-====
-Why does Sensible use validation tests rather than confidence intervals? Sensible's extractions are largely deterministic. With the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this, deterministic validation tests are more useful than confidence intervals as measures of extraction quality. 
+
 
 
 

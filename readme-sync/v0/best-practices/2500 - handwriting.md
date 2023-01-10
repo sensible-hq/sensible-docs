@@ -1,9 +1,22 @@
 ---
-title: "Extracting handwriting"
+title: "Extracting handwriting and OCR text"
 hidden: false
 ---
 
-This topic contains tips and tricks for extracting handwriting:
+This topic contains tips and tricks for extracting handwriting and OCR'd text, for example from scanned documents or images:
+
+OCR tips
+---
+
+Sensible provides confidence scores for OCR'd text in the extraction when you configure high [verbosity](doc:verbosity), so you know whether the extracted output comes from high- or low-quality text images. For document types  that use OCR, write [validations](doc:validate-extractions) to warn you about extractions from low-quality scans.
+
+
+
+
+Handwriting tips
+---
+
+
 
 - **Choosing an OCR engine:** Choose Google OCR. To configure OCR, click the gear icon for the Document Type and select **Google**: 
 
