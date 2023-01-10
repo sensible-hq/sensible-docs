@@ -35,7 +35,7 @@ To combine document extractions into one spreadsheet file, Sensible uses the sam
 }
 [/block]  
 
-  To avoid manually merging the similarly named columns in the preceding example,  Sensible recommends using the same field IDs across different SenseML configs in a  document type. 
+  To avoid manually merging the similarly named columns in the preceding example,  Sensible recommends using the same IDs for analogous fields across different SenseML configs in a  document type. 
 
 
 
