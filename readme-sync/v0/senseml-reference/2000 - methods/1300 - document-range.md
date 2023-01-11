@@ -15,13 +15,13 @@ Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key               | value                                                   | description                                                  |
-| ----------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `documentRange`                                         | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
-| stop              | Match object or array of Match objects. default: `none` | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document. |
-| includeAnchor     | boolean. default: `false`                               | Includes the anchor line in the method output.               |
-| includeImages     | boolean. default: `false`                               | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
-| offsetY           | number in inches.                                       | Offsets the start of the document range. Positive values offset down the page, negative values offset up the page. For an example, see the Examples section.<br/> |
+| key               | value                                                        | description                                                  |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| id (**required**) | `documentRange`                                              | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
+| stop              | [Match object](doc:match) or array of Match objects. default: `none` | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document. |
+| includeAnchor     | boolean. default: `false`                                    | Includes the anchor line in the method output.               |
+| includeImages     | boolean. default: `false`                                    | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
+| offsetY           | number in inches.                                            | Offsets the start of the document range. Positive values offset down the page, negative values offset up the page. For an example, see the Examples section.<br/> |
 
 Examples
 ====
