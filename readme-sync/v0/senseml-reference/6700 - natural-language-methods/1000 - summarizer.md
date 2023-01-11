@@ -33,11 +33,7 @@ The following example shows using the Summarizer method with the Topic method to
   "fields": [
     {
       "id": "_source_ending_stock",
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      },
+       /* if you don't specify an anchor, Sensible searches the whole doc*/
       "method": {
         "id": "topic",
         /* grab snippet as 
