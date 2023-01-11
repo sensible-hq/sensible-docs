@@ -64,7 +64,7 @@ Validation 1
     {">=":[{"var":"quote_rate.anchorConfidence"},"0.90"]}]}
 ```
 
-**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it did, test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation works if you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
+**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it did, test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation checks API output that you can view if you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
 
 
 Validation 2
