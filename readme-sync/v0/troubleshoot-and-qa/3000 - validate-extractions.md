@@ -54,17 +54,17 @@ You test sales quote extractions from all the companies with the following valid
 Validation 1
 ---
 
-- **Description**:  The quoted rate value comes from a high-quality scan that's not too blurry
+- **Description**:  If OCR'd, the source text for quoted rate value isn't too blurry to be ambiguous
 - **Severity**: warning
 - **Condition**:
 ```
-  {"and":[
-    {"exists":{"var":"quote_rate.valueConfidence"}},
-    {">=":[{"var":"quote_rate.valueConfidence"},"0.90"]},
-    {">=":[{"var":"quote_rate.anchorConfidence"},"0.90"]}]}
+ {"or":
+   [{"not: {"exists":{"var":"quote_rate.valueConfidence"}}},
+   {">=": [{"var":"quote_rate.valueConfidence"},"0.90"]},
+   {">=": [{"var":"quote_rate.anchorConfidence"},"0.90"]}]}
 ```
 
-**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it did, test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation checks API output that you can view if you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
+**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it did, test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation requires that you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
 
 
 Validation 2
