@@ -14,4 +14,7 @@ The following topics describe natural language methods:
 - (Beta) [Question](doc:question) method
 
 
+Notes
+====
 
+For layout-based extraction methods, see [methods](doc:methods).
