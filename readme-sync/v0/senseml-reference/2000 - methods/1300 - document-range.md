@@ -262,7 +262,7 @@ Document Range is the sole method that supports images. Sensible returns the ima
 - Convert Sensible's coordinates for the image region to pixel per inch (PPI) coordinates. Sensible region coordinates follow these conventions:
   - they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
   - they're in inches (to convert inches to PPI, multiply the inches coordinates by your PPI setting. For example, an x-coordinate of 3.156 inches is ~227 pixels for a PPI setting of 72 (72 PPI * 3.156 inches).
-  - they're ordered clockwise from top left: top left, top right, bottom right, bottom left
+  - they're ordered clockwise from top left: (top left), (top right), (bottom right), (bottom left)
 - Extract a partial bitmap defined by the PPI coordinates of the image from the rendered page.
 - Encode the bitmap to bytes in the image format of your choice. 
 
