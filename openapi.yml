@@ -367,6 +367,49 @@ paths:
           $ref: '#/components/responses/500'
 
 
+  /generate_csv/{ids}:
+    get:
+      operationId: get-csv-extraction
+      summary: Get CSV extraction
+      description: >-
+        You can use this endpoint to get CSV files from PDF documents. In more detail, this endpoint converts your JSON document extraction to a comma-separated values.
+        To compile multiple PDF documents into one CSV file, specify the IDs of their recent extractions in the request separated by commas, for example,
+        `/generate_csv/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
+        For the best compiled spreadsheet results, configure your SenseML so that the PDFs output identically named fields.
+        For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
+        This endpoint also works with JPEG, TIFF, and PNG documents.
+        Call this endpoint after an extraction completes. For more information about checking extraction status,
+        see the `GET /documents/{id}` endpoint.
+      parameters:
+        - $ref: '#/components/parameters/ids'
+      tags:
+      - Get Excel from PDFs
+      responses:
+        '200':
+          description: |
+            Indicates the extraction successfully converted to an CSV file. This response contains the download URL for the CSV file. The link
+            expires after 15 minutes.
+          content:
+            application/json:
+              schema:
+                properties:
+                  url:
+                    type: string
+                    format: url
+                    description: The download URL for the CSV file
+                    example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.csv?REDACTED
+
+        '401':
+          $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+
+
+
 components:
 
   responses:

@@ -38,11 +38,15 @@ You can bypass the Sensible app or API and instead trigger Sensible extractions 
 
 For more information, see an  [example Zap](https://zapier.com/shared/89bc08c43e753cae2483de6909dea250dbb47155).
 
-**Action Limitations**
 
-- If you select **New file in folder**  event in Google drive folder, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
+
+**Limitations**
+
+- You can configure single-value field output with this integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
+
+- If you select **New file in folder**  event in Google drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
 - The Sensible action can't filter extraction status, so Zapier can send incomplete or failed extractions to the data destination. To avoid this, add a Zapier delay in your Zap.
-- When setting up the Sensible action, run an extraction on the exact file you intend to use for your Zapier sample setup a minute or so before you start configuring the Zap in order to get sample data. Otherwise, Zapier returns an incomplete extraction during configuration.
+- When setting up the Sensible action, run an extraction on the same file you intend to use for your Zapier sample setup a minute or so before you start configuring the Zap in order to get sample data. Otherwise, Zapier returns an incomplete extraction during configuration.
 
 
 

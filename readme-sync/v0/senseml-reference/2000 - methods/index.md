@@ -22,3 +22,7 @@ Use the following [methods](doc:method)  to extract structured data from documen
 | **[Table](doc:table)**                       | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_dynamic.png) | Extracts a table where column headings vary.                 |
 | **[Text Table](doc:text-table)**             | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table.png) | Extracts tables using solely text-positioning data (fast but limited). |
 
+Notes
+===
+
+See also [natural-language methods](doc:natural-language-methods)

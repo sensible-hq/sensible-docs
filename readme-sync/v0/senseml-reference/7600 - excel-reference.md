@@ -5,7 +5,7 @@ hidden: false
 
 This topic describes the rules Sensible uses to:
 
-- convert data extracted from one document, such as a PDF, into an Excel spreadsheet
+- convert data extracted from one document, such as a PDF, into an Excel spreadsheet or CSV file.
 
 - combine data extracted from multiple documents into one spreadsheet
 
@@ -20,6 +20,10 @@ To get a document's data into a spreadsheet, you must first:
 - Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction).  For more information about single-document Excel sheets, see [Quickstart PDF to Excel](doc:excel-quickstart).
 
 
+CSV files
+===
+
+To generate CSV files, Sensible uses the same rules described in the following sections, except that Sensible uses blank rows instead of tabbed sheets to separate extraction content.
 
 Multi-document spreadsheet
 ====
@@ -35,7 +39,12 @@ To combine document extractions into one spreadsheet file, Sensible uses the sam
 }
 [/block]  
 
-  To avoid manually merging the similarly named columns in the preceding example,  Sensible recommends using the same IDs for corresponding fields across different SenseML configs in a  document type. 
+
+
+**Tips**
+
+- To avoid manually merging the similarly named columns in the preceding example,  Sensible recommends using the same IDs for corresponding fields across different SenseML configs in a  document type. 
+- To configure multi-document spreadsheet output using different rules than those described here, configure rules with Sensible's [Zapier](doc:zapier) integration. You can map single-value field output with this integration.
 
 
 
