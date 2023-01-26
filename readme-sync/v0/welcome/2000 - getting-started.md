@@ -180,11 +180,11 @@ Congratulations! You created your first config and extracted your first document
 How it works
 ====
 
-- Each "field" is a basic query unit in Sensible. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
+- Each "field" is a basic query unit in Sensible.  Each field outputs a piece of data from the document that you want to extract. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
-- Sensible searches first for a text "anchor" because it's a computationally quick and inexpensive way to narrow down the location of the target data to extract. For more information about defining complex anchors, see [Anchor](doc:anchor). 
+- Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text. For more information about defining complex anchors, see [Anchor](doc:anchor). 
 
-- Then, Sensible uses a "method" to expand out from the anchor and extract the data you want. For more information about methods, see [Methods](doc:methods).
+- Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Methods](doc:methods).
 
 - This config uses three types of methods:
 
@@ -237,6 +237,8 @@ This config returns:
 ```
 
 Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
+
+Natural-language methods, such as our Question method or GPT-3 powered Summarizer method, can make mistakes or return varying answers. So, let's look next at layout-based methods, for when you want to be absolutely sure that you always get the same answer.
 
 How it works: Label method
 ----
