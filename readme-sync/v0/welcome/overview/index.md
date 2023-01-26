@@ -27,3 +27,4 @@ Walk through a guided tutorial on extracting information from an unstructured, n
 
 - [How to use GPT-3 to parse free-text documents](https://www.sensible.so/blog/how-to-use-gpt-3-to-parse-free-text-documents)
 - [Summarizer method](doc:summarizer)
+- [Question method](doc:question)
