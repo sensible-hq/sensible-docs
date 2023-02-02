@@ -26,9 +26,9 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
  In this tutorial, you'll:
 
-- [Write a collection of queries ( a "config")](doc:getting-started#create-a-config) to [extract structured data](doc:getting-started#extract-data) from an auto insurance PDF 
+- [Write a collection of queries ( a "config")](doc:getting-started#create-a-config) to [extract structured data](doc:getting-started#extract-data) from an example auto insurance PDF 
 - [Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods
-- [Test the config](doc:getting-started#test-the-config) by running your config against a second PDF
+- [Test the config](doc:getting-started#test-the-config) by running your config against a second, similar auto insurance PDF
 - [Use the API](doc:getting-started#integrate-with-your-application) to integrate your Sensible config with your application
 - [Validate extractions in production](doc:getting-started#validate-extractions-in-production) by using JsonLogic to define expected extracted values and flag unexpected values as warnings or errors
 
@@ -182,7 +182,7 @@ How it works
 
 - Each "field" is a basic query unit in Sensible.  Each field outputs a piece of data from the document that you want to extract. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
-- Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text. For more information about defining complex anchors, see [Anchor](doc:anchor). 
+- Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text . For more information about defining complex anchors, see [Anchor](doc:anchor). 
 
 - Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Methods](doc:methods).
 

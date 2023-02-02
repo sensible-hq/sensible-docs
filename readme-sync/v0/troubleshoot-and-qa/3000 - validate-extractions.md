@@ -58,13 +58,16 @@ Validation 1
 - **Severity**: warning
 - **Condition**:
 ```
- {"or":
-   [{"not: {"exists":{"var":"quote_rate.valueConfidence"}}},
-   {">=": [{"var":"quote_rate.valueConfidence"},"0.90"]},
-   {">=": [{"var":"quote_rate.anchorConfidence"},"0.90"]}]}
+{"or":[
+  {"not":[
+    {"exists":{"var":"quote_rate.valueConfidence"}}]},
+  {"and":[
+    {">=": [{"var":"quote_rate.valueConfidence"},"0.90"]},
+    {">=": [{"var":"quote_rate.anchorConfidence"},"0.90"]}]}
+]} 
 ```
 
-**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it did, test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation requires that you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
+**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it was OCR'd (confidence score is not null), then test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation requires that you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
 
 
 Validation 2
