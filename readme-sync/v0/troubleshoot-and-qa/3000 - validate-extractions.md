@@ -8,7 +8,7 @@ hidden: false
 Quality control the data extractions in a document type by writing validations using  [JsonLogic](https://jsonlogic.com/):
 
 - Test extracted fields using Boolean, logic, numeric, array, string, and other operations.
-- If Sensible extracted a field from OCR'd text,  additionally test the confidence score for the field's anchor and value.
+- If Sensible extracted a field from OCR'd text,  test the confidence score for the field's anchor and value as a measure of the quality of the text images. For example, test that text in a scanned document isn't blurry or illegible.
 
 Then write your own logic based on the validations, for example:
 
@@ -54,7 +54,7 @@ You test sales quote extractions from all the companies with the following valid
 Validation 1
 ---
 
-- **Description**:  If OCR'd, the source text for quoted rate value isn't too blurry to be ambiguous
+- **Description**:  If OCR'd, the source text for quoted rate value is a high-quality, unblurred image.
 - **Severity**: warning
 - **Condition**:
 ```
@@ -67,7 +67,7 @@ Validation 1
 ]} 
 ```
 
-**Notes**: Since some sales quotes are scanned documents, check if the field came from OCR'd text. If it was OCR'd (confidence score is not null), then test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation requires that you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
+**Notes**: Since some sales quotes for `company_A` are scanned documents, check if the field came from OCR'd text. If it was OCR'd (confidence score is not null), then test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation requires that you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
 
 
 Validation 2
