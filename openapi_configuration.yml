@@ -844,7 +844,7 @@ components:
           type: string
           description: |
             Microsoft is the default engine and suited to typewritten and long documents.
-            Google is faster and suited to handwriting and short documents (25 pages or under).
+            Google is faster than Microsoft and suited to handwriting and short documents (25 pages or under).
             The Google engine doesn't merge words into lines automatically. Use the mergeLines preprocessor in your configurations to do so.
             Amazon is an alternative to experiment with if other engines aren't recognizing text.
 
