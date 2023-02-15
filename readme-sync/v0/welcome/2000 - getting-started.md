@@ -537,7 +537,7 @@ To add these tests:
 
 1. In the **auto_insurance_quote** document type, click **Create validation**. Add the following input to the dialog:
    - Set the **Severity** to **Warning**
-   - Set the **Description** to "prop. damage less than comprehensive"
+   - Set the **Description** to "prop. damage is less than comprehensive"
    - Set the **Condition** to:
 
 ```json

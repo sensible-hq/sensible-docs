@@ -27,7 +27,7 @@ Extract sample document data
    | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-8. Navigate to the [quick extraction](https://app.sensible.so/library/) tab.
+8. Navigate to the [quick extraction](https://app.sensible.so/quick-extraction/) tab.
 
 9. Upload the document you downloaded in the previous step.
 
@@ -41,7 +41,7 @@ Convert to spreadsheet
 ----
 
 
-11. Select **Download Excel** to convert the extracted document data to Excel.
+11. Click the **Download** icon to convert the extracted document data to Excel.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 
