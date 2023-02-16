@@ -35,7 +35,7 @@ Extract sample document data
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_1.png)
 
-   Sensible extracts data from the document and displays it as JSON in the **Extraction** pane. 
+   Sensible extracts data from the document and displays it as JSON in the pane to the right. 
 
 Convert to spreadsheet
 ----
