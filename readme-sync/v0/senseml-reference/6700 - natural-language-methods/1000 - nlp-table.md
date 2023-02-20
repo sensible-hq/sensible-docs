@@ -4,18 +4,34 @@ hidden: true
 ---
 Powered by GPT3
 
+**limitations**
+
 - It won't merge tables that span pages
 
 - It works only (or at least best) on tables where the first row is a header
 
 - It uses full doc OCR so it could time out on longer docs
 
-  
+**how it works**
+
+- Sensible uses a Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
+
+- Sensible scores the first two rows of each table using the descriptions you provide for the table's columns to find the best candidate table.
+
+- Sensible creates a new, tabular representation of the best-candidate table using GPT3, using this instruction:
+
+    `Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
+
+-  For each row in the table, GPT3 tries 
+
+
+
+===
 
 [@Josh Lewis](https://sensiblehq.slack.com/team/U0181MWQ8BV) so broadly, how does NLP table work? I have a rough guess:
 
 - MS table finds all tables in doc (btw what engines do we use for Fixed Table and Table?)
-  - Yes, and for fixedTable/table we use MS if there's no stop and Textract if there is
+  - Yes, and for fixedTable/table we use MS if there's no stop and Textract if there is... Stops table recognition at the matched line. Otherwise, Sensible searches all pages for tables, which can impact performance.<br/>When you specify a stop, Sensible  uses an Amazon Web Service  provider to perform table recognition. When you omit a stop, Sensible uses a Microsoft OCR provider.
 - Score the MS tables (how? treating descriptions as questions and concatenating them then scoring 1st row against them?)
   - Yes, but first two rows
 - feed highest scoring table to summarizer with prompt: "`Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank."` -> it seems as if you're using summarizer to "recreate" the table? Are you doing so on a row-by-row basis, so each re-created table is just 1 row and 1 header? 
