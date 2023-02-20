@@ -12,6 +12,17 @@ Powered by GPT3
 
   
 
+[@Josh Lewis](https://sensiblehq.slack.com/team/U0181MWQ8BV) so broadly, how does NLP table work? I have a rough guess:
+
+- MS table finds all tables in doc (btw what engines do we use for Fixed Table and Table?)
+  - Yes, and for fixedTable/table we use MS if there's no stop and Textract if there is
+- Score the MS tables (how? treating descriptions as questions and concatenating them then scoring 1st row against them?)
+  - Yes, but first two rows
+- feed highest scoring table to summarizer with prompt: "`Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank."` -> it seems as if you're using summarizer to "recreate" the table? Are you doing so on a row-by-row basis, so each re-created table is just 1 row and 1 header? 
+  - It recreates the whole table
+- what's handling the question posed in `description` -- is it GPT3 summarizer or is it LayoutML? (I thought GPT3, but I did notice `question.ts` was modified)
+  - GPT3
+
 
 
 `Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank.`
