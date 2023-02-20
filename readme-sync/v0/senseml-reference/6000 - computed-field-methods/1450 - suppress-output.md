@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Specifies fields to exclude from the extraction output. For example, if you use the field id  `_raw_data` as a source for a `nicely_formatted` [computed field](doc:computed-field-methods), then specify the raw field's id in this method to show only the computed field in the output.
+Specifies fields to exclude from the extraction output. For example, if you use the field ID  `_raw_data` as a source for a [computed field](doc:computed-field-methods), then specify the raw field's ID in this method to show only the computed field in the output.
 
 Parameters
 ====
