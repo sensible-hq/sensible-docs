@@ -1,8 +1,24 @@
 ---
-title: "Summarizer"
-hidden: false
+title: "NLP Table"
+hidden: true
 ---
-Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. 
+Powered by GPT3
+
+- It won't merge tables that span pages
+
+- It works only (or at least best) on tables where the first row is a header
+
+- It uses full doc OCR so it could time out on longer docs
+
+  
+
+
+
+`Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank.`
+
+
+
+
 
 Parameters
 ====
@@ -12,7 +28,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 | key                      | value        | description                                                  |
 | :----------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)        | `summarizer` |                                                              |
+| id (**required**)        | `nlpTable`   | The Anchor parameter is optional for fields that use this method. If you omit an anchor, Sensible searches the entire document for the data you want to extract. TODO: is that true |
 | source_id (**required**) | field ID     | Specifies a field whose output is a snippet of text with the key/value information you want to extract. If the snippet doesn't occur at a predictable location in the document, then you can use the [Topic](doc:topic) method to find it. |
 | fields (**required**)    | string array | Names of the keys you want to extract. These names have an impact on the free-text extraction, so choose names that have a meaningful relationship to the target data to extract. For example, for a dollar amount of rent to extract,  `rent`, `rents`, and `rent_in_dollars` are good naming choices. |
 | instructions             | string       | Natural-language instructions about how to extract information from the text in the Source ID parameter.<br/>For more information about how to write instructions, see [GPT-3 Completions documentation](https://beta.openai.com/docs/guides/completion/introduction).<br/>For an example of using this parameter, see the Examples section. |
