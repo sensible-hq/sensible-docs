@@ -12,6 +12,13 @@ Powered by GPT3
 
 - It uses full doc OCR so it could time out on longer docs
 
+- **future limitations**
+
+- We should be able to support multi-page tables
+
+- I’ve expanded it to check the first two rows, and we can likely look at the text directly preceding the table as well, but it will still mainly work with tables where the data elements are organized as rows (this is the typical case, but occasionally you run into data elements as columns)
+- We can’t get around running table detection across the whole doc in the general case
+
 **how it works**
 
 - Sensible uses a Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
