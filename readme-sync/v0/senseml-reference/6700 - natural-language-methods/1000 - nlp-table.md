@@ -23,13 +23,15 @@ Powered by GPT3
 
 - Sensible uses a Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
 
-- Sensible scores the first two rows of each table using the descriptions you provide for the table's columns to find the best candidate table.
+- Sensible scores using embedding overlap (we turn raw text into vector and smaller angle means most similar...get thing pointing a direction in a high dimensional space representing smantics of text; if you see opposite vector pointing then you know they have very dissimilar meaning) ... IF the row headers have a lot of meaning, this works even better... so comparing vector of the 2 rows against the single vector of the concatenated descriptions ... ...the embedding engine is an openapi API thing... called an embedding b/c when you run gpt3, you give it the text context and words get tokenized into numeric representations and that transformation is similar to Topic taking bag of word and looking for overlap (with no relationship meaning)...but instead in the network, you transform the raw words into a bit of relationship meaning (arrangement in syntax)...taht intermediate internal rep of text is called an 'embedding ' ...just gives you back that internal representation (like a step of GPT3)...kinda like classification: which sample belongs to this category? or like clustering: whole bunch of docs, then organize them ... is embedding connoting these relationships? more a ref to taking data, embedding into a specific vector space (could come up in non-language use case w/ neural nets)...more about re-represenations of data in a meaningful space... we embed the rows, we embed the descriptions, and we do a similarity comparison and get a winning table ... then we stringify the table, give it to GPT3 and say re-represent it with these new column headings (the descriptions) ... should work for simple tables; no telling what GPT3 could do with complex tables...  
 
-- Sensible creates a new, tabular representation of the best-candidate table by giving GPT3 this instruction:
+  -  the first two rows of each table using the descriptions you provide for the table's columns to find the best candidate table.
+
+- Sensible creates a new, tabular representation of the best-candidate table by giving GPT3 this instruction, and we 
 
     `Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
 
--  For each row in the table, GPT3 tries 
+  - just transform that into SenseML table output and in post-process we remove the row headers
 
 
 
