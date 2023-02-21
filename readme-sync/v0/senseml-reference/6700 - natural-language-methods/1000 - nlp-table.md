@@ -18,7 +18,7 @@ Powered by GPT3
 
 - Sensible scores the first two rows of each table using the descriptions you provide for the table's columns to find the best candidate table.
 
-- Sensible creates a new, tabular representation of the best-candidate table using GPT3, using this instruction:
+- Sensible creates a new, tabular representation of the best-candidate table by giving GPT3 this instruction:
 
     `Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
 
