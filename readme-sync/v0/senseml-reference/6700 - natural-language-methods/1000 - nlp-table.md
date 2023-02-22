@@ -6,7 +6,20 @@ Uses GPT3 to extract a table, based on your natural-language description of the 
 
 Use this method as a low-code alternative to layout-based Table methods, such as [Fixed Table](doc:fixed-table).
 
+**Advantages**
 
+- Low code.
+- You can use natural-language instructions to reformat or filter extracted column data.
+
+**Disadvantages**
+
+- Impacts performance, because it triggers OCR for the entire document.
+
+- Suited to simple tables where the first row in each column is a header that describes the contents of the column.
+
+**Alternatives**
+
+- 
 
 
 
@@ -83,22 +96,6 @@ These tables are good candidates:
 
 
 
-These aren't:
-
-| Risk type | january ranking | Feb ranking | This month ranking |
-| --------- | --------------- | ----------- | ------------------ |
-|           |                 |             |                    |
-|           |                 |             |                    |
-|           |                 |             |                    |
-
-| Nutrition | Apple | Banana | Cantelope |
-| --------- | ----- | ------ | --------- |
-| calories  |       |        |           |
-| fiber     |       |        |           |
-| protein   |       |        |           |
-
-
-
 
 
 also not a good candiate (might CHANGE if we add table title: same formatted table for different things like https://docs.google.com/document/d/13-Diiyds5-xa8KSVVMhQvNfjdwTbUe5EWc4kVp9MDrE/edit )
@@ -116,7 +113,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                    | value      | description                                                  |
 | :--------------------- | :--------- | :----------------------------------------------------------- |
 | id (**required**)      | `nlpTable` | The Anchor parameter is optional for fields that use this method. If you omit an anchor, Sensible searches the entire document for the data you want to extract. TODO: is that true |
-| columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  a natural-language description of the data you want to extract from the column. You can also provide instructions, as you do with the [Summarizer method](doc:summarizer), to reformat or filter the column's data. For example, provide descriptions like `"The transaction amount. return the absolute values of the monetary amount"` or `"return the car make but not the model from this column"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  a natural-language description of the data you want to extract from the column. The description can include instructions to reformat or filter the column's data. For example, provide descriptions like `"The transaction amount. return the absolute values of the monetary amount"` or `"return the car make but not the model from this column"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 |                        |            |                                                              |
 |                        |            |                                                              |
 |                        |            |                                                              |

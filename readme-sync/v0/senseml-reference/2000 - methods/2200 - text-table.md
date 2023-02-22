@@ -246,7 +246,7 @@ You can output the issuing financial institution and the displayed account numbe
 Notes
 ====
 
-- For examples of extracting from complex tables, such as tables inside tables or tables with labled rows and columns, see [Sections](doc:sections#examples).
+- To extract complex tables, for example tables inside tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
 
 
 
