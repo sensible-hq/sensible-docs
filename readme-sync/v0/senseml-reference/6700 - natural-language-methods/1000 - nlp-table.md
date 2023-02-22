@@ -103,7 +103,7 @@ The following example shows using the NLP Table method to extract information fr
     }
   ],
   "computed_fields": [
-    /* for cleaner output, zip each table into an array of rows objects */
+    /* optional: for cleaner output, zip each table into an array of rows objects */
     {
       "id": "zipped_insured_vehicles",
       "method": {
@@ -122,7 +122,7 @@ The following example shows using the NLP Table method to extract information fr
         ]
       }
     },
-    /* for cleaner output, remove the source
+    /* optional: for cleaner output, remove the source
        tables. */
     {
       "id": "hide_fields",
