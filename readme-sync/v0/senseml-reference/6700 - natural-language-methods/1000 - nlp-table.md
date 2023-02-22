@@ -19,8 +19,8 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Alternatives**
 
-- To extract complex tables, for example tables inside tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
-- For less complex tables that the NLP Table method can't recognize, use [Table](doc:table) or [Fixed Table](doc:fixed-table) methods.
+-  [Table](doc:table) or [Fixed Table](doc:fixed-table) methods
+- To extract complex tables, for example tables-inside-tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
 
 **How it works**
 
