@@ -21,7 +21,12 @@ Powered by GPT3
 
 **how it works**
 
-- Sensible uses a Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
+1. Sensible uses a Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
+2. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using an OpenAPI embedding API. 
+3. Sensible inputs the raw text of the highest-scoring table to GPT-3, and instructs GPT3 to output a new  table as follows:  `rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
+4. Sensible reformats the table returned by GPT3 to:
+   1. format it in standard SenseML table format
+   2.  remove the original table column headers 
 
 - Sensible scores using embedding overlap (we turn raw text into vector and smaller angle means most similar...get thing pointing a direction in a high dimensional space representing smantics of text; if you see opposite vector pointing then you know they have very dissimilar meaning) ... IF the row headers have a lot of meaning, this works even better... so comparing vector of the 2 rows against the single vector of the concatenated descriptions ... ...the embedding engine is an openapi API thing... called an embedding b/c when you run gpt3, you give it the text context and words get tokenized into numeric representations and that transformation is similar to Topic taking bag of word and looking for overlap (with no relationship meaning)...but instead in the network, you transform the raw words into a bit of relationship meaning (arrangement in syntax)...taht intermediate internal rep of text is called an 'embedding ' ...just gives you back that internal representation (like a step of GPT3)...kinda like classification: which sample belongs to this category? or like clustering: whole bunch of docs, then organize them ... is embedding connoting these relationships? more a ref to taking data, embedding into a specific vector space (could come up in non-language use case w/ neural nets)...more about re-represenations of data in a meaningful space... we embed the rows, we embed the descriptions, and we do a similarity comparison and get a winning table ... then we stringify the table, give it to GPT3 and say re-represent it with these new column headings (the descriptions) ... should work for simple tables; no telling what GPT3 could do with complex tables...  
 
@@ -29,7 +34,7 @@ Powered by GPT3
 
 - Sensible creates a new, tabular representation of the best-candidate table by giving GPT3 this instruction, and we 
 
-    `Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
+  `Please rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
 
   - just transform that into SenseML table output and in post-process we remove the row headers
 
@@ -105,7 +110,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                    | value      | description                                                  |
 | :--------------------- | :--------- | :----------------------------------------------------------- |
 | id (**required**)      | `nlpTable` | The Anchor parameter is optional for fields that use this method. If you omit an anchor, Sensible searches the entire document for the data you want to extract. TODO: is that true |
-| columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**): <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  a natural-language description of the data you want to extract from the column. You can also provide instructions as you would with the [Summarizer method](doc:summarizer) to reformat or filter the column's data, for example, `the transaction amount. return the absolute values of the monetary amount` or `return the car make but not the model from this column`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 |                        |            |                                                              |
 |                        |            |                                                              |
 |                        |            |                                                              |
