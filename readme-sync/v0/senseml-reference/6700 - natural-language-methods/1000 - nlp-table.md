@@ -30,7 +30,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 3. Sensible inputs the raw text of the highest-scoring table to GPT-3, and instructs GPT3 to output a new  table as follows:  `rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
 4. Sensible reformats the table returned by GPT3 to:
    1. format it in standard SenseML table format
-   2.  remove the original table column headers 
+   2.  remove the original table's column headers 
 
 Parameters
 ====
@@ -50,7 +50,7 @@ Examples
 Example 1
 ---
 
-The following example shows using the Summarizer method with the Topic method to extract agricultural data from a government report.
+The following example shows using the NLP Table method to extract information from tables about insured vehicles and insurance transactions.
 
 **Config**
 
