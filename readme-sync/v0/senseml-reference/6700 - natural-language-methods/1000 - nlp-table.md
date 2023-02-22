@@ -14,7 +14,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Limitations**
 
-- Impacts performance, because it triggers OCR for the entire document.
+- Can impact performance, because it triggers OCR for the entire document.
 - Suited to simple tables where the first row in each column is a header that describes the contents of the column.
 - Doesn't support tables that span pages.
 
