@@ -10,6 +10,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 - Low code. 
 - You can use natural-language instructions to reformat or filter extracted column data.
+- Doesn't require an [anchor](doc:anchor).
 
 **Limitations**
 
@@ -54,21 +55,168 @@ The following example shows using the Summarizer method with the Topic method to
 **Config**
 
 ```json
-
+{
+  "fields": [
+    {
+      /* the id is a user-friendly name for the target table */
+      "id": "insured_vehicles_table",
+      "type": "table",
+      "method": {
+        "id": "nlpTable",
+        "columns": [
+          {
+            /* for each column, provide a user-friendly ID
+               and a description of the data you want to extract from the column */
+            "id": "manufacturer",
+            "description": "the make of the vehicle, not the model",
+          },
+          {
+            "id": "year",
+            "description": "the year of manufacture of the vehicle",
+          }
+        ]
+      }
+    },
+    {
+      "id": "transactions_table",
+      "type": "table",
+      "method": {
+        "id": "nlpTable",
+        "columns": [
+          {
+            "id": "transaction_date",
+            /* note GPT3 has some limitations due to its training data. 
+               For example, it doesn't know the current year so it makes one up in the output */
+            "description": "the date of the transaction. If there's no year, append the current year.",
+          },
+          {
+            "id": "description",
+            "description": "the description of the monetary transaction."
+          },
+          {
+            "id": "amount",
+            "description": "the monetary amount of the transaction, as an absolute value",
+            "type": "currency"
+          }
+        ]
+      }
+    }
+  ],
+  "computed_fields": [
+    /* for cleaner output, zip each table into an array of rows objects */
+    {
+      "id": "zipped_insured_vehicles",
+      "method": {
+        "id": "zip",
+        "source_ids": [
+          "insured_vehicles_table",
+        ]
+      }
+    },
+    {
+      "id": "zipped_transactions",
+      "method": {
+        "id": "zip",
+        "source_ids": [
+          "transactions_table",
+        ]
+      }
+    },
+    /* for cleaner output, remove the source
+       tables. */
+    {
+      "id": "hide_fields",
+      "method": {
+        "id": "suppressOutput",
+        "source_ids": [
+          "transactions_table",
+          "insured_vehicles_table"
+        ]
+      }
+    }
+  ]
+}
 ```
 
 **Example document**
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/tbd_.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/tbd_.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nlp_table.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
 ```json
-
+{
+  "zipped_insured_vehicles": [
+    {
+      "manufacturer": {
+        "value": "Toyota",
+        "type": "string"
+      },
+      "year": {
+        "value": "2010",
+        "type": "string"
+      }
+    },
+    {
+      "manufacturer": {
+        "value": "Honda",
+        "type": "string"
+      },
+      "year": {
+        "value": "2015",
+        "type": "string"
+      }
+    },
+    {
+      "manufacturer": {
+        "value": "VW",
+        "type": "string"
+      },
+      "year": {
+        "value": "2020",
+        "type": "string"
+      }
+    }
+  ],
+  "zipped_transactions": [
+    {
+      "transaction_date": {
+        "value": "02/19/2019",
+        "type": "string"
+      },
+      "description": {
+        "value": "Paid premium",
+        "type": "string"
+      },
+      "amount": {
+        "source": "$100.01",
+        "value": 100.01,
+        "unit": "$",
+        "type": "currency"
+      }
+    },
+    {
+      "transaction_date": {
+        "value": "01/03/2019",
+        "type": "string"
+      },
+      "description": {
+        "value": "Amount awarded for claim #123456789",
+        "type": "string"
+      },
+      "amount": {
+        "source": "$200.67",
+        "value": 200.67,
+        "unit": "$",
+        "type": "currency"
+      }
+    }
+  ]
+}
 ```
 
 
