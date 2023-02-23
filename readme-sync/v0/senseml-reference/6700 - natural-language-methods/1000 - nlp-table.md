@@ -79,7 +79,7 @@ The following example shows using the NLP Table method to extract information fr
             "id": "transaction_date",
             /* note GPT3 has some limitations due to its training data. 
                For example, it doesn't know the current year so it makes one up in the output */
-            "description": "date of the transaction. If there's no year, append the current year.",
+            "transaction_description": "date of the transaction. If there's no year, append the current year.",
           },
           {
             "id": "description",
@@ -180,7 +180,7 @@ The following image shows the example document used with this example config:
         "value": "02/19/2019",
         "type": "string"
       },
-      "description": {
+      "transaction_description": {
         "value": "Paid premium",
         "type": "string"
       },
@@ -196,7 +196,7 @@ The following image shows the example document used with this example config:
         "value": "01/03/2019",
         "type": "string"
       },
-      "description": {
+      "transaction_description": {
         "value": "Amount awarded for claim #123456789",
         "type": "string"
       },
