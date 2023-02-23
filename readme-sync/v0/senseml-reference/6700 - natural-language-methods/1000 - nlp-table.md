@@ -216,7 +216,7 @@ The following image shows the example document used with this example config:
 Notes
 ===
 
-See the following steps for an overview of how the NLP Table method works:
+For an overview of how the NLP Table method works, see the following steps:
 
 
 1. Sensible uses a Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
