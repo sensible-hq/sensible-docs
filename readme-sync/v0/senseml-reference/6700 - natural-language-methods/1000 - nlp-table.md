@@ -27,7 +27,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 1. Sensible uses an Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
 2. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using an OpenAPI embedding API. 
-3. Sensible inputs the raw text of the highest-scoring table to GPT-3, and instructs GPT-3 to output a new  table where each column header is a description that you provided, and each row of a column answers the question posed by its description. If a cell doesn't match the description, GPT-3 leaves it blank. 
+3. Sensible inputs the stringified text of the highest-scoring table to GPT-3, and instructs GPT-3 to output a new tab-deliminted table where each column header is a description that you provided, and each row of each column answers the question posed by its description. If a cell doesn't match the description, GPT-3 leaves it blank. 
 4. Sensible reformats the table returned by GPT3 to:
    1. Format it in standard SenseML table format.
    2.  Remove the original table's column headers.
@@ -40,7 +40,7 @@ Parameters
 
 | key                    | value      | description                                                  |
 | :--------------------- | :--------- | :----------------------------------------------------------- |
-| id (**required**)      | `nlpTable` | The Anchor parameter is optional for fields that use this method. If you omit an anchor, Sensible searches the entire document for the data you want to extract. TODO: is that true |
+| id (**required**)      | `nlpTable` | The Anchor parameter is optional for fields that use this method. |
 | columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  a natural-language description of the data you want to extract from the column. The description can include instructions to reformat or filter the column's data. For example, provide descriptions like `"The transaction amount. return the absolute values of the monetary amount"` or `"return the car make but not the model from this column"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 
 
