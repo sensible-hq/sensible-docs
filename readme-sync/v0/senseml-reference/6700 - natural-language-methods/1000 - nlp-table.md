@@ -8,15 +8,15 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Advantages**
 
-- Low code. 
-- You can use natural-language instructions to reformat or filter extracted column data.
-- Doesn't require an [anchor](doc:anchor).
+- Low code 
+- Can reformat or filter extracted column data based on your natural-language instructions 
+- Doesn't require an [anchor](doc:anchor)
 
 **Limitations**
 
-- Can impact performance, because it triggers OCR for the entire document.
-- Suited to simple tables where the first row in each column is a header that describes the contents of the column.
-- Doesn't support tables that span pages.
+- Can impact performance, because it triggers OCR for the entire document
+- Suited to simple tables where the first row in each column is a header that describes the contents of the column
+- Doesn't support tables that span pages
 
 **Alternatives**
 
@@ -27,10 +27,10 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 1. Sensible uses an Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
 2. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using an OpenAPI embedding API. 
-3. Sensible inputs the raw text of the highest-scoring table to GPT-3, and instructs GPT3 to output a new  table as follows:  `rearrange the below data into a tabular format where each row of the table answers the question posed in the header of the table. If the below data don't contain an answer to the question, just leave that cell of the table blank`
+3. Sensible inputs the raw text of the highest-scoring table to GPT-3, and instructs GPT-3 to output a new  table where each column header is a description that you provided, and each row of a column answers the question posed by its description. If a cell doesn't match the description, GPT-3 leaves it blank. 
 4. Sensible reformats the table returned by GPT3 to:
-   1. format it in standard SenseML table format
-   2.  remove the original table's column headers 
+   1. Format it in standard SenseML table format.
+   2.  Remove the original table's column headers.
 
 Parameters
 ====
@@ -87,15 +87,15 @@ The following example shows using the NLP Table method to extract information fr
             "id": "transaction_date",
             /* note GPT3 has some limitations due to its training data. 
                For example, it doesn't know the current year so it makes one up in the output */
-            "description": "the date of the transaction. If there's no year, append the current year.",
+            "description": "date of the transaction. If there's no year, append the current year.",
           },
           {
             "id": "description",
-            "description": "the description of the monetary transaction."
+            "description": "description of the monetary transaction"
           },
           {
             "id": "amount",
-            "description": "the monetary amount of the transaction, as an absolute value",
+            "description": "amount of the transaction, as an absolute value",
             "type": "currency"
           }
         ]
