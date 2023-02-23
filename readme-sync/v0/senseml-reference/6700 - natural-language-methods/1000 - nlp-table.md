@@ -58,7 +58,7 @@ The following example shows using the NLP Table method to extract information fr
         "columns": [
           {
             /* for each column, provide a user-friendly ID
-               and a description of the data you want to extract from the column */
+               and a description of the data you want to extract from the column and optional instructions to filter or reformat the data*/
             "id": "manufacturer",
             "description": "the make of the vehicle, not the model",
           },
