@@ -25,12 +25,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **How it works**
 
-1. Sensible uses an Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
-2. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using an OpenAPI embedding API. 
-3. Sensible inputs the stringified text of the highest-scoring table to GPT-3, and instructs GPT-3 to output a new tab-deliminted table where each column header is a description that you provided, and each row of each column answers the question posed by its description. If a cell doesn't match the description, GPT-3 leaves it blank. 
-4. Sensible reformats the table returned by GPT3 to:
-   1. Format it in standard SenseML table format.
-   2.  Remove the original table's column headers.
+For more information about how this method works, see [Notes ](doc:nlp-table#notes).
 
 Parameters
 ====
@@ -46,9 +41,6 @@ Parameters
 
 Examples
 ====
-
-Example 1
----
 
 The following example shows using the NLP Table method to extract information from tables about insured vehicles and insurance transactions.
 
@@ -221,3 +213,15 @@ The following image shows the example document used with this example config:
 
 
 
+Notes
+===
+
+See the following steps for an overview of how the NLP Table method works:
+
+
+1. Sensible uses an Microsoft OCR provider to find all the tables in the document. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document.
+2. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using an OpenAPI embedding API. 
+3. Sensible inputs the stringified text of the highest-scoring table to GPT-3, and instructs GPT-3 to output a new tab-deliminted table where each column header is a description that you provided, and each row of each column answers the question posed by its description. If a cell doesn't match the description, GPT-3 leaves it blank. 
+4. Sensible reformats the table returned by GPT3 to:
+   1. Format it in standard SenseML table format.
+   2. Remove the original table's column headers.
