@@ -58,7 +58,8 @@ The following example shows using the NLP Table method to extract information fr
         "columns": [
           {
             /* for each column, provide a user-friendly ID
-               and a description of the data you want to extract from the column and optional instructions to filter or reformat the data*/
+               and a description of the data you want to extract from the column 
+               and optional instructions to filter or reformat the data*/
             "id": "manufacturer",
             "description": "vehicle make (not model)",
           },
@@ -78,7 +79,8 @@ The following example shows using the NLP Table method to extract information fr
           {
             "id": "transaction_date",
             /* note GPT3 has some limitations due to its training data. 
-               For example, it doesn't know the current year so it makes one up in the output */
+               For example, it doesn't know the current year 
+               so it makes one up in the output */
             "transaction_description": "transaction date. If there's no year, append the current year.",
           },
           {
@@ -95,7 +97,8 @@ The following example shows using the NLP Table method to extract information fr
     }
   ],
   "computed_fields": [
-    /* optional: for cleaner output, zip each table into an array of rows objects */
+    /* optional: for cleaner output, zip each table 
+       into an array of rows objects */
     {
       "id": "zipped_insured_vehicles",
       "method": {
