@@ -27,7 +27,7 @@ Parameters
 
 | key                     | value      | description                                                  |
 | :---------------------- | :--------- | :----------------------------------------------------------- |
-| id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. TODO what does it do? <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:lines#line-sorting).<br/> |
+| id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. TODO/question what does it do/what effect does it have? |
 | question (**required**) | string     | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [GPT-3 Completions documentation](https://beta.openai.com/docs/guides/completion/introduction). |
 
 Examples
@@ -35,8 +35,6 @@ Examples
 
 Example 1
 ---
-
-TODO https://dev.sensible.so/editor/?d=frances_test_playground&c=question_gpt&g=wheat_outlook&v= TODO
 
 The following example shows using the Question method to extract agricultural data from a government report.
 
@@ -114,11 +112,7 @@ The following image shows the example document used with this example config:
 Example 2
 ----
 
-The following example shows using the Summarizer method and the Topic method to extract the following information from a lease:
-
-- monthly rent
-- payment frequency 
-- payment due date
+The following example shows using the Question method to extract information from a lease.
 
 **Config**
 
