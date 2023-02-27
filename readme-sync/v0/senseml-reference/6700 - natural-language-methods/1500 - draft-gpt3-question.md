@@ -16,7 +16,7 @@ Parameters
 
 | key                     | value      | description                                                  |
 | :---------------------- | :--------- | :----------------------------------------------------------- |
-| id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. If you specify an anchor, Sensible ignores it. TODO: true? |
+| id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. TODO what does it do? <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:lines#line-sorting).<br/> |
 | question (**required**) | string     | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [GPT-3 Completions documentation](https://beta.openai.com/docs/guides/completion/introduction). |
 
 Examples 
