@@ -219,7 +219,7 @@ Notes
 For an overview of how the NLP Table method works, see the following steps:
 
 
-1. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document. TODO: see slack discussion.
+1. Sensible ignores any OCR settings you configure for the document type and uses Microsoft to OCR the entire document. TODO: see slack discussion. https://sensiblehq.slack.com/archives/C0215T9K86P/p1677517563255909?thread_ts=1677177936.076079&cid=C0215T9K86P
 
 2. Sensible uses Microsoft Form Recognizer table detection to find all tables in the document.
 
