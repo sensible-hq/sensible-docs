@@ -25,7 +25,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **How it works**
 
-For more information about how this method works, see [Notes ](doc:nlp-table#notes).
+For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
 
 Parameters
 ====
