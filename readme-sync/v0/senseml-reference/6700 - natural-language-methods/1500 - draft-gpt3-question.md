@@ -10,10 +10,10 @@ Use this method as an alternative to the Summarizer method. For a comparsion, se
 
 | Question method                                  | [Summarizer](doc:summarizer) method                          |
 | ------------------------------------------------ | ------------------------------------------------------------ |
-| ✅ low code ("visual") authoring                  | ❌  SenseML authoring                                         |
-| ✅ uses OpenAPI to find snippet containing answer | ❌ uses less-accurate [Topic](doc:topic) method to find snippet |
+| ✅ low-code authoring                             | ❌  SenseML authoring                                         |
+| ✅ uses OpenAPI to find snippet containing answer | ❌ uses less-accurate [Topic](doc:topic) method to find snippet containing answer |
 | ❌  can impact performance                        | ✅  faster than Question method                               |
-| ❌ returns a string                               | ✅ can return structured responses including arrays of arrays |
+| ❌ returns a string                               | ✅ can return structured responses, including arrays of arrays |
 
 For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
 
@@ -30,29 +30,140 @@ Parameters
 | id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. TODO what does it do? <br/> The terms "preceding" and "succeeding" primarily mean *above* or *below* the Start line. For more information, see [Line sorting](doc:lines#line-sorting).<br/> |
 | question (**required**) | string     | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [GPT-3 Completions documentation](https://beta.openai.com/docs/guides/completion/introduction). |
 
-Examples 
+Examples
 ====
+
+Example 1
+---
+
+TODO https://dev.sensible.so/editor/?d=frances_test_playground&c=question_gpt&g=wheat_outlook&v= TODO
+
+The following example shows using the Question method to extract agricultural data from a government report.
 
 **Config**
 
 ```json
-
+{
+  "fields": [
+    {
+      "id": "report_date",
+      "method": {
+        "id": "question",
+        "question": "for which month and year does this snippet describe wheat production"
+      }
+    },
+    {
+      "id": "change_in_production",
+      "method": {
+        "id": "question",
+        "question": "did US wheat production estimate change this month, and if so, by how much"
+      }
+    },
+    {
+      "id": "seed_use",
+      "method": {
+        "id": "question",
+        "question": "what was US wheat seed use this year in the US in millions of bushels? "
+      }
+    },
+    {
+      "id": "seed_use_change",
+      "method": {
+        "id": "question",
+        "question": "did US wheat seed use change this year and if so, by how much (in million bushels)?"
+      }
+    }
+  ]
+}
 ```
 
 **Example document**
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_1.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_crop.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-
-
 
 **Output**
 
 ```json
+{
+  "report_date": {
+    "type": "string",
+    "value": "November 2022"
+  },
+  "change_in_production": {
+    "type": "string",
+    "value": "No, the US wheat production estimate is unchanged this month."
+  },
+  "seed_use": {
+    "type": "string",
+    "value": "66 million bushels."
+  },
+  "seed_use_change": {
+    "type": "string",
+    "value": "Seed use was revised down 2 million bushels to 66 million for the 2022/23 based on planting expectations for the 2023/24 wheat crop."
+  }
+}
+```
 
+
+
+
+Example 2
+----
+
+The following example shows using the Summarizer method and the Topic method to extract the following information from a lease:
+
+- monthly rent
+- payment frequency 
+- payment due date
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "rents",
+      "method": {
+        "id": "question",
+        "question": "list the rents, how often the rent must be paid, and when the rent is due. don't include details about prorated rents or late fees"
+      }
+    },
+    {
+      "id": "late_fees",
+      "method": {
+        "id": "question",
+        "question": "list late fees for late payments or bounced checks"
+      }
+    },
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_2.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "rents": {
+    "type": "string",
+    "value": "Lessee shall pay 895.00 dollars per month for rent. Rent must be paid on or before the 1st day of each month. The first month's rent must be paid prior to move-in."
+  },
+  "late_fees": {
+    "type": "string",
+    "value": "Late fee rule: 10 Percent of Recurring Rent Only. A charge of $50 will apply for every returned check or rejected electronic payment plus the amount of any fees charged to the Owner/Agent by any financial institution as a result of the check not being honored, plus any applicable late fee charges."
+  }
+}
 ```
 
 
