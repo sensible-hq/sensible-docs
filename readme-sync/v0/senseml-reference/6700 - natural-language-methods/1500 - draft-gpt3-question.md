@@ -17,8 +17,11 @@ Use this method as an alternative to the Summarizer method. For a comparsion, se
 
 For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
 
+TODO: update links
+
 [**Parameters**](doc:question#parameters)
 [**Examples**](doc:question#examples)
+[**Notes**](doc:question#examples)
 
 Parameters
 =====
