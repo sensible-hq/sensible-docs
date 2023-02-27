@@ -14,7 +14,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Limitations**
 
-- Can impact performance, because it triggers OCR for the entire document
+- Can impact performance, because it triggers OCR and table recognition for the entire document.
 - Suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements.
 - Doesn't support tables that span pages
 
@@ -79,7 +79,7 @@ The following example shows using the NLP Table method to extract information fr
             "id": "transaction_date",
             /* note GPT3 has some limitations due to its training data. 
                For example, it doesn't know the current year so it makes one up in the output */
-            "transaction_description": "date of the transaction. If there's no year, append the current year.",
+            "transaction_description": "transaction date. If there's no year, append the current year.",
           },
           {
             "id": "transaction_description",
@@ -223,7 +223,7 @@ For an overview of how the NLP Table method works, see the following steps:
 
 2. Sensible uses Microsoft Form Recognizer table detection to find all tables in the document.
 
-3. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using an OpenAPI embedding API. 
+3. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using the OpenAPI Embeddings API. 
 
 4. Sensible uses GPT-3 to restructure the table based on your column descriptions and returns the result in Sensible's standard table output format.
 
