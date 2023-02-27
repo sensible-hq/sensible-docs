@@ -27,6 +27,10 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
 
+[**Parameters**](doc:draft-nlp-table#parameters)
+[**Examples**](doc:draft-nlp-table#examples)
+[**Notes**](doc:draft-nlp-table#notes)
+
 Parameters
 ====
 

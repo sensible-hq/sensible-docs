@@ -6,6 +6,17 @@ hidden: true
 
 Extracts the answer to a free-text question.  This method is a beta release. This method is powered by GPT-3.
 
+Use this method as an alternative to the Summarizer method. For a comparsion, see the following table:
+
+| Question method                                  | [Summarizer](doc:summarizer) method                          |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| ✅ low code ("visual") authoring                  | ❌  SenseML authoring                                         |
+| ✅ uses OpenAPI to find snippet containing answer | ❌ uses less-accurate [Topic](doc:topic) method to find snippet |
+| ❌  can impact performance                        | ✅  faster than Question method                               |
+| ❌ returns a string                               | ✅ can return structured responses including arrays of arrays |
+
+For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
+
 [**Parameters**](doc:question#parameters)
 [**Examples**](doc:question#examples)
 
@@ -51,7 +62,7 @@ Notes
 
 For an overview of how this method works, see the following steps:
 
-- Since GPT-3 has an input character limit, Sensible splits the document into equal-sized, overlapping chunks that are under the character limit.
-- Sensible scores each chunk by how well it matches the question you pose about the data you want to extract. To create the score, Sensible compares your question against each chunk using an OpenAPI embedding API. 
+- Since GPT-3 has an input character limit, Sensible splits the document into equal-sized, overlapping chunks. 
+- Sensible scores each chunk by how well it matches the question you pose about the data you want to extract. To create the score, Sensible compares your question against each chunk using the OpenAPI Embeddings API. 
 - Sensible selects a number of the top-scoring chunks and combines them.
 - Sensible inputs the combined chunks to GPT-3 as one context, and instructs it to answer the question based on the context.
