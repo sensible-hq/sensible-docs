@@ -42,20 +42,34 @@ Get an account
 Create a config
 ====
 
-1. Click **+ New**  to create a new document type and name  it "auto_insurance_quote." Leave the defaults and click **Create**.
+1. Click **New document type**  to create a new document type and name  it "auto_insurance_quote." Leave the defaults and click **Create**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
-2. Download the following PDF document:
+2. To upload an example document for your document type, take the following steps:
+
+   1. Download the following PDF document:
+
 
    | Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
 
-3. Click **Upload document**  and choose the generic car insurance quote you just downloaded.
+   1. Click the **auto_insurance_quote** document type you just created.
 
-4. Click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
 
-5. Click the **anyco** configuration to edit it. When the configuration opens, you see an empty config pane on the left, the PDF in the middle, and an empty output pane on the right:
+   1. In your **auto_insurance_quote** document type, click the **Reference documents** tab. 
+
+   2. Click **Upload document**  and choose the generic car insurance quote you just downloaded.
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_upload_doc.png) 
+
+2. To create a configuration for your document type, take the following steps:
+   1. In your **auto_insurance_quote** document type, click the **Configurations** tab. 
+
+   2. On the tab, click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
+
+3. To edit your  **anyco** configuration, click it. When the configuration opens, you see an empty config pane on the left, the PDF in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
