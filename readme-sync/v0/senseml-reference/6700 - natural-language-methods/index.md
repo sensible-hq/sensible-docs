@@ -9,9 +9,15 @@ SenseML natural-language methods are powered by machine learning and natural lan
 
 The following topics describe natural language methods:
 
-- [Summarizer](doc:summarizer) computed field method
-- [Topic](doc:topic) method
+- [NLP Table](doc:nlp-table) method
+
 - (Beta) [Question](doc:question) method
+
+- [Summarizer](doc:summarizer) computed field method
+
+- [Topic](doc:topic) method
+
+  
 
 
 Notes

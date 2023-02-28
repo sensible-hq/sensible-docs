@@ -1,6 +1,6 @@
 ---
 title: "NLP Table"
-hidden: true
+hidden: false
 ---
 Extracts a table based on your natural-language description of the data you want to extract.
 
@@ -25,11 +25,11 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **How it works**
 
-For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
+For more information about how this method works, see [Notes ](doc:nlp-table#notes).
 
-[**Parameters**](doc:draft-nlp-table#parameters)
-[**Examples**](doc:draft-nlp-table#examples)
-[**Notes**](doc:draft-nlp-table#notes)
+[**Parameters**](doc:nlp-table#parameters)
+[**Examples**](doc:nlp-table#examples)
+[**Notes**](doc:nlp-table#notes)
 
 Parameters
 ====
