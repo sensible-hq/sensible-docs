@@ -56,21 +56,21 @@ The following example shows using the Question method to extract agricultural da
       "id": "change_in_production",
       "method": {
         "id": "question",
-        "question": "did US wheat production estimate change this month, and if so, by how much"
+        "question": "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"
       }
     },
     {
       "id": "seed_use",
       "method": {
         "id": "question",
-        "question": "what was US wheat seed use this year in the US in millions of bushels? "
+        "question": "what was US wheat seed use this year in the US in millions of bushels?"
       }
     },
     {
       "id": "seed_use_change",
       "method": {
         "id": "question",
-        "question": "did US wheat seed use change this year and if so, by how much (in million bushels)?"
+        "question": "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change"
       }
     }
   ]
@@ -95,7 +95,7 @@ The following image shows the example document used with this example config:
   },
   "change_in_production": {
     "type": "string",
-    "value": "No, the US wheat production estimate is unchanged this month."
+    "value": "No change."
   },
   "seed_use": {
     "type": "string",
@@ -103,7 +103,7 @@ The following image shows the example document used with this example config:
   },
   "seed_use_change": {
     "type": "string",
-    "value": "Seed use was revised down 2 million bushels to 66 million for the 2022/23 based on planting expectations for the 2023/24 wheat crop."
+    "value": "-2 million bushels"
   }
 }
 ```
@@ -123,16 +123,35 @@ The following example shows using the Question method to extract information fro
   "fields": [
     {
       "id": "rents",
+      "type": "currency",
       "method": {
         "id": "question",
-        "question": "list the rents, how often the rent must be paid, and when the rent is due. don't include details about prorated rents or late fees"
+        "question": "what's the rents amount in dollars? don't include details about when it's due"
       }
     },
     {
-      "id": "late_fees",
+      "id": "rent_due",
       "method": {
         "id": "question",
-        "question": "list late fees for late payments or bounced checks"
+        "question": "when is the rent due? don't include details about grace periods"
+      }
+    },
+    {
+      "id": "rent_frequency",
+      "method": {
+        "id": "question",
+        "question": "how often must the rent be paid? return responses like 'monthly', 'quarterly', or 'biweekly'"
+      }
+    },
+    /* if you ask a multi-part question, you get back 
+       a natural-language answer.
+       As an alternative, use the Summarizer method to structure 
+       such multi-part responses  */
+    {
+      "id": "rents_multi_part_question",
+      "method": {
+        "id": "question",
+        "question": "list the rents, how often the rent must be paid, and when the rent is due. don't include details about prorated rents or late fees"
       }
     },
   ]
@@ -152,12 +171,22 @@ The following image shows the example document used with this example config:
 ```json
 {
   "rents": {
+    "source": "895.00",
+    "value": 895,
+    "unit": "$",
+    "type": "currency"
+  },
+  "rent_due": {
+    "type": "string",
+    "value": "On or before the 1st day of each month."
+  },
+  "rent_frequency": {
+    "type": "string",
+    "value": "Monthly"
+  },
+  "rents_multi_part_question": {
     "type": "string",
     "value": "Lessee shall pay 895.00 dollars per month for rent. Rent must be paid on or before the 1st day of each month. The first month's rent must be paid prior to move-in."
-  },
-  "late_fees": {
-    "type": "string",
-    "value": "Late fee rule: 10 Percent of Recurring Rent Only. A charge of $50 will apply for every returned check or rejected electronic payment plus the amount of any fees charged to the Owner/Agent by any financial institution as a result of the check not being honored, plus any applicable late fee charges."
   }
 }
 ```
