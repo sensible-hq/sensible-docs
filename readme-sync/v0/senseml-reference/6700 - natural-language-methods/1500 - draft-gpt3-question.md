@@ -13,7 +13,7 @@ Sensible recommends framing each question so that it has a single, short answer.
 | ✅ finds the text snippet containing the answer automatically | ❌ Requires an input field to find the text snippet containing the answer. Typically, the input field uses the [Topic](doc:topic) or [Document Range](doc:document-range) methods. |
 | ❌ returns a multiple-answer response as a natural-language string | ✅ returns a multiple-answer response structured as an object or list of objects |
 
-For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
+For more information about how this method works, see [Notes ](doc:question#notes).
 
 TODO: update links
 
