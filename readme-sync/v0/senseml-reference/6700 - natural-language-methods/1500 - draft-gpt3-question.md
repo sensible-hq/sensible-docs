@@ -6,13 +6,13 @@ hidden: true
 
 Extracts the answer to a free-text question.  This method is a beta release.
 
-Use this method as an alternative to the Summarizer method. For a comparsion, see the following table:
+Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method. For a comparsion of these methods, see the following table:
 
 | Question method                                              | [Summarizer](doc:summarizer) method                          |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ✅ low-code authoring                                         | ❌  SenseML authoring                                         |
 | ✅ finds the text snippet containing the answer automatically | ❌ Requires an input field to find the text snippet containing the answer. Typically, the input field uses the [Topic](doc:topic) or [Document Range](doc:document-range) methods. |
-| ❌ returns a multiple-answer response as a natural-language string | ✅ returns a multiple-answer response structured as objects or lists of objects |
+| ❌ returns a multiple-answer response as a natural-language string | ✅ returns a multiple-answer response structured as an object or list of objects |
 
 For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
 
