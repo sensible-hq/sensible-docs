@@ -200,5 +200,5 @@ For an overview of how this method works, see the following steps:
 
 - To meet GPT-3's character limit for input, Sensible splits the document into equal-sized, overlapping chunks. 
 - Sensible scores each chunk by how well it matches the question you pose about the data you want to extract. To create the score, Sensible compares your question against each chunk using the OpenAPI Embeddings API. 
-- Sensible selects a number of the top-scoring chunks and combines them.
+- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document.
 - Sensible inputs the combined chunks to GPT-3 as one context, and instructs it to answer the question based on the context.
