@@ -4,16 +4,15 @@ hidden: true
 
 ---
 
-Extracts the answer to a free-text question.  This method is a beta release. This method is powered by GPT-3.
+Extracts the answer to a free-text question.  This method is a beta release.
 
 Use this method as an alternative to the Summarizer method. For a comparsion, see the following table:
 
-| Question method                                  | [Summarizer](doc:summarizer) method                          |
-| ------------------------------------------------ | ------------------------------------------------------------ |
-| ✅ low-code authoring                             | ❌  SenseML authoring                                         |
-| ✅ uses OpenAPI to find snippet containing answer | ❌ uses less-accurate [Topic](doc:topic) method to find snippet containing answer |
-| ❌  can impact performance                        | ✅  faster than Question method                               |
-| ❌ returns a string                               | ✅ can return structured responses, including arrays of arrays |
+| Question method                                              | [Summarizer](doc:summarizer) method                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ✅ low-code authoring                                         | ❌  SenseML authoring                                         |
+| ✅ finds the text snippet containing the answer automatically | ❌ Requires an input field to find the text snippet containing the answer. Typically, the input field uses the [Topic](doc:topic) or [Document Range](doc:document-range) methods. |
+| ❌ returns a multiple-answer response as a natural-language string | ✅ returns a multiple-answer response structured as objects or lists of objects |
 
 For more information about how this method works, see [Notes ](doc:draft-nlp-table#notes).
 
@@ -30,7 +29,7 @@ Parameters
 
 | key                     | value      | description                                                  |
 | :---------------------- | :--------- | :----------------------------------------------------------- |
-| id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. TODO/question what does it do/what effect does it have? |
+| id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. If you specify an anchor, Sensible ignores it. |
 | question (**required**) | string     | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [GPT-3 Completions documentation](https://beta.openai.com/docs/guides/completion/introduction). |
 
 Examples
