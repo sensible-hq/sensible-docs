@@ -93,7 +93,7 @@ The following example shows using the NLP Table method to extract information fr
           },
           {
             "id": "amount",
-            "description": "transaction amount",
+            "description": "transaction amount, returned as an absolute value",
             "type": "currency"
           }
         ]
