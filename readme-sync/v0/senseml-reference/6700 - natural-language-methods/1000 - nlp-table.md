@@ -8,19 +8,19 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Advantages**
 
-- Low code 
-- Can reformat or filter extracted column data based on your natural-language instructions 
-- Doesn't require an [anchor](doc:anchor)
+- Low code. 
+- Can reformat or filter extracted column data based on your natural-language instructions. 
+- Doesn't require an [anchor](doc:anchor).
 
 **Limitations**
 
 - Can impact performance, because it performs table recognition for the entire document.
 - Suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements.
-- Doesn't support tables that span pages
+- Doesn't support tables that span pages.
 
 **Alternatives**
 
--   [Fixed Table](doc:fixed-table) or [Text table](doc:text-table) methods
+-   [Fixed Table](doc:fixed-table) or [Text table](doc:text-table) methods.
 - To extract complex tables, for example tables-inside-tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
 
 **How it works**
