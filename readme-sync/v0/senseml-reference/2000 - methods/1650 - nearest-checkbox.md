@@ -6,6 +6,12 @@ Searches for the checkbox nearest to the anchor in any direction, and returns a 
 
 Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it's more flexible, requires less configuration, and recognizes a wider range of checkbox formats. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. 
 
+Sensible uses one of two data sources, pixels or metadata, to extract selection status:
+
+- If the document is a PDF that contains checkbox metadata, then Sensible preferentially uses the metadata to extract selection status.  
+
+- If there's no metadata, Sensible falls back to Azure Form Recognizer’s checkbox detection. This detection uses OCR and machine learning and captures a wide range of checkbox formats.
+
 
 
 [**Parameters**](doc:nearest-checkbox#parameters)
@@ -18,7 +24,7 @@ Parameters
 
 | key                     | values                       | description                                                  |
 | ----------------------- | ---------------------------- | ------------------------------------------------------------ |
-| id (**required**)       | `nearestCheckbox`            | Sensible returns true for selected checkboxes and false for unselected checkboxes. This method uses Azure Form Recognizer’s checkbox detection. This detection uses OCR and machine learning and captures a wide range of checkbox formats. |
+| id (**required**)       | `nearestCheckbox`            | Sensible returns true for selected checkboxes and false for unselected checkboxes. |
 | position (**required**) | `left`, `right`              | Defines the starting point for searching for the nearest selection mark. Sensible searches outward from this point in all directions.  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `left` specifies starting at the midpoint of the anchor line's left boundary. |
 | offsetX                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. |
 | offsetY                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page. |
