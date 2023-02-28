@@ -10,7 +10,6 @@ Sensible recommends framing each question so that it has a single, short answer.
 
 | Question method                                              | [Summarizer](doc:summarizer) method                          |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ✅ low-code authoring                                         | ❌  SenseML authoring                                         |
 | ✅ finds the text snippet containing the answer automatically | ❌ Requires an input field to find the text snippet containing the answer. Typically, the input field uses the [Topic](doc:topic) or [Document Range](doc:document-range) methods. |
 | ❌ returns a multiple-answer response as a natural-language string | ✅ returns a multiple-answer response structured as an object or list of objects |
 
