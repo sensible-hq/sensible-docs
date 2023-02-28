@@ -2,9 +2,9 @@
 title: "NLP Table"
 hidden: true
 ---
-Uses GPT3 to extract a table, based on your natural-language description of the data you want to extract.
+Extracts a table based on your natural-language description of the data you want to extract.
 
-Use this method as a low-code alternative to layout-based Table methods, such as [Fixed Table](doc:fixed-table).
+Use this method as a low-code alternative to layout-based Table methods, such as [Text Table](doc:text-table).
 
 **Advantages**
 
@@ -15,12 +15,12 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 **Limitations**
 
 - Can impact performance, because it performs table recognition for the entire document.
-- Suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements.
+- Suited to tables that have a header row, where each row is a data element described by the header. Not suited to tables where the header is in the first column and the columns are data elements.
 - Doesn't support tables that span pages
 
 **Alternatives**
 
--   [Fixed Table](doc:fixed-table) method
+-   [Fixed Table](doc:fixed-table) or [Text table](doc:text-table) methods
 - To extract complex tables, for example tables-inside-tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
 
 **How it works**
@@ -40,7 +40,7 @@ Parameters
 | key                    | value      | description                                                  |
 | :--------------------- | :--------- | :----------------------------------------------------------- |
 | id (**required**)      | `nlpTable` | The Anchor parameter is optional for fields that use this method. If you don't specify an anchor, Sensible searches the whole document for the table.<br/>If you specify an anchor, Sensible ignores any tables before the anchor and starts searching for candidate tables after the anchor. In detail, Sensible ignores a table if 1. it occurs on a page previous to the page containing the anchor, or 2. if on the same page, it ignores the table if the table's lower boundry is higher on the page than the lower boundry of the anchor line. |
-| columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  A natural-language description of the data you want to extract from the column. The description can include instructions to reformat or filter the column's data. For example, provide descriptions like `"The transaction amount. return the absolute values of the monetary amount"` or `"return the car make but not the model from this column"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  A natural-language description of the data you want to extract from the column. The description can include instructions to reformat or filter the column's data. For example, provide descriptions like `" transaction amount. return the absolute values"` or `"vehicle make (not model)"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 
 
 Examples
