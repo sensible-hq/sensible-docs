@@ -227,7 +227,7 @@ Notes
 For an overview of how the NLP Table method works, see the following steps:
 
 
-1. Sensible finds all tables in the document using a Microsoft OCR provider.
+1. Sensible extracts all tables in the document using a Microsoft OCR provider.
 
 2. Sensible extracts the table title, if present.  In detail:
 
@@ -245,6 +245,6 @@ For an overview of how the NLP Table method works, see the following steps:
 
    - Sensible compares the two concatenations using the OpenAPI Embeddings API. 
 
-4. Sensible uses GPT-3 to restructure the table based on your column descriptions and your overall table description. Sensible returns the result in Sensible's standard table output format.
+4. Sensible uses GPT-3 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.
 
    
