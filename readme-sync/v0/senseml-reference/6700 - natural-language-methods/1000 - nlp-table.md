@@ -233,9 +233,7 @@ For an overview of how the NLP Table method works, see the following steps:
 
    -  Sensible extracts lines contained in a rectangular region immediately above each table, since that region is likely to contain the table title. 
    - The height of that region equals the line height of the first non-empty cell of the table + 0.1 inches, and the region extends down to the top boundary of the table.
-   - Lines are "contained" in the region if:
-     - the region and the line overlap for at least 90% of either the region *or* the line's width ("x extent"), AND
-     -  the region and the line overlap for at least 90% of either the region *or* the line's y  height ("extent")
+   - For information about how Sensible determines if lines are "contained" in a region, see [Region](doc:region).
 
 3. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score:
 
