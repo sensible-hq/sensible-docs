@@ -675,7 +675,7 @@ Deprecated types
 Accounting Currency
 ====
 
-**Deprecated**. See [Currency](docs:types#currency)
+**Deprecated**. See [Currency](doc:types#currency)
 
 Returns US dollar numbers. Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`).
 
