@@ -138,22 +138,131 @@ Example output:
 Compose
 ====
 
-Defines a custom type composed of types. Lets you transform type output, much as [computed field methods](doc:computed-field-methods) let you filter and transform type output.  For example:
+Returns a transformed type you define using an array of types. In the array, each successive type in the array takes the previous type's output as its input. For example, use this type:
 
-- It's useful when you need to transform field output but you can't define a regex match for that output. For example, you can define a type but not a match for the cells in a table column. 
-- It's useful when you want to transform a typed output with multiple possible source formats (eg date example).
+- As a more syntaxically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
+- To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method for writing natural-language instructions to transform table cell contents.
 
-**Syntax example**
-
-**Output example**
-
-**Parameters**
+Parameters
+---
 
 | key                  | value                 | description                                                  |
 | -------------------- | --------------------- | ------------------------------------------------------------ |
 | id (**required**)    | `compose`             |                                                              |
 | types (**required**) | array of type objects | Each type in a compose array takes the output of the previous type as its input. |
 
+
+
+Examples
+----
+
+**Config**
+
+```
+{
+  "fields": [
+    {
+      "id": "maintenance_records",
+      "anchor": "date",
+      "type": "table",
+      "method": {
+        "id": "table",
+        "columns": [
+          {
+            "id": "col1_date",
+            "type": {
+              "id": "compose",
+              "types": [
+                {
+                  /* convert variable source date formats to standard format
+                     YYYY-MM-DDT00:00:00.000Z */
+                  "id": "date"
+                },
+                /* convert date type's output to YYYY-MM using a capturing group */
+                {
+                  "id": "custom",
+                  "pattern": "^([0-9]{4}-[0-9]{2})-[0-9]{2}"
+                } 
+              ]
+            },
+            "terms": [
+              "date",
+            ],
+          },
+          {
+            "id": "col2_description",
+            "terms": [
+              "description"
+            ],
+          }
+        ],
+        "stop": {
+          "type": "startsWith",
+          "text": "keep"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```
+{
+  "maintenance_records": {
+    "columns": [
+      {
+        "id": "col1_date",
+        "values": [
+          {
+            "value": "2021-12",
+            "type": "string"
+          },
+          {
+            "value": "2022-03",
+            "type": "string"
+          },
+          null,
+          {
+            "value": "2023-01",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "col2_description",
+        "values": [
+          {
+            "value": "Changed oil",
+            "type": "string"
+          },
+          {
+            "value": "New front tires",
+            "type": "string"
+          },
+          {
+            "value": "Battery replaced",
+            "type": "string"
+          },
+          {
+            "value": "Changed oil",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 
 Currency
@@ -268,7 +377,7 @@ Use configurable syntax to change the default recognized formats.
 Custom
 ====
 
-Defines a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, and order numbers.
+Returns a custom type you define using regular expressions. For example, define types for zip codes, time durations, customer IDs, and order numbers.
 
 **Example syntax**
 
