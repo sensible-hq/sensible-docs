@@ -60,6 +60,7 @@ The following example shows using the NLP Table method to extract information fr
       "type": "table",
       "method": {
         "id": "nlpTable",
+        "description": "insured vehicles",
         "columns": [
           {
             /* for each column, provide a user-friendly ID
@@ -80,6 +81,7 @@ The following example shows using the NLP Table method to extract information fr
       "type": "table",
       "method": {
         "id": "nlpTable",
+        "description": "transactions for insurance account",
         "columns": [
           {
             "id": "transaction_date",
