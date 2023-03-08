@@ -11,7 +11,7 @@ The following topics describe natural language methods:
 
 - [NLP Table](doc:nlp-table) method
 
-- (Beta) [Question](doc:question) method
+- [Question](doc:question) method
 
 - [Summarizer](doc:summarizer) computed field method
 
