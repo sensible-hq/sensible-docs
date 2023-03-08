@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Extracts the answer to a free-text question.  This method is a beta release.
+Extracts the answer to a free-text question.
 
 Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method. For a comparsion of these methods, see the following table:
 
