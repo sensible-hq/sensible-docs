@@ -26,6 +26,7 @@ The following types are available:
 
 [Address](doc:types#address)
 [Boolean](doc:types#boolean)
+[Compose](doc:types#compose)
 [Currency](doc:types#currency)
 [Custom](doc:types#custom)
 [Date](doc:types#date)
@@ -133,6 +134,27 @@ Example output:
   value: true,
 }
 ```
+
+Compose
+====
+
+Defines a custom type composed of types. Lets you transform type output, much as [computed field methods](doc:computed-field-methods) let you filter and transform type output.  For example:
+
+- It's useful when you need to transform field output but you can't define a regex match for that output. For example, you can define a type but not a match for the cells in a table column. 
+- It's useful when you want to transform a typed output with multiple possible source formats (eg date example).
+
+**Syntax example**
+
+**Output example**
+
+**Parameters**
+
+| key                  | value                 | description                                                  |
+| -------------------- | --------------------- | ------------------------------------------------------------ |
+| id (**required**)    | `compose`             |                                                              |
+| types (**required**) | array of type objects | Each type in a compose array takes the output of the previous type as its input. |
+
+
 
 Currency
 ====
