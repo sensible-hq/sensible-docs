@@ -40,6 +40,7 @@ Parameters
 | key                    | value      | description                                                  |
 | :--------------------- | :--------- | :----------------------------------------------------------- |
 | id (**required**)      | `nlpTable` | The Anchor parameter is optional for fields that use this method. If you don't specify an anchor, Sensible searches the whole document for the table.<br/>If you specify an anchor, Sensible ignores any tables before the anchor and starts searching for candidate tables after the anchor. In detail, Sensible ignores a table if 1. it occurs on a page previous to the page containing the anchor, or 2. if on the same page, it ignores the table if the table's lower boundary is higher on the page than the lower boundary of the anchor line. |
+| description            | string     | A description of the table's subject matter as a whole. As part of finding the best-matching table, Sensible compares the table title, if present, to this description. For more details about how Sensible uses the description, see the Notes section. |
 | columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  A natural-language description of the data you want to extract from the column. The description can include instructions to reformat or filter the column's data. For example, provide descriptions like `" transaction amount. return the absolute value"` or `"vehicle make (not model)"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
 
 
@@ -226,10 +227,22 @@ Notes
 For an overview of how the NLP Table method works, see the following steps:
 
 
-1. Sensible finds all tables in the document using a Microsoft OCR provider.
+1. Sensible extracts all tables in the document using a Microsoft OCR provider.
 
-2. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score, Sensible compares your concatenated descriptions against the concatenated first two rows of the table using the OpenAPI Embeddings API. 
+2. Sensible extracts the table title, if present.  In detail:
 
-3. Sensible uses GPT-3 to restructure the table based on your column descriptions. Sensible returns the result in Sensible's standard table output format.
+   -  Sensible extracts lines contained in a rectangular region immediately above each table, since that region is likely to contain the table title. 
+   - The height of that region equals the line height of the first non-empty cell of the table + 0.1 inches, and the region extends down to the top boundary of the table.
+   - For information about how Sensible determines if lines are "contained" in a region, see [Region](doc:region).
+
+3. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score:
+
+   - Sensible concatenates all your column descriptions with your overall table description. 
+
+   - Sensible concatenates the first two rows of the table with the table title.
+
+   - Sensible compares the two concatenations using the OpenAPI Embeddings API. 
+
+4. Sensible uses GPT-3 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.
 
    
