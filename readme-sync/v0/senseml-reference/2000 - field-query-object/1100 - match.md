@@ -210,18 +210,19 @@ Use Boolean matches to write Boolean logic about your matches. You can nest Bool
   "fields": [
     {
       "id": "test_boolean_matches",
-      /* output all lines that meet 
-         the anchor match criteria */
+      /* to show matching behavior, output all matching
+         anchor lines, not just the first match */
       "match": "all",
       "method": {
-        /* output anchors with passthrough method
-          to show matching behavior */
+        /* to show matching behavior, use passthrough
+           to output anchor text
+           */
         "id": "passthrough"
       },
       "anchor": {
         "match": [
           {
-            /* match a line if meets the criteria
+            /* match a line if meets the conditions
                of any of the following array of matches */
             "type": "any",
             "matches": [
