@@ -191,7 +191,7 @@ This example matches the first line after a matched line in an array:
 Boolean matches
 ---
 
-A Boolean match returns a line that matches any, all, or none of the conditions of the match objects in the array. You can nest Boolean matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
+Use Boolean matches to write Boolean logic about your matches. You can nest Boolean matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
 
 **Parameters**
 
