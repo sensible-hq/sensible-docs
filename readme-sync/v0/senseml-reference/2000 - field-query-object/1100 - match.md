@@ -15,7 +15,7 @@ See the following sections for more information:
 - [Simple match](doc:match#simple-match)
 - [Regex match](doc:match#regex-match)
 - [First match](doc:match#first-match)
-- [Boolean matches](doc:match#any-match)
+- [Boolean matches](doc:match#boolean-match)
 
 [**Match arrays**](doc:match#match-arrays)
 
