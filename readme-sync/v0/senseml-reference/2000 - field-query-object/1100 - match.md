@@ -191,14 +191,16 @@ This example matches the first line after a matched line in an array:
 Boolean matches
 ---
 
-Matches any, all, or none of an array of Simple or Regex match objects.
+Returns a line that matches any, all, or none of the criteria of the match objects in the array. You can nest Boolean matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
 
 **Parameters**
 
-| key                    | values                                  |                                                  description |
-| ---------------------- | --------------------------------------- | -----------------------------------------------------------: |
-| type (**required**)    | `any`, `all`, `not`                     | `any` : Same behavior as Boolean "or". Returns a line that meets any of the match criteria in the array.<br/>`all` Same behavior as  Boolean "and". Returns a line that meets all of the match criteria in the array.<br/>`not` Same behavior as Boolean "not". Returns a line that excludes all the criteria in the array. |
-| matches (**required**) | array of regex or simple Match objects. | Returns a line that matches any, all, or none of the criteria of the match objects in the array. You can nest Boolean matches. <br/>For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions. |
+| key                                                          | values                  |                                                  description |
+| ------------------------------------------------------------ | ----------------------- | -----------------------------------------------------------: |
+| type (**required**)                                          | `any`, `all`, `not`     | `any` : Same behavior as Boolean "or". Returns a line that meets any of the match criteria in the array.<br/>`all` Same behavior as  Boolean "and". Returns a line that meets all of the match criteria in the array.<br/>`not` Same behavior as Boolean "not". Returns a line if it contains none of the matches in the array. |
+| matches (**required** for `any` and `all`, optional for `not` match) | Array of Match objects. |                                                              |
+
+**EXAMPLE**
 
 *Config*
 
@@ -266,6 +268,18 @@ The following image shows the example document used with this example config:
 *Output*
 
 ```json
+{
+  "test_boolean_matches": [
+    {
+      "type": "string",
+      "value": "This is a header."
+    },
+    {
+      "type": "string",
+      "value": "This is a special line."
+    }
+  ]
+}
 ```
 
 
