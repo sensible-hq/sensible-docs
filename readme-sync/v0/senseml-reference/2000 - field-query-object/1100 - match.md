@@ -188,7 +188,7 @@ This example matches the first line after a matched line in an array:
 }
 ```
 
-Boolean match
+Boolean matches
 ---
 
 Matches any, all, or none of an array of Simple or Regex match objects.
