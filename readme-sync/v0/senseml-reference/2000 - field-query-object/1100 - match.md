@@ -198,8 +198,8 @@ Returns a line that matches any, all, or none of the criteria of the match objec
 | key                                        | values                  |                                                  description |
 | ------------------------------------------ | ----------------------- | -----------------------------------------------------------: |
 | type (**required**)                        | `any`, `all`, `not`     | `any` : Same behavior as Boolean "or". Returns a line that meets any of the match criteria in the array.<br/>`all` Same behavior as  Boolean "and". Returns a line that meets all of the match criteria in the array.<br/>`not` Same behavior as Boolean "not". Returns a line if it contains none of the matches in the array. |
-| matches (**required** for `any` and `all`) | Array of Match objects. |                                                              |
-| match (**required** for `not`)             |                         |                                                              |
+| matches (**required** for `any` and `all`) | Array of Match objects. |                                     Use with `any` and `all` |
+| match                                      | Match object            |                                               Use with `not` |
 
 **EXAMPLE**
 
