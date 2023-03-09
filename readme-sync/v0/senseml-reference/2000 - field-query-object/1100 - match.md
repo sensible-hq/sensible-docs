@@ -198,7 +198,7 @@ Use Boolean matches to write Boolean logic about your matches.  For example, use
 | key                                        | values                  | description                                                  |
 | ------------------------------------------ | ----------------------- | ------------------------------------------------------------ |
 | type (**required**)                        | `any`, `all`, `not`     | `any` : Same behavior as Boolean operator "or". Returns a line that meets any of the match conditions in the array.<br/>`all` Same behavior as  Boolean operator "and". Returns a line that meets all of the match conditions in the array.<br/>`not` Same behavior as Boolean operator "not". Returns a line if it doesn't meet the match condition.<br/> |
-| matches (**required** for `any` and `all`) | Array of Match objects. | Use with `any` and `all`. You can nest Boolean matches in arrays. |
+| matches (**required** for `any` and `all`) | Array of Match objects. | Use with `any` and `all`. You can nest Boolean matches using this parameter. |
 | match (**required** for `not`)             | Match object            | Use with `not`                                               |
 
 **EXAMPLE**
