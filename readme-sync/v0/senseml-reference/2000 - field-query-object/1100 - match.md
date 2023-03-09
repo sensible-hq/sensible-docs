@@ -223,7 +223,7 @@ Use Boolean matches to write Boolean logic about your matches.  For example, use
         "match": [
           {
             /* match a line if meets the conditions
-               of any of the following array of matches */
+               of ANY of the following array of matches */
             "type": "any",
             "matches": [
               /* match a line that includes "special"  */
@@ -231,8 +231,9 @@ Use Boolean matches to write Boolean logic about your matches.  For example, use
                 "type": "includes",
                 "text": "special"
               },
-              /* match a line that includes "header" 
-                 but not "should not" */
+              /* match a line that meets ALL of the conditions:
+                 it includes "header" 
+                 but NOT "should not" */
               {
                 "type": "all",
                 "matches": [
