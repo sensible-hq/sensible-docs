@@ -15,7 +15,7 @@ See the following sections for more information:
 - [Simple match](doc:match#simple-match)
 - [Regex match](doc:match#regex-match)
 - [First match](doc:match#first-match)
-- [Any match](doc:match#any-match)
+- [Boolean matches](doc:match#any-match)
 
 [**Match arrays**](doc:match#match-arrays)
 
@@ -31,9 +31,9 @@ The following parameters are available to most types of Match objects:
 
 | key           | values                  | description                                                  |
 | ------------- | ----------------------- | ------------------------------------------------------------ |
-| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match array, but valid for individual matches in the array. |
-| maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for an Any match array, but valid for individual matches in the array. |
-| reverse       | boolean. default: false | Use with match arrays. Don't use with the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Match arrays](doc:match-arrays#reverse-match). |
+| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for a Boolean match, but valid for individual matches in its array. |
+| maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for a Boolean match, but valid for individual matches in its array. |
+| reverse       | boolean. default: false | Use in match arrays. Don't set this to true for the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Match arrays](doc:match-arrays#reverse-match). |
 
 Simple match
 -------
@@ -188,44 +188,86 @@ This example matches the first line after a matched line in an array:
 }
 ```
 
-Any match
+Boolean match
 ---
 
-Matches any of an array of Simple or Regex match objects.
+Matches any, all, or none of an array of Simple or Regex match objects.
 
 **Parameters**
 
-| key                    | values                                 | description                                                  |
-| ---------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| type (**required**)    | `any`                                  |                                                              |
-| matches (**required**) | array of regex or simple Match objects | Match any of the Match objects in the array. For example, this allows you to match on an array of synonymous terms if a document contains small wording variations across revisions. |
+| key                    | values                                  |                                                  description |
+| ---------------------- | --------------------------------------- | -----------------------------------------------------------: |
+| type (**required**)    | `any`, `all`, `not`                     | any is the same as the boolean "or"<br/>all is the same as the boolean "and"<br/>not is the same as the boolean "not" |
+| matches (**required**) | array of regex or simple Match objects. | Match any, all, or none of the Match objects in the array. You can nest Boolean matches. <br/>For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions. |
 
-**Example**
+*Config*
 
 ```json
 {
-	"fields": [{
-		"anchor": {
-			"match": {
-				"type": "any",
-				"matches": [{
-						"type": "equals",
-						"text": "load value"
-					},
-					{
-						"type": "equals",
-						"text": "cargo value"
-					}
-				]
-			}
-		},
-		"id": "cargo",
-		"method": {
-			"id": "passthrough"
-		}
-	}]
+  "fields": [
+    {
+      "id": "test_boolean_matches",
+      /* output all lines that meet 
+         the anchor match criteria */
+      "match": "all",
+      "method": {
+        /* output anchors with passthrough method
+          to show matching behavior */
+        "id": "passthrough"
+      },
+      "anchor": {
+        "match": [
+          {
+            /* match a line if meets the criteria
+               of any of the following array of matches */
+            "type": "any",
+            "matches": [
+              /* match a line that includes "special"  */
+              {
+                "type": "includes",
+                "text": "special"
+              },
+              /* match a line that includes "header" 
+                 but not "should not" */
+              {
+                "type": "all",
+                "matches": [
+                  {
+                    "type": "includes",
+                    "text": "header"
+                  },
+                  {
+                    "type": "not",
+                    "match": {
+                      "type": "includes",
+                      "text": "should not"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
+*Example document*
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/boolean_match.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/boolean_match.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+
+
+*Output*
+
+```json
+```
+
 
 Match arrays
 ===
