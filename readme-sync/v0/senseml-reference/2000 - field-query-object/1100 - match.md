@@ -191,15 +191,15 @@ This example matches the first line after a matched line in an array:
 Boolean matches
 ---
 
-Use Boolean matches to write Boolean logic about your matches. You can nest Boolean matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
+Use Boolean matches to write Boolean logic about your matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
 
 **Parameters**
 
-| key                                        | values                  |                                                  description |
-| ------------------------------------------ | ----------------------- | ----------------------------------------------------------- |
-| type (**required**)                        | `any`, `all`, `not`     | `any` : Same behavior as Boolean operator "or". Returns a line that meets any of the match conditions in the array.<br/>`all` Same behavior as  Boolean operator "and". Returns a line that meets all of the match conditions in the array.<br/>`not` Same behavior as Boolean operator "not". Returns a line if it doesn't meet the match condition. |
-| matches (**required** for `any` and `all`) | Array of Match objects. |                                     Use with `any` and `all` |
-| match (**required** for `not`)             | Match object            |                                               Use with `not` |
+| key                                        | values                  | description                                                  |
+| ------------------------------------------ | ----------------------- | ------------------------------------------------------------ |
+| type (**required**)                        | `any`, `all`, `not`     | `any` : Same behavior as Boolean operator "or". Returns a line that meets any of the match conditions in the array.<br/>`all` Same behavior as  Boolean operator "and". Returns a line that meets all of the match conditions in the array.<br/>`not` Same behavior as Boolean operator "not". Returns a line if it doesn't meet the match condition.<br/> |
+| matches (**required** for `any` and `all`) | Array of Match objects. | Use with `any` and `all`. You can nest Boolean matches in arrays. |
+| match (**required** for `not`)             | Match object            | Use with `not`                                               |
 
 **EXAMPLE**
 
