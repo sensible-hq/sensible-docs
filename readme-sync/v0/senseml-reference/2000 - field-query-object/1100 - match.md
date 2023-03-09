@@ -191,15 +191,15 @@ This example matches the first line after a matched line in an array:
 Boolean matches
 ---
 
-Returns a line that matches any, all, or none of the criteria of the match objects in the array. You can nest Boolean matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
+Returns a line that matches any, all, or none of the conditions of the match objects in the array. You can nest Boolean matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
 
 **Parameters**
 
 | key                                        | values                  |                                                  description |
 | ------------------------------------------ | ----------------------- | -----------------------------------------------------------: |
-| type (**required**)                        | `any`, `all`, `not`     | `any` : Same behavior as Boolean "or". Returns a line that meets any of the match criteria in the array.<br/>`all` Same behavior as  Boolean "and". Returns a line that meets all of the match criteria in the array.<br/>`not` Same behavior as Boolean "not". Returns a line if it doesn't meet the match criterium. |
+| type (**required**)                        | `any`, `all`, `not`     | `any` : Same behavior as Boolean "or". Returns a line that meets any of the match conditions in the array.<br/>`all` Same behavior as  Boolean "and". Returns a line that meets all of the match conditions in the array.<br/>`not` Same behavior as Boolean "not". Returns a line if it doesn't meet the match condition. |
 | matches (**required** for `any` and `all`) | Array of Match objects. |                                     Use with `any` and `all` |
-| match                                      | Match object            |                                               Use with `not` |
+| match (**required** for `not`)             | Match object            |                                               Use with `not` |
 
 **EXAMPLE**
 
