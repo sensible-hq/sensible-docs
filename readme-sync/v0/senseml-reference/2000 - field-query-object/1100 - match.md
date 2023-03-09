@@ -195,10 +195,11 @@ Returns a line that matches any, all, or none of the criteria of the match objec
 
 **Parameters**
 
-| key                                                          | values                  |                                                  description |
-| ------------------------------------------------------------ | ----------------------- | -----------------------------------------------------------: |
-| type (**required**)                                          | `any`, `all`, `not`     | `any` : Same behavior as Boolean "or". Returns a line that meets any of the match criteria in the array.<br/>`all` Same behavior as  Boolean "and". Returns a line that meets all of the match criteria in the array.<br/>`not` Same behavior as Boolean "not". Returns a line if it contains none of the matches in the array. |
-| matches (**required** for `any` and `all`, optional for `not` match) | Array of Match objects. |                                                              |
+| key                                        | values                  |                                                  description |
+| ------------------------------------------ | ----------------------- | -----------------------------------------------------------: |
+| type (**required**)                        | `any`, `all`, `not`     | `any` : Same behavior as Boolean "or". Returns a line that meets any of the match criteria in the array.<br/>`all` Same behavior as  Boolean "and". Returns a line that meets all of the match criteria in the array.<br/>`not` Same behavior as Boolean "not". Returns a line if it contains none of the matches in the array. |
+| matches (**required** for `any` and `all`) | Array of Match objects. |                                                              |
+| match (**required** for `not`)             |                         |                                                              |
 
 **EXAMPLE**
 
@@ -238,6 +239,7 @@ Returns a line that matches any, all, or none of the criteria of the match objec
                     "type": "includes",
                     "text": "header"
                   },
+                    /* note that "not"  */
                   {
                     "type": "not",
                     "match": {
