@@ -496,7 +496,7 @@ components:
       name: ids
       required: true
       in: path
-      description: Comma-deliminted list of unique extraction ID.
+      description: Comma-delimited list of unique extraction IDs.
       schema:
         $ref: '#/components/schemas/ExtractionId'
 
