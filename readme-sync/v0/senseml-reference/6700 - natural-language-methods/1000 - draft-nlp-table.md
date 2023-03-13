@@ -13,12 +13,13 @@ So then is the new description of 'how it works' as follows?
 For an overview of how the NLP Table method works, see the following steps:
 
 
-1. To optimize performance, Sensible scores which pages are most likely to contain a table that matches your descriptions. To find the tables:
+1. To optimize performance, Sensible makes of a list of the pages that are most likely to contain your target table. To make the list:
    - Sensible concatenates all your column descriptions with your overall table description. 
    - To meet OpenAPI character limits, Sensible splits the document into equal-sized, overlapping chunks. 
    - Sensible scores your concatenated table descriptions against each chunk using the OpenAPI Embeddings API.
-   - Sensible uses the top-scoring chunks to get a list of page numbers.
-1. Sensible extracts all the tables from the list of pages most likely to contain your table, using a Microsoft OCR provider. 
+   - Sensible gets a list of page numbers from the top-scoring chunks.
+1. Sensible extracts all the tables on the list of pages most likely to contain your table, using a Microsoft OCR provider. 
+
 3. For each extracted table, Sensible extracts the table title, if present.  In detail:
 
    -  Sensible extracts lines contained in a rectangular region immediately above each table, since that region is likely to contain the table title. 
