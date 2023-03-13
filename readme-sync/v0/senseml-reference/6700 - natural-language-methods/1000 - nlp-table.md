@@ -88,7 +88,7 @@ The following example shows using the NLP Table method to extract information fr
             /* note GPT3 has some limitations due to its training data. 
                For example, it doesn't know the current year 
                so it makes one up in the output */
-            "transaction_description": "transaction date. If there's no year, append the current year.",
+            "description": "transaction date. If there's no year, append the current year.",
           },
           {
             "id": "transaction_description",
