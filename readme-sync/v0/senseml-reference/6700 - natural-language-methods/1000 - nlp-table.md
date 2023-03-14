@@ -230,12 +230,12 @@ Notes
 4. For an overview of how the NLP Table method works, see the following steps:
 
    
-   1. To optimize performance, Sensible makes of a list of the pages that are most likely to contain your target table. To make the list:
+   1. To optimize performance, Sensible makes a list of the pages that are most likely to contain your target table. To make the list:
       - Sensible concatenates all your column descriptions with your overall table description. 
       - Sensible splits the document into equal-sized, overlapping chunks. 
       - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
       - Sensible gets a list of page numbers from the top-scoring chunks.
-   2. Sensible extracts all the tables on the list of pages most likely to contain your table, using a Microsoft OCR provider. 
+   2. Sensible extracts all the tables on each page in the list of pages most likely to contain your table, using a Microsoft OCR provider. 
    
    3. For each extracted table, Sensible extracts the table title, if present.  In detail:
    
