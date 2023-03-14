@@ -24,7 +24,7 @@ Handwriting tips
 
   
 
-- **Defining regions:** Handwriting can occupy an unpredictable region or even overlap other lines. Sensible recommends defining a region with a small height and long width that runs through the middle of the handwriting. The green boxes in the following image show this approach: 
+- **Defining regions:** Handwriting can occupy an unpredictable region or even overlap other lines. To capture handwriting, Sensible recommends defining a [region](doc:region) with a small height and long width that runs through the middle of the area that can contain the handwriting. The green boxes in the following image show this approach: 
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/handwriting_1.png) 
 
