@@ -14,7 +14,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Limitations**
 
-- Can impact performance, because it performs table recognition for the entire document.
+- Can impact performance, to a similar extent as the the OCR preprocessor. For more information, see [Optimizing extraction performance](doc:performance).
 - Suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements.
 - Doesn't support tables that span pages.
 
@@ -226,25 +226,29 @@ The following image shows the example document used with this example config:
 Notes
 ===
 
-For an overview of how the NLP Table method works, see the following steps:
 
-
-1. Sensible extracts all tables in the document using a Microsoft OCR provider.
-
-2. Sensible extracts the table title, if present.  In detail:
-
-   -  Sensible extracts lines contained in a rectangular region immediately above each table, since that region is likely to contain the table title. 
-   - The height of that region equals the line height of the first non-empty cell of the table + 0.1 inches, and the region extends down to the top boundary of the table.
-   - For information about how Sensible determines if lines are "contained" in a region, see [Region](doc:region).
-
-3. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score:
-
-   - Sensible concatenates all your column descriptions with your overall table description. 
-
-   - Sensible concatenates the first two rows of the table with the table title.
-
-   - Sensible compares the two concatenations using the OpenAPI Embeddings API. 
-
-4. Sensible uses GPT-3 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.
+4. For an overview of how the NLP Table method works, see the following steps:
 
    
+   1. To optimize performance, Sensible makes of a list of the pages that are most likely to contain your target table. To make the list:
+      - Sensible concatenates all your column descriptions with your overall table description. 
+      - Sensible splits the document into equal-sized, overlapping chunks. 
+      - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
+      - Sensible gets a list of page numbers from the top-scoring chunks.
+   2. Sensible extracts all the tables on the list of pages most likely to contain your table, using a Microsoft OCR provider. 
+   
+   3. For each extracted table, Sensible extracts the table title, if present.  In detail:
+   
+      -  Sensible extracts lines contained in a rectangular region immediately above each table, since that region is likely to contain the table title. 
+      -  The height of that region equals the line height of the first non-empty cell of the table + 0.1 inches, and the region extends down to the top boundary of the table.
+      -  For information about how Sensible determines if lines are "contained" in a region, see [Region](doc:region).
+   
+   4. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score:
+   
+      - Sensible concatenates all your column descriptions with your overall table description. 
+   
+      - Sensible concatenates the first two rows of the table with the table title.
+   
+      - Sensible compares the two concatenations using the OpenAI Embeddings API. 
+   
+   5. Sensible uses GPT-3 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.

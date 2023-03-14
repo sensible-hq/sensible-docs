@@ -30,7 +30,7 @@ In order of slowest to quickest, these factors add seconds to the ideal document
 
 | Factor                                               | Notes                                                        |
 | ---------------------------------------------------- | ------------------------------------------------------------ |
-| selective OCR                                        | Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr). |
+| selective OCR                                        | - Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr).<br/>- Sensible performs OCR on select pages to recognize table candidates for the [NLP Table method](doc:nlp-table). |
 | selective table recognition, Nearest Checkbox method | Sensible process tables that include a stop in less than 5 seconds. Or, convert to the faster [Fixed table](doc:fixed-table) method, which skips table recognition. |
 
  **Under 1 second per document**
