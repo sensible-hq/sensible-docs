@@ -28,10 +28,11 @@ In order of slowest to quickest, these factors add seconds to the ideal document
 
  **Under 5 seconds per document**
 
-| Factor                                               | Notes                                                        |
-| ---------------------------------------------------- | ------------------------------------------------------------ |
-| selective OCR                                        | - Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr).<br/>- Sensible performs OCR on select pages to recognize table candidates for the [NLP Table method](doc:nlp-table). |
-| selective table recognition, Nearest Checkbox method | Sensible process tables that include a stop in less than 5 seconds. Or, convert to the faster [Fixed table](doc:fixed-table) method, which skips table recognition. |
+| Factor                                         | Notes                                                        |
+| ---------------------------------------------- | ------------------------------------------------------------ |
+| OCR preprocessor                               | Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr). |
+| Tables with stops,<br/>Nearest Checkbox method | Sensible process tables that include a Stop parameter in less than 5 seconds. Or, convert to the faster [Fixed table](doc:fixed-table) method, which skips table recognition. |
+| NLP methods                                    | NLP methods include Question, Summarizer, and the [NLP Table method](doc:nlp-table). |
 
  **Under 1 second per document**
 
@@ -40,7 +41,7 @@ Some Sensible methods use pixels, for example to recognize borders. Pixel recogn
 | Factor                                                       | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Box method                                                   | To improve processing speed, convert the more flexible Box method to the strictly coordinate-based Region method. |
-| Signature method, Checkbox method, and image coordinate extraction | These methods have no alternatives. See the following section for ways to avoid running these methods except when necessary. |
+| Signature method,<br/> Checkbox method,<br/>[image coordinate extraction](doc:document-range) | These methods have no alternatives. See the following section for ways to avoid running these methods except when necessary. |
 
 Document type performance
 ----
