@@ -9,13 +9,13 @@ SenseML natural-language methods are powered by machine learning and natural lan
 
 The following topics describe natural language methods:
 
-| Method                                                       | Image                                                        | Notes                                                 |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------------------------------- |
-| **[List]TODO**                                               | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_1099.png) | Extracts contents from boxes with continuous borders. |
-| [NLP Table](doc:nlp-table) method                            |                                                              |                                                       |
-| [Question](doc:question) method                              |                                                              |                                                       |
-| [Summarizer](doc:summarizer) computed field method + [Topic](doc:topic) method |                                                              |                                                       |
-|                                                              |                                                              |                                                       |
+| Method                                                       | Image                                                        | Notes                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **[List]TODO**                                               | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_1099.png) | Extracts a list of entities out of a document, where you don't know how they're represented |
+| [NLP Table](doc:nlp-table) method                            |                                                              | Extracts a list of entities out of a document, where you know they're in a table |
+| [Question](doc:question) method                              |                                                              | Extracts a single fact or data point                         |
+| [Summarizer](doc:summarizer) computed field method + [Topic](doc:topic) method |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
 
 
 
