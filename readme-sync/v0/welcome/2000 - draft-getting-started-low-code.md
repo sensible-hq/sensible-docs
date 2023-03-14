@@ -1,5 +1,5 @@
 ---
-title: "Getting started"
+title: "Getting started with low-code NLP extractions"
 hidden: true
 
 ---
@@ -13,7 +13,9 @@ hidden: true
 Get structured data from an auto insurance quote
 ===
 
-Let's get started with Sensible! In this tutorial, you'll learn a low-code way to use SenseML, a JSON-formatted query language for extracting structured data from documents, for example PDFs of business forms. SenseML uses a mix of techniques, including machine learning, heuristics, and rules.
+Let's get started with Sensible! In this tutorial, you'll learn a low-code way to extract data from PDFs and other documents using natural-language processing (NLP) methods powered by GPT-3 and other AI tools.  
+
+These methods are alternatives to Sensible's more deterministic [layout-based ] extraction methods -- suited for easy extraction configuration authoring and for unstructured documents without much layout (like legaese documents versus tax documents). These NLP methods can be used in combination with layout methods too, or as fallbacks in the same extraction configuration. 
 
 Get an account
 ====
@@ -22,7 +24,7 @@ Get an account
 
 2. Log into the [Sensible app](https://app.sensible.so/signin/).
 
-Create a config
+Configure the extraction
 ====
 
 1. Click **+ New**  to create a new document type and name  it "auto_insurance_quote." Select **visual editor** and click **Create**.
