@@ -14,7 +14,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Limitations**
 
-- Can impact performance, to a similar extent as the the OCR preprocessor. For more information, see [Optimizing extraction performance](doc:performance).
+- Can have a moderate impact on performance. For more information, see [Optimizing extraction performance](doc:performance).
 - Suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements.
 - Doesn't support tables that span pages.
 
