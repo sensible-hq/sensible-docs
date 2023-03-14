@@ -20,7 +20,7 @@ Use this method as a low-code alternative to layout-based Table methods, such as
 
 **Alternatives**
 
--   [Fixed Table](doc:fixed-table) or [Text table](doc:text-table) methods.
+-   [Fixed Table](doc:fixed-table) or [Text Table](doc:text-table) methods.
 - To extract complex tables, for example tables-inside-tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
 
 **How it works**
