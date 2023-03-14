@@ -17,7 +17,7 @@ Document performance
 
 In an ideal performance scenario, you extract data from digitally generated PDFs using text-based or coordinate-based Sensible methods, such as Label, Row, Region, Text Table, and Document Range.
 
-In order of slowest to quickest, these factors add seconds to the ideal document processing time:
+In order of largest to smallest impact, these factors add seconds to the ideal document processing time:
 
 **Over 10 seconds per document**
 
