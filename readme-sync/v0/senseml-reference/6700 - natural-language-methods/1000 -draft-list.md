@@ -49,7 +49,103 @@ The following example shows using the NLP Table method to extract information fr
 **Config**
 
 ```json
-
+{
+  "fields": [
+    {
+      "id": "cars",
+      "type": "table",
+      "method": {
+        "id": "list",
+        "description": "cars info",
+        "properties": [
+          {
+            "id": "brand",
+            "description": "brand"
+          },
+          {
+            "id": "make",
+            "description": "make"
+          },
+          {
+            "id": "model_year",
+            "description": "model year"
+          },
+          {
+            "id": "vin",
+            "description": "vin"
+          }
+        ]
+      }
+    },
+    {
+      "id": "premiums",
+      "type": "table",
+      "method": {
+        "id": "list",
+        // insurance info
+        "description": "insurance info for each vehicle",
+        "properties": [
+          /*{
+            "id": "uninsured limit",
+            "description": "uninsured motorist property damage limit"
+          },
+          {
+            "id": "uninsured deductible",
+            "description": "uninsured motorist property damage deductible"
+          },
+          */
+          {
+            "id": "uninsured motorist premium",
+            "description": "uninsured motorist property damage premium"
+          },
+          {
+            "id": "roadside assistance",
+            "description": "roadside assistance premium"
+          },
+          {
+            "id": "total coverage premium",
+            "description": "total vehicle coverage premium"
+          },
+          {
+            "id": "total 6 month policy premium",
+            "description": "total 6 month policy premium"
+          },
+        ]
+      }
+      // todo: field for limits and deductibles for each vehicle??
+    }
+  ],
+  "computed_fields": [
+    {
+      "id": "cars_zipped",
+      "method": {
+        "id": "zip",
+        "source_ids": [
+          "cars",
+        ]
+      }
+    },
+    {
+      "id": "premiums_zipped",
+      "method": {
+        "id": "zip",
+        "source_ids": [
+          "premiums",
+        ]
+      }
+    },
+    {
+      "id": "hide_fields",
+      "method": {
+        "id": "suppressOutput",
+        "source_ids": [
+          "cars",
+          "premiums"
+        ]
+      }
+    }
+  ]
+}
 ```
 
 **Example document**
@@ -63,7 +159,84 @@ The following image shows the example document used with this example config:
 **Output**
 
 ```json
-
+{
+  "cars_zipped": [
+    {
+      "brand": {
+        "value": "Mercedes-Benz",
+        "type": "string"
+      },
+      "make": {
+        "value": "S600",
+        "type": "string"
+      },
+      "model_year": {
+        "value": "2003",
+        "type": "string"
+      },
+      "vin": {
+        "value": "WDBNG76J73A347865",
+        "type": "string"
+      }
+    },
+    {
+      "brand": {
+        "value": "Subaru",
+        "type": "string"
+      },
+      "make": {
+        "value": "Forester",
+        "type": "string"
+      },
+      "model_year": {
+        "value": "2006",
+        "type": "string"
+      },
+      "vin": {
+        "value": "JF1SG67606H711473",
+        "type": "string"
+      }
+    }
+  ],
+  "premiums_zipped": [
+    {
+      "uninsured motorist premium": {
+        "value": "$8",
+        "type": "string"
+      },
+      "roadside assistance": {
+        "value": "10",
+        "type": "string"
+      },
+      "total coverage premium": {
+        "value": "$18",
+        "type": "string"
+      },
+      "total 6 month policy premium": {
+        "value": "$283.00",
+        "type": "string"
+      }
+    },
+    {
+      "uninsured motorist premium": {
+        "value": "$5",
+        "type": "string"
+      },
+      "roadside assistance": {
+        "value": "12",
+        "type": "string"
+      },
+      "total coverage premium": {
+        "value": "$17",
+        "type": "string"
+      },
+      "total 6 month policy premium": {
+        "value": "$283.00",
+        "type": "string"
+      }
+    }
+  ]
+}
 ```
 
 
