@@ -72,8 +72,8 @@ Notes
 ===
 
 - Sensible finds the chunks of the document that most likely contain your target data: 
-  - Sensible concatenates all your property descriptions with your overall listdescription. 
+  - Sensible concatenates all your property descriptions with your overall list description. 
   - Sensible splits the document into equal-sized, overlapping chunks. 
   - Sensible scores your concatenated list descriptions against each chunk using the OpenAI Embeddings API.
-- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document.
+- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document. TODO: Question: is the number adjustable based on the number of matching 'sections"? TODO look in code
 - Sensible inputs the combined chunks to GPT-3 as one context, and instructs it to fill in the lists based on the context.
