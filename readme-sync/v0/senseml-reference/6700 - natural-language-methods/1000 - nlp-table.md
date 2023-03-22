@@ -4,8 +4,6 @@ hidden: false
 ---
 Extracts a table based on your natural-language description of the data you want to extract.
 
-Use this method as a low-code alternative to layout-based Table methods, such as [Text Table](doc:text-table).
-
 **Advantages**
 
 - Low code. 
