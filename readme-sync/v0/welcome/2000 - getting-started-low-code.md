@@ -1,5 +1,5 @@
 ---
-title: "Getting started with low-code NLP extractions"
+title: "Getting started with no-code extractions"
 hidden: true
 
 ---
