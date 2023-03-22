@@ -5,6 +5,16 @@ hidden: false
 
 Welcome to Sensible's documentation!  Sensible extracts structured data from documents, for example PDFs of business forms, using SenseML, a JSON-formatted query language. 
 
+TODO: steal from ![img](https://ca.slack-edge.com/T017UPRAE94-U0181MWQ8BV-0140373d7470-48)
+
+**Josh Lewis**[1 hour ago](https://sensiblehq.slack.com/archives/C0215T9K86P/p1679507711001889?thread_ts=1679502263.768799&cid=C0215T9K86P)
+
+Looking good. I think the alternatives section could be a bit more clear. The discussion here could be useful: https://www.notion.so/sensiblehq/Questions-talking-points-for-Sensible-Instruct-86d5c6ecc37146b399a94feee81a3d3c?pvs=4 
+
+
+
+to position Sensible Instruct vs SenseML
+
 Common business forms
 ----
 
