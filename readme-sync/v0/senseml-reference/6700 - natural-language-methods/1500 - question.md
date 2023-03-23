@@ -4,9 +4,9 @@ hidden: false
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container deliver. It can find these facts in paragraphs of free text or in more structured layouts, for example key/value pairs or tables.
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. It can find these facts in paragraphs of free text or in more structured layouts, for example key/value pairs or tables.
 
-Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method. For a comparsion of these methods, see the following table:
+Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method. For a comparison of these methods, see the following table:
 
 | Question method                                              | [Summarizer](doc:summarizer) method                          |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -140,9 +140,9 @@ The following example shows using the Question method to extract information fro
         "question": "how often must the rent be paid? return responses like 'monthly', 'quarterly', or 'biweekly'"
       }
     },
-    /* if you ask a multi-part question, you get back 
+    /* if you ask a multi-part question, you get back
        a natural-language answer.
-       As an alternative, use the Summarizer method to structure 
+       As an alternative, use the Summarizer method to structure
        such multi-part responses  */
     {
       "id": "rents_multi_part_question",
@@ -195,7 +195,7 @@ Notes
 
 For an overview of how this method works, see the following steps:
 
-- To meet GPT-3's character limit for input, Sensible splits the document into equal-sized, overlapping chunks. 
-- Sensible scores each chunk by how well it matches the question you pose about the data you want to extract. To create the score, Sensible compares your question against each chunk using the OpenAPI Embeddings API. 
+- To meet GPT-3's character limit for input, Sensible splits the document into equal-sized, overlapping chunks.
+- Sensible scores each chunk by how well it matches the question you pose about the data you want to extract. To create the score, Sensible compares your question against each chunk using the OpenAPI Embeddings API.
 - Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document.
 - Sensible inputs the combined chunks to GPT-3 as one context, and instructs it to answer the question based on the context.
