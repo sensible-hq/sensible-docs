@@ -30,9 +30,26 @@ Tweak existing doc extractions or write new extractions for your custom document
   -  [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions)
   -   [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch) 
 
+
+
+
+
+Quality control and troubleshoot your extractions
+---
+
+  -   [Validate extractions](doc:validate-extractions)
+  -   [Troubleshoot](doc:troubleshoot)
+
+  
+
+
+
 Test and go live
 ----
 
 - [Test before integrating](doc:test-before-integrating-configs)
+
 - [Go-live checklist](doc:go-live)
+
+  
 
