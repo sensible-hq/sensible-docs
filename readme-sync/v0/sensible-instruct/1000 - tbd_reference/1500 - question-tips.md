@@ -47,3 +47,7 @@ You should see output like the following:
 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_instruct.png)
+
+**Learn more**
+
+For more details about how this method works see [Question method](doc:question).
