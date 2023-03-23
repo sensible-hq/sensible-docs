@@ -4,9 +4,9 @@ hidden: false
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container deliver. It can find these facts in paragraphs of free text or in more structured layouts, for example key/value pairs or tables.
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. It can find these facts in paragraphs of free text or in more structured layouts, for example key/value pairs or tables.
 
-Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method. For a comparsion of these methods, see the following table:
+Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method. For a comparison of these methods, see the following table:
 
 | Question method                                              | [Summarizer](doc:summarizer) method                          |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |

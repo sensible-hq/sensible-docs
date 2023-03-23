@@ -17,7 +17,7 @@ hidden: false
 
 - Capable of manipulating output in the question. For example, asking a question and following that with “where unchecked boxes mean no” will output no for unchecked boxes
 
-**How to author this method**
+**How to extract a query**
 
 See TBD TODO LINK TO (video, getting started, etc)
 
@@ -31,7 +31,7 @@ Download the following example document and upload it to Sensible (link)
 
 
 
-Try creaing a new configuration and asking the following questions about the example document in Sensible Instruct (link):
+Try creating a new configuration and asking the following questions about the example document in Sensible Instruct (link):
 
 - for which month and year does this snippet describe wheat production
 - by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'
