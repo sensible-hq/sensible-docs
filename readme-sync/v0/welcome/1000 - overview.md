@@ -3,10 +3,10 @@ title: "Welcome"
 hidden: false
 ---
 
-Welcome to Sensible's documentation!  Sensible extracts structured data from documents, for example PDFs of business forms. Sensible combines a variety of approaches to extraction:
+Welcome to Sensible's documentation. Sensible extracts structured data from documents, for example PDFs of business forms. Sensible combines a variety of approaches to extraction:
 
-- You can use AI-powered low-code queries that use LLM models such as GPT-3, as if you were chatting with an AI bot about the document data you want to extract. 
-- When AI can't handle your document's complexity, you can also extract document data using SenseML, a JSON-formatted, layout-based query language. 
+- You can use AI-powered low-code queries that use LLM models such as GPT-3, as if you were chatting with an AI bot about the document data you want to extract.
+- When AI can't handle your document's complexity, you can also extract document data using SenseML, a JSON-formatted, layout-based query language.
 
 With this blended approach, you can extract from a variety of semi structed, structed, and instructed documets, for example:
 
