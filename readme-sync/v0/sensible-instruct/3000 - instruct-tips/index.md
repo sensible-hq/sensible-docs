@@ -1,9 +1,9 @@
 ---
-title: "Natural language methods"
+title: "Sensible Instruct authoring tips"
 hidden: false
 ---
 
-Use natural-language SenseML methods to extract free text from unstructured documents, or as low-code alternatives to [layout based methods](doc:methods). For example, extract information from legal paragraphs in contracts and leases, or results from research papers. 
+Use natural-language SenseML methods to extract free text from unstructured documents, or as low-code alternatives to [layout based methods](doc:methods). For example, extract information from legal paragraphs in contracts and leases, or results from research papers.
 
 SenseML natural-language methods are powered by machine learning and natural language processing models, for example by the large language model [GPT-3](https://openai.com/api/).
 
