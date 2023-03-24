@@ -8,13 +8,9 @@ hidden: false
 
 **Best practices/tips**
 
-- Suited to labeled data. For example, `"Policy end date: Sept 23, 2023"`  or `"Date of birth: 2000"`.
-  - When extracting non-labeled data, using layout-based language helps (for example, what is the company name in the top left of the document)
-
+- For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+- Suited to labeled data. For example, `"Policy end date: Sept 23, 2023"`  or `"Date of birth: 2000"`. When extracting non-labeled data, using "positional" or layout-based natural language language helps (for example, `what is the company name in the top left of the document`).
 - Being as specific as possible will give the best results (including location, section of the document, type of data, rough location in the document such as 'near the beginning' or 'near the end').
-
-- “Positional” directions work (i.e. what is the name in the top left)
-
 - Capable of manipulating output in the question. For example, asking a question and following that with “where unchecked boxes mean no” will output no for unchecked boxes
 
 **How to extract a query**
