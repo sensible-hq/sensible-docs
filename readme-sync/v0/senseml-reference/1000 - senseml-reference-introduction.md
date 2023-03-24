@@ -7,7 +7,7 @@ hidden: false
 
 
 
-For more information about which types of data are better extracted with SenseML versus Sensible Instruct, see [Sensible Instruct] introduction. TODO LINK -- or linke to the VERSUS topic
+For more information about which types of data are better extracted with SenseML versus Sensible Instruct, see [Sensible Instruct] introduction. TODO LINK -- or link to the VERSUS topic
 
 
 
