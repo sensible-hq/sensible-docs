@@ -30,6 +30,6 @@ jobs:
            npm install
 
       - name: sync markdown guides (excludes changelog, API ref)
-        # use new dev key that you get from a temp test project (remember you'll have to create the categories by hand and change the doc version # which defaults to 1.0, or change it here from /v0)
+        # use new dev key that you get from a temp test project (remember you'll have to create the categories by hand in dash.readme, and change the doc version # which defaults to 1.0, or change it here from /v0)
         run: |
           npx ts-node ./readme-cli-tool/sync/index.ts --apiKey ${{ secrets.DEV_README_KEY }} --version v0 --docs readme-sync/v0
