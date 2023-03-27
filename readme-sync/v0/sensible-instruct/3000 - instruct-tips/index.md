@@ -9,14 +9,12 @@ SenseML natural-language methods are powered by machine learning and natural lan
 
 The following topics describe natural language methods:
 
-| Method                                                       | Example use case                                             | Notes                                                        |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [List](doc:list)                                             | For each vehicle in an auto insurance declaration, extract the VIN, model, and year. | Extracts a list of data out of a document, where you don't know how the data are represented. |
-| [NLP Table](doc:nlp-table) method                            | For each transaction in a bank statement table, extract the date and amount. | Extracts a list of data out of a document, where you know they're in a table. |
-| [Question](doc:question) method                              | "When does the policy period end?"<br/>"What are the last 4 numbers of the account?" | Extracts a single fact or data point.                        |
-| [Summarizer](doc:summarizer) computed field method + [Topic](doc:topic) method | "list the rents, how often the rent must be paid, and when the rent is due" | More configurable alternative to the List method.            |
-
-
+| Method                            | Example use case                                             | Notes                                                        |
+| --------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [List](doc:list)                  | For each vehicle in an auto insurance declaration, extract the VIN, model, and year. | Extracts a list of data out of a document, where you don't know how the data are represented. |
+| [NLP Table](doc:nlp-table) method | For each transaction in a bank statement table, extract the date and amount. | Extracts a list of data out of a document, where you know they're in a table. |
+| [Question](doc:question) method   | "When does the policy period end?"<br/>"What are the last 4 numbers of the account?" | Extracts a single fact or data point.                        |
+|                                   |                                                              |                                                              |
 
 
 
