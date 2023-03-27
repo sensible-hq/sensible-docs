@@ -11,6 +11,8 @@ Welcome to Sensible's documentation. Sensible extracts structured data from docu
 
 See the following topics for resources:
 
+- TODO link - choosing an authoring strategy
+
 - [No-code resources](doc:no-code)
 - [Developer resources](doc:developer)
 
