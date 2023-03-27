@@ -3,15 +3,11 @@ title: "Welcome"
 hidden: false
 ---
 
-Welcome to Sensible's documentation. Sensible extracts structured data from documents, for example PDFs of business forms. Sensible combines a variety of approaches to extraction:
+Welcome to Sensible's documentation. Sensible extracts structured data from documents, for example PDFs of business forms. Sensible combines a variety of approaches to document extraction:
 
-- You can use AI-powered low-code queries that use LLM models such as GPT-3, as if you were chatting with an AI bot about the document data you want to extract.
-- When AI can't handle your document's complexity, you can also extract document data using SenseML, a JSON-formatted, layout-based query language.
-
-With this blended approach, you can extract from a variety of semi structed, structed, and instructed documets, for example:
-
-- **Out-of-the-box**  support for business forms, tax forms. We have a prebuilt library for extracting from things like: (list)
-- **Build your own** extraction configurations for custom business forms or documents. Do you need to parse home insurance inspection reports? Medical research papers? Leases or other legal documents? You're covered.
+- **Low-code AI authoring**: Describe for an AI the document data you want to extract using Sensible's visual authoring tool, *Sensible Instruct*. Sensible uses GPT-3 and other large-language models (LLMs) to extract data from your example document. Save your description as an *extraction configuration*, and then you can extract from documents you upload to Sensible that are similar to your example.
+- **Advanced authoring:**  To extract from complex document layouts, use *SenseML*, a JSON-formatted query language that combines layout-based queries with AI-powered queries. By combining layout and AI-powered queries, you can extract from a variety of documents, from highly structured business forms to unstructured legal or research papers.
+-  **Out of the box support for common document types** support for extracting from common business and tax forms
 
 
 
