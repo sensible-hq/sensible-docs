@@ -18,3 +18,4 @@ Send information in documents into rows, tables, and linked sheets in spreadshee
 
 - [Quickstart PDF to Excel](doc:excel-quickstart)
 
+TODO flesh out better
