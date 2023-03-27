@@ -7,14 +7,13 @@ This topic describes how to choose between several strategies for you to author 
 
 summary:
 
-- If the documents you want to extract from are listed in the Sensible configuration library, you can use our out-of-the-box support and author tweaks as necessary .
+- If the documents you want to extract from are listed in the Sensible configuration library, you can use our out-of-the-box support and author tweaks as necessary . TODO LINKS
 - If the data you want to extract is relatively simple and you want a quick, no-code solution, use Sensible Instruct to author the extraction configuration.
 - For mroe advanced data extraction scenarios, use SenseML.
 
 
 
 Sensible Instruct vs SenseML
-
 ---
 
 
