@@ -24,7 +24,7 @@ Learn SenseML
 
 Tweak existing doc extractions or write new extractions for your custom documents.
 
-- [Getting started guide](doc:getting-started)
+- [Getting started with SenseML](doc:getting-started)
 - Interactive tutorials: 
   - [extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data)<br/>[tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows)
   -  [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions)

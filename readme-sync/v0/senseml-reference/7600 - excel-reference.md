@@ -76,7 +76,7 @@ The `fields` sheet lists fields and their values as key-value dictionaries, with
 Example
 -----
 
-Sensible converts the JSON extraction output from the [auto_insurance_anyco](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started guide](doc:getting-started) to the following spreadsheet:
+Sensible converts the JSON extraction output from the [auto_insurance_anyco](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started with SenseML](doc:getting-started) to the following spreadsheet:
 
 **Spreadsheet output**
 
@@ -99,7 +99,7 @@ The preceding spreadsheet contains data from the following example document:
 
 **Example configuration**
 
-See the [Getting started guide](doc:getting-started)  for the SenseML configuration for this example.
+See the [Getting started with SenseML](doc:getting-started)  for the SenseML configuration for this example.
 
 **JSON output**
 
