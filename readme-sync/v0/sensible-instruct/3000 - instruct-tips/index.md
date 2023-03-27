@@ -3,11 +3,7 @@ title: "Sensible Instruct authoring tips"
 hidden: false
 ---
 
-Use natural-language SenseML methods to extract free text from unstructured documents, or as low-code alternatives to [layout based methods](doc:methods). For example, extract information from legal paragraphs in contracts and leases, or results from research papers.
-
-SenseML natural-language methods are powered by machine learning and natural language processing models, for example by the large language model [GPT-3](https://openai.com/api/).
-
-The following topics describe natural language methods:
+See the following topics for tips on authoring the following methods using Sensible Instruct:
 
 | Method                            | Example use case                                             | Notes                                                        |
 | --------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -15,8 +11,6 @@ The following topics describe natural language methods:
 | [NLP Table](doc:nlp-table) method | For each transaction in a bank statement table, extract the date and amount. | Extracts a list of data out of a document, where you know they're in a table. |
 | [Question](doc:question) method   | "When does the policy period end?"<br/>"What are the last 4 numbers of the account?" | Extracts a single fact or data point.                        |
 |                                   |                                                              |                                                              |
-
-
 
 Notes
 ====
