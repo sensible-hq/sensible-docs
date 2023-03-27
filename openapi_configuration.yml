@@ -559,43 +559,45 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  /extract_from_golden/{type-name}:
-    parameters:
-      - $ref: '#/components/parameters/documentTypeName'
-      - $ref: '#/components/parameters/environment'
-    post:
-      operationId: extract-from-reference-document
-      summary: Extract from reference document
-      description: >-
-        Extract from a specified reference document in a document type.
-        Return the best-scoring extraction from the configurations in the document type, or from the
-        specified configuration.
-      tags:
-      - Reference document extraction
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PostGoldenExtraction'
-      responses:
-          '200':
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ResponseGoldenExtraction'
-            description: The structured data extracted from the reference document
+  # Comment: decision to remove from public API reference as of march 2023; not being used. if make public, check accuracy of response model
 
-          400: # todo I didn't verify 40x responses for any extract_from_goldens, just assumed
-            $ref: '#/components/responses/400'
-          401:
-            $ref: '#/components/responses/401'
-          404:
-            $ref: '#/components/responses/404'
-          415:
-            $ref: '#/components/responses/415'
-          500:
-            $ref: '#/components/responses/500'
+  # /extract_from_golden/{type-name}:
+  #   parameters:
+  #     - $ref: '#/components/parameters/documentTypeName'
+  #     - $ref: '#/components/parameters/environment'
+  #   post:
+  #     operationId: extract-from-reference-document
+  #     summary: Extract from reference document
+  #     description: >-
+  #       Extract from a specified reference document in a document type.
+  #       Return the best-scoring extraction from the configurations in the document type, or from the
+  #       specified configuration.
+  #     tags:
+  #     - Reference document extraction
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/PostGoldenExtraction'
+  #     responses:
+  #         '200':
+  #           content:
+  #             application/json:
+  #               schema:
+  #                 $ref: '#/components/schemas/ResponseGoldenExtraction'
+  #           description: The structured data extracted from the reference document
+
+  #         400: # todo I didn't verify 40x responses for any extract_from_goldens, just assumed
+  #           $ref: '#/components/responses/400'
+  #         401:
+  #           $ref: '#/components/responses/401'
+  #         404:
+  #           $ref: '#/components/responses/404'
+  #         415:
+  #           $ref: '#/components/responses/415'
+  #         500:
+  #           $ref: '#/components/responses/500'
 
   # /extract_from_golden/{type-name}/{config-name}:
   #   parameters:
