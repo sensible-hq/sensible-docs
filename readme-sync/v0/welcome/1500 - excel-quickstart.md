@@ -5,23 +5,28 @@ hidden: false
 
 In this quickstart, extract data from an example tax form PDF and convert the document data to a spreadsheet, using Sensible's out-of-the-box support for common business forms. 
 
-- If you instead want a guided tour for extracting data from your own custom documents, see [No-code resources](doc:no-code) or [Developer](doc:developer resources).
+- If you instead want a guided tour for extracting data from your own custom documents, see [No-code resources](doc:no-code) or [Developer resources](doc:developer).
 
-Extract sample document data
+Copy pre-built extraction configuration
 ----
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
+
 2. Navigate to Sensible's [open-source configuration library](https://app.sensible.so/library/) to choose an example document type. For this tutorial, select **Tax forms**.
+
 3. Select **Clone to account** to copy example tax forms and associated configurations for extracting data from those forms to your account.
 
-7. Download the following example tax form: 
+Extract from sample document
+----
+
+4. Download the following example tax form: 
 
    | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-8. Navigate to the [quick extraction](https://app.sensible.so/quick-extraction/) tab.
+5. Navigate to the [quick extraction](https://app.sensible.so/quick-extraction/) tab.
 
-9. Upload the document you downloaded in the previous step.
+6. Upload the document you downloaded in the previous step.
 
 7. Select **tax_forms** in the **Document type** dropdown and click **Run extraction**.
 
@@ -53,19 +58,10 @@ Convert to spreadsheet
 
 
 
-Compile PDFs into one spreadsheet
-----
-
-To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
-
+12. (**Optional**) Upload a second example document to see how the extracted output changes. TODO elaborate on this.
 
 Next
 ----
 
-- For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](doc:excel-reference).
-- See the [Getting started with SenseML](doc:getting-started) to learn how to extract from your custom documents or tweak Sensible's [open-source configuration library](https://app.sensible.so/library/).
-
-
-
-
+TODO
 

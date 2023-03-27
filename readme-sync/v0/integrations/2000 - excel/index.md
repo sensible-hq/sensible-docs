@@ -21,7 +21,15 @@ To get a document's data into a spreadsheet, you must first:
 
 - Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction). 
 
-Getting started
----
+Compile PDFs into one spreadsheet
+----
 
-For a tutorial about converting a PDF to an Excel sheet, see [Getting started with out-of-the-box extraction](doc:excel-quickstart).
+To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
+
+
+Next
+----
+
+- For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](doc:excel-reference).
+- For a tutorial about converting a PDF to an Excel sheet using the Sensible app, see [Getting started with out-of-the-box extraction](doc:excel-quickstart).
+- See the [Getting started with SenseML](doc:getting-started) to learn how to extract from your custom documents or tweak Sensible's [open-source configuration library](https://app.sensible.so/library/).
