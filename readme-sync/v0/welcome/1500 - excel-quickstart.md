@@ -5,15 +5,7 @@ hidden: false
 
 In this quickstart, extract data from an example tax form PDF and convert the document data to a spreadsheet, using Sensible's out-of-the-box support for common business forms. 
 
-- If you instead want a guided tour for extracting data from your own custom documents, see [Getting started](doc:getting-started).
-- If you want a low-code way to convert document data to formats other than Excel or CSV, for example, emails, Google sheets, or databases, see Sensible's [Zapier integration](doc:zapier).
-
-Introduction
-----
-
-If you're trying to convert a PDF into an Excel spreadsheet, you often find tools that copy the PDF's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
-
-In contrast, this tutorial shows you how to use Sensible to convert document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. You can convert documents formatted as PDFs, PNGs, TIFFs, and JPEGs.
+- If you instead want a guided tour for extracting data from your own custom documents, see [No-code resources](doc:no-code) or [Developer](doc:developer resources).
 
 Extract sample document data
 ----

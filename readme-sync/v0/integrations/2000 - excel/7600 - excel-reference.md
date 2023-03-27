@@ -9,15 +9,7 @@ This topic describes the rules Sensible uses to:
 
 - combine data extracted from multiple documents into one spreadsheet
 
-
 Sensible extracts the data as JSON using a SenseML configuration, then applies the rules to create spreadsheet data such as tables, labeled columns, and linked sheets.
-
-**Prerequisites**
-
-To get a document's data into a spreadsheet, you must first:
-
-- Configure extractions for a document type, either using Sensible's [SenseML](doc:senseml-reference-introduction) for custom documents or using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
-- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction).  For more information about single-document Excel sheets, see [Quickstart PDF to Excel](doc:excel-quickstart).
 
 
 CSV files
