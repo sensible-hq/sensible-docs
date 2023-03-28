@@ -20,6 +20,4 @@ Out-of-the-box extraction
 
 Get started with pre-written extraction configurations for common business documents.
 
-- [Quickstart PDF to Excel](doc:excel-quickstart)
-
-TODO flesh out better
+- [Getting started with out-of-the-box extractions](doc:excel-quickstart)
