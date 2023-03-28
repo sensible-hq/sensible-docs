@@ -8,6 +8,8 @@ Introduction
 ====
 In this quickstart, use an example SenseML configuration and example PDF to get a quick "hello world" API response. 
 
+TODO update links?
+
 - If you instead want a guided tour of SenseML concepts so you extract data from your own custom documents, see [Getting started](doc:getting-started).
 - If you instead want to explore SenseML without much explanation, then [sign up](https://app.sensible.so/register) for a free account and check out our interactive in-app tutorials: [extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
 
@@ -75,6 +77,8 @@ To see this example in the Sensible app:
 
 Next
 ===
+
+TODO update links?
 
 - Learn concepts with more detailed examples in the [Getting started with SenseML](doc:getting-started)
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
