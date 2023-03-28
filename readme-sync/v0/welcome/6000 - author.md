@@ -1,5 +1,5 @@
 ---
-title: "Choosing an extraction authoring approach"
+title: "Choosing an extraction approach"
 hidden: false
 ---
 
