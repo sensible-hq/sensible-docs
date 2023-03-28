@@ -21,6 +21,6 @@ The following topics describe how to author natural-language methods using Sense
 Notes
 ====
 
-For information about low-code authoring for natural-language methods, see [Sensible Instruct tips](doc:sensible-instruct-tips).
+For information about low-code authoring for natural-language methods, see [Sensible Instruct tips](doc:instruct-tips).
 
 For layout-based extraction methods, see [methods](doc:methods).
