@@ -3,22 +3,22 @@ title: "No-code resources"
 hidden: false
 ---
 
-Low-code extraction conversion
+Low-code extraction
 ===
-
 
 Get started without writing code.
 
-- link getting started guide S Instruct
-- link in-app tutorials
-- link to Sensible Instruct 'tips'
+- [Getting started with low-code extraction](doc:getting-started-ai)
+
+- Try out in-app tutorials TODO link
+- [Sensible Instruct tips](doc:instruct-tips)
 
 
 
-Out-of-the-box: Extract from common business forms
----
+Out-of-the-box extraction
+===
 
-Send information in documents into rows, tables, and linked sheets in spreadsheets.
+Get started with pre-written extraction configurations for common business documents.
 
 - [Quickstart PDF to Excel](doc:excel-quickstart)
 
