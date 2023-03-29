@@ -3,12 +3,12 @@ title: "No-code resources"
 hidden: false
 ---
 
-Low-code extraction
+AI-powered extraction
 ===
 
-Get started without writing code.
+Get started by writing natural-language descriptions of the data you want to extract from document.
 
-- [Getting started with low-code extraction](doc:getting-started-ai)
+- [Get started with AI-powered extractions](doc:getting-started-ai)
 
 - Try out in-app tutorials TODO link
 - [Sensible Instruct tips](doc:instruct-tips)
@@ -20,4 +20,4 @@ Out-of-the-box extraction
 
 Get started with pre-written extraction configurations for common business documents.
 
-- [Getting started with out-of-the-box extractions](doc:excel-quickstart)
+- [Get started with out-of-the-box extractions](doc:excel-quickstart)

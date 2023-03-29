@@ -8,7 +8,7 @@ This topic describes how to choose between several strategies for you to author 
 Summary:
 
 - If the documents you want to extract from are listed in the Sensible configuration library, you can use our out-of-the-box support and author tweaks as necessary . TODO LINKS
-- If the data you want to extract is relatively simple and you want a quick, no-code solution, use Sensible Instruct to author the extraction configuration.
+- If the data you want to extract is relatively simple and you want an AI-powered solution, use Sensible Instruct to author the extraction configuration.
 - For mroe advanced data extraction scenarios, use SenseML.
 
 
@@ -17,11 +17,11 @@ Sensible Instruct vs SenseML
 ---
 
 
-You can author an extraction configuration using either SenseML or Sensible Instruct. Sensible Instruct methods are AI-powered. SenseML is a superset of Sensible Instruct. SenseML includes layout-based methods that use rules and heuristics to extract data, rather than NLP.  You can mix SenseML and Sensible Instruct in a single document extraction configuration, and fallback from one method to anther for any given piece of data you want to extract.
+You can author an extraction configuration using either SenseML or Sensible Instruct. Sensible Instruct methods are AI-powered. SenseML is a superset of Sensible Instruct. SenseML includes document layout-based methods that use rules and heuristics to extract data, rather than NLP.  You can mix SenseML and Sensible Instruct in a single document extraction configuration, and fallback from one method to anther for any given piece of data you want to extract.
 
 Sensible Instruct
 
-- Offers low-code, visual authoring of document extraction configuration for nontechnical users.
+- For nontechnical users: Describe what you want to extract in natural language terms.
 - Suited to workflows that include human review or that are fault-tolerant.
 - Suited to documents that are unstructured or that have a large number of layout variations or revisions.
 
