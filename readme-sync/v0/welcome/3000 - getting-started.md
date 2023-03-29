@@ -1,5 +1,5 @@
 ---
-title: "Getting started with SenseML"
+title: "Get started extracting with SenseML"
 hidden: false
 ---
 

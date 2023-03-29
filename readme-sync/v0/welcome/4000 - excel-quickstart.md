@@ -1,5 +1,5 @@
 ---
-title: "Getting started with out-of-the-box extractions"
+title: "Get started with out-of-the-box extractions"
 hidden: false
 ---
 
