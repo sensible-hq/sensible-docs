@@ -34,7 +34,7 @@ Extract from sample document
 
    Sensible extracts data from the document using the pre-built config you copied in a previous step. 
 
-Convert to spreadsheet
+(Optional) Convert to spreadsheet
 ----
 
 
@@ -58,10 +58,10 @@ Convert to spreadsheet
 
 
 
-12. (**Optional**) Upload a second example document to see how the extracted output changes. TODO elaborate on this.
+12. (**Optional**) Upload a second example document to see how the extracted output changes. TODO elaborate on this, provide 2nd link.
 
 Next
 ----
 
-TODO
+TODO...what link to no-code and developer resources? update 'no-code' to "AI powered extraction resources?"
 
