@@ -16,8 +16,13 @@ Summary:
 Sensible Instruct vs SenseML
 ---
 
-
 You can author an extraction configuration using either SenseML or Sensible Instruct. Sensible Instruct methods are AI-powered. SenseML is a superset of Sensible Instruct. SenseML includes document layout-based methods that use rules and heuristics to extract data, rather than NLP.  You can mix SenseML and Sensible Instruct in a single document extraction configuration, and fallback from one method to anther for any given piece of data you want to extract.
+
+
+
+TODO reconcile these paragraphs:
+
+*Note that you can mix and match SenseML methods with Sensible Instruct methods. SenseML is a a JSON-formatted, layout-based query language, and Sensible Instruct is an AI-powered subset of SenseML that you can author in the app, no JSON required. Use SenseML for advanced document extraction, for example, for complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.* 
 
 Sensible Instruct
 

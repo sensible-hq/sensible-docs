@@ -3,7 +3,11 @@ title: "Get started extracting with SenseML"
 hidden: false
 ---
 
- In this tutorial, you'll learn SenseML, a JSON-formatted query language for extracting structured data from documents, for example PDFs of business forms. SenseML uses a mix of techniques, including machine learning, heuristics, and rules.  Use SenseML for advanced document extraction, for example, for complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct. 
+In this tutorial, you'll learn to extract data out of a collection of similar documents using a layout-based query language, SenseML. You'll write JSON to tell Sensible about which data to extract from a set of similar documents, using what you know about the layouts of the documents in the set. SenseML uses a mix of techniques, including machine learning, heuristics, and rules, to extract your target information.
+
+You can then save your descriptions as a "config." Publish your config as an API endpoint, and use the endpoint to automate extracting from similar documents.   
+
+Note that you can mix and match SenseML methods with Sensible Instruct methods. SenseML is a a JSON-formatted, layout-based query language, and Sensible Instruct is an AI-powered subset of SenseML that you can author in the app, no JSON required. Use SenseML for advanced document extraction, for example, for complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct. 
 
 Use this tutorial if you want a guided tour of SenseML concepts and the Sensible app. Or see the following links:
 
