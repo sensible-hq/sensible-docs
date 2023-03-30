@@ -5,7 +5,7 @@ on:
   push:
     #name of your dev branch
     branches:
-      - instruct
+      - your-branch-name
     paths:
       - 'readme-sync/v0/**.md'
 
