@@ -250,9 +250,9 @@ Try it out: change the question to `"what's the street address for the Anyco ins
 
 You can also natural-language methods such as Question in JSON, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Get started with AI-powered extractions](doc:getting-started-ai).
 
-Natural-language methods, such as Sensible's Question method or GPT-3 powered Table method, can handle many scenarios, but run up against limitations with highly complex document formatting, or layouts. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
+Natural-language methods, such as Sensible's Question method or GPT-3 powered Table method, can run up against limitations with highly complex document formatting, or layouts. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 
-Let's look next at layout-based methods.
+Let's look next at several simple layout-based methods.
 
 How it works: Label method
 ----
