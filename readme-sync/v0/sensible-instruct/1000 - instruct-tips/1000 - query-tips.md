@@ -13,6 +13,18 @@ hidden: false
 - Being as specific as possible will give the best results (including location, section of the document, type of data, rough location in the document such as 'near the beginning' or 'near the end').
 - Capable of manipulating output in the question. For example, asking a question and following that with “where unchecked boxes mean no” will output no for unchecked boxes
 
+Try framing each query so that it has a single, short answer such as:
+
+- Address
+- Name of recipient
+- Date
+
+You can narrow down your search and improve accuracy by being more specific:
+
+- Address in the top left of the document
+- Total amount in the expense table
+- Phone number in section 2
+
 **How to extract a query**
 
 See TBD TODO LINK TO (video, getting started, etc)

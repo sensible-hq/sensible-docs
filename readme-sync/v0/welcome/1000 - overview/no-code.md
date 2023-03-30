@@ -1,5 +1,5 @@
 ---
-title: "No-code resources"
+title: "AI-powered extractions"
 hidden: false
 ---
 
