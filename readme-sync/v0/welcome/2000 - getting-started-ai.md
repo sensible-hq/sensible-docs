@@ -73,8 +73,37 @@ Click Publish to save your config as an API endpoint you can use with the API or
 
 
 
-Test the config with another document
+Test the config against another document
 ===
+
+1. Navigate to https://dev.sensible.so/editor/instruct/?d=frances_test_playground&c=instruct_gsg&g=copy_of_bank_statement___google_docs&v= to see the config you just edited, tested against a new document in the left pane. You should see that the extracted information has changed for your query:
+
+   TODO: the query that the person authors should change.
+   
+   ![image-20230330150725410](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330150725410.png)
+
+
+Extract more complex information
+===
+
+So far you've just extracted simple facts. Now try extracting a list:
+
+![image-20230330151211148](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151211148.png)
+
+
+
+
+
+Fill it out as follows:
+
+![image-20230330151646972](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151646972.png)
+
+
+
+At the bottom of teh right pane you should see the extracted data: TODO: make sure the field ids don't quite match up to the document
+
+![image-20230330151712459](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151712459.png)
+
 
 
 
