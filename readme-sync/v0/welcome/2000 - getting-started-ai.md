@@ -53,6 +53,32 @@ Click query
 
 
 
+Edit the query as in the following screenshot and click the Send icon:
+
+![image-20230330145456238](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330145456238.png)
+
+You should see the extracted phone number.
+
+Click **back to fields**
+
+Your new extracted info is at the bottom of the list of extracted info:
+
+![image-20230330145558000](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330145558000.png)
+
+Click Publish to save your config as an API endpoint you can use with the API or with the Sensible app.
+
+
+
+
+
+
+
+Test the config with another document
+===
+
+
+
+
 Download the excel in the quick Extract pane
 ===
 
