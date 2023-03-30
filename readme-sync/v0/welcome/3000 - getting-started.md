@@ -3,9 +3,13 @@ title: "Get started extracting with SenseML"
 hidden: false
 ---
 
-**Note:** Use this tutorial if you want a guided tour of SenseML concepts and the Sensible app.
+ In this tutorial, you'll learn SenseML, a JSON-formatted query language for extracting structured data from documents, for example PDFs of business forms. SenseML uses a mix of techniques, including machine learning, heuristics, and rules. Use SenseML for advanced document extraction. 
 
-TODO update links
+Use this tutorial if you want a guided tour of SenseML concepts and the Sensible app. Or see the following links:
+
+TODO update links for AI powered
+
+- For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). also link to Sensible Instruct getting started
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials: [extract_your_first_data](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data), [tables and rows](https://app.sensible.so/editor/?d=senseml_basics&c=2_tables_and_rows&g=2_tables_and_rows), [checkboxes, paragraphs, and regions](https://app.sensible.so/editor/?d=senseml_basics&c=3_checkboxes_paragraphs_and_regions&g=3_checkboxes_paragraphs_and_regions), and a [blank-slate challenge](https://app.sensible.so/editor/?d=senseml_basics&c=4_extract_from_scratch&g=4_extract_from_scratch).
 - If you to get want a quick "hello world" API response, see the [quickstart](doc:quickstart).
@@ -13,15 +17,8 @@ TODO update links
 Get structured data from an auto insurance quote
 ===
 
-Let's get started with Sensible! In this tutorial, you'll learn SenseML, a JSON-formatted query language for extracting structured data from documents, for example PDFs of business forms. SenseML uses a mix of techniques, including machine learning, heuristics, and rules.
+Let's get started with SenseML!
 
-We'll explore two types of queries:
-
-|                         | [Natural language methods](doc:natural-language-methods)     | Layout-based [methods](doc:methods)                          |
-| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Notes                   | Ask a question about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
-| Deterministic           | no                                                           | yes                                                          |
-| Handles complex layouts | no                                                           | yes                                                          |
 
 If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
 
@@ -88,13 +85,13 @@ For this tutorial, you'll extract these fields:
       "id": "bodily_liability_premium",
       /* search for target data 
       on page containing this anchor line*/
-      "anchor": "anyco auto insurance",
       "method": {
         "id": "question",
-        /* ask a free-text question.
+        /* ask a free-text question, get an answer powered by AI.
           best suited to simple questions
           that have one label and one answer 
-          in the document. */
+          in the document.  You can also author this field in Sensible Instruct
+          instead of in JSON */
         "question": "in the table, what's the bodily injury premium?"
       }
     },
@@ -186,8 +183,10 @@ Congratulations! You created your first config and extracted your first document
 
 - If you want to skip ahead and try out the API, see [Integrate with your application](doc:getting-started#integrate-with-your-application). 
 
-How it works
+How layout-based extraction works
 ====
+
+This guide focuses on layout-based document extraction, which works as follows:
 
 - Each "field" is a basic query unit in Sensible.  Each field outputs a piece of data from the document that you want to extract. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
@@ -195,16 +194,20 @@ How it works
 
 - Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Methods](doc:methods).
 
-- This config uses three types of methods:
+This config uses three types of layout-based methods:
 
-  | Type of method   | explanation                                                  | description                                                  |
-  | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | natural language | [How it works: question method](doc:getting-started#how-it-works-question-method) | Ask a free-text question about simple information in the document |
-  | layout           | [How it works: label method](doc:getting-started#how-it-works-label-method) | Grab info immediately proximate to labeling text.            |
-  | layout           | [How it works: row method](doc:getting-started#how-it-works-row-method) | Grab info from a cell in a row.                              |
-  | layout           | [How it works: box method](doc:getting-started#how-it-works-box-method) | Grab info from a box.                                        |
-  
-  
+  | Type of method | explanation                                                  | description                                       |
+  | -------------- | ------------------------------------------------------------ | ------------------------------------------------- |
+  | layout         | [How it works: label method](doc:getting-started#how-it-works-label-method) | Grab info immediately proximate to labeling text. |
+  | layout         | [How it works: row method](doc:getting-started#how-it-works-row-method) | Grab info from a cell in a row.                   |
+  | layout         | [How it works: box method](doc:getting-started#how-it-works-box-method) | Grab info from a box.                             |
+
+
+This config also uses one natural-language, or AI-powered, method, in order to show that you can combine layout-based and natural-language methods in the same config:
+
+| Type of method   | explanation                                                  | description                                                  |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Natural-language | [How it works: question method](doc:getting-started#how-it-works-question-method) | Ask a free-text question about simple information in the document |
 
 How it works: Question method
 ---
@@ -247,7 +250,11 @@ This config returns:
 
 Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
 
-Natural-language methods, such as our Question method or GPT-3 powered Summarizer method, can make mistakes or return varying answers. So, let's look next at layout-based methods, for when you want to be absolutely sure that you always get the same answer.
+You can also natural-language methods such as Question in JSON, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Get started with AI-powered extractions](doc:getting-started-ai).
+
+Natural-language methods, such as Sensible's Question method or GPT-3 powered Table method, can handle many scenarios, but run up against limitations with highly complex document formatting, or layouts. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
+
+Let's look next at layout-based methods.
 
 How it works: Label method
 ----

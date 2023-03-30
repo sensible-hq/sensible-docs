@@ -4,6 +4,8 @@ hidden: false
 ---
 Extracts a table based on your natural-language description of the data you want to extract.
 
+For tips on authoring this method in Sensible Instruct, see [Table tips](doc:list-tips).
+
 **Advantages**
 
 - Low code. 

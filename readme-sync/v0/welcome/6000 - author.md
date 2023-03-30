@@ -34,5 +34,11 @@ SenseML
 
 
 
+|                         | [Natural language methods](doc:natural-language-methods)     | Layout-based [methods](doc:methods)                          |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                         | Ask a question about info in the document, as you'd ask a human or chatbot. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions in JSON to grab the second cell in a column headed by "premium". |
+| Deterministic           | no                                                           | yes                                                          |
+| Handles complex layouts | no                                                           | yes                                                          |
+
 
 
