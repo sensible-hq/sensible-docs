@@ -1,7 +1,9 @@
 ---
-title: "AI-powered extractions"
+title: "AI-powered resources"
 hidden: false
 ---
+
+TODO maybe we don't need this any more?? but retain the developer page?
 
 AI-powered extraction
 ===

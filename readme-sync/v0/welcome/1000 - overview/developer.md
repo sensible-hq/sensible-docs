@@ -29,7 +29,7 @@ Write AI-powered extraction configurations in Sensible Instruct.
 Advanced extraction configuration: learn SenseML
 ---
 
-Tweak existing doc extractions or write new extractions for your custom documents.
+Tweak existing doc extraction configurations or write new configurations for your custom documents.
 
 - [Getting started with SenseML](doc:getting-started)
 - Interactive tutorials: 
@@ -42,10 +42,6 @@ Quality control and troubleshoot your extractions
 
   -   [Validate extractions](doc:validate-extractions)
   -   [Troubleshoot](doc:troubleshoot)
-
-  
-
-
 
 Test and go live
 ----
