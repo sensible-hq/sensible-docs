@@ -23,15 +23,9 @@ If you can chat with an AI bot, then you can configure document extractions.
 
  In this tutorial, you'll:
 
-
-
-
-
-- *[Write a collection of queries ( a "config")](doc:getting-started#create-a-config) to [extract structured data](doc:getting-started#extract-data) from an example auto insurance PDF* 
-- *[Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods*
-- *[Test the config](doc:getting-started#test-the-config) by running your config against a second, similar auto insurance PDF*
-- *[Use the API](doc:getting-started#integrate-with-your-application) to integrate your Sensible config with your application*
-- *[Validate extractions in production](doc:getting-started#validate-extractions-in-production) by using JsonLogic to define expected extracted values and flag unexpected values as warnings or errors*
+- Edit a collection of descriptions ("a config") about the data you want to extract from an example menu PDF
+- Test the config against a second, similar menu PDF
+- Download the Excel extraction. 
 
 Get an account
 ====
@@ -42,6 +36,26 @@ Get an account
 
 Configure the extraction
 ====
+
+1. Navigate to  https://dev.sensible.so/editor/?d=frances_test_playground&c=instruct_gsg&g=bank_statement___google_docs.
+
+   You'll see a 'config', or list of instructions for extracting from the example menu document (in the left pane), and extracted data in the right pane.
+
+   ![image-20230330144330528](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330144330528.png)
+
+TODO title figure
+
+Let's configure the extraction to add a bit more data.
+
+Click query
+
+![image-20230330144516717](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330144516717.png)
+
+
+
+Download the excel in the quick Extract pane
+===
+
 
 
 
