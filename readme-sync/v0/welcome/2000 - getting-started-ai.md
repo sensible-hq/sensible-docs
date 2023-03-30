@@ -106,20 +106,66 @@ At the bottom of teh right pane you should see the extracted data: TODO: make su
 
 
 
+Now, check that your List field works with another document at this link: 
 
+https://dev.sensible.so/editor/instruct/?d=frances_test_playground&c=instruct_gsg&g=bank_statement___google_docs&v=
 
-Download the excel in the quick Extract pane
-===
+It should look like this:
 
-
-
+![image-20230330151905174](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151905174.png)
 
 
 
 Publish the extraction
 ===
 
-blah
+Publish your updated extraction:
+
+![image-20230330152018117](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152018117.png)
+
+(optional) Download the extracted info as excel in the quick Extract pane
+===
+
+You've tested your extraction configuration.
+
+Now you can download your extracted data as Excel. You'll get 1 Excel file per document (to combine extractions from multiple documents, use the Sensible API).
+
+Navigate to the [quick extraction tab] at  https://dev.sensible.so/quick-extraction/.
+
+
+
+![image-20230330152147986](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152147986.png)
+
+
+
+Select your document type, "TBD/TDO". (how to explain about doc types?)
+
+
+
+Download this a new document, this one:
+
+| TBD TODO | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/tbd_todo.pdf) |
+| -------- | ------------------------------------------------------------ |
+
+Upload it to the quick extract pane:
+
+![image-20230330152355006](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152355006.png)
+
+Run the extraction using the collection of descriptions you just edited, or the "config" (TBD name of config):
+
+You should see JSON results:
+
+
+
+![image-20230330152513267](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152513267.png)
+
+Click Download Excel to see the Excel results:
+
+
+
+![image-20230330152607384](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152607384.png)
+
+
 
 TODO: explain that this is now an API ENDPOINT
 ===
