@@ -13,7 +13,7 @@ Get started by writing natural-language descriptions of the data you want to ext
 - [Get started with AI-powered extractions](doc:getting-started-ai)
 
 - Try out in-app tutorials TODO link
-- [Sensible Instruct tips](doc:instruct-tips)
+- [Sensible Instruct tips](doc:instruct)
 
 
 
