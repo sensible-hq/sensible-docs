@@ -35,36 +35,29 @@ Examples
 Example 1
 ---
 
-The following example shows using the Query method to extract agricultural data from a government report.
+The following example shows using the Query method to extract agricultural data from a government report:
 
-![image-20230323100044464](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230323100044464.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query.png)
 
 To try out this example in the Sensible app, 
 
-Try creating a new configuration and creating Query fields with the following questions:
+1. Download the following example PDF:
+
+   | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_crop.pdf) |
+   | ----------- | ------------------------------------------------------------ |
+
+2. Create a test document type in the Sensible app, then click the document type you just created to edit it. In the document type's **Reference documents** tab, upload the example PDF you just downloaded.
+
+3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you just created to edit it.
+
+4. Click **Sensible Instruct** and create fields using the following table:
 
 | Field name           | Method | Describe what you want to extract                            |
 | -------------------- | ------ | ------------------------------------------------------------ |
-| report_date          |        | "for which month and year does this snippet describe wheat production" |
-| change_in_production |        | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |
-| seed_use             |        | "what was US wheat seed use this year in the US in millions of bushels?" |
-| seed_use_change      |        | "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change" |
-
-
-
-
-
-**Example document**
-The following image shows the example document used with this example config:
-
-You should see output like the following:
-
-
-
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_crop.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
-
+| report_date          | Query  | "for which month and year does this snippet describe wheat production" |
+| change_in_production | Query  | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |
+| seed_use             | Query  | "what was US wheat seed use this year in the US in millions of bushels?" |
+| seed_use_change      | Query  | "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change" |
 
 Notes
 ===
