@@ -39,7 +39,7 @@ The following example shows using the Query method to extract agricultural data 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query.png)
 
-To try out this example in the Sensible app, 
+To try out this example in the Sensible app, take the following steps: 
 
 1. Download the following example PDF:
 
