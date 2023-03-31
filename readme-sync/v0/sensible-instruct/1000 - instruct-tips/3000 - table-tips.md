@@ -24,6 +24,11 @@ You can improve results by being more specific:
 Examples
 ===
 
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nlp_table.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+
+
 Notes
 ===
 For the full reference for this method in SenseML, see [NLP Table](doc:NLP Table).
