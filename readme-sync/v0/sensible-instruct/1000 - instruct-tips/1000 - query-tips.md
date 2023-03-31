@@ -37,7 +37,7 @@ Example 1
 
 The following example shows using the Query method to extract agricultural data from a government report:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_instruct.png)
 
 To try out this example in the Sensible app, take the following steps: 
 
@@ -50,7 +50,7 @@ To try out this example in the Sensible app, take the following steps:
 
 3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you just created to edit it.
 
-4. Click **Sensible Instruct** and create fields using the following table:
+4. Click **Sensible Instruct** and create fields  extract data using the following table:
 
 | Field name           | Method | Describe what you want to extract                            |
 | -------------------- | ------ | ------------------------------------------------------------ |
