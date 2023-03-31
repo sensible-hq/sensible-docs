@@ -3,23 +3,24 @@ title: "Table extraction tips"
 hidden: false
 ---
 
-
-
-Extracts TBD TODO test 
+Extracts table data from documents.
 
 For more information about how to write instructions (or "prompts") for the Table method's Description parameters, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
 
-**Tips**
+**Tips** TODO REWRITE
 
-Partially extracted tables may not be accurately captured. Try extracting all columns to get the best results.
+- Partially extracted tables may not be accurately captured. Try extracting all columns to get the best results.
 
-Try framing each description as the exact title and column headers in the table.
+- Try framing each description as the exact title and column headers in the table.
 
-You can improve results by being more specific:
+- You can improve results by being more specific:
 
-- Budget column in the expense table
-- Transaction amount column in the last column of the summary table
-- Vehicle make (not model)
+  - Budget column in the expense table
+
+  - Transaction amount column in the last column of the summary table
+
+  - Vehicle make (not model)
+
 
 Examples
 ===
@@ -27,7 +28,7 @@ Examples
 Example 1
 ----
 
-The following example shows using the Table method to extract data from an auto insurance policy declaration:
+The following example shows using the Table method to extract data from an auto insurance document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_instruct.png)
 
@@ -44,11 +45,16 @@ To try out this example in the Sensible app, take the following steps:
 
 4. Click **Sensible Instruct** and create fields to extract data using the following table:
 
-| Field name | Method | Overall list description | Property ids and descriptions |
-| ---------- | ------ | ------------------------ | ----------------------------- |
+| Field name             | Method | Overall table description            | Column IDs and descriptions                                  |
+| ---------------------- | ------ | ------------------------------------ | ------------------------------------------------------------ |
+| insured_vehicles_table | Table  | "insured vehicles"                   | **manufacturer** - "vehicle make (not model)"<br/><br/>**year** - "year of manufacture" |
+| transactions_table     | Table  | "transactions for insurance account" | **transaction_date** - "transaction date. If there's no year, append the current year.)"<br/><br/>**transaction_description** - "transaction description" |
 
-|      |      |
-| ---- | ---- |
+For example, use the following screenshot as a guide for configuring the `insured_vehicles_table` field:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/nlp_table_instruct_2.png)
+
+**Note** AI can make up answers -- TODO copy wording from nlp table
 
 Notes
 ===
