@@ -21,6 +21,6 @@ The following topics describe how to author natural-language methods using Sense
 Notes
 ====
 
-For information about authoring these natural-language methods using a visual tool instead of JSON, see [Sensible Instruct tips](doc:instruct-tips).
+For information about authoring natural-language methods using a visual tool instead of JSON, see [Sensible Instruct tips](doc:instruct-tips).
 
 For layout-based extraction methods, see [methods](doc:methods).
