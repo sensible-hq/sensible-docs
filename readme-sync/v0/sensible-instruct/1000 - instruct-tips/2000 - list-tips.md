@@ -38,3 +38,8 @@ To try out this example in the Sensible app, take the following steps:
 For example, use the following screenshot as a guide for configuring the `dinners` field:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/list_instruct_2.png)
+
+Notes
+===
+
+For the full reference for this method in SenseML, see [List method](doc:list).
