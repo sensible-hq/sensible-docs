@@ -1,5 +1,5 @@
 ---
-title: "Get started extracting with SenseML"
+title: "Getting started layout-powered extractions"
 hidden: false
 ---
 

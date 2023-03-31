@@ -1,5 +1,5 @@
 ---
-title: "Get started with AI-powered extractions"
+title: "Getting started with AI-powered extractions"
 hidden: false
 ---
 

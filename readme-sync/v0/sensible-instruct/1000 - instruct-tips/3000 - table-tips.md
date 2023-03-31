@@ -24,10 +24,31 @@ You can improve results by being more specific:
 Examples
 ===
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nlp_table.pdf) |
-| ----------- | ------------------------------------------------------------ |
+Example 1
+----
 
+The following example shows using the Table method to extract data from an auto insurance policy declaration:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_instruct.png)
+
+To try out this example in the Sensible app, take the following steps: 
+
+1. Download the following example PDF:
+
+   | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nlp_table.pdf) |
+   | ----------- | ------------------------------------------------------------ |
+
+2. Create a test document type in the Sensible app, then click the document type you just created to edit it. In the document type's **Reference documents** tab, upload the example PDF you just downloaded.
+
+3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you just created to edit it.
+
+4. Click **Sensible Instruct** and create fields to extract data using the following table:
+
+| Field name | Method | Overall list description | Property ids and descriptions |
+| ---------- | ------ | ------------------------ | ----------------------------- |
+
+|      |      |
+| ---- | ---- |
 
 Notes
 ===

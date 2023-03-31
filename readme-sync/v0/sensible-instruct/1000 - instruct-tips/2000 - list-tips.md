@@ -14,7 +14,7 @@ Example 1
 
 The following example shows using the List method to extract data from a restaurant menu:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/list_instruct.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/list_instruct.png)
 
 To try out this example in the Sensible app, take the following steps: 
 
@@ -37,7 +37,7 @@ To try out this example in the Sensible app, take the following steps:
 
 For example, use the following screenshot as a guide for configuring the `dinners` field:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/list_instruct_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/list_instruct_2.png)
 
 Notes
 ===
