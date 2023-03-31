@@ -48,13 +48,13 @@ To try out this example in the Sensible app, take the following steps:
 | Field name             | Method | Overall table description            | Column IDs and descriptions                                  |
 | ---------------------- | ------ | ------------------------------------ | ------------------------------------------------------------ |
 | insured_vehicles_table | Table  | "insured vehicles"                   | **manufacturer** - "vehicle make (not model)"<br/><br/>**year** - "year of manufacture" |
-| transactions_table     | Table  | "transactions for insurance account" | **transaction_date** - "transaction date. If there's no year, append the current year.)"<br/><br/>**transaction_description** - "transaction description" |
+| transactions_table     | Table  | "transactions for insurance account" | **transaction_date** - "transaction date."<br/><br/>**transaction_description** - "transaction description" |
 
 For example, use the following screenshot as a guide for configuring the `insured_vehicles_table` field:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/instruct/final/nlp_table_instruct_2.png)
 
-**Note** AI can make up answers -- TODO copy wording from nlp table
+**Note** AI can make up answers -- TODO copy wording from nlp table OR update screenshot to remove the year.
 
 Notes
 ===
