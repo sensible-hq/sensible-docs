@@ -3,15 +3,13 @@ title: "Getting started with AI-powered extractions"
 hidden: false
 ---
 
-In this tutorial, you'll learn to extract data out of a collection of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from a set of similar documents, as if you were chatting with an AI bot. Sensible Instruct uses large-language models (LLMs) such as GPT-4 to extract your target information.
+In this tutorial, you'll learn to extract data out of a collection of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible Instruct uses large-language models (LLMs) such as GPT-4 to extract your target information.
 
-You can then save your descriptions as a "config." Publish your config as an API endpoint, and use the endpoint to automate extracting from similar documents.  
-
-Note that you can mix and match SenseML methods with Sensible Instruct methods. SenseML is a a JSON-formatted, layout-based query language, and Sensible Instruct is an AI-powered subset of SenseML that you can author in the app, no JSON required. Use SenseML for advanced document extraction, for example, for complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct. 
+You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.  
 
 Use this tutorial if you want a guided tour of configuring AI-powered document extractions in the Sensible app. Or see the following links:
 
-- For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in SenseML, see [Get started extracting with SenseML](doc:getting-started).
+- You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring.  For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in SenseML, see [Get started extracting with SenseML](doc:getting-started).
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials:  TODO these links if possible.
 
 Get structured data from an auto insurance quote
