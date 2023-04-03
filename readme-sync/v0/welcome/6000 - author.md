@@ -3,7 +3,7 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-This topic describes how to choose between SenseML and Sensible Instruct for authoring an extraction configuration that you can use to extract data from a set of similar documents.
+This topic describes how to choose between SenseML and Sensible Instruct for extracting data from a set of similar documents.
 
 **Note** If you If the documents you want to extract from are listed in the Sensible configuration library, you can use our out-of-the-box support and author tweaks as necessary TODO link.
 
