@@ -3,15 +3,9 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-This topic describes how to choose between several strategies for you to author an extraction configuration that you can use for all documents of a given type. 
+This topic describes how to choose between SenseML and Sensible Instruct for authoring an extraction configuration that you can use to extract data from a set of similar documents.
 
-Summary:
-
-- If the documents you want to extract from are listed in the Sensible configuration library, you can use our out-of-the-box support and author tweaks as necessary . TODO LINKS
-- If the data you want to extract is relatively simple and you want an AI-powered solution, use Sensible Instruct to author the extraction configuration.
-- For mroe advanced data extraction scenarios, use SenseML.
-
-
+**Note** If you If the documents you want to extract from are listed in the Sensible configuration library, you can use our out-of-the-box support and author tweaks as necessary TODO link.
 
 Sensible Instruct vs SenseML
 ---
