@@ -25,4 +25,4 @@ Use the following [methods](doc:method)  to extract structured data from documen
 Notes
 ===
 
-See also [natural-language methods](doc:natural-language-methods)
+See also [natural-language methods](doc:natural-language-methods).

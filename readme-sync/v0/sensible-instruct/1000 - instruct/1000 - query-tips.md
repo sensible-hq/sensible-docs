@@ -4,30 +4,23 @@ hidden: false
 
 ---
 
+This method extracts an individual fact in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.
 
+**Tips**
 
-**Best practices/tips**
+- Try framing each query so that it has a single, short answer such as:
+
+  - "company address"
+  - "name of recipient"
+  - "document date"
+
+- You can narrow down your search and improve accuracy by being more specific:
+
+  - "address in the top left of the document"
+  - "total amount in the expense table"
+  - "phone number in section 2"
 
 - For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
-- Suited to labeled data. For example, `"Policy end date: Sept 23, 2023"`  or `"Date of birth: 2000"`. When extracting non-labeled data, using "positional" or layout-based natural language language helps (for example, `what is the company name in the top left of the document`).
-- Being as specific as possible will give the best results (including location, section of the document, type of data, rough location in the document such as 'near the beginning' or 'near the end').
-- Capable of manipulating output in the question. For example, asking a question and following that with “where unchecked boxes mean no” will output no for unchecked boxes
-
-Try framing each query so that it has a single, short answer such as:
-
-- Address
-- Name of recipient
-- Date
-
-You can narrow down your search and improve accuracy by being more specific:
-
-- Address in the top left of the document
-- Total amount in the expense table
-- Phone number in section 2
-
-**How to extract a query**
-
-See TBD TODO LINK TO (video, getting started, etc)
 
 Examples
 ===

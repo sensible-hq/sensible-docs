@@ -2,9 +2,14 @@
 title: "List extraction tips"
 hidden: false
 ---
-Extracts repeating data in a document, such as the work history or skills on a resume, the vehicles on an auto insurance policy, or the line items on an invoice. It can find these facts in paragraphs of free text or in more structured layouts, such as key/value pairs or tables.  Use this method is an alternative to the [Table](doc:table-tips) method, when the data you want can appear as a table or as another layout.
+This method extracts repeating data in a document based on your description of the list’s overall contents and each individual item. Data such as the work history or skills on a resume, the vehicles on an auto insurance policy, or the line items on an invoice are best suited for this method. 
 
-For more information about how to write instructions (or "prompts") for the List method's Description parameters, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+Use this method is an alternative to the [Table](doc:table-tips) method, when the data you want can appear either as a table or as another layout. The List method can find data in paragraphs of free text or in more structured layouts, such as key/value pairs or tables.  
+
+**Tips**
+
+- The list description should describe the overall contents for the list while each property should be a single, short description.
+- For more information about how to write instructions (or "prompts") for this method's Description parameters, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
 
 Examples
 ===

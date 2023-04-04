@@ -15,9 +15,7 @@ Use this tutorial if you want a guided tour of configuring AI-powered document e
 Get structured data from an auto insurance quote
 ===
 
-Let's get started with Sensible Instruct!
-
-If you can chat with an AI bot, then you can configure document extractions. 
+Let's get started with Sensible Instruct! Sensible Instruct makes it easy to specify in the data you want to extract from documents. If you can chat with an AI bot, then you can configure document extractions. 
 
  In this tutorial, you'll:
 

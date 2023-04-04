@@ -3,23 +3,15 @@ title: "Table extraction tips"
 hidden: false
 ---
 
-Extracts table data from documents.
+This method extracts tables in a document based on your description of the table title and each of its column headers.
 
-For more information about how to write instructions (or "prompts") for the Table method's Description parameters, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+**Tips**
 
-**Tips** TODO REWRITE
+- Try extracting all columns to get the best results. If you describe only a few of the columns, your results may be less accurate.
 
-- Partially extracted tables may not be accurately captured. Try extracting all columns to get the best results.
+- Try framing each description as the exact title and column headers in the table
 
-- Try framing each description as the exact title and column headers in the table.
-
-- You can improve results by being more specific:
-
-  - Budget column in the expense table
-
-  - Transaction amount column in the last column of the summary table
-
-  - Vehicle make (not model)
+- For more information about how to write instructions (or "prompts") for this method's Description parameters, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
 
 
 Examples
