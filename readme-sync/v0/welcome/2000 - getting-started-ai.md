@@ -10,7 +10,7 @@ You can then save your descriptions as a "config." Publish your config to automa
 Use this tutorial if you want a guided tour of configuring AI-powered document extractions in the Sensible app. Or see the following links:
 
 - You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring.  For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in SenseML, see [Get started extracting with SenseML](doc:getting-started).
-- If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials:  TODO these links if possible.
+- If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app example extractions. For links to the examples, see [AI-powered resources](doc:no-code).
 
 Get structured data from an auto insurance quote
 ===

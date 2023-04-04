@@ -15,13 +15,13 @@ Sensible uses an extraction configuration, or *"config"*, for extracting from a 
 
    For more information, see [Getting started with SenseML](doc:getting-started).
 
-- **Out-of-the-box extraction for common business documents:**  No need to author document extraction configurations for common business and tax forms. Use Sensible's pre-built, open-source [configuration library] TODO link to Sensible app to extract key information from  1099s, major carrier carrier insurance declaration pages, and others documents. Then tweak the pre-built configurations for your custom data needs.
+- **Out-of-the-box extraction for common business documents:**  No need to author document extraction configurations for common business and tax forms. Use Sensible's pre-built, open-source [configuration library](https://github.com/sensible-hq/sensible-configuration-library/) to extract key information from tax forms such as 1099s, major carrier carrier insurance declaration pages, and others documents. Then tweak the pre-built configurations for your custom data needs.
 
    For more information, see [Getting started with out-of-the-box extractions](doc:excel-quickstart).
 
 See the following topics for resources:
 
-- [No-code resources](doc:no-code)
+- [AI-powered resources](doc:no-code)
 - [Developer resources](doc:developer)
 
 
