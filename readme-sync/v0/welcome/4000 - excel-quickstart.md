@@ -58,8 +58,12 @@ Extract from sample document
 
 
 
-12. (**Optional**) Upload a second example document to see how the extracted output changes. TODO elaborate on this, provide 2nd link.
+12. (**Optional**) Upload a second example document and run an extraction to see how the extracted output changes. 
 
+   | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/senior_1040_2021_sample.pdf) |
+   | ----------- | ------------------------------------------------------------ |
+   
+   
 Next
 ----
 
