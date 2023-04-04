@@ -63,5 +63,5 @@ Extract from sample document
 Next
 ----
 
-TODO...what link to no-code and developer resources? update 'no-code' to "AI powered extraction resources?"
+To get started with authoring extraction configurations, or configs, for your custom documents, see [Overview](doc:overview).
 

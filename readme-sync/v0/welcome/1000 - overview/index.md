@@ -26,4 +26,4 @@ See the following topics for resources:
 
 
 
-TODO: add 'qa and test' back in OR remove it from the overview
+TODO: remove 'qa resources' from our readme landing page
