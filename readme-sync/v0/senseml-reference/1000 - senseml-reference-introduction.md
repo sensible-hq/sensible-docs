@@ -5,7 +5,7 @@ hidden: false
 
  Use SenseML to write "configs" (collection of queries) to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.
 
-For more information about which types of data are better extracted with SenseML versus Sensible Instruct, see [Sensible Instruct] introduction. TODO LINK -- or link to the VERSUS topic
+For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach(doc:author).
 
 
 

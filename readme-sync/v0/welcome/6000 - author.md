@@ -5,7 +5,7 @@ hidden: false
 
 This topic describes how to choose between SenseML and Sensible Instruct for extracting data from a set of similar documents.
 
-**Note** If you If the documents you want to extract from are listed in the Sensible configuration library, you can use our out-of-the-box support and author tweaks as necessary TODO link.
+**Note** If you If the document types you want to extract from are listed in Sensible's [open-source configuration library](https://app.sensible.so/library), they come with out-of-the-box support. You can use these pre-authored configurations as-is, or tweak them as necessary.
 
 Sensible Instruct vs SenseML
 ---
