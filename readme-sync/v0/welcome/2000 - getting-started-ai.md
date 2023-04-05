@@ -153,7 +153,7 @@ Take the following steps:
 }
 [/block]
 
-**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the Sensible API TODO LINK to excel endpoint.
+**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
 
 
 
