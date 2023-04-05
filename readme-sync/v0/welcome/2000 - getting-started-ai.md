@@ -12,7 +12,7 @@ Use this tutorial if you want a guided tour of configuring AI-powered document e
 - You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring.  For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in SenseML, see [Get started extracting with SenseML](doc:getting-started).
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app example extractions. For links to the examples, see [AI-powered resources](doc:no-code).
 
-Get structured data from an auto insurance quote
+Get structured data from a bank statement
 ===
 
 Let's get started with Sensible Instruct! Sensible Instruct makes it easy to specify in the data you want to extract from documents. If you can chat with an AI bot, then you can configure document extractions. 
@@ -99,61 +99,63 @@ To test the config against a second example document, take the following steps:
 2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document: 
 
 
+
+(Optional) Extract more data
+===
+
+Try out extracting other pieces of information, such as:
+
+- The bank address or customer address
+- The time period for each account. **Hint** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_lis`t uses the list method.
+- The Spanish-speaking customer service phone number.
+
+
 Publish the extraction
 ===
 
-To publish your config, click **Publish**, click **Production**, and click **Publish to production**:
+To publish your config, click **Publish**, click **Production**, then click **Publish to production**:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
-(optional) Download the extracted info as excel in the quick Extract pane
+(Optional) Export extracted data as spreadsheets
 ===
 
-You've tested your extraction configuration.
+Now you've tested and published your config, you can upload new bank statements, automatically extract from them using the config, and download the extracted data as Excel.
 
-Now you can download your extracted data as Excel. You'll get 1 Excel file per document (to combine extractions from multiple documents, use the Sensible API).
+Take the following steps:
 
-Navigate to the [quick extraction tab] at  https://dev.sensible.so/quick-extraction/.
+1. Download the following PDF document:
 
-
-
-![image-20230330152147986](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152147986.png)
-
-
-
-Select your document type, "TBD/TDO". (how to explain about doc types?)
+| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
+| ----------- | ------------------------------------------------------------ |
 
 
 
-Download this a new document, this one:
+1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
+   1. In the dropdown in the right pane, select `sensible_instruct_basics / Auto select` . The document type, `sensible_instruct_basics`, contains configs for bank statements and other document types such as resumes and contracts.  When you specify `Auto select`,  Sensible automatically chooses the bank config when you upload a bank statement.
 
-| TBD TODO | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/tbd_todo.pdf) |
-| -------- | ------------------------------------------------------------ |
-
-Upload it to the quick extract pane:
-
-![image-20230330152355006](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152355006.png)
-
-Run the extraction using the collection of descriptions you just edited, or the "config" (TBD name of config):
-
-You should see JSON results:
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
 
 
-![image-20230330152513267](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152513267.png)
+2. Click **Upload document** and select the document you just downloaded.
+2. Click **Run Extraction**.
 
-Click Download Excel to see the Excel results:
+4. Sensible displays the extracted data as JSON in the pane to the right. Click the **Download** icon to convert the extracted document data to Excel:
 
-
-
-![image-20230330152607384](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152607384.png)
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
 
-TODO: explain that this is now an API ENDPOINT
-===
 
-blah
+  The following spreadsheet shows the example output:
+
+[block:html]
+{
+  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:200px}</style>"
+}
+[/block]
+
+**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the Sensible API TODO LINK to excel endpoint.
 
 
 
