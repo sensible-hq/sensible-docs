@@ -46,7 +46,7 @@ For example, use the following screenshot as a guide for configuring the `insure
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/instruct/final/nlp_table_instruct_2.png)
 
-**Note**  GPT-3 has limitations due to its training data. For example, it doesn't know the current year, so it makes one up in the output. TODO check that's what the screenshot shows
+**Note**  GPT-4 has limitations due to its training data. For example, it doesn't know the current year, so it makes one up in the output. TODO check that's what the screenshot shows
 
 Notes
 ===

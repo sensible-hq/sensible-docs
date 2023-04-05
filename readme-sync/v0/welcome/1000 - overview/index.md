@@ -7,7 +7,7 @@ Welcome to Sensible's documentation. Sensible extracts structured data from docu
 
 Sensible uses an extraction configuration, or *"config"*, for extracting from a set of similar documents that you send to Sensible, either through our app or through our API. You have the following options for authoring configs:
 
-- **Low-code AI authoring**: You describe the document data that you want to extract, using Sensible's visual authoring tool, *Sensible Instruct*. Sensible uses GPT-3 and other large-language models (LLMs) to extract data from your documents. 
+- **Low-code AI authoring**: You describe the document data that you want to extract, using Sensible's visual authoring tool, *Sensible Instruct*. Sensible uses GPT-4 and other large-language models (LLMs) to extract data from your documents. 
 
   For more information, see [Getting started with AI extractions](doc:getting-started-ai).
 

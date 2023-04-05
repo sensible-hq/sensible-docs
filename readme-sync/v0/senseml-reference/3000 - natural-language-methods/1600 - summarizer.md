@@ -52,9 +52,9 @@ The following example shows using the Summarizer method with the Topic method to
         "id": "summarizer",
         /* field ID containing the source snippet */
         "source_id": "_source_ending_stock",
-        /* instructions for GPT3 for extracting data from source snippet*/
+        /* instructions for GPT-3 for extracting data from source snippet*/
         "instructions": "list the ranges, in million metric tons (MMT), of changes in 2022/23 for ending stocks by countries mentioned in the following text excerpt. Don't list countries not mentioned in the excerpt.",
-        /* the field IDs GPT3 must apply to the extracted data */
+        /* the field IDs GPT-3 must apply to the extracted data */
         "fields": [
           "region_or_country",
           "range_of_change_in_ending_stock",
@@ -196,9 +196,9 @@ The following example shows using the Summarizer method and the Topic method to 
         "id": "summarizer",
         /* field ID containing the source snippet */
         "source_id": "_source_rent_topic_paragraphs",
-        /* instructions for GPT3 for extracting data from source snippet */
+        /* instructions for GPT-3 for extracting data from source snippet */
         "instructions": "list the rents, how often the rent must be paid, and when the rent is due",
-        /* the field IDs GPT3 must apply to the extracted data */
+        /* the field IDs GPT-3 must apply to the extracted data */
         "fields": [
           "rent_in_dollars",
           "payment_time_period",
