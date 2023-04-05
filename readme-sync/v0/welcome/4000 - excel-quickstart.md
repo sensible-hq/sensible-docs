@@ -42,7 +42,7 @@ Extract from sample document
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 
-  The following spreadsheet shows the example output. The first tab contains fields with single values, for example the start date field, and succeeding tabs contain fields with table output, for example, the account list table. 
+  The following spreadsheet shows the example output. 
 
 
 
