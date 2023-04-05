@@ -86,47 +86,17 @@ Click the **Send** icon for each column description.
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
 
+TODO talk about LIST
 Test the config against another document
 ===
 
-1. Navigate to https://dev.sensible.so/editor/instruct/?d=frances_test_playground&c=instruct_gsg&g=copy_of_bank_statement___google_docs&v= to see the config you just edited, tested against a new document in the left pane. You should see that the extracted information has changed for your query:
+To test the config against a second example document, take the following steps:
 
-   TODO: the query that the person authors should change.
-   
-   ![image-20230330150725410](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330150725410.png)
+1. To select a second example document, *bank_2.pdf*, navigate to [https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2](https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2). Or, select the document by clicking the dropdown in the left pane and selecting  **bank_2**:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-Extract more complex information
-===
-
-So far you've just extracted simple facts. Now try extracting a list:
-
-![image-20230330151211148](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151211148.png)
-
-
-
-
-
-Fill it out as follows:
-
-![image-20230330151646972](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151646972.png)
-
-
-
-At the bottom of teh right pane you should see the extracted data: TODO: make sure the field ids don't quite match up to the document
-
-![image-20230330151712459](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151712459.png)
-
-
-
-Now, check that your List field works with another document at this link: 
-
-https://dev.sensible.so/editor/instruct/?d=frances_test_playground&c=instruct_gsg&g=bank_statement___google_docs&v=
-
-It should look like this:
-
-![image-20230330151905174](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330151905174.png)
-
+2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document: 
 
 
 Publish the extraction
