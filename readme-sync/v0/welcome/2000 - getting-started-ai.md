@@ -139,7 +139,7 @@ Take the following steps:
 2. Click **Upload document** and select the document you just downloaded.
 2. Click **Run Extraction**.
 
-4. Sensible displays the extracted data as JSON in the pane to the right. Click the **Download excel** to convert the extracted document data to Excel:
+4. Sensible displays the extracted data as JSON in the right pane. Click the **Download excel** to convert the extracted document data to Excel:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 

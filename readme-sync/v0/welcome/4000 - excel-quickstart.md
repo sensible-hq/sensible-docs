@@ -38,7 +38,7 @@ Extract from sample document
 ----
 
 
-11. Sensible displays the extracted data as JSON in the pane to the right. Click the **Download excel** to convert the extracted document data to Excel:
+11. Sensible displays the extracted data as JSON in the right pane. Click the **Download excel** to convert the extracted document data to Excel:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 
