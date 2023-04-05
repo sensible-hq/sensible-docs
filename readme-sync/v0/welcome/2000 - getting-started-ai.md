@@ -40,14 +40,19 @@ Configure the extraction
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
    
    
-
+   
 2. Take the following steps to edit the config to extract more data from the document.
+   
+Extract a query
+-----
+
+  
 
 3. To extract a single data point from the document, click **Query**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
-  - Edit the query as shown in the following screenshot and click the Send icon:
+  - Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field, then click the **Send** icon:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
@@ -55,11 +60,14 @@ Configure the extraction
 
 - Click **Back to fields**.
 
-- In the right pane, scroll down to view your new extracted field in the list of fields: 
+- In the right pane, scroll down to verify your new extracted field is in the list of fields: 
 
 ![image-20230330145558000](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330145558000.png)
 
 Click Publish to save your config as an API endpoint you can use with the API or with the Sensible app.
+
+Extract a table
+-----
 
 
 
