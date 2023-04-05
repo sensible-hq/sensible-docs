@@ -37,7 +37,7 @@ Configure the extraction
 
    You'll see a 'config', or list of instructions for extracting from the example menu document (in the left pane), and extracted data in the right pane.
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
    
    
 
@@ -45,17 +45,17 @@ Configure the extraction
 
 3. To extract a single data point from the document, click **Query**.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
   - Edit the query as shown in the following screenshot and click the Send icon:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
 - You should see the extracted account number, `8347-3248`, populate in the **Extracted data** section.
 
-Click **back to fields**
+- Click **Back to fields**.
 
-Your new extracted info is at the bottom of the list of extracted info:
+- In the right pane, scroll down to view your new extracted field in the list of fields: 
 
 ![image-20230330145558000](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330145558000.png)
 
