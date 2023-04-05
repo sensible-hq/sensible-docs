@@ -78,7 +78,13 @@ Click the **Send** icon for each column description.
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_5.png)
 
+4. (**Optional**) To standardize the representation of the extracted dates and dollar amounts, configure types as shown in the following screenshots:
 
+5. ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_6.png)
+
+   You should see that the formatting of the extracted data changes according to the types you specified. For example, Sensible reformats the date`04/11/23` to a standardized output format, `2023-04-11`:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
 
 Test the config against another document
 ===
