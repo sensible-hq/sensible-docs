@@ -38,7 +38,7 @@ Extract from sample document
 ----
 
 
-11. Sensible displays the extracted data as JSON in the pane to the right. Click the **Download** icon to convert the extracted document data to Excel:
+11. Sensible displays the extracted data as JSON in the pane to the right. Click the **Download excel** to convert the extracted document data to Excel:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_excel_2.png)
 
@@ -62,8 +62,8 @@ Extract from sample document
 
    | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/senior_1040_2021_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
-   
-   
+
+
 Next
 ----
 

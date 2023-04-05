@@ -98,8 +98,6 @@ To test the config against a second example document, take the following steps:
 
 2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document: 
 
-
-
 (Optional) Extract more data
 ===
 
@@ -110,7 +108,7 @@ Try out extracting other pieces of information, such as:
 - The Spanish-speaking customer service phone number.
 
 
-Publish the extraction
+Publish the config
 ===
 
 To publish your config, click **Publish**, click **Production**, then click **Publish to production**:
@@ -141,7 +139,7 @@ Take the following steps:
 2. Click **Upload document** and select the document you just downloaded.
 2. Click **Run Extraction**.
 
-4. Sensible displays the extracted data as JSON in the pane to the right. Click the **Download** icon to convert the extracted document data to Excel:
+4. Sensible displays the extracted data as JSON in the pane to the right. Click the **Download excel** to convert the extracted document data to Excel:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
