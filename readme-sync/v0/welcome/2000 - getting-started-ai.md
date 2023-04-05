@@ -102,9 +102,9 @@ To test the config against a second example document, take the following steps:
 Publish the extraction
 ===
 
-Publish your updated extraction:
+To publish your config, click **Publish**, click **Production**, and click **Publish to production**:
 
-![image-20230330152018117](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330152018117.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
 (optional) Download the extracted info as excel in the quick Extract pane
 ===
