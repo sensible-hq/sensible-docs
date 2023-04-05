@@ -24,6 +24,8 @@ The following example shows using the Table method to extract data from an auto 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/table_instruct.png)
 
+TODO: screenshot link broken?
+
 To try out this example in the Sensible app, take the following steps: 
 
 1. Download the following example PDF:
