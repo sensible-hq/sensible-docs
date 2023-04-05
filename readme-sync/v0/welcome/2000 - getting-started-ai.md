@@ -15,13 +15,13 @@ Use this tutorial if you want a guided tour of configuring AI-powered document e
 Get structured data from a bank statement
 ===
 
-Let's get started with Sensible Instruct! Sensible Instruct makes it easy to specify in the data you want to extract from documents. If you can chat with an AI bot, then you can configure document extractions. 
+Let's get started with Sensible Instruct! Sensible Instruct makes it easy to specify the data you want to extract from documents. If you can chat with an AI bot, then you can configure document extractions. 
 
  In this tutorial, you'll:
 
 - Edit a collection of descriptions ("a config") about the data you want to extract from an example PDF
 - Test the config against a second, similar PDF
-- Download the extracted document data as an Excel sheet. 
+- Download extracted document data as an Excel sheet. 
 
 Get an account
 ====
@@ -86,7 +86,6 @@ Click the **Send** icon for each column description.
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
 
-TODO talk about LIST
 Test the config against another document
 ===
 
@@ -96,12 +95,14 @@ To test the config against a second example document, take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document: 
+2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-3248` to `987612345`: 
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
 
 (Optional) Extract more data
 ===
 
-Try out extracting other pieces of information, such as:
+Try out extracting other pieces of information using what you learned in previous steps, such as:
 
 - The bank address or customer address
 - The time period for each account. **Hint** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_lis`t uses the list method.
@@ -149,7 +150,7 @@ Take the following steps:
 
 [block:html]
 {
-  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:200px}</style>"
+  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:400px}</style>"
 }
 [/block]
 

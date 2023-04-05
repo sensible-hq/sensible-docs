@@ -48,7 +48,7 @@ Extract from sample document
 
 [block:html]
 {
-  "html": "<div><iframe class=\"spreadsheet\"  height=\"400\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vQZEvCIXgC5QbJ5-XnV61GjyVSJsdLbLqogiS9b1HIz4T0DwbcfEDsSseHuE1sfzjliKlBWTkbm9ITI/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:200px}</style>"
+  "html": "<div><iframe class=\"spreadsheet\"  src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vQZEvCIXgC5QbJ5-XnV61GjyVSJsdLbLqogiS9b1HIz4T0DwbcfEDsSseHuE1sfzjliKlBWTkbm9ITI/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:400px}</style>"
 }
 [/block]
 
