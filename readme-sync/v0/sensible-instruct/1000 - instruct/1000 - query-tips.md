@@ -43,7 +43,7 @@ To try out this example in the Sensible app, take the following steps:
 
 3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you just created to edit it.
 
-4. Click **Sensible Instruct** and create fields  extract data using the following table:
+4. Click **Sensible Instruct** and create fields to extract data using the following table:
 
 | Field name           | Method | Describe what you want to extract                            |
 | -------------------- | ------ | ------------------------------------------------------------ |
