@@ -46,8 +46,6 @@ Configure the extraction
 Extract a query
 -----
 
-  
-
 3. To extract a single data point from the document, click **Query**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
@@ -57,21 +55,28 @@ Extract a query
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
 - You should see the extracted account number, `8347-3248`, populate in the **Extracted data** section.
-
 - Click **Back to fields**.
-
-- In the right pane, scroll down to verify your new extracted field is in the list of fields: 
-
-![image-20230330145558000](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330145558000.png)
-
-Click Publish to save your config as an API endpoint you can use with the API or with the Sensible app.
 
 Extract a table
 -----
 
+To extract a table, take the following steps:
 
+1. Click  **Table**.
 
+2. Configure the table extraction using the following screenshot and instructions:
 
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_4.png)
+
+| Field name                  | Method | Overall table description     | Column IDs and descriptions                                  |
+| --------------------------- | ------ | ----------------------------- | ------------------------------------------------------------ |
+| savings_transaction_history | Table  | "savings transaction history" | **date** - "date"<br/><br/>**description** - "description without totals"<br/><br/>**amount** - "amount" |
+
+Click the **Send** icon for each column description.
+
+3.  To verify the extracted data, scroll down in the right pane and compare the **Extracted data** section to the document in the left pane:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_5.png)
 
 
 
