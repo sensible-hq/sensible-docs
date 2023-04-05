@@ -3,9 +3,9 @@ title: "Getting started with AI-powered extractions"
 hidden: false
 ---
 
-In this tutorial, you'll learn to extract data out of a collection of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible Instruct uses large-language models (LLMs) such as GPT-4 to extract your target information.
+In this tutorial, you'll learn to extract data out of a collection of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
 
-You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.  
+You can then save your descriptions as an extraction configuration, or "config." Publish your config to automate extracting from similar documents.  
 
 Use this tutorial if you want a guided tour of configuring AI-powered document extractions in the Sensible app. Or see the following links:
 
@@ -19,9 +19,9 @@ Let's get started with Sensible Instruct! Sensible Instruct makes it easy to spe
 
  In this tutorial, you'll:
 
-- Edit a collection of descriptions ("a config") about the data you want to extract from an example menu PDF
-- Test the config against a second, similar menu PDF
-- Download the Excel extraction. 
+- Edit a collection of descriptions ("a config") about the data you want to extract from an example PDF
+- Test the config against a second, similar PDF
+- Download the extracted document data as an Excel sheet. 
 
 Get an account
 ====
@@ -33,27 +33,25 @@ Get an account
 Configure the extraction
 ====
 
-1. Navigate to  https://dev.sensible.so/editor/?d=frances_test_playground&c=instruct_gsg&g=bank_statement___google_docs.
+1. To view an example bank statement PDF extraction, navigate to [https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank](https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank). 
 
    You'll see a 'config', or list of instructions for extracting from the example menu document (in the left pane), and extracted data in the right pane.
 
-   ![image-20230330144330528](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330144330528.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
+   
+   
 
-TODO title figure
+2. Take the following steps to edit the config to extract more data from the document.
 
-Let's configure the extraction to add a bit more data.
+3. To extract a single data point from the document, click **Query**.
 
-Click query
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
-![image-20230330144516717](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330144516717.png)
+  - Edit the query as shown in the following screenshot and click the Send icon:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
-
-Edit the query as in the following screenshot and click the Send icon:
-
-![image-20230330145456238](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230330145456238.png)
-
-You should see the extracted phone number.
+- You should see the extracted account number, `8347-3248`, populate in the **Extracted data** section.
 
 Click **back to fields**
 
