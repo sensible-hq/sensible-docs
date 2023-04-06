@@ -22,7 +22,7 @@ Example 1
 
 The following example shows using the Table method to extract data from an auto insurance document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/table_instruct.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/nlp_table_instruct.png)
 
 TODO: screenshot link broken?
 
