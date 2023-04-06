@@ -19,12 +19,12 @@ Reference docs
 - [API reference](reference:choosing-an-endpoint) and [Postman collection](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)
 - [SenseML reference introduction](doc:senseml-reference-introduction) 
 
-Configure document extractions
+Basic document extraction configuration
 ---
 
 Write AI-powered extraction configurations in Sensible Instruct.
 
-- [Getting started with AI-powered extractions](doc:getting-started-ai)
+- [Getting started with AI-powered extractions](doc:getting-started-ai) or [interactive in-app tutorial](https://app.sensible.so/tutorial/)
 
 Advanced extraction configuration: learn SenseML
 ---
