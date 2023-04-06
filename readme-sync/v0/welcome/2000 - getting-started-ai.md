@@ -114,7 +114,7 @@ To test the config against a second example document, take the following steps:
 Try out extracting other pieces of information using what you learned in previous steps, such as:
 
 - The bank address or customer address
-- The time period for each account. **Hint** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_lis`t uses the list method.
+- The time period for each account. **Hint** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
 - The Spanish-speaking customer service phone number.
 
 

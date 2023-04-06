@@ -6,12 +6,7 @@ hidden: false
 
 Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. It can find these facts in paragraphs of free text or in more structured layouts, for example key/value pairs or tables.
 
-Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method or the [List method](doc:list). For a comparison of these methods, see the following table:
-
-| Question method                                              | [Summarizer](doc:summarizer) method                          |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ✅ finds the text snippet containing the answer automatically | ❌ Requires an input field to find the text snippet containing the answer. Typically, the input field uses the [Topic](doc:topic) or [Document Range](doc:document-range) methods. |
-| ❌ returns a multiple-answer response as a natural-language string | ✅ returns a multiple-answer response structured as an object or list of objects |
+Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [Summarizer](doc:summarizer) method or the [List method](doc:list). 
 
 For tips on authoring this method in Sensible Instruct, see [Query tips](doc:query-tips).
 

@@ -2,7 +2,14 @@
 title: "Summarizer"
 hidden: false
 ---
-Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. 
+Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide.  This method is similar to the List method.
+
+For a comparison of these methods, see the following table:
+
+| Summarizer method                                            | List method                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ❌ Requires an input field to find the text snippet containing the answer. Typically, the input field uses the [Topic](doc:topic) or [Document Range](doc:document-range) methods. | ✅ finds the text snippet containing the answer automatically |
+| ✅ returns a multiple-answer response structured as an object or list of objects | ✅ returns a multiple-answer response structured as an object or list of objects |
 
 Parameters
 ====
