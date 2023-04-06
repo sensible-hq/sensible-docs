@@ -6,7 +6,7 @@ hidden: false
 
 Get started by writing natural-language descriptions of the data you want to extract from documents.
 
-- [Get started with AI-powered extractions](doc:getting-started-ai)
+- [Get started with AI-powered extractions](doc:getting-started-ai) or [interactive in-app tutorial](https://app.sensible.so/tutorial/)
 
 - Interactive example document extractions: 
   - [Bank statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement)
