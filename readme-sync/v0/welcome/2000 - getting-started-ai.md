@@ -37,7 +37,7 @@ Configure the extraction
 
    You'll see a 'config', or list of instructions for extracting from the example menu document (in the left pane), and extracted data in the right pane.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
 
    
 
@@ -48,11 +48,11 @@ Extract a query
 
 3. To extract a single data point from the document, click **Query**.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
   - Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field, then click the **Send** icon:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
 - You should see the extracted account number, `8347-3248`, populate in the **Extracted data** section.
 - Click **Back to fields**.
@@ -66,7 +66,7 @@ To extract a table, take the following steps:
 
 2. Configure the table extraction using the following screenshot and instructions:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_4.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_4.png)
 
 | Field name                  | Method | Overall table description     | Column IDs and descriptions                                  |
 | --------------------------- | ------ | ----------------------------- | ------------------------------------------------------------ |
@@ -76,15 +76,15 @@ Click the **Send** icon for each column description.
 
 3.  To verify the extracted data, scroll down in the right pane and compare the **Extracted data** section to the document in the left pane:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_5.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_5.png)
 
 4. (**Optional**) To standardize the representation of the extracted dates and dollar amounts, configure types as shown in the following screenshots:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_6.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_6.png)
 
    You should see that the formatting of the extracted data changes according to the types you specified. For example, Sensible reformats the date`04/11/23` to a standardized output format, `2023-04-11`:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
 
 Test the config against another document
 ===
@@ -102,11 +102,11 @@ To test the config against a second example document, take the following steps:
 
 1. To test the uploaded document, *bank_2.pdf*, navigate to [https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_2](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_2):
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
 2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-3248` to `987612345`: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
 
 (Optional) Extract more data
 ===
@@ -123,7 +123,7 @@ Publish the config
 
 To publish your config, click **Publish**, click **Production**, then click **Publish to production**:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
 (Optional) Export extracted data as spreadsheets
 ===
@@ -142,7 +142,7 @@ Take the following steps:
 1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
    1. In the dropdown in the right pane, select `sensible_instruct_basics / Auto select` . The document type, `sensible_instruct_basics`, contains configs for bank statements and other document types such as resumes and contracts.  When you specify `Auto select`,  Sensible automatically chooses the bank config when you upload a bank statement.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
 
 
@@ -151,7 +151,7 @@ Take the following steps:
 
 4. Sensible displays the extracted data as JSON in the right pane. Click the **Download excel** to convert the extracted document data to Excel:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
 
 
