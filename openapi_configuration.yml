@@ -559,7 +559,7 @@ paths:
         500:
           $ref: '#/components/responses/500'
 
-  # Comment: decision to remove from public API reference as of march 2023; not being used. The  response isn't accurate anymore, for instance, should now include page_count
+  # Comment: decision to remove from public API reference as of march 2023; not being used. if make public, check accuracy of response model
 
   # /extract_from_golden/{type-name}:
   #   parameters:
