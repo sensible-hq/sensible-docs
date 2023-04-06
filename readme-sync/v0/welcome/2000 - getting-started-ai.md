@@ -33,7 +33,7 @@ Get an account
 Configure the extraction
 ====
 
-1. To view an example bank statement PDF extraction, navigate to [https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank](https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank). 
+1. To view an example bank statement PDF extraction, navigate to [https://app.sensible.so/editor/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement](https://app.sensible.so/editor/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement). 
 
    You'll see a 'config', or list of instructions for extracting from the example menu document (in the left pane), and extracted data in the right pane.
 
@@ -100,7 +100,7 @@ To test the config against a second example document, take the following steps:
 2. Navigate to the **Reference documents** tab of the `sensible_instruct_basics` document type at [https://app.sensible.so/document-types/detail/?d=sensible_instruct_basics&t=reference_documents](https://app.sensible.so/document-types/detail/?d=sensible_instruct_basics&t=reference_documents). 
 3. Click **Upload document** and select the document you just downloaded.
 
-1. To test the uploaded document, *bank_2.pdf*, navigate to [https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2](https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2):
+1. To test the uploaded document, *bank_2.pdf*, navigate to [https://app.sensible.so/editor/?d=sensible_instruct_basics&c=bank_statement&g=bank_2](https://app.sensible.so/editor/?d=sensible_instruct_basics&c=bank_statement&g=bank_2):
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
