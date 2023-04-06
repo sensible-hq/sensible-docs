@@ -5,16 +5,16 @@ hidden: false
 
 This topic describes how to choose between SenseML and Sensible Instruct for extracting data from a set of similar documents.
 
-**Note** If you If the document types you want to extract from are listed in Sensible's [open-source configuration library](https://app.sensible.so/library), they come with out-of-the-box support. You can use these pre-authored configurations as-is, or tweak them as necessary.
+**Note:**  If your document types are listed in Sensible's [open-source configuration library](https://app.sensible.so/library), they come with out-of-the-box support. You can use these pre-authored configurations as-is, or tweak them as necessary to extract from your documents.
 
 Sensible Instruct vs SenseML
 ---
 
-You can author an extraction configuration, or *config* using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, for complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct
+You can author an extraction configuration, or "config" using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, for complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.
 
 Sensible Instruct methods are AI-powered. SenseML includes Sensible Instruct methods, as well as document layout-based methods that use rules and heuristics to extract data.
 
-You can mix and match Sensible Instruct and SenseML in a *config* . For example, for any individual piece of data you want to extract, you can fallback to a SenseML method if the Sensible Instruct method returns null.
+You can mix and match Sensible Instruct and SenseML in a config . For example, for any individual piece of data you want to extract, you can fallback to a SenseML method if the Sensible Instruct method returns null.
 
 |                              | Sensible Instruct                                            | SenseML                                                      |
 | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
