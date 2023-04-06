@@ -46,7 +46,8 @@ To try out this example in the Sensible app, take the following steps:
 
 For example, use the following screenshot as a guide for configuring the `insured_vehicles_table` field:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/instruct/final/nlp_table_instruct_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/nlp_table_instruct_2.png)
+
 
 
 
