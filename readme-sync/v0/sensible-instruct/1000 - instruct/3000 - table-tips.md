@@ -53,4 +53,4 @@ For example, use the following screenshot as a guide for configuring the `insure
 
 Notes
 ===
-For the full reference for this method in SenseML, see [NLP Table](doc:NLP Table).
+For the full reference for this method in SenseML, see [NLP Table](doc:nlp-table).
