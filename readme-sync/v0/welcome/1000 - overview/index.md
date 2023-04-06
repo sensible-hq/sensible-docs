@@ -21,5 +21,3 @@ See the following topics for further resources:
 - [Developer resources](doc:developer)
 
 
-
-TODO: remove 'qa resources' from our readme landing page
