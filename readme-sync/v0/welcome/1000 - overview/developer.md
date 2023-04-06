@@ -3,7 +3,7 @@ title: "Developer resources"
 hidden: false
 ---
 
-Get started with API keys and integrations.
+Get started with advanced document extraction configuration, API keys, and integrations.
 
 Get started and integrate
 ---

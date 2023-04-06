@@ -1,3 +1,5 @@
+# official is: https://github.com/errata-ai/vale-action
+
 name: Style linting
 on:
   push:
