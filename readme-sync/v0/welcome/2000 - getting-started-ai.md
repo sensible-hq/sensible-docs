@@ -3,13 +3,13 @@ title: "Getting started with AI-powered extractions"
 hidden: false
 ---
 
-In this tutorial, you'll learn to extract data out of a collection of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
+In this tutorial, you'll learn to extract data out of a set of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
 
 You can then save your descriptions as an extraction configuration, or "config." Publish your config to automate extracting from similar documents.  
 
 Use this tutorial if you want a guided tour of configuring AI-powered document extractions in the Sensible app. Or see the following links:
 
-- You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring.  For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in SenseML, see [Get started extracting with SenseML](doc:getting-started).
+- You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring. SenseML is a superset of Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction approach](doc:author). For authoring in SenseML, see [Get started extracting with SenseML](doc:getting-started).
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app example extractions. For links to the examples, see [AI-powered resources](doc:no-code).
 
 Get structured data from a bank statement
@@ -35,7 +35,7 @@ Configure the extraction
 
 1. To view an example bank statement PDF extraction, navigate to [https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement). 
 
-   You'll see a 'config', or list of instructions for extracting from the example menu document (in the left pane), and extracted data in the right pane.
+   You'll see a "config", or list of instructions for extracting from the example document (in the left pane), and extracted data in the right pane.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
 
@@ -50,7 +50,7 @@ Extract a query
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
-  - Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field, then click the **Send** icon:
+  - Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field. Give the query an ID, `account_num_checking` then click the **Send** icon:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
@@ -78,11 +78,11 @@ Click the **Send** icon for each column description.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_5.png)
 
-4. (**Optional**) To standardize the representation of the extracted dates and dollar amounts, configure types as shown in the following screenshots:
+4. (**Optional**) To standardize the representation of the extracted dates and dollar amounts, configure `date` and `currency` types as shown in the following screenshots:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_6.png)
 
-   You should see that the formatting of the extracted data changes according to the types you specified. For example, Sensible reformats the date`04/11/23` to a standardized output format, `2023-04-11`:
+   You should see that the formatting of the extracted data changes according to the types you specified. For example, Sensible reformats the date `04/11/23` to a standardized output format, `2023-04-11`:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
 
@@ -114,7 +114,7 @@ To test the config against a second example document, take the following steps:
 Try out extracting other pieces of information using what you learned in previous steps, such as:
 
 - The bank address or customer address
-- The time period for each account. **Hint** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
+- The time period for each account. **Hint:** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
 - The Spanish-speaking customer service phone number.
 
 
