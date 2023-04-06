@@ -3,7 +3,6 @@ title: "AI-powered resources"
 hidden: false
 ---
 
-TODO proofread and check links
 
 Get started by writing natural-language descriptions of the data you want to extract from documents.
 
