@@ -5,7 +5,7 @@ hidden: false
 
 In this quickstart, extract data from an example tax form PDF and convert the document data to a spreadsheet, using Sensible's out-of-the-box support for common business forms. 
 
-- If you instead want a guided tour for extracting data from your own custom documents, see [No-code resources](doc:no-code) or [Developer resources](doc:developer). TODO or link to 'choosing authoring strategy'?
+- If you instead want a guided tour for extracting data from your own custom documents, see [Overview](doc:overview) for choosing an extraction strategy.
 
 Copy pre-built extraction configuration
 ----
