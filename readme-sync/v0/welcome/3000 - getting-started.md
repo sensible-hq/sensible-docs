@@ -3,7 +3,7 @@ title: "Getting started layout-powered extractions"
 hidden: false
 ---
 
-In this tutorial, you'll learn to extract data out of a collection of similar documents using a layout-based query language, SenseML. You'll write JSON to tell Sensible about which data to extract from an example document, using what you know about the layout of the document. SenseML uses a mix of techniques, including machine learning, heuristics, and rules, to extract your target information.
+In this tutorial, you'll learn to extract data out of a set of similar documents using a layout-based query language, SenseML. You'll write JSON to tell Sensible about which data to extract from an example document, using what you know about the layout of the document. SenseML uses a mix of techniques, including machine learning, heuristics, and rules, to extract your target information.
 
 You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.   
 
@@ -12,7 +12,7 @@ Use this tutorial if you want a guided tour of SenseML concepts and the Sensible
 - SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Get started with AI-powered extraction](doc:getting-started-ai).
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials. For links to the tutorials, see [Developer resources](doc:developer).
-- If you to get want a quick "hello world" API response, see the [quickstart](doc:quickstart).
+- If you want a quick "hello world" API response, see the [quickstart](doc:quickstart).
 
 Get structured data from an auto insurance quote
 ===
@@ -203,7 +203,7 @@ This config uses three types of layout-based methods:
   | layout         | [How it works: box method](doc:getting-started#how-it-works-box-method) | Grab info from a box.                             |
 
 
-This config also uses one natural-language, or AI-powered, method, in order to show that you can combine layout-based and natural-language methods in the same config:
+This config also uses one natural-language, or AI-powered, method, in order to demonstrate that you can combine layout-based and natural-language methods in the same config:
 
 | Type of method   | explanation                                                  | description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -220,7 +220,7 @@ For example, to extract the bodily injury liability:
 
 
 
-The config uses the [Question](doc:question) method to ask, `in the table, what's the bolidy injury premium?`:  
+The config uses the [Question](doc:question) method to ask, `in the table, what's the bodily injury premium?`:  
 
 ```
 {
@@ -250,7 +250,7 @@ This config returns:
 
 Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
 
-You can also natural-language methods such as Question in JSON, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Get started with AI-powered extractions](doc:getting-started-ai).
+You can wrtie natural-language methods such as Question in JSON, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Get started with AI-powered extractions](doc:getting-started-ai).
 
 Natural-language methods, such as Sensible's Question method or the GPT-4 powered NLP Table method, can run up against limitations with highly complex document formatting, or layouts. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 
