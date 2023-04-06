@@ -3,7 +3,7 @@ title: "Table extraction tips"
 hidden: false
 ---
 
-This method extracts tables in a document based on your description of the table title and each of its column headers.
+This method extracts a table in a document based on your description of the table title and each of its column headers.
 
 **Tips**
 
