@@ -91,7 +91,16 @@ Test the config against another document
 
 To test the config against a second example document, take the following steps:
 
-1. To select a second example document, *bank_2.pdf*, navigate to [https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2](https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2). Or, select the document by clicking the dropdown in the left pane and selecting  **bank_2**:
+1. Download the following document:
+
+
+| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_2.pdf) |
+   | ----------- | ------------------------------------------------------------ |
+
+2. Navigate to the **Reference documents** tab of the `sensible_instruct_basics` document type at [https://app.sensible.so/document-types/detail/?d=sensible_instruct_basics&t=reference_documents](https://app.sensible.so/document-types/detail/?d=sensible_instruct_basics&t=reference_documents). 
+3. Click **Upload document** and select the document you just downloaded.
+
+1. To test the uploaded document, *bank_2.pdf*, navigate to [https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2](https://app.sensible.so/editor/instruct?d=sensible_instruct_basics&c=bank&g=bank_2):
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/instruct/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
