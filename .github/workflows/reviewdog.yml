@@ -1,12 +1,8 @@
 # official is: https://github.com/errata-ai/vale-action
 
 name: reviewdog
-on:
-  push:
-    branches:
-      - main
-    #paths:
-    # - 'readme-sync/v0/**.md'
+
+on: [pull_request]
 
 jobs:
   vale:
