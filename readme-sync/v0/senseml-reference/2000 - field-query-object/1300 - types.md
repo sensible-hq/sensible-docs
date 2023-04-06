@@ -61,6 +61,19 @@ to find addresses in paragraphs:
 
 
 
+**Example output**
+
+```json
+{
+    "value": "11 Center Street\nAmherst, MA 01002",
+    "type": "address"
+  }
+```
+
+
+
+
+
 **Formats recognized** 
 
 With either block or in-line address, Sensible recognizes these formats: 
