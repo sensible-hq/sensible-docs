@@ -5,7 +5,7 @@ hidden: false
 
 Welcome to Sensible's documentation. Sensible extracts structured data from documents, for example PDFs of business forms. 
 
-Sensible uses an extraction configuration, or *"config"*, for extracting from a set of similar documents that you send to Sensible, either through our app or through our API. You have the following options for authoring configs:
+Sensible uses an extraction configuration, or "config", for extracting from a set of similar documents that you send to Sensible, either through our app or through our API. You have the following options for authoring configs:
 
 | Use case                                                    | Description                                                  | Get started                                                  |
 | ----------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
