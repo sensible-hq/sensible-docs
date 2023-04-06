@@ -5,6 +5,10 @@ hidden: false
 
  Use SenseML to write "configs" (collection of queries) to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.
 
+For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
+
+
+
 See the following pages for reference documentation for the SenseML query language:
 
 - [Field query object](doc:field-query-object)
@@ -17,7 +21,7 @@ See the following pages for reference documentation for the SenseML query langua
 
 Or, for a getting started tutorial, see:
 
-- [Getting Started](doc:getting-started)
+- [Getting started with layout-based extraction](doc:getting-started)
 
 Examples
 ====
@@ -54,14 +58,14 @@ This example uses the following config:
     {
       /* ID for target data */
       "id": "policy_period",
-      /* search for target data 
+      /* search for target data
       on page containing this anchor line */
       "anchor": "anyco auto insurance",
       "method": {
         "id": "question",
         /* ask a free-text question.
           best suited to simple questions
-          that have one label and one answer 
+          that have one label and one answer
           in the document. */
         "question": "what's the policy period date range"
       }
@@ -81,8 +85,8 @@ This example uses the following config:
       "id": "driver_name_last", // ID for transformed target data
       "method": {
         "source_id": "_driver_name_raw", // extracted data to transform
-        "id": "split", // target data is substring in extracted data 
-        "separator": ", ", // use commas to split the extracted data into substring array 
+        "id": "split", // target data is substring in extracted data
+        "separator": ", ", // use commas to split the extracted data into substring array
         "index": 1 // target is 2nd element in substring array
       }
     }
@@ -115,7 +119,7 @@ This example config has the following elements:
 
 - An **anchor** is matched text that helps narrow down a location in the document from which to extract data. In the `"_driver_name_raw"` field, Sensible matches a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
 
-- A **method** defines how to extract data after the anchor narrows down the data's location. In this example field, the Label method tells Sensible to extract data that's below and close to the anchor. 
+- A **method** defines how to extract data after the anchor narrows down the data's location. In this example field, the Label method tells Sensible to extract data that's below and close to the anchor.
 
   There are two broad categories of methods:
 
@@ -135,5 +139,4 @@ This example config has the following elements:
 
 
 
-  In production scenarios, you can extract just about any text, as well as image coordinates, from a document. Happy extracting! 
-
+  In production scenarios, you can extract just about any text, as well as image coordinates, from a document. Happy extracting!
