@@ -9,7 +9,7 @@ You can then save your descriptions as a "config." Publish your config to automa
 
 Use this tutorial if you want a guided tour of SenseML concepts and the Sensible app. Or see the following links:
 
-- SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Get started with AI-powered extraction](doc:getting-started-ai).
+- SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Getting started with AI-powered extraction](doc:getting-started-ai).
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials. For links to the tutorials, see [Developer resources](doc:developer).
 - If you want a quick "hello world" API response, see the [quickstart](doc:quickstart).
@@ -203,7 +203,7 @@ This config uses three types of layout-based methods:
   | layout         | [How it works: box method](doc:getting-started#how-it-works-box-method) | Grab info from a box.                             |
 
 
-This config also uses one natural-language, or AI-powered, method, in order to demonstrate that you can combine layout-based and natural-language methods in the same config:
+This config also uses one natural-language, or AI-powered, method, to demonstrate that you can combine layout-based and natural-language methods in the same config:
 
 | Type of method   | explanation                                                  | description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -250,7 +250,7 @@ This config returns:
 
 Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
 
-You can wrtie natural-language methods such as Question in JSON, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Get started with AI-powered extractions](doc:getting-started-ai).
+You can write natural-language methods such as Question in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started with AI-powered extractions](doc:getting-started-ai).
 
 Natural-language methods, such as Sensible's Question method or the GPT-4 powered NLP Table method, can run up against limitations with highly complex document formatting, or layouts. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 
