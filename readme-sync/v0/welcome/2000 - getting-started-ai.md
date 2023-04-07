@@ -3,14 +3,14 @@ title: "Getting started with AI-powered extractions"
 hidden: false
 ---
 
-In this tutorial, you'll learn to extract data out of a set of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
+In this tutorial, you'll learn to extract data from a set of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
 
 You can then save your descriptions as an extraction configuration, or "config." Publish your config to automate extracting from similar documents.  
 
 Use this tutorial if you want a guided tour of configuring AI-powered document extractions in the Sensible app. Or see the following links:
 
-- You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring. SenseML is a superset of Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction approach](doc:author). For authoring in SenseML, see [Get started extracting with SenseML](doc:getting-started).
-- If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app example extractions. For links to the examples, see [AI-powered resources](doc:no-code).
+- You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring. SenseML is a superset of Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction approach](doc:author). For authoring in SenseML, see [Getting started with SenseML](doc:getting-started).
+- If you want to explore without much explanation, [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app example extractions. For links to the examples, see [AI-powered resources](doc:no-code).
 
 Get structured data from a bank statement
 ===
