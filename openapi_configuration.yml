@@ -342,7 +342,7 @@ paths:
     put:
       operationId: publish-configuration-by-version
       summary: Publish configuration to an environment
-      description: To publish to an environment instead of as the current draft, the configuration must be [valid](https://app.sensible.so/schemas/configuration.schema.json).
+      description: To publish to an environment instead of as the current draft, the configuration must be valid according to this [schema](https://schema.sensible.so/configuration.schema.json).
       tags:
       - Configuration
       requestBody:
