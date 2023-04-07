@@ -2,7 +2,7 @@
 title: "NLP Table"
 hidden: false
 ---
-Extracts a table based on your natural-language description of the data you want to extract.
+Extracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages.
 
 For tips on authoring this method in Sensible Instruct, see [Table tips](doc:list-tips).
 
