@@ -18,7 +18,7 @@ You can mix and match Sensible Instruct and SenseML in a config . For example, f
 
 |                              | Sensible Instruct                                            | SenseML                                                      |
 | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Technical expertise required | For nontechnical users: Describe what you want to extract using natural language.  For example, "the policy period" | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium". |
+| Technical expertise required | For nontechnical users: Describe what you want to extract using natural language.  For example, "the policy period" or "total amount invoiced". | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium". |
 | Workflow automation          | Suited to workflows that include human review or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
 | Document variability         | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Offers faster performance for  structured documents with a finite number of variations, where you know the layout of the document in advance. |
 | Deterministic                | No                                                           | Yes. Find the information in the document using anchoring text and layout data. |
