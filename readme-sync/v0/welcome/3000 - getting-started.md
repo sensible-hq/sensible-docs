@@ -591,7 +591,7 @@ To add these tests:
 | auto_insurance_anyco_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
 | ----------------------------- | ------------------------------------------------------------ |
 
-You should receive a response with errors and warnings in the Validations array, as show in the following API response excerpt:
+You should receive a response with errors and warnings in the Validations array, as shown in the following API response excerpt:
 
 ```json
 {
