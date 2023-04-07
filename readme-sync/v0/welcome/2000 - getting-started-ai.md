@@ -3,7 +3,7 @@ title: "Getting started with AI-powered extractions"
 hidden: false
 ---
 
-In this tutorial, you'll learn to extract data from a set of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document, as if you were chatting with an AI bot. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
+In this tutorial, you'll learn to extract data from a set of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
 
 You can then save your descriptions as an extraction configuration, or "config." Publish your config to automate extracting from similar documents.  
 
@@ -15,7 +15,7 @@ Use this tutorial if you want a guided tour of configuring AI-powered document e
 Get structured data from a bank statement
 ===
 
-Let's get started with Sensible Instruct! Sensible Instruct makes it easy to specify the data you want to extract from documents. If you can chat with an AI bot, then you can configure document extractions. 
+Let's get started with Sensible Instruct! Sensible Instruct makes it easy to specify the data you want to extract from documents.
 
  In this tutorial, you'll:
 

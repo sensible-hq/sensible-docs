@@ -212,7 +212,7 @@ This config also uses one natural-language, or AI-powered, method, to demonstrat
 How it works: Question method
 ---
 
-The easiest way to start extracting simple information is to ask a natural-language question, as you would ask a chatbot.
+The easiest way to start extracting simple information is to ask a natural-language question.
 
 For example, to extract the bodily injury liability:
 
