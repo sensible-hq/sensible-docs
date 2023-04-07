@@ -16,7 +16,6 @@ For tips on authoring this method in Sensible Instruct, see [Table tips](doc:lis
 
 - Can have a moderate impact on performance. For more information, see [Optimizing extraction performance](doc:performance).
 - Suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements.
-- Doesn't support tables that span pages.
 
 **Alternatives**
 
