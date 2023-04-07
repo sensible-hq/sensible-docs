@@ -10,9 +10,9 @@ This topic describes how to choose between SenseML and Sensible Instruct for ext
 Sensible Instruct vs SenseML
 ---
 
-You can author an extraction configuration, or "config", using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, for complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.
+You can author an extraction configuration, or "config", using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, from complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.
 
-Sensible Instruct methods are AI-powered. SenseML includes Sensible Instruct methods, as well as document layout-based methods that use rules and heuristics to extract data.
+Sensible Instruct methods are AI-powered. SenseML includes Sensible Instruct methods, as well as layout-based methods that use rules and heuristics to extract data.
 
 You can mix and match Sensible Instruct and SenseML in a config . For example, for any individual piece of data you want to extract, you can fallback to a SenseML method if the Sensible Instruct method returns null.
 
