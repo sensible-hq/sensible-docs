@@ -234,7 +234,7 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible splits the document into equal-sized, overlapping chunks. 
    - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
    - Sensible gets a list of page numbers from the top-scoring chunks.
-2. Sensible extracts all the tables on each page in the list of pages most likely to contain your table, using an Amazon OCR provider. 
+2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. 
 
 3. For each extracted table, Sensible extracts the table title, if present.  In detail:
 
