@@ -23,7 +23,7 @@ To run an API call and return extracted, structured data from a downloaded examp
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
 
-    **NOTE** In the Sensible app, don't rename of the default doc type (**senseml_basics**) or delete the **1_extract_your_first_data** config, or this example fails. 
+    **NOTE** In the Sensible app, don't rename the default doc type (**senseml_basics**) or delete the **1_extract_your_first_data** config, or this example fails. 
 
 1. Copy your API key from your [account page](https://app.sensible.so/account/).
 
