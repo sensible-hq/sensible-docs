@@ -72,7 +72,7 @@ To extract a table, take the following steps:
 | --------------------------- | ------ | ----------------------------- | ------------------------------------------------------------ |
 | savings_transaction_history | Table  | "savings transaction history" | **date** - "date"<br/><br/>**description** - "description without totals"<br/><br/>**amount** - "amount" |
 
-Click the **Send** icon for each column description.
+Click the **Send** icon for each column.
 
 3.  To verify the extracted data, scroll down in the right pane and compare the **Extracted data** section to the document in the left pane:
 
