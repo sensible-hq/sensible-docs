@@ -1,4 +1,4 @@
-name: Sync markdown guides to ReadMe
+name: Dev Sync markdown guides to ReadMe
 
 # Run workflow for every push to the named dev branch branch
 on:
