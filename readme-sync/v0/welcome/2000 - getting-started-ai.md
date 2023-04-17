@@ -86,21 +86,19 @@ Click the **Send** icon for each column.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
 
+Publish the config
+===
+
+To publish your config, click **Publish**, click **Production**, then click **Publish to production**:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
+
 Test the config against another document
 ===
 
 To test the config against a second example document, take the following steps:
 
-1. Download the following document:
-
-
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_2.pdf) |
-   | ----------- | ------------------------------------------------------------ |
-
-2. Navigate to the **Reference documents** tab of the `sensible_instruct_basics` document type at [https://app.sensible.so/document-types/detail/?d=sensible_instruct_basics&t=reference_documents](https://app.sensible.so/document-types/detail/?d=sensible_instruct_basics&t=reference_documents). 
-3. Click **Upload document** and select the document you just downloaded.
-
-1. To test the uploaded document, *bank_2.pdf*, navigate to [https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_2](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_2):
+1. Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2. Notice that the document in the left pane changed, to a statement for a different customer.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
@@ -118,12 +116,7 @@ Try out extracting other pieces of information using what you learned in previou
 - The Spanish-speaking customer service phone number.
 
 
-Publish the config
-===
 
-To publish your config, click **Publish**, click **Production**, then click **Publish to production**:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
 (Optional) Export extracted data as spreadsheets
 ===
