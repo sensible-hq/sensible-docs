@@ -109,13 +109,13 @@ To test the config against a second example document, take the following steps:
 (Optional) Extract more data
 ===
 
-Try out extracting other pieces of information using what you learned in previous steps, such as:
+Try extracting other pieces of information using what you learned in previous steps, such as:
 
 - The bank address or customer address
+- The Spanish-speaking customer service phone number
 - The time period for each account. **Hint:** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
-- The Spanish-speaking customer service phone number.
 
-
+When you're done making changes, publish the config to save your changes.
 
 
 (Optional) Export extracted data as spreadsheets
@@ -129,8 +129,6 @@ Take the following steps:
 
 | Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
 | ----------- | ------------------------------------------------------------ |
-
-
 
 1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
    1. In the dropdown in the right pane, select `sensible_instruct_basics / Auto select` . The document type, `sensible_instruct_basics`, contains configs for bank statements and other document types such as resumes and contracts.  When you specify `Auto select`,  Sensible automatically chooses the bank config when you upload a bank statement.
