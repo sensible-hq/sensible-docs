@@ -431,10 +431,10 @@ paths:
           - JPEG
           - PNG
           - TIFF
-
+        How it works:
+          - TODO explain
 
       parameters:
-        - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
       requestBody:
         required: true
@@ -452,7 +452,6 @@ paths:
             schema:
               type: string
               format: binary
-              description: Sensible doesn't support using pixel-based methods, such as Box, Checkbox, Signature, and image coordinates, with TIFF-formatted documents.
           application/pdf:
             schema:
               type: string
@@ -461,19 +460,14 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/encodedPdf"
-
-
-
-
-
       tags:
-      - Document
+      - Classify
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExtractionSingleResponse'
+                $ref: '#/components/schemas/ClassifySingleResponse'
           description: |
             The structured data extracted from the document.
         '401':
@@ -486,9 +480,6 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-
-
-
 
 
 
@@ -610,15 +601,6 @@ components:
         type: string
         enum: [production, development]
         default: production
-
-
-
-
-
-
-
-
-
 
 
 
@@ -815,6 +797,16 @@ components:
         - document_url
 
 
+    ClassifySingleResponse:
+      type: object
+      properties:
+        document_type:
+          type: string
+          description: the doc type this doc is most similar to.
+        document_type_similarity:
+          type: number
+          description: the similarity score between 0 and 1
+        # classification summary
 
 
 
