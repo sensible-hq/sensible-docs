@@ -2,7 +2,7 @@
 title: "Methods"
 hidden: 
 ---
-Use the following [methods](doc:method)  to extract structured data from documents.
+Use the following SenseML [methods](doc:method)  to extract structured data from documents.
 
 | Method                                       | Image                                                        | Notes                                                        |
 | -------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
