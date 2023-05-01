@@ -14,7 +14,11 @@ Prerequisite: Create an example Sensible extraction
 
 To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create a JSON extraction from an example 1040 tax form. 
 
+Prerequisite: Create a Gmail filter and Google Drive folder
+----
 
+1. Set up a Gmail filter that automatically applies the label "1040" to any email you receive that has an attached 1040 document in PDF format. For example, filter on `subject:1040`.
+2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data that Sensible will create for each 1040 PDF you receive as an email.
 
 First Zap: Extract emailed 1040 doc with Sensible
 ---
