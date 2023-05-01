@@ -40,6 +40,17 @@ Second Zap: Upload extraction as spreadsheet to Google drive, if it's a 1040
 
 
 
+(Optional) Test your integration
+---
 
+Congratulations, your integration is now published and running! Take the following steps to continue populating a Google folder from example documents:
+
+1. Navigate to the Sensible [quick extraction tab](https://app.sensible.so/quick-extraction/).
+2. Upload and run extractions for the following example 1040 documents:
+   - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018)
+   - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)
+   - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)
+
+3. Verify the extractions show up in your Google Drive folder as spreadsheets.
 
 
