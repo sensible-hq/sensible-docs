@@ -6,13 +6,25 @@ hidden: true
 
 This topic describes sending extracted data from example documents into an Airtable database using Sensible's Zapier integration.  TODO add description
 
+
+
+
+
+First Zap: Extract emailed doc with Sensible
+---
+
+
+
+
+
 [block:html]
 {
   "html": "<div><iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vTFlT9rc8mGJVz1cCs4RJEww7u1I3X857_jikiWxwJoBJfbU-ITFe9h4U1HkVuGFQUlT44EwVmlJECP/embed?start=false&loop=false&delayms=5000\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
 }
 [/block]
 
-
+Second Zap: Upload extraction as spreadsheet to Google drive
+---
 
 
 
