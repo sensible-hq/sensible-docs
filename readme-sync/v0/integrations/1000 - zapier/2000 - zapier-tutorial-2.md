@@ -4,18 +4,22 @@ hidden: true
 
 ---
 
-This topic describes sending extracted data from example documents into an Airtable database using Sensible's Zapier integration.  TODO add description
+This topic describes:
+
+TODO
 
 
 
 
 
-First Zap: Extract emailed doc with Sensible
+First Zap: Extract emailed 1040 doc with Sensible,
 ---
 
 
 
+Prereq: make sure you do an quick extraction for a 1040 and import the config lib tax_forms before making the zap.
 
+TODO word better
 
 [block:html]
 {
@@ -23,96 +27,16 @@ First Zap: Extract emailed doc with Sensible
 }
 [/block]
 
-Second Zap: Upload extraction as spreadsheet to Google drive
+Second Zap: Upload extraction as spreadsheet to Google drive, if it's a 1040
 ---
 
 
 
-
-
-
-
-
-
-
-
-Create an example Sensible extraction
-----
-
-To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create a JSON extraction from an example 1040 tax form.
-
-Create an empty destination database
-----
-
-Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable to hold the extracted data Sensible creates. Take the following steps:
-
-1. Sign in or create an [Airtable account](https://airtable.com/).
-2. Navigate to the example [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  Or, create your own Airtable destination using the following image as a guide:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_7.png)
-
-The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a record, or row, for each new document you extract from.
-
-3. (Optional) examine the [example extraction](https://app.sensible.so/quick-extraction/) you created in the previous section. To add more data from the extraction, create corresponding Airtable fields. For example, create a `Total taxes owed` field.
-
-Configure Zapier
-----
-
-Take the following steps to connect Sensible to Airtable using Zapier:
-
-1. Sign in or create a [Zapier account](https://zapier.com/).
-2. Navigate to the [Sensible example Zap](https://zapier.com/shared/cb6b2637ef466ddf140ed14c3be66a5969acef29), and click **Try this Zap**.
-3. Take the following steps to connect your Sensible account to Zapier:
-   1. Click to expand the **Trigger** section.
-   2. Click to expand the **Choose account** section, then follow the prompts to enter your Sensible [API key](https://app.sensible.so/account/).
-4. In the **Set up trigger** section, select the **tax_forms** document type you created in the previous steps, select the **Production** environment, and select the **Complete** status. 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_1.png)
-
-5. Continue to the **Test trigger** section and follow the prompts to test. Verify that the recent document extraction you created in previous steps is selected:
-
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_2.png)
-
-6. Continue to the **Action** section and follow the prompts to connect your Airtable account to Zapier.
-7. In the **Set up action** section, map Sensible extracted field ids to the corresponding Airtable field names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
-
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
-
-8. (Optional) If you created extra fields in the database, map each one.
-
-9. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) as a row in Airtable:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_4.png)
-
-9. Follow the prompts to publish your Zap. 
-
-(Optional) Test your integration
----
-
-Congratulations, your integration is now published and running! Take the following steps to continue building a database from example documents:
-
-1. Navigate to the Sensible [quick extraction tab](https://app.sensible.so/quick-extraction/).
-2. Upload and run extractions for the following example 1040 documents:
-   - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018)
-   - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)
-   - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)
-
-3. Verify the extractions show up in Airtable: 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
-
-Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, manually run the Zap in the Zap list.
-
-(Optional) Scale up
----
-
-You can extract from more documents automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps.
-Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Sensible action](doc:zapier#sensible-action).![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action.png)
-
-
-
-
-
+[block:html]
+{
+  "html": "<div style=\"position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;\"><iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vTMJ5faM9JKFRzEVNym81e1PNuC0sLBi5fBLfJyj1HGIvbgCI8YbWpuPuKZWFABgBRPgun4ziZeUigX/embed?start=false&loop=false&delayms=5000\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
+}
+[/block]
 
 
 
