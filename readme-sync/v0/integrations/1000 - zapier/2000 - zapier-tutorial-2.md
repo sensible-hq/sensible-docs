@@ -19,7 +19,7 @@ First Zap: Extract emailed doc with Sensible
 
 [block:html]
 {
-  "html": "<div><iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vTFlT9rc8mGJVz1cCs4RJEww7u1I3X857_jikiWxwJoBJfbU-ITFe9h4U1HkVuGFQUlT44EwVmlJECP/embed?start=false&loop=false&delayms=5000\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
+  "html": "<div style=\"position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;\"><iframe src=\"https://docs.google.com/presentation/d/e/2PACX-1vTFlT9rc8mGJVz1cCs4RJEww7u1I3X857_jikiWxwJoBJfbU-ITFe9h4U1HkVuGFQUlT44EwVmlJECP/embed?start=false&loop=false&delayms=5000\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
 }
 [/block]
 
