@@ -4,22 +4,22 @@ hidden: true
 
 ---
 
-This topic describes:
+This topic describes an example two-Zap workflow for Zapier:
 
-TODO
+1. Every time you receive an email in Gmail with a 1040 document attached, trigger Sensible to extract data from it and output the extraction as a spreadsheet.
+2. Every time Sensible extracts a document, check that it's a 1040. If so, upload the extracted spreadsheet to a folder in Google drive.
+
+Prerequisite: Create an example Sensible extraction
+----
+
+To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [PDF to Excel quickstart](doc:excel-quickstart) to create a JSON extraction from an example 1040 tax form. 
 
 
 
-
-
-First Zap: Extract emailed 1040 doc with Sensible,
+First Zap: Extract emailed 1040 doc with Sensible
 ---
 
 
-
-Prereq: make sure you do an quick extraction for a 1040 and import the config lib tax_forms before making the zap.
-
-TODO word better
 
 [block:html]
 {
