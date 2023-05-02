@@ -77,7 +77,7 @@ Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, m
 ---
 
 You can extract from more documents automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps.
-Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Sensible action](doc:zapier#sensible-action).![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action.png)
+Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action.png)
 
 
 
