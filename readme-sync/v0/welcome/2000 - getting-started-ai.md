@@ -3,7 +3,7 @@ title: "Getting started with AI-powered extractions"
 hidden: false
 ---
 
-In this tutorial, you'll learn to extract data from a set of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document. Sensible uses large-language models (LLMs) such as GPT-4 to extract your target information.
+In this tutorial, you'll learn to extract data from a set of similar documents using an AI-powered visual authoring tool, Sensible Instruct. You'll use natural language to instruct Sensible about which data to extract from an example document. Sensible uses large-language models (LLMs) such as GPT-3 to extract your target information.
 
 You can then save your descriptions as an extraction configuration, or "config." Publish your config to automate extracting from similar documents.  
 

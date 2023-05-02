@@ -85,7 +85,7 @@ The following example shows using the NLP Table method to extract information fr
         "columns": [
           {
             "id": "transaction_date",
-            /* note GPT-4 has some limitations due to its training data. 
+            /* note GPT-3 has some limitations due to its training data. 
                For example, it doesn't know the current year 
                so it makes one up in the output */
             "description": "transaction date. If there's no year, append the current year.",
@@ -250,4 +250,4 @@ For an overview of how the NLP Table method works, see the following steps:
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
 
-5. Sensible uses GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.
+5. Sensible uses GPT-3 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.

@@ -3,7 +3,7 @@ title: "Sensible Instruct authoring tips"
 hidden: false
 ---
 
-Configure low-code document data extractions using Sensible Instruct, powered by large-language models (LLM) such as GPT-4. 
+Configure low-code document data extractions using Sensible Instruct, powered by large-language models (LLM) such as GPT-3. 
 
 Sensible Instruct is a low-code, AI-powered subset of *SenseML*, Sensible's JSON-based document extraction query language. By combining Sensible Instruct and SenseML, you can extract data from a range of document types, from highly structured business forms to unstructured research documents.
 
