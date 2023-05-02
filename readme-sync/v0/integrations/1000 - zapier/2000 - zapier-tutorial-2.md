@@ -26,11 +26,12 @@ Prerequisite: Configure 1040 extractions in Sensible
 
 Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-quickstart) to configure extracting data from a 1040 tax form. 
 
-Prerequisite: Create a Gmail filter and Google Drive folder
+Prerequisite: Configure Google accounts
 ----
 
-2. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
-3. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data that Sensible will create for each 1040 PDF you receive as an email.
+1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
+2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data that Sensible will create for each 1040 PDF you receive as an email.
+3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions`. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email subject`, and `Extraction link`.
 
 First Zap: Extract emailed 1040 doc with Sensible
 ---
