@@ -9,10 +9,10 @@ This topic describes an example two-Zap workflow for Zapier:
 1. Every time you receive an email in Gmail with a 1040 document attached, trigger Sensible to extract data from it and output the extraction as a spreadsheet.
 2. Every time Sensible extracts a document, check that it's a 1040. If so, upload the extracted spreadsheet to a folder in Google drive.
 
-Prerequisite: Create an example Sensible extraction
+Prerequisite: Configure 1040 extractions in Sensible
 ----
 
-To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-quickstart) to create a JSON extraction from an example 1040 tax form. 
+Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-quickstart) to configure extracting data from a 1040 tax form. 
 
 Prerequisite: Create a Gmail filter and Google Drive folder
 ----
@@ -50,13 +50,12 @@ Second Zap: Upload extraction as spreadsheet to Google drive, if it's a 1040
 
 Congratulations, your integration is now published and running! Take the following steps to continue populating a Google folder from example documents:
 
-1. Navigate to the Sensible [quick extraction tab](https://app.sensible.so/quick-extraction/).
-2. Upload and run extractions for the following example 1040 documents:
+1. Email the following example 1040 documents to yourself, ensuring that they match the Gmail filter criteria you created:
    - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018)
    - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)
    - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)
 
-3. Verify the extractions show up in your Google Drive folder as spreadsheets.
+2. Verify the extractions show up in your Google Drive folder as spreadsheets.
 
 
 
