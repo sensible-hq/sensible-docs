@@ -6,11 +6,9 @@ hidden: true
 
 TODOO ON PUBLISH:
 
-
-
 - publish the zaps  https://zapier.com/app/zaps/folder/1370975 and update links to them! 
-- notes about mult-file extractions
-- add overview screenshots to slides and to the docs
+
+  
 
 
 
@@ -40,7 +38,7 @@ Prerequisite: Configure Google accounts
 
 1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
 2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data that Sensible will create for each 1040 document you receive as an email.
-3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions`. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email link`, and `Extraction link`.
+3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email link`, and `Extraction link`.
 
 First Zap: Extract emailed 1040 doc with Sensible
 ---
