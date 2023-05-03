@@ -36,5 +36,5 @@ You can bypass the Sensible app or API and instead trigger Sensible extractions 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action.png)
 
-For more information, see [Advanced Zapier tutorial](zapier-tutorial-2) and two example Zaps. 
+For more information, see [Advanced Zapier tutorial](zapier-tutorial-2). 
 
