@@ -4,31 +4,21 @@ hidden: true
 
 ---
 
-TODOO ON PUBLISH:
-
-- publish the zaps  https://zapier.com/app/zaps/folder/1370975 and update links to them! 
-
-  
-
-
-
-
-
-This topic describes an example two-Zap workflow for Zapier:
+This topic describes how to configure an example two-Zap workflow for Zapier.
 
 Zap 1
 ---
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_1.png)
 
-Every time you receive an email in Gmail with a 1040 document attached, Zapier triggers Sensible to 1. extract data from it and 2. output the extraction as a spreadsheet.
+Every time you receive an email in Gmail with a 1040 document attached, Zapier triggers Sensible to extract data from it and 2. output the extraction as a spreadsheet.
 
 Zap 2
 ---
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2.png)
 
-Every time Sensible extracts a document, Zapier checks that it's a 1040. If so, Zapier uploads the spreadsheet of the extracted data to a folder in Google drive
+Every time Sensible extracts a document, Zapier checks that it's a 1040. If so, Zapier triggers Sensible to create a spreadsheet of the extracted data, and uploads the spreadsheet to a folder in Google drive.
 
 Prerequisite: Configure 1040 extractions in Sensible
 ----
