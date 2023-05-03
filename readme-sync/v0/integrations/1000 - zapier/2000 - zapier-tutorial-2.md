@@ -76,7 +76,7 @@ Congratulations, your integration is now published and running! Take the followi
 
 2. Verify the extractions show up in your Google Drive folder as spreadsheets:
 
-   
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_3.png)
 
 3. Verify the extractions show up in your optionally configured logs:
 
