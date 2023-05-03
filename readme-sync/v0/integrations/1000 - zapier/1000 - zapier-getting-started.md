@@ -9,7 +9,9 @@ This topic describes sending extracted data from example documents into an Airta
 Create an example Sensible extraction
 ----
 
-To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-quickstart) to create a JSON extraction from an example 1040 tax form.
+To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-quickstart) to create a JSON extraction from an example 1040 tax form. 
+
+**Note** Ensure your example extraction contains non-null values for all fields you intend to configure in Zapier.
 
 Create an empty destination database
 ----
@@ -81,7 +83,13 @@ Then send the extraction to the destination of your choice with a Sensible actio
 
 
 
+Notes
+===
 
+**Limitations**
+
+- You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
+- You can extract from single-document files with Zapier. If you want to extract from portfolio PDFs (documents that contain multiple documents, for example, insurance bundles), use the Sensible API. 
 
 
 

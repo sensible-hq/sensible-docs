@@ -36,9 +36,9 @@ Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-
 Prerequisite: Configure Google accounts
 ----
 
-1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
-2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data that Sensible will create for each 1040 PDF you receive as an email.
-3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions`. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email subject`, and `Extraction link`.
+1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
+2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data that Sensible will create for each 1040 document you receive as an email.
+3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions`. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email link`, and `Extraction link`.
 
 First Zap: Extract emailed 1040 doc with Sensible
 ---
@@ -74,9 +74,23 @@ Congratulations, your integration is now published and running! Take the followi
    - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)
    - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)
 
-2. Verify the extractions show up in your Google Drive folder as spreadsheets.
+2. Verify the extractions show up in your Google Drive folder as spreadsheets:
+
+   
+
+3. Verify the extractions show up in your optionally configured logs:
+
+   
 
 Notes
 ---
 
-To combine the output of multiple extractions into a single spreadsheet, use 
+**General Limitations**
+
+- You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
+- You can extract from single-document files with Zapier. If you want to extract from portfolio PDFs (documents that contain multiple documents, for example, insurance bundles), use the Sensible API. 
+
+**Sensible action limitations**
+
+- If you select **New file in folder**  event in Google drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
+- When setting up the Sensible action, run an extraction on the same file you intend to use for your Zapier sample setup a minute or so before you start configuring the Zap in order to get sample data. Otherwise, Zapier returns an incomplete extraction during configuration.
