@@ -39,7 +39,7 @@ Prerequisite: Configure Google accounts
 Zap 1: Extract emailed 1040 doc with Sensible
 ---
 
-
+See the following steps to configure the template for [Zap 1](https://zapier.com/shared/8b6d4d1533e3d53da8a8ca15fa6243084f5db1a9).
 
 [block:embed]
 {
@@ -56,6 +56,8 @@ Zap 1: Extract emailed 1040 doc with Sensible
 
 Zap 2: Upload extraction as spreadsheet to Google drive, if it's a 1040
 ---
+
+See the following steps to configure the template for [Zap 2](https://zapier.com/shared/e7576855e30c90aad847d9f6069a69271f87cd1c).
 
 [block:embed]
 {
