@@ -801,12 +801,75 @@ components:
       type: object
       properties:
         document_type:
-          type: string
-          description: the doc type this doc is most similar to.
-        document_type_similarity:
-          type: number
-          description: the similarity score between 0 and 1
-        # classification summary
+          type: object
+          description: the document type defined in the Sensible account that this doc is most similar to.
+          properties:
+            id:
+              type: string
+              description: unique ID for the document type
+            name:
+              type: string
+              description: user-friendly name for the document Type
+            score:
+              type: number
+              description: the similarity score comparing the document to the document type, between 0 and 1
+
+        reference_documents:
+          type: array
+          description: The reference documents uploaded to the Sensible account that this document is most similar to.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: unique ID for the reference document
+
+              name:
+                type: string
+                description: user-friendly name for the reference document
+
+
+        classification_summary:
+          type: array
+          description: The scores for this document's similarity to each document type in the Sensible account, excluding built-in document types such as `senseml_basics`.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: unique ID for the document type
+              score:
+                type: number
+                description: the similarity score comparing the document to the document type, between 0 and 1
+
+      example:
+        document_type:
+          id: 77c2ab88-3389-4ea8-93c7-912c2bfd373a
+          name: tax_forms
+          score: 0.9637581544082083
+        reference_documents:
+        - id: b4fbc822-de99-4916-b43a-2902131f2619
+          name: 1040_2020_sample
+          score: 0.999649884175599
+        - id: 23680cc8-7855-4698-b51f-6a054704fd1e
+          name: 1040_2019_sample
+          score: 0.983879165384638
+        - id: 58aef918-7017-4576-ad5c-f987b98b4ae7
+          name: 1040_2021_sample
+          score: 0.9670293766923486
+        - id: 161b27ab-5218-4650-a919-65df03de3454
+          name: senior_1040_2021_sample
+          score: 0.939401195335292
+        - id: fb9ed1c3-0545-4f79-bd00-565838bd96a4
+          name: 1040_2018_sample
+          score: 0.9288311504531641
+        classification_summary:
+        - id: 28eee728-e51b-471c-ba92-827c995476f6
+          name: home_policy_declaration_pages
+          score: 0.7760597095611765
+        - id: 16b06941-9486-475a-a6bf-120cf433f6f3
+          name: bank_statements
+          score: 0.7639481987557378
 
 
 
