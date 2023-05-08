@@ -126,10 +126,9 @@ Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field e
 Validations output
 ---
 
-The following extraction excerpt shows validating test data with the preceding conditions: 
+For example output of the preceding conditions, see the following extraction excerpt and validation output: 
 
-- **Validation 3**  Sensible skips the broker email because the prerequisite field  `broker.email` is null
-- **Validation 4**  (zip code) fails because  `zip_code`  is 17 digits
+**Extraction excerpt**
 
 ```json
 {
@@ -152,8 +151,20 @@ The following extraction excerpt shows validating test data with the preceding c
 		"zip_code": {
 			"type": "number",
 			"value": "12345678901234456"
-		},
-		"validations": [{
+		}
+}
+```
+
+**Validations output**
+
+For the preceding extraction excerpt, Sensible outputs the following validations:
+- **Validation 4**:  Sensible skips the broker email because the prerequisite field  `broker.email` is null
+
+- **Validation 5**:  (zip code) fails because  `zip_code`  is 17 digits
+
+```json
+{        
+       "validations": [{
 			"description": "The zip code is valid for USA or CA",
 			"severity": "warning"
 		}, {
@@ -172,7 +183,5 @@ The following extraction excerpt shows validating test data with the preceding c
 }
 ```
 
-
-
-
+​	
 
