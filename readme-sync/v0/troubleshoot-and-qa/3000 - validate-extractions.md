@@ -160,7 +160,7 @@ For example output of the preceding conditions, see the following extraction exc
 For the preceding extraction excerpt, Sensible outputs the following validations:
 - **Validation 4**:  Sensible skips the broker email because the prerequisite field  `broker.email` is null
 
-- **Validation 5**:  (zip code) fails because  `zip_code`  is 17 digits
+- **Validation 5**:  fails because  `zip_code`  is 17 digits
 
 ```json
 {        
