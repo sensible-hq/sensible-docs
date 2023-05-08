@@ -63,7 +63,7 @@ To try out this example in the Sensible app, take the following steps:
 | change_in_production           | Query  | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |
 | seed_use                       | Query  | "what was US wheat seed use this year in the US in millions of bushels?" |
 | seed_use_change                | Query  | "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change" |
-| global_wheat_production_change | Query  | by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer |
+| global_wheat_production_change | Query  | by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer" |
 
 Notes
 ===
