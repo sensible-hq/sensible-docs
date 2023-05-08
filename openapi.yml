@@ -797,6 +797,20 @@ components:
         - document_url
 
 
+    # LEFT OFF TODO as well as the classfiy/async endpoint which is the same (uploading a binary, do it in prod and sync in test per josh unless timeouts)
+    ClassifyAsyncSingleResponse: #name consistent wit others?
+      type: object
+      properties:
+        #id:
+        #content_type
+        download_link:
+          description: keep polling until it stops erroring out and you get a JSON download containg the same respones you'd see from the sync Classify endpoint request.
+          type: url
+      example:
+        id: 49f844ba-4429-4974-919d-2f1bdfa95f7c
+        content_type: application/pdf
+        download_link: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/c024cd1c-5f33-4a82-b2ea-2c807e44988b/CLASSIFICATION/49f844ba-4429-4974-919d-2f1bdfa95f7c.json?AWSAccessKeyId=REST_REDACTED
+
     ClassifySingleResponse:
       type: object
       properties:
