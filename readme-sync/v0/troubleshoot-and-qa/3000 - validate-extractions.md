@@ -154,7 +154,7 @@ The following extraction excerpt shows validating test data with the preceding c
 			"value": "12345678901234456"
 		},
 		"validations": [{
-			"description": "Zip code must be valid",
+			"description": "The zip code is valid for USA or CA",
 			"severity": "warning"
 		}, {
 			"description": "Broker's email is in string@string format",
