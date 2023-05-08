@@ -38,36 +38,42 @@ The following example shows using the Question method to extract agricultural da
 
 ```json
 {
-  "fields": [
-    {
-      "id": "report_date",
-      "method": {
-        "id": "question",
-        "question": "for which month and year does this snippet describe wheat production"
-      }
-    },
-    {
-      "id": "change_in_production",
-      "method": {
-        "id": "question",
-        "question": "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"
-      }
-    },
-    {
-      "id": "seed_use",
-      "method": {
-        "id": "question",
-        "question": "what was US wheat seed use this year in the US in millions of bushels?"
-      }
-    },
-    {
-      "id": "seed_use_change",
-      "method": {
-        "id": "question",
-        "question": "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change"
-      }
-    }
-  ]
+	"fields": [{
+			"id": "report_date",
+			"method": {
+				"id": "question",
+				"question": "for which month and year does this snippet describe wheat production"
+			}
+		},
+		{
+			"id": "change_in_production",
+			"method": {
+				"id": "question",
+				"question": "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"
+			}
+		},
+		{
+			"id": "seed_use",
+			"method": {
+				"id": "question",
+				"question": "what was US wheat seed use this year in the US in millions of bushels?"
+			}
+		},
+		{
+			"id": "seed_use_change",
+			"method": {
+				"id": "question",
+				"question": "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change"
+			}
+		},
+		{
+			"id": "global_consumption_change",
+			"method": {
+				"id": "question",
+				"question": "by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer"
+			}
+		}
+	]
 }
 ```
 
@@ -83,23 +89,26 @@ The following image shows the example document used with this example config:
 
 ```json
 {
-  "report_date": {
-    "type": "string",
-    "value": "November 2022"
-  },
-  "change_in_production": {
-    "type": "string",
-    "value": "No change."
-  },
-  "seed_use": {
-    "type": "string",
-    "value": "66 million bushels."
-  },
-  "seed_use_change": {
-    "type": "string",
-    "value": "-2 million bushels"
-  }
-}
+	"report_date": {
+		"type": "string",
+		"value": "November 2022"
+	},
+	"change_in_production": {
+		"type": "string",
+		"value": "No change."
+	},
+	"seed_use": {
+		"type": "string",
+		"value": "66 million bushels."
+	},
+	"seed_use_change": {
+		"type": "string",
+		"value": "-2 million bushels"
+	},
+	"global_consumption_change": {
+		"type": "string",
+		"value": "1.0 MMT"
+	}
 ```
 
 

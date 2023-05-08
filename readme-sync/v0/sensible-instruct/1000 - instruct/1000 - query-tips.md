@@ -14,11 +14,23 @@ This Sensible Instruct method extracts an individual fact in a document, such as
   - "name of recipient"
   - "document date"
 
-- You can narrow down your search and improve accuracy by being more specific:
+- You can narrow down your search and improve accuracy by adding location information:
 
-  - "address in the top left of the document"
+    ​       **Location relative to page number and position on page**
+
+  - "address in the top left of the first page of the document"
+
+  - "What is the medical paid value on the last claim of the second page?"
+
+  - "consumer electronics device with highest sales mentioned near end of document"
+
+    **Location relative to content in document**
+
   - "total amount in the expense table"
-  - "phone number in section 2"
+
+  - "phone number after section 2"
+
+    
 
 - For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
 
@@ -45,12 +57,13 @@ To try out this example in the Sensible app, take the following steps:
 
 4. Click **Sensible Instruct** and create fields to extract data using the following table:
 
-| Field name           | Method | Describe what you want to extract                            |
-| -------------------- | ------ | ------------------------------------------------------------ |
-| report_date          | Query  | "for which month and year does this snippet describe wheat production" |
-| change_in_production | Query  | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |
-| seed_use             | Query  | "what was US wheat seed use this year in the US in millions of bushels?" |
-| seed_use_change      | Query  | "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change" |
+| Field name                     | Method | Describe what you want to extract                            |
+| ------------------------------ | ------ | ------------------------------------------------------------ |
+| report_date                    | Query  | "for which month and year does this report describe wheat production. look in beginning of the document for the answer" |
+| change_in_production           | Query  | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |
+| seed_use                       | Query  | "what was US wheat seed use this year in the US in millions of bushels?" |
+| seed_use_change                | Query  | "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change" |
+| global_wheat_production_change | Query  | by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer |
 
 Notes
 ===

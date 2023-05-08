@@ -9,6 +9,7 @@ This method is an alternative to the [Table](doc:table-tips) method, when the da
 **Tips**
 
 - The list description should describe the overall contents for the list, while each property should be a single, short description.
+- You can use location hints to describe the target list's position in the document. For examples of location hints, see [Query extraction tips](doc:query-tips).
 - For more information about how to write instructions (or "prompts") for this method's Description parameters, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
 
 Examples
