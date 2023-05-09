@@ -420,7 +420,7 @@ paths:
         Classify a document against the document types you defined in your Sensible account, and get a score for the document's similarity to existing reference documents or configs in the highest-scoring document type.
 
         There are two options for posting the document bytes.
-          1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the content-type, for example,"application/pdf" or "image/jpeg".
+          1. (preferred) specify the non-encoded document bytes as the entire request body,and specify the content-type, for example,"application/pdf" or "image/jpeg".
              See the following for supported file formats.
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
 
@@ -469,6 +469,78 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClassifySingleResponse'
           description: |
+            The document type and reference documents in the Sensible account that are most similar to this document.
+        '401':
+          $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'
+        '415':
+          $ref: '#/components/responses/415'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+
+
+
+  /classify/async:
+    post:
+      operationId: extract-data-from-a-document
+      summary: Extract data from a document
+
+      description: |
+        Classify a document against the document types you defined in your Sensible account, and get a score for the document's similarity to existing reference documents or configs in the highest-scoring document type.
+
+        There are two options for posting the document bytes.
+          1. (preferred) specify the non-encoded document bytes as the entire request body,and specify the content-type, for example,"application/pdf" or "image/jpeg".
+             See the following for supported file formats.
+          2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
+
+        TODO: true??
+        Using the Sensible app, you can extract from PDFs. Using the Sensible API, you can extract document data from the following file formats:
+
+          - PDF
+          - JPEG
+          - PNG
+          - TIFF
+        How it works:
+          - TODO explain
+
+      parameters:
+        - $ref: '#/components/parameters/environment'
+      requestBody:
+        required: true
+
+        content:
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+          image/png:
+            schema:
+              type: string
+              format: binary
+          image/tiff:
+            schema:
+              type: string
+              format: binary
+          application/pdf:
+            schema:
+              type: string
+              format: binary
+              description: non-encoded document bytes as the entire request body
+          application/json:
+            schema:
+              $ref: "#/components/schemas/encodedPdf"
+      tags:
+      - Classify
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ ClassifyAsyncSingleResponse'
+          description: |
             The structured data extracted from the document.
         '401':
           $ref: '#/components/responses/401'
@@ -480,6 +552,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+
+
 
 
 
