@@ -112,10 +112,30 @@ paths:
           1. Use this endpoint to generate a Sensible URL.
           2. PUT the document you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received
         from this endpoint's response.
-        For example, `curl -T ./sample.pdf "SENSIBLE_UPLOAD_URL"`.
-        Note: the pre-signed upload_url does not support Base64 encoded documents. You PUT the document bytes directly to the endpoint,
-        and you must match the "Content-Type" header to that specified in the POST that creates the URL. If you omit the parameter, you
-        must omit the header, and if you specify the parameter, you must include the exact header in the PUT.
+        For example, `curl --upload-file ./sample.pdf <SENSIBLE_UPLOAD_URL> Content-Type: application/pdf`. Note: the pre-signed `upload_url` doesn't support Base64 encoded documents. You PUT the document bytes directly to the endpoint.
+
+        For example, if your call to `/generate_upload_url` specifies the document type with a content-type body parameter, your two-step flow is as follows:
+
+        Generate the URL:
+
+        ```curl
+        curl --location 'https://api.sensible.so/v0/generate_upload_url/<YOUR_DOCUMENT_TYPE>' \
+        --header 'Content-Type: application/json' \
+        --header 'Accept: application/json' \
+        --header 'Authorization: Bearer REDACTED' \
+        --data '{"content-type":"application/pdf"}
+        ```
+
+        Upload to the URL:
+
+        ```curl
+        curl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/REDACTED' \
+        --header 'Content-Type: application/pdf' \
+        --data 'path_to_pdf.pdf'
+        ```
+
+        Note that in the upload step, you must omit an authorization header, and the `Content-Type`` header must match the content-type body parameter in the previous `generate_upload-url` call.
+
           3.  To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the
         GET documents/{id} endpoint.
 
@@ -1258,8 +1278,7 @@ components:
       type: string
       enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff"]
       description: >-
-        Content type of the document being presented for extraction. This field is optional, but if supplied must be presented consistently
-        in all interactions.
+        (Recommended) Content type of the document being presented for extraction. This field is optional, but if specified must also be present in the subsequent call to upload the file.
 
 
     encodedPdf:
