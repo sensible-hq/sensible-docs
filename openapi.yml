@@ -421,7 +421,7 @@ paths:
 
         Use the synchronous endpoint for testing. Use the asynchronous Classify endpoint for production.
 
-        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the content-type, for example,"application/pdf" or "image/jpeg".
+        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the content-type header (required), for example,"application/pdf" or "image/jpeg".
         For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
 
 
@@ -485,7 +485,7 @@ paths:
 
         Use the synchronous endpoint for testing. Use the asynchronous Classify endpoint for production.
 
-        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the content-type, for example,"application/pdf" or "image/jpeg".
+        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the content-type header (required), for example,"application/pdf" or "image/jpeg".
         For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
 
 
