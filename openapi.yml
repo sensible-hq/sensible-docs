@@ -130,7 +130,7 @@ paths:
         ```curl
         curl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/REDACTED' \
         --header 'Content-Type: application/pdf' \
-        --data 'path_to_pdf.pdf'
+        --data 'YOUR_PATH_TO_DOCUMENT.pdf'
         ```
 
         Note that in step 2:
