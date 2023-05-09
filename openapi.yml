@@ -453,7 +453,7 @@ paths:
             schema:
               $ref: "#/components/schemas/encodedPdf"
       tags:
-      - Classify
+      - Classification
       responses:
         '200':
           content:
@@ -478,7 +478,7 @@ paths:
   /classify/async:
     post:
       operationId: classify-async
-      summary: Classify a document by its document type
+      summary: Async classify a document by its document type
 
       description: |
         Score a document's similarity to the document types you defined in your Sensible account. Get scores for the document's similarity to document types and to existing reference documents.
@@ -516,7 +516,7 @@ paths:
             schema:
               $ref: "#/components/schemas/encodedPdf"
       tags:
-      - Classify
+      - Classification
       responses:
         '200':
           content:
