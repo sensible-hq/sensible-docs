@@ -176,7 +176,7 @@ paths:
     post:
       operationId: provide-a-download-url
       summary: Extract doc at your URL
-      description: >-
+      description: |
         Extract data asynchronously from a document at the specified `document_url`.<br/>
         You must use this or other asynchronous endpoints for documents that are over 4.5MB in size or require over 30 seconds to process.
         Take the following steps.
@@ -217,7 +217,7 @@ paths:
       operationId: generate-an-upload-url-for-a-pdf-portfolio
       summary: Extract portfolio at a Sensible URL
 
-      description:  >-
+      description:  |
         Use this endpoint with multiple documents that are packaged into one PDF file (a PDF "portfolio").
         Segments a PDF into the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions
         asynchronously for each document Sensible finds in the PDF portfolio.  Take the following steps -
@@ -267,7 +267,7 @@ paths:
     post:
       operationId: provide-a-download-url-for-a-pdf-portfolio
       summary: Extract portfolio at your URL
-      description:  >-
+      description:  |
         Use this endpoint with multiple documents that are packaged into one PDF file (a PDF "portfolio").
         Segments a PDF at the specified `document_url` into the specified document types (for example, 1099, w2, and bank_statement)
         and then runs extractions asynchronously for each document Sensible finds in the PDF portfolio. Take the following steps.
@@ -315,7 +315,7 @@ paths:
     get:
       operationId: retrieving-results
       summary: Retrieve extraction
-      description: >-
+      description: |
         Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results.
         You can also use this endpoint to retrieve the results for documents extractions from the synchronous /extract endpoint.
         To poll extraction status, check the `status` field in this endpoint's response.
@@ -347,7 +347,7 @@ paths:
     get:
       operationId: get-excel-extraction
       summary: Get Excel extraction
-      description: >-
+      description: |
         You can use this endpoint to get Excel files from PDF documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
         To compile multiple PDF documents into one Excel file, specify the IDs of their recent extractions in the request separated by commas, for example,
         `/generate_excel/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
