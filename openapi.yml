@@ -410,7 +410,7 @@ paths:
 
 
 
-# classify APIs
+# classify APIs # TO DO how to explain classification?
   /classify:
     post:
       operationId: extract-data-from-a-document
@@ -424,15 +424,9 @@ paths:
              See the following for supported file formats.
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
 
-        TODO: true??
-        Using the Sensible app, you can extract from PDFs. Using the Sensible API, you can extract document data from the following file formats:
+        For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
 
-          - PDF
-          - JPEG
-          - PNG
-          - TIFF
-        How it works:
-          - TODO explain
+
 
       parameters:
         - $ref: '#/components/parameters/environment'
@@ -496,15 +490,7 @@ paths:
              See the following for supported file formats.
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
 
-        TODO: true??
-        Using the Sensible app, you can extract from PDFs. Using the Sensible API, you can extract document data from the following file formats:
-
-          - PDF
-          - JPEG
-          - PNG
-          - TIFF
-        How it works:
-          - TODO explain
+        For a list of supported document file types, see the /extract endpoint.
 
       parameters:
         - $ref: '#/components/parameters/environment'
@@ -539,7 +525,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ ClassifyAsyncSingleResponse'
+                $ref: '#/components/schemas/ClassifyAsyncSingleResponse'
           description: |
             The structured data extracted from the document.
         '401':
