@@ -425,8 +425,6 @@ paths:
         For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
 
 
-      parameters:
-        - $ref: '#/components/parameters/environment'
       requestBody:
         required: true
 
@@ -448,9 +446,7 @@ paths:
               type: string
               format: binary
               description: non-encoded document bytes as the entire request body
-          application/json:
-            schema:
-              $ref: "#/components/schemas/encodedPdf"
+          # TODO how to add the content-type param?
       tags:
       - Classify
       responses:
@@ -491,9 +487,6 @@ paths:
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the content-type header (required), for example,"application/pdf" or "image/jpeg".
         For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
 
-
-      parameters:
-        - $ref: '#/components/parameters/environment'
       requestBody:
         required: true
 
@@ -515,9 +508,7 @@ paths:
               type: string
               format: binary
               description: non-encoded document bytes as the entire request body
-          application/json:
-            schema:
-              $ref: "#/components/schemas/encodedPdf"
+          # TODO how to add the content-type param?
       tags:
       - Classify
       responses:
