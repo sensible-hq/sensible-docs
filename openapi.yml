@@ -389,7 +389,7 @@ paths:
     get:
       operationId: get-csv-extraction
       summary: Get CSV extraction
-      description: >-
+      description: |
         You can use this endpoint to get CSV files from PDF documents. In more detail, this endpoint converts your JSON document extraction to a comma-separated values.
         To compile multiple PDF documents into one CSV file, specify the IDs of their recent extractions in the request separated by commas, for example,
         `/generate_csv/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
