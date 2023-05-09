@@ -107,7 +107,7 @@ paths:
     post:
       operationId: generate-an-upload-url
       summary: Extract doc at a Sensible URL
-      description: >-
+      description: |
         Extract data asynchronously from a document with the following steps. You must use this or other asynchronous endpoints for documents that are over 4.5MB in size or require over 90 seconds to process.
           1. Use this endpoint to generate a Sensible URL.
           2. PUT the document you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received from this endpoint's response.
