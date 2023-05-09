@@ -115,7 +115,7 @@ paths:
 
         For example, if your call to `/generate_upload_url` specifies the document type with a content-type body parameter (recommended), your first two steps are as follows:
 
-        1. Generate the Sensible URL:
+        Step 1. Generate the Sensible URL:
 
         ```curl
         curl --location 'https://api.sensible.so/v0/generate_upload_url/<YOUR_DOCUMENT_TYPE>' \
@@ -125,7 +125,7 @@ paths:
         --data '{"content-type":"application/pdf"}
         ```
 
-        2. PUT the document:
+        Step 2. PUT the document:
 
         ```curl
         curl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/REDACTED' \
