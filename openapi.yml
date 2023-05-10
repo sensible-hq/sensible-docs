@@ -31,9 +31,9 @@ paths:
           [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)
 
         There are two options for posting the document bytes.
-          1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the content-type, for example,"application/pdf" or "image/jpeg".
+          1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
              See the following for supported file formats.
-          2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the content type.
+          2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the `Content-Type` header.
 
         Using the Sensible app, you can extract from PDFs. Using the Sensible API, you can extract document data from the following file formats:
 
@@ -45,7 +45,7 @@ paths:
         When extracting from image file formats, Sensible ignore OCR or OCR preprocessor settings you configure in the document type or SenseML configuration.
 
         For TIFF documents, SenseML that attempts to return a rendered page returns an error, including:
-          - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range methodf
+          - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method
           - Key/Value method
           - Fixed Table and Table methods with the Stop parameter specified. Use the Text Table method as an alternative.
 
@@ -108,12 +108,12 @@ paths:
       operationId: generate-an-upload-url
       summary: Extract doc at a Sensible URL
       description: |
-        Extract data asynchronously from a document with the following steps. You must use this or other asynchronous endpoints for documents that are over 4.5MB in size or require over 90 seconds to process.
+        Extract data asynchronously from a document with the following steps. You must use this or other asynchronous endpoints for documents that are over 4.5MB in size or require over 30 seconds to process.
           1. Use this endpoint to generate a Sensible URL.
           2. PUT the document you want to extract data from at the URL, where `SENSIBLE_UPLOAD_URL` is the URL you received from this endpoint's response.
           3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the  response to poll the GET documents/{id} endpoint.
 
-        For example, if your call to `/generate_upload_url` specifies the document type with a content-type body parameter (recommended), your first two steps are as follows:
+        For example, if your call to `/generate_upload_url` specifies the document type with a `content_type`` body parameter (recommended), your first two steps are as follows:
 
         Step 1. Generate the Sensible URL:
 
@@ -122,7 +122,7 @@ paths:
         --header 'Content-Type: application/json' \
         --header 'Accept: application/json' \
         --header 'Authorization: Bearer REDACTED' \
-        --data '{"content-type":"application/pdf"}
+        --data '{"content_type":"application/pdf"}
         ```
 
         Step 2. PUT the document:
@@ -135,7 +135,7 @@ paths:
 
         Note that in step 2:
           - you must omit an authorization header
-          - the `Content-Type` header must match the content-type body parameter in step 1
+          - the `Content-Type` header must match the `content_type` body parameter in step 1
           - the pre-signed `upload_url` doesn't support Base64 encoded documents, so you PUT the document bytes directly to the endpoint.
 
 
@@ -531,7 +531,7 @@ paths:
               type: string
               format: binary
               description: non-encoded document bytes as the entire request body
-          # TODO how to add the content-type param?
+
       tags:
       - Classify
       responses:
@@ -856,7 +856,7 @@ components:
         webhook:
           $ref: '#/components/schemas/Webhook'
         content_type:
-          $ref: '#/components/schemas/ContentType'
+          $ref: '#/components/schemas/ContentTypeParameter'
 
     ExtractFromUrlRequest:
       type: object
@@ -866,13 +866,13 @@ components:
         document_url:
           $ref: '#/components/schemas/DocumentUrl'
         content_type:
-          $ref: '#/components/schemas/ContentType'
+          $ref: '#/components/schemas/ContentTypeParameter'
       required:
         - document_url
 
 
-    # LEFT OFF TODO as well as the classfiy/async endpoint which is the same (uploading a binary, do it in prod and sync in test per josh unless timeouts)
-    ClassifyAsyncSingleResponse: #name consistent wit others?
+
+    ClassifyAsyncSingleResponse:
       type: object
       properties:
         id:
@@ -1277,7 +1277,7 @@ components:
         To check if the URL meets these criteria, open the URL with a web browser.
         The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
-    ContentType:
+    ContentTypeParameter:
       type: string
       enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff"]
       description: >-
