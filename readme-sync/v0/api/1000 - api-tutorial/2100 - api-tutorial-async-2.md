@@ -34,7 +34,8 @@ Generate a temporary, one-time Sensible URL for a document:
 ```json
 curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Bearer YOUR_API_KEY'
+--header 'Authorization: Bearer YOUR_API_KEY' \
+--data '{"content_type":"application/pdf"}
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import the code sample.
@@ -63,7 +64,8 @@ Use the one-time URL you generated in the previous step to extract data from the
 
 ```json
 curl --request PUT 'YOUR_UPLOAD_URL' \
---data-binary '@/PATH_TO_DOWNLOADED_PDF.pdf'
+--data-binary '@/PATH_TO_DOWNLOADED_PDF.pdf' \
+--header 'Content-Type: application/pdf' \
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
@@ -76,7 +78,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_no_auth.png)
 
-- If Postman automatically specifies content types, then deselect any Content-Type checkboxes in the **Headers** tab.
+- If Postman automatically specifies a content type header, then ensure that the value of the Content-Type header matches that of the `content_type` body parameter in the request in step 1. In this case, it must be `application/pdf`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_headers_2.png)
 
@@ -93,11 +95,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 5. Click **Send** to send the request. The response is  `200`:
 
-
-
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_200.png) 
-
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_200.png) 
 
 
 Retrieve extraction
