@@ -20,10 +20,10 @@ jobs:
         # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
         uses: readmeio/rdme@6.5.0
         with:
+          # get the ID for the OAS file by importing the file manually in ReadMe Dash, clicking API definitions in the API ref
+          # section of the dash, and copying the new ID. the file's title becomes the new category
           rdme: openapi openapi.yml --key=${{ secrets.README_API_KEY }} --id=6201a25efa760de40382e060
-      - name: Sync API definition 2 (configuration)
-        # We recommend specifying a fixed version, i.e. @6.5.0
-        # Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
+      - name: Sync API definition 2 (classification)
         uses: readmeio/rdme@6.5.0
         with:
-          rdme: openapi openapi_configuration.yml --key=${{ secrets.README_API_KEY }} --id=6243535fd727c300827515b3
+          rdme: openapi openapi_classification.yml --key=${{ secrets.README_API_KEY }} --id=645bdc026d628e0026488c4e

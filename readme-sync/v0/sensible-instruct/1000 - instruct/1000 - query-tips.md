@@ -14,19 +14,19 @@ This Sensible Instruct method extracts an individual fact in a document, such as
   - "name of recipient"
   - "document date"
 
-- You can narrow down your search and improve accuracy by adding location information:
+- You can narrow down your search and disambiguate between multiple possible answers by adding location information:
 
     ​       **Location relative to page number and position on page**
 
-  - "address in the top left of the first page of the document"
+  - "address in the **top left of the first page** of the document"
 
-  - "What is the medical paid value on the last claim of the second page?"
+  - "What is the medical paid value on the **last claim of the second page**?"
 
-  - "consumer electronics device with highest sales mentioned near end of document"
+  - "consumer electronics device with highest sales mentioned **near end of document**"
 
     **Location relative to content in document**
 
-  - "total amount in the expense table"
+  - "total amount **in the expense table**"
 
   - "phone number after section 2"
 
