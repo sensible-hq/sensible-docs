@@ -19,7 +19,7 @@ paths:
   /classify:
     post:
       operationId: classify
-      summary: Classify a document by its document type
+      summary: Classify document by type
 
       description: |
         Score a document's similarity to the document types you defined in your Sensible account. Get scores for the document's similarity to document types and to existing reference documents.
@@ -82,7 +82,7 @@ paths:
   /classify/async:
     post:
       operationId: classify-async
-      summary: Classify a document by its document type (async)
+      summary: Classify document by type (async)
 
       description: |
         Score a document's similarity to the document types you defined in your Sensible account. Get scores for the document's similarity to document types and to existing reference documents.
@@ -157,6 +157,8 @@ components:
             title: Unauthorized
             type: string
             example: Unauthorized
+
+    # only one that differs from Extraction API
     400:
       description: Bad Request
       content:

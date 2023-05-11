@@ -788,7 +788,7 @@ components:
             fingerprints, scores, or a combination of the two.
             When two extractions tie by score and fingerprints, Sensible chooses the
             first configuration in alphabetic order.
-            For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)
+            For more information, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes).
       items:
         $ref: '#/components/schemas/Classification'
       example:
