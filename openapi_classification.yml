@@ -158,7 +158,7 @@ components:
             type: string
             example: Unauthorized
 
-    # only one that differs from Extraction API
+    # only error response that differs from Extraction API
     400:
       description: Bad Request
       content:
@@ -167,28 +167,7 @@ components:
             title: Bad Request
             type: string
             example: >-
-              Either a specific set of messages about fields in the request, or error messages like the following examples -
-              Not available to logged in users
-              To use the asynchronous flow you must have persistence enabled
-              Specified document type does not exist
-              Specified document type ${named type} does not exist
-              No published configurations found for environment ${environment}
-              Specified golden does not exist
-              Specified configuration/version does not exist
-              Specified configuration/version is not valid
-              Must provide the Content-Type header when request body is present
-              Content-Type must be application/json
-              Missing request body or body.document
-              Could not determine the content type of the document
-              Could not determine the content type of the document. Please check that the document was correctly encoded as Base64
-              This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct
-              This PDF is password protected. Please resubmit with password protection disabled
-              This PDF is empty
-              This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches
-              This PDF exceeds the maximum size for OCR of 50MB
-              No fingerprints match for this PDF and fingerprint_mode is set to strict
-              Content type of ${found} does not match declared type of ${expected}
-              Document is not present
+              Messages related to the file content type, to reading or OCRing the file, or to classifying the document.
 
     415:
       description: Unsupported Media Type
