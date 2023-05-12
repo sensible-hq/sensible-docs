@@ -11,8 +11,8 @@ You can classify a document by its similarity to each document type you define i
 
 Use document classification:
 
-​     \- In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
+- In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
 
-​     \- Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
+- Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
 
 For more information about classifying documents, see the [Sensible API](ref:classify-documents).
