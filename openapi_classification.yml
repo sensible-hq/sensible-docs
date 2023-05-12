@@ -227,7 +227,7 @@ components:
           type: string
           description: The file format of the document for which you requested classification.
         download_link:
-          description: keep polling until the download URL stops erroring out and you get a JSON download containg the same respones you'd see from the sync Classify endpoint request.
+          description: keep polling until the download URL stops erroring out and you get a JSON download containing the same response as from the synchronous Classify endpoint request.
           type: string
           format: url
       example:
