@@ -222,12 +222,12 @@ components:
       properties:
         id:
           type: string
-          description: the ID for this classification response
+          description: ID for this classification response
         content_type:
           type: string
-          description: The file format of the document for which you requested classification.
+          description: File format of the document for which you requested classification.
         download_link:
-          description: keep polling until the download URL stops erroring out and you get a JSON download containing the same response as from the synchronous Classify endpoint request.
+          description: Poll until the download URL stops returning an error, and you get a JSON download containing the same response as from the synchronous Classify endpoint request.
           type: string
           format: url
       example:
