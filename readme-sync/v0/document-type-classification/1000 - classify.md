@@ -7,7 +7,7 @@ You can classify a document by its similarity to each document type you define i
 
 - Classifies the statement document into the `bank_statements` document type.
 - Classifies the statement doc by its similarity to reference documents in the document type. In this case, the highest score is for [a Bank of America sample PDF](https://github.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf).
--  Provides metadata for the classification, including similarity scores for this document compared to each document type in your Sensible account and to reference documents.
+-  Provides metadata for the classification, including similarity scores for this document compared to each document type in your Sensible account and to each reference document in the highest-scoring document type.
 
 Use document classification:
 
