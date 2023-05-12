@@ -22,7 +22,7 @@ paths:
       summary: Classify document by type (async)
 
       description: |
-        Score a document's similarity to the document types you defined in your Sensible account. Get scores for the document's similarity to document types and to existing reference documents.
+        Score a document's similarity to each document type you defined in your Sensible account. Get scores for the document's similarity to document types and to their reference documents.
 
         Use this endpoint:
 
@@ -84,9 +84,8 @@ paths:
     post:
       operationId: classify
       summary: Classify document by type
-
       description: |
-        Score a document's similarity to each document type you defined in your Sensible account. Get scores for the document's similarity to document types and to reference documents.
+        Score a document's similarity to each document type you defined in your Sensible account. Get scores for the document's similarity to document types and to their reference documents.
 
         Use this endpoint:
 
