@@ -90,7 +90,7 @@ paths:
         Use this endpoint:
 
          - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
-         - Outside an extraction workflow. For example, to determine where to route each document or to label each document in a system of record.
+         - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
 
         Use the synchronous Classify endpoint for testing. Use the asynchronous Classify endpoint for production.
 
