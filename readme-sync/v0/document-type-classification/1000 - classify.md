@@ -15,6 +15,6 @@ Use document classification:
 
 - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
 
-For best classification results, Sensible recommends that the document type  includes a sample set of reference documents that span the diversity you expect to see in the document type. To use a document type for classification, Sensible requires that the type contains at least one reference document.
+For best classification results, Sensible recommends that the document type includes a sample set of reference documents that represent the diversity you expect to see in the document type. To use a document type for classification, Sensible requires that the type contains at least one reference document.
 
 For more information about classifying documents, see the [Sensible API reference](ref:classify-documents).
