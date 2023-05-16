@@ -3,7 +3,7 @@ title: "Try synchronous extraction"
 hidden: false
 ---
 
-Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. 
+Try out a test endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously.  Use asynchronous endpoints in production.
 
 Audience
 ---
@@ -45,8 +45,6 @@ curl --request POST \
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_import.png)
 
 3. Download the following example PDF, which works with the prerequisite  **tax_forms**  document type:
-
-Download the following example tax form: 
 
 | Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
 | ----------- | ------------------------------------------------------------ |

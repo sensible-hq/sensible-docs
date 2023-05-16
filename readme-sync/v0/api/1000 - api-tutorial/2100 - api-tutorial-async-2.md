@@ -3,7 +3,7 @@ title: "Try asynchronous extraction from a Sensible URL"
 hidden: false
 ---
 
-Use Sensible's asynchronous endpoints to extract data from documents that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
+Use Sensible's asynchronous endpoints in production scenarios. You have two options for asynchronous processing:
 
 - Provide your own URLs for your documents. 
 
