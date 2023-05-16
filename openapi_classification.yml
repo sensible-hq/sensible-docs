@@ -18,8 +18,8 @@ paths:
 
   /classify/async:
     post:
-      operationId: classify-async
-      summary: Classify document by type (async)
+      operationId: classify-document
+      summary: Classify document by type
 
       description: |
         Score a document's similarity to each document type you defined in your Sensible account. Get scores for the document's similarity to document types and to their reference documents.
@@ -82,8 +82,8 @@ paths:
 
   /classify:
     post:
-      operationId: classify
-      summary: Classify document by type
+      operationId: classify-document-sync
+      summary: Classify document by type (sync)
       description: |
 
         **Note:** Use this Classify endpoint for testing. Use the asynchronous Classify endpoint for production.
