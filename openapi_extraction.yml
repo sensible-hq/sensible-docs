@@ -21,6 +21,9 @@ paths:
       summary: Extract data from a document
 
       description: |
+
+        **Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints for production.
+
         Extract data from a local document synchronously.
 
         To explore this endpoint, use this interactive API reference, or use one of the following options:

@@ -29,8 +29,6 @@ paths:
          - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
          - Outside an extraction workflow. For example, to determine where to route each document or to label each document in a system of record.
 
-        Use the synchronous Classify endpoint for testing. Use the asynchronous Classify endpoint for production.
-
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
         For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
 
@@ -85,14 +83,15 @@ paths:
       operationId: classify
       summary: Classify document by type
       description: |
+
+        **Note:** Use this Classify endpoint for testing. Use the asynchronous Classify endpoint for production.
+
         Score a document's similarity to each document type you defined in your Sensible account. Get scores for the document's similarity to document types and to their reference documents.
 
         Use this endpoint:
 
          - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
          - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
-
-        Use the synchronous Classify endpoint for testing. Use the asynchronous Classify endpoint for production.
 
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
         For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
