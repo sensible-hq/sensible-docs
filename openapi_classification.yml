@@ -240,7 +240,7 @@ components:
       properties:
         document_type:
           type: object
-          description: Document type defined in the Sensible account that this doc is most similar to.
+          description: Document type defined in the Sensible account that this doc is most similar to. To use a document type for classification, Sensible requires that the type contains at least one reference document.
           properties:
             id:
               type: string
