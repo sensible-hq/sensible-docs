@@ -23,6 +23,8 @@ paths:
 
       description: |
         Score a document's similarity to each document type you defined in your Sensible account. Get scores for the document's similarity to document types and to their reference documents.
+        To retrieve the scores, poll the `download_link` in this endpoint's response until it returns a non-error response.
+        For more information about scores, expand the 200 response in the [/classify](ref:classify-document-sync) endpoint.
 
         Use this endpoint:
 
@@ -220,12 +222,12 @@ components:
       properties:
         id:
           type: string
-          description: ID for this classification response
+          description: ID for this classification response.
         content_type:
           type: string
           description: File format of the document for which you requested classification.
         download_link:
-          description: Poll until the download URL stops returning an error, and you get a JSON download containing the same response as from the synchronous Classify endpoint request.
+          description: Poll until the download URL returns a non-error response. Links to a JSON download that contains the same response as from the synchronous Classify endpoint request.
           type: string
           format: url
       example:
@@ -238,42 +240,42 @@ components:
       properties:
         document_type:
           type: object
-          description: the document type defined in the Sensible account that this doc is most similar to.
+          description: Document type defined in the Sensible account that this doc is most similar to.
           properties:
             id:
               type: string
-              description: unique ID for the document type
+              description: Unique ID for the document type.
             name:
               type: string
-              description: user-friendly name for the document type
+              description: User-friendly name for the document type.
             score:
               type: number
-              description: the similarity score comparing the document to the document type, between 0 and 1
+              description: Similarity score comparing the document to the document type, between 0 and 1.
         reference_documents:
           type: array
-          description: The reference documents uploaded to the Sensible account that this document is most similar to.
+          description: Reference documents uploaded to the Sensible account that this document is most similar to.
           items:
             type: object
             properties:
               id:
                 type: string
-                description: unique ID for the reference document
+                description: Unique ID for the reference document.
 
               name:
                 type: string
-                description: user-friendly name for the reference document
+                description: User-friendly name for the reference document.
         classification_summary:
           type: array
-          description: The scores for this document's similarity to each document type in the Sensible account, excluding built-in document types such as `senseml_basics`.
+          description: Scores for this document's similarity to each document type in the Sensible account, excluding built-in document types such as `senseml_basics`.
           items:
             type: object
             properties:
               id:
                 type: string
-                description: unique ID for the document type
+                description: Unique ID for the document type.
               score:
                 type: number
-                description: the similarity score comparing the document to the document type, between 0 and 1
+                description: Similarity score comparing the document to the document type, between 0 and 1.
 
       example:
         document_type:
