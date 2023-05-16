@@ -3,12 +3,10 @@ title: "Classifying documents by type"
 hidden: true
 ---
 
-You can classify a document by its similarity to each document type you define in your Sensible account.  For example,  if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements) type and a [tax_forms](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms) document in your account using the Sensible Configuration Library, you can classify 1040 forms, 941 forms, 1099 forms, Bank of America statements, Chase statements, and other documents, into those two types. 
-
-In details, Sensible returns the following classification information for a document:
+You can classify a document by its similarity to each document type you define in your Sensible account.  For example,  if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements) type and a [tax_forms](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms) document in your account, you can classify 1040 forms,1099 forms, Bank of America statements, Chase statements, and other documents, into those two types. In detail, Sensible returns the following classification information for an example Bank of America monthly statement:
 
 - Classifies the statement document into the `bank_statements` document type.
-- Classifies the statement doc by its similarity to reference documents in the document type. In this case, the highest score is for [a Bank of America sample PDF](https://github.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf).
+- Classifies the statement doc by its similarity to reference documents in the document type. In this scenario, the highest score is for [a Bank of America sample PDF](https://github.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf).
 -  Provides metadata for the classification, including similarity scores for this document compared to each document type in your Sensible account and to each reference document in the highest-scoring document type.
 
 Use document classification:
