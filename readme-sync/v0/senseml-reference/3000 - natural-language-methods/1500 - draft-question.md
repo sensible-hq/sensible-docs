@@ -28,14 +28,16 @@ Parameters
 
 **NEW STUFF**
 
-| key              | value           | description                                                  |
-| :--------------- | :-------------- | :----------------------------------------------------------- |
-| chunksSampleText | string          |                                                              |
-| chunkCount       | number          | The number of top-scoring chunks Sensible combines to as context for the question it poses to GPT-3. For details, see the Notes section. |
-| chunkSize        | 0.5 \|1         | The size of the chunks Sensible splits the document into, in pages. `0.5` specifies each chunk is half a page, for example. |
-| chunkOverlap     | 0 \|0.25 \| 0.5 | The extent to which  maybe need to clarify that if yo uspecify overlap, Sensible works in background to merge consecutive overlapped chunks before scoring(? look at team meeting) |
+| key              | value                            | description                                                  |
+| :--------------- | :------------------------------- | :----------------------------------------------------------- |
+| chunksSampleText | string                           |                                                              |
+| chunkCount       | number                           | The number of top-scoring chunks Sensible combines to as context for the question it poses to GPT-3. For details, see the Notes section. |
+| chunkSize        | 0.5 \|1. default: 0.5 TODO TRUE? | The size of the chunks Sensible splits the document into, in pages. `0.5` specifies each chunk is half a page, for example. For details, see the Notes section. |
+| chunkOverlap     | 0 \|0.25 \| 0.5. default: TODO   | The extent to which chunks overlap, in pages. `0.5` specifies each chunk overlaps by half a page, for example. |
 
 TODO: the Instruct Ref Page will need maybe a row thats like, for advanced params, see the Sense ML page ? 
+
+Search for TODOs, there are more
 
 Examples
 ====
@@ -214,5 +216,5 @@ For an overview of how this method works, see the following steps:
 
 - To meet GPT-3's character limit for input, Sensible splits the document into equal-sized, overlapping chunks.
 - Sensible scores each chunk by how well it matches the question you pose about the data you want to extract. To create the score, Sensible compares your question against each chunk using the OpenAPI Embeddings API.
-- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document.
+- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. TODO -- add this into other "Notes" like for List (not table?)?
 - Sensible inputs the combined chunks to GPT-3 as one context, and instructs it to answer the question based on the context.
