@@ -30,7 +30,7 @@ Parameters
 
 | key              | value                            | description                                                  |
 | :--------------- | :------------------------------- | :----------------------------------------------------------- |
-| chunksSampleText | string                           |                                                              |
+| chunksSampleText | string                           | If specified, Sensible doesn't use the question to score chunks. Sensible uses this except from your target chunk. The excerpt should be semantically and structurally similar to the contents of the target chunk. An exact match, as for an anchor, isn't required but is recommended. TODO clarify For details, see the Notes section. |
 | chunkCount       | number                           | The number of top-scoring chunks Sensible combines to as context for the question it poses to GPT-3. For details, see the Notes section. |
 | chunkSize        | 0.5 \|1. default: 0.5 TODO TRUE? | The size of the chunks Sensible splits the document into, in pages. `0.5` specifies each chunk is half a page, for example. For details, see the Notes section. |
 | chunkOverlap     | 0 \|0.25 \| 0.5. default: TODO   | The extent to which chunks overlap, in pages. `0.5` specifies each chunk overlaps by half a page, for example. |
