@@ -260,19 +260,25 @@ components:
               id:
                 type: string
                 description: Unique ID for the reference document.
-
               name:
                 type: string
                 description: User-friendly name for the reference document.
+              score:
+                type: number
+                description: Similarity score comparing the document to the reference document, between 0 and 1.
+
         classification_summary:
           type: array
-          description: Scores for this document's similarity to each document type in the Sensible account, excluding built-in document types such as `senseml_basics`.
+          description: Scores for this document's similarity to each document type in the Sensible account, excluding document types Sensible created in your account as tutorials, such as `senseml_basics`.
           items:
             type: object
             properties:
               id:
                 type: string
                 description: Unique ID for the document type.
+              name:
+                type: string
+                description: User-friendly name for the document type.
               score:
                 type: number
                 description: Similarity score comparing the document to the document type, between 0 and 1.
