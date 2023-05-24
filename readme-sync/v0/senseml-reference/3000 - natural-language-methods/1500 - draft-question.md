@@ -28,16 +28,16 @@ Parameters
 
 **NEW STUFF**
 
-| key              | value                            | description                                                  |
-| :--------------- | :------------------------------- | :----------------------------------------------------------- |
-| chunksSampleText | string                           | If specified, Sensible doesn't use the question to score chunks. Sensible uses this except from your target chunk. The excerpt should be semantically and structurally similar to the contents of the target chunk. An exact match, as for an anchor, isn't required but is recommended. TODO clarify. For details, see the Notes section. |
-| chunkCount       | number                           | The number of top-scoring chunks Sensible combines to as context for the question it poses to GPT-3. For details, see the Notes section. |
-| chunkSize        | 0.5 \|1. default: 0.5 TODO TRUE? | The size of the chunks Sensible splits the document into, in pages. `0.5` specifies each chunk is half a page, for example. For details, see the Notes section. |
-| chunkOverlap     | 0 \|0.25 \| 0.5. default: TODO   | The extent to which chunks overlap, in pages. `0.5` specifies each chunk overlaps by half a page, for example. |
+| key                    | value                         | description                                                  |
+| :--------------------- | :---------------------------- | :----------------------------------------------------------- |
+| chunkScoringText       | string                        | Specifying this parameter allows you narrow down the location of the answer to your question by using text that's not in your question. <br/>Specifies a representative snippet of text from the part of the document where you expect to find the answer to your question.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the question text to score chunks.<br/>  Sensible recommends that the snippet is specific to the chunk, semantically similar to the chunk, and structurally similar to the target chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see the Examples section. |
+| chunkCount             | number                        | The number of top-scoring chunks Sensible combines to as context for the question it poses to GPT-3. For details about chunks, see the Notes section. |
+| chunkSize              | `0.5, 1` default: `0.5`       | The size of the chunks Sensible splits the document into, in pages. `0.5` specifies each chunk is half a page, for example. For details about chunks, see the Notes section. |
+| chunkOverlapPercentage | `0, 0.25, 0.5` default: `0.5` | The extent to which chunks overlap, as a percentage of the chunks' height. `0.5` specifies each chunk overlaps by half its height, for example. For details about chunks, see the Notes section. |
 
 TODO: the Instruct Ref Page will need maybe a row thats like, for advanced params, see the Sense ML page ? 
 
-Search for TODOs, there are more
+Search for TODOs, there are more -- including updating 'how it works' for other NLP methods.
 
 Examples
 ====
@@ -206,6 +206,13 @@ The following image shows the example document used with this example config:
   }
 }
 ```
+
+
+
+Example 3
+----
+
+
 
 
 
