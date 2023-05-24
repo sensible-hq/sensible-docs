@@ -212,7 +212,7 @@ The following image shows the example document used with this example config:
 Example 3
 ----
 
-
+The following example shows using chunk-related parameters to narrow down the page location of an answer in a document.
 
 
 
