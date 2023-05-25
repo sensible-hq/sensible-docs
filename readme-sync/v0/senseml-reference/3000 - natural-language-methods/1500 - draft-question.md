@@ -28,12 +28,12 @@ Parameters
 
 **NEW STUFF**
 
-| key                    | value                         | description                                                  |
-| :--------------------- | :---------------------------- | :----------------------------------------------------------- |
-| chunkScoringText       | string                        | A representative snippet of text from the part of the document where you expect to find the answer to your question. Use this parameter to narrow down the page location of the answer to your question. For example, if your question has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the question text to score chunks.<br/>  Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see Example 3 in the [Examples](doc:question#example-3) section. |
-| chunkCount             | number                        | The number of top-scoring chunks Sensible combines as context for the question it poses to a large-language model (LLM). For details about chunks, see the Notes section. |
-| chunkSize              | `0.5, 1` default: `0.5`       | The size of the chunks Sensible splits the document into, as a page fraction. `0.5` specifies each chunk is half a page, for example. For details about chunks, see the Notes section. |
-| chunkOverlapPercentage | `0, 0.25, 0.5` default: `0.5` | The extent to which chunks overlap, as a percentage of the chunks' height. `0.5` specifies each chunk overlaps by half its height, for example. For details about chunks, see the Notes section. |
+| key                    | value                             | description                                                  |
+| :--------------------- | :-------------------------------- | :----------------------------------------------------------- |
+| chunkScoringText       | string                            | A representative snippet of text from the part of the document where you expect to find the answer to your question. Use this parameter to narrow down the page location of the answer to your question. For example, if your question has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the question text to score chunks.<br/>  Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see [Example 3](doc:question#example-3). |
+| chunkCount             | number. default: `5`              | The number of top-scoring chunks Sensible combines as context for the question it poses to a large-language model (LLM). For details about chunks, see the Notes section. |
+| chunkSize              | `0.5`, `1` default: `0.5`         | The size of the chunks Sensible splits the document into, as a page fraction. `0.5` specifies each chunk is half a page, for example. For details about chunks, see the Notes section. |
+| chunkOverlapPercentage | `0`, `0.25`, `0.5` default: `0.5` | The extent to which chunks overlap, as a percentage of the chunks' height. `0.5` specifies each chunk overlaps by half its height, for example. For details about chunks, see the Notes section. |
 
 TODO: the Instruct Ref Page will need maybe a row thats like, for advanced params, see the Sense ML page ? 
 
@@ -222,11 +222,12 @@ The following example shows using chunk-related parameters to narrow down the pa
       "method": {
         "id": "question",
         "question": "Return the reinsured company name for this policy?",
-        /* the unredacted document is 35 pages 
-           and returns the wrong answer
-           unless you narrow down the answer
-           with chunkScoringText. */
+        /*   the document mentions the fictional
+            "EF Signorta Sirketi" company as also reinsured. 
+            chunkScoringText forces Sensible to 
+            return the fictional company AB Signorta Sirketi instead */
         "chunkScoringText": "Retrocedant's Address: \n 10 Lime Street \n REINSURED: SCOR UK Company Limited ",
+        
       }
     }
   ]
@@ -247,7 +248,7 @@ The following image shows the example document used with this example config:
 {
   "reinsured": {
     "type": "string",
-    "value": "Anadolu Anonim Turk Sigorta Sirketi"
+    "value": "AB Sigorta Sirketi"
   }
 }
 ```
