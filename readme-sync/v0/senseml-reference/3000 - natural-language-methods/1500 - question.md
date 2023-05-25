@@ -21,10 +21,14 @@ Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
-| key                     | value      | description                                                  |
-| :---------------------- | :--------- | :----------------------------------------------------------- |
-| id (**required**)       | `question` | The Anchor parameter is optional for fields that use the Question method. If you specify an anchor, Sensible ignores it. |
-| question (**required**) | string     | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api). |
+| key                     | value                             | description                                                  |
+| :---------------------- | :-------------------------------- | :----------------------------------------------------------- |
+| id (**required**)       | `question`                        | The Anchor parameter is optional for fields that use the Question method. If you specify an anchor, Sensible ignores it. |
+| question (**required**) | string                            | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api). |
+| chunkScoringText        | string                            | A representative snippet of text from the part of the document where you expect to find the answer to your question. Use this parameter to narrow down the page location of the answer to your question. For example, if your question has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the question text to score chunks.<br/>  Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see [Example 3](doc:question#example-3). |
+| chunkCount              | number. default: `5`              | The number of top-scoring chunks Sensible combines as context for the question it poses to a large-language model (LLM). For details about chunks, see the Notes section. |
+| chunkSize               | `0.5`, `1` default: `0.5`         | The size of the chunks Sensible splits the document into, as a page fraction. For example, `0.5` specifies each chunk is half a page. For details about chunks, see the Notes section. |
+| chunkOverlapPercentage  | `0`, `0.25`, `0.5` default: `0.5` | The extent to which chunks overlap, as a percentage of the chunks' height. For example, `0.5` specifies each chunk overlaps by half its height. For details about chunks, see the Notes section. |
 
 Examples
 ====
@@ -196,12 +200,57 @@ The following image shows the example document used with this example config:
 
 
 
+
+Example 3
+----
+
+The following example shows using chunk-related parameters to narrow down the page location of an answer in a document.
+
+```json
+{
+  "fields": [
+    {
+      "id": "reinsured",
+      "method": {
+        "id": "question",
+        "question": "Return the reinsured company name for this policy?",
+        /*   the document mentions the fictional
+            "EF Signorta Sirketi" company as also reinsured. 
+            chunkScoringText forces Sensible to 
+            return the fictional company AB Signorta Sirketi instead */
+        "chunkScoringText": "Retrocedant's Address: \n 10 Lime Street \n REINSURED: SCOR UK Company Limited ",
+        
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_chunk.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/question_chunk.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "reinsured": {
+    "type": "string",
+    "value": "AB Sigorta Sirketi"
+  }
+}
+```
+
 Notes
 ===
 
 For an overview of how this method works, see the following steps:
 
 - To meet GPT-3's character limit for input, Sensible splits the document into equal-sized, overlapping chunks.
-- Sensible scores each chunk by how well it matches the question you pose about the data you want to extract. To create the score, Sensible compares your question against each chunk using the OpenAPI Embeddings API.
-- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document.
+- Sensible scores each chunk by its similarity to either the `question` or the `chunkScoringText` parameters. Sensible scores each chunk using the OpenAPI Embeddings API.
+- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks.
 - Sensible inputs the combined chunks to GPT-3 as one context, and instructs it to answer the question based on the context.
