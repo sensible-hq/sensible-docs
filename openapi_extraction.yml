@@ -125,7 +125,7 @@ paths:
         --header 'Content-Type: application/json' \
         --header 'Accept: application/json' \
         --header 'Authorization: Bearer REDACTED' \
-        --data '{"content_type":"application/pdf"}
+        --data '{"content_type":"application/pdf"}'
         ```
 
         Step 2. PUT the document:
