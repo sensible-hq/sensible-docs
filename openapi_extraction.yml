@@ -14,6 +14,18 @@ info:
 security:
   - bearerAuth: []
 
+tags:
+  - name: Document
+    description: "Extract data from documents"
+  - name: Portfolio
+    description: "Extract data from multiple documents bundled into single PDF files"
+  - name: Retrieve extraction
+    description: "Retrieve data extracted asynchronously from documents"
+  - name: Get Excel from PDFs
+    description: "Convert extracted document data to spreadsheet"
+
+
+
 paths:
   /extract/{document_type}:
     post:
