@@ -35,7 +35,7 @@ Generate a temporary, one-time Sensible URL for a document:
 curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
---data '{"content_type":"application/pdf"}
+--data '{"content_type":"application/pdf"}'
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import the code sample.
