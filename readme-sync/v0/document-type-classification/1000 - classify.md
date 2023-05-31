@@ -17,4 +17,4 @@ Use document classification:
 
 For best classification results, Sensible recommends that a document type includes a sample set of reference documents that represent the diversity you expect to see in the document type. To use a document type for classification, Sensible requires that the type contains at least one reference document.
 
-For more information about classifying documents, see the [Sensible API reference](ref:classify-documentss).
+For more information about classifying documents, see the [Sensible API reference](ref:classify-documents).
