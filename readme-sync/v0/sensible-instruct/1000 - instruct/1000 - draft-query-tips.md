@@ -14,9 +14,11 @@ This Sensible Instruct method extracts an individual fact in a document, such as
   - "name of recipient"
   - "document date"
 
+- See [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+
 - You can narrow down your search and disambiguate between multiple possible answers by adding location information:
 
-    ​       **Location relative to page number and position on page**
+  ​       **Location relative to page number and position on page**
 
   - "address in the **top left of the first page** of the document"
 
@@ -32,9 +34,18 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
     
 
-- For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+**Troubleshooting**
 
-    
+Sensible returns the following messages about [uncertainties](doc:accuracy-measures) concerning extracted data:
+
+| uncertainty message TODO or error message? | description                                                  | troubleshooting                                              |
+| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Multiple possible answers                  | The context that Sensible provides to the LLM has multiple possible answers. | - If you want multiple answers returned, consider using the [List method](doc:list-tips) instead.<br/>- If you want a single answer, tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) so that it contains a single answer. |
+| Answer might not fully answer the question | The context that Sensible provides to the LLM might not have the full answer. | - tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) <br/> - consider simplfying your question |
+| Answer not found in the context            | The context that Sensible provides to the LLM doesn't contain the answer. | - tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) <br/> |
+| Ambiguous query                            | The LLM doesn't understand your question.                    | Rephrase your query.                                         |
+
+​    
 
 
 

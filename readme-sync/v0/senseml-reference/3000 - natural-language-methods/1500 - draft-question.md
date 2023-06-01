@@ -19,15 +19,3 @@ For an overview of how this method works, see the following steps:
 
 
 
-Measures of confidence
----
-
-**Troubleshooting prompts for the Query method**
-
-| Uncertainty message                        | What's going on                                              | Tips and troubleshooting                                     |
-| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Multiple Possible Answers                  | The context that Sensible provides to the LLM has multiple possible answers. | - If you want multiple answers returned, consider using the [List method](doc:list-tips) instead.<br/>- If you want a single answer, tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) so that it contains a single answer. |
-| Answer might not fully answer the question | The context that Sensible provides to the LLM might not have the full answer. | - tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) <br/> - consider simplfying your question |
-| Answer not found in the context            | The context that Sensible provides to the LLM doesn't contain the answer. | - tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) <br/> |
-| Ambiguous query                            | The LLM doesn't understand your question.                    | Rephrase your query. For tips, see [Query extraction tips](doc:query-tips). |
-
