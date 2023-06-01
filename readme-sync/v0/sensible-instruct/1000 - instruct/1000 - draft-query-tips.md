@@ -36,7 +36,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 **Troubleshooting**
 
-Sensible returns the following messages about [uncertainties](doc:accuracy-measures) concerning extracted data:
+Sensible returns the following messages about uncertainties concerning extracted data. Note that LLMs can inaccurately report uncertainties. For more information, see [Accuracy measures](doc:accuracy-measures).
 
 | uncertainty message TODO or error message? | description                                                  | troubleshooting                                              |
 | ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
