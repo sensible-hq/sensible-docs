@@ -8,7 +8,7 @@ Extracts individual facts in a document, such as the date of an invoice, the lia
 
 Sensible recommends framing each question so that it has a single, short answer.  For more complex questions with multi-part answers, use the [List method](doc:list) or the  [Summarizer](doc:summarizer) method. 
 
-For tips on authoring this method in Sensible Instruct, see [Query tips](doc:query-tips).
+For tips and troubleshooting, see [Query tips](doc:query-tips).
 
 For more information about how this method works, see [Notes ](doc:question#notes).
 
