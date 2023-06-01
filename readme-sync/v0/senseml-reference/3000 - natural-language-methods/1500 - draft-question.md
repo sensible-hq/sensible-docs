@@ -22,12 +22,6 @@ For an overview of how this method works, see the following steps:
 Measures of confidence
 ---
 
-Sensible returns the following measure of confidence:
-
-- JsonLogic validations: For deterministic asnwers. Why does Sensible use validation tests rather than confidence intervals? Sensible's extractions are largely deterministic. With the exception of OCR-dependent output, a Sensible config always returns the same output for a given PDF input. Given this, deterministic validation tests are more useful than confidence intervals as measures of extraction quality. 
-- OCR confidence scores: For scanned text
-- Uncertainties: Sensible asks the LLM to report any issues with its answer. These reports are generative and not 100% accurate, but they tend to be more useful than confidence scores, which in Sensible's experience often fall into either buckets of 100% uncertainty or 0% uncertainty and are therefore not useful for the sort of nuance that is helpul in troubleshooting. Uncertainties provide more nuanced ground for troubleshooting. As the research paper [Teaching models to express their uncertainties in words](https://arxiv.org/pdf/2205.14334.pdf) suggests, Uncertainties may arise from but not limited to: multiple answers, answer not solving the question, answer not in the context, and ambiguous question. Sensible prompts the LLM to return uncertainties as follows. 
-
 **Troubleshooting prompts for the Query method**
 
 | Uncertainty message                        | What's going on                                              | Tips and troubleshooting                                     |
