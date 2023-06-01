@@ -3,7 +3,7 @@ title: "Accuracy measures"
 hidden: true
 ---
 
-You can measure the accuracy of data extracted from a document in the following ways:
+You can measure the accuracy of data that Sensible extracts from a document in the following ways:
 
 
 
