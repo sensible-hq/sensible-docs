@@ -108,8 +108,6 @@ In this case, Sensible creates sections by splitting text into "rows" at each ne
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
-​       
-
 For vertical sections, specifying the regular expression `".+"`   for the Match parameter can be useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the section group in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
 
 
