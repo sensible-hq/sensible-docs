@@ -14,6 +14,18 @@ info:
 security:
   - bearerAuth: []
 
+tags:
+  - name: Document
+    description: "Extract data from documents"
+  - name: Portfolio
+    description: "Extract data from multiple documents bundled into single PDF files"
+  - name: Retrieve extraction
+    description: "Retrieve data extracted asynchronously from documents"
+  - name: Get Excel from PDFs
+    description: "Convert extracted document data to spreadsheet"
+
+
+
 paths:
   /extract/{document_type}:
     post:
@@ -21,6 +33,9 @@ paths:
       summary: Extract data from a document
 
       description: |
+
+        **Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints for production.
+
         Extract data from a local document synchronously.
 
         To explore this endpoint, use this interactive API reference, or use one of the following options:
@@ -122,7 +137,7 @@ paths:
         --header 'Content-Type: application/json' \
         --header 'Accept: application/json' \
         --header 'Authorization: Bearer REDACTED' \
-        --data '{"content_type":"application/pdf"}
+        --data '{"content_type":"application/pdf"}'
         ```
 
         Step 2. PUT the document:

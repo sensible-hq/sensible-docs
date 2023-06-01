@@ -3,7 +3,7 @@ title: "Try asynchronous extraction from a Sensible URL"
 hidden: false
 ---
 
-Use Sensible's asynchronous endpoints to extract data from documents that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
+Use Sensible's asynchronous endpoints in production scenarios. You have two options for asynchronous processing:
 
 - Provide your own URLs for your documents. 
 
@@ -35,7 +35,7 @@ Generate a temporary, one-time Sensible URL for a document:
 curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
---data '{"content_type":"application/pdf"}
+--data '{"content_type":"application/pdf"}'
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import the code sample.
