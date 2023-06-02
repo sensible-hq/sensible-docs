@@ -14,7 +14,11 @@ This Sensible Instruct method extracts an individual fact in a document, such as
   - "name of recipient"
   - "document date"
 
-- See [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+- See the following resources for creating prompts:
+
+  -  [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+
+  -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
 - You can narrow down your search and disambiguate between multiple possible answers by adding location information:
 

@@ -16,7 +16,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 - You can narrow down your search and disambiguate between multiple possible answers by adding location information:
 
-    ​       **Location relative to page number and position on page**
+  **Location relative to page number and position on page**
 
   - "address in the **top left of the first page** of the document"
 
@@ -24,11 +24,11 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
   - "consumer electronics device with highest sales mentioned **near end of document**"
 
-    **Location relative to content in document**
+  **Location relative to content in document**
 
   - "total amount **in the expense table**"
 
-  - "phone number after section 2"
+  - "phone number after **section 2**"
 
     
 
