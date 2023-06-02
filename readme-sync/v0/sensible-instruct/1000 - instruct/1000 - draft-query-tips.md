@@ -36,9 +36,9 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 **Troubleshooting**
 
-Sensible returns the following messages about uncertainties concerning extracted data. Note that LLMs can inaccurately report uncertainties. For more information, see [Accuracy measures](doc:accuracy-measures).
+Sensible returns the following error messages when it's uncertain of the accuracy of the extracted data. Note that LLMs can inaccurately report uncertainties. For more information, see [Accuracy measures](doc:accuracy-measures).
 
-| uncertainty message TODO or error message? | description                                                  | troubleshooting                                              |
+| error messages                             | description                                                  | troubleshooting                                              |
 | ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Multiple possible answers                  | The context that Sensible provides to the LLM has multiple possible answers. | - If you want multiple answers returned, consider using the [List method](doc:list-tips) instead.<br/>- If you want a single answer, tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) so that it contains a single answer. |
 | Answer might not fully answer the question | The context that Sensible provides to the LLM might not have the full answer. | - tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) <br/> - consider simplfying your question |
