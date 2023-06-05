@@ -18,7 +18,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
   -  [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices)
 
-  -  [Prompt Engineer](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)
+  -  [Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)
 
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
@@ -36,7 +36,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
   - "total amount **in the expense table**"
 
-  - "phone number after section 2"
+  - "phone number after **section 2**"
 
 Examples
 ===
