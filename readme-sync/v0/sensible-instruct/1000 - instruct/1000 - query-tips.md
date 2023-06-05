@@ -14,9 +14,17 @@ This Sensible Instruct method extracts an individual fact in a document, such as
   - "name of recipient"
   - "document date"
 
+- See the following resources for creating prompts:
+
+  -  [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices)
+
+  -  [Prompt Engineer](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)
+
+  -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
+
 - You can narrow down your search and disambiguate between multiple possible answers by adding location information:
 
-  **Location relative to page number and position on page**
+  ​       **Location relative to page number and position on page**
 
   - "address in the **top left of the first page** of the document"
 
@@ -24,15 +32,11 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
   - "consumer electronics device with highest sales mentioned **near end of document**"
 
-  **Location relative to content in document**
+    **Location relative to content in document**
 
   - "total amount **in the expense table**"
 
-  - "phone number after **section 2**"
-
-    
-
-- For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices).
+  - "phone number after section 2"
 
 Examples
 ===
