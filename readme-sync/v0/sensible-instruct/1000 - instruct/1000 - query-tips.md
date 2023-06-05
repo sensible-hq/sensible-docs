@@ -32,7 +32,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
     
 
-- For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+- For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices).
 
 Examples
 ===
