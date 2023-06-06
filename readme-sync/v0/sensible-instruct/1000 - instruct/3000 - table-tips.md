@@ -9,7 +9,7 @@ This Sensible Instruct method extracts a table in a document based on your descr
 
 - Try extracting all columns to get the best results. If you describe only a few of the columns, your results may be less accurate.
 
-- Try framing each description as the exact title and column headers in the table
+- Try phrasing each description so it matches an actual table title or table column header.
 
 - For more information about how to write descriptions, or "prompts", [Query extraction tips](doc:query-tips).
 
