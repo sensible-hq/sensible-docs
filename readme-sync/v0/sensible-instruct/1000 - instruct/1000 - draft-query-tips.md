@@ -8,7 +8,7 @@ hidden: true
 
 **Troubleshooting**
 
-Sensible returns the following error messages when the LLM is uncertain about the accuracy of the extracted data. Note that LLMs can inaccurately report uncertainties. For more information, see [Accuracy measures](doc:accuracy-measures).
+Sensible returns the following error messages when the LLM is uncertain about the accuracy of the extracted data. Note that LLMs can inaccurately report uncertainties. For more information about uncertainties, see [Accuracy measures](doc:accuracy-measures).
 
 | error message                              | description                                                  | troubleshooting                                              |
 | ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
