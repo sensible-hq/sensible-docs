@@ -153,7 +153,7 @@ Compose
 
 Returns a transformed type you define using an array of types. In the array, each successive type in the array takes the previous type's output as its input. For example, use this type:
 
-- As a more syntaxically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
+- As a more syntactically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
 - To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method for writing natural-language instructions to transform table cell contents.
 
 Parameters
@@ -171,7 +171,7 @@ Examples
 
 **Config**
 
-```
+```json
 {
   "fields": [
     {
@@ -229,7 +229,7 @@ The following image shows the example document used with this example config:
 
 **Output**
 
-```
+```json
 {
   "maintenance_records": {
     "columns": [
@@ -384,7 +384,7 @@ Use configurable syntax to change the default recognized formats.
 | minValue                  | number. Default: infinity                                    | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
 | relaxedWithCents          | Boolean. default: false                                      | Use this parameter when poor-quality scans or photographed documents result in erroneous OCR output for the decimal separator or thousands separator.  <br/> If true, Sensible overrides all other Currency type parameters, outputs USD currency, and recognizes the following number format as a currency:<br/><br/>- any number of digits mixed with `<fuzzySeparator>` characters, followed by<br/>- one `<fuzzySeparator>` character, followed by<br/>- two digits (for the cents)<br/><br/>where a `<fuzzySeparator>` character is any of the following common erroneous OCR outputs for a period or comma: <br/>`.,;: _ `  (period, comma, semicolon, colon, space, underscore)<br/><br/>For example, if you set this parameter to true, then for the erroneous OCR output  `"7.859:36"`, Sensible returns: <br>{"source": "7.859:36",<br/>"type": "currency",<br/>"unit": "$",<br/>"value": 7859.36} |
 | accountingNegative        | `default`, `anyParentheses`, `bothParentheses`, `suffixNegativeSign` Default: `null` | Replaces the deprecated Accounting Currency type. Specifies to recognize accounting sign conventions for negative numbers.<br/>`null` Sensible recognizes negative numbers as described in the preceding **formats recognized** section.<br/>`bothParentheses` -  Sensible assigns a negative value to a number prefixed and suffixed by parentheses.<br/>`anyParentheses` - Sensible assigns a negative value to a number that includes any parentheses as a suffix or prefix. Use this option to handle OCR errors, where an opening or closing parenthesis can be  incorrectly recognized as other characters.<br/>`suffixNegativeSign` - Sensible assigns a negative value to number suffixed by a negative sign.<br/>`default`  Replaces the behavior of the Accounting Currency type for backward compatibility. The equivalent of `bothParentheses` and `suffixNegativeSign`. <br/> |
-| alwaysNegative            | boolean                                                      | If true, Sensible assigns a negative value to a number and ignores sign symbols in the document. For edxample, use this to capture values in the debit column of an accounting document, where negative signs are omitted. |
+| alwaysNegative            | boolean                                                      | If true, Sensible assigns a negative value to a number and ignores sign symbols in the document. For example, use this to capture values in the debit column of an accounting document, where negative signs are omitted. |
 | removeSpaces              | boolean                                                      | Removes whitespace in a line for better currency recognition. For example, changes the line `$  12.45` to `$12.45`. |
 
 Custom
@@ -394,7 +394,7 @@ Returns a custom type you define using regular expressions. For example, define 
 
 **Example syntax**
 
-```
+```json
 "type":
   {
     "id": "custom",
@@ -484,7 +484,6 @@ november 30, 1955
 Feb 1, 21
 June 7th, 2021
 Jan. 9th, 09
-
 ```
 
 
