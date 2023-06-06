@@ -8,7 +8,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 **Tips**
 
-- Try framing each query so that it has a single, short answer such as:
+- Try framing each prompt so that it has a single, short answer such as:
 
   - "company address"
   - "name of recipient"
@@ -22,7 +22,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
-- You can narrow down your search and disambiguate between multiple possible answers by adding location information:
+- You can narrow down your search and disambiguate between multiple possible answers by adding location information to prompts:
 
   ​       **Location relative to page number and position on page**
 
@@ -61,7 +61,7 @@ To try out this example in the Sensible app, take the following steps:
 
 4. Click **Sensible Instruct** and create fields to extract data using the following table:
 
-| Field name                     | Method | Describe what you want to extract                            |
+| Field name                     | Method | Prompt                                                       |
 | ------------------------------ | ------ | ------------------------------------------------------------ |
 | report_date                    | Query  | "for which month and year does this report describe wheat production. look in beginning of the document for the answer" |
 | change_in_production           | Query  | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |

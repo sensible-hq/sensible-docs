@@ -11,7 +11,7 @@ This Sensible Instruct method extracts a table in a document based on your descr
 
 - Try framing each description as the exact title and column headers in the table
 
-- For more information about how to write instructions (or "prompts") for this method's Description parameters, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+- For more information about how to write descriptions, or "prompts", [Query extraction tips](doc:query-tips).
 
 
 Examples
