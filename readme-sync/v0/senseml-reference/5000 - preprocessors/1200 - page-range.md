@@ -11,9 +11,9 @@ Parameters
 
 | key         | value   | description                                                      |
 | ----------- | ------ | ------------------------------------------------------------ |
-| `type`      | `pageRange` |                                                   |
-| `startPage` | number. default: 0 | Zero-based index of the first page to include. |
-| `endPage`   | number. default: last page | Zero-based index of the last page to include. |
+| type      | `pageRange` |                                                   |
+| startPage | number. default: 0 | Zero-based index of the first page to include. |
+| endPage   | number. default: last page | Zero-based index of the last page to include. |
 
  
 
