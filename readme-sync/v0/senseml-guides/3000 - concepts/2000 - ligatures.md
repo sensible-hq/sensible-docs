@@ -33,5 +33,5 @@ To find out if ligatures exist in the extracted text for your PDF, extract all t
 }
 ```
 
-
+To correct ligatures, use the [ligature](doc:ligature) preprocessor.
 

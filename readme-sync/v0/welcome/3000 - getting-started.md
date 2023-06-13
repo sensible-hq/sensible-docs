@@ -50,10 +50,10 @@ Configure the extraction
 
    | Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
-   2. As the following screenshot shows, click the **auto_insurance_quote** document type you just created,  click the **Reference documents** tab, and click **Upload document**:
+   2. As the following screenshot shows, click the **auto_insurance_quote** document type you created,  click the **Reference documents** tab, and click **Upload document**:
       ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_upload_doc.png) 
 
-   3. In the file upload dialog, choose the generic car insurance quote you just downloaded.
+   3. In the file upload dialog, choose the generic car insurance quote you downloaded in a previous step.
 
 
 2. To create a configuration for your document type, take the following steps:

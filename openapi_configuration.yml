@@ -843,12 +843,10 @@ components:
             - microsoft
             - amazon
             - google
+            - lazarus
           type: string
           description: |
-            Microsoft is the default engine and suited to typewritten and long documents.
-            Google is faster than Microsoft and suited to handwriting and short documents (25 pages or under).
-            The Google engine doesn't merge words into lines automatically. Use the mergeLines preprocessor in your configurations to do so.
-            Amazon is an alternative to experiment with if other engines aren't recognizing text.
+            For information about each OCR engine, see [OCR](doc:ocr) preprocessor.
 
         prevent_default_merge_lines:
           type: boolean
@@ -1005,7 +1003,7 @@ components:
         If you test this endpoint using the **Try It** button in this interactive API explorer,
         the explorer stringifies the JSON for you when you paste the configuration into this parameter.
         To support publishing drafts, this API doesn’t reject requests with configuration errors.
-        To validate, compare your configuration to the latest version of the configuration schema, published at https://app.sensible.so/schemas/configuration.schema.json.
+        To validate, compare your configuration to the latest version of the configuration schema, published at https://schema.sensible.so/configuration.schema.json.
 
 
 

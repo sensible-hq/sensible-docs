@@ -137,7 +137,7 @@ Take the following steps:
 
 
 
-2. Click **Upload document** and select the document you just downloaded.
+2. Click **Upload document** and select the document you downloaded in a previous step.
 2. Click **Run Extraction**.
 
 4. Sensible displays the extracted data as JSON in the right pane. Click the **Download excel** to convert the extracted document data to Excel:
@@ -165,7 +165,7 @@ Congratulations! You edited your first config and extracted your first document 
 - Or, create a new config for your custom documents:
   - In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type and name  it. Leave the defaults and click **Create**.
   - In the document type's **Reference documents** tab, upload an example of the type of PDF document you want to extract from.
-  - In the document type's **Configurations** tab, create a new test configuration, and click the configuration you just created to edit it.
+  - In the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
   
   - Click **Sensible Instruct** and create fields to extract data using what you've learned in this guide.
 

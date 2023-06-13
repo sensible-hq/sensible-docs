@@ -8,15 +8,23 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 **Tips**
 
-- Try framing each query so that it has a single, short answer such as:
+- Try framing each prompt so that it has a single, short answer such as:
 
   - "company address"
   - "name of recipient"
   - "document date"
 
-- You can narrow down your search and disambiguate between multiple possible answers by adding location information:
+- See the following resources for creating prompts:
 
-    ​       **Location relative to page number and position on page**
+  -  [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices)
+
+  -  [Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)
+
+  -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
+
+- You can narrow down your search and disambiguate between multiple possible answers by adding location information to prompts:
+
+  ​       **Location relative to page number and position on page**
 
   - "address in the **top left of the first page** of the document"
 
@@ -28,11 +36,22 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
   - "total amount **in the expense table**"
 
-  - "phone number after section 2"
+  - "phone number after **section 2**"
 
-    
+**Troubleshooting**
 
-- For more information about how to write instructions (or "prompts") for the Question method's Question parameter, see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).
+Sensible returns the following error messages when the LLM is uncertain about the accuracy of the extracted data. Note that LLMs can inaccurately report uncertainties. For more information about uncertainties, see [Accuracy measures](doc:accuracy-measures).
+
+| error                                      | description                                                  | troubleshooting                                              |
+| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Multiple possible answers                  | The context that Sensible provides to the LLM contains multiple possible answers. | -  To return multiple answers, use the [List method](doc:list-tips).<br/>- To return a single answer, tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) so that the context contains a single answer. |
+| Answer might not fully answer the question | The context that Sensible provides to the LLM might not contain the full answer. | - Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters).<br/> - Simplify your question, for example, break it up into multiple questions. |
+| Answer not found in the context            | The context that Sensible provides to the LLM doesn't contain the answer. | - Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters). |
+| Ambiguous query                            | The LLM identified ambiguities in your question.             | Rephrase your question using the tips in the tips section.   |
+
+ 
+
+
 
 Examples
 ===
@@ -51,13 +70,13 @@ To try out this example in the Sensible app, take the following steps:
    | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_crop.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-2. Create a test document type in the Sensible app, then click the document type you just created to edit it. In the document type's **Reference documents** tab, upload the example PDF you just downloaded.
+2. Create a test document type in the Sensible app, then click the document type you created to edit it. In the document type's **Reference documents** tab, upload the example PDF you downloaded in a previous step.
 
-3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you just created to edit it.
+3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
 
 4. Click **Sensible Instruct** and create fields to extract data using the following table:
 
-| Field name                     | Method | Describe what you want to extract                            |
+| Field name                     | Method | Prompt                                                       |
 | ------------------------------ | ------ | ------------------------------------------------------------ |
 | report_date                    | Query  | "for which month and year does this report describe wheat production. look in beginning of the document for the answer" |
 | change_in_production           | Query  | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |
