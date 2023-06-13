@@ -843,6 +843,7 @@ components:
             - microsoft
             - amazon
             - google
+            - lazarus
           type: string
           description: |
             For information about each OCR engine, see [OCR](doc:ocr) preprocessor.
