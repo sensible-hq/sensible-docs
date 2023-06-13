@@ -25,7 +25,7 @@ When text such as handwriting is slightly misaligned vertically, line sorting is
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_sort_2.png)
 
-To configure this default sorting behavior, see [the sortLines parameter](doc:method).
+To configure this default sorting behavior, see [the Sort Lines parameter](doc:method).
 
 Line grouping
 ---
