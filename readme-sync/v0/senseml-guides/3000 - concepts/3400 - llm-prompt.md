@@ -21,10 +21,11 @@ page hinting: yeah strips it out.
 
 
 
-| key  | Where configure it              | parameter name     |      |
-| ---- | ------------------------------- | ------------------ | ---- |
-| A    | NLP preprocessor (config level) |                    |      |
-| B    | NLP preprocessor (config level) | contextDescription |      |
-|      |                                 |                    |      |
-|      |                                 |                    |      |
+| key  | Where configure it                                           | parameter name                                               |      |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
+| A    | NLP preprocessor (config level) TODO link                    | queryPrompt -- and other Prompt intro-related methods -- queryIntro |      |
+| B    | NLP preprocessor (config level)                              | contextDescription                                           |      |
+| C    | NLP preprocessor (config level)                              | pageHinting                                                  |      |
+| D    | field's method.  For this example, [Question](doc:question) method | chunkScoringText<br/>chunkCount<br/>chunkSize<br/>chunkoverlapPercentage |      |
+| E    | field's method                                               | description                                                  |      |
 
