@@ -3,21 +3,31 @@ title: "Advanced LLM prompt configuration"
 hidden: true
 ---
 
-You can configure the prompt that Sensible provides to a large-language model (LLM) to fine tune your results. You can configure some aspects of the prompt, such as the context description, for all fields in a config, and for others, you can configure them at the field level. Some you can configure at the config level, then override for individual fields
+TODO: link to this new topic from the troubleshooting Query table, from the "how it works" in the question method, and from ... the NLP preprocessor?
 
-See the following image for an example of configuring a field that uses the [Query](doc:question) method. 
+
+
+You can configure the prompt that Sensible inputs to a large-language model (LLM) for a single field or for all fields in a config.
+
+Sensible inputs a prompt to a large-language model (LLM) by combining:
+
+- configurable introductory instructions
+- the descriptive prompts you configure in a method such as the [List](doc:list) or [Query](doc:query) methods.
+- a configurable excerpt, or "context", extracted from the document. 
+
+See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:question) method: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/llm_prompt.png)
 
-page hinting: yeah strips it out.
 
 
 
-| key  | configurable at config level?             | configurable at field level?                                 | parameter name                                               |      |
-| ---- | ----------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
-| A    | NLP preprocessor (config level) TODO link |                                                              | queryPrompt -- and other Prompt intro-related methods -- queryIntro |      |
-| B    | NLP preprocessor (config level)           |                                                              | contextDescription                                           |      |
-| C    | NLP preprocessor (config level)           |                                                              | pageHinting                                                  |      |
-| D    |                                           | field's method.  For this example, [Question](doc:question) method | chunkScoringText<br/>chunkCount<br/>chunkSize<br/>chunkoverlapPercentage |      |
-| E    |                                           | field's method                                               | description                                                  |      |
+
+| key  | description                                                  | configurable for all fields in config? | configurable for one field? | parameter                                                    |      |
+| ---- | ------------------------------------------------------------ | -------------------------------------- | --------------------------- | ------------------------------------------------------------ | ---- |
+| A    | prompt introduction. For example, ask for truthfulness or describe the shape of the data to extract, for example, query, table, or table | yes                                    |                             | queryPrompt  (and other Prompt intro-related methods -- queryIntro) TODO how to reword? |      |
+| B    | overall description of the chunks                            | yes                                    |                             | contextDescription                                           |      |
+| C    | page metadata                                                | yes                                    |                             | pageHinting                                                  |      |
+| D    | chunk excerpted from document                                |                                        | yes                         | chunkScoringText<br/>chunkCount<br/>chunkSize<br/>chunkoverlapPercentage |      |
+| E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |                                        | yes                         | description                                                  |      |
 

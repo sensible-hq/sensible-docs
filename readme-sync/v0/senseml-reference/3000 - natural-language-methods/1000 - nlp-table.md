@@ -250,4 +250,4 @@ For an overview of how the NLP Table method works, see the following steps:
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
 
-5. Sensible uses GPT-3 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.
+5. Sensible uses GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.
