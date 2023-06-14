@@ -23,11 +23,11 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 
 
-| key  | description                                                  | configurable for all fields in config? | configurable for one field? | parameter                                                    |      |
-| ---- | ------------------------------------------------------------ | -------------------------------------- | --------------------------- | ------------------------------------------------------------ | ---- |
-| A    | prompt introduction. For example, ask for truthfulness or describe the shape of the data to extract, for example, query, table, or table | yes                                    |                             | queryPrompt  (and other Prompt intro-related methods -- queryIntro) TODO how to reword? |      |
-| B    | overall description of the chunks                            | yes                                    |                             | contextDescription                                           |      |
-| C    | page metadata                                                | yes                                    |                             | pageHinting                                                  |      |
-| D    | chunk excerpted from document                                |                                        | yes                         | chunkScoringText<br/>chunkCount<br/>chunkSize<br/>chunkoverlapPercentage |      |
-| E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |                                        | yes                         | description                                                  |      |
+| key  | description                                                  | configurable for all fields in config? | configurable for one field? | parameter                                                    |
+| ---- | ------------------------------------------------------------ | -------------------------------------- | --------------------------- | ------------------------------------------------------------ |
+| A    | prompt introduction. For example, ask for truthfulness or describe the shape of the data to extract, for example, query, table, or table | yes                                    |                             | queryPrompt  (and other Prompt intro-related methods -- queryIntro) TODO how to reword? |
+| B    | overall description of the chunks                            | yes                                    |                             | contextDescription                                           |
+| C    | page metadata                                                | yes                                    |                             | pageHinting                                                  |
+| D    | chunk excerpted from document                                |                                        | yes                         | chunkScoringText<br/>chunkCount<br/>chunkSize<br/>chunkoverlapPercentage |
+| E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |                                        | yes                         | description                                                  |
 
