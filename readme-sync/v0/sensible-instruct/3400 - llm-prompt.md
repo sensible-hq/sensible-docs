@@ -13,7 +13,7 @@ Sensible inputs a prompt to a large-language model (LLM) by combining:
 
 - a prompt introduction
 - "context", or chunks excerpted from the document. For more information about chunks, see the notes section for each Sensible Instruct method, for example, the [Notes](doc:nlp-table#notes) section for the NLP Table method.
-- the descriptive prompts you configure in a Sensible Instruct method, such as the [List](doc:list) or [Query](doc:question) methods.
+- the descriptive prompts you configure in a Sensible Instruct method, such as the [List](doc:list) or [Query](doc:question) methods
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:question) method: 
 
