@@ -45,7 +45,7 @@ Sensible returns the following error messages when the LLM is uncertain about th
 | Multiple possible answers                  | The context that Sensible provides to the LLM contains multiple possible answers. | -  To return multiple answers, use the [List method](doc:list-tips).<br/>- To return a single answer, tweak the context that Sensible provides to the LLM  so that the context contains a single answer.  Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters). You can also increase your prompt's specificity using the [NLP](doc:nlp) preprocessor. |
 | Answer might not fully answer the question | The context that Sensible provides to the LLM might not contain the full answer. | - Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters). <br/> - Simplify your prompt, for example, break it up into multiple questions. Or increase your prompt's specificity using the [NLP](doc:nlp) preprocessor. |
 | Answer not found in the context            | The context that Sensible provides to the LLM doesn't contain the answer. | - Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) or the [NLP](doc:nlp) preprocessor . |
-| Ambiguous query                            | The LLM identified ambiguities in your question.             | Rephrase your question using the tips in the tips section and tweak your prompt using the [NLP](doc:nlp) preprocessor. |
+| Ambiguous query                            | The LLM identified ambiguities in your question.             | Rephrase your question using the tips in the Tips section and tweak your prompt using the [NLP](doc:nlp) preprocessor. |
 
  
 
