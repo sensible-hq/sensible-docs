@@ -17,9 +17,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 - See the following resources for creating prompts:
 
   -  [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices)
-
-  -  [Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)
-
+  -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
 - You can narrow down your search and disambiguate between multiple possible answers by adding location information to prompts:

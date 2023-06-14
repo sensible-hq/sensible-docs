@@ -11,7 +11,7 @@ This topic describes the color-coded symbols in the Sensible app that visually r
 | [Blue box](doc:color#blue-box)                   | captured method data                 |
 | [Green box](doc:color#green-box)                 | box or region                        |
 | [Green point](doc:color#green-point)             | starting point for recognizing a box |
-| [Green brackets]                                 | ranges for sections                  |
+| [Green brackets](doc:color#green-brackets)       | ranges for sections                  |
 | [Dotted blue box](doc:color#dotted-blue-box)     | discarded method data                |
 | [Dotted yellow box](doc:color#dotted-yellow-box) | discarded anchor data                |
 | [Pink box](doc:color#pink-box)                   | fingerprint                          |
