@@ -12,7 +12,7 @@ You can configure the prompt that Sensible inputs to a large-language model (LLM
 Sensible inputs a prompt to a large-language model (LLM) by combining:
 
 - a prompt introduction
-- the excerpts, or "context", extracted from the document 
+- "context", or chunks excerpted from the document
 - the descriptive prompts you configure in a method such as the [List](doc:list) or [Query](doc:question) methods
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:question) method: 
@@ -26,7 +26,7 @@ See the following image for an example of a full prompt that Sensible inputs to 
 | key  | description                                                  | configurable for all fields in config? | configurable for one field?                        | parameter                                                    |
 | ---- | ------------------------------------------------------------ | -------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
 | A    | prompt introduction. For example, ask for truthfulness or describe the shape of the data to extract, for example, query, table, or table | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Query Prompt  (and other Prompt intro-related methods -- queryIntro) TODO how to reword? |
-| B    | overall description of the chunks                            | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Context Description                                          |
+| B    | overall description of the chunks, or "context"              | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Context Description                                          |
 | C    | page metadata for chunk                                      | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Page Hinting                                                 |
 | D    | chunk excerpted from document                                |                                        | yes:<br/>[Query method](doc:question)              | Chunk Scoring Text<br/>Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage |
 | E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |                                        | yes:<br/>[Sensible Instruct methods](doc:instruct) | Description                                                  |
