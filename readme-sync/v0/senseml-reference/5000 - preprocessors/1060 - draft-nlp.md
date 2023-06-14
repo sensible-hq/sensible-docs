@@ -9,8 +9,6 @@ Configures all [Sensible Instruct](doc:instruct) methods in a config.
 [**Examples**](doc:nlp#examples)
 [**Notes**](doc:nlp#notes)
 
-![image-20230612121543918](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230612121543918.png)
-
 Parameters
 ====
 

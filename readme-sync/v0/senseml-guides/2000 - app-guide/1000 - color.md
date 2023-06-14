@@ -5,7 +5,7 @@ hidden: false
 
 This topic describes the color-coded symbols in the Sensible app that visually represent how SenseML queries operate on PDFs. Use these symbols to author and troubleshoot queries.
 
-| Symbol                                           | Represents                           |
+| symbol                                           | represents                           |
 | ------------------------------------------------ | ------------------------------------ |
 | [Yellow box](doc:color#yellow-box)               | anchor                               |
 | [Blue box](doc:color#blue-box)                   | captured method data                 |
