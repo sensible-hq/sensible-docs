@@ -23,7 +23,7 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 
 
-| key  | description                                                  | configurable for all fields in config? | configurable for one field?                        | parameter                                                    |
+| key  | description                                                  | configurable for all fields in config? | configurable for each field?                       | parameter                                                    |
 | ---- | ------------------------------------------------------------ | -------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
 | A    | prompt introduction. For example, ask for truthfulness or describe the shape of the data to extract, for example, query, table, or table | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Query Prompt  (and other Prompt intro-related methods -- queryIntro) TODO how to reword? |
 | B    | overall description of the chunks, or "context"              | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Context Description                                          |
