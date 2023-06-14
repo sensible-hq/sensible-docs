@@ -3,7 +3,7 @@ title: "Advanced LLM prompt configuration"
 hidden: true
 ---
 
-TODO: link to this new topic from the troubleshooting Query table, from the "how it works" in the question method, and from ... the NLP preprocessor?
+TODO ON PUBLISH: link to this new topic from the troubleshooting Query table, from the "how it works" in the question method, and from the NLP preprocessor(?)
 
 
 
