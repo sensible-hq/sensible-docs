@@ -11,9 +11,9 @@ You can configure the prompt that Sensible inputs to a large-language model (LLM
 
 Sensible inputs a prompt to a large-language model (LLM) by combining:
 
-- configurable introductory instructions
+- a prompt introduction
 - the descriptive prompts you configure in a method such as the [List](doc:list) or [Query](doc:query) methods.
-- a configurable excerpt, or "context", extracted from the document. 
+- the excerpts, or "context", extracted from the document. 
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:question) method: 
 
