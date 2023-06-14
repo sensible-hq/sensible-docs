@@ -46,7 +46,7 @@ Match using strings.
 | -------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
 | text  (**required**) | string                                                  | The string to match                                          |
 | type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes`          | `equals`: The matching line must equal the string<br/>`startsWith`: Match at beginning of line<br/>`endsWIth`: Match at end of line<br/>`includes`: Match anywhere in line |
-| editDistance         | integer. the number of allowed edits for a fuzzy match. | Configure this parameter to allow *fuzzy*, or approximate, string matching. This is useful for OCR text, like poor-quality scans or handwriting. For example, if you configure 3, then Sensible matches `kitten` in the document for `sitting` in the Text parameter.  Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). <br/>Sensible recommends avoiding setting this parameter on short matches, like "A:" or "Sub", because an edit distance as low as 2 on a short match can result in a large number of of line matches and impact performance. Generally, you increase edit distances values as you increase the length of the text match. See the Examples section for an example. |
+| editDistance         | integer. the number of allowed edits for a fuzzy match. | Configure this parameter to allow *fuzzy*, or approximate, string matching. This is useful for OCR text, like poor-quality scans or handwriting. For example, if you configure 3, then Sensible matches `kitten` in the document for `sitting` in the Text parameter.  Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). <br/>Sensible recommends avoiding setting this parameter on short matches, like "A:" or "Sub", because an edit distance as low as 2 on a short match can result in a large number of line matches and impact performance. Generally, you increase edit distances values as you increase the length of the text match. See the Examples section for an example. |
 | isCaseSensitive      | boolean. Default: false.                                | If true, match the string taking into account upper- and lower-case characters. |
 
 **SYNTAX EXAMPLE**
@@ -140,7 +140,7 @@ Match using a regular expression.
 | key                    | values                   | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
 | type (**required**)    | `regex`                  |                                                              |
-| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. This parameter doesn't support capturing groups. See the [Regex method](doc:regex) instead.<br/>Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible throws an error if you specify a pattern that can match an empty string, for example, `.*`. |
+| pattern (**required**) | valid  JS regex          | Javascript-flavored regular expression. This parameter doesn't support capturing groups. See the [Regex method](doc:regex) instead.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible throws an error if you specify a pattern that can match an empty string, for example, `.*`. |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 
 **Example**
@@ -163,7 +163,7 @@ This is a convenience match to find the first line encountered.
 This example matches the first line after a matched line in an array:
 
 
-```
+```json
 {
   "fields": [
     {

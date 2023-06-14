@@ -69,7 +69,7 @@ Retrieve extraction
 To retrieve the extraction results with the  `/documents` endpoint, take the following steps:
 
 
-1. In a previous step on this page, you got back a result that included and extraction ID:
+1. In a previous step on this page, you got back a result that included an extraction ID:
 
    ```json
    {

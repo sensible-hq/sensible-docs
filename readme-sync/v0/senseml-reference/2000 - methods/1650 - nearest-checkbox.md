@@ -32,7 +32,7 @@ Parameters
 Examples
 ====
 
-The following example shows extracting the checkboxes that are nearest to their respective anchors. For a checkbox that is nearer to another line's checkbox than to its own checkbox, the example shows using an Offset parameter close the gap:
+The following example shows extracting the checkboxes that are nearest to their respective anchors. For a checkbox that is nearer to another line's checkbox than to its own checkbox, the example shows using an Offset parameter to close the gap:
 
 ```json
 {

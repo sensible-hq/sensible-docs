@@ -75,7 +75,7 @@ Extract fields in the order in which they're written in the SenseML array.  Sens
 
 1. Run fields array.
 2. Run computed fields, which transform fields output.
-3. Run sections (“documents inside documents”). Cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
+3. Run sections (“documents inside documents”). Cordons off a document range and extracts fields or computed fields from it independently. Suited to complex repeating data.
 
 4. Return all fields, computed fields, and sections
 

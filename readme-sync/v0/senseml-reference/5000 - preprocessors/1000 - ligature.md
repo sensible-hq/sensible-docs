@@ -20,7 +20,7 @@ Examples
 
 This config shows using a Ligature preprocessor and outputting the whole document to check the ligature replacement accuracy: 
 
-```
+```json
 {
   "preprocessors": [
     {

@@ -26,7 +26,7 @@ In this case, Sensible extracts by default in the following order:
    1. Run all computed fields that aren't Suppress Output methods.
    2. Run Suppress Output fields.
 
-3. Run sections (“documents inside documents”). Sensible cordons off a document range and extract fields or computed fields from it independently. Suited to complex repeating data.
+3. Run sections (“documents inside documents”). Sensible cordons off a document range and extracts fields or computed fields from it independently. Suited to complex repeating data.
 
 4. Return all fields, computed fields, and sections.
 

@@ -86,7 +86,7 @@ To run this example, verify that the document type uses Google OCR (click the ge
 
 OUTPUT
 
-```
+```json
 {
   "name_line": {
     "type": "string",
