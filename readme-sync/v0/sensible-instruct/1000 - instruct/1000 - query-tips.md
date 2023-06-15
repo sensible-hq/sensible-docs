@@ -38,7 +38,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 **Troubleshooting**
 
-Sensible returns the following error messages, or "confidence signals", when the LLM is uncertain about the accuracy of the extracted data. Note that LLMs can inaccurately report uncertainties. For more information about uncertainties, see [Accuracy measures](doc:accuracy-measures).
+Sensible returns the following error messages, or "confidence signals", when the LLM is uncertain about the accuracy of the extracted data. Note that LLMs can inaccurately report confidence signals. For more information about uncertainties, see [Accuracy measures](doc:accuracy-measures).
 
 | error                                      | description                                                  | troubleshooting                                              |
 | ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
