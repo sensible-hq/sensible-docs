@@ -23,11 +23,11 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 
 
-| key  | description                                                  | configurable for all fields in config? | configurable for each field?                       | parameter                                                    |
+| key  | description                                                  | configurable for all fields in config? | overridable for each field?                        | parameter                                                    |
 | ---- | ------------------------------------------------------------ | -------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
-| A    | prompt introduction. For example, ask for truthfulness or describe the shape of the data to extract, for example, query, table, or table | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Query Prompt  (and other Prompt intro-related methods -- queryIntro) TODO how to reword? |
-| B    | overall description of the chunks, or "context"              | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Context Description                                          |
-| C    | page metadata for chunk                                      | yes:<br/>[NLP preprocessor](doc:nlp)   |                                                    | Page Hinting                                                 |
-| D    | chunk excerpted from document                                |                                        | yes:<br/>[Query method](doc:question)              | Chunk Scoring Text<br/>Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage |
+| A    | prompt introduction. For example, ask for truthfulness or describe the shape of the data to extract, for example, query, table, or table | yes:<br/>[NLP preprocessor](doc:nlp)   | yes:<br/>[Sensible Instruct methods](doc:instruct) | Query Prompt  (and other Prompt intro-related methods -- queryIntro) TODO how to reword? |
+| B    | overall description of the chunks, or "context"              | yes:<br/>[NLP preprocessor](doc:nlp)   | yes:<br/>[Sensible Instruct methods](doc:instruct) | Context Description                                          |
+| C    | page metadata for chunk                                      | yes:<br/>[NLP preprocessor](doc:nlp)   | yes:<br/>[Sensible Instruct methods](doc:instruct) | Page Hinting                                                 |
+| D    | chunk excerpted from document                                | yes                                    | yes:<br/>[Sensible Instruct methods](doc:instruct) | Chunk Scoring Text<br/>Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage |
 | E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |                                        | yes:<br/>[Sensible Instruct methods](doc:instruct) | Description                                                  |
 
