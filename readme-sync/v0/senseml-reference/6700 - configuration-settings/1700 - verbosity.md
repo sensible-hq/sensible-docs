@@ -18,7 +18,7 @@ Examples
 
 If you add `"verbosity": 1,`  as a sibling to the fields array in [the Table example](doc:table#examples), you get the following output:
 
-```
+```json
 {
   "agile_risks_table_updates_monthly": {
     "columns": [

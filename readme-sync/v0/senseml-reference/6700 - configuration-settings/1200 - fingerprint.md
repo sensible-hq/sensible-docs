@@ -33,7 +33,7 @@ Examples
 
 The following fingerprint tests a vendor-specific config "anyco_life_insurance_quote" in a document type "life insurance quotes". This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases. 
 
-```
+```json
 {
   "fingerprint": {
     "tests": [
