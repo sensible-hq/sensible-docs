@@ -13,6 +13,5 @@ Sensible inputs a prompt to a large-language model (LLM) by combining:
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:question) method: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/llm_prompt.png)
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
