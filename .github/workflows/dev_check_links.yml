@@ -1,8 +1,9 @@
 name: Dev Link checking
+# Run workflow for every push to non-main branch in dir assets
 on:
   push:
-    branches:
-      - instruct
+    branches-ignore:
+      - main
     paths:
       - 'readme-sync/v0/**.md'
 jobs:
