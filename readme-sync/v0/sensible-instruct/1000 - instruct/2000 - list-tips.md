@@ -48,4 +48,4 @@ For example, use the following screenshot as a guide for configuring the `dinner
 Notes
 ===
 
-For the full reference for this method in SenseML, see [List method](doc:list).
+For the full reference for this method in SenseML, see [List method](doc:list). For advanced options, see [Advanced prompt configuration](doc:prompt).
