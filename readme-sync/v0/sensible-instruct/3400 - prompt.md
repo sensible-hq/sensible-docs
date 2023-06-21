@@ -3,8 +3,6 @@ title: "Advanced prompt configuration"
 hidden: true
 ---
 
-TODO ON PUBLISH: link to this new topic from the troubleshooting Query table, from the "how it works" in the question method, and from the NLP preprocessor(?)
-
 You can configure the prompt that Sensible inputs to a large-language model (LLM) for a single field or for all fields in a config.
 
 Sensible inputs a prompt to a large-language model (LLM) by combining:
