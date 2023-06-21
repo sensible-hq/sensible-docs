@@ -18,17 +18,3 @@ TODO: for promptIntroduction, QUESTION: I assume "\n\nContext:\n\n isn't configu
 When publish, add link to  [full prompt](doc:prompt) 
 
 
-
-Parameters
-====
-
-| key  | value | description |
-| ---- | ----- | ----------- |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-
