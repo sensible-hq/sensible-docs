@@ -27,7 +27,7 @@ tags:
 
 
 paths:
-  /extract/{document_type}/{configuration}:
+  /extract/{document_type}:
     post:
       operationId: extract-data-from-a-document
       summary: Extract data from a document
@@ -67,7 +67,7 @@ paths:
 
       parameters:
         - $ref: '#/components/parameters/document_type'
-        - $ref: '#/components/parameters/configuration'
+        # - $ref: '#/components/parameters/configuration' # todo follow up on https://sensiblehq.slack.com/archives/C0215T9K86P/p1686933600795399
         - $ref: '#/components/parameters/environment'
       requestBody:
         required: true
@@ -537,16 +537,16 @@ components:
       schema:
         $ref: '#/components/schemas/ExtractionId'
 
-
-    configuration:
-      name: document_type
-      required: false
-      in: path
-      description: |
-        User-friendly name of the config (SenseML query) to use to extract the structured data.
-        If you specify this parameter, you override Sensible's default behavior of automatically choosing the best config in the document type that fits the submitted document.
-      schema:
-        $ref: '#/components/schemas/ConfigurationName'
+    # TODO: follow up on  https://sensiblehq.slack.com/archives/C0215T9K86P/p1686933600795399
+    # configuration:
+    #   name: document_type
+    #   required: false
+    #   in: path
+    #   description: |
+    #     User-friendly name of the config (SenseML query) to use to extract the structured data.
+    #     If you specify this parameter, you override Sensible's default behavior of automatically choosing the best config in the document type that fits the submitted document.
+    #   schema:
+    #     $ref: '#/components/schemas/ConfigurationName'
     document_type:
       name: document_type
       required: true
