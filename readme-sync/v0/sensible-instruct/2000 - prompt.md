@@ -5,7 +5,7 @@ hidden: true
 
 You can configure the prompt that Sensible inputs to a large-language model (LLM). You can apply configurations to multiple fields in a config, and you can override them for individual fields.
 
-Sensible inputs a prompt to a large-language model (LLM) by combining:
+Sensible submits a full prompt to a large-language model (LLM) by combining:
 
 - prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunks, see the Notes section.
@@ -52,10 +52,10 @@ TODO: edit
 
 Each Sensible Instruct method has a process that generally looks like the following. See the Notes section for each method for specifics, for example, [List](doc:list#notes) method:
 
-1. To meet the LLM's input token limit, Sensible splits the document into chunks. You can configure how it splits the chunks.
-2. Sensible scores the chunks by relevance to your prompt, selects a number of top-scoring chunks, and combines them with page metadata. You can configure the number of chunks and page metadata. For the Query method, you can configure how chunks are scored.
+1. To meet the LLM's input token limit, Sensible splits the document into chunks. For configuration, see the chunking parameters.
+2. Sensible scores the chunks by relevance to your prompt, selects a number of top-scoring chunks, and combines them with page metadata. For configruation, see the chunking and hinting parmaeters.
 3. Sensible creates a full prompt for GPT-3 that includes the chunks and the descriptive prompts you configure in the method. For an example of a full prompt, see the beginning of this topic.
-4. Sensible returns the LLM's response and any uncertainties. You can configure if uncurtainties are returned.
+4. Sensible returns the LLM's response and any uncertainties. For configuration, see the uncertainties parameters. TODO not true yet
 
 
 
