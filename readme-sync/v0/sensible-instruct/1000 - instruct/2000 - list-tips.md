@@ -11,6 +11,7 @@ This method is an alternative to the [Table](doc:table-tips) method, when the da
 - The list description describes the overall contents for the list, while each property is a single, short description of an item in the list.
 - You can use location hints to describe the target list's position in the document. For examples of location hints, see [Query extraction tips](doc:query-tips).
 - For more information about how to write descriptions, or "prompts", see [Query extraction tips](doc:query-tips).
+- For advanced options, see [Advanced prompt configuration](doc:prompt).
 
 Examples
 ===
@@ -48,4 +49,4 @@ For example, use the following screenshot as a guide for configuring the `dinner
 Notes
 ===
 
-For the full reference for this method in SenseML, see [List method](doc:list). For advanced options, see [Advanced prompt configuration](doc:prompt).
+For the full reference for this method in SenseML, see [List method](doc:list).

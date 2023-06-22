@@ -85,4 +85,4 @@ To try out this example in the Sensible app, take the following steps:
 Notes
 ===
 
-For the full reference for this method in SenseML, see [Query method](doc:query). For advanced options, see [Advanced prompt configuration](doc:prompt).
+For the full reference for this method in SenseML, see [Query method](doc:query).
