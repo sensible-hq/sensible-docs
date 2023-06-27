@@ -48,13 +48,11 @@ Parameters
 
 Notes
 ===
-TODO: edit 
+For an overview of how Sensible Instruct methods work, see the following steps. For specifics about how each Sensible instruct method works, see the Notes section for each method, for example, [List](doc:list#notes) method.
 
-Each Sensible Instruct method has a process that generally looks like the following. See the Notes section for each method for specifics, for example, [List](doc:list#notes) method:
-
-1. To meet the LLM's input token limit, Sensible splits the document into chunks. For configuration, see the chunking parameters.
-2. Sensible scores the chunks by relevance to your prompt, selects a number of top-scoring chunks, and combines them with page metadata. For configuration, see the chunking and hinting parameters.
-3. Sensible creates a full prompt for GPT-3 that includes the chunks and the descriptive prompts you configure in the method. For an example of a full prompt, see the beginning of this topic.
+1. To meet the LLM's input token limit, Sensible splits the document into chunks.
+2. Sensible selects the most relevant chunks and combines them with page metadata.
+3. Sensible creates a full prompt for GPT-3 that includes the selected chunks and the descriptive prompts you configure in the method. For an example of a full prompt, see the beginning of this topic.
 4. Sensible returns the LLM's response.
 
 

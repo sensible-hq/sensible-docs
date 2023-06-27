@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. It can find these facts in paragraphs of free text or in more structured layouts, for example key/value pairs or tables.
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. Sensible uses a large-language model (LLM)  to find these facts in paragraphs of free text, or in more structured layouts, for example key/value pairs or tables.
 
 Sensible recommends framing each query, or prompt, so that it has a single, short answer.  For complex prompts with multi-part answers, use the [List method](doc:list) or the  [Summarizer](doc:summarizer) method. 
 
@@ -256,7 +256,7 @@ Notes
 
 For an overview of how this method works, see the following steps:
 
-- To meet GPT-3's character limit for input, Sensible splits the document into equal-sized, overlapping chunks.
+- To meet GPT-3's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
 - Sensible scores each chunk by its similarity to either the `question` or the `chunkScoringText` parameters. Sensible scores each chunk using the OpenAPI Embeddings API.
-- Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters so that the context exceeds GPT-3's character limit, Sensible automatically reduces the chunk count until the context meets the character limit.
-- Sensible creates a full prompt for GPT-3 that includes the chunks and your prompt. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).
+- Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
+- Sensible creates a full prompt for GPT-3 that includes the chunks, page hinting data, and your prompt. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).

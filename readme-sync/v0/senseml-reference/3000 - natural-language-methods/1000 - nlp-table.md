@@ -243,7 +243,7 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible splits the document into equal-sized, overlapping chunks. 
    - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
    - Sensible gets a list of page numbers from the top-scoring chunks.
-2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. 
+2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. If a table spans a page break, Sensible extracts the full, multi-page table.
 
 3. For each extracted table, Sensible extracts the table title, if present.  In detail:
 
@@ -259,6 +259,6 @@ For an overview of how the NLP Table method works, see the following steps:
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
 
-5. Sensible creates a full prompt for GPT-4 that includes the chunks and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. 
+5. Sensible creates a full prompt for GPT-4 that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. 
 
 6. Sensible returns the restructured table.
