@@ -9,7 +9,7 @@ Sensible submits a full prompt to a large-language model (LLM) by combining:
 
 - prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunks, see the Notes section.
-- concatenated descriptive prompts you configure in a Sensible Instruct method, such as the [List](doc:list) or [Query](doc:query) methods.
+- concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list) or [Query](doc:query) method.
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:query) method: 
 
@@ -17,13 +17,13 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 
 
-| key  | description                                                  | configurable for all fields in config? | overridable for each field?        | parameter name                                               |
-| ---- | ------------------------------------------------------------ | -------------------------------------- | ---------------------------------- | ------------------------------------------------------------ |
-| A    | prompt introduction. Includes asking for truthfulness, asking for confidence signals, and describing the format of the data to extract, for example, query, table, or table. | yes:<br/>[NLP preprocessor](doc:nlp)   | yes:<br/>Sensible Instruct methods | Prompt Introduction                                          |
-| B    | overall description of the chunks, or "context"              | yes:<br/>[NLP preprocessor](doc:nlp)   | yes:<br/>Sensible Instruct methods | Context Description                                          |
-| C    | page metadata for chunks                                     | yes:<br/>[NLP preprocessor](doc:nlp)   | yes:<br/>Sensible Instruct methods | Page Hinting                                                 |
-| D    | chunks excerpted from document                               | yes:<br/>[NLP preprocessor](doc:nlp)   | yes:<br/>Sensible Instruct methods | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (Configurable solely in Query method)<br/> |
-| E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | no                                     | yes:<br/>Sensible Instruct methods | Description                                                  |
+| key  | description                                                  | parameter name                                               |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| A    | prompt introduction. Includes asking for truthfulness, asking for confidence signals, and describing the format of the data to extract, for example, query, table, or table. | Prompt Introduction                                          |
+| B    | overall description of the chunks, or "context"              | Context Description                                          |
+| C    | page metadata for chunks                                     | Page Hinting                                                 |
+| D    | chunks excerpted from document                               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (Configurable solely in Query method)<br/> |
+| E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
 
 See the following table for more information about the parameters in the preceding table.
 
