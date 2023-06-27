@@ -9,11 +9,11 @@ Sensible submits a full prompt to a large-language model (LLM) by combining:
 
 - prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunks, see the Notes section.
-- concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list) or [Query](doc:query) method.
+- concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list) or [Query](doc:query) methods.
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:query) method: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/llm_prompt.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
 
 
