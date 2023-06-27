@@ -23,8 +23,11 @@ For an overview of how this method works, see the following steps:
 
 For an overview of how Sensible finds the source text in the document on which the LLM based its response to the prompt, see the following steps:
 
-- given an `answer` from the LLM, we perform a fuzzy string matching (https://fusejs.io/) on all of the lines given from the OCR. Then we take the top 3 matches from the fuzzy match and then search in both direction of these lines to see if the answer spans multiple lines. We then take the full answers and fuzzy match the 3 complete candidate answers to the `answer` and return the best matching one.
-- definition of *fuzzy*, or approximate, string matching. Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance).  For example, if the LLM returns `Apr 7th`, Sensible matches `April 7` in the document. (TODO confirm if true?)
+- Sensible searches for a match to the response from the LLM in the document. Sensible uses fuzzy matching for the search. Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance).  For example, if the LLM returns `Apr 7th`, Sensible matches `April 7` in the document. (TODO confirm if true?)
+
+- Sensible take the top 3 matches from the fuzzy match and then searches in both direction of these lines to see if the answer spans multiple lines.
+- Sensible then takes  the 3 complete multi-line candidate answers to the `answer` and return the best matching one.
+- Sensible shows the best match in the PDF document in the Sensible Instruct editor or in the SenseML editor.
 
 **Troulbeshooting location highlighting**
 
