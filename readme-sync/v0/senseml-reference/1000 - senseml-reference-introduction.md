@@ -62,12 +62,12 @@ This example uses the following config:
       on page containing this anchor line */
       "anchor": "anyco auto insurance",
       "method": {
-        "id": "question",
+        "id": "query",
         /* ask a free-text question.
           best suited to simple questions
           that have one label and one answer
           in the document. */
-        "question": "what's the policy period date range"
+        "description": "what's the policy period date range"
       }
     },
     /* LAYOUT-BASED EXAMPLE */

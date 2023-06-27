@@ -86,13 +86,13 @@ For this tutorial, you'll extract these fields:
       /* search for target data 
       on page containing this anchor line*/
       "method": {
-        "id": "question",
+        "id": "query",
         /* ask a free-text question, get an answer powered by AI.
           best suited to simple questions
           that have one label and one answer 
           in the document.  You can also author this field in Sensible Instruct
           instead of in JSON */
-        "question": "in the table, what's the bodily injury premium?"
+        "description": "in the table, what's the bodily injury premium?"
       }
     },
     {
@@ -230,12 +230,12 @@ The config uses the [Query](doc:query) method to ask, `in the table, what's the 
       on page containing this text*/
       "anchor": "anyco auto insurance",
       "method": {
-        "id": "question",
+        "id": "query",
         /* ask a free-text question.
           best suited to simple questions
           that have one label and one answer 
           in the document. */
-        "question": "in the table, what's the bodily injury premium?"
+        "description": "in the table, what's the bodily injury premium?"
       }
     
 ```
