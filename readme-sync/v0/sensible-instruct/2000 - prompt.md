@@ -20,10 +20,10 @@ See the following image for an example of a full prompt that Sensible inputs to 
 | key  | description                                                  | parameter name                                               |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | A    | prompt introduction. Includes asking for truthfulness, asking for confidence signals, and describing the format of the data to extract, for example, query, table, or table. | Prompt Introduction<br/>Confidence Signals                   |
-| B    | overall description of the chunks, or "context"              | Context Description                                          |
-| C    | page metadata for chunks                                     | Page Hinting                                                 |
-| D    | chunks excerpted from document                               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (currently supported for Query method)<br/> |
-| E    | concatenation of all the descriptive prompts configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
+| B    | overall description of the chunks.                           | Context Description                                          |
+| C    | page metadata for chunks.                                    | Page Hinting                                                 |
+| D    | chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (currently supported for Query method)<br/> |
+| E    | concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
 
 See the following table for more information about the parameters in the preceding table.
 
