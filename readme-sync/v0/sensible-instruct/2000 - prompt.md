@@ -15,8 +15,6 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
-
-
 | key  | description                                                  | parameter name                                               |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | A    | prompt introduction. Includes asking for truthfulness, asking for confidence signals, and describing the format of the data to extract, for example, query, table, or table. | Prompt Introduction<br/>Confidence Signals                   |
