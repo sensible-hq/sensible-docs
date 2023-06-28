@@ -35,15 +35,16 @@ For an overview of how Sensible finds the source text in the document on which t
 
 Sensible can highlight the incorrect location in the following circumstances:
 
-- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:type) , then Sensible can't find the fuzzy match.
+- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:type) , then Sensible can fail to find a match or find an inaccurate match.
+- If there are multiple candidates fuzzy matches in the document (for example, two instances of `April 7`), Sensible chooses the top-scoring match regardless of its location in the document. Sensible doesn't use page location data to find the match.
+- If the LLM doesn't 
 - 
 
 
 
 
 
-- edit distance stuff for the fuzzy matching -- LIKE that but the starting point doesn't have to be hte start of the line .. additions of all the other characters ... edit distance not the same ... 
-- LLM reformatted it
+- 
 - stuf IN the doc
 - document metadata like its wordcount
 - takes the closest match ---> takes all c --> so might be the wrong source 
