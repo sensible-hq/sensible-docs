@@ -69,6 +69,7 @@ paths:
         - $ref: '#/components/parameters/document_type'
         # - $ref: '#/components/parameters/configuration' # todo follow up on https://sensiblehq.slack.com/archives/C0215T9K86P/p1686933600795399
         - $ref: '#/components/parameters/environment'
+        - $ref: '#/components/parameters/document_name'
       requestBody:
         required: true
 
@@ -560,6 +561,15 @@ components:
       schema:
         type: string
       example: senseml_basics
+
+    document_name:
+      name: document_name
+      in: query
+      description: >-
+        If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response.
+      schema:
+        type: string
+      example: test.pdf
 
     environment:
       name: environment
