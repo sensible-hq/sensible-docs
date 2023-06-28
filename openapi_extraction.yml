@@ -298,7 +298,7 @@ paths:
       operationId: generate-an-upload-url-with-config
       summary: Extract doc at a Sensible URL using specified config
       description: |
-       This endpoint's behavior is identical to the [Extract doc at a Sensible ULR](ref:generate-upload-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
+       This endpoint's behavior is identical to the [Extract doc at a Sensible URL](ref:generate-upload-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
       parameters:
         - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
