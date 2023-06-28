@@ -31,14 +31,20 @@ For an overview of how Sensible finds the source text in the document on which t
 - Sensible searches for a fuzzy match in the concatenated lines for the text that the LLM returned.  Sensible returns the best match.
 - Sensible highlights the best match in the PDF document in the Sensible Instruct editor or in the SenseML editor.
 
-**Troulbeshooting location highlighting**
+**Limitations**
 
-can't find:
+Sensible can highlight the incorrect location in the following circumstances:
 
-- what if you ask it to reformat the date or watheer 
+- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:type) , then Sensible can't find the fuzzy match.
+- 
+
+
+
+
+
 - edit distance stuff for the fuzzy matching -- LIKE that but the starting point doesn't have to be hte start of the line .. additions of all the other characters ... edit distance not the same ... 
 - LLM reformatted it
 - stuf IN the doc
 - document metadata like its wordcount
 - takes the closest match ---> takes all c --> so might be the wrong source 
-April vs APR -- > might match do a different date 
+  April vs APR -- > might match do a different date 
