@@ -231,8 +231,8 @@ paths:
 # same endpoints, but for specific config
   /extract/{document_type}/{configuration_name}:
     post:
-      operationId: extract-data-from-a-document
-      summary: Extract data from a document with specified configuration
+      operationId: extract-data-from-a-document-with-config
+      summary: Extract data from a document using specified configuration
 
       description: |
         This endpoint's behavior identical to the [/extract](ref:extract) endpoint's behavior, except that Sensible uses the specified configuration to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
