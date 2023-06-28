@@ -19,15 +19,17 @@ For an overview of how this method works, see the following steps:
 
 **How Location highlighting works**
 
+In the Sensible Instruct editor, you can click the output of a query field to view its source text in the document. 
 
+TODO: IMAGE:
 
 For an overview of how Sensible finds the source text in the document on which the LLM based its response to the prompt, see the following steps:
 
-- Sensible searches for a fuzzy match in the document to the response from the LLM . Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance).  For example, if the LLM returns `Apr 7th`, Sensible matches `April 7` in the document. (TODO confirm if true?)
+- Sensible searches for a fuzzy match in the document to the text that the LLM returned.  For example, if the LLM returns `Apr 7th`, Sensible matches `April 7` in the document. Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). 
 
-- Sensible take the top 3 matches from the fuzzy match and then searches in both direction of these lines to see if the answer spans multiple lines.
-- Sensible then takes  the 3 complete multi-line candidate answers to the `answer` and return the best matching one.
-- Sensible shows the best match in the PDF document in the Sensible Instruct editor or in the SenseML editor.
+- Sensible selects the three lines in the document that contain the best fuzzy matches. For each line, Sensible concatenates the preceding and succeeding lines, in case the match spans multiple lines.
+- Sensible searches for a fuzzy match in the concatenated lines for the text that the LLM returned.  Sensible returns the best match.
+- Sensible highlights the best match in the PDF document in the Sensible Instruct editor or in the SenseML editor.
 
 **Troulbeshooting location highlighting**
 
