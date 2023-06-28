@@ -229,17 +229,17 @@ paths:
           $ref: '#/components/responses/500'
 
 # same endpoints, but for specific config
-  /extract/{document_type}/{configuration_name}:
+  /extract/{document_type}/{config_name}:
     post:
       operationId: extract-data-from-a-document-with-config
-      summary: Extract data from a document using specified configuration
+      summary: Extract data from a document using specified config
 
       description: |
-        This endpoint's behavior identical to the [/extract](ref:extract) endpoint's behavior, except that Sensible uses the specified configuration to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
+        This endpoint's behavior identical to the [/extract](ref:extract) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
 
       parameters:
         - $ref: '#/components/parameters/document_type'
-        - $ref: '#/components/parameters/configuration_name'
+        - $ref: '#/components/parameters/config_name'
         # - $ref: '#/components/parameters/configuration' # todo follow up on https://sensiblehq.slack.com/archives/C0215T9K86P/p1686933600795399
         - $ref: '#/components/parameters/environment'
         - $ref: '#/components/parameters/document_name'
@@ -293,7 +293,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /generate_upload_url/{document_type}/{configuration_name}:
+  /generate_upload_url/{document_type}/{config_name}:
     post:
       operationId: generate-an-upload-url
       summary: Extract doc at a Sensible URL
@@ -360,7 +360,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /extract_from_url/{document_type}/{configuration_name}:
+  /extract_from_url/{document_type}/{config_name}:
     post:
       operationId: provide-a-download-url
       summary: Extract doc at your URL
@@ -736,8 +736,8 @@ components:
         type: string
       example: senseml_basics
 
-    configuration_name:
-      name: configuration_name
+    config_name:
+      name: config_name
       required: true
       in: path
       description: >-
