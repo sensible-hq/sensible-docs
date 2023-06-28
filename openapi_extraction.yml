@@ -704,7 +704,7 @@ components:
       required: true
       in: path
       description: >-
-        TODO:
+        User-friendly name of the config to use to extract data from the document.
       schema:
         type: string
       example: anyco_insurance_auto_declarations
