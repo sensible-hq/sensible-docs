@@ -295,43 +295,10 @@ paths:
           $ref: '#/components/responses/500'
   /generate_upload_url/{document_type}/{config_name}:
     post:
-      operationId: generate-an-upload-url
-      summary: Extract doc at a Sensible URL
+      operationId: generate-an-upload-url-with-config
+      summary: Extract doc at a Sensible URL using specified config
       description: |
-        Extract data asynchronously from a document with the following steps. You must use this or other asynchronous endpoints for documents that are over 4.5MB in size or require over 30 seconds to process.
-          1. Use this endpoint to generate a Sensible URL.
-          2. PUT your document at the `upload_url` returned from the previous step. Sensible extracts data from the document.
-          3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the response to poll the GET documents/{id} endpoint.
-
-        For example, if your call to `/generate_upload_url` specifies the document type with a `content_type` body parameter (recommended), your first two steps are as follows:
-
-        Step 1. Generate the Sensible URL:
-
-        ```curl
-        curl --location 'https://api.sensible.so/v0/generate_upload_url/<YOUR_DOCUMENT_TYPE>' \
-        --header 'Content-Type: application/json' \
-        --header 'Accept: application/json' \
-        --header 'Authorization: Bearer REDACTED' \
-        --data '{"content_type":"application/pdf"}'
-        ```
-
-        Step 2. PUT the document:
-
-        ```curl
-        curl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/REDACTED' \
-        --header 'Content-Type: application/pdf' \
-        --data 'YOUR_PATH_TO_DOCUMENT.pdf'
-        ```
-
-        Note that in step 2:
-          - you must omit an authorization header
-          - the `Content-Type` header must match the `content_type` body parameter in step 1
-          - the pre-signed `upload_url` doesn't support Base64 encoded documents, so you PUT the document bytes directly to the endpoint.
-
-
-        For a step-by-step tutorial on calling this endpoint, see
-        [Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2).
-
+       This endpoint's behavior is identical to the [Extract doc at a Sensible ULR](ref:generate-upload-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
       parameters:
         - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
@@ -362,16 +329,10 @@ paths:
           $ref: '#/components/responses/500'
   /extract_from_url/{document_type}/{config_name}:
     post:
-      operationId: provide-a-download-url
-      summary: Extract doc at your URL
+      operationId: provide-a-download-url-with-config
+      summary: Extract doc at your URL using config
       description: |
-        Extract data asynchronously from a document at the specified `document_url`.<br/>
-        You must use this or other asynchronous endpoints for documents that are over 4.5MB in size or require over 30 seconds to process.
-        Take the following steps.
-        1. Run this endpoint.
-        3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the  response to poll the GET documents/{id} endpoint.
-        For a step-by-step tutorial on calling this endpoint,
-        see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1).
+        This endpoint's behavior is identical to the [Extract doc at your URL](ref:extract-from-url) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.
       parameters:
         - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
