@@ -303,6 +303,7 @@ paths:
         - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
         - $ref: '#/components/parameters/document_name'
+        - $ref: '#/components/parameters/config_name'
       requestBody:
         content:
             application/json:
@@ -337,6 +338,7 @@ paths:
         - $ref: '#/components/parameters/document_type'
         - $ref: '#/components/parameters/environment'
         - $ref: '#/components/parameters/document_name'
+        - $ref: '#/components/parameters/config_name'
       requestBody:
         content:
             application/json:
