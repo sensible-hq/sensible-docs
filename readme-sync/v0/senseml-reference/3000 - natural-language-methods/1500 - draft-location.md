@@ -35,7 +35,7 @@ For an overview of how Sensible finds the source text in the document on which t
 
 Sensible can highlight the incorrect location in the following circumstances:
 
-- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:type) , then Sensible can fail to find a match or find an inaccurate match.
+- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:types) , then Sensible can fail to find a match or find an inaccurate match.
 
 - If there are multiple candidates fuzzy matches in the document (for example, two instances of `April 7`), Sensible chooses the top-scoring match regardless of its location in the document. Sensible doesn't use page location data to find the match.
 
