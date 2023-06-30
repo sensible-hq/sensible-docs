@@ -38,18 +38,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 **Troubleshooting**
 
-Sensible returns the following error messages, or "confidence signals", when the LLM is uncertain about the accuracy of the extracted data. Note that LLMs can inaccurately report confidence signals. For more information about uncertainties, see [Accuracy measures](doc:accuracy-measures).
-
-| error                                      | description                                                  | troubleshooting                                              |
-| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Multiple possible answers                  | The LLM answers the prompt, but identifies multiple possible answers in the context that Sensible provides to the LLM. | -  To return multiple answers, use the [List method](doc:list-tips).<br/>- To return a single answer, tweak the context that Sensible provides to the LLM  so that the context contains a single answer.  Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters). You can also increase your prompt's specificity using the [NLP](doc:nlp) preprocessor. |
-| Answer might not fully answer the question | The LLM answers the prompt, but is uncertain whether the context that Sensible provides to the LLM contains the full answer. | - Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters). <br/> - Simplify your prompt, for example, break it up into multiple questions. Or increase your prompt's specificity using the [NLP](doc:nlp) preprocessor. |
-| Answer not found in the context            | The LLM fails to answer the prompt, and can't find an answer to your prompt in the context that Sensible provides to the LLM. | - Tweak the context that Sensible provides to the LLM using  [chunk parameters](doc:question#parameters) or the [NLP](doc:nlp) preprocessor. |
-| Ambiguous query                            | The LLM either answers or fails to answer your prompt, and identifies ambiguities in your prompt. | Rephrase your question using the tips in the Tips section and tweak your prompt using the [NLP](doc:nlp) preprocessor. |
-
- 
-
-
+See [Confidence signals](doc:confidence).
 
 Examples
 ===
@@ -85,4 +74,4 @@ To try out this example in the Sensible app, take the following steps:
 Notes
 ===
 
-For the full reference for this method in SenseML, see [Question method](doc:question).
+For the full reference for this method in SenseML, see [Query method](doc:query).
