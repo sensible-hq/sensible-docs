@@ -13,6 +13,8 @@ This Sensible Instruct method extracts a table in a document based on your descr
 
 - For more information about how to write descriptions, or "prompts", see [Query extraction tips](doc:query-tips).
 
+- For advanced options, see [Advanced prompt configuration](doc:prompt).
+
 
 Examples
 ===

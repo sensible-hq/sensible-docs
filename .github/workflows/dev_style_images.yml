@@ -3,8 +3,8 @@ name: Dev Style images
 # Run workflow for every push to the `main` branch in dir assets
 on:
   push:
-    branches:
-      - instruct
+    branches-ignore:
+      - main
     paths:
       - 'readme-sync/assets/v0/images/screenshots/**'
 

@@ -86,13 +86,13 @@ For this tutorial, you'll extract these fields:
       /* search for target data 
       on page containing this anchor line*/
       "method": {
-        "id": "question",
+        "id": "query",
         /* ask a free-text question, get an answer powered by AI.
           best suited to simple questions
           that have one label and one answer 
           in the document.  You can also author this field in Sensible Instruct
           instead of in JSON */
-        "question": "in the table, what's the bodily injury premium?"
+        "description": "in the table, what's the bodily injury premium?"
       }
     },
     {
@@ -207,9 +207,9 @@ This config also uses one natural-language, or AI-powered, method, to demonstrat
 
 | Type of method   | explanation                                                  | description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Natural-language | [How it works: question method](doc:getting-started#how-it-works-question-method) | Ask a free-text question about simple information in the document |
+| Natural-language | [How it works: query method](doc:getting-started#how-it-works-query-method) | Ask a free-text question about simple information in the document |
 
-How it works: Question method
+How it works: Query method
 ---
 
 The easiest way to start extracting simple information is to ask a natural-language question.
@@ -220,7 +220,7 @@ For example, to extract the bodily injury liability:
 
 
 
-The config uses the [Question](doc:question) method to ask, `in the table, what's the bodily injury premium?`:  
+The config uses the [Query](doc:query) method to ask, `in the table, what's the bodily injury premium?`:  
 
 ```
 {
@@ -230,12 +230,12 @@ The config uses the [Question](doc:question) method to ask, `in the table, what'
       on page containing this text*/
       "anchor": "anyco auto insurance",
       "method": {
-        "id": "question",
+        "id": "query",
         /* ask a free-text question.
           best suited to simple questions
           that have one label and one answer 
           in the document. */
-        "question": "in the table, what's the bodily injury premium?"
+        "description": "in the table, what's the bodily injury premium?"
       }
     
 ```
@@ -250,7 +250,7 @@ This config returns:
 
 Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
 
-You can write natural-language methods powered by large-language models (LLMs), such as the Question method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started with AI-powered extractions](doc:getting-started-ai).
+You can write natural-language methods powered by large-language models (LLMs), such as the Query method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started with AI-powered extractions](doc:getting-started-ai).
 
 Natural-language methods can run up against limitations with highly complex document formatting, or layouts. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 

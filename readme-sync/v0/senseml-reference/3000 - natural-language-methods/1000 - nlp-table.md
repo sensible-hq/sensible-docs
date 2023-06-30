@@ -35,12 +35,21 @@ Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
+**Note** You can configure some the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrides the NLP preprocessor's parameter. For more information, see [Advanced prompt configuration](doc:prompt).
 
-| key                    | value      | description                                                  |
-| :--------------------- | :--------- | :----------------------------------------------------------- |
-| id (**required**)      | `nlpTable` | The Anchor parameter is optional for fields that use this method. If you specify an anchor, Sensible ignores it. |
-| description            | string     | A prompt that describes the table's subject matter as a whole. As part of finding the best-matching table, Sensible compares the table title, if present, to this description. For more details about how Sensible uses the description, see the Notes section. |
-| columns (**required**) | array      | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  A prompt that describes the data you want to extract from the column. This prompt can include instructions to reformat or filter the column's data. For example, provide prompts like `" transaction amount. return the absolute value"` or `"vehicle make (not model)"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+
+| key                    | value                                                        | description                                                  |
+| :--------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)      | `nlpTable`                                                   | The Anchor parameter is optional for fields that use this method. If you specify an anchor, Sensible ignores it. |
+| description            | string                                                       | A prompt that describes the table's subject matter as a whole. As part of finding the best-matching table, Sensible compares the table title, if present, to this description. For more details about how Sensible uses the description, see the Notes section. |
+| columns (**required**) | array                                                        | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the column in the extraction output. <br/>  -`description` (**required**):  A prompt that describes the data you want to extract from the column. This prompt can include instructions to reformat or filter the column's data. For example, provide prompts like `" transaction amount. return the absolute value"` or `"vehicle make (not model)"`.  <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| promptIntroduction     | string. default: `Below is a sample table. Please transform the data from the sample table into the target table where the target table's column headers are provided. Please do not modify the target table's headers. If cells in the sample table don't contain data, leave the corresponding cell of the new table blank. Finally return the transformed table without the header and header seperator line.` | Overwrites the default text at the beginning of the [full prompt](https://docs.sensible.so/docs/prompt) that Sensible submits to the LLM for this field.<br/>For example, overwrite with: `Below is a sample table. Please transform the data from the sample table into the target table where the target table's column headers are provided. Please do not modify the target table's headers. If the cells in the sample table don't contain data, populate the cell with \"NOT FOUND\". Finally return the transformed table without the header and header seperator line.` |
+| contextDescription     |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| pageHinting            |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkCount             |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkSize              |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkOverlapPercentage |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+
 
 
 Examples
@@ -234,7 +243,7 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible splits the document into equal-sized, overlapping chunks. 
    - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
    - Sensible gets a list of page numbers from the top-scoring chunks.
-2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. 
+2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. If a table spans a page break, Sensible extracts the full, multi-page table.
 
 3. For each extracted table, Sensible extracts the table title, if present.  In detail:
 
@@ -250,4 +259,6 @@ For an overview of how the NLP Table method works, see the following steps:
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
 
-5. Sensible uses GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. Sensible returns the restructured table.
+5. Sensible creates a full prompt for GPT-4 that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. 
+
+6. Sensible returns the restructured table.
