@@ -1,6 +1,6 @@
 ---
 title: "Confidence signals"
-hidden: true
+hidden: false
 ---
 
 For data extracted by large-language models (LLMs), Sensible asks the LLM to report any uncertainties it has about the accuracy of the extracted data. For example, an LLM can report "multiple possible answers" or "ambiguous query".  These confidence *signals* are more useful for troubleshooting than confidence *scores*, which tend to fall into buckets of 0% or 100% accuracy.

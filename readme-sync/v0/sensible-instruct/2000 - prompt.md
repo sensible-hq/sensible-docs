@@ -1,6 +1,6 @@
 ---
 title: "Advanced prompt configuration"
-hidden: true
+hidden: false
 ---
 
 You can configure the full prompt that Sensible inputs to a large-language model (LLM). You can apply configurations to multiple fields in a config, and you can override them for individual fields.
