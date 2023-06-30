@@ -3,9 +3,7 @@ title: "Confidence signals"
 hidden: true
 ---
 
-TODO: describe how to turn these on for prompt engineering phase, then turn off if you want ot edit promptIntro in prod? Or just always keep them on?
-
-For data extracted by large-language models (LLMs), Sensible asks the LLM to report any uncertainties it has about the accuracy of the extracted data. For example, an LLM can report "multiple possible answers" or "ambiguous query".  These confidence *signals* are more useful for troubleshooting than confidence *scores*. This is because confidence scores tend to be oversimple: they fall into buckets of 0% or 100% accuracy.
+For data extracted by large-language models (LLMs), Sensible asks the LLM to report any uncertainties it has about the accuracy of the extracted data. For example, an LLM can report "multiple possible answers" or "ambiguous query".  These confidence *signals* are more useful for troubleshooting than confidence *scores*, which tend to fall into buckets of 0% or 100% accuracy.
 
 Note that LLMs can inaccurately report confidence signals.  For more information about confidence signals, see the research paper [Teaching models to express their uncertainties in words](https://arxiv.org/pdf/2205.14334.pdf). 
 

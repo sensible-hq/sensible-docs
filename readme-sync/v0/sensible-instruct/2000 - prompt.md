@@ -7,7 +7,7 @@ You can configure the full prompt that Sensible inputs to a large-language model
 
 Sensible submits a full prompt to a large-language model (LLM) by combining:
 
-- prompt introduction
+- a prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunks, see the Notes section.
 - concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list) or [Query](doc:query) methods.
 
@@ -17,11 +17,11 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 | key  | description                                                  | parameter name                                               |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| A    | prompt introduction. Includes asking for truthfulness, asking for confidence signals, and describing the format of the data to extract, for example, query, table, or table. | Prompt Introduction<br/>Confidence Signals                   |
-| B    | overall description of the chunks.                           | Context Description                                          |
-| C    | page metadata for chunks.                                    | Page Hinting                                                 |
-| D    | chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (currently supported for Query method)<br/> |
-| E    | concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
+| A    | Prompt introduction. Includes asking for truthfulness, asking for confidence signals, and describing the format of the data to extract, for example, query, table, or table. | Prompt Introduction<br/>Confidence Signals                   |
+| B    | Overall description of the chunks.                           | Context Description                                          |
+| C    | Page metadata for chunks.                                    | Page Hinting                                                 |
+| D    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (currently supported for Query method)<br/> |
+| E    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
 
 See the following table for more information about the parameters in the preceding table.
 
@@ -47,12 +47,12 @@ Parameters
 
 Notes
 ===
-For an overview of how Sensible Instruct methods work, see the following steps. For specifics about how each Sensible instruct method works, see the Notes section for each method, for example, [List](doc:list#notes) method.
+For an overview of how Sensible Instruct methods work, see the following steps. 
 
 1. To meet the LLM's input token limit, Sensible splits the document into chunks.
 2. Sensible selects the most relevant chunks and combines them with page hinting data to create a "context".
 3. Sensible creates a full prompt for GPT-3 that includes the context and the descriptive prompts you configure in the method. For an example of a full prompt, see the beginning of this topic.
 4. Sensible returns the LLM's response.
 
-
+For specifics about how each Sensible instruct method works, see the Notes section for each method, for example, [List](doc:list#notes) method.
 
