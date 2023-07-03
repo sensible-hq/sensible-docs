@@ -25,7 +25,9 @@ TODO: IMAGE:
 
 For an overview of how Sensible finds the source text in the document on which the LLM based its response to the prompt, see the following steps:
 
-- Sensible searches for a fuzzy match in the document to the text that the LLM returned.  For example, if the LLM returns `Apr 7th`, Sensible matches `April 7` in the document. Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). 
+- The LLM returns a response to your prompt.
+
+- Sensible searches for a fuzzy match in the source document to the response.  For example, if the LLM returns `Apr 7th`, Sensible matches `April 7` in the document. Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance). 
 
 - Sensible selects the three lines in the document that contain the best fuzzy matches. For each line, Sensible concatenates the preceding and succeeding lines, in case the match spans multiple lines.
 - Sensible searches for a fuzzy match in the concatenated lines for the text that the LLM returned.  Sensible returns the best match.
