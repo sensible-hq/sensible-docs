@@ -6,7 +6,9 @@ hidden: false
 
 This Sensible Instruct method extracts an individual fact in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.
 
-**Tips**
+Tips
+----
+
 
 - Try framing each prompt so that it has a single, short answer such as:
 
@@ -36,7 +38,8 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
   - "phone number after **section 2**"
 
-**Troubleshooting**
+Troubleshooting
+----
 
 See [Confidence signals](doc:confidence).
 
