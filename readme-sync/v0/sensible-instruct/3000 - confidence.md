@@ -7,7 +7,7 @@ For data extracted by large-language models (LLMs), Sensible asks the LLM to rep
 
 Note that LLMs can inaccurately report confidence signals.  For more information about confidence signals, see the research paper [Teaching models to express their uncertainties in words](https://arxiv.org/pdf/2205.14334.pdf). 
 
-Sensible support confidence signals for the Query method. The **confidence signals** checkbox is enabled by default in the Sensible Instruct editor for new Query fields. To enable confidence signals for a field in SenseML, see the new Confidence Signals parameter in [Query](doc:query#parameters) parameters.
+Sensible support confidence signals for the Query method. The **confidence signals** checkbox is enabled by default in the Sensible Instruct editor for new Query fields. To enable confidence signals for a field in SenseML, see the [Query](doc:query#parameters) method's Confidence Signals parameter.
 
 For more information about troubleshooting confidence signals, see the following table.
 
