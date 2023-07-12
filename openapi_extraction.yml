@@ -796,8 +796,8 @@ components:
     configurations:
       name: configurations
       in: query
-      description: >- # todo word better
-        Retrieves extractions that were created using the comma-delimited list of configurations you specify in this parameter.
+      description: >- # todo word better..naming for doc types?
+        Retrieves extractions that were created using the comma-delimited list of configurations you specify in this parameter. If you specify this parameter you must also specify the document_types parameter
 
       schema:
         type: string
@@ -806,9 +806,9 @@ components:
     start_date:
       name: start_date
       in: query
-      required: true
-      description: >-
+      description: >- # todo reword
          Retrieves extractions created on later than this date-time.
+         Optional, if not specified, now.
       schema:
         type: string
         format: date-time
@@ -820,6 +820,7 @@ components:
       required: true
       description: >-
          Retrieves extractions created on or before this date-time.
+         Optional, if not specified, 7 days back from now.
       schema:
         type: string
         format: date-time
