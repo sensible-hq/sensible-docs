@@ -526,8 +526,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                 - $ref: '#/components/schemas/ExtractionSingleRetrievalResponse'
-                 - $ref: '#/components/schemas/ExtractionPortfolioRetrievalResponse'
+                 - $ref: '#/components/schemas/ExtractionsResponseFiltered'
           description: Returns the extraction.
         '401':
           $ref: '#/components/responses/401'
@@ -801,7 +800,7 @@ components:
 
       schema:
         type: string
-      example: boa_bank_statment, chase_bank_statement  # TODO check syntax
+      example: boa_bank_statement, chase_bank_statement  # TODO check syntax
 
     start_date:
       name: start_date
@@ -878,6 +877,17 @@ components:
             environment:
               $ref: '#/components/schemas/EnvironmentName'
 
+
+    ExtractionsResponseFiltered: # TODO for extractions/
+      allOf:
+        - $ref: '#/components/schemas/ExtractionSingleResponse'
+        - type: object
+          properties:
+            download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'
+
+
+    # deprecated:
     ExtractionSingleRetrievalResponse: # through /documents/{id} endpoint
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleResponse'
@@ -886,6 +896,7 @@ components:
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
 
+    # deprecated:
     ExtractionPortfolioRetrievalResponse:
       allOf:
         - $ref: '#/components/schemas/PortfolioBase'
