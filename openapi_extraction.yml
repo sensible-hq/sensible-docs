@@ -519,7 +519,7 @@ paths:
         - $ref: '#/components/parameters/environments'
         - $ref: '#/components/parameters/statuses'
         - $ref: '#/components/parameters/start_date'
-        - $ref: '#/components/parameters/stop_date'
+        - $ref: '#/components/parameters/end_date'
       responses:
         '200':
           content:
@@ -805,15 +805,16 @@ components:
     start_date:
       name: start_date
       in: query
+      required: true
       description: >- # todo reword
-         Retrieves extractions created on later than this date-time.
+         Retrieves extractions created on or later than this date-time.
          Optional, if not specified, now.
       schema:
         type: string
         format: date-time
       example: 2020-10-10T00:00:00.000Z  # TODO check syntax
 
-    stop_date:
+    end_date:
       name: stop_date
       in: query
       required: true
@@ -879,6 +880,15 @@ components:
 
 
     ExtractionsResponseFiltered: # TODO for extractions/
+      type: object
+      properties:
+        extractions:
+          type: array # todo
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/ExtractionSingleResponse'
+              - $ref: '#/components/schemas/ExtractionPortfolioResponse'
+
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleResponse'
         - type: object
