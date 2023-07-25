@@ -814,8 +814,9 @@ components:
         format: date-time
       example: 2020-10-10T00:00:00.000Z  # TODO check syntax
 
+    # TODO: rename to latest_date and include bit about filtering FIRST on earliest/latest and THEN on
     end_date:
-      name: stop_date
+      name: end_date
       in: query
       required: true
       description: >-
