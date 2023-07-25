@@ -886,8 +886,9 @@ components:
           type: array # todo
           items:
             anyOf:
-              - $ref: '#/components/schemas/ExtractionSingleResponse'
-              - $ref: '#/components/schemas/ExtractionPortfolioResponse'
+
+              - $ref: '#/components/schemas/SingleExtractionSummaryResponse'
+              - $ref: '#/components/schemas/MultiExtractionSummaryResponse'
 
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleResponse'
@@ -895,6 +896,58 @@ components:
           properties:
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
+
+
+
+    # left off
+    SingleExtractionSummaryResponse:
+      allOf:
+        - $ref: '#/components/schemas/ExtractionSingleBase'
+      properties:
+        # these props are from ExtractionContent, minus parsed_document
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        validations:
+          $ref: '#/components/schemas/Validations'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        errors:
+          $ref: '#/components/schemas/Errors'
+        # these props are from ExtractionSingleResponse
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary'
+        page_count:
+          type: integer
+          example: 100
+          description: Total number of pages in the document.
+        environment:
+          $ref: '#/components/schemas/EnvironmentName'
+
+
+
+
+    MultiExtractionSummaryResponse:
+      allOf:
+        - $ref: '#/components/schemas/PortfolioBase'
+        - type: object
+          properties:
+            completed:
+              $ref: '#/components/schemas/ExtractionCompleted'
+            page_count:
+              type: integer
+              example: 100
+              description: Total number of pages in the portfolio.
+            download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'
+            documents:
+              type: array
+              items:
+                # LEFT OFF: check this is right
+                $ref: '#/components/schemas/DocumentSummaryInPortfolio'
 
 
     # deprecated:
@@ -1019,6 +1072,41 @@ components:
         - $ref: '#/components/schemas/ExtractionContent'
         - type: object
           properties:
+            classification_summary:
+              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+
+
+
+    DocumentSummaryInPortfolio:
+      type: object
+      properties:
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        startPage:
+          type: integer
+          description: Page in the portfolio on which the document for this extraction starts.
+          example: 2
+        endPage:
+          type: integer
+          description: Page in the portfolio on which this document for this extraction ends.
+          example: 6
+        output:
+          type: object
+          properties:
+            # extraction content minus parsed_document
+            configuration:
+              $ref: '#/components/schemas/ConfigurationName'
+            validations:
+              $ref: '#/components/schemas/Validations'
+            file_metadata:
+              $ref: '#/components/schemas/FileMetadata'
+            validation_summary:
+              $ref: '#/components/schemas/ValidationsSummary'
+            errors:
+              $ref: '#/components/schemas/Errors'
+            # plus classification summary
             classification_summary:
               $ref: '#/components/schemas/ClassificationSummaryPortfolio'
 
