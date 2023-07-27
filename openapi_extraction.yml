@@ -890,10 +890,11 @@ components:
 
               - $ref: '#/components/schemas/SingleExtractionSummaryResponse'
               - $ref: '#/components/schemas/MultiExtractionSummaryResponse'
-            cutoff_date:
-              type: string
-              description: >-
-                Sensible returns up to 1,000 extractions. If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the cutoff_date parameter with the date-time that you can use as the new end_date to retrieve the next page of extractions in the originally intended date range.
+            properties:
+              cutoff_date:
+                type: string
+                description: >-
+                  Sensible returns up to 1,000 extractions. If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the cutoff_date parameter with the date-time that you can use as the new end_date to retrieve the next page of extractions in the originally intended date range.
       # allOf:
       #   - $ref: '#/components/schemas/ExtractionSingleResponse'
       #   - type: object
