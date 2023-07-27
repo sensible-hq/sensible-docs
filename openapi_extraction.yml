@@ -19,7 +19,7 @@ tags:
     description: "Extract data from documents"
   - name: Portfolio
     description: "Extract data from multiple documents bundled into single PDF files"
-  - name: Retrieve extraction
+  - name: Retrieve extractions
     description: "Retrieve data extracted asynchronously from documents"
   - name: Get Excel from PDFs
     description: "Convert extracted document data to spreadsheet"
@@ -27,6 +27,8 @@ tags:
 
 
 paths:
+
+
   /extract/{document_type}:
     post:
       operationId: extract-data-from-a-document
@@ -465,10 +467,11 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
+
   /documents/{id}:
     get:
       operationId: retrieving-results
-      summary: Retrieve extraction
+      summary: Retrieve extraction by ID
       description: |
         Use this endpoint in conjunction with asynchronous extraction requests to retrieve your results.
         You can also use this endpoint to retrieve the results for documents extractions from the synchronous /extract endpoint.
@@ -478,7 +481,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/id'
       tags:
-      - Retrieve extraction
+      - Retrieve extractions
       responses:
         '200':
           content:
@@ -496,6 +499,55 @@ paths:
           $ref: '#/components/responses/415'
         '500':
           $ref: '#/components/responses/500'
+
+
+
+   # TODO also extractions/{id}:
+  /extractions:
+    get:
+      operationId: retrieve-recent-extractions
+      summary: Retrieve and filter extractions
+      tags:
+      - Retrieve extractions
+      description: |
+        Retrieve extractions, filtered by dates, document types, and configurations.
+
+      parameters:
+        - $ref: '#/components/parameters/document_types'
+        # - $ref: '#/components/parameters/configuration' # todo follow up on https://sensiblehq.slack.com/archives/C0215T9K86P/p1686933600795399
+        - $ref: '#/components/parameters/configurations'
+        - $ref: '#/components/parameters/environments'
+        - $ref: '#/components/parameters/statuses'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                 - $ref: '#/components/schemas/ExtractionsResponseFiltered'
+          description: Returns the extraction.
+        '401':
+          $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+
+
+
+
+
+
+
+
+
+
+
+
 
   /generate_excel/{ids}:
     get:
@@ -730,7 +782,72 @@ components:
         enum: [production, development]
         default: production
 
+    document_types:
+      name: document_types
+      in: query
+      description: >-
+        Retrieves extractions that were Comma-delimited list of document types by which to filter the retrieved extractions.
+      schema:
+        type: string
+      example: resumes, tax_forms, bank_statements # TODO check syntax
 
+
+    configurations:
+      name: configurations
+      in: query
+      description: >- # todo word better..naming for doc types?
+        Retrieves extractions that were created using the comma-delimited list of configurations you specify in this parameter. If you specify this parameter you must also specify the document_types parameter
+
+      schema:
+        type: string
+      example: boa_bank_statement, chase_bank_statement  # TODO check syntax
+
+    start_date:
+      name: start_date
+      in: query
+      required: true
+      description: >- # todo reword
+         Retrieves extractions created on or later than this date-time.
+         Optional, if not specified, now.
+      schema:
+        type: string
+        format: date-time
+      example: 2020-10-10T00:00:00.000Z  # TODO check syntax
+
+    # TODO: rename to latest_date and include bit about filtering FIRST on earliest/latest and THEN on
+    end_date:
+      name: end_date
+      in: query
+      required: true
+      description: >-
+         Retrieves extractions created on or before this date-time.
+         Optional, if not specified, 7 days back from now.
+      schema:
+        type: string
+        format: date-time
+      example: 2020-10-10T00:00:00.000Z  # TODO check syntax
+
+    statuses:
+      name: statuses
+      in: query
+      required: true
+      description: >-
+         Filters retrieved extractions using the comma-delimited list of statuses you specify here.
+      schema:
+        type: string
+        enum: [WAITING, COMPLETE, FAILED]
+      example: COMPLETE  # TODO check syntax
+
+    environments:
+      name: environments
+      in: query
+      required: true
+      description: >-
+         Filters retrieved extractions using the comma-delimited list of environments you specify here.
+      schema:
+        type: string
+        enum: [PRODUCTION, DEVELOPMENT]
+      example: PRODUCTION  # TODO check syntax
 
 
   securitySchemes:
@@ -762,6 +879,79 @@ components:
             environment:
               $ref: '#/components/schemas/EnvironmentName'
 
+
+    ExtractionsResponseFiltered: # TODO for extractions/
+      type: object
+      properties:
+        extractions:
+          type: array # todo
+          items:
+            anyOf:
+
+              - $ref: '#/components/schemas/SingleExtractionSummaryResponse'
+              - $ref: '#/components/schemas/MultiExtractionSummaryResponse'
+
+      allOf:
+        - $ref: '#/components/schemas/ExtractionSingleResponse'
+        - type: object
+          properties:
+            download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'
+
+
+
+    # left off
+    SingleExtractionSummaryResponse:
+      allOf:
+        - $ref: '#/components/schemas/ExtractionSingleBase'
+      properties:
+        # these props are from ExtractionContent, minus parsed_document
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        validations:
+          $ref: '#/components/schemas/Validations'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        errors:
+          $ref: '#/components/schemas/Errors'
+        # these props are from ExtractionSingleResponse
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        classification_summary:
+          $ref: '#/components/schemas/ClassificationSummary'
+        page_count:
+          type: integer
+          example: 100
+          description: Total number of pages in the document.
+        environment:
+          $ref: '#/components/schemas/EnvironmentName'
+
+
+
+
+    MultiExtractionSummaryResponse:
+      allOf:
+        - $ref: '#/components/schemas/PortfolioBase'
+        - type: object
+          properties:
+            completed:
+              $ref: '#/components/schemas/ExtractionCompleted'
+            page_count:
+              type: integer
+              example: 100
+              description: Total number of pages in the portfolio.
+            download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'
+            documents:
+              type: array
+              items:
+                # LEFT OFF: check this is right
+                $ref: '#/components/schemas/DocumentSummaryInPortfolio'
+
+
+    # deprecated:
     ExtractionSingleRetrievalResponse: # through /documents/{id} endpoint
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleResponse'
@@ -770,6 +960,7 @@ components:
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
 
+    # deprecated:
     ExtractionPortfolioRetrievalResponse:
       allOf:
         - $ref: '#/components/schemas/PortfolioBase'
@@ -882,6 +1073,41 @@ components:
         - $ref: '#/components/schemas/ExtractionContent'
         - type: object
           properties:
+            classification_summary:
+              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+
+
+
+    DocumentSummaryInPortfolio:
+      type: object
+      properties:
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        startPage:
+          type: integer
+          description: Page in the portfolio on which the document for this extraction starts.
+          example: 2
+        endPage:
+          type: integer
+          description: Page in the portfolio on which this document for this extraction ends.
+          example: 6
+        output:
+          type: object
+          properties:
+            # extraction content minus parsed_document
+            configuration:
+              $ref: '#/components/schemas/ConfigurationName'
+            validations:
+              $ref: '#/components/schemas/Validations'
+            file_metadata:
+              $ref: '#/components/schemas/FileMetadata'
+            validation_summary:
+              $ref: '#/components/schemas/ValidationsSummary'
+            errors:
+              $ref: '#/components/schemas/Errors'
+            # plus classification summary
             classification_summary:
               $ref: '#/components/schemas/ClassificationSummaryPortfolio'
 
