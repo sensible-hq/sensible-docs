@@ -503,14 +503,15 @@ paths:
 
 
    # TODO also extractions/{id}:
+
   /extractions:
     get:
-      operationId: retrieve-recent-extractions
-      summary: Retrieve and filter extractions
+      operationId: list-extractions
+      summary: List extractions
       tags:
       - Retrieve extractions
       description: |
-        Retrieve extractions, filtered by dates, document types, and configurations.
+        Use this endpoint to get a filtered list of past extractions. This endpoint returns a summary for each extraction. To get details about an extraction, use the [Retrieve extraction by ID](ref:retrieving-results) endpoint.
 
       parameters:
         - $ref: '#/components/parameters/document_types'
