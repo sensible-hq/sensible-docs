@@ -679,6 +679,7 @@ components:
               No fingerprints match for this PDF and fingerprint_mode is set to strict
               Content type of ${found} does not match declared type of ${expected}
               Document is not present
+              The start date must be before the end date
 
     415:
       description: Unsupported Media Type
