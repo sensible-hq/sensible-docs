@@ -832,7 +832,7 @@ components:
       in: query
       required: true
       description: >-
-         Filters retrieved extractions using the comma-delimited list of statuses you specify here.
+         Comma-delimited list of statuses by which to filter the retrieved extractions.
       schema:
         type: string
         enum: [WAITING, COMPLETE, FAILED]
@@ -843,7 +843,7 @@ components:
       in: query
       required: true
       description: >-
-         Filters retrieved extractions using the comma-delimited list of environments you specify here.
+         Comma-delimited list of environments by which to filter the retrieved extractions.
       schema:
         type: string
         enum: [PRODUCTION, DEVELOPMENT]
