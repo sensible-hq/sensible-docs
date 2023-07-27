@@ -891,15 +891,10 @@ components:
 
         cutoff_date:
             type: string
+            format: date-time
+            example: null
             description: >-
               Sensible returns up to 1,000 extractions. If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the cutoff_date parameter with the date-time that you can use as the new end_date to retrieve the next page of extractions in the originally intended date range.
-
-      # allOf:
-      #   - $ref: '#/components/schemas/ExtractionSingleResponse'
-      #   - type: object
-      #     properties:
-      #       download_url:
-      #         $ref: '#/components/schemas/DownloadUrlDocument'
 
 
 
@@ -1193,8 +1188,8 @@ components:
     ClassificationSummary:
       type: array
       description:  >-
-            Metadata about how Sensible chose the config to use for this extraction.
-            Sensible compares all configs in the document type, then chooses the best extraction using
+            Metadata about how Sensible scores configs against the document to extract from.
+            By default, Sensible compares all configs in the document type, then chooses the best extraction using
             fingerprints, scores, or a combination of the two.
             When two extractions tie by score and fingerprints, Sensible chooses the
             first configuration in alphabetic order.
@@ -1381,7 +1376,7 @@ components:
 
     ValidationsSummary:
       type: object
-      description: Summary of the extracted fields that failed validation rules you write in the Sensible app.
+      description: Summary of the extracted fields that fail validation rules you write in the Sensible app.
       properties:
         fields:
           type: integer
