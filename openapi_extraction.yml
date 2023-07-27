@@ -1407,7 +1407,7 @@ components:
 
     DownloadUrlDocument:
       type: string
-      description: URL of the document
+      description: URL of the document extraction
       example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
 
 
@@ -1421,7 +1421,7 @@ components:
       type: string
       format: date-time
       example: 2022-10-31T16:27:53.433
-      description: Date and time Sensible created the extraction
+      description: Date and time Sensible started the extraction process.
 
     ExtractionCompleted:
       type: string
