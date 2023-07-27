@@ -836,7 +836,7 @@ components:
       schema:
         type: string
         enum: [WAITING, COMPLETE, FAILED]
-      example: COMPLETE  # TODO check syntax
+      example: COMPLETE, WAITING  # TODO check syntax
 
     environments:
       name: environments
