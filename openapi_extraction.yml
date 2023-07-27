@@ -510,7 +510,7 @@ paths:
       tags:
       - Retrieve extractions
       description: |
-        Use this endpoint to filter recent extractions by dates, document types, and configurations. This endpoint returns a summary for each extraction. To get details about an extraction, use the [Retrieve extraction by ID](ref:retrieving-results) endpoint.
+        Use this endpoint to get a filtered list of past extractions. This endpoint returns a summary for each extraction. To get details about an extraction, use the [Retrieve extraction by ID](ref:retrieving-results) endpoint.
 
 
       parameters:
