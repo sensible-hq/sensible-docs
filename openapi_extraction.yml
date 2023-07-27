@@ -787,7 +787,7 @@ components:
       name: document_types
       in: query
       description: >-
-        Retrieves extractions that were Comma-delimited list of document types by which to filter the retrieved extractions.
+        Comma-delimited list of document types by which to filter the retrieved extractions.
       schema:
         type: string
       example: resumes, tax_forms, bank_statements # TODO check syntax
@@ -797,7 +797,7 @@ components:
       name: configurations
       in: query
       description: >- # todo word better..naming for doc types?
-        Retrieves extractions that were created using the comma-delimited list of configurations you specify in this parameter. If you specify this parameter you must also specify the document_types parameter
+        Comma-delimited list of configurations by which to filter the retrieved extractions. If you specify this parameter you must also specify the document_types parameter.
 
       schema:
         type: string
@@ -808,8 +808,7 @@ components:
       in: query
       required: true
       description: >- # todo reword
-         Retrieves extractions created on or later than this date-time.
-         Optional, if not specified, now.
+         Retrieves extractions with a `created` date that is equal to or later than this date-time.
       schema:
         type: string
         format: date-time
@@ -821,8 +820,7 @@ components:
       in: query
       required: true
       description: >-
-         Retrieves extractions created on or before this date-time.
-         Optional, if not specified, 7 days back from now.
+         Retrieves extractions with a `created` date that is equal to or earlier than this date-time.
       schema:
         type: string
         format: date-time
