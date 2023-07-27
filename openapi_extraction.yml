@@ -782,8 +782,8 @@ components:
         enum: [production, development]
         default: production
 
-    document_types:
-      name: document_types
+    document_type_ids:
+      name: document_type_ids
       in: query
       description: >-
         Comma-delimited list of document types by which to filter the retrieved extractions.
@@ -792,11 +792,11 @@ components:
       example: resumes, tax_forms, bank_statements # TODO check syntax
 
 
-    configurations:
-      name: configurations
+    configuration_ids:
+      name: configuration_ids
       in: query
       description: >- # todo word better..naming for doc types?
-        Comma-delimited list of configurations by which to filter the retrieved extractions. If you specify this parameter you must also specify the document_types parameter.
+        Comma-delimited list of configurations by which to filter the retrieved extractions.
 
       schema:
         type: string
