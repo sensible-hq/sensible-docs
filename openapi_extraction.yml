@@ -789,29 +789,29 @@ components:
         Comma-delimited list of document types by which to filter the retrieved extractions.
       schema:
         type: string
-      example: resumes, tax_forms, bank_statements # TODO check syntax
+      example: resumes, tax_forms, bank_statements
 
 
     configuration_ids:
       name: configuration_ids
       in: query
-      description: >- # todo word better..naming for doc types?
+      description: >-
         Comma-delimited list of configurations by which to filter the retrieved extractions.
 
       schema:
         type: string
-      example: boa_bank_statement, chase_bank_statement  # TODO check syntax
+      example: boa_bank_statement, chase_bank_statement
 
     start_date:
       name: start
       in: query
       required: true
-      description: >- # todo reword
+      description: >-
          Retrieves extractions with a `created` date that is equal to or later than this date-time.
       schema:
         type: string
         format: date-time
-      example: 2020-10-10T00:00:00.000Z  # TODO check syntax
+      example: 2020-10-10T00:00:00.000Z
 
 
     end_date:
@@ -824,7 +824,7 @@ components:
       schema:
         type: string
         format: date-time
-      example: 2020-10-20T00:00:00.000Z  # TODO check syntax
+      example: 2020-10-20T00:00:00.000Z
 
     statuses:
       name: statuses
@@ -834,7 +834,7 @@ components:
          Comma-delimited list of statuses (WAITING, COMPLETE, FAILED) by which to filter the retrieved extractions.
       schema:
         type: string
-      example: COMPLETE, WAITING  # TODO check syntax
+      example: COMPLETE, WAITING
 
     environments:
       name: environments
@@ -844,7 +844,7 @@ components:
          Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions.
       schema:
         type: string
-      example: PRODUCTION,DEVELOPMENT  # TODO check syntax
+      example: PRODUCTION,DEVELOPMENT
 
 
   securitySchemes:
@@ -877,11 +877,11 @@ components:
               $ref: '#/components/schemas/EnvironmentName'
 
 
-    ExtractionsResponseFiltered: # TODO for extractions/
+    ExtractionsResponseFiltered:
       type: object
       properties:
         extractions:
-          type: array # todo
+          type: array
           items:
             anyOf:
               - $ref: '#/components/schemas/SingleExtractionSummaryResponse'
@@ -897,7 +897,7 @@ components:
 
 
 
-    # left off
+
     SingleExtractionSummaryResponse:
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleBase'
