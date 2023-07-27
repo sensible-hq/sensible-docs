@@ -803,7 +803,7 @@ components:
       example: boa_bank_statement, chase_bank_statement  # TODO check syntax
 
     start_date:
-      name: start_date
+      name: start
       in: query
       required: true
       description: >- # todo reword
@@ -813,9 +813,9 @@ components:
         format: date-time
       example: 2020-10-10T00:00:00.000Z  # TODO check syntax
 
-    # TODO: rename to latest_date and include bit about filtering FIRST on earliest/latest and THEN on
+
     end_date:
-      name: end_date
+      name: end
       in: query
       required: true
       description: >-
