@@ -821,6 +821,7 @@ components:
       description: >-
          Retrieves extractions with a `created` date that is equal to or earlier than this date-time.
          If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the `cutoff_date` parameter with the date-time that you can use as the new `end_date` to retrieve the next page of extractions in the originally intended date range.
+         Note the `cutoff_date` isn't always the same as the earliest creation date returned by this endpoint, because Sensible applies date filters before applying other filters.
       schema:
         type: string
         format: date-time
