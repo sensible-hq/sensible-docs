@@ -831,10 +831,9 @@ components:
       in: query
       required: true
       description: >-
-         Comma-delimited list of statuses by which to filter the retrieved extractions.
+         Comma-delimited list of statuses (WAITING, COMPLETE, FAILED) by which to filter the retrieved extractions.
       schema:
         type: string
-        enum: [WAITING, COMPLETE, FAILED]
       example: COMPLETE, WAITING  # TODO check syntax
 
     environments:
@@ -842,11 +841,10 @@ components:
       in: query
       required: true
       description: >-
-         Comma-delimited list of environments by which to filter the retrieved extractions.
+         Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions.
       schema:
         type: string
-        enum: [PRODUCTION, DEVELOPMENT]
-      example: PRODUCTION  # TODO check syntax
+      example: PRODUCTION,DEVELOPMENT  # TODO check syntax
 
 
   securitySchemes:
