@@ -5,7 +5,7 @@ hidden: false
 
 Rotates page so that a matched anchor becomes horizontal.
 
-In most cases, Sensible corrects page rotation automatically. If it doesn't, use the Rotate Page preprocessor. For example, if a scanned ID card is vertically oriented, and the scanner adds automatically generated horizontal text, Sensible can fail to automatically correct the mix of text orientations.
+In most cases, Sensible corrects page rotation automatically. If it doesn't, configure this preprocessor. For example, if a scanned ID card is vertically oriented, and the scanner adds automatically generated horizontal text, Sensible can fail to automatically correct the mix of text orientations.
 
 Parameters
 ====
@@ -23,7 +23,7 @@ The following image shows that without the Rotate page preprocessor, extraction 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/rotate_page_1.png)
 
-To solve this problem, configure a match for text that you want to be horizonal, and Sensible rotates the page:
+To solve this problem, configure a match for text that you want to be horizontal, and Sensible rotates the page:
 
 **Config**
 
