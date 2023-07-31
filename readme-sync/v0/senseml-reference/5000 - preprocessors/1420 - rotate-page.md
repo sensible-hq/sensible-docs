@@ -13,7 +13,7 @@ Parameters
 | key                 | value                                               | description                                                  |
 | ------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
 | type (**required**) | `rotatePage`                                        |                                                              |
-| match               | [Match object](doc:match) or array of Match objects | Sensible rotates the page to ensure that text that matches this parameter is horizontal.  Sensible rotates the page by 90 degrees multiples. If the page is affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm), or if the page rotation isn't a multiple of 90 degrees, use the [Deskew](doc:deskew) preprocessor. |
+| match               | [Match object](doc:match) or array of Match objects | Sensible rotates the page to ensure that text that matches this parameter is horizontal.  Sensible rotates the page by multiples of 90 degrees. If the page is affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm), or if the page rotation isn't a multiple of 90 degrees, use the [Deskew](doc:deskew) preprocessor. |
 | matchAll            | boolean                                             | If true, rotates all pages containing the line specified by the Match parameter. |
 
 Examples
