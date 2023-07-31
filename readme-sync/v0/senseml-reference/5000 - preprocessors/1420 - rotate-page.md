@@ -11,9 +11,8 @@ Parameters
 | key                 | value        | description |
 | ------------------- | ------------ | ----------- |
 | type (**required**) | `rotatePage` |             |
-|                     |              |             |
-|                     |              |             |
-|                     |              |             |
+| match               |              |             |
+| matchAll            | boolean      |             |
 
 Examples
 ====
