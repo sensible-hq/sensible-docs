@@ -105,6 +105,7 @@ options = {
 puts Dir.pwd
 puts Pathname.new(".").children.select { |c| c.directory? }
 Dir.each_child("./out") do |file_name|
+  puts file_name
   text = File.read(file_name)
   new_contents = text.gsub(/test1/, "https://docs.sensible.so/reference/")
   puts new_contents
