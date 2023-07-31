@@ -103,7 +103,7 @@ options = {
 # make sure that  in the guides, any "internal" '(ref:' links syntax is resolved to full URLs (note: '(doc:' syntax links auto-checked by readme-sync tool anyway, no need to resolve those)
 
 puts Dir.pwd
-puts Pathname.new(directory_name).children.select { |c| c.directory? }
+puts Pathname.new(".").children.select { |c| c.directory? }
 Dir.each_child("./out") do |file_name|
   text = File.read(file_name)
   new_contents = text.gsub(/test1/, "https://docs.sensible.so/reference/")
