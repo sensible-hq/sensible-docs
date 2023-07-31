@@ -3,7 +3,7 @@ title: "Rotate page"
 hidden: true
 ---
 
-Rotates page so that a matched anchor becomes horizontal. Use this when Sensible's default and automatic rotation behavior fails to rotate a page, usually because the page contains a mix of horizontally and vertically oriented text. 
+Rotates page so that a matched anchor becomes horizontal. Use this when Sensible's default rotation handling behavior fails to rotate a page, usually because the page contains a mix of horizontally and vertically oriented text.  If the page is both rotated and skewed, use the Deskew preprocessor.
 
 Parameters
 ====
@@ -17,9 +17,11 @@ Parameters
 Examples
 ====
 
-The following example shows:
+The following image shows that without the Rotate page preprocessor, extraction from a rotated PDF fails. The Label method returns null, because the targeted text  isn't in the expected position (`right` ):
 
-- 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/rotate_page_1.png)
+
+To solve this problem, define a text match that you want to be horiztonal, and Sensible rotates the page accordingly:
 
 **Config**
 
@@ -49,9 +51,9 @@ The following example shows:
 
 The following images show the example PDF used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/rotate-page.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/rotate_page_2.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/rotate-page.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/rotate_page.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
 
 **Output**
