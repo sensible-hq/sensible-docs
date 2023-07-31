@@ -5,7 +5,7 @@ hidden: true
 
 Rotates page so that a matched anchor becomes horizontal.
 
-In most cases, Sensible's default OCR engine (Microsoft) corrects page rotation automatically. If it doesn't, use the Rotate Page preprocessor. For example, if a scanned ID card is vertically oriented, and the scanner adds automatically generated horizontal text, it can cause automatic rotation to fail.
+In most cases, Sensible corrects page rotation automatically. If it doesn't, use the Rotate Page preprocessor. For example, if a scanned ID card is vertically oriented, and the scanner adds automatically generated horizontal text so that the page contains a mix of text orientations, it can cause automatic rotation to fail.
 
 If the page is affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm), or if the page rotation isn't a multiple of 90 degrees, use the [Deskew](doc:deskew) preprocessor.
 
