@@ -17,11 +17,11 @@ response = Faraday.get(url) do |req|
   req.headers['Content-Type'] = 'application/json'
   req.headers["Authorization"] = "Basic #{README_API_KEY}"
   req.headers["x-readme-version"] = "v0"
-end 
+end
 
 if !response.success?
   abort "The request failed: #{response.status} #{response.reason_phrase}"
-end  
+end
 
 response_json = JSON.parse(response.body)
 #puts JSON.pretty_generate(response_json)
@@ -32,16 +32,16 @@ rel_path = "out_changelogs"
 
 Dir.mkdir(rel_path) unless File.exist?(rel_path)
 
- 
+
 # puts "FILE PATH: "
 # puts  file_path
 #print("PATHS: current:", os.getcwd())
 #print("PATHS: intended dest:", file_path)
 # left off TODO: make an out dir?
 for page in response_json do
-  file_path = File.join(rel_path + "/" + page['slug'] + ".html") 
+  file_path = File.join(rel_path + "/" + page['slug'] + ".html")
   File.open(file_path, 'a+') {|f| f.write(page['html']) }
-end  
+end
 
 
 # puts "in out_changelogs dir:"
@@ -70,15 +70,15 @@ pipeline = HTML::Pipeline.new [
 ], :gfm => true
 
 # iterate over files, and generate HTML from Markdown
-Find.find("./readme-sync/v0") do |path| 
-  if File.extname(path) == ".md" 
+Find.find("./readme-sync/v0") do |path|
+  if File.extname(path) == ".md"
     contents = File.read(path)
     # only check published files ("hidden: true" are unpublished)
-    if not contents.match(/hidden\:\s*true/)  
+    if not contents.match(/hidden\:\s*true/)
       result = pipeline.call(contents)
       # puts "converting file: #{File.basename(path)}"
       File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
-    end  
+    end
   end
 end
 
@@ -96,8 +96,17 @@ options = {
 #   system "ls"
 # end
 
-# check the guides 
+# check the guides
+
+# make sure that any "internal" '(ref:' links syntax is resolved to full URLs (note: '(doc:' syntax links auto-checked by readme-sync tool anyway, no need to resolve here)
+Dir.each_child('./out') do |filename|
+  text = File.read(file_name)
+  new_contents = text.gsub(/\(ref\:/, "https://docs.sensible.so/reference/")
+  puts new_contents
+  File.open(file_name, "w") {|file| file.puts new_contents }
+end
+
 HTMLProofer.check_directory("./out", options).run
 
 # check the changelog HTML pulled from ReadmeAPI in a previous step
-HTMLProofer.check_directory("./out_changelogs", options).run 
+HTMLProofer.check_directory("./out_changelogs", options).run
