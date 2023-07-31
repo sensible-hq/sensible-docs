@@ -25,7 +25,7 @@ The following image shows that without the Rotate page preprocessor, extraction 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/rotate_page_1.png)
 
-To solve this problem, define a text match using an example of text that you want to be horizonal, and Sensible rotates the page:
+To solve this problem, configure a match for text that you want to be horizonal, and Sensible rotates the page:
 
 **Config**
 
