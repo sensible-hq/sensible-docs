@@ -10,7 +10,7 @@ Parameters
 
 | key                 | value                                  | description                                                  |
 | ------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| type (**required**) | `rotatePage`                           |                                                              |
+| type (**required**) | `rotatePage`                           | Rotates by up to 90 degrees.                                 |
 | match               | Match object or array of Match objects | See [Match object](doc:match)                                |
 | matchAll            | boolean                                | If true, rotates all pages containing the line specified by the Match parameter. |
 
