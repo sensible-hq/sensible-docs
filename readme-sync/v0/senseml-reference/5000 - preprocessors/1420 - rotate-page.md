@@ -1,13 +1,11 @@
 ---
 title: "Rotate page"
-hidden: true
+hidden: false
 ---
 
 Rotates page so that a matched anchor becomes horizontal.
 
 In most cases, Sensible corrects page rotation automatically. If it doesn't, use the Rotate Page preprocessor. For example, if a scanned ID card is vertically oriented, and the scanner adds automatically generated horizontal text, Sensible can fail to automatically correct the mix of text orientations.
-
-If the page is affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm), or if the page rotation isn't a multiple of 90 degrees, use the [Deskew](doc:deskew) preprocessor.
 
 Parameters
 ====
@@ -15,7 +13,7 @@ Parameters
 | key                 | value                                               | description                                                  |
 | ------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
 | type (**required**) | `rotatePage`                                        |                                                              |
-| match               | [Match object](doc:match) or array of Match objects | Sensible rotates the page to ensure that text that matches this parameter is horizontal.  Sensible rotates the page by 90 degrees multiples. |
+| match               | [Match object](doc:match) or array of Match objects | Sensible rotates the page to ensure that text that matches this parameter is horizontal.  Sensible rotates the page by 90 degrees multiples. If the page is affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm), or if the page rotation isn't a multiple of 90 degrees, use the [Deskew](doc:deskew) preprocessor. |
 | matchAll            | boolean                                             | If true, rotates all pages containing the line specified by the Match parameter. |
 
 Examples
@@ -78,12 +76,3 @@ The following images show the example PDF used with this example config:
   }
 }
 ```
-
-
-
-TODO:
-
-- update notes in Scale topic and in Deskew topic:
--   "you don't need a preprocessor in most cases...automatically....if it doesn't, configure the [Rotate Page](doc:rotate-page) preprocessor"
-- If pages are affected by scale, but are otherwise untransformed, use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
-- 

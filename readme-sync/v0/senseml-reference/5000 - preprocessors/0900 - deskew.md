@@ -5,7 +5,7 @@ hidden: false
 
 Corrects the alignment of text in PDF documents that are skewed, for example as a result of being  photographed at an angle instead of straight on. ID cards and receipts are common examples of such documents. Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) to correct scaling, rotation, translation, and shear. 
 
-See the Notes section for when *not* to use this preprocessor and for alternatives.  
+See the Notes section for when *not* to use this preprocessor and for alternative preprocessors that correct page transformations.  
 
 [**Parameters**](doc:deskew#parameters)
 [**Examples**](doc:deskew#examples)
@@ -132,6 +132,18 @@ This example uses the following config:
 Notes
 ----
 
+**Page transformation preprocessors**
+
+See the following table for preprocessors that correct page transformations:
+
+| page transformation                                          | preprocessor | notes                                                        |
+| ------------------------------------------------------------ | ------------ | ------------------------------------------------------------ |
+| translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) in addition to or instead of rotation and scale | Deskew       | Handles complex page transformations, requires advanced configuration. |
+| rotation                                                     | Rotate Page  | If a document contains pages that are rotated but otherwise untransformed, in most cases you don't need a preprocessor. Sensible corrects rotation automatically. If it doesn't, configure the [Rotate Page](doc:rotate-page) preprocessor. |
+| scale                                                        | Scale        | If pages are affected by scale but not by affine transformations, use the [Scale](doc:scale) preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor. |
+
+
+
 **Tips for viewing skewed documents**
 
 To view the deskewed document in the Sensible app, click the document, then click the eye (👁) icon:
@@ -139,18 +151,6 @@ To view the deskewed document in the Sensible app, click the document, then clic
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_5.png)
 
 This visual representation of how the Sensible app deskews documents can be useful for authoring or troubleshooting deskew preprocessors and configs.
-
-
-
-**Alternatives to Deskew**
-
- To choose when to configure the Scale or Deskew preprocessors, use the following tips:
-
-- If a document contains pages that are rotated but otherwise untransformed, you don't need a preprocessor. Sensible corrects rotation automatically.
-- If pages are affected by scale, rotation, or both, but are otherwise untransformed,  use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
-- If  pages are affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) in addition to or instead of rotation and scale, use the [Deskew preprocessor](doc:deskew).
-
-
 
 **Fixed Points tips**
 

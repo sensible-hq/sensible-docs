@@ -5,7 +5,7 @@ hidden: false
 
 
 
-Corrects the size of text in PDF documents whose size varies, for example as a result of being photographed at different distances. ID cards and receipts are common examples of such documents. This preprocessor enables coordinates-based methods, such as the Region or Text Table methods, to work with such unpredictably scaled documents.
+Corrects the size of text in PDF documents whose size varies, for example as a result of being photographed at different distances. ID cards and receipts are common examples of such documents. This preprocessor enables coordinates-based methods, such as the Region or Text Table methods, to work with such unpredictably scaled documents. For alternatives to this preprocessor, see [Page transformation preprocessors](doc:deskew#notes).
 
 [**Parameters**]( doc:scale#parameters)
 [**Examples**]( doc:scale#examples)
@@ -96,14 +96,7 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Notes
----
 
-**Alternatives to Scale preprocessor** 
 
-To choose when to configure the Scale or Deskew preprocessors, use the following tips:
 
-- If a document contains pages that are rotated but otherwise untransformed, you don't need a preprocessor. Sensible's default OCR engine corrects rotation automatically.
-- If pages are affected by scale, rotation, or both, but are otherwise untransformed,  use the Scale preprocessor as an easier-to-configure and more robust alternative to the Deskew preprocessor.
-- If  pages are affected by translation, shear, or other [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) in addition to or instead of rotation and scale, use the [Deskew preprocessor](doc:deskew).
 
