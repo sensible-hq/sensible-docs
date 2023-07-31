@@ -8,11 +8,11 @@ Rotates page so that a matched anchor becomes horizontal. Use this when Sensible
 Parameters
 ====
 
-| key                 | value        | description |
-| ------------------- | ------------ | ----------- |
-| type (**required**) | `rotatePage` |             |
-| match               |              |             |
-| matchAll            | boolean      |             |
+| key                 | value                                  | description                                                  |
+| ------------------- | -------------------------------------- | ------------------------------------------------------------ |
+| type (**required**) | `rotatePage`                           |                                                              |
+| match               | Match object or array of Match objects | See [Match object](doc:match)                                |
+| matchAll            | boolean                                | If true, rotates all pages containing the line specified by the Match parameter. |
 
 Examples
 ====
