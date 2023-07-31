@@ -104,6 +104,7 @@ options = {
 
 puts Dir.pwd
 puts Pathname.new(".").children.select { |c| c.directory? }
+puts Pathname.new(".out").children.select { |c| c.directory? }
 Dir.each_child("./out") do |file_name|
   puts file_name
   text = File.read(file_name)
