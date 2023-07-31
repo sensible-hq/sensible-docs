@@ -6,6 +6,9 @@ require 'faraday'
 require 'json'
 require 'pathname'
 
+# excludes API ref links checking b/c it's tough to parse the downloaded HTML to get the actual documentation part...maybe if I saved the 'body' part??
+# another alternative would be to take the yamls, turn them into markdown, convert internal link syntax to fully expanded URLs, and THEN check that.
+
 # edit this in https://github.com/sensible-hq/sensible-docs/settings/secrets/actions
 README_API_KEY = ENV['README_API_KEY']
 
