@@ -798,7 +798,6 @@ components:
       in: query
       description: >-
         Comma-delimited list of configurations by which to filter the retrieved extractions.
-
       schema:
         type: string
       example: boa_bank_statement, chase_bank_statement
@@ -830,7 +829,6 @@ components:
     statuses:
       name: statuses
       in: query
-      required: true
       description: >-
          Comma-delimited list of statuses (WAITING, COMPLETE, FAILED) by which to filter the retrieved extractions.
       schema:
@@ -840,7 +838,6 @@ components:
     environments:
       name: environments
       in: query
-      required: true
       description: >-
          Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions.
       schema:
