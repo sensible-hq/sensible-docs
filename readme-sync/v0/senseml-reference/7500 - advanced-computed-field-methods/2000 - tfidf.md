@@ -237,3 +237,7 @@ The following image shows the example PDF used with this example config:
   ]
 }
 ```
+
+[test ref](ref:test-me-broken) 
+
+ [test doc](doc:broken-link)
