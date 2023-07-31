@@ -15,7 +15,7 @@ Parameters
 | key                 | value                                               | description                                                  |
 | ------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
 | type (**required**) | `rotatePage`                                        |                                                              |
-| match               | [Match object](doc:match) or array of Match objects | Sensible rotates the page to make that text that matches this parameter horizontal.  Sensible rotates the page in 90 degrees multiples. |
+| match               | [Match object](doc:match) or array of Match objects | Sensible rotates the page to ensure that text that matches this parameter is horizontal.  Sensible rotates the page by 90 degrees multiples. |
 | matchAll            | boolean                                             | If true, rotates all pages containing the line specified by the Match parameter. |
 
 Examples
