@@ -10,7 +10,7 @@ Parameters
 
 | key                 | value                                  | description                                                  |
 | ------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| type (**required**) | `rotatePage`                           | Rotates by up to 90 degrees.                                 |
+| type (**required**) | `rotatePage`                           | Rotates page by up to 90 degrees. TODO more,, what if it's not quite at 90? |
 | match               | Match object or array of Match objects | See [Match object](doc:match)                                |
 | matchAll            | boolean                                | If true, rotates all pages containing the line specified by the Match parameter. |
 
@@ -24,7 +24,25 @@ The following example shows:
 **Config**
 
 ```json
-
+{
+  "preprocessors": [
+    {
+      "type": "rotatePage",
+      "match": "first dog ID card"
+    }
+  ],
+  "fields": [
+    {
+      "id":"pet_name",
+      "anchor": "name:",
+      "method":
+      {
+        "id":"label",
+        "position":"right"
+      }
+    }
+  ]
+}
 ```
 
 **Example document**
@@ -39,7 +57,12 @@ The following images show the example PDF used with this example config:
 **Output**
 
 ```json
-
+{
+  "pet_name": {
+    "type": "string",
+    "value": "Pushinka"
+  }
+}
 ```
 
 Notes
