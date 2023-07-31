@@ -4,6 +4,7 @@ require 'find'
 require 'open3'
 require 'faraday'
 require 'json'
+require 'pathname'
 
 # edit this in https://github.com/sensible-hq/sensible-docs/settings/secrets/actions
 README_API_KEY = ENV['README_API_KEY']
@@ -100,6 +101,9 @@ options = {
 
 # \(ref\:
 # make sure that  in the guides, any "internal" '(ref:' links syntax is resolved to full URLs (note: '(doc:' syntax links auto-checked by readme-sync tool anyway, no need to resolve those)
+
+puts Dir.pwd
+puts Pathname.new(directory_name).children.select { |c| c.directory? }
 Dir.each_child("./out") do |file_name|
   text = File.read(file_name)
   new_contents = text.gsub(/test1/, "https://docs.sensible.so/reference/")
