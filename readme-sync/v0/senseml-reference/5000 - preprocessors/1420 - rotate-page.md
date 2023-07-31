@@ -3,7 +3,7 @@ title: "Rotate page"
 hidden: true
 ---
 
-Rotates page. 
+Rotates page so that a matched anchor becomes horizontal. Use this when Sensible's default and automatic rotation behavior fails to rotate a page, usually because the page contains a mix of horizontally and vertically oriented text. 
 
 Parameters
 ====
