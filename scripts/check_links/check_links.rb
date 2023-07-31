@@ -98,10 +98,11 @@ options = {
 
 # check the guides
 
-# make sure that any "internal" '(ref:' links syntax is resolved to full URLs (note: '(doc:' syntax links auto-checked by readme-sync tool anyway, no need to resolve here)
-Dir.each_child('./out') do |file_name|
+# \(ref\:
+# make sure that  in the guides, any "internal" '(ref:' links syntax is resolved to full URLs (note: '(doc:' syntax links auto-checked by readme-sync tool anyway, no need to resolve those)
+Dir.each_child("./out") do |file_name|
   text = File.read(file_name)
-  new_contents = text.gsub(/\(ref\:/, "https://docs.sensible.so/reference/")
+  new_contents = text.gsub(/test1/, "https://docs.sensible.so/reference/")
   puts new_contents
   File.open(file_name, "w") {|file| file.puts new_contents }
 end
