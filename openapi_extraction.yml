@@ -539,8 +539,41 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
+  /extractions/statistics:
+    get:
+      operationId: extractions-statistics
+      summary: Get extraction statistics
+      tags:
+      - Retrieve extractions
+      description: |
+        For each configuration that existed in the specified time range in your Sensible account, get a histogram of the number of extractions that scored into different buckets of quality scores 0-1. The buckets are:
+        From the information returned by this endpoint, you can either calculate or view in the Sensible app, 4 different types of aggregate stats in a given date range:
 
+        total number of extractions
+        doc type / config usage (# of relevant extractions / total extractions)
+        daily stats (i.e. the API extractions graph with specific totals per day)
+        Configs require attention (for now, using the formula described in Notion)
 
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+
+      # TODO: left off: models for response
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractionsResponseFiltered'
+          description: Returns list of summarized extractions.
+        '401':
+          $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
 
 
 
