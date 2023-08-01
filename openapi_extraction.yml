@@ -874,7 +874,7 @@ components:
       example: COMPLETE, WAITING
 
     min_score:
-      name: statuses
+      name: min_score
       in: query
       description: >-
          Minimum score by which to filter the retrieved extractions. Note this score has a range of 0-1 and is a normalized version of the score reported in an extraction's `classification_summary`. It's normalized so that it can be used to compare extractions' quality across document types instead of within one document type. The score is calculated as (present fields in extraction - penalties)/total fields specified in config. Penalities are the summ of validation errors and warnings, where errors are 1 penalty point and warnings are 0.5 points. TODO REWORD
@@ -883,7 +883,7 @@ components:
       example: 0.8
 
     max_score:
-      name: statuses
+      name: max_score
       in: query
       description: >-
          Maximum score by which to filter the retrieved extractions.
