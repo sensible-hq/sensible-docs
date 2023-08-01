@@ -520,6 +520,8 @@ paths:
         - $ref: '#/components/parameters/document_type_ids'
         - $ref: '#/components/parameters/environments'
         - $ref: '#/components/parameters/statuses'
+        - $ref: '#/components/parameters/min_score'
+        - $ref: '#/components/parameters/max_score'
 
       responses:
         '200':
@@ -837,6 +839,26 @@ components:
       schema:
         type: string
       example: COMPLETE, WAITING
+
+    min_score:
+      name: statuses
+      in: query
+      description: >-
+         Minimum score by which to filter the retrieved extractions. Note this score has a range of 0-1 and is a normalized version of the score reported in an extraction's `classification_summary`. It's normalized so that it can be used to compare extractions' quality across document types instead of within one document type. The score is calculated as (present fields in extraction - penalties)/total fields specified in config. Penalities are the summ of validation errors and warnings, where errors are 1 penalty point and warnings are 0.5 points. TODO REWORD
+      schema:
+        type: number
+      example: 0.8
+
+    max_score:
+      name: statuses
+      in: query
+      description: >-
+         Maximum score by which to filter the retrieved extractions.
+      schema:
+        type: number
+      example: 1.0
+
+
 
     environments:
       name: environments
@@ -1299,7 +1321,7 @@ components:
         penalties:
           type: number
           example: 1.5
-          description: Errors are 1 penality point and warnings are 0.5 points. See the validation_summary for a breakdown.
+          description: Errors are 1 penalty point and warnings are 0.5 points. See the validation_summary for a breakdown.
 
     ParsedDocument:
       description: |
