@@ -5,7 +5,7 @@ hidden: false
 
 Rotates page so that a matched anchor becomes horizontal.
 
-In most cases, Sensible corrects page rotation automatically. If it doesn't, configure this preprocessor. For example, if a scanned ID card is vertically oriented, and the scanner adds automatically generated horizontal text, Sensible can fail to automatically correct the mix of text orientations.
+In most cases, Sensible corrects page rotation automatically. If it doesn't, configure this preprocessor. For example, if a scanned ID card is vertically oriented, and the scanner adds automatically generated horizontal text, you can use this preprocessor to correct the mix of text orientations. Configure the preprocessor to match the text that you want to see horizontally aligned.
 
 Parameters
 ====

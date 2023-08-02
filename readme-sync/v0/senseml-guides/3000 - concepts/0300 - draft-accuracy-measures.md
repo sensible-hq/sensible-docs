@@ -55,7 +55,7 @@ For example, if an extraction A has the following properties:
 - num fields defined in the configuration = 20
 
 - num of non-null fields = 18
-- num of fields with validation errors = 1.
+- num of fields with validation errors = 1
 - num of fields with validation warnings = 4
 
 Then its quality score is 75% : (20 - 2 - 1 - 2) / 20 = 0.75. 
