@@ -25,11 +25,22 @@ You can query the following 12 “buckets” of aggregated extraction quality sc
 
 ![image-20230802135848603](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230802135848603.png)
 
+Sensible returns the preceding histogram in the API as an array, like: `[7,5,3,3,2,1,1,4,7,9,13,15]`.
+
+From this array, you can calculate the following metrics yourself or view them in the Sensible app:
+
+From the information returned by this endpoint, you can either calculate or view in the Sensible app, 4 different types of aggregate stats in a given date range:
+
+- total number of extractions
+- doc type / config usage (# of relevant extractions / total extractions)
+- daily stats (i.e. the API extractions graph with specific totals per day)
+- Configs require attention (for now, using the formula described in Notion)
 
 
-Sensible calculates the percentage score for each extraction as follows:
 
-`(num of fields - (num of null fields) - (num of fields with validation error) - (0.5 * num of fields with validation warning)) / (num of fields)`
+Sensible calculates the percentage quality score for each extraction, roughly, as the number of  fields that were extracted divided by the total number of fields defined in the config.  In detail:
+
+`(num of fields extracted - (num of null fields) - (num of fields with validation error) - (0.5 * num of fields with validation warning)) / (num of fields)`
 
 For example, if an extraction A has the following properties:
 
@@ -39,5 +50,7 @@ For example, if an extraction A has the following properties:
 - num of fields with validation errors = 1.
 - num of fields with validation warnings = 4
 
-Then its quality score is 75%: (20 - 2 - 1 - 2) / 20 = 0.75
+Then its quality score is 75% : (20 - 2 - 1 - 2) / 20 = 0.75
+
+
 

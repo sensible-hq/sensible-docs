@@ -546,7 +546,7 @@ paths:
       tags:
       - Retrieve extractions
       description: |
-        For each configuration that existed in the specified time range in your Sensible account, get a histogram of the number of extractions that scored into different buckets of quality scores 0-1. For more information, see [Accuracy measures](accuracy-measures). TODO
+        For each configuration that existed in the specified time range in your Sensible account, get a histogram of the number of extractions that scored into different buckets of quality scores 0-1. For more information, including the buckets represented by the `quality_scores_histogram`, see [Accuracy measures](accuracy-measures). TODO
       parameters:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
