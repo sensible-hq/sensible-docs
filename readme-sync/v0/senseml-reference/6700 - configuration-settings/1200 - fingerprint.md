@@ -60,10 +60,15 @@ The following table shows how this default behavior changes when you configure t
 
 | Strictness level | Description                                                  | If more than one config's tests pass over 50%                | If no configs' tests passes over 50% or if no configs contain a fingerprint |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests. | Sensible chooses the output from the passing config with the highest score (highest number of non-null fields minus penalties for validation errors or warnings). | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one that has the highest score. |
+| standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests. | Sensible chooses the output from the passing config with the highest score | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one that has the highest score. |
 | strict           | The doc type must have at least one config containing a fingerprint. | Sensible chooses the output from the passing config that has the highest score. | Sensible returns a 400 error.                                |
 
+In the preceding table, a classification score is calculated as:
 
+`classification score` = `num of non-null fields` - `penalties for validation errors or warnings`, where penalties are as follows:
+
+- `validation error penalty` = 1 * num fields with validation errors
+- `validation warning penalty` = 0.5 * num of fields with validation warnings
 
 
 Portfolios

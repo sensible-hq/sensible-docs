@@ -38,19 +38,25 @@ From the information returned by this endpoint, you can either calculate or view
 
 
 
-Sensible calculates the percentage quality score for each extraction, roughly, as the number of  fields that were extracted divided by the total number of fields defined in the config.  In detail:
+Sensible calculates the percentage quality score for each extraction, roughly, as the percentage of fields that were actually extracted compared to those defined.  In detail:
 
-`(num of fields extracted - (num of null fields) - (num of fields with validation error) - (0.5 * num of fields with validation warning)) / (num of fields)`
+`num of non-null fields extracted` - `validation error penality` - `validation warning penality` / `num of fields defined`
+
+Where:
+
+`validation error penalty` = 1 * num  fields with validation errors
+
+`validation warning penalty` = 0.5 * num of fields with validation warnings
 
 For example, if an extraction A has the following properties:
 
 - num fields defined in the configuration = 20
 
-- num of null fields = 2
+- num of non-null fields = 18
 - num of fields with validation errors = 1.
 - num of fields with validation warnings = 4
 
-Then its quality score is 75% : (20 - 2 - 1 - 2) / 20 = 0.75
+Then its quality score is 75% : (20 - 2 - 1 - 2) / 20 = 0.75. This quality score is a normalized version of the classification score, which means that, unlike the classification score, it can be used to compare quality across document types instead of within a document type. See [fingerprints](doc:fingerprints) for more information.
 
 
 
