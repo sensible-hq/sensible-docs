@@ -557,7 +557,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExtractionsResponseFiltered'
+                $ref: '#/components/schemas/StatisticsResponse'
           description: Returns list of summarized extractions.
         '401':
           $ref: '#/components/responses/401'
@@ -924,6 +924,47 @@ components:
               description: Total number of pages in the document.
             environment:
               $ref: '#/components/schemas/EnvironmentName'
+
+
+    StatisticsResponse:
+      type: object
+      properties:
+        statistics:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigStats'
+
+    ConfigStats:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: the date the config was created?? TODO
+        configuration_id:
+          type: string
+          format: date-time
+          description: the date the config was created?? TODO
+        configuration_name:
+          type: string
+          format: date-time
+          description: the date the config was created?? TODO
+        document_type_id:
+          type: string
+          format: date-time
+          description: the date the config was created?? TODO
+        document_type_name:
+          type: string
+          format: date-time
+          description: the date the config was created?? TODO
+        #quality_score_histogram:
+          #type: array
+          #items:
+             # left off: how to specify array of numbers that is exactly 12 items?
+
+
+
+
 
 
     ExtractionsResponseFiltered:
