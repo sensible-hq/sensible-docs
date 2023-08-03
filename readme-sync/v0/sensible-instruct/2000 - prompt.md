@@ -25,6 +25,14 @@ See the following image for an example of a full prompt that Sensible inputs to 
 | D    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (currently supported for Query method)<br/> |
 | E    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
 
+You can configure all of these parameters in the SenseML editor and several in the Sensible Instruct editor. For example, in Sensible Instruct, select a query field and click the Advanced settings icon in the prompt to access advanced settings for a Query field:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt_instruct_1.png)
+
+
+
+
+
 See the following table for more information about the parameters in the preceding table.
 
 Parameters
