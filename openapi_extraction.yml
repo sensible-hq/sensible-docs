@@ -937,16 +937,12 @@ components:
       properties:
         date:
           type: string
-          format: date-time
-          description: the date the config was created?? TODO
+          format: date
+          description: The day for which Sensible gets statistics for this config.
         configuration_id:
-          type: string
-          format: date-time
-          description: the date the config was created?? TODO
+          $ref: '#/components/schemas/ConfigurationId'
         configuration_name:
-          type: string
-          format: date-time
-          description: the date the config was created?? TODO
+          $ref: '#/components/schemas/ConfigurationName'
         document_type_id:
           type: string
           format: date-time
