@@ -1240,10 +1240,7 @@ components:
       example: development
       type: string
 
-    DocumentTypeName:
-      description: Unique user-friendly name for a document type
-      example: auto_insurance_quotes_all_carriers
-      type: string
+
 
     Classification:
       type: object
@@ -1280,12 +1277,11 @@ components:
       example: auto_insurance_quotes_all_carriers
       type: string
 
-    DocumentTypeName:
+    DocumentTypeId:
       description: Unique user-friendly name for a document type
-      example: auto_insurance_quotes_all_carriers
       type: string
       format: uuid
-       example: 11c82772-a12c-1e71-c0a1-1f1ce35bc7
+      example: 11c82772-a12c-1e71-c0a1-1f1ce35bc7
 
 
     ClassificationSummary:
