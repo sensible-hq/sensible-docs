@@ -944,13 +944,9 @@ components:
         configuration_name:
           $ref: '#/components/schemas/ConfigurationName'
         document_type_id:
-          type: string
-          format: date-time
-          description: the date the config was created?? TODO
+          $ref: '#/components/schemas/DocumentTypeId'
         document_type_name:
-          type: string
-          format: date-time
-          description: the date the config was created?? TODO
+          $ref: '#/components/schemas/DocumentTypeName'
         quality_score_histogram:
           type: array
           items:
@@ -1270,11 +1266,24 @@ components:
       example: config_for_x_company
 
     ConfigurationId:
-      type: number
-      format: UUID
+      type: string
+      format: uuid
       description: >-
         ID of the "configuration", a collection of SenseML queries for extracting document data.
       example: 24d82783-c12b-4e70-b0ae-ca1ce35a98
+
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
+
+    DocumentTypeName:
+      description: Unique user-friendly name for a document type
+      example: auto_insurance_quotes_all_carriers
+      type: string
+      format: uuid
+       example: 11c82772-a12c-1e71-c0a1-1f1ce35bc7
+
 
     ClassificationSummary:
       type: array
