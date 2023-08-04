@@ -949,7 +949,7 @@ components:
           $ref: '#/components/schemas/DocumentTypeName'
         quality_score_histogram:
           description: >
-             Array of 12 numbers describing the number of extractions that fell into each quality bucket for the day for this config.
+             Array of integers that describe the number of extractions that fell into each quality bucket for the day for this config.
              For more information, see [Accuracy measures](doc:accuracy-measures).
           type: array
           items:
