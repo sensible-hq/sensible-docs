@@ -550,8 +550,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
-
-      # TODO: left off: models for response
       responses:
         '200':
           content:
@@ -957,10 +955,12 @@ components:
           type: string
           format: date-time
           description: the date the config was created?? TODO
-        #quality_score_histogram:
-          #type: array
-          #items:
-             # left off: how to specify array of numbers that is exactly 12 items?
+        quality_score_histogram:
+          type: array
+          items:
+             type: integer
+             maxItems: 12
+             minItems: 12
 
 
 
@@ -1034,7 +1034,6 @@ components:
             documents:
               type: array
               items:
-                # LEFT OFF: check this is right
                 $ref: '#/components/schemas/DocumentSummaryInPortfolio'
 
 
@@ -1273,6 +1272,13 @@ components:
       description: >-
         Name of the "configuration", a collection of SenseML queries for extracting document data.
       example: config_for_x_company
+
+    ConfigurationId:
+      type: number
+      format: UUID
+      description: >-
+        ID of the "configuration", a collection of SenseML queries for extracting document data.
+      example: 24d82783-c12b-4e70-b0ae-ca1ce35a98
 
     ClassificationSummary:
       type: array
