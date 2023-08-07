@@ -906,6 +906,11 @@ components:
 
   schemas:
 
+    DocumentName:
+      type: string
+      description: If you specify the filename of the document using the `document_name` parameter, then Sensible returns the filename in the extraction response.
+      example: example.pdf
+
     ExtractionSingleResponse: #single doc extraction
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleBase'
@@ -1014,22 +1019,33 @@ components:
 
 
     MultiExtractionSummaryResponse:
-      allOf:
-        - $ref: '#/components/schemas/PortfolioBase'
-        - type: object
-          properties:
-            completed:
-              $ref: '#/components/schemas/ExtractionCompleted'
-            page_count:
-              type: integer
-              example: 100
-              description: Total number of pages in the portfolio.
-            download_url:
-              $ref: '#/components/schemas/DownloadUrlDocument'
-            documents:
-              type: array
-              items:
-                $ref: '#/components/schemas/DocumentSummaryInPortfolio'
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus'
+        errors:
+          $ref: '#/components/schemas/Errors' # TODO error or errors?
+        validation_summary:
+           $ref: '#/components/schemas/ValidationsSummary'
+        page_count:
+          type: integer
+          example: 100
+          description: Total number of pages in the portfolio.
+        document_name:
+          $ref: '#/components/schemas/DocumentName'
+        environment:
+          $ref: '#/components/schemas/EnvironmentName'
+        types:
+          $ref: '#/components/schemas/DocumentTypeNames'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/MultiExtractionSummaryDocument'
 
 
     # deprecated:
@@ -1159,7 +1175,7 @@ components:
 
 
 
-    DocumentSummaryInPortfolio:
+    MultiExtractionSummaryDocument:
       type: object
       properties:
         documentType:
