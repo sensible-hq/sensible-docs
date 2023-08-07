@@ -556,7 +556,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatisticsResponse'
-          description: Returns list of summarized extractions.
+          description: Returns daily statistics for each config used for at least one extraction in the specified time period. TODO correct?
         '401':
           $ref: '#/components/responses/401'
         '400':
