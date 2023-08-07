@@ -1003,27 +1003,9 @@ components:
 
 
     MultiExtractionSummaryResponse:
+      allOf:
+        - $ref: '#/components/schemas/ExtractionResponseBase'
       properties:
-        id:
-          $ref: '#/components/schemas/ExtractionId'
-        created:
-          $ref: '#/components/schemas/ExtractionCreated'
-        completed:
-          $ref: '#/components/schemas/ExtractionCompleted'
-        status:
-         $ref: '#/components/schemas/ExtractionStatus'
-        errors:
-          $ref: '#/components/schemas/Errors' # TODO error or errors?
-        validation_summary:
-           $ref: '#/components/schemas/ValidationsSummary'
-        page_count:
-          type: integer
-          example: 100
-          description: Total number of pages in the portfolio.
-        document_name:
-          $ref: '#/components/schemas/DocumentName'
-        environment:
-          $ref: '#/components/schemas/EnvironmentName'
         types:
           $ref: '#/components/schemas/DocumentTypeNames'
         documents:
