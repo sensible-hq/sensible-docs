@@ -906,6 +906,11 @@ components:
 
   schemas:
 
+
+    Environment:
+      type: string
+      description: >-
+        The environment in which the version of the config used to run the extraction was published.
     DocumentName:
       type: string
       description: If you specify the filename of the document using the `document_name` parameter, then Sensible returns the filename in the extraction response.
@@ -1096,13 +1101,15 @@ components:
         created:
           $ref: '#/components/schemas/ExtractionCreated'
         completed:
-          $ref: '#/components/schemas/Completed'
+          $ref: '#/components/schemas/ExtractionCompleted'
         status:
          $ref: '#/components/schemas/ExtractionStatus'
         validation_summary:
-         $ref: '#/components/schemas/ValidationSummary'
+         $ref: '#/components/schemas/ValidationsSummary'
         page_count:
-         $ref: '#/components/schemas/PageCount'
+          type: integer
+          example: 100
+          description: Total number of pages in the document.
         document_name:
          $ref: '#/components/schemas/DocumentName'
         environment:
