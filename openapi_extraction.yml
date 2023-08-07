@@ -541,7 +541,7 @@ paths:
 
   /extractions/statistics:
     get:
-      operationId: extractions-statistics
+      operationId: statistics
       summary: Get extraction statistics
       tags:
       - Retrieve extractions
