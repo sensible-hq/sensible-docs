@@ -1044,7 +1044,7 @@ components:
           $ref: '#/components/schemas/DocumentTypeNames'
         documents:
           type: array
-          items:
+          items:d
             $ref: '#/components/schemas/MultiExtractionSummaryDocument'
 
 
@@ -1122,6 +1122,29 @@ components:
               example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
 
 
+    ExtractionResponseBase:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        completed:
+          $ref: '#/components/schemas/Completed'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus'
+        validation_summary:
+         $ref: '#/components/schemas/ValidationSummary'
+        page_count:
+         $ref: '#/components/schemas/PageCount'
+        document_name:
+         $ref: '#/components/schemas/DocumentName'
+        environment:
+         $ref: '#/components/schemas/Environment'
+
+
+
+    # deprecated?
     ExtractionSingleBase:
       type: object
       properties:
