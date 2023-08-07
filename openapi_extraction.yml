@@ -1028,7 +1028,7 @@ components:
           $ref: '#/components/schemas/DocumentTypeNames'
         documents:
           type: array
-          items:d
+          items:
             $ref: '#/components/schemas/MultiExtractionSummaryDocument'
 
 
