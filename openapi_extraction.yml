@@ -1182,20 +1182,10 @@ components:
         output:
           type: object
           properties:
-            # extraction content minus parsed_document
-            configuration:
-              $ref: '#/components/schemas/ConfigurationName'
-            validations:
-              $ref: '#/components/schemas/Validations'
-            file_metadata:
-              $ref: '#/components/schemas/FileMetadata'
-            validation_summary:
-              $ref: '#/components/schemas/ValidationsSummary'
             errors:
               $ref: '#/components/schemas/Errors'
-            # plus classification summary
-            classification_summary:
-              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+            validations:
+              $ref: '#/components/schemas/Validations'
 
     DocumentInPortfolio:
       type: object
