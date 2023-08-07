@@ -990,32 +990,16 @@ components:
 
     SingleExtractionSummaryResponse:
       allOf:
-        - $ref: '#/components/schemas/ExtractionSingleBase'
+        - $ref: '#/components/schemas/ExtractionResponseBase'
       properties:
-        # these props are from ExtractionContent, minus parsed_document
+        type:
+          $ref: '#/components/schemas/DocumentTypeName'
         configuration:
           $ref: '#/components/schemas/ConfigurationName'
-        validations:
-          $ref: '#/components/schemas/Validations'
-        file_metadata:
-          $ref: '#/components/schemas/FileMetadata'
-        validation_summary:
-          $ref: '#/components/schemas/ValidationsSummary'
         errors:
           $ref: '#/components/schemas/Errors'
-        # these props are from ExtractionSingleResponse
-        completed:
-          $ref: '#/components/schemas/ExtractionCompleted'
-        classification_summary:
-          $ref: '#/components/schemas/ClassificationSummary'
-        page_count:
-          type: integer
-          example: 100
-          description: Total number of pages in the document.
-        environment:
-          $ref: '#/components/schemas/EnvironmentName'
-
-
+        validations:
+          $ref: '#/components/schemas/Validations'
 
 
     MultiExtractionSummaryResponse:
