@@ -502,7 +502,7 @@ paths:
 
 
 
-   # TODO also extractions/{id}:
+
 
   /extractions:
     get:
@@ -556,7 +556,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatisticsResponse'
-          description: Returns daily statistics for each config used for at least one extraction in the specified time period. TODO correct?
+          description: Returns daily statistics for each config in the specified time period. TODO correct?
         '401':
           $ref: '#/components/responses/401'
         '400':
