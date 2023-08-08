@@ -962,6 +962,7 @@ components:
              Array of integers that describe the number of extractions that fell into each quality bucket for the day for this config.
              For more information, see [Accuracy measures](doc:accuracy-measures).
           type: array
+          example: [1,3,5,4,6,5,3,7,8,2,4,9]
           items:
              type: integer
              maxItems: 12
