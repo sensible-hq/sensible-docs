@@ -40,15 +40,15 @@ From the information returned by this endpoint, you can either calculate or view
 
 
 
-Sensible calculates the percentage quality score for each extraction, roughly, as the percentage of fields that were actually extracted compared to those defined.  In detail:
+Sensible calculates the percentage quality score for each extraction as follows:
 
-`quality score` = (`num of non-null fields extracted` - `validation error penality` - `validation warning penality` )/ `num of fields defined`
+`quality score` = (`non-null fields extracted` - `validation penalities` )/ `total fields defined in config` 
 
 Where:
 
-`validation error penalty` = 1 * num  fields with validation errors
+- `validation penalties` =  the sum of validation errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
 
-`validation warning penalty` = 0.5 * num of fields with validation warnings
+- Sensible excludes fields listed in the Suppress Output method when calculating this score.
 
 For example, if an extraction A has the following properties:
 

@@ -546,7 +546,7 @@ paths:
       tags:
       - Retrieve extractions
       description: |
-        For each configuration that existed in the specified time range in your Sensible account, get a histogram of the number of extractions that scored into different buckets of quality scores 0-1. For more information, including the buckets represented by the `quality_scores_histogram`, see [Accuracy measures](accuracy-measures). TODO
+        For each configuration that had a version published in prod or dev in the specified time range in your Sensible account, get statistics about the quality scores for documents extracted using the config in prod or dev, from which you can derive usage metrics for the config. For more information, see [Accuracy measures](accuracy-measures).
       parameters:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
@@ -868,7 +868,7 @@ components:
       name: min_score
       in: query
       description: >-
-         Minimum score by which to filter the retrieved extractions. Note this score has a range of 0-1 and is a normalized version of the score reported in an extraction's `classification_summary`. It's normalized so that it can be used to compare extractions' quality across document types instead of within one document type. The score is calculated as (present fields in extraction - penalties)/total fields specified in config. Penalities are the summ of validation errors and warnings, where errors are 1 penalty point and warnings are 0.5 points. TODO REWORD
+         Minimum score by which to filter the retrieved extractions.For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
       schema:
         type: number
       example: 0.8
@@ -877,7 +877,7 @@ components:
       name: max_score
       in: query
       description: >-
-         Maximum score by which to filter the retrieved extractions.
+         Maximum score by which to filter the retrieved extractions. For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
       schema:
         type: number
       example: 1.0
