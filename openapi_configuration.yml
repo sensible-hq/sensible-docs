@@ -966,6 +966,9 @@ components:
           example: fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm
         datetime:
           $ref: '#/components/schemas/Date'
+          description: >
+            The date and time Sensible created this version ID for the config.
+            Sensible creates a new version ID for a config when you either 1. publish a config to an environment in the Sensible app or 2. edit a draft config in the Sensible app.
         environments:
           type: array
           items:
