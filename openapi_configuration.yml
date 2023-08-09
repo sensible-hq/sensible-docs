@@ -966,9 +966,13 @@ components:
           example: fdE0LO4d2GftiGvPyeYbgpstRWyLrEdm
         datetime:
           $ref: '#/components/schemas/Date'
-          description: >
+          description: >-
             The date and time Sensible created this version ID for the config.
-            Sensible creates a new version ID for a config when you either 1. publish a config to an environment in the Sensible app or 2. edit a draft config in the Sensible app.
+            Sensible creates a new version ID for a config when you:
+            1. publish a config to an environment in the Sensible app
+            2. edit a draft config in the Sensible app.
+            3. PUT updates to the configuration through the Sensible API.
+               Note that publishing or unpublishing the configuration using the Sensible API doesn't trigger the creation of a new version ID.
         environments:
           type: array
           items:
