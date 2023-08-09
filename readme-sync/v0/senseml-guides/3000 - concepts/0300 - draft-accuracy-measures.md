@@ -60,5 +60,5 @@ For example, if an extraction A has the following properties:
 
 Then its quality score is 75% : (20 - 2 - 1 - 2) / 20 = 0.75. 
 
-This quality score is a normalized version of the [classification score](doc:fingerprint). 
+This quality score is a normalized [classification score](doc:fingerprint). 
 
