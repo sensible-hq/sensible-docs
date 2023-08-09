@@ -546,7 +546,8 @@ paths:
       tags:
       - Retrieve extractions
       description: |
-        For each configuration that had a version published in prod or dev in the specified time range in your Sensible account, get statistics about the quality scores for documents extracted using the config in prod or dev, from which you can derive usage metrics for the config. For more information, see [Accuracy measures](accuracy-measures).
+        Returns daily extraction quality statistics for each config that is live in production in the specified time period. TODO word better
+        For each configuration that was live in production in the specified time range in your Sensible account, get daily statistics about the quality scores for documents extracted using the config in prod, from which you can derive usage metrics for the config. For more information, see [Accuracy measures](accuracy-measures).
       parameters:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'

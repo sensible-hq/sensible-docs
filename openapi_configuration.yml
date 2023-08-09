@@ -970,9 +970,9 @@ components:
             The date and time Sensible created this version ID for the config.
             Sensible creates a new version ID for a config when you:
             1. publish a config to an environment in the Sensible app
-            2. edit a draft config in the Sensible app.
-            3. PUT updates to the configuration through the Sensible API.
-               Note that publishing or unpublishing the configuration using the Sensible API doesn't trigger the creation of a new version ID.
+            2. edit a draft config in the Sensible app
+            3. create or edit the configuration through the Sensible API.
+               Note that publishing or unpublishing an existing configuration version using the Sensible API doesn't trigger the creation of a new version ID.
         environments:
           type: array
           items:
@@ -1023,7 +1023,7 @@ components:
       description: >-
         Destination environment for publication, as a target for later extraction.
         If you specify an environment, the configuration must be valid.
-        If you don't specify an environment, Sensible saves the configuration as the current draft.
+        If you don't specify an environment, Sensible saves this version of the configuration as the current draft.
 
 
     ConfigurationResponse:
