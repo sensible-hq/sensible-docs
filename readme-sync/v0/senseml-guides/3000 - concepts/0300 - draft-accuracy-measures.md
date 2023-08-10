@@ -51,7 +51,7 @@ You can filter extractions by the following 12 “buckets” of aggregated extra
 
 - [100] 
 
-  `[` denotes inclusive whereas `)` is exclusive
+  `[` denotes inclusive and `)` denotes exclusive
 
 For example, a document extraction with a quality score of .85, or 85%, falls into the  [80, 90) bucket.
 
@@ -72,7 +72,7 @@ Sensible calculates the quality score for each extraction as follows:
 
 Where:
 
-- `validation penalties` =  the sum of validation errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
+- `validation penalties` =  sum of validation errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
 
 - Sensible excludes fields listed in the Suppress Output method when calculating this score.
 
