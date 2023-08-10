@@ -21,26 +21,52 @@ Quality statistics (separate topic?)
 
 You can get individual and aggregate statistics about the quality of extractions.
 
-You can query the following 12 “buckets” of aggregated extraction quality scores:
+**Quality buckets**
+
+You can filter extractions by the following 12 “buckets” of aggregated extraction quality scores:
 
 ![image-20230802135848603](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230802135848603.png)
 
-TODO: the following graph should really show like 11-20 or 0-9% to be accurate...
+- [0, 10)
 
-Sensible returns the preceding histogram in the API as an array, like: `[7,5,3,3,2,1,1,4,7,9,13,15]`.
+-  [10, 20)
 
-From this array, you can calculate the following metrics yourself or view them in the Sensible app:
+-  [20, 30)
 
-From the information returned by this endpoint, you can either calculate or view in the Sensible app, 4 different types of aggregate stats in a given date range:
+-  [30, 40)
 
-- total number of extractions
+- [40, 50)
+
+- [50, 60)
+
+-  [60, 70)
+
+-  [70, 80)
+
+-  [80, 90)
+
+-  [90, 95)
+
+-  [95, 100)
+
+- [100] 
+
+  `[` denotes inclusive whereas `)` is exclusive
+
+For example, a document extraction with a quality score of .85, or 85%, falls into the  [80, 90) bucket.
+
+Sensible returns the histogram in the preceding image as an array through the [API](ref:statistics). For example, when the API returns ``"quality_score_histogram":[7,5,3,3,2,1,1,4,7,9,13,15]` , the first and last items in the array  show that on a given day for a given config, 7 extractions scored in the lowest bucket of 0-10%, and 15 scored in the highest bucket of 100%.
+
+From this array, you can calculate other metrics or view them in the Sensible app, for example: 
+
+- total number of extractions in a time period
 - doc type / config usage (# of relevant extractions / total extractions)
 - daily stats (i.e. the API extractions graph with specific totals per day)
-- Configs require attention (for now, using the formula described in Notion)
+- Configs require attention 
 
+**Quality score**
 
-
-Sensible calculates the percentage quality score for each extraction as follows:
+Sensible calculates the quality score for each extraction as follows:
 
 `quality score` = (`non-null fields extracted` - `validation penalities` )/ `total fields defined in config` 
 
