@@ -31,7 +31,7 @@ You can get individual and aggregate statistics about the quality of extractions
 
 **Quality buckets**
 
-You can filter extractions by the following 12 “buckets” of aggregated extraction quality scores. 
+You can filter extractions by the following 12 “buckets” of aggregated extraction quality scores.  For example, the following image shows that 15 document extractions scored 100% quality scores in a given time range for a given config, and 7 fell into the lowest 0-10% quality bucket.
 
 ![image-20230802135848603](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230802135848603.png)
 

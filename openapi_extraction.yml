@@ -977,11 +977,6 @@ components:
              maxItems: 12
              minItems: 12
 
-
-
-
-
-
     ExtractionsResponseFiltered:
       type: object
       properties:
