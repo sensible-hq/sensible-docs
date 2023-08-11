@@ -3,6 +3,14 @@ title: "Accuracy and quality measures"
 hidden: true
 ---
 
+
+
+
+
+
+
+TODO on PUBLISH:  Maybe link to quality score FROM classification score/fingerprint topic? 
+
 Accuracy
 ---
 
@@ -84,7 +92,7 @@ For example, if an extraction A has the following properties:
 - num of fields with validation errors = 1
 - num of fields with validation warnings = 4
 
-Then its quality score is 75% : (20 - 2 - 1 - 2) / 20 = 0.75. 
+Then its quality score is 75% : (18 - 1 - 2) / 20 = 0.75. 
 
-This quality score is a normalized [classification score](doc:fingerprint). 
+
 
