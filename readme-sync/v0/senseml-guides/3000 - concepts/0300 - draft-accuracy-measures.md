@@ -31,7 +31,7 @@ You can get individual and aggregate statistics about the quality of extractions
 
 **Quality buckets**
 
-You can filter extractions by the following 12 “buckets” of aggregated extraction quality scores:
+You can filter extractions by the following 12 “buckets” of aggregated extraction quality scores. 
 
 ![image-20230802135848603](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230802135848603.png)
 
@@ -63,14 +63,7 @@ You can filter extractions by the following 12 “buckets” of aggregated extra
 
 For example, a document extraction with a quality score of .85, or 85%, falls into the  [80, 90) bucket.
 
-Sensible returns the histogram in the preceding image as an array through the [API](ref:statistics). For example, when the API returns ``"quality_score_histogram":[7,5,3,3,2,1,1,4,7,9,13,15]` , the first and last items in the array  show that on a given day for a given config, 7 extractions scored in the lowest bucket of 0-10%, and 15 scored in the highest bucket of 100%.
-
-From this array, you can calculate other metrics or view them in the Sensible app, for example: 
-
-- total number of extractions in a time period
-- doc type / config usage (# of relevant extractions / total extractions)
-- daily stats (i.e. the API extractions graph with specific totals per day)
-- Configs require attention 
+You can view scores in the Sensible app or through the [Sensible API](ref:statistics).
 
 **Quality score**
 

@@ -959,8 +959,17 @@ components:
           $ref: '#/components/schemas/DocumentTypeName'
         quality_score_histogram:
           description: >
-             Array of integers that describe the number of extractions that fell into each quality bucket for the day for this config.
-             For more information, see [Accuracy measures](doc:accuracy-measures).
+             Array of integers that describe the number of extractions that fell into each quality bucket for the `date` for this config.
+             For example, when this endpoint returns `"quality_score_histogram":[7,5,3,3,2,1,1,4,7,9,13,15]` , the first and last items in the array  show that on specified date for the specified config, 7 extractions scored in the lowest quality bucket of 0-10%, and 15 scored in the highest quality bucket of 100%.
+             For more information about quality scores, see [Accuracy measures](doc:accuracy-measures).
+             From the payload returned by this endpoint, you can calculate other metrics or view them in the Sensible app, for example:
+              - total number of extractions in a time period
+              - doc type and config usage (# of relevant extractions / total extractions) TODO REWORD
+              - daily stats (i.e. the API extractions graph with specific totals per day)
+              - Configs require attention  TODO REWORD
+
+
+             TODO update link if necessary
           type: array
           example: [1,3,5,4,6,5,3,7,8,2,4,9]
           items:
