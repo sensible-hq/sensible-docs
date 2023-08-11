@@ -967,8 +967,6 @@ components:
               - doc type and config usage (# of relevant extractions / total extractions) TODO REWORD
               - daily stats (i.e. the API extractions graph with specific totals per day)
               - Configs require attention  TODO REWORD
-
-
              TODO update link if necessary
           type: array
           example: [1,3,5,4,6,5,3,7,8,2,4,9]
