@@ -25,3 +25,32 @@ For reference docs, see the left-hand navigation, or start off with Install SDK 
 
 - Typescript SDK repo
 - changelog in repo
+
+
+
+```
+declare class Sensible {`
+`  constructor(apikey: string);``  extract(`
+`    options: ({ url: string } | { file: Blob }) &`
+`      (`
+`        | { documentType: string; configurationName?: string }` 
+`        | { documentTypes: string[] }`
+`      ) & {`
+`        webhook?: Webhook;`
+`      }`
+`  ): Promise<ExtractionResult>;``  
+```
+
+```
+classify(options: { file: Blob }): Promise<ClassificationResult>;`
+`}``type Webhook = {`
+`  url: string;`
+`  payload?:`
+`    | Record<string, unknown>`
+`    | string`
+`    | number`
+`    | boolean`
+`    | Array<unknown>;`
+`};
+```
+
