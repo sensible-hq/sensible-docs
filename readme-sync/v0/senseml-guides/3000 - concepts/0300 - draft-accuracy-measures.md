@@ -5,10 +5,6 @@ hidden: true
 
 
 
-
-
-
-
 TODO on PUBLISH:  Maybe link to quality score FROM classification score/fingerprint topic? 
 
 Accuracy
@@ -63,19 +59,17 @@ You can filter extractions by the following 12 “buckets” of aggregated extra
 
 For example, a document extraction with a quality score of .85, or 85%, falls into the  [80, 90) bucket.
 
-You can view scores in the Sensible app or through the [Sensible API](ref:statistics).
+You can view scores in the Sensible app or through the Sensible API.  TODO link to intro to API instead of individual endpoints? then the aggregate endpoint could point out that the quality_score is also in idivudal extractions??
 
 **Quality score**
 
 Sensible calculates the quality score for each extraction as follows:
 
-`quality score` = (`non-null fields extracted` - `validation penalities` )/ `total fields defined in config` 
+`quality score` = (`non-null fields extracted` - `validation penalities` ) / `total fields defined in config` 
 
 Where:
 
 - `validation penalties` =  sum of validation errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
-
-- Sensible excludes fields listed in the Suppress Output method when calculating this score.
 
 For example, if an extraction A has the following properties:
 
@@ -87,5 +81,8 @@ For example, if an extraction A has the following properties:
 
 Then its quality score is 75% : (18 - 1 - 2) / 20 = 0.75. 
 
+**Notes**
 
+- Sensible excludes fields listed in the Suppress Output method when calculating the quality score.
+- The overall quality score for a portfolio document is the average score of all subdocument outputs. The Sensible API returns a `quality_score` for each subdocument as well. TODO check accuracy.
 
