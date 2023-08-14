@@ -982,7 +982,7 @@ components:
           example: false
           description: >-
             The version list returned by this endpoint contains a single draft version ID that's used to manage the editor state in the Sensible app.
-            This version ID is never published to or available in the development or production environments.
+            This draft version ID is never published to the development or production environments.
       required:
         - version_id
         - datetime
