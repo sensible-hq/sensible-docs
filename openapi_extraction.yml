@@ -842,7 +842,7 @@ components:
         Comma-delimited list of document types by which to filter the retrieved extractions.
       schema:
         type: string
-      example:
+      example: 4e95e3d0-8d69-49b0-9501-2cca8b902a45, 24d82783-b12b-4e70-b0ae-ca1ce35a9836
 
 
     configuration_ids:
@@ -852,7 +852,7 @@ components:
         Comma-delimited list of configurations by which to filter the retrieved extractions.
       schema:
         type: string
-      example:
+      example: 1417523c-f318-4037-90e9-ed7ade06031d,23be500b-4b7f-43dd-b0db-f06ec5c6c8de
 
 
     statuses:
