@@ -677,7 +677,7 @@ paths:
         Get all the text (lines) for a reference document as standardized output. The output is an array of pages with metadata such as text positioning.
         If you specify a configuration, Sensible uses any preprocessors defined in the configuration to process the text.
       tags:
-      - Reference document extraction
+      - Reference document
       requestBody:
           required: true
           content:
