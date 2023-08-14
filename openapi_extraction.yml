@@ -520,8 +520,8 @@ paths:
         - $ref: '#/components/parameters/document_type_ids'
         - $ref: '#/components/parameters/environments'
         - $ref: '#/components/parameters/statuses'
-        - $ref: '#/components/parameters/min_score'
-        - $ref: '#/components/parameters/max_score'
+        #- $ref: '#/components/parameters/min_score'
+        #- $ref: '#/components/parameters/max_score'
 
       responses:
         '200':
@@ -842,7 +842,7 @@ components:
         Comma-delimited list of document types by which to filter the retrieved extractions.
       schema:
         type: string
-      example: resumes, tax_forms, bank_statements
+      example:
 
 
     configuration_ids:
@@ -852,7 +852,7 @@ components:
         Comma-delimited list of configurations by which to filter the retrieved extractions.
       schema:
         type: string
-      example: boa_bank_statement, chase_bank_statement
+      example:
 
 
     statuses:
@@ -868,7 +868,7 @@ components:
       name: min_score
       in: query
       description: >-
-         Minimum score by which to filter the retrieved extractions.For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
+         Minimum quality score by which to filter the retrieved extractions.For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
       schema:
         type: number
       example: 0.8
@@ -877,7 +877,7 @@ components:
       name: max_score
       in: query
       description: >-
-         Maximum score by which to filter the retrieved extractions. For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
+         Maximum quality score by which to filter the retrieved extractions. For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
       schema:
         type: number
       example: 1.0
