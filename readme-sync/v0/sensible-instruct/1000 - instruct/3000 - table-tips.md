@@ -5,7 +5,7 @@ hidden: false
 
 This Sensible Instruct method extracts a table in a document based on your description of the table title and each of its column headers.
 
-**Tips**
+**Prompt Tips**
 
 - Try extracting all columns to get the best results. If you describe only a few of the columns, your results may be less accurate.
 

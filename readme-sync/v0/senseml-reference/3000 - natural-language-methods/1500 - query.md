@@ -254,9 +254,39 @@ The following image shows the example document used with this example config:
 Notes
 ===
 
+How the Query method works
+---
+
 For an overview of how this method works, see the following steps:
 
-- To meet GPT-3's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
+- To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
 - Sensible scores each chunk by its similarity to either the `description` or the `chunkScoringText` parameters. Sensible scores each chunk using the OpenAPI Embeddings API.
 - Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
 - Sensible creates a full prompt for GPT-3 that includes the chunks, page hinting data, and your prompt. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).
+
+How location highlighting works
+---
+
+In the Sensible Instruct editor, you can click the output of a query field to view its source text in the document. 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_August2023_location.png)
+
+For an overview of how Sensible finds the source text in the document for the LLM's response, see the following steps:
+
+- The LLM returns a response to your prompt.
+
+- Sensible searches in the source document for a line that's a fuzzy match to the response.  For example, if the LLM returns `4387-09-22-33`, Sensible matches the line `Policy Number: 4387-09-22-33` in the document. Sensible implements fuzzy matching using [Levenshtien distance](https://en.wikipedia.org/wiki/Levenshtein_distance).
+
+- Sensible selects the three lines in the document that contain the best fuzzy matches. For each line, Sensible concatenates the preceding and succeeding lines, in case the match spans multiple lines.
+- Sensible searches for a fuzzy match in the concatenated lines for the text that the LLM returned.  Sensible returns the best match.
+- Sensible highlights the best match in the PDF document in the Sensible Instruct editor or in the SenseML editor.
+
+**Limitations**
+
+Sensible can highlight the incorrect location under the following circumstances:
+
+- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:types) , then Sensible can fail to find a match or can find an inaccurate match.
+
+- If there are multiple candidates fuzzy matches in the document (for example, two instances of `April 7`), Sensible chooses the top-scoring match regardless of its location in the document. Sensible doesn't use page location data to find the match.
+
+- If the LLM returns text that's not in the document, then Sensible can't match that to a location.

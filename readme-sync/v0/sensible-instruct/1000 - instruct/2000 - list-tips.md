@@ -6,7 +6,7 @@ This Sensible Instruct method extracts repeating data in a document based on you
 
 This method is an alternative to the [Table](doc:table-tips) method, when the data you want can appear either as a table or as another layout. The List method can find data in paragraphs of free text or in more structured layouts, such as key/value pairs or tables.  
 
-**Tips**
+**Prompt Tips**
 
 - The list description describes the overall contents for the list, while each property is a single, short description of an item in the list.
 - You can use location hints to describe the target list's position in the document. For examples of location hints, see [Query extraction tips](doc:query-tips).
