@@ -9,7 +9,7 @@ This topic describes the color-coded symbols in the Sensible app that visually r
 | ------------------------------------------------ | ------------------------------------ |
 | [Yellow box](doc:color#yellow-box)               | anchor                               |
 | [Blue box](doc:color#blue-box)                   | captured method data                 |
-| [Green box](doc:color#green-box)                 | box or region                        |
+| [Green box](doc:color#green-box)                 | box, region, table, or chunk         |
 | [Green point](doc:color#green-point)             | starting point for recognizing a box |
 | [Green brackets](doc:color#green-brackets)       | ranges for sections                  |
 | [Dotted blue box](doc:color#dotted-blue-box)     | discarded method data                |
@@ -78,7 +78,7 @@ The query used for the preceding image is:
 Green box
 ====
 
-***Green boxes*** represent boxes or regions.
+***Green boxes*** represent boxes, regions, tables, or [chunks](doc:prompt).
 
 Green point
 ====
