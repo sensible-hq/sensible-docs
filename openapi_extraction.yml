@@ -911,6 +911,7 @@ components:
       type: string
       description: >-
         The environment in which the version of the config used to run the extraction was published.
+      example: DEVELOPMENT
     DocumentName:
       type: string
       description: If you specify the filename of the document using the `document_name` parameter, then Sensible returns the filename in the extraction response.
