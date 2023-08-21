@@ -652,8 +652,6 @@ Configurable syntax
 
 
 
-
-
 Number
 ====
 
@@ -672,7 +670,7 @@ For example:
 
 This type does **not** recognize text such as `3.061.534,45`. Configure the Currency type instead. 
 
-Example output:
+**Example output**
 
 ```json
 {
@@ -704,7 +702,7 @@ For example:
 
 
 
-Example:
+**Example output**
 
 ```json
  {
@@ -713,10 +711,6 @@ Example:
     "type": "percentage"
   }
 ```
-
-
-
-
 
 Phone Number
 ====
@@ -741,7 +735,7 @@ Examples:
 +91 9999-999999
 ```
 
-Example output:
+**Example output**
 
 
 ```json
@@ -758,9 +752,9 @@ This type does *not* recognize country calling codes formatted with 00, for exam
 String
 ====
 
-Returns strings.
+Default type. Returns strings.
 
-Example output:
+**Example output**
 
 ```
 {
@@ -772,12 +766,7 @@ Example output:
 Table
 ====
 
-Use with the Table methods:
-
-- [Invoice](doc:invoice)
-- [Fixed Table](doc:fixed-table)
-- [Table](doc:table)
-- [Text Table](doc:text-table)
+Required when you define a Table method, for example, [Invoice](doc:invoice), [Fixed Table](doc:fixed-table), or [NLP Table](doc:nlp-table).
 
 Weight
 ====
@@ -799,8 +788,7 @@ For example:
 634.83
 ```
 
-
-Example output:
+**Example output**
 
 ```json
 {
@@ -838,7 +826,7 @@ $527.01-
 ($400.567)
 ```
 
-Example output:
+**Example output**
 
 
 ```json
