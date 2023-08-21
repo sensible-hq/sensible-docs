@@ -687,7 +687,7 @@ Example output:
 Paragraph
 ====
 
-Use with  [Document Range](https://docs.sensible.so/docs/document-range) solely, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
+Use with methods that return paragraphs, for example  [Document Range](https://docs.sensible.so/docs/document-range) or [Paragraph](doc:paragraph), to format the returned paragraph or paragraphs. By default, returns paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
 
 Percentage
 ====
