@@ -6,7 +6,7 @@ Automatically extracts key/value pairs from short snippets of free text using [O
 
 Example use cases for this method include:
 
-- To transform another method's output when using [types](doc:types) is difficult. For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. For example, you can reformat with instructions like `the following snippet is a ranking. Return it formatted liked \"1st\", \"2nd\", \"3rd\" and so forth, not written out like \"first\" or in numeral-only format like \"1\" `. 
+- To transform another method's output when using [types](doc:types) is difficult. For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. For example, you can reformat with instructions like `the following snippet is a ranking. Return it formatted liked \"1st\", \"2nd\", \"3rd\" and so forth, not written out like \"first\" or in digit-only format like \"1\" `. 
 
 - As an alternative to the List method. For a comparison of these methods, see the following table:
 
