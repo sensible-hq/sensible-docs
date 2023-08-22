@@ -20,7 +20,7 @@ For tips on authoring this method in Sensible Instruct, see [Table tips](doc:lis
 **Alternatives**
 
 -   [Fixed Table](doc:fixed-table) or [Text Table](doc:text-table) methods.
-- To extract complex tables, for example tables-inside-tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
+- To extract complex tables, for example sub-tables inside tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
 
 **How it works**
 

@@ -33,7 +33,7 @@ The following parameters are available to most types of Match objects:
 | ------------- | ----------------------- | ------------------------------------------------------------ |
 | minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for a Boolean match, but valid for individual matches in its array. |
 | maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. Not valid as a top-level parameter for a Boolean match, but valid for individual matches in its array. |
-| reverse       | boolean. default: false | Use in match arrays. Don't set this to true for the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For a more detailed example, see [Match arrays](doc:match-arrays#reverse-match). |
+| reverse       | boolean. default: false | Use in match arrays. Don't set this to true for the first match in the array.<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For an example, see [Match arrays](doc:match-arrays#reverse-match). |
 
 Simple match
 -------
