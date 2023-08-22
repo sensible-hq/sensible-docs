@@ -811,7 +811,7 @@ components:
 
 
     start_date:
-      name: start
+      name: start_date
       in: query
       required: true
       description: >-
@@ -823,7 +823,7 @@ components:
 
 
     end_date:
-      name: end
+      name: end_date
       in: query
       required: true
       description: >-
