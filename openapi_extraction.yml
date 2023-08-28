@@ -990,7 +990,7 @@ components:
           $ref: '#/components/schemas/DocumentTypeName'
         quality_score_histogram:
           description: |
-            Array of integers that describe the number of extractions that fell into each quality bucket for the `date` for this config.
+            Array of numbers that describe the number of extractions that fell into each quality bucket for the `date` for this config.
             The buckets are as follows:
 
             - [0, 10)
