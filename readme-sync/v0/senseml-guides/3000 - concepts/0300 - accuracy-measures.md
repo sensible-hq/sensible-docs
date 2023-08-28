@@ -19,7 +19,7 @@ Quality scores
 
 You can view an extraction's quality score through the Sensible API's extraction endpoints, or aggregated scores using the [statistics](ref:statistics) endpoint. Sensible calculates the quality score for each extraction as follows:
 
-`quality score` = (`non-null fields extracted` - `validation penalities` ) / `total fields defined in config` 
+`quality score` = (`non-null fields extracted` - `validation penalties` ) / `total fields defined in config` 
 
 Where:
 
