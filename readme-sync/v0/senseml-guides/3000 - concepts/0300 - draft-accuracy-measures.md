@@ -31,27 +31,29 @@ You can filter extractions by the following 12 “buckets” of aggregated extra
 
 ![image-20230802135848603](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20230802135848603.png)
 
+THIS STUFF IS ALREADY IN THE API:
+
 - [0, 10)
 
--  [10, 20)
+- [10, 20)
 
--  [20, 30)
+- [20, 30)
 
--  [30, 40)
+- [30, 40)
 
 - [40, 50)
 
 - [50, 60)
 
--  [60, 70)
+- [60, 70)
 
--  [70, 80)
+- [70, 80)
 
--  [80, 90)
+- [80, 90)
 
--  [90, 95)
+- [90, 95)
 
--  [95, 100)
+- [95, 100)
 
 - [100] 
 
@@ -59,7 +61,7 @@ You can filter extractions by the following 12 “buckets” of aggregated extra
 
 For example, a document extraction with a quality score of .85, or 85%, falls into the  [80, 90) bucket.
 
-You can view scores in the Sensible app or through the Sensible API.  TODO link to intro to API instead of individual endpoints? then the aggregate endpoint could point out that the quality_score is also in idivudal extractions??
+You can view scores in the Sensible app or through the Sensible API. 
 
 **Quality score**
 
