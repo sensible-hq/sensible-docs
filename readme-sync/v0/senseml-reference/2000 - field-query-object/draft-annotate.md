@@ -32,7 +32,7 @@ Simple syntax
 **Output example** 
 
 ``` json
-Thereafter, it shall be month-to-month on the same terms and conditions as stated herein plus $80.00 month to month charge, save any changes made pursuant to law, until terminated by notice of at least 30 days.\n Landlord shall send notice of new terms 30 days before current terms end. Proper 30 day notice (in writing or email) must be received by the Landlord.\n
+For any move in date that is after the 15th of the month, Tenant must pay a full month of rent in order to gain possession of the home. The prorated rent amount will be due the second month of lease.\n Every month thereafter, Lessee must pay rent on or before the 1st day of each month with 5 days of grace period. Excludes utility costs.\n
 ```
 
 **Formats recognized** 
