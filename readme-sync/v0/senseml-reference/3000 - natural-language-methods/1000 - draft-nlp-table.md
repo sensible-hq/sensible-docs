@@ -12,17 +12,17 @@ Parameters
 **Note** You can configure some the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrides the NLP preprocessor's parameter. For more information, see [Advanced prompt configuration](doc:prompt).
 
 
-| key               | value                  | description                                                  |
-| :---------------- | :--------------------- | :----------------------------------------------------------- |
-| id (**required**) | `nlpTable`             | The Anchor parameter is optional for fields that use this method. If you specify an anchor, Sensible ignores it. |
-| restructureTable  | Boolean. default: true | If true, then you can prompt the LLM to split or merge columns or otherwise transform the table.<br/> Configure this to false to improve performance and to avoid LLM token overflow errors caused by tables that exceed 4,000 [tokens](https://platform.openai.com/tokenizer). If false, skips the full table restructure described in the Notes section and ignores the Prompt Introduction. As a result, the LLM returns the table body unchanged from the OCR extraction, and the only change you can make is to rename the column headings using the column descriptions you write in the prompt.<br/><br/> |
-|                   |                        |                                                              |
-|                   |                        |                                                              |
-|                   |                        |                                                              |
-|                   |                        |                                                              |
-|                   |                        |                                                              |
-|                   |                        |                                                              |
-|                   |                        |                                                              |
+| key               | value      | description                                                  |
+| :---------------- | :--------- | :----------------------------------------------------------- |
+| id (**required**) | `nlpTable` | The Anchor parameter is optional for fields that use this method. If you specify an anchor, Sensible ignores it. |
+|                   |            |                                                              |
+|                   |            |                                                              |
+|                   |            |                                                              |
+|                   |            |                                                              |
+|                   |            |                                                              |
+|                   |            |                                                              |
+|                   |            |                                                              |
+|                   |            |                                                              |
 
 
 
