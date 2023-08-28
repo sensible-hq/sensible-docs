@@ -23,7 +23,7 @@ You can view an extraction's quality score through the Sensible API's extraction
 
 Where:
 
-- `validation penalties` =  sum of validation errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
+- `validation penalties` =  sum of [validation](doc:validate-extractions) errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
 
 For example, if an extraction A has the following properties:
 
