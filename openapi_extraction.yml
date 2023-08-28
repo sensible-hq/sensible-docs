@@ -854,7 +854,7 @@ components:
       in: query
       required: true
       description: >-
-        Retrieve daily statistics for configs used in production on this day and earlier.
+        Retrieves daily statistics for configs used in production on this day and earlier.
       schema:
         type: string
         format: date-time
