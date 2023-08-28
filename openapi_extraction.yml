@@ -546,10 +546,10 @@ paths:
       tags:
       - Retrieve extractions
       description: |
-        Returns daily extraction quality scores per config. Sensible returns statistics for each config that was used for at least one extraction performed in the production environment in the specified time period. For more information, see [Accuracy measures](accuracy-measures).
+        Returns daily extraction quality scores per config. Sensible returns statistics for each config that was used for at least one extraction performed in the production environment in the specified time period. For more information about scores, see [Accuracy measures](accuracy-measures).
       parameters:
-        - $ref: '#/components/parameters/start_date'
-        - $ref: '#/components/parameters/end_date'
+        - $ref: '#/components/parameters/start_date_config'
+        - $ref: '#/components/parameters/end_date_config'
       responses:
         '200':
           content:
@@ -829,6 +829,32 @@ components:
       description: >-
          Retrieves extractions with a `created` date that is equal to or earlier than this date-time.
          If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the `cutoff_date` parameter with the date-time that you can use as the new `end_date` to retrieve the next page of extractions in the originally intended date range.
+      schema:
+        type: string
+        format: date-time
+      example: 2020-10-20T00:00:00.000Z
+
+
+
+    start_date_config:
+      name: start_date
+      in: query
+      required: true
+      description: >-
+         Retrieves statistics for configs used in production on this day and later.
+         Sensible returns daily statistics, so if you specify a time in addition to a date, Sensible ignores the time.
+      schema:
+        type: string
+        format: date-time
+      example: 2020-10-10T00:00:00.000Z
+
+
+    end_date_config:
+      name: end_date
+      in: query
+      required: true
+      description: >-
+        Retrieve daily statistics for configs used in production on this day and earlier.
       schema:
         type: string
         format: date-time
