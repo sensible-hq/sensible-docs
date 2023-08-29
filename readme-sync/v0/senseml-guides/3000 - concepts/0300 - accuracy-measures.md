@@ -21,10 +21,6 @@ You can view an extraction's quality score through the Sensible API's extraction
 
 `quality score` = (`non-null fields extracted` - `validation penalties` )  ÷  (`total fields defined in config`) 
 
-```
-$\sqrt{3x-1}+(1+x)^2$
-```
-
 Where:
 
 - `validation penalties` =  sum of [validation](doc:validate-extractions) errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
