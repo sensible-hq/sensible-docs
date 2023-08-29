@@ -17,15 +17,19 @@ You can measure the accuracy of data that Sensible extracts from a document in t
 Quality scores
 ---
 
-You can view an extraction's quality score through the Sensible API's extraction endpoints, or aggregated scores using the [statistics](ref:statistics) endpoint. Sensible calculates the quality score for each extraction as follows:
+You can view an extraction's quality score through the Sensible API's extraction endpoints, or get daily scores using the [statistics](ref:statistics) endpoint. Sensible calculates the quality score for each extraction as follows:
 
-`quality score` = (`non-null fields extracted` - `validation penalties` ) / `total fields defined in config` 
+`quality score` = (`non-null fields extracted` - `validation penalties` )  ÷  (`total fields defined in config`) 
+
+```
+$\sqrt{3x-1}+(1+x)^2$
+```
 
 Where:
 
 - `validation penalties` =  sum of [validation](doc:validate-extractions) errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.
 
-For example, if an extraction A has the following properties:
+For example, if an extraction has the following properties:
 
 - num fields defined in the configuration = 20
 
