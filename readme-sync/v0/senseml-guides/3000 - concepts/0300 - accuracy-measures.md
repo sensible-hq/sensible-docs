@@ -27,9 +27,8 @@ Where:
 
 For example, if an extraction has the following properties:
 
-- num fields output = 20
-
-- num of non-null fields = 18
+- num of non-null fields extracted = 18
+- num fields extracted= 20
 - num of fields with validation errors = 1
 - num of fields with validation warnings = 4
 
