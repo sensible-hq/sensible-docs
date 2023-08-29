@@ -12,7 +12,7 @@ You can measure the accuracy of data that Sensible extracts from a document in t
 - **OCR confidence scores**: Get a score for the quality of text images. For example, check that text in a scanned or photographed document isn't blurry or illegible.  For more information, see [Validate extractions](doc:validate-extractions).  
 - **Confidence signals**: For data extracted by large-language models (LLMs), Sensible asks the LLM to report any uncertainties it has about the accuracy of the extracted data. For example, an LLM can report that it found multiple answer candidates. For more information, see [Confidence signals](doc:confidence).
 
-- **Quality scores and statistics:** Sensible scores each extraction using the number of fields extracted versus those defined in the config and other information. It also aggregates statistics about how configs are performing and how much they're used.  For more information, see the following section.
+- **Quality scores** Sensible scores each extraction using the number of fields extracted versus those defined in the config and other information.  For more information, see the following section.
 
 Quality scores
 ---
