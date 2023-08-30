@@ -5,6 +5,40 @@ hidden: true
 
 This topic gives an overview and links to the Sensible Typescript SDK.
 
+Overview
+---
+
+Use Sensible's Typescript SDK to extract structured data from documents.
+
+**Quick example: Extraction**
+
+The following example shows extraction code and the data it delivers:
+
+```typescript
+blah blah
+```
+
+Which returns the following from an example PDF:
+
+```json
+{some quick policy period or something}
+```
+
+TODO: image of PDF with extracted data highlighted.
+
+These 3 lines of code perform the following before delivering the structured data:
+
+- upload the document 
+- use an existing config to extract the document. You've got to write the config yourself
+- send the info to a webhook or back to you
+
+
+
+Similarly, you can also classify documents with the Sensible SDK [TODO LINK] 
+
+
+
+
 
 
 This reference guide describes how to use the Sensible Typescript SDK.
