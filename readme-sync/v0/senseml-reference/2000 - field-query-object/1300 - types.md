@@ -725,7 +725,7 @@ For the following PDF:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/annotate_superscript_and_subscript.png) 
 
-Setting `"annotateSuperscriptAndSubscript": true` results in the following annotations for the footnote symbols:
+When you set`"annotateSuperscriptAndSubscript": true` , Sensible formats the footnote symbols to indicate they're superscripted, for example,  `[^1]`:
 
 ```json
 {
