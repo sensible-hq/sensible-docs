@@ -8,33 +8,33 @@ on:
     paths:
       - 'readme-sync/v0/**.md'
 
+
+
+
 jobs:
-  prose:
+  vale:
+    name: runner / vale
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Get Changed Files
-      id: get_changed_files
-      uses: lots0logs/gh-action-get-changed-files@2.1.4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
+      - uses: errata-ai/vale-action@reviewdog
 
-    - name: Vale
-      if: always()
-      uses: errata-ai/vale-action@v1
-      with:
-        # Optional
-        styles: |
-          https://github.com/errata-ai/Google/releases/latest/download/Google.zip
-          https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
 
-        # Optional
-        config: https://raw.githubusercontent.com/errata-ai/vale/master/.vale.ini
+  # - name: Vale
+  #   if: always()
+  #   uses: errata-ai/vale-action@v1
+  #   with:
+  #     # Optional
+  #     styles: |
+  #       https://github.com/errata-ai/Google/releases/latest/download/Google.zip
+  #       https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
 
-        #Optional
-        files: '${{ steps.get_changed_files.outputs.all }}'
-      env:
-        # Required, set by GitHub actions automatically:
-        # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  #     # Optional
+  #     config: https://raw.githubusercontent.com/errata-ai/vale/master/.vale.ini
+
+  #     #Optional
+  #     files: '${{ steps.get_changed_files.outputs.all }}'
+  #   env:
+  #     # Required, set by GitHub actions automatically:
+  #     # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
+  #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
