@@ -9,6 +9,7 @@ Audience
 ---
 
 If you're new to APIs, use this tutorial to return document data from an example tax form.
+This tutorial is very easy to follow and shouldn't be any trouble.
 
 Or, if you're familiar with APIs:
 
