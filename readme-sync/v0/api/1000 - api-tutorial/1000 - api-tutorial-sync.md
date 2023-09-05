@@ -3,7 +3,7 @@ title: "Try synchronous extraction"
 hidden: false
 ---
 
-Try out a test endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously.  Use asynchronous endpoints in production.
+Try out a test endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. Use asynchronous endpoints in production.
 
 Audience
 ---
@@ -16,7 +16,7 @@ Or, if you're familiar with APIs:
 
 - explore the Sensible Postman collection:
 
-![Run in Postman](https://run.pstmn.io/button.svg) 
+![Run in Postman](https://run.pstmn.io/button.svg)
 
 Prerequisites
 ---
@@ -53,7 +53,7 @@ curl --request POST \
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
-   
+
 
 5. Click **Send**. The response includes a `parsed_document` object that looks something like the following:
 
@@ -110,8 +110,3 @@ To see this example in the Sensible app:
 3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the configuration for the API call you just ran:
 
 ![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_app.png)
-
-
-
-
-
