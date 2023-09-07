@@ -28,7 +28,6 @@ Run the request in Postman
 
 To run a Sensible API request in Postman, follow these steps:
 
-
 1. Copy the following code sample, and replace `YOUR_API_KEY` with your API key:
 
 

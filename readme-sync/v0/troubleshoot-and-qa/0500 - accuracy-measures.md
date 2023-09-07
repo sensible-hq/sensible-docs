@@ -37,5 +37,6 @@ Then its quality score is 75% : (18 - 1 - 2) / 20 = 0.75.
 **Notes**
 
 - Sensible excludes fields listed in the Suppress Output method when calculating the quality score.
+- Sensible includes fields output in [sections](doc:sections) when calculating the quality score.
 - The overall quality score for a portfolio document is the average score of all subdocument outputs.
 
