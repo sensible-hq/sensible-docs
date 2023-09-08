@@ -1,5 +1,5 @@
 ---
-title: "Accuracy and quality measures"
+title: "dashboard"
 hidden: true
 ---
 
