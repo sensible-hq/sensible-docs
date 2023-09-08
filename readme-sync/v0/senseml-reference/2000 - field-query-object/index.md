@@ -9,7 +9,7 @@ A field is the basic SenseML query unit for extracting a piece of document data.
 [**Examples**](doc:field-query-object#examples)
 [**Notes**](doc:field-query-object#notes)
 
-Here is a simple example of a field: 
+Here's a simple example of a field: 
 
 ```json
 {
