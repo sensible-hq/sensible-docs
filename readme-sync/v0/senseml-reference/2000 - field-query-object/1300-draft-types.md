@@ -8,9 +8,7 @@ hidden: true
 
 Sensible recognizes paragraphs separated by vertical gaps, or "paragraph breaks." 
 
-Sensible detects paragraph breaks when the vertical gap between two output lines is larger than 40% of the font height of the lower output line. Sensible never detects paragraph breaks at the end of a page. Sensible don't use paragraph margins, for example indentations, to detect paragraph breaks.
-
-
+Sensible detects paragraph breaks when the vertical gap between two output lines is larger than 40% of the font height of the lower output line. Sensible never detects paragraph breaks at the end of a page. Sensible don't use paragraph margins, for example indentations, to detect paragraphs.
 
 **Parameters**
 
