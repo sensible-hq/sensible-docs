@@ -1,5 +1,5 @@
 ---
-title: "SDK introduction"
+title: "intialize"
 hidden: true
 ---
 
