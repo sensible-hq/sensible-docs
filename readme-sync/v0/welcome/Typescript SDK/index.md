@@ -123,6 +123,11 @@ const sensible = new Sensible(apiKey);
 const result = await sensible.waitFor(await sensible.extract({url: github_storage_for_contract, documentType: "contract"}));
 ```
 
+OTHER EXAMPLES:
+
+- portfolio extraction
+- extract at your URL + webhook?
+
 ## Extract function
 
 ### Description
@@ -166,6 +171,8 @@ In this new draft `waitfor` only takes one request and returns one promise so we
 | file              | blob   | the non-encoded document bytes.  Using the Sensible SDK, you can extract document data from the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  https://docs.sensible.so/reference/extract-data-from-a-document.<br/>TODO how to word: using this option generates a Sensible URL for the document like https://docs.sensible.so/reference/generate-upload-url |
 | url               | string | URL that responds to a GET request with the bytes of the document to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.<br/>TODO - what about generating a URL? |
 | documentType      |        |                                                              |
-| configurationName |        |                                                              |
-| OR                |        |                                                              |
+| configurationName |        | use with document type                                       |
+| documentTypes     |        | for portfolio extractions                                    |
+| document_name     |        | why is this snake case? raise it if you see it in the PR TODO |
+| environment       |        |                                                              |
 
