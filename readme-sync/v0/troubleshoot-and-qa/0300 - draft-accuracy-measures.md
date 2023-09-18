@@ -5,7 +5,7 @@ hidden: true
 
 
 
-
+TODO - start adding screenshots and explaining (+ understanding) dashboard
 
 Quality statistics (separate topic?)
 ---
