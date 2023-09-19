@@ -179,7 +179,7 @@ type ExtractionRequest = {
 };
 ```
 
-In this new draft `waitfor` only takes one request and returns one promise so we "folks can use the standard promise machinery to deal with multiple parallel requests" as Josh proposed.For the MVP we could generate a poller for each `waitFor` call, in the future we can create the "smart poller" that Jay proposed without having to change the API.
+
 
 
 
@@ -191,7 +191,7 @@ In this new draft `waitfor` only takes one request and returns one promise so we
 | ----------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
 | file              | blob                                                 | the non-encoded document bytes.  Using the Sensible SDK, you can extract document data from the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  https://docs.sensible.so/reference/extract-data-from-a-document.<br/>TODO how to word: using this option generates a Sensible URL for the document like https://docs.sensible.so/reference/generate-upload-url |
 | url               | string                                               | URL that responds to a GET request with the bytes of the document to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.<br/>TODO - what about generating a URL? |
-| documentType      |                                                      | Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).<br/>As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Then, you can extract data from all these carriers using the same `document_type`, without specifying the carrier in the API request. |
+| documentType      |                                                      | Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).<br/>As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Then, you can extract data from all these carriers using the same document type, without specifying the carrier in the API request. |
 | configurationName |                                                      | use with the Document Type parameter.  If specified, Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type. |
 | documentTypes     |                                                      | Use this parameter with multiple documents that are packaged into one PDF file (a PDF "portfolio"), to specify the document types contained in the PDF portfolio. Sensible then segments the PDF into documents using the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions for each document. |
 | document_name     |                                                      | why is this snake case? raise it if you see it in the PR TODO |
@@ -200,5 +200,7 @@ In this new draft `waitfor` only takes one request and returns one promise so we
 
 ### Response
 
-This function returns structured data extracted from the document. For more information, see https://docs.sensible.so/reference/extract-data-from-a-document and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+ `waitfor` only takes one request and returns one promise so we "folks can use the standard promise machinery to deal with multiple parallel requests" as Josh proposed.For the MVP we could generate a poller for each `waitFor` call, in the future we can create the "smart poller" that Jay proposed without having to change the API.
+
+Once the promise 'resolves' (TODO correct wording),  this function returns structured data extracted from the document. For more information, see https://docs.sensible.so/reference/extract-data-from-a-document and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
