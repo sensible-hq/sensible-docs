@@ -1613,7 +1613,7 @@ components:
       type: string
       format: url
       description:  >-
-        URL that responds to a GET request with the bytes of the document to be extracted.
+        URL that responds to a GET request with the bytes of the document you want to extract data from.
         This URL must be either publicly accessible, or presigned with a security token as part of the URL path.
         To check if the URL meets these criteria, open the URL with a web browser.
         The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.
