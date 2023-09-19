@@ -128,6 +128,27 @@ OTHER EXAMPLES:
 - portfolio extraction
 - extract at your URL + webhook?
 
+This gets you back a JSON payload that includes a `parsed_document` with the following fields:
+
+```json
+{
+  "purchase_price": {
+    "source": "$400,000",
+    "value": 400000,
+    "unit": "$",
+    "type": "currency"
+  },
+  "street_address": {
+    "value": "1234 ABC COURT City of SALT LAKE CITY County of Salt Lake -\nState of Utah, Zip 84108",
+    "type": "address"
+  }
+}
+```
+
+TODO: mimic the structure of the 'developer quickstart'?
+
+For more information about the returned payload response, see https://docs.sensible.so/reference/extract-data-from-a-document and expand both 200 responses to see the model and an example.
+
 ## Extract function
 
 ### Description
@@ -166,13 +187,18 @@ In this new draft `waitfor` only takes one request and returns one promise so we
 
 
 
-| key               | value  | description                                                  |
-| ----------------- | ------ | ------------------------------------------------------------ |
-| file              | blob   | the non-encoded document bytes.  Using the Sensible SDK, you can extract document data from the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  https://docs.sensible.so/reference/extract-data-from-a-document.<br/>TODO how to word: using this option generates a Sensible URL for the document like https://docs.sensible.so/reference/generate-upload-url |
-| url               | string | URL that responds to a GET request with the bytes of the document to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.<br/>TODO - what about generating a URL? |
-| documentType      |        |                                                              |
-| configurationName |        | use with document type                                       |
-| documentTypes     |        | for portfolio extractions                                    |
-| document_name     |        | why is this snake case? raise it if you see it in the PR TODO |
-| environment       |        |                                                              |
+| key               | value                                                | description                                                  |
+| ----------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
+| file              | blob                                                 | the non-encoded document bytes.  Using the Sensible SDK, you can extract document data from the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  https://docs.sensible.so/reference/extract-data-from-a-document.<br/>TODO how to word: using this option generates a Sensible URL for the document like https://docs.sensible.so/reference/generate-upload-url |
+| url               | string                                               | URL that responds to a GET request with the bytes of the document to be extracted. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.<br/>TODO - what about generating a URL? |
+| documentType      |                                                      | Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).<br/>As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Then, you can extract data from all these carriers using the same `document_type`, without specifying the carrier in the API request. |
+| configurationName |                                                      | use with the Document Type parameter.  If specified, Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type. |
+| documentTypes     |                                                      | Use this parameter with multiple documents that are packaged into one PDF file (a PDF "portfolio"), to specify the document types contained in the PDF portfolio. Sensible then segments the PDF into documents using the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions for each document. |
+| document_name     |                                                      | why is this snake case? raise it if you see it in the PR TODO |
+| environment       | `production` or `development`. default: `production` | If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
+| webhook???        |                                                      | Specifies to return extraction results to the defined webhook as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error. |
+
+### Response
+
+This function returns structured data extracted from the document. For more information, see https://docs.sensible.so/reference/extract-data-from-a-document and expand the 200 responses in the middle pane and the left pane to see the model and an example, respectively.
 
