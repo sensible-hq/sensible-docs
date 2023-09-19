@@ -200,5 +200,5 @@ In this new draft `waitfor` only takes one request and returns one promise so we
 
 ### Response
 
-This function returns structured data extracted from the document. For more information, see https://docs.sensible.so/reference/extract-data-from-a-document and expand the 200 responses in the middle pane and the left pane to see the model and an example, respectively.
+This function returns structured data extracted from the document. For more information, see https://docs.sensible.so/reference/extract-data-from-a-document and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 

@@ -772,8 +772,8 @@ components:
         Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).
         To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf).
         As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.
-        For example, if you create an `auto_insurance_quotes` type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs
-        to the type in the Sensible app so that you can extract data from all these carriers using the same `document_type`, without specifying the carrier in the API request.
+        For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs
+        to the document type in the Sensible app. Then, you can extract data from all these carriers using the same document type, without specifying the carrier in the API request.
       schema:
         type: string
       example: senseml_basics
