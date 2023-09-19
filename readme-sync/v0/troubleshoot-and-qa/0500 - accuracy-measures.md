@@ -12,14 +12,16 @@ You can measure the accuracy of data that Sensible extracts from a document in t
 - **OCR confidence scores**: Get a score for the quality of text images. For example, check that text in a scanned or photographed document isn't blurry or illegible.  For more information, see [Validate extractions](doc:validate-extractions).  
 - **Confidence signals**: For data extracted by large-language models (LLMs), Sensible asks the LLM to report any uncertainties it has about the accuracy of the extracted data. For example, an LLM can report that it found multiple answer candidates. For more information, see [Confidence signals](doc:confidence).
 
-- **Quality scores** Sensible scores each extraction using the number of fields extracted versus those defined in the config and other information.  For more information, see the following section.
+- **Extraction coverage:** A percentage comparing non-null to total fields returned by a config for a document. For example, a score of 70% for an extraction means that 30% of fields were null. For more information, see the following section.
 
-Quality scores
+Extraction coverage
 ---
 
-You can view an extraction's quality score through the Sensible API's extraction endpoints, or get daily scores using the [statistics](ref:statistics) endpoint. Sensible calculates the quality score for each extraction as follows:
+Extraction coverage is a measure of how many fields returned null for a document. A low percentage can indicate a poor-quality extraction, or it can indicate that a document type is sparsely filled out. For example, supplemental forms in insurance applications or supplemental schedules in tax forms can return many nulls, since these forms are often left blank. 
 
-`quality score` = (`non-null fields extracted` - `validation penalties` )  ÷  (`total fields extracted`) 
+You can view an extraction's coverage through the Sensible API's extraction endpoints, or get daily coverage using the [statistics](ref:statistics) endpoint. Sensible calculates the coverage  for each extraction as follows:
+
+`coverage` = (`non-null fields extracted` - `validation penalties` )  ÷  (`total fields extracted`) 
 
 Where:
 
@@ -32,11 +34,11 @@ For example, if an extraction has the following properties:
 - num of fields with validation errors = 1
 - num of fields with validation warnings = 4
 
-Then its quality score is 75% : (18 - 1 - 2) / 20 = 0.75. 
+Then its coverage score is 75% : (18 - 1 - 2) / 20 = 0.75. 
 
 **Notes**
 
-- Sensible excludes fields listed in the Suppress Output method when calculating the quality score.
-- Sensible includes fields output in [sections](doc:sections) when calculating the quality score.
-- The overall quality score for a portfolio document is the average score of all subdocument outputs.
+- Sensible excludes fields listed in the Suppress Output method when calculating the score.
+- Sensible includes fields output in [sections](doc:sections) when calculating the score.
+- The overall score for a portfolio document is the average score of all subdocument outputs.
 
