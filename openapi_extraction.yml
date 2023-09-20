@@ -934,7 +934,7 @@ components:
 
     Coverage:
       type: number
-      description: The coverage score is a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields returned by a config for a document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
+      description: The coverage score measures how fully an extraction captured all the data in the document. It's a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields returned by a config for a document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. For more information about scoring, see [Accuracy measures](doc:accuracy-measures).
       example: 0.75
     Environment:
       type: string
