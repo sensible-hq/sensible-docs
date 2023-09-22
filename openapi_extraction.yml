@@ -546,7 +546,7 @@ paths:
       tags:
       - Retrieve extractions
       description: |
-        Returns daily extraction extraction coverage scores per config. Sensible returns statistics for each config that was used for at least one extraction performed in the production environment in the specified time period. For more information about scores, see [Accuracy measures](accuracy-measures).
+        Returns daily extraction coverage scores per config. Sensible returns statistics for each config that was used for at least one extraction performed in the production environment in the specified time period. For more information about scores, see [Accuracy measures](accuracy-measures).
       parameters:
         - $ref: '#/components/parameters/start_date_config'
         - $ref: '#/components/parameters/end_date_config'
