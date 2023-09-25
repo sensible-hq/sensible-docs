@@ -1621,8 +1621,9 @@ components:
     ContentTypeParameter:
       type: string
       enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff"]
+      # If you use this parameter with the `/generate_upload_url` endpoint (recommended), you must also use it in the subsequent PUT call to upload the file.
       description: >-
-        (Recommended) Content type of the document being presented for extraction. This field is optional, but if specified must also be present in the subsequent call to upload the file.
+        Content type of the document being presented for extraction.
 
 
     encodedPdf:
