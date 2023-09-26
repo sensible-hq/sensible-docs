@@ -28,8 +28,6 @@ In the preceding screenshot, get a score breakdown by viewing the extraction. Yo
 
 For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null.
 
-
-
 **View aggregate extraction coverage**
 
 To view aggregate coverage for a configuration's past extractions, click **Dashboard** and scroll to the **Extraction coverage** section:
