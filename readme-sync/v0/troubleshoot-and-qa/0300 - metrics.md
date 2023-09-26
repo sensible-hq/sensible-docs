@@ -71,7 +71,13 @@ To view field counts and validation penalties for an extraction, click the extra
 
 
 
-TODO 
+TODO
+
+explain how in screenshot 1, the `1040_2018` tax form config accounts for 54.7% of all extractions in the last 30 days in the tax_form doc type,
+
+but in screenshot 2, it accounts for 33% of all extractions across tax forms and bank statements.
+
+
 
 
 ## Past extractions
