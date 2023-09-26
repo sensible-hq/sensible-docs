@@ -20,17 +20,17 @@ Extraction coverage is a score that measures how fully an extraction captured al
 
 To view an individual extraction's coverage score, click **Dashboard** and scroll to the **Recent** section:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1_.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1.png)
+
+**View aggregate extraction coverage**
 
 To view aggregate coverage for a configuration's past extractions, click **Dashboard** and scroll to the **Extraction coverage** section:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
+
+In the preceding screenshot, the `wells_fargo_savings` configuration had 0 out of 16 extractions in the coverage range 60% -100%.
 
 
-
- through the Sensible API's extraction endpoints, or get daily coverage using the [statistics](ref:statistics) endpoint.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
 
 **Coverage calculation**
 
@@ -51,11 +51,21 @@ For example, if an extraction has the following properties:
 
 Then its coverage score is 75% : (18 - 1 - 2) / 20 = 0.75. 
 
+To view field counts and validation penalties for an extraction, click the extraction date in the **Created** column in the **Recent extractions** section in the Sensible dashboard.
+
 **Notes**
 
 - Sensible excludes fields listed in the Suppress Output method when calculating the score.
 - Sensible includes fields output in [sections](doc:sections) when calculating the score.
 - The overall score for a portfolio document is the average score of all subdocument outputs.
+
+
+
+
+
+ through the Sensible API's extraction endpoints, or get daily coverage using the [statistics](ref:statistics) endpoint.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
 
 
 
