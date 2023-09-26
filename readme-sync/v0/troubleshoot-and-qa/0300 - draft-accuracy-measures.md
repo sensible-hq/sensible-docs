@@ -5,6 +5,24 @@ hidden: true
 
 
 
+
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
+
+
+
+
+
 TODO - start adding screenshots and explaining (+ understanding) dashboard
 
 Quality statistics (separate topic?)
