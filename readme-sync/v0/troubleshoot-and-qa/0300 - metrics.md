@@ -77,6 +77,14 @@ explain how in screenshot 1, the `1040_2018` tax form config accounts for 54.7% 
 
 but in screenshot 2, it accounts for 33% of all extractions across tax forms and bank statements.
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_1.png)
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_2.png)
+
+
+
 
 
 
@@ -88,12 +96,6 @@ TODO
 
 
 
-
-
-
-
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
 
 
 
