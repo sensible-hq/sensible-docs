@@ -9,8 +9,6 @@ In the Sensible dashboard, you can view the following metrics about your past ex
 - Most-used configurations
 - Extractions count
 
-
-
 Extraction coverage
 ---
 
@@ -28,7 +26,7 @@ To view aggregate coverage for a configuration's past extractions, click **Dashb
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
 
-In the preceding screenshot, the `wells_fargo_savings` configuration had 0 out of 16 extractions in the coverage range 60% -100%.
+In the preceding screenshot, the `wells_fargo_savings` configuration had 0 out of 16 extractions in the past 7 days that scored in the coverage range 60% -100%.
 
 
 
