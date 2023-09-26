@@ -20,7 +20,13 @@ To view an individual extraction's coverage score, click **Dashboard** and scrol
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1.png)
 
-In the preceding screenshot, get more information about a score by viewing the extraction. View the extraction by clicking the extraction date in the **Recent extractions** column, downloading the Excel file, or retrieiving it by its ID using the [Sensible API](ref:retrieving-results). For example, the score of `61.1%` means that 33/54 of total fields outputted were valid and non-null.
+In the preceding screenshot, get more information about a score by viewing the extraction. View the extraction by clicking the extraction date in the **Recent extractions** column, downloading the Excel file, or retrieving the extraction details by its ID using the [Sensible API](ref:retrieving-results). For example,  in the preceding screenshot, the score of `61.1%` means that 33/54 of total fields outputted were valid and non-null, which viewing the extraction in the SenseML editor roughly confirms:
+
+
+
+TODO screenshot.
+
+
 
 **View aggregate extraction coverage**
 
