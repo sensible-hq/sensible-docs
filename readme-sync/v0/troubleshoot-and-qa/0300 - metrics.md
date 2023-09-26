@@ -28,7 +28,7 @@ To view aggregate coverage for a configuration's past extractions, click **Dashb
 
 In the preceding screenshot, the `wells_fargo_savings` configuration had 0 out of 16 extractions in the past 7 days that scored in the coverage range 60% -100%.
 
-
+ You can also view see daily coverage scores using the [statistics](ref:statistics) endpoint.
 
 **Coverage calculation**
 
@@ -61,7 +61,11 @@ To view field counts and validation penalties for an extraction, click the extra
 
 
 
- through the Sensible API's extraction endpoints, or get daily coverage using the [statistics](ref:statistics) endpoint.
+Most-used 
+
+
+
+
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
 
