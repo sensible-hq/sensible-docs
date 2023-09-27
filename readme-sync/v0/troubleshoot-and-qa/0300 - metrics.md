@@ -65,13 +65,15 @@ For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM
 
 ## Most-used 
 
-To view which configurations were used the most for past extractions, click **Dashboard** and scroll to the **Most used** section.
+To view which configurations were used for past extractions, click **Dashboard** and scroll to the **Most used** section:
 
-explain how in screenshot 1, the `1040_2018` tax form config accounts for 54.7% of all extractions in the last 30 days in the `tax_form` document type,
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_1.png)
+
+In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% of extractions in the last 30 days in the `tax_form` document type. 
 
 but in screenshot 2, it accounts for 33% of all extractions across tax forms and bank statements.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_1.png)
+
 
 
 
