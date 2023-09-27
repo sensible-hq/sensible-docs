@@ -14,7 +14,7 @@ Extraction coverage
 
 Extraction coverage is a score that measures how fully an extraction captured all the data in the document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. A low percentage can indicate a poor-quality extraction, or it can indicate that a document type is sparsely filled out. For example, supplemental forms in insurance applications or supplemental schedules in tax forms can return many nulls, since these forms are often left blank.
 
-Since coverage success criteria can vary by document type, you can set your own ranges for each document type in the Sensible app. To set ranges for coverage for past extractions, click **Dashboard** and scroll to the **Extraction coverage** section. Then configure date range, document type, and coverage filters:
+Since coverage success criteria can vary by document type, you can set your own ranges for each document type in the Sensible app. To set ranges for coverage for past extractions, click **Dashboard** and scroll to the **Extraction coverage** section. You can configure date range, document type, and extraction coverage range filters:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
 
@@ -68,9 +68,9 @@ For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM
 
 **Notes**
 
-- Sensible excludes fields listed in the Suppress Output method when calculating the score.
-- Sensible includes fields output in [sections](doc:sections) when calculating the score.
-- The overall score for a portfolio document is the average score of all subdocument outputs.
+- Sensible excludes fields listed in the Suppress Output method when calculating the coverage score.
+- Sensible includes fields output in [sections](doc:sections) when calculating the coverage score.
+- The overall coverage score for a portfolio document is the average score of all subdocument outputs.
 
 ## Most-used 
 
@@ -84,7 +84,7 @@ In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% o
 
 
 ## Past extractions
-TODO
+To view the number of past extractions you've run by document type, click **Dashboard** and scroll to the **Document extracted** section. You can filter by date range, document types, and extraction coverage:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
 
