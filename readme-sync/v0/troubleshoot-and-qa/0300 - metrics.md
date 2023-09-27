@@ -34,7 +34,7 @@ To view which configurations were used for past extractions, click **Dashboard**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_1.png)
 
-In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% of extractions in the last 30 days in the `tax_form` document type. If you adjust the filter to include bank statements as well as tax forms, you see that it was used for 33% of all extractions across the selected document types:
+In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% of extractions in the last 30 days in the `tax_form` document type. If you adjust the filter to include both bank statements and tax forms, you see that it was used for 33% of all extractions across the selected document types:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_2.png)
 
