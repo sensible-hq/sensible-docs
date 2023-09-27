@@ -5,9 +5,9 @@ hidden: true
 
 In the Sensible dashboard, you can view the following metrics about your past extractions:
 
-- Extraction coverage
-- Most-used configurations
-- Extractions count
+- [Extraction coverage](doc:metrics#extraction-coverage)
+- [Most-used configurations](doc:metrics#most-used-configurations)
+- [Documents extracted](doc:metrics#documents-extracted)
 
 Extraction coverage
 ---
@@ -72,7 +72,7 @@ For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM
 - Sensible includes fields output in [sections](doc:sections) when calculating the coverage score.
 - The overall coverage score for a portfolio document is the average score of all subdocument outputs.
 
-## Most-used 
+## Most-used configurations 
 
 To view which configurations were used for past extractions, click **Dashboard** and scroll to the **Most used** section:
 
@@ -83,7 +83,7 @@ In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% o
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_2.png)
 
 
-## Past extractions
+## Documents extracted
 To view the number of past extractions you've run by document type, click **Dashboard** and scroll to the **Document extracted** section. You can filter by date range, document types, and extraction coverage:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
