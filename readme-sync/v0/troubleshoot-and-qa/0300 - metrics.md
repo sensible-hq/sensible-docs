@@ -22,13 +22,11 @@ In the preceding screenshot, 0 out of 16 extractions that used the `wells_fargo_
 
 By examining past extractions by document type, you can determine your own coverage ranges for each document type. For example, if you know that home inspectors typically fill out 60 to 70 out of 100 of your target fields in their reports, you can set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you know that drivers licenses typically have all your target fields filled out, you can set a range of 95%-100% or even 100%-100% to assess extraction success for the `drivers_license` document type.
 
- You can also get daily coverage scores using the Sensible API's [statistics](ref:statistics) endpoint.
-
 To view an individual extraction's coverage score, click **Dashboard** and scroll to the **Recent** section:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1.png)
 
-In the preceding screenshot, get a score breakdown by viewing the extraction. You can view the extraction by clicking the extraction date in the **Recent extractions** column or downloading the Excel file. For more information about how Sensible calculates coverage scores, see [Coverage](doc:coverage).
+In the preceding screenshot, the `Sept 25, 2023 7:30 PM` extraction has a coverage score of `61.1%`.  For more information about how Sensible calculates coverage scores, see [Coverage](doc:coverage).
 
 ## Most-used configurations 
 
