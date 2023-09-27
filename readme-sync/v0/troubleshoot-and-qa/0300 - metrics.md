@@ -22,25 +22,9 @@ In the preceding screenshot, 0 out of 16 extractions that used the `wells_fargo_
 
 By examining past extractions by document type, you can determine your own coverage ranges for each document type. For example, if you know that home inspectors typically fill out 60 to 70 out of 100 of your target fields in their reports, you'd set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you know that 1040 tax forms typically have all your target fields filled out, you'd set a range of 95%-100% or even 100%-100% to assess extraction success for the `tax_form` document type.
 
+ You can also get daily coverage scores using the Sensible API's [statistics](ref:statistics) endpoint.
 
-
-
-
- You can also get daily coverage scores using the Sensible API's [statistics](ref:statistics) endpoint. For more information about how Sensible calculates coverage scores, see **Coverage calculation**. TODO word link better
-
-**View extraction coverage**
-
-To view an individual extraction's coverage score, click **Dashboard** and scroll to the **Recent** section:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1.png)
-
-In the preceding screenshot, get a score breakdown by viewing the extraction. You can view the extraction by:
-
-- clicking the extraction date in the **Recent extractions** column
-- downloading the Excel file
-- retrieving the extraction details by its ID using the [Sensible API](ref:retrieving-results). 
-
-For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null.
+For more information about how Sensible calculates coverage scores, see the following section.
 
 **Coverage calculation**
 
@@ -61,7 +45,17 @@ For example, if an extraction has the following properties:
 
 Then its coverage score is 75% : (18 - 1 - 2) / 20 = 0.75. 
 
-To view field counts and validation penalties for an extraction, click the extraction date in the **Created** column in the **Recent extractions** section in the Sensible dashboard.
+To view an individual extraction's coverage score, click **Dashboard** and scroll to the **Recent** section:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1.png)
+
+In the preceding screenshot, get a score breakdown by viewing the extraction. You can view the extraction by:
+
+- clicking the extraction date in the **Recent extractions** column
+- downloading the Excel file
+- retrieving the extraction details by its ID using the [Sensible API](ref:retrieving-results). 
+
+For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null.
 
 **Notes**
 
