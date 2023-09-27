@@ -14,7 +14,7 @@ Extraction coverage
 
 Extraction coverage is a score that measures how fully an extraction captured all the data in the document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. A low percentage can indicate a poor-quality extraction, or it can indicate that a document type is sparsely filled out. For example, supplemental forms in insurance applications or supplemental schedules in tax forms can return many nulls, since these forms are often left blank.
 
-Since coverage success criteria can vary by document type, you can set your own ranges for each document type in the Sensible app. To set ranges for coverage for past extractions, click **Dashboard** and scroll to the **Extraction coverage** section. Then configure your document type and coverage filters:
+Since coverage success criteria can vary by document type, you can set your own ranges for each document type in the Sensible app. To set ranges for coverage for past extractions, click **Dashboard** and scroll to the **Extraction coverage** section. Then configure date range, document type, and coverage filters:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
 
@@ -65,9 +65,7 @@ For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM
 
 ## Most-used 
 
-
-
-TODO
+To view which configurations were used the most for past extractions, click **Dashboard** and scroll to the **Most used** section.
 
 explain how in screenshot 1, the `1040_2018` tax form config accounts for 54.7% of all extractions in the last 30 days in the `tax_form` document type,
 
