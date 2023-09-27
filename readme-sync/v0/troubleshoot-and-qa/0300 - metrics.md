@@ -18,7 +18,7 @@ Since coverage success criteria can vary by document type, you can set your own 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
 
-In the preceding screenshot, 0 out of 16 extractions that used the `wells_fargo_savings` configuration in the `bank_statements` document type in the past 7 days scored in the coverage range 60% -100%.
+In the preceding screenshot, 0 out of 16 extractions that used the `wells_fargo_savings` configuration in the `bank_statements` document type in the past 7 days scored in the coverage range of 60% -100%.
 
 By examining past extractions by document type, you can determine your own coverage ranges for each document type. For example, if you know that home inspectors typically fill out 60 to 70 out of 100 of your target fields in their reports, you can set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you know that drivers licenses typically have all your target fields filled out, you can set a range of 95%-100% or even 100%-100% to assess extraction success for the `drivers_license` document type.
 

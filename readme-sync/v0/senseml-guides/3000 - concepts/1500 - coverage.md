@@ -5,7 +5,7 @@ hidden: true
 
 **Note:** If you're familiar with coverage scores, this detailed topic is for you. If you're new to Sensible, see [metrics](doc:metrics).
 
- Sensible calculates the coverage score for each extraction as follows:
+Extraction coverage is a score that measures how fully an extraction captured all the data in the document. Sensible calculates the coverage score for each extraction as follows:
 
 `coverage score` = (`non-null fields extracted` - `validation penalties` )  ÷  (`total fields extracted`) 
 
