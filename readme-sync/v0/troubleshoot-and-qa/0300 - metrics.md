@@ -14,6 +14,16 @@ Extraction coverage
 
 Extraction coverage is a score that measures how fully an extraction captured all the data in the document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. A low percentage can indicate a poor-quality extraction, or it can indicate that a document type is sparsely filled out. For example, supplemental forms in insurance applications or supplemental schedules in tax forms can return many nulls, since these forms are often left blank.
 
+For that reason, you can set your own ranges for each document type to assess coverage success. For example, if you know that home inspectors typically fill out 60 to 70 out of 100 of your target fields in their reports, you'd set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you know that 1040 tax forms typically have all your target fields filled out, you'd set a range of 95%-100% or even 100%-100% to assess extraction success for the `tax_form` document type
+
+To set ranges for coverage for past extractions, click **Dashboard** and scroll to the **Extraction coverage** section. Then configure your document type and coverage filters:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
+
+In the preceding screenshot, 0 out of 16 extractions that used the `wells_fargo_savings` configuration in the `bank_statements` document type in the past 7 days scored in the coverage range 60% -100%.
+
+ You can also get daily coverage scores using the Sensible API's [statistics](ref:statistics) endpoint. For more information about how Sensible calculates coverage scores, see **Coverage calculation**. TODO word link better
+
 **View extraction coverage**
 
 To view an individual extraction's coverage score, click **Dashboard** and scroll to the **Recent** section:
@@ -27,16 +37,6 @@ In the preceding screenshot, get a score breakdown by viewing the extraction. Yo
 - retrieving the extraction details by its ID using the [Sensible API](ref:retrieving-results). 
 
 For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null.
-
-**View aggregate extraction coverage**
-
-To view aggregate coverage for a configuration's past extractions, click **Dashboard** and scroll to the **Extraction coverage** section:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage.png)
-
-In the preceding screenshot, the `wells_fargo_savings` configuration had 0 out of 16 extractions in the past 7 days that scored in the coverage range 60% -100%.
-
- You can also view see daily coverage scores using the Sensible API's [statistics](ref:statistics) endpoint.
 
 **Coverage calculation**
 
@@ -65,15 +65,13 @@ To view field counts and validation penalties for an extraction, click the extra
 - Sensible includes fields output in [sections](doc:sections) when calculating the score.
 - The overall score for a portfolio document is the average score of all subdocument outputs.
 
-
-
 ## Most-used 
 
 
 
 TODO
 
-explain how in screenshot 1, the `1040_2018` tax form config accounts for 54.7% of all extractions in the last 30 days in the tax_form doc type,
+explain how in screenshot 1, the `1040_2018` tax form config accounts for 54.7% of all extractions in the last 30 days in the `tax_form` document type,
 
 but in screenshot 2, it accounts for 33% of all extractions across tax forms and bank statements.
 
