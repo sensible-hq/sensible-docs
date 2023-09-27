@@ -49,13 +49,26 @@ To view an individual extraction's coverage score, click **Dashboard** and scrol
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1.png)
 
-In the preceding screenshot, get a score breakdown by viewing the extraction. You can view the extraction by:
+In the preceding screenshot, get a score breakdown by viewing the extraction. You can view the extraction by clicking the extraction date in the **Recent extractions** column or downloading the Excel file.
 
-- clicking the extraction date in the **Recent extractions** column
-- downloading the Excel file
-- retrieving the extraction details by its ID using the [Sensible API](ref:retrieving-results). 
 
-For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null.
+
+For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  in the **Created**  column to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null. Or, you can retrieve the information from the [Sensible API](ref:retrieving-results):
+
+```json
+{
+	"id": "efe99816-0e5b-11eb-b720-295a6fba723e", // extraction ID
+	"validation_summary": {
+		"fields": 54, //total fields
+		"fields_present": 33, //non-null fields
+		"errors": 0, //validation errors and warnings
+		"warnings": 0,
+		"skipped": 0
+	},
+	"coverage": 0.611 // extraction coverage score calculated from validation_summary
+```
+
+
 
 **Notes**
 
@@ -69,11 +82,7 @@ To view which configurations were used for past extractions, click **Dashboard**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_1.png)
 
-In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% of extractions in the last 30 days in the `tax_form` document type. 
-
-but in screenshot 2, it accounts for 33% of all extractions across tax forms and bank statements.
-
-
+In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% of extractions in the last 30 days in the `tax_form` document type. If you adjust the filter to include bank statements as well as tax forms, you see that it was used for 33% of all extractions across the selected document types:
 
 
 
