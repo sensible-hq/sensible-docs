@@ -385,7 +385,7 @@ paths:
 
       parameters:
         - $ref: '#/components/parameters/environment'
-
+        - $ref: '#/components/parameters/document_name'
 
       requestBody:
         content:
@@ -432,6 +432,7 @@ paths:
         For more about extracting from PDF portfolios, see [Extracting from document portfolios](doc:portfolio).
       parameters:
         - $ref: '#/components/parameters/environment'
+        - $ref: '#/components/parameters/document_name'
       requestBody:
         content:
             application/json:

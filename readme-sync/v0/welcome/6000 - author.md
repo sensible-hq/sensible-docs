@@ -25,5 +25,6 @@ SenseML includes Sensible Instruct methods, as well as layout-based methods that
 
 
 
-See the following diagram for an overview of the document landscape, and where Sensible Instruct (LLMs) versus SenseML (rules-based) can determine your extraction approach:
+See the following diagram for an overview of the document structure and variability, and how to determine when to use Sensible Instruct (LLMs) versus SenseML (rules-based) for extractions:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
