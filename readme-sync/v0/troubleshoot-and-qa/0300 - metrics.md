@@ -12,7 +12,7 @@ In the Sensible dashboard, you can view the following metrics about your past ex
 Extraction coverage
 ---
 
-Extraction coverage is a score that measures how fully an extraction captured all the data in the document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of output fields are null. A low percentage can indicate a poor-quality extraction. Or, it can indicate that your documents are sparsely populated with data. For example, if you define many target fields to extract from a supplemental insurance form, but in practice, applicants leave most of the questions blank, then many of your target fields return null and that document type earns a low coverage score.
+Extraction coverage is a score that measures how fully an extraction captured all the data in the document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of output fields are null. A low percentage can indicate a poor-quality extraction. Or, it can indicate that your documents are sparsely populated with data. For example, if you define many target fields to extract from a supplemental insurance form, but in practice, applicants leave most of the questions blank, then the insurance form earns a low coverage score.
 
 Since coverage success criteria can vary by document type, you can set your own ranges for each document type in the Sensible app. To set ranges for coverage for past extractions, click **Dashboard** and scroll to the **Extraction coverage** section. In the section, configure date range, document type, and extraction coverage range filters:
 
