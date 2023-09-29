@@ -1,6 +1,6 @@
 ---
 title: "Metrics"
-hidden: true
+hidden: false
 ---
 
 In the Sensible dashboard, you can view the following metrics about your past extractions:
