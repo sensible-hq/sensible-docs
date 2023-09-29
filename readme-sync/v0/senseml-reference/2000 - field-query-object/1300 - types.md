@@ -702,7 +702,9 @@ For any move in date that is after the 15th of the month, Tenant must pay a full
 
 **Formats recognized** 
 
-Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
+Sensible recognizes paragraphs separated by vertical gaps, or "paragraph breaks." 
+
+Sensible detects paragraph breaks when the vertical gap between two lines is larger than 40% of the font height of the output line. Sensible never detects paragraph breaks at the end of a page. Sensible don't use paragraph margins, for example indentations, to detect paragraphs.
 
 Configurable syntax
 ----
@@ -736,14 +738,13 @@ When you set`"annotateSuperscriptAndSubscript": true` , Sensible formats the foo
 }
 ```
 
-**Parameters**
+**Parameters**Parameters**
 
 | key                             | value                   | description                                                  |
 | ------------------------------- | ----------------------- | ------------------------------------------------------------ |
 | id (**required**)               | `paragraph`             |                                                              |
 | annotateSuperscriptAndSubscript | Boolean. default: false | When true, Sensible annotates subscript and superscript text with `[^...]` and `[_...]`, respectively. |
-
-
+| allNewlines                     | Boolean. default: false | When true, Sensible inserts a newline (`\n`) in the output for every line break in the document text, and two newlines (`\n\n`), for every paragraph break.<br/>When false, Sensible inserts a newline for every paragraph break.<br/>For information about newline versus paragraph breaks, see the preceding **Formats recognized** section. |
 
 Percentage
 ====
