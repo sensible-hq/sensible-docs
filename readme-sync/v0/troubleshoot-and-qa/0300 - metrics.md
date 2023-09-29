@@ -20,13 +20,15 @@ Since coverage success criteria can vary by document type, you can set your own 
 
 In the preceding screenshot, 0 out of 16 extractions that used the `wells_fargo_savings` configuration in the `bank_statements` document type in the past 7 days scored in the coverage range of 60% -100%.
 
-To determine your own coverage success criteria, examine your past extractions. For example, suppose you find that home inspectors typically report about 60 out of your 100 target data points. You can set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you find that drivers licenses typically contain all your target data points, you can set a range of 95%-100% or even 100%-100% to assess extraction success for the `drivers_license` document type.
+To determine your own coverage criteria, examine your past extractions. For example, suppose you find that home inspectors typically report about 60 out of your 100 target data points. You can set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you find that drivers licenses typically contain all your target data points, you can set a range of 95%-100% or even 100%-100% to assess extraction success for the `drivers_license` document type.
 
 To view an individual extraction's coverage score, click **Dashboard** and scroll to the **Recent** section:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_coverage_1.png)
 
-In the preceding screenshot, the `Sept 25, 2023 7:30 PM` extraction has a coverage score of `61.1%`.  For more information about how Sensible calculates coverage scores, see [Coverage](doc:coverage).
+In the preceding screenshot, the `Sept 25, 2023 7:30 PM` extraction has a coverage score of `61.1%`.
+
+ For more information about how Sensible calculates coverage scores, see [Coverage](doc:coverage).
 
 ## Most-used configurations 
 
