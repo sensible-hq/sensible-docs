@@ -3,7 +3,7 @@ title: "Metrics"
 hidden: false
 ---
 
-In the Sensible dashboard, you can view the following metrics about your past extractions:
+In the Sensible dashboard, you can view the following metrics about your extractions in real time:
 
 - [Extraction coverage](doc:metrics#extraction-coverage)
 - [Most-used configurations](doc:metrics#most-used-configurations)
