@@ -1,6 +1,6 @@
 ---
 title: "Extraction coverage"
-hidden: true
+hidden: false
 ---
 
 **Note:** If you're familiar with extraction coverage, this detailed topic is for you. If you're new to Sensible, see [metrics](doc:metrics).
