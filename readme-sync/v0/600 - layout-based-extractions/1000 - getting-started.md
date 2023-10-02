@@ -252,7 +252,7 @@ Try it out: change the question to `"what's the street address for the Anyco ins
 
 You can write natural-language methods powered by large-language models (LLMs), such as the Query method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started with AI-powered extractions](doc:getting-started-ai).
 
-Natural-language methods can run up against limitations with highly complex document formatting, or layouts. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
+Natural-language methods can run up against limitations with complex document formatting. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 
 Let's look next at several simple layout-based methods.
 
