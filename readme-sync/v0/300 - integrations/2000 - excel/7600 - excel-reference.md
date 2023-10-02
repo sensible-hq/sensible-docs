@@ -3,6 +3,13 @@ title: "SenseML to spreadsheet reference"
 hidden: false
 ---
 
+Introduction
+----
+
+If you're trying to convert a PDF into an Excel spreadsheet, you often find tools that copy the PDF's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
+
+In contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. You can convert documents formatted as PDFs, PNGs, TIFFs, and JPEGs.
+
 This topic describes the rules Sensible uses to:
 
 - convert data extracted from one document, such as a PDF, into an Excel spreadsheet or CSV file.
@@ -10,6 +17,18 @@ This topic describes the rules Sensible uses to:
 - combine data extracted from multiple documents into one spreadsheet
 
 Sensible extracts the data as JSON using a SenseML configuration, then applies the rules to create spreadsheet data such as tables, labeled columns, and linked sheets.
+
+Prerequisites
+----
+
+
+To get a document's data into a spreadsheet, you must first:
+
+- Configure extractions for a document type, either by authoring an extraction configuration using Sensible, or by using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
+
+- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction). 
+
+
 
 
 CSV files
@@ -19,6 +38,8 @@ To generate CSV files, Sensible uses the same rules described in the following s
 
 Multi-document spreadsheet
 ====
+
+To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
 
 To combine document extractions into one spreadsheet file, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
 
@@ -383,4 +404,10 @@ The following JSON extraction output is the source for this spreadsheet:
 
 
 
+Next
+----
+
+
+- For a tutorial about converting a PDF to an Excel sheet using the Sensible app, see [Getting started with out-of-the-box extraction](doc:excel-quickstart).
+- To get started with extracting from your custom documents, see [Overview](doc:overview).
 

@@ -1,36 +1,69 @@
 ---
-title: "Excel overview"
+title: "Quick extract"
 hidden: false
 
 ---
 
-Introduction
-----
-
-If you're trying to convert a PDF into an Excel spreadsheet, you often find tools that copy the PDF's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
-
-In contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. You can convert documents formatted as PDFs, PNGs, TIFFs, and JPEGs.
-
-Prerequisites
-----
 
 
-To get a document's data into a spreadsheet, you must first:
+The following tutorial shows you how to use "quick extract" to upload documents for extraction to Sensible.
 
-- Configure extractions for a document type, either by authoring an extraction configuration using Sensible, or by using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
+**Note:** Bulk uploads are coming soon.
 
-- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction). 
+# Quick extractions
 
-Compile PDFs into one spreadsheet
-----
+Sensible provides you with pre-configured extraction prompts and sample documents. Let's use an existing example to demonstrate how quickly you can extract data.
 
-To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
+**Coming soon:** Bulk upload for quick extractions
+
+ In this tutorial you'll learn to:
+
+- upload new bank statements
+- automatically extract from them using the config
+- download the extracted data as Excel.
+
+Take the following steps:
+
+1. Download the following PDF document:
+
+| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
+   1. In the dropdown in the right pane, select `sensible_instruct_basics / Auto select` . The document type, `sensible_instruct_basics`, contains configs for bank statements and other document types such as resumes and contracts.  When you specify `Auto select`,  Sensible automatically chooses the bank config when you upload a bank statement.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
+
+2. Click **Upload document** and select the document you downloaded in a previous step.
+
+3. Click **Run Extraction**.
+
+4. Sensible displays the extracted data as JSON in the right pane. Click the **Download excel** to convert the extracted document data to Excel:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
+
+  The following spreadsheet shows the example output. The first tab contains fields with single values, for example the start date field, and succeeding tabs contain fields with table output, for example, the account list table. 
+
+[block:html]
+{
+  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:200px}</style>"
+}
+[/block]
 
 
-Next
-----
+**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
+
+**NOTE:** Bulk upload for documents is coming soon. TO DO WORD BETTER
 
 
-- For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](doc:excel-reference).
-- For a tutorial about converting a PDF to an Excel sheet using the Sensible app, see [Getting started with out-of-the-box extraction](doc:excel-quickstart).
-- To get started with extracting from your custom documents, see [Overview](doc:overview).
+
+
+
+
+
+
+
+
+
+
+- 
