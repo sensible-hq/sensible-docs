@@ -3,7 +3,7 @@ title: "Getting started with out-of-the-box extractions"
 hidden: false
 ---
 
-If you want to extract from any of the following document types:
+If you want to extract from any of the following document types, then you can get started in minutes using the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). The library provides out-of-the-box support for common business forms:
 
 - auto policy declaration pages
 - balance sheets
@@ -17,8 +17,6 @@ If you want to extract from any of the following document types:
 - resumes
 - tax forms
 - ....and more
-
-Then you can get started in minutes using the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library), which provides out-of-the-box support for common business forms.
 
 In this quickstart, extract data from an example tax form PDF and convert the document data to a spreadsheet using the configuration library. 
 
