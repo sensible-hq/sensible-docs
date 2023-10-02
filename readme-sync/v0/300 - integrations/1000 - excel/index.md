@@ -12,13 +12,13 @@ The following tutorial shows you how to use "quick extract" to upload documents 
 
 # Quick extractions
 
-Sensible provides you with pre-configured extraction prompts and sample documents. Let's use an existing example to demonstrate how quickly you can extract data.
+Let's use example documents to show how to quickly extract data.
 
 **Coming soon:** Bulk upload for quick extractions
 
  In this tutorial you'll learn to:
 
-- upload new bank statements
+- upload new bank statements to the Sensible app
 - automatically extract from them using the config
 - download the extracted data as Excel.
 
