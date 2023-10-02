@@ -1,5 +1,5 @@
 ---
-title: "Developer quickstart"
+title: "API quickstart"
 hidden: false
 
 ---
