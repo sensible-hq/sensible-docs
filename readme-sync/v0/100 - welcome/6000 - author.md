@@ -3,7 +3,7 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-This topic describes how to choose between SenseML and Sensible Instruct for extracting data from a set of similar documents.
+This topic describes how to choose between rules-based and large-language model (LLM)-based document extraction strategies.
 
 **Note:**  If your document types are listed in Sensible's [open-source configuration library](https://app.sensible.so/library), they come with out-of-the-box support. You can use these pre-authored configurations as-is, or tweak them as necessary to extract from your documents.
 
@@ -25,6 +25,6 @@ SenseML includes Sensible Instruct methods, as well as layout-based methods that
 
 
 
-See the following diagram for an overview of the document structure and variability, and how to determine when to use Sensible Instruct (LLMs) versus SenseML (rules-based) for extractions:
+See the following diagram for an overview of document structure and variability, and how to determine when to use Sensible Instruct (LLMs) or SenseML (rules-based) query languages for extractions:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
