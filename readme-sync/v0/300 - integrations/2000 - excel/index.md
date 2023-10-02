@@ -55,15 +55,6 @@ Take the following steps:
 
 **NOTE:** Bulk upload for documents is coming soon. TO DO WORD BETTER
 
+##  Next
 
-
-
-
-
-
-
-
-
-
-
-- 
+- For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
