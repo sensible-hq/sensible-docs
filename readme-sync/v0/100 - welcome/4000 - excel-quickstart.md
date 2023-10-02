@@ -3,7 +3,24 @@ title: "Getting started with out-of-the-box extractions"
 hidden: false
 ---
 
-In this quickstart, extract data from an example tax form PDF and convert the document data to a spreadsheet, using Sensible's out-of-the-box support for common business forms. 
+If you want to extract from any of the following document types:
+
+- auto policy declaration pages
+- balance sheets
+- bank statements
+- closing disclosures
+- credit card statements
+- driers licenses
+- explanation of benefits
+- loss runs
+- pay stubs
+- resumes
+- tax forms
+- ....and more
+
+Then you can get started in minutes using the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library), which provides out-of-the-box support for common business forms.
+
+In this quickstart, extract data from an example tax form PDF and convert the document data to a spreadsheet using the configuration library. 
 
 - If you instead want a guided tour for extracting data from your own custom documents, see [Overview](doc:overview) for choosing an extraction strategy.
 
