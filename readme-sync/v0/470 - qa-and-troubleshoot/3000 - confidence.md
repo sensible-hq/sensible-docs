@@ -1,5 +1,5 @@
 ---
-title: "Qualify LLM accuracy"
+title: "Qualifying LLM accuracy"
 hidden: false
 ---
 

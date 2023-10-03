@@ -1,5 +1,5 @@
 ---
-title: "Validate extractions"
+title: "Validating extractions"
 hidden: false
 ---
 
