@@ -3,7 +3,7 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-As you move to production, you can optimize extraction performance versus configuration-writing effort by using Sensible's advanced extraction strategies. Sensible recommends using large-language model (LLM) enabled extractions for free-form, highly variable documents, and layout-based, or "rule-based", extraction strategies for structured, less variable documents. 
+As you move to production, you can optimize extraction performance versus configuration-writing effort by balancing different extraction strategies. Sensible recommends using large-language model (LLM) enabled extractions for free-form, highly variable documents, and layout-based, or "rule-based", extraction strategies for structured, less variable documents. 
 
 See the following diagram for an overview of document structure and variability, and how to determine when to use Sensible Instruct (LLMs) or SenseML (rules-based) query languages for extractions:
 
@@ -19,16 +19,10 @@ TODO: callout to the config library
 
 **Note:**  If your document types are listed in Sensible's [open-source configuration library](https://app.sensible.so/library), they come with out-of-the-box support. You can use these pre-authored configurations as-is, or tweak them as necessary to extract from your documents.
 
-LLMs versus layout-based extractions
----
 
-You can author an extraction configuration, or "config", using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, from complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.
 
-SenseML includes Sensible Instruct methods, as well as layout-based methods that use rules and heuristics to extract data. You can mix and match Sensible Instruct and SenseML in a config.
-
-|                              | Sensible Instruct                                            | SenseML                                                      |
+|                              | LLM (Sensible Instruct)                                      | Layout-based (SenseML)                                       |
 | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Powered by                   | LLMs                                                         | Rules-based                                                  |
 | Technical expertise required | For nontechnical users. Describe what you want to extract using natural language.  For example, "the policy period" or "total amount invoiced". | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium." |
 | Workflow automation          | Suited to workflows that include human review or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
 | Document variability         | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Offers faster performance for  structured documents with a finite number of variations, where you know the layout of the document in advance. |
@@ -37,3 +31,18 @@ SenseML includes Sensible Instruct methods, as well as layout-based methods that
 
 
 
+LLMs versus layout-based extractions
+---
+
+You can author an extraction configuration, or "config", using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, from complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.
+
+SenseML includes Sensible Instruct methods, as well as layout-based methods that use rules and heuristics to extract data. You can mix and match Sensible Instruct and SenseML in a config.
+
+|      |      |      |
+| ---- | ---- | ---- |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
