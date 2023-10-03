@@ -3,13 +3,9 @@ title: "Prompt tips"
 hidden: false
 ---
 
-TODO: flatten out these methods for now?
+TODO rewrite intro
 
-TODO: rename: 'extracting tables', 'extracting lists', 'extracting queries' ... (probably won't have a ton)
-
-Configure document data extractions using Sensible Instruct, powered by large-language models (LLM) such as GPT-4. 
-
-Sensible Instruct is an AI-powered subset of *SenseML*, Sensible's JSON-based document extraction query language. By combining Sensible Instruct and SenseML, you can extract data from a range of document types, from highly structured business forms to unstructured research documents.
+Write prompts for large-language models (LLM)  to configure document data extractions. Sensible's prompt-authoring environment is called Sensible Instruct. Sensible Instruct is an AI-powered subset of *SenseML*, Sensible's JSON-based document extraction query language. By combining Sensible Instruct and SenseML, you can extract data from a range of document types, from highly structured business forms to unstructured research documents.
 
 See the following topics for tips on configuring extractions in Sensible Instruct:
 
