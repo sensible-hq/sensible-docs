@@ -6,18 +6,16 @@ hidden: false
 
 TODO rewrite The following tutorial shows you how to use "quick extract" to upload documents for extraction to Sensible.
 
-**Note:** Bulk uploads are coming soon.
+**Note:** Bulk uploads are coming soon. TODO work on this note
 
 # Quick extractions
 
 Let's use example documents to show how to quickly extract data.
 
-**Coming soon:** Bulk upload for quick extractions
-
  In this tutorial you'll learn to:
 
 - upload new bank statements to the Sensible app
-- automatically extract from them using a config TODO explain this?
+- automatically extract from them using an example config 
 - download the extracted data as Excel.
 
 Take the following steps:
@@ -50,8 +48,6 @@ Take the following steps:
 
 
 **Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
-
-**NOTE:** Bulk upload for documents is coming soon. TO DO WORD BETTER
 
 ##  Next
 
