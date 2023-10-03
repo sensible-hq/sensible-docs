@@ -5,25 +5,21 @@ hidden: false
 
 # Introduction
 
-Welcome! Sensible extracts structured data from documents, for example,  business forms in PDF format. 
-
-Sensible uses an collection of prompts, or "config",  to extract data from a collection of similar documents that you send to Sensible, either through our app or through our API.
-
-Sensible offers a platform for document data extraction:
+Welcome! Use Sensible to extract structured data from documents, for example, business forms in PDF format. With the Sensible platform, you can pre-process documents to ensure clean formatting, extract data from tables, lists, checkboxes, and other document primitives, measure extraction accuracy during post-processing, and integrate.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
 
-In this getting started guide, we'll look at using an LLM method to extract data from a bank statement. 
+Sensible uses your description of the target data, or a "config",  to extract data from a collection of similar documents that you send to Sensible. In this getting started guide, learn to describe your target data using large-language model (LLM) prompts.
 
 # Get data from a bank statement
 
-Let's get started with Sensible Instruct! Sensible Instruct makes it easy to specify the data you want to extract from documents.
+Let's get started with extracting document data from a bank statement. We'll use a large-language model (LLM) prompt to make it easy.
 
  In this guide, you'll:
 
-- Extract data from an example PDF by prompting an LLM. 
-- Publish your prompt.
-- Test your prompt against a second, similar PDF to ensure it extracts the same target data.
+- Extract data from an example PDF by prompting an LLM with a natural-language description of the data you want to extract. 
+- Publish your prompt as part of a "config".
+- Test your config against a second, similar PDF to ensure it extracts the same target data.
 
 # Get an account
 
@@ -39,15 +35,15 @@ Let's get started with Sensible Instruct! Sensible Instruct makes it easy to spe
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
 
-2. Take the following steps to edit the config to extract more data from the document.
+Take the following steps to edit the config to extract more data from the document.
 
 ## Extract an account number from a bank statement
 
-3. To extract a single data point from the document, click **Query**.
+1. To extract a single data point from the document, click **Query**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
-- Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field. Give the query an ID, `account_num_checking` then click the **Send** icon:
+2. Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field. Give the query an ID, `account_num_checking` then click the **Send** icon:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
