@@ -3,7 +3,9 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-As you move to production, you can optimize extraction performance versus configuration-writing effort by balancing different extraction strategies. Sensible recommends using large-language model (LLM) enabled extractions for free-form, highly variable documents, and layout-based, or "rule-based", extraction strategies for structured, less variable documents. 
+TODO rewrite
+
+As you go to production, you can optimize extraction performance versus configuration-writing effort by balancing different extraction strategies. Sensible recommends using large-language model (LLM) enabled extractions for free-form, highly variable documents, and layout-based, or "rule-based", extraction strategies for structured, less variable documents. 
 
 See the following diagram for an overview of document structure and variability, and when to use Sensible Instruct (LLMs) or SenseML (rules-based) query languages for extractions:
 
