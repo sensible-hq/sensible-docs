@@ -17,7 +17,7 @@ Let's use example documents to show how to quickly extract data.
  In this tutorial you'll learn to:
 
 - upload new bank statements to the Sensible app
-- automatically extract from them using the config
+- automatically extract from them using a config TODO explain this?
 - download the extracted data as Excel.
 
 Take the following steps:

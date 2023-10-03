@@ -81,4 +81,5 @@ Next
 ===
 
 - See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples)
+- If you're new to APIs, see [API tutorials](doc:api-tutorials)
 - To get started with authoring extraction configurations, or configs, for your custom documents, see [Overview](doc:overview).

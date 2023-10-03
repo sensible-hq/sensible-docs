@@ -8,8 +8,8 @@ Put your extracted document data to work with integrations. Sensible offers the 
 | method                     | description                                                  | notes                                                        |
 | -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Quick extract](doc:excel) | Drag and drop documents for extraction through the Sensible app. | The easiest integration option. Bulk document uploading coming soon. |
-| [Zapier](doc:)             |                                                              |                                                              |
-|                            |                                                              |                                                              |
+| [Zapier](doc:zapier)       | Transform data in PDFs and other documents into emails, databases, Google sheets, and other supported Zapier destinations. |                                                              |
+| [API](doc:)                |                                                              |                                                              |
 
 
 
