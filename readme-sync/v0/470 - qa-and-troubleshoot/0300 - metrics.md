@@ -1,5 +1,5 @@
 ---
-title: "Metrics"
+title: "Monitoring extractions"
 hidden: false
 ---
 

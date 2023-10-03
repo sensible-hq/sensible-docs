@@ -1,5 +1,5 @@
 ---
-title: "Sensible Instruct authoring tips"
+title: "Sensible Instruct overview"
 hidden: false
 ---
 
