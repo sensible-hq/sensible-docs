@@ -32,11 +32,11 @@ In order of largest to smallest impact, these factors add seconds to the ideal d
 | ---------------------------------------------- | ------------------------------------------------------------ |
 | OCR preprocessor                               | Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr). |
 | Tables with stops,<br/>Nearest Checkbox method | Sensible process tables that include a Stop parameter in less than 5 seconds. Or, convert to the faster [Fixed table](doc:fixed-table) method, which skips table recognition. |
-| NLP methods                                    | NLP methods are AI-powered and include [Sensible Instruct](doc:instruct) methods |
+| NLP methods                                    | NLP methods are large-language model (LLM)-powered and include [Sensible Instruct](doc:instruct) methods |
 
  **Under 1 second per document**
 
-Some Sensible methods use pixels, for example to recognize borders. Pixel recognition for PDF documents requires rendering a PDF page, which can take a couple hundred milliseconds. To improve processing time, use coordinate-based alternatives to these methods. 
+Some Sensible methods use pixels, for example to recognize borders. Pixel recognition for PDF documents requires rendering a PDF page, which can take hundreds of milliseconds. To improve processing time, use coordinate-based alternatives to these methods. 
 
 | Factor                                                       | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
