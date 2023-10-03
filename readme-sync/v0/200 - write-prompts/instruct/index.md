@@ -1,5 +1,5 @@
 ---
-title: "Sensible Instruct overview"
+title: "Prompt tips"
 hidden: false
 ---
 
