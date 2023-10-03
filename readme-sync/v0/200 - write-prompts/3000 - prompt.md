@@ -3,6 +3,8 @@ title: "Advanced prompt configuration"
 hidden: false
 ---
 
+TODO: links to tips not to SenseML ref?
+
 You can configure the full prompt that Sensible inputs to a large-language model (LLM). You can apply configurations to multiple fields in a config, and you can override them for individual fields.
 
 When you write a prompt in a Sensible Instruct method, Sensible combines your prompt with other information to create the full prompt it submits to a large-language model (LLM). The full prompt includes:
@@ -41,7 +43,7 @@ Parameters
 ===
 
 
-| SenseML parameter      | value                                                        | config-level description:<br/>configure in [NLP preprocessor](doc:nlp) | method-level description:<br/>configure in a field           |
+| SenseML parameter      | value                                                        | config-level description:<br/>configure in [NLP preprocessor](doc:nlp) or in Sensible app | method-level description:<br/>configure in a field           |
 | :--------------------- | :----------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | promptIntroduction     | string. default: the prompt introduction default varies for each Sensible Instruct method. | Overwrites the default text at the beginning of the full prompt that Sensible submits to the LLM. <br/> This parameter applies to each method of a specified type in a config.<br/>The default for the prompt introduction differs for each Sensible Instruct method. For more information and for an example, see [NLP](doc:nlp) preprocessor.<br/>**Note**: If you set the Confidence Signals parameter to true, Sensible ignores this parameter and instead uses a nonconfigurable introduction that prompts for confidence signals. | Overrides config-level parameter for a single field.<br/> For more information, see the Sensible Instruct reference topic for the method you want to edit, for example, [List](doc:list#parameters). |
 | confidenceSignals      | boolean.<br/>defaults: true in  Sensible Instruct editor,<br/> false in SenseML editor | If specified, Sensible prompts the LLM to report any uncertainties it has about the accuracy of its response.  For more information, see [Confidence signals](doc:confidence).<br/>Applies to each supported method in the config. Sensible currently supports this parameter for the [Query](doc:query) method. | Overrides config-level parameter for a single field.         |
