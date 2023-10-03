@@ -84,7 +84,7 @@ Now it's time to integrate and eventually scale up to extracting from many docum
 
 TODO: link to "integrating" topic.
 
-## Out-of-the-box extractions
+## Out-of-the-box extractions <-- todo reduce to next link not separate link
 
 Evaluate if the documents you're interested in are already in our config library. if so move onto integrating. If not, see creating your own prompts. TODO: where does extraction approach fit into this? 
 
