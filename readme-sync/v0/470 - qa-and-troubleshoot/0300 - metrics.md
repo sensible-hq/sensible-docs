@@ -1,5 +1,5 @@
 ---
-title: "Monitoring extractions"
+title: "Monitor real-time extractions"
 hidden: false
 ---
 

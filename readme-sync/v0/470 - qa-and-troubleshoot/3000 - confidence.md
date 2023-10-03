@@ -1,5 +1,5 @@
 ---
-title: "Confidence signals"
+title: "Qualify LLM accuracy"
 hidden: false
 ---
 
