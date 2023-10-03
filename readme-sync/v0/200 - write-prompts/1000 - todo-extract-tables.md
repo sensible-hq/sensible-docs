@@ -18,35 +18,7 @@ Use this tutorial if you want a guided tour of configuring AI-powered document e
 - TODO REWRITE THIS STUFF? You can mix and match Sensible Instruct methods with SenseML methods for advanced config authoring. SenseML is a superset of Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction approach](doc:author). For authoring in SenseML, see [Getting started with SenseML](doc:getting-started).
 - If you want to explore without much explanation, [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app example extractions. For links to the examples, see [AI-powered resources](doc:no-code).
 
-## Extract a table
 
-To extract a table from an example document, take the following steps:
-
-REWRITE: NAVIGATE TO TODOLINK
-
-1. Click  **Table**.
-
-2. Configure the table extraction using the following screenshot and instructions:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_4.png)
-
-| Field name                  | Method | Overall table description     | Column IDs and descriptions                                                                              |
-| --------------------------- | ------ | ----------------------------- | -------------------------------------------------------------------------------------------------------- |
-| savings_transaction_history | Table  | "savings transaction history" | **date** - "date"<br/><br/>**description** - "description without totals"<br/><br/>**amount** - "amount" |
-
-Click the **Send** icon for each column.
-
-3. To verify the extracted data, scroll down in the right pane and compare the **Extracted data** section to the document in the left pane:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_5.png)
-
-4. (**Optional**) To standardize the representation of the extracted dates and dollar amounts, configure `date` and `currency` types as shown in the following screenshots:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_6.png)
-
-   You should see that the formatting of the extracted data changes according to the types you specified. For example, Sensible reformats the date `04/11/23` to a standardized output format, `2023-04-11`:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
 
 # TODO: add LIST method
 

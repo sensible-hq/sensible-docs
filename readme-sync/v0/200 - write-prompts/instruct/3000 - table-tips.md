@@ -20,6 +20,41 @@ Examples
 ===
 
 Example 1
+---
+
+TODO REWRITE into example format and make clear this uses pre-existing doc
+
+To extract a table from an example document, take the following steps:
+
+REWRITE: NAVIGATE TO TODOLINK
+
+1. Click  **Table**.
+
+2. Configure the table extraction using the following screenshot and instructions:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_4.png)
+
+| Field name                  | Method | Overall table description     | Column IDs and descriptions                                  |
+| --------------------------- | ------ | ----------------------------- | ------------------------------------------------------------ |
+| savings_transaction_history | Table  | "savings transaction history" | **date** - "date"<br/><br/>**description** - "description without totals"<br/><br/>**amount** - "amount" |
+
+Click the **Send** icon for each column.
+
+3. To verify the extracted data, scroll down in the right pane and compare the **Extracted data** section to the document in the left pane:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_5.png)
+
+4. (**Optional**) To standardize the representation of the extracted dates and dollar amounts, configure `date` and `currency` types as shown in the following screenshots:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_6.png)
+
+   You should see that the formatting of the extracted data changes according to the types you specified. For example, Sensible reformats the date `04/11/23` to a standardized output format, `2023-04-11`:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_7.png)
+
+
+
+Example 2
 ----
 
 The following example shows using the Table method to extract data from an auto insurance document:
