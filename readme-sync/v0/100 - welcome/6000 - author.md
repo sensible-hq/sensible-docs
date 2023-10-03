@@ -3,7 +3,11 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-TODO: new intro that lays out 'as you scale up, you'll encounter more document complexities and might need additional extraction strategies other than LLMs..."
+As you move to production, you can optimize extraction performance versus configuration-writing effort by using Sensible's advanced extraction strategies. Sensible recommends using large-language model (LLM) enabled extractions for free-form, highly variable documents, and layout-based, or "rule-based", extraction strategies for structured, less variable documents. 
+
+See the following diagram for an overview of document structure and variability, and how to determine when to use Sensible Instruct (LLMs) or SenseML (rules-based) query languages for extractions:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
 
 josh todo framing: framing benefits of layout-based is performance and complexity and determinism in prod...if your docs fit in layout frameowkr, generally recommend to go that route
 
@@ -11,13 +15,11 @@ TODO: callout to the config library
 
 *This topic describes how to choose between rules-based and large-language model (LLM)-based document extraction strategies.*
 
-See the following diagram for an overview of document structure and variability, and how to determine when to use Sensible Instruct (LLMs) or SenseML (rules-based) query languages for extractions:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
 
 **Note:**  If your document types are listed in Sensible's [open-source configuration library](https://app.sensible.so/library), they come with out-of-the-box support. You can use these pre-authored configurations as-is, or tweak them as necessary to extract from your documents.
 
-LLMs versus layout-based
+LLMs versus layout-based extractions
 ---
 
 You can author an extraction configuration, or "config", using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, from complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.
