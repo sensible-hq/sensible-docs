@@ -4,9 +4,7 @@ hidden: false
 
 ---
 
-
-
-The following tutorial shows you how to use "quick extract" to upload documents for extraction to Sensible.
+TODO rewrite The following tutorial shows you how to use "quick extract" to upload documents for extraction to Sensible.
 
 **Note:** Bulk uploads are coming soon.
 

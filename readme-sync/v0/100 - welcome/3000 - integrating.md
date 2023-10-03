@@ -3,11 +3,17 @@ title: "Integrating"
 hidden: false
 ---
 
-Start integrating to put your document extractions to work. 
+Put your extracted document data to work with integrations. Sensible offers the the following integration options: 
 
-To integrate, you have the following options:
+| method                     | description                                                  | notes                                                        |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Quick extract](doc:excel) | Drag and drop documents for extraction through the Sensible app. | The easiest integration option. Bulk document uploading coming soon. |
+| [Zapier](doc:)             |                                                              |                                                              |
+|                            |                                                              |                                                              |
 
-- "Quick extract": upload documents to extract through the Sensible app (bulk uploads coming soon)
+
+
+- "Quick extract": upload documents to extract through the Sensible app
 - Zapier
 - SDKs
 - API
