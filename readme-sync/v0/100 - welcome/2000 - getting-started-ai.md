@@ -5,11 +5,14 @@ hidden: false
 
 # Introduction
 
-Welcome! Use Sensible to extract structured data from documents, for example, business forms in PDF format. With the Sensible platform, you can pre-process documents to ensure clean formatting, extract data from tables, lists, checkboxes, and other document primitives, measure extraction accuracy during post-processing, and integrate.
+Welcome! Use Sensible to extract structured data from documents, for example, business forms in PDF format. With the Sensible platform, you can:
+
+-  pre-process document formatting to ensure clean extractions
+- extract data from tables, lists, checkboxes, and other document primitives
+- measure extraction accuracy during post-processing
+- integrate
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
-
-Sensible uses your description of the target data, or a "config",  to extract data from a collection of similar documents that you send to Sensible. In this getting started guide, learn to describe your target data using large-language model (LLM) prompts.
 
 # Get data from a bank statement
 
