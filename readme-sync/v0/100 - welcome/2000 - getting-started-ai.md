@@ -20,7 +20,7 @@ Let's get started with extracting document data from a bank statement. We'll use
 
  In this guide, you'll:
 
-- Extract data from an example PDF by prompting an LLM with a natural-language description of the data you want to extract. 
+- Extract data from an example PDF using a natural-language description of your target data 
 - Publish your prompt as part of a "config".
 - Test your config against a second, similar PDF to ensure it extracts the same target data.
 
