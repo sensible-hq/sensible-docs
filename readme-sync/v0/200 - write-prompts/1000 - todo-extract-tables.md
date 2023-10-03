@@ -24,15 +24,7 @@ Use this tutorial if you want a guided tour of configuring AI-powered document e
 
 # TODO: add an advanced param??
 
-# (Optional) Extract more data
 
-Try extracting other pieces of information using what you learned in previous steps, such as:
-
-- The bank address or customer address
-- The Spanish-speaking customer service phone number
-- The time period for each account. **Hint:** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
-
-When you're done making changes, publish the config to save your changes.
 
 WHAT"S NEXT?
 

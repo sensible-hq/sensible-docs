@@ -3,6 +3,8 @@ title: "Getting started"
 hidden: false
 ---
 
+TODO: heading levels all consistent?
+
 # Introduction
 
 Welcome! Use Sensible to extract structured data from documents, for example, business forms in PDF format. With the Sensible platform, you can:
@@ -78,6 +80,16 @@ Let's find out if the config containing your prompt works with other bank statem
 It looks like your prompt was successful at extracting the checking account number from another document. Great! 
 
 Now it's time to integrate and eventually scale up to extracting from many document using the same config. 
+
+# (Optional) Extract more data
+
+Try extracting other pieces of information using what you learned in previous steps, such as:
+
+- The bank address or customer address
+- The Spanish-speaking customer service phone number
+- The time period for each account. **Hint:** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
+
+When you're done making changes, publish the config to save your changes.
 
 ## Next
 
