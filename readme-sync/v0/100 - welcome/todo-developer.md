@@ -3,6 +3,8 @@ title: "Developer resources"
 hidden: false
 ---
 
+TODO: integrate w/ 'integrating' topic?
+
 Get started with advanced document extraction configuration, API keys, and integrations.
 
 Get started and integrate
