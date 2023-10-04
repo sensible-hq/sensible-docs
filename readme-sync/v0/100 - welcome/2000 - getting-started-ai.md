@@ -101,7 +101,7 @@ When you're done making changes, publish the config to save your changes.
   - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
   - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
 
-- [Sensible Instruct tips](doc:instruct)
+- [Prompt tips](doc:instruct)
 
 **Integrate**
 
