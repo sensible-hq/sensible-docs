@@ -3,22 +3,7 @@ title: "Getting started"
 hidden: false
 ---
 
-TODO: heading levels all consistent?
-
-# Introduction
-
-Welcome! Use Sensible to extract structured data from documents, for example, business forms in PDF format. With the Sensible platform, you can:
-
--  pre-process document formatting to ensure clean extractions
-- extract data from tables, lists, checkboxes, and other document primitives
-- measure extraction accuracy during post-processing
-- integrate
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
-
-# Get data from a bank statement
-
-Let's get started with extracting document data from a bank statement. We'll use a large-language model (LLM) prompt to extract a checking account number.
+Let's get started with extracting document data from an example bank statement. We'll use a large-language model (LLM) prompt to extract a checking account number.
 
  In this guide, you'll:
 

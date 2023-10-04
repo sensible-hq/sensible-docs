@@ -5,13 +5,13 @@ hidden: false
 
 TODO rewrite
 
-As you go to production, you can optimize extraction performance versus configuration-writing effort by balancing different extraction strategies. 
+As you scale up, you can optimize extraction performance versus the effort you put into writing extraction configurations.  As part of this optimization, choose between LLMs or rules-based extraction methods.
 
-See the following diagram for an overview of document structure and variability, and when to use Sensible Instruct (LLMs) or SenseML (rules-based) query languages for extractions:
+See the following diagram for an overview of document structure and variability, and when to use Sensible Instruct (LLMs) or SenseML (rules-based) for extractions:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
 
-Sensible recommends using large-language model (LLM) extraction prompts for free-form, highly variable documents, and layout-based, or "rule-based", extraction queries for structured, less-variable documents.  In between the extremes, you can mix and match both strategies, since they're fully compatible with each other. When either strategy can work, Sensible recommends layout-based queries for the sake of fast performance and deterministic output. 
+Sensible recommends using large-language model (LLM) extraction prompts for free-form, highly variable documents, and layout-based, or "rule-based", extraction queries for structured, less-variable documents.  You can mix and match both strategies, since they're fully compatible with each other. When either strategy can work, Sensible recommends layout-based queries for the sake of fast performance and deterministic output. 
 
 See the following table for an overview of the pros and cons of LLMs versus layout-based extraction:
 
