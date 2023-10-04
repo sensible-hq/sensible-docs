@@ -41,7 +41,7 @@ Prompt Tips
 Troubleshooting
 ----
 
-- For information about troubleshooting error messages about prompts, see [Confidence signals](doc:confidence).
+- For information about troubleshooting error messages about prompts, see [Qualifying LLM accuracy](doc:confidence).
 
 - You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query#notes).
 
