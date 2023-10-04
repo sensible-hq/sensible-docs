@@ -5,7 +5,7 @@ hidden: false
 
 TODO rewrite
 
-As you scale up, you can optimize extraction performance versus the effort you put into writing extraction configurations.  As part of this optimization, choose between LLMs or rules-based extraction methods.
+As you scale up, you'll need to balance extraction performance versus the effort you put into writing extraction configurations.  As part of this optimization, choose between LLMs or rules-based extraction methods.
 
 See the following diagram for an overview of document structure and variability, and when to use Sensible Instruct (LLMs) or SenseML (rules-based) for extractions:
 

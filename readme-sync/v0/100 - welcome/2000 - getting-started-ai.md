@@ -66,7 +66,7 @@ To publish your config, click **Publish**, click **Production**, then click **Pu
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
-# Test the prompt TODO: Test the extraction configuration?
+# Extract from a second document
 
 Let's find out if the config containing your prompt works with other bank statements. To test the config against a second example document, take the following steps:
 
@@ -94,11 +94,16 @@ When you're done making changes, publish the config to save your changes.
 
 ## Next
 
-TODO: link to "integrating" topic.
+**Learn more about extracting**
 
-## Out-of-the-box extractions <-- todo reduce to next link not separate link
+- Explore interactive example document extractions: 
+  - [Bank statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement)
+  - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
+  - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
 
-Evaluate if the documents you're interested in are already in our config library. if so move onto integrating. If not, see creating your own prompts. TODO: where does extraction approach fit into this? 
+- [Sensible Instruct tips](doc:instruct)
 
-- Integrate
+**Integrate**
+
+
 
