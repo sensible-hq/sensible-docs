@@ -88,7 +88,7 @@ Try extracting other pieces of information using what you learned in previous st
 
 - The bank address or customer address
 - The Spanish-speaking customer service phone number
-- The time period for each account. **Hint:** To extract repeating data that isn't in table format, use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
+- The time period for each account. **Hint:** Use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
 
 When you're done making changes, publish the config to save your changes.
 
@@ -96,7 +96,7 @@ When you're done making changes, publish the config to save your changes.
 
 **Learn more about extracting**
 
-- Explore interactive example document extractions: 
+- Explore extracting lists, tables, and queries with interactive example document extractions: 
   - [Bank statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement)
   - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
   - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
