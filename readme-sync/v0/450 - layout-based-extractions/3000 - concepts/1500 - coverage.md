@@ -3,7 +3,7 @@ title: "Extraction coverage"
 hidden: false
 ---
 
-**Note:** If you're familiar with extraction coverage, this detailed topic is for you. If you're new to Sensible, see [metrics](doc:metrics).
+**Note:** If you're familiar with extraction coverage, this detailed topic is for you. If you're new to Sensible, see [Monitoring extractions](doc:metrics).
 
 Extraction coverage measures how fully an extraction captures your target data from the document. Sensible calculates the coverage for each extraction as follows:
 

@@ -1,5 +1,5 @@
 ---
-title: "List extraction tips"
+title: "List tips"
 hidden: false
 ---
 This Sensible Instruct method extracts repeating data in a document based on your description of the list’s overall contents and each individual item. Data such as the work history or skills on a resume, the vehicles on an auto insurance policy, or the line items on an invoice are best suited for this method. 
