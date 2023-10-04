@@ -13,7 +13,7 @@ Welcome! Use Sensible to extract structured data from documents, for example, bu
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
 
-TODO rewrite: Sensible uses an extraction configuration, or "config",  to extract data from a collection of similar documents that you send to Sensible. You can configure extractions from a variety of documents, from highly structured business forms to unstructured legal or research papers. You have the following options for configuring your extractions:
+Sensible uses an extraction configuration to extract data from a collection of similar documents that you send to Sensible. You can configure extractions from a variety of documents, from highly structured business forms to unstructured legal or research papers. You have the following options for configuring your extractions:
 
 | document category          | document example   | notes                                                        | get started                                                  |
 | -------------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
