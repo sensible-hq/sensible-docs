@@ -9,7 +9,7 @@ You can then save your descriptions as a "config." Publish your config to automa
 
 Use this tutorial if you want a guided tour of SenseML concepts and the Sensible app. Or see the following links:
 
-- SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Getting started with AI-powered extraction](doc:getting-started-ai).
+- SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Getting started](doc:getting-started-ai).
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials. For links to the tutorials, see [Developer resources](doc:developer).
 - If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
@@ -250,7 +250,7 @@ This config returns:
 
 Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
 
-You can write natural-language methods powered by large-language models (LLMs), such as the Query method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started with AI-powered extractions](doc:getting-started-ai).
+You can write natural-language methods powered by large-language models (LLMs), such as the Query method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
 
 Natural-language methods can run up against limitations with complex document formatting. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 
