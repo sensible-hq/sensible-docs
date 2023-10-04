@@ -15,7 +15,7 @@ For the current version number of this SDK, see [SDK Compatibility Matrix](https
 
 ### Quickstart
 
-To get up and running quickly, see the [Quickstart](https://docs.developers.optimizely.com/full-stack-experimentation/docs/python-quickstart).
+To get up and running quickly, see the [API quickstart](https://docs.developers.optimizely.com/full-stack-experimentation/docs/python-quickstart).
 
 ### Reference
 

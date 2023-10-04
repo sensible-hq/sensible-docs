@@ -42,7 +42,7 @@ paths:
 
         To explore this endpoint, use this interactive API reference, or use one of the following options:
 
-        - For a quick "hello world" response to this endpoint, see the [quickstart](doc:quickstart)
+        - For a quick "hello world" response to this endpoint, see the [API quickstart](doc:quickstart)
         - For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).
         - Run this endpoint in the Sensible Postman collection.
           [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)

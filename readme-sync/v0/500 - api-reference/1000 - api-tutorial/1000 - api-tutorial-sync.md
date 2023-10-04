@@ -12,7 +12,7 @@ If you're new to APIs, use this tutorial to return document data from an example
 
 Or, if you're familiar with APIs:
 
-- see the [quickstart](doc:quickstart) to get a sample API response.
+- see the [API quickstart](doc:quickstart) to get a sample API response.
 
 - explore the Sensible Postman collection:
 

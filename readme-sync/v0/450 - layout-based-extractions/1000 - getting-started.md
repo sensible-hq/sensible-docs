@@ -12,7 +12,7 @@ Use this tutorial if you want a guided tour of SenseML concepts and the Sensible
 - SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Getting started with AI-powered extraction](doc:getting-started-ai).
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials. For links to the tutorials, see [Developer resources](doc:developer).
-- If you want a quick "hello world" API response, see the [quickstart](doc:quickstart).
+- If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
 
 Get structured data from an auto insurance quote
 ===
