@@ -17,6 +17,8 @@ Welcome! Use Sensible to extract structured data from documents, for example, bu
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
 
+TODO: here are the broad steps you'd need to get started, and we're focusing on step # x.  
+
 # Learn to extract data
 
 Let's get started with extracting document data from an example bank statement. We'll use a large-language model (LLM) prompt to extract a checking account number.
