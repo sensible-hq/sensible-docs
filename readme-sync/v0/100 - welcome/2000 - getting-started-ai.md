@@ -13,7 +13,7 @@ Welcome! Use Sensible to extract structured data from documents, for example, bu
 -  pre-process document formatting to ensure clean extractions
 -  extract data from tables, lists, checkboxes, and other document primitives
 -  measure extraction accuracy during post-processing
--  Integrate with our API
+-  Integrate using our API or other tools
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
 
