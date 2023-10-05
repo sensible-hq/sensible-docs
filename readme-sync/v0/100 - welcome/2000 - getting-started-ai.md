@@ -17,7 +17,16 @@ Welcome! Use Sensible to extract structured data from documents, for example, bu
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
 
-TODO: here are the broad steps you'd need to get started, and we're focusing on step # x.  
+See the following list for an overview of the steps to take to go live with Sensible:
+
+- Learn to extract data, or use one of our out-of-the-box extraction configurations for supported document types
+- Publish and test your extraction configurations in a dev environment
+- Integrate using our API,  quick extract UI, or other tools
+- Configure Sensible's quality-control tools
+- Monitor extraction quality in a dev environment
+- Go live to production
+
+This guide gets you started with the first step in the preceding list. TODO: the two lists overlap
 
 # Learn to extract data
 
