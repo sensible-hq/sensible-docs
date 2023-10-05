@@ -20,11 +20,9 @@ Welcome! Use Sensible to extract structured data from documents, for example, bu
 See the following list for an overview of the steps to take to go live with Sensible:
 
 - Learn to extract data, or use one of our out-of-the-box extraction configurations for supported document types
-- Publish and test your extraction configurations in a dev environment
 - Integrate using our API,  quick extract UI, or other tools
-- Configure Sensible's quality-control tools
-- Monitor extraction quality in a dev environment
-- Go live to production
+- Configure Sensible's tools for quality control of extracted data
+-  Monitor in production 
 
 This guide gets you started with the first step in the preceding list. TODO: the two lists overlap
 
