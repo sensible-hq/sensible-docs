@@ -755,16 +755,7 @@ components:
       schema:
         $ref: '#/components/schemas/ExtractionId'
 
-    # TODO: follow up on  https://sensiblehq.slack.com/archives/C0215T9K86P/p1686933600795399
-    # configuration:
-    #   name: document_type
-    #   required: false
-    #   in: path
-    #   description: |
-    #     User-friendly name of the config (SenseML query) to use to extract the structured data.
-    #     If you specify this parameter, you override Sensible's default behavior of automatically choosing the best config in the document type that fits the submitted document.
-    #   schema:
-    #     $ref: '#/components/schemas/ConfigurationName'
+
     document_type:
       name: document_type
       required: true

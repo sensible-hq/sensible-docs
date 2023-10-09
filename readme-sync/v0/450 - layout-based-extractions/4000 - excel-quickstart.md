@@ -3,7 +3,6 @@ title: "Out-of-the-box extractions"
 hidden: false
 ---
 
-TODO: better wording
 
 If you want to extract from any of the following document types, then you can get started in minutes using the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). The library provides out-of-the-box support for common business forms:
 
@@ -20,4 +19,4 @@ If you want to extract from any of the following document types, then you can ge
 - tax forms
 - ....and more
 
-For a quickstart on extracting from these document types, see the [Quick extract](doc:excel) tutorial.
+For more information, see the [Quick extract](doc:excel) tutorial.
