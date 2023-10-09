@@ -6,7 +6,7 @@ hidden: false
 Overview
 ---
 
-Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle the most complex and idiosyncratic document formatting with Sensible's powerful document primitives.
+Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.
 
 
 
@@ -16,8 +16,8 @@ See the following list for an overview of going live with Sensible:
 
 - **Learn** to extract data, or use out-of-the-box supported document types
 - [**Integrate**](doc:integrate) using our API,  quick-extract UI, or other tools
-- **Quality control** extracted data
--  **Monitor** extracted data in production 
+- [**Quality control**](doc:validate-extractions) extracted data
+-  [**Monitor**](doc:metrics) extracted data in production 
 
 This guide gets you started with the first step in the preceding list.
 
