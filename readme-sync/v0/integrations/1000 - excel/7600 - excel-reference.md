@@ -26,7 +26,7 @@ To get a document's data into a spreadsheet, you must first:
 
 - Configure extractions for a document type, either by authoring an extraction configuration using Sensible, or by using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
 
-- Run an extraction on a target document that belongs to your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction). 
+- Run an extraction on a target document that's in your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction). 
 
 
 
