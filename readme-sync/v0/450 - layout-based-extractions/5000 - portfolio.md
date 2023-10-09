@@ -1,5 +1,5 @@
 ---
-title: "Multi-document extractions"
+title: "Multi-document extraction"
 hidden: false
 ---
 
