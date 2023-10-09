@@ -3,6 +3,8 @@ title: "Getting started with layout-powered extractions"
 hidden: false
 ---
 
+TODO 
+
 In this tutorial, you'll learn to extract data out of a set of similar documents using a layout-based query language, SenseML. You'll write JSON to tell Sensible about which data to extract from an example document, using what you know about the layout of the document. SenseML uses a mix of techniques, including machine learning, heuristics, and rules, to extract your target information.
 
 You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.   
