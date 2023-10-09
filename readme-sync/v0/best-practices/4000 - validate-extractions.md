@@ -15,7 +15,7 @@ Then write your own logic based on the validations, for example:
 - pass a document extraction automatically through your pipeline if there are no errors and 10% of warning validations fail
 - flag a document extraction for human review if 5% of error validations fail
 
-Sensible uses validation errors to calculate a [quality score](doc:accuracy-measures) for an extraction.
+Sensible uses validation errors to calculate [coverage](doc:metrics) for an extraction.
 
 Create validations
 ----
