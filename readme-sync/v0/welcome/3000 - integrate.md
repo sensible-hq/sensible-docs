@@ -3,7 +3,7 @@ title: "Integrating"
 hidden: false
 ---
 
-Put your extracted document data to work with integrations. Sensible offers the the following integration options for automating extractions and transforming the output: 
+Put your extracted document data to work with integrations. Sensible offers the the following integration options for automating extractions: 
 
 | method                         | getting started                               | description                                                  |
 | ------------------------------ | --------------------------------------------- | ------------------------------------------------------------ |
