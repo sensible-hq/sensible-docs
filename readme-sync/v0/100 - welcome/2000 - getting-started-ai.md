@@ -96,12 +96,14 @@ When you're done making changes, publish the config to save your changes.
 
 ## Next
 
-**Learn more about extracting**
+**Learn to extract**
 
 - Explore extracting lists, tables, and single data points with interactive examples: 
   - [Bank statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement)
   - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
   - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
+
+- See [prompt authoring tips](doc:instruct)
 
 - For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
 
