@@ -10,7 +10,7 @@ In this quickstart, use an example SenseML configuration and example PDF to get 
 
 
 
-- To get started with extracting from your custom documents, see [Overview](doc:overview).
+- To get started with extracting from your custom documents, see [Getting Started](doc:getting-started-ai).
 
 
 
@@ -81,5 +81,5 @@ Next
 ===
 
 - See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples)
-- If you're new to APIs, see [API tutorials](doc:api-tutorials)
-- To get started with authoring extraction configurations, or configs, for your custom documents, see [Overview](doc:overview).
+- If you're new to APIs, see [API tutorials](doc:api-tutorial)
+- To get started with authoring extraction configurations, or configs, for your custom documents, see [Getting Started](doc:getting-started-ai).
