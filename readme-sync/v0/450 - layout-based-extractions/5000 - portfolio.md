@@ -1,13 +1,15 @@
 ---
-title: "Extracting from document portfolios"
+title: "Multi-document extractions"
 hidden: false
 ---
 
 Sometimes a single PDF file contains multiple documents (a PDF "portfolio"). For example, a PDF portfolio might contain an invoice, a tax document, and a contract. 
 
-In this case, it's best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type. In order for Sensible to handle the portfolio in one API extraction request, specify the following:
+In this case, it's best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
 
-- In each config for the documents in the portfolio, use a fingerprint to define text matches on specified pages of the document.  Sensible uses the fingerprint to find the page range of each document in the portfolio that fits a given config. 
+In order for Sensible to handle the portfolio in one API extraction request, specify the following:
+
+- In each config for the documents in the portfolio, use [fingerprints](doc:fingerprint) to define text matches on specified pages of the document.  Sensible uses the fingerprint to find the page range of each document in the portfolio that fits a given config. 
 
 - Use [Generate upload URL for portfolio](https://docs.sensible.so/reference/generate-upload-url-portfolio) or [Extract from URL for portfolio](https://docs.sensible.so/reference/extract-from-url-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes document extractions and their page ranges in the portfolio.
 
