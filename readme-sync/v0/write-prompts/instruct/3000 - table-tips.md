@@ -22,7 +22,7 @@ Examples
 Example 1
 ---
 
-TODO: double check steps for example 1 (rewritten)
+
 
 The following example shows using the Table method to extract data from a bank statement:
 
