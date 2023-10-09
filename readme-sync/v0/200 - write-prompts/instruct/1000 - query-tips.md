@@ -23,8 +23,8 @@ Prompt Tips
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
 - You can narrow down your search and disambiguate between multiple possible answers by adding location information to prompts:
-
-  ​       **Location relative to page number and position on page**
+    
+	**Location relative to page number and position on page**
 
   - "address in the **top left of the first page** of the document"
 
