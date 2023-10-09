@@ -1,10 +1,10 @@
 ---
-title: "Quick extract"
+title: "Quick extraction"
 hidden: false
 
 ---
 
-The following tutorial shows you how to use "quick extract" to upload documents for extraction to Sensible.
+The following tutorial shows you how to use the **Quick extraction** tab in the Sensible app to upload documents for extraction to Sensible.
 
 **Note:** A bulk file upload feature is coming soon.
 
