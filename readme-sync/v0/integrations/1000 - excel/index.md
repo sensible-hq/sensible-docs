@@ -8,10 +8,6 @@ The following tutorial shows you how to use the **Quick extraction** tab in the 
 
 **Note:** A bulk file upload feature is coming soon.
 
-# Quick extractions
-
-Let's use example documents to show how to quickly extract data.
-
  In this tutorial you'll learn to:
 
 - upload new bank statements to the Sensible app
