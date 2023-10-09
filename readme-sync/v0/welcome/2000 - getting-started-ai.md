@@ -19,7 +19,7 @@ See the following list for an overview of going live with Sensible:
 - [**Quality control**](doc:validate-extractions) extracted data
 -  [**Monitor**](doc:metrics) extracted data in production 
 
-This guide gets you started with the first step in the preceding list.
+This guide gets you started with the first step, learning to extract data.
 
 # Learn to extract data
 
