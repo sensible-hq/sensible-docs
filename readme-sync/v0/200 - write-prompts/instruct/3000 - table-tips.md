@@ -7,9 +7,9 @@ This Sensible Instruct method extracts a table in a document based on your descr
 
 **Prompt Tips**
 
-- Try extracting all columns to get the best results. If you describe only a few of the columns, your results may be less accurate.
+- Extract all columns to get the best results. If you describe only a few of the columns, your results may be less accurate.
 
-- Try using the table titles or table column headers in the document as descriptions.
+- Use the table titles or table column headers in the document as descriptions.
 
 - For more information about how to write descriptions, or "prompts", see [Query extraction tips](doc:query-tips).
 
@@ -22,17 +22,21 @@ Examples
 Example 1
 ---
 
-TODO REWRITE into example format and make clear this uses pre-existing doc
+TODO: double check steps for example 1 (rewritten)
 
-To extract a table from an example document, take the following steps:
-
-REWRITE: NAVIGATE TO TODOLINK
-
-1. Click  **Table**.
-
-2. Configure the table extraction using the following screenshot and instructions:
+The following example shows using the Table method to extract data from a bank statement:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_4.png)
+
+To try out this example in the Sensible app, take the following steps: 
+
+1. Navigate to the following example PDF:
+
+   | Example PDF | [https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement) |
+   | ----------- | ------------------------------------------------------------ |
+
+2. Create fields to extract data using the following table:
+
 
 | Field name                  | Method | Overall table description     | Column IDs and descriptions                                  |
 | --------------------------- | ------ | ----------------------------- | ------------------------------------------------------------ |
