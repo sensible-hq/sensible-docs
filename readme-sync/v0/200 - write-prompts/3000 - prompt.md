@@ -3,7 +3,6 @@ title: "Advanced prompt configuration"
 hidden: false
 ---
 
-TODO: links to tips not to SenseML ref?
 
 You can configure the full prompt that Sensible inputs to a large-language model (LLM). You can apply configurations to multiple fields in a config, and you can override them for individual fields.
 
@@ -11,9 +10,9 @@ When you write a prompt in a Sensible Instruct method, Sensible combines your pr
 
 - a prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunks, see the Notes section.
-- concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list) or [Query](doc:query) methods.
+- concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list-tips) or [Query](doc:query-tips) methods.
 
-See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:query) method: 
+See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:query-tips) method: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
@@ -25,7 +24,7 @@ See the following image for an example of a full prompt that Sensible inputs to 
 | B    | Overall description of the chunks.<br/>The preceding image shows an example of a user-configured context description overriding the default. | Context Description                                          |
 | C    | Page metadata for chunks.                                    | Page Hinting                                                 |
 | D    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (currently supported for Query method)<br/> |
-| E    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
+| E    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table-tips) method. | Description                                                  |
 
 You can configure all of these parameters in the SenseML editor and in the Sensible Instruct editor. For example, the following screenshots show prompt settings in Sensible Instruct for a Query field: 
 
@@ -64,5 +63,5 @@ For an overview of how Sensible Instruct methods work, see the following steps.
 3. Sensible creates a full prompt for the LLM that includes the context and the descriptive prompts you configure in the method. For an example of a full prompt, see the beginning of this topic.
 4. Sensible returns the LLM's response.
 
-For specifics about how each Sensible instruct method works, see the Notes section for each method, for example, [List](doc:list#notes) method.
+For specifics about how each Sensible instruct method works, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
 
