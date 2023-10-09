@@ -78,7 +78,7 @@ Let's find out if the config containing your prompt works with other bank statem
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-3248` to `987612345`: 
+2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-3248` to `9876-12345`: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
 
@@ -88,7 +88,7 @@ It looks like your prompt was successful at extracting the checking account numb
 
 Try extracting other pieces of information using what you learned in previous steps, such as:
 
-- The bank address or customer address
+- The customer's address
 - The Spanish-speaking customer service phone number
 - The time period for each account. **Hint:** Use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
 
@@ -98,14 +98,16 @@ When you're done making changes, publish the config to save your changes.
 
 **Learn more about extracting**
 
-- Explore extracting lists, tables, and queries with interactive example document extractions: 
+- Explore extracting lists, tables, and queries with interactive examples: 
   - [Bank statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement)
   - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
   - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
 
-- [Prompt tips](doc:instruct)
+- Explore advanced extraction scenarios
 
 **Integrate**
+
+- [Integrating](doc:integrate)
 
 
 
