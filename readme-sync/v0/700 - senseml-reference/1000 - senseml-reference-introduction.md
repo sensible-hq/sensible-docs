@@ -21,7 +21,7 @@ See the following pages for reference documentation for the SenseML query langua
 
 Or, for a getting started tutorial, see:
 
-- [Getting started with layout-based extraction](doc:getting-started)
+- [Getting started with layout-powered extraction](doc:getting-started)
 
 Examples
 ====
