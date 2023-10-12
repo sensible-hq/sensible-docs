@@ -31,7 +31,7 @@ Config
 
 - **config content:**
 
-The config is the same as the one used in the [Getting started with layout-powered extractions](doc:getting-started), with the addition of the following fingerprint:
+The config is the same as the one used in the [Getting started with layout-based extractions](doc:getting-started), with the addition of the following fingerprint:
 
 ```
   "fingerprint": {

@@ -1,5 +1,5 @@
 ---
-title: "Getting started with layout-powered extractions"
+title: "Getting started with layout-based extractions"
 hidden: false
 ---
 
