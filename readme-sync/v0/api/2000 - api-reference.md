@@ -2,5 +2,5 @@
 title: "API reference"
 hidden: false
 ---
-For starter code calling the Sensible API, see the [code example repo](https://github.com/sensible-hq/sensible-code-examples).
+To integrate Sensible with your application, see the [API reference](https://docs.sensible.so/reference).
 
