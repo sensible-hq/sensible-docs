@@ -3,13 +3,13 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-As you scale up and encounter more document complexity, you can optimize your extraction strategy. As part of this optimization, choose between LLMs or rules-based extraction methods.
+As you scale up and encounter more document complexity, you can optimize your extraction strategy. As part of this optimization, choose between LLMs or layout-based extraction methods.
 
 See the following diagram for an overview of document structure and variability, and when to use Sensible Instruct (LLMs) or SenseML (layout-based) for extractions: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
 
-Sensible recommends using large-language model (LLM) prompts for free-form, highly variable documents, and layout-based, or "rule-based" queries for structured, less-variable documents.  You can mix and match both strategies, since they're fully compatible with each other. 
+Sensible recommends using large-language model (LLM) prompts for free-form, highly variable documents, and layout-based, or "rule-based" queries for structured, less-variable documents.  You can combine both strategies since they're fully compatible with each other. 
 
 See the following table to learn more about extraction strategies:
 
