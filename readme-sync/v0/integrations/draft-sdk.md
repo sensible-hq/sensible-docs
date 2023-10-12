@@ -1,12 +1,17 @@
 ---
-title: "SDK introduction"
+title: "Typescript SDK"
 hidden: true
 ---
 
 This topic gives an overview and links to the Sensible Typescript SDK.
 
-Overview
----
+
+
+Initialize
+
+
+
+## Overview
 
 Use Sensible's Typescript SDK to extract structured data from documents.
 
@@ -32,14 +37,7 @@ These 3 lines of code perform the following before delivering the structured dat
 - use an existing config to extract the document. You've got to write the config yourself
 - send the info to a webhook or back to you
 
-
-
 Similarly, you can also classify documents with the Sensible SDK [TODO LINK] 
-
-
-
-
-
 
 This reference guide describes how to use the Sensible Typescript SDK.
 
@@ -66,8 +64,6 @@ For reference docs, see the left-hand navigation, or start off with [Install SDK
 - [Python SDK repo](https://github.com/optimizely/python-sdk)
 - [changelog](https://github.com/optimizely/python-sdk/blob/master/CHANGELOG.md)
 
-
-
 # Install SDK
 
 ```typescript
@@ -80,29 +76,20 @@ Replace `CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME` with the **A
 
 - On Mac or Linux:
 
-  
-
   ```
   export CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
   ```
 
 - On Windows:
 
-  
-
   ```
   set CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
   ```
 
-
 Important
-
-
 
 - When writing your own applications, follow your organization's policy on storing secrets and don't expose your API secret.
 - If you use a method that involves writing your environment variable to a file (e.g. `dotenv`), the file should be excluded from your version control system, so as not to expose it publicly.
-
-
 
 # Example Usage (for typescript extract)
 
@@ -147,7 +134,7 @@ This gets you back a JSON payload that includes a `parsed_document` with the fol
 
 TODO: mimic the structure of the 'developer quickstart'?
 
-For more information about the returned payload response, see https://docs.sensible.so/reference/extract-data-from-a-document and expand both 200 responses to see the model and an example.
+For more information about the returned payload response, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand both 200 responses to see the model and an example.
 
 ## Extract function
 
@@ -179,17 +166,11 @@ type ExtractionRequest = {
 };
 ```
 
-
-
-
-
 ### Parameters
-
-
 
 | key               | value                                                | description                                                  |
 | ----------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
-| file              | blob                                                 | One of two options for submitting the document you want to extract data from.<br/> Pass the non-encoded document bytes.  You can extract document data from the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  https://docs.sensible.so/reference/extract-data-from-a-document.<br/>TODO how to word: Using this option automatically uploads the file to a `download_url` URL that Sensible generates. You'll get the `download_url` in the response. |
+| file              | blob                                                 | One of two options for submitting the document you want to extract data from.<br/> Pass the non-encoded document bytes.  You can extract document data from the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  <https://docs.sensible.so/reference/extract-data-from-a-document>.<br/>TODO how to word: Using this option automatically uploads the file to a `download_url` URL that Sensible generates. You'll get the `download_url` in the response. |
 | url               | string                                               | One of two options for submitting the document you want to extract data from.<br/>URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication. |
 | documentType      |                                                      | Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).<br/>As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Then, you can extract data from all these carriers using the same document type, without specifying the carrier in the API request. |
 | configurationName |                                                      | use with the Document Type parameter.  If specified, Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type. |
@@ -202,5 +183,4 @@ type ExtractionRequest = {
 
  `waitfor` only takes one request and returns one promise so we "folks can use the standard promise machinery to deal with multiple parallel requests" as Josh proposed.For the MVP we could generate a poller for each `waitFor` call, in the future we can create the "smart poller" that Jay proposed without having to change the API.
 
-Once the promise 'resolves' (TODO correct wording),  this function returns structured data extracted from the document. For more information, see https://docs.sensible.so/reference/extract-data-from-a-document and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
-
+Once the promise 'resolves' (TODO correct wording),  this function returns structured data extracted from the document. For more information, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
