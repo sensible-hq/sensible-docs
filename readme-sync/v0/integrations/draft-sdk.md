@@ -5,7 +5,11 @@ hidden: true
 
 ## Overview
 
-This topic providers of the Sensible Typescript SDK. Use this SDK to extract structured data from documents.
+Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.
+
+This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
+
+Sensible offers
 
 
 
@@ -13,9 +17,11 @@ This topic providers of the Sensible Typescript SDK. Use this SDK to extract str
 
 
 
+TODO: make sure beginners are comfy by talking about test directory and test `index.ts` file instructions + navigating dirs/files and running commands at right dirs.
+
 ## Install
 
-Install the dependencies using (npm/yarn/what?)
+In an environemnt where you have Node/Typescript installed (TODO reword?), install the dependencies using (npm/yarn/what?)
 
 ```shell
 npm install SensibleSDK
@@ -28,139 +34,54 @@ import { promises as fs } from "fs";
 import { SensibleSDK } from "../src/index";
 ```
 
-## InitializeInitialize the dependency using your API key:
+## Initialize
+
+Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.
+
+Initialize the dependency using your API key TODO linke to the part of account with the key.  Replace `apiKey` with your API key in your project's `index.ts` file:
 
 ```node
 const sensible = new SensibleSDK(apiKey);
 ```
 
-
+**Note** In production ensure your API key is properly secured, for example as a Github secret.
 
 ## Extract document data
 
-Extract data from a document:
+Extract data from a sample document that you can download from (TODO LINK TO GH in docs repo) to your project in the same directory as `index.ts`:
+
+1. copy the following into an `index.ts` file in your project
 
 ```node
-const file = await fs.readFile("./bank_2.pdf");
+const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
-      url: "https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/bank_2.pdf",
+      file: blob,
       documentType: "senseml_instruct_basics",
     });
 const results = await sensible.waitFor(request);
 console.log(results);
 ```
 
+The code runs an example PDF (`contract.pdf`) against an example document type (`senseml_instruct_basics`). 
 
-
-
-
-## 
-
-Use Sensible's Typescript SDK to extract structured data from documents.
-
-**Quick example: Extraction**
-
-The following example shows extraction code and the data it delivers:
-
-```typescript
-blah blah
-```
-
-Which returns the following from an example PDF:
-
-```json
-{some quick policy period or something}
-```
-
-TODO 2do: image of PDF with extracted data highlighted.
-
-These 3 lines of code perform the following before delivering the structured data:
-
-- upload the document 
-- use an existing config to extract the document. You've got to write the config yourself
-- send the info to a webhook or back to you
-
-Similarly, you can also classify documents with the Sensible SDK [TODO LINK] 
-
-This reference guide describes how to use the Sensible Typescript SDK.
-
-### VersionThis topic gives an overview and links to the Optimizely Python SDK.
-
-[Suggest Edits](https://docs.developers.optimizely.com/full-stack-experimentation/edit/python-sdk)
-
-This reference guide describes how to use the Optimizely Python SDK.
-
-### Version
-
-For the current version number of this SDK, see [SDK Compatibility Matrix](https://docs.developers.optimizely.com/full-stack-experimentation/docs/sdk-feature-compatibility#current-sdk-versions).
-
-### Quickstart
-
-To get up and running quickly, see the [API quickstart](https://docs.developers.optimizely.com/full-stack-experimentation/docs/python-quickstart).
-
-### Reference
-
-For reference docs, see the left-hand navigation, or start off with [Install SDK](https://docs.developers.optimizely.com/full-stack-experimentation/docs/install-sdk-python).
-
-### Source files
-
-- [Python SDK repo](https://github.com/optimizely/python-sdk)
-- [changelog](https://github.com/optimizely/python-sdk/blob/master/CHANGELOG.md)
-
-# Install SDK
-
-```typescript
-npm install -g sensible-sdk
-```
-
-In a terminal, set your `CLOUDINARY_URL` environment variable.
-
-Replace `CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME` with the **API environment variable** copied from your product environment credentials:
-
-- On Mac or Linux:
-
-  ```
-  export CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
-  ```
-
-- On Windows:
-
-  ```
-  set CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
-  ```
-
-Important
-
-- When writing your own applications, follow your organization's policy on storing secrets and don't expose your API secret.
-- If you use a method that involves writing your environment variable to a file (e.g. `dotenv`), the file should be excluded from your version control system, so as not to expose it publicly.
-
-# Example Usage (for typescript extract)
+or, to extract directly from the URL without downloading the file locally, replace the preceding code with the following code:
 
 ```
-const sensible = new Sensible(apiKey);
-const result = await sensible.waitFor(await sensible.extract({file: blob, documentType: "blabla"}));
+const request = await sensible.extract({
+      url: "TODO_URL.pdf",
+      documentType: "senseml_instruct_basics",
+    });
+const results = await sensible.waitFor(request);
+console.log(results);
 ```
 
-Or a use that would work with existing docs:
+2. Run the script in a command prompt: `ts-node index.ts`.
 
-In a new file called `test.ts`
+## Results
 
-```typescript
-// TODO: understand this 'new' langauge versus 'require' again..
-/* find your api key at account. */
-const sensible = new Sensible(apiKey);
-/* use an example 'contract' document type and example contract doc for this to work. */
-const result = await sensible.waitFor(await sensible.extract({url: github_storage_for_contract, documentType: "contract"}));
+The following excerpt of the results shows the extracted document text in the `parsed_document` object:
+
 ```
-
-OTHER EXAMPLES:
-
-- portfolio extraction
-- extract at your URL + webhook?
-
-This gets you back a JSON payload that includes a `parsed_document` with the following fields:
-
-```json
 {
   "purchase_price": {
     "source": "$400,000",
@@ -175,41 +96,24 @@ This gets you back a JSON payload that includes a `parsed_document` with the fol
 }
 ```
 
-TODO: mimic the structure of the 'developer quickstart'?
+For more information about the response body, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-For more information about the returned payload response, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand both 200 responses to see the model and an example.
+### Optional: understand extraction configuration
 
-## Extract function
+See how the extraction you just ran works in the Sensible app:
 
-### Description
 
-This method extracts structured data from a document. It's constructed like this:
 
-```
-declare class Sensible {
-  constructor(apikey: string);
-  extract(
-    options: ({ url: string } | { file: Blob }) &
-      (
-        | { documentType: string; configurationName?: string }
-        | { documentTypes: string[] }
-      ) & {
-        webhook?: Webhook;
-        document_name?: string;
-        environment?: string;
-      }
-  ): Promise<ExtractionRequest>;
-  waitFor(task: ExtractionRequest): Promise<ExtractionResult;
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1png)
 
-}
-type Webhook = ...; // sync with api types
-type ExtractionRequest = {
-  type: "extraction";
-  id: string;
-};
-```
 
-### Parameters
+
+### Source files
+
+- [Typescript SDK repo](https://github.com/optimizely/python-sdk)
+- changelog <-- todo maintain a changelog in the repo???
+
+### Extraction Parameters
 
 | key               | value                                                | description                                                  |
 | ----------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
@@ -222,8 +126,3 @@ type ExtractionRequest = {
 | environment       | `production` or `development`. default: `production` | If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
 | webhook???        |                                                      | Specifies to return extraction results to the defined webhook as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error. TODO: how does this interact w the MVP poller? |
 
-### Response
-
- `waitfor` only takes one request and returns one promise so we "folks can use the standard promise machinery to deal with multiple parallel requests" as Josh proposed.For the MVP we could generate a poller for each `waitFor` call, in the future we can create the "smart poller" that Jay proposed without having to change the API.
-
-Once the promise 'resolves' (TODO correct wording),  this function returns structured data extracted from the document. For more information, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
