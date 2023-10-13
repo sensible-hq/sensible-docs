@@ -96,7 +96,7 @@ When you're done making changes, publish the config to save your changes.
 
 ## Next
 
-### Learn to extract
+### Learn more about extraction
 
 - See [prompt authoring tips](doc:instruct)
 - For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
