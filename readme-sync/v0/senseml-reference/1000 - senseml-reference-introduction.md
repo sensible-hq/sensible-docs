@@ -14,7 +14,7 @@ See the following pages for reference documentation for the SenseML query langua
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
 - [Methods](doc:methods)
-- [Natural language methods](doc:natural-language-methods)
+- [Natural language methods](doc:natural-language-methods) including Sensible Instruct
 - [Configuration settings](doc:configuration-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)

@@ -3,28 +3,29 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-This topic describes how to choose between SenseML and Sensible Instruct for extracting data from a set of similar documents.
+As you scale up and encounter more document complexity, you can optimize your extraction strategy. As part of this optimization, choose between LLMs or layout-based extraction methods.
 
-**Note:**  If your document types are listed in Sensible's [open-source configuration library](https://app.sensible.so/library), they come with out-of-the-box support. You can use these pre-authored configurations as-is, or tweak them as necessary to extract from your documents.
+See the following diagram for an overview of document structure and variability, and when to use Sensible Instruct (LLMs) or SenseML (layout-based) for extractions: 
 
-Sensible Instruct vs SenseML
----
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
 
-You can author an extraction configuration, or "config", using SenseML, Sensible Instruct, or both. Use SenseML for advanced document extraction, for example, from complex document layouts. For simpler document extraction, author AI-powered extraction configurations using Sensible Instruct.
+Sensible recommends using large-language model (LLM) prompts for free-form, highly variable documents, and layout-based, or "rule-based" queries for structured, less-variable documents.  You can combine both strategies since they're fully compatible with each other. 
 
-SenseML includes Sensible Instruct methods, as well as layout-based methods that use rules and heuristics to extract data. You can mix and match Sensible Instruct and SenseML in a config.
+See the following table to learn more about extraction strategies:
 
-|                              | Sensible Instruct                                            | SenseML                                                      |
+| extraction method | notes                                                        | get started                                                  |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| LLM               | You describe the document data that you want to extract, using Sensible's visual authoring tool, *Sensible Instruct*. Sensible uses GPT-4 and other large-language models (LLMs) to extract data from your documents. | [Getting started](doc:getting-started-ai) |
+| layout-based      | To extract from complex document layouts, use *SenseML*, a superset of Sensible Instruct. SenseML is a JSON-formatted query language that combines layout-based queries with AI-powered queries. When either strategy can work, Sensible recommends layout-based queries for the sake of fast performance and deterministic output. | [Getting started with layout-based extractions](doc:getting-started)          |
+| out-of-the-box    | Sensible provides out-of-the-box extraction configurations for common business and tax forms. Use Sensible's pre-built, open-source [configuration library](https://github.com/sensible-hq/sensible-configuration-library/) to extract key information from tax forms such as 1099s, major carrier insurance declaration pages, and other documents. Then tweak the pre-built configurations for your custom data needs. | [Getting started with out-of-the-box extractions](doc:excel-quickstart) |
+
+See the following table for an overview of the pros and cons of LLMs versus layout-based extraction:
+
+|                              | LLM (Sensible Instruct)                                      | Layout-based (SenseML)                                       |
 | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Powered by                   | LLMs                                                         | Rules-based                                                  |
 | Technical expertise required | For nontechnical users. Describe what you want to extract using natural language.  For example, "the policy period" or "total amount invoiced". | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium." |
 | Workflow automation          | Suited to workflows that include human review or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
 | Document variability         | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Offers faster performance for  structured documents with a finite number of variations, where you know the layout of the document in advance. |
 | Deterministic                | No                                                           | Yes. Find the information in the document using anchoring text and layout data. |
 | Handles complex layouts      | Limited ability                                              | Suited to documents with highly complex layouts or with complex repeating substructures (for example, loss runs). |
 
-
-
-See the following diagram for an overview of the document structure and variability, and how to determine when to use Sensible Instruct (LLMs) versus SenseML (rules-based) for extractions:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
