@@ -108,14 +108,14 @@ See how the extraction you just ran works in the Sensible app:
 
 
 
-### Source files
+## Source files
 
 - [Typescript SDK repo](https://github.com/optimizely/python-sdk)
 - changelog <-- todo maintain a changelog in the repo???
 
-### Extraction Parameters
+## Extraction Parameters
 
-You can configure teh following options for extraction:
+You can configure the following options for extraction:
 
 ```
 type FileDefinition = { file: Buffer } | { url: string };
