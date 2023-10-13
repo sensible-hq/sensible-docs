@@ -1,17 +1,60 @@
 ---
-title: "Typescript SDK"
+title: "Typescript SDK quickstart"
 hidden: true
 ---
 
-This topic gives an overview and links to the Sensible Typescript SDK.
-
-
-
-Initialize
-
-
-
 ## Overview
+
+This topic providers of the Sensible Typescript SDK. Use this SDK to extract structured data from documents.
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk.svg)
+
+
+
+## Install
+
+Install the dependencies using (npm/yarn/what?)
+
+```shell
+npm install SensibleSDK
+```
+
+Import Sensible and other dependecies to your project
+
+```node
+import { promises as fs } from "fs";
+import { SensibleSDK } from "../src/index";
+```
+
+## InitializeInitialize the dependency using your API key:
+
+```node
+const sensible = new SensibleSDK(apiKey);
+```
+
+
+
+## Extract document data
+
+Extract data from a document:
+
+```node
+const file = await fs.readFile("./bank_2.pdf");
+const request = await sensible.extract({
+      url: "https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/bank_2.pdf",
+      documentType: "senseml_instruct_basics",
+    });
+const results = await sensible.waitFor(request);
+console.log(results);
+```
+
+
+
+
+
+## 
 
 Use Sensible's Typescript SDK to extract structured data from documents.
 
