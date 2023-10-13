@@ -21,7 +21,7 @@ TODO: make sure beginners are comfy by talking about test directory and test `in
 
 ## Install
 
-In an environment where you have Node/Typescript installed (TODO reword?), install the dependencies using (npm/yarn/what?)
+In an environment where you have Node/Typescript installed (TODO reword?), install the dependencies using (npm/yarn/what options will we offer?)
 
 ```shell
 npm install sensible-sdk
