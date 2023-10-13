@@ -24,14 +24,14 @@ TODO: make sure beginners are comfy by talking about test directory and test `in
 In an environment where you have Node/Typescript installed (TODO reword?), install the dependencies using (npm/yarn/what?)
 
 ```shell
-npm install SensibleSDK
+npm install sensible-sdk
 ```
 
 Import Sensible and other dependencies to your project
 
 ```node
 import { promises as fs } from "fs";
-import { SensibleSDK } from "../src/index";
+import { sensible-sdk } from "TBD";
 ```
 
 ## Initialize
@@ -41,7 +41,7 @@ Get an account at [sensible.so](https://app.sensible.so/register) if you don't h
 Initialize the dependency using your API key TODO linke to the part of account with the key.  Replace `apiKey` with your API key in your project's `index.ts` file:
 
 ```node
-const sensible = new SensibleSDK(apiKey);
+const sensible = new sensible-sdk(apiKey);
 ```
 
 **Note** In production ensure your API key is properly secured, for example as a Github secret.
