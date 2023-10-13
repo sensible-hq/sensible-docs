@@ -31,7 +31,7 @@ Import Sensible and other dependencies to your project
 
 ```node
 import { promises as fs } from "fs";
-import { sensible-sdk } from "TBD";
+import { SensibleSdk } from "sensible-sdk";
 ```
 
 ## Initialize
@@ -41,7 +41,7 @@ Get an account at [sensible.so](https://app.sensible.so/register) if you don't h
 Initialize the dependency using your API key TODO linke to the part of account with the key.  Replace `apiKey` with your API key in your project's `index.ts` file:
 
 ```node
-const sensible = new sensible-sdk(apiKey);
+const sensible = new sensibleSdk(apiKey);
 ```
 
 **Note** In production ensure your API key is properly secured, for example as a Github secret.
