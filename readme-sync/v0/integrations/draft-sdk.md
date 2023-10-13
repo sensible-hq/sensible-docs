@@ -29,7 +29,7 @@ Which returns the following from an example PDF:
 {some quick policy period or something}
 ```
 
-TODO: image of PDF with extracted data highlighted.
+TODO 2do: image of PDF with extracted data highlighted.
 
 These 3 lines of code perform the following before delivering the structured data:
 
