@@ -106,6 +106,24 @@ See how the extraction you just ran works in the Sensible app:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1png)
 
+## Complete code example
+
+Here's a complete example of how to use the SDK in your own app.
+
+```node
+
+import { promises as fs } from "fs";
+import { SensibleSDK } from "../src/index";
+
+const sensible = new SensibleSDK(apiKey);
+const request = await sensible.extract({
+      url: "TODO_URL.pdf",
+      documentType: "senseml_instruct_basics",
+    });
+const results = await sensible.waitFor(request);
+console.log(results);
+```
+
 
 
 ## Source files
