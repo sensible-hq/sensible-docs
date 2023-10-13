@@ -7,7 +7,10 @@ hidden: true
 
 Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.
 
-This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
+This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to:
+
+- extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
+- classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
 
 Sensible offers
 
