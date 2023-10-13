@@ -113,7 +113,7 @@ Here's a complete example of how to use the SDK in your own app.
 ```node
 
 import { promises as fs } from "fs";
-import { SensibleSDK } from "../src/index";
+import { SensibleSdk } from "sensible-sdk"
 
 const sensible = new SensibleSDK(apiKey);
 const request = await sensible.extract({
