@@ -21,13 +21,13 @@ TODO: make sure beginners are comfy by talking about test directory and test `in
 
 ## Install
 
-In an environemnt where you have Node/Typescript installed (TODO reword?), install the dependencies using (npm/yarn/what?)
+In an environment where you have Node/Typescript installed (TODO reword?), install the dependencies using (npm/yarn/what?)
 
 ```shell
 npm install SensibleSDK
 ```
 
-Import Sensible and other dependecies to your project
+Import Sensible and other dependencies to your project
 
 ```node
 import { promises as fs } from "fs";
