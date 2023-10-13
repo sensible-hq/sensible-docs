@@ -2,7 +2,7 @@
 title: "Methods"
 hidden: 
 ---
-Use the following [methods](doc:method)  to extract structured data from documents.
+Use the following layout-based [methods](doc:method)  to extract structured data from documents.
 
 | Method                                       | Image                                                        | Notes                                                        |
 | -------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
