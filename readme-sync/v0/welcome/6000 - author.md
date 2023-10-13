@@ -3,7 +3,7 @@ title: "Choosing an extraction approach"
 hidden: false
 ---
 
-As you scale up and encounter more document complexity, you can optimize your extraction strategy. As part of this optimization, choose between LLMs or layout-based extraction methods.
+As you scale up and encounter document complexity, you can optimize your extraction strategy. As part of this optimization, choose between LLMs or layout-based extraction methods.
 
 See the following diagram for an overview of document structure and variability, and when to use Sensible Instruct (LLMs) or SenseML (layout-based) for extractions: 
 
