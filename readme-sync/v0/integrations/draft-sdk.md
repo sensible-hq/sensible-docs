@@ -18,8 +18,6 @@ This quickstart provides an overview of the Sensible Typescript SDK. Use this SD
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_sdk.png)
 
-
-
 TODO: make sure beginners are comfy by talking about test directory and test `index.ts` file instructions + navigating dirs/files and running commands at right dirs.
 
 ## Install
@@ -32,7 +30,7 @@ npm install sensible-sdk
 
 Import Sensible and other dependencies to your project
 
-```node
+```typescript
 import { promises as fs } from "fs";
 import { SensibleSdk } from "sensible-sdk";
 ```
@@ -43,7 +41,7 @@ Get an account at [sensible.so](https://app.sensible.so/register) if you don't h
 
 Initialize the dependency using your API key TODO linke to the part of account with the key.  Replace `apiKey` with your API key in your project's `index.ts` file:
 
-```node
+```typescript
 const sensible = new sensibleSdk(apiKey);
 ```
 
@@ -55,7 +53,7 @@ Extract data from a sample document that you can download from (TODO LINK TO GH 
 
 1. copy the following into an `index.ts` file in your project
 
-```node
+```typescript
 const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
@@ -70,7 +68,7 @@ The code runs an example PDF (`contract.pdf`) against an example document type (
 
 or, to extract directly from the URL without downloading the file locally, replace the preceding code with the following code:
 
-```
+```typescript
 const request = await sensible.extract({
       url: "TODO_URL.pdf",
       documentType: "senseml_instruct_basics",
@@ -86,7 +84,7 @@ console.log(results);
 
 The following excerpt of the results shows the extracted document text in the `parsed_document` object:
 
-```
+```typescript
 {
   "purchase_price": {
     "source": "$400,000",
@@ -113,7 +111,7 @@ See how the extraction you just ran works in the Sensible app:
 
 Here's a complete example of how to use the SDK in your own app.
 
-```node
+```typescript
 
 import { promises as fs } from "fs";
 import { SensibleSdk } from "sensible-sdk"
@@ -131,6 +129,20 @@ console.log(results);
 
 
 ## Classify
+
+You can classify a document by its similarity to each document type you define in your Sensible account. For example, if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements) type and a [tax_forms](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms) type in your account, you can classify 1040 forms, 1099 forms, Bank of America statements, Chase statements, and other documents, into those two types. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
+
+```typescript
+import { promises as fs } from "fs";
+import { SensibleSDK } from "../src/index";
+
+const sensible = new SensibleSDK(apiKey);
+const blob = await fs.readFile("./contract.pdf");
+const request = await sensible.classify({file: blob});
+const result = await sensible.waitFor(request);
+```
+
+
 
 
 
