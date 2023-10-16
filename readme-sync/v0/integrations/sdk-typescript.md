@@ -10,7 +10,7 @@ See TODO LINK Typescript quickstart.
 ## Source files
 
 - [Typescript SDK repo](https://github.com/optimizely/python-sdk)
-- changelog <-- todo maintain a changelog in the repo???
+- changelog <-- todo maintain a changelog in the repo??? depends on if we version...probably cut for now?
 
 ## Extraction parameters
 
