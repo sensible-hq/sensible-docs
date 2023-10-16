@@ -13,8 +13,8 @@ FOR GITHUB README>>>>Welcome! Sensible is a developer-first platform for extract
 
 This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to:
 
-- [extract doc:typescript-quickstart#extract-document-data): extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
-- [classify doc:typescript-quickstart#classify): classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
+- [extract](doc:quickstart-typescript#extract-document-data): extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
+- [classify](doc:quickstart-typescript#classify): classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
 
 ## Install
 
