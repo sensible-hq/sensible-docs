@@ -16,19 +16,15 @@ This quickstart provides an overview of the Sensible Typescript SDK. Use this SD
 - [extract doc:typescript-quickstart#extract-document-data): extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
 - [classify doc:typescript-quickstart#classify): classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
 
-
-
-TODO: make sure beginners are comfy by talking about test directory and test `index.ts` file instructions + navigating dirs/files and running commands at right dirs.
-
 ## Install
 
-In an environment where you have Node/Typescript installed (TODO reword?), install the dependencies using (npm/yarn/what options will we offer?)
+In an environment in which you've installed Typescript, create a test project and install the dependencies:    TODO: options will we offer
 
 ```shell
 npm install sensible-sdk
 ```
 
-Import Sensible and other dependencies to your project
+To import Sensible and other dependencies to your project, navigate to your test project directory, create an `index.ts` file, and add the following lines to the file:
 
 ```typescript
 import { promises as fs } from "fs";
@@ -39,7 +35,7 @@ import { SensibleSdk } from "sensible-sdk";
 
 Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.
 
-Initialize the dependency using your API key TODO linke to the part of account with the key.  Replace `apiKey` with your API key in your project's `index.ts` file:
+To initialize the dependency using your [API key](https://app.sensible.so/account/?t=api_keys), replace `apiKey` with your API key in your `index.ts` file:
 
 ```typescript
 const sensible = new sensibleSdk(apiKey);
@@ -49,28 +45,28 @@ const sensible = new sensibleSdk(apiKey);
 
 ## Extract document data
 
-Extract data from a sample document that you can download from (TODO LINK TO GH in docs repo) to your project in the same directory as `index.ts`:
-
-1. copy the following into an `index.ts` file in your project
+To extract data from a sample document, add the following lines to your `index.ts` file:
 
 ```typescript
-const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
-      file: blob,
+      url: "TODO_URL.pdf",
       documentType: "senseml_instruct_basics",
       environment: "development" // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
 console.log(results);
+
+
 ```
 
 The code runs an example PDF (`contract.pdf`) against an example document type (`senseml_instruct_basics`). 
 
-or, to extract directly from the URL without downloading the file locally, replace the preceding code with the following code:
+or, to download the file locally and then extract from it,  replace the preceding code with the following code:
 
 ```typescript
+const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
-      url: "TODO_URL.pdf",
+      file: blob,
       documentType: "senseml_instruct_basics",
       environment: "development" // see Typescript SDK reference for configuration options
     });
