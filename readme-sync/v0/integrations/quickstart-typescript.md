@@ -71,9 +71,9 @@ The code extracts data from an example PDF (`contract.pdf`) using an example doc
 
 To extract from a local file: 
 
-1.  Download the following example file and save it in the same directory as your `index.ts` file: TODO DOWNLOAD LINK
+1.  Download the following example file and save it in the same directory as your `index.ts` file: 
 
-2. | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+2. | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
 3. Replace the preceding code with the following code, then run it according to the steps in the previous option:
