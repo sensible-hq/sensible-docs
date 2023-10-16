@@ -122,7 +122,7 @@ See how the extraction you just ran works in the Sensible app:
 
 #### Complete code example
 
-Here's a complete example of how to use the SDK in your own app.
+Here's a complete example of how to use the SDK in your own app. TODO: decide if complete code example should have download URL or local file?
 
 ```typescript
 import { promises as fs } from "fs";
