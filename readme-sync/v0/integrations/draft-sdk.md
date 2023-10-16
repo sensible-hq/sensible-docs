@@ -5,12 +5,12 @@ hidden: true
 
 ## Overview
 
-Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.
+FOR GITHUB README>>>>Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.<<<<
 
 This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to:
 
-- extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
-- classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
+- [extract doc:typescript-quickstart#extract-document-data): extract structured data from your custom documents. You configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK. TODO: links to configuring SenseML
+- [classify doc:typescript-quickstart#classify): classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
 
 
 
@@ -158,7 +158,7 @@ See the following table for more information
 | documentType      |                                                      | Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).<br/>As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Then, you can extract data from all these carriers using the same document type, without specifying the carrier in the API request. |
 | documentTypes     |                                                      | Use this parameter to extract from multiple documents that are packaged into one PDF file (a PDF "portfolio").  This parameter specifies the document types contained in the PDF portfolio. Sensible then segments the PDF into documents using the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions for each document. |
 | configurationName |                                                      | use with the Document Type parameter.  If specified, Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type. |
-| documentName      |                                                      | why is this snake case? raise it if you see it in the PR TODO |
+| documentName      |                                                      | TODO                                                         |
 | environment       | `production` or `development`. default: `production` | If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
 | webhook           |                                                      | Specifies to return extraction results to the defined webhook as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error. For a tutorial about using webhooks with Sensible, see [Try a webhook](doc:api-tutorial-webhook). |
 
