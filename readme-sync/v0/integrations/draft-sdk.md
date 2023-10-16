@@ -60,6 +60,7 @@ const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
       documentType: "senseml_instruct_basics",
+      environment: "development" // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
 console.log(results);
@@ -73,6 +74,7 @@ or, to extract directly from the URL without downloading the file locally, repla
 const request = await sensible.extract({
       url: "TODO_URL.pdf",
       documentType: "senseml_instruct_basics",
+      environment: "development" // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
 console.log(results);
@@ -101,11 +103,9 @@ The following excerpt of the results shows the extracted document text in the `p
 
 For more information about the response body, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-#### Optional: understand extraction configuration
+#### Optional: understand extraction
 
 See how the extraction you just ran works in the Sensible app:
-
-
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1png)
 
