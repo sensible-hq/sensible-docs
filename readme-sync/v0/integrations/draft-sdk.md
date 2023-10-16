@@ -18,7 +18,7 @@ This quickstart provides an overview of the Sensible Typescript SDK. Use this SD
 
 ## Install
 
-In an environment in which you've installed Typescript, create a test project and install the dependencies:    TODO: options will we offer
+In an environment in which you've installed Typescript, create a test project and install the dependencies:    TODO: options will we offer? yarn etc?
 
 ```shell
 npm install sensible-sdk
