@@ -112,7 +112,7 @@ The following excerpt of the results shows the extracted document text in the `p
 }
 ```
 
-For more information about the response body, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+For more information about the response body schema, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
 #### Optional: understand extraction
 
