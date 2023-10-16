@@ -16,7 +16,7 @@ This quickstart provides an overview of the Sensible Typescript SDK. Use this SD
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk.svg)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_sdk.png)
 
 
 
@@ -107,7 +107,7 @@ For more information about the response body, see <https://docs.sensible.so/refe
 
 See how the extraction you just ran works in the Sensible app:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1.png)
 
 #### Complete code example
 
