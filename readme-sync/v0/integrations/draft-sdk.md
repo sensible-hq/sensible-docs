@@ -78,7 +78,7 @@ To extract from a local file:
 2. | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-3. Replace the preceding code with the following code:
+3. Replace the preceding code with the following code, then run it according to the steps in the previous option:
 
 ```typescript
 const blob = await fs.readFile("./contract.pdf");
@@ -129,8 +129,9 @@ import { promises as fs } from "fs";
 import { SensibleSdk } from "sensible-sdk"
 
 const sensible = new SensibleSDK(apiKey);
+const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
-      url: "TODO_URL.pdf",
+      file: blob,
       documentType: "senseml_instruct_basics",
       environment: "development" // see Typescript SDK reference for configuration options
     });
