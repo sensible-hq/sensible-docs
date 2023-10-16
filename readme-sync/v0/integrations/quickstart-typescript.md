@@ -73,8 +73,6 @@ To extract from a local file:
 
 1.  Download the following example file and save it in the same directory as your `index.ts` file: TODO DOWNLOAD LINK
 
-   
-
 2. | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
@@ -116,7 +114,7 @@ For more information about the response body schema, see <https://docs.sensible.
 
 #### Optional: understand extraction
 
-See how the extraction you just ran works in the Sensible app:
+Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more field queries to extract more data:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1.png)
 
