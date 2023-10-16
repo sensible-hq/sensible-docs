@@ -14,7 +14,7 @@ See TODO LINK Typescript quickstart.
 
 ## Extraction parameters
 
-You can configure the following options for extraction:
+You can configure the following parameters for extraction:
 
 ```
 type FileDefinition = { file: Buffer } | { url: string };
@@ -29,7 +29,7 @@ type Options = {
 type ExtractParams = FileDefinition & DocumentType & Options;
 ```
 
-See the following table for more information
+See the following table for more information:
 
 | key                 | value                                                | description                                                  |
 | ------------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
@@ -43,18 +43,18 @@ See the following table for more information
 | webhook             |                                                      | Specifies to return extraction results to the defined webhook as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error. For a tutorial about using webhooks with Sensible, see [Try a webhook](doc:api-tutorial-webhook). |
 | convertExcelTBDNAME |                                                      | TBD/TODO                                                     |
 
-## Extraction Schema
+## Extraction schema
 
 For the schema for extracted document data,  see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-## Classification options
+## Classification parameters
 
-
+See the following table for classification parameters:
 
 | key  | value                                  | description                                                  |
 | ---- | -------------------------------------- | ------------------------------------------------------------ |
 | file | TODO -- string? or better description? | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  <https://docs.sensible.so/reference/extract-data-from-a-document>. |
 
-## Classification parameters
+## Classification schema
 
 For the schema for document classification, see https://docs.sensible.so/reference/classify-document-sync and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
