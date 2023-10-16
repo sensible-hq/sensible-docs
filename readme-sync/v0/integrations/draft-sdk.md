@@ -45,7 +45,11 @@ const sensible = new sensibleSdk(apiKey);
 
 ## Extract document data
 
-To extract data from a sample document, add the following lines to your `index.ts` file:
+#### Option 1
+
+To extract data from a sample document at a URL:
+
+1. add the following lines to your `index.ts` file:
 
 ```typescript
 const request = await sensible.extract({
@@ -59,9 +63,22 @@ console.log(results);
 
 ```
 
+2. In a command prompt in the same directory as your `index.ts` file, run the extraction with the following command: `ts-node index.ts`.
+
 The code runs an example PDF (`contract.pdf`) against an example document type (`senseml_instruct_basics`). 
 
-or, to download the file locally and then extract from it,  replace the preceding code with the following code:
+#### Option 2
+
+To extract from a local file: 
+
+1.  Download the following example file and save it in the same directory as your `index.ts` file: TODO DOWNLOAD LINK
+
+   
+
+2. | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+   | ----------- | ------------------------------------------------------------ |
+
+3. Replace the preceding code with the following code:
 
 ```typescript
 const blob = await fs.readFile("./contract.pdf");
@@ -74,7 +91,7 @@ const results = await sensible.waitFor(request);
 console.log(results);
 ```
 
-2. Run the script in a command prompt: `ts-node index.ts`.
+
 
 #### Check for success
 
