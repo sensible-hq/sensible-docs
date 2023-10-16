@@ -93,7 +93,7 @@ console.log(results);
 
 This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`). 
 
-#### Check for success
+#### Check results
 
 The following excerpt of the results shows the extracted document text in the `parsed_document` object:
 
