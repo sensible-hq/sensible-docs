@@ -12,7 +12,7 @@ See TODO LINK Typescript quickstart.
 - [Typescript SDK repo](https://github.com/optimizely/python-sdk)
 - changelog <-- todo maintain a changelog in the repo???
 
-## Extraction Configuration
+## Extraction parameters
 
 You can configure the following options for extraction:
 
@@ -55,6 +55,6 @@ For the schema for extracted document data,  see <https://docs.sensible.so/refer
 | ---- | -------------------------------------- | ------------------------------------------------------------ |
 | file | TODO -- string? or better description? | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  <https://docs.sensible.so/reference/extract-data-from-a-document>. |
 
-## Classification schema
+## Classification parameters
 
 For the schema for document classification, see https://docs.sensible.so/reference/classify-document-sync and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
