@@ -3,6 +3,8 @@ title: "Typescript SDK quickstart"
 hidden: true
 ---
 
+TODO: slug: quickstart-typescript? 
+
 ## Overview
 
 FOR GITHUB README>>>>Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.<<<<
@@ -78,7 +80,7 @@ console.log(results);
 
 2. Run the script in a command prompt: `ts-node index.ts`.
 
-## Check for success
+#### Check for success
 
 The following excerpt of the results shows the extracted document text in the `parsed_document` object:
 
@@ -99,7 +101,7 @@ The following excerpt of the results shows the extracted document text in the `p
 
 For more information about the response body, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-### Optional: understand extraction configuration
+#### Optional: understand extraction configuration
 
 See how the extraction you just ran works in the Sensible app:
 
@@ -107,7 +109,7 @@ See how the extraction you just ran works in the Sensible app:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1png)
 
-## Complete code example
+#### Complete code example
 
 Here's a complete example of how to use the SDK in your own app.
 
@@ -128,7 +130,7 @@ console.log(results);
 
 
 
-## 
+
 
 ## Next
 
