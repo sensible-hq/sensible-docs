@@ -5,7 +5,7 @@ hidden: true
 
 ## Overview
 
-BLURB FOR GITHUB README>>>>Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.<<<<
+BLURB FOR GITHUB README (if public repo)>>>>Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.<<<<
 
 TODO: Simplify this image background?
 
@@ -161,4 +161,6 @@ const result = await sensible.waitFor(request);
 
 To configure options for extraction and classification, see [Typescript SDK reference](doc:sdk-typescript).
 
-To learn more about Sensible's developer platform, see [Sensible documentation](https://docs.sensible.so/docs/).
+
+
+BLURB FOR GITHUB README: >>>> To learn more about Sensible's developer platform, see [Sensible documentation](https://docs.sensible.so/docs/). <<<
