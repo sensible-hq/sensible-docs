@@ -14,7 +14,7 @@ See TODO LINK Typescript quickstart.
 
 ## Extraction parameters
 
-You can configure the following parameters for extraction:
+You can configure the following parameters for extraction: TODO: better way to show these options than the internal definitions...?
 
 ```
 type FileDefinition = { file: Buffer } | { url: string };
