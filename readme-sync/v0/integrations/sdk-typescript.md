@@ -38,3 +38,7 @@ See the following table for more information
 | environment         | `production` or `development`. default: `production` | If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
 | webhook             |                                                      | Specifies to return extraction results to the defined webhook as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error. For a tutorial about using webhooks with Sensible, see [Try a webhook](doc:api-tutorial-webhook). |
 | convertExcelTBDNAME |                                                      | TBD/TODO                                                     |
+
+## Extraction Schema
+
+For the schema for extracted document data,  see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
