@@ -112,7 +112,6 @@ See how the extraction you just ran works in the Sensible app:
 Here's a complete example of how to use the SDK in your own app.
 
 ```typescript
-
 import { promises as fs } from "fs";
 import { SensibleSdk } from "sensible-sdk"
 
@@ -136,15 +135,13 @@ See the following complete code example for classifying a document.
 
 ```typescript
 import { promises as fs } from "fs";
-import { SensibleSDK } from "../src/index";
+import { SensibleSdk } from "sensible-sdk"
 
 const sensible = new SensibleSDK(apiKey);
 const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.classify({file: blob});
 const result = await sensible.waitFor(request);
 ```
-
-
 
 
 
