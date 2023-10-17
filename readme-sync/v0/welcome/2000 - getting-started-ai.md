@@ -101,7 +101,7 @@ To upload your custom documents and configure your own extractions, use the inte
 2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
 3. In the document type's **Reference documents** tab, upload your own example PDF.
 4. In the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
-5.  Write prompts to extract data using what you learned in previous steps.
+5.  Write prompts in the configuration editor to extract data using what you learned in previous steps.
 
 ## Next
 
