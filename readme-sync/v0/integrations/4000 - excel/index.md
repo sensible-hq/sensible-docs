@@ -4,14 +4,14 @@ hidden: false
 
 ---
 
-The following tutorial shows you how to use the **Quick extraction** tab in the Sensible app to upload documents for extraction to Sensible.
+After you've configured extractions for your [custom docs](doc:getting-started-ai) or for out-of-the-box [supported documents](doc:excel-quickstart), you can upload documents to the Sensible app and download the extracted data as Excel files.
 
 **Note:** A bulk file upload feature is coming soon.
 
  In this tutorial you'll learn to:
 
-- upload bank statements to the Sensible app
-- automatically extract from the statements using a pre-existing config
+- upload bank statements to the Sensible app's **Quick extraction** tab
+- automatically extract from the statements using a pre-existing document type and config
 - download the extracted data as Excel.
 
 Take the following steps:
@@ -22,7 +22,7 @@ Take the following steps:
 | ----------- | ------------------------------------------------------------ |
 
 1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
-   1. In the dropdown in the right pane, select `sensible_instruct_basics / Auto select` . The document type, `sensible_instruct_basics`, contains interactive tutorials including bank statements, resumes, and contracts.  When you specify `Auto select`,  Sensible automatically chooses the bank config when you upload a bank statement.
+   1. In the **Document type** dropdown in the right pane, select `sensible_instruct_basics / Auto select` . This document type, `sensible_instruct_basics`, contains interactive tutorials including bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects when you upload a bank statement and uses the appropriate config.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
