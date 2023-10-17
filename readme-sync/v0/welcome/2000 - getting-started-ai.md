@@ -96,6 +96,8 @@ When you're done making changes, publish the config to save your changes.
 
 # (Optional) Extract from your own document
 
+Upload your custom documents and try creating your own queries by clicking the **Upload** banner.
+
 
 
 ## Next
