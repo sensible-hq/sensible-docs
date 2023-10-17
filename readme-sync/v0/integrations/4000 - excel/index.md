@@ -22,7 +22,7 @@ Take the following steps:
 | ----------- | ------------------------------------------------------------ |
 
 1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
-   1. In the **Document type** dropdown in the right pane, select `sensible_instruct_basics / Auto select` . This document type, `sensible_instruct_basics`, contains interactive tutorials including bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects when you upload a bank statement and uses the appropriate config.
+   1. In the **Document type** dropdown in the right pane, select `sensible_instruct_basics / Auto select` . This document type, `sensible_instruct_basics`, contains interactive example configs for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
