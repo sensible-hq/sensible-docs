@@ -70,7 +70,7 @@ To publish your config, click **Publish**, click **Production**, then click **Pu
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
-# Extract from a second document
+# Test the prompt
 
 Let's find out if the config containing your prompt works with other bank statements. To test the config against a second example document, take the following steps:
 
@@ -96,15 +96,13 @@ When you're done making changes, publish the config to save your changes.
 
 # (Optional) Extract from your own document
 
-Upload your custom documents and try creating your own queries. 
+To upload your custom documents and configure your own extractions, use the interactive [tutorial](https://app.sensible.so/tutorial/) or take the following steps:
 
-Use the interactive [tutorial](https://app.sensible.so/tutorial/) or take the following steps:
-
-1. To exit the configuration editor, click **Sensible** in the upper left corner.
+1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
 3. In the document type's **Reference documents** tab, upload your own example PDF.
 4. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
-5. Click **Sensible Instruct** and create fields to extract data using what you learned in previous steps.
+5. Click **Sensible Instruct** and write prompts to extract data using what you learned in previous steps.
 
 ## Next
 
