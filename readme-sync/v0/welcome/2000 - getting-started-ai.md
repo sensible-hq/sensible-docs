@@ -105,11 +105,11 @@ Upload your custom documents and try creating your own queries by clicking the *
 ### Learn more about extraction
 
 - See [prompt authoring tips](doc:instruct)
-- For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
-- Explore extracting lists, tables, and single data points with interactive examples: 
-  - [Bank statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement)
+- Explore extracting lists, tables, and single data points with other interactive examples: 
   - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
   - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
+
+- For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
 
 ### Integrate
 
