@@ -36,7 +36,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 2. Log into the [Sensible app](https://app.sensible.so/signin/).
 
-## Configure the extraction
+## View an example
 
 1. To view an example bank statement PDF extraction, navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
 
