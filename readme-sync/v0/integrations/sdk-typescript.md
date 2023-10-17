@@ -12,6 +12,8 @@ See TODO LINK Typescript quickstart.
 - [Typescript SDK repo](https://github.com/optimizely/python-sdk)
 - changelog <-- todo maintain a changelog in the repo??? depends on if we version...probably cut for now?
 
+### TODO: list difference from API? comparison table?
+
 ## Extraction parameters
 
 You can configure the following parameters for extraction: TODO: better way to show these options than the internal definitions...?
