@@ -10,23 +10,26 @@ After you've configured extractions for your [custom documents](doc:getting-star
 
  In this tutorial you'll learn to:
 
-- upload bank statements to the Sensible app's **Quick extraction** tab
-- automatically extract from the statements using a pre-existing document type and config
+- upload documents to the Sensible app's **Quick extraction** tab
+- automatically extract from the documents using pre-existing document types and configs
 - download the extracted data as Excel.
 
 Take the following steps:
 
-1. Download the following PDF document:
-
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
 1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
-   1. In the **Document type** dropdown in the right pane, select `sensible_instruct_basics / Auto select` . This document type, `sensible_instruct_basics`, contains interactive example configs for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
+
+2. In the **Document type** dropdown in the right pane, select your document type.
+
+   If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . This document type, `sensible_instruct_basics`, contains interactive example configs for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
-2. Click **Upload document** and select the document you downloaded in a previous step.
+3. Click **Upload document** and select your example document.
+
+​       If you don't have your own example document, use the following PDF document with the `sensible_instruct_basics` document type :
+
+| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
+| ----------- | ------------------------------------------------------------ |
 
 3. Click **Run Extraction**.
 
@@ -34,7 +37,7 @@ Take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
-  The following spreadsheet shows the example output. The first tab contains fields with single values, for example the start date field, and succeeding tabs contain fields with table output, for example, the account list table. 
+ The following spreadsheet shows output for the example bank statement PDF. The first tab contains fields with single values, for example the start date field, and succeeding tabs contain fields with table output, for example, the account list table. 
 
 [block:html]
 {
