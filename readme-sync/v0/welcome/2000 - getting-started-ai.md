@@ -95,7 +95,7 @@ When you're done making changes, publish the config to save your changes.
 
 ## (Optional) Extract from your own document
 
-To upload your custom documents and configure your own extractions, use the interactive [tutorial](https://app.sensible.so/tutorial/) or take the following steps:
+To extract from your own documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:excel-quickstart). If not, configure your own custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
