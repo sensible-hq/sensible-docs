@@ -11,7 +11,7 @@ The following tutorial shows you how to use the **Quick extraction** tab in the 
  In this tutorial you'll learn to:
 
 - upload bank statements to the Sensible app
-- automatically extract from the statements using an out-of-the-box config
+- automatically extract from the statements using a pre-existing config
 - download the extracted data as Excel.
 
 Take the following steps:
