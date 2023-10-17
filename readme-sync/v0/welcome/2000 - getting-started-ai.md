@@ -94,6 +94,10 @@ Try extracting other pieces of information using what you learned in previous st
 
 When you're done making changes, publish the config to save your changes.
 
+# (Optional) Extract from your own document
+
+
+
 ## Next
 
 ### Learn more about extraction
