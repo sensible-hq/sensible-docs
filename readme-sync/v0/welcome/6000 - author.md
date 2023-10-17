@@ -27,6 +27,6 @@ See the following table for an overview of the pros and cons of LLMs versus layo
 | Workflow automation                   | Suited to workflows that include human review or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
 | Document variability                  | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Offers faster performance for  structured documents with a finite number of variations, where you know the layout of the document in advance. |
 | Deterministic                         | No                                                           | Yes. Find the information in the document using anchoring text and layout data. |
-| Handles repeating subsections/layouts | Use [List](doc:list-tips) method.                            | Use [sections](doc:sections) for complex repeating substructures, for example, [loss runs](doc:sections). |
+| Handles repeating subsections/layouts | Use [List](doc:list-tips) method.                            | Use [sections](doc:sections) for highly complex repeating substructures, for example, [loss runs](doc:sections). |
 | Performance                           | Data extraction takes a few seconds for each Instruct method. | Offers faster performance in general. For more information, see [Optimizing extraction performance](doc:performance). |
 
