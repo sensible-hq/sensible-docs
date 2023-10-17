@@ -19,4 +19,4 @@ If you want to extract from any of the following document types, then you can ge
 - tax forms
 - ....and more
 
-For more information, see the [Quick extraction](doc:excel) tutorial.
+For more information, see [Quick extraction](doc:excel).
