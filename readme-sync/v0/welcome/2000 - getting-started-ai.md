@@ -116,7 +116,7 @@ To upload your custom documents and configure your own extractions, use the inte
 
 ### Integrate
 
-- [Integrating](doc:integrate)
+Get extracted document data out of Sensible and put it to work in Excel files, databases, and other destinations. See [Integrating](doc:integrate).
 
 
 
