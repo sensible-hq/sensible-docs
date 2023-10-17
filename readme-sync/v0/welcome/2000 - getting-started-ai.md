@@ -57,7 +57,7 @@ Take the following steps to edit the config to extract more data from the docume
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
-- You should see the extracted account number, `8347-3248`, populate in the **Extracted data** section.
+- You should see the extracted account number, `8347-32348`, populate in the **Extracted data** section.
 - Click **Back to fields**.
 
 Congratulations! You extracted the checking account number from the bank statement.
