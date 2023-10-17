@@ -93,7 +93,7 @@ Try extracting other pieces of information using what you learned in previous st
 
 When you're done making changes, publish the config to save your changes.
 
-## (Optional) Extract from your own document
+## (Optional) Extract from your own documents
 
 To extract from your own documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:excel-quickstart). If not, configure your own custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
