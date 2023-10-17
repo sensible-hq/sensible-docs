@@ -10,8 +10,8 @@ The following tutorial shows you how to use the **Quick extraction** tab in the 
 
  In this tutorial you'll learn to:
 
-- upload new bank statements to the Sensible app
-- automatically extract from the statements using an out-of-the-box config from the open-source [Sensible configuration library](https://app.sensible.so/library/).
+- upload bank statements to the Sensible app
+- automatically extract from the statements using an out-of-the-box config
 - download the extracted data as Excel.
 
 Take the following steps:
@@ -22,7 +22,7 @@ Take the following steps:
 | ----------- | ------------------------------------------------------------ |
 
 1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
-   1. In the dropdown in the right pane, select `sensible_instruct_basics / Auto select` . The document type, `sensible_instruct_basics`, contains configs for bank statements and other document types such as resumes and contracts.  When you specify `Auto select`,  Sensible automatically chooses the bank config when you upload a bank statement.
+   1. In the dropdown in the right pane, select `sensible_instruct_basics / Auto select` . The document type, `sensible_instruct_basics`, contains interactive tutorials including bank statements, resumes, and contracts.  When you specify `Auto select`,  Sensible automatically chooses the bank config when you upload a bank statement.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
@@ -41,7 +41,6 @@ Take the following steps:
   "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:200px}</style>"
 }
 [/block]
-
 
 **Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
 
