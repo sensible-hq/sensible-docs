@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-After you've configured extractions for your [custom docs](doc:getting-started-ai) or for out-of-the-box [supported documents](doc:excel-quickstart), you can upload documents to the Sensible app and download the extracted data as Excel files.
+After you've configured extractions for your [custom documents](doc:getting-started-ai) or for out-of-the-box [supported documents](doc:excel-quickstart), you can upload documents to the Sensible app and download the extracted data as Excel files.
 
 **Note:** A bulk file upload feature is coming soon.
 
