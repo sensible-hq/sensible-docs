@@ -96,9 +96,15 @@ When you're done making changes, publish the config to save your changes.
 
 # (Optional) Extract from your own document
 
-Upload your custom documents and try creating your own queries by clicking the **Upload** banner.
+Upload your custom documents and try creating your own queries. 
 
+Use the interactive [tutorial](https://app.sensible.so/tutorial/) or take the following steps:
 
+1. To exit the configuration editor, click **Sensible** in the upper left corner.
+2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
+3. In the document type's **Reference documents** tab, upload your own example PDF.
+4. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
+5. Click **Sensible Instruct** and create fields to extract data using what you learned in previous steps.
 
 ## Next
 
