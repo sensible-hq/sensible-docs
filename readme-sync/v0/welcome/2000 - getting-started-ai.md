@@ -3,8 +3,7 @@ title: "Getting started"
 hidden: false
 ---
 
-Overview
----
+## Overview
 
 Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.
 
@@ -21,7 +20,7 @@ See the following list for an overview of going live with Sensible:
 
 This guide gets you started with the first step, extracting data.
 
-# Learn to extract data
+## Learn to extract data
 
 Let's get started with extracting document data from an example bank statement. We'll use a large-language model (LLM) prompt to extract a checking account number in minutes.
 
@@ -31,13 +30,13 @@ Let's get started with extracting document data from an example bank statement. 
 - Publish your prompt as part of a "config".
 - Test your config against a second, similar PDF to ensure it extracts the same target data.
 
-# Get an account
+## Get an account
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
 2. Log into the [Sensible app](https://app.sensible.so/signin/).
 
-# Configure the extraction
+## Configure the extraction
 
 1. To view an example bank statement PDF extraction, navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
 
@@ -62,7 +61,7 @@ Take the following steps to edit the config to extract more data from the docume
 
 Congratulations! You extracted the checking account number from the bank statement.
 
-# Publish the prompt
+## Publish the prompt
 
 Now let's publish the prompt you created so you can use it to extract checking account numbers from other bank statement documents. You'll be publishing the "config" that contains your prompt, including its other example prompts.
 
@@ -70,7 +69,7 @@ To publish your config, click **Publish**, click **Production**, then click **Pu
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
-# Test the prompt
+## Test the prompt
 
 Let's find out if the config containing your prompt works with other bank statements. To test the config against a second example document, take the following steps:
 
@@ -84,7 +83,7 @@ Let's find out if the config containing your prompt works with other bank statem
 
 It looks like your prompt was successful at extracting the checking account number from another document. Great! 
 
-# (Optional) Extract more data
+## (Optional) Extract more data
 
 Try extracting other pieces of information using what you learned in previous steps, such as:
 
@@ -94,7 +93,7 @@ Try extracting other pieces of information using what you learned in previous st
 
 When you're done making changes, publish the config to save your changes.
 
-# (Optional) Extract from your own document
+## (Optional) Extract from your own document
 
 To upload your custom documents and configure your own extractions, use the interactive [tutorial](https://app.sensible.so/tutorial/) or take the following steps:
 
