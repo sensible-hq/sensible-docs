@@ -14,6 +14,8 @@ See TODO LINK Typescript quickstart.
 
 ### TODO: list difference from API? comparison table?
 
+(difference is that the SDK covers the extraction endpoints and classification endpoints, but if you want to configure extractions, you've got to use the API)
+
 ## Extraction parameters
 
 You can configure the following parameters for extraction: TODO: better way to show these options than the internal definitions...?
