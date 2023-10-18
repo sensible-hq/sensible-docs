@@ -20,13 +20,13 @@ Take the following steps:
 
 2. In the **Document type** dropdown in the right pane, select your document type.
 
-   If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . This document type, `sensible_instruct_basics`, contains interactive example configs for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
+   If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . The `sensible_instruct_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
 3. Click **Upload document** and select your example document.
 
-​       If you don't have your own example document, use the following PDF document with the `sensible_instruct_basics` document type :
+​       If you don't have an example document, use the following PDF document with the `sensible_instruct_basics` document type :
 
 | Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
 | ----------- | ------------------------------------------------------------ |
@@ -37,7 +37,7 @@ Take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
- The following spreadsheet shows output for the example bank statement PDF. The first tab contains fields with single values, for example the start date field, and succeeding tabs contain fields with table output, for example, the account list table. 
+ The following spreadsheet shows output for the example bank statement PDF. The first tab contains fields with single values, for example the start date field. Succeeding tabs contain fields with table output, for example, the accounts list table. 
 
 [block:html]
 {
@@ -49,4 +49,4 @@ Take the following steps:
 
 ##  Next
 
-- For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
