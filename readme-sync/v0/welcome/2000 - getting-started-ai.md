@@ -40,11 +40,11 @@ Let's get started with extracting document data from an example bank statement. 
 
 1. To view an example bank statement PDF extraction, navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
 
-   You'll see a "config", or list of prompts for extracting from the example document (in the left pane), and extracted data in the right pane.
+   Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
 
-Take the following steps to edit the config to extract more data from the document.
+Take the following steps to create a prompt to extract more data from the document.
 
 ## Extract an account number from a bank statement
 
@@ -63,7 +63,7 @@ Congratulations! You extracted the checking account number from the bank stateme
 
 ## Publish the prompt
 
-Now let's publish the prompt you created so you can use it to extract checking account numbers from other bank statement documents. You'll be publishing the "config" that contains your prompt, including its other example prompts.
+Now let's publish the prompt you created so you can use it to extract checking account numbers from other bank statement documents. You'll be publishing the "config" that contains your prompt and other example prompts.
 
 To publish your config, click **Publish**, click **Production**, then click **Publish to production**:
 
@@ -73,11 +73,11 @@ To publish your config, click **Publish**, click **Production**, then click **Pu
 
 Let's find out if the config containing your prompt works with other bank statements. To test the config against a second example document, take the following steps:
 
-1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the document in the left pane changed, to a statement for a different customer.
+1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-2. In the right pane, scroll down to the fields you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-32348` to `9876-12345`: 
+2. In the right pane, scroll down to the `account_num_checking` field you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-32348` to `9876-12345`: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
 
