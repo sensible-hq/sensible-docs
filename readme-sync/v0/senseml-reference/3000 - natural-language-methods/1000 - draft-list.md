@@ -445,11 +445,8 @@ For an overview of how the List method works, see the following steps:
   - Sensible concatenates all your property descriptions with your overall list description. 
   - Sensible splits the document into equal-sized chunks. 
   - Sensible scores your concatenated list descriptions against each chunk.
-2. Sensible selects a number of the top-scoring chunks, where the number is determined by the Chunk Count parameter. Sensible re-scores the top-scoring chunks to get a smaller list of page numbers containing the most relevant chunks, where the number is determined by the scoring process.  Sensible selects a maximum of 20 pages' worth of chunks.
-
-3. To avoid large-language model (LLM)'s token limits, Sensible creates a list of page number groups containing relevant chunks. The chunks in each page group can be non-consecutive in the document. For each page group, Sensible deduplicates overlapping text in consecutive chunks if you configure a chunk overlap percentage.
-
-4. For each page group, Sensible creates a full prompt for the LLM (GPT-3) that includes the page's chunks, page-hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to create a list formatted as a table, based on the context.
-
+2. Sensible selects a number of the top-scoring chunks, where the number is determined by the Chunk Count parameter. Sensible re-scores the top-scoring chunks to select a smaller list of page numbers containing the most relevant chunks, where the list size is determined by the scoring process. The  maximum list size is 20 page numbers.
+3. To avoid large-language model (LLM)'s token limits, Sensible batches the page numbers into groups. The chunks in each page group can be non-consecutive in the document. For each page group, Sensible deduplicates overlapping text in consecutive chunks if you configure a chunk overlap percentage.
+4. For each page group, Sensible submits a full prompt for the LLM (GPT-3) that includes the page's chunks, page-hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to create a list formatted as a table, based on the context.
 5. Sensible concatenates the results from the LLM for each page group and returns a list, formatted as a table.
 
