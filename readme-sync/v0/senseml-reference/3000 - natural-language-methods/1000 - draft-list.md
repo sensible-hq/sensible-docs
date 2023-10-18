@@ -8,7 +8,7 @@ For tips on authoring this method in Sensible Instruct, see [List tips](doc:list
 
 **Limitations**
 
-- If the target data span more than twenty pages of the document, Sensible may miss data and truncate the list.
+- If the target data span more than twenty pages of the document, Sensible truncates the list.
 - For highly complex repeating layouts, such as insurance loss run documents, use the [Sections](doc:sections) method.
 
 **How it works**
@@ -437,9 +437,9 @@ For an overview of how the List method works, see the following steps:
 
 - Sensible finds the chunks of the document that most likely contain your target data: 
   - Sensible concatenates all your property descriptions with your overall list description. 
-  - Sensible splits the document into equal-sized, overlapping chunks. 
-  - Sensible scores your concatenated list descriptions against each chunk using the OpenAI Embeddings API.
-- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
-- Sensible creates a full prompt for GPT-3 that includes the chunks, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs GPT-3 to create a list formatted as a table, based on the context.
+  - Sensible splits the document into equal-sized chunks. 
+  - Sensible scores your concatenated list descriptions against each chunk.
+- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the large-language model (LLM)'s token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
+- Sensible creates a full prompt for the LLM (GPT-3) that includes the chunks, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to create a list formatted as a table, based on the context.
 - Sensible returns the list, formatted as a table.
 
