@@ -32,9 +32,9 @@ Parameters
 | confidenceSignals         |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt). |
 | contextDescription        |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 | pageHinting               |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkCount                |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkSize                 |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkOverlapPercentage    |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkCount                | default: 5                                                   | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkSize                 | default: 0.5                                                 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkOverlapPercentage    | default: 0.5                                                 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 
 Examples
 ====

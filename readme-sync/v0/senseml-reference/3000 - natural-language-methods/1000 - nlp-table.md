@@ -47,9 +47,9 @@ Parameters
 | rewriteTable           | Boolean. default: true                                       | If true, you can use the column descriptions to prompt the LLM to split or merge columns or otherwise restructure the table.<br/>Configure this to false to improve performance and to avoid LLM token overflow errors caused by tables that exceed 4,000 [tokens](https://platform.openai.com/tokenizer).<br/>If false, skips the full table restructure described in the Notes section. As a result, the LLM returns the table body unchanged from the OCR extraction, and the only change you can make is to rename the column headings using column IDs. |
 | contextDescription     |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 | pageHinting            |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkCount             |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkSize              |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkOverlapPercentage |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkCount             | default: 5                                                   | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkSize              | default: 0.5                                                 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| chunkOverlapPercentage | default: 0.5                                                 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 
 
 
@@ -244,7 +244,7 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible splits the document into equal-sized, overlapping chunks. 
    - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
    - Sensible gets a list of page numbers from the top-scoring chunks.
-2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. If a table spans a page break, Sensible extracts the full, multi-page table.
+2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. Sensible supports multi-page tables.
 
 3. For each extracted table, Sensible extracts the table title, if present.  In detail:
 
