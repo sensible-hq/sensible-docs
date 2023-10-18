@@ -21,7 +21,7 @@ See the following table to learn more about extraction strategies:
 
 See the following table for an overview of the pros and cons of LLMs versus layout-based extraction:
 
-|                              | LLM (Sensible Instruct)                                      | Layout-based (SenseML)                                       |
+|                              | LLM (Sensible Instruct)                                      | layout-based (SenseML)                                       |
 | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Technical expertise required | For nontechnical users. Describe what you want to extract using natural language.  For example, "the policy period" or "total amount invoiced". | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium." |
 | Workflow automation          | Suited to workflows that include human review or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
