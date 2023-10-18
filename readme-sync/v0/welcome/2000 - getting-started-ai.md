@@ -63,15 +63,15 @@ Congratulations! You extracted the checking account number from the bank stateme
 
 ## Publish the prompt
 
-Now let's publish the prompt you created so you can use it to extract checking account numbers from other bank statement documents.
+To extract checking account numbers from other bank statements, you'll need to publish the "config" containing your prompt.
 
-To publish the "config" containing your prompt, click **Publish**, click **Production**, then click **Publish to production**:
+ Click **Publish**, click **Production**, then click **Publish to production**:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
 ## Test the prompt
 
-Let's see if the config containing your prompt works with other bank statements. To test the config against a second example document, take the following steps:
+Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
 1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
 
@@ -95,7 +95,7 @@ Publish the config to save your changes.
 
 ## (Optional) Extract from your own documents
 
-To extract data from your own documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:excel-quickstart). If not, configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
+To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:excel-quickstart). If not, configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
