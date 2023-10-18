@@ -56,22 +56,22 @@ Take the following steps to create a prompt to extract more data from the docume
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
-- You should see the extracted account number, `8347-32348`, populate in the **Extracted data** section.
+- Sensible displays the extracted account number, `8347-32348`, in the **Extracted data** section.
 - Click **Back to fields**.
 
 Congratulations! You extracted the checking account number from the bank statement.
 
 ## Publish the prompt
 
-Now let's publish the prompt you created so you can use it to extract checking account numbers from other bank statement documents. You'll be publishing the "config" that contains your prompt and other example prompts.
+Now let's publish the prompt you created so you can use it to extract checking account numbers from other bank statement documents.
 
-To publish your config, click **Publish**, click **Production**, then click **Publish to production**:
+To publish the "config" containing your prompt, click **Publish**, click **Production**, then click **Publish to production**:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
 ## Test the prompt
 
-Let's find out if the config containing your prompt works with other bank statements. To test the config against a second example document, take the following steps:
+Let's see if the config containing your prompt works with other bank statements. To test the config against a second example document, take the following steps:
 
 1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
 
@@ -91,11 +91,11 @@ Try extracting other pieces of information using what you learned in previous st
 - The Spanish-speaking customer service phone number
 - The time period for each account. **Hint:** Use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
 
-When you're done making changes, publish the config to save your changes.
+Publish the config to save your changes.
 
 ## (Optional) Extract from your own documents
 
-To extract from your own documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:excel-quickstart). If not, configure your own custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
+To extract data from your own documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:excel-quickstart). If not, configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
