@@ -6,6 +6,12 @@ Extracts repeating data in a document, such as the work history or skills on a r
 
 For tips on authoring this method in Sensible Instruct, see [List tips](doc:list-tips).
 
+**Advantages**
+
+- Low code. 
+- Can reformat or filter extracted data based on your natural-language instructions. 
+- Doesn't require an [anchor](doc:anchor).
+
 **Limitations**
 
 - If the target data span more than twenty pages of the document, Sensible truncates the list.
@@ -439,7 +445,7 @@ For an overview of how the List method works, see the following steps:
   - Sensible concatenates all your property descriptions with your overall list description. 
   - Sensible splits the document into equal-sized chunks. 
   - Sensible scores your concatenated list descriptions against each chunk.
-- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the large-language model (LLM)'s token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
+- Sensible selects a number of the top-scoring chunks and combines them. The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks if you configure a chunk overlap percentage. If you configure chunk-related parameters that cause the context to exceed the large-language model (LLM)'s token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
 - Sensible creates a full prompt for the LLM (GPT-3) that includes the chunks, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to create a list formatted as a table, based on the context.
 - Sensible returns the list, formatted as a table.
 
