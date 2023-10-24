@@ -9,7 +9,7 @@ BLURB FOR GITHUB README (if public repo)>>>>Welcome! Sensible is a developer-fir
 
 TODO: Simplify this image background?
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_sdk.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_sdk_2.png)
 
 This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to:
 
@@ -116,7 +116,7 @@ For more information about the response body schema, see <https://docs.sensible.
 
 #### Optional: understand extraction
 
-Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more field queries to extract more data:
+Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more field to the extraction configuration to extract more data:
 
 TODO: add overlays to screenshot as in  https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png
 
@@ -154,16 +154,19 @@ import { promises as fs } from "fs";
 import { SensibleSdk } from "sensible-sdk"
 
 const sensible = new SensibleSDK(apiKey);
-const blob = await fs.readFile("./contract.pdf");
+const blob = await fs.readFile("./TODO--bank statement?.pdf");
 const request = await sensible.classify({file: blob});
 const result = await sensible.waitFor(request);
 ```
 
+TODO: provide an example document for classification/tutorial? (IE: see library-quickstart) to add support for bank statements, then classify the following document:
 
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| ----------- | ------------------------------------------------------------ |
 
 ## Next
 
-To configure options for extraction and classification, see [Typescript SDK reference](doc:sdk-typescript).
+For configuration options, see [Typescript SDK reference](doc:sdk-typescript).
 
 
 
