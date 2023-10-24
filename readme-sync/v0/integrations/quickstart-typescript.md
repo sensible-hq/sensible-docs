@@ -49,11 +49,11 @@ const sensible = new sensibleSdk(apiKey);
 
 To extract data from a sample document at a URL:
 
-1. add the following lines to your `index.ts` file:
+1. add the following lines to your `index.ts` file: # TODO test this code sample
 
 ```typescript
 const request = await sensible.extract({
-      url: "TODO_URL.pdf",
+      url: "https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf",
       documentType: "senseml_instruct_basics",
       environment: "development" // see Typescript SDK reference for configuration options
     });
@@ -66,6 +66,8 @@ console.log(results);
 2. In a command prompt in the same directory as your `index.ts` file, run the extraction with the following command: `ts-node index.ts`.
 
 The code extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`). 
+
+TODO: image of 
 
 #### Option 2
 
@@ -115,6 +117,8 @@ For more information about the response body schema, see <https://docs.sensible.
 #### Optional: understand extraction
 
 Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more field queries to extract more data:
+
+TODO: add overlays to screenshot as in  https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1.png)
 
