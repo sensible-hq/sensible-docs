@@ -27,7 +27,7 @@ Take the following steps to run these Zaps with example data, then modify them f
 Prerequisite: Configure 1040 extractions in Sensible
 ----
 
-Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-quickstart) to configure extracting data from a 1040 tax form. 
+Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to configure extracting data from a 1040 tax form. 
 
 Prerequisite: Configure Google accounts
 ----

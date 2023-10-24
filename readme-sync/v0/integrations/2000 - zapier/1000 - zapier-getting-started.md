@@ -9,7 +9,7 @@ This topic describes sending extracted data from example documents into an Airta
 Create an example Sensible extraction
 ----
 
-To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [Getting started with out-of-the-box extractions](doc:excel-quickstart) to create a JSON extraction from an example 1040 tax form. 
+To configure Zapier, you'll use a recent example of a document extraction. Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to create a JSON extraction from an example 1040 tax form. 
 
 **Note** Ensure your example extraction contains non-null values for all fields you intend to configure in Zapier.
 

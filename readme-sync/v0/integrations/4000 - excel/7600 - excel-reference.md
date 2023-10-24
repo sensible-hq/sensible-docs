@@ -408,6 +408,6 @@ Next
 ----
 
 
-- For a tutorial about converting a PDF to an Excel sheet using the Sensible app, see [Getting started with out-of-the-box extraction](doc:excel-quickstart).
+- For a tutorial about converting a PDF to an Excel sheet using the Sensible app, see [Getting started with out-of-the-box extraction](doc:library-quickstart).
 - To get started with extracting from your custom documents, see [Getting Started](doc:getting-started-ai).
 

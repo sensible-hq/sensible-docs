@@ -95,7 +95,7 @@ Publish the config to save your changes.
 
 ## (Optional) Extract from your own documents
 
-To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:excel-quickstart). If not, configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
+To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
