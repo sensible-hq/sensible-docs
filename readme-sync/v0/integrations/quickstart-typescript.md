@@ -9,7 +9,7 @@ BLURB FOR GITHUB README (if public repo)>>>>Welcome! Sensible is a developer-fir
 
 TODO: Simplify this image background?
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_sdk_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
 This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to:
 
