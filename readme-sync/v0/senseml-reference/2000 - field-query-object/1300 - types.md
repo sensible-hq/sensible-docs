@@ -738,12 +738,12 @@ When you set`"annotateSuperscriptAndSubscript": true` , Sensible formats the foo
 
 **Parameters**
 
-| key                             | value                                | description                                                  |
-| ------------------------------- | ------------------------------------ | ------------------------------------------------------------ |
-| id (**required**)               | `paragraph`                          |                                                              |
-| annotateSuperscriptAndSubscript | Boolean. default: false              | When true, Sensible annotates subscript and superscript text with `[^...]` and `[_...]`, respectively. |
-| allNewlines                     | Boolean. default: false              | When true, Sensible inserts a newline (`\n`) in the output for every line break in the document text, and two newlines (`\n\n`), for every paragraph break.<br/>When false, Sensible inserts a newline for every paragraph break.<br/> |
-| paragraphBreakThreshold         | number between 0 and 1. default: 0.4 | By default, Sensible detects paragraph breaks when the vertical gap between two lines is larger than 40% of the font height of the output line. Use this parameter to change the percentage. |
+| key                             | value                   | description                                                  |
+| ------------------------------- | ----------------------- | ------------------------------------------------------------ |
+| id (**required**)               | `paragraph`             |                                                              |
+| annotateSuperscriptAndSubscript | Boolean. default: false | When true, Sensible annotates subscript and superscript text with `[^...]` and `[_...]`, respectively. |
+| allNewlines                     | Boolean. default: false | When true, Sensible inserts a newline (`\n`) in the output for every line break in the document text, and two newlines (`\n\n`), for every paragraph break.<br/>When false, Sensible inserts a newline for every paragraph break.<br/> |
+| paragraphBreakThreshold         | default: 0.4            | By default, Sensible detects paragraph breaks when the vertical gap between two lines is larger than 40% of the font height of the output line. Use this parameter to change the percentage. |
 
 Percentage
 ====
