@@ -3,10 +3,16 @@ title: "Repeating layouts"
 hidden: true
 ---
 
-Extracts data from a document that contains complex or repeated elements ("sections").  In effect, a "section" defines a repeating document inside a document, with its own fields.
+For complex, repeating layouts, use layout-based sections to break the document into subdocuments. Then extract data from each subdocument with layout- or LLM-based fields.  Note that for simpler repeating data, you can use the [List](doc:list) method.
 
-The following image shows an example of a document containing a group of "claims" sections:
+The following images show examples of:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_1.png)
+- using sections to break out a claims loss run
+- using subsections in sections to break out a complex table:
 
-For the preceding example, you can configure Sensible to return an `unprocessed_claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, and other fields.  For more information, see [Claims loss run example](doc:sections-example-loss-run).
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_highlight_1.png)
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_highlight_2.png)
+
+For more information, see [sections](doc:sections).
