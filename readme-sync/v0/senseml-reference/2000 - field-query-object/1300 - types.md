@@ -736,7 +736,7 @@ When you set`"annotateSuperscriptAndSubscript": true` , Sensible formats the foo
 }
 ```
 
-**Parameters**Parameters**
+**Parameters**
 
 | key                             | value                                | description                                                  |
 | ------------------------------- | ------------------------------------ | ------------------------------------------------------------ |
