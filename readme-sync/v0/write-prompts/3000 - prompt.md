@@ -36,7 +36,7 @@ The following screenshot shows prompt settings in Sensible Instruct for all fiel
 
 
 
-The following table shows parameters you can configure for all fields in a config, or on a field-by-field basis.
+The following table shows parameters you can configure for all fields in a config, or on a field-by-field basis. For additional advanced configuration specific to each Sensible instruct method, see the Parameter section for each method's SenseML reference topic, for example, [Query](doc:query#parameter) method.
 
 Parameters
 ===
