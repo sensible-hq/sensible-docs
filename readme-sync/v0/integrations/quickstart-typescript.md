@@ -173,6 +173,10 @@ To classify an example document, take the following steps:
    ts-node index.ts
    ```
 
+#### Check results
+
+TODO -- paste in classify response here
+
 #### Complete code example
 
 Here's a complete example of how to use the SDK for document classification in your own app:
