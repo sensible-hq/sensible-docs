@@ -35,7 +35,7 @@ import { SensibleSdk } from "sensible-sdk";
 
 Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.
 
-To initialize the dependency using your [API key](https://app.sensible.so/account/?t=api_keys), replace `apiKey` with your API key in your `index.ts` file:
+To initialize the dependency, paste the following code into your `index.ts` file and replace `apiKey` with your [API key]((https://app.sensible.so/account/?t=api_keys)):
 
 ```typescript
 const sensible = new sensibleSdk(apiKey);
@@ -49,7 +49,7 @@ const sensible = new sensibleSdk(apiKey);
 
 To extract data from a sample document at a URL:
 
-1. add the following lines to your `index.ts` file: # TODO test this code sample
+1. Paste the following code into your `index.ts` file: # TODO test this code sample
 
 ```typescript
 const request = await sensible.extract({
