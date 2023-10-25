@@ -35,10 +35,10 @@ import { SensibleSdk } from "sensible-sdk";
 
 Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.
 
-To initialize the dependency, paste the following code into your `index.ts` file and replace `apiKey` with your [API key]((https://app.sensible.so/account/?t=api_keys)):
+To initialize the dependency, paste the following code into your `index.ts` file and replace `YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)):
 
 ```typescript
-const sensible = new sensibleSdk(apiKey);
+const sensible = new sensibleSdk(YOUR_API_KEY);
 ```
 
 **Note** In production ensure your API key is secured, for example as a Github secret.
@@ -63,7 +63,7 @@ console.log(results);
 
 ```
 
-2. In a command prompt in the same directory as your `index.ts` file, run the extraction with the following command:
+2. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
 
    ```shell
    ts-node index.ts
@@ -77,11 +77,11 @@ To extract from a local file:
 
 1.  Download the following example file and save it in the same directory as your `index.ts` file: 
 
-2. | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-   1.  Paste the following code into your `index.ts` file, then run it according to the steps in the previous option:
-   
+2. Paste the following code into your `index.ts` file, then run it according to the steps in the previous option:
+
 
 ```typescript
 const blob = await fs.readFile("./contract.pdf");
@@ -131,7 +131,7 @@ Here's a complete example of how to use the SDK in your own app. TODO: decide if
 import { promises as fs } from "fs";
 import { SensibleSdk } from "sensible-sdk"
 
-const sensible = new SensibleSDK(apiKey);
+const sensible = new SensibleSDK(YOUR_API_KEY);
 const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
@@ -146,14 +146,11 @@ console.log(results);
 
 You can classify a document by its similarity to each document type you define in your Sensible account. For example, if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements) type and a [tax_forms](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms) type in your account, you can classify 1040 forms, 1099 forms, Bank of America statements, Chase statements, and other documents, into those two types.
 
-See the following complete code example for classifying a document.
+See the following code example for classifying a document.
 
 ```typescript
-import { promises as fs } from "fs";
-import { SensibleSdk } from "sensible-sdk"
-
-const sensible = new SensibleSDK(apiKey);
-const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
+const sensible = new SensibleSDK(YOUR_API_KEY);
+const blob = await fs.readFile("./YOUR_DOCUMENT.pdf"); //url option not available
 const request = await sensible.classify({file: blob});
 const result = await sensible.waitFor(request);
 ```
@@ -162,9 +159,21 @@ To classify an example document, take the following steps:
 
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add support for bank statements to your account.
 
-2. Follow the preceding steps to install the SDK.
+2. Follow the steps in the preceding sections to install and initialize the SDK.
 
-   
+3. Download the following example file and save it in the same directory as your `index.ts` file: 
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf) |
+   | ----------- | ------------------------------------------------------------ |
+
+4. In the preceding code example, ensure you replace`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`.
+
+5. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
+
+   ```shell
+   ts-node index.ts
+   ```
+
 
 ## Next
 
