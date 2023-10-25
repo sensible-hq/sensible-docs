@@ -125,7 +125,7 @@ Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&
 
 #### Complete code example
 
-Here's a complete example of how to use the SDK in your own app. TODO: decide if complete code example should have download URL or local file?
+Here's a complete example of how to use the SDK for document extraction in your own app. TODO: decide if complete code example should have download URL or local file? leaning on local file b/c it's a common use case.
 
 ```typescript
 import { promises as fs } from "fs";
@@ -172,6 +172,24 @@ To classify an example document, take the following steps:
    ```shell
    ts-node index.ts
    ```
+
+#### Complete code example
+
+Here's a complete example of how to use the SDK for document classification in your own app:
+
+```typescript
+import { promises as fs } from "fs";
+import { SensibleSdk } from "sensible-sdk"
+
+const sensible = new SensibleSDK(YOUR_API_KEY);
+const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
+const request = await sensible.classify({file: blob});
+const result = await sensible.waitFor(request);
+console.log(results);
+```
+
+
+
 
 
 ## Next
