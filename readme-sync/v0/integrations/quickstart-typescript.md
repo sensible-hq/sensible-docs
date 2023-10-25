@@ -7,7 +7,7 @@ hidden: true
 
 BLURB FOR GITHUB README (if public repo)>>>>Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. It's highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.<<<<
 
-TODO: Simplify this image background?
+
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
@@ -18,13 +18,13 @@ This quickstart provides an overview of the Sensible Typescript SDK. Use this SD
 
 ## Install
 
-In an environment in which you've installed Typescript, create a test project and install the dependencies:    TODO/TBD: options will we offer? yarn etc?
+In an environment in which you've installed Typescript create a directory for a test project, open a command prompt in the directory, and install the dependencies:    TODO/TBD: options will we offer? yarn etc?
 
 ```shell
 npm install sensible-sdk
 ```
 
-To import Sensible and other dependencies to your project, navigate to your test project directory, create an `index.ts` file, and add the following lines to the file:
+To import Sensible and other dependencies to your project,  create an `index.ts` file in your test project, and add the following lines to the file:
 
 ```typescript
 import { promises as fs } from "fs";
@@ -41,7 +41,7 @@ To initialize the dependency using your [API key](https://app.sensible.so/accoun
 const sensible = new sensibleSdk(apiKey);
 ```
 
-**Note** In production ensure your API key is properly secured, for example as a Github secret.
+**Note** In production ensure your API key is secured, for example as a Github secret.
 
 ## Extract document data
 
@@ -63,11 +63,13 @@ console.log(results);
 
 ```
 
-2. In a command prompt in the same directory as your `index.ts` file, run the extraction with the following command: `ts-node index.ts`.
+2. In a command prompt in the same directory as your `index.ts` file, run the extraction with the following command:
 
-The code extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`). 
+   ```shell
+   ts-node index.ts
+   ```
 
-TODO: image of 
+The code extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`) and an example extraction configuration. 
 
 #### Option 2
 
@@ -78,7 +80,8 @@ To extract from a local file:
 2. | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-3. Replace the preceding code with the following code, then run it according to the steps in the previous option:
+   1.  Paste the following code into your `index.ts` file, then run it according to the steps in the previous option:
+   
 
 ```typescript
 const blob = await fs.readFile("./contract.pdf");
@@ -91,7 +94,7 @@ const results = await sensible.waitFor(request);
 console.log(results);
 ```
 
-This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`). 
+This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`) and an example extraction configuration. 
 
 #### Check results
 
@@ -118,8 +121,6 @@ For more information about the response body schema, see <https://docs.sensible.
 
 Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more field to the extraction configuration to extract more data:
 
-TODO: add overlays to screenshot as in  https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png
-
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1.png)
 
 #### Complete code example
@@ -141,8 +142,6 @@ const results = await sensible.waitFor(request);
 console.log(results);
 ```
 
-
-
 ## Classify
 
 You can classify a document by its similarity to each document type you define in your Sensible account. For example, if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements) type and a [tax_forms](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms) type in your account, you can classify 1040 forms, 1099 forms, Bank of America statements, Chase statements, and other documents, into those two types.
@@ -154,15 +153,18 @@ import { promises as fs } from "fs";
 import { SensibleSdk } from "sensible-sdk"
 
 const sensible = new SensibleSDK(apiKey);
-const blob = await fs.readFile("./TODO--bank statement?.pdf");
+const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
 const request = await sensible.classify({file: blob});
 const result = await sensible.waitFor(request);
 ```
 
-TODO: provide an example document for classification/tutorial? (IE: see library-quickstart) to add support for bank statements, then classify the following document:
+To classify an example document, take the following steps:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
-| ----------- | ------------------------------------------------------------ |
+1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add support for bank statements to your account.
+
+2. Follow the preceding steps to install the SDK.
+
+   
 
 ## Next
 
