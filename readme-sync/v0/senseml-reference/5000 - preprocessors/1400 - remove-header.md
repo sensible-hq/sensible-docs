@@ -9,7 +9,7 @@ Sensible recognizes headers in one of two ways:
 
 - (Default)  Sensible searches for repeated text at the top of the page. For more information about automatic recognition, see [Notes](doc:remove-header#notes). 
 
-- (Configurable) To bypass automatic recognition, for example to recognize header text that varies slightly, configure a text match. Sensible removes all text above the top boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match 
+- (Configurable) To bypass automatic recognition, for example to recognize header text that varies slightly, configure a text match. Sensible removes all text above the top boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match. 
 
 Parameters
 ====
