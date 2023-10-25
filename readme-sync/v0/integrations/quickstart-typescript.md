@@ -165,7 +165,7 @@ To classify an example document, take the following steps:
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-4. Paste the preceding code into your `index.ts` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`.
+4. Paste the preceding code into your `index.ts` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`. See the following code example to check your code completeness.
 
 5. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
 
@@ -187,8 +187,6 @@ const request = await sensible.classify({file: blob});
 const result = await sensible.waitFor(request);
 console.log(results);
 ```
-
-
 
 
 
