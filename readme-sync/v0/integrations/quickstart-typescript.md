@@ -149,8 +149,7 @@ You can classify a document by its similarity to each document type you define i
 See the following code example for classifying a document.
 
 ```typescript
-const sensible = new SensibleSDK(YOUR_API_KEY);
-const blob = await fs.readFile("./YOUR_DOCUMENT.pdf"); //url option not available
+const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
 const request = await sensible.classify({file: blob});
 const result = await sensible.waitFor(request);
 ```
@@ -166,7 +165,7 @@ To classify an example document, take the following steps:
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-4. In the preceding code example, ensure you replace`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`.
+4. Paste the preceding code into your `index.ts` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`.
 
 5. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
 
