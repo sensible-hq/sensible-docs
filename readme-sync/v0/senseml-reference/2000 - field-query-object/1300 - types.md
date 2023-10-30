@@ -702,7 +702,7 @@ For any move in date that is after the 15th of the month, Tenant must pay a full
 
 **Formats recognized** 
 
-Sensible recognizes paragraphs separated by configurable vertical gaps, or "paragraph breaks." Sensible never detects paragraph breaks at the end of a page. Sensible don't use paragraph margins, for example indentations, to detect paragraphs.
+Sensible recognizes paragraphs separated by configurable vertical gaps, or "paragraph breaks." Sensible never detects paragraph breaks at the end of a page. Sensible doesn't use paragraph margins, for example indentations, to detect paragraphs.
 
 Configurable syntax
 ----
