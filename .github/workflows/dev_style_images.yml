@@ -1,6 +1,7 @@
 name: Dev Style images
 
 ## Run workflow for every push that 1. affects the dir assets  2. is to non-main branch
+# bad idea to run this actually b/c you end up with image merge conflicts on the PR
 # on:
 #   push:
 #     branches-ignore:
