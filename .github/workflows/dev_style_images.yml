@@ -1,27 +1,27 @@
 name: Dev Style images
 
-# Run workflow for every push to the `main` branch in dir assets
-on:
-  push:
-    branches-ignore:
-      - main
-    paths:
-      - 'readme-sync/assets/v0/images/screenshots/**'
+## Run workflow for every push that 1. affects the dir assets  2. is to non-main branch
+# on:
+#   push:
+#     branches-ignore:
+#       - main
+#     paths:
+#       - 'readme-sync/assets/v0/images/screenshots/**'
 
-jobs:
-  images:
-    runs-on: ubuntu-latest
+# jobs:
+#   images:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-      - name: update packages
-        run: sudo apt update
-      - name: Install ghostscript for ImageMagick
-        run: sudo apt install ghostscript
-      - name: run ImageMagick
-        run: bash ./scripts/style_images.sh
-      - name: auto commit changes from this workflow
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "automated image style commits"
+#     steps:
+#       - name: checkout repo
+#         uses: actions/checkout@v3
+#       - name: update packages
+#         run: sudo apt update
+#       - name: Install ghostscript for ImageMagick
+#         run: sudo apt install ghostscript
+#       - name: run ImageMagick
+#         run: bash ./scripts/style_images.sh
+#       - name: auto commit changes from this workflow
+#         uses: stefanzweifel/git-auto-commit-action@v4
+#         with:
+#           commit_message: "automated image style commits"
