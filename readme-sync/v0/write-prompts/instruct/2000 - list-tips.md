@@ -8,7 +8,7 @@ This method is an alternative to the [Table](doc:table-tips) method, when the da
 
 **Prompt Tips**
 
-- The list description describes the overall contents for the list, while each property is a single, short description of an item in the list.
+- The list description describes the overall contents for the list, while each property is a single description of an item that repeats in the list.
 - You can use location hints to describe the target list's position in the document. For examples of location hints, see [Query extraction tips](doc:query-tips).
 - For more information about how to write descriptions, or "prompts", see [Query extraction tips](doc:query-tips).
 - For advanced options, see [Advanced prompt configuration](doc:prompt).

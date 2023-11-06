@@ -28,7 +28,7 @@ To import Sensible and other dependencies to your project,  create an `index.ts`
 
 ```typescript
 import { promises as fs } from "fs";
-import { SensibleSdk } from "sensible-sdk";
+import { SensibleSDK } from "sensible-sdk";
 ```
 
 ## Initialize
@@ -38,7 +38,7 @@ Get an account at [sensible.so](https://app.sensible.so/register) if you don't h
 To initialize the dependency, paste the following code into your `index.ts` file and replace `YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)):
 
 ```typescript
-const sensible = new sensibleSdk(YOUR_API_KEY);
+const sensible = new SensibleSDK(YOUR_API_KEY);
 ```
 
 **Note** In production ensure your API key is secured, for example as a Github secret.
@@ -129,7 +129,7 @@ Here's a complete example of how to use the SDK for document extraction in your 
 
 ```typescript
 import { promises as fs } from "fs";
-import { SensibleSdk } from "sensible-sdk"
+import { SensibleSDK } from "sensible-sdk"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
 const blob = await fs.readFile("./contract.pdf");
@@ -183,7 +183,7 @@ Here's a complete example of how to use the SDK for document classification in y
 
 ```typescript
 import { promises as fs } from "fs";
-import { SensibleSdk } from "sensible-sdk"
+import { SensibleSDK } from "sensible-sdk"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
 const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
