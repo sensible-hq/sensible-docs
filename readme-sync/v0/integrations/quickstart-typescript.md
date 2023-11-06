@@ -93,7 +93,7 @@ const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
       documentType: "senseml_instruct_basics",
-      environment: "development" // see Typescript SDK reference for configuration options
+      generateExcel: true, // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
 console.log(results);
@@ -155,7 +155,7 @@ See the following code example for classifying a document.
 
 ```typescript
 const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
-const request = await sensible.classify({file: blob});
+const request = await sensible.classify({file: blob}); 
 const result = await sensible.waitFor(request);
 ```
 
@@ -192,7 +192,7 @@ import { SensibleSDK } from "sensible-sdk"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
 const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
-const request = await sensible.classify({file: blob});
+const request = await sensible.classify({file: blob}); 
 const result = await sensible.waitFor(request);
 console.log(results);
 ```
