@@ -27,7 +27,6 @@ npm install sensible-sdk
 To import Sensible and other dependencies to your project,  create an `index.ts` file in your test project, and add the following lines to the file:
 
 ```typescript
-import { promises as fs } from "fs";
 import { SensibleSDK } from "sensible-sdk";
 ```
 
@@ -75,7 +74,13 @@ The code extracts data from an example PDF (`contract.pdf`) using an example doc
 
 To extract from a local file: 
 
-1.  Download the following example file and save it in the same directory as your `index.ts` file: 
+1. Add the following import statement to your `index.ts` file:
+
+   ```typescript
+   import { promises as fs } from "fs";
+   ```
+
+2. Download the following example file and save it in the same directory as your `index.ts` file: 
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
    | ----------- | ------------------------------------------------------------ |
