@@ -13,7 +13,7 @@ See [Typescript quickstart](doc:quickstart-typescript).
 
 [Typescript SDK repo](https://github.com/optimizely/python-sdk)
 
-# Extraction method
+## Extraction method
 
 ### Workflow
 
@@ -24,10 +24,10 @@ See the following steps for an overview of the SDK's workflow for extraction:
    1.  Specify the document from which to extract data using the `url` or `file` parameter. 
    2. Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
 3. Wait for the result (`sensible.waitFor()`.
-4. Optionally convert the result to Excel using `generateExcel(YOUR_EXTRACTION_ID)`.
+4. Optionally convert the result or results to Excel using `generateExcel(YOUR_EXTRACTION_ID)`. See the Generate Excel method for more information.
 5. Consume the document data as JSON or as an Excel file.
 
-## Extraction parameters
+### Extraction parameters
 
 The following code sample shows requesting a document extraction with required and optional parameters:
 
@@ -54,17 +54,17 @@ See the following table for information about parameters:
 | environment       | `production` or `development`. default: `production` | If you specify `development`, extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
 | webhook           |                                                      | Specifies to return extraction results to the defined webhook as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error. For a tutorial about using webhooks with Sensible, see [Try a webhook](doc:api-tutorial-webhook). |
 
-## Extraction schema
+### Extraction schema
 
 For the schema for extracted document data,  see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-# Generate Excel method
+## Generate Excel method
 
 
 
-# Classification method
+## Classification method
 
-## Classification parameters
+### Classification parameters
 
 See the following table for classification parameters:
 
@@ -72,6 +72,6 @@ See the following table for classification parameters:
 | ---- | -------------------------------------- | ------------------------------------------------------------ |
 | file | TODO -- string? or better description? | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  <https://docs.sensible.so/reference/extract-data-from-a-document>. |
 
-## Classification schema
+### Classification schema
 
 For the schema for document classification, see https://docs.sensible.so/reference/classify-document-sync and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.

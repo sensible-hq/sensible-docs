@@ -57,9 +57,8 @@ const request = await sensible.extract({
       environment: "development" // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
+// TODO add in generateExcel
 console.log(results);
-
-
 ```
 
 2. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
