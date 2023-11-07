@@ -61,7 +61,7 @@ See the following table for information about parameters:
 
 ### Extraction schema
 
-For the schema for the results of an extraction request,  see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+For the schema for the results of an extraction request,  see [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
 ## Wait For method
 
@@ -77,7 +77,7 @@ See the following table for information about parameters:
 
 | key  | value  | description                                                  |
 | ---- | ------ | ------------------------------------------------------------ |
-| n/a  | object | Specify an extraction request object or a classification request object. Polls Sensible every 5 seconds before returning results. |
+| n/a  | object | Specify an extraction request object or a classification request object. Polls Sensible every 5 seconds before returning results. For more information about results, see the preceding Extraction schema section. |
 
 ## Generate Excel method
 
@@ -91,7 +91,7 @@ See the following table for information about parameters:
 
 | key  | value                      | description                                                  |
 | ---- | -------------------------- | ------------------------------------------------------------ |
-| n/a  | object or array of objects | The completed results from an extraction request, or an array of completed results. If you pass an array of results, Sensible combines the |
+| n/a  | object or array of objects | Specify the completed results from an extraction request, or an array of completed results. Sensible converts the results to an Excel file and returns the link for downloading the file. If you pass an array of results from multiple requests, Sensible combines the results into a single Excel file.<br>For more information, see [SenseML to Excel reference](doc:excel-reference). |
 
 
 
