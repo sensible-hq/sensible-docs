@@ -15,15 +15,14 @@ See [Typescript quickstart](doc:quickstart-typescript).
 
 This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for document extraction and classification.
 
-The document extraction workflow is as follows (TODO reword):
+See the following steps for an overview of the SDK's workflow for extraction:
 
-1. Instantiate an SDK object (`new SensibleSDK("apiKey")`).
-2. Request a document extraction (`sensible.extract()`)
-   1.  here we should explain that a file can be specified with an URL or by sending a blob of a local file.
-   2. that we need to specify the document type(s), probably with links to where our docs explain what doctypes are, e.g. `sensible.extract(documentType:"auto_insurance")`.
-   3. See following table for other options.
-3. Wait for the result (`sensible.waitFor(request)`)
-4. work with the output (optionally, generating an excel file)
+1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
+2. Request a document extraction (`sensible.extract()` with the following required parameters:
+   1.  Specify the document from which to extract data using the `url` or `file` parameter. 
+   2. Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
+3. Wait for the result (`sensible.waitFor()`.
+4. Consume the document data as JSON or as an Excel file.
 
 ## Extraction parameters
 
