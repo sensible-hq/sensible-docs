@@ -5,15 +5,15 @@ hidden: true
 
 ## Installation
 
-See TODO LINK Typescript quickstart.
+See [Typescript quickstart](doc:quickstart-typescript).
 
 ## Source files
 
-- [Typescript SDK repo](https://github.com/optimizely/python-sdk)
+[Typescript SDK repo](https://github.com/optimizely/python-sdk)
 
 ### Workflow
 
-This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for the most common use cases.
+This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for document extraction and classification.
 
 The document extraction workflow is as follows (TODO reword):
 
