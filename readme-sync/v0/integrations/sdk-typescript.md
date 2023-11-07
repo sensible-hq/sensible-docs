@@ -13,7 +13,7 @@ See [Typescript quickstart](doc:quickstart-typescript).
 
 [Typescript SDK repo](https://github.com/optimizely/python-sdk)
 
-## Extraction method
+## Extraction workflow
 
 ### Workflow
 
@@ -22,10 +22,14 @@ See the following steps for an overview of the SDK's workflow for extraction:
 1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
 2. Request a document extraction (`sensible.extract()` with the following required parameters:
    1.  Specify the document from which to extract data using the `url` or `file` parameter. 
-   2. Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
-3. Wait for the result (`sensible.waitFor()`.
-4. Optionally convert the result or results to Excel using `generateExcel(YOUR_EXTRACTION_ID)`. See the Generate Excel method for more information.
+   2.  Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
+3. Wait for the result (`sensible.waitFor()`. See the Wait For method for more information.
+4. Optionally convert the result or results to Excel using `generateExcel()`. See the Generate Excel method for more information.
 5. Consume the document data as JSON or as an Excel file.
+
+See the following sections for more information about the methods in this workflow.
+
+## Extraction method
 
 ### Extraction parameters
 
@@ -56,11 +60,25 @@ See the following table for information about parameters:
 
 ### Extraction schema
 
-For the schema for extracted document data,  see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+For the schema for the results of an extraction request,  see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+
+## Wait For method
+
+### Wait for parameters
+
+The following code sample shows waiting for a document extraction with parameters:
+
+```typescript
+const results = await sensible.waitFor(request);
+```
+
+See the following table for information about parameters:
+
+| key  | value  | description                                                  |
+| ---- | ------ | ------------------------------------------------------------ |
+| n/a  | object | Specify an extraction request object or a classification request object. Polls Sensible every 5 seconds before returning results. |
 
 ## Generate Excel method
-
-
 
 ## Classification method
 

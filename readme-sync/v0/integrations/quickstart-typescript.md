@@ -57,7 +57,7 @@ const request = await sensible.extract({
       environment: "development" // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
-// TODO add in generateExcel
+// TODO add in generateExcelexample
 console.log(results);
 ```
 
