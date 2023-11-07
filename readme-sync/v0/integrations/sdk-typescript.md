@@ -13,9 +13,9 @@ See [Typescript quickstart](doc:quickstart-typescript).
 
 [Typescript SDK repo](https://github.com/optimizely/python-sdk)
 
-## Extraction workflow
+## Code examples
 
-### Workflow
+### Extraction example
 
 See the following steps for an overview of the SDK's workflow for extraction:
 
@@ -30,13 +30,16 @@ See the following steps for an overview of the SDK's workflow for extraction:
 
 For example:
 
+```typescript
+TODO: a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file? --> could codepilot or GPT help me with this?
 ```
-TODO: a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file?
-```
 
+### Classification example
 
+See the following steps for an overview of the SDK's workflow for classification:
 
-TODO
+1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
+2. Request a document extraction (`sensible.extract()`
 
 
 
