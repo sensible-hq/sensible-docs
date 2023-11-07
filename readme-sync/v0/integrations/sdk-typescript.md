@@ -19,7 +19,7 @@ See [Typescript quickstart](doc:quickstart-typescript).
 
 See the following steps for an overview of the SDK's workflow for extraction:
 
-1. Instantiate an SDK object (`new SensibleSDK()`.
+1. Instantiate an SDK object (`new SensibleSDK()`. 
 2. Request a document extraction (`sensible.extract()` with the following required parameters:
    1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. 
    2.  **(required)** Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
@@ -115,7 +115,7 @@ See the following table for information about parameters:
 The following code sample shows converting extracted document data from JSON to Excel format:
 
 ```typescript
-const excelDownloadURL = await sensible.generateExcel(results)
+const excelDownloadURL = (await sensible.generateExcel(results)).url;
 ```
 
 See the following table for information about parameters:
