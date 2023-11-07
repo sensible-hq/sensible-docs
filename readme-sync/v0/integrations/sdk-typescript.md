@@ -39,7 +39,23 @@ TODO: a code example that looks a bunch of requests from a file directory, then 
 See the following steps for an overview of the SDK's workflow for classification:
 
 1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
-2. Request a document classification (`sensible.classify(file:blob)`.  See the Classify method for more 
+
+2. Request a document classification (`sensible.classify(file:blob)`.  See the Classify method for more information.
+
+3. Optionally convert the result or results to Excel using `generateExcel()`. See the Generate Excel method for more information. TODO this is just a repeat of the quickstart, make it more(?)
+
+   ```typescript
+   import { promises as fs } from "fs";
+   import { SensibleSDK } from "sensible-sdk"
+   
+   const sensible = new SensibleSDK(YOUR_API_KEY);
+   const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
+   const request = await sensible.classify({file: blob}); 
+   const result = await sensible.waitFor(request);
+   console.log(results);
+   ```
+
+4. Consume the document data as JSON
 
 See the following sections for more information about the methods in this workflow.
 
