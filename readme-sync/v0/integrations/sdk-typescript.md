@@ -93,8 +93,6 @@ See the following table for information about parameters:
 | ---- | -------------------------- | ------------------------------------------------------------ |
 | n/a  | object or array of objects | Specify the completed results from an extraction request, or an array of completed results. Sensible converts the results to an Excel file and returns the link for downloading the file. If you pass an array of results from multiple requests, Sensible combines the results into a single Excel file.<br>For more information, see [SenseML to Excel reference](doc:excel-reference). |
 
-
-
 ## Classification method
 
 ### Classification parameters
@@ -103,9 +101,9 @@ See the following table for classification parameters:
 
 | key  | value                                  | description                                                  |
 | ---- | -------------------------------------- | ------------------------------------------------------------ |
-| file | TODO -- string? or better description? | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   PDF JPEG PNG TIFF.  For more information about file types, see  <https://docs.sensible.so/reference/extract-data-from-a-document>. |
+| file | TODO -- string? or better description? | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   PDF, JPEG, PNG,, and TIFF.  For more information about supported file types, see  [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document). |
 
 ### Classification schema
 
-For the schema for document classification, see https://docs.sensible.so/reference/classify-document-sync and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+For the schema for the results of a classification request , see [Classify document by type (sync)](https://docs.sensible.so/reference/classify-document-sync) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
