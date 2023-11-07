@@ -19,7 +19,7 @@ See [Typescript quickstart](doc:quickstart-typescript).
 
 See the following steps for an overview of the SDK's workflow for extraction:
 
-1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
+1. Instantiate an SDK object (`new SensibleSDK()`.
 2. Request a document extraction (`sensible.extract()` with the following required parameters:
    1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. 
    2.  **(required)** Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
@@ -40,7 +40,7 @@ See the following steps for an overview of the SDK's workflow for classification
 
 1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
 
-2. Request a document classification (`sensible.classify(file:blob)`.  See the Classify method for more information.
+2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.
 
 3. Optionally convert the result or results to Excel using `generateExcel()`. See the Generate Excel method for more information. TODO this is just a repeat of the quickstart, make it more(?)
 
