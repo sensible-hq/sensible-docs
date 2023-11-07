@@ -31,7 +31,7 @@ See the following steps for an overview of the SDK's workflow for extraction:
 For example:
 
 ```typescript
-TODO: a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file? --> could codepilot or GPT help me with this?
+TODO: a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file and downloads it?
 ```
 
 ### Classification example
@@ -42,7 +42,7 @@ See the following steps for an overview of the SDK's workflow for classification
 
 2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.
 
-3. Optionally convert the result or results to Excel using `generateExcel()`. See the Generate Excel method for more information. TODO this is just a repeat of the quickstart, make it more(?)
+3. Consume the document data as JSON
 
    ```typescript
    import { promises as fs } from "fs";
@@ -55,7 +55,7 @@ See the following steps for an overview of the SDK's workflow for classification
    console.log(results);
    ```
 
-4. Consume the document data as JSON
+   
 
 See the following sections for more information about the methods in this workflow.
 
