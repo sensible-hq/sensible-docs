@@ -21,8 +21,9 @@ See the following steps for an overview of the SDK's workflow for extraction:
 
 1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
 2. Request a document extraction (`sensible.extract()` with the following required parameters:
-   1.  Specify the document from which to extract data using the `url` or `file` parameter. 
-   2.  Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
+   1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. 
+   2.  **(required)** Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
+   3.  See the following section for optional parameters.
 3. Wait for the result (`sensible.waitFor()`. See the Wait For method for more information.
 4. Optionally convert the result or results to Excel using `generateExcel()`. See the Generate Excel method for more information.
 5. Consume the document data as JSON or as an Excel file.
@@ -80,6 +81,20 @@ See the following table for information about parameters:
 
 ## Generate Excel method
 
+The following code sample shows converting extracted document data from JSON to Excel format:
+
+```typescript
+const excelDownloadURL = await sensible.generateExcel(results)
+```
+
+See the following table for information about parameters:
+
+| key  | value                      | description                                                  |
+| ---- | -------------------------- | ------------------------------------------------------------ |
+| n/a  | object or array of objects | The completed results from an extraction request, or an array of completed results. If you pass an array of results, Sensible combines the |
+
+
+
 ## Classification method
 
 ### Classification parameters
@@ -93,3 +108,4 @@ See the following table for classification parameters:
 ### Classification schema
 
 For the schema for document classification, see https://docs.sensible.so/reference/classify-document-sync and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+
