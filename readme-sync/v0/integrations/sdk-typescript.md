@@ -26,7 +26,19 @@ See the following steps for an overview of the SDK's workflow for extraction:
    3.  See the following section for optional parameters.
 3. Wait for the result (`sensible.waitFor()`. See the Wait For method for more information.
 4. Optionally convert the result or results to Excel using `generateExcel()`. See the Generate Excel method for more information.
-5. Consume the document data as JSON or as an Excel file.
+5. Consume the document data as JSON or in Excel format.
+
+For example:
+
+```
+TODO: a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file?
+```
+
+
+
+TODO
+
+
 
 See the following sections for more information about the methods in this workflow.
 
