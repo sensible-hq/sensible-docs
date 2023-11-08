@@ -68,7 +68,7 @@ console.log(results); // see Typescript SDK reference to convert results from JS
    ts-node index.ts
    ```
 
-The code extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`) and an example extraction configuration. 
+The code extracts data from an example PDF (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
 
 #### Option 2: local file
 
@@ -92,13 +92,13 @@ To extract from a local file:
 const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
-      documentType: "senseml_instruct_basics",
+      documentType: "sensible_instruct_basics",
     });
 const results = await sensible.waitFor(request);
 console.log(results); // see Typescript SDK reference to convert results from JSON to Excel
 ```
 
-This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`) and an example extraction configuration. 
+This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
 
 #### Check results
 
@@ -139,7 +139,7 @@ const sensible = new SensibleSDK(YOUR_API_KEY);
 const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
-      documentType: "senseml_instruct_basics",
+      documentType: "sensible_instruct_basics",
       environment: "development" // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
