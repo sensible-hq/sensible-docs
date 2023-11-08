@@ -46,7 +46,7 @@ const sensible = new SensibleSDK(YOUR_API_KEY);
 
 ## Extract document data
 
-#### Option 1
+#### Option 1: document URL
 
 To extract data from a sample document at a URL:
 
@@ -55,12 +55,11 @@ To extract data from a sample document at a URL:
 ```typescript
 const request = await sensible.extract({
       url: "https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf",
-      documentType: "senseml_instruct_basics",
+      documentType: "sensible_instruct_basics",
       environment: "development" // see Typescript SDK reference for full list of configuration options
     });
 const results = await sensible.waitFor(request);
-// TODO add in generateExcelexample
-console.log(results);
+console.log(results); // see Typescript SDK reference to convert results from JSON to Excel
 ```
 
 2. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
@@ -71,7 +70,7 @@ console.log(results);
 
 The code extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`) and an example extraction configuration. 
 
-#### Option 2
+#### Option 2: local file
 
 To extract from a local file: 
 
@@ -94,10 +93,9 @@ const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
       documentType: "senseml_instruct_basics",
-      generateExcel: true, // see Typescript SDK reference for full list of configuration options
     });
 const results = await sensible.waitFor(request);
-console.log(results);
+console.log(results); // see Typescript SDK reference to convert results from JSON to Excel
 ```
 
 This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`senseml_instruct_basics`) and an example extraction configuration. 
@@ -121,7 +119,7 @@ The following excerpt of the results shows the extracted document text in the `p
 }
 ```
 
-For more information about the response body schema, see <https://docs.sensible.so/reference/extract-data-from-a-document> and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+For more information about the response body schema, see [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
 #### Optional: understand extraction
 
@@ -131,7 +129,7 @@ Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&
 
 #### Complete code example
 
-Here's a complete example of how to use the SDK for document extraction in your own app. TODO: decide if complete code example should have download URL or local file? leaning on local file b/c it's a common use case.
+See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
 ```typescript
 import { promises as fs } from "fs";
@@ -145,7 +143,7 @@ const request = await sensible.extract({
       environment: "development" // see Typescript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
-console.log(results);
+console.log(results); // see Typescript SDK reference to convert results from JSON to Excel
 ```
 
 ## Classify
@@ -155,9 +153,9 @@ You can classify a document by its similarity to each document type you define i
 See the following code example for classifying a document.
 
 ```typescript
-const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
+const blob = await fs.readFile("./boa_sample.pdf");
 const request = await sensible.classify({file: blob}); 
-const result = await sensible.waitFor(request);
+const results = await sensible.waitFor(request);
 ```
 
 To classify an example document, take the following steps:
@@ -181,7 +179,34 @@ To classify an example document, take the following steps:
 
 #### Check results
 
-TODO -- paste in classify response here
+The following excerpt of the results shows the extracted document text in the `TO_DO` object:
+
+```
+{
+  document_type: {
+    id: '22666f4f-b8d6-4cb5-ad52-d00996989729',
+    name: 'bank_statements',
+    score: 0.8922476745112722
+  },
+  reference_documents: [
+    {
+      id: 'c82ac28e-7725-4e42-b77c-e74551684caa',
+      name: 'boa_sample',
+      score: 0.9999980536061833
+    },
+    {
+      id: 'f80424a0-58f8-40e7-814a-eb49b199221e',
+      name: 'wells_fargo_checking_sample',
+      score: 0.8946129923339182
+    },
+    {
+      id: 'cf17daf8-7e8b-4b44-bc4b-7cdd6518d963',
+      name: 'chase_consolidated_balance_summary_sample',
+      score: 0.8677569417649393
+    }
+  ]
+}
+```
 
 #### Complete code example
 
@@ -192,9 +217,9 @@ import { promises as fs } from "fs";
 import { SensibleSDK } from "sensible-sdk"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
-const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
+const blob = await fs.readFile("./boa_sample.pdf");
 const request = await sensible.classify({file: blob}); 
-const result = await sensible.waitFor(request);
+const results = await sensible.waitFor(request);
 console.log(results);
 ```
 
