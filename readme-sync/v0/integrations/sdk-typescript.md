@@ -85,13 +85,15 @@ Get results from this method by using a webhook or calling the Wait For method. 
 
 Polls for completed status of an extraction or classification request.
 
-### Parameters
+### Example
 
-The following code sample shows waiting for a document extraction with parameters:
+The following code sample shows waiting for a document extraction:
 
 ```typescript
 const results = await sensible.waitFor(request);
 ```
+
+### Parameters
 
 See the following table for information about parameters:
 
