@@ -104,6 +104,8 @@ This code uploads your local file to a Sensible-hosted URL and extracts data fro
 
 The following excerpt of the results shows the extracted document text in the `parsed_document` object:
 
+TODO: did the configuration change? eg seems maybe the field names changed to questions like 'what is the purchase price'?
+
 ```typescript
 {
   "purchase_price": {
@@ -230,5 +232,3 @@ console.log(results);
 For configuration options, see [Typescript SDK reference](doc:sdk-typescript).
 
 
-
-BLURB FOR GITHUB README: >>>> To learn more about Sensible's developer platform, see [Sensible documentation](https://docs.sensible.so/docs/). <<<
