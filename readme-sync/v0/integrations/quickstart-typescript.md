@@ -50,7 +50,7 @@ const sensible = new SensibleSDK(YOUR_API_KEY);
 
 To extract data from a sample document at a URL:
 
-1. Paste the following code into your `index.ts` file: # TODO test this code sample
+1. Paste the following code into your `index.ts` file: # TODO Q for horacio about top-level await versus wrapping these in async calls.
 
 ```typescript
 const request = await sensible.extract({
