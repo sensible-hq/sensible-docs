@@ -124,13 +124,13 @@ See the following table for information about parameters:
 
 | key  | value                      | description                                                  |
 | ---- | -------------------------- | ------------------------------------------------------------ |
-| n/a  | object or array of objects | Specify the completed results from an extraction request, or an array of completed results. Sensible converts the results to an Excel file and returns the link for downloading the file. If you pass an array of results from multiple requests, Sensible combines the results into a single Excel file.<br>For more information, see [SenseML to Excel reference](doc:excel-reference). |
+| n/a  | object or array of objects | Specify the completed results from an extraction request, or an array of completed results. |
 
 ### Returns
 
-TODO
+Sensible converts the results to an Excel file and returns the link for downloading the file.
 
-## Classification method
+## Classifiy method
 
 ### Description
 
