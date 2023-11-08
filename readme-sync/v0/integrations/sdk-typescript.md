@@ -46,13 +46,11 @@ See the following sections for more information about the methods in these workf
 
 ### Description
 
-TBD
+Extracts data asynchronously from a document, as specified by the extraction configurations and document types defined in your Sensible account.
 
-### Parameters
+### Example
 
-The following code sample shows requesting a document extraction with required and optional parameters:
-
-```typescript
+```type
 const request = await sensible.extract({
       file: blob, //required
       documentType: "tax_forms", //required
@@ -61,6 +59,8 @@ const request = await sensible.extract({
       webhook: "YOUR_WEBHOOK_URL",
     });
 ```
+
+### Parameters
 
 See the following table for information about parameters:
 
@@ -105,13 +105,13 @@ This method returns the results of a classification or extraction request. For t
 
 ### Description
 
-### Parameters
-
-The following code sample shows converting extracted document data from JSON to Excel format:
+### Example
 
 ```typescript
 const excelDownloadURL = (await sensible.generateExcel(results)).url;
 ```
+
+### Parameters
 
 See the following table for information about parameters:
 
@@ -126,6 +126,14 @@ TODO
 ## Classification method
 
 ### Description
+
+Classifies a document by type, as specified by the document types defined in your Sensible account. For more information, see [Classifying documents by type](doc:classify).
+
+### Example
+
+```typescript
+TODO
+```
 
 ### Parameters
 
