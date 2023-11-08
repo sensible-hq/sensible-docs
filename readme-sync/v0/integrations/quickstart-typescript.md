@@ -56,7 +56,7 @@ To extract data from a sample document at a URL:
 const request = await sensible.extract({
       url: "https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf",
       documentType: "senseml_instruct_basics",
-      environment: "development" // see Typescript SDK reference for configuration options
+      environment: "development" // see Typescript SDK reference for full list of configuration options
     });
 const results = await sensible.waitFor(request);
 // TODO add in generateExcelexample
@@ -94,7 +94,7 @@ const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
       documentType: "senseml_instruct_basics",
-      generateExcel: true, // see Typescript SDK reference for configuration options
+      generateExcel: true, // see Typescript SDK reference for full list of configuration options
     });
 const results = await sensible.waitFor(request);
 console.log(results);
