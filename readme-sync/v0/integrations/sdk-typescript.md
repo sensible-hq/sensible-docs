@@ -52,10 +52,10 @@ Extract data asynchronously from a document, as specified by the extraction conf
 
 ```type
 const request = await sensible.extract({
-      file: blob, //required
-      documentType: "tax_forms", //required
+      url: "https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/balance_sheets/form_10k_balance_sheet/form_10k_balance_sheet_sample.pdf", //required
+      documentType: "balance_sheets", //required
       environment: "development"
-      documentName: "1040_john_doe.pdf",
+      documentName: "balance_sheet_acme_co.pdf",
       webhook: "YOUR_WEBHOOK_URL",
     });
 ```
@@ -130,7 +130,7 @@ See the following table for information about parameters:
 
 Sensible converts the results to an Excel file and returns the link for downloading the file.
 
-## Classifiy method
+## Classify method
 
 ### Description
 
@@ -139,16 +139,17 @@ Classify a document by type, as specified by the document types defined in your 
 ### Example
 
 ```typescript
-TODO
+const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
+const request = await sensible.classify({file: blob}); 
 ```
 
 ### Parameters
 
 See the following table for classification parameters:
 
-| key  | value                                  | description                                                  |
-| ---- | -------------------------------------- | ------------------------------------------------------------ |
-| file | TODO -- string? or better description? | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   PDF, JPEG, PNG,, and TIFF.  For more information about supported file types, see  [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document). |
+| key  | value  | description                                                  |
+| ---- | ------ | ------------------------------------------------------------ |
+| file | string | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   For information about supported file types, see  [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document). |
 
 ### Returns
 
