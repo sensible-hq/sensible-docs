@@ -75,7 +75,7 @@ paths:
             schema:
               type: string
               format: binary
-              description: Sensible doesn't support using pixel-based methods, such as Box, Checkbox, Signature, and image coordinates, with TIFF-formatted documents.
+              description: non-encoded document bytes as the entire request body
           application/pdf:
             schema:
               type: string
@@ -259,12 +259,23 @@ paths:
             schema:
               type: string
               format: binary
-              description: Sensible doesn't support using pixel-based methods, such as Box, Checkbox, Signature, and image coordinates, with TIFF-formatted documents.
+              description: non-encoded document bytes as the entire request body
           application/pdf:
             schema:
               type: string
               format: binary
+              description: non-encoded document bytes as the entire request body          
+          application/msword:
+            schema:
+              type: string
+              format: binary
               description: non-encoded document bytes as the entire request body
+          application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+            schema:
+              type: string
+              format: binary
+              description: non-encoded document bytes as the entire request body              
+          
           application/json:
             schema:
               $ref: "#/components/schemas/encodedPdf"
@@ -1610,7 +1621,8 @@ components:
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
     ContentTypeParameter:
       type: string
-      enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff"]
+      enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]            
+         
       # If you use this parameter with the `/generate_upload_url` endpoint (recommended), you must also use it in the subsequent PUT call to upload the file.
       description: >-
         Content type of the document being presented for extraction.
