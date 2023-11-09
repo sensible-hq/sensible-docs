@@ -21,7 +21,7 @@ tags:
     description: "Extract data from multiple documents bundled into single PDF files"
   - name: Retrieve extractions
     description: "Retrieve data extracted asynchronously from documents"
-  - name: Get Excel from PDFs
+  - name: Get Excel from documents
     description: "Convert extracted document data to spreadsheet"
 
 
@@ -52,20 +52,7 @@ paths:
              See the following for supported file formats.
           2. Base64 encode the document bytes, specify them in a body "document" field, and specify application/json for the `Content-Type` header.
 
-        Using the Sensible app, you can extract from PDFs. Using the Sensible API, you can extract document data from the following file formats:
-
-          - PDF
-          - JPEG
-          - PNG
-          - TIFF
-
-        When extracting from image file formats, Sensible ignore OCR or OCR preprocessor settings you configure in the document type or SenseML configuration.
-
-        For TIFF documents, SenseML that attempts to return a rendered page returns an error, including:
-          - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method
-          - Key/Value method
-          - Fixed Table and Table methods with the Stop parameter specified. Use the Text Table method as an alternative.
-
+        For a list of  supported document file types, see [Supported file types](doc:file-types).
 
       parameters:
         - $ref: '#/components/parameters/document_type'
@@ -93,7 +80,18 @@ paths:
             schema:
               type: string
               format: binary
+              description: non-encoded document bytes as the entire request body          
+          application/msword:
+            schema:
+              type: string
+              format: binary
               description: non-encoded document bytes as the entire request body
+          application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+            schema:
+              type: string
+              format: binary
+              description: non-encoded document bytes as the entire request body                    
+                      
           application/json:
             schema:
               $ref: "#/components/schemas/encodedPdf"
@@ -581,18 +579,18 @@ paths:
       operationId: get-excel-extraction
       summary: Get Excel extraction
       description: |
-        You can use this endpoint to get Excel files from PDF documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
-        To compile multiple PDF documents into one Excel file, specify the IDs of their recent extractions in the request separated by commas, for example,
+        You can use this endpoint to get Excel files from documents, for example from PDFs. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
+        To compile multiple documents into one Excel file, specify the IDs of their recent extractions in the request separated by commas, for example,
         `/generate_excel/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
-        For the best compiled spreadsheet results, configure your SenseML so that the PDFs output identically named fields.
+        For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
         For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
-        This endpoint also works with JPEG, TIFF, and PNG documents.
+        For a list of document file types that Sensible can extract data from, see [Supported file types](doc:file-types).
         Call this endpoint after an extraction completes. For more information about checking extraction status,
         see the `GET /documents/{id}` endpoint.
       parameters:
         - $ref: '#/components/parameters/ids'
       tags:
-      - Get Excel from PDFs
+      - Get Excel from documents
       responses:
         '200':
           description: |
@@ -623,18 +621,18 @@ paths:
       operationId: get-csv-extraction
       summary: Get CSV extraction
       description: |
-        You can use this endpoint to get CSV files from PDF documents. In more detail, this endpoint converts your JSON document extraction to a comma-separated values.
-        To compile multiple PDF documents into one CSV file, specify the IDs of their recent extractions in the request separated by commas, for example,
+        You can use this endpoint to get CSV files from documents, for example, from PDFs. In more detail, this endpoint converts your JSON document extraction to a comma-separated values.
+        To compile multiple documents into one CSV file, specify the IDs of their recent extractions in the request separated by commas, for example,
         `/generate_csv/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
-        For the best compiled spreadsheet results, configure your SenseML so that the PDFs output identically named fields.
+        For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
         For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
-        This endpoint also works with JPEG, TIFF, and PNG documents.
+        For a list of document file types that Sensible can extract data from, see [Supported file types](doc:file-types).
         Call this endpoint after an extraction completes. For more information about checking extraction status,
         see the `GET /documents/{id}` endpoint.
       parameters:
         - $ref: '#/components/parameters/ids'
       tags:
-      - Get Excel from PDFs
+      - Get Excel from documents
       responses:
         '200':
           description: |

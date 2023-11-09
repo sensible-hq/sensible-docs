@@ -1455,9 +1455,7 @@ components:
             title: Unsupported Media Type
             type: string
             example: >-
-              Example error messages -
-              Content-Type must be application/json
-              Content-Type must be application/json or application/pdf or image/jpeg or image/png
+              Messages related to the file format of the document to extract data from.
     # 429:
     #   description: Too Many Requests
     #   content:
