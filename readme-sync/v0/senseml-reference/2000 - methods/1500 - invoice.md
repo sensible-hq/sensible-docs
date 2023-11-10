@@ -2,7 +2,7 @@
 title: "Invoice"
 hidden: false
 ---
-This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts one invoice per PDF document. If the PDF contains multiple tables, the Invoice method returns the data for the table that is the best invoice candidate.
+This method is identical to the [Table method](doc:table), but also returns detected invoice metadata. This method accepts one invoice per document file. If the document contains multiple tables, the Invoice method returns the data for the table that is the best invoice candidate.
 
 It's a best practice to create a single, flexible config that works for a variety of invoice formats. This is because invoices typically come from such a wide variety of vendors that it would be unmanageable to create a config for each vendor. Create a flexible config by using synonymous terms to identify invoice elements. For more information, see the [Examples section](doc:invoice#examples). 
 
@@ -25,7 +25,7 @@ Examples
 
 The following example shows using the Invoice method:
 
-- It extracts the invoice table from a PDF that contains multiple tables.
+- It extracts the invoice table from a document that contains multiple tables.
 - It extracts other invoice metadata from header and footer information in the invoice.
 - This example uses a large number of synonymous terms for each invoice column, so it can parse invoices from a variety of vendors. 
 

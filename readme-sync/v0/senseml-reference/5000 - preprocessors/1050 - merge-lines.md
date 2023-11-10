@@ -225,9 +225,9 @@ The following image shows the example document used with this example config:
 Overlapping lines on an x-axis
 ----
 
-The following example shows using the Min X Gap Threshold parameter to extract overlapping text in a poorly formatted PDF. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
+The following example shows using the Min X Gap Threshold parameter to extract overlapping text in a poorly formatted document. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
 
-The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines don't overlap.
+The Min X Gap Threshold preserves the intended document formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines don't overlap.
 
 **Config**
 

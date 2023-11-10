@@ -3,7 +3,7 @@ title: "Deskew"
 hidden: false
 ---
 
-Corrects the alignment of text in PDF documents that are skewed, for example as a result of being  photographed at an angle instead of straight on. ID cards and receipts are common examples of such documents. Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) to correct scaling, rotation, translation, and shear. 
+Corrects the alignment of text in documents that are skewed, for example as a result of being photographed at an angle instead of straight on. ID cards and receipts are common examples of such documents. Sensible uses [affine transformations](https://homepages.inf.ed.ac.uk/rbf/HIPR2/affine.htm) to correct scaling, rotation, translation, and shear. 
 
 See the Notes section for when *not* to use this preprocessor and for alternative preprocessors that correct page transformations.  
 
@@ -23,7 +23,7 @@ Parameters
 Examples
 ----
 
-The following image shows that without the Deskew preprocessor, extraction from a skewed PDF fails. The Region method returns null, because the targeted date range is in an unexpected position (to the left of the anchor, `tenure`) rather than in the expected position (`below`):
+The following image shows that without the Deskew preprocessor, extraction from a skewed document fails. The Region method returns null, because the targeted date range is in an unexpected position (to the left of the anchor, `tenure`) rather than in the expected position (`below`):
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/deskew_1.png)
 
@@ -52,10 +52,10 @@ Now Sensible captures the full date range, because the region starts at the midd
 
 Try out this example in the Sensible app using the following documents and config:
 
-| Example aligned  PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_1.pdf) |
+| Example aligned document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_1.pdf) |
 | -------------------- | ------------------------------------------------------------ |
 
-| Example skewed PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_2.pdf) |
+| Example skewed document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_2.pdf) |
 | -------------------- | ------------------------------------------------------------ |
 
 This example uses the following config:

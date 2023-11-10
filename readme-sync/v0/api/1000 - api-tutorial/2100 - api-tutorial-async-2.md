@@ -64,7 +64,7 @@ Use the one-time URL you generated in the previous step to extract data from the
 
 ```json
 curl --request PUT 'YOUR_UPLOAD_URL' \
---data-binary '@/PATH_TO_DOWNLOADED_PDF.pdf' \
+--data-binary '@/PATH_TO_DOWNLOADED_DOCUMENT.pdf' \
 --header 'Content-Type: application/pdf' \
 ```
 

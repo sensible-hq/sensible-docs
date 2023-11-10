@@ -36,7 +36,7 @@ curl --request POST \
   --url 'https://api.sensible.so/v0/extract/tax_forms' \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --header 'Content-Type: application/pdf' \
-  --data-binary '@/PATH_TO_DOWNLOADED_PDF.pdf'
+  --data-binary '@/PATH_TO_DOWNLOADED_DOCUMENT.pdf'
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
@@ -48,7 +48,7 @@ curl --request POST \
 | Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
-4.  Correct the path to the downloaded document: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF you downloaded:
+4.  Correct the path to the downloaded document: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the document you downloaded:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 

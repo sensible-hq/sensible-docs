@@ -7,7 +7,7 @@ hidden: false
 Fingerprints test for matching text in a document to determine whether it's a good fit for a config or not.  There are two types of fingerprints:
 
 - one for optimizing extraction performance for standalone documents
-- one for segmenting PDF portfolios into separate documents.
+- one for segmenting portfolio files into separate documents.
 
 If you use a config for both  portfolio and standalone versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint.
 
