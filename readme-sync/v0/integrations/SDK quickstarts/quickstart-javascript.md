@@ -1,17 +1,9 @@
 ---
 title: "Javascript SDK quickstart"
-hidden: true
+hidden: false
 ---
 
 ## Overview
-
-BLURB FOR GITHUB README (if public repo)>>>>
-
-Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. use Sensible to build document-automation features into your vertical SaaS products. Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives. *Vertical SaaS companies use Sensible to build document automation features into their products*.<<<<
-
-
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
 This quickstart provides an overview of the Sensible Javascript SDK. Use this SDK to:
 
@@ -20,7 +12,7 @@ This quickstart provides an overview of the Sensible Javascript SDK. Use this SD
 
 ## Install
 
-In an environment in which you've installed Javascript create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
+In an environment in which you've installed Javascript, create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
 
 ```shell
 npm install sensible-sdk
@@ -42,7 +34,7 @@ To initialize the dependency, paste the following code into your `index.mjs` fil
 const sensible = new SensibleSDK(YOUR_API_KEY);
 ```
 
-**Note** In production ensure your API key is secured, for example as a Github secret.
+**Note** In production ensure you secure your API key, for example as a Github secret.
 
 ## Extract document data
 
@@ -50,7 +42,7 @@ const sensible = new SensibleSDK(YOUR_API_KEY);
 
 To extract data from a sample document at a URL:
 
-1. Paste the following code into your `index.mjs` file: # TODO Q for horacio about top-level await versus wrapping these in async calls.
+1. Paste the following code into your `index.mjs` file:
 
 ```javascript
 const request = await sensible.extract({
@@ -58,7 +50,7 @@ const request = await sensible.extract({
       documentType: "sensible_instruct_basics",
       environment: "development" // see Javascript SDK reference for full list of configuration options
     });
-const results = await sensible.waitFor(request); // waitFor is optional if you use a webhook
+const results = await sensible.waitFor(request); // waitFor is optional if you configure a webhook
 console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 
@@ -94,7 +86,7 @@ const request = await sensible.extract({
       file: blob,
       documentType: "sensible_instruct_basics",
     });
-const results = await sensible.waitFor(request); // waitFor is optional if you use a webhook
+const results = await sensible.waitFor(request); // waitFor is optional if you configure  a webhook
 console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 
@@ -103,8 +95,6 @@ This code uploads your local file to a Sensible-hosted URL and extracts data fro
 #### Check results
 
 The following excerpt of the results shows the extracted document text in the `parsed_document` object:
-
-TODO: did the configuration change? eg seems maybe the field names changed to questions like 'what is the purchase price'?
 
 ```javascript
 {
@@ -176,7 +166,7 @@ To classify an example document, take the following steps:
 5. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
 
    ```shell
-   ts-node index.mjs
+   node index.mjs
    ```
 
 #### Check results

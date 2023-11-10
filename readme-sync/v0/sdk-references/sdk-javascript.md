@@ -1,6 +1,6 @@
 ---
 title: "Javascript SDK reference"
-hidden: true
+hidden: false
 ---
 
 This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for document extraction and classification.
