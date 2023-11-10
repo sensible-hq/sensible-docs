@@ -24,7 +24,7 @@ See the following steps for an overview of the SDK's workflow for extraction:
 For example:
 
 ```javascript
-TODO: a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file and downloads it?
+ a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file and downloads it?
 ```
 
 ### Classification example
