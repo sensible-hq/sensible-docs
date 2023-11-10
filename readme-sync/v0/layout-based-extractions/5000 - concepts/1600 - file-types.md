@@ -38,9 +38,9 @@ multi-document file ("portfolio" file):
 ## Notes
 
 - When extracting from image file formats, Sensible ignore OCR or OCR preprocessor settings you configure in the document type or SenseML configuration.
-- For TIFF documents, SenseML that attempts to return a rendered page returns an error, including:
-        - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates found with the Document Range method
-              - Key/Value method
+- For TIFF documents, SenseML methods that attempts to return a rendered page returns an error, including:
+     - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method
+     - Key/Value method
      - Fixed Table and Table methods with the Stop parameter specified. Use the Text Table method as an alternative.
-
+    
 
