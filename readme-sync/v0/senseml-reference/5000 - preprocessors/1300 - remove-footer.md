@@ -62,7 +62,7 @@ The following example shows using automatic footer recognition. The example docu
 
 **Example document**
 
-The following images show the example PDF used with this example config:
+The following images show the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_footer_1.png)
 

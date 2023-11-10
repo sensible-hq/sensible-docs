@@ -59,7 +59,7 @@ To solve this problem, configure a match for text that you want to be horizontal
 
 **Example document**
 
-The following images show the example PDF used with this example config:
+The following images show the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/rotate_page_2.png)
 

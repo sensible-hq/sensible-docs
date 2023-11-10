@@ -14,7 +14,7 @@ To troubleshoot extractions in API responses, you can add a verbosity level to a
 Inspect extracted text
 -----
 
-Sometimes, the text you see in the rendered PDF doesn't match the direct text extraction. To inspect all the text Sensible extracted from a document, use the following config:
+Sometimes, the text you see in the rendered document doesn't match the direct-text extraction. To inspect all the text Sensible extracted from a document, use the following config:
 
 ```json
 {  

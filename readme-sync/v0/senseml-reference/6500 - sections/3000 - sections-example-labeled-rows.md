@@ -92,7 +92,7 @@ The following example shows using a vertical section group to capture a table th
 
 **Example document**
 
-The following image shows the data extracted by this config for the following example PDF:
+The following image shows the data extracted by this config for the following example document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_labeled_rows.png)
 

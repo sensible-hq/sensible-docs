@@ -36,7 +36,7 @@ Use the Merge Lines preprocessor to clean up OCRed handwriting text. This prepro
 
 **PROBLEM**
 
-Without a Merge Line preprocessor, the placeholder handwritten data in an example PDF is oversplit by Google OCR:
+Without a Merge Line preprocessor, the placeholder handwritten data in an example document is oversplit by Google OCR:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_2.png)
 

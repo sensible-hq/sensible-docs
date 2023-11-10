@@ -26,7 +26,7 @@ Let's get started with extracting document data from an example bank statement. 
 
  In this guide, you'll:
 
-- Extract data from an example PDF using a natural-language description of your target data 
+- Extract data from an example document using a natural-language description of your target data 
 - Publish your prompt as part of a "config."
 - Test your config against a second, similar PDF to ensure it extracts the same target data.
 
@@ -99,7 +99,7 @@ To extract data from your documents, first check if they're on Sensible's list o
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
-3. In the document type's **Reference documents** tab, upload your own example PDF.
+3. In the document type's **Reference documents** tab, upload your own example document.
 4. In the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
 5.  Write prompts in the configuration editor to extract data using what you learned in previous steps.
 

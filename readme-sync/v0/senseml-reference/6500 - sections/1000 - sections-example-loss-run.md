@@ -132,7 +132,7 @@ The following example shows extracting repeated fields from a section group cont
 
 **Example document**
 
-The following image shows the data extracted by this config for the following example PDF:
+The following image shows the data extracted by this config for the following example document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_2.png)
 

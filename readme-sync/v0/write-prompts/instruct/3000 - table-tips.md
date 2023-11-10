@@ -30,7 +30,7 @@ The following example shows using the Table method to extract data from a bank s
 
 To try out this example in the Sensible app, take the following steps: 
 
-1. Navigate to the following example PDF:
+1. Navigate to the following example document:
 
    | Example document | [https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement) |
    | ----------- | ------------------------------------------------------------ |
@@ -69,12 +69,12 @@ The following example shows using the Table method to extract data from an auto 
 
 To try out this example in the Sensible app, take the following steps: 
 
-1. Download the following example PDF:
+1. Download the following example document:
 
    | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nlp_table.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-2. Create a test document type in the Sensible app, then click the document type you created to edit it. In the document type's **Reference documents** tab, upload the example PDF you downloaded in a previous step.
+2. Create a test document type in the Sensible app, then click the document type you created to edit it. In the document type's **Reference documents** tab, upload the example document you downloaded in a previous step.
 
 3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
 

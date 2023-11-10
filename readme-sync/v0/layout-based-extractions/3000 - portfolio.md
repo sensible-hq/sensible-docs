@@ -104,7 +104,7 @@ PDF
 Output
 ---
 
-For the preceding configurations, doc types, and example PDF portfolio, the following asynchronous request returns a list of document extractions:
+For the preceding configurations, doc types, and example document portfolio, the following asynchronous request returns a list of document extractions:
 
 1. Make an async request:
 

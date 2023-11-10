@@ -107,7 +107,7 @@ Sensible converts the JSON extraction output from the [auto_insurance_anyco](htt
 
 The preceding spreadsheet contains data from the following example document:
 
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 **Example configuration**
@@ -156,7 +156,7 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 Example
 -----
 
-Sensible converts the example JSON output from the [example PDF](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [Table](doc:table#examples) method to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [Table](doc:table#examples) method to the following spreadsheet:
 
 
 
@@ -174,7 +174,7 @@ The preceding example shows that the `fields` sheet lists the corresponding shee
 
 The preceding spreadsheet contains data from the following example document: 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 
@@ -245,7 +245,7 @@ Each  `<field_id>.<index>` sheet lists the output of a single field that contain
 Example
 ----
 
-Sensible converts the example JSON output from the [example PDF](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
 
 
 
@@ -263,7 +263,7 @@ The preceding example shows that Sensible outputs nested sections in linked, ind
 
 The preceding spreadsheet contains data from the following example document: 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 **Example configuration**
