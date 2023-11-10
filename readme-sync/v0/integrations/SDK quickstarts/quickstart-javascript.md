@@ -56,9 +56,9 @@ console.log(results); // see Javascript SDK reference to convert results from JS
 
 2. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
 
-   ```shell
-   node index.mjs
-   ```
+```shell
+node index.mjs
+```
 
 The code extracts data from an example document (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
 
@@ -68,9 +68,9 @@ To extract from a local file:
 
 1. Add the following import statement to your `index.mjs` file:
 
-   ```javascript
-   import { promises as fs } from "fs";
-   ```
+```javascript
+import { promises as fs } from "fs";
+```
 
 2. Download the following example file and save it in the same directory as your `index.mjs` file: 
 
@@ -96,7 +96,7 @@ This code uploads your local file to a Sensible-hosted URL and extracts data fro
 
 The following excerpt of the results shows the extracted document text in the `parsed_document` object:
 
-```javascript
+```json
 {
   "purchase_price": {
     "source": "$400,000",
@@ -165,15 +165,15 @@ To classify an example document, take the following steps:
 
 5. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
 
-   ```shell
-   node index.mjs
-   ```
+```shell
+node index.mjs
+```
 
 #### Check results
 
 The following excerpt of the results shows the extracted document text in the `TO_DO` object:
 
-```
+```json
 {
   document_type: {
     id: '22666f4f-b8d6-4cb5-ad52-d00996989729',
@@ -214,8 +214,6 @@ const request = await sensible.classify({file: blob});
 const results = await sensible.waitFor(request);
 console.log(results);
 ```
-
-
 
 ## Next
 
