@@ -1,5 +1,5 @@
 ---
-title: "Typescript SDK quickstart"
+title: "Javascript SDK quickstart"
 hidden: true
 ---
 
@@ -13,22 +13,22 @@ Welcome! Sensible is a developer-first platform for extracting structured data f
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
-This quickstart provides an overview of the Sensible Typescript SDK. Use this SDK to:
+This quickstart provides an overview of the Sensible Javascript SDK. Use this SDK to:
 
-- [Extract](doc:quickstart-typescript#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.
-- [Classify](doc:quickstart-typescript#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
+- [Extract](doc:quickstart-javascript#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.
+- [Classify](doc:quickstart-javascript#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document or to label each document in a system of record.
 
 ## Install
 
-In an environment in which you've installed Typescript create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
+In an environment in which you've installed Javascript create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
 
 ```shell
 npm install sensible-sdk
 ```
 
-To import Sensible and other dependencies to your project,  create an `index.ts` file in your test project, and add the following lines to the file:
+To import Sensible and other dependencies to your project,  create an `index.mjs` file in your test project, and add the following lines to the file:
 
-```typescript
+```javascript
 import { SensibleSDK } from "sensible-sdk";
 ```
 
@@ -36,9 +36,9 @@ import { SensibleSDK } from "sensible-sdk";
 
 Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.
 
-To initialize the dependency, paste the following code into your `index.ts` file and replace `YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)):
+To initialize the dependency, paste the following code into your `index.mjs` file and replace `YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)):
 
-```typescript
+```javascript
 const sensible = new SensibleSDK(YOUR_API_KEY);
 ```
 
@@ -50,22 +50,22 @@ const sensible = new SensibleSDK(YOUR_API_KEY);
 
 To extract data from a sample document at a URL:
 
-1. Paste the following code into your `index.ts` file: # TODO Q for horacio about top-level await versus wrapping these in async calls.
+1. Paste the following code into your `index.mjs` file: # TODO Q for horacio about top-level await versus wrapping these in async calls.
 
-```typescript
+```javascript
 const request = await sensible.extract({
       url: "https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf",
       documentType: "sensible_instruct_basics",
-      environment: "development" // see Typescript SDK reference for full list of configuration options
+      environment: "development" // see Javascript SDK reference for full list of configuration options
     });
 const results = await sensible.waitFor(request);
-console.log(results); // see Typescript SDK reference to convert results from JSON to Excel
+console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 
-2. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
+2. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
 
    ```shell
-   ts-node index.ts
+   node index.mjs
    ```
 
 The code extracts data from an example PDF (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
@@ -74,28 +74,28 @@ The code extracts data from an example PDF (`contract.pdf`) using an example doc
 
 To extract from a local file: 
 
-1. Add the following import statement to your `index.ts` file:
+1. Add the following import statement to your `index.mjs` file:
 
-   ```typescript
+   ```javascript
    import { promises as fs } from "fs";
    ```
 
-2. Download the following example file and save it in the same directory as your `index.ts` file: 
+2. Download the following example file and save it in the same directory as your `index.mjs` file: 
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-2. Paste the following code into your `index.ts` file, then run it according to the steps in the previous option:
+2. Paste the following code into your `index.mjs` file, then run it according to the steps in the previous option:
 
 
-```typescript
+```javascript
 const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
       documentType: "sensible_instruct_basics",
     });
 const results = await sensible.waitFor(request);
-console.log(results); // see Typescript SDK reference to convert results from JSON to Excel
+console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 
 This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
@@ -106,7 +106,7 @@ The following excerpt of the results shows the extracted document text in the `p
 
 TODO: did the configuration change? eg seems maybe the field names changed to questions like 'what is the purchase price'?
 
-```typescript
+```javascript
 {
   "purchase_price": {
     "source": "$400,000",
@@ -127,13 +127,13 @@ For more information about the response body schema, see [Extract data from a do
 
 Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more field to the extraction configuration to extract more data:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_typescript_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_javascript_1.png)
 
 #### Complete code example
 
 See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
-```typescript
+```javascript
 import { promises as fs } from "fs";
 import { SensibleSDK } from "sensible-sdk"
 
@@ -142,10 +142,10 @@ const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
       file: blob,
       documentType: "sensible_instruct_basics",
-      environment: "development" // see Typescript SDK reference for configuration options
+      environment: "development" // see Javascript SDK reference for configuration options
     });
 const results = await sensible.waitFor(request);
-console.log(results); // see Typescript SDK reference to convert results from JSON to Excel
+console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 
 ## Classify
@@ -154,7 +154,7 @@ You can classify a document by its similarity to each document type you define i
 
 See the following code example for classifying a document.
 
-```typescript
+```javascript
 const blob = await fs.readFile("./boa_sample.pdf");
 const request = await sensible.classify({file: blob}); 
 const results = await sensible.waitFor(request);
@@ -166,17 +166,17 @@ To classify an example document, take the following steps:
 
 2. Follow the steps in the preceding sections to install and initialize the SDK.
 
-3. Download the following example file and save it in the same directory as your `index.ts` file: 
+3. Download the following example file and save it in the same directory as your `index.mjs` file: 
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-4. Paste the preceding code into your `index.ts` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`. See the following code example to check your code completeness.
+4. Paste the preceding code into your `index.mjs` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`. See the following code example to check your code completeness.
 
-5. In a command prompt in the same directory as your `index.ts` file, run the code with the following command:
+5. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
 
    ```shell
-   ts-node index.ts
+   ts-node index.mjs
    ```
 
 #### Check results
@@ -214,7 +214,7 @@ The following excerpt of the results shows the extracted document text in the `T
 
 Here's a complete example of how to use the SDK for document classification in your own app:
 
-```typescript
+```javascript
 import { promises as fs } from "fs";
 import { SensibleSDK } from "sensible-sdk"
 
@@ -229,6 +229,5 @@ console.log(results);
 
 ## Next
 
-For configuration options, see [Typescript SDK reference](doc:sdk-typescript).
-
+For configuration options, see [Javascript SDK reference](doc:sdk-javascript).
 

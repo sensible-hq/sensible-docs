@@ -3,7 +3,7 @@ title: "Supported file types"
 hidden: true
 ---
 
-
+TODO: clarify that even though this is in layout-based extractions it counts for LLM too.
 
 ### Sensible app
 

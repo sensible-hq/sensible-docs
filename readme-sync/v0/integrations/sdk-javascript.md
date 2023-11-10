@@ -1,5 +1,5 @@
 ---
-title: "Typescript SDK reference"
+title: "Javascript SDK reference"
 hidden: true
 ---
 
@@ -7,11 +7,11 @@ This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for
 
 ## Installation
 
-See [Typescript quickstart](doc:quickstart-typescript).
+See [Javascript quickstart](doc:quickstart-javascript).
 
 ## Source files
 
-[Typescript SDK repo](https://github.com/optimizely/python-sdk)
+[Javascript SDK repo](https://github.com/optimizely/python-sdk)
 
 ## Workflows
 
@@ -89,7 +89,7 @@ Polls for completed status of an extraction or classification request.
 
 The following code sample shows waiting for a document extraction:
 
-```typescript
+```javascript
 const results = await sensible.waitFor(request);
 ```
 
@@ -116,7 +116,7 @@ For more information about the conversion process, see [SenseML to spreadsheet r
 
 ### Example
 
-```typescript
+```javascript
 const excelDownloadURL = (await sensible.generateExcel(results)).url;
 ```
 
@@ -140,7 +140,7 @@ Classify a document by type, as specified by the document types defined in your 
 
 ### Example
 
-```typescript
+```javascript
 const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
 const request = await sensible.classify({file: blob}); 
 ```
