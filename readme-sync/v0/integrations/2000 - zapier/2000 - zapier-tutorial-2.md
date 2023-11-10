@@ -100,7 +100,7 @@ Notes
 **General Limitations**
 
 - You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
-- You can extract from single-document files with Zapier. If you want to extract from portfolio PDFs (documents that contain multiple documents, for example, insurance bundles), use the Sensible API. 
+- You can extract from single-document files with Zapier. If you want to extract from portfolio files (documents that contain multiple documents, for example, insurance application bundles), use the Sensible app, API, or SDK. 
 
 **Sensible action limitations**
 

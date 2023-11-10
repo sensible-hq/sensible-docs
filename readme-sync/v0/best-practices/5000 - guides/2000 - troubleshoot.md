@@ -14,7 +14,7 @@ To troubleshoot extractions in API responses, you can add a verbosity level to a
 Inspect extracted text
 -----
 
-Sometimes, the text you see in the rendered PDF doesn't match the direct text extraction. To inspect all the text Sensible extracted from a document, use the following config:
+Sometimes, the text you see in the rendered document doesn't match the direct-text extraction. To inspect all the text Sensible extracted from a document, use the following config:
 
 ```json
 {  
@@ -40,7 +40,7 @@ Inspect lines and fields
 
 You can inspect a line to see:
 
-- the extracted text (this text might not match the text in the rendered PDF)
+- the extracted text (this text might not match the text in the rendered document)
 - dimensions of the line boundaries
 - which fields interact with that line:
 
@@ -49,7 +49,7 @@ You can inspect a line to see:
 Inspect SenseML
 -----
 
-The Sensible app visually represents SenseML queries in rendered PDFs using colored symbols. For more information, see [UI guide](doc:color).
+The Sensible app visually represents SenseML queries in rendered documents using colored symbols. For more information, see [UI guide](doc:color).
 
 Lint SenseML
 ----

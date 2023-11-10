@@ -3,7 +3,7 @@ title: "Try synchronous extraction"
 hidden: false
 ---
 
-Try out a test endpoint, the [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. Use asynchronous endpoints in production.
+Try out a test endpoint, the [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document and returns extracted data synchronously. Use asynchronous endpoints in production.
 
 Audience
 ---
@@ -36,19 +36,19 @@ curl --request POST \
   --url 'https://api.sensible.so/v0/extract/tax_forms' \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --header 'Content-Type: application/pdf' \
-  --data-binary '@/PATH_TO_DOWNLOADED_PDF.pdf'
+  --data-binary '@/PATH_TO_DOWNLOADED_DOCUMENT.pdf'
 ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_import.png)
 
-3. Download the following example PDF, which works with the prerequisite  **tax_forms**  document type:
+3. Download the following example document, which works with the prerequisite  **tax_forms**  document type:
 
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
-4.  Correct the path to the downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF you downloaded:
+4.  Correct the path to the downloaded document: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the document you downloaded:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
@@ -106,6 +106,6 @@ To see this example in the Sensible app:
 
 2. Navigate to the [1040 configuration](https://app.sensible.so/editor/?d=tax_forms&c=1040_2021&g=1040_2021_sample) in the **tax forms** document type.
 
-3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the configuration for the API call you just ran:
+3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the configuration for the API call you just ran:
 
 ![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_app.png)

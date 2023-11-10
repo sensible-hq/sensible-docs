@@ -72,13 +72,13 @@ To reliably capture the first and last name in their left-to-right order,  set `
 }
 ```
 
-*PDF*
+*Example document*
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sort_lines_2.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 To run this example, verify the document type uses Google OCR (click the gear icon for the Document Type and select **Google**): 
@@ -126,12 +126,12 @@ The following example shows using the Type Filters parameter to extract delivery
 }
 ```
 
-**PDF**
-The following image shows the example PDF used with this example config:
+**Example document**
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/types_filter.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/types_filter.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/types_filter.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 **Output**
@@ -164,9 +164,9 @@ In this example, the X Range Filter parameter is the best option:
 - The Fixed Table and Table methods aren't the best options, because the table formatting is hard to recognize.
 - The Text Table method with `"detectMultipleLinesPerRow": true` configured is an alternate solution for this example.
 
-Try out this example in the Sensible app using the following PDF and config:
+Try out this example in the Sensible app using the following document and config:
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xrange_filter.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xrange_filter.pdf) |
 | ------------------------------ | ------------------------------------------------------------ |
 
 This example uses the following config:

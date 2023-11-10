@@ -23,7 +23,7 @@ In order of largest to smallest impact, these factors add seconds to the ideal d
 
 | Factor                                                       | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| whole-document OCR for document images (scanned PDFs, PNG, JPEG, TIFF) | Sensible takes 10 seconds or more to OCR an entire document. You can speed OCR up for documents that are 25 pages and shorter by choosing Sensible's Google OCR option for a document type. |
+| whole-document OCR for document images | Sensible takes 10 seconds or more to OCR an entire document. You can speed OCR up for documents that are 25 pages and shorter by choosing Sensible's Google OCR option for a document type. |
 | whole-document table recognition                             | Avoid configuring Sensible to search a whole document for tables. Instead, configure a table stop. For examples, see any of the Table [methods](doc:methods). |
 
  **Under 5 seconds per document**

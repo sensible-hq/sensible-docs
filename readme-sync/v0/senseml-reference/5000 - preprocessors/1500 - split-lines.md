@@ -19,7 +19,7 @@ Parameters
 Examples
 ====
 
-The following example shows solving undersplit lines in a "typewritten" style PDF. The Split Lines preprocessor preserves columns and rows in this document.
+The following example shows solving undersplit lines in a "typewritten" style document. The Split Lines preprocessor preserves columns and rows in this document.
 
 **PROBLEM**
 
@@ -53,11 +53,11 @@ Without the Split Lines preprocessor, Sensible merges the lines too aggressively
 
 **Example document**
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/split_lines.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split_lines.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split_lines.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
 **Output**

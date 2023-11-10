@@ -6,9 +6,9 @@ hidden: false
 Introduction
 ----
 
-If you're trying to convert a PDF into an Excel spreadsheet, you often find tools that copy the PDF's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
+If you're trying to convert a document, such as a PDF, into an Excel file, you often find tools that copy the document's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
 
-In contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. You can convert documents formatted as PDFs, PNGs, TIFFs, and JPEGs.
+In contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. For a list of document file types that Sensible can extract data from, see [Supported file types](doc:file-types).
 
 This topic describes the rules Sensible uses to:
 
@@ -26,7 +26,7 @@ To get a document's data into a spreadsheet, you must first:
 
 - Configure extractions for a document type, either by authoring an extraction configuration using Sensible, or by using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
 
-- Run an extraction on a target document that's in your configured document type using the [Sensible app](https://app.sensible.so/quick-extraction) (single-document conversion) or the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint) (multiple document extraction). 
+- Run an extraction on a target document that's in your configured document type
 
 
 
@@ -39,7 +39,7 @@ To generate CSV files, Sensible uses the same rules described in the following s
 Multi-document spreadsheet
 ====
 
-To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
+
 
 To combine document extractions into one spreadsheet file, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
 
@@ -107,7 +107,7 @@ Sensible converts the JSON extraction output from the [auto_insurance_anyco](htt
 
 The preceding spreadsheet contains data from the following example document:
 
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 **Example configuration**
@@ -156,7 +156,7 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 Example
 -----
 
-Sensible converts the example JSON output from the [example PDF](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [Table](doc:table#examples) method to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [Table](doc:table#examples) method to the following spreadsheet:
 
 
 
@@ -174,7 +174,7 @@ The preceding example shows that the `fields` sheet lists the corresponding shee
 
 The preceding spreadsheet contains data from the following example document: 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 
@@ -245,7 +245,7 @@ Each  `<field_id>.<index>` sheet lists the output of a single field that contain
 Example
 ----
 
-Sensible converts the example JSON output from the [example PDF](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
 
 
 
@@ -263,7 +263,7 @@ The preceding example shows that Sensible outputs nested sections in linked, ind
 
 The preceding spreadsheet contains data from the following example document: 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 **Example configuration**
@@ -408,6 +408,6 @@ Next
 ----
 
 
-- For a tutorial about converting a PDF to an Excel sheet using the Sensible app, see [Getting started with out-of-the-box extraction](doc:library-quickstart).
+- For a tutorial about converting document data to an Excel file using the Sensible app, see [Getting started with out-of-the-box extraction](doc:library-quickstart).
 - To get started with extracting from your custom documents, see [Getting Started](doc:getting-started-ai).
 

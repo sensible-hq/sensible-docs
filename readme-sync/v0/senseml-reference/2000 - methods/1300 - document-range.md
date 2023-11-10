@@ -55,11 +55,11 @@ The following example extracts a list of four sworn statements from a W-9 form.
 
 **Example document**
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_sworn.png)
 
-| Example PDF | [Download link](https://www.irs.gov/pub/irs-pdf/fw9.pdf) |
+| Example document | [Download link](https://www.irs.gov/pub/irs-pdf/fw9.pdf) |
 | ----------- | -------------------------------------------------------- |
 
 **Output**
@@ -102,11 +102,11 @@ The following example shows extracting two images' coordinates.
 ```
 
 **Example document**
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 
@@ -220,7 +220,7 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_range_yoffset.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/document_range_yoffset.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/document_range_yoffset.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 **Output**
@@ -256,7 +256,7 @@ Notes
 Extracting images
 ----
 
-Document Range is the sole method that supports images. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
+Document Range is the sole method that supports extracting non-text images, for example, photos of buildings embedded in an inspection report. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
 
 - Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
 - Convert Sensible's coordinates for the image region to pixel per inch (PPI) coordinates. Sensible's region coordinates follow these conventions:

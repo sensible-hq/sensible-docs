@@ -6,7 +6,7 @@ hidden: false
 
 Introduction
 ====
-In this quickstart, use an example SenseML configuration and example PDF to get a quick "hello world" API response. 
+In this quickstart, use an example SenseML configuration and example document to get a quick "hello world" API response. 
 
 
 
@@ -46,7 +46,7 @@ To run an API call and return extracted, structured data from a downloaded examp
 }
 [/block]
 
-3. Run the code sample in a command prompt. The code downloads an example PDF (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`senseml_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: 
+3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`senseml_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: 
 
 ```json
 {
@@ -70,7 +70,7 @@ To see this example in the Sensible app:
 
 2. Navigate to the [first tutorial](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data) config.
    
-3. Visually examine the example PDF (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
+3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
    
 
 ![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_1.png) 

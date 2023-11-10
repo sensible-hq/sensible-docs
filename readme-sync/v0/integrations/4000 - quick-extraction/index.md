@@ -24,11 +24,11 @@ Take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
-3. Click **Upload document** and select your example document. For document file formats other than PDFs, use other integration methods such as the API. Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr).
+3. Click **Upload document** and select your example document. For a list of supported file types, see [Supported file types](doc:file-types). Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr).
 
-​       If you don't have an example document, use the following PDF document with the `sensible_instruct_basics` document type :
+​       If you don't have an example document, use the following document with the `sensible_instruct_basics` document type :
 
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 3. Click **Run Extraction**.
@@ -37,7 +37,7 @@ Take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
- The following spreadsheet shows output for the example bank statement PDF. The first tab contains fields with single values, for example the start date field. Succeeding tabs contain fields with table output, for example, the accounts list table. 
+ The following spreadsheet shows output for the example bank statement. The first tab contains fields with single values, for example the start date field. Succeeding tabs contain fields with table output, for example, the accounts list table. 
 
 [block:html]
 {
@@ -45,7 +45,7 @@ Take the following steps:
 }
 [/block]
 
-**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
+**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction) or Sensible SDKs.
 
 ##  Next
 

@@ -36,7 +36,7 @@ paths:
          - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
          - Outside an extraction workflow. For example, to determine where to route each document or to label each document in a system of record.
 
-        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
+        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg". For a list of supported document file types, see [Supported file types](doc:file-types).
 
         This endpoint supports documents up to 4.5MB in size.
 
@@ -191,9 +191,7 @@ components:
             title: Unsupported Media Type
             type: string
             example: >-
-              One of the following error messages -
-              Content-Type must be application/json
-              Content-Type must be application/json or application/pdf or image/jpeg or image/png or image/tiff
+              Messages related to the file format of the document to extract data from.
     429:
       description: Too Many Requests
       content:

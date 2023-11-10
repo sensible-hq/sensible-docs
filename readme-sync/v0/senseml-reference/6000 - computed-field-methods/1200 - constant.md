@@ -2,7 +2,7 @@
 title: "Constant"
 hidden: false
 ---
-Adds a key/value pair to an extraction, where the value is a constant that's not necessarily present in the PDF. This lets you include information, such as vendor or form names, that may be lacking from the PDF. For example, imagine a vendor solely issues 6-month policy quotes, so they never state the policy duration in the PDF. Use the Constant method to add `policy_duration_months: 6`. 
+Adds a key/value pair to an extraction, where the value is a constant that's not necessarily present in the document. This lets you include information, such as vendor or form names, that may be lacking from the document. For example, imagine a vendor solely issues 6-month policy quotes, so they never state the policy duration in the document. Use the Constant method to add `policy_duration_months: 6`. 
 
 Parameters
 ====
@@ -66,7 +66,7 @@ The following example shows adding a form name and policy duration as constants 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/constant.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | ------------------------ | ------------------------------------------------------------ |
 
 **Output**

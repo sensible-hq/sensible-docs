@@ -5,7 +5,7 @@ hidden: false
 
 
 
-Corrects the size of text in PDF documents whose size varies, for example as a result of being photographed at different distances. ID cards and receipts are common examples of such documents. This preprocessor enables coordinates-based methods, such as the Region or Text Table methods, to work with such unpredictably scaled documents. For alternatives to this preprocessor, see [Page transformation preprocessors](doc:deskew#notes).
+Corrects the size of text in documents whose size varies, for example as a result of being photographed at different distances. ID cards and receipts are common examples of such documents. This preprocessor enables coordinates-based methods, such as the Region or Text Table methods, to work with such unpredictably scaled documents. For alternatives to this preprocessor, see [Page transformation preprocessors](doc:deskew#notes).
 
 [**Parameters**]( doc:scale#parameters)
 [**Examples**]( doc:scale#examples)
@@ -72,7 +72,7 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/scale.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/scale.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/scale.pdf) |
 | ------------------------------------------ | ------------------------------------------------------------ |
 
 **Output**

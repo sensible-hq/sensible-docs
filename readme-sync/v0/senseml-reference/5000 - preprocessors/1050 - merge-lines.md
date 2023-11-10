@@ -3,7 +3,7 @@ title: "Merge lines"
 hidden: false
 ---
 
-Merges lines distributed along a horizontal axis more aggressively than the built-in line merger. This preprocessor solves line-recognition problems caused by poor-quality PDF scans, handwritten text, and other PDF formatting. For example, this preprocessor solves:
+Merges lines distributed along a horizontal axis more aggressively than the built-in line merger. This preprocessor solves line-recognition problems caused by poor-quality document scans, handwritten text, and other formatting issues. For example, this preprocessor solves:
 
 - oversplit lines
 - lines overlapping on the x-axis
@@ -36,7 +36,7 @@ Use the Merge Lines preprocessor to clean up OCRed handwriting text. This prepro
 
 **PROBLEM**
 
-Without a Merge Line preprocessor, the placeholder handwritten data in an example PDF is oversplit by Google OCR:
+Without a Merge Line preprocessor, the placeholder handwritten data in an example document is oversplit by Google OCR:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_2.png)
 
@@ -71,13 +71,13 @@ CONFIG
 }
 ```
 
-PDF
+Example document
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_ocr.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 To run this example, verify that the document type uses Google OCR (click the gear icon for the Document Type and select **Google**): 
@@ -152,9 +152,9 @@ CONFIG
 }
 ```
 
-PDF
+Example document
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_2.png)
 
@@ -205,11 +205,11 @@ The following example shows using the Y Overlap parameter to correct vertical mi
 
 **Example document**
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_yoverlap.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_yoverlap.pdf) |
 | ------------------------- | ------------------------------------------------------------ |
 
 **Output**
@@ -225,9 +225,9 @@ The following image shows the example PDF used with this example config:
 Overlapping lines on an x-axis
 ----
 
-The following example shows using the Min X Gap Threshold parameter to extract overlapping text in a poorly formatted PDF. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
+The following example shows using the Min X Gap Threshold parameter to extract overlapping text in a poorly formatted document. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
 
-The Min X Gap Threshold preserves the intended PDF formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines don't overlap.
+The Min X Gap Threshold preserves the intended document formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines don't overlap.
 
 **Config**
 
@@ -256,11 +256,11 @@ The Min X Gap Threshold preserves the intended PDF formatting, which is a two-co
 
 **Example document**
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_minxgap.png)
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap.pdf) |
 | ----------------------------------- | ------------------------------------------------------------ |
 
 **Output**
