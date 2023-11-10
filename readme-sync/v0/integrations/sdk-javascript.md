@@ -24,9 +24,9 @@ See the following steps for an overview of the SDK's workflow for extraction:
    1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. 
    2.  **(required)** Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
    3.  See the following section for optional parameters.
-3. Poll for the result (`sensible.waitFor()`. See the Wait For method for more information.
-4. Optionally convert the extracted JSON data to Excel using `generateExcel()`. See the Generate Excel method for more information.
-5. Consume the data.
+3. Poll for the results (`sensible.waitFor()` or get the results using a webhook.
+4. Optionally convert the extracted JSON data to Excel using `generateExcel()`. 
+5. Consume the data as JSON or Excel.
 
 
 ### Classification workflow
@@ -35,9 +35,11 @@ See the following steps for an overview of the SDK's workflow for classification
 
 1. Instantiate an SDK object (`new SensibleSDK()`.
 
-2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.
+2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter.
 
-3. Consume the document data as JSON.
+3. Poll for the result (`sensible.waitFor()` or get the results using a webhook.
+
+4. Consume the document data as JSON.
 
 
 See the following sections for more information about the methods in these workflows.
@@ -46,7 +48,7 @@ See the following sections for more information about the methods in these workf
 
 ### Description
 
-Extract data asynchronously from a document, as specified by the extraction configurations and document types defined in your Sensible account.
+Extract data from a document, as specified by the extraction configurations and document types defined in your Sensible account.
 
 ### Example
 
@@ -56,8 +58,10 @@ const request = await sensible.extract({
       documentType: "balance_sheets", //required
       environment: "development"
       documentName: "balance_sheet_acme_co.pdf",
-      webhook: "YOUR_WEBHOOK_URL",
-    });
+      webhook: {
+         url:"YOUR_WEBHOOK_URL",
+         payload: "additional info",
+    }});
 ```
 
 ### Parameters
@@ -73,7 +77,7 @@ See the following table for information about parameters:
 | configurationName | string                                                     | If specified, Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.<br/>If unspecified, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>Not applicable for PDF portfolios. |
 | documentName      | string                                                     | If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response and populates the file name in the Sensible app's list of recent extractions. |
 | environment       | `"production"` or `"development"`. default: `"production"` | If you specify `development`, Sensible extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
-| webhook           | string                                                     | Specifies to return extraction results to the specified webhook URL as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error. |
+| webhook           | object                                                     | Specifies to return extraction results to the specified webhook URL as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error.<br/> The webhook object has the following parameters:<br/>`url`:  string. Webhook destination. Sensible will POST to this URL when the extraction is complete.<br/>`payload`: string, number, boolean, object, or array. Information additional to the API response, for example a UUID for verification. |
 
 ### Returns
 

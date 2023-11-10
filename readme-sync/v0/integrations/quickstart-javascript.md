@@ -58,7 +58,7 @@ const request = await sensible.extract({
       documentType: "sensible_instruct_basics",
       environment: "development" // see Javascript SDK reference for full list of configuration options
     });
-const results = await sensible.waitFor(request);
+const results = await sensible.waitFor(request); // waitFor is optional if you use a webhook
 console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 
@@ -94,7 +94,7 @@ const request = await sensible.extract({
       file: blob,
       documentType: "sensible_instruct_basics",
     });
-const results = await sensible.waitFor(request);
+const results = await sensible.waitFor(request); // waitFor is optional if you use a webhook
 console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 

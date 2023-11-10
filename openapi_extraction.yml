@@ -1607,7 +1607,7 @@ components:
           description: Webhook destination. Sensible will POST to this URL when the extraction is complete.
           example: https://example.com/example_webhook_url
         payload:
-          type: string
+          type: [string, number, boolean, array, object]
           description: Information additional to the API response, for example a UUID for verification.
           example: info extra to the default extraction payload
     DocumentUrl:
