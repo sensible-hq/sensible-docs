@@ -32,4 +32,4 @@ jobs:
       - name: sync markdown guides (excludes changelog, API ref)
         # use new dev key that you get from a temp test project (remember you'll have to create the categories by hand in dash.readme and also create a v0 of docs in dash.readme)
         run: |
-          npx ts-node ./readme-cli-tool/sync/index.mjs --apiKey ${{ secrets.DEV_README_KEY }} --version v1.0 --docs readme-sync/v0
+          npx ts-node ./readme-cli-tool/sync/index.ts --apiKey ${{ secrets.DEV_README_KEY }} --version v1.0 --docs readme-sync/v0
