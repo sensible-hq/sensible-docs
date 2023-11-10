@@ -533,10 +533,10 @@ In a production scenario, continue testing documents until you have confidence y
 Integrate with your application
 ====
 
-When you're ready to integrate with your application, enable using the config with the Sensible API by taking the following steps:
+When you're ready to integrate with your application, enable using the config with the Sensible SDKs or API by taking the following steps:
 
 1. Click **Publish**.  The config is still a work in progress, so click **Development**.  Now you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
-2.  use the [Sensible API](https://docs.sensible.so/reference) to integrate with your application. If you're new to APIs, then see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1) for a tutorial. 
+2. Use the Sensible SDKs or API to integrate with your application.
 
 Validate extractions in production 
 ====

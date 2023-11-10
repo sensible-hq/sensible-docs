@@ -45,7 +45,7 @@ Take the following steps:
 }
 [/block]
 
-**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
+**Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction) or Sensible SDKs.
 
 ##  Next
 

@@ -12,9 +12,9 @@ Using the Sensible app, you can extract data from the following file types:
 - PDF
 - Microsoft Word documents (DOC and DOCX)
 
-### Sensible API and SDK
+### Sensible SDKs and API
 
-The Sensible API and SDKs support the following file types:
+The Sensible SDKs and API support the following file types:
 
 **Extraction**
 
