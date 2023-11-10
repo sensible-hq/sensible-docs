@@ -22,8 +22,7 @@ single-document file:
 
 - PDF
 - Microsoft Word documents (DOC and DOCX)
-- pageless image formats (JPEG, PNG)
-- paginated image format (TIFF)
+- image formats (JPEG, PNG, and TIFF)
 
 multi-document file ("portfolio" file):
 
