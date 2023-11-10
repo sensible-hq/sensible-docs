@@ -4,7 +4,7 @@
 
 ### Publishing the docs to readme
 
-To publish the markdown docs in this repository to ReadMe.io at https://docs.sensible.so/docs, commit to main. This triggers Github Actions that perform actions conditionally, such as syncing the API reference, syncing the guide docs, checking links, and styling images.
+To publish the markdown docs in this repository to ReadMe.io at https://docs.sensible.so/docs, commit to main. This triggers GitHub Actions that perform actions conditionally, such as syncing the API reference, syncing the guide docs, checking links, and styling images.
 
 
 
@@ -25,7 +25,7 @@ In the Images dir:
 
 ### Authoring requirements & limitations
 
-You can author the docs in Github-flavored Markdown, with the following minor restrictions and caveats:
+You can author the docs in GitHub-flavored Markdown, with the following minor restrictions and caveats:
 
 - **links** - The preferred linking method is to use Readme's syntax like this: `[some title](doc:some-doc-slug)`. or `[Some title](ref:some-api-endpoint-slug)`. (Not recommended: you can also use relative links, but  then you have to leave out the .md extension. Like this: `[syntax for relative link to a doc](./readme-sync/v0/some-file-name-no-textension)`. (Future improvement: should be easy to modify readme-sync code to strip out .md extensions if we want working relative links in the markdown stored in github)
 
@@ -46,9 +46,9 @@ _____
 
 
 
-- **no authoring in dash.readme** - the bottom line is: edit in Github or use readme's Suggested Edits mechanism! don't make direct edits in dash.readme
+- **no authoring in dash.readme** - the bottom line is: edit in GitHub or use readme's Suggested Edits mechanism! don't make direct edits in dash.readme
 
-  - Why?  If someone doesn't know better, they could edit the docs in dash.readme... but those edits will be overwritten the next time someone runs the readme-sync. There's no mechanism in dash.readme to warn them not to edit.  Likewise, any suggested edits in ReadMe need to be manually merged to the Github docs rather than merged using ReadMe's mechanism. 
+  - Why?  If someone doesn't know better, they could edit the docs in dash.readme... but those edits will be overwritten the next time someone runs the readme-sync. There's no mechanism in dash.readme to warn them not to edit.  Likewise, any suggested edits in ReadMe need to be manually merged to the GitHub docs rather than merged using ReadMe's mechanism. 
 
 
 
