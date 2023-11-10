@@ -3,7 +3,7 @@ title: "Color coding"
 hidden: false
 ---
 
-This topic describes color-coded symbols that the SenseML editor overlays on PDFs in the Sensible app. These overlays visually represent how SenseML queries operate on PDFs. Use these symbols to author and troubleshoot queries.
+This topic describes color-coded symbols that the SenseML editor overlays on documents in the Sensible app. These overlays visually represent how SenseML queries operate on documents. Use these symbols to author and troubleshoot queries.
 
 | symbol                                           | represents                           |
 | ------------------------------------------------ | ------------------------------------ |

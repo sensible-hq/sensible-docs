@@ -95,7 +95,7 @@ For **Anchor 1**, Sensible anchors on the last Match array element if it's prece
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_3.png)
 
-Try out this example in the Sensible app using the following PDF and config:
+Try out this example in the Sensible app using the following document and config:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/anchor.pdf) |
 | ----------- | ------------------------------------------------------------ |

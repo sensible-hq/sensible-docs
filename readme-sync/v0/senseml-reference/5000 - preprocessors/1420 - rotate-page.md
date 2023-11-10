@@ -19,7 +19,7 @@ Parameters
 Examples
 ====
 
-The following image shows that without the Rotate page preprocessor, extraction from a rotated PDF fails. The Region method returns null, because the targeted text isn't in the expected region:
+The following image shows that without the Rotate page preprocessor, extraction from a rotated document fails. The Region method returns null, because the targeted text isn't in the expected region:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/rotate_page_1.png)
 

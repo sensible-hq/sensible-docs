@@ -50,7 +50,7 @@ The remaining problem is that the Deskew Preprocessor  doesn't merge lines that 
 
 Now Sensible captures the full date range, because the region starts at the middle of the complete line "White house tenure".
 
-Try out this example in the Sensible app using the following PDFs and config:
+Try out this example in the Sensible app using the following documents and config:
 
 | Example aligned  PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/deskew_1.pdf) |
 | -------------------- | ------------------------------------------------------------ |
@@ -158,7 +158,7 @@ This visual representation of how the Sensible app deskews documents can be usef
 - Choose text anchors for Fixed Points that form as large a triangle as possible, ideally at three corners of the document. Choosing the best points can take trial and error. 
 - For the Match parameter, choose `"type": "startsWith"` or `"type": "endsWith"` to avoid problems with lines split by skew. If you choose `"endsWith"`, then also define `"start:right"`. You can also define a Merge Lines preprocessor to clean up oversplit lines.
 
-- For the aligned reference PDF, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
+- For the aligned reference document, choose a slightly enlarged version of the document so that the Fixed Points triangle is large. The Deskew preprocessor corrects scaling for smaller skewed images.
 
   
 

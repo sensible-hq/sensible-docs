@@ -541,7 +541,7 @@ When you're ready to integrate with your application, enable using the config wi
 Validate extractions in production 
 ====
 
-In a previous section, you tested a couple of PDFs manually. Now it's time to scale up and quality control the extractions by writing tests that run for all API extractions in a doc type.
+In a previous section, you tested a couple of documents manually. Now it's time to scale up and quality control the extractions by writing tests that run for all API extractions in a doc type.
 
 Use JsonLogic to validate that the extracted information makes sense for the car insurance document:
 
@@ -584,7 +584,7 @@ To add these tests:
 
 
 
-5. To test the validations with a PDF that's missing information, [try out an API call](doc:api-tutorial-async-1) with the following example document that has these errors:
+5. To test the validations with a document that's missing information, [try out an API call](doc:api-tutorial-async-1) with the following example document that has these errors:
 
    -  the policy number is missing
    -  the property damage liability premium is $200 more than the comprehensive premium

@@ -46,10 +46,10 @@ To run an API call and return extracted, structured data from a downloaded examp
 }
 [/block]
 
-3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`senseml_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: 
+3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`senseml_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: 
 
 ```json
-{
+{
    "parsed_document":{
       "your_first_extracted_field":{
          "type":"string",

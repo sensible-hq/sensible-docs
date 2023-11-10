@@ -19,7 +19,7 @@ Parameters
 Examples
 ====
 
-The following example shows solving undersplit lines in a "typewritten" style PDF. The Split Lines preprocessor preserves columns and rows in this document.
+The following example shows solving undersplit lines in a "typewritten" style document. The Split Lines preprocessor preserves columns and rows in this document.
 
 **PROBLEM**
 

@@ -721,7 +721,7 @@ Use configurable syntax to change the formatting of the extracted text.
 
 **Example output**
 
-For the following PDF:
+For the following document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/annotate_superscript_and_subscript.png) 
 

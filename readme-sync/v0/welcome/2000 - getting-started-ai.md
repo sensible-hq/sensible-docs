@@ -28,7 +28,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 - Extract data from an example document using a natural-language description of your target data 
 - Publish your prompt as part of a "config."
-- Test your config against a second, similar PDF to ensure it extracts the same target data.
+- Test your config against a second, similar document to ensure it extracts the same target data.
 
 ## Get an account
 
@@ -38,7 +38,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. To view an example bank statement PDF extraction, navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
+1. To view an example bank statement extraction, navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 

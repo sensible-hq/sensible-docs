@@ -9,7 +9,7 @@ TODO: clarify that even though this is in layout-based extractions it counts for
 
 Using the Sensible app, you can extract data from the following file types:
 
-- PDFs
+- PDF
 - Microsoft Word documents (DOC and DOCX)
 
 ### Sensible API and SDK

@@ -3,7 +3,7 @@ title: "Merge lines"
 hidden: false
 ---
 
-Merges lines distributed along a horizontal axis more aggressively than the built-in line merger. This preprocessor solves line-recognition problems caused by poor-quality PDF scans, handwritten text, and other PDF formatting. For example, this preprocessor solves:
+Merges lines distributed along a horizontal axis more aggressively than the built-in line merger. This preprocessor solves line-recognition problems caused by poor-quality document scans, handwritten text, and other formatting issues. For example, this preprocessor solves:
 
 - oversplit lines
 - lines overlapping on the x-axis

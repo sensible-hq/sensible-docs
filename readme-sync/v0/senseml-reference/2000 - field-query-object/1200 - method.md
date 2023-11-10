@@ -164,7 +164,7 @@ In this example, the X Range Filter parameter is the best option:
 - The Fixed Table and Table methods aren't the best options, because the table formatting is hard to recognize.
 - The Text Table method with `"detectMultipleLinesPerRow": true` configured is an alternate solution for this example.
 
-Try out this example in the Sensible app using the following PDF and config:
+Try out this example in the Sensible app using the following document and config:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xrange_filter.pdf) |
 | ------------------------------ | ------------------------------------------------------------ |

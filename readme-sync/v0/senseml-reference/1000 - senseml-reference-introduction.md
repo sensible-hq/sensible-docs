@@ -30,7 +30,7 @@ For an overview, see the following example of a short config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro.png)
 
-Try out this example in the Sensible app using the following PDF and config:
+Try out this example in the Sensible app using the following document and config:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split.pdf) |
 | ---------------------------- | ------------------------------------------------------------ |
