@@ -60,7 +60,7 @@ console.log(results); // see Javascript SDK reference to convert results from JS
    node index.mjs
    ```
 
-The code extracts data from an example PDF (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
+The code extracts data from an example document (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
 
 #### Option 2: local file
 
@@ -90,7 +90,7 @@ const results = await sensible.waitFor(request); // waitFor is optional if you c
 console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 
-This code uploads your local file to a Sensible-hosted URL and extracts data from an example PDF (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
+This code uploads your local file to a Sensible-hosted URL and extracts data from an example document (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
 
 #### Check results
 

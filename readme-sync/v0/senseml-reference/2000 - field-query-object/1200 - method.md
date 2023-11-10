@@ -72,9 +72,9 @@ To reliably capture the first and last name in their left-to-right order,  set `
 }
 ```
 
-*PDF*
+*Example document*
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sort_lines_2.png)
 
@@ -126,8 +126,8 @@ The following example shows using the Type Filters parameter to extract delivery
 }
 ```
 
-**PDF**
-The following image shows the example PDF used with this example config:
+**Example document**
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/types_filter.png)
 

@@ -71,7 +71,7 @@ The following example shows extracting three checkboxes:
 ```
 
 **Example document**
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 
 

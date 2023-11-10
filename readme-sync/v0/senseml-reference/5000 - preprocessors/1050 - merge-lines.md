@@ -71,9 +71,9 @@ CONFIG
 }
 ```
 
-PDF
+Example document
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr.png)
 
@@ -152,9 +152,9 @@ CONFIG
 }
 ```
 
-PDF
+Example document
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_2.png)
 
@@ -205,7 +205,7 @@ The following example shows using the Y Overlap parameter to correct vertical mi
 
 **Example document**
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_yoverlap.png)
 
@@ -256,7 +256,7 @@ The Min X Gap Threshold preserves the intended PDF formatting, which is a two-co
 
 **Example document**
 
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_minxgap.png)
 

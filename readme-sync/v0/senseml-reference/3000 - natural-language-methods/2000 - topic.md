@@ -54,7 +54,7 @@ The following example shows finding a  topic in a licensing legal code.
 ```
 
 **Example document**
-The following image shows the example PDF used with this example config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/topic.png)
 
