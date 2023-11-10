@@ -26,7 +26,7 @@ See the following steps for an overview of the SDK's workflow for extraction:
    3.  See the following section for optional parameters.
 3. Poll for the results (`sensible.waitFor()` or get the results using a webhook.
 4. Optionally convert the extracted JSON data to Excel using `generateExcel()`. 
-5. Consume the data as JSON or Excel.
+5. Consume the data.
 
 
 ### Classification workflow
@@ -37,9 +37,9 @@ See the following steps for an overview of the SDK's workflow for classification
 
 2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter.
 
-3. Poll for the result (`sensible.waitFor()` or get the results using a webhook.
+3. Poll for the result (`sensible.waitFor()`.
 
-4. Consume the document data as JSON.
+4. Consume the data.
 
 
 See the following sections for more information about the methods in these workflows.
@@ -114,9 +114,8 @@ This method returns the results of a classification or extraction request. For m
 ### Description
 
 Get Excel files from documents. In more detail, this endpoint converts your JSON document extraction to an Excel spreadsheet.
-To compile multiple documents into one Excel file, specify the results of extractions.
-For the best compiled spreadsheet results, configure your SenseML so that each document extraction outputs identically named fields.
-For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+To compile multiple documents into one Excel file, specify the results of extractions as an array.
+For the best compiled spreadsheet results, configure your SenseML so that each document extraction outputs identically named fields. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
 
 ### Example
 
@@ -159,5 +158,5 @@ See the following table for classification parameters:
 
 ### Returns
 
-Get results from this method by using a webhook or calling the Wait For method. For the schema for the results of a classification request , see [Classify document by type (sync)](https://docs.sensible.so/reference/classify-document-sync) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+Get results from this method by calling the Wait For method. For the schema for the results of a classification request , see [Classify document by type (sync)](https://docs.sensible.so/reference/classify-document-sync) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 

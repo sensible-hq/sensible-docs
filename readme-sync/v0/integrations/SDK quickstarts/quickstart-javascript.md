@@ -12,7 +12,7 @@ This quickstart provides an overview of the Sensible Javascript SDK. Use this SD
 
 ## Install
 
-In an environment in which you've installed Javascript, create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
+In an environment in which you've installed JavaScript, create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
 
 ```shell
 npm install sensible-sdk
@@ -134,7 +134,7 @@ const request = await sensible.extract({
       documentType: "sensible_instruct_basics",
       environment: "development" // see Javascript SDK reference for configuration options
     });
-const results = await sensible.waitFor(request);
+const results = await sensible.waitFor(request); // waitFor is optional if you configure  a webhook
 console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
 ```
 

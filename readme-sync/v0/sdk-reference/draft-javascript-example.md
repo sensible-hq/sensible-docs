@@ -19,7 +19,7 @@ See the following steps for an overview of the SDK's workflow for extraction:
    3.  See the following section for optional parameters.
 3. Wait for the result (`sensible.waitFor()`. See the Wait For method for more information.
 4. Optionally convert the result or results to Excel using `generateExcel()`. See the Generate Excel method for more information.
-5. Consume the document data as JSON or in Excel format.
+5. Consume the data.
 
 For example:
 
@@ -35,7 +35,7 @@ See the following steps for an overview of the SDK's workflow for classification
 
 2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.
 
-3. Consume the document data as JSON
+3. Consume the data.
 
    ```javascript
    import { promises as fs } from "fs";
