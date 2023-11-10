@@ -1,9 +1,9 @@
 ---
 title: "Supported file types"
-hidden: true
+hidden: false
 ---
 
-TODO: clarify that even though this is in layout-based extractions it counts for LLM too.
+Sensible supports the following file types:
 
 ### Sensible app
 
@@ -25,7 +25,7 @@ single-document file:
 - pageless image formats (JPEG, PNG)
 - paginated image format (TIFF)
 
-multi-document file ("portfolio"):
+multi-document file ("portfolio" file):
 
 - PDF
 - Microsoft Word documents (DOC and DOCX)
