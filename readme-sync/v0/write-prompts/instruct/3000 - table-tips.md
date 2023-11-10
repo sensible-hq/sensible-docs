@@ -32,7 +32,7 @@ To try out this example in the Sensible app, take the following steps:
 
 1. Navigate to the following example PDF:
 
-   | Example PDF | [https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement) |
+   | Example document | [https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement) |
    | ----------- | ------------------------------------------------------------ |
 
 2. Create fields to extract data using the following table:
@@ -71,7 +71,7 @@ To try out this example in the Sensible app, take the following steps:
 
 1. Download the following example PDF:
 
-   | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nlp_table.pdf) |
+   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/nlp_table.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
 2. Create a test document type in the Sensible app, then click the document type you created to edit it. In the document type's **Reference documents** tab, upload the example PDF you downloaded in a previous step.

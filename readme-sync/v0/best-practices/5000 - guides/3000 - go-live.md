@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-You've written your configs and tested your reference PDFs and you're ready to move to production. Here's a handy checklist before you go live:
+You've written your configs and tested your reference documents and you're ready to move to production. Here's a handy checklist before you go live:
 
 - [ ] Have you published the latest version of all your configurations across all document types to [production](https://docs.sensible.so/docs/test-before-integrating-configs)? (In the Sensible app, select a document type, select a config, then click **Publish** and select **Production**).
 - [ ] If you're working with multiple configurations per document type, is the variable naming consistent across different configurations? (for example, if you extract a field with the ID `customer_full_name` in one config, you shouldn't name it `customer_fullname` in another config).

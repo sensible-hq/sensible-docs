@@ -45,7 +45,7 @@ curl --request POST \
 
 3. Download the following example PDF, which works with the prerequisite  **tax_forms**  document type:
 
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 4.  Correct the path to the downloaded PDF: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the PDF you downloaded:

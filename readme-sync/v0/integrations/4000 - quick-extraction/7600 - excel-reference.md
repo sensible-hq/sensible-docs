@@ -6,9 +6,9 @@ hidden: false
 Introduction
 ----
 
-If you're trying to convert a PDF into an Excel spreadsheet, you often find tools that copy the PDF's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
+If you're trying to convert a document, such as a PDF, into an Excel file, you often find tools that copy the document's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
 
-In contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. For a list of document file types that Sensible can convert extracted data from, see [Supported file types](doc:file-types).
+In contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. For a list of document file types that Sensible can extract data from, see [Supported file types](doc:file-types).
 
 This topic describes the rules Sensible uses to:
 
@@ -39,7 +39,7 @@ To generate CSV files, Sensible uses the same rules described in the following s
 Multi-document spreadsheet
 ====
 
-To combine multiple PDFs  into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
+To combine multiple documents into one multi-document spreadsheet, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction).
 
 To combine document extractions into one spreadsheet file, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
 

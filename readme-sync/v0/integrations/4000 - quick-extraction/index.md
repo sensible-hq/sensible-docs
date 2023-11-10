@@ -28,7 +28,7 @@ Take the following steps:
 
 ​       If you don't have an example document, use the following PDF document with the `sensible_instruct_basics` document type :
 
-| Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 3. Click **Run Extraction**.

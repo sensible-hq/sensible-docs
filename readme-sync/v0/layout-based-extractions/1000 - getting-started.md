@@ -49,7 +49,7 @@ Configure the extraction
 
    1. Download the following PDF document:
 
-   | Example PDF | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+   | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | --------------------------- | ------------------------------------------------------------ |
    2. As the following screenshot shows, click the **auto_insurance_quote** document type you created,  click the **Reference documents** tab, and click **Upload document**:
       ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_upload_doc.png) 

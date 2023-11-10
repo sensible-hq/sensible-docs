@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-With Sensible's Zapier integration, you can transform data in PDFs and other documents into emails, databases, Google sheets, and other Zapier-supported destinations.
+With Sensible's Zapier integration, you can transform data in PDFs and other document file types into emails, databases, Google sheets, and other Zapier-supported destinations.
 
 For example, you can extract data in 1040 tax forms: 
 

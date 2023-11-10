@@ -98,7 +98,7 @@ The config is the same as the one used in the [Sections](doc:sections) topic, wi
 PDF
 ---
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 Output

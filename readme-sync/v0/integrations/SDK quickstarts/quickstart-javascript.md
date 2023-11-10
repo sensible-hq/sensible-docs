@@ -74,7 +74,7 @@ To extract from a local file:
 
 2. Download the following example file and save it in the same directory as your `index.mjs` file: 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/contract.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
 2. Paste the following code into your `index.mjs` file, then run it according to the steps in the previous option:
@@ -158,7 +158,7 @@ To classify an example document, take the following steps:
 
 3. Download the following example file and save it in the same directory as your `index.mjs` file: 
 
-| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/blob/main/bank_statements/bank_of_america/boa_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
 4. Paste the preceding code into your `index.mjs` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`. See the following code example to check your code completeness.
