@@ -10,19 +10,27 @@ TODO: clarify that even though this is in layout-based extractions it counts for
 Using the Sensible app, you can extract data from the following file types:
 
 - PDFs
--  Microsoft Word documents (DOC and DOCX)
+- Microsoft Word documents (DOC and DOCX)
 
 ### Sensible API and SDK
 
 The Sensible API and SDKs support the following file types:
 
-**Extract methods**
+**Extraction**
+
+single-document file:
 
 - PDF
 - Microsoft Word documents (DOC and DOCX)
-- Image formats (JPEG, PNG, and TIFF)
+- pageless image formats (JPEG, PNG)
+- paginated image format (TIFF)
 
-**Classify methods**
+multi-document file ("portfolio"):
+
+- PDF
+- Microsoft Word documents (DOC and DOCX)
+
+**Classification**
 
 - PDF
 - Image formats (JPEG, PNG, and TIFF)
