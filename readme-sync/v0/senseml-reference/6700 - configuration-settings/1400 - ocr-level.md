@@ -9,8 +9,6 @@ Sensible handles OCR for documents automatically, except for advanced edge cases
 
 You can set the OCR Level parameter at the document level and at the config level. The config-level parameter overrides the document-level parameter. If unspecified, default OCR level for a document type is the minimum OCR level defined among its configurations
 
-
-
 | level | defaults                               | description                                                  |
 | ----- | -------------------------------------- | ------------------------------------------------------------ |
 | 0     |                                        | Sensible doesn't run OCR. As a result, Sensible skips processing image file formats and whole-scanned files, and ignores OCR preprocessor settings. QUESTION: is this 2nd sentence true, I didn't check the code. |
