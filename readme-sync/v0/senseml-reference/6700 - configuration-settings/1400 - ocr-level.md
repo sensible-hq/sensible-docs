@@ -1,8 +1,8 @@
 ---
-title: "OCR Level"
+title: "OCR level"
 hidden: true
 ---
-Sensible handles OCR for documents automatically except for advanced edge cases that you can configure using:
+Sensible handles OCR for documents automatically, except for advanced edge cases that you can configure using:
 
 - the [OCR preprocess](doc:ocr)
 - the OCR Level parameter
