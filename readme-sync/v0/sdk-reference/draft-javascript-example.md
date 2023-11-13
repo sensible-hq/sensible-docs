@@ -5,6 +5,45 @@ hidden: true
 
 
 
+ideas:
+
+- (fndkt) -- suppoose you're a fintech that connects Spotify and other webcommerce businesses to funding (**direct funder for merchant cash advances**). Your app requires the business applicant to upload 3 recent bank statements. Then you need to parse them: OR! So you're qualifying them for a loan to buy or rent solar panels. You to qualify them, you want to see their recent bank statements AND their homeowners policy dec page, among other things... 
+- (mddsk) You look at registration records to verify a business
+- maybe you serve real estate investors and you want 
+
+TODO: look at this example from fndkt by H:
+
+```
+import { promises as fs } from "fs";
+import { SensibleSDK } from "sensible-sdk";
+import got from "got";
+const apiKey = process.env.SENSIBLE_APIKEY;
+const sensible = new SensibleSDK(apiKey);
+const dir = process.argv[2];
+const files = (await fs.readdir(dir)).filter((file) => file.match(/\.pdf$/));
+const extractions = await Promise.all(
+  files.map(async (filename) => {
+    const file = await fs.readFile(`${dir}/${filename}`);
+    return sensible.extract({
+      file,
+      documentType: "bank_statements",
+    });
+  })
+);
+await Promise.all(
+  extractions.map((extraction) => sensible.waitFor(extraction))
+);
+const excel = await sensible.generateExcel(extractions);
+console.log(excel);
+const excelFile = await got(excel.url);
+await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
+```
+
+
+
+
+
+
 
 ## Code examples
 
