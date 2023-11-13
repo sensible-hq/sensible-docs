@@ -13,7 +13,7 @@ You can set the OCR Level parameter at the document level and at the config leve
 
 | level | defaults                               | description                                                  |
 | ----- | -------------------------------------- | ------------------------------------------------------------ |
-| 0     |                                        | Sensible doesn't run OCR. As a result, Sensible skips processing image file formats and whole-scanned files, and ignores OCR preprocessor settings. |
+| 0     |                                        | Sensible doesn't run OCR. As a result, Sensible skips processing image file formats and whole-scanned files, and ignores OCR preprocessor settings. QUESTION: is this 2nd sentence true, I didn't check the code. |
 | 2     | default for single-document extraction | Sensible averages the number of lines per page in the document. If the average is fewer than 10, Sensible runs OCR on the whole document. |
 | 4     |                                        | Sensible always renders the first page and tests it to determine whether to run OCR on the whole document. |
 | 5     | default for portfolio extractions      | Sensible renders and tests each page in the document to determine whether to run OCR on that page.<br/>Set this level in a configuration if you use the configuration to process both single documents and portfolio, so that your OCR settings between single documents and portfolios are consistent. |
