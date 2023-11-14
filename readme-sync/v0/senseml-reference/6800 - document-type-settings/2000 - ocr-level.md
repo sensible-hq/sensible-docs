@@ -30,5 +30,5 @@ The following table shows the enums available for the OCR Level parameter.
 | 0     | Sensible doesn't run OCR for PDFs.                           |
 | 2     | Default for single-document PDF extractions.<br/> Sensible detects if the whole document needs OCR using heuristics. For example, Sensible averages the number of lines per page in the document. If the average is fewer than 10, Sensible runs OCR on the whole document. |
 | 4     | Default for portfolio PDF extractions.<br/>Sensible detects if the whole document needs OCR by rendering the first page and testing it. If that page needs OCR, Sensible runs OCR on the entire document. |
-| 5     | Sensible renders and tests each page in the document to determine whether to run OCR on that page.<br/>Set this level in a configuration if you use the configuration to process both single documents and portfolio, so that your OCR settings between single documents and portfolios are consistent. |
+| 5     | Sensible renders and tests each page in the document to determine whether to run OCR on that page.<br/>Set this level in a document type if you use the type to process both single documents and portfolio, so that your OCR settings between single documents and portfolios are consistent. |
 
