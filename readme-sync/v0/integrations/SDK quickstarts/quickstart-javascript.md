@@ -28,7 +28,7 @@ import { SensibleSDK } from "sensible-sdk";
 
 Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.
 
-To initialize the dependency, paste the following code into your `index.mjs` file and replace `YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)):
+To initialize the dependency, paste the following code into your `index.mjs` file and replace `YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/)):
 
 ```javascript
 const sensible = new SensibleSDK(YOUR_API_KEY);
@@ -161,7 +161,7 @@ To classify an example document, take the following steps:
 | Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/bank_statements/bank_of_america/boa_sample.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-4. Paste the preceding code into your `index.mjs` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/?t=api_keys)) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`. See the following code example to check your code completeness.
+4. Paste the preceding code into your `index.mjs` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`. See the following code example to check your code completeness.
 
 5. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
 
