@@ -74,4 +74,4 @@ For an example of using fingerprints to extract multiple documents combined into
 Notes
 ---
 
-For more information about configuring fingerprint strictness, see [Fingerprint mode](doc:fingerprint-mode).
+For more information about configuring fingerprint strictness for a document type, see [Fingerprint mode](doc:fingerprint-mode).
