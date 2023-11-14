@@ -4,9 +4,7 @@ hidden: false
 ---
 For information about the OCR engine options you can set for a document type, see [OCR preprocessor](doc:ocr).
 
-
-
-## Parameters
+## Enums
 
 The following table shows the enums available for the OCR Engine parameter. 
 

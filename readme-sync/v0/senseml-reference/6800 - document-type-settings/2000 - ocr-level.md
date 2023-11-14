@@ -19,7 +19,7 @@ When applying these configurations, Sensible takes the following steps:
 
 3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. Configure this preprocessor for documents that don't trigger whole-document OCR as determined by the OCR level.
 
-## Parameters
+## Enums
 
 The following table shows the enums available for the OCR Level parameter. 
 
