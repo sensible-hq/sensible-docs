@@ -1,5 +1,5 @@
 ---
-title: "Configuration settings"
+title: "Config settings"
 hidden: false
 ---
 The following pages describe options you can set in configs:
