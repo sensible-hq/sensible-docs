@@ -51,11 +51,6 @@ The following fingerprint tests a vendor-specific config "anyco_life_insurance_q
 
 The config preferentially runs if the fingerprint finds the phrases.  
 
-Notes
----
-
-For more information about configuring fingerprint strictness, see [Fingerprint mode](doc:fingerprint-mode).
-
 
 Portfolios
 ====
@@ -75,3 +70,8 @@ Examples
 ---
 
 For an example of using fingerprints to extract multiple documents combined into one portfolio file, see [Multi-document extraction](doc:portfolio).
+
+Notes
+---
+
+For more information about configuring fingerprint strictness, see [Fingerprint mode](doc:fingerprint-mode).
