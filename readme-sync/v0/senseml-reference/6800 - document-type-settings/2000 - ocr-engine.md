@@ -2,7 +2,7 @@
 title: "OCR engine"
 hidden: false
 ---
-Specifies the OCR engine. For information about additional OCR options, see [OCR preprocessor](doc:ocr) and [OCR level](doc:ocr-level).
+Specifies the OCR engine for extracting text from images. For information about additional OCR options, see [OCR preprocessor](doc:ocr) and [OCR level](doc:ocr-level).
 
 ## Enums
 
