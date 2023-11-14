@@ -7,17 +7,17 @@ Sensible handles OCR for documents automatically, except for advanced edge cases
 - the [OCR preprocessor](doc:ocr)
 - the OCR Level parameter
 
-When applying these configurations, Sensible: 
+When applying these configurations, Sensible takes the following steps: 
 
-1. converts DOC and DOCX files into PDFs
+1. Sensible converts DOC and DOCX files into PDFs.
 
-2. transforms the bytes of the document into raw text, and determines whether the document needs OCR:
+2. Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:
 
-   - If the file is an image file (for example, PNG), runs OCR for the whole document
+   - If the file is an image file (for example, PNG), Sensible runs OCR for the whole document.
 
-   - **(Configurable)** if the file is a PDF, processes the file according the OCR Level parameter
+   - **(Configurable)** if the file is a PDF, Sensible processes the file according the OCR Level parameter.
 
-3. **(Configurable)** after additional intervening steps, applies your configured preprocessors, including the OCR preprocessor. This preprocessor generally is for documents that don't need whole-document OCR. In other words, it's for documents that don't trigger OCR when `"ocr_level": 2`.
+3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. This preprocessor generally is for documents that don't need whole-document OCR. In other words, it's for documents that don't trigger OCR when `"ocr_level": 2`.
 
 ## Parameters
 
@@ -35,10 +35,13 @@ You can set the OCR Level parameter at the document level and at the config leve
 To set the OCR level for a configuration, use SenseML:
 
 ```json
+TODO
 ```
 
 
 
 To set the OCR level for a document type, use the settings pane:
+
+SCREENSHOT
 
  
