@@ -5,11 +5,15 @@ hidden: true
 
 this draft is on hold, based on team meeting onboarding slides from aug 2022 as well as notion docs for onboarding devs. publish if there's an audience need for it (hasn't really come up)
 
+NOTE: Some of this engine internals behavior ended up in the OCR LEVEL topic
+
 
 
 **Note:** If you're familiar with Sensible, this advanced topic is for you. 
 
 This topic gives an overview of the Sensible's extraction engine, including the order of execution for SenseML, for example, preprocessors, fields, computed fields, and sections.
+
+0. Convert DOC and DOCX files to PDF.
 
 1. Read text
 ---
