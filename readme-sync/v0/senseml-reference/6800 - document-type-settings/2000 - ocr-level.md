@@ -17,7 +17,7 @@ To understand how these configurations interact, see the following overview of h
 
    - **(Configurable)** if the file is a PDF, Sensible processes the file according the OCR Level parameter.
 
-3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. Configure this preprocessor for documents that don't trigger whole-document OCR as determined by the OCR level.
+3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. This preprocessor runs for documents that don't trigger whole-document OCR, as determined by the OCR level.
 
 ## Enums
 
