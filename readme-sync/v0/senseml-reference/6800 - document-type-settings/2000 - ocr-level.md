@@ -4,8 +4,8 @@ hidden: true
 ---
 Sensible handles OCR for documents automatically, except for advanced edge cases that you can configure using:
 
-- the [OCR preprocessor](doc:ocr)
-- the OCR Level parameter
+- the [OCR preprocessor](doc:ocr) (at the config level)
+- the OCR Level parameter (at the document type level)
 
 When applying these configurations, Sensible takes the following steps: 
 
@@ -20,6 +20,10 @@ When applying these configurations, Sensible takes the following steps:
 3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. Configure this preprocessor for documents that don't trigger whole-document OCR as determined by the OCR level.
 
 ## Parameters
+
+The following table shows the enums available for the OCR Level parameter. 
+
+**Note:** Set this parameter in the [Sensible API](ref:create-document-type).
 
 | level | description                                                  |
 | ----- | ------------------------------------------------------------ |
@@ -37,8 +41,6 @@ To set the OCR level for a configuration, use SenseML:
 ```json
 TODO
 ```
-
-
 
 To set the OCR level for a document type, use the settings pane:
 

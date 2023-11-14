@@ -856,9 +856,9 @@ components:
 
         ocr_level:
           enum:
+            - 0
             - 2
             - 4
-            - 0
             - 5
           type: number
           description: |
