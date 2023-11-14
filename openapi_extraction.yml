@@ -1609,8 +1609,8 @@ components:
           example: https://example.com/example_webhook_url
         payload:
           type: string
-          description: Information additional to the API response, for example a UUID for verification. Can be any of the following types: [string, number, boolean, array, object].
-          # todo, update to 3.1 openapi spec so can specify type: [string, number, boolean, array, object] instead of type: string
+          description: Information additional to the API response, for example a UUID for verification. Can be any of the following types - [string, number, boolean, array, object].
+          # todo, update to 3.1 openapi spec so can specify `type: [string, number, boolean, array, object]` instead of type: string
           example: info extra to the default extraction payload
     DocumentUrl:
       type: string
