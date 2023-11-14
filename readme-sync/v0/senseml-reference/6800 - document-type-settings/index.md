@@ -8,7 +8,7 @@ The following pages describe options you can set in document types:
 
 - [Fingerprint mode](doc:fingerprint-mode)
 
-OCR engine
+- [OCR engine](doc:ocr-engine)
 
 - [OCR level](doc:ocr-level)
 
