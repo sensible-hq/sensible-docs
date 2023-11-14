@@ -28,7 +28,7 @@ import { SensibleSDK } from "sensible-sdk";
 
 Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.
 
-To initialize the dependency, paste the following code into your `index.mjs` file and replace `YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/)):
+To initialize the dependency, paste the following code into your `index.mjs` file and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
 
 ```javascript
 const sensible = new SensibleSDK(YOUR_API_KEY);
