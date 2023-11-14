@@ -846,7 +846,7 @@ components:
             - lazarus
           type: string
           description: |
-            For information about each OCR engine, see [OCR](doc:ocr) preprocessor.
+            For information about each OCR engine, see [OCR engine](doc:ocr-engine).
 
         prevent_default_merge_lines:
           type: boolean
