@@ -17,7 +17,7 @@ When applying these configurations, Sensible takes the following steps:
 
    - **(Configurable)** if the file is a PDF, Sensible processes the file according the OCR Level parameter.
 
-3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. This preprocessor generally is for documents that don't need whole-document OCR. In other words, it's for documents that don't trigger OCR when `"ocr_level": 2`.
+3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. Configure this preprocessor for documents that don't trigger whole-document OCR.
 
 ## Parameters
 
