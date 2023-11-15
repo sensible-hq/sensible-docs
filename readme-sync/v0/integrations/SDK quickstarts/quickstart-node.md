@@ -12,7 +12,7 @@ This quickstart provides an overview of the Sensible Node SDK. Use this SDK to:
 
 ## Install
 
-In an environment in which you've installed JavaScript, create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
+In an environment in which you've installed Node, create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
 
 ```shell
 npm install sensible-api
