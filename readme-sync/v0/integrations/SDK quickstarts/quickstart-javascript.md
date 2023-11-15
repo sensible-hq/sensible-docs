@@ -137,8 +137,7 @@ You can classify a document by its similarity to each document type you define i
 See the following code example for classifying a document.
 
 ```javascript
-const blob = await fs.readFile("./boa_sample.pdf");
-const request = await sensible.classify({file: blob}); 
+const request = await sensible.classify({path: "./boa_sample.pdf"}); 
 const results = await sensible.waitFor(request);
 ```
 
@@ -197,12 +196,10 @@ The following excerpt of the results shows the extracted document text in the `T
 Here's a complete example of how to use the SDK for document classification in your own app:
 
 ```javascript
-import { promises as fs } from "fs";
 import { SensibleSDK } from "sensible-api"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
-const blob = await fs.readFile("./boa_sample.pdf");
-const request = await sensible.classify({file: blob}); 
+const request = await sensible.classify({path:"./boa_sample.pdf"}); 
 const results = await sensible.waitFor(request);
 console.log(results);
 ```

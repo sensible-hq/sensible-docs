@@ -77,12 +77,10 @@ See the following steps for an overview of the SDK's workflow for classification
 3. Consume the data.
 
    ```javascript
-   import { promises as fs } from "fs";
    import { SensibleSDK } from "sensible-api"
    
    const sensible = new SensibleSDK(YOUR_API_KEY);
-   const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
-   const request = await sensible.classify({file: blob}); 
+   const request = await sensible.classify({path: "./YOUR_DOCUMENT.pdf"}); 
    const result = await sensible.waitFor(request);
    console.log(results);
    ```
