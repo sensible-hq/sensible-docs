@@ -15,7 +15,7 @@ See the following pages for reference documentation for the SenseML query langua
 - [Preprocessors](doc:preprocessors)
 - [Methods](doc:methods)
 - [Natural language methods](doc:natural-language-methods) including Sensible Instruct
-- [Configuration settings](doc:configuration-settings)
+- [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
 
@@ -131,7 +131,7 @@ This example config has the following elements:
 
 - The **preprocessor**, `pageRange`, cuts out irrelevant pages of the document. For more information about using preprocessors to clean up documents before extracting data, see [Preprocessors](doc:preprocessors).
 
-- The **fingerprint** tells Sensible to preferentially run this config if the document contains the terms "anyco" or "quoted coverage changes." For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:configuration-settings).
+- The **fingerprint** tells Sensible to preferentially run this config if the document contains the terms "anyco" or "quoted coverage changes." For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:config-settings).
 
 - The **computed field** `"driver_name_last"` extracts the last name from the raw output of the `_driver_name_raw` field. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).  You can also capture the full name as typed output. See [types](doc:types).
 
