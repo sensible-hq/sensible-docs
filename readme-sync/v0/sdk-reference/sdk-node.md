@@ -1,5 +1,5 @@
 ---
-title: "Javascript SDK reference"
+title: "Node SDK reference"
 hidden: false
 ---
 
@@ -7,11 +7,11 @@ This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for
 
 ## Installation
 
-See [Javascript quickstart](doc:quickstart-node).
+See [Node quickstart](doc:quickstart-node).
 
 ## Source files
 
-[Javascript SDK repo](https://github.com/sensible-hq/sensible-api-js)
+[Node SDK repo](https://github.com/sensible-hq/sensible-api-js)
 
 ## Workflows
 
@@ -94,7 +94,7 @@ Polls for completed status of an extraction or classification request.
 
 The following code sample shows waiting for a document extraction:
 
-```javascript
+```node
 const results = await sensible.waitFor(request);
 ```
 
@@ -120,7 +120,7 @@ For the best compiled spreadsheet results, configure your SenseML so that each d
 
 ### Example
 
-```javascript
+```node
 const excelDownloadURL = (await sensible.generateExcel(results)).url;
 ```
 
@@ -144,7 +144,7 @@ Classify a document by type, as specified by the document types defined in your 
 
 ### Example
 
-```javascript
+```node
 const request = await sensible.classify({path: "./YOUR_DOCUMENT.pdf"}); 
 ```
 

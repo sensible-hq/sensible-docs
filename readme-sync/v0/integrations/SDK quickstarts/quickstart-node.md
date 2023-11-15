@@ -1,11 +1,11 @@
 ---
-title: "Javascript SDK quickstart"
+title: "Node SDK quickstart"
 hidden: false
 ---
 
 ## Overview
 
-This quickstart provides an overview of the Sensible Javascript SDK. Use this SDK to:
+This quickstart provides an overview of the Sensible Node SDK. Use this SDK to:
 
 - [Extract](doc:quickstart-node#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.
 - [Classify](doc:quickstart-node#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document in a system of record.
@@ -20,7 +20,7 @@ npm install sensible-api
 
 To import Sensible and other dependencies to your project,  create an `index.mjs` file in your test project, and add the following lines to the file:
 
-```javascript
+```node
 import { SensibleSDK } from "sensible-api";
 ```
 
@@ -30,7 +30,7 @@ Get an account at [sensible.so](https://app.sensible.so/register) if you don't h
 
 To initialize the dependency, paste the following code into your `index.mjs` file and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
 
-```javascript
+```node
 const sensible = new SensibleSDK(YOUR_API_KEY);
 ```
 
@@ -44,14 +44,14 @@ To extract data from a sample document at a URL:
 
 1. Paste the following code into your `index.mjs` file:
 
-```javascript
+```node
 const request = await sensible.extract({
       url: "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/contract.pdf",
       documentType: "sensible_instruct_basics",
-      environment: "development" // see Javascript SDK reference for full list of configuration options
+      environment: "development" // see Node SDK reference for full list of configuration options
     });
 const results = await sensible.waitFor(request); // waitFor is optional if you configure a webhook
-console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
+console.log(results); // see Node SDK reference to convert results from JSON to Excel
 ```
 
 2. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
@@ -74,13 +74,13 @@ To extract from a local file:
 2. Paste the following code into your `index.mjs` file, then run it according to the steps in the previous option:
 
 
-```javascript
+```node
 const request = await sensible.extract({
       path: ("./contract.pdf"),
       documentType: "sensible_instruct_basics",
     });
 const results = await sensible.waitFor(request); // waitFor is optional if you configure  a webhook
-console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
+console.log(results); // see Node SDK reference to convert results from JSON to Excel
 ```
 
 This code uploads your local file to a Sensible-hosted URL and extracts data from an example document (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration. 
@@ -110,13 +110,13 @@ For more information about the response body schema, see [Extract data from a do
 
 Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more fields to the extraction configuration to extract more data:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_javascript_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_node_1.png)
 
 #### Complete code example
 
 See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
-```javascript
+```node
 
 import { SensibleSDK } from "sensible-api"
 
@@ -124,10 +124,10 @@ const sensible = new SensibleSDK(YOUR_API_KEY);
 const request = await sensible.extract({
       path: ("./contract.pdf"),
       documentType: "sensible_instruct_basics",
-      environment: "development" // see Javascript SDK reference for configuration options
+      environment: "development" // see Node SDK reference for configuration options
     });
 const results = await sensible.waitFor(request); // waitFor is optional if you configure  a webhook
-console.log(results); // see Javascript SDK reference to convert results from JSON to Excel
+console.log(results); // see Node SDK reference to convert results from JSON to Excel
 ```
 
 ## Classify
@@ -136,7 +136,7 @@ You can classify a document by its similarity to each document type you define i
 
 See the following code example for classifying a document.
 
-```javascript
+```node
 const request = await sensible.classify({path: "./boa_sample.pdf"}); 
 const results = await sensible.waitFor(request);
 ```
@@ -195,7 +195,7 @@ The following excerpt of the results shows the extracted document text in the `T
 
 Here's a complete example of how to use the SDK for document classification in your own app:
 
-```javascript
+```node
 import { SensibleSDK } from "sensible-api"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
@@ -206,5 +206,5 @@ console.log(results);
 
 ## Next
 
-For configuration options, see [Javascript SDK reference](doc:sdk-node).
+For configuration options, see [Node SDK reference](doc:sdk-node).
 
