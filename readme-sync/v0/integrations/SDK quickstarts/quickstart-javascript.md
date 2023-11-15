@@ -15,13 +15,13 @@ This quickstart provides an overview of the Sensible Javascript SDK. Use this SD
 In an environment in which you've installed JavaScript, create a directory for a test project, open a command prompt in the directory, and install the dependencies:  
 
 ```shell
-npm install sensible-sdk
+npm install sensible-api
 ```
 
 To import Sensible and other dependencies to your project,  create an `index.mjs` file in your test project, and add the following lines to the file:
 
 ```javascript
-import { SensibleSDK } from "sensible-sdk";
+import { SensibleSDK } from "sensible-api";
 ```
 
 ## Initialize
@@ -125,7 +125,7 @@ See the following code for a complete example of how to use the SDK for document
 
 ```javascript
 import { promises as fs } from "fs";
-import { SensibleSDK } from "sensible-sdk"
+import { SensibleSDK } from "sensible-api"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
 const blob = await fs.readFile("./contract.pdf");
@@ -206,7 +206,7 @@ Here's a complete example of how to use the SDK for document classification in y
 
 ```javascript
 import { promises as fs } from "fs";
-import { SensibleSDK } from "sensible-sdk"
+import { SensibleSDK } from "sensible-api"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
 const blob = await fs.readFile("./boa_sample.pdf");

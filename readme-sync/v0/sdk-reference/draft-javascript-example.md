@@ -15,7 +15,7 @@ TODO: look at this example from fndkt by H:
 
 ```
 import { promises as fs } from "fs";
-import { SensibleSDK } from "sensible-sdk";
+import { SensibleSDK } from "sensible-api";
 import got from "got";
 const apiKey = process.env.SENSIBLE_APIKEY;
 const sensible = new SensibleSDK(apiKey);
@@ -78,7 +78,7 @@ See the following steps for an overview of the SDK's workflow for classification
 
    ```javascript
    import { promises as fs } from "fs";
-   import { SensibleSDK } from "sensible-sdk"
+   import { SensibleSDK } from "sensible-api"
    
    const sensible = new SensibleSDK(YOUR_API_KEY);
    const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
