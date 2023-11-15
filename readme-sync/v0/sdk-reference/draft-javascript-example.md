@@ -62,7 +62,7 @@ See the following steps for an overview of the SDK's workflow for extraction:
 
 For example:
 
-```javascript
+```node
  a code example that looks a bunch of requests from a file directory, then compiles them into an Excel file and downloads it?
 ```
 
@@ -76,7 +76,7 @@ See the following steps for an overview of the SDK's workflow for classification
 
 3. Consume the data.
 
-   ```javascript
+   ```node
    import { SensibleSDK } from "sensible-api"
    
    const sensible = new SensibleSDK(YOUR_API_KEY);

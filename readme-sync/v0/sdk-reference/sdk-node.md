@@ -7,7 +7,7 @@ This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for
 
 ## Installation
 
-See [Javascript quickstart](doc:quickstart-javascript).
+See [Javascript quickstart](doc:quickstart-node).
 
 ## Source files
 

@@ -7,8 +7,8 @@ hidden: false
 
 This quickstart provides an overview of the Sensible Javascript SDK. Use this SDK to:
 
-- [Extract](doc:quickstart-javascript#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.
-- [Classify](doc:quickstart-javascript#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document in a system of record.
+- [Extract](doc:quickstart-node#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.
+- [Classify](doc:quickstart-node#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document in a system of record.
 
 ## Install
 
@@ -206,5 +206,5 @@ console.log(results);
 
 ## Next
 
-For configuration options, see [Javascript SDK reference](doc:sdk-javascript).
+For configuration options, see [Javascript SDK reference](doc:sdk-node).
 
