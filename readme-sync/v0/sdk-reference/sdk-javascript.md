@@ -70,7 +70,8 @@ See the following table for information about parameters:
 
 | key               | value                                                      | description                                                  |
 | ----------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
-| file              | string                                                     | One of two required options for submitting the document you want to extract data from.<br/> Pass the non-encoded document bytes.  For more information about supported file types, see  [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document). |
+| path              | string                                                     | One of several options for submitting the document you want to extract data from.<br/> Pass the path to the document. For more information about supported file types, see  [Supported file types](doc:file-types). |
+| file              | string                                                     | One of several options for submitting the document you want to extract data from.<br/> Pass the non-encoded document bytes. |
 | url               | string                                                     | One of two required options for submitting the document you want to extract data from.<br/>URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication. |
 | documentType      | string                                                     | One of two required options for specifying the document type or types.<br/>Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). |
 | documentTypes     | array                                                      | One of two required options for specifying the document type or types.<br/>Types of documents to extract from. Use this parameter to extract from multiple documents that are packaged into one file (a "portfolio").  This parameter specifies the document types contained in the portfolio. Sensible then segments the portfolio into documents using the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions for each document. For more information, see [Multi-doc extraction](doc:portfolio). |
@@ -154,7 +155,7 @@ See the following table for classification parameters:
 
 | key  | value  | description                                                  |
 | ---- | ------ | ------------------------------------------------------------ |
-| file | string | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   For information about supported file types, see  [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document). |
+| file | string | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   For information about supported file types, see  [Supported file types](doc:file-types). |
 
 ### Returns
 

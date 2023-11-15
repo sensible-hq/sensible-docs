@@ -1,0 +1,391 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "Searching 1 file for \"sensibleSDK\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0; C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js:\n    ERROR: Unable to open file\n\n0 matches\n\nSearching 145 files for \"sensibleSDK\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\draft-javascript-example.md:\n   16  ```\n   17  import { promises as fs } from \"fs\";\n   18: import { SensibleSDK } from \"sensible-api\";\n   19  import got from \"got\";\n   20  const apiKey = process.env.SENSIBLE_APIKEY;\n   21: const sensible = new SensibleSDK(apiKey);\n   22  const dir = process.argv[2];\n   23  const files = (await fs.readdir(dir)).filter((file) => file.match(/\\.pdf$/));\n   ..\n   52  See the following steps for an overview of the SDK's workflow for extraction:\n   53  \n   54: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   55  2. Request a document extraction (`sensible.extract()` with the following required parameters:\n   56     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   71  See the following steps for an overview of the SDK's workflow for classification:\n   72  \n   73: 1. Instantiate an SDK object (`new SensibleSDK(\"YOUR_API_KEY\")`.\n   74  \n   75  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.\n   ..\n   79     ```javascript\n   80     import { promises as fs } from \"fs\";\n   81:    import { SensibleSDK } from \"sensible-api\"\n   82     \n   83:    const sensible = new SensibleSDK(YOUR_API_KEY);\n   84     const blob = await fs.readFile(\"./YOUR_DOCUMENT.pdf\");\n   85     const request = await sensible.classify({file: blob}); \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\sdk-javascript.md:\n   20  See the following steps for an overview of the SDK's workflow for extraction:\n   21  \n   22: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   23  2. Request a document extraction (`sensible.extract()` with the following parameters:\n   24     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   34  See the following steps for an overview of the SDK's workflow for classification:\n   35  \n   36: 1. Instantiate an SDK object (`new SensibleSDK()`.\n   37  \n   38  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-javascript.md:\n   22  \n   23  ```javascript\n   24: import { SensibleSDK } from \"sensible-api\";\n   25  ```\n   26  \n   ..\n   32  \n   33  ```javascript\n   34: const sensible = new SensibleSDK(YOUR_API_KEY);\n   35  ```\n   36  \n   ..\n  119  ```javascript\n  120  \n  121: import { SensibleSDK } from \"sensible-api\"\n  122  \n  123: const sensible = new SensibleSDK(YOUR_API_KEY);\n  124  const request = await sensible.extract({\n  125        path: (\"./contract.pdf\"),\n  ...\n  199  ```javascript\n  200  import { promises as fs } from \"fs\";\n  201: import { SensibleSDK } from \"sensible-api\"\n  202  \n  203: const sensible = new SensibleSDK(YOUR_API_KEY);\n  204  const blob = await fs.readFile(\"./boa_sample.pdf\");\n  205  const request = await sensible.classify({file: blob}); \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js\\src\\index.ts:\n    6  const baseUrl = \"https://api.sensible.so/v0\";\n    7  \n    8: export class SensibleSDK {\n    9    apiKey: string;\n   10  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js\\dist\\index.d.ts:\n    1  /// <reference types=\"node\" />\n    2  import { ClassificationResult, ExtractionResult, Webhook } from \"./types\";\n    3: export declare class SensibleSDK {\n    4      apiKey: string;\n    5      constructor(apiKey: string);\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js\\dist\\index.js:\n   48  };\n   49  Object.defineProperty(exports, \"__esModule\", { value: true });\n   50: exports.SensibleSDK = void 0;\n   51  var got_1 = require(\"got\");\n   52  var querystring = require(\"node:querystring\");\n   53  var util_1 = require(\"util\");\n   54  var baseUrl = \"https://api.sensible.so/v0\";\n   55: var SensibleSDK = /** @class */ (function () {\n   56:     function SensibleSDK(apiKey) {\n   57          this.apiKey = apiKey;\n   58      }\n   59:     SensibleSDK.prototype.extract = function (params) {\n   60          return __awaiter(this, void 0, void 0, function () {\n   61              var webhook, documentName, environment, url, body, headers, response, e_1, id, upload_url, putResponse, e_2;\n   ..\n  120          });\n  121      };\n  122:     SensibleSDK.prototype.classify = function (params) {\n  123          return __awaiter(this, void 0, void 0, function () {\n  124              var url, response, e_3;\n  ...\n  160          });\n  161      };\n  162:     SensibleSDK.prototype.waitFor = function (request) {\n  163          return __awaiter(this, void 0, void 0, function () {\n  164              var response, response, e_4;\n  ...\n  207      };\n  208      // requested extractions must be completed\n  209:     SensibleSDK.prototype.generateExcel = function (requests) {\n  210          return __awaiter(this, void 0, void 0, function () {\n  211              var extractions, url, e_5;\n  ...\n  236          });\n  237      };\n  238:     return SensibleSDK;\n  239  }());\n  240: exports.SensibleSDK = SensibleSDK;\n  241  // not exhaustive, backend will take care of the\n  242  function validateExtractParams(params) {\n\n26 matches across 6 files\n\n\nSearching 135 files for \"sensibleSDK\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\draft-javascript-example.md:\n   16  ```\n   17  import { promises as fs } from \"fs\";\n   18: import { SensibleSDK } from \"sensible-api\";\n   19  import got from \"got\";\n   20  const apiKey = process.env.SENSIBLE_APIKEY;\n   21: const sensible = new SensibleSDK(apiKey);\n   22  const dir = process.argv[2];\n   23  const files = (await fs.readdir(dir)).filter((file) => file.match(/\\.pdf$/));\n   ..\n   52  See the following steps for an overview of the SDK's workflow for extraction:\n   53  \n   54: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   55  2. Request a document extraction (`sensible.extract()` with the following required parameters:\n   56     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   71  See the following steps for an overview of the SDK's workflow for classification:\n   72  \n   73: 1. Instantiate an SDK object (`new SensibleSDK(\"YOUR_API_KEY\")`.\n   74  \n   75  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.\n   ..\n   79     ```javascript\n   80     import { promises as fs } from \"fs\";\n   81:    import { SensibleSDK } from \"sensible-api\"\n   82     \n   83:    const sensible = new SensibleSDK(YOUR_API_KEY);\n   84     const blob = await fs.readFile(\"./YOUR_DOCUMENT.pdf\");\n   85     const request = await sensible.classify({file: blob}); \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\sdk-javascript.md:\n   20  See the following steps for an overview of the SDK's workflow for extraction:\n   21  \n   22: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   23  2. Request a document extraction (`sensible.extract()` with the following parameters:\n   24     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   34  See the following steps for an overview of the SDK's workflow for classification:\n   35  \n   36: 1. Instantiate an SDK object (`new SensibleSDK()`.\n   37  \n   38  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-javascript.md:\n   22  \n   23  ```javascript\n   24: import { SensibleSDK } from \"sensible-api\";\n   25  ```\n   26  \n   ..\n   32  \n   33  ```javascript\n   34: const sensible = new SensibleSDK(YOUR_API_KEY);\n   35  ```\n   36  \n   ..\n  119  ```javascript\n  120  \n  121: import { SensibleSDK } from \"sensible-api\"\n  122  \n  123: const sensible = new SensibleSDK(YOUR_API_KEY);\n  124  const request = await sensible.extract({\n  125        path: (\"./contract.pdf\"),\n  ...\n  199  ```javascript\n  200  import { promises as fs } from \"fs\";\n  201: import { SensibleSDK } from \"sensible-api\"\n  202  \n  203: const sensible = new SensibleSDK(YOUR_API_KEY);\n  204  const blob = await fs.readFile(\"./boa_sample.pdf\");\n  205  const request = await sensible.classify({file: blob}); \n\n14 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 8784,
+				"line_ending": "Windows",
+				"name": "Find Results",
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0"
+	],
+	"file_history":
+	[
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/sdk-reference/sdk-javascript.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/sdk-reference/draft-javascript-example.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/SDK quickstarts/quickstart-javascript.md"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js,*.md, *.yaml, *.yml",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0; C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"sensibleSDK"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8784,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										404,
+										415
+									],
+									[
+										548,
+										559
+									],
+									[
+										831,
+										842
+									],
+									[
+										1210,
+										1221
+									],
+									[
+										1520,
+										1531
+									],
+									[
+										1596,
+										1607
+									],
+									[
+										1984,
+										1995
+									],
+									[
+										2354,
+										2365
+									],
+									[
+										2670,
+										2681
+									],
+									[
+										2787,
+										2798
+									],
+									[
+										2884,
+										2895
+									],
+									[
+										2954,
+										2965
+									],
+									[
+										3155,
+										3166
+									],
+									[
+										3225,
+										3236
+									],
+									[
+										3518,
+										3529
+									],
+									[
+										3779,
+										3790
+									],
+									[
+										4019,
+										4030
+									],
+									[
+										4229,
+										4240
+									],
+									[
+										4292,
+										4303
+									],
+									[
+										4375,
+										4386
+									],
+									[
+										4673,
+										4684
+									],
+									[
+										4887,
+										4898
+									],
+									[
+										5141,
+										5152
+									],
+									[
+										5372,
+										5383
+									],
+									[
+										5413,
+										5424
+									],
+									[
+										5427,
+										5438
+									],
+									[
+										5787,
+										5798
+									],
+									[
+										5931,
+										5942
+									],
+									[
+										6214,
+										6225
+									],
+									[
+										6593,
+										6604
+									],
+									[
+										6903,
+										6914
+									],
+									[
+										6979,
+										6990
+									],
+									[
+										7367,
+										7378
+									],
+									[
+										7737,
+										7748
+									],
+									[
+										8053,
+										8064
+									],
+									[
+										8170,
+										8181
+									],
+									[
+										8267,
+										8278
+									],
+									[
+										8337,
+										8348
+									],
+									[
+										8538,
+										8549
+									],
+									[
+										8608,
+										8619
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								5573,
+								5573
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 3,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2556.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "f_project.sublime-project",
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

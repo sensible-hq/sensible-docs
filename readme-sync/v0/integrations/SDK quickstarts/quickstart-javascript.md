@@ -66,13 +66,7 @@ The code extracts data from an example document (`contract.pdf`) using an exampl
 
 To extract from a local file: 
 
-1. Add the following import statement to your `index.mjs` file:
-
-```javascript
-import { promises as fs } from "fs";
-```
-
-2. Download the following example file and save it in the same directory as your `index.mjs` file: 
+1. Download the following example file and save it in the same directory as your `index.mjs` file: 
 
 | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/contract.pdf) |
    | ----------- | ------------------------------------------------------------ |
@@ -81,9 +75,8 @@ import { promises as fs } from "fs";
 
 
 ```javascript
-const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
-      file: blob,
+      path: ("./contract.pdf"),
       documentType: "sensible_instruct_basics",
     });
 const results = await sensible.waitFor(request); // waitFor is optional if you configure  a webhook
@@ -124,13 +117,12 @@ Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&
 See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
 ```javascript
-import { promises as fs } from "fs";
+
 import { SensibleSDK } from "sensible-api"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
-const blob = await fs.readFile("./contract.pdf");
 const request = await sensible.extract({
-      file: blob,
+      path: ("./contract.pdf"),
       documentType: "sensible_instruct_basics",
       environment: "development" // see Javascript SDK reference for configuration options
     });

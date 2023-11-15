@@ -4,3 +4,4 @@ test.sh
 test.yml
 docs.json
 spec.json
+*.sublime-project
