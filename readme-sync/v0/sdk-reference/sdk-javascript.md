@@ -21,7 +21,7 @@ See the following steps for an overview of the SDK's workflow for extraction:
 
 1. Instantiate an SDK object (`new SensibleSDK()`. 
 2. Request a document extraction (`sensible.extract()` with the following parameters:
-   1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. 
+   1.  **(required)** Specify the document from which to extract data using the, `path`, `url`, or `file` parameter. 
    2.  **(required)** Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
    3.  See the following section for optional parameters.
 3. Poll for the results (`sensible.waitFor()` or get the results using a webhook.
@@ -35,7 +35,7 @@ See the following steps for an overview of the SDK's workflow for classification
 
 1. Instantiate an SDK object (`new SensibleSDK()`.
 
-2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter.
+2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `path` or  `file` parameter.
 
 3. Poll for the result (`sensible.waitFor()`.
 
@@ -70,11 +70,11 @@ See the following table for information about parameters:
 
 | key               | value                                                      | description                                                  |
 | ----------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
-| path              | string                                                     | One of several options for submitting the document you want to extract data from.<br/> Pass the path to the document. For more information about supported file types, see  [Supported file types](doc:file-types). |
-| file              | string                                                     | One of several options for submitting the document you want to extract data from.<br/> Pass the non-encoded document bytes. |
-| url               | string                                                     | One of two required options for submitting the document you want to extract data from.<br/>URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication. |
-| documentType      | string                                                     | One of two required options for specifying the document type or types.<br/>Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). |
-| documentTypes     | array                                                      | One of two required options for specifying the document type or types.<br/>Types of documents to extract from. Use this parameter to extract from multiple documents that are packaged into one file (a "portfolio").  This parameter specifies the document types contained in the portfolio. Sensible then segments the portfolio into documents using the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions for each document. For more information, see [Multi-doc extraction](doc:portfolio). |
+| path              | string                                                     | An option for submitting the document you want to extract data from.<br/> Pass the path to the document. For more information about supported file types, see  [Supported file types](doc:file-types). |
+| file              | string                                                     | An option for submitting the document you want to extract data from.<br/> Pass the non-encoded document bytes. |
+| url               | string                                                     | An option for submitting the document you want to extract data from.<br/>URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication. |
+| documentType      | string                                                     | An option for specifying the document type or types.<br/>Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). |
+| documentTypes     | array                                                      | An option for specifying the document type or types.<br/>Types of documents to extract from. Use this parameter to extract from multiple documents that are packaged into one file (a "portfolio").  This parameter specifies the document types contained in the portfolio. Sensible then segments the portfolio into documents using the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions for each document. For more information, see [Multi-doc extraction](doc:portfolio). |
 | configurationName | string                                                     | If specified, Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.<br/>If unspecified, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>Not applicable for portfolios. |
 | documentName      | string                                                     | If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response and populates the file name in the Sensible app's list of recent extractions. |
 | environment       | `"production"` or `"development"`. default: `"production"` | If you specify `development`, Sensible extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
@@ -145,8 +145,7 @@ Classify a document by type, as specified by the document types defined in your 
 ### Example
 
 ```javascript
-const blob = await fs.readFile("./YOUR_DOCUMENT.pdf");
-const request = await sensible.classify({file: blob}); 
+const request = await sensible.classify({path: "./YOUR_DOCUMENT.pdf"}); 
 ```
 
 ### Parameters
@@ -155,6 +154,7 @@ See the following table for classification parameters:
 
 | key  | value  | description                                                  |
 | ---- | ------ | ------------------------------------------------------------ |
+| path | string | An option for submitting the document you want to extract data from.<br/> Pass the path to the document. For more information about supported file types, see  [Supported file types](doc:file-types). |
 | file | string | Pass the non-encoded document bytes.  You can classify documents in the following file formats:   For information about supported file types, see  [Supported file types](doc:file-types). |
 
 ### Returns
