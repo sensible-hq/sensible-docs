@@ -4,6 +4,7 @@ hidden: true
 ---
 
 
+TODOs: what VERSIONS of Node do we support?
 
 ideas:
 
