@@ -11,7 +11,7 @@ See [Javascript quickstart](doc:quickstart-javascript).
 
 ## Source files
 
-[Javascript SDK repo](https://github.com/optimizely/python-sdk)
+[Javascript SDK repo](https://github.com/sensible-hq/sensible-api-js)
 
 ## Workflows
 
