@@ -18,7 +18,7 @@ Prompt Tips
 
 - See the following resources for creating prompts:
 
-  -  [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices)
+  -  [Prompt engineering](https://platform.openai.com/docs/guides/prompt-engineering)
   -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
