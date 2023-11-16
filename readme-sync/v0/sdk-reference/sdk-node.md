@@ -7,7 +7,7 @@ This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for
 
 ## Installation
 
-See [Node quickstart](doc:quickstart-node).
+See [Node quickstart](https://github.com/sensible-hq/sensible-api-js#readme).
 
 ## Source files
 
