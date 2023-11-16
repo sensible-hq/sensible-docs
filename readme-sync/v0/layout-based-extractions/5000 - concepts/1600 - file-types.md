@@ -16,7 +16,7 @@ Using the Sensible app, you can extract data from the following file types:
 
 The Sensible SDKs and API support the following file types:
 
-**Extraction**
+**Extraction** 
 
 single-document file:
 
@@ -32,6 +32,7 @@ multi-document file ("portfolio" file):
 **Classification**
 
 - PDF
+- Microsoft Word documents (DOC and DOCX)
 - Image formats (JPEG, PNG, and TIFF)
 
 ## Notes
