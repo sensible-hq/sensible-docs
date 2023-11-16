@@ -15,7 +15,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | id (**required**)        | `mapper`                                |                                                              |
 | source_id (**required**) | a field id in the current configuration | The id of the field to map                                   |
 | mappings (**required**)  | object                                  | An object with mappings from strings or numbers to output strings represented as key/value pairs, for example, `{ "03/04": "March 4th" }`. Key value pairs are case sensitive. |
-| default                  | string or `null`                        | If a source field exists, but the mapping doesn't exist, Sensible returns the value specified by this parameter. The specified value can be a string or null.<br/>If the source field doesn't exist or is null, Sensible ignores this parameter and always returns null. |
+| default                  | string or `null`                        | If a source field exists, but the mapping doesn't exist, Sensible returns the value specified by this parameter. The specified value can be null or it can be a string, for example, `"mapping doesn't exist"`.<br/>If the source field doesn't exist or is null, Sensible ignores this parameter and always returns null. |
 
 Examples
 ====
@@ -50,7 +50,8 @@ The following example shows using a mapper to standardize a time duration.
           "Six months": "6",
           "six months": "6",
           "Twelve months": "12",
-          "twelve months": "12"
+          "twelve months": "12",
+          "default": "mapping doesn't exist"
         }
       }
     }
