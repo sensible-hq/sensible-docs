@@ -8,14 +8,69 @@
 	"buffers":
 	[
 		{
-			"contents": "Searching 1 file for \"sensibleSDK\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0; C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js:\n    ERROR: Unable to open file\n\n0 matches\n\nSearching 145 files for \"sensibleSDK\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\draft-javascript-example.md:\n   16  ```\n   17  import { promises as fs } from \"fs\";\n   18: import { SensibleSDK } from \"sensible-api\";\n   19  import got from \"got\";\n   20  const apiKey = process.env.SENSIBLE_APIKEY;\n   21: const sensible = new SensibleSDK(apiKey);\n   22  const dir = process.argv[2];\n   23  const files = (await fs.readdir(dir)).filter((file) => file.match(/\\.pdf$/));\n   ..\n   52  See the following steps for an overview of the SDK's workflow for extraction:\n   53  \n   54: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   55  2. Request a document extraction (`sensible.extract()` with the following required parameters:\n   56     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   71  See the following steps for an overview of the SDK's workflow for classification:\n   72  \n   73: 1. Instantiate an SDK object (`new SensibleSDK(\"YOUR_API_KEY\")`.\n   74  \n   75  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.\n   ..\n   79     ```javascript\n   80     import { promises as fs } from \"fs\";\n   81:    import { SensibleSDK } from \"sensible-api\"\n   82     \n   83:    const sensible = new SensibleSDK(YOUR_API_KEY);\n   84     const blob = await fs.readFile(\"./YOUR_DOCUMENT.pdf\");\n   85     const request = await sensible.classify({file: blob}); \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\sdk-javascript.md:\n   20  See the following steps for an overview of the SDK's workflow for extraction:\n   21  \n   22: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   23  2. Request a document extraction (`sensible.extract()` with the following parameters:\n   24     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   34  See the following steps for an overview of the SDK's workflow for classification:\n   35  \n   36: 1. Instantiate an SDK object (`new SensibleSDK()`.\n   37  \n   38  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-javascript.md:\n   22  \n   23  ```javascript\n   24: import { SensibleSDK } from \"sensible-api\";\n   25  ```\n   26  \n   ..\n   32  \n   33  ```javascript\n   34: const sensible = new SensibleSDK(YOUR_API_KEY);\n   35  ```\n   36  \n   ..\n  119  ```javascript\n  120  \n  121: import { SensibleSDK } from \"sensible-api\"\n  122  \n  123: const sensible = new SensibleSDK(YOUR_API_KEY);\n  124  const request = await sensible.extract({\n  125        path: (\"./contract.pdf\"),\n  ...\n  199  ```javascript\n  200  import { promises as fs } from \"fs\";\n  201: import { SensibleSDK } from \"sensible-api\"\n  202  \n  203: const sensible = new SensibleSDK(YOUR_API_KEY);\n  204  const blob = await fs.readFile(\"./boa_sample.pdf\");\n  205  const request = await sensible.classify({file: blob}); \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js\\src\\index.ts:\n    6  const baseUrl = \"https://api.sensible.so/v0\";\n    7  \n    8: export class SensibleSDK {\n    9    apiKey: string;\n   10  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js\\dist\\index.d.ts:\n    1  /// <reference types=\"node\" />\n    2  import { ClassificationResult, ExtractionResult, Webhook } from \"./types\";\n    3: export declare class SensibleSDK {\n    4      apiKey: string;\n    5      constructor(apiKey: string);\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js\\dist\\index.js:\n   48  };\n   49  Object.defineProperty(exports, \"__esModule\", { value: true });\n   50: exports.SensibleSDK = void 0;\n   51  var got_1 = require(\"got\");\n   52  var querystring = require(\"node:querystring\");\n   53  var util_1 = require(\"util\");\n   54  var baseUrl = \"https://api.sensible.so/v0\";\n   55: var SensibleSDK = /** @class */ (function () {\n   56:     function SensibleSDK(apiKey) {\n   57          this.apiKey = apiKey;\n   58      }\n   59:     SensibleSDK.prototype.extract = function (params) {\n   60          return __awaiter(this, void 0, void 0, function () {\n   61              var webhook, documentName, environment, url, body, headers, response, e_1, id, upload_url, putResponse, e_2;\n   ..\n  120          });\n  121      };\n  122:     SensibleSDK.prototype.classify = function (params) {\n  123          return __awaiter(this, void 0, void 0, function () {\n  124              var url, response, e_3;\n  ...\n  160          });\n  161      };\n  162:     SensibleSDK.prototype.waitFor = function (request) {\n  163          return __awaiter(this, void 0, void 0, function () {\n  164              var response, response, e_4;\n  ...\n  207      };\n  208      // requested extractions must be completed\n  209:     SensibleSDK.prototype.generateExcel = function (requests) {\n  210          return __awaiter(this, void 0, void 0, function () {\n  211              var extractions, url, e_5;\n  ...\n  236          });\n  237      };\n  238:     return SensibleSDK;\n  239  }());\n  240: exports.SensibleSDK = SensibleSDK;\n  241  // not exhaustive, backend will take care of the\n  242  function validateExtractParams(params) {\n\n26 matches across 6 files\n\n\nSearching 135 files for \"sensibleSDK\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\draft-javascript-example.md:\n   16  ```\n   17  import { promises as fs } from \"fs\";\n   18: import { SensibleSDK } from \"sensible-api\";\n   19  import got from \"got\";\n   20  const apiKey = process.env.SENSIBLE_APIKEY;\n   21: const sensible = new SensibleSDK(apiKey);\n   22  const dir = process.argv[2];\n   23  const files = (await fs.readdir(dir)).filter((file) => file.match(/\\.pdf$/));\n   ..\n   52  See the following steps for an overview of the SDK's workflow for extraction:\n   53  \n   54: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   55  2. Request a document extraction (`sensible.extract()` with the following required parameters:\n   56     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   71  See the following steps for an overview of the SDK's workflow for classification:\n   72  \n   73: 1. Instantiate an SDK object (`new SensibleSDK(\"YOUR_API_KEY\")`.\n   74  \n   75  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.\n   ..\n   79     ```javascript\n   80     import { promises as fs } from \"fs\";\n   81:    import { SensibleSDK } from \"sensible-api\"\n   82     \n   83:    const sensible = new SensibleSDK(YOUR_API_KEY);\n   84     const blob = await fs.readFile(\"./YOUR_DOCUMENT.pdf\");\n   85     const request = await sensible.classify({file: blob}); \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\sdk-javascript.md:\n   20  See the following steps for an overview of the SDK's workflow for extraction:\n   21  \n   22: 1. Instantiate an SDK object (`new SensibleSDK()`. \n   23  2. Request a document extraction (`sensible.extract()` with the following parameters:\n   24     1.  **(required)** Specify the document from which to extract data using the `url` or `file` parameter. \n   ..\n   34  See the following steps for an overview of the SDK's workflow for classification:\n   35  \n   36: 1. Instantiate an SDK object (`new SensibleSDK()`.\n   37  \n   38  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-javascript.md:\n   22  \n   23  ```javascript\n   24: import { SensibleSDK } from \"sensible-api\";\n   25  ```\n   26  \n   ..\n   32  \n   33  ```javascript\n   34: const sensible = new SensibleSDK(YOUR_API_KEY);\n   35  ```\n   36  \n   ..\n  119  ```javascript\n  120  \n  121: import { SensibleSDK } from \"sensible-api\"\n  122  \n  123: const sensible = new SensibleSDK(YOUR_API_KEY);\n  124  const request = await sensible.extract({\n  125        path: (\"./contract.pdf\"),\n  ...\n  199  ```javascript\n  200  import { promises as fs } from \"fs\";\n  201: import { SensibleSDK } from \"sensible-api\"\n  202  \n  203: const sensible = new SensibleSDK(YOUR_API_KEY);\n  204  const blob = await fs.readFile(\"./boa_sample.pdf\");\n  205  const request = await sensible.classify({file: blob}); \n\n14 matches across 3 files\n",
+			"contents": "\n\nSearching 138 files for \"sensible api\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1500 - examples.md:\n    3  hidden: false\n    4  ---\n    5: For starter code calling the Sensible API, see the [code example repo](https://github.com/sensible-hq/sensible-code-examples).\n    6  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\1000 - api-tutorial-sync.md:\n   27  ----\n   28  \n   29: To run a Sensible API request in Postman, follow these steps:\n   30  \n   31  1. Copy the following code sample, and replace `YOUR_API_KEY` with your API key:\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\index.md:\n    4  ---\n    5  \n    6: Get started with extracting structured data from documents using the Sensible API.\n    7  \n    8  If you're new to APIs in general, these tutorials are a good starting point.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\best-practices\\5000 - guides\\3000 - go-live.md:\n   10  - [ ] If you're working with multiple configurations per document type, is the variable naming consistent across different configurations? (for example, if you extract a field with the ID `customer_full_name` in one config, you shouldn't name it `customer_fullname` in another config).\n   11  - [ ] In your code, have you handled the case where a field in the response object can be null?\n   12: - [ ] Does your system properly handle an error response from the Sensible API or SDK? \n   13  - [ ] Do you have logging around which API calls triggered an error response so that you can retry those documents? \n   14  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\document-type-classification\\1000 - classify.md:\n   18  To improve classification results, Sensible recommends that a document type includes a sample set of reference documents that represent the diversity you expect to see in the document type. To use a document type for classification, Sensible requires that the type contains at least one reference document.\n   19  \n   20: To classify documents, use the Sensible API or SDKs.\n   21  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\2000 - zapier\\1000 - zapier-getting-started.md:\n   92  \n   93  - You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).\n   94: - You can extract from single-document files with Zapier. If you want to extract from portfolio files (files that contain multiple documents, for example, insurance application bundles), use the Sensible API or SDKs. \n   95  \n   96  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\4000 - quick-extraction\\index.md:\n   46  [/block]\n   47  \n   48: **Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction) or Sensible SDKs.\n   49  \n   50  ##  Next\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-node.md:\n    8  This quickstart provides an overview of the Sensible Node SDK. Use this SDK to:\n    9  \n   10: - [Extract](https://github.com/sensible-hq/sensible-api-js#readme#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.\n   11  - [Classify](https://github.com/sensible-hq/sensible-api-js#readme#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document in a system of record.\n   12  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\layout-based-extractions\\5000 - concepts\\1500 - coverage.md:\n   29  In the preceding screenshot, get a coverage breakdown by viewing the extraction. You can view the extraction by clicking the extraction date in the **Recent extractions** column or downloading the Excel file.\n   30  \n   31: For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  in the **Created**  column to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null. Or, you can retrieve the information from the [Sensible API](ref:retrieving-results) or SDK. The following code sample shows an except from an API response with the `validation_summary` used to calculate the `coverage` for the Sept 25 extraction:\n   32  \n   33  ```json\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\sdk-node.md:\n    4  ---\n    5  \n    6: This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for document extraction and classification.\n    7  \n    8  ## Installation\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\6800 - document-type-settings\\4000 - ocr-level.md:\n   24  The following table shows the enums available for the OCR Level parameter. \n   25  \n   26: **Note:** Set this parameter in the [Sensible API](ref:create-document-type).\n   27  \n   28  | enum | description                                                  |\n\n11 matches across 11 files\n\n\nSearching 138 files for \"API\" (case sensitive)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1500 - examples.md:\n    3  hidden: false\n    4  ---\n    5: For starter code calling the Sensible API, see the [code example repo](https://github.com/sensible-hq/sensible-code-examples).\n    6  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\2000 - api-reference.md:\n    1  ---\n    2: title: \"API reference\"\n    3  hidden: false\n    4  ---\n    5: To integrate Sensible with your application, see the [API reference](https://docs.sensible.so/reference).\n    6  \n    7  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\1000 - api-tutorial-sync.md:\n    9  ---\n   10  \n   11: If you're new to APIs, use this tutorial to return document data from an example tax form.\n   12  \n   13: Or, if you're familiar with APIs:\n   14  \n   15: - see the [API quickstart](doc:quickstart) to get a sample API response.\n   16  \n   17  - explore the Sensible Postman collection:\n   ..\n   27  ----\n   28  \n   29: To run a Sensible API request in Postman, follow these steps:\n   30  \n   31: 1. Copy the following code sample, and replace `YOUR_API_KEY` with your API key:\n   32  \n   33  \n   ..\n   35  curl --request POST \\\n   36    --url 'https://api.sensible.so/v0/extract/tax_forms' \\\n   37:   --header 'Authorization: Bearer YOUR_API_KEY' \\\n   38    --header 'Content-Type: application/pdf' \\\n   39    --data-binary '@/PATH_TO_DOWNLOADED_DOCUMENT.pdf'\n   ..\n   96  ```\n   97  \n   98: **Note:**  Did you notice that this API call doesn't specify a config (`1040_2021`)? As a convenience, Sensible evaluates all the configs for the document type  (`tax_forms`), and **automatically** chooses the one that fits best.\n   99  \n  100  (Optional) See how it works in the Sensible app\n  ...\n  107  2. Navigate to the [1040 configuration](https://app.sensible.so/editor/?d=tax_forms&c=1040_2021&g=1040_2021_sample) in the **tax forms** document type.\n  108  \n  109: 3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the configuration for the API call you just ran:\n  110  \n  111  ![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_app.png)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\2000 - api-tutorial-async-1.md:\n   30  To try out the [extract_from_url](https://sensiblehq.readme.io/reference#extract-from-url) endpoint, let's use an example document hosted in GitHub:\n   31  \n   32: 1. Copy the following code sample and replace YOUR_API_KEY with your [API key](https://app.sensible.so/account/):\n   33  \n   34     ```json\n   35     curl --request POST 'https://api.sensible.so/v0/extract_from_url/tax_forms' \\\n   36:    --header 'Authorization: Bearer YOUR_API_KEY' \\\n   37     --header 'Content-Type: application/json' \\\n   38     --data-raw '{\"document_url\":\"https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf\"}'\n   ..\n   80     Copy the document extraction `id` from that response. You'll use it to download the document extraction.\n   81     \n   82: 3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:\n   83  \n   84  ```json\n   85  curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \\\n   86: --header 'Authorization: Bearer YOUR_API_KEY'\n   87  ```\n   88  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\2100 - api-tutorial-async-2.md:\n   29  Generate a temporary, one-time Sensible URL for a document: \n   30  \n   31:   1. Copy the following code sample and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):\n   32  \n   33  \n   ..\n   35  curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \\\n   36  --header 'Content-Type: application/json' \\\n   37: --header 'Authorization: Bearer YOUR_API_KEY' \\\n   38  --data '{\"content_type\":\"application/pdf\"}'\n   39  ```\n   ..\n  121  2. Copy the document extraction `id` from that response.\n  122  \n  123: 3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:\n  124  \n  125  ```json\n  126  curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \\\n  127: --header 'Authorization: Bearer YOUR_API_KEY'\n  128  ```\n  129  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\3000 - api-tutorial-webhook.md:\n    4  ---\n    5  \n    6: For asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook. A webhook allows you to receive the extraction as a push, rather than waiting for responses from API endpoints. \n    7  \n    8  For this tutorial, let's try a webhook in combination with the `/extract_from_url` endpoint. Note you can also use the webhook with the `/generate_upload_url` endpoint and other asynchronous endpoints. \n    .\n   26  ```json\n   27  curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/tax_forms' \\\n   28: --header 'Authorization: Bearer YOUR_API_TOKEN' \\\n   29  --header 'Content-Type: application/json' \\\n   30  --data-raw '{\"document_url\":\"https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf\",\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\index.md:\n    1  ---\n    2: title: \"API tutorial\"\n    3  hidden: false\n    4  ---\n    5  \n    6: Get started with extracting structured data from documents using the Sensible API.\n    7  \n    8: If you're new to APIs in general, these tutorials are a good starting point.\n    9  \n   10: Or, if you're familiar with APIs:\n   11  \n   12: - see the [API quickstart](doc:quickstart) to get a sample API response.\n   13  \n   14  - explore the Sensible Postman collection:\n   ..\n   22  To follow these tutorials, you need:\n   23  \n   24: - An [API key](https://app.sensible.so/account). You receive this key when you sign up for a [Sensible account](https://app.sensible.so/register). \n   25  -  [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed.\n   26  -  An example extraction configuration. See the following section.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\best-practices\\5000 - guides\\1000 - test-before-integrating-configs.md:\n    7  \n    8  1. In the Sensible app, click **Publish** and choose **Development** to save your updates to a development environment.\n    9: 2. Add the query parameter `?environment=development` to your extraction [API calls](https://docs.sensible.so/reference) to test your updated config.\n   10  \n   11  Environment fallback behavior\n   12  ----\n   13  \n   14: When you  specify `?environment=development` in an API endpoint, Sensible falls back to the production version for each configuration if it can't find a development version.\n   15  \n   16  To understand fallback behavior, imagine the document type `test_doc_type` has the following config versions, which fit a `document_a` with varying degrees of accuracy:\n   ..\n   26   -   `configB` in production (OK fit)\n   27  \n   28: And returns output from  `configB`  (OK fit) in production. Notice that even though the API call specifies  the Development environment, the call returns output from a *production* config because of fallback behavior.\n   29  \n   30  If you don't specify an environment, Sensible ignores development versions and compares:\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\best-practices\\5000 - guides\\2000 - troubleshoot.md:\n    6  Sensible offers you several ways to troubleshoot your configs and extractions.\n    7  \n    8: API logging levels\n    9  ----\n   10  \n   11: To troubleshoot extractions in API responses, you can add a verbosity level to a config. For more information, see [verbosity](doc:verbosity).\n   12  \n   13  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\best-practices\\5000 - guides\\3000 - go-live.md:\n   10  - [ ] If you're working with multiple configurations per document type, is the variable naming consistent across different configurations? (for example, if you extract a field with the ID `customer_full_name` in one config, you shouldn't name it `customer_fullname` in another config).\n   11  - [ ] In your code, have you handled the case where a field in the response object can be null?\n   12: - [ ] Does your system properly handle an error response from the Sensible API or SDK? \n   13: - [ ] Do you have logging around which API calls triggered an error response so that you can retry those documents? \n   14  \n   15  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\document-type-classification\\1000 - classify.md:\n   18  To improve classification results, Sensible recommends that a document type includes a sample set of reference documents that represent the diversity you expect to see in the document type. To use a document type for classification, Sensible requires that the type contains at least one reference document.\n   19  \n   20: To classify documents, use the Sensible API or SDKs.\n   21  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\3000 - quickstart.md:\n    1  ---\n    2: title: \"API quickstart\"\n    3  hidden: false\n    4  \n    .\n    7  Introduction\n    8  ====\n    9: In this quickstart, use an example SenseML configuration and example document to get a quick \"hello world\" API response. \n   10  \n   11  \n   ..\n   19  =====\n   20  \n   21: To run an API call and return extracted, structured data from a downloaded example document: \n   22  \n   23  \n   ..\n   26      **NOTE** In the Sensible app, don't rename the default doc type (**senseml_basics**) or delete the **1_extract_your_first_data** config, or this example fails. \n   27  \n   28: 1. Copy your API key from your [account page](https://app.sensible.so/account/).\n   29  \n   30: 2. Copy the following code example into a plain-text application and replace <YOUR_API_TOKEN> with your API key:\n   31  \n   32  [block:code]\n   ..\n   34    \"codes\": [\n   35      {\n   36:       \"code\": \"curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf \\\\\\n  --output 1_extract_your_first_data.pdf && \\\\\\ncurl --request POST \\\\\\n  --url \\\"https://api.sensible.so/v0/extract/senseml_basics\\\" \\\\\\n  --header \\\"Authorization: Bearer <YOUR_API_TOKEN>\\\" \\\\\\n  --header \\\"Content-Type: application/pdf\\\" \\\\\\n  --data-binary \\\"@1_extract_your_first_data.pdf\\\" \\n\",\n   37        \"language\": \"shell\",\n   38        \"name\": \"Linux/Mac\"\n   39      },\n   40      {\n   41:       \"code\": \"curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf ^\\n  --output 1_extract_your_first_data.pdf && ^\\ncurl --request POST ^\\n  --url \\\"https://api.sensible.so/v0/extract/senseml_basics\\\" ^\\n  --header \\\"Authorization: Bearer <YOUR_API_TOKEN>\\\" ^\\n  --header \\\"Content-Type: application/pdf\\\" ^\\n  --data-binary \\\"@1_extract_your_first_data.pdf\\\" \\n\",\n   42        \"language\": \"shell\",\n   43        \"name\": \"Windows\"\n   ..\n   47  [/block]\n   48  \n   49: 3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`senseml_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: \n   50  \n   51  ```json\n   ..\n   71  2. Navigate to the [first tutorial](https://app.sensible.so/editor/?d=senseml_basics&c=1_extract_your_first_data&g=1_extract_your_first_data) config.\n   72     \n   73: 3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:\n   74     \n   75  \n   ..\n   81  ===\n   82  \n   83: - See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples)\n   84: - If you're new to APIs, see [API tutorials](doc:api-tutorial)\n   85  - To get started with authoring extraction configurations, or configs, for your custom documents, see [Getting Started](doc:getting-started-ai).\n   86  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\2000 - zapier\\1000 - zapier-getting-started.md:\n   37  3. Take the following steps to connect your Sensible account to Zapier:\n   38     1. Click to expand the **Trigger** section.\n   39:    2. Click to expand the **Choose account** section, then follow the prompts to enter your Sensible [API key](https://app.sensible.so/account/).\n   40  4. In the **Set up trigger** section, select the **tax_forms** document type you created in the previous steps, select the **Production** environment, and select the **Complete** status. \n   41  \n   ..\n   91  **Limitations**\n   92  \n   93: - You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).\n   94: - You can extract from single-document files with Zapier. If you want to extract from portfolio files (files that contain multiple documents, for example, insurance application bundles), use the Sensible API or SDKs. \n   95  \n   96  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\2000 - zapier\\2000 - zapier-tutorial-2.md:\n  100  **General Limitations**\n  101  \n  102: - You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).\n  103: - You can extract from single-document files with Zapier. If you want to extract from portfolio files (documents that contain multiple documents, for example, insurance application bundles), use the Sensible app, API, or SDK. \n  104  \n  105  **Sensible action limitations**\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\2000 - zapier\\index.md:\n   24  \n   25  \n   26: Every time you run an extraction using the Sensible [app](https://app.sensible.so/quick-extraction) or [API](ref:choosing-an-endpoint), you can automatically send the data to a destination, for example an email or database, using a **Sensible trigger**: \n   27  \n   28  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_trigger.png)\n   ..\n   33  ---\n   34  \n   35: You can bypass the Sensible app or API and instead trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps. Then send the extraction to the destination of your choice with a **Sensible action**.\n   36  \n   37  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action.png)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\4000 - quick-extraction\\7600 - excel-reference.md:\n   45  \n   46  - For all sheets other than the `<fields>` sheet, Sensible creates a new sheet for each document, and prefixes each sheet name with a zero-indexed document number, for example `doc_0` or `doc_1`.\n   47: - For the `<fields>`sheet, Sensible appends data as rows under the same column if it finds a matching field ID from another extraction in your call to the `/generate_excel/{ids}` API endpoint, or under a new column if it doesn't find a matching field ID. For example, if document A outputs fields `car_model` and `car_year`, and document B outputs `car_model` and `manufacture_year`,  Sensible creates a spreadsheet like the following:\n   48  \n   49  [block:html]\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\4000 - quick-extraction\\index.md:\n   46  [/block]\n   47  \n   48: **Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction) or Sensible SDKs.\n   49  \n   50  ##  Next\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-node.md:\n    8  This quickstart provides an overview of the Sensible Node SDK. Use this SDK to:\n    9  \n   10: - [Extract](https://github.com/sensible-hq/sensible-api-js#readme#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.\n   11  - [Classify](https://github.com/sensible-hq/sensible-api-js#readme#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document in a system of record.\n   12  \n   ..\n   29  Get an account at [sensible.so](https://app.sensible.so/register) if you don't have one already.\n   30  \n   31: To initialize the dependency, paste the following code into your `index.mjs` file and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):\n   32  \n   33  ```node\n   34: const sensible = new SensibleSDK(YOUR_API_KEY);\n   35  ```\n   36  \n   37: **Note** In production ensure you secure your API key, for example as a GitHub secret.\n   38  \n   39  ## Extract document data\n   ..\n  121  import { SensibleSDK } from \"sensible-api\"\n  122  \n  123: const sensible = new SensibleSDK(YOUR_API_KEY);\n  124  const request = await sensible.extract({\n  125        path: (\"./contract.pdf\"),\n  ...\n  153     | ----------- | ------------------------------------------------------------ |\n  154  \n  155: 4. Paste the preceding code into your `index.mjs` file. Ensure you replaced`YOUR_API_KEY` with your [API key]((https://app.sensible.so/account/) and `YOUR_DOCUMENT.pdf` with `boa_sample.pdf`. See the following code example to check your code completeness.\n  156  \n  157  5. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:\n  ...\n  199  import { SensibleSDK } from \"sensible-api\"\n  200  \n  201: const sensible = new SensibleSDK(YOUR_API_KEY);\n  202  const request = await sensible.classify({path:\"./boa_sample.pdf\"}); \n  203  const results = await sensible.waitFor(request);\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\layout-based-extractions\\1000 - getting-started.md:\n   14  \n   15  - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials in the `sensible_instruct_basics` document type.\n   16: - If you want a quick \"hello world\" API response, see the [API quickstart](doc:quickstart).\n   17  \n   18  Get structured data from an auto insurance quote\n   ..\n   29  - [Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods\n   30  - [Test the config](doc:getting-started#test-the-config) by running your config against a second, similar auto insurance document\n   31: - [Use the API](doc:getting-started#integrate-with-your-application) to integrate your Sensible config with your application\n   32  - [Validate extractions in production](doc:getting-started#validate-extractions-in-production) by using JsonLogic to define expected extracted values and flag unexpected values as warnings or errors\n   33  \n   ..\n  183  - For a deep dive on how the config works, see [the following section](doc:getting-started#how-it-works).\n  184  \n  185: - If you want to skip ahead and try out the API, see [Integrate with your application](doc:getting-started#integrate-with-your-application). \n  186  \n  187  How layout-based extraction works\n  ...\n  534  ====\n  535  \n  536: When you're ready to integrate with your application, enable using the config with the Sensible SDKs or API by taking the following steps:\n  537  \n  538  1. Click **Publish**.  The config is still a work in progress, so click **Development**.  Now you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).\n  539: 2. Use the Sensible SDKs or API to integrate with your application.\n  540  \n  541  Validate extractions in production \n  542  ====\n  543  \n  544: In a previous section, you tested a couple of documents manually. Now it's time to scale up and quality control the extractions by writing tests that run for all API extractions in a doc type.\n  545  \n  546  Use JsonLogic to validate that the extracted information makes sense for the car insurance document:\n  ...\n  585  \n  586  \n  587: 5. To test the validations with a document that's missing information, [try out an API call](doc:api-tutorial-async-1) with the following example document that has these errors:\n  588  \n  589     -  the policy number is missing\n  ...\n  593  | ----------------------------- | ------------------------------------------------------------ |\n  594  \n  595: You should receive a response with errors and warnings in the Validations array, as shown in the following API response excerpt:\n  596  \n  597  ```json\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\layout-based-extractions\\3000 - portfolio.md:\n    8  In this case, it's best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an \"income tax\" doc type and an \"invoice\" doc type, rather than creating a \"combined_tax_and_invoice\" doc type.\n    9  \n   10: In order for Sensible to handle the portfolio in one API extraction request, specify the following:\n   11  \n   12  - In each config for the documents in the portfolio, use [fingerprints](doc:fingerprint) to define text matches on specified pages of the document.  Sensible uses the fingerprint to find the page range of each document in the portfolio that fits a given config. \n   13  \n   14: - Use [Generate upload URL for portfolio](https://docs.sensible.so/reference/generate-upload-url-portfolio) or [Extract from URL for portfolio](https://docs.sensible.so/reference/extract-from-url-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `\"types\": [\"insurance_quote\", \"insurance_loss_run\"]`. The API response includes document extractions and their page ranges in the portfolio.\n   15  \n   16  **Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Microsoft OCR. \n   ..\n  111  ```\n  112  curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \\\n  113: --header 'Authorization: Bearer {API_TOKEN}' \\\n  114  --header 'Content-Type: application/json' \\\n  115  --data-raw '{\"document_url\":\"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf\",\n  ...\n  119  ```\n  120  curl --request GET 'https://api.sensible.so/v0/documents/{EXTRACTION_ID}' \\\n  121: --header 'Authorization: Bearer {API_TOKEN}'\n  122  ```\n  123  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\layout-based-extractions\\5000 - concepts\\1500 - coverage.md:\n   29  In the preceding screenshot, get a coverage breakdown by viewing the extraction. You can view the extraction by clicking the extraction date in the **Recent extractions** column or downloading the Excel file.\n   30  \n   31: For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  in the **Created**  column to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null. Or, you can retrieve the information from the [Sensible API](ref:retrieving-results) or SDK. The following code sample shows an except from an API response with the `validation_summary` used to calculate the `coverage` for the Sept 25 extraction:\n   32  \n   33  ```json\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\layout-based-extractions\\5000 - concepts\\1600 - file-types.md:\n   13  - Microsoft Word documents (DOC and DOCX). \n   14  \n   15: ### Sensible SDKs and API\n   16  \n   17: The Sensible SDKs and API support the following file types:\n   18  \n   19  **Extraction**\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\layout-based-extractions\\5000 - concepts\\4500 - draft-senseml-order.md:\n  118  ----\n  119  \n  120: Return the extraction, and other information, to the user as an API response. \n  121  \n  122  - Use the winning configuration data from the previous step\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\draft-node-example.md:\n   18  import { SensibleSDK } from \"sensible-api\";\n   19  import got from \"got\";\n   20: const apiKey = process.env.SENSIBLE_APIKEY;\n   21  const sensible = new SensibleSDK(apiKey);\n   22  const dir = process.argv[2];\n   ..\n   71  See the following steps for an overview of the SDK's workflow for classification:\n   72  \n   73: 1. Instantiate an SDK object (`new SensibleSDK(\"YOUR_API_KEY\")`.\n   74  \n   75  2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.\n   ..\n   80     import { SensibleSDK } from \"sensible-api\"\n   81     \n   82:    const sensible = new SensibleSDK(YOUR_API_KEY);\n   83     const request = await sensible.classify({path: \"./YOUR_DOCUMENT.pdf\"}); \n   84     const result = await sensible.waitFor(request);\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\sdk-node.md:\n    4  ---\n    5  \n    6: This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for document extraction and classification.\n    7  \n    8  ## Installation\n    .\n   79  | documentName      | string                                                     | If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response and populates the file name in the Sensible app's list of recent extractions. |\n   80  | environment       | `\"production\"` or `\"development\"`. default: `\"production\"` | If you specify `development`, Sensible extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |\n   81: | webhook           | object                                                     | Specifies to return extraction results to the specified webhook URL as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error.<br/> The webhook object has the following parameters:<br/>`url`:  string. Webhook destination. Sensible will POST to this URL when the extraction is complete.<br/>`payload`: string, number, boolean, object, or array. Information additional to the API response, for example a UUID for verification. |\n   82  \n   83  ### Returns\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - field-query-object\\index.md:\n   50  | Parameter                                                    | Value                                              | Description                                                  |\n   51  | ------------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------ |\n   52: | id (**required**)                                            | string                                             | Sensible uses the ID as the key in the structured key/value output. In the API response, this output is in the `parsed_document` section.<br/>To specify fallbacks, use the same ID in multiple fields. Succeeding fields act as fallbacks if the first returns null. For example, to capture differences in wording between document revisions, define two fields with the same ID, which anchor on synonymous text that may be present or absent in different document revisions. Fallback fields can be of any kind. For example, you can fallback from a field, to a computed field, to a section group. Fallbacks don't work across nested structures. For example, you can't fall back from a parent section group's field to a child section group's field. |\n   53  | anchor (**required**) except for fields that use [NLP methods](doc:natural-language-methods) | object                                             | The anchor identifies one or more lines of text in the document at which Sensible starts executing a method. Can be a string, Match object, or array of Match objects. For more information, see [Anchor object](doc:anchor) and [Match object](doc:match). |\n   54  | method (**required**)                                        | object                                             | The method describes how Sensible expands from the anchor and extracts the target data. For more information, see [Methods](doc:methods), [Natural language methods](doc:natural-language-methods), and [Method object](doc:method). |\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\3000 - natural-language-methods\\1000 - nlp-table.md:\n  243     - Sensible concatenates all your column descriptions with your overall table description. \n  244     - Sensible splits the document into equal-sized, overlapping chunks. \n  245:    - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.\n  246     - Sensible gets a list of page numbers from the top-scoring chunks.\n  247  2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. Sensible supports multi-page tables.\n  ...\n  259     - Sensible concatenates the first two rows of the table with the table title.\n  260  \n  261:    - Sensible compares the two concatenations using the OpenAI Embeddings API. \n  262  \n  263  5. Sensible creates a full prompt for GPT-4 that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\3000 - natural-language-methods\\1500 - query.md:\n  261  \n  262  - To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.\n  263: - Sensible scores each chunk by its similarity to either the `description` or the `chunkScoringText` parameters. Sensible scores each chunk using the OpenAPI Embeddings API.\n  264  - Sensible selects a number of the top-scoring chunks and combines them into \"context\". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.\n  265  - Sensible creates a full prompt for GPT-3 that includes the chunks, page hinting data, and your prompt. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\3000 - natural-language-methods\\1600 - summarizer.md:\n    3  hidden: false\n    4  ---\n    5: Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. \n    6  \n    7  Example use cases for this method include:\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\6000 - computed-field-methods\\index.md:\n   19  | key                   | value                      | description                                                  |\n   20  | :-------------------- | :------------------------- | :----------------------------------------------------------- |\n   21: | id (**required**)     | string                     | Sensible uses the ID as the key in the structured key/value output. In the API response, this output is in the `parsed_document` section. To specify fallbacks, use the same ID for multiple Computed Field methods. Succeeding fields act as fallbacks if the first returns null. For example, to capture differences in wording between document revisions, define two fields with the same ID, which use synonymous source ids that may be present or absent in different document revisions. |\n   22  | method (**required**) | object                     | The method describes the Computed Field method used to transform fields. This object's ID parameter specifies the method. The possible ID values are:<br/>[Concatenate](doc:concatenate)<br/>[Constant](doc:constant)<br/>[Mapper](doc:mapper)<br/>[pickValues](doc:pick-values)<br/>[Split](doc:split)<br/>[suppressOutput](doc:suppress-output)<br/>[Zip](doc:zip) |\n   23  | type                  | string (default: `string`) | Specifies the type of the output value. For more information about types, see [Field query object](doc:field-query-object). |\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\6500 - sections\\4000 - sections-example-nested-columns.md:\n   55  ```\n   56  \n   57: With this approach, you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON API response:\n   58  \n   59  ```yml\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\6500 - sections\\6000 - sections-example-table-grid.md:\n   63  ```\n   64  \n   65: With this approach, you can output something like the following, using abbreviated YML notation to give a brief idea of the more complex JSON API response:\n   66  \n   67  ```yml\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\6500 - sections\\8000 - sections-example-copy-from-sections.md:\n   21  If you [zip the child sections together](doc:sections-example-zip), you can output something like the following example output, and then clean it up with the Copy From Sections method. \n   22  \n   23: The following uses abbreviated YML notation to give an overview of the more complex JSON API response:\n   24  \n   25  ```yaml\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\6800 - document-type-settings\\4000 - ocr-level.md:\n   24  The following table shows the enums available for the OCR Level parameter. \n   25  \n   26: **Note:** Set this parameter in the [Sensible API](ref:create-document-type).\n   27  \n   28  | enum | description                                                  |\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\welcome\\2000 - getting-started-ai.md:\n   15  \n   16  - **Learn** to extract data, or use out-of-the-box supported document types\n   17: - [**Integrate**](doc:integrate) using Sensible's API, quick-extract UI, or other tools\n   18  - [**Quality control**](doc:validate-extractions) extracted data\n   19  -  [**Monitor**](doc:metrics) extracted data in production \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\welcome\\3000 - integrate.md:\n   10  | SDKs | [sdk-quickstarts](doc:sdk-quickstarts) | Extract and classify documents. |\n   11  | [Zapier](doc:zapier)           | [Zapier tutorial](doc:zapier-getting-started) | Transform data in PDFs and other document file types into emails, databases, Google sheets, and other Zapier-supported destinations. |\n   12: | [API](ref:hoosing-an-endpoint) | [API quickstart](doc:quickstart)              | Extract and classify documents and manage extraction configuration. |\n   13  | Quick extraction | [Quick extraction](doc:quick-extraction) | Drag and drop documents to extract documents in the Sensible app. Download extracted data as JSON or Excel files. **Note:**  Bulk document upload feature coming soon. |\n   14  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\welcome\\cheat\\4000 - cheat-4.md:\n   74  \n   75  - Check out the [SenseML method reference docs](doc:methods) to write your own extractions.\n   76: - See the [API quickstart](doc:quickstart) to try out calling an Sensible extraction API endpoint.\n   77  - Learn about other SenseML features such as preprocessors. For an overview of all features, see [SenseML reference introduction](doc:senseml-reference-introduction).\n   78  - Learn more about [validations](doc:validate-extractions) to test the quality of your extractions in production.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\write-prompts\\instruct\\1000 - query-tips.md:\n   21    -  [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices)\n   22    -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)\n   23:   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). \n   24  \n   25  - You can narrow down your search and disambiguate between multiple possible answers by adding location information to prompts:\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples\\readme.md:\n    1: This example code calls Sensible [extraction APIs](https://docs.sensible.so/reference#extract-data-from-a-document) and returns structured data from a PDF. You'll need an [API key](https://www.sensible.so/get-early-access). To run the examples, see the readme for your programming language: \n    2  \n    3  - [node](./node)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples\\node\\readme.md:\n    1: This starter code calls Sensible [extraction APIs](https://docs.sensible.so/reference#extract-data-from-a-document) and returns structured data from a PDF. You'll need an [API key](https://www.sensible.so/get-early-access).\n    2  \n    3  \n    .\n    9  - To install dependencies, open a command prompt at this cloned directory and run `npm install`.\n   10  - Open extract-doc.js in a text editor and specify:\n   11:   - your API key. Be sure to secure this key before committing.\n   12    - the local path to your PDF.\n   13    - the name of the doc type that you created in the [Sensible app](https://app.sensible.so/).\n   ..\n   19  To see example data in a response quickly, run extract-doc.js with an example PDF and config:\n   20  \n   21: - Clone this directory, install dependencies, and add your API key (see previous steps).\n   22  - Download an example [auto insurance quote PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf).\n   23  - In the [Sensible app](https://app.sensible.so/):\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples\\python\\readme.md:\n    1: This starter code calls Sensible [extraction APIs](https://docs.sensible.so/reference#extract-data-from-a-document) and returns structured data from a PDF. You'll need an [API key](https://www.sensible.so/get-early-access).\n    2  \n    3  \n    .\n   10    - To install dependencies, run `python -m pip install requests`.\n   11  - Open extract_docs.py in a text editor and specify:\n   12:   - your API key. Be sure to secure this key before committing.\n   13    - the local path to your PDF.\n   14    - the name of the doc type that you created in the [Sensible app](https://app.sensible.so/).\n   ..\n   20  To see example data in a response quickly, run extract_doc.py with an example PDF and config:\n   21  \n   22: - Clone this directory, install dependencies, and add your API key (see previous steps).\n   23  - Download an example [auto insurance quote PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf).\n   24  - In the [Sensible app](https://app.sensible.so/):\n\n122 matches across 41 files\n\n\nSearching 138 files for \"extraction API\" (case sensitive)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\welcome\\cheat\\4000 - cheat-4.md:\n   74  \n   75  - Check out the [SenseML method reference docs](doc:methods) to write your own extractions.\n   76: - See the [API quickstart](doc:quickstart) to try out calling an Sensible extraction API endpoint.\n   77  - Learn about other SenseML features such as preprocessors. For an overview of all features, see [SenseML reference introduction](doc:senseml-reference-introduction).\n   78  - Learn more about [validations](doc:validate-extractions) to test the quality of your extractions in production.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples\\readme.md:\n    1: This example code calls Sensible [extraction APIs](https://docs.sensible.so/reference#extract-data-from-a-document) and returns structured data from a PDF. You'll need an [API key](https://www.sensible.so/get-early-access). To run the examples, see the readme for your programming language: \n    2  \n    3  - [node](./node)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples\\node\\readme.md:\n    1: This starter code calls Sensible [extraction APIs](https://docs.sensible.so/reference#extract-data-from-a-document) and returns structured data from a PDF. You'll need an [API key](https://www.sensible.so/get-early-access).\n    2  \n    3  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples\\python\\readme.md:\n    1: This starter code calls Sensible [extraction APIs](https://docs.sensible.so/reference#extract-data-from-a-document) and returns structured data from a PDF. You'll need an [API key](https://www.sensible.so/get-early-access).\n    2  \n    3  \n\n4 matches across 4 files\n\n\nSearching 138 files for \"JavaScript\" (case sensitive)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-node.md:\n   13  ## Install\n   14  \n   15: In an environment in which you've installed JavaScript, create a directory for a test project, open a command prompt in the directory, and install the dependencies:  \n   16  \n   17  ```shell\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - field-query-object\\1200 - method.md:\n   19  | --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |\n   20  | `id`                        | [box](doc:box),<br/>[checkbox](doc:checkbox),<br/>[column](doc:column),<br/>[documentRange](doc:document-range),<br/>[fixedTable](doc:fixed-table),<br/>[intersection](doc:intersection),<br/> [invoice](doc:invoice),<br/>[keyValue](doc:key-value),<br/>[label](doc:label),<br/>[nearestCheckbox](doc:nearest-checkbox),<br/>[passthrough](doc:passthrough),<br/>[regex](doc:regex),<br/>[region](doc:region),<br/>[row](doc:row),<br/>[signature](doc:signature),<br/>[table](doc:table),<br/>[textTable](doc:text-table)<br/>[topic](doc:topic) | see [Methods](doc:methods).                                  |\n   21: | tiebreaker                  | integer (zero-based index)<br/> or<br/>ordinal (`first`, `second`, `third`, `last`)<br/>or <br/> comparison (`>`, `<`)<br/>or<br/>`join`<br/> Default: `join` | If the method returns multiple elements (for example, a Row method), specifies which element to extract in the returned array. <br/><br/>**integer**: Returns the zero-indexed nth element in the returned lines array, using Sensible's [default line sorting](doc:lines#line-sorting). For example, 0 returns the first line, -1 returns the last line, and -2 returns the second-to-last line in the array.<br/><br/>**ordinal:** Returns the `first`, `second`,`third` or `last` element, using Sensible's [default line sorting](doc:lines#line-sorting).<br/><br/>**comparison:**  Returns the first or last element, sorted [alphanumerically](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators)  using Unicode values.<br/> If you want to compare numeric amounts and ignore non-numbers,  then add a numeric [type](doc:types) such as  `type: currency` as a top-level parameter to the field.<br/><br/>**join**: Returns all elements in the returned array as a single string, delimited by whitespaces. |\n   22  | lineFilters                 | Match object                                                 | Filters out the specified lines from the method match. For example, if the Box method extracts unwanted footer lines from a box, you can filter out the lines  with this parameter. |\n   23  | typeFilters                 | array of [Types](doc:types)                                  | Filters out the specified types from the method results. For example, for a target box containing a delivery date, a street address, and delivery notes, you can filter out the lines containing Date and Address types in order to extract the delivery notes. Note that less strict types, such as Name and Currency types, are less useful in this filter than stricter types such as the Phone Number type.<br/>For an example, see the Examples section. |\n\n2 matches across 2 files\n\n\nSearching 139 files for \"quickstart-node\" (case sensitive)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\sdk-node.md:\n    8  ## Installation\n    9  \n   10: See [Node quickstart](https://github.com/sensible-hq/sensible-api-js#readme).\n   11  \n   12  ## Source files\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\SDK quickstarts\\quickstart-node.md:\n    8  This quickstart provides an overview of the Sensible Node SDK. Use this SDK to:\n    9  \n   10: - [Extract](https://github.com/sensible-hq/sensible-api-js#readme#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.\n   11: - [Classify](https://github.com/sensible-hq/sensible-api-js#readme#classify): Classify documents by the types you define. For example, use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document in a system of record.\n   12  \n   13  ## Install\n\n3 matches across 2 files\n\n\nSearching 137 files for \"openapi\" (case sensitive)\n\n0 matches\n\nSearching 137 files for \"gpt-best\" (case sensitive)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\write-prompts\\instruct\\1000 - query-tips.md:\n   19  - See the following resources for creating prompts:\n   20  \n   21:   -  [GPT best practices](https://platform.openai.com/docs/guides/gpt-best-practices/gpt-best-practices)\n   22    -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)\n   23    -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). \n\n2 matches in 1 file\n\n\nSearching 137 files for \"mappings\" (case sensitive)\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\5000 - preprocessors\\1000 - ligature.md:\n   13  | ------------------------- | ------ | ------------------------------------------------------------ |\n   14  | type (**required**)     | `ligature` |                                                    |\n   15: | mappings (**required**) | object | An object mapping ligature strings (for example, `\"\\u0000\"`) to an array of possible ligature replacements (for example, `[\"ff\", \"ffi\", \"fi\", \"fl\"]`). Sensible uses a dictionary in the target language to choose replacements that lead to known words. Sensible supports American English (en-us). This approach is conservative and may leave some Unicode characters in proper names or other non-word data. |\n   16: | forceReplaceAll | false | If true, specifies to bypass the dictionary lookup and to replace each ligature with the first replacement listed in the mappings array. This is useful in situations where words containing ligatures are not in the supported dictionary. For example, they are in an unsupported language or are proper nouns. |\n   17  \n   18  Examples\n   ..\n   26      {\n   27        \"type\": \"ligature\",\n   28:       \"mappings\": {\n   29          \"\\u0000\": [\n   30            \"ff\",\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\6000 - computed-field-methods\\1300 - mapper.md:\n   15  | id (**required**)        | `mapper`                                |                                                              |\n   16  | source_id (**required**) | a field id in the current configuration | The id of the field to map                                   |\n   17: | mappings (**required**)  | object                                  | An object with mappings from strings or numbers to output strings represented as key/value pairs, for example, `{ \"03/04\": \"March 4th\" }`. Key value pairs are case sensitive. |\n   18  \n   19  Examples\n   ..\n   43          \"id\": \"mapper\",\n   44          \"source_id\": \"_premium_period_raw\",\n   45:         \"mappings\": {\n   46            \"ANNUAL\": \"12\",\n   47            \"BIANNUAL\": \"6\",\n\n6 matches across 2 files\n",
 			"settings":
 			{
-				"buffer_size": 8784,
+				"buffer_size": 56184,
 				"line_ending": "Windows",
 				"name": "Find Results",
 				"scratch": true
 			}
+		},
+		{
+			"contents": "Owner email: frances@sensible.so",
+			"file": "/C/ProgramData/Vanta/vanta.conf",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 32,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					7,
+					1,
+					"insert",
+					{
+						"characters": "Owner"
+					},
+					"BQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAFAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					8,
+					1,
+					"insert",
+					{
+						"characters": " email:"
+					},
+					"BwAAAAUAAAAAAAAABgAAAAAAAAAAAAAABgAAAAAAAAAHAAAAAAAAAAAAAAAHAAAAAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAACQAAAAAAAAAAAAAACQAAAAAAAAAKAAAAAAAAAAAAAAAKAAAAAAAAAAsAAAAAAAAAAAAAAAsAAAAAAAAADAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAABQAAAAAAAAAFAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"insert",
+					{
+						"characters": " frances@sens"
+					},
+					"DQAAAAwAAAAAAAAADQAAAAAAAAAAAAAADQAAAAAAAAAOAAAAAAAAAAAAAAAOAAAAAAAAAA8AAAAAAAAAAAAAAA8AAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAARAAAAAAAAAAAAAAARAAAAAAAAABIAAAAAAAAAAAAAABIAAAAAAAAAEwAAAAAAAAAAAAAAEwAAAAAAAAAUAAAAAAAAAAAAAAAUAAAAAAAAABUAAAAAAAAAAAAAABUAAAAAAAAAFgAAAAAAAAAAAAAAFgAAAAAAAAAXAAAAAAAAAAAAAAAXAAAAAAAAABgAAAAAAAAAAAAAABgAAAAAAAAAGQAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAADAAAAAAAAAAMAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					10,
+					1,
+					"insert",
+					{
+						"characters": "ible.so"
+					},
+					"BwAAABkAAAAAAAAAGgAAAAAAAAAAAAAAGgAAAAAAAAAbAAAAAAAAAAAAAAAbAAAAAAAAABwAAAAAAAAAAAAAABwAAAAAAAAAHQAAAAAAAAAAAAAAHQAAAAAAAAAeAAAAAAAAAAAAAAAeAAAAAAAAAB8AAAAAAAAAAAAAAB8AAAAAAAAAIAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAGQAAAAAAAAAZAAAAAAAAAAAAAAAAAPC/"
+				]
+			]
 		}
 	],
 	"build_system": "",
@@ -29,6 +84,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ui:",
+				"UI: Select Color Scheme"
+			]
 		],
 		"width": 0.0
 	},
@@ -50,13 +109,21 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0"
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0",
+		"/C/Users/franc/Documents/GitHub/sensible-sdk-js",
+		"/C/Users/franc/Documents/GitHub/sensible-code-examples"
 	],
 	"file_history":
 	[
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/sdk-reference/sdk-javascript.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/sdk-reference/draft-node-example.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/sdk-reference/sdk-node.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/write-prompts/instruct/1000 - query-tips.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/SDK quickstarts/index.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/SDK quickstarts/quickstart-node.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/sdk-reference/draft-javascript-example.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/SDK quickstarts/quickstart-javascript.md"
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/sdk-reference/sdk-javascript.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/SDK quickstarts/quickstart-javascript.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/1000 - senseml-reference-introduction.md"
 	],
 	"find":
 	{
@@ -64,9 +131,18 @@
 	},
 	"find_in_files":
 	{
-		"height": 101.0,
+		"height": 104.0,
 		"where_history":
 		[
+			"*.md, *.yaml, *.yml",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js, C:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples,*.md, *.yaml, *.yml",
+			"<open files>",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js, C:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples,*.md, *.yaml, *.yml",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\, C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\sdk-reference\\",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js, C:\\Users\\franc\\Documents\\GitHub\\sensible-code-examples,*.md, *.yaml, *.yml",
+			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js,*.md, *.yaml, *.yml",
 			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js,*.md, *.yaml, *.yml",
 			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0, C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js",
 			"C:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0; C:\\Users\\franc\\Documents\\GitHub\\sensible-sdk-js"
@@ -74,9 +150,40 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"mappings",
+			"gpt-best",
+			"openapi",
+			"doc:quickstart-node",
+			"quickstart-node",
+			"JavaScript",
+			"extraction API",
+			"API",
+			"sensible api",
+			"Javascript",
+			"javascript",
+			"JS",
+			"js",
+			"-javascript",
+			"Javascript",
+			"javascript",
+			"Javascript",
+			"javascript",
+			"file: blob",
+			"blob",
+			"blog",
+			"configuration-settings",
+			"doc:configuration-settings",
+			"configuration-settings",
+			"ocr engine",
+			"ocr_engine",
+			"sensible-sdk",
+			"sensible-api",
+			"sensible api",
+			"todo",
+			"fingerprint",
 			"sensibleSDK"
 		],
 		"highlight": true,
@@ -85,6 +192,14 @@
 		"regex": false,
 		"replace_history":
 		[
+			"https://github.com/sensible-hq/sensible-api-js#readme",
+			"Node",
+			"node",
+			"-node",
+			"node",
+			"Node",
+			"node",
+			"doc:config-settings"
 		],
 		"reverse": false,
 		"scrollbar_highlights": true,
@@ -101,194 +216,31 @@
 			[
 				{
 					"buffer": 0,
-					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8784,
+						"buffer_size": 56184,
 						"regions":
 						{
 							"match":
 							{
 								"flags": 112,
-								"regions":
-								[
-									[
-										404,
-										415
-									],
-									[
-										548,
-										559
-									],
-									[
-										831,
-										842
-									],
-									[
-										1210,
-										1221
-									],
-									[
-										1520,
-										1531
-									],
-									[
-										1596,
-										1607
-									],
-									[
-										1984,
-										1995
-									],
-									[
-										2354,
-										2365
-									],
-									[
-										2670,
-										2681
-									],
-									[
-										2787,
-										2798
-									],
-									[
-										2884,
-										2895
-									],
-									[
-										2954,
-										2965
-									],
-									[
-										3155,
-										3166
-									],
-									[
-										3225,
-										3236
-									],
-									[
-										3518,
-										3529
-									],
-									[
-										3779,
-										3790
-									],
-									[
-										4019,
-										4030
-									],
-									[
-										4229,
-										4240
-									],
-									[
-										4292,
-										4303
-									],
-									[
-										4375,
-										4386
-									],
-									[
-										4673,
-										4684
-									],
-									[
-										4887,
-										4898
-									],
-									[
-										5141,
-										5152
-									],
-									[
-										5372,
-										5383
-									],
-									[
-										5413,
-										5424
-									],
-									[
-										5427,
-										5438
-									],
-									[
-										5787,
-										5798
-									],
-									[
-										5931,
-										5942
-									],
-									[
-										6214,
-										6225
-									],
-									[
-										6593,
-										6604
-									],
-									[
-										6903,
-										6914
-									],
-									[
-										6979,
-										6990
-									],
-									[
-										7367,
-										7378
-									],
-									[
-										7737,
-										7748
-									],
-									[
-										8053,
-										8064
-									],
-									[
-										8170,
-										8181
-									],
-									[
-										8267,
-										8278
-									],
-									[
-										8337,
-										8348
-									],
-									[
-										8538,
-										8549
-									],
-									[
-										8608,
-										8619
-									]
-								],
+								"regions": "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",
 								"scope": ""
 							}
 						},
 						"selection":
 						[
 							[
-								5573,
-								5573
+								53958,
+								53958
 							]
 						],
 						"settings":
 						{
 							"detect_indentation": false,
 							"line_numbers": false,
-							"output_tag": 3,
+							"output_tag": 42,
 							"result_base_dir": "",
 							"result_file_regex": "^([^ \t].*):$",
 							"result_line_regex": "^ +([0-9]+):",
@@ -296,7 +248,37 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2556.0,
+						"translation.y": 17658.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/ProgramData/Vanta/vanta.conf",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 32,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								32,
+								32
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -345,7 +327,7 @@
 	"project": "f_project.sublime-project",
 	"replace":
 	{
-		"height": 70.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -383,7 +365,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 208.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
