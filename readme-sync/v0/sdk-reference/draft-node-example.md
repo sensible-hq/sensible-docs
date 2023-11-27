@@ -12,7 +12,7 @@ The open-source Sensible Node SDK offers convenient access to the [Sensible API]
 
 ## Documentation
 
-For configuration options, see [Node SDK reference](https://docs.sensible.so/docs/sdk-node).
+For configuration options, see [Node SDK reference](https://docs.sensible.so/docs/sdk-node). TODO: where to link to instead?? the Sensible API?
 
 ## Versions
 
@@ -65,10 +65,10 @@ const sensible = new SensibleSDK(YOUR_API_KEY); //replace with your API key
 const request = await sensible.extract({
       url: "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/contract.pdf",
       documentType: "sensible_instruct_basics",
-      environment: "development" // see Node SDK reference for full list of configuration options
+      environment: "development" // see Node SDK reference for full list of configuration options TODO reword
     });
-const results = await sensible.waitFor(request); // waitFor is optional if you configure a webhook
-console.log(results); // see Node SDK reference to convert results from JSON to Excel
+const results = await sensible.waitFor(request); // polls every 5 seconds. Optional if you configure a webhook
+console.log(results); // see Node SDK reference to convert results from JSON to Excel TODO change wording
 ```
 
 2. Replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
@@ -80,7 +80,7 @@ node index.mjs
 
 The code extracts data from an example document (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration.
 
-### Results
+#### Results
 
 You should see the following extracted document text in the `parsed_document` object in the logged response:
 
@@ -105,13 +105,8 @@ Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_node_1.png)
 
-#### 
 
-
-
-## Workflows
-
-### Extraction workflow
+## Usage: Extract document data
 
 See the following steps for an overview of the SDK's workflow for document data extraction. Every method returns a chainable promise:
 
@@ -125,38 +120,9 @@ See the following steps for an overview of the SDK's workflow for document data 
 
 For a complete example, see TBD/TODO: [link to the bank statements example?] 
 
-### Classification workflow
+#### Extraction configuration
 
-See the following steps for an overview of the SDK's workflow for classification. Every method returns a chainable promise:
-
-1. Instantiate an SDK object (`new SensibleSDK("YOUR_API_KEY")`.
-
-2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `file` parameter. See the Classify method for more information.
-
-3. Consume the data.
-
-   ```node
-   import { SensibleSDK } from "sensible-api"
-   
-   const sensible = new SensibleSDK(YOUR_API_KEY);
-   const request = await sensible.classify({path: "./YOUR_DOCUMENT.pdf"}); 
-   const result = await sensible.waitFor(request);
-   console.log(results);
-   ```
-
-
-## Usage: Extract document data
-
-#### Extract from a local file
-
-To extract from a local file:
-
-1. Download the following example file and save it in the same directory as your `index.mjs` file:
-
-| Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/contract.pdf) |
-| ---------------- | ------------------------------------------------------------ |
-
-2. Paste the following code into an empty `index.mjs` file, then run it according to the steps in the previous option:
+The Extract method extracts data from a document, as specified by the extraction configurations and document types defined in your Sensible account. You can configure several options for document data extraction:
 
 
 ```node
@@ -164,37 +130,35 @@ import { SensibleSDK } from "sensible-api"
 
 const sensible = new SensibleSDK(YOUR_API_KEY);
 const request = await sensible.extract({
-      path: ("./contract.pdf"),
-      documentType: "sensible_instruct_basics",
+      path: ("./1040_john_doe.pdf"),
+      documentType: "tax_forms",
+      webhook: {
+         url:"YOUR_WEBHOOK_URL",
+         payload: "additional info, for example, a UUID for verification",
     });
-const results = await sensible.waitFor(request); // waitFor is optional if you configure  a webhook
-console.log(results); // see Node SDK reference to convert results from JSON to Excel
 ```
 
-This code extracts data from a local file (`contract.pdf`) using an example document type (`sensible_instruct_basics`) and an example extraction configuration.
+See the following table for information about configuration options:
 
-#### Check results
+| key               | value                                                      | description                                                  |
+| ----------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| path              | string                                                     | An option for submitting the document you want to extract data from.<br/> Pass the path to the document. For more information about supported file types, see  [Supported file types](doc:file-types). |
+| file              | string                                                     | An option for submitting the document you want to extract data from.<br/> Pass the non-encoded document bytes. |
+| url               | string                                                     | An option for submitting the document you want to extract data from.<br/>URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication. |
+| documentType      | string                                                     | An option for specifying the document type or types.<br/>Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). |
+| documentTypes     | array                                                      | An option for specifying the document type or types.<br/>Types of documents to extract from. Use this parameter to extract from multiple documents that are packaged into one file (a "portfolio").  This parameter specifies the document types contained in the portfolio. Sensible then segments the portfolio into documents using the specified document types (for example, 1099, w2, and bank_statement) and then runs extractions for each document. For more information, see [Multi-doc extraction](doc:portfolio). |
+| configurationName | string                                                     | If specified, Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.<br/>If unspecified, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.<br/>Not applicable for portfolios. |
+| documentName      | string                                                     | If you specify the filename of the document using this parameter, then Sensible returns the filename in the extraction response and populates the file name in the Sensible app's list of recent extractions. |
+| environment       | `"production"` or `"development"`. default: `"production"` | If you specify `development`, Sensible extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
+| webhook           | object                                                     | Specifies to return extraction results to the specified webhook URL as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error.<br/> The webhook object has the following parameters:<br/>`url`:  string. Webhook destination. Sensible will POST to this URL when the extraction is complete.<br/>`payload`: string, number, boolean, object, or array. Information additional to the API response, for example a UUID for verification. |
 
-The following excerpt of the results shows the extracted document text in the `parsed_document` object:
+### Returns
 
-```json
-{
-  "purchase_price": {
-    "source": "$400,000",
-    "value": 400000,
-    "unit": "$",
-    "type": "currency"
-  },
-  "street_address": {
-    "value": "1234 ABC COURT City of SALT LAKE CITY County of Salt Lake -\nState of Utah, Zip 84108",
-    "type": "address"
-  }
-}
-```
+Get results from this method by using a webhook or calling the Wait For method.
 
-For more information about the response body schema, see [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
+For the schema for the results of an extraction request,  see [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-#### Code example: Extract from PDFs in directory and convert to Excel
+#### Example: Extract from PDFs in directory and convert to 1 Excel
 
 See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
@@ -202,7 +166,7 @@ The example:
 
 1. Filters a directory to find the PDF files.
 2. Extracts data from the PDF files using the extraction configurations in a  `bank_statements` document type.
-3. Writes the extractions into an Excel file.
+3. Convert the extractions to an Excel file. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
 
 ```node
 import { promises as fs } from "fs";
@@ -214,9 +178,37 @@ const dir = process.argv[2];
 const files = (await fs.readdir(dir)).filter((file) => file.match(/\.pdf$/));
 const extractions = await Promise.all(
   files.map(async (filename) => {
-    const file = await fs.readFile(`${dir}/${filename}`);
+    const path = `${dir}/${filename}`;
     return sensible.extract({
-      file,
+      path,
+      documentType: "bank_statements",
+    });
+  })
+);
+await Promise.all(
+  extractions.map((extraction) => sensible.waitFor(extraction))
+);
+const excel = await sensible.generateExcel(extractions);
+console.log(excel);
+const excelFile = await got(excel.url);
+await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
+```
+
+### Example: Extract from multi-document file and output multiple Excel files
+
+```node
+import { promises as fs } from "fs";
+import { SensibleSDK } from "sensible-sdk";
+import got from "got";
+const apiKey = process.env.SENSIBLE_APIKEY;
+const sensible = new SensibleSDK(apiKey);
+const dir = process.argv[2];
+const files = (await fs.readdir(dir)).filter((file) => file.match(/\.pdf$/));
+const extractions = await Promise.all(
+  files.map(async (filename) => {
+    const path = `${dir}/${filename}`;
+    return sensible.extract({
+      path,
       documentType: "bank_statements",
     });
   })
