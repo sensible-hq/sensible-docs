@@ -105,8 +105,9 @@ Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_node_1.png)
 
-
 ## Usage: Extract document data
+
+You can extract data from a document, as specified by the extraction configurations and document types defined in your Sensible account.
 
 See the following steps for an overview of the SDK's workflow for document data extraction. Every method returns a chainable promise:
 
@@ -118,11 +119,9 @@ See the following steps for an overview of the SDK's workflow for document data 
 4. Optionally convert the result or results to Excel using `generateExcel()`.
 5. Consume the data.
 
-For a complete example, see TBD/TODO: [link to the bank statements example?] 
-
 #### Extraction configuration
 
-The Extract method extracts data from a document, as specified by the extraction configurations and document types defined in your Sensible account. You can configure several options for document data extraction:
+ You can configure several options for document data extraction:
 
 
 ```node
@@ -152,13 +151,13 @@ See the following table for information about configuration options:
 | environment       | `"production"` or `"development"`. default: `"production"` | If you specify `development`, Sensible extracts preferentially using config versions published to the development environment in the Sensible app. The extraction runs all configs in the doc type before picking the best fit. For each config, falls back to production version if no development version of the config exists. |
 | webhook           | object                                                     | Specifies to return extraction results to the specified webhook URL as soon as they're complete, so you don't have to poll for results status. Sensible also calls this webhook on error.<br/> The webhook object has the following parameters:<br/>`url`:  string. Webhook destination. Sensible will POST to this URL when the extraction is complete.<br/>`payload`: string, number, boolean, object, or array. Information additional to the API response, for example a UUID for verification. |
 
-### Returns
+### Extraction results
 
-Get results from this method by using a webhook or calling the Wait For method.
+Get extraction results by using a webhook or calling the Wait For method.
 
 For the schema for the results of an extraction request,  see [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-#### Example: Extract from PDFs in directory and convert to 1 Excel
+#### Example: Extract from PDFs in directory and convert to one Excel file
 
 See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
@@ -194,7 +193,7 @@ const excelFile = await got(excel.url);
 await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
 ```
 
-### Example: Extract from multi-document file and output multiple Excel files
+#### Example: Extract from multi-document file and output multiple Excel files
 
 ```node
 import { promises as fs } from "fs";
@@ -203,86 +202,24 @@ import got from "got";
 const apiKey = process.env.SENSIBLE_APIKEY;
 const sensible = new SensibleSDK(apiKey);
 const dir = process.argv[2];
-const files = (await fs.readdir(dir)).filter((file) => file.match(/\.pdf$/));
+const files = (await fs.readdir(dir)).filter((file) => file.match(/\.pdf$/) && file.includes('mortgage_application')); // find all bundled mortgage application files (multi-document 'portfolio' files)
 const extractions = await Promise.all(
   files.map(async (filename) => {
     const path = `${dir}/${filename}`;
     return sensible.extract({
       path,
-      documentType: "bank_statements",
+      documentTypes: ["tax_forms", "pay_stubs", "bank_statements"], //each mortgage_application file contains multiple doc types
     });
   })
 );
-await Promise.all(
-  extractions.map((extraction) => sensible.waitFor(extraction))
-);
-const excel = await sensible.generateExcel(extractions);
-console.log(excel);
-const excelFile = await got(excel.url);
-await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
+
+// TODO: handle the returned extractions. Each portfolio returns multiple Excel files, 1 for each sub-document
+// what would be the nicest way to save each file?  IE could we combine all the 'bank statements' across all portfolio extractions into 1 file, etc for all the tax forms and pay stubs?
+// or do we want to show something completely different like sending the info to an Airtable?
+
 ```
 
-## Classify
+## Classify usage TODO
 
-You can classify a document by its similarity to each document type you define in your Sensible account. For example, if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements) type and a [tax_forms](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms) type in your account, you can classify 1040 forms, 1099 forms, Bank of America statements, Chase statements, and other documents, into those two types.
 
-See the following code example for classifying a document.
-
-```node
-import { SensibleSDK } from "sensible-api"
-
-const sensible = new SensibleSDK(YOUR_API_KEY);
-const request = await sensible.classify({path:"./boa_sample.pdf"});
-const results = await sensible.waitFor(request);
-console.log(results);
-```
-
-To classify an example document, take the following steps:
-
-1. Follow the steps in the preceding sections to install the SDK.
-2. Paste the preceding code into your `index.mjs` file. Ensure you replaced`YOUR_API_KEY` with your [API key](https://app.sensible.so/account/).
-3. Follow the steps in [Out-of-the-box extractions](https://docs.sensible.so/reference/choosing-an-endpoint/library-quickstart) to add support for bank statements to your account.
-4. Download the following example file and save it in the same directory as your `index.mjs` file:
-
-| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/bank_statements/bank_of_america/boa_sample.pdf) |
-| ---------------- | ------------------------------------------------------------ |
-
-5. In a command prompt in the same directory as your `index.mjs` file, run the code with the following command:
-
-```shell
-node index.mjs
-```
-
-#### Check results
-
-The following excerpt of the results shows that Sensible classifies the example document as a bank statement, and most probably as a Bank of America statement:
-
-```json
-{
-  "document_type": {
-    "id": "22666f4f-b8d6-4cb5-ad52-d00996989729",
-    "name": "bank_statements",
-    "score": 0.8922476745112722
-  },
-  "reference_documents": [
-    {
-      "id": "c82ac28e-7725-4e42-b77c-e74551684caa",
-      "name": "boa_sample",
-      "score": 0.9999980536061833
-    },
-    {
-      "id": "f80424a0-58f8-40e7-814a-eb49b199221e",
-      "name": "wells_fargo_checking_sample",
-      "score": 0.8946129923339182
-    },
-    {
-      "id": "cf17daf8-7e8b-4b44-bc4b-7cdd6518d963",
-      "name": "chase_consolidated_balance_summary_sample",
-      "score": 0.8677569417649393
-    }
-  ]
-}
-```
-
-### 
 
