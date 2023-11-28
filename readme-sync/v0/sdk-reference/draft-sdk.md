@@ -157,7 +157,7 @@ Get extraction results by using a webhook or calling the Wait For method.
 
 For the schema for the results of an extraction request,  see [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-#### Example: Extract from PDFs in directory and convert to one Excel file
+#### Example: Extract from PDFs in directory and output an Excel file
 
 See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
@@ -165,7 +165,7 @@ The example:
 
 1. Filters a directory to find the PDF files.
 2. Extracts data from the PDF files using the extraction configurations in a  `bank_statements` document type.
-3. Convert the extractions to an Excel file. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+3. Writes the extractions to an Excel file. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
 
 ```node
 import { promises as fs } from "fs";
@@ -193,7 +193,7 @@ const excelFile = await got(excel.url);
 await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
 ```
 
-#### Example: Extract from multi-document file and output multiple Excel files
+#### Example: Extract from multi-document file and output Excel files
 
 ```node
 import { promises as fs } from "fs";
