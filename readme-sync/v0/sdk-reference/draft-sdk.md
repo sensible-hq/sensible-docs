@@ -5,13 +5,13 @@ hidden: true
 
 # Sensible Node SDK
 
-Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. use Sensible to build document-automation features into your vertical SaaS products. Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.
+Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. use Sensible to build document-automation features into your SaaS products. Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful document primitives.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
-The open-source Sensible Node SDK offers convenient access to the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Use the Sensible Node SDK to:
+This open-source Sensible SDK offers convenient access to the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Use this SDK to:
 
-- [Extract](#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then you run extractions for documents of the type with this SDK.
+- [Extract](#extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or *document type*, in the Sensible app or Sensible API, then run extractions for documents of the type with this SDK.
 - [Classify](#classify): Classify documents by the types you define, for example, bank statements or tax forms. Use classification to determine which documents to extract prior to calling a Sensible extraction endpoint, or route each document in a system of record.
 
 ## Documentation
@@ -123,7 +123,7 @@ See the following steps for an overview of the SDK's workflow for document data 
 4. Optionally convert the result or results to Excel using `generateExcel()`.
 5. Consume the data.
 
-#### Extraction configuration
+### Extraction configuration
 
  You can configure several options for document data extraction:
 
@@ -161,7 +161,7 @@ Get extraction results by using a webhook or calling the Wait For method.
 
 For the schema for the results of an extraction request,  see [Extract data from a document](https://docs.sensible.so/reference/extract-data-from-a-document) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
-#### Example: Extract from PDFs in directory and output an Excel file
+### Example: Extract from PDFs in directory and output an Excel file
 
 See the following code for a complete example of how to use the SDK for document extraction in your own app.
 
@@ -197,33 +197,48 @@ const excelFile = await got(excel.url);
 await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
 ```
 
-#### Example: Extract from multi-document file and output Excel files
+
+
+## Usage: Classify documents by type
+
+You can classify a document by type, as specified by the document types defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).
+
+See the following steps for an overview of the SDK's workflow for document classification. Every method returns a chainable promise:
+
+1. Instantiate an SDK object (`new SensibleSDK()`.
+
+2. Request a document classification (`sensible.classify()`.  Specify the document to classify using the `path` or  `file` parameter.
+
+3. Poll for the result (`sensible.waitFor()`.
+
+4. Consume the data.
+
+
+### Classification configuration
+
+You can configure options for document data extraction:
 
 ```node
-import { promises as fs } from "fs";
-import { SensibleSDK } from "sensible-sdk";
-import got from "got";
-const apiKey = process.env.SENSIBLE_APIKEY;
-const sensible = new SensibleSDK(apiKey);
-const dir = process.argv[2];
-const files = (await fs.readdir(dir)).filter((file) => file.match(/\.pdf$/) && file.includes('mortgage_application')); // find all bundled mortgage application files (multi-document 'portfolio' files)
-const extractions = await Promise.all(
-  files.map(async (filename) => {
-    const path = `${dir}/${filename}`;
-    return sensible.extract({
-      path,
-      documentTypes: ["tax_forms", "pay_stubs", "bank_statements"], //each mortgage_application file contains multiple doc types
-    });
-  })
-);
+import { SensibleSDK } from "sensible-api"
 
-// TODO: handle the returned extractions. Each portfolio returns multiple Excel files, 1 for each sub-document
-// what would be the nicest way to save each file?  IE could we combine all the 'bank statements' across all portfolio extractions into 1 file, etc for all the tax forms and pay stubs?
-// or do we want to show something completely different like sending the info to an Airtable?
-
+const sensible = new SensibleSDK(YOUR_API_KEY);
+const request = await sensible.classify({
+  path:"./boa_sample.pdf"
+  });
+const results = await sensible.waitFor(request);
+console.log(results);
 ```
 
-## Classify usage TODO
+See the following table for information about configuration options:
+
+| key  | value  | description                                                  |
+| ---- | ------ | ------------------------------------------------------------ |
+| path | string | An option for submitting the document you want to extract data from. Pass the path to the document. For more information about supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types). |
+| file | string | Pass the non-encoded document bytes. For information about supported file types, see [Supported file types](https://docs.sensible.so/docs/file-types). |
+
+### Classification results
+
+Get results from this method by calling the Wait For method. For the schema for the results of a classification request , see [Classify document by type (sync)](https://docs.sensible.so/reference/classify-document-sync) and expand the 200 responses in the middle pane and the right pane to see the model and an example, respectively.
 
 
 
