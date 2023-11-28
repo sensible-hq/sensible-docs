@@ -113,6 +113,8 @@ Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&
 
 You can extract data from a document, as specified by the extraction configurations and document types defined in your Sensible account.
 
+### Overview
+
 See the following steps for an overview of the SDK's workflow for document data extraction. Every method returns a chainable promise:
 
 1. Instantiate an SDK object (`new SensibleSDK()`. 
@@ -202,6 +204,8 @@ await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
 ## Usage: Classify documents by type
 
 You can classify a document by type, as specified by the document types defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).
+
+### Overview
 
 See the following steps for an overview of the SDK's workflow for document classification. Every method returns a chainable promise:
 
