@@ -597,7 +597,7 @@ paths:
         For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
         For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
          
-        For portfolio extractions, Sensible returns an Excel file for each document it finds in the PDF. The `fields` tab in each Excel file lists metadata for each document Sensible found in the portfolio, including page ranges and document type. 
+        For portfolio extractions, Sensible returns an Excel file containing all the documents it finds in the PDF. The `fields` tab in the Excel file lists metadata for each document Sensible found in the portfolio, including page ranges and document types. 
 
         For a list of document file types that Sensible can extract data from, see [Supported file types](doc:file-types).
         Call this endpoint after an extraction completes. For more information about checking extraction status,
