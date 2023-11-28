@@ -5,7 +5,7 @@ hidden: true
 
 # Sensible Node SDK
 
-Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. use Sensible to build document-automation features into your SaaS products. Sensible is highly configurable: you can get simple data [in minutes](doc:getting-started-ai) by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful [layout-based document primitives](doc:getting-started). TODO: convert to HTTP links.
+Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. use Sensible to build document-automation features into your SaaS products. Sensible is highly configurable: you can get simple data [in minutes](https://docs.sensible.so/docs/getting-started-ai) by leveraging GPT-4 and other large-language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful [layout-based document primitives](https://docs.sensible.so/docs/getting-started). 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
@@ -16,7 +16,8 @@ This open-source Sensible SDK offers convenient access to the [Sensible API](htt
 
 ## Documentation
 
-For configuration options, see [Node SDK reference](https://docs.sensible.so/docs/sdk-node). TODO: where to link to instead?? the Sensible API?
+- For extraction and classification response schemas, see [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint).
+- For configuring document extractions, see [SenseML reference](https://docs.sensible.so/docs/senseml-reference-introduction).
 
 ## Versions
 
@@ -25,8 +26,8 @@ For configuration options, see [Node SDK reference](https://docs.sensible.so/doc
 
 ## Node and Typescript support
 
-- This SDK supports all non end-of-life Node versions.
-- This SDK supports all non end-of-life Typescript versions.
+- This SDK supports all non-end-of-life Node versions.
+- This SDK supports all non-end-of-life Typescript versions.
 
 ## Install
 
@@ -68,10 +69,10 @@ const sensible = new SensibleSDK(YOUR_API_KEY); //replace with your API key
 const request = await sensible.extract({
       url: "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/contract.pdf",
       documentType: "sensible_instruct_basics",
-      environment: "development" // see Node SDK reference for full list of configuration options TODO reword
+      environment: "development" 
     });
 const results = await sensible.waitFor(request); // polls every 5 seconds. Optional if you configure a webhook
-console.log(results); // see Node SDK reference to convert results from JSON to Excel TODO change wording
+console.log(results);
 ```
 
 2. Replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
@@ -104,20 +105,20 @@ You should see the following extracted document text in the `parsed_document` ob
 
 #### Optional: Understand extraction
 
-Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more fields to the extraction configuration to extract more data:
+Navigate to https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract to see how the extraction you just ran works in the Sensible app. You can add more fields to the left pane to extract more data:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sdk_node_1.png)
 
 ## Usage: Extract document data
 
-You can extract data from a document, as specified by the extraction configurations and document types defined in your Sensible account.
+You can use this SDK to extract data from a document, as specified by the extraction configurations and document types defined in your Sensible account.
 
 ### Overview
 
 See the following steps for an overview of the SDK's workflow for document data extraction. Every method returns a chainable promise:
 
 1. Instantiate an SDK object with `new SensibleSDK()`. 
-2. Request a document extraction with `sensible.extract()` . Use the following required parameters:
+2. Request a document extraction with `sensible.extract()`. Use the following required parameters:
    1.  **(required)** Specify the document from which to extract data using the `url`, `path`, or `file` parameter. 
    2.  **(required)** Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
 3. Wait for the result. Use `sensible.waitFor()`,  or use a webhook.
@@ -200,7 +201,7 @@ await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
 
 ## Usage: Classify documents by type
 
-You can classify a document by type, as specified by the document types defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).
+You can use this SDK to classify a document by type, as specified by the document types defined in your Sensible account. For more information, see [Classifying documents by type](https://docs.sensible.so/docs/classify).
 
 ### Overview
 
