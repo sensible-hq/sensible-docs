@@ -21,7 +21,6 @@ For configuration options, see [Node SDK reference](https://docs.sensible.so/doc
 ## Versions
 
 - The latest version of this SDK is v0.
-
 - The latest version of the Sensible API is v0.
 
 ## Node and Typescript support
@@ -117,12 +116,12 @@ You can extract data from a document, as specified by the extraction configurati
 
 See the following steps for an overview of the SDK's workflow for document data extraction. Every method returns a chainable promise:
 
-1. Instantiate an SDK object (`new SensibleSDK()`. 
-2. Request a document extraction (`sensible.extract()` with the following required parameters:
+1. Instantiate an SDK object with `new SensibleSDK()`. 
+2. Request a document extraction with `sensible.extract()` . Use the following required parameters:
    1.  **(required)** Specify the document from which to extract data using the `url`, `path`, or `file` parameter. 
    2.  **(required)** Specify the user-defined document type or types using the `documentType` or `documentTypes` parameter.
-3. Wait for the result. Use (`sensible.waitFor()`,  or use a webhook.
-4. Optionally convert the result or results to Excel using `generateExcel()`.
+3. Wait for the result. Use `sensible.waitFor()`,  or use a webhook.
+4. Optionally convert extractions to Excel file with `generateExcel()`.
 5. Consume the data.
 
 ### Extraction configuration
