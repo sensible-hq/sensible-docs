@@ -39,12 +39,24 @@ To generate CSV files, Sensible uses the same rules described in the following s
 Multi-document spreadsheet
 ====
 
+Sensible combines multiple document extractions into one spreadsheet spreadsheet when:
 
+- You extract from a [portfolio](doc:portfolio) document.
+- You input multiple extractions to the Generate Excel [method](doc:sdk-quickstarts) or [endpoint](ref:get-excel-extraction).
 
-To combine document extractions into one spreadsheet file, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
+To combine extractions, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
 
 - For all sheets other than the `<fields>` sheet, Sensible creates a new sheet for each document, and prefixes each sheet name with a zero-indexed document number, for example `doc_0` or `doc_1`.
-- For the `<fields>`sheet, Sensible appends data as rows under the same column if it finds a matching field ID from another extraction in your call to the `/generate_excel/{ids}` API endpoint, or under a new column if it doesn't find a matching field ID. For example, if document A outputs fields `car_model` and `car_year`, and document B outputs `car_model` and `manufacture_year`,  Sensible creates a spreadsheet like the following:
+
+- For the `<fields>`sheet, Sensible appends data for each document in a new row. For each field ID, Sensible appends data under the same column if it finds a matching field ID from another extraction in your call to the Generate Excel method or endpoint, or under a new column if it doesn't find an matching field ID.
+
+- For portfolio extractions, Sensible adds metadata to the `<fields>` sheet, for example, the page range of the document in the portfolio.
+
+  
+
+**Tips**
+
+- To avoid manually merging the similarly named columns,  Sensible recommends using the same IDs for corresponding fields across different SenseML configs in a  document type.  For example, if document A outputs fields `car_model` and `car_year`, and document B outputs `car_model` and `manufacture_year`,  Sensible creates a spreadsheet like the following:
 
 [block:html]
 {
@@ -52,12 +64,9 @@ To combine document extractions into one spreadsheet file, Sensible uses the sam
 }
 [/block]  
 
+​        In the preceding example, Sensible recommends using either `car_year` or `manufacture_year`, not both.
 
-
-**Tips**
-
-- To avoid manually merging the similarly named columns in the preceding example,  Sensible recommends using the same IDs for corresponding fields across different SenseML configs in a  document type. 
-- To configure multi-document spreadsheet output using different rules than those described here, configure rules with Sensible's [Zapier](doc:zapier) integration. You can map single-value field output with this integration.
+- To configure multi-document spreadsheet output using different rules than those described here, configure rules with Sensible's [Zapier](doc:zapier) integration. You can map single-value field output with this integration, but not multi-value field outpu.
 
 
 
