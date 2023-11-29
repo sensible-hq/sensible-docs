@@ -42,7 +42,7 @@ Multi-document spreadsheet
 Sensible combines multiple document extractions into one spreadsheet spreadsheet when:
 
 - You extract from a [portfolio](doc:portfolio) document.
-- You input multiple extractions to the Generate Excel [method](doc:sdk-quickstarts) or [endpoint](ref:get-excel-extraction).
+- You input multiple extractions to the Generate Excel [method](doc:sdk-guides) or [endpoint](ref:get-excel-extraction).
 
 To combine extractions, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
 

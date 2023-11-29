@@ -1,6 +1,6 @@
 ---
 title: "Node SDK reference"
-hidden: false
+hidden: true
 ---
 
 This SDK is a simplification of the [Sensible API](ref:choosing-an-endpoint) for document extraction and classification.
