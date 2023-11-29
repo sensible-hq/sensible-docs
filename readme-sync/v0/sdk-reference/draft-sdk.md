@@ -168,7 +168,7 @@ The example:
 
 1. Filters a directory to find the PDF files.
 2. Extracts data from the PDF files using the extraction configurations in a  `bank_statements` document type.
-3. Writes the extractions to an Excel file. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
+3. Writes the extractions to an Excel file. The Generate Excel method takes an extraction or an array of extractions, and outputs an Excel file. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
 
 ```node
 import { promises as fs } from "fs";
