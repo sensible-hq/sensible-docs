@@ -127,20 +127,17 @@ See the following steps for an overview of the SDK's workflow for document data 
 
 ### Extraction configuration
 
- You can configure several options for document data extraction:
+ You can configure options for document data extraction:
 
 
 ```node
-import { SensibleSDK } from "sensible-api"
-
-const sensible = new SensibleSDK(YOUR_API_KEY);
 const request = await sensible.extract({
       path: ("./1040_john_doe.pdf"),
       documentType: "tax_forms",
       webhook: {
          url:"YOUR_WEBHOOK_URL",
          payload: "additional info, for example, a UUID for verification",
-    });
+    }});
 ```
 
 See the following table for information about configuration options:
@@ -175,7 +172,7 @@ The example:
 
 ```node
 import { promises as fs } from "fs";
-import { SensibleSDK } from "sensible-sdk";
+import { SensibleSDK } from "sensible-api";
 import got from "got";
 const apiKey = process.env.SENSIBLE_APIKEY;
 const sensible = new SensibleSDK(apiKey);
@@ -193,9 +190,9 @@ const extractions = await Promise.all(
 await Promise.all(
   extractions.map((extraction) => sensible.waitFor(extraction))
 );
-const excel = await sensible.generateExcel(extractions);
-console.log(excel);
-const excelFile = await got(excel.url);
+const excel_download = await sensible.generateExcel(extractions);
+console.log(excel_download);
+const excelFile = await got(excel_download.url);
 await fs.writeFile(`${dir}/output.xlsx`, excelFile.rawBody);
 ```
 
