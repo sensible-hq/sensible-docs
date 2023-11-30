@@ -130,7 +130,7 @@ paths:
           2. PUT your document at the `upload_url` returned from the previous step. Sensible extracts data from the document.
           3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the response to poll the GET documents/{id} endpoint.
 
-        For supported file types and size, see [Supported file types](doc:file-types).
+        For supported file size and types, see [Supported file types](doc:file-types).
 
         For example, if your call to `/generate_upload_url` specifies the document type with a `content_type` body parameter (recommended), your first two steps are as follows:
 
@@ -195,7 +195,7 @@ paths:
       summary: Extract doc at your URL
       description: |
         Extract data asynchronously from a document at the specified `document_url`.<br/>
-        For supported file types and size, see [Supported file types](doc:file-types).
+        For supported file size and types, see [Supported file types](doc:file-types).
         Take the following steps.
         1. Run this endpoint.
         3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the  response to poll the GET documents/{id} endpoint.

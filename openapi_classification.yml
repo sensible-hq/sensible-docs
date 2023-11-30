@@ -38,7 +38,7 @@ paths:
 
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
 
-        For supported file types and size, see [Supported file types](doc:file-types).
+        For supported file size and types, see [Supported file types](doc:file-types).
 
         
 
@@ -108,7 +108,7 @@ paths:
 
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
         
-        For supported file types and size, see [Supported file types](doc:file-types).
+        For supported file size and types, see [Supported file types](doc:file-types).
       requestBody:
         required: true
 
