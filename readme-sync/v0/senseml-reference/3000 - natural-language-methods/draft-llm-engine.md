@@ -41,7 +41,7 @@ For an overview of how the List method works, see the following steps:
 
 2. Sensible selects a number of the top-scoring chunks: 
    1. If you select `llm_engine: thorough`, the Chunk Count parameter determines the number of  top-scoring chunks Sensible selects.
-   2. If you select `llm_engine: fast`,   Sensible 1. selects top-scoring chunks as determined by the Chunk Count parameters 2. Sensible selects a smaller list of page numbers by removing chunks that are significantly less relevant from the list of top-scoring chunks.
+   2. If you select `llm_engine: fast`,   1. Sensible selects top-scoring chunks as determined by the Chunk Count parameter. 2. Sensible selects a smaller list of page numbers by removing chunks that are significantly less relevant from the list of top-scoring chunks.
 3. To avoid large-language model (LLM)'s token limits, Sensible batches the chunks into groups by page numbers, **up to a maximum of 20 page numbers TODO right place for it?** The chunks in each page group can be non-consecutive in the document.
 4. For each page group, Sensible submits a full prompt to the LLM that includes the pages' chunks as context, page-hinting data, and your prompts. For information about the LLM model, see the LLM Engine parameter. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to create a list formatted as a table, based on the context.
 5. Sensible concatenates the results from the LLM for each page group and returns a list, formatted as a table.
