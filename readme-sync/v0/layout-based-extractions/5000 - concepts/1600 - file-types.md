@@ -3,41 +3,30 @@ title: "Supported file types"
 hidden: false
 ---
 
+## File types
+
 Sensible supports the following file types:
 
-### Sensible app
+| Operation                           | PDF  | Microsoft Word documents (DOC and DOCX) | image formats (JPEG, PNG, and TIFF) |
+| ----------------------------------- | ---- | --------------------------------------- | ----------------------------------- |
+| Sensible app's Quick Extraction tab | ✅    | ✅                                       | ❌                                   |
+| Single-file extraction with SDK/API | ✅    | ✅                                       | ✅                                   |
+| Portfolio extraction with SDK/API   | ✅    | ✅                                       | ❌                                   |
+| Classification with SDK/API         | ✅    | ✅                                       | ✅                                   |
 
-Using the Sensible app, you can extract data from the following file types:
+## File sizes
 
-- PDF
-- Microsoft Word documents (DOC and DOCX). 
+Sensible supports the following file sizes:
 
-### Sensible SDKs and API
-
-The Sensible SDKs and API support the following file types:
-
-**Extraction** 
-
-single-document file:
-
-- PDF
-- Microsoft Word documents (DOC and DOCX)
-- image formats (JPEG, PNG, and TIFF)
-
-multi-document file ("portfolio" file):
-
-- PDF
-- Microsoft Word documents (DOC and DOCX)
-
-**Classification**
-
-- PDF
-- Microsoft Word documents (DOC and DOCX)
-- Image formats (JPEG, PNG, and TIFF)
+| Operation              | Synchronous size limit (API only)                | Asynchronous size limit |
+| ---------------------- | ------------------------------------------------ | ----------------------- |
+| Single-file extraction | under 4.5MB, or under 30 seconds processing time | 6 GB                    |
+| Portfolio extraction   | n/a                                              | 6 GB                    |
+| Classification         | 4.5 MB                                           | 4.5 MB                  |
 
 ## Notes
 
-- When extracting from image file formats, Sensible ignore OCR or OCR preprocessor settings you configure in the document type or SenseML configuration.
+- When extracting from image file formats, Sensible ignore OCR or OCR preprocessor settings you configure in the document type or SenseML configuration. For more information about OCR, see [OCR level](doc:ocr-level).
 - For DOC and DOCX documents, Sensible converts the document to PDF before processing it to ensure identical processing behavior.
 - For TIFF documents, SenseML methods that attempts to return a rendered page returns an error, including:
      - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method

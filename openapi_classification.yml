@@ -36,11 +36,11 @@ paths:
          - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
          - Outside an extraction workflow. For example, to determine where to route each document or to label each document in a system of record.
 
-        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg". For a list of supported document file types, see [Supported file types](doc:file-types).
+        To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
 
-        This endpoint supports documents up to 4.5MB in size.
+        For supported file types and size, see [Supported file types](doc:file-types).
 
-        For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
+        
 
 
 
@@ -107,9 +107,8 @@ paths:
          - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
 
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
-        This endpoint supports documents up to 4.5MB in size.
-
-        For a list of supported document file types, see the [Supported file types](doc:file-types) endpoint.
+        
+        For supported file types and size, see [Supported file types](doc:file-types).
       requestBody:
         required: true
 
