@@ -7,12 +7,12 @@ hidden: false
 
 Sensible supports the following file types:
 
-| Operation                           | PDF  | Microsoft Word documents (DOC and DOCX) | image formats (JPEG, PNG, and TIFF) |
-| ----------------------------------- | ---- | --------------------------------------- | ----------------------------------- |
-| Sensible app's Quick Extraction tab | ✅    | ✅                                       | ❌                                   |
-| Single-file extraction with SDK/API | ✅    | ✅                                       | ✅                                   |
-| Portfolio extraction with SDK/API   | ✅    | ✅                                       | ❌                                   |
-| Classification with SDK/API         | ✅    | ✅                                       | ✅                                   |
+| Operation                              | PDF  | Microsoft Word documents (DOC and DOCX) | image formats (JPEG, PNG, and TIFF) |
+| -------------------------------------- | ---- | --------------------------------------- | ----------------------------------- |
+| Sensible app's Quick Extraction tab    | ✅    | ✅                                       | ❌                                   |
+| Single-file extraction with SDK or API | ✅    | ✅                                       | ✅                                   |
+| Portfolio extraction with SDK or API   | ✅    | ✅                                       | ❌                                   |
+| Classification with SDK or API         | ✅    | ✅                                       | ✅                                   |
 
 ## File sizes
 
