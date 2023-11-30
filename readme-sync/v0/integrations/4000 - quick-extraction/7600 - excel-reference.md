@@ -39,7 +39,7 @@ To generate CSV files, Sensible uses the same rules described in the following s
 Multi-document spreadsheet
 ====
 
-Sensible combines multiple document extractions into one spreadsheet spreadsheet when:
+Sensible combines multiple document extractions into one spreadsheet when:
 
 - You extract from a [portfolio](doc:portfolio) document.
 - You input multiple extractions to the Generate Excel [method](doc:sdk-guides) or [endpoint](ref:get-excel-extraction).
@@ -66,7 +66,7 @@ To combine extractions, Sensible uses the same rules described in the following 
 
 ​        In the preceding example, Sensible recommends using either `car_year` or `manufacture_year`, not both.
 
-- To configure multi-document spreadsheet output using different rules than those described here, configure rules with Sensible's [Zapier](doc:zapier) integration. You can map single-value field output with this integration, but not multi-value field outpu.
+- To configure multi-document spreadsheet output using different rules than those described here, configure rules with Sensible's [Zapier](doc:zapier) integration. You can map single-value field output with this integration, but not multi-value field output.
 
 
 

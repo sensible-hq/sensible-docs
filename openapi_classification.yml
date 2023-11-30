@@ -8,7 +8,7 @@ info:
   license: # TODO: fill in
     name: Sensible API
     url: https://www.TBD.org/licenses/LICENSE-2.0.html
-  description: Extract structured data from documents with the Sensible API.
+  description: Classify documents by type with the Sensible API.
 
 # Apply the auth globally to all operations
 security:
@@ -109,7 +109,7 @@ paths:
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
         This endpoint supports documents up to 4.5MB in size.
 
-        For a list of supported document file types, see the [/extract](ref:extract-data-from-a-document) endpoint.
+        For a list of supported document file types, see the [Supported file types](doc:file-types) endpoint.
       requestBody:
         required: true
 
@@ -191,7 +191,7 @@ components:
             title: Unsupported Media Type
             type: string
             example: >-
-              Messages related to the file format of the document to extract data from.
+              Messages related to the file format of the document.
     429:
       description: Too Many Requests
       content:
