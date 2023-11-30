@@ -26,7 +26,7 @@ TODO: remember to add to document type-level param??
 | key               | value                               | description                                                  |
 | :---------------- | :---------------------------------- | :----------------------------------------------------------- |
 | id (**required**) | `list`                              | The Anchor parameter is optional for fields that use this method. If you specify an anchor, Sensible ignores it. |
-| llm_engine        | `fast`, `thorough`. default: `fast` | Specifices the LLM model to which Sensible submits the full prompt. <br/>fast: GPT-3.5 Turbo Uses a faster LLM model and potentially fewer chunks than those specified by the Chunk Count parameter<br/>thorough:GPT-4 - Uses a slower LLM model and exactly the number of chunks specified inth Chunk Count parameter. Use this if you find that the List method is skipping pages within a list/ failing to fully extract the List. QUESTION: is it slower? |
+| llm_engine        | `fast`, `thorough`. default: `fast` | Specifices the LLM model to which Sensible submits the full prompt, and affects the number of chunks that Sensible submits to the LLM. use thorough if you find that fast is partially extracting a multi-page list, ie skipping list items.<br/>fast: GPT-3.5 Turbo Uses a faster LLM model and potentially fewer chunks than those specified by the Chunk Count parameter<br/>thorough:GPT-4 - Uses a slower LLM model and exactly the number of chunks specified inth Chunk Count parameter. Use this if you find that the List method is skipping pages within a list/ failing to fully extract the List. QUESTION: is it slower? |
 
 Notes
 ===
@@ -41,7 +41,7 @@ For an overview of how the List method works, see the following steps:
 
 2. Sensible selects a number of the top-scoring chunks: 
    1. If you select `llm_engine: thorough`, the Chunk Count parameter determines the number of  top-scoring chunks Sensible selects.
-   2. If you select `llm_engine: fast`,   Sensible 1. selects top-scoring chunks as determined by the Chunk Count parameters 2. Sensible removes chunks that are significantly less relevant, to select a smaller list of page numbers. Sensible selects a maximum of 20 page numbers.
-3. To avoid large-language model (LLM)'s token limits, Sensible batches the page numbers into groups. The chunks in each page group can be non-consecutive in the document.
+   2. If you select `llm_engine: fast`,   Sensible 1. selects top-scoring chunks as determined by the Chunk Count parameters 2. Sensible selects a smaller list of page numbers by removing chunks that are significantly less relevant. Sensible selects a maximum of 20 page numbers.
+3. To avoid large-language model (LLM)'s token limits, Sensible batches the chunks into groups by page numbers. The chunks in each page group can be non-consecutive in the document.
 4. For each page group, Sensible submits a full prompt to the LLM that includes the pages' chunks as context, page-hinting data, and your prompts. For information about the LLM, see the LLM Engine parameter. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to create a list formatted as a table, based on the context.
 5. Sensible concatenates the results from the LLM for each page group and returns a list, formatted as a table.
