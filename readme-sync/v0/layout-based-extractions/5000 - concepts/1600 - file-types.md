@@ -26,7 +26,7 @@ Sensible supports the following file sizes:
 
 ## Notes
 
-- When extracting from image file formats, Sensible ignore OCR or OCR preprocessor settings you configure in the document type or SenseML configuration. For more information about OCR, see [OCR level](doc:ocr-level).
+- When extracting from image file formats, Sensible ignores OCR or OCR preprocessor settings you configure in the document type or SenseML configuration. For more information about OCR, see [OCR level](doc:ocr-level).
 - For DOC and DOCX documents, Sensible converts the document to PDF before processing it to ensure identical processing behavior.
 - For TIFF documents, SenseML methods that attempts to return a rendered page returns an error, including:
      - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method
