@@ -120,7 +120,9 @@ You can use this SDK to extract data from a document, as specified by the extrac
 
 ### Overview
 
-See the following steps for an overview of the SDK's workflow for document data extraction. Every method returns a chainable promise:
+TODO: what to say about async behavior? (since not using promises)
+
+See the following steps for an overview of the SDK's workflow for document data extraction:
 
 1. Instantiate an SDK object with `SensibleSDK()`.
 2. Request a document extraction with `sensible.extract()`. Use the following required parameters:
@@ -215,7 +217,7 @@ You can use this SDK to classify a document by type, as specified by the documen
 
 ### Overview
 
-See the following steps for an overview of the SDK's workflow for document classification. Every method returns a chainable promise:
+See the following steps for an overview of the SDK's workflow for document classification:
 
 1. Instantiate an SDK object (`new SensibleSDK()`.
 
