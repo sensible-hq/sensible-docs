@@ -28,7 +28,7 @@ This open-source Sensible SDK offers convenient access to the [Sensible API](htt
 
 ## Python support
 
-- This SDK supports Python 3.
+- This SDK supports all non end-of-life versions of Python.
 
 ## Install
 
