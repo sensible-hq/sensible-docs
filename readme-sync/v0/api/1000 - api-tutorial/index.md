@@ -21,7 +21,7 @@ Prerequisites
 
 To follow these tutorials, you need:
 
-- An [API key](https://app.sensible.so/account). You receive this key when you sign up for a [Sensible account](https://app.sensible.so/register). 
+- An [API key](https://app.sensible.so/account). Create this key after you sign up for a [Sensible account](https://app.sensible.so/register). 
 -  [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed.
 -  An example extraction configuration. See the following section.
 
