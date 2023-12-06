@@ -5,8 +5,6 @@ hidden: false
 
  Use SenseML to write "configs" (collection of queries) to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.
 
-For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
-
 
 
 See the following pages for reference documentation for the SenseML query language:
@@ -14,7 +12,7 @@ See the following pages for reference documentation for the SenseML query langua
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
 - [Methods](doc:methods)
-- [Natural language methods](doc:natural-language-methods), including LLM-based Sensible Instruct methods
+- [Natural language methods](doc:natural-language-methods), including LLM-based Sensible Instruct methods. For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
