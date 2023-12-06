@@ -92,6 +92,7 @@ end
 
 options = {
   :log_level => :info,
+  :url_ignore => ["https://platform.openai.com/tokenizer","https://platform.openai.com/docs/guides/prompt-engineering","https://beta.openai.com/docs/"]
 }
 
 # puts "contents of Out:"
