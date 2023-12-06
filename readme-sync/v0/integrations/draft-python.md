@@ -135,8 +135,6 @@ See the following steps for an overview of the SDK's workflow for document data 
 
  You can configure options for document data extraction:
 
-TODO: test that this is accurate?
-
 ```python
 request = sensible.extract(
     path="./1040_john_doe.pdf",
@@ -181,7 +179,7 @@ The example:
 3. Writes the extractions to an Excel file. The Generate Excel method takes an extraction or an array of extractions, and outputs an Excel file. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
 
 
-TODO - test this and find out if 'asyncio is nice'
+
 
 
 ```python
@@ -198,12 +196,20 @@ extractions = await asyncio.gather(*[
     sensible.extract(path=str(file), document_type="bank_statements") for file in files
 ])
 
-await asyncio.gather(*[sensible.wait_for(extraction) for extraction in extractions])
+results = await asyncio.gather(*[sensible.wait_for(extraction) for extraction in extractions])
 
-excel_download = await sensible.generate_excel(extractions)
-print(excel_download)
+print("extractions ids:" + \n + extractions)
 
-excel_file = await got(excel_download["url"])
+print("extraction results:")
+json_str = json.dumps(results, indent=4)
+print(results)
+
+excel = await sensible.generate_excel(extractions)
+print("excel download URL:")
+print(excel)
+
+
+excel_file = await got(excel["url"])
 output_file_path = dir_path / "output.xlsx"
 with open(output_file_path, "wb") as output_file:
     output_file.write(excel_file.content)
