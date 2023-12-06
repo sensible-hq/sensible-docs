@@ -14,7 +14,7 @@ See the following pages for reference documentation for the SenseML query langua
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
 - [Methods](doc:methods)
-- [Natural language methods](doc:natural-language-methods) including Sensible Instruct
+- [Natural language methods](doc:natural-language-methods), including LLM-based Sensible Instruct methods
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
@@ -54,13 +54,11 @@ This example uses the following config:
     }
   ],
   "fields": [
-    /* NATURAL-LANGUAGE EXAMPLE */
+    /* NATURAL-LANGUAGE, LLM-based EXAMPLE */
     {
       /* ID for target data */
       "id": "policy_period",
-      /* search for target data
-      on page containing this anchor line */
-      "anchor": "anyco auto insurance",
+      /* unlike layout-based methods, no anchor required */
       "method": {
         "id": "query",
         /* ask a free-text question.
@@ -117,7 +115,7 @@ This example config has the following elements:
 
 - The **field** `_driver_name_raw` is a query that extracts a driver's name by searching below some matched text (`"position": "below"`). Its ID is the key for the extracted data. For more information, see [Field query object](doc:field-query-object).
 
-- An **anchor** is matched text that helps narrow down a location in the document from which to extract data. In the `"_driver_name_raw"` field, Sensible matches a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
+- (not applicable for LLM methods) an **anchor** is matched text that helps narrow down a location in the document from which to extract data. In the `"_driver_name_raw"` field, Sensible matches a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
 
 - A **method** defines how to extract data after the anchor narrows down the data's location. In this example field, the Label method tells Sensible to extract data that's below and close to the anchor.
 
@@ -125,7 +123,7 @@ This example config has the following elements:
 
   |                         | [Natural language methods](doc:natural-language-methods)     | Layout-based [methods](doc:methods)                          |
   | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Notes                   | Ask questions about info in the document, as you'd ask a human. For example, "what's the policy period"? | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
+  | Notes                   | Ask questions about info in the document, as you'd ask a human. For example, "what's the policy period"?  Powered by large-language models (LLMs). | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
   | Deterministic           | no                                                           | yes                                                          |
   | Handles complex layouts | no                                                           | yes                                                          |
 
@@ -135,8 +133,6 @@ This example config has the following elements:
 
 - The **computed field** `"driver_name_last"` extracts the last name from the raw output of the `_driver_name_raw` field. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).  You can also capture the full name as typed output. See [types](doc:types).
 
+ 
 
-
-
-
-  In production scenarios, you can extract just about any text, as well as image coordinates, from a document. Happy extracting!
+Using SenseML, you can extract just about any text, as well as image coordinates, from a document. Happy extracting!
