@@ -6,12 +6,16 @@ This Sensible Instruct method extracts repeating data in a document based on you
 
 This method is an alternative to the [Table](doc:table-tips) method, when the data you want can appear either as a table or as another layout. The List method can find data in paragraphs of free text or in more structured layouts, such as key/value pairs or tables.  
 
-**Prompt Tips**
+### Prompt tips
 
 - The list description describes the overall contents for the list, while each property is a single description of an item that repeats in the list.
 - You can use location hints to describe the target list's position in the document. For examples of location hints, see [Query extraction tips](doc:query-tips).
 - For more information about how to write descriptions, or "prompts", see [Query extraction tips](doc:query-tips).
 - For advanced options, see [Advanced prompt configuration](doc:prompt).
+
+### Troubleshooting
+
+- If Sensible partially extracts a multi-page list, for example skipping pages in the list, use a different LLM engine. For more information, see the [LLM Engine parameter](doc:list#parameters). 
 
 Examples
 ===

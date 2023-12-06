@@ -6,9 +6,7 @@ hidden: false
 
 This Sensible Instruct method extracts an individual fact in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.
 
-Prompt Tips
-----
-
+### Prompt Tips
 
 - Try framing each prompt so that it has a single, short answer such as:
 
@@ -23,7 +21,7 @@ Prompt Tips
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
 - You can narrow down your search and disambiguate between multiple possible answers by adding location information to prompts:
-    
+  
 	**Location relative to page number and position on page**
 
   - "address in the **top left of the first page** of the document"
@@ -38,8 +36,7 @@ Prompt Tips
 
   - "phone number after **section 2**"
 
-Troubleshooting
-----
+## Troubleshooting
 
 - For information about troubleshooting error messages about prompts, see [Qualifying LLM accuracy](doc:confidence).
 
