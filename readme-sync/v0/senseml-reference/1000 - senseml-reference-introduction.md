@@ -5,8 +5,6 @@ hidden: false
 
  Use SenseML to write "configs" (collection of queries) to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.
 
-
-
 See the following pages for reference documentation for the SenseML query language:
 
 - [Field query object](doc:field-query-object)
