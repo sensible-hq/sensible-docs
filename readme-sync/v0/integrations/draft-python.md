@@ -40,12 +40,11 @@ pip install sensibleapi
 
 To import Sensible to your project,  create an `index.py` file in your test project, and add the following lines to the file:
 
-// TODO:     from sensibleapi.sensibleapi import SensibleSDK  seems I dunno, just a little long. Is there any situation in which we'd add another module to the package? 
-(what if I omit the module name? I can dothat? TODO TEST)
+
 
 
 ```python
-from sensibleapi.sensibleapi import SensibleSDK
+from sensibleapi import SensibleSDK
 ```
 
 ## Initialize
@@ -68,7 +67,7 @@ To extract data from a sample document at a URL:
 2. Paste the following code into an empty `index.py` file:
 
 ```python
-from sensibleapi.sensibleapi import SensibleSDK
+from sensibleapi import SensibleSDK
 
 sensible = SensibleSDK(YOUR_API_KEY)  # replace with your API key
 request = sensible.extract(
@@ -187,7 +186,7 @@ TODO - test this and find out if 'asyncio is nice'
 
 ```python
 from pathlib import Path 
-from sensibleapi.sensibleapi import Sensible
+from sensibleapi import Sensible
 import got
 
 api_key = "YOUR_API_KEY"  # Replace with your API key
@@ -233,7 +232,7 @@ See the following steps for an overview of the SDK's workflow for document class
 You can configure options for document data extraction:
 
 ```python
-from sensibleapi.sensibleapi import SensibleSDK
+from sensibleapi import SensibleSDK
 
 sensible = SensibleSDK(api_key="YOUR_API_KEY")  # Replace with your API key
 request = sensible.classify(path="./boa_sample.pdf")
