@@ -16,14 +16,14 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
+The following table shows parameters that configure parts of the full prompt and that are global, or common to all Sensible Instruct methods:
 
-
-| key  | description                                                  | parameter name                                               |
+| key  | description                                                  | global parameter name                                        |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | A    | Prompt introduction. Includes asking for truthfulness and describing the format of the data to extract, for example, query, table, or table.<br/>The preceding image shows an example of a user-configured introduction overriding the default. | Prompt Introduction<br/>Confidence Signals                   |
 | B    | Overall description of the chunks.<br/>The preceding image shows an example of a user-configured context description overriding the default. | Context Description                                          |
 | C    | Page metadata for chunks.                                    | Page Hinting                                                 |
-| D    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Chunk Scoring Text (currently supported for Query method)<br/> |
+| D    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/> |
 | E    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:table-tips) method. | Description                                                  |
 
 You can configure all of these parameters in the SenseML editor and in the Sensible Instruct editor. For example, the following screenshots show prompt settings in Sensible Instruct for a Query field: 
@@ -36,10 +36,12 @@ The following screenshot shows prompt settings in Sensible Instruct for all fiel
 
 
 
-The following table shows parameters you can configure for all fields in a config, or on a field-by-field basis. For additional advanced configuration specific to each Sensible instruct method, see the Parameter section for each method's SenseML reference topic, for example, [Query](doc:query#parameter) method.
-
-Parameters
+Global Sensible Instruct parameters
 ===
+
+The following table shows global parameters, or parameters that are common to all Sensible Instruct methods. You can configure these parameters for all fields in a config, or on a field-by-field basis.
+
+For parameters specific to a Sensible instruct method, see its reference topic, for example, the [Query](doc:query#parameters) method reference topic. Like global parameters, method-specific parameters can be set for all fields in a config, or on a field-by-field basis.
 
 
 | SenseML parameter      | value                                                        | config-level description:<br/>configure in [NLP preprocessor](doc:nlp) or in Sensible Instruct configuration settings | method-level description:<br/>configure in a field           |

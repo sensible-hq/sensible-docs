@@ -12,18 +12,18 @@ Parameters
 **Note** You can configure some the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrides the NLP preprocessor's parameter. For more information, see [Advanced prompt configuration](doc:prompt).
 
 
-| key  | value | description |
-| :--- | :---- | :---------- |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
-|      |       |             |
+| key               | value  | description                                                  |
+| :---------------- | :----- | :----------------------------------------------------------- |
+| pageSpanThreshold | object | Configure this if Sensible fails to extract a multi-page table. Usually this failure is due to non-table text associated with the page break, such as a header, a footer, or other text insert. Sensible by default searches for a continuation to a table on the next or previous page if the table's top or bottom approaches the top or bottom of the page. This default can get messed up by intevening text. So parameters: top (number) bottom (number) |
+|                   |        |                                                              |
+|                   |        |                                                              |
+|                   |        |                                                              |
+|                   |        |                                                              |
+|                   |        |                                                              |
+|                   |        |                                                              |
+|                   |        |                                                              |
+|                   |        |                                                              |
+|                   |        |                                                              |
 
 
 
