@@ -3,6 +3,28 @@ title: "Choosing a Table method"
 hidden: true
 ---
 
+You can choose from among the following table options, depending on your needs:
+
+| method      | Description                                                  | Pros                                                         | Cons                    | Limitations |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------- | ----------- |
+| Table       | Extracts tables based on bag-of-words scoring and returns their collated column contents. | for tables that have variable column formatting              | slower than Fixed Table |             |
+| Fixed Table | Extracts tables with a fixed number and layout of columns    |                                                              |                         |             |
+| Text Table  | Matches tables based on coordinates in inches and returns their collated column contents | It's faster than other Table methods because it doesn't use table recognition. It can extract unusally formatted tables that other Table methods can't recognize. |                         |             |
+| NLP Table   | Extracts a table based on your natural-language description of the data you want to extract. | Low code, doesn't require an anchor                          |                         |             |
+
+
+
+| method      | multi-page table                                             | merged cells                                     | variable column formatting |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------ | -------------------------- |
+| Table       | yes. Can extract tables that span multiple pages if the column headings repeat on each page. | yes.                                             | yes.                       |
+| Fixed Table | yes. Ignores repeating column headings.                      | yes.                                             | no.                        |
+| Text Table  | no. (?TODO check)                                            |                                                  | no.                        |
+| NLP Table   | yes. To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | indeterminate. depends on the LLM (TODO: True??) | yes.                       |
+
+
+
+
+
 ### Table
 
 Extracts tables based on bag-of-words scoring and returns their collated column contents. Anchor either on the table title or on a table column heading.
