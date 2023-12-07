@@ -1,5 +1,5 @@
 ---
-title: "Natural language methods"
+title: "Natural-language methods"
 hidden: false
 ---
 

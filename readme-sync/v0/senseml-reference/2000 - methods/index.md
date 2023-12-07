@@ -2,7 +2,9 @@
 title: "Methods"
 hidden: 
 ---
-Use the following layout-based [methods](doc:method)  to extract structured data from documents.
+Use the following  [methods](doc:method)  to extract structured data from documents.
+
+## Layout-based methods
 
 | Method                                       | Image                                                        | Notes                                                        |
 | -------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -22,7 +24,7 @@ Use the following layout-based [methods](doc:method)  to extract structured data
 | **[Table](doc:table)**                       | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_dynamic.png) | Extracts a table where column headings vary.                 |
 | **[Text Table](doc:text-table)**             | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table.png) | Extracts tables using solely text-positioning data (fast but limited). |
 
-Notes
-===
+## Large-language model (LLM)-based methods
 
-See also [natural-language methods](doc:natural-language-methods).
+For LLM-based methods,  see [Natural-language methods](doc:natural-language-methods).
+

@@ -179,7 +179,7 @@ The example:
 3. Writes the extractions to an Excel file. The Generate Excel method takes an extraction or an array of extractions, and outputs an Excel file. For more information about the conversion process, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
 
 
-
+TODO - test this and find out if 'asyncio is nice'
 
 
 ```python
@@ -201,7 +201,7 @@ results = await asyncio.gather(*[sensible.wait_for(extraction) for extraction in
 print("extractions ids:" + \n + extractions)
 
 print("extraction results:")
-json_str = json.dumps(results, indent=4)
+json_str = json.dumps(res)
 print(results)
 
 excel = await sensible.generate_excel(extractions)
