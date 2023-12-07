@@ -10,19 +10,19 @@ You can choose from among the following table options, depending on your needs:
 | method      | powered by   | Description                                                  | Comments                                                     |
 | ----------- | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | NLP Table   | LLM-based    | Extracts a table based on your natural-language description of the data you want to extract. | Low code, doesn't require an anchor. Slowest of all table methods. |
-| Table       | layout-based | Extracts tables based on bag-of-words scoring and returns their collated column contents. | for tables that have variable column formatting              |
+| Table       | layout-based | Extracts tables based on bag-of-words scoring                | For tables that have variable column formatting.             |
 | Fixed Table | layout-based | Extracts tables with a fixed number and layout of columns    | faster than Table.                                           |
 | Text Table  | layout-based | Matches tables based on coordinates in inches and returns their collated column contents | Faster than Fixed Table. Table methods because it doesn't use table recognition. It can extract unusally formatted tables that other Table methods can't recognize. |
 |             |              |                                                              |                                                              |
 
+### Table features supported
 
-
-| method      | multi-page table                                             | merged cells                                     | variable column formatting |
-| ----------- | ------------------------------------------------------------ | ------------------------------------------------ | -------------------------- |
-| Table       | yes. Can extract tables that span multiple pages if the column headings repeat on each page. | yes.                                             | yes.                       |
-| Fixed Table | yes. Ignores repeating column headings.                      | yes.                                             | no.                        |
-| Text Table  | no. (?TODO check)                                            |                                                  | no.                        |
-| NLP Table   | yes. To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | indeterminate. depends on the LLM (TODO: True??) | yes.                       |
+| method      | multiple pages                                               | merged cells                                                 | variable column formatting |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------- |
+| Table       | ✅<br/>Can extract tables that span multiple pages if the column headings repeat on each page. | ✅                                                            | ✅                          |
+| Fixed Table | ✅<br />Ignores repeating column headings.                    | ✅                                                            | ❌                          |
+| Text Table  | ❌ (?TODO check)                                              | ❌                                                            | ❌                          |
+| NLP Table   | ✅ <br />To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | indeterminate. depends on the LLM (TODO: True?? or just a NO?) | ✅                          |
 
 
 
