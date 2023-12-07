@@ -5,12 +5,15 @@ hidden: true
 
 You can choose from among the following table options, depending on your needs:
 
-| method      | Description                                                  | Pros                                                         | Cons                    | Limitations |
-| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------- | ----------- |
-| Table       | Extracts tables based on bag-of-words scoring and returns their collated column contents. | for tables that have variable column formatting              | slower than Fixed Table |             |
-| Fixed Table | Extracts tables with a fixed number and layout of columns    |                                                              |                         |             |
-| Text Table  | Matches tables based on coordinates in inches and returns their collated column contents | It's faster than other Table methods because it doesn't use table recognition. It can extract unusally formatted tables that other Table methods can't recognize. |                         |             |
-| NLP Table   | Extracts a table based on your natural-language description of the data you want to extract. | Low code, doesn't require an anchor                          |                         |             |
+### Overview of table methods
+
+| method      | powered by   | Description                                                  | Comments                                                     |
+| ----------- | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| NLP Table   | LLM-based    | Extracts a table based on your natural-language description of the data you want to extract. | Low code, doesn't require an anchor. Slowest of all table methods. |
+| Table       | layout-based | Extracts tables based on bag-of-words scoring and returns their collated column contents. | for tables that have variable column formatting              |
+| Fixed Table | layout-based | Extracts tables with a fixed number and layout of columns    | faster than Table.                                           |
+| Text Table  | layout-based | Matches tables based on coordinates in inches and returns their collated column contents | Faster than Fixed Table. Table methods because it doesn't use table recognition. It can extract unusally formatted tables that other Table methods can't recognize. |
+|             |              |                                                              |                                                              |
 
 
 
