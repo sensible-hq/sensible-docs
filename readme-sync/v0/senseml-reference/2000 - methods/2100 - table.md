@@ -19,11 +19,13 @@ Parameters
 | :--------------------- | :-------------------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)      | `table`                                             | When you specify this method, you must also specify `"type": "table"` in the field's parameters. See the Stop parameter for details about how Sensible recognizes a table. |
 | columns (**required**) | array                                               | An array of objects with the following parameters: <br/> -`id` (**required**): The id for the column in the extraction output. <br/>  -`terms` (**required**): An array of terms to score positively during column recognition. Usually, you include column heading terms in this array. For more information about the NLP approach, see [bag of words](doc:bag-of-words). <br/> -`stopTerms`: An array of terms to score negatively during column recognition. For more information about the NLP approach, see [bag of words](doc:bag-of-words). <br/> -`type`: The table cell's type. For more information, see [types](doc:types). <br/>  -`isRequired` (default false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
-| stop                   | [Match object](doc:match) or array of Match objects | (**Recommended**)  Stops table recognition at the matched line. Otherwise, Sensible searches all pages for tables, which can impact performance.<br/>When you specify a stop, Sensible  uses an Amazon Web Service OCR  provider to perform table recognition. When you omit a stop, Sensible uses a Microsoft OCR provider. |
+| stop                   | [Match object](doc:match) or array of Match objects | (**Recommended**)  Stops table recognition at the matched line. Otherwise, Sensible searches all pages for tables, which can impact performance.<br/>When you specify a stop, Sensible  uses an Amazon Web Service OCR  provider to perform table recognition. When you omit a stop, Sensible uses a Microsoft OCR provider.<br/>When you specify a stop, Sensible supports merged cells in tables by populating "empty" spanned cells with the spanned value. For an example, see [Merged cell example](doc:table#example-merged-cells). |
 | startOnRow             | integer. default: 0                                 | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section). |
 
 Examples
 ====
+
+## Example: Variable columns
 
 The following example shows extracting two columns from a table that updates monthly with a variable number of columns in the Sensible app.
 
@@ -121,6 +123,195 @@ The following image shows the example document used with this example config: ![
   }
 }
 ```
+
+## Example: Merged cells
+
+The following example shows using the Stop parameter to improve output for merged cells:
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "merged_cells_example",
+      "anchor": "start of table",
+      "type": "table",
+      "method": {
+        "id": "table",
+        "columns": [
+          {
+            "id": "class",
+            "terms": [
+              "class",
+            ],
+          },
+          {
+            "id": "student",
+            "terms": [
+              "student"
+            ],
+          },
+          {
+            "id": "grades",
+            "terms": [
+              "test",
+              "grades"
+            ],
+          }
+        ],
+        "stop": {
+          "type": "startsWith",
+          "text": "end of table"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_merged_cells.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_merged_cells.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+
+**Output**
+
+Without the Stop parameter, Sensible leaves "merged" cells empty:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_merged_cells_0.png)
+
+With the Stop parmeter, Sensible populates "merged" cells:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_merged_cells_1.png)
+
+The following JSON shows the "populated" output:
+
+```json
+{
+  "merged_cells_example": {
+    "columns": [
+      {
+        "id": "class",
+        "values": [
+          {
+            "value": "A",
+            "type": "string"
+          },
+          {
+            "value": "A",
+            "type": "string"
+          },
+          {
+            "value": "A",
+            "type": "string"
+          },
+          {
+            "value": "A",
+            "type": "string"
+          },
+          {
+            "value": "B",
+            "type": "string"
+          },
+          {
+            "value": "B",
+            "type": "string"
+          },
+          {
+            "value": "B",
+            "type": "string"
+          },
+          {
+            "value": "B",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "student",
+        "values": [
+          {
+            "value": "Smith",
+            "type": "string"
+          },
+          {
+            "value": "Smith",
+            "type": "string"
+          },
+          {
+            "value": "Chavez",
+            "type": "string"
+          },
+          {
+            "value": "Chavez",
+            "type": "string"
+          },
+          {
+            "value": "Matthers",
+            "type": "string"
+          },
+          {
+            "value": "Matthers",
+            "type": "string"
+          },
+          {
+            "value": "Kumar",
+            "type": "string"
+          },
+          {
+            "value": "Kumar",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "grades",
+        "values": [
+          {
+            "value": "96",
+            "type": "string"
+          },
+          {
+            "value": "87",
+            "type": "string"
+          },
+          {
+            "value": "83",
+            "type": "string"
+          },
+          {
+            "value": "91",
+            "type": "string"
+          },
+          {
+            "value": "100",
+            "type": "string"
+          },
+          {
+            "value": "81",
+            "type": "string"
+          },
+          {
+            "value": "95",
+            "type": "string"
+          },
+          {
+            "value": "98",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+
 
 Notes
 ====

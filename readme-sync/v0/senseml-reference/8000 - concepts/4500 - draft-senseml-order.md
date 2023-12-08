@@ -5,7 +5,7 @@ hidden: true
 
 this draft is on hold, based on team meeting onboarding slides from aug 2022 as well as notion docs for onboarding devs. publish if there's an audience need for it (hasn't really come up)
 
-NOTE: Some of this engine internals behavior ended up in the OCR LEVEL topic
+
 
 
 
@@ -17,6 +17,8 @@ This topic gives an overview of the Sensible's extraction engine, including the 
 
 1. Read text
 ---
+
+**NOTE: some of this stuff is in the OCR LEVEL TOPIC:**
 
 Transform the bytes of the document into raw text. Determine whether the document needs OCR:
 
