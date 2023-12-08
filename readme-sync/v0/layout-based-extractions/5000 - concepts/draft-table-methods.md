@@ -17,12 +17,12 @@ You can choose from among the following table options, depending on your needs:
 
 ### Table features supported
 
-| method      | multiple pages                                               | merged cells                                                 | variable column formatting |
+| method      | multiple pages                                               | merged cells (fills in missing values in rows spanning merged cells) | variable column formatting |
 | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------- |
-| Table       | ✅<br/>Can extract tables that span multiple pages if the column headings repeat on each page. | ✅                                                            | ✅                          |
-| Fixed Table | ✅<br />Ignores repeating column headings.                    | ✅                                                            | ❌                          |
+| Table       | ✅<br/>Can extract tables that span multiple pages if the column headings repeat on each page. | ✅ <br />If you specify a Table Stop.                         | ✅                          |
+| Fixed Table | ✅<br />Ignores repeating column headings.                    | ✅<br /> If you specify a Table Stop.                         | ❌                          |
 | Text Table  | ❌ (?TODO check)                                              | ❌                                                            | ❌                          |
-| NLP Table   | ✅ <br />To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | indeterminate. depends on the LLM (TODO: True?? or just a NO?) | ✅                          |
+| NLP Table   | ✅ <br />To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | indeterminate.  Usually works for simple tables.             | ✅                          |
 
 
 
