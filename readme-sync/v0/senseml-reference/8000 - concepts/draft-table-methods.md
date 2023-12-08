@@ -7,22 +7,21 @@ You can choose from among the following table options, depending on your needs:
 
 ### Overview of table methods
 
-| method      | powered by   | Description                                                  | Comments                                                     |
-| ----------- | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| NLP Table   | LLM-based    | Extracts a table based on your natural-language description of the data you want to extract. | Low code, doesn't require an anchor. Slowest of all table methods. |
-| Table       | layout-based | Extracts tables based on bag-of-words scoring                | For tables that have variable column formatting.             |
-| Fixed Table | layout-based | Extracts tables with a fixed number and layout of columns    | faster than Table.                                           |
-| Text Table  | layout-based | Matches tables based on coordinates in inches and returns their collated column contents | Faster than Fixed Table. Table methods because it doesn't use table recognition. It can extract unusally formatted tables that other Table methods can't recognize. |
-|             |              |                                                              |                                                              |
+| method      | powered by   | Description                                                  | Comments                                                   |
+| ----------- | ------------ | ------------------------------------------------------------ | ---------------------------------------------------------- |
+| NLP Table   | LLM-based    | Extracts a table based on your natural-language description of the data you want to extract. | Low code, doesn't require an anchor. Slowest table method. |
+| Table       | layout-based | Extracts tables based on bag-of-words scoring                | For tables that have variable column formatting.           |
+| Fixed Table | layout-based | Extracts tables with a fixed number and layout of columns    | Faster than Table.                                         |
+| Text Table  | layout-based | Matches tables based on coordinates in inches and returns their collated column contents **TODO make consistent** | Fastest table method, relies solely on text alignment.     |
 
 ### Table features supported
 
-| method      | multiple pages                                               | merged cells (fills in missing values in rows spanning merged cells) | variable column formatting |
-| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------- |
-| Table       | ✅<br/>Can extract tables that span multiple pages if the column headings repeat on each page. | ✅ <br />If you specify a Table Stop.                         | ✅                          |
-| Fixed Table | ✅<br />Ignores repeating column headings.                    | ✅<br /> If you specify a Table Stop.                         | ❌                          |
-| Text Table  | ❌ (?TODO check)                                              | ❌                                                            | ❌                          |
-| NLP Table   | ✅ <br />To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | indeterminate.  Usually works for simple tables.             | ✅                          |
+| method      | multiple pages                                               | merged cells (fills in missing values in rows spanning merged cells) | variable column formatting | Tables-in tables, labeled rows, and other complex formatting |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------- | ------------------------------------------------------------ |
+| Table       | ✅<br/>Can extract tables that span multiple pages if the column headings repeat on each page. | ✅ <br />If you specify a Table Stop.                         | ✅                          | ❌<br/>Use Sections as an alternative                         |
+| Fixed Table | ✅<br />Ignores repeating column headings.                    | ✅<br /> If you specify a Table Stop.                         | ❌                          | ❌<br/>Use Sections as an alternative                         |
+| Text Table  | ❌ (?TODO check)                                              | ❌                                                            | ❌                          | ❌<br/>Use Sections as an alternative                         |
+| NLP Table   | ✅ <br />To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | Indeterminate.<br/>Often works.                              | ✅                          | Indeterminate.<br/>Use Sections as an alternative            |
 
 
 
