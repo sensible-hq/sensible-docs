@@ -1478,8 +1478,7 @@ components:
       type: http
       scheme: bearer
       description: >-
-        Sensible uses API keys to authenticate requests. You should have received a key as a part of onboarding,
-        but if you're having trouble with your current key, please reach out to support@sensible.so.
+        Sensible uses API keys to authenticate requests.
         Keep your API keys secure and do not share them publicly accessible areas such as GitHub, client-side code, etc.
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 # Apply the auth globally to all operations
