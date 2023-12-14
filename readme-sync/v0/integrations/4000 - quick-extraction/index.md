@@ -16,7 +16,9 @@ Take the following steps:
 
 1. Navigate to the [Extract](https://app.sensible.so/quick-extraction/) tab.
 
-2. In the **Document type** dropdown in the right pane, select your document type.
+2. Select **Document** for single-document files or **Portfolio** for [documents bundled into a single file](doc:portfolio).
+
+3. In the **Document type** dropdown in the right pane, select a document type. For portfolios, select multiple types.
 
    If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . The `sensible_instruct_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
