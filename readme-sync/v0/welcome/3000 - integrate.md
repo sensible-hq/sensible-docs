@@ -10,5 +10,5 @@ Put your extracted document data to work with integrations. Sensible offers the 
 | SDKs | [SDK guides](doc:sdk-guides) | Extract and classify documents. |
 | [Zapier](doc:zapier)           | [Zapier tutorial](doc:zapier-getting-started) | Transform data in PDFs and other document file types into emails, databases, Google sheets, and other Zapier-supported destinations. |
 | [API](ref:choosing-an-endpoint) | [API quickstart](doc:quickstart)              | Extract and classify documents and manage extraction configuration. |
-| Quick extraction | [Quick extraction](doc:quick-extraction) | Drag and drop documents to extract documents in the Sensible app. Download extracted data as JSON or Excel files. **Note:**  Bulk document upload feature coming soon. |
+| Quick extraction | [Quick extraction](doc:quick-extraction) | Drag and drop documents to extract data from documents in the Sensible app.  Upload files in bulk, and download extracted data as JSON or Excel files. |
 

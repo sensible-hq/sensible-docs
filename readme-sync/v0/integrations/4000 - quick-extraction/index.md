@@ -4,19 +4,17 @@ hidden: false
 
 ---
 
-After you've configured extractions for your [custom documents](doc:getting-started-ai) or for out-of-the-box [supported documents](doc:library-quickstart), you can upload documents to the Sensible app and download the extracted data as Excel files.
-
-**Note:** A bulk file upload feature is coming soon.
+After you've configured extractions for your [custom documents](doc:getting-started-ai) or for out-of-the-box [supported documents](doc:library-quickstart), you can upload documents to the Sensible app in bulk and download the extracted data as Excel files.
 
  In this tutorial you'll learn to:
 
-- upload documents to the Sensible app's **Quick extraction** tab
+- upload documents to the Sensible app's **Extract** tab
 - automatically extract from the documents using pre-existing document types and configs
 - download the extracted data as Excel.
 
 Take the following steps:
 
-1. Navigate to the [Quick Extraction](https://app.sensible.so/quick-extraction/) tab.
+1. Navigate to the [Extract](https://app.sensible.so/quick-extraction/) tab.
 
 2. In the **Document type** dropdown in the right pane, select your document type.
 
@@ -24,7 +22,7 @@ Take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
-3. Click **Upload document** and select your example document. For a list of supported file types, see [Supported file types](doc:file-types). Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr).
+3. Click **Upload document** and select your example document or documents. For a list of supported file types, see [Supported file types](doc:file-types). Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr).
 
 ​       If you don't have an example document, use the following document with the `sensible_instruct_basics` document type :
 
@@ -33,7 +31,7 @@ Take the following steps:
 
 3. Click **Run Extraction**.
 
-4. Sensible displays the extracted data as JSON in the right pane. Click the **Download excel** to convert the extracted document data to Excel:
+4. Sensible displays the extracted data as JSON in the right pane. Click **Download excel** to convert the extracted document data to Excel:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
