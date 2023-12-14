@@ -65,7 +65,7 @@ Congratulations! You extracted the checking account number from the bank stateme
 
 To extract checking account numbers from other bank statements, you'll need to publish the "config" containing your prompt.
 
- Click **Publish**, click **Production**, then click **Publish to production**:
+ Click **Publish configuration**, click **Production**, then click **Publish to production**:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 

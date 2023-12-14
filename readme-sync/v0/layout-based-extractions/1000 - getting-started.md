@@ -526,7 +526,7 @@ Let's double check that this region also works with the first document:
 
 Yes, it works too.
 
-3. Click **Publish** and choose **Production** to save your changes to the config.
+3. Click **Publish configuration** and choose **Production** to save your changes to the config.
 
 In a production scenario, continue testing documents until you have confidence your configs work with the document type you've defined.  Then, write tests to validate the extractions in production.
 
@@ -535,7 +535,7 @@ Integrate with your application
 
 When you're ready to integrate with your application, enable using the config with the Sensible SDKs or API by taking the following steps:
 
-1. Click **Publish**.  The config is still a work in progress, so click **Development**.  Now you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
+1. Click **Publish configuration**.  The config is still a work in progress, so click **Development**.  Now you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
 2. Use the Sensible SDKs or API to integrate with your application.
 
 Validate extractions in production 
