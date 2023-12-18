@@ -12,6 +12,8 @@ After you've configured extractions for your [custom documents](doc:getting-star
 - automatically extract from the documents using pre-existing document types and configs
 - download the extracted data as Excel.
 
+## Extract from a single file
+
 Take the following steps:
 
 1. Navigate to the [Extract](https://app.sensible.so/quick-extraction/) tab.
@@ -46,6 +48,10 @@ Take the following steps:
 [/block]
 
 **Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction) or Sensible SDKs.
+
+## Extract from multiple files
+
+
 
 ##  Next
 
