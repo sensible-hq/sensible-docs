@@ -12,7 +12,7 @@ After you've configured extractions for your [custom documents](doc:getting-star
 - automatically extract from the documents using pre-existing document types and configs
 - download the extracted data as Excel.
 
-## Extract from a single file
+## Extract from a file
 
 Take the following steps:
 
@@ -20,7 +20,7 @@ Take the following steps:
 
 2. Select **Document** for single-document files or **Portfolio** for [documents bundled into a single file](doc:portfolio).
 
-3. In the **Document type** dropdown in the right pane, select a document type. For portfolios, select multiple types.
+3. In the **Document type** dropdown in the right pane, select the category that describes your document, for example, `resumes` or `tax_forms`. For portfolios, select multiple types.
 
    If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . The `sensible_instruct_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
@@ -51,7 +51,9 @@ Take the following steps:
 
 ## Extract from multiple files
 
+To extract from multiple files in a batch, select and upload multiple files in step 3 in the preceding section:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_extract_bulk.png)
 
 ##  Next
 
