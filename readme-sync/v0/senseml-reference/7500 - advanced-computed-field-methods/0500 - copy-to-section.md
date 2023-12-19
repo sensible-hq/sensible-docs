@@ -2,7 +2,7 @@
 title: "Copy to section"
 hidden: false
 ---
-Copies a field into each section in a section group, or from a parent section into each section in a nested section group. 
+Copies the output of a field into each section in a section group, or from a parent section into each section in a nested section group. 
 
 Parameters
 ====
@@ -13,7 +13,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                      | value                                 | description                                                  |
 | :----------------------- | :------------------------------------ | :----------------------------------------------------------- |
 | id (**required**)        | `copy_to_section`                     |                                                              |
-| source_id (**required**) | source field ID in the current config | The source ID to copy must be in a field array or section that is one level up in the hierarchy relative to the destination section. For example, in a sections group, copy from the base fields array. In a nested sections group, copy from the parent section group's field array. |
+| source_id (**required**) | source field ID in the current config | Copies data from a field that's external to the section group's range to each section in the section group. <br/> The source ID to copy must be in a field array or section that is one level up in the hierarchy relative to the destination section. For example, in a sections group, copy from the base fields array. In a nested sections group, copy from the parent section group's field array.<br/>You can use copied fields to transform data that's external to the section group's range inside the section. For example, computed fields that follow this copied field in an array in a section group can use this field as a source ID. |
 
 Examples
 ====
