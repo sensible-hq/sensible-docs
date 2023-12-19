@@ -1,7 +1,13 @@
 ---
-title: "transformTable"
+title: "Add Computed Fields"
 hidden: true
 ---
+This lets you specify an array of computed fields to add the output of a table or other 'zipped' field. You *can* use it with sections, but you shouldn't, because it has the same effect as declaring a Computed Fields array inside a section group defintion.
+
+The most comom use case for this method is to transform table output.
+
+
+
 Gives you access to computed fields array in an extracted table. This computed method is similar in effect to adding a Computed Fields array to a sections group. It gives you the same power to modify individual cells in a table as you'd have the power to modify fields in a section group.
 
 This method:
