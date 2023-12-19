@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-The following example shows using the Copy To Field method to add a policy number, which is listed once in the document and which is globally applicable, to every extracted claim. 
+The following example shows using the Copy To Field method to add a policy number and name, which are listed once in the document and which is globally applicable, to every extracted claim.  The example also shows how to transform copied data, in this case by concatenating the copied fields.
 
 **Config**
 
@@ -20,6 +20,15 @@ The following example shows using the Copy To Field method to add a policy numbe
       "method": {
         "id": "label",
         "position": "right"
+      }
+    },
+    {
+      /* capture raw policy name to copy into 
+      each claim using copy_to_section */
+      "id": "_raw_policy_name",
+      "anchor": "policy name",
+      "method": {
+        "id": "row",
       }
     },
     {
@@ -108,16 +117,43 @@ The following example shows using the Copy To Field method to add a policy numbe
           }
         }
       ],
-      /* copy policy number from outside sections
-         into each claim */
+      /* copy policy number and name from outside sections
+         into each claim, and concatenate them */
       "computed_fields": [
         {
-          "id": "policy_number",
+          "id": "copied_policy_number",
           "method": {
             "id": "copy_to_section",
             "source_id": "_raw_policy_number"
           }
-        }
+        },
+        {
+          "id": "copied_policy_name",
+          "method": {
+            "id": "copy_to_section",
+            "source_id": "_raw_policy_name"
+          }
+        },
+        {
+          "id": "policy_name_and_number",
+          "method": {
+            "id": "concat",
+            "source_ids": [
+              "copied_policy_name",
+              "copied_policy_number"
+            ]
+          }
+        },
+        {
+          "id": "cleanup",
+          "method": {
+            "id": "suppressOutput",
+            "source_ids": [
+              "copied_policy_name",
+              "copied_policy_number"
+            ]
+          }
+        },
       ]
     }
   ]
@@ -141,6 +177,10 @@ The following image shows the example document used with this example config:
     "source": "5501234567",
     "value": 5501234567,
     "type": "number"
+  },
+  "_raw_policy_name": {
+    "type": "string",
+    "value": "National Landscaping Solutions"
   },
   "monthly_total_unprocessed_claims": [
     {
@@ -168,10 +208,9 @@ The following image shows the example document used with this example config:
         "source": "512 409 8765",
         "value": "+15124098765"
       },
-      "policy_number": {
-        "source": "5501234567",
-        "value": 5501234567,
-        "type": "number"
+      "policy_name_and_number": {
+        "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
       }
     },
     {
@@ -181,10 +220,9 @@ The following image shows the example document used with this example config:
         "type": "number"
       },
       "phone_number": null,
-      "policy_number": {
-        "source": "5501234567",
-        "value": 5501234567,
-        "type": "number"
+      "policy_name_and_number": {
+        "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
       }
     },
     {
@@ -198,10 +236,9 @@ The following image shows the example document used with this example config:
         "source": "505 238 8765",
         "value": "+15052388765"
       },
-      "policy_number": {
-        "source": "5501234567",
-        "value": 5501234567,
-        "type": "number"
+      "policy_name_and_number": {
+        "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
       }
     }
   ]
