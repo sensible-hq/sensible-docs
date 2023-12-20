@@ -3,7 +3,7 @@ title: "Choosing a Table method"
 hidden: true
 ---
 
-You can choose from among the following options for extracting tables, depending on your needs:
+You can choose from among the following options for extracting tables:
 
 ### Overview of table methods
 
