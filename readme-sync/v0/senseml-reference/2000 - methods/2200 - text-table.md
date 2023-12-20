@@ -2,7 +2,7 @@
 title: "Text Table"
 hidden: false
 ---
-Matches tables based on coordinates in inches and returns their collated column contents.  Anchor on the table title, or use a negative Offset Y parameter to enable anchoring on a column heading.
+Matches tables based on column coordinates in inches and returns their collated column contents.  Anchor on the table title, or use a negative Offset Y parameter to enable anchoring on a column heading.
 
 This method's advantages are:
 
