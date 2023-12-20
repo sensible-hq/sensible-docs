@@ -9,7 +9,9 @@ This method's advantages are:
 - It's faster than other Table methods because it doesn't use table recognition.
 - It can extract unusally formatted tables that other Table methods can't recognize.
 
-Its disadvantage is that it's more limited than other table methods, because it relies on line alignment to find the table. For an example, see the [Examples section](doc:text-table#examples).
+Its disadvantage is that it's more limited than other table methods, because it relies on line alignment to find the table. 
+
+For alternatives to this method, see [Choosing a table method](doc:table-methods). 
 
 [**Parameters**](doc:text-table#parameters)
 [**Examples**](doc:text-table#examples)
@@ -246,7 +248,7 @@ You can output the issuing financial institution and the displayed account numbe
 Notes
 ====
 
-- To extract complex tables, for example tables inside tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
+For alternatives to this method, see [Choosing a table method](doc:table-methods). 
 
 
 

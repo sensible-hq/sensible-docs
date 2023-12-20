@@ -4,7 +4,9 @@ hidden: false
 ---
 Extracts tables based on bag-of-words scoring and returns their collated column contents. Anchor either on the table title or on a table column heading.
 
- Use the Table method for tables that have variable column formatting.  This method can extract tables that span multiple pages if the column headings repeat on each page.
+ Use the Table method for tables that have variable column formatting.  
+
+For alternatives to this method, see [Choosing a table method](doc:table-methods). 
 
 [**Parameters**](doc:table#parameters)
 [**Examples**](doc:table#examples)
@@ -316,7 +318,5 @@ The following JSON shows the "populated" output:
 Notes
 ====
 
-If tables always have the same column layout (same column headings in the same order, same number of columns), use the [Fixed Table method](doc:fixed-table) instead. 
-
-To extract complex tables, for example tables inside tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
+For alternatives to this method, see [Choosing a table method](doc:table-methods). 
 

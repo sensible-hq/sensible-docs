@@ -4,9 +4,9 @@ hidden: false
 ---
 Extracts tables with a fixed number of columns and returns their collated column contents. Anchor either on the table title or on a table column heading.
 
+Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings in the same order, same number of columns). 
 
-
-Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings in the same order, same number of columns).  This method can extract tables that span multiple pages and ignores repeated column titles on subsequent pages.
+For alternatives to this method, see [Choosing a table method](doc:table-methods). 
 
 [**Parameters**](doc:fixed-table#parameters)
 [**Examples**](doc:fixed-table#examples)
@@ -132,6 +132,4 @@ The following image shows the example document used with this example config:
 
 Notes
 ====
-If  tables have variable column layout, use the [Table method](doc:table) instead. 
-
-To extract complex tables, for example tables inside tables or tables with labeled rows and columns, see [Sections](doc:sections#examples).
+For alternatives to this method, see [Choosing a table method](doc:table-methods). 
