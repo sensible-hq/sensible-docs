@@ -1,6 +1,6 @@
 ---
 title: "Choosing a Table method"
-hidden: true
+hidden: false
 ---
 
 You can choose from among the following options for extracting tables:
