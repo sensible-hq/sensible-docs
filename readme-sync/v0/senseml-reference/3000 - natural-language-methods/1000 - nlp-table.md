@@ -50,6 +50,7 @@ Parameters
 | chunkCount             | default: 5                                                   | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 | chunkSize              | default: 0.5                                                 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 | chunkOverlapPercentage | default: 0.5                                                 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| pageRange              |                                                              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 
 
 

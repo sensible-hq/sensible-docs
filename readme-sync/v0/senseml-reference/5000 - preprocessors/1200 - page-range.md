@@ -5,6 +5,8 @@ hidden: false
 
 Ignores pages outside the start page and end page.
 
+To configure a page range on a field-by-field basis for Sensible Instruct methods, see the [Page Range parameter](doc:prompt).
+
 Parameters
 ----
 
@@ -12,8 +14,8 @@ Parameters
 | key         | value   | description                                                      |
 | ----------- | ------ | ------------------------------------------------------------ |
 | type      | `pageRange` |                                                   |
-| startPage | number. default: 0 | Zero-based index of the first page to include. |
-| endPage   | number. default: last page | Zero-based index of the last page to include. |
+| startPage | number. default: 0 | Zero-based index of the first page (inclusive). |
+| endPage   | number. default: last page | Zero-based index of the last page (exclusive). |
 
  
 
