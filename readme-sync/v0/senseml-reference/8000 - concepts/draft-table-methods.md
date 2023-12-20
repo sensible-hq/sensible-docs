@@ -3,7 +3,7 @@ title: "Choosing a Table method"
 hidden: true
 ---
 
-You can choose from among the following table options, depending on your needs:
+You can choose from among the following options for extracting tables, depending on your needs:
 
 ### Overview of table methods
 
@@ -14,14 +14,14 @@ You can choose from among the following table options, depending on your needs:
 | Fixed Table | layout-based | Extracts tables with a fixed number and layout of columns    | Faster than Table.                                         |
 | Text Table  | layout-based | Matches tables based on coordinates in inches and returns their collated column contents **TODO make consistent** | Fastest table method, relies solely on text alignment.     |
 
-### Table features supported
+### Features supported
 
-| method      | multiple pages                                               | merged cells (fills in missing values in rows spanning merged cells) | variable column formatting | Tables-in tables, labeled rows, and other complex formatting |
-| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------- | ------------------------------------------------------------ |
-| Table       | ✅<br/>Can extract tables that span multiple pages if the column headings repeat on each page. | ✅ <br />If you specify a Table Stop.                         | ✅                          | ❌<br/>Use Sections as an alternative                         |
-| Fixed Table | ✅<br />Ignores repeating column headings.                    | ✅<br /> If you specify a Table Stop.                         | ❌                          | ❌<br/>Use Sections as an alternative                         |
-| Text Table  | ❌ (?TODO check)                                              | ❌                                                            | ❌                          | ❌<br/>Use Sections as an alternative                         |
-| NLP Table   | ✅ <br />To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | Indeterminate.<br/>Often works.                              | ✅                          | Indeterminate.<br/>Use Sections as an alternative            |
+| method      | multiple pages                                               | Merged cells<br/>(represent spanned cells as repeating values) | Variable column formatting | Checkboxes in cells | Tables-in tables, labeled rows, and other complex formatting |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------- | ------------------- | ------------------------------------------------------------ |
+| Table       | ✅<br/>Can extract tables that span multiple pages if the column headings repeat on each page. | ✅ <br />If you specify a Table Stop.                         | ✅                          |                     | ❌<br/>Use Sections as an alternative                         |
+| Fixed Table | ✅<br />Ignores repeating column headings.                    | ✅<br /> If you specify a Table Stop.                         | ❌                          |                     | ❌<br/>Use Sections as an alternative                         |
+| Text Table  | ❌ (?TODO check)                                              | ❌                                                            | ❌                          |                     | ❌<br/>Use Sections as an alternative                         |
+| NLP Table   | ✅ <br />To troubleshoot intervening non-table text, use the Page Span Threshold parameter. | Indeterminate.<br/>Often works.                              | ✅                          |                     | Indeterminate.<br/>Use Sections as an alternative            |
 
 
 
