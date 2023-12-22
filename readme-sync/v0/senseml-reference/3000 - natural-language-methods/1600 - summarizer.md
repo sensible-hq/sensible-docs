@@ -2,7 +2,7 @@
 title: "Summarizer"
 hidden: false
 ---
-Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. 
+Automatically extracts key/value pairs from short snippets of free text using an LLM (GPT-3). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. 
 
 Example use cases for this method include:
 
@@ -27,7 +27,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | source_id (**required**) | field ID     | Specifies a field whose output is a snippet of text with the key/value information you want to extract. If the snippet doesn't occur at a predictable location in the document, then you can use the [Topic](doc:topic) method to find it. |
 | fields (**required**)    | string array | Names of the keys you want to extract. These names have an impact on the free-text extraction, so choose names that have a meaningful relationship to the target data to extract. For example, for a dollar amount of rent to extract,  `rent`, `rents`, and `rent_in_dollars` are good naming choices. |
 | instructions             | string       | Natural-language instructions about how to extract information from the text in the Source ID parameter.<br/>For more information about how to write instructions (or "prompts"), see [Best practices for prompt engineering with OpenAI](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).<br/>For an example of using this parameter, see the Examples section. |
-| samples                  | object array | Short snippets of text similar to the text in the Source ID parameter, with examples of the information to extract. <br/>Use in addition to the Instructions parameter to increase GPT-3 accuracy. <br/>Contains these parameters:<br/>`prompt` (string): An example of the sort of free text from which you want to extract data.<br/>`values` (string array):  The target information to extract from this prompt. This array is a parallel array to the Fields parameter's array. Parallel arrays are the same length and same sequence. If GPT-3 can't find the target information in the Source ID parameter, it can generate an arbitrary value. To override this behavior, specify a Sample parameter whose Prompt parameter has a text snippet that's missing the target data, and whose Values array indicates the data is missing (for example, "N/A" or "not found").<br/>For an example of using this parameter, see the Examples section. |
+| samples                  | object array | Short snippets of text similar to the text in the Source ID parameter, with examples of the information to extract. <br/>Use in addition to the Instructions parameter to increase the LLM's accuracy. <br/>Contains these parameters:<br/>`prompt` (string): An example of the sort of free text from which you want to extract data.<br/>`values` (string array):  The target information to extract from this prompt. This array is a parallel array to the Fields parameter's array. Parallel arrays are the same length and same sequence. If the LLM can't find the target information in the Source ID parameter, it can generate an arbitrary value. To override this behavior, specify a Sample parameter whose Prompt parameter has a text snippet that's missing the target data, and whose Values array indicates the data is missing (for example, "N/A" or "not found").<br/>For an example of using this parameter, see the Examples section. |
 
 Examples
 ====
@@ -63,9 +63,9 @@ The following example shows using the Summarizer method with the Topic method to
         "id": "summarizer",
         /* field ID containing the source snippet */
         "source_id": "_source_ending_stock",
-        /* instructions for GPT-3 for extracting data from source snippet*/
+        /* instructions to the LLM for extracting data from source snippet*/
         "instructions": "list the ranges, in million metric tons (MMT), of changes in 2022/23 for ending stocks by countries mentioned in the following text excerpt. Don't list countries not mentioned in the excerpt.",
-        /* the field IDs GPT-3 must apply to the extracted data */
+        /* the field IDs the LLM must apply to the extracted data */
         "fields": [
           "region_or_country",
           "range_of_change_in_ending_stock",
@@ -207,9 +207,9 @@ The following example shows using the Summarizer method and the Topic method to 
         "id": "summarizer",
         /* field ID containing the source snippet */
         "source_id": "_source_rent_topic_paragraphs",
-        /* instructions for GPT-3 for extracting data from source snippet */
+        /* instructions for the LLM for extracting data from source snippet */
         "instructions": "list the rents, how often the rent must be paid, and when the rent is due",
-        /* the field IDs GPT-3 must apply to the extracted data */
+        /* the field IDs the LLM must apply to the extracted data */
         "fields": [
           "rent_in_dollars",
           "payment_time_period",

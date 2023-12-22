@@ -261,6 +261,6 @@ For an overview of how the NLP Table method works, see the following steps:
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
 
-5. Sensible creates a full prompt for GPT-4 that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs GPT-4 to restructure the best-scoring table based on your column descriptions and your overall table description. 
+5. Sensible creates a full prompt for the LLM (GPT-4) that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to restructure the best-scoring table based on your column descriptions and your overall table description. 
 
 6. Sensible returns the restructured table.
