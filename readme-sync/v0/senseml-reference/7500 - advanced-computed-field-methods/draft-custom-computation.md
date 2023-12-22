@@ -271,3 +271,77 @@ You should get:
   
 ```
 
+TODO/left off:
+
+```json
+it("bad variable references evaluate to null", async () => {
+    exp = { var: "field1.apple" };
+    await check(exp, value(null));
+  });
+
+  it("simple arithmetic operations", async () => {
+    exp = { "+": [{ var: "field1.value" }, 100] };
+    await check(exp, value(300));
+
+    exp = { "-": [{ var: "field1.value" }, { var: "field2.value" }] };
+    await check(exp, value(-100));
+  });
+
+  it("simple boolean operations", async () => {
+    exp = { ">": [{ var: "field1.value" }, 100] };
+    await check(exp, value(true));
+
+    exp = { "===": [{ var: "field1.value" }, { var: "field2.value" }] };
+    await check(exp, value(false));
+
+    exp = { exists: [{ var: "field1.value" }] };
+    await check(exp, value(true));
+  });
+
+  it("simple string operations", async () => {
+    exp = {
+      cat: [{ var: "array.0.value" }, " ", { var: "array.1.value" }],
+    };
+    await check(exp, value("Hello World"));
+
+    exp = { match: [{ var: "array.1.value" }, "^\\w+$"] };
+    await check(exp, value(true));
+  });
+
+  it("array operations", async () => {
+    exp = { map: [{ var: "array" }, { cat: [{ var: "value" }, "+"] }] };
+    await check(exp, value(["Hello+", "World+"]));
+  });
+
+  it("tabular operations", async () => {
+    exp = {
+      map: [
+        { var: "table.columns.0.values" },
+        { "+": [{ var: "value" }, 100] },
+      ],
+    };
+    await check(exp, value([200, 300]));
+  });
+
+  it("section operations", async () => {
+    exp = {
+      map: [{ var: "section" }, { var: "section_field1.value" }],
+    };
+    await check(exp, value([1300, 1500]));
+  });
+
+  it("conditional logic based on multiple value properties", async () => {
+    const expBuilder = (v: string) =>
+      ({
+        if: [
+          { "===": [{ var: `${v}.unit` }, "miles"] },
+          { "*": [{ var: `${v}.value` }, 1609] },
+          { "*": [{ var: `${v}.value` }, 1000] },
+        ],
+      } as RulesLogic);
+    await check(expBuilder("distance_miles"), value(482700));
+    await check(expBuilder("distance_km"), value(300000));
+  });
+});
+```
+
