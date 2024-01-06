@@ -42,7 +42,7 @@ Parameters
 | fields                | array of [fields](doc:field-query-object)              | Specifies fields to extract information that you expect to repeat in each section in the section group. |
 | computed_fields       | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to each section in the section group. The computed fields have access to each section's fields. To get access to and transform the output of fields that aren't in the section group's range, use the [Copy To Section](doc:copy-to-section) method. |
 
-**Range parameters**
+### Range parameters
 
 See the following table for details about the Range object parameters:
 
@@ -55,7 +55,7 @@ See the following table for details about the Range object parameters:
 | offsetY               | number in inches                                   | Specifies an offset from the anchor Match parameter.  Positive values offset down the page, negative values offset up the page. <br/><br/> **horizontal sections:** Specifies the number of inches to offset the section's top boundary from the anchor Match parameter. By default a section starts at the top boundary of the matched line. If you specify Offset Y, the section starts at that top boundary plus the offset. For example, configure this when the section lacks an easy-to-match first line.<br/><br/>**vertical sections:** Specifies the number of inches to offset the section *group's* top boundary from the anchor Match parameter. For example, configure this when when you want to exclude non-columnar text from a vertical section.<br/><br/> |
 | stopOffsetY           | number in inches                                   | Specifies the number of inches to offset from the Stop parameter. <br/><br/>**horizontal sections:**  Offsets the section's end from the bottom boundary of the anchor's Stop parameter.<br><br/>**vertical sections:** Offsets the section *group's* end from the bottom boundary of the anchor's Stop parameter. |
 
-**Range parameters for columns**
+### Range parameters for columns
 
 Use `"direction":"vertical"` in the Range object to define a "vertical" sections group, where each section is a column-like layout. For example, use vertical sections to extract tables nested in tables, tables with row labels, or other complex text layouts. 
 
@@ -88,6 +88,8 @@ See the following topics:
 - Advanced: [Zip sections example](doc:sections-example-zip)
 
 - Advanced: [Zip and flatten nested sections](doc:sections-example-copy-from-sections)
+
+- Advanced: [External anchors for sections](doc:sections-example-external-range)
 
 
 Notes
