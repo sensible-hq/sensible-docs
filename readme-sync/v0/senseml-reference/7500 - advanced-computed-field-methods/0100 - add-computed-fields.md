@@ -26,18 +26,18 @@ Examples
 
 The following example shows how to transform table output so that it's consistent across different document formats.
 
-In the following example, Insurer A excludes the vehicle details, such as the VIN and model, from their policy limits table. In contrast, Insurer B includes these details in their limits table:
+In the following example, Insurer A excludes the vehicle VIN and model from their policy limits table. In contrast, Insurer B includes the vehicle VIN, model, and make in their limits table:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_3.png)
 
-The transformed output ensures that each table contains the same field IDs (`vin`, `policy_start`, `limits`, `amount` and `model`).  It does so by:
-
-- adding vehicle details to the table for Insurer A 
-- removing the vehicle make information from the table for Insurer B
+This example uses the Add Computed Fields method to ensure that each table contains the same field IDs (`vin`, `policy_start`, `limits`, `amount` and `model`):
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_2.png)
 
+In detail, this example:
 
+- for Insurer A, copies vehicle details into the table
+- for Insurer B, removes the vehicle make
 
 **Config**
 
@@ -57,8 +57,8 @@ The transformed output ensures that each table contains the same field IDs (`vin
     {
       /* source field, suppressed from output.
          vehicle info to add to Insurer A table */
-      "id": "_make_model",
-      "anchor": "make and model",
+      "id": "_model",
+      "anchor": "model:",
       "method": {
         "id": "label",
         "position": "right"
@@ -160,39 +160,19 @@ The transformed output ensures that each table contains the same field IDs (`vin
             "method": {
               /* copy in the vin that's positioned above the table 
                   so the information is accessible to this computed fields array
-                  and is output in the transformed table */
+                  and is outputted in the transformed table */
               "id": "copy_to_section",
               "source_id": "_vin"
             }
           },
           {
-            /* copy in the make and model that's positioned above the table 
-               so the information is accessible to this computed fields array */
-            "id": "copied_make_model",
-            "method": {
-              "id": "copy_to_section",
-              "source_id": "_make_model"
-            }
-          },
-          {
-            /* output only the make, not the model */
+            /* copy in model that's positioned above the table 
+               so the information is accessible to this computed fields array
+               and is outputted in the transformed table */
             "id": "model",
             "method": {
-              "id": "split",
-              "source_id": "copied_make_model",
-              "separator": " ",
-              "index": 1
-            }
-          },
-          {
-            /* remove make and model; 
-               output only the transformed model field */
-            "id": "cleanup",
-            "method": {
-              "id": "suppressOutput",
-              "source_ids": [
-                "copied_make_model"
-              ]
+              "id": "copy_to_section",
+              "source_id": "_model"
             }
           }
         ]
@@ -205,7 +185,7 @@ The transformed output ensures that each table contains the same field IDs (`vin
         "source_id": "_raw_insurer_b_table",
         "fields": [
           {
-            /* output only the make, not the model */
+            /* split the make from the model, for consistency with insurer A */
             "id": "model",
             "method": {
               "id": "split",
@@ -215,7 +195,7 @@ The transformed output ensures that each table contains the same field IDs (`vin
             }
           },
           {
-            /* remove make and model; 
+            /* remove make and model field; 
                output only the transformed model field */
             "id": "cleanup",
             "method": {
@@ -229,12 +209,13 @@ The transformed output ensures that each table contains the same field IDs (`vin
       }
     },
     {
+      /* output only transformed tables */
       "id": "cleanup",
       "method": {
         "id": "suppressOutput",
         "source_ids": [
           "_vin",
-          "_make_model",
+          "_model",
           "_raw_insurer_a_table",
           "_raw_insurer_b_table"
         ]
@@ -275,8 +256,8 @@ The following image shows the example document used with this example config:
         "value": "12345678"
       },
       "model": {
-        "value": "Toyota",
-        "type": "string"
+        "type": "string",
+        "value": "Camry"
       }
     },
     {
@@ -297,8 +278,8 @@ The following image shows the example document used with this example config:
         "value": "12345678"
       },
       "model": {
-        "value": "Toyota",
-        "type": "string"
+        "type": "string",
+        "value": "Camry"
       }
     },
     {
@@ -319,8 +300,8 @@ The following image shows the example document used with this example config:
         "value": "12345678"
       },
       "model": {
-        "value": "Toyota",
-        "type": "string"
+        "type": "string",
+        "value": "Camry"
       }
     }
   ],
