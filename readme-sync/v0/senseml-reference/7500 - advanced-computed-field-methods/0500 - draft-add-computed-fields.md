@@ -28,11 +28,15 @@ The following example shows how to transform table output so that it's consisten
 
 In the following example, Insurer A excludes the vehicle details, such as the VIN and model, from the policy limits table, but Insurer B includes them in the table. 
 
+The example transforms the source tables:
 
 
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
 
-![image-20231222142631494](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20231222142631494.png)
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_2.png)
 
 
 
