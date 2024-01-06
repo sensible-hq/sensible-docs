@@ -2,63 +2,10 @@
 title: "Add Computed Fields"
 hidden: true
 ---
-This lets you specify an array of computed fields to add the output of a table or other 'zipped' field. You *can* use it with sections, but you shouldn't, because it has the same effect as declaring a Computed Fields array inside a section group defintion.
+Enables transforming the output of a table by adding an array of computed fields to the extracted table's output.  For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This computed method is similar in effect to  using a [Computed Fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
 
-The most comom use case for this method is to transform table output.
-
-
-
-Gives you access to computed fields array in an extracted table. This computed method is similar in effect to adding a Computed Fields array to a sections group. It gives you the same power to modify individual cells in a table as you'd have the power to modify fields in a section group.
-
-This method:
-
-1.  Converts an extracted table into a section group (where each section is a row), 
-
-
-
-For example, it converts:
-
-```json
-
-```
-
-To the following section group, where each row is one section, and where each table column ID becomes a field ID **Note this is the same as section output so TODO link to Zip**:
-
-```
-
-```
-
-
-
-2. Lets you specify an array of computed fields to append to each "section". This is similar to this [example](do:sections-example-copy-to-section) of adding computed fields to a section group.
-
-For example, say you want to concatenate two columns and suppress the output of other columns:
-
-```json
-
-```
-
-
-
-The output is then like this:
-
-```
-TODO
-```
-
-
-
-
-
-
-
-
-
-**Alternatives**
-
-- 
-
-Copies a field into each section in a section group, or from a parent section into each section in a nested section group. 
+- Automatically [zips](doc:zip) the source table. The output of a zipped table is identical in JSON structure to the output of  [sections](doc:sections). Each table cell becomes a field whose ID is the column heading.
+- Operates on the fields in the table using the array of computed fields you specify. The computed fields have access to the table's fields. To get access to and transform the output of fields that aren't in the table, use the [Copy To Section](doc:copy-to-section) method.
 
 Parameters
 ====
@@ -66,16 +13,22 @@ Parameters
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 
-| key                      | value                                 | description |
-| :----------------------- | :------------------------------------ | :---------- |
-| id (**required**)        | `addComputedFields`                   |             |
-| source_id (**required**) | source field ID in the current config | TODO        |
-| fields                   |                                       | TODO        |
+| key                      | value                                                  | description                                                  |
+| :----------------------- | :----------------------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)        | `addComputedFields`                                    |                                                              |
+| source_id (**required**) | source field ID in the current config                  | The ID of the table you want to transform                    |
+| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to the transformed table output.  The computed fields have access to the table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy To Section](doc:copy-to-section) method. |
+
+
 
 Examples
 ====
 
-https://dev.sensible.so/editor/?d=frances_playground&c=add_computed_fields&g=add_computed_fields
+The following example shows how to transform table output so that it's consistent across different document formats.
+
+In the following example, Insurer A excludes the vehicle details, such as the VIN and model, from the policy limits table, but Insurer B includes them in the table. 
+
+
 
 
 
