@@ -3,7 +3,7 @@ title: "Custom computation"
 hidden: true
 ---
 
-TODO
+Define your own computed method using JsonLogic. For example, sum two fields, 
 
 Parameters
 ====
@@ -14,7 +14,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                      | value                                      | description                                                  |
 | :----------------------- | :----------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)        | `customComputation`                        | Has access to the entire `parsed_document` where [verbosity](doc:verbosity) = 0, so you don't need to specify a list of `source_ids`. Includes access to  field `type`. Will operate on anything that is ``"string", "number", "boolean", "null"` ? or an array of those, and returns the same types.`. TODO doublechekc code:   the output is `BaseType |
-| jsonLogic (**required**) | [JsonLogic](https://jsonlogic.com/)  rules | [11:12](https://sensiblehq.slack.com/archives/D03G5KRKWH5/p1703268726812319)Tests extracted fields using Boolean, logic, numeric, array, string, and other operations. Supports all [JsonLogic operations](https://jsonlogic.com/operations.html) and extends them with Sensible operations such as `"exists"` and `"match`". For more information about Sensible operations, see  [Validating extractions](doc:validate-extractions#parameters).<br/><br/>Double escape any dots in the field keys (for example for a field ID `delivery.zip.code`, escape as `delivery\\.zip\\.code`). |
+| jsonLogic (**required**) | [JsonLogic](https://jsonlogic.com/)  rules | [11:12](https://sensiblehq.slack.com/archives/D03G5KRKWH5/p1703268726812319)   Outputs a computed field by using Boolean, logic, numeric, array, string, and other operations on extracted fields. Supports all [JsonLogic operations](https://jsonlogic.com/operations.html) and extends them with Sensible operations such as `"exists"` and `"match`". For more information about Sensible operations, see  [Validating extractions](doc:validate-extractions#parameters).<br/><br/>Double escape any dots in the field keys (for example for a field ID `delivery.zip.code`, escape as `delivery\\.zip\\.code`). |
 
 Examples
 ====
