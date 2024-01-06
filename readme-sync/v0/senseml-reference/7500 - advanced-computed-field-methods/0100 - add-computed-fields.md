@@ -2,9 +2,9 @@
 title: "Add Computed Fields"
 hidden: true
 ---
-Enables transforming the output of a table by adding an array of computed fields to the extracted table's output.  For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This computed method is similar in effect to using a [computed fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
+Enables transforming an extracted table by adding an array of computed fields that operate on the extracted table. For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This method is similar in effect to using a [computed fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
 
-- Automatically [zips](doc:zip) the source table. The output of a zipped table is identical in JSON structure to the output of [sections](doc:sections). Each table cell becomes a field whose ID is the column heading.
+- Automatically [zips](doc:zip) the source table. The output of a zipped table is identical in JSON structure to the output of [sections](doc:sections). After the zip, each table cell is a field whose ID is the column heading.
 - Operates on the fields in the table using the array of computed fields you specify.
 
 Parameters
@@ -17,7 +17,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | :----------------------- | :----------------------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)        | `addComputedFields`                                    |                                                              |
 | source_id (**required**) | source field ID in the current config                  | The ID of the table you want to transform                    |
-| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to the transformed table output. The computed fields have access to thesource  table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy To Section](doc:copy-to-section) method. |
+| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to the transformed table. The computed fields have access to the source  table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy To Section](doc:copy-to-section) method. |
 
 
 
