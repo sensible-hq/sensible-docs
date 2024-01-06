@@ -26,11 +26,9 @@ Examples
 
 The following example shows how to transform table output so that it's consistent across different document formats.
 
-In the following example, Insurer A excludes the vehicle details, such as the VIN and model, from the policy limits table, but Insurer B includes them in the table. 
+In the following example, Insurer A excludes the vehicle details, such as the VIN and model, from their policy limits table. In contrast, Insurer B includes these details in their limits table:
 
-The example transforms the following source tables:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_3.png)
 
 The transformed output ensures that each table contains the same field IDs (`vin`, `policy_start`, `limits`, `amount` and `model`).  It does so by:
 
