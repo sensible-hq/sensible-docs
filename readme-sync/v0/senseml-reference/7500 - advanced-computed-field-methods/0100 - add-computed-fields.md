@@ -2,9 +2,9 @@
 title: "Add Computed Fields"
 hidden: true
 ---
-Enables transforming an extracted table by adding an array of computed fields that operate on the extracted table. For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This method is similar in effect to using a [computed fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
+Enables transforming an extracted table by adding an array of computed fields that operate on the extracted table. For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This method is similar to using [computed fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
 
-- Automatically [zips](doc:zip) the source table. The output of a zipped table is identical in JSON structure to the output of [sections](doc:sections). After the zip, each table cell is a field whose ID is the column heading.
+- Automatically [zips](doc:zip) the source table. After the zip, each table cell is a field whose ID is the column heading. Note that zipped tables have the same JSON output structure as sections. This enables you to use section-specific computed fields to transform the source table, such as Copy from Sections. 
 - Operates on the fields in the table using the array of computed fields you specify.
 
 Parameters
@@ -17,14 +17,14 @@ The following parameters are in the computed field's [global Method](doc:compute
 | :----------------------- | :----------------------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)        | `addComputedFields`                                    |                                                              |
 | source_id (**required**) | source field ID in the current config                  | The ID of the table you want to transform                    |
-| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to the transformed table. The computed fields have access to the source  table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy To Section](doc:copy-to-section) method. |
+| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields in the new table. The computed fields have access to the source  table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy To Section](doc:copy-to-section) method. |
 
 
 
 Examples
 ====
 
-The following example shows how to transform table output so that it's consistent across different document formats.
+The following example shows how to transform extracted tables so they're consistent across different document formats.
 
 In the following example, Insurer A excludes the vehicle VIN and model from their policy limits table. In contrast, Insurer B includes the vehicle VIN, model, and make in their limits table:
 
@@ -158,7 +158,7 @@ In detail, this example:
           {
             "id": "vin",
             "method": {
-              /* copy in the vin that's positioned above the table 
+              /* copy in the VIN positioned above the table 
                   so the information is accessible to this computed fields array
                   and is outputted in the transformed table */
               "id": "copy_to_section",
@@ -166,7 +166,7 @@ In detail, this example:
             }
           },
           {
-            /* copy in model that's positioned above the table 
+            /* copy in model positioned above the table 
                so the information is accessible to this computed fields array
                and is outputted in the transformed table */
             "id": "model",
