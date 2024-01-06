@@ -4,9 +4,9 @@ hidden: false
 ---
 The following topics describe advanced computed field methods:
 
-- [Add Computed Fields](doc:add-computed-fields)
-- [Copy To Section](doc:copy-to-section)
-- [Copy From Sections](doc:copy-from-sections)
-- [Custom Computation](doc:custom-computation)
+- [Add computed fields](doc:add-computed-fields)
+- [Copy to section](doc:copy-to-section)
+- [Copy from sections](doc:copy-from-sections)
+- [Custom computation](doc:custom-computation)
 - [TFIDF](doc:tfidf)
 
