@@ -28,32 +28,39 @@ The following example shows how to transform table output so that it's consisten
 
 In the following example, Insurer A excludes the vehicle details, such as the VIN and model, from the policy limits table, but Insurer B includes them in the table. 
 
-The example transforms the source tables:
-
-
+The example transforms the following source tables:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
 
+The transformed output ensures that each table contains the same field IDs (`vin`, `policy_start`, `limits`, `amount` and `model`).  It does so by:
 
+- adding vehicle details to the table for Insurer A 
+- removing the vehicle make information from the table for Insurer B
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_2.png)
 
 
 
-Note that you can't get them identically ordered rows but that's fine b/c it's all json keys underlying this.
 
-```
+
+**Config**
+
+```json
 {
   "fields": [
     {
+      /* source field, suppressed from output.
+         vehicle info to add to Insurer A table */
       "id": "_vin",
-      "anchor": "vin",
+      "anchor": "vin:",
       "method": {
         "id": "label",
         "position": "right"
       }
     },
     {
+      /* source field, suppressed from output.
+         vehicle info to add to Insurer A table */
       "id": "_make_model",
       "anchor": "make and model",
       "method": {
@@ -62,7 +69,8 @@ Note that you can't get them identically ordered rows but that's fine b/c it's a
       }
     },
     {
-      "id": "_raw_vendor_a_table",
+      /* source table, suppressed from output */
+      "id": "_raw_insurer_a_table",
       "anchor": "insurer a",
       "type": "table",
       "method": {
@@ -95,13 +103,15 @@ Note that you can't get them identically ordered rows but that's fine b/c it's a
       }
     },
     {
-      "id": "_raw_vendor_b_table",
+      /* source table, suppressed from output */
+      "id": "_raw_insurer_b_table",
       "anchor": "insurer b",
       "type": "table",
       "method": {
         "id": "table",
         "columns": [
           {
+            /* source column, suppressed from output */
             "id": "_make_model_column",
             "terms": [
               "make",
@@ -144,63 +154,32 @@ Note that you can't get them identically ordered rows but that's fine b/c it's a
   ],
   "computed_fields": [
     {
-      "id": "vendor_b_zipped", //same row format as produced by addComputedFields
-      "method": {
-        "id": "zip",
-        "source_ids": [
-          "_raw_vendor_b_table"
-        ]
-      }
-    },
-    {
-      "id": "vendor_b_zipped_and_computed",
+      "id": "insurer_a_transformed",
       "method": {
         "id": "addComputedFields",
-        "source_id": "_raw_vendor_b_table",
-        "fields": [
-          {
-            "id": "model_split", // let's just get the model
-            "method": {
-              "id": "split",
-              "source_id": "_make_model_column",
-              "separator": " ",
-              "index": 1
-            }
-          },
-          {
-            "id": "hide_columns", // let's hide the make-model column
-            "method": {
-              "id": "suppressOutput",
-              "source_ids": [
-                "_make_model_column"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "id": "vendor_a_zipped_n_computed",
-      "method": {
-        "id": "addComputedFields",
-        "source_id": "_raw_vendor_a_table",
+        "source_id": "_raw_insurer_a_table",
         "fields": [
           {
             "id": "vin",
             "method": {
-              "id": "copy_to_section", // copy in the vin that's positioned above the table in the object, so it's accessible to the table object
+              /* copy in the vin that's positioned above the table 
+                  so the information is accessible to this computed fields array */
+              "id": "copy_to_section",
               "source_id": "_vin"
             }
           },
           {
-            "id": "copied_make_model", // // copy in the make and model for same reason
+            /* copy in the make and model that's positioned above the table 
+               so the information is accessible to this computed fields array */
+            "id": "copied_make_model",
             "method": {
               "id": "copy_to_section",
               "source_id": "_make_model"
             }
           },
           {
-            "id": "model_split", // output only the make, not the model
+            /* output only the make, not the model */
+            "id": "model",
             "method": {
               "id": "split",
               "source_id": "copied_make_model",
@@ -209,11 +188,43 @@ Note that you can't get them identically ordered rows but that's fine b/c it's a
             }
           },
           {
-            "id": "hide_columns", // hide the copied make and model field, we only want the model
+            /* remove make and model; 
+               output only the transformed model field */
+            "id": "cleanup",
             "method": {
               "id": "suppressOutput",
               "source_ids": [
                 "copied_make_model"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "insurer_b_transformed",
+      "method": {
+        "id": "addComputedFields",
+        "source_id": "_raw_insurer_b_table",
+        "fields": [
+          {
+            /* output only the make, not the model */
+            "id": "model",
+            "method": {
+              "id": "split",
+              "source_id": "_make_model_column",
+              "separator": " ",
+              "index": 1
+            }
+          },
+          {
+            /* remove make and model; 
+               output only the transformed model field */
+            "id": "cleanup",
+            "method": {
+              "id": "suppressOutput",
+              "source_ids": [
+                "_make_model_column"
               ]
             }
           }
@@ -227,12 +238,165 @@ Note that you can't get them identically ordered rows but that's fine b/c it's a
         "source_ids": [
           "_vin",
           "_make_model",
-          "_raw_vendor_a_table",
-          "_raw_vendor_b_table"
+          "_raw_insurer_a_table",
+          "_raw_insurer_b_table"
         ]
       }
     }
   ]
 }
 ```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/add_computed_fields.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "insurer_a_transformed": [
+    {
+      "policy_start": {
+        "value": "02/19/21",
+        "type": "string"
+      },
+      "limits": {
+        "value": "Property damage (per accident)",
+        "type": "string"
+      },
+      "amount": {
+        "value": "$5,000",
+        "type": "string"
+      },
+      "vin": {
+        "type": "string",
+        "value": "12345678"
+      },
+      "model": {
+        "value": "Toyota",
+        "type": "string"
+      }
+    },
+    {
+      "policy_start": {
+        "value": "02/19/21",
+        "type": "string"
+      },
+      "limits": {
+        "value": "Bodily injury (per person)",
+        "type": "string"
+      },
+      "amount": {
+        "value": "$3,000",
+        "type": "string"
+      },
+      "vin": {
+        "type": "string",
+        "value": "12345678"
+      },
+      "model": {
+        "value": "Toyota",
+        "type": "string"
+      }
+    },
+    {
+      "policy_start": {
+        "value": "02/19/21",
+        "type": "string"
+      },
+      "limits": {
+        "value": "Auto only (per incident)",
+        "type": "string"
+      },
+      "amount": {
+        "value": "$2,000",
+        "type": "string"
+      },
+      "vin": {
+        "type": "string",
+        "value": "12345678"
+      },
+      "model": {
+        "value": "Toyota",
+        "type": "string"
+      }
+    }
+  ],
+  "insurer_b_transformed": [
+    {
+      "vin": {
+        "value": "92343156",
+        "type": "string"
+      },
+      "policy_start": {
+        "value": "12/19/20",
+        "type": "string"
+      },
+      "limits": {
+        "value": "Property damage*",
+        "type": "string"
+      },
+      "amount": {
+        "value": "$6,000",
+        "type": "string"
+      },
+      "model": {
+        "value": "Accord",
+        "type": "string"
+      }
+    },
+    {
+      "vin": {
+        "value": "92343156",
+        "type": "string"
+      },
+      "policy_start": {
+        "value": "12/19/20",
+        "type": "string"
+      },
+      "limits": {
+        "value": "Bodily injury**",
+        "type": "string"
+      },
+      "amount": {
+        "value": "$4,000",
+        "type": "string"
+      },
+      "model": {
+        "value": "Accord",
+        "type": "string"
+      }
+    },
+    {
+      "vin": {
+        "value": "92343156",
+        "type": "string"
+      },
+      "policy_start": {
+        "value": "12/19/20",
+        "type": "string"
+      },
+      "limits": {
+        "value": "Auto only*",
+        "type": "string"
+      },
+      "amount": {
+        "value": "$1,000",
+        "type": "string"
+      },
+      "model": {
+        "value": "Accord",
+        "type": "string"
+      }
+    }
+  ]
+}
+```
+
+
 
