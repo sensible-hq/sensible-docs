@@ -1,6 +1,6 @@
 ---
 title: "Add Computed Fields"
-hidden: true
+hidden: false
 ---
 Enables transforming a table by adding an array of computed fields that operate on the extracted table. For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This method is similar to adding a [computed fields array to sections](doc:sections-example-copy-to-section).  In detail, this method:
 
