@@ -2,10 +2,10 @@
 title: "Add Computed Fields"
 hidden: true
 ---
-Enables transforming the output of a table by adding an array of computed fields to the extracted table's output.  For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This computed method is similar in effect to  using a [Computed Fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
+Enables transforming the output of a table by adding an array of computed fields to the extracted table's output.  For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This computed method is similar in effect to using a [computed fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
 
-- Automatically [zips](doc:zip) the source table. The output of a zipped table is identical in JSON structure to the output of  [sections](doc:sections). Each table cell becomes a field whose ID is the column heading.
-- Operates on the fields in the table using the array of computed fields you specify. The computed fields have access to the table's fields. To get access to and transform the output of fields that aren't in the table, use the [Copy To Section](doc:copy-to-section) method.
+- Automatically [zips](doc:zip) the source table. The output of a zipped table is identical in JSON structure to the output of [sections](doc:sections). Each table cell becomes a field whose ID is the column heading.
+- Operates on the fields in the table using the array of computed fields you specify.
 
 Parameters
 ====
@@ -17,7 +17,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | :----------------------- | :----------------------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)        | `addComputedFields`                                    |                                                              |
 | source_id (**required**) | source field ID in the current config                  | The ID of the table you want to transform                    |
-| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to the transformed table output.  The computed fields have access to the table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy To Section](doc:copy-to-section) method. |
+| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to the transformed table output. The computed fields have access to thesource  table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy To Section](doc:copy-to-section) method. |
 
 
 
@@ -38,8 +38,6 @@ The transformed output ensures that each table contains the same field IDs (`vin
 - removing the vehicle make information from the table for Insurer B
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_2.png)
-
-
 
 
 
@@ -163,7 +161,8 @@ The transformed output ensures that each table contains the same field IDs (`vin
             "id": "vin",
             "method": {
               /* copy in the vin that's positioned above the table 
-                  so the information is accessible to this computed fields array */
+                  so the information is accessible to this computed fields array
+                  and is output in the transformed table */
               "id": "copy_to_section",
               "source_id": "_vin"
             }
