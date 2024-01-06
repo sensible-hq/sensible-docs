@@ -2,9 +2,9 @@
 title: "Add Computed Fields"
 hidden: true
 ---
-Enables transforming an extracted table by adding an array of computed fields that operate on the extracted table. For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This method is similar to using [computed fields array in sections](doc:sections-example-copy-to-section).  In detail, this method:
+Enables transforming a table by adding an array of computed fields that operate on the extracted table. For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This method is similar to adding a [computed fields array to sections](doc:sections-example-copy-to-section).  In detail, this method:
 
-- Automatically [zips](doc:zip) the source table. After the zip, each table cell is a field whose ID is the column heading. Note that zipped tables have the same JSON output structure as sections. This enables you to use section-specific computed fields to transform the source table, such as Copy from Sections. 
+- Automatically [zips](doc:zip) the source table. After the zip, each table cell is a field whose ID is the column heading. Note that zipped tables have the same JSON output structure as sections. This enables you to use section-specific computed fields to transform the source table, such as  the Copy from Sections method. 
 - Operates on the fields in the table using the array of computed fields you specify.
 
 Parameters
