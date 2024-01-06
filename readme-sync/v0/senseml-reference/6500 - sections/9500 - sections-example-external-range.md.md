@@ -1,5 +1,5 @@
 ---
-title: "Claims loss run example"
+title: "Advanced: External anchors for sections"
 hidden: false
 ---
 
