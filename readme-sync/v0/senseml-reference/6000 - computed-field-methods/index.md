@@ -22,3 +22,7 @@ The following global parameters are common to all Computed Field methods.
 | method (**required**) | object                     | The method describes the Computed Field method used to transform fields. This object's ID parameter specifies the method. The possible ID values are:<br/>[Concatenate](doc:concatenate)<br/>[Constant](doc:constant)<br/>[Mapper](doc:mapper)<br/>[pickValues](doc:pick-values)<br/>[Split](doc:split)<br/>[suppressOutput](doc:suppress-output)<br/>[Zip](doc:zip) |
 | type                  | string (default: `string`) | Specifies the type of the output value. For more information about types, see [Field query object](doc:field-query-object). |
 
+## Notes
+
+See also [Advanced computed field methods](doc:advanced-computed-field-methods).
+
