@@ -5,7 +5,7 @@ hidden: false
 
 The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the section group specifies an external range, for anchoring on text external to the sections. Since the external range is vertically aligned with the content in each section, the example uses the [Intersection](doc:intersection) method to specify text in the external range as vertical anchors.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_2.png)
 
 **Config**
 
