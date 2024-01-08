@@ -3,7 +3,7 @@ title: "Custom computation"
 hidden: false
 ---
 
-Define your own [computed field method](doc:computed-field-methods) using JsonLogic. For example, get the sum of two fields, or return a boolean indicating if a field's output is non-null.
+Define your own [computed field method](doc:computed-field-methods) using JsonLogic. For example, return the sum of two fields, or return a boolean indicating if a field's output is non-null.
 
 Parameters
 ====
