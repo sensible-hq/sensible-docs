@@ -3,7 +3,9 @@ title: "Advanced: External anchors for sections"
 hidden: false
 ---
 
-The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the section group specifies an external range, for anchoring on text external to the sections. Since the external range is vertically aligned with the content in each section, the example uses the [Intersection](doc:intersection) method to specify text in the external range as vertical anchors.
+The following example shows extracting repeated fields from a section group, when each section lacks anchoring text.
+
+In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of the document, under the `Claims contents` heading, so you can define an external range to anchor on these labels. The example uses the [Intersection](doc:intersection) method to specify vertical anchors in the external range.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_2.png)
 
@@ -12,12 +14,12 @@ The following example shows extracting repeated fields from a section group, whe
 ```json
 {
   "fields": [],
-  /* define section group containing subset of document's claims */
+  /* define section group containing document's claims */
   "sections": [
     {
       "id": "unprocessed_claims_sections",
       /* each section contains unlabeled information.
-         the labels are at the beginning of the document
+         the labels are at the beginning of the document ("Claims contents")
          use the External Range parameter to make these labels
          accessible as vertical anchors inside the sections */
       "range": {
@@ -25,7 +27,7 @@ The following example shows extracting repeated fields from a section group, whe
           "start": "Claim contents",
           "end": "unprocessed claims"
         },
-        /* include 'claim no' heading above section start */
+        /* include 'claim no' heading above section start for use as anchoring text*/
         "offsetY": -0.5,
         "anchor": {
           /* start looking for claims after first instance of "unprocessed claims" */
@@ -63,8 +65,8 @@ The following example shows extracting repeated fields from a section group, whe
              find the intersection of "Claim [number]"
              and on the relevant text in the 
              claim contents external range,
-             then adjust width,height, and offsets
-            till the green box is centered
+             then adjust width, height, and offsets
+             till the green box is centered
              on the target data  */
           "id": "claim_number",
           "type": "number",
@@ -77,6 +79,7 @@ The following example shows extracting repeated fields from a section group, whe
           },
           "method": {
             "id": "intersection",
+            /* anchor on text from the external range */
             "verticalAnchor": "Claim number",
             "width": 1.5,
             "height": 0.5,
@@ -95,6 +98,7 @@ The following example shows extracting repeated fields from a section group, whe
           },
           "method": {
             "id": "intersection",
+            /* anchor on text from the external range */
             "verticalAnchor": "Date of claim",
             "width": 1.5,
             "height": 0.5,
@@ -112,6 +116,7 @@ The following example shows extracting repeated fields from a section group, whe
           },
           "method": {
             "id": "intersection",
+            /* anchor on text from the external range */
             "verticalAnchor": "Phone number",
             "width": 1.5,
             "height": 0.5,
