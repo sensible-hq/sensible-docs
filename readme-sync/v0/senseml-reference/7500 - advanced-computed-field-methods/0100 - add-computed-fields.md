@@ -28,7 +28,7 @@ In the following example, Insurer A excludes the vehicle VIN and model from thei
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_3.png)
 
-This example uses the Add Computed Fields method to ensure that each table contains the same field IDs (`vin`, `policy_start`, `limits`, `amount` and `model`):
+This example uses the Add Computed Fields method to ensure that each table contains the same field IDs (`vin`, `policy_start`, `limits`, `amount`, and `model`):
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_2.png)
 
