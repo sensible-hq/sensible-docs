@@ -80,7 +80,7 @@ paths:
             schema:
               type: string
               format: binary
-              description: non-encoded document bytes as the entire request body          
+              description: non-encoded document bytes as the entire request body
           application/msword:
             schema:
               type: string
@@ -90,8 +90,8 @@ paths:
             schema:
               type: string
               format: binary
-              description: non-encoded document bytes as the entire request body                    
-                      
+              description: non-encoded document bytes as the entire request body
+
           application/json:
             schema:
               $ref: "#/components/schemas/encodedPdf"
@@ -266,7 +266,7 @@ paths:
             schema:
               type: string
               format: binary
-              description: non-encoded document bytes as the entire request body          
+              description: non-encoded document bytes as the entire request body
           application/msword:
             schema:
               type: string
@@ -276,8 +276,8 @@ paths:
             schema:
               type: string
               format: binary
-              description: non-encoded document bytes as the entire request body              
-          
+              description: non-encoded document bytes as the entire request body
+
           application/json:
             schema:
               $ref: "#/components/schemas/encodedPdf"
@@ -435,7 +435,7 @@ paths:
       operationId: provide-a-download-url-for-a-pdf-portfolio
       summary: Extract portfolio at your URL
       description:  |
-        
+
         Use this endpoint with multiple documents that are packaged into one file (a "portfolio"). For a list of supported file types, see [Supported file types](doc:file-types).
         Segments a portfolio file at the specified `document_url` into the specified document types (for example, 1099, w2, and bank_statement)
         and then runs extractions asynchronously for each document Sensible finds in the portfolio. Take the following steps.
@@ -598,8 +598,8 @@ paths:
         `/generate_excel/867514cc-fce7-40eb-8e9d-e6ec48cdac34,5093c65f-05bd-46a3-8df7-da3ed00f6d35`.
         For the best compiled spreadsheet results, configure your SenseML so that the documents output identically named fields.
         For more information about the conversion process, see [SenseML to spreadsheet reference](doc:excel-reference).
-         
-        For portfolio extractions, Sensible returns an Excel file containing fields for all the documents it finds in the PDF. For more information, see [Multi-document spreadsheet](doc:excel-reference#multi-document-spreadsheet). 
+
+        For portfolio extractions, Sensible returns an Excel file containing fields for all the documents it finds in the PDF. For more information, see [Multi-document spreadsheet](doc:excel-reference#multi-document-spreadsheet).
 
         For a list of document file types that Sensible can extract data from, see [Supported file types](doc:file-types).
         Call this endpoint after an extraction completes. For more information about checking extraction status,
@@ -1558,11 +1558,30 @@ components:
           type: integer
           description: Number of fields skipped in the extraction because a prerequisite field was null
           example: 1
+
     Errors:
-      #todo flesh out errors more?
       type: array
       description: Extraction error messages.
+      items:
+        $ref: '#/components/schemas/ExtractionError'
 
+    ExtractionError:
+      type: object
+      description: Extraction error message
+      properties:
+        field_id:
+          type: string
+          description: ID of the extracted field.
+          example: phone_number
+        message:
+          type: string
+          description: Description of the error
+          example: "ConfigurationError: width <=0"
+        # todo: doc more on types?
+        type:
+          type: string
+          description: Error type
+          example: configuration
 
 
     DownloadUrlDocument:
@@ -1627,8 +1646,8 @@ components:
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
     ContentTypeParameter:
       type: string
-      enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]            
-         
+      enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+
       # If you use this parameter with the `/generate_upload_url` endpoint (recommended), you must also use it in the subsequent PUT call to upload the file.
       description: >-
         Content type of the document being presented for extraction.
