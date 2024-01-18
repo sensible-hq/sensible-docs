@@ -245,22 +245,13 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible splits the document into equal-sized, overlapping chunks. 
    - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
    - Sensible gets a list of page numbers from the top-scoring chunks.
-2. Sensible extracts all the tables on the pages most likely to contain your table, using an Amazon OCR provider. Sensible supports multi-page tables.
-
-3. For each extracted table, Sensible extracts the table title, if present.  In detail:
-
-   -  Sensible extracts lines contained in a rectangular region immediately above each table, since that region is likely to contain the table title. 
-   -  The height of that region equals the line height of the first non-empty cell of the table + 0.1 inches, and the region extends down to the top boundary of the table.
-   -  For information about how Sensible determines if lines are "contained" in a region, see [Region](doc:region).
-
+2. Sensible extracts all the tables on the pages most likely to contain your table, using an OCR provider. Sensible supports multi-page tables.
 4. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score:
 
    - Sensible concatenates all your column descriptions with your overall table description. 
 
-   - Sensible concatenates the first two rows of the table with the table title.
+   - Sensible concatenates the first two rows of the table with the table title.  Sensible uses the table title extracted by the table OCR provider, or falls back to using the text in a region above the table if the OCR provider didn't find a title.
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
-
-5. Sensible creates a full prompt for the LLM (GPT-4) that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to restructure the best-scoring table based on your column descriptions and your overall table description. 
-
+4. Sensible creates a full prompt for the LLM (GPT-4) that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to restructure the best-scoring table based on your column descriptions and your overall table description. 
 6. Sensible returns the restructured table.
