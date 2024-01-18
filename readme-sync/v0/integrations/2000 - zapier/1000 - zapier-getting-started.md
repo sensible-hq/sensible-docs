@@ -19,11 +19,11 @@ Create an empty destination database
 Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable to hold the extracted data Sensible creates. Take the following steps:
 
 1. Sign in or create an [Airtable account](https://airtable.com/).
-2. Navigate to the example [Sensible test base](https://airtable.com/shrJOFW1mdUdaSMiV/tblpjJbsekvE6wEwr/viw4FaqsAD3uXBAmh?blocks=hide ), and click **Copy base**.  Or, create your own Airtable destination using the following image as a guide:
+2. Create a destination Airtable base using the following image as a guide, with **extraction id**, **adjusted gross income**, and **taxpayer name**:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_7.png)
 
-The example base contains a field, or column, for each piece of document data to extract.  Zapier adds a record, or row, for each new document you extract from.
+The base contains a field (displayed as a column), for each piece of document data to extract.  Zapier adds a record (displayed as a row), for each new document you extract from.
 
 3. (Optional) examine the [example extraction](https://app.sensible.so/quick-extraction/) you created in the previous section. To add more data from the extraction, create corresponding Airtable fields. For example, create a `Total taxes owed` field.
 
@@ -36,7 +36,7 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 2. Navigate to the [Sensible example Zap](https://zapier.com/shared/cb6b2637ef466ddf140ed14c3be66a5969acef29), and click **Try this Zap**.
 3. Take the following steps to connect your Sensible account to Zapier:
    1. Click to expand the **Trigger** section.
-   2. Click to expand the **Choose account** section, then follow the prompts to enter your Sensible [API key](https://app.sensible.so/account/).
+   2. Click to expand the **Choose account** section, then follow the prompts to connect your Sensible account.
 4. In the **Set up trigger** section, select the **tax_forms** document type you created in the previous steps, select the **Production** environment, and select the **Complete** status. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_1.png)

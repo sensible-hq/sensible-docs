@@ -1114,7 +1114,7 @@ components:
               description: the verbose extraction output, including information about line coordinates.
             errors:
               type: array
-              description: errors
+              description: extraction errors. See an extraction endpoint's response schema for more information.
             text:
               $ref: '#/components/schemas/ResponseStandardText'
               description: >-
