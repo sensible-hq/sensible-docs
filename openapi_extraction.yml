@@ -28,7 +28,7 @@ tags:
 
 paths:
 
-  # private. unpublished in Readme.
+  # private. hidden/unpublished via Readme dashboard.
   /extract/batch/{ids}:
     get:
       operationId: batch-extraction
