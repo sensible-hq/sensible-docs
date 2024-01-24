@@ -29,7 +29,7 @@ tags:
 paths:
 
   # private. unpublished in Readme.
-  /extract/batch:
+  /extract/batch/{ids}:
     get:
       operationId: batch-extraction
       summary: batch extraction
