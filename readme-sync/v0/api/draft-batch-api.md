@@ -3,7 +3,7 @@ title: "Group extractions by batch ID"
 hidden: true
 ---
 
-You can use batch extraction endpoints to associate a set of documents to a batch ID and batch description. For example, if you want to identify a set of extractions as originating from an uploaded folder so that you can combine them into one Excel sheet, you can group them by a batch ID.
+You can use batch extraction endpoints to associate a set of documents to a batch ID and batch description. For example, if you want to group a set of extractions from an uploaded folder so that you can combine them into one Excel sheet, you can group them by a batch ID.
 
 ##  Overview
 
