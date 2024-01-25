@@ -40,7 +40,7 @@ The following parameters are available to you for the `POST extract/batch` endpo
 | documentNames (**required**) | The file names of the documents in the batch. This endpoint supports PDFs and Word documents. The maximum batch size is 5000. |
 | description                  | Description of the batch.                                    |
 | docType (**required**)       | Type of document to extract from.  If you don't specify this parameter, you must specify the portfolioDocTypes parameter. |
-| portfolioDocTypes            | Types of documents to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
+| portfolioDocTypes            | Array of types of documents to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
 | configuration                | The configuration to use when extracting the documents in the batch. N/A for portfolioDocTypes. |
 
 
@@ -52,7 +52,6 @@ The following parameters are available to you for the `POST extract/batch` endpo
    curl 'https://api.sensible.so/v0/extract/batch/upload_urls/c73c7932-82c0-438c-a339-175d7d0771bd/0/1' \
    --header 'Content-Type: application/json' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
-   --data ''
 ```
 
    The response is an array of upload URLs, where each URL's path includes the extraction IDs. 
@@ -78,7 +77,7 @@ The following parameters are available to you for the `POST extract/batch` endpo
 
 4. Retrieve each extraction using the [documents/{extraction_id}](ref:retrieving-results) endpoint. 
 
-   You can poll status calling `GET batch/{batchId}`. For example, while the requested extraction for `doc1.pdf` is in progress, the batch details for the batch created in a previous step are:
+   You can poll status calling `GET /extract/batch/{batchId}`. For example, while the requested extraction for `doc1.pdf` is in progress, the batch details for the batch created in a previous step are:
 
 ```json
    {
@@ -92,7 +91,9 @@ The following parameters are available to you for the `POST extract/batch` endpo
    }
 ```
 
-   Each extraction returns the `batchID`. For example:
+You can also update the batch description using `PUT extract/batch/{batchId}` and specifying the new `description` in the body as JSON.
+
+Each extraction returns the `batchID`. For example:
 
 ```json
    curl 'https://api.sensible.so/v0/documents/0b34ce99-bf15-4e0d-a391-b03e4c830414' \
