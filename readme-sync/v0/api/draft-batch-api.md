@@ -9,7 +9,7 @@ You can use batch extraction endpoints to associate a set of documents to a batc
 
 See the following steps for an overview of the endpoints to call for this use case:  
 
-1. Create a batch of N document names to be extracted with `POST extract/batch`. The endpoint returns the batch ID.
+1. Create a batch of N document filenames to be extracted with `POST extract/batch`. The endpoint returns the batch ID.
 2.  Create upload URLs for M of the documents with  `PUT extract/batch/upload_urls/{batch_id}/{start_index}/{end_index}`. The endpoint returns the URLs.
 3. Upload the documents to their corresponding URLs.
 4. Retrieve each extraction with `documents/{extraction_id}`. Each extraction includes the `batchID`.
@@ -37,7 +37,7 @@ The following parameters are available to you for the `extract/batch` endpoint:
 
 | Parameter                    | description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
-| documentNames (**required**) | The file names of the documents in the batch. The maximum batch size is 5000. |
+| documentNames (**required**) | The file names of the documents in the batch. This endpoint supports PDFs and Word documents. The maximum batch size is 5000. |
 | description                  | Description of the batch.                                    |
 | docType (**required**)       | Type of document to extract from.  If you don't specify this parameter, you must specify the portfolioDocTypes parameter. |
 | portfolioDocTypes            | Types of documents to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
