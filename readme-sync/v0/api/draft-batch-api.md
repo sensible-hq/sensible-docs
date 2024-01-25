@@ -35,13 +35,29 @@ See the following steps for an overview of the endpoints to call for this use ca
    ```
 The following parameters are available to you for the `extract/batch` endpoint:
 
-| Parmeter                      | type | description                     |
-| ----------------------------- | ---- | ------------------------------- |
-| documentNames: string[];      |      | The maximum batch size is 5000. |
-| description?: string;         |      |                                 |
-| docType?: string;             |      |                                 |
-| portfolioDocTypes?: string[]; |      |                                 |
-| configuration?: string;       |      |                                 |
+| Parameter                    | description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| documentNames (**required**) | The file names of the documents in the batch. The maximum batch size is 5000. |
+| description                  | Description of the batch.                                    |
+| docType (**required**)       | Type of document to extract from.                            |
+| portfolioDocTypes            |                                                              |
+| configuration                |                                                              |
+
+You can get details about the batch by calling by calling `GET batch/{batchId}`. For example, the batch details for the batch created in a previous step are:
+
+```json
+{
+    "id": "c73c7932-82c0-438c-a339-175d7d0771bd",
+    "description": "test batch",
+    "extraction_ids": [
+        "0b34ce99-bf15-4e0d-a391-b03e4c830414",
+        "a122f739-3f4a-443d-bb70-718fd2828af1"
+    ],
+    "waiting": 1
+}
+```
+
+
 
 
 2. Create  upload URLs for an indexed range of the documents in the batch. Use zero-based indices to upload the documents in the same order that you listed them in the previous step. For example, to upload the two documents in the previous step :
@@ -53,7 +69,7 @@ The following parameters are available to you for the `extract/batch` endpoint:
    --data ''
    ```
 
-   The response is an array of upload URLs, where each URL's path includes the extraction IDs for each document: 
+   The response is an array of upload URLs, where each URL's path includes the extraction IDs. 
 
 ```json
 [
@@ -62,4 +78,39 @@ The following parameters are available to you for the `extract/batch` endpoint:
 ]   
 ```
 
-3. 
+3. Put each document to its upload URL to request extraction, using the same guidelines as you'd use for the [generate_upload_url](ref:generate-upload-url) endpoint.  For example:
+
+```json
+   curl --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/c024cd1c-5f33-4a82-b2ea-2c807e44988b/6bd67eb5-9e28-4161-9ae1-43015e6b680c/EXTRACTION/0b34ce99-bf15-4e0d-a391-b03e4c830414REDACTED' \
+   --header 'Content-Type: application/pdf' \
+   --data 'YOUR_PATH_TO_DOCUMENT/doc1.pdf'
+```
+
+   You should get an empty success response.
+
+
+
+4. Retrieve each extraction using the [documents/{id}](ref:retrieving-results) endpoint. Each extraction returns the `batchID`. For example:
+
+   ```json
+   curl 'https://api.sensible.so/v0/documents/0b34ce99-bf15-4e0d-a391-b03e4c830414' \
+   --header 'Authorization: Bearer YOUR_API_KEY'
+   ```
+
+   returns:
+
+   ```json
+   {
+       "id": "0b34ce99-bf15-4e0d-a391-b03e4c830414",
+       "created": "2024-01-23T19:30:41.356Z",
+       "completed": "2024-01-23T19:42:21.584Z",
+       "status": "COMPLETE",
+       "type": "contracts",
+       "document_name": "doc1.pdf",
+       "parsed_document":
+       /* JSON data abbreviated */
+       "batchId": "c73c7932-82c0-438c-a339-175d7d0771bd"
+   }
+   ```
+
+   
