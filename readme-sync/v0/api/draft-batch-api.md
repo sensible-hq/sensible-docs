@@ -39,9 +39,9 @@ The following parameters are available to you for the `extract/batch` endpoint:
 | ---------------------------- | ------------------------------------------------------------ |
 | documentNames (**required**) | The file names of the documents in the batch. The maximum batch size is 5000. |
 | description                  | Description of the batch.                                    |
-| docType (**required**)       | Type of document to extract from.                            |
-| portfolioDocTypes            |                                                              |
-| configuration                |                                                              |
+| docType (**required**)       | Type of document to extract from.  If you don't specify this parameter, you must specify the portfolioDocTypes parameter. |
+| portfolioDocTypes            | Types of documents to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
+| configuration                | The configuration to use when extracting the documents in the batch. N/A for portfolioDocTypes. |
 
 You can get details about the batch by calling by calling `GET batch/{batchId}`. For example, the batch details for the batch created in a previous step are:
 
