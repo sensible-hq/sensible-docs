@@ -43,20 +43,6 @@ The following parameters are available to you for the `extract/batch` endpoint:
 | portfolioDocTypes            | Types of documents to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
 | configuration                | The configuration to use when extracting the documents in the batch. N/A for portfolioDocTypes. |
 
-You can get details about the batch by calling by calling `GET batch/{batchId}`. For example, the batch details for the batch created in a previous step are:
-
-```json
-{
-    "id": "c73c7932-82c0-438c-a339-175d7d0771bd",
-    "description": "test batch",
-    "extraction_ids": [
-        "0b34ce99-bf15-4e0d-a391-b03e4c830414",
-        "a122f739-3f4a-443d-bb70-718fd2828af1"
-    ],
-    "waiting": 1
-}
-```
-
 
 
 
@@ -90,7 +76,23 @@ You can get details about the batch by calling by calling `GET batch/{batchId}`.
 
 
 
-4. Retrieve each extraction using the [documents/{id}](ref:retrieving-results) endpoint. Each extraction returns the `batchID`. For example:
+4. Retrieve each extraction using the [documents/{extraction_id}](ref:retrieving-results) endpoint. 
+
+   You can poll status calling `GET batch/{batchId}`. For example, while the requested extraction for `doc1.pdf` is in progress, the batch details for the batch created in a previous step are:
+
+   ```json
+   {
+       "id": "c73c7932-82c0-438c-a339-175d7d0771bd",
+       "description": "test batch",
+       "extraction_ids": [
+           "0b34ce99-bf15-4e0d-a391-b03e4c830414",
+           "a122f739-3f4a-443d-bb70-718fd2828af1"
+       ],
+       "waiting": 1
+   }
+   ```
+
+   Each extraction returns the `batchID`. For example:
 
    ```json
    curl 'https://api.sensible.so/v0/documents/0b34ce99-bf15-4e0d-a391-b03e4c830414' \
