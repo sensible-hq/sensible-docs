@@ -18,7 +18,7 @@ See the following steps for an overview of the endpoints to call for this use ca
 
 1. Create a batch:
 
-   ```curl
+```curl
    curl 'https://api.sensible.so/v0/extract/batch' \
    --header 'Content-Type: application/json' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
@@ -26,13 +26,13 @@ See the following steps for an overview of the endpoints to call for this use ca
    "description":"test batch",
    "docType":"contracts",
    }'
-   ```
+```
 
    You'll get back a batch ID in the response: 
 
-   ```
+```
    "c73c7932-82c0-438c-a339-175d7d0771bd"
-   ```
+```
 The following parameters are available to you for the `extract/batch` endpoint:
 
 | Parameter                    | description                                                  |
@@ -48,12 +48,12 @@ The following parameters are available to you for the `extract/batch` endpoint:
 
 2. Create  upload URLs for an indexed range of the documents in the batch. Use zero-based indices to upload the documents in the same order that you listed them in the previous step. For example, to upload the two documents in the previous step :
 
-   ```curl
+```curl
    curl 'https://api.sensible.so/v0/extract/batch/upload_urls/c73c7932-82c0-438c-a339-175d7d0771bd/0/1' \
    --header 'Content-Type: application/json' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --data ''
-   ```
+```
 
    The response is an array of upload URLs, where each URL's path includes the extraction IDs. 
 
@@ -80,7 +80,7 @@ The following parameters are available to you for the `extract/batch` endpoint:
 
    You can poll status calling `GET batch/{batchId}`. For example, while the requested extraction for `doc1.pdf` is in progress, the batch details for the batch created in a previous step are:
 
-   ```json
+```json
    {
        "id": "c73c7932-82c0-438c-a339-175d7d0771bd",
        "description": "test batch",
@@ -90,18 +90,18 @@ The following parameters are available to you for the `extract/batch` endpoint:
        ],
        "waiting": 1
    }
-   ```
+```
 
    Each extraction returns the `batchID`. For example:
 
-   ```json
+```json
    curl 'https://api.sensible.so/v0/documents/0b34ce99-bf15-4e0d-a391-b03e4c830414' \
    --header 'Authorization: Bearer YOUR_API_KEY'
-   ```
+```
 
    returns:
 
-   ```json
+```json
    {
        "id": "0b34ce99-bf15-4e0d-a391-b03e4c830414",
        "created": "2024-01-23T19:30:41.356Z",
@@ -113,6 +113,6 @@ The following parameters are available to you for the `extract/batch` endpoint:
        /* JSON data abbreviated */
        "batchId": "c73c7932-82c0-438c-a339-175d7d0771bd"
    }
-   ```
+```
 
    
