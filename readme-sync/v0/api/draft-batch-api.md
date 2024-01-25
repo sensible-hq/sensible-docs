@@ -33,7 +33,7 @@ See the following steps for an overview of the endpoints to call for this use ca
 ```
    "c73c7932-82c0-438c-a339-175d7d0771bd"
 ```
-The following parameters are available to you for the `extract/batch` endpoint:
+The following parameters are available to you for the `POST extract/batch` endpoint:
 
 | Parameter                    | description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
