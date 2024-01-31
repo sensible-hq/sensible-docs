@@ -31,8 +31,8 @@ In the following screenshot, the green brackets denote sections, where each sect
          accessible as vertical anchors inside the sections */
       "range": {
         "externalRange": {
-          "start": "Claim contents",
-          "end": "unprocessed claims"
+          "anchor": "Claim contents",
+          "stop": "unprocessed claims"
         },
         /* include 'claim no' heading above section start for use as anchoring text*/
         "offsetY": -0.5,
