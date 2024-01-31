@@ -230,7 +230,9 @@ The following image shows the data extracted by this config for the following ex
 Example: Dynamic
 ---
 
-The following example shows TBD TODO
+The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections by defining  external ranges that capture headings at the beginning of each page in the section group. The headings' alignment changes for odd and even pages, so the example defines multiple external ranges.
+
+In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of each page, under the `Claims contents` heading, so you can define an external range for *each* section to anchor on these labels. The example uses the [Intersection](doc:intersection) method to specify vertical anchors in the external range.
 
 **Config**
 
