@@ -7,9 +7,9 @@ Sensible handles OCR for documents automatically, except for advanced edge cases
 - the [OCR preprocessor](doc:ocr) (at the config level)
 - the OCR Level parameter (at the document type level)
 
-To understand how these configurations interact, see the following overview of how Sensible OCRs files:
+For an overview how Sensible handles OCR, see the following steps:
 
-1. Sensible converts DOC and DOCX files into PDFs.
+1. Sensible converts [supported](doc:file-types) Microsoft Office file types into PDFs.
 
 2. Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:
 
