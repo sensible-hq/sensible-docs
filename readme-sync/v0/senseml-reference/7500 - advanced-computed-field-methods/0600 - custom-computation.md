@@ -245,10 +245,8 @@ The following example shows defining custom computed fields.
           "map": [
             {
               /* the array to be mapped: the fourth column, titled "limits", in a table
-              / Note Sensible supports dot notation,
-                so use insurer_b_table.columns.3.values
-                instead of normal array access
-                (insurer_b_table.columns[3].values)
+              / Note Sensible uses dot notation to access array elements,
+                for example, insurer_b_table.columns.3.values
               */
               "var": "insurer_b_table.columns.3.values"
             },
