@@ -10,9 +10,9 @@ One example uses a static external range to anchor on a heading that occurs once
 Example: static
 ---
 
-The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections by defining an external range that occurs at the beginning of the document.
+The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections by defining a single, static external range that occurs at the beginning of the document.
 
-In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of the document, under the `Claims contents` heading, so you can define an external range to anchor on these labels. The example uses the [Intersection](doc:intersection) method to specify vertical anchors in the external range.
+In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of the document, under the `Claims contents` heading. The example defines an external range for these labels, then uses the [Intersection](doc:intersection) method to specify vertical anchors in the external range.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_2.png)
 
@@ -230,9 +230,9 @@ The following image shows the data extracted by this config for the following ex
 Example: Dynamic
 ---
 
-The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections by defining  external ranges that capture headings at the beginning of each page in the section group. The headings' alignment changes for odd and even pages, so the example defines multiple external ranges.
+The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections. The sections anchor on external ranges that capture page headings, whose alignment changes for odd and even pages.  To avoid misaligned [Intersection](doc:intersection) methods in each section, the example defines dynamic external ranges relative to each section to capture each page's heading.
 
-In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of each page, under the `Claims contents` heading, so you can define an external range for *each* section to anchor on these labels. The example uses the [Intersection](doc:intersection) method to specify vertical anchors in the external range.
+In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of each page, under the `Claims contents` heading. 
 
 **Config**
 
@@ -250,9 +250,9 @@ In the following screenshot, the green brackets denote sections, where each sect
       "range": {
         "externalRange": {
           /* the alignment of the "Claim contents" labels changes for odd and even pages
-           so you can't solely use the first-occurring set of labels. Those labels are
+           so you can't solely use the first-occurring set of labels. The first-occuring labels are
            misaligned for the claims on even pages. So use anchorIsAboslute: false
-           to find a dynamic external range individually for each section. */
+           to find a dynamic external range relative to each section. */
           "anchorIsAbsolute": false,
           "anchor": [
             /* Sensible searches for a dynamic external range, beginning from the start of each section.
