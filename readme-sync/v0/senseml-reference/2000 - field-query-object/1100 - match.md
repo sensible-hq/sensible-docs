@@ -34,7 +34,7 @@ The following parameters are available to most* types of Match objects.
 | minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. |
 | maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. |
 | reverse       | boolean. default: false | Use in match arrays. Don't set this to true for the first match in the array, except in the External Range parameter for [sections](doc:sections).<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For an example, see [Match arrays](doc:match-arrays#reverse-match). |
-| xRangeFilter  |                         | Defines a left-to-right range, or "column", in which to search for a match. Contains the following parameters:<br/>`minX` Defines the left boundary of the range, in zero-indexed inches from the left edge of the page.<br/>`maxX` Defines the right boundary of the range, in zero-indexed inches from the left edge of the page. |
+| xRangeFilter  | object                  | Defines a left-to-right range, or "column", in which to search for a match. Contains the following parameters:<br/>`minX` Specifies the left boundary of the range, in zero-indexed inches from the left edge of the page.<br/>`maxX` Specifies the right boundary of the range, in zero-indexed inches from the left edge of the page. |
 
 *They're not available as a top-level parameter for a Boolean match, but available for individual matches in its array.
 
