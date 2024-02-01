@@ -15,7 +15,7 @@ To understand how these configurations interact, see the following overview of h
 
    - If the file type is an image (for example, PNG), Sensible runs OCR for the whole document, as specified by the document type's OCR Engine parameter.
 
-   - **(Configurable)** if the file is a PDF, Sensible processes the file, as specified by the document type's OCR Level parameter.
+   - **(Configurable)** if the file is a PDF, Sensible processes the file, as specified by the document type's OCR Level parameter. For more information, see the following table.
 
 3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. This preprocessor runs for documents that don't trigger whole-document OCR in a previous step.
 
