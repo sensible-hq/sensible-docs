@@ -3,7 +3,7 @@ title: "Custom computation"
 hidden: false
 ---
 
-Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](https://jsonlogic.com/). For example, return the sum of two fields, or return a boolean indicating if a field's output is non-null.
+Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](https://jsonlogic.com/). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null.
 
 Parameters
 ====
@@ -38,7 +38,7 @@ Most commonly used with the JsonLogic `var`  operation to test that an output va
 {
     "match": [
         JsonLogic,
-        "regex"
+        regex
     ]
 }
 ```
@@ -63,13 +63,13 @@ One of the following syntaxes:
 
 Or:
 
-```
+```json
 {
     "replace": {
         "source": JsonLogic,
-        "find_regex": "regex"
+        "find_regex": regex
         "replace": JsonLogic,
-        "flags": "string"
+        "flags": "string" //optional
     }
 }
 ```
@@ -258,8 +258,8 @@ The following example shows defining custom computed fields.
                 {
                   "var": "value"
                 },
-                // append the word "limits" to each limit description
-                " limit"
+                // append the word "LIMIT" to each limit description
+                " LIMIT"
               ]
             }
           ]
@@ -418,15 +418,15 @@ The following image shows the example document used with this example config:
   },
   "map_table": [
     {
-      "value": "Property damage* limit",
+      "value": "Property damage* LIMIT",
       "type": "string"
     },
     {
-      "value": "Bodily injury** limit",
+      "value": "Bodily injury** LIMIT",
       "type": "string"
     },
     {
-      "value": "Auto only* limit",
+      "value": "Auto only* LIMIT",
       "type": "string"
     }
   ]
