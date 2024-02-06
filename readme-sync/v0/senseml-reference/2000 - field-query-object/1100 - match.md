@@ -36,7 +36,7 @@ The following parameters are available to most* types of Match objects.
 | reverse       | boolean. default: false | Use in match arrays. Don't set this to true for the first match in the array, except in the External Range parameter for [sections](doc:sections).<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For an example, see [Match arrays](doc:match-arrays#reverse-match). |
 | xRangeFilter  | object                  | Defines a left-to-right range, or "column", in which to search for a match. This option excludes lines that partially fall outside the column.  Contains the following parameters:<br/>`minX` Specifies the left boundary of the range, in inches from the left edge of the page.<br/>`maxX` Specifies the right boundary of the range, in inches from the left edge of the page. |
 
-*They're not available as top-level parameters for a Boolean match, but are available for individual matches in its array.
+*These parameters aren't available as top-level parameters for a Boolean match.
 
 Simple match
 -------
