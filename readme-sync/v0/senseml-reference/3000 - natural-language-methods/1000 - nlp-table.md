@@ -134,18 +134,6 @@ The following example shows using the NLP Table method to extract information fr
           "transactions_table",
         ]
       }
-    },
-    /* optional: for cleaner output, remove the source
-       tables. */
-    {
-      "id": "hide_fields",
-      "method": {
-        "id": "suppressOutput",
-        "source_ids": [
-          "transactions_table",
-          "insured_vehicles_table"
-        ]
-      }
     }
   ]
 }
@@ -163,6 +151,99 @@ The following image shows the example document used with this example config:
 
 ```json
 {
+  "insured_vehicles_table": {
+    "columns": [
+      {
+        "id": "manufacturer",
+        "values": [
+          {
+            "value": "Toyota",
+            "type": "string"
+          },
+          {
+            "value": "Honda",
+            "type": "string"
+          },
+          {
+            "value": "Volkswagen",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "year",
+        "values": [
+          {
+            "value": "2010",
+            "type": "string"
+          },
+          {
+            "value": "2015",
+            "type": "string"
+          },
+          {
+            "value": "2020",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "title": {
+      "type": "string",
+      "value": "Insured vehicles"
+    }
+  },
+  "transactions_table": {
+    "columns": [
+      {
+        "id": "transaction_date",
+        "values": [
+          {
+            "value": "02/19",
+            "type": "string"
+          },
+          {
+            "value": "01/03",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "transaction_description",
+        "values": [
+          {
+            "value": "Paid premium",
+            "type": "string"
+          },
+          {
+            "value": "Amount awarded for claim #123456789",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "amount",
+        "values": [
+          {
+            "source": "-$100.01",
+            "value": -100.01,
+            "unit": "$",
+            "type": "currency"
+          },
+          {
+            "source": "$200.67",
+            "value": 200.67,
+            "unit": "$",
+            "type": "currency"
+          }
+        ]
+      }
+    ],
+    "title": {
+      "type": "string",
+      "value": "Transactions for insurance account xxx4567"
+    }
+  },
   "zipped_insured_vehicles": [
     {
       "manufacturer": {
@@ -186,7 +267,7 @@ The following image shows the example document used with this example config:
     },
     {
       "manufacturer": {
-        "value": "VW",
+        "value": "Volkswagen",
         "type": "string"
       },
       "year": {
@@ -198,7 +279,7 @@ The following image shows the example document used with this example config:
   "zipped_transactions": [
     {
       "transaction_date": {
-        "value": "02/19/2019",
+        "value": "02/19",
         "type": "string"
       },
       "transaction_description": {
@@ -206,15 +287,15 @@ The following image shows the example document used with this example config:
         "type": "string"
       },
       "amount": {
-        "source": "$100.01",
-        "value": 100.01,
+        "source": "-$100.01",
+        "value": -100.01,
         "unit": "$",
         "type": "currency"
       }
     },
     {
       "transaction_date": {
-        "value": "01/03/2019",
+        "value": "01/03",
         "type": "string"
       },
       "transaction_description": {
