@@ -5,7 +5,7 @@ hidden: false
 
 The following examples show using text external to sections groups as anchors for the section's fields.
 
-One example uses a static external range to anchor on a heading that occurs once in the document. Another example uses a dynamic external range to anchor on irregularly reoccurring headings interleaved with sections.
+One example uses a static external range to anchor on a heading that occurs once in the document. Another example uses a dynamic external range to anchor on irregularly repeating headings interleaved with sections.
 
 Example: static
 ---
@@ -32,7 +32,10 @@ In the following screenshot, the green brackets denote sections, where each sect
       "range": {
         "externalRange": {
           "anchor": "Claim contents",
-          "stop": "unprocessed claims"
+          "stop": "unprocessed claims",
+          /* Starting from the document beginning, Sensible searches
+             for one static external range */
+          "anchorIsAbsolute": true
         },
         /* include 'claim no' heading above section start for use as anchoring text*/
         "offsetY": -0.5,
