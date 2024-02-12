@@ -52,7 +52,7 @@ Take the following steps to create a prompt to extract more data from the docume
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
-2. Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field. Give the query an ID, `account_num_checking`, then click the **Send** icon:
+2. Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field. Click the **Send** icon. Sensible generates an ID for your query, in this case, `account_num_checking`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
