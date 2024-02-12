@@ -189,7 +189,7 @@ The following example shows defining custom computed fields.
               "var": "vehicle_vin.value"
             },
             "find_regex": "(\\d{4})(\\d{4})",
-            "replace": "xxxx$1",
+            "replace": "xxxx$2",
             "flags": "g"
           }
         }
