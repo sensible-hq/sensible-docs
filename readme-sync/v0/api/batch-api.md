@@ -116,7 +116,7 @@ Each extraction returns the `batchID`. For example:
    }
 ```
 
-   
+  
 
 5. You can generate an Excel file that combines the completed extractions in the batch by using the batch ID. For example:
 
