@@ -117,3 +117,14 @@ Each extraction returns the `batchID`. For example:
 ```
 
    
+
+5. You can generate an Excel file that combines the extractions in the batch by using the batch ID. For example:
+
+   ```curl
+   curl 'https://api.sensible.so/v0/generate_excel_from_batch/c73c7932-82c0-438c-a339-175d7d0771bd' \
+   --header 'Authorization: Bearer YOUR_API_KEY'
+   ```
+
+   For more information about converting extractions to Excel, see [SenseML to spreadsheet reference](doc:excel-reference). 
+
+   
