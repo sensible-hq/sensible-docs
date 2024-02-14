@@ -13,7 +13,7 @@ If you use a config for both  portfolio and standalone versions of the same docu
 
 | fingerprints for:                                            | notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [standalone documents ](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods. |
+| [standalone documents ](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods.<br/>To test for matching text at the field level instead of the document type level, specify field fallbacks. For more information, see [Field query object](doc:field-query-object). |
 | [portfolios ](doc:fingerprint#portfolios)                    | Segment portfolios (multiple documents combined into one file) into standalone documents by testing for text that characterizes specified pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). |
 
 
