@@ -31,7 +31,7 @@ Sensible supports the following file sizes:
 - For XLSX documents, Sensible converts the document to PDF. To style the document, Sensible:
      - Discards truncated text in cells. To retain the text, reformat or resize the cells in Excel so the text is visible, then re-run the extraction.
      - Adds the sheet name as a header on each page.
-     - Scales text so that all sheets have the same width and breaks long sheets into consecutive pages.
+     - Converts sheets to pages by scaling text so that all sheets have the same width and by breaking long sheets into consecutive pages.
 - For TIFF documents, SenseML methods that attempt to render pages return an error, including:
      - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method
      - Key/Value method
