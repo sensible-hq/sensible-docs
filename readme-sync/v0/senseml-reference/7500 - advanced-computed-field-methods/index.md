@@ -8,5 +8,6 @@ The following topics describe advanced computed field methods:
 - [Copy to section](doc:copy-to-section)
 - [Copy from sections](doc:copy-from-sections)
 - [Custom computation](doc:custom-computation)
+- [Get file metadata](doc:get-file-metadata)
 - [TFIDF](doc:tfidf)
 
