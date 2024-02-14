@@ -949,7 +949,10 @@ components:
       example: DEVELOPMENT
     DocumentName:
       type: string
-      description: If you specify the filename of the document using the `document_name` parameter, then Sensible returns the filename in the extraction response.
+      description: >-
+        If you specify the filename of the document using the `document_name` parameter, then 
+        Sensible displays the name in extraction history in the Sensible app 
+        and returns the name in the extraction response.
       example: example.pdf
 
     ExtractionSingleResponse: #single doc extraction
@@ -1422,7 +1425,7 @@ components:
               example: Jay S. Schiller
             title:
               type: string
-              description: Filename of the PDF.
+              description: Title assigned to the PDF by the PDF producer.
               example: file123.pdf
             creator:
               type: string
