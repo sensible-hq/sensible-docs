@@ -1426,7 +1426,7 @@ components:
             title:
               type: string
               description: Title assigned to the PDF by the PDF producer.
-              example: file123.pdf
+              example: file123
             creator:
               type: string
               description: If the document was converted to PDF from another format, the name of the application that created the original document from which it was converted.
