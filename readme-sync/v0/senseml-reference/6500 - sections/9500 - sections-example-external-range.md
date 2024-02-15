@@ -12,9 +12,7 @@ Example: static
 
 The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections by defining a single, static external range that occurs at the beginning of the document.
 
-In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of the document, under the `Claims contents` heading. The example defines an external range for these labels, then uses the [Intersection](doc:intersection) method to specify vertical anchors in the external range.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_2.png)
+In the following screenshot, the green brackets denote sections, where each section is a claim. The orange brackets denote an external range. The labels for the claims' content is at the start of the document, under the `Claims contents` heading. The example defines an external range for these labels, then uses the [Intersection](doc:intersection) method to specify vertical anchors in the external range.
 
 **Config**
 
@@ -235,7 +233,7 @@ Example: Dynamic
 
 The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections. The sections anchor on external ranges that capture page headings, whose alignment changes for odd and even pages.  To avoid misaligned [Intersection](doc:intersection) methods in each section, the example defines dynamic external ranges relative to each section to capture each page's heading.
 
-In the following screenshot, the green brackets denote sections, where each section is a claim. The labels for the claims' content is at the start of each page, under the `Claims contents` heading. 
+In the following screenshot, the green brackets denote sections, where each section is a claim. Orange brackets denote external ranges. The labels for the claims' content is at the start of each page, under the `Claims contents` heading. 
 
 **Config**
 
