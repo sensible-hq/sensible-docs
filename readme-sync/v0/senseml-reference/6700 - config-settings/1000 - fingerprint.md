@@ -102,9 +102,9 @@ A fingerprint consists of an array of tests, where each test contains a Page par
 
 Use the following tips when you define fingerprints for portfolios:
 
-- Only use `"page": "first"` and `"page": "last"` if you're confident that these pages will never be omitted from the document.
-- If using `"page": "first"` always pair it with another test type, such as `"page": "every"` or `"page": "last"`
-- Avoid `"page": "any`" unless all other page types fail to segment the document.
+- Use `"page": "first"` and `"page": "last"` only if you're confident that these pages are never omitted from the document.
+- If you use `"page": "first"`, always pair it with another test type, such as `"page": "every"` or `"page": "last"`
+- Avoid `"page": "any`" unless other page types fail to segment the document.
 
 
 
