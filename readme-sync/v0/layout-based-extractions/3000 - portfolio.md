@@ -40,7 +40,8 @@ The config is the same as the one used in the [Getting started with layout-based
 "fingerprint": {
     "tests": [
       {
-        /* Specify matches that occur solely on the first page */
+        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
+           in the match array. */
         "page": "first",
         "match": [         
           {
@@ -71,7 +72,8 @@ The config is the same as the one used in the [Sections](doc:sections) topic, wi
 "fingerprint": {
     "tests": [
       {
-        /* Specify matches that occur solely on the first page */
+        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
+           in the match array. */
         "page": "first",
         "match": [
           {
