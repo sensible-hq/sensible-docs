@@ -3,17 +3,20 @@ title: "Multi-document extractions"
 hidden: false
 ---
 
-Sometimes a single file contains multiple documents (a "portfolio"). For example, a portfolio file might contain an invoice, a tax document, and a contract. 
+Sometimes a single file contains multiple documents (a "portfolio"). For example, a portfolio file can contain an invoice, a tax document, and a contract. 
 
-In this case, it's best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
+In this case, Sensible recommends extracting each document using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
 
-In order for Sensible to handle the portfolio in one API extraction request, specify the following:
+In order for Sensible to handle the portfolio in one extraction request, specify the following:
 
-- In each config for the documents in the portfolio, use [fingerprints](doc:fingerprint) to define text matches on specified pages of the document.  Sensible uses the fingerprint to find the page range of each document in the portfolio that fits a given config. 
+- Use [fingerprints](doc:fingerprint) in configs to segment the portfolio into documents' page ranges.
+-  Indicate the file is a portfolio in your extraction request by taking one of the following steps:
+  - Sensible app: Click the **Portfolio** button on the **Extract** tab.
+  - SDKs: Specify the Document Types parameter in the Extract method.
+  - API:
+  
+  In these requests, specify the doc types that apply to the portfolio. For example, in the API, `"types": ["insurance_quote", "insurance_loss_run"]`. The extraction response includes document extractions and their page ranges in the portfolio.
 
-- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference/generate-upload-url-portfolio) or [Extract from URL for portfolio](https://docs.sensible.so/reference/extract-from-url-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes document extractions and their page ranges in the portfolio.
-
-**Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Microsoft OCR. 
 
 Examples
 ===
@@ -33,24 +36,20 @@ Config
 
 The config is the same as the one used in the [Getting started with layout-based extractions](doc:getting-started), with the addition of the following fingerprint:
 
-```
-  "fingerprint": {
+```json
+"fingerprint": {
     "tests": [
       {
         "page": "first",
         "match": [
+          /* Specify matches that occur solely on the first page */
           {
-            "text": "anyco auto insurance",
+            "text": "outline of quoted coverage changes",
             "type": "startsWith"
-          }
-        ]
-      },
-      {
-        "page": "last",
-        "match": [
+          },
           {
-            "text": "please be sure to review your contract for a full explanation of coverages",
-            "type": "includes"
+            "text": "anycocarinsurance.com",
+            "type": "startsWith"
           }
         ]
       }
@@ -68,26 +67,16 @@ The config is the same as the one used in the [Getting started with layout-based
 
 The config is the same as the one used in the [Sections](doc:sections) topic, with the addition of the following fingerprint:
 
-```
-
-  "fingerprint": {
+```json
+"fingerprint": {
     "tests": [
       {
         "page": "first",
         "match": [
+          /* Specify matches that occur solely on the first page */
           {
             "text": "any unprocessed claim number must be processed within 90",
             "type": "startsWith"
-          }
-        ]
-      },
-      {
-        "page": "last",
-        "match": [
-          {
-            "text": "Total unprocessed claims",
-            "type": "startsWith",
-            "isCaseSensitive": true
           }
         ]
       }
