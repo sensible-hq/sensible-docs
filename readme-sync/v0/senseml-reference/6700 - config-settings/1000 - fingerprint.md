@@ -108,9 +108,11 @@ Use the following tips when you define fingerprints for portfolios:
 Examples
 ---
 
-For an example of using fingerprints to extract multiple documents combined into one portfolio file, see [Multi-document extraction](doc:portfolio).
+For an example of using fingerprints to extract multiple documents from a portfolio file, see [Multi-document extraction](doc:portfolio).
 
 Notes
 ---
+
+TODO 2do: delete this since it's not relevant??
 
 For information about configuring fingerprint strictness for a document type, see [Fingerprint mode](doc:fingerprint-mode).
