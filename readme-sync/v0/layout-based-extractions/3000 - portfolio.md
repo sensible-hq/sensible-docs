@@ -5,23 +5,23 @@ hidden: false
 
 Sometimes a single file contains multiple documents (a "portfolio"). For example, a portfolio file can contain an invoice, a tax document, and a contract. 
 
-In this case, Sensible recommends extracting each document using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
+Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
 
 In order for Sensible to handle the portfolio in one extraction request, specify the following:
 
-- Use [fingerprints](doc:fingerprint) in configs to segment the portfolio into documents' page ranges.
+- Use [fingerprints](doc:fingerprint) in configs to segment the portfolio into documents. Fingerprints test for text matches on first pages, last pages, and other page types.
 -  Indicate the file is a portfolio in your extraction request by taking one of the following steps:
   - Sensible app: Click the **Portfolio** button on the **Extract** tab.
   - SDKs: Specify the Document Types parameter in the Extract method.
-  - API:
+  - API:  Use one of the Portfolio extraction endpoints. 
   
-  In these requests, specify the doc types that apply to the portfolio. For example, in the API, `"types": ["insurance_quote", "insurance_loss_run"]`. The extraction response includes document extractions and their page ranges in the portfolio.
+  In each of these requests, specify the doc types that apply to the portfolio. For example, using the API, `"types": ["insurance_quote", "insurance_loss_run"]`. The extraction response includes document extractions and their page ranges in the portfolio.
 
 
 Examples
 ===
 
-The following example shows extracting three 1-page documents from a portfolio. The portfolio contains two car insurance quotes and one loss run.
+The following example shows extracting three one-page documents from a portfolio. The portfolio contains two car insurance quotes and one loss run.
 
 Config
 ---
@@ -40,9 +40,9 @@ The config is the same as the one used in the [Getting started with layout-based
 "fingerprint": {
     "tests": [
       {
+        /* Specify matches that occur solely on the first page */
         "page": "first",
-        "match": [
-          /* Specify matches that occur solely on the first page */
+        "match": [         
           {
             "text": "outline of quoted coverage changes",
             "type": "startsWith"
@@ -71,9 +71,9 @@ The config is the same as the one used in the [Sections](doc:sections) topic, wi
 "fingerprint": {
     "tests": [
       {
+        /* Specify matches that occur solely on the first page */
         "page": "first",
         "match": [
-          /* Specify matches that occur solely on the first page */
           {
             "text": "any unprocessed claim number must be processed within 90",
             "type": "startsWith"
