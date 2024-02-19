@@ -64,11 +64,11 @@ A fingerprint consists of an array of tests, where each test contains a Page par
 "fingerprint": {
     "tests": [
       {
-        "page": "first",
+        "page": "every",
         "match": [
           {
-            "text": "this text always shows up on the first page of the document",
-            "type": "startsWith"
+            "text": "this text always shows up on every page of the document",
+            "type": "includes"
           }
         ]
       },
@@ -76,8 +76,8 @@ A fingerprint consists of an array of tests, where each test contains a Page par
         "page": "last",
         "match": [
           {
-            "text": "this text always shows up on the last  page of the document",
-            "type": "includes"
+            "text": "this text always shows up on the last page of the document",
+            "type": "startsWith"
           }
         ]
       }
@@ -89,25 +89,19 @@ A fingerprint consists of an array of tests, where each test contains a Page par
 
 | key                  | value                                                        | description                                                  |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| match (**required**) | a string, a [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test. To segment a document, Sensible must find 100% of all matches in all tests. |
+| match (**required**) | a string, a [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test. To segment a document, Sensible must find 100% of all matches in all tests.  If you define a match array in a test, each match must be present on the same page. |
 | offset               | integer                                                      | Specifies where to start or end the document segment, offset in pages relative to the first or last page defined by the Match parameter. For example, if you specify that the page that contains the phrase "A summary of your rights" is the first page of a segment, and Sensible finds a match for the first page on the zero-indexed page 3 of a portfolio:<br/>- specifying `"offset": -1` starts the document segment on page 2 of the portfolio.<br/>- specifying `"offset": 1` starts the document segment on page 4 of the portfolio. |
-| page                 | `first`, `last`, `every`, `any`                              | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents.  Configure with the following enums:<br/>`first` - The first page of a document segment must meet the match criteria. Having a `first` fingerprint that doesn't match won't prevent that document from being identified. You could even have multiple `first` fingerprints and if any of them match the subdocument will start at that place. <br/>`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a page of a different type, such as `every`. <br/>`every` - Every page in the document segment must meet the match criteria.  If you define this page type,  you must pair it with a page of a different type, such as `last`. <br/>`any`- Any page in the document segment can meet the criteria. <br/>**Notes:** <br/>- For an example see [Multi-document extraction](doc:portfolio). <br/>- If you define a match array in a test, each match must be present on the same page.<br/>- If you reuse the same config between portfolios and standalone documents, then for standalone document extractions, Sensible ignores the configured value of this parameter. This way, Sensible avoids matching to extraneous front or back matter (for example, a fax cover page) in single-file documents. |
+| page                 | `first`, `last`, `every`, `any`                              | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents.  Configure with the following enums:<br/>`first` - The first page of a document segment must meet the match criteria. If you specify multiple `first` fingerprints and any of them match, the document segment starts on that page. <br/>`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a different page type, such as `every`. <br/>`every` - Every page in the document segment must meet the match criteria.  If you define this page type,  you must pair it with a different page type, such as `last`. <br/>`any`- Any page in the document segment can meet the criteria. <br/>**Notes:** <br/>- For an example see [Multi-document extraction](doc:portfolio). <br/>- If you reuse the same config between portfolios and standalone documents, then for standalone document extractions, Sensible ignores the configured value of this parameter. |
 
 ## Tips
 
 Use the following tips when you define fingerprints for portfolios:
 
+- If the first page contains unique text, Sensible recommends specifying solely a `first` page test.
 
+- If the first page doesn't contain unique text and the last page does, Sensible recommends specifying a `last` page test and an ``every` page test. 
 
-
-
-- Sensible recommends segmenting documents by matching the first page. So, defining solely the `first` page to segment documents wherever possible. It's possible if you know that when the fingerprint appears, it's on the first page and won't ever match on a non-first page. If the first-page text can vary, you can set up 
-
-- If it's not possible to match the first page, but it is possible to identify the last page, Sensible recommends defining `every` + `last`. 
-
-- Avoid `"page": "any`" unless other page types fail to segment the document.
-
-
+- Avoid specifying an `any` page test unless other page types fail to segment the document.
 
 
 
