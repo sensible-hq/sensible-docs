@@ -375,7 +375,7 @@ Use configurable syntax to change the default recognized formats.
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | id (**required**)         | `currency`                                                   |                                                              |
 | requireCurrencySymbol     | boolean. Default: false                                      | Requires a currency symbol preceding the amount.             |
-| currencySymbol            | string. Default: `$`                                         | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parameter in the output. |
+| currencySymbol            | string or object. Default: `$`                               | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parameter in the output.<br/> |
 | requireThousandsSeparator | boolean.  Default: false                                     | Requires a thousands separator in numbers with a thousands place. |
 | thousandsSeparator        | string. Default: `,`                                         | The separator to require, for example `.`                    |
 | decimalSeparator          | string. Default: `.`                                         | For numbers with a decimal place, specify the separator, for example `,`. |
