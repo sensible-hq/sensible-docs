@@ -3,22 +3,28 @@ title: "Multi-document extractions"
 hidden: false
 ---
 
-Sometimes a single file contains multiple documents (a "portfolio"). For example, a portfolio file might contain an invoice, a tax document, and a contract. 
+Sometimes a single file contains multiple documents (a "portfolio"). For example, a portfolio file can contain an invoice, a tax document, and a contract. 
 
-In this case, it's best practice to extract each document using its appropriate document type, rather than trying to fit them all into one document type (which would break any [validations](doc:validate-extractions) you write for the doc type). For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
+Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
 
-In order for Sensible to handle the portfolio in one API extraction request, specify the following:
+To extract from a portfolio, take the following steps:
 
-- In each config for the documents in the portfolio, use [fingerprints](doc:fingerprint) to define text matches on specified pages of the document.  Sensible uses the fingerprint to find the page range of each document in the portfolio that fits a given config. 
+- Specify [fingerprints](doc:fingerprint) to configure how Sensible segments the portfolio into documents. Fingerprints test for text matches on first pages, last pages, and other page types.
+- Create an extraction request by taking the following steps:
 
-- Use [Generate upload URL for portfolio](https://docs.sensible.so/reference/generate-upload-url-portfolio) or [Extract from URL for portfolio](https://docs.sensible.so/reference/extract-from-url-portfolio) to extract data from the portfolio. In these requests, specify the doc types that apply to the portfolio. For example, `"types": ["insurance_quote", "insurance_loss_run"]`. The API response includes document extractions and their page ranges in the portfolio.
+  - Indicate the file is a portfolio:
+    - Sensible app: Click the **Portfolio** button on the **Extract** tab.
+    - SDKs: Specify the Document Types parameter in the Extract method.
+    - API:  Use one of the Portfolio extraction endpoints. 
 
-**Note**: When Sensible  extracts from portfolios, it ignores any OCR settings in document types and uses Microsoft OCR. 
+
+  - In the request, specify the doc types that exist in the portfolio. For example, using the API, `"types": ["insurance_quote", "insurance_loss_run"]`. The extraction response includes document extractions and their page ranges in the portfolio.
+
 
 Examples
 ===
 
-The following example shows extracting three 1-page documents from a portfolio. The portfolio contains two car insurance quotes and one loss run.
+The following example shows extracting three one-page documents from a portfolio. The portfolio contains two car insurance quotes and one loss run.
 
 Config
 ---
@@ -33,24 +39,21 @@ Config
 
 The config is the same as the one used in the [Getting started with layout-based extractions](doc:getting-started), with the addition of the following fingerprint:
 
-```
-  "fingerprint": {
+```json
+"fingerprint": {
     "tests": [
       {
+        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
+           in the match array. */
         "page": "first",
-        "match": [
+        "match": [         
           {
-            "text": "anyco auto insurance",
+            "text": "outline of quoted coverage changes",
             "type": "startsWith"
-          }
-        ]
-      },
-      {
-        "page": "last",
-        "match": [
+          },
           {
-            "text": "please be sure to review your contract for a full explanation of coverages",
-            "type": "includes"
+            "text": "anycocarinsurance.com",
+            "type": "startsWith"
           }
         ]
       }
@@ -68,26 +71,17 @@ The config is the same as the one used in the [Getting started with layout-based
 
 The config is the same as the one used in the [Sections](doc:sections) topic, with the addition of the following fingerprint:
 
-```
-
-  "fingerprint": {
+```json
+"fingerprint": {
     "tests": [
       {
+        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
+           in the match array. */
         "page": "first",
         "match": [
           {
             "text": "any unprocessed claim number must be processed within 90",
             "type": "startsWith"
-          }
-        ]
-      },
-      {
-        "page": "last",
-        "match": [
-          {
-            "text": "Total unprocessed claims",
-            "type": "startsWith",
-            "isCaseSensitive": true
           }
         ]
       }
@@ -106,7 +100,7 @@ Output
 
 For the preceding configurations, doc types, and example document portfolio, the following asynchronous request returns a list of document extractions:
 
-1. Make an async request:
+1. Make an extraction request. For example, through the API:
 
 ```
 curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \

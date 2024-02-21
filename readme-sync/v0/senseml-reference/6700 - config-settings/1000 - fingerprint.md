@@ -9,12 +9,12 @@ Fingerprints test for matching text in a document to determine whether it's a go
 - one for optimizing extraction performance for standalone documents
 - one for segmenting portfolio files into separate documents.
 
-If you use a config for both  portfolio and standalone versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint.
+If you use a config for both portfolio and standalone versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint.
 
 | fingerprints for:                                            | notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [standalone documents ](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like selective OCR, table recognition, or box recognition methods.<br/>To test for matching text at the field level instead of the document type level, specify field fallbacks. For more information, see [Field query object](doc:field-query-object). |
-| [portfolios ](doc:fingerprint#portfolios)                    | Segment portfolios (multiple documents combined into one file) into standalone documents by testing for text that characterizes specified pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). |
+| [portfolios ](doc:fingerprint#portfolios)                    | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). |
 
 
 
@@ -58,20 +58,59 @@ Portfolios
 Parameters
 ---
 
-A fingerprint consists of an array of tests. The following table shows parameters for each test:
+A fingerprint consists of an array of tests, where each test contains a Page parameter and a Match parameter:
+
+```json
+"fingerprint": {
+    "tests": [
+      {
+        "page": "every",
+        "match": [
+          {
+            "text": "this text always shows up on every page of the document",
+            "type": "includes"
+          }
+        ]
+      },
+      {
+        "page": "last",
+        "match": [
+          {
+            "text": "this text always shows up on the last page of the document",
+            "type": "startsWith"
+          }
+        ]
+      }
+    ]
+  }
+```
+
+ The following table shows parameters for each test:
 
 | key                  | value                                                        | description                                                  |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| match (**required**) | a string, a [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test.                    |
+| match (**required**) | a string, a [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test.<br/>If you specify a Match array in this parameter, then Sensible must find all the matches in the array on the same page for the test to pass.<br/>If you want to specify fallback matches for the same page type, specify the matches in separate tests. For example, a form has revisions 1 and 2 that have slightly different wordings on the first page. Specify one test with a `first` page type and wording A, and specify a second test with a `first` page type and wording B. |
 | offset               | integer                                                      | Specifies where to start or end the document segment, offset in pages relative to the first or last page defined by the Match parameter. For example, if you specify that the page that contains the phrase "A summary of your rights" is the first page of a segment, and Sensible finds a match for the first page on the zero-indexed page 3 of a portfolio:<br/>- specifying `"offset": -1` starts the document segment on page 2 of the portfolio.<br/>- specifying `"offset": 1` starts the document segment on page 4 of the portfolio. |
-| page                 | `first`, `last`, `every`, `any`                              | For portfolios (multiple documents combined into one file, such as an invoice, a contract, and a tax form), tests for document starts and ends to segment the portfolio into documents. <br/>- Sensible discards orphaned `last` matches. In other words, if you specify `last`, then Sensible must find at least one other fingerprint of a different page type preceding the `last` match in order to recognize the document.  For more information see [Multi-document extraction](doc:portfolio). <br/>-  If you reuse the same config between portfolios and standalone documents, then for standalone document extractions, Sensible ignores the configured value of this parameter and treats it as  `"page" : "any"`. This way, Sensible avoids strictly matching to extraneous front or back matter (for example, a fax cover page) in single documents. |
+| page                 | `first`, `last`, `every`, `any`                              | Configure with the following enums:<br/>`first` - The first page of a document segment must meet the match criteria.  <br/>`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a different page type, such as `every`. <br/>`every` - Every page in the document segment must meet the match criteria.  If you define this page type, you must pair it with a different page type, such as `last`. <br/>`any`- Any page in the document segment can meet the criteria. <br/>**Notes:** <br/>- For an example see [Multi-document extraction](doc:portfolio). <br/>- If you reuse the same config between portfolios and standalone documents, then for standalone document extractions, Sensible ignores the configured value of this parameter. |
+
+## Tips
+
+Use the following tips when you define fingerprints for portfolios:
+
+- If the first page contains unique text, Sensible recommends specifying solely a `first` page test.
+
+- If the first page doesn't contain unique text and the last page does, Sensible recommends specifying a `last` page test and an `every` page test. 
+
+- Avoid specifying an `any` page test unless other page types fail to segment the document.
+
+
 
 Examples
 ---
 
-For an example of using fingerprints to extract multiple documents combined into one portfolio file, see [Multi-document extraction](doc:portfolio).
+For an example of using fingerprints to extract multiple documents from a portfolio file, see [Multi-document extraction](doc:portfolio).
 
 Notes
 ---
 
-For information about configuring fingerprint strictness for a document type, see [Fingerprint mode](doc:fingerprint-mode).
+For information about configuring fingerprint strictness for standalone documents, see [Fingerprint mode](doc:fingerprint-mode).
