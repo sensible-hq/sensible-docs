@@ -7,15 +7,18 @@ Sometimes a single file contains multiple documents (a "portfolio"). For example
 
 Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
 
-In order for Sensible to handle the portfolio in one extraction request, specify the following:
+To extract from a portfolio, take the following steps:
 
-- Use [fingerprints](doc:fingerprint) in configs to segment the portfolio into documents. Fingerprints test for text matches on first pages, last pages, and other page types.
--  Indicate the file is a portfolio in your extraction request by taking one of the following steps:
-  - Sensible app: Click the **Portfolio** button on the **Extract** tab.
-  - SDKs: Specify the Document Types parameter in the Extract method.
-  - API:  Use one of the Portfolio extraction endpoints. 
-  
-  In each of these requests, specify the doc types that apply to the portfolio. For example, using the API, `"types": ["insurance_quote", "insurance_loss_run"]`. The extraction response includes document extractions and their page ranges in the portfolio.
+- Specify [fingerprints](doc:fingerprint) to configure how Sensible segments the portfolio into documents. Fingerprints test for text matches on first pages, last pages, and other page types.
+- Create an extraction request by taking the following steps:
+
+  - Indicate the file is a portfolio:
+    - Sensible app: Click the **Portfolio** button on the **Extract** tab.
+    - SDKs: Specify the Document Types parameter in the Extract method.
+    - API:  Use one of the Portfolio extraction endpoints. 
+
+
+  - In the request, specify the doc types that exist in the portfolio. For example, using the API, `"types": ["insurance_quote", "insurance_loss_run"]`. The extraction response includes document extractions and their page ranges in the portfolio.
 
 
 Examples
@@ -97,7 +100,7 @@ Output
 
 For the preceding configurations, doc types, and example document portfolio, the following asynchronous request returns a list of document extractions:
 
-1. Make an async request:
+1. Make an extraction request. For example, through the API:
 
 ```
 curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \

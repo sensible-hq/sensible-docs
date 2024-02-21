@@ -25,5 +25,5 @@ The classification score is for comparing extractions within a single document t
 
 ## Portfolio fingerprints
 
-When using fingerprints for segmenting portfolio files into documents, Sensible ignores the document types' fingerprint mode setting. Sensible must find 100% of all matches in all tests to segment a document.
+When using fingerprints for segmenting portfolio files into documents, Sensible ignores the document type's fingerprint mode setting. 
 
