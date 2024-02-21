@@ -18,6 +18,14 @@ How to set up email integration: TODO: probably easier with a fictional example 
 3. Use filtering rules in your email provider to filter the emails you want to extract from that match the document type you created.    For example, filter emails from a certain domain or those containing specific keywords or specific attachment types.
 4. Set up automatic forwarding with your email service provider to send your filtered emails to Sensible.
 
+## Configuring attachment extractions
+
+Not all attachments in an email will need to be extracted. To prevent triggering an extraction on irrelevant documents, we should allow users to configure the criteria for documents that need to be extracted. These filters should include:
+
+- Classification score slider (ex. if the highest score returned is <x, don’t extract the document)
+- File name (ex. only extract files that contain “1040” in the title)
+- File types (ex. only extract PDFs)
+
 
 
 ## Notes
