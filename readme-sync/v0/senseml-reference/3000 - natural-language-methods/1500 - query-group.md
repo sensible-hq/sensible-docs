@@ -1,5 +1,5 @@
 ---
-title: "Query"
+title: "Query group"
 hidden: true
 
 ---
@@ -287,7 +287,7 @@ For an overview of how this method works, see the following steps:
 - To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
 - Sensible scores each chunk by its similarity to either the `description` in the first query field in the group, or by or the `chunkScoringText` parameters. Sensible scores each chunk using the OpenAPI Embeddings API.
 - Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
-- Sensible creates a full prompt for the LLM (GPT-3.5 Turbo) that includes the chunks, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).
+- Sensible creates a full prompt for the LLM (GPT-3.5 Turbo) that includes the chunks, page hinting data, and your prompts in the group. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).
 
 How location highlighting works
 ---
