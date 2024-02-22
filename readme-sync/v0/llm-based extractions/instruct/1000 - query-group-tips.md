@@ -1,10 +1,14 @@
 ---
-title: "Query extraction tips"
+title: "Query group extraction tips"
 hidden: true
 
 ---
 
 This Sensible Instruct method extracts an individual fact in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.
+
+
+
+TODO: any limits on the # of queries we want the user to input? could that be a HARD limit so they don't rely on the docs.
 
 ### Prompt Tips
 
