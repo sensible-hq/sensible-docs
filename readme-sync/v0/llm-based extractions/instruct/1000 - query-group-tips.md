@@ -8,7 +8,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 
 
-TODO: any limits on the # of queries we want the user to input? could that be a HARD limit so they don't rely on the docs.
+
 
 ### Prompt Tips
 
