@@ -4,52 +4,7 @@ hidden: true
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. Sensible uses a large-language model (LLM)  to find these facts in paragraphs of free text, or in more structured layouts, for example key/value pairs or tables. 
 
-Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document.
-
-For example, contact information can usually be found in the same location of a document:
-
-```
-New York City, NY
-(123) 456-7890
-jsmith@email.com 
-```
-
-
-
-Combining queries for the location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. Frame each query, or prompt, in the group so that it has a single, short answer.  For complex prompts with multi-part answers, use the [List method](doc:list) or the  [Summarizer](doc:summarizer) method. 
-
-For tips and troubleshooting, see [Query tips](doc:query-tips).
-
-For more information about how this method works, see [Notes](doc:query#notes).
-
-[**Parameters**](doc:query#parameters)
-[**Examples**](doc:query#examples)
-[**Notes**](doc:query#examples)
-
-Parameters
-=====
-
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
-
-**Note** You can configure some the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrrides the NLP preprocessor's parameter. For more information, see [Advanced prompt configuration](doc:prompt).
-
-| key                                 | value        | description                                                  |
-| :---------------------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)                   | `query`      | The Anchor parameter is optional for fields that use this method. If you specify an anchor:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns null for the field if the anchor isn't present in the document. |
-| description (**required**)          | string       | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [Query extraction tips](doc:query-tips). |
-| chunkScoringText                    | string       | Configures context's content. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt. Use this parameter to narrow down the page location of the answer to your prompt. For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see [Example 3](doc:query#example-3).<br/> |
-| (**Deprecated**) promptIntroduction | string.      | **(Deprecated)**  overwrites the introductory text at the beginning of the [full prompt](https://docs.sensible.so/docs/prompt) that Sensible submits to the LLM for this field. |
-| confidenceSignals                   |              | For information about this parameter, see [Advanced prompt configuration](doc:prompt). |
-| contextDescription                  |              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| pageHinting                         |              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkCount                          | default: 5   | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkSize                           | default: 0.5 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkOverlapPercentage              | default: 0.5 | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| pageRange                           |              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-
-Examples
 ====
 
 Example 1
@@ -61,42 +16,42 @@ The following example shows using the Query method to extract agricultural data 
 
 ```json
 {
-	"fields": [{
-			"id": "report_date",
-			"method": {
-				"id": "query",
-				"description": "for which month and year does this snippet describe wheat production"
-			}
-		},
-		{
-			"id": "change_in_production",
-			"method": {
-				"id": "query",
-				"description": "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"
-			}
-		},
-		{
-			"id": "seed_use",
-			"method": {
-				"id": "query",
-				"description": "what was US wheat seed use this year in the US in millions of bushels?"
-			}
-		},
-		{
-			"id": "seed_use_change",
-			"method": {
-				"id": "query",
-				"description": "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change"
-			}
-		},
-		{
-			"id": "global_consumption_change",
-			"method": {
-				"id": "query",
-				"description": "by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer"
-			}
-		}
-	]
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        /*"chunkSize": 1,
+        "chunkCount": 1,*/
+        "queries": [
+          {
+            "id": "wheat_production_month_year",
+            "description": "for which month and year does this snippet describe wheat production",
+            "type": "string"
+          },
+          {
+            "id": "us_wheat_prod_chg_mnth",
+            "description": "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change",
+            "type": "string"
+          },
+          {
+            "id": "us_wheat_seed_use_mil",
+            "description": "what was US wheat seed use this year in the US in millions of bushels?",
+            "type": "string"
+          },
+          {
+            "id": "us_wheat_seed_chg_mil",
+            "description": "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change",
+            "type": "string"
+          },
+          {
+            "id": "global_wheat_prod_chg",
+            "description": "by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
 
@@ -148,38 +103,32 @@ The following example shows using the Query method to extract information from a
 {
   "fields": [
     {
-      "id": "rents",
-      "type": "currency",
       "method": {
-        "id": "query",
-        "description": "what's the rents amount in dollars? don't include details about when it's due"
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "rents_amount_dollars",
+            "description": "what's the rents amount in dollars? don't include details about when it's due",
+            "type": "string"
+          },
+          {
+            "id": "rent_due_date",
+            "description": "when is the rent due? don't include details about grace periods",
+            "type": "string"
+          },
+          {
+            "id": "rent_payment_frequency",
+            "description": "how often must the rent be paid? return responses like 'monthly', 'quarterly', or 'biweekly'",
+            "type": "string"
+          },
+          {
+            "id": "rents_multi_part_question",
+            "description": "list the rents, how often the rent must be paid, and when the rent is due. don't include details about prorated rents or late fees",
+            "type": "string"
+          }
+        ]
       }
-    },
-    {
-      "id": "rent_due",
-      "method": {
-        "id": "query",
-        "description": "when is the rent due? don't include details about grace periods"
-      }
-    },
-    {
-      "id": "rent_frequency",
-      "method": {
-        "id": "query",
-        "description": "how often must the rent be paid? return responses like 'monthly', 'quarterly', or 'biweekly'"
-      }
-    },
-    /* if you ask a multi-part question, you get back
-       a natural-language answer.
-       As an alternative, use the Summarizer method to structure
-       such multi-part responses  */
-    {
-      "id": "rents_multi_part_question",
-      "method": {
-        "id": "query",
-        "description": "list the rents, how often the rent must be paid, and when the rent is due. don't include details about prorated rents or late fees"
-      }
-    },
+    }
   ]
 }
 ```
@@ -229,16 +178,16 @@ The following example shows using chunk-related parameters to narrow down the pa
 {
   "fields": [
     {
-      "id": "reinsured",
       "method": {
-        "id": "query",
-        "description": "Return the reinsured company name for this policy?",
-        /*   the document mentions the fictional
-            "EF Signorta Sirketi" company as also reinsured. 
-            chunkScoringText forces Sensible to 
-            return the fictional company AB Signorta Sirketi instead */
+        "id": "queryGroup",
         "chunkScoringText": "Retrocedant's Address: \n 10 Lime Street \n REINSURED: SCOR UK Company Limited ",
-        
+        "queries": [
+          {
+            "id": "reinsured_company_name",
+            "description": "Return the reinsured company name for this policy?",
+            "type": "string"
+          }
+        ]
       }
     }
   ]
