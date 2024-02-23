@@ -49,21 +49,136 @@ Parameters
 | chunkOverlapPercentage              | default: 0.5     | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 | pageRange                           |                  | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 
+## Examples
+
+### Example 1
+
+The following example shows using the Query method to extract information from a lease.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "tenancy_terms_start",
+            "description": "tenancy terms start date",
+            "type": "date"
+          },
+          {
+            "id": "tenancy_terms_end",
+            "description": "tenancy terms end date",
+            "type": "date"
+          },
+          {
+            "id": "notice_days_tenant_break",
+            "description": "number of days notice for tenant must give to terminate lease",
+            "type": "string"
+          },
+          {
+            "id": "monthly_rents_dollars",
+            "description": "monthly rents in dollars",
+            "type": "currency"
+          },
+          {
+            "id": "rent_due_in_month",
+            "description": "when is the rent due in the month",
+            "type": "string"
+          },
+          {
+            "id": "grace_period_rent_due",
+            "description": "grace period for the rent due",
+            "type": "string"
+          },
+          {
+            "id": "late_fee_amounts",
+            "description": "late fee amount",
+            "type": "string"
+          },
+          {
+            "id": "fee_returned_checks",
+            "description": "fee in dollars for returned checks or rejected payments",
+            "type": "currency"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_2.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "tenancy_terms_start": {
+    "source": "01/01/2022",
+    "value": "2022-01-01T00:00:00.000Z",
+    "type": "date"
+  },
+  "tenancy_terms_end": {
+    "source": "12/31/2023",
+    "value": "2023-12-31T00:00:00.000Z",
+    "type": "date"
+  },
+  "notice_days_tenant_break": {
+    "value": "30 days",
+    "type": "string"
+  },
+  "monthly_rents_dollars": {
+    "source": "895.00",
+    "value": 895,
+    "unit": "$",
+    "type": "currency"
+  },
+  "rent_due_in_month": {
+    "value": "on or before the 1st day of each month",
+    "type": "string"
+  },
+  "grace_period_rent_due": {
+    "value": "5 days",
+    "type": "string"
+  },
+  "late_fee_amounts": {
+    "value": "10 Percent of Recurring Rent Only",
+    "type": "string"
+  },
+  "fee_returned_checks": {
+    "source": "$50",
+    "value": 50,
+    "unit": "$",
+    "type": "currency"
+  }
+}
+```
+
 ## Notes
 
 For an overview of how this method works, see the following steps:
 
 - To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
-- Sensible scores each chunk by its similarity to either the concatenated Description parameters, or "prompts", for the queries in the group, or by the `chunkScoringText` parameter. Sensible scores each chunk using the OpenAPI Embeddings API.
+- Sensible scores each chunk by its similarity to either the concatenated Description parameters for the queries in the group, or by the `chunkScoringText` parameter. Sensible scores each chunk using the OpenAPI Embeddings API.
 - Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
-- Sensible creates a full prompt for the LLM (GPT-3.5 Turbo) that includes the chunks, page hinting data, and your prompts in the group. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).
+- Sensible creates a full prompt for the LLM (GPT-3.5 Turbo) that includes the chunks, page hinting data, and your Description parameters. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).
 
 How location highlighting works
 ---
 
-In the Sensible Instruct editor, you can click the output of a query field to view its source text in the document. 
+In the Sensible Instruct editor, you can click the search icon to the right of the output of a query field to view its source text in the document. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_August2023_location.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
 
 For an overview of how Sensible finds the source text in the document for the LLM's response, see the following steps:
 
