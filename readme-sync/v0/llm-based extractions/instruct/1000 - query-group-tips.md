@@ -72,22 +72,29 @@ To try out this example in the Sensible app, take the following steps:
 
 1. Download the following example document:
 
-   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_crop.pdf) |
+   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
 2. Create a test document type in the Sensible app, then click the document type you created to edit it. In the document type's **Reference documents** tab, upload the example document you downloaded in a previous step.
 
 3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
 
-4. Click **Sensible Instruct** and create fields to extract data using the following table:
+4. Ensure that you're in the **Sensible Instruct**  editor. Click **Query group** create the following queries to extract data using the following table:
 
-| Field name                     | Method | Prompt                                                       |
-| ------------------------------ | ------ | ------------------------------------------------------------ |
-| report_date                    | Query  | "for which month and year does this report describe wheat production. look in beginning of the document for the answer" |
-| change_in_production           | Query  | "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change'"" |
-| seed_use                       | Query  | "what was US wheat seed use this year in the US in millions of bushels?" |
-| seed_use_change                | Query  | "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change" |
-| global_wheat_production_change | Query  | by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer" |
+| Prompt                                                       | (optional) Type |
+| ------------------------------------------------------------ | --------------- |
+| tenancy terms start date                                     | Date            |
+| tenancy terms end date                                       | Date            |
+| number of days notice for tenant must give to terminate lease | String          |
+| monthly rents in dollars                                     | Currency        |
+| when is the rent due in the month                            | String          |
+| grace period for the rent due                                | String          |
+| late fee amount                                              | String          |
+| fee in dollars for returned checks or rejected payments      | Currency        |
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_instruct_1.png)
+
+
 
 Notes
 ===
