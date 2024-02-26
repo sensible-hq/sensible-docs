@@ -81,7 +81,7 @@ To try out this example in the Sensible app, take the following steps:
 
 4. Ensure that you're in the **Sensible Instruct**  editor. Click **Query group** create the following queries to extract data using the following table:
 
-| Prompt                                                       | (optional) Type |
+| Prompt                                                       | (Optional) Type |
 | ------------------------------------------------------------ | --------------- |
 | tenancy terms start date                                     | Date            |
 | tenancy terms end date                                       | Date            |

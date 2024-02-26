@@ -48,11 +48,11 @@ Take the following steps to create a prompt to extract more data from the docume
 
 ## Extract an account number from a bank statement
 
-1. To extract a single data point from the document, click **Query**.
+1. To extract data points from the document, click **Query group**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
-2. Edit the query as shown in the following screenshot by entering `checking account number (not savings)` in the query field. Click the **Send** icon. Sensible generates an ID for your query, in this case, `account_num_checking`.
+2. Edit the query group as shown in the following screenshot by entering `checking account number (not savings)` in the query field.  Click **Create new query** and enter  .  Click **Extract**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
