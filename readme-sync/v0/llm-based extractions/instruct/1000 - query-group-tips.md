@@ -94,9 +94,7 @@ To try out this example in the Sensible app, take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_instruct_1.png)
 
-
-
 Notes
 ===
 
-For the full reference for this method in SenseML, see [Query method](doc:query).
+For the full reference for this method in SenseML, see [Query group method](doc:query-group).
