@@ -4,21 +4,7 @@ hidden: true
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. Sensible uses a large-language model (LLM)  to find these facts in paragraphs of free text, or in more structured layouts, for example key/value pairs or tables. 
-
-Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document.
-
-For example, contact information can usually be found in the same location of a document:
-
-```
-New York City, NY
-(123) 456-7890
-jsmith@email.com 
-```
-
-
-
-Combining queries for the location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. Frame each query, or prompt, in the group so that it has a single, short answer. 
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. Sensible uses a large-language model (LLM)  to find these facts in paragraphs of free text, or in more structured layouts, for example key/value pairs or tables. Create a query group to extract multiple facts that share a [context](doc:query-group#notes), or are co-located in the document.
 
 For tips and troubleshooting, see [Query group tips](doc:query-group-tips).
 
