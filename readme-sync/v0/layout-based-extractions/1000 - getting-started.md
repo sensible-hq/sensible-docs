@@ -223,7 +223,7 @@ For example, to extract the bodily injury liability:
 
 
 
-The config uses the [Query](doc:query) method to ask, `in the table, what's the bodily injury premium?`:  
+The config uses the [Query Group](doc:query-group) method to ask, `in the table, what's the bodily injury premium?`:  
 
 ```json
 {
@@ -255,7 +255,7 @@ This config returns:
 
 Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
 
-You can write natural-language methods powered by large-language models (LLMs), such as the Query method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
+You can write natural-language methods powered by large-language models (LLMs), such as the Query Group method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
 
 Natural-language methods can run up against limitations with complex document formatting. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 

@@ -10,9 +10,9 @@ When you write a prompt in a Sensible Instruct method, Sensible combines your pr
 
 - a prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunks, see the Notes section.
-- concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list-tips) or [Query](doc:query-tips) methods.
+- concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list-tips) or [Query Group](doc:query-group-tips) methods.
 
-See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query](doc:query-tips) method: 
+See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query Group](doc:query-group-tips) method: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
@@ -25,7 +25,7 @@ The following table shows parameters that configure parts of the full prompt and
 | C    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:table-tips) method. | Description                                                  |
 
-You can configure all of these parameters in the SenseML editor and in the Sensible Instruct editor. For example, the following screenshots show prompt settings in Sensible Instruct for a Query field: 
+You can configure all of these parameters in the SenseML editor and in the Sensible Instruct editor. For example, the following screenshots show prompt settings in Sensible Instruct for a Query Group field: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt_instruct_1.png)
 
@@ -40,12 +40,12 @@ Global Sensible Instruct parameters
 
 The following table shows global parameters, or parameters that are common to all Sensible Instruct methods. You can configure these parameters for all fields in a config, or on a field-by-field basis.
 
-For parameters specific to a Sensible instruct method, see its reference topic, for example, the [Query](doc:query#parameters) method reference topic. Like global parameters, method-specific parameters can be set for all fields in a config, or on a field-by-field basis.
+For parameters specific to a Sensible instruct method, see its reference topic, for example, the [Query Group](doc:query-group#parameters) method reference topic. Like global parameters, method-specific parameters can be set for all fields in a config, or on a field-by-field basis.
 
 
 | SenseML parameter                   | value                                                        | config-level description:<br/>configure in [NLP preprocessor](doc:nlp) or in Sensible Instruct configuration settings | method-level description:<br/>configure in a field   |
 | :---------------------------------- | :----------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
-| confidenceSignals                   | boolean.<br/>defaults: true in  Sensible Instruct editor,<br/> false in SenseML editor | If specified, Sensible prompts the LLM to report any uncertainties it has about the accuracy of its response.  For more information, see [Qualifying LLM accuracy](doc:confidence).<br/>Applies to each supported method in the config. Sensible currently supports this parameter for the [Query](doc:query) method. | Overrides config-level parameter for a single field. |
+| confidenceSignals                   | boolean.<br/>defaults: true in  Sensible Instruct editor,<br/> false in SenseML editor | If specified, Sensible prompts the LLM to report any uncertainties it has about the accuracy of its response.  For more information, see [Qualifying LLM accuracy](doc:confidence).<br/>Applies to each supported method in the config. Sensible currently supports this parameter for the [Query Group](doc:query-group) method. | Overrides config-level parameter for a single field. |
 | contextDescription                  | string. default: `The below context is an excerpt from a document.` | Configures context's metadata. For details about context and chunks, see the Notes section.<br/>Overwrites the default context description.<br/>Applies to each Sensible Instruct field in the config.<br/>For example:<br/>\- `The below context is an excerpt from a scanned index card that contains botanical information about a single plant species, including phenology information.`<br/>\- `The below context is an excerpt from an email. Assume the sender is always an automated system from an insurance broker.` | Overrides config-level parameter for a single field. |
 | pageHinting                         | boolean. default: true                                       | Configures context's metadata. For details about context and chunks, see the Notes section. <br/>Includes or or removes page metadata for each chunk from the prompt Sensible inputs to an LLM.<br/>For example, if your PDF converter automatically applied page numbers to scanned ID cards, set this parameter to false to ignore the page numbers, since their relationship to the cards' text is arbitrary.<br/>Applies to each Sensible Instruct field in the config.<br/>For example, removes phrases like `The excerpt starts at the top of page 1 and ends at the bottom of page 1.` | Overrides config-level parameter for a single field. |
 | chunkCount                          | number. default: see each method's [reference topic](doc:natural-language-methods) | Configures context's size. For details about context and chunks, see the Notes section.<br/>The number of top-scoring chunks Sensible combines as context as part of the full prompt it submits to an LLM. <br/>Applies to each Sensible Instruct field in the config.<br/>Often, chunk count and chunk size are related. For example, if you know that your target data are spread over 7-10 pages, and occupy a small portion of those pages, you can specify a chunk count of 10 and a half-page  chunk size. | Overrides config-level parameter for a single field. |

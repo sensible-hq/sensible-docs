@@ -1,6 +1,6 @@
 ---
 title: "Query group extraction tips"
-hidden: true
+hidden: false
 
 ---
 
@@ -52,7 +52,7 @@ Combining queries for the location, phone number, and email into the same group 
 
 - For information about troubleshooting LLM error messages, see [Qualifying LLM accuracy](doc:confidence).
 
-- You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query#notes).
+- You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
   
@@ -64,7 +64,7 @@ Examples
 Example 1
 ---
 
-The following example shows using the Query method to extract agricultural data from a government report:
+The following example shows using the Query Group method to extract agricultural data from a government report:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_instruct.png)
 

@@ -1,6 +1,6 @@
 ---
 title: "Query"
-hidden: false
+hidden: true
 
 ---
 
@@ -8,13 +8,7 @@ Extracts individual facts in a document, such as the date of an invoice, the lia
 
 Sensible recommends framing each query, or prompt, so that it has a single, short answer.  For complex prompts with multi-part answers, use the [List method](doc:list) or the  [Summarizer](doc:summarizer) method. 
 
-For tips and troubleshooting, see [Query tips](doc:query-tips).
 
-For more information about how this method works, see [Notes](doc:query#notes).
-
-[**Parameters**](doc:query#parameters)
-[**Examples**](doc:query#examples)
-[**Notes**](doc:query#examples)
 
 Parameters
 =====
@@ -26,8 +20,8 @@ Parameters
 | key                                 | value        | description                                                  |
 | :---------------------------------- | :----------- | :----------------------------------------------------------- |
 | id (**required**)                   | `query`      | The Anchor parameter is optional for fields that use this method. If you specify an anchor:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns null for the field if the anchor isn't present in the document. |
-| description(**required**)           | string       | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.  For more information about how to write questions (or "prompts"), see [Query extraction tips](doc:query-tips). |
-| chunkScoringText                    | string       | Configures context's content. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt. Use this parameter to narrow down the page location of the answer to your prompt. For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see [Example 3](doc:query#example-3).<br/> |
+| description(**required**)           | string       | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.   |
+| chunkScoringText                    | string       | Configures context's content. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt. Use this parameter to narrow down the page location of the answer to your prompt. For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see Example 3.<br/> |
 | (**Deprecated**) promptIntroduction | string.      | **(Deprecated)**  overwrites the introductory text at the beginning of the [full prompt](https://docs.sensible.so/docs/prompt) that Sensible submits to the LLM for this field. |
 | confidenceSignals                   |              | For information about this parameter, see [Advanced prompt configuration](doc:prompt). |
 | contextDescription                  |              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
@@ -43,7 +37,7 @@ Examples
 Example 1
 ---
 
-The following example shows using the Query method to extract agricultural data from a government report.
+The following example shows using the Query Group method to extract agricultural data from a government report.
 
 **Config**
 
@@ -128,7 +122,7 @@ The following image shows the example document used with this example config:
 Example 2
 ----
 
-The following example shows using the Query method to extract information from a lease.
+The following example shows using the Query Group method to extract information from a lease.
 
 **Config**
 
@@ -255,7 +249,7 @@ The following image shows the example document used with this example config:
 Notes
 ===
 
-How the Query method works
+How the Query Group method works
 ---
 
 For an overview of how this method works, see the following steps:

@@ -11,7 +11,7 @@ This Sensible Instruct method extracts a table in a document based on your descr
 
 - Use the table titles or table column headers in the document as descriptions.
 
-- For more information about how to write descriptions, or "prompts", see [Query extraction tips](doc:query-tips).
+- For more information about how to write descriptions, or "prompts", see [Query Group](doc:query-group-tips).
 
 - For advanced options, see [Advanced prompt configuration](doc:prompt).
 

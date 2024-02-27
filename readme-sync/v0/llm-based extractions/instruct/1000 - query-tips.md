@@ -1,6 +1,6 @@
 ---
 title: "Query extraction tips"
-hidden: false
+hidden: true
 
 ---
 
@@ -40,7 +40,7 @@ This Sensible Instruct method extracts an individual fact in a document, such as
 
 - For information about troubleshooting error messages about prompts, see [Qualifying LLM accuracy](doc:confidence).
 
-- You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query#notes).
+- You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_August2023_location.png)
   
@@ -52,7 +52,7 @@ Examples
 Example 1
 ---
 
-The following example shows using the Query method to extract agricultural data from a government report:
+The following example shows using the Query Group method to extract agricultural data from a government report:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_instruct.png)
 
@@ -77,7 +77,5 @@ To try out this example in the Sensible app, take the following steps:
 | seed_use_change                | Query  | "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change" |
 | global_wheat_production_change | Query  | by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer" |
 
-Notes
-===
 
-For the full reference for this method in SenseML, see [Query method](doc:query).
+

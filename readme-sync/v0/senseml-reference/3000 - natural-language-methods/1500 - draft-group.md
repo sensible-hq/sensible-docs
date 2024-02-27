@@ -10,7 +10,7 @@ hidden: true
 Example 1
 ---
 
-The following example shows using the Query method to extract agricultural data from a government report.
+The following example shows using the Query Group method to extract agricultural data from a government report.
 
 **Config**
 
