@@ -210,9 +210,9 @@ This config also uses one natural-language, or AI-powered, method, to demonstrat
 
 | Type of method   | explanation                                                  | description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Natural-language | [How it works: query method](doc:getting-started#how-it-works-query-method) | Ask a free-text question about simple information in the document |
+| Natural-language | [How it works: query group method](doc:getting-started#how-it-works-query-group-method) | Ask a free-text question about simple information in the document |
 
-How it works: Query method
+How it works: Query Group method
 ---
 
 The easiest way to start extracting simple information is to ask a natural-language question.
