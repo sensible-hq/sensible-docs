@@ -90,31 +90,29 @@ The following example shows defining custom computed fields.
 {
   "fields": [
     {
-      "id": "prop_limit",
-      "type": "currency",
       "method": {
-        "id": "query",
-        "description": "property damage limit in first table (insurer A)"
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "prop_limit_a",
+            "description": "property damage limit in first table (insurer A)",
+            "type": "currency"
+          },
+          {
+            "id": "injury_limit_a",
+            "description": "bodily injury limit in first table (insurer A)",
+            "type": "currency"
+          },
+          {
+            "id": "vehicle_vin_a",
+            "description": "vehicle vin for insurer A",
+            "type":"number"
+          }
+        ]
       }
     },
     {
-      "id": "injury_limit",
-      "type": "currency",
-      "method": {
-        "id": "query",
-        "description": "bodily injury limit in first table (insurer A)"
-      }
-    },
-    {
-      "id": "vehicle_vin",
-      "type": "number",
-      "method": {
-        "id": "query",
-        "description": "vehicle vin for insurer A"
-      }
-    },
-    {
-      "id": "insurer_b_table",
+      "id": "table_b",
       "method": {
         "id": "nlpTable",
         "description": "table for insurer B describing insurance limits",
@@ -157,7 +155,7 @@ The following example shows defining custom computed fields.
         "jsonLogic": {
           "exists": [
             {
-              "var": "prop_limit.value"
+              "var": "prop_limit_a.value"
             }
           ]
         }
@@ -171,7 +169,7 @@ The following example shows defining custom computed fields.
         "jsonLogic": {
           "match": [
             {
-              "var": "injury_limit.value"
+              "var": "injury_limit_a.value"
             },
             "^\\w+$"
           ]
@@ -186,7 +184,7 @@ The following example shows defining custom computed fields.
         "jsonLogic": {
           "replace": {
             "source": {
-              "var": "vehicle_vin.value"
+              "var": "vehicle_vin_a.value"
             },
             "find_regex": "(\\d{4})(\\d{4})",
             "replace": "xxxx$2",
@@ -203,15 +201,15 @@ The following example shows defining custom computed fields.
         "jsonLogic": {
           "replace": {
             "source": {
-              "var": "injury_limit.value"
+              "var": "injury_limit_a.value"
             },
             "find": {
-              "var": "injury_limit.value"
+              "var": "injury_limit_a.value"
             },
             "replace": {
               "+": [
                 {
-                  "var": "prop_limit.value"
+                  "var": "prop_limit_a.value"
                 },
                 200
               ]
@@ -228,7 +226,7 @@ The following example shows defining custom computed fields.
         "jsonLogic": {
           "+": [
             {
-              "var": "prop_limit.value"
+              "var": "prop_limit_a.value"
             },
             200
           ]
@@ -248,7 +246,7 @@ The following example shows defining custom computed fields.
               / Note Sensible uses dot notation to access array elements,
                 for example, insurer_b_table.columns.3.values
               */
-              "var": "insurer_b_table.columns.3.values"
+              "var": "table_b.columns.3.values"
             },
             {
               /* Note it's "cat" for strings, "+" for numbers */
@@ -280,24 +278,24 @@ The following image shows the example document used with this example config:
 
 ```json
 {
-  "prop_limit": {
+  "prop_limit_a": {
     "source": "$5,000",
     "value": 5000,
     "unit": "$",
     "type": "currency"
   },
-  "injury_limit": {
+  "injury_limit_a": {
     "source": "$3,000",
     "value": 3000,
     "unit": "$",
     "type": "currency"
   },
-  "vehicle_vin": {
+  "vehicle_vin_a": {
     "source": "12345678",
     "value": 12345678,
     "type": "number"
   },
-  "insurer_b_table": {
+  "table_b": {
     "columns": [
       {
         "id": "make_and_model",
@@ -403,7 +401,7 @@ The following image shows the example document used with this example config:
     "type": "boolean"
   },
   "replace_regex": {
-    "value": "xxxx1234",
+    "value": "xxxx5678",
     "type": "string"
   },
   "replace_var": {
