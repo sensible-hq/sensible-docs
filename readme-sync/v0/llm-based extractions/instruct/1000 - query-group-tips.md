@@ -1,5 +1,5 @@
 ---
-title: "Query group extraction tips"
+title: "Query Group extraction tips"
 hidden: false
 
 ---
