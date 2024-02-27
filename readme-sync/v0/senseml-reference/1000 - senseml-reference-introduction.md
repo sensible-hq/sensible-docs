@@ -50,20 +50,6 @@ This example uses the following config:
     }
   ],
   "fields": [
-    /* NATURAL-LANGUAGE, LLM-based EXAMPLE */
-    {
-      /* ID for target data */
-      "id": "policy_period",
-      /* unlike layout-based methods, no anchor required */
-      "method": {
-        "id": "query",
-        /* ask a free-text question.
-          best suited to simple questions
-          that have one label and one answer
-          in the document. */
-        "description": "what's the policy period date range"
-      }
-    },
     /* LAYOUT-BASED EXAMPLE */
     {
       "id": "_driver_name_raw", // ID for extracted target data
@@ -72,7 +58,29 @@ This example uses the following config:
         "id": "label", // target to extract is a single line near anchor line
         "position": "below" // target is below anchor line ("name of driver")
       }
-    }
+    },
+    /* LLM-BASED EXAMPLE */
+    {
+      "method": {
+        /* to improve performance, group facts to extract if 
+           they're co-located in the document  */
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "policy_period",
+            /* described each data point you want to extract
+               with simple, short language */
+            "description": "policy period",
+            "type": "string"
+          },
+          {
+            "id": "policy_number",
+            "description": "policy number",
+            "type": "string"
+          }
+        ]
+      }
+    },
   ],
   "computed_fields": [
     { // target data is a transformation of already extracted data
@@ -80,7 +88,7 @@ This example uses the following config:
       "method": {
         "source_id": "_driver_name_raw", // extracted data to transform
         "id": "split", // target data is substring in extracted data
-        "separator": ", ", // use commas to split the extracted data into substring array
+        "separator": " ", // use a whitespace space to split the extracted data into substring array
         "index": 1 // target is 2nd element in substring array
       }
     }
@@ -92,18 +100,22 @@ The output of this example config is as follows:
 
 ```json
 {
-	"policy_period": {
-		"type": "string",
-		"value": "April 14, 2021 - Oct 14, 2021"
-	},
-	"_driver_name_raw": {
-		"type": "string",
-		"value": "Petrov, Petar"
-	},
-	"driver_name_last": {
-		"type": "string",
-		"value": "Petrov"
-	}
+  "_driver_name_raw": {
+    "type": "string",
+    "value": "Petar Petrov"
+  },
+  "policy_period": {
+    "value": "April 14, 2021 - Oct 14, 2021",
+    "type": "string"
+  },
+  "policy_number": {
+    "value": "123456789",
+    "type": "string"
+  },
+  "driver_name_last": {
+    "value": "Petrov",
+    "type": "string"
+  }
 }
 ```
 

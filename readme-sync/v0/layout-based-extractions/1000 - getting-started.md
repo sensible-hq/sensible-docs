@@ -82,18 +82,20 @@ For this tutorial, you'll extract these fields:
 {
   "fields": [
     {
-      /* ID for target data */
-      "id": "bodily_liability_premium",
-      /* search for target data 
-      on page containing this anchor line*/
       "method": {
-        "id": "query",
-        /* ask a free-text question, get an answer powered by AI.
+        "id": "queryGroup",
+        "queries": [
+          {
+            /* ask a free-text question, get an answer powered by LLMs.
           best suited to simple questions
           that have one label and one answer 
           in the document.  You can also author this field in Sensible Instruct
           instead of in JSON */
-        "description": "in the table, what's the bodily injury premium?"
+            "id": "bodily_injury_premium",
+            "description": "in the table, what's the bodily injury premium?",
+            "type": "currency"
+          }
+        ]
       }
     },
     {
@@ -125,7 +127,7 @@ For this tutorial, you'll extract these fields:
         "tiebreaker": "second"
       }
     },
-    /* target data is all the text in box
+    /* target data is text in a box
     with anchor "policy number" */
     {
       "id": "policy_number",
@@ -155,7 +157,7 @@ You should see the following extracted data in the right pane:
 
 ```json
 {
-  "bodily_liability_premium": {
+  "bodily_injury_premium": {
     "source": "$100",
     "value": 100,
     "unit": "$",
@@ -419,14 +421,13 @@ The config uses the [Box method](doc:box):
 
 **Note:** Sensible extracts the box contents, but not the anchor itself.  By default, Sensible returns method results, not anchor results.
 
-Advanced queries
+Advanced layout-based queries
 ----
 
 You can get more advanced with this auto insurance config. For example:
 
-- You can use a [Column method](doc:column) to return all the listed premiums ($90, $15, $130).
-- The limits listed in the table are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible extracts the first line. Instead, use the [Table method](doc:table) to more reliably capture the data in each cell of the whole table. Or, use an `xRangeFilter` parameter in the [Document Range method](doc:document-range) to capture the limits.  
-- What if the document listed emails, and you just wanted to capture all those emails? You could use a regular expression (regex) in a `"match":"all"` anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
+- The limits listed in the table are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible extracts the first line. Instead, use the [Table method](doc:table) to more reliably capture the data in each cell of the whole table. 
+- What if the document listed emails, and you wanted to capture all those emails? You could use a regular expression (regex) in a `"match":"all"` anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 - You can split the policy period into two dates, either by using the [Split computed field method](doc:split), or by setting the [Date](doc:types#date) type on the field and using a tiebreaker.
 
 To check out other methods, see [Methods](doc:methods).
