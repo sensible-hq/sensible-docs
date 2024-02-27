@@ -225,22 +225,24 @@ For example, to extract the bodily injury liability:
 
 The config uses the [Query](doc:query) method to ask, `in the table, what's the bodily injury premium?`:  
 
-```
+```json
 {
-      /* ID for target data */
-      "id": "bodily_liability_premium",
-      /* search for target data 
-      on page containing this text*/
-      "anchor": "anyco auto insurance",
       "method": {
-        "id": "query",
-        /* ask a free-text question.
+        "id": "queryGroup",
+        "queries": [
+          {
+            /* ask a free-text question, get an answer powered by LLMs.
           best suited to simple questions
           that have one label and one answer 
-          in the document. */
-        "description": "in the table, what's the bodily injury premium?"
+          in the document.  You can also author this field in Sensible Instruct
+          instead of in JSON */
+            "id": "bodily_injury_premium",
+            "description": "in the table, what's the bodily injury premium?",
+            "type": "currency"
+          }
+        ]
       }
-    
+    },
 ```
 
 This config returns:
