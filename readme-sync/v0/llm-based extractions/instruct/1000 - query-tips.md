@@ -4,9 +4,15 @@ hidden: true
 
 ---
 
-This Sensible Instruct method extracts an individual fact in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.
+# Deprecated
+
+The Query method is deprecated and replaced by the Query Group method. See [Query Group](doc:query-group-tips) extraction tips for more information.
+
+
 
 ### Prompt Tips
+
+This Sensible Instruct method extracts an individual fact in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.
 
 - Try framing each prompt so that it has a single, short answer such as:
 
