@@ -1,5 +1,5 @@
 ---
-title: "Query extraction tips"
+title: "(Deprecated) Query extraction tips"
 hidden: true
 
 ---

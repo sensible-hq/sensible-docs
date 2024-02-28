@@ -1,12 +1,12 @@
 ---
-title: "Query"
+title: "(Deprecated) Query"
 hidden: true
 
 ---
 
 # Deprecated
 
-The Query method is deprecated and replaced by the Query Group method. See [Query Group](doc:query-group) for more information.
+The Query method is deprecated. The Query Group method replaces this method. See [Query Group](doc:query-group) for more information.
 
 
 
