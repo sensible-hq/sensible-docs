@@ -40,7 +40,7 @@ Combining queries for the location, phone number, and email into the same group 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
   
 
-- To troubleshoot a  group's context, ensure that the Page Hinting parameter is enabled, then add location information to the first prompt in a group:
+- To troubleshoot locating a group's context in the document, ensure that the Page Hinting parameter is enabled, then add location information to the first prompt in a group:
 
   **Location relative to page number and position on page**
 
