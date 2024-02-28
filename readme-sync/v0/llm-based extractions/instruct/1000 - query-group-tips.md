@@ -25,16 +25,24 @@ Combining queries for the location, phone number, and email into the same group 
   - "company address"
   - "name of recipient"
   - "document date"
-
 - See the following resources for creating prompts:
 
   -  [Prompt engineering](https://platform.openai.com/docs/guides/prompt-engineering)
   -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
-- Search for the most relevant context and disambiguate between multiple possible answers by adding location information to prompts:
+## Troubleshooting
+
+- For information about troubleshooting LLM error messages, see [Qualifying LLM accuracy](doc:confidence).
+
+- You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
+
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
   
-	**Location relative to page number and position on page**
+
+- To troubleshoot a  group's context, ensure that the Page Hinting parameter is enabled, then add location information to the first prompt in a group:
+
+  **Location relative to page number and position on page**
 
   - "address in the **top left of the first page** of the document"
 
@@ -47,16 +55,6 @@ Combining queries for the location, phone number, and email into the same group 
   - "total amount **in the expense table**"
 
   - "phone number after **section 2**"
-
-## Troubleshooting
-
-- For information about troubleshooting LLM error messages, see [Qualifying LLM accuracy](doc:confidence).
-
-- You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
-
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
-  
-  
 
 Examples
 ===
