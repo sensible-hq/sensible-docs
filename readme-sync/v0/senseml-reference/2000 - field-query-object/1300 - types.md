@@ -824,7 +824,7 @@ Default type. Returns strings.
 Table
 ====
 
-Required when you define a Table method, for example, [Invoice](doc:invoice), [Fixed Table](doc:fixed-table), or [NLP Table](doc:nlp-table).
+Required when you define a [table method](doc:table-methods) or Invoice method.
 
 Weight
 ====
