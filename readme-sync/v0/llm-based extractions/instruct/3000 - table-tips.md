@@ -1,5 +1,5 @@
 ---
-title: "Table extraction tips"
+title: "NLP Table extraction tips"
 hidden: false
 ---
 
@@ -24,7 +24,7 @@ Example 1
 
 
 
-The following example shows using the Table method to extract data from a bank statement:
+The following example shows using the NLP Table method to extract data from a bank statement:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_4.png)
 
@@ -61,7 +61,7 @@ Click the **Send** icon for each column.
 Example 2
 ----
 
-The following example shows using the Table method to extract data from an auto insurance document:
+The following example shows using the NLP Table method to extract data from an auto insurance document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/nlp_table_instruct.png)
 
@@ -78,7 +78,7 @@ To try out this example in the Sensible app, take the following steps:
 
 3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
 
-4. Click **Sensible Instruct** and create fields to extract data using the following table:
+4. Click **Sensible Instruct** and create prompts to extract data using the following table:
 
 | Field name             | Method | Overall table description            | Column IDs and descriptions                                  |
 | ---------------------- | ------ | ------------------------------------ | ------------------------------------------------------------ |

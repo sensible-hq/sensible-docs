@@ -165,7 +165,7 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 Example
 -----
 
-Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [Table](doc:table#examples) method to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [(Deprecated) Table](doc:deprecated-table#examples) method to the following spreadsheet:
 
 
 
@@ -190,7 +190,7 @@ The preceding spreadsheet contains data from the following example document:
 
 **Example configuration**
 
-See the [Table method](doc:table#examples)  for the SenseML configuration for this example.
+See the [(Deprecated) Table method](doc:deprecated-table#examples)  for the SenseML configuration for this example.
 
 
 

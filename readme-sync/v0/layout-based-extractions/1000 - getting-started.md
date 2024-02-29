@@ -428,7 +428,7 @@ Advanced layout-based queries
 
 You can get more advanced with this auto insurance config. For example:
 
-- The limits listed in the table are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible extracts the first line. Instead, use the [Table method](doc:table) to more reliably capture the data in each cell of the whole table. 
+- The limits listed in the table are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible extracts the first line. Instead, use the [NLP Table method](doc:nlp-table) to more reliably capture the data in each cell of the whole table. 
 - What if the document listed emails, and you wanted to capture all those emails? You could use a regular expression (regex) in a `"match":"all"` anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 - You can split the policy period into two dates, either by using the [Split computed field method](doc:split), or by setting the [Date](doc:types#date) type on the field and using a tiebreaker.
 
