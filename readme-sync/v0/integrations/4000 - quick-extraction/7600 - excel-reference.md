@@ -159,7 +159,7 @@ The following JSON document extraction output is the source for this spreadsheet
 
 Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a field to this sheet if the field outputs multiple values. For example: 
 
-- the Table methods, invoices, and other methods that output nested JSON objects.
+- the [table methods](doc:table-methods), invoices, and other methods that output nested JSON objects.
 - methods that output arrays of unpredictable length, for example, fields with `"match":"all"` configured.
 
 Example
