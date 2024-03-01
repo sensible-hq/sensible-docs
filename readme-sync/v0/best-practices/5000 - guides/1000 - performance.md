@@ -31,7 +31,7 @@ In order of largest to smallest impact, these factors add seconds to the ideal d
 | Factor                                         | Notes                                                        |
 | ---------------------------------------------- | ------------------------------------------------------------ |
 | OCR preprocessor                               | Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr). |
-| Fixed Tables with stops,<br/>Nearest Checkbox method | Sensible process Fixed Tables that include a Stop parameter in less than 5 seconds. Or, convert to the faster [Text Table](doc:text-table) method, which skips table recognition. |
+| Fixed Tables with stops,<br/>Nearest Checkbox method | Sensible processes Fixed Tables that include a Stop parameter in less than 5 seconds. Or, convert to the faster [Text Table](doc:text-table) method, which skips table recognition. |
 | NLP methods                                    | NLP methods are large-language model (LLM)-powered and include [Sensible Instruct](doc:instruct) methods |
 
  **Under 1 second per document**
