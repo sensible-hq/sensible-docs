@@ -179,7 +179,8 @@ Examples
       "anchor": "date",
       "type": "table",
       "method": {
-        "id": "table",
+        "id": "fixedTable",
+        "columnCount": 2,
         "columns": [
           {
             "id": "col1_date",
@@ -195,18 +196,14 @@ Examples
                 {
                   "id": "custom",
                   "pattern": "^([0-9]{4}-[0-9]{2})-[0-9]{2}"
-                } 
+                }
               ]
             },
-            "terms": [
-              "date",
-            ],
+            "index": 0
           },
           {
             "id": "col2_description",
-            "terms": [
-              "description"
-            ],
+            "index": 1
           }
         ],
         "stop": {
@@ -236,6 +233,7 @@ The following image shows the example document used with this example config:
       {
         "id": "col1_date",
         "values": [
+          null,
           {
             "value": "2021-12",
             "type": "string"
@@ -254,6 +252,10 @@ The following image shows the example document used with this example config:
       {
         "id": "col2_description",
         "values": [
+          {
+            "value": "Maintenance description",
+            "type": "string"
+          },
           {
             "value": "Changed oil",
             "type": "string"
