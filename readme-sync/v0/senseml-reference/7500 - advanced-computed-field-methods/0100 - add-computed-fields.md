@@ -68,26 +68,21 @@ To ensure consistency, this example transforms the tables as follows:
       "anchor": "insurer a",
       "type": "table",
       "method": {
-        "id": "table",
+        "id": "fixedTable",
+        "columnCount": 3,
+        "startOnRow": 1,
         "columns": [
           {
             "id": "policy_start",
-            "terms": [
-              "effective",
-              "date"
-            ],
+            "index": 0
           },
           {
             "id": "limits",
-            "terms": [
-              "limits"
-            ],
+            "index": 1
           },
           {
             "id": "amount",
-            "terms": [
-              "dollar amount"
-            ],
+            "index": 2
           }
         ],
         "stop": {
