@@ -16,11 +16,11 @@ Parameters
 Examples
 ====
 
-If you add `"verbosity": 1,`  as a sibling to the fields array in [the Fixed Table example](doc:fixed-table#examples), you get the following output:
+If you add `"verbosity": 1,`  as a sibling to the fields array in the [Fixed Table](doc:fixed-table#examples) example, you get the following output:
 
-```
+```json
 {
-  "agile_risks_table_updates_monthly": {
+  "agile_risks_table": {
     "columns": [
       {
         "id": "col1_risk_description",
@@ -31,25 +31,25 @@ If you add `"verbosity": 1,`  as a sibling to the fields array in [the Fixed Tab
             "lines": [
               {
                 "text": "Poor task point estimation",
+                "page": 0,
                 "boundingPolygon": [
                   {
-                    "x": 0.992,
-                    "y": 2.972
+                    "x": 0.993,
+                    "y": 2.75
                   },
                   {
-                    "x": 2.354,
-                    "y": 2.972
+                    "x": 2.631,
+                    "y": 2.753
                   },
                   {
-                    "x": 2.354,
-                    "y": 3.882
+                    "x": 2.63,
+                    "y": 3.378
                   },
                   {
-                    "x": 0.992,
-                    "y": 3.882
+                    "x": 0.993,
+                    "y": 3.376
                   }
-                ],
-                "page": 0
+                ]
               }
             ]
           },
@@ -59,25 +59,25 @@ If you add `"verbosity": 1,`  as a sibling to the fields array in [the Fixed Tab
             "lines": [
               {
                 "text": "Poor epic scope definition",
+                "page": 0,
                 "boundingPolygon": [
                   {
+                    "x": 0.993,
+                    "y": 3.376
+                  },
+                  {
+                    "x": 2.63,
+                    "y": 3.378
+                  },
+                  {
+                    "x": 2.63,
+                    "y": 4.004
+                  },
+                  {
                     "x": 0.992,
-                    "y": 3.882
-                  },
-                  {
-                    "x": 2.354,
-                    "y": 3.882
-                  },
-                  {
-                    "x": 2.354,
-                    "y": 4.799
-                  },
-                  {
-                    "x": 0.992,
-                    "y": 4.799
+                    "y": 4.001
                   }
-                ],
-                "page": 0
+                ]
               }
             ]
           },
@@ -87,59 +87,59 @@ If you add `"verbosity": 1,`  as a sibling to the fields array in [the Fixed Tab
             "lines": [
               {
                 "text": "Inadequate scrum master training",
+                "page": 0,
                 "boundingPolygon": [
                   {
                     "x": 0.992,
-                    "y": 4.799
+                    "y": 4.001
                   },
                   {
-                    "x": 2.354,
-                    "y": 4.799
+                    "x": 2.63,
+                    "y": 4.004
                   },
                   {
-                    "x": 2.354,
-                    "y": 5.964
+                    "x": 2.63,
+                    "y": 4.868
                   },
                   {
                     "x": 0.992,
-                    "y": 5.964
+                    "y": 4.866
                   }
-                ],
-                "page": 0
+                ]
               }
             ]
           }
         ]
       },
       {
-        "id": "rank_this_month",
+        "id": "col4_rank_last_month",
         "values": [
           {
-            "source": "3",
-            "value": 3,
+            "source": "2",
+            "value": 2,
             "type": "number",
             "lines": [
               {
-                "text": "3",
+                "text": "2",
+                "page": 0,
                 "boundingPolygon": [
                   {
-                    "x": 6.625,
-                    "y": 2.972
+                    "x": 5.878,
+                    "y": 2.758
                   },
                   {
-                    "x": 8.036,
-                    "y": 2.972
+                    "x": 7.512,
+                    "y": 2.761
                   },
                   {
-                    "x": 8.036,
-                    "y": 3.882
+                    "x": 7.511,
+                    "y": 3.386
                   },
                   {
-                    "x": 6.625,
-                    "y": 3.882
+                    "x": 5.878,
+                    "y": 3.383
                   }
-                ],
-                "page": 0
+                ]
               }
             ]
           },
@@ -150,60 +150,116 @@ If you add `"verbosity": 1,`  as a sibling to the fields array in [the Fixed Tab
             "lines": [
               {
                 "text": "1",
+                "page": 0,
                 "boundingPolygon": [
                   {
-                    "x": 6.625,
-                    "y": 3.882
+                    "x": 5.878,
+                    "y": 3.383
                   },
                   {
-                    "x": 8.036,
-                    "y": 3.882
+                    "x": 7.511,
+                    "y": 3.386
                   },
                   {
-                    "x": 8.036,
-                    "y": 4.799
+                    "x": 7.511,
+                    "y": 4.011
                   },
                   {
-                    "x": 6.625,
-                    "y": 4.799
+                    "x": 5.877,
+                    "y": 4.008
                   }
-                ],
-                "page": 0
+                ]
               }
             ]
           },
           {
-            "source": "2",
-            "value": 2,
+            "source": "3",
+            "value": 3,
             "type": "number",
             "lines": [
               {
-                "text": "2",
+                "text": "3",
+                "page": 0,
                 "boundingPolygon": [
                   {
-                    "x": 6.625,
-                    "y": 4.799
+                    "x": 5.877,
+                    "y": 4.008
                   },
                   {
-                    "x": 8.036,
-                    "y": 4.799
+                    "x": 7.511,
+                    "y": 4.011
                   },
                   {
-                    "x": 8.036,
-                    "y": 5.964
+                    "x": 7.511,
+                    "y": 4.874
                   },
                   {
-                    "x": 6.625,
-                    "y": 5.964
+                    "x": 5.877,
+                    "y": 4.872
                   }
-                ],
-                "page": 0
+                ]
               }
             ]
           }
         ]
       }
-    ]
+    ],
+    "title": {
+      "type": "string",
+      "value": "Agile software development risk tracking",
+      "lines": [
+        {
+          "text": "Agile software development risk tracking",
+          "page": 0,
+          "boundingPolygon": [
+            {
+              "x": 0.994,
+              "y": 1.666
+            },
+            {
+              "x": 4.902,
+              "y": 1.673
+            },
+            {
+              "x": 4.902,
+              "y": 1.886
+            },
+            {
+              "x": 0.994,
+              "y": 1.879
+            }
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "type": "string",
+      "value": "Project managers and technical program managers can expand on the preceding table for risk management in Agile software development.",
+      "lines": [
+        {
+          "text": "Project managers and technical program managers can expand on the preceding table for risk management in Agile software development.",
+          "page": 0,
+          "boundingPolygon": [
+            {
+              "x": 0.981,
+              "y": 5.161
+            },
+            {
+              "x": 7.447,
+              "y": 5.169
+            },
+            {
+              "x": 7.447,
+              "y": 5.663
+            },
+            {
+              "x": 0.981,
+              "y": 5.655
+            }
+          ]
+        }
+      ]
+    }
   }
 }
 ```
