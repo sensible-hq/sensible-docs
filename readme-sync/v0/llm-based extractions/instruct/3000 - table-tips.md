@@ -40,7 +40,7 @@ To try out this example in the Sensible app, take the following steps:
 
 | Field name                  | Method | Overall table description     | Column IDs and descriptions                                  |
 | --------------------------- | ------ | ----------------------------- | ------------------------------------------------------------ |
-| savings_transaction_history | Table  | "savings transaction history" | **date** - "date"<br/><br/>**description** - "description without totals"<br/><br/>**amount** - "amount" |
+| savings_transaction_history | NLP Table  | "savings transaction history" | **date** - "date"<br/><br/>**description** - "description without totals"<br/><br/>**amount** - "amount" |
 
 Click the **Send** icon for each column.
 
@@ -82,8 +82,8 @@ To try out this example in the Sensible app, take the following steps:
 
 | Field name             | Method | Overall table description            | Column IDs and descriptions                                  |
 | ---------------------- | ------ | ------------------------------------ | ------------------------------------------------------------ |
-| insured_vehicles_table | Table  | "insured vehicles"                   | **manufacturer** - "vehicle make (not model)"<br/><br/>**year** - "year of manufacture" |
-| transactions_table     | Table  | "transactions for insurance account" | **transaction_date** - "transaction date."<br/><br/>**transaction_description** - "transaction description" |
+| insured_vehicles_table | NLP Table  | "insured vehicles"                   | **manufacturer** - "vehicle make (not model)"<br/><br/>**year** - "year of manufacture" |
+| transactions_table     | NLP Table  | "transactions for insurance account" | **transaction_date** - "transaction date."<br/><br/>**transaction_description** - "transaction description" |
 
 For example, use the following screenshot as a guide for configuring the `insured_vehicles_table` field:
 
