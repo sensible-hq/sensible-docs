@@ -35,5 +35,5 @@ Sensible supports the following file sizes:
 - For TIFF documents, SenseML methods that attempt to render pages return an error, including:
      - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method
      - Key/Value method
-     - Fixed Table and Table methods with the Stop parameter specified. Use the Text Table method as an alternative.
+     - Fixed Table method with the Stop parameter specified. Use the Text Table method as an alternative.
 

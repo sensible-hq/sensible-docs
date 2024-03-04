@@ -152,17 +152,21 @@ X Range Filter example
 
 In combination with the Document Range method, the X Range Filter parameter defines a "column" that's bounded at the top and bottom by text.
 
-The following image shows using this parameter to extract a "cell" of text that doesn't fit other methods:
+The following image shows using this parameter to extract a "cell" of text:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xrange_filter.png)
 
 
 
-In this example, the X Range Filter parameter is the best option:
+In this example, the X Range Filter parameter is an alternative to:
 
-- Document Range by itself isn't a good option, because it captures the address of the importer as well as the supplier. 
-- The Fixed Table and Table methods aren't the best options, because the table formatting is hard to recognize.
-- The Text Table method with `"detectMultipleLinesPerRow": true` configured is an alternate solution for this example.
+- The Document Range method without the X Range Filter parameter. Without the parameter, this method extracts unwanted information such as the address of the importer. 
+- The Fixed Table method. This method doesn't recognize the table's formatting.
+
+Alternatives to using the X Range Filter parameter in this example include:
+
+- The Text Table method with `"detectMultipleLinesPerRow": true` configured.
+- LLM-powered methods, such as the NLP Table method.
 
 Try out this example in the Sensible app using the following document and config:
 

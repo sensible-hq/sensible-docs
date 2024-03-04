@@ -29,8 +29,6 @@ To get a document's data into a spreadsheet, you must first:
 - Run an extraction on a target document that's in your configured document type
 
 
-
-
 CSV files
 ===
 
@@ -72,7 +70,6 @@ To combine extractions, Sensible uses the same rules described in the following 
 
 Single-document spreadsheet
 ====
-
 
 
 
@@ -159,13 +156,13 @@ The following JSON document extraction output is the source for this spreadsheet
 
 Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a field to this sheet if the field outputs multiple values. For example: 
 
-- the Table methods, invoices, and other methods that output nested JSON objects.
+- the [table methods](doc:table-methods), invoices, and other methods that output nested JSON objects.
 - methods that output arrays of unpredictable length, for example, fields with `"match":"all"` configured.
 
 Example
 -----
 
-Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) described in the [Table](doc:table#examples) method to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/fixed_table.pdf) described in the [Fixed Table](doc:fixed-table#examples) method to the following spreadsheet:
 
 
 
@@ -190,7 +187,7 @@ The preceding spreadsheet contains data from the following example document:
 
 **Example configuration**
 
-See the [Table method](doc:table#examples)  for the SenseML configuration for this example.
+See [Fixed Table](doc:fixed-table#examples) method for the SenseML configuration for this example.
 
 
 
@@ -200,7 +197,7 @@ The following JSON extraction output is the source for this spreadsheet:
 
 ```json
 {
-  "agile_risks_table_updates_monthly": {
+  "agile_risks_table": {
     "columns": [
       {
         "id": "col1_risk_description",
@@ -220,11 +217,11 @@ The following JSON extraction output is the source for this spreadsheet:
         ]
       },
       {
-        "id": "rank_this_month",
+        "id": "col4_rank_last_month",
         "values": [
           {
-            "source": "3",
-            "value": 3,
+            "source": "2",
+            "value": 2,
             "type": "number"
           },
           {
@@ -233,8 +230,8 @@ The following JSON extraction output is the source for this spreadsheet:
             "type": "number"
           },
           {
-            "source": "2",
-            "value": 2,
+            "source": "3",
+            "value": 3,
             "type": "number"
           }
         ]

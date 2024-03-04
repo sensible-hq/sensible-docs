@@ -68,26 +68,21 @@ To ensure consistency, this example transforms the tables as follows:
       "anchor": "insurer a",
       "type": "table",
       "method": {
-        "id": "table",
+        "id": "fixedTable",
+        "columnCount": 3,
+        "startOnRow": 1,
         "columns": [
           {
             "id": "policy_start",
-            "terms": [
-              "effective",
-              "date"
-            ],
+            "index": 0
           },
           {
             "id": "limits",
-            "terms": [
-              "limits"
-            ],
+            "index": 1
           },
           {
             "id": "amount",
-            "terms": [
-              "dollar amount"
-            ],
+            "index": 2
           }
         ],
         "stop": {
@@ -102,41 +97,30 @@ To ensure consistency, this example transforms the tables as follows:
       "anchor": "insurer b",
       "type": "table",
       "method": {
-        "id": "table",
+        "id": "fixedTable",
+        "columnCount": 5,
+        "startOnRow": 1,
         "columns": [
           {
             /* source column, suppressed from output */
             "id": "_make_model_column",
-            "terms": [
-              "make",
-              "model"
-            ],
+            "index": 0
           },
           {
             "id": "vin",
-            "terms": [
-              "vehicle",
-              "vin"
-            ],
+            "index": 1
           },
           {
             "id": "policy_start",
-            "terms": [
-              "effective",
-              "date"
-            ],
+            "index": 2
           },
           {
             "id": "limits",
-            "terms": [
-              "limits"
-            ],
+            "index": 3
           },
           {
             "id": "amount",
-            "terms": [
-              "dollar amount"
-            ],
+            "index": 4
           }
         ],
         "stop": {

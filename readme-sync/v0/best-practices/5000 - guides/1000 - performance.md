@@ -24,14 +24,14 @@ In order of largest to smallest impact, these factors add seconds to the ideal d
 | Factor                                                       | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | whole-document OCR for document images | Sensible takes 10 seconds or more to OCR an entire document. You can speed OCR up for documents that are 25 pages and shorter by choosing Sensible's Google OCR option for a document type. |
-| whole-document table recognition                             | Avoid configuring Sensible to search a whole document for tables. Instead, configure a table stop. For examples, see any of the Table [methods](doc:methods). |
+| whole-document table recognition                             | Avoid configuring Sensible to search a whole document for tables. Instead, configure a table stop. For examples, see any of the table [methods](doc:table-methods). |
 
  **Under 5 seconds per document**
 
 | Factor                                         | Notes                                                        |
 | ---------------------------------------------- | ------------------------------------------------------------ |
 | OCR preprocessor                               | Some documents mix digital text with text images, for example by embedding scanned pages in a digital PDF. Speed this up by OCRing select pages, not the whole document. For more information, see the [OCR preprocessor](doc:ocr). |
-| Tables with stops,<br/>Nearest Checkbox method | Sensible process tables that include a Stop parameter in less than 5 seconds. Or, convert to the faster [Fixed table](doc:fixed-table) method, which skips table recognition. |
+| Fixed Tables with stops,<br/>Nearest Checkbox method | Sensible processes Fixed Tables that include a Stop parameter in less than 5 seconds. Or, convert to the faster [Text Table](doc:text-table) method, which skips table recognition. |
 | NLP methods                                    | NLP methods are large-language model (LLM)-powered and include [Sensible Instruct](doc:instruct) methods |
 
  **Under 1 second per document**
@@ -47,4 +47,4 @@ Document type performance
 ----
 
 
-By default, Sensible runs all the configs in a document type before choosing the best one for a given document. If your document type contains configs with computationally expensive methods such as Table or Box, you can improve performance by selectively running and skipping configs.  Use fingerprints to test whether documents contain matching text before skipping or running configs. For more information, see [fingerprint](doc:fingerprint).
+By default, Sensible runs all the configs in a document type before choosing the best one for a given document. If your document type contains configs with computationally expensive methods, you can improve performance by selectively running and skipping configs.  Use fingerprints to test whether documents contain matching text before skipping or running configs. For more information, see [fingerprint](doc:fingerprint).
