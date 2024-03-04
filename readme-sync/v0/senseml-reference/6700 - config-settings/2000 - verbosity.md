@@ -16,7 +16,7 @@ Parameters
 Examples
 ====
 
-If you add `"verbosity": 1,`  as a sibling to the fields array in [the Table example](doc:table#examples), you get the following output:
+If you add `"verbosity": 1,`  as a sibling to the fields array in [the Fixed Table example](doc:fixed-table#examples), you get the following output:
 
 ```
 {
