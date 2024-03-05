@@ -328,7 +328,7 @@ The following JSON shows the "populated" output:
 }
 ```
 
-## Example: Troubleshoot Table OCR
+## Example: Troubleshoot table OCR
 
 The following table shows troubleshooting OCR in a table.
 
