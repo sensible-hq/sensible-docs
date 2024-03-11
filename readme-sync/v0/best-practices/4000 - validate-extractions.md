@@ -59,9 +59,9 @@ Validation 1
 - **Description**:  If OCR'd, the source text for quoted rate value is a high-quality, unblurred image.
 - **Severity**: warning
 - **Condition**:
-```
+```json
 {"or":[
-  {"not":[
+  {"!":[
     {"exists":{"var":"quote_rate.valueConfidence"}}]},
   {"and":[
     {">=": [{"var":"quote_rate.valueConfidence"},"0.90"]},
