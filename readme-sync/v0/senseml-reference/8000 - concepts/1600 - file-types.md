@@ -29,7 +29,7 @@ Sensible supports the following file sizes:
 - When extracting from image file formats, Sensible ignores OCR or OCR preprocessor settings you configure in the document type or SenseML configuration. For more information about OCR, see [OCR level](doc:ocr-level).
 - For DOC and DOCX documents, Sensible converts the document to PDF before processing it.
 - For XLSX documents, Sensible converts the document to PDF. To style the document, Sensible:
-     - Discards truncated text in cells. To retain the text, reformat or resize the cells in Excel so the text is visible, then re-run the extraction.
+     - Discards truncated text in cells. To retain the text, reformat or resize the cells in Excel so the text is visible.
      - Converts sheets to pages by scaling text so that all sheets have the same width and by breaking long sheets into consecutive pages.
      - Adds the sheet name as a header on each page.
 - For TIFF documents, SenseML methods that attempt to render pages return an error, including:
