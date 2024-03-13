@@ -4,6 +4,13 @@ hidden:
 ---
 Use the following  [methods](doc:method)  to extract structured data from documents. 
 
+
+
+TODO add:
+
+- signature
+- paragraph
+
 ## Layout-based methods
 
 | Method                                       | Image                                                        | Notes                                                        |

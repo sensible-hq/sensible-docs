@@ -2,10 +2,6 @@
 title: "(Deprecated) Signature"
 hidden: true
 ---
-## Deprecated
-
-This method is deprecated. [LLM-powered methods](doc:instruct) replace this method.
-
 ## Description
 
 Returns true if more than 3% of the pixels in the specified region are dark.
