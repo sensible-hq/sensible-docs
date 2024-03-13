@@ -85,7 +85,7 @@ Alternatives to this method include the [Passthrough method](doc:passthrough) wi
 ```json
 {
   "fields": [
-    {
+     {
       "id": "last_4_digits_customer_id",
       "anchor": {
         "match": [
@@ -100,7 +100,17 @@ Alternatives to this method include the [Passthrough method](doc:passthrough) wi
             "pattern": "^[A-Z]{4}\\d{4}$",
           }
         ]
+      },
+      // custom type outputs last 4 digits of the id
+      "type": {
+        "id": "custom",
+        "pattern": "^[A-Z]{4}(\\d{4})$",
+        "type": "last_4_digits"
+      },
+      "method": {
+        "id": "passthrough"
       }
+    }
     ]
 }
 ```
