@@ -1,7 +1,13 @@
 ---
-title: "TFIDF"
-hidden: false
+title: "(Deprecated) TFIDF"
+hidden: true
 ---
+## Deprecated
+
+This method is deprecated. [LLM-powered methods](doc:instruct) replace this method.
+
+## Description
+
 Classifies fields by comparing them to sample snippets of free text that you provide. For example, for a source field like this:
 
 ```json

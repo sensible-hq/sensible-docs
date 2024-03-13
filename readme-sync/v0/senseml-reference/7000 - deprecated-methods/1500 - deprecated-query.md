@@ -8,9 +8,7 @@ hidden: true
 
 The Query method is deprecated. The Query Group method replaces this method. See [Query Group](doc:query-group) for more information.
 
-
-
-## Query method
+## Description
 
 This method extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. Sensible uses a large-language model (LLM)  to find these facts in paragraphs of free text, or in more structured layouts, for example key/value pairs or tables.
 

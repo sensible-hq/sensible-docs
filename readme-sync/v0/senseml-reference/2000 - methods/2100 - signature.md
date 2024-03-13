@@ -1,7 +1,9 @@
 ---
-title: "Signature"
-hidden: false
+title: "(Deprecated) Signature"
+hidden: true
 ---
+## Description
+
 Returns true if more than 3% of the pixels in the specified region are dark.
 
 | key              | value                                               | description                                                  |

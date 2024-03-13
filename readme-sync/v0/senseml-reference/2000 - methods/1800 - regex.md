@@ -77,12 +77,55 @@ The following image shows the example document used with this example config:
 
 
 
-
 Notes
 ====
 
--  **Anchor** matches also support regular expressions. For an example, see the [Passthrough method](doc:passthrough).
+Alternatives to this method include the [Passthrough method](doc:passthrough) with a custom type. For example, for the preceding example document, the following config returns similar output:
 
-- If the target data contains separator characters (for example, whitespaces in a credit card number) then you can use the  [Split method](doc:split) as an alternative to the Regex method.
+```json
+{
+  "fields": [
+     {
+      "id": "last_4_digits_customer_id",
+      "anchor": {
+        "match": [
+          // find an 8-character ID that follows the line
+          // 'customer id'
+          {
+            "type": "startsWith",
+            "text": "customer id"
+          },
+          {
+            "type": "regex",
+            "pattern": "^[A-Z]{4}\\d{4}$",
+          }
+        ]
+      },
+      // custom type outputs last 4 digits of the id
+      "type": {
+        "id": "custom",
+        "pattern": "^[A-Z]{4}(\\d{4})$",
+        "type": "last_4_digits"
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    }
+    ]
+}
+```
 
-  
+The preceding config returns:
+
+```json
+{
+  "last_4_digits_customer_id": {
+    "source": "ABCD7890",
+    "value": "7890",
+    "type": "last_4_digits"
+  }
+}
+```
+
+
+
