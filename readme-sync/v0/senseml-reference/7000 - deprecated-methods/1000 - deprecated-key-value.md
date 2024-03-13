@@ -1,9 +1,16 @@
 ---
-title: "Key/Value"
-hidden: false
+title: "(Deprecated) Key/Value"
+hidden: true
 ---
+## Deprecated
+
+This method is deprecated. [LLM-powered methods](doc:instruct) replace this method.
+
+## Decription
+
 Finds the most promising two-column tabular key/value pair in a single page of the source document. This single page and the winning key are those that score highest on the `terms` and `stopTerms`.
-[block:parameters]
+
+```
 {
   "data": {
     "h-0": "key",
@@ -21,5 +28,5 @@ Finds the most promising two-column tabular key/value pair in a single page of t
   "cols": 3,
   "rows": 3
 }
-[/block]
+```
 
