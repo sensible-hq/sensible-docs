@@ -86,14 +86,16 @@ For this tutorial, you'll extract these fields:
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question, get an answer powered by LLMs.
-          best suited to simple questions
-          that have one label and one answer 
-          in the document.  You can also author this field in Sensible Instruct
-          instead of in JSON */
+            /* ask a free-text question.
+           You can author LLM-powered queries in Sensible Instruct
+           instead of in JSON */
             "id": "bodily_injury_premium",
-            "description": "in the table, what's the bodily injury premium?",
+            "description": "bodily injury premium",
             "type": "currency"
+          },
+          {
+            "id": "customer_service_phone",
+            "description": "insurer's customer service phone number",
           }
         ]
       }
@@ -161,7 +163,13 @@ You should see the following extracted data in the right pane:
     "source": "$100",
     "value": 100,
     "unit": "$",
-    "type": "currency"
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
+  },
+  "customer_service_phone": {
+    "value": "1800 123 4567",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
   },
   "policy_period": {
     "type": "string",
@@ -215,7 +223,7 @@ This config also uses one natural-language, or AI-powered, method, to demonstrat
 How it works: Query Group method
 ---
 
-The easiest way to start extracting simple information is to ask a natural-language question.
+The easiest way to start extracting simple information is to ask a natural-language question, or query.
 
 For example, to extract the bodily injury liability:
 
@@ -223,22 +231,24 @@ For example, to extract the bodily injury liability:
 
 
 
-The config uses the [Query Group](doc:query-group) method to ask, `in the table, what's the bodily injury premium?`:  
+The config uses the [Query Group](doc:query-group) method to query for the  `bodily injury premium`. You can group together other queries if the answers are located within a page or two of each other in the document. For example, in the group, the config also queries for the  `insurer's customer service phone number`.  
 
 ```json
-{
+ {
       "method": {
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question, get an answer powered by LLMs.
-          best suited to simple questions
-          that have one label and one answer 
-          in the document.  You can also author this field in Sensible Instruct
-          instead of in JSON */
+            /* ask a free-text question.
+           You can author LLM-powered queries in Sensible Instruct
+           instead of in JSON */
             "id": "bodily_injury_premium",
             "description": "in the table, what's the bodily injury premium?",
             "type": "currency"
+          },
+          {
+            "id": "customer_service_phone",
+            "description": "insurer's customer service phone number",
           }
         ]
       }
@@ -248,12 +258,22 @@ The config uses the [Query Group](doc:query-group) method to ask, `in the table,
 This config returns:
 
 ```json
-  "bodily_liability_premium": {
+{
+  "bodily_injury_premium": {
+    "source": "$100",
+    "value": 100,
+    "unit": "$",
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
+  },
+  "customer_service_phone": {
+    "value": "1800 123 4567",
     "type": "string",
-    "value": "$100"
+    "confidenceSignal": "confident_answer"
+  },
 ```
 
-Try it out: change the question to `"what's the street address for the Anyco insurance company?"` and see what you get.
+Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get.
 
 You can write natural-language methods powered by large-language models (LLMs), such as the Query Group method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
 

@@ -7,7 +7,7 @@ hidden: true
 
 ====
 
-Example 1
+Example 1 - WORKING
 ---
 
 The following example shows using the Query Group method to extract agricultural data from a government report.
@@ -20,15 +20,9 @@ The following example shows using the Query Group method to extract agricultural
     {
       "method": {
         "id": "queryGroup",
-        /*"chunkSize": 1,
-        "chunkCount": 1,*/
         "queries": [
           {
-            "id": "wheat_production_month_year",
-            "description": "for which month and year does this snippet describe wheat production",
-            "type": "string"
-          },
-          {
+            // all answers are co-located on pg 2
             "id": "us_wheat_prod_chg_mnth",
             "description": "by what amount did US wheat production estimate change this month? if it didn't change, respond with 'no change",
             "type": "string"
@@ -40,14 +34,9 @@ The following example shows using the Query Group method to extract agricultural
           },
           {
             "id": "us_wheat_seed_chg_mil",
-            "description": "by what amount did US wheat seed use change this year, in million bushels? Use a negative sign for negative change and a positive sign for positive change",
+            "description": "by what amount did US wheat seed use change this year compared to last year, in million bushels? Use a negative sign for negative change and a positive sign for positive change, eg, -6 million bushels",
             "type": "string"
           },
-          {
-            "id": "global_wheat_prod_chg",
-            "description": "by what amount did global wheat production change this year, measured in MMT? look near the end of the document for the answer",
-            "type": "string"
-          }
         ]
       }
     }
@@ -67,26 +56,22 @@ The following image shows the example document used with this example config:
 
 ```json
 {
-	"report_date": {
-		"type": "string",
-		"value": "November 2022"
-	},
-	"change_in_production": {
-		"type": "string",
-		"value": "No change."
-	},
-	"seed_use": {
-		"type": "string",
-		"value": "66 million bushels."
-	},
-	"seed_use_change": {
-		"type": "string",
-		"value": "-2 million bushels"
-	},
-	"global_consumption_change": {
-		"type": "string",
-		"value": "1.0 MMT"
-	}
+  "us_wheat_prod_chg_mnth": {
+    "value": "no change",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "us_wheat_seed_use_mil": {
+    "value": "66",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "us_wheat_seed_chg_mil": {
+    "value": "8",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  }
+}
 ```
 
 
