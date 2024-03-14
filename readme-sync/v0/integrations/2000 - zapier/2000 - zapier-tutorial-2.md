@@ -8,14 +8,14 @@ This topic describes how to configure an example two-Zap workflow for Zapier. Th
 
 You can use the example Zaps in this topic as templates. For example, modify this workflow to trigger extractions based on other file actions in Zapier-support apps (for example, a new document uploaded to Google Drive instead of a new email in Gmail). Or, output to different destinations (for example, a database record instead of spreadsheet files in Google Drive).
 
-[Zap 1](https://zapier.com/shared/8b6d4d1533e3d53da8a8ca15fa6243084f5db1a9)
+Zap 1
 ---
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_1.png)
 
 Every time you receive an email in Gmail with a 1040 document attached, Zapier triggers Sensible to extract data from it.
 
-[Zap 2](https://zapier.com/shared/e7576855e30c90aad847d9f6069a69271f87cd1c)
+Zap 2
 ---
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2.png)
@@ -39,7 +39,7 @@ Prerequisite: Configure Google accounts
 Zap 1: Extract emailed 1040 doc with Sensible
 ---
 
-See the following steps to configure the template for [Zap 1](https://zapier.com/shared/8b6d4d1533e3d53da8a8ca15fa6243084f5db1a9).
+See the following steps to configure Zap 1
 
 [block:embed]
 {
@@ -57,7 +57,7 @@ See the following steps to configure the template for [Zap 1](https://zapier.com
 Zap 2: Upload extraction as spreadsheet to Google drive, if it's a 1040
 ---
 
-See the following steps to configure the template for [Zap 2](https://zapier.com/shared/e7576855e30c90aad847d9f6069a69271f87cd1c).
+See the following steps to configure Zap 2.
 
 [block:embed]
 {

@@ -27,7 +27,7 @@ Every time you run an extraction using the Sensible [app](https://app.sensible.s
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_trigger.png)
 
-For more information, see the [Zapier getting started guide](doc:zapier-getting-started) or [example Zap](https://zapier.com/shared/cb6b2637ef466ddf140ed14c3be66a5969acef29).
+For more information, see the [Zapier getting started guide](doc:zapier-getting-started).
 
 Sensible action
 ---

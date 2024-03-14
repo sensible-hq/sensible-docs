@@ -6,6 +6,8 @@ hidden: false
 
 This topic describes sending extracted data from example documents into an Airtable database using Sensible's Zapier integration. 
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_0.png)
+
 Create an example Sensible extraction
 ----
 
@@ -33,7 +35,7 @@ Configure Zapier
 Take the following steps to connect Sensible to Airtable using Zapier:
 
 1. Sign in or create a [Zapier account](https://zapier.com/).
-2. Navigate to the [Sensible example Zap](https://zapier.com/shared/cb6b2637ef466ddf140ed14c3be66a5969acef29), and click **Try this Zap**.
+2. Create a new Zap. For your trigger, search for and select **Sensible**.
 3. Take the following steps to connect your Sensible account to Zapier:
    1. Click to expand the **Trigger** section.
    2. Click to expand the **Choose account** section, then follow the prompts to connect your Sensible account.
@@ -45,7 +47,10 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_2.png)
 
-6. Continue to the **Action** section and follow the prompts to connect your Airtable account to Zapier.
+6. Continue to the **Action** section, search for and select **Airtable**:
+   1. For the **Event**, choose **Create records (With Line Item Support)** 
+   2. Follow the prompts to connect your Airtable account to Zapier. 
+
 7. In the **Set up action** section, map Sensible extracted field ids to the corresponding Airtable field names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_3.png)
