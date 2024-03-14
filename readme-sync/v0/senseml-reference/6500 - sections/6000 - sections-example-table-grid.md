@@ -62,7 +62,7 @@ sections:
       
 ```
 
-With this approach, you can output something like the following, using abbreviated YML notation to give a brief idea of the more complex JSON API response:
+With this approach, you can output something like the following, using abbreviated YML notation to give a brief idea of the more complex JSON extraction response:
 
 ```yml
 car_models:

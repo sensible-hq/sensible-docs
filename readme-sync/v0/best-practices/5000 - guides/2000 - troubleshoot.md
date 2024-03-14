@@ -8,7 +8,7 @@ Sensible offers you several ways to troubleshoot your configs and extractions.
 API logging levels
 ----
 
-To troubleshoot extractions in API responses, you can add a verbosity level to a config. For more information, see [verbosity](doc:verbosity).
+To troubleshoot extractions in API or SDK responses, you can add a verbosity level to a config. For more information, see [verbosity](doc:verbosity).
 
 
 Inspect extracted text

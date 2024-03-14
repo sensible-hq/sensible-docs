@@ -14,7 +14,7 @@ Welcome! Sensible is a developer-first platform for extracting structured data f
 See the following list for an overview of going live with Sensible:
 
 - **Learn** to extract data, or use out-of-the-box supported document types
-- [**Integrate**](doc:integrate) using Sensible's API, SDK, quick-extract UI, or other tools
+- [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
 - [**Quality control**](doc:validate-extractions) extracted data
 -  [**Monitor**](doc:metrics) extracted data in production 
 

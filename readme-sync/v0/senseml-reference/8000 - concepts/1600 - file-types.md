@@ -10,15 +10,15 @@ Sensible supports the following file types:
 | Operation                              | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<br/>(XLSX) | image formats<br/>(JPEG, PNG, and TIFF) |
 | -------------------------------------- | ---- | ---------------------------------- | --------------------------------------- | --------------------------------------- |
 | Sensible app's Extract tab    | ✅    | ✅                                  | ✅                                 | ❌                                       |
-| Single-file extraction with SDK or API | ✅    | ✅                                  | ✅                                 | ✅                                       |
-| Portfolio extraction with SDK or API   | ✅    | ✅                                  | ✅                                 | ❌                                       |
-| Classification with SDK or API         | ✅    | ✅                                  | ✅                                 | ✅                                       |
+| Single-file extraction with SDKs or API | ✅    | ✅                                  | ✅                                 | ✅                                       |
+| Portfolio extraction with SDKs or API   | ✅    | ✅                                  | ✅                                 | ❌                                       |
+| Classification with SDKs or API         | ✅    | ✅                                  | ✅                                 | ✅                                       |
 
 ## File sizes
 
 Sensible supports the following file sizes:
 
-| Operation              | Synchronous size limit (API only)                | Asynchronous size limit |
+| Operation              | Size limit for `/extract/{doc-type}` API endpoint                | Size limit for aysnchronous calls |
 | ---------------------- | ------------------------------------------------ | ----------------------- |
 | Single-document file extraction | under 4.5MB, or under 30 seconds processing time | 6 GB                    |
 | Portfolio extraction   | n/a                                              | 6 GB                    |

@@ -13,7 +13,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key               | value             | description                                                  |
 | :---------------- | :---------------- | :----------------------------------------------------------- |
 | id (**required**) | `getFileMetadata` |                                                              |
-| type              | `filename`        | Copies the document's filename without the file extension to the extraction output. Sensible gets the filename from the `document_name` parameter if you extract through the API or SDK, or assigns a document name on upload if you use the Sensible app. |
+| type              | `filename`        | Copies the document's filename without the file extension to the extraction output. Sensible gets the filename from the Document Name parameter if you extract through the API or SDKs, or assigns a document name on upload if you use the Sensible app. |
 
 Examples
 ====

@@ -54,7 +54,7 @@ sections:
 
 ```
 
-With this approach, you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON API response:
+With this approach, you can output something like the following, using abbreviated YML notation to give an overview of the more complex JSON extraction response:
 
 ```yml
 ---

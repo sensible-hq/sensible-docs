@@ -28,7 +28,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 - [Write a collection of queries ( a "config")](doc:getting-started#create-a-config) to [extract structured data](doc:getting-started#extract-data) from an example auto insurance document 
 - [Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods
 - [Test the config](doc:getting-started#test-the-config) by running your config against a second, similar auto insurance document
-- [Use the API](doc:getting-started#integrate-with-your-application) to integrate your Sensible config with your application
+- [Use the API](doc:getting-started#integrate-with-your-application) or [SDKs](doc:sdk-guides) to integrate your Sensible config with your application
 - [Validate extractions in production](doc:getting-started#validate-extractions-in-production) by using JsonLogic to define expected extracted values and flag unexpected values as warnings or errors
 
 Get an account
@@ -192,7 +192,7 @@ Congratulations! You created your first config and extracted your first document
 
 - For a deep dive on how the config works, see [the following section](doc:getting-started#how-it-works).
 
-- If you want to skip ahead and try out the API, see [Integrate with your application](doc:getting-started#integrate-with-your-application). 
+- If you want to skip ahead and try out the API or SDKs, see [Integrate with your application](doc:getting-started#integrate-with-your-application). 
 
 How layout-based extraction works
 ====
