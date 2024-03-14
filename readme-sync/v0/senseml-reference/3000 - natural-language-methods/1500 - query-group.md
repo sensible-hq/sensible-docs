@@ -122,40 +122,48 @@ The following image shows the example document used with this example config:
   "tenancy_terms_start": {
     "source": "01/01/2022",
     "value": "2022-01-01T00:00:00.000Z",
-    "type": "date"
+    "type": "date",
+    "confidenceSignal": "confident_answer"
   },
   "tenancy_terms_end": {
     "source": "12/31/2023",
     "value": "2023-12-31T00:00:00.000Z",
-    "type": "date"
+    "type": "date",
+    "confidenceSignal": "confident_answer"
   },
   "notice_days_tenant_break": {
     "value": "30 days",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "confident_answer"
   },
   "monthly_rents_dollars": {
     "source": "895.00",
     "value": 895,
     "unit": "$",
-    "type": "currency"
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
   },
   "rent_due_in_month": {
     "value": "on or before the 1st day of each month",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "confident_answer"
   },
   "grace_period_rent_due": {
     "value": "5 days",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "confident_answer"
   },
   "late_fee_amounts": {
     "value": "10 Percent of Recurring Rent Only",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "confident_answer"
   },
   "fee_returned_checks": {
     "source": "$50",
     "value": 50,
     "unit": "$",
-    "type": "currency"
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
   }
 }
 ```
