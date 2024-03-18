@@ -223,7 +223,7 @@ This config also uses one large language model (LLM)-based method, to demonstrat
 How it works: Query Group method
 ---
 
-The easiest way to start extracting simple information is to author a natural-language question, or prompt.
+The easiest way to start extracting simple information is to author a natural-language question, or prompt, for a large language model (LLM).
 
 For example, to extract the bodily injury liability:
 
@@ -273,11 +273,9 @@ This config returns:
   },
 ```
 
-Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get.
+Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's [visual authoring tool](doc:instruct).
 
-You can author methods powered by large-language models (LLMs), such as the Query Group method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
-
-LLM-based methods can run up against limitations with complex document formatting. In such cases, combine LLM-based methods with layout-based methods in the same document extraction configuration. 
+LLM-based methods such as the Query Group method can run up against limitations with complex document formatting. In such cases, combine LLM-based methods with layout-based methods in the same document extraction configuration. 
 
 Let's look next at several simple layout-based methods.
 

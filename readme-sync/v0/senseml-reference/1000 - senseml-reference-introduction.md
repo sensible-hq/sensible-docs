@@ -131,7 +131,7 @@ This example config has the following elements:
 
   |                         | [LLM-based methods](doc:llm-based-methods)     | Layout-based [methods](doc:methods)                          |
   | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Notes                   | Ask questions about info in the document, as you'd ask a human. For example, "what's the policy period"?  Powered by large-language models (LLMs). | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
+  | Notes                   | Ask questions about info in the document, as you'd ask a human. For example, "what's the policy period"?  Uses large language models (LLMs). | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
   | Deterministic           | no                                                           | yes                                                          |
   | Handles complex layouts | no                                                           | yes                                                          |
 
