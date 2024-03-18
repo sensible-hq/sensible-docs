@@ -22,7 +22,7 @@ This guide gets you started with the first step, extracting data.
 
 ## Learn to extract data
 
-Let's get started with extracting document data from an example bank statement. We'll use a large-language model (LLM) prompt to extract a checking account number in minutes.
+Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large-language model (LLM) to extract a checking account number in minutes.
 
  In this guide, you'll:
 

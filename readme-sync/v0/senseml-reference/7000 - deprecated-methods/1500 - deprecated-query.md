@@ -158,7 +158,7 @@ The following example shows using the Query Group method to extract information 
       }
     },
     /* if you ask a multi-part question, you get back
-       a natural-language answer.
+       an unstructured answer.
        As an alternative, use the Summarizer method to structure
        such multi-part responses  */
     {
