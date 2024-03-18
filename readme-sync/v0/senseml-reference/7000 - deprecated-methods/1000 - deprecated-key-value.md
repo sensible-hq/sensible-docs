@@ -19,10 +19,10 @@ Finds the most promising two-column tabular key/value pair in a single page of t
     "0-0": "id",
     "0-1": "`keyValue`",
     "1-0": "terms",
-    "1-2": "An array of terms to score positively. For more information about the NLP approach, see [bag of words](doc:bag-of-words).",
+    "1-2": "An array of terms to score positively. For more information about scoring, see [bag of words](doc:bag-of-words).",
     "1-1": "Array of strings",
     "2-0": "stopTerms",
-    "2-2": "optional. An array of terms to score negatively. For more information about the NLP approach, see [bag of words](doc:bag-of-words).",
+    "2-2": "optional. An array of terms to score negatively. For more information about scoring, see [bag of words](doc:bag-of-words).",
     "2-1": "Array of strings"
   },
   "cols": 3,
