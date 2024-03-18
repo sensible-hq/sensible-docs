@@ -54,7 +54,7 @@ You can return a classification for each array element as a parallel array , lik
 }
 ```
 
-To produce this output, you specify classifications and corresponding example text ("documents") in the TFIDF computed field method. Unlike the preceding simplified example, you can enter long natural language examples in the Document parameter. For example, you can list the full text for a restaurant's "meat entrees" rather than a short list of keywords.
+To produce this output, you specify classifications and corresponding example text ("documents") in the TFIDF computed field method. Unlike the preceding simplified example, you can enter examples in the Document parameter. For example, you can list the full text for a restaurant's "meat entrees" rather than a short list of keywords.
 
 Parameters
 ====

@@ -10,7 +10,7 @@ See the following topics for reference documentation for the SenseML query langu
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
 - [Methods](doc:methods)
-- [Natural language methods](doc:natural-language-methods), including LLM-based Sensible Instruct methods. For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
+- [LLM-based methods](doc:llm-based-methods), including LLM-based Sensible Instruct methods. For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
@@ -129,7 +129,7 @@ This example config has the following elements:
 
   There are two broad categories of methods:
 
-  |                         | [Natural language methods](doc:natural-language-methods)     | Layout-based [methods](doc:methods)                          |
+  |                         | [LLM-based methods](doc:llm-based-methods)     | Layout-based [methods](doc:methods)                          |
   | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
   | Notes                   | Ask questions about info in the document, as you'd ask a human. For example, "what's the policy period"?  Powered by large-language models (LLMs). | Find the information in the document using anchoring text and layout data. For example, write instructions to grab the second cell in a column headed by "premium". |
   | Deterministic           | no                                                           | yes                                                          |
