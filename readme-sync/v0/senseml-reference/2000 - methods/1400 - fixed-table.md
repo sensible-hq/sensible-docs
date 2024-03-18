@@ -348,8 +348,7 @@ The following table shows troubleshooting OCR in a table.
         "detectTableStructureOnly": true,
         /* if "detectTableStructureOnly": true
           results in incorrect line sorting, 
-          set the following additional parameters:
-          "sortLines": "readingOrderLeftToRight",
+          set the following additional parameter:
           "annotateSuperscriptAndSubscript": true,
         */
         "columns": [
