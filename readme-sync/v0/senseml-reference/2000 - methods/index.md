@@ -33,5 +33,5 @@ TODO add:
 
 ## Large-language model (LLM)-based methods
 
-For LLM-based methods,  see [Natural-language methods](doc:llm-based-methods).
+For LLM-based methods,  see [LLM-based methods](doc:llm-based-methods).
 
