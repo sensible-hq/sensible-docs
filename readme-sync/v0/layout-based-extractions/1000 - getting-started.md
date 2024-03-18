@@ -277,7 +277,7 @@ Try it out: change one of the questions to `"street address for the Anyco insura
 
 You can author methods powered by large-language models (LLMs), such as the Query Group method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
 
-LLM-based methods can run up against limitations with complex document formatting. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
+LLM-based methods can run up against limitations with complex document formatting. In such cases, combine LLM-based methods with layout-based methods in the same document extraction configuration. 
 
 Let's look next at several simple layout-based methods.
 
