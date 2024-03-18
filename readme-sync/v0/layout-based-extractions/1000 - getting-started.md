@@ -218,7 +218,7 @@ This config also uses one large language model (LLM)-based method, to demonstrat
 
 | Type of method   | explanation                                                  | description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Natural-language | [How it works: query group method](doc:getting-started#how-it-works-query-group-method) | Ask a free-text question about simple information in the document |
+| LLM-based | [How it works: query group method](doc:getting-started#how-it-works-query-group-method) | Ask a free-text question about simple information in the document |
 
 How it works: Query Group method
 ---
@@ -277,7 +277,7 @@ Try it out: change one of the questions to `"street address for the Anyco insura
 
 You can author methods powered by large-language models (LLMs), such as the Query Group method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
 
-Natural-language methods can run up against limitations with complex document formatting. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
+LLM-based methods can run up against limitations with complex document formatting. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
 
 Let's look next at several simple layout-based methods.
 

@@ -154,7 +154,7 @@ Compose
 Returns a transformed type you define using an array of types. In the array, each successive type in the array takes the previous type's output as its input. For example, use this type:
 
 - As a more syntactically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
-- To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method for writing natural-language instructions to transform table cell contents.
+- To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method for writing large-language model (LLM)-based prompts to transform table cell contents.
 
 Parameters
 ---
