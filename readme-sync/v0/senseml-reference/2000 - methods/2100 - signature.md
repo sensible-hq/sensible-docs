@@ -1,6 +1,6 @@
 ---
-title: "(Deprecated) Signature"
-hidden: true
+title: "Signature"
+hidden: false
 ---
 ## Description
 
