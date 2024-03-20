@@ -87,7 +87,7 @@ For this tutorial, you'll extract these fields:
         "queries": [
           {
             /* ask a free-text question.
-           You can author LLM-powered queries in Sensible Instruct
+           You can author LLM-based queries in Sensible Instruct
            instead of in JSON */
             "id": "bodily_injury_premium",
             "description": "bodily injury premium",
@@ -214,16 +214,16 @@ This config uses three types of layout-based methods:
   | layout         | [How it works: box method](doc:getting-started#how-it-works-box-method) | Grab info from a box.                             |
 
 
-This config also uses one natural-language, or AI-powered, method, to demonstrate that you can combine layout-based and natural-language methods in the same config:
+This config also uses one large language model (LLM)-based method, to demonstrate that you can combine layout-based and LLM-based methods in the same config:
 
 | Type of method   | explanation                                                  | description                                                  |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Natural-language | [How it works: query group method](doc:getting-started#how-it-works-query-group-method) | Ask a free-text question about simple information in the document |
+| LLM-based | [How it works: query group method](doc:getting-started#how-it-works-query-group-method) | Ask a free-text question about simple information in the document |
 
 How it works: Query Group method
 ---
 
-The easiest way to start extracting simple information is to ask a natural-language question, or query.
+The easiest way to start extracting simple information is to author a natural-language question, or prompt, for a large language model (LLM).
 
 For example, to extract the bodily injury liability:
 
@@ -240,7 +240,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
         "queries": [
           {
             /* ask a free-text question.
-           You can author LLM-powered queries in Sensible Instruct
+           You can author LLM-based queries in Sensible Instruct
            instead of in JSON */
             "id": "bodily_injury_premium",
             "description": "in the table, what's the bodily injury premium?",
@@ -273,11 +273,9 @@ This config returns:
   },
 ```
 
-Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get.
+Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's [visual authoring tool](doc:instruct).
 
-You can write natural-language methods powered by large-language models (LLMs), such as the Query Group method, in SenseML, or in Sensible Instruct, Sensible's visual authoring tool. For more information about Sensible Instruct, see [Getting started](doc:getting-started-ai).
-
-Natural-language methods can run up against limitations with complex document formatting. In such cases, combine natural-language methods with layout-based methods in the same document extraction configuration. 
+LLM-based methods such as the Query Group method can run up against limitations with complex document formatting. In such cases, combine LLM-based methods with layout-based methods in the same document extraction configuration. 
 
 Let's look next at several simple layout-based methods.
 

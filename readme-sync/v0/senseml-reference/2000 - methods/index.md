@@ -6,10 +6,7 @@ Use the following  [methods](doc:method)  to extract structured data from docume
 
 
 
-TODO add:
 
-- signature
-- paragraph
 
 ## Layout-based methods
 
@@ -29,9 +26,10 @@ TODO add:
 | **[Regex](doc:regex)**                       |                                                              | Extracts text matching RegEx. Use RegEx capturing groups in this method to clean up extracted data in combination with the Passthrough method. |
 | **[Region](doc:region)**                     | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/region_ssn.png) | Extracts data from a rectangular region defined by coordinates. Faster alternative to Box method. |
 | **[Row](doc:row)**                           | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row.png) | Extracts text aligned in a row.                              |
+| **[Signature](doc:signature)**                           |  | Extracts true/false for the signed status of  a region.                              |
 | **[Text Table](doc:text-table)**             | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table.png) | Extracts tables using solely text-positioning data (fast but limited). |
 
-## Large-language model (LLM)-based methods
+## Large language model (LLM)-based methods
 
-For LLM-based methods,  see [Natural-language methods](doc:natural-language-methods).
+See [LLM-based methods](doc:llm-based-methods).
 

@@ -8,8 +8,8 @@ For tips on authoring this method in Sensible Instruct, see [NLP Table tips](doc
 
 **Advantages**
 
-- Low code. 
-- Can reformat or filter extracted column data based on your natural-language instructions. 
+- Low code. Describe what you want to extract in prompts for a large language model (LLM).
+- Can reformat or filter extracted column data based on your prompts. 
 - Doesn't require an [anchor](doc:anchor).
 
 **Limitations**

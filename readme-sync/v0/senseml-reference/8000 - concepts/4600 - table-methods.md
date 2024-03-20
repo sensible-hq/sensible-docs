@@ -9,7 +9,7 @@ You can choose from among the following options for extracting tables:
 
 | method      | based on | description                                                  | comments                                                   |
 | ----------- | -------- | ------------------------------------------------------------ | ---------------------------------------------------------- |
-| NLP Table   | LLMs     | Extracts a table based on your natural-language description of the data you want to extract. | Low code, doesn't require an anchor. Slowest table method. |
+| NLP Table   | large language models (LLM)s     | Extracts a table based on your prompt to an LLM. | Low code, doesn't require an anchor. Slowest table method. |
 | Fixed Table | layout   | Extracts tables with a fixed number and layout of columns.   | Faster than NLP Table method.                              |
 | Text Table  | layout   | Extracts tables based on column coordinates in inches.       | Fastest table method.                                      |
 
