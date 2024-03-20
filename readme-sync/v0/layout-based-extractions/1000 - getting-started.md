@@ -87,7 +87,7 @@ For this tutorial, you'll extract these fields:
         "queries": [
           {
             /* ask a free-text question.
-           You can author LLM-powered queries in Sensible Instruct
+           You can author LLM-based queries in Sensible Instruct
            instead of in JSON */
             "id": "bodily_injury_premium",
             "description": "bodily injury premium",
@@ -240,7 +240,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
         "queries": [
           {
             /* ask a free-text question.
-           You can author LLM-powered queries in Sensible Instruct
+           You can author LLM-based queries in Sensible Instruct
            instead of in JSON */
             "id": "bodily_injury_premium",
             "description": "in the table, what's the bodily injury premium?",

@@ -166,7 +166,7 @@ In this example, the X Range Filter parameter is an alternative to:
 Alternatives to using the X Range Filter parameter in this example include:
 
 - The Text Table method with `"detectMultipleLinesPerRow": true` configured.
-- LLM-powered methods, such as the NLP Table method.
+- LLM-based methods, such as the NLP Table method.
 
 Try out this example in the Sensible app using the following document and config:
 
