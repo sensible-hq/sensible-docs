@@ -62,7 +62,7 @@ Configure the extraction
 
    2. On the tab, click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
 
-3. To edit your  **anyco** configuration, click it. When the configuration opens, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
+3. To edit your  **anyco** configuration, click it. Ensure that you're using the SenseML editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
