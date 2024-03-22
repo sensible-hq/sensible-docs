@@ -28,7 +28,7 @@ Generate the upload URL
 
 Generate a temporary, one-time Sensible URL for a document: 
 
-  1. Copy the following code sample and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
+  1. Copy the following code sample and replace `*YOUR_API_KEY*` with your [API key](https://app.sensible.so/account/):
 
 
 ```json
