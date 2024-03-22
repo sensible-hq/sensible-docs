@@ -46,18 +46,36 @@ Let's get started with extracting document data from an example bank statement. 
 
 Take the following steps to create a prompt to extract more data from the document.
 
-## Extract an account number from a bank statement
+## Auto-extract data
 
-1. To extract data points from the document, click **Query group**.
+To extract document data automatically, take the following steps:
+
+1. Click **Query group**:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
+
+2. Click **Auto generate**, then click **Generate**:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto.png)
+
+3. Sensible automatically generates queries and extracts their answers from the document:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_2.png)
+
+To test the automatically generated extraction configuration with another document,  see [Test the prompt](doc:getting-started-ai#test-the-prompt). To author your own extraction configurations, see the following section.
+
+## Manually configure extraction
+
+1. To author your own LLM prompts to extract data points from the document, click **Query group**.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
 
-2. Edit the query group as shown in the following screenshot by entering `checking account number (not savings)` in the query field.  Click **Create new query** and enter  .  Click **Extract**.
+2. Edit the query group as shown in the following screenshot by entering `checking account number (not savings)` in the query field.  Click **Extract**. 
+2. Sensible displays the extracted account number, `8347-32348`, in the **Extracted data** section:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
 
-- Sensible displays the extracted account number, `8347-32348`, in the **Extracted data** section.
-- Click **Back to fields**.
+4. Click **Back to fields**.
 
 Congratulations! You extracted the checking account number from the bank statement.
 
