@@ -29,7 +29,7 @@ Extract the data
 
 To try out the [extract_from_url](https://sensiblehq.readme.io/reference#extract-from-url) endpoint, let's use an example document hosted in GitHub:
 
-1. Copy the following code sample and replace YOUR_API_KEY with your [API key](https://app.sensible.so/account/):
+1. Copy the following code sample and replace `*YOUR_API_KEY*` with your [API key](https://app.sensible.so/account/):
 
    ```json
    curl --request POST 'https://api.sensible.so/v0/extract_from_url/tax_forms' \
@@ -79,7 +79,7 @@ To retrieve the extraction results with the  `/documents` endpoint, take the fol
    
    Copy the document extraction `id` from that response. You'll use it to download the document extraction.
    
-3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
+3. Copy the following code sample and replace `*YOUR_EXTRACTION_ID*` and `*YOUR_API_KEY*`:
 
 ```json
 curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \

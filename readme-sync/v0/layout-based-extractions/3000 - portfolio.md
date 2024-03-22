@@ -104,15 +104,15 @@ For the preceding configurations, doc types, and example document portfolio, the
 
 ```
 curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
---header 'Authorization: Bearer {API_TOKEN}' \
+--header 'Authorization: Bearer YOUR_API_KEY}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
 "types":["auto_insurance_quote","loss_run"]}'
 ```
 2. This request returns an EXTRACTION_ID. Use it to retrieve the extractions:
 ```
-curl --request GET 'https://api.sensible.so/v0/documents/{EXTRACTION_ID}' \
---header 'Authorization: Bearer {API_TOKEN}'
+curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
+--header 'Authorization: Bearer YOUR_API_KEY'
 ```
 
 The response contains extractions from three documents:
