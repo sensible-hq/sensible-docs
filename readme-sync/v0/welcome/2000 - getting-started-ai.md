@@ -62,7 +62,11 @@ To extract document data automatically, take the following steps:
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_2.png)
 
-To test the automatically generated extraction configuration with another document,  see [Test the prompt](doc:getting-started-ai#test-the-prompt). To author your own extraction configurations, see the following section.
+4. (Optional) Add more queries by clicking **Suggest queries**, selecting the field IDs that interest you, and clicking **Add selected queries**:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_3.png)
+
+To test the automatically generated extraction configuration with another document,  see [Test the prompt](doc:getting-started-ai#test-the-prompt). To author your own extraction configurations, see the following steps.
 
 ## Manually configure extraction
 
@@ -103,11 +107,7 @@ It looks like your prompt was successful at extracting the checking account numb
 
 ## (Optional) Extract more data
 
-Try extracting other pieces of information using what you learned in previous steps, such as:
-
-- The customer's address
-- The Spanish-speaking customer service phone number
-- The time period for each account. **Hint:** Use the [List method](doc:list). For example, in this config, the `accounts_list` uses the List method.
+Try extracting more complex pieces of information. For example, try extracting the time period for each account using the [List method](doc:list). See the  `accounts_list` field in this config for an example of using the the List method.
 
 Publish the config to save your changes.
 
