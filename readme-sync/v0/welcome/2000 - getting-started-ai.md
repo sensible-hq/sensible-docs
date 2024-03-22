@@ -107,7 +107,7 @@ It looks like your prompt was successful at extracting the checking account numb
 
 ## (Optional) Extract more data
 
-Try extracting more complex pieces of information. For example, try extracting the time period for each account using the [List method](doc:list). See the  `accounts_list` field in this config for an example of using the the List method.
+Try extracting more complex pieces of information. For example, try extracting the time period for each account using the [List method](doc:list-tips). See the  `accounts_list` field in this config for an example of using the the List method.
 
 Publish the config to save your changes.
 
