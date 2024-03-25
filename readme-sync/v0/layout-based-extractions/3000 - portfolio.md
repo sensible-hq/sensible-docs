@@ -104,7 +104,7 @@ For the preceding configurations, doc types, and example document portfolio, the
 
 ```
 curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
---header 'Authorization: Bearer YOUR_API_KEY}' \
+--header 'Authorization: Bearer YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
 "types":["auto_insurance_quote","loss_run"]}'
