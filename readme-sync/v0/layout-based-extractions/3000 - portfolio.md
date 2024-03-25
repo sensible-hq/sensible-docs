@@ -109,7 +109,7 @@ curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
 "types":["auto_insurance_quote","loss_run"]}'
 ```
-2. This request returns an EXTRACTION_ID. Use it to retrieve the extractions:
+2. This request returns an extraction ID. Use it to retrieve the extractions by replacing `*YOUR_EXTRACTION_ID* with the returned ID in the following example code:
 ```
 curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 --header 'Authorization: Bearer YOUR_API_KEY'
