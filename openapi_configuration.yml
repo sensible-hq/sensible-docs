@@ -94,7 +94,7 @@ paths:
 
         ```curl
         curl --location --request PUT 'https://api.sensible.so/v0/document_types/<TYPE_ID>' \
-        --header 'Authorization: Bearer YOUR_API_TOKEN' \
+        --header 'Authorization: Bearer YOUR_API_KEY' \
         --header 'Content-Type: application/json' \
         --data-raw '{"schema":{"validations":[{"description":"example validation to test broker email format","condition":{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]},"severity":"warning","fields":["test"]}]}} '
         ```
