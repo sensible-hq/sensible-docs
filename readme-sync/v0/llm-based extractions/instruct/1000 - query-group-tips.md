@@ -6,7 +6,7 @@ hidden: false
 
 This Sensible Instruct method extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.
 
-Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document.
+Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page. You can configure context using [Advanced prompt configuration](doc:prompt). 
 
 For example, contact information can usually be found in the same location of a document:
 
@@ -16,7 +16,7 @@ New York City, NY
 jsmith@email.com 
 ```
 
-Combining queries for the location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. Frame each query, or prompt, in the group so that it has a single, short answer. 
+Combining queries for the location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. Frame each query, or prompt, in the group so that it has a single, short answer. Sensible recommends a maximum group size of 10 queries.
 
 ### Prompt Tips
 
