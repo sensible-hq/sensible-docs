@@ -2,7 +2,7 @@
 title: "Summarizer"
 hidden: false
 ---
-Automatically extracts key/value pairs from short snippets of free text using an LLM (GPT-3.5 Turbo). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs based on instructions or short samples of extracted values you provide. 
+Automatically extracts key/value pairs from short snippets of free text using an LLM (GPT-3.5 Turbo). The Summarizer computed field method takes as input another extracted field's output, and transforms the text based on instructions or short samples of extracted values you provide. 
 
 Example use cases for this method include:
 
