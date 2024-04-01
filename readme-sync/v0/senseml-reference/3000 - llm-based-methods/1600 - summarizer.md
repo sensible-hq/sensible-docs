@@ -2,18 +2,15 @@
 title: "Summarizer"
 hidden: false
 ---
-Automatically extracts key/value pairs from short snippets of free text using an LLM (GPT-3.5 Turbo). The Summarizer computed field method takes as input another extracted field's output, and transforms the text based on instructions or short samples of extracted values you provide. 
+TODO: remove 'alternative to list' links wherever you find them.
 
-Example use cases for this method include:
+Automatically extracts key/value pairs from short snippets of free text using an LLM (GPT-3.5 Turbo). The Summarizer computed field method takes as input another extracted field's output, and transforms the text based on prompts or short samples of extracted values you provide. For example, use this method to transform another method's output when you can't use [types](doc:types) or other [computed field methods](doc:computed-field-methods). For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. You can reformat with instructions like `the following snippet is a ranking. Return it formatted liked \"1st\", \"2nd\", \"3rd\" and so forth, not written out like \"first\" or in digit-only format like \"1\" `. 
 
-- To transform another method's output when you can't use [types](doc:types) or other [computed field methods](doc:computed-field-methods). For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. You can reformat with instructions like `the following snippet is a ranking. Return it formatted liked \"1st\", \"2nd\", \"3rd\" and so forth, not written out like \"first\" or in digit-only format like \"1\" `. 
+TODO: add this example:
 
-- As an alternative to the List method. For a comparison of these methods, see the following table:
+https://dev.sensible.so/editor/?d=frances_playground&c=summarizer_tests_senseml&g=summarizer_senseml_test___google_docs
 
-| Summarizer method                                            | List method                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ❌ Requires an input field to find the text snippet containing the answer. Typically, the input field uses the [Topic](doc:topic) or [Document Range](doc:document-range) methods. | ✅ finds the text snippet containing the answer automatically |
-| ✅ returns a multiple-answer response structured as an object or list of objects | ✅ returns a multiple-answer response structured as an object or list of objects |
+
 
 Parameters
 ====
