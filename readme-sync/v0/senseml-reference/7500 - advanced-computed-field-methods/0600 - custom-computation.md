@@ -440,3 +440,206 @@ The following example shows using the Custom Computation method to perform the f
 - Redact the claim IDs
 
 - Sum up the incurred cost for all claims listed
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      /* use sections to extract repeating data, 
+      in this case, claims */
+      "id": "claims_sections",
+      "type": "sections",
+      "range": {
+        /* starting line of each claim is "claim number" */
+        "anchor": "claim id",
+        /* ending line of each claim is "incurred" */
+        "stop": "incurred"
+      },
+      "fields": [
+        {
+          "id": "raw_claim_id",
+          "anchor": "claim id",
+          "method": {
+            /* target data to extract is a single line 
+            to right of anchor line ("claim number") */
+            "id": "label",
+            "position": "right"
+          }
+        },
+        {
+          "id": "incurred_amount",
+          "type": "currency",
+          "anchor": "incurred",
+          "method": {
+            /* target data to extract is a single line 
+            to right of anchor line ("incurred") */
+            "id": "label",
+            "position": "right",
+          }
+        },
+        {
+          "id": "redacted_id",
+          "method": {
+            /* use JsonLogic to perform custom
+            data transformation */
+            "id": "customComputation",
+            "jsonLogic": {
+              /* the Replace method extends jsonLogic
+                 to enable regex find/replace operations  */
+              "replace": {
+                "source": {
+                  /* replace 1st 3 digits in each ID with '***' 
+                  to redact it */
+                  "var": "raw_claim_id.value"
+                },
+                "find_regex": ".*(\\d{3})(\\d{7}).*",
+                "replace": "***$2",
+              }
+            }
+          }
+        },
+        /* hide unredacted IDs from output */
+        {
+          "id": "hide_fields",
+          "method": {
+            "id": "suppressOutput",
+            "source_ids": [
+              "raw_claim_id"
+            ]
+          }
+        }
+      ],
+    },
+  ],
+  "computed_fields": [
+    {
+      /* output the number of claims in the document
+      by taking the length of the claims array */
+      "id": "claim_count",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "var": "claims_sections.length"
+        }
+      }
+    },
+    /* get the sum of all incurred dollar
+    amounts in the document */
+    {
+      "id": "total_incurred",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          /* combine elements of array into a 
+          single value with Reduce operation */
+          "reduce": [
+            {
+              "var": "claims_sections"
+            },
+            {
+              "+": [
+                {
+                  /* for the current element in the array .. */
+                  "var": "current.incurred_amount.value"
+                },
+                {
+                  /* ...add its value to the running total */
+                  "var": "accumulator"
+                }
+              ]
+            },
+            0
+          ]
+        }
+      }
+    },
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/blog_custom_computations.png) 
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/blog_custom_computations.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "claims_sections": [
+    {
+      "incurred_amount": {
+        "source": "$3,053",
+        "value": 3053,
+        "unit": "$",
+        "type": "currency"
+      },
+      "redacted_id": {
+        "value": "***3456789",
+        "type": "string"
+      }
+    },
+    {
+      "incurred_amount": {
+        "source": "$251",
+        "value": 251,
+        "unit": "$",
+        "type": "currency"
+      },
+      "redacted_id": {
+        "value": "***6543211",
+        "type": "string"
+      }
+    },
+    {
+      "incurred_amount": {
+        "source": "$985",
+        "value": 985,
+        "unit": "$",
+        "type": "currency"
+      },
+      "redacted_id": {
+        "value": "***5439210",
+        "type": "string"
+      }
+    },
+    {
+      "incurred_amount": {
+        "source": "$581",
+        "value": 581,
+        "unit": "$",
+        "type": "currency"
+      },
+      "redacted_id": {
+        "value": "***5439210",
+        "type": "string"
+      }
+    },
+    {
+      "incurred_amount": {
+        "source": "$771",
+        "value": 771,
+        "unit": "$",
+        "type": "currency"
+      },
+      "redacted_id": {
+        "value": "***5439211",
+        "type": "string"
+      }
+    }
+  ],
+  "claim_count": {
+    "value": 5,
+    "type": "number"
+  },
+  "total_incurred": {
+    "value": 5641,
+    "type": "number"
+  }
+}
+```
