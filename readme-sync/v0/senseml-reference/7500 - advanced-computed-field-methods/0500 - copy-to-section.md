@@ -18,4 +18,4 @@ The following parameters are in the computed field's [global Method](doc:compute
 Examples
 ====
 
-For an example, see [Advanced: Add global information to sections](doc:sections-example-copy-to-section).
+For an example, see [Advanced: Transform sections data](doc:sections-example-copy-to-section).

@@ -1,10 +1,10 @@
 ---
-title: "Advanced: Add global information to sections"
+title: "Advanced: Transform sections data"
 hidden: false
 
 ---
 
-The following example shows using the Copy To Field method to add a policy number and name, which are listed once in the document and which is globally applicable, to every extracted claim.  The example also shows how to transform copied data, in this case by concatenating the copied fields.
+The following example shows using the Copy To Field method to add a policy number and name, which are listed once in the document and which is globally applicable, to every extracted claim.  The example shows how to transform copied data, in this case by concatenating the copied fields. The example also shows how to transform data in the section, by redacting a phone number.
 
 **Config**
 
