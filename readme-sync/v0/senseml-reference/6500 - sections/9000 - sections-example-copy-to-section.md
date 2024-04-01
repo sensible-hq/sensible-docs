@@ -4,7 +4,10 @@ hidden: false
 
 ---
 
-The following example shows using the Copy To Field method to add a policy number and name, which are listed once in the document and which is globally applicable, to every extracted claim.  The example shows how to transform copied data, in this case by concatenating the copied fields. The example also shows how to transform data in the section, by redacting a phone number.
+The following example shows using computed fields to transform sections data. The example:
+
+- Adds a policy number and name to each section using the Copy To Section method. The policy number and name are listed once in the document and are globally applicable to every extracted claim.  The example shows how to transform copied data, in this case by concatenating the copied fields. 
+- Redacts a telephone number. The example uses the Custom Computation method to replace digits in the number, and the Suppress Output method to omit the complete number from the output.
 
 **Config**
 
@@ -31,55 +34,23 @@ The following example shows using the Copy To Field method to add a policy numbe
         "id": "row",
       }
     },
-    {
-      /* get monthly claims totals 
-      with match all (simpler alternative to sections) */
-      "id": "monthly_total_unprocessed_claims",
-      "match": "all",
-      "anchor": {
-        "match": {
-          "type": "includes",
-          "text": "unprocessed claims:",
-          "isCaseSensitive": true
-        },
-        "end": {
-          "text": "total claims",
-          "type": "startsWith"
-        }
-      },
-      "method": {
-        "id": "row",
-        "position": "right",
-        "includeAnchor": true
-      }
-    }
   ],
-  /* get first 2 claims sections in doc.  
+  /*
      each claim starts with "claim number" and ends with 
-     "unprocessed claims" */
+     "Date of claim" */
   "sections": [
     {
-      "id": "unprocessed_sept_oct_claims_sections",
+      "id": "claims_sections",
       "range": {
         "anchor": {
-          "start": {
-            "text": "September",
-            "type": "startsWith",
-            "isCaseSensitive": true
-          },
           "match": {
             "type": "includes",
             "text": "claim number"
           },
-          "end": {
-            "type": "startsWith",
-            "text": "November",
-            "isCaseSensitive": true
-          }
         },
         "stop": {
           "type": "includes",
-          "text": "unprocessed claims:",
+          "text": "Date of claim",
           "isCaseSensitive": true
         }
       },
@@ -102,7 +73,7 @@ The following example shows using the Copy To Field method to add a policy numbe
           }
         },
         {
-          "id": "phone_number",
+          "id": "_raw_phone_number",
           "type": "phoneNumber",
           "anchor": {
             "match": {
@@ -117,9 +88,9 @@ The following example shows using the Copy To Field method to add a policy numbe
           }
         }
       ],
-      /* copy policy number and name from outside sections
-         into each claim, and concatenate them */
       "computed_fields": [
+        /* copy policy number and name from outside sections
+         into each claim, and concatenate them */
         {
           "id": "copied_policy_number",
           "method": {
@@ -144,13 +115,30 @@ The following example shows using the Copy To Field method to add a policy numbe
             ]
           }
         },
+        /* redact the phone number using Custom Computation method's regex replace operation */
+        {
+          "id": "redacted_phone_number",
+          "method": {
+            "id": "customComputation",
+            "jsonLogic": {
+              "replace": {
+                "source": {
+                  "var": "_raw_phone_number.value"
+                },
+                "find_regex": "^.*(\\d{4})$",
+                "replace": "***$1",
+              }
+            }
+          }
+        },
         {
           "id": "cleanup",
           "method": {
             "id": "suppressOutput",
             "source_ids": [
               "copied_policy_name",
-              "copied_policy_number"
+              "copied_policy_number",
+              "_raw_phone_number"
             ]
           }
         },
@@ -182,34 +170,19 @@ The following image shows the example document used with this example config:
     "type": "string",
     "value": "National Landscaping Solutions"
   },
-  "monthly_total_unprocessed_claims": [
-    {
-      "type": "string",
-      "value": "Sept unprocessed claims: 2"
-    },
-    {
-      "type": "string",
-      "value": "Oct unprocessed claims: 1"
-    },
-    {
-      "type": "string",
-      "value": "Nov unprocessed claims: 2"
-    }
-  ],
-  "unprocessed_sept_oct_claims_sections": [
+  "claims_sections": [
     {
       "claim_number": {
         "source": "1223456789",
         "value": 1223456789,
         "type": "number"
       },
-      "phone_number": {
-        "type": "phoneNumber",
-        "source": "512 409 8765",
-        "value": "+15124098765"
-      },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
+      },
+      "redacted_phone_number": {
+        "value": "***8765",
         "type": "string"
       }
     },
@@ -219,9 +192,12 @@ The following image shows the example document used with this example config:
         "value": 9876543211,
         "type": "number"
       },
-      "phone_number": null,
       "policy_name_and_number": {
         "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
+      },
+      "redacted_phone_number": {
+        "value": "null",
         "type": "string"
       }
     },
@@ -231,13 +207,42 @@ The following image shows the example document used with this example config:
         "value": 6785439210,
         "type": "number"
       },
-      "phone_number": {
-        "type": "phoneNumber",
-        "source": "505 238 8765",
-        "value": "+15052388765"
+      "policy_name_and_number": {
+        "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
+      },
+      "redacted_phone_number": {
+        "value": "***8765",
+        "type": "string"
+      }
+    },
+    {
+      "claim_number": {
+        "source": "7235439210",
+        "value": 7235439210,
+        "type": "number"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
+      },
+      "redacted_phone_number": {
+        "value": "***8344",
+        "type": "string"
+      }
+    },
+    {
+      "claim_number": {
+        "source": "8235439211",
+        "value": 8235439211,
+        "type": "number"
+      },
+      "policy_name_and_number": {
+        "value": "National Landscaping Solutions 5501234567",
+        "type": "string"
+      },
+      "redacted_phone_number": {
+        "value": "***9856",
         "type": "string"
       }
     }
