@@ -82,7 +82,9 @@ Where `regex` is a Javascript-flavored regular expression.  Double escape specia
 Examples
 ====
 
-The following example shows defining custom computed fields.
+## Example 1
+
+The following example shows  defining custom computed fields.
 
 **Config**
 
@@ -428,3 +430,13 @@ The following image shows the example document used with this example config:
   ]
 }
 ```
+
+## Example 2
+
+The following example shows using the Custom Computation method to perform the following operations on data extracted from an claims loss run insurance document:
+
+- Get the total number of claims listed in the document
+
+- Redact the claim IDs
+
+- Sum up the incurred cost for all claims listed
