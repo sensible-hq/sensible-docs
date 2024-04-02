@@ -2,8 +2,6 @@
 title: "Summarizer"
 hidden: false
 ---
-TODO: remove 'alternative to list' links wherever you find them.
-
 Transforms short snippets of free text using an LLM (GPT-3.5 Turbo). The Summarizer computed field method takes as input another extracted field's output, and transforms the text based on prompts or short samples of extracted values you provide. Use this method to transform another method's output when you can't use [types](doc:types) or other [computed field methods](doc:computed-field-methods). For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. You can reformat with instructions like `the following snippet is a ranking. Return it formatted liked \"1st\", \"2nd\", \"3rd\" and so forth, not written out like \"first\" or in digit-only format like \"1\" `. 
 
 
