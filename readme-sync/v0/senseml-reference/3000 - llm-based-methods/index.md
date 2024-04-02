@@ -15,7 +15,7 @@ The following topics describe how to author LLM-based methods using the SenseML 
 | [List](doc:list) method                                      | "For each vehicle in an auto insurance declaration, extract the VIN, model, and year." | Extracts a list of data out of a document, where you don't know how the data are represented. |
 | [NLP Table](doc:nlp-table) method                            | "For each transaction in a bank statement table, extract the date and amount." | Extracts a list of data out of a document, where you know they're in a table. |
 | [Query Group](doc:query-group) method                              | "When does the policy period end?"<br/>"What are the last 4 numbers of the account?" | Extracts a single fact or data point.                        |
-| [Summarizer](doc:summarizer) computed field method + [Topic](doc:topic) method | "list the rents, how often the rent must be paid, and when the rent is due" | More configurable alternative to the List method.            |
+| [Summarizer](doc:summarizer) computed field method | transform extracted data using LLM prompts | Use this method to transform another method's output when you can't use [types](doc:types) or other [computed field methods](doc:computed-field-methods).            |
 
 
 
