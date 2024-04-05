@@ -1603,7 +1603,7 @@ components:
       type: string
       format: date-time
       example: 2022-10-31T16:27:53.433
-      description: Date and time Sensible started the extraction process.
+      description: Date and time Sensible created the initial empty extraction and set its status to WAITING.
 
     ExtractionCompleted:
       type: string
@@ -1615,7 +1615,7 @@ components:
       type: string
       description: >-
          Status of the extraction:
-         - WAITING: Sensible created an empty extraction and is waiting for the document.
+         - WAITING: Sensible created an initial empty extraction and is waiting for the document.
          - PROCESSING: Sensible received the document and is extracting data.
          - FAILED: The extraction failed.
          - COMPLETE: The extraction is complete.
