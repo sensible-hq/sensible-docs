@@ -357,6 +357,7 @@ Use configurable syntax to change the default recognized formats.
     "thousandsSeparator": ".",
     "decimalSeparator": ",", 
     "maxValue": 10000,
+    "toFixed": 2
   }
 ```
 
@@ -388,6 +389,7 @@ Use configurable syntax to change the default recognized formats.
 | accountingNegative        | `default`, `anyParentheses`, `bothParentheses`, `suffixNegativeSign` Default: `null` | Replaces the deprecated Accounting Currency type. Specifies to recognize accounting sign conventions for negative numbers.<br/>`null` Sensible recognizes negative numbers as described in the preceding **formats recognized** section.<br/>`bothParentheses` -  Sensible assigns a negative value to a number prefixed and suffixed by parentheses.<br/>`anyParentheses` - Sensible assigns a negative value to a number that includes any parentheses as a suffix or prefix. Use this option to handle OCR errors, where an opening or closing parenthesis can be  incorrectly recognized as other characters.<br/>`suffixNegativeSign` - Sensible assigns a negative value to number suffixed by a negative sign.<br/>`default`  Replaces the behavior of the Accounting Currency type for backward compatibility. The equivalent of `bothParentheses` and `suffixNegativeSign`. <br/> |
 | alwaysNegative            | boolean                                                      | If true, Sensible assigns a negative value to a number and ignores sign symbols in the document. For example, use this to capture values in the debit column of an accounting document, where negative signs are omitted. |
 | removeSpaces              | boolean                                                      | Removes whitespace in a line for better currency recognition. For example, changes the line `$  12.45` to `$12.45`. |
+| toFixed                   | number of decimal places to round up to.                     | Rounds up to the specified decimal place.<br/> For example if you specify `"toFixed": 3` then Sensible rounds `0.1234` to `0.123`. <br/>  If you specify `"toFixed": 2`  and `"decimalSeparator": ","` then Sensible rounds `5,249` to `5,25`. |
 
 Custom
 ====
@@ -657,6 +659,25 @@ Configurable syntax
 Number
 ====
 
+Simple syntax
+----
+
+**Syntax example**
+
+`"type": "number"`
+
+**Output example** 
+
+``` json
+{
+    "source": "123456789",
+    "value": 123456789,
+    "type": "number"
+}
+```
+
+**Formats recognized** 
+
 Recognizes digits in USA decimal notation. Recognizes one or more digits, optionally followed either by: 
 
 - commas preceding every three digits, optional digits after period, or by 
@@ -672,17 +693,35 @@ For example:
 
 This type does **not** recognize text such as `3.061.534,45`. Configure the Currency type instead. 
 
+Configurable syntax
+----
+
+**Example syntax **
+
+```json
+"type":
+  {
+    "id": "number",
+    "toFixed": "2"
+  }
+```
+
 **Example output**
 
 ```json
 {
-    "source": "123456789",
-    "value": 123456789,
+    "source": "1234.56989",
+    "value": 1234.57,
     "type": "number"
 }
 ```
 
+**Parameters**
 
+| key               | value                                    | description                                                  |
+| ----------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| id (**required**) | `number`                                 |                                                              |
+| toFixed           | number of decimal places to round up to. | Rounds up to the specified decimal place.<br/> For example if you specify `"toFixed": 3` then Sensible rounds `9.12346` to `9.125`. |
 
 Paragraph
 ====
