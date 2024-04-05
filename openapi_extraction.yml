@@ -827,6 +827,7 @@ components:
       schema:
         type: string
         format: date-time
+        default: unix epoch
       example: 2020-10-10T00:00:00.000Z
 
 
@@ -841,6 +842,7 @@ components:
       schema:
         type: string
         format: date-time
+        default: current date-time
       example: 2020-10-20T00:00:00.000Z
 
 
