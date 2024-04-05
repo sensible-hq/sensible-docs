@@ -820,9 +820,10 @@ components:
     start_date:
       name: start_date
       in: query
-      required: true
+      required: false
       description: >-
          Retrieves extractions with a `created` date that is equal to or later than this date-time.
+         The default is the unix epoch. 
       schema:
         type: string
         format: date-time
@@ -832,10 +833,11 @@ components:
     end_date:
       name: end_date
       in: query
-      required: true
+      required: false
       description: >-
          Retrieves extractions with a `created` date that is equal to or earlier than this date-time.
-         If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the `cutoff_date` parameter with the date-time that you can use as the new `end_date` to retrieve the next page of extractions in the originally intended date range.
+         The default is the current date-time. If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the `cutoff_date` parameter 
+         with the date-time that you can use as the new `end_date` to retrieve the next page of extractions in the originally intended date range.
       schema:
         type: string
         format: date-time
