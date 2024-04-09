@@ -1082,8 +1082,10 @@ components:
             format: date-time
             example: null
             description: >-
-              Sensible returns up to 1,000 extractions. If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the cutoff_date parameter with the date-time that you can use as the new end_date to retrieve the next page of extractions in the originally intended date range.
-              Note that the `cutoff_date` can differ from the earliest extraction returned by this endpoint. Since Sensible applies the date range filters before all other filters, the `cutoff_date` can represent an extraction that Sensible retrieved using the date range filter, and then removed using other filters.
+              DEPRECATED. The `continuation_token` and `limit` parameters replace this parameter. 
+              DESCRIPTION: Pass the cutoff_date parameter in the next request as the `end_date` parameter to retrieve the next page of extractions.
+              Note that since Sensible applies the date range filters before all other filters, the `cutoff_date` can represent 
+              the date-time of an extraction that Sensible retrieved using the date range filter, and then removed using other filters.
 
 
 
