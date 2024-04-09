@@ -524,11 +524,21 @@ paths:
       tags:
       - Retrieve extractions
       description: |
-        Use this endpoint to get a filtered list of past extractions. This endpoint returns a summary for each extraction, listed in reverse chronological order. To get details about an extraction, use the [Retrieve extraction by ID](ref:retrieving-results) endpoint.
+        Use this endpoint to get a filtered list of past extractions.
+        This endpoint returns a summary for each extraction, listed in reverse chronological order. 
+        To get details about an extraction, use the [Retrieve extraction by ID](ref:retrieving-results) endpoint.
+        This endpoint uses keyset pagination to retrieve the next page of results.
+        By default it returns a first page of 20 extractions and an opaque `continuation_token` that 
+        you can pass in the next request to get the next page of results, until the endpoint returns 
+        a null `continuation_token` to indicate the last page. 
+        Use the `limit` parameter to configure page size. 
+
 
       parameters:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
+        - $ref: '#/components/parameters/page_limit'
+        - $ref: '#/components/parameters/continuation_token' 
         - $ref: '#/components/parameters/configuration_ids'
         - $ref: '#/components/parameters/document_type_ids'
         - $ref: '#/components/parameters/environments'
@@ -846,6 +856,31 @@ components:
       example: 2020-10-20T00:00:00.000Z
 
 
+    page_limit:
+      name: limit
+      in: query
+      required: false
+      description: >-
+         Use the limit to define the number of items you recieve on each page of the paginated response.
+         The default is 20.
+      schema:
+        type: number
+        default: 20
+      example: 100
+
+    continuation_token:
+      name: continuation_token
+      in: query
+      required: false
+      description: >-
+         Get the next page of results by making a new request and passing the opaque `continuation_token` parameter 
+         that Sensible returns in the current page of responses.
+         Sensible returns a null `continuation_token` in the response to indicate the last page.
+      schema:
+        type: number
+        default: 20
+      example: 100
+
 
     start_date_config:
       name: start_date
@@ -1047,8 +1082,10 @@ components:
             format: date-time
             example: null
             description: >-
-              Sensible returns up to 1,000 extractions. If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the cutoff_date parameter with the date-time that you can use as the new end_date to retrieve the next page of extractions in the originally intended date range.
-              Note that the `cutoff_date` can differ from the earliest extraction returned by this endpoint. Since Sensible applies the date range filters before all other filters, the `cutoff_date` can represent an extraction that Sensible retrieved using the date range filter, and then removed using other filters.
+              DEPRECATED. The `continuation_token` and `limit` parameters replace this parameter. 
+              DESCRIPTION: Pass the cutoff_date parameter in the next request as the `end_date` parameter to retrieve the next page of extractions.
+              Note that since Sensible applies the date range filters before all other filters, the `cutoff_date` can represent 
+              the date-time of an extraction that Sensible retrieved using the date range filter, and then removed using other filters.
 
 
 
