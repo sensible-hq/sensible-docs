@@ -1,7 +1,13 @@
 ---
-title: "Invoice"
-hidden: false
+title: "(Deprecated) Invoice"
+hidden: true
 ---
+## Deprecated
+
+This method is deprecated. [LLM-based methods](doc:instruct) replace this method.
+
+## Description
+
 This method is identical to the [(Deprecated) Table method](doc:deprecated-table), and also returns detected invoice metadata. This method accepts one invoice per document file. If the document contains multiple tables, the Invoice method returns the data for the table that is the best invoice candidate.
 
 It's a best practice to create a single, flexible config that works for a variety of invoice formats. This is because invoices typically come from such a wide variety of vendors that it would be unmanageable to create a config for each vendor. Create a flexible config by using synonymous terms to identify invoice elements. For more information, see the [Examples section](doc:invoice#examples). 

@@ -865,7 +865,7 @@ Default type. Returns strings.
 Table
 ====
 
-Required when you define a [table method](doc:table-methods) or Invoice method.
+Required when you define a [table method](doc:table-methods).
 
 Weight
 ====
