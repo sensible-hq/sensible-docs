@@ -5,17 +5,17 @@ hidden: false
 
 This topic describes color-coded symbols that the SenseML editor overlays on documents in the Sensible app. These overlays visually represent how SenseML queries operate on documents. Use these symbols to author and troubleshoot queries.
 
-| symbol                                           | represents                           |
-| ------------------------------------------------ | ------------------------------------ |
-| [Yellow box](doc:color#yellow-box)               | anchor                               |
-| [Blue box](doc:color#blue-box)                   | captured method data                 |
-| [Green box](doc:color#green-box)                 | box, region, table, or chunk         |
-| [Green point](doc:color#green-point)             | starting point for recognizing a box |
-| [Green brackets](doc:color#green-brackets)       | ranges for sections                  |
-| [Dotted blue box](doc:color#dotted-blue-box)     | discarded method data                |
-| [Dotted yellow box](doc:color#dotted-yellow-box) | discarded anchor data                |
-| [Pink box](doc:color#pink-box)                   | fingerprint                          |
-| [Purple box](doc:color#purple-box)               | line details                         |
+| symbol                                                       | represents                           |
+| ------------------------------------------------------------ | ------------------------------------ |
+| [Yellow box](doc:color#yellow-box)                           | anchor                               |
+| [Blue box](doc:color#blue-box)                               | captured method data                 |
+| [Green box](doc:color#green-box)                             | box, region, table, or chunk         |
+| [Green point](doc:color#green-point)                         | starting point for recognizing a box |
+| [Green brackets or yellow brackets](doc:color#green-brackets) | ranges for sections                  |
+| [Dotted blue box](doc:color#dotted-blue-box)                 | discarded method data                |
+| [Dotted yellow box](doc:color#dotted-yellow-box)             | discarded anchor data                |
+| [Pink box](doc:color#pink-box)                               | fingerprint                          |
+| [Purple box](doc:color#purple-box)                           | line details                         |
 
 Yellow box
 ====
@@ -106,7 +106,9 @@ Green brackets
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_sections.png)
 
+Yellow brackets denote sections' external ranges, which is an advanced configuration option.
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_dynamic.png)
 
 
 
