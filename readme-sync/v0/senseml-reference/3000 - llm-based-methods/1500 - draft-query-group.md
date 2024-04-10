@@ -21,7 +21,7 @@ hidden: true
 | :--------------- | :----- | :----------------------------------------------------------- |
 |                  |        |                                                              |
 |                  |        |                                                              |
-| multimodalEngine | object | Configure this parameter to troubleshoot recognizing complex text layouts, for example, font size mismatches and lines in between other lines.<br/>This parameter sends an image of the document region containing the target data to a multimodal LLM engine for extraction.  This bypasses Sensible's OCR and line recognition processes. Note that this option doesn't support confidence signals.<br/><br/>This parameter has the following parameters:<br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. <br/>- To manually specify a region relative to the field's anchor, specify the region using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |
+| multimodalEngine | object | Configure this parameter to troubleshoot extracting from complex text layouts, such as overlapping lines and lines between lines. Many such layouts can occur as a consequence of handwritten text.<br/>This parameter sends an image of the document region containing the target data to a multimodal LLM engine for extraction.  This bypasses Sensible's OCR and direct-text extraction processes. Note that this option doesn't support confidence signals.<br/><br/>This parameter has the following parameters:<br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. <br/>- To manually specify a region relative to the field's anchor, specify the region using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |
 |                  |        |                                                              |
 |                  |        |                                                              |
 |                  |        |                                                              |
@@ -43,7 +43,7 @@ The following example shows using a multimodal LLM to extract from a scanned doc
   "preprocessors": [
     /* Returns confidence signals, or LLM accuracy qualifications,
        for all supported fields. Note that confidence signals aren't supported
-       for the Multimodal Engine parameter */
+       for fields using the Multimodal Engine parameter */
     {
       "type": "nlp",
       "confidenceSignals": true
@@ -66,7 +66,7 @@ The following example shows using a multimodal LLM to extract from a scanned doc
         "queries": [
           {
             "id": "ownership_type",
-            "description": "What is type of ownership?",
+            "description": "What is the type of ownership?",
             "type": "string"
           },
           {
