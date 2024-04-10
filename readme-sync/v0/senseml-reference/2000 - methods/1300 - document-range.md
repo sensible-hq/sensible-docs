@@ -20,9 +20,9 @@ Parameters
 | id (**required**) | `documentRange`                                              | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
 | stop              | [Match object](doc:match) or array of Match objects. default: `none` | Stops extraction at the top boundary of the matched line. The matched line isn't included in the method output. If unspecified, matches to the end of the document. |
 | includeAnchor     | boolean. default: `false`                                    | Includes the anchor line in the method output.               |
-| includeImages     | boolean. default: `false`                                    | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
+| includeImages     | boolean. default: `false`                                    | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. To extract structured data from images, see the [Query Group](doc:query-group) method and configure the Multimodal Engine parameter. |
 | offsetY           | number in inches.                                            | Specifies the number of inches to offset the start of the document range from the top boundary of the anchor line.<br/>Positive values offset down the page, negative values offset up the page.<br/>If the offset falls below all lines on the page containing the anchor, the offset starts at the top boundary of the first line on the next page that contains lines.<br/> For an example, see the Examples section. |
-| stopOffsetY       | number in inches.                                            | Specifies the number of inches to offset the end of the document range from the top boundary of the stop line.<br/>Positive values offset down the page, negative values offset up the page.<br/>If the offset falls below all lines on the page containing the anchor, the offset starts at the top boundary of the first line on the next page that contains lines.|
+| stopOffsetY       | number in inches.                                            | Specifies the number of inches to offset the end of the document range from the top boundary of the stop line.<br/>Positive values offset down the page, negative values offset up the page.<br/>If the offset falls below all lines on the page containing the anchor, the offset starts at the top boundary of the first line on the next page that contains lines. |
 
 Examples
 ====
@@ -257,7 +257,11 @@ Notes
 Extracting images
 ----
 
-Document Range is the sole method that supports extracting non-text images, for example, photos of buildings embedded in an inspection report. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
+The Document Range supports extracting non-text images that you can then render.  For example, extract photos of buildings embedded in an inspection report and save them to a backend.  It doesn't support extracting structured data from the images.
+
+**Note:** To extract structured data from an image, use the [Query Group](doc:query-group) method with the Multimodal Engine parameter configured. For example, extract facts about the building, such as whether it's multistory-story or single-story.
+
+To extract images, set `"includeImages":true` for the Document Range method. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
 
 - Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
 - Convert Sensible's coordinates for the image region to pixel per inch (PPI) coordinates. Sensible's region coordinates follow these conventions:
