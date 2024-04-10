@@ -24,7 +24,7 @@ Yellow box
 
 For example, the following image shows:
 
-- an anchor line outlined in yellow ("Here is a good candidate"). The outline shows the anchor line's "bounding box", or the boundaries of the anchor line.
+- an anchor line outlined in yellow ("Here is a good candidate"). The outline shows the anchor's "bounding box", or the boundaries of the anchor line.
 - a line output by the Label method outlined in blue ("And here's the text below")
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
