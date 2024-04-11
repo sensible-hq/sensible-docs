@@ -17,18 +17,18 @@ hidden: true
 
 
 
-| key              | value  | description                                                  |
-| :--------------- | :----- | :----------------------------------------------------------- |
-|                  |        |                                                              |
-|                  |        |                                                              |
-| multimodalEngine | object | Configure this parameter to:<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines and lines between lines. Many such layouts can occur as a consequence of handwritten text. For example, use this as an alternative to the [Signature](doc:signature) method. This parameter can also be an alternative to the [Nearest Checkbox](doc:nearest-checkbox) method, or as an alternative to configuring the [OCR engine](doc:ocr-engine) or line [preprocessors](doc:preprocessors).<br/>- Extract from images embedded in a document.<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM engine for extraction.  This bypasses Sensible's OCR and direct-text extraction processes. Note that this option doesn't support confidence signals.<br/><br/>This parameter has the following parameters:<br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. <br/>- To manually specify a region relative to the field's anchor, specify the region using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |
-|                  |        |                                                              |
-|                  |        |                                                              |
-|                  |        |                                                              |
-|                  |        |                                                              |
-|                  |        |                                                              |
-|                  |        |                                                              |
-|                  |        |                                                              |
+| key  | value | description |
+| :--- | :---- | :---------- |
+|      |       |             |
+|      |       |             |
+|      |       |             |
+|      |       |             |
+|      |       |             |
+|      |       |             |
+|      |       |             |
+|      |       |             |
+|      |       |             |
+|      |       |             |
 
 ## Examples
 
