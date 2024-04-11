@@ -77,7 +77,7 @@ The following example shows extracting structured data from real estate photogra
         "chunkSize": 1,
         "chunkCount": 2,
         /* Use a multimodal LLM to extract data about a photograph embedded in a document, 
-          for example the presence or absence of trees. */
+          for example the presence or absence of trees in the photo. */
         "multimodalEngine": {
           /* Selects the "context", or relevant excerpt,
            from the document to send as an image to the multimodal LLM.
@@ -140,17 +140,18 @@ The following image shows the example document used with this example config:
     "type": "string"
   },
   "community_amenities": {
-    "value": "Gated perimeter with key card access\nPlayground\nOn-site laundry facilities\nOn-site leasing office\nLake views in select units",
+    "value": "Gated perimeter with key card access",
     "type": "string"
   },
   "ownership_upgrades": {
-    "value": "New Signage and Landscaping Enhancements\nVarious Plumbing Systems Updated\nVarious Interior Unit Enhancements\nNew Children's Playground Installed\nClearing of the Shrubs/Foliage on Lake Mann to allow views of the lake\nRenovation of the Leasing Office",
+    "value": "New Signage and Landscaping Enhancements",
     "type": "string"
   },
   "exterior": {
-    "value": "brick",
+    "value": "Brick",
     "type": "string"
-  },
+  }
+}
 ```
 
 ### Example: Extract handwriting
