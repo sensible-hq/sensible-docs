@@ -38,7 +38,7 @@ Parameters
 | :--------------------- | :--------------- | :----------------------------------------------------------- |
 | id (**required**)      | `queryGroup`     |                                                              |
 | queries                | array of objects | An array of query objects, where each extracts a single fact and outputs a single field. Each query contains the following parameters:<br/>`id` (**required**) - The ID for the extracted field. <br/>`description`  (**required**) - A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. For more information about how to write questions (or "prompts"), see [Query Group](https://docs.sensible.so/docs/query-group-tips) extraction tips. |
-| chunkScoringText       | string           | Configures context's content. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt. Use this parameter to narrow down the page location of the answer to your prompt. For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see [Example 3](doc:query-group#example-3). |
+| chunkScoringText       | string           | Configures context's content. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt. Use this parameter to narrow down the page location of the answer to your prompt. For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet. |
 | multimodalEngine       | object           | Configure this parameter to:<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines and lines between lines. Many such layouts can occur as a consequence of handwritten text. For example, use this as an alternative to the [Signature](doc:signature) method. This parameter can also be an alternative to the [Nearest Checkbox](doc:nearest-checkbox) method, or as an alternative to configuring the [OCR engine](doc:ocr-engine) or line [preprocessors](doc:preprocessors).<br/>- Extract data from images embedded in a document, for example, photos or diagrams.<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM engine for extraction.  This bypasses Sensible's OCR and direct-text extraction processes. Note that this option doesn't support confidence signals.<br/><br/>This parameter has the following parameters:<br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. <br/>- To manually specify a region relative to the field's anchor, specify the region using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |
 | confidenceSignals      |                  | For information about this parameter, see [Advanced prompt configuration](doc:prompt). |
 | contextDescription     |                  | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
@@ -49,6 +49,216 @@ Parameters
 | pageRange              |                  | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 
 ## Examples
+
+
+
+### Example: Extract from images
+
+**Config**
+
+The following example shows extracting structured data from real estate photographs embedded in an offering memorandum document using the Multimodal Engine parameter. It also shows extracting data from text.
+
+```json
+{
+  "preprocessors": [
+    /* Returns confidence signals, or LLM accuracy qualifications,
+       for all supported fields. Note that confidence signals aren't supported
+       for fields using the Multimodal Engine parameter */
+    {
+      "type": "nlp",
+      "confidenceSignals": true
+    }
+  ],
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        /* send 2 pages as context to the LLM */
+        "chunkSize": 1,
+        "chunkCount": 2,
+        /* Use a multimodal LLM to extract data about a photograph embedded in a document, 
+          for example the presence or absence of trees. */
+        "multimodalEngine": {
+          /* Selects the "context", or relevant excerpt,
+           from the document to send as an image to the multimodal LLM.
+           If you configure "region":"automatic", then 
+           include queries in the group that target text near the image
+           to improve relevant context scoring */
+          "region": "automatic"
+        },
+        "queries": [
+          {
+            "id": "trees_present",
+            "description": "are there trees on the property. respond true or false",
+            "type": "string"
+          },
+          {
+            "id": "multistory",
+            "description": "are the buildings multistory? return true or false",
+            "type": "string"
+          },
+          {
+            "id": "community_amenities",
+            "description": "give one example of a community amenity listed",
+            "type": "string"
+          },
+          {
+            "id": "ownership_upgrades",
+            "description": "give one example of an existing upgrade that current ownership made?",
+            "type": "string"
+          },
+          {
+            "id": "exterior",
+            "description": "what is the exterior of the buildings made of (walls, not roof)",
+            "type": "string"
+          },
+        ]
+      }
+    },
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/multimodal_photo.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "trees_present": {
+    "value": "true",
+    "type": "string"
+  },
+  "multistory": {
+    "value": "true",
+    "type": "string"
+  },
+  "community_amenities": {
+    "value": "Gated perimeter with key card access\nPlayground\nOn-site laundry facilities\nOn-site leasing office\nLake views in select units",
+    "type": "string"
+  },
+  "ownership_upgrades": {
+    "value": "New Signage and Landscaping Enhancements\nVarious Plumbing Systems Updated\nVarious Interior Unit Enhancements\nNew Children's Playground Installed\nClearing of the Shrubs/Foliage on Lake Mann to allow views of the lake\nRenovation of the Leasing Office",
+    "type": "string"
+  },
+  "exterior": {
+    "value": "brick",
+    "type": "string"
+  },
+```
+
+### Example: Extract handwriting
+
+The following example shows using a multimodal LLM to extract from a scanned document containing handwriting. For an alternate approach to extracting from this document, see also the [Sort Lines](doc:method#sort-lines-example) example.
+
+**Config**
+
+```json
+{
+  "preprocessors": [
+    /* Returns confidence signals, or LLM accuracy qualifications,
+       for all supported fields. Note that confidence signals aren't supported
+       for fields using the Multimodal Engine parameter */
+    {
+      "type": "nlp",
+      "confidenceSignals": true
+    }
+  ],
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        /* Use a multimodal LLM to troubleshoot
+           problems with Sensible's default OCR engine and line merging.
+           This 1-step option avoids advanced configuration of the defaults.
+             */
+        "multimodalEngine": {
+          /* Automatically selects the "context", or relevant excerpt,
+           from the document to send as an image to the multimodal LLM.
+             */
+          "region": "automatic"
+        },
+        "queries": [
+          {
+            "id": "ownership_type",
+            "description": "What is the type of ownership?",
+            "type": "string"
+          },
+          {
+            "id": "owner_name",
+            "description": "What is the full name of the owner?",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    /* Without the multimodal LLM engine, Sensible's default
+       OCR, line sorting, and line merging options result 
+      in incorrect answers. */
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "ownership_type_no_multimodal",
+            "description": "What is the type of ownership?",
+            "type": "string"
+          },
+          {
+            "id": "owner_name_no_multimodal",
+            "description": "What is the full name of the owner?",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ],
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "ownership_type": {
+    "value": "Natural Person(s)",
+    "type": "string"
+  },
+  "owner_name": {
+    "value": "Kyle Murray",
+    "type": "string"
+  },
+  "ownership_type_no_multimodal": {
+    "value": "Natural Person(s) UGMA/UTMACustodian Trust",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "owner_name_no_multimodal": {
+    "value": "Mylic Cardinals Dr Glendale A2 85305",
+    "type": "string",
+    "confidenceSignal": "answer_may_be_incomplete"
+  }
+}
+```
+
+
+
+
+### Example: Extract from lease
 
 The following example shows using the Query Group method to extract information from a lease.
 
