@@ -21,12 +21,13 @@ See the following table to learn more about extraction strategies:
 
 See the following table for an overview of the pros and cons of LLMs versus layout-based extraction:
 
-|                              | LLM (Sensible Instruct)                                      | layout-based (SenseML)                                       |
-| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Technical expertise required | For nontechnical users. Describe what you want to extract in a prompt to an LLM.  For example, "the policy period" or "total amount invoiced". | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium." |
-| Workflow automation          | Suited to workflows that include human review or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
-| Document variability         | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Suited to structured documents with a finite number of variations, where you know the layout of the document in advance. |
-| Deterministic                | No                                                           | Yes. Find the information in the document using anchoring text and layout data. |
-| Handles repeating layouts    | Use [List](doc:list-tips) method.                            | Use [sections](doc:sections) for highly complex repeating substructures, for example, [loss runs](doc:sections). |
-| Performance                  | Data extraction takes a few seconds for each Instruct method. | Offers faster performance in general. For more information, see [Optimizing extraction performance](doc:performance). |
+|                                                              | LLM (Sensible Instruct)                                      | layout-based (SenseML)                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Technical expertise required                                 | For nontechnical users. Describe what you want to extract in a prompt to an LLM.  For example, "the policy period" or "total amount invoiced". | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium." |
+| Workflow automation                                          | Suited to workflows that include human review or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
+| Document variability                                         | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Suited to structured documents with a finite number of variations, where you know the layout of the document in advance. |
+| Deterministic                                                | No                                                           | Yes. Find the information in the document using anchoring text and layout data. |
+| Handles repeating layouts                                    | Use [List](doc:list-tips) method.                            | Use [sections](doc:sections) for highly complex repeating substructures, for example, [loss runs](doc:sections). |
+| Handles non-text images (photos, illustrations, charts, etc) | To extract data about images (`"is the building in this picture multistory?"`, use [Query Group](doc:query-group) method with the Multimodal Engine parameter configured | You can't extract data from the image, but you can export the image from the document using the [Document Range](doc:document-range) method with the Include Images parameter configured. |
+| Performance                                                  | Data extraction takes a few seconds for each Instruct method. | Offers faster performance in general. For more information, see [Optimizing extraction performance](doc:performance). |
 

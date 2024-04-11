@@ -4,7 +4,9 @@ hidden: false
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. Sensible uses a large language model (LLM)  to find these facts in paragraphs of free text, or in more structured layouts, for example key/value pairs or tables. Create a query group to extract multiple facts that share a [context](doc:query-group#notes), or are co-located in the document.
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. 
+
+Sensible uses a large language model (LLM)  to find data in paragraphs of free text, in images, or in more structured layouts, for example key/value pairs or tables. Create a query group to extract multiple facts that share a [context](doc:query-group#notes), or are co-located in the document.
 
 For tips and troubleshooting, see [Query Group](doc:query-group-tips) extraction tips.
 
