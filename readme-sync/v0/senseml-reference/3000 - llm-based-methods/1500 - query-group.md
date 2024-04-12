@@ -41,7 +41,7 @@ Parameters
 | id (**required**)      | `queryGroup`     |                                                              |
 | queries                | array of objects | An array of query objects, where each extracts a single fact and outputs a single field. Each query contains the following parameters:<br/>`id` (**required**) - The ID for the extracted field. <br/>`description`  (**required**) - A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. For more information about how to write questions (or "prompts"), see [Query Group](https://docs.sensible.so/docs/query-group-tips) extraction tips. |
 | chunkScoringText       | string           | Configures context's content. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt. Use this parameter to narrow down the page location of the answer to your prompt. For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet. |
-| multimodalEngine       | object           | Configure this parameter to:<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines and lines between lines. Many such layouts can occur as a consequence of handwritten text. For example, use this as an alternative to the [Signature](doc:signature) method. This parameter can also be an alternative to the [Nearest Checkbox](doc:nearest-checkbox) method, or as an alternative to configuring the [OCR engine](doc:ocr-engine) or line [preprocessors](doc:preprocessors).<br/>- Extract data from images embedded in a document, for example, photos, charts, or diagrams.<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM engine for extraction.  This bypasses Sensible's OCR and direct-text extraction processes. Note that this option doesn't support confidence signals.<br/><br/>This parameter has the following parameters:<br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. <br/>- To manually specify a region relative to the field's anchor, specify the region using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |
+| multimodalEngine       | object           | Configure this parameter to:<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines and lines between lines. Many such layouts can occur as a consequence of handwritten text. For example, use this as an alternative to the [Signature](doc:signature) method. This parameter can also be an alternative to the [Nearest Checkbox](doc:nearest-checkbox) method, or as an alternative to configuring the [OCR engine](doc:ocr-engine) or line [preprocessors](doc:preprocessors).<br/>- Extract data from images embedded in a document, for example, photos, charts, or diagrams.<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM (GPT-4 Vision Preview) engine for extraction.  This bypasses Sensible's OCR and direct-text extraction processes. Note that this option doesn't support confidence signals.<br/><br/>This parameter has the following parameters:<br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. <br/>- To manually specify a region relative to the field's anchor, specify the region using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |
 | confidenceSignals      |                  | For information about this parameter, see [Advanced prompt configuration](doc:prompt). |
 | contextDescription     |                  | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
 | pageHinting            |                  | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
@@ -62,15 +62,6 @@ The following example shows extracting structured data from real estate photogra
 
 ```json
 {
-  "preprocessors": [
-    /* Returns confidence signals, or LLM accuracy qualifications,
-       for all supported fields. Note that confidence signals aren't supported
-       for fields using the Multimodal Engine parameter */
-    {
-      "type": "nlp",
-      "confidenceSignals": true
-    }
-  ],
   "fields": [
     {
       "method": {
@@ -83,15 +74,16 @@ The following example shows extracting structured data from real estate photogra
         "multimodalEngine": {
           /* Selects the "context", or relevant excerpt,
            from the document to send as an image to the multimodal LLM.
-           If you configure "region":"automatic", then 
-           include queries in the group that target text near the image
-           to improve relevant context scoring */
+           If you configure "region":"automatic", then indicate the
+           relevant excerpt either by including queries in the group 
+           that target text near the image,
+           or by specifying the nearby text in the Chunk Scoring Text parameter */
           "region": "automatic"
         },
         "queries": [
           {
             "id": "trees_present",
-            "description": "are there trees on the property. respond true or false",
+            "description": "are there trees on the property? respond true or false",
             "type": "string"
           },
           {
@@ -106,12 +98,12 @@ The following example shows extracting structured data from real estate photogra
           },
           {
             "id": "ownership_upgrades",
-            "description": "give one example of an existing upgrade that current ownership made?",
+            "description": "give one example of an existing upgrade that current ownership made",
             "type": "string"
           },
           {
             "id": "exterior",
-            "description": "what is the exterior of the buildings made of (walls, not roof)",
+            "description": "what is the exterior of the building made of (walls, not roof)?",
             "type": "string"
           },
         ]
