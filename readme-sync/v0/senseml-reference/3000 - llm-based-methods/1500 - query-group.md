@@ -76,7 +76,7 @@ The following example shows extracting structured data from real estate photogra
            from the document to send as an image to the multimodal LLM.
            If you configure "region":"automatic", then indicate the
            relevant excerpt either by including queries in the group 
-           that target text near the image,
+           that target text near the photo,
            or by specifying the nearby text in the Chunk Scoring Text parameter */
           "region": "automatic"
         },
