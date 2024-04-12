@@ -72,8 +72,7 @@ The following example shows extracting structured data from real estate photogra
         /* Use a multimodal LLM to extract data about a photograph embedded in a document, 
           for example the presence or absence of trees in the photo. */
         "multimodalEngine": {
-          /* Selects the "context", or relevant excerpt,
-           from the document to send as an image to the multimodal LLM.
+          /* Sends the "context", or relevant document excerpt, as an image to the multimodal LLM.
            If you configure "region":"automatic" for a non-text image, 
            then help Sensible locate the context by including queries 
            in the group that target text near the image, or by specifying 
