@@ -60,13 +60,41 @@ Validation 1
 - **Severity**: warning
 - **Condition**:
 ```json
-{"or":[
-  {"!":[
-    {"exists":{"var":"quote_rate.valueConfidence"}}]},
-  {"and":[
-    {">=": [{"var":"quote_rate.valueConfidence"},"0.90"]},
-    {">=": [{"var":"quote_rate.anchorConfidence"},"0.90"]}]}
-]} 
+{
+  "or": [
+    {
+      "!": [
+        {
+          "exists": [
+            {
+              "var": "quote_rate.valueConfidence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "and": [
+        {
+          ">=": [
+            {
+              "var": "quote_rate.valueConfidence"
+            },
+            "0.90"
+          ]
+        },
+        {
+          ">=": [
+            {
+              "var": "quote_rate.anchorConfidence"
+            },
+            "0.90"
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 **Notes**: Since some sales quotes for `company_A` are scanned documents, check if the field came from OCR'd text. If it was OCR'd (confidence score is not null), then test that it has a high OCR confidence score for both the anchor text and the extracted value text. This validation requires that you set a high [verbosity setting](doc:verbosity) in the SenseML configuration.
