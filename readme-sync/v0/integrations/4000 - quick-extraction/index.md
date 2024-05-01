@@ -26,7 +26,7 @@ Take the following steps:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
-3. Click **Upload document** and select your example document or documents. For a list of supported file types, see [Supported file types](doc:file-types). Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr).
+3. Click **Upload document** and select your example document or documents. For a list of supported file types, see [Supported file types](doc:file-types). Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr-preprocessor).
 
 ​       If you don't have an example document, use the following document with the `sensible_instruct_basics` document type :
 
