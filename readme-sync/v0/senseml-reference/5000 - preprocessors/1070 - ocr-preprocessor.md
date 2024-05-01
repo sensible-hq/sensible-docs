@@ -3,11 +3,11 @@ title: "OCR preprocessor"
 hidden: false
 ---
 
-When you [extract document data with Sensible](doc:getting-started-ai), Sensible [automatically OCRs](doc:ocr-level) the document for you, except in advanced cases. This topic covers advanced cases.  For information about additional OCR options, see [OCR](doc:ocr)
+When you [extract document data with Sensible](doc:getting-started-ai), Sensible automatically OCRs the document for you, except in advanced cases. This topic covers advanced cases.  For information about additional OCR options, see [OCR](doc:ocr).
 
 Use the OCR preprocessor to selectively OCR pages in a document. This preprocessor is useful when a document contains both embedded text and text images. Selectively OCRing the pages containing text images, rather than the entire document, improves extraction performance. Examples of text images include handwriting and scanned text.
 
-If the whole document is a scan or image file, you don't need to configure this preprocessor. In that case, Sensible automatically OCRs the whole document.
+If the whole document is a scan or image file, you don't need to configure this preprocessor. In that case, Sensible OCRs the whole document by default.
 
 Parameters
 ====
