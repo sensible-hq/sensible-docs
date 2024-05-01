@@ -1,5 +1,5 @@
 ---
-title: "OCR"
+title: "OCR preprocessor"
 hidden: false
 ---
 
