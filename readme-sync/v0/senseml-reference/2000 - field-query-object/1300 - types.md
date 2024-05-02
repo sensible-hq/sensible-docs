@@ -445,6 +445,8 @@ Simple syntax
 
 **Output example**
 
+Returns an ISO 8601-formatted date-time. For example:
+
 ```json
 {
     "source": "Feb 1, 21",

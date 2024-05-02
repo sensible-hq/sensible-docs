@@ -781,7 +781,7 @@ components:
     Date:
       type: string
       format: date-time
-      description: ISO-formatted date-time.
+      description: ISO 8601 date-time.
     DocumentType:
       type: object
       properties:
