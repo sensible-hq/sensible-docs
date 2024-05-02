@@ -528,9 +528,7 @@ paths:
         This endpoint returns a summary for each extraction, listed in reverse chronological order. 
         To get details about an extraction, use the [Retrieve extraction by ID](ref:retrieving-results) endpoint.
         This endpoint uses keyset pagination to retrieve the next page of results.
-        By default it returns a first page of 20 extractions and an opaque `continuation_token` that 
-        you can pass in the next request to get the next page of results, until the endpoint returns 
-        a null `continuation_token` to indicate the last page. 
+        By default it returns a first page of 20 extractions and an opaque `continuation_token` that you can pass in the next request to get the next page of results, until the endpoint returns `continuation_token` to indicate the last page. 
         Use the `limit` parameter to configure page size. 
 
 
@@ -837,7 +835,7 @@ components:
       schema:
         type: string
         format: date-time
-        default: unix epoch
+        default: 1970-01-01T00:00:00Z
       example: 2020-10-10T00:00:00.000Z
 
 
@@ -847,13 +845,11 @@ components:
       required: false
       description: >-
          Retrieves extractions with a `created` date that is equal to or earlier than this date-time.
-         The default is the current date-time. If there are more than 1,000 extractions in the specified date range, Sensible omits the oldest extractions and populates the `cutoff_date` parameter 
-         with the date-time that you can use as the new `end_date` to retrieve the next page of extractions in the originally intended date range.
+         The default is the current date-time.
       schema:
         type: string
         format: date-time
-        default: current date-time
-      example: 2020-10-20T00:00:00.000Z
+      example: 2024-01-20T00:00:00.000Z
 
 
     page_limit:
@@ -877,9 +873,8 @@ components:
          that Sensible returns in the current page of responses.
          Sensible returns a null `continuation_token` in the response to indicate the last page.
       schema:
-        type: number
-        default: 20
-      example: 100
+        type: string
+      example: eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1 
 
 
     start_date_config:
