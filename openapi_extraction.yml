@@ -1139,7 +1139,7 @@ components:
               example: 100
               description: Total number of pages in the portfolio.
             environment:
-              $ref: '#/components/schemas/EnvironmentName
+              $ref: '#/components/schemas/EnvironmentName'
             document_name:
               $ref: '#/components/schemas/DocumentName'
             download_url:
