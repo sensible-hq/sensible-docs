@@ -1005,6 +1005,8 @@ components:
               description: Total number of pages in the document.
             environment:
               $ref: '#/components/schemas/EnvironmentName'
+            document_name:
+              $ref: '#/components/schemas/DocumentName'  
             coverage:
               $ref: '#/components/schemas/Coverage'
 
@@ -1136,6 +1138,10 @@ components:
               type: integer
               example: 100
               description: Total number of pages in the portfolio.
+            environment:
+              $ref: '#/components/schemas/EnvironmentName
+            document_name:
+              $ref: '#/components/schemas/DocumentName'
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
             documents:
@@ -1152,6 +1158,8 @@ components:
           properties:
             environment:
               $ref: '#/components/schemas/EnvironmentName'
+            document_name:
+              $ref: '#/components/schemas/DocumentName
             errors:
               $ref: '#/components/schemas/Errors'
 
