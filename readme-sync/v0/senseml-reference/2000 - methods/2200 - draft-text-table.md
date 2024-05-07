@@ -1,5 +1,5 @@
 ---
-title: "Text Table"
+title: "Text table"
 hidden: true
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "NLP Table"
+title: "NLP table"
 hidden: false
 ---
 Extracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages.

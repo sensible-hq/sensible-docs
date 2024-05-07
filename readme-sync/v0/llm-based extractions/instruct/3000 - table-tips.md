@@ -1,5 +1,5 @@
 ---
-title: "NLP Table extraction tips"
+title: "NLP table extraction tips"
 hidden: false
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "Fixed Table"
+title: "Fixed table"
 hidden: false
 ---
 Extracts tables with a fixed number of columns and returns their collated column contents. Anchor either on the table title or on a table column heading.

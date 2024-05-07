@@ -1,5 +1,5 @@
 ---
-title: "Document Range"
+title: "Document range"
 hidden: false
 ---
 Extracts consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the full definition of "succeeding", see [Line sorting](doc:lines#line-sorting).

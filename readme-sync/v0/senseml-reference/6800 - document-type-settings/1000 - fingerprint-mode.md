@@ -5,7 +5,7 @@ hidden: false
 
 A [fingerprint](doc:fingerprint) for standalone documents changes Sensible's default behavior of running *all* the configs in a single document type. For example, if you extract company A and company B quotes, by default Sensible runs both the company A and the company B configs for a given document, then returns the extraction with the highest score. 
 
-The following tables show how this default behavior changes when you configure the following levels of strictness for a document type's fingerprints. You can configure strictness in the Sensible app in the document type settings tab:
+The following tables show how this default behavior changes when you configure the following levels of strictness for a document type's fingerprints. You can configure strictness in the Sensible app in the document type settings tab.
 
 ## Single-document file fingerprints
 

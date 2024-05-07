@@ -1,5 +1,5 @@
 ---
-title: "Query Group"
+title: "Query group"
 hidden: false
 
 ---
