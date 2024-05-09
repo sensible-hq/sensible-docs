@@ -981,13 +981,7 @@ components:
       description: >-
         The environment in which the version of the config used to run the extraction was published.
       example: DEVELOPMENT
-    DocumentName:
-      type: string
-      description: >-
-        If you specify the filename of the document using the `document_name` parameter, then 
-        Sensible displays the name in extraction history in the Sensible app 
-        and returns the name in the extraction response.
-      example: example.pdf
+
 
     ExtractionSingleResponse: #single doc extraction
       allOf:
@@ -1009,6 +1003,14 @@ components:
               $ref: '#/components/schemas/DocumentName'  
             coverage:
               $ref: '#/components/schemas/Coverage'
+
+    DocumentName:
+      type: string
+      description: >-
+        If you specify the filename of the document using the `document_name` parameter, then 
+        Sensible displays the name in extraction history in the Sensible app 
+        and returns the name in the extraction response.
+      example: example.pdf
 
     StatisticsResponse:
       type: object
