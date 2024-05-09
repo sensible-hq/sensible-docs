@@ -1000,11 +1000,11 @@ components:
             environment:
               $ref: '#/components/schemas/EnvironmentName'
             document_name:
-              $ref: '#/components/schemas/DocumentName'  
+              $ref: '#/components/schemas/DocName'  
             coverage:
               $ref: '#/components/schemas/Coverage'
 
-    DocumentName:
+    DocName:
       type: string
       description: >-
         If you specify the filename of the document using the `document_name` parameter, then 
@@ -1143,7 +1143,7 @@ components:
             environment:
               $ref: '#/components/schemas/EnvironmentName'
             document_name:
-              $ref: '#/components/schemas/DocumentName'
+              $ref: '#/components/schemas/DocName'
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
             documents:
@@ -1161,7 +1161,7 @@ components:
             environment:
               $ref: '#/components/schemas/EnvironmentName'
             document_name:
-              $ref: '#/components/schemas/DocumentName
+              $ref: '#/components/schemas/DocName'
             errors:
               $ref: '#/components/schemas/Errors'
 
@@ -1218,7 +1218,7 @@ components:
           example: 100
           description: Total number of pages in the document.
         document_name:
-         $ref: '#/components/schemas/DocumentName'
+         $ref: '#/components/schemas/DocName'
         environment:
          $ref: '#/components/schemas/Environment'
         coverage:
