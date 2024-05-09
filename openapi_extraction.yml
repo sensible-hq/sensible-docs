@@ -32,7 +32,7 @@ paths:
   /extract/{document_type}:
     post:
       operationId: extract-data-from-a-document
-      summary: Extract data from a document
+      summary: Extract data from a document (sync)
 
       description: |
 
