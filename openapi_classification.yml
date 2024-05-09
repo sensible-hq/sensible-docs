@@ -29,7 +29,7 @@ paths:
       description: |
         Score a document's similarity to each document type you defined in your Sensible account and to each reference document in the highest-scoring type.
         To retrieve the scores, poll the `download_link` in this endpoint's response until it returns a non-error response.
-        For more information about scores, expand the 200 response in the synchronous [classification](ref:classify-document-sync) endpoint.
+        This endpoint is asynchronous. For more information about scores, expand the 200 response in the synchronous [classification](ref:classify-document-sync) endpoint.
 
         Use this endpoint:
 
