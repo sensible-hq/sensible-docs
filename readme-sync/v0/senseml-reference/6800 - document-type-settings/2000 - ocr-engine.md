@@ -19,4 +19,4 @@ The following table shows the enums available for the OCR Engine parameter.
 
 ## Notes
 
-You can use the Query Group method's [Multimodal Engine parameter](doc:query-group#parameters) as an alternative to OCR engines to extract from poor-quality text images, such as handwriting.
+You can use the Query Group method's [Multimodal Engine parameter](doc:query-group#parameters) as an alternative to OCR engines to extract from non-text images or from poor-quality text images, such as handwriting.
