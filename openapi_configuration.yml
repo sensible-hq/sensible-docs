@@ -808,8 +808,10 @@ components:
             $ref: '#/components/schemas/DocumentTypeName'
           id:
             $ref: '#/components/schemas/UniqueId'
-          #created:
-            #$ref: '#/components/schemas/Date'
+          created:
+            $ref: '#/components/schemas/Date'
+          schema:
+            $ref: '#/components/schemas/DocumentTypeOutput'
         required:
           - name
           - id
