@@ -802,7 +802,21 @@ components:
     GetAllDocumentTypes:
       type: array
       items:
-        $ref: '#/components/schemas/DocumentTypeOutput' 
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/DocumentTypeName'
+          id:
+            $ref: '#/components/schemas/UniqueId'
+          created:
+            $ref: '#/components/schemas/Date'
+          schema:
+            $ref: '#/components/schemas/DocumentTypeOutput'
+        required:
+          - name
+          - id
+          #- created
+        additionalProperties: false
     PostDocumentType:
       type: object
       properties:
