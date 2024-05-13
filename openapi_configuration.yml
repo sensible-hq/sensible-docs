@@ -802,10 +802,7 @@ components:
     GetAllDocumentTypes:
       type: array
       items:
-        type: object
-        properties:
-          $ref: '#/components/schemas/DocumentTypeOutput'
-        additionalProperties: false
+        $ref: '#/components/schemas/DocumentTypeOutput' 
     PostDocumentType:
       type: object
       properties:
