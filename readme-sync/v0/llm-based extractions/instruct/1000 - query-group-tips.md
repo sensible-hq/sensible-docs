@@ -31,30 +31,6 @@ Combining queries for the location, phone number, and email into the same group 
   -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
-## Troubleshooting
-
-- For information about troubleshooting LLM error messages, see [Qualifying LLM accuracy](doc:confidence).
-
-- You can view the source text for an LLM's answer highlighted in the document. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
-
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
-  
-- To troubleshoot locating a group's context in the document, ensure that the Page Hinting parameter is enabled, then add location information to a prompt in a group. For more information about the Page Hinting parameter, see [Advanced prompt configuration](doc:prompt).
-
-  **Location relative to page number and position on page**
-
-  - "address in the **top left of the first page** of the document"
-
-  - "What is the medical paid value on the **last claim of the second page**?"
-
-  - "consumer electronics device with highest sales mentioned **near end of document**"
-
-    **Location relative to content in document**
-
-  - "total amount **in the expense table**"
-
-  - "phone number after **section 2**"
-
 Examples
 ===
 
