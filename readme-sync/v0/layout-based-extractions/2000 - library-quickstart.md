@@ -13,10 +13,16 @@ If you want to extract from any of the following document types, you can get sta
 - credit card statements
 - drivers license
 - explanation of benefit
+- health insurance claims
+- home policy declaration pages
 - loss runs
 - pay stubs
+- pet policy declaration pages
 - resumes
 - tax forms
+- verifications of employment
+- rent rolls
+- offering memorandums
 - ....and more
 
 To add supported document types to your Sensible account:

@@ -1,5 +1,5 @@
 ---
-title: "Test before integrating configs"
+title: "Testing before integrating configs"
 hidden: false
 ---
 
