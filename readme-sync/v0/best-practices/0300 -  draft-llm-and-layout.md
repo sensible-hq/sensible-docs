@@ -5,16 +5,6 @@ hidden: true
 
 
 
-## Fallback  at the field method level
-
-
-
-## Use positional data to send multimodal LLM data
-
-
-
-
-
 ## Capture the longtail
 
 In this example, you extract data from automotive repair invoices. You have high volume from 5 auto shops, and a long tail of low-volume invoices from hundreds of other shops.  In this case:
@@ -84,5 +74,6 @@ In this example, you extract data from automotive repair invoices. You have high
           }
       ```
 
-      
+## Notes
 
+This topic covers falling back at the document level using config-level fingerprints. To fall back at a more granular level (at the field level), use field fallbacks. For more information see (troubleshoot-llms) example and (field query object)
