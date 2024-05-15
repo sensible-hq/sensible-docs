@@ -76,28 +76,42 @@ For example, you parse automotive repair invoices.  For most auto shops' invoice
 
 Fallback fields can be of any kind. For example, you can fallback from an LLM-based field to a layout-based field, or from a computed field to a section group.
 
-### Locate source text
+### Trace source context
 
-Locating the source text, or [context](doc:prompt#notes), for an LLM's answer can help you determine if the LLM is misinterpreting the correct text, or targeting the wrong text.
+Tracing the source text, or [context](doc:prompt#notes), for an LLM's answer can help you determine if the LLM is misinterpreting the correct text, or targeting the wrong text.
 
-To view the source text for an LLM's answer:
+You can view the source text for an LLM's answer highlighted in the document for the Query Group method:
 
-- You can view the source text for an LLM's answer highlighted in the document for the Query Group method. In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document. For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
+- In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
 
-- To troubleshoot locating a group's context in the document, ensure that the Page Hinting parameter is enabled, then add location information to a prompt in a group. For more information about the Page Hinting parameter, see [Advanced prompt configuration](doc:prompt).
+- In the SenseML editor, Sensible outlines the context with [blue boxes](doc:color) by default. 
 
-  **Location relative to page number and position on page**
+### Specify source context
 
-  - "address in the **top left of the first page** of the document"
+Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts. To troubleshoot locating context in the document:
 
-  - "What is the medical paid value on the **last claim of the second page**?"
+- For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
 
-  - "consumer electronics device with highest sales mentioned **near end of document**"
+- Ensure that the Page Hinting parameter is enabled, then add location information to a prompt. For example:
+
+    **Location relative to page number and position on page**
+
+    ```json
+    - "address in the top left of the first page of the document"
+    
+    - "What is the medical paid value on the last claim of the second page?"
+    
+    - "consumer electronics device with highest sales mentioned*near end of document"
+    ```
 
     **Location relative to content in document**
 
-  - "total amount **in the expense table**"
+    ```json
+    - "total amount in the expense table"
+    
+    - "phone number after section 2"
+    ```
 
-  - "phone number after **section 2**"
+​      For more information about the Page Hinting parameter, see [Advanced prompt configuration](doc:prompt).  
