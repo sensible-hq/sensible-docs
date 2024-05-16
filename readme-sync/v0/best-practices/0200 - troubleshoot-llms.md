@@ -15,7 +15,7 @@ ConfigurationError: LLM response format is invalid
 
 **Notes**
 
-Reword the description in simpler terms, and refrain from including the word "return" in your prompts, if possible. Or, add a fallback query to bypass the error if the original query is working for some documents and you're only seeing the error intermittently. See the following section for more information.
+Reword the prompt in simpler terms, and avoid specifying a format for the extracted data. Or, add a fallback query to bypass the error if the original query is working for some documents and you're only seeing the error intermittently. See the following section for more information about fallbacks.
 
 Background: Sensible returns this error when the LLM doesn't return its response in the JSON format that Sensible specifies in [full prompts](doc:prompt). This can occur when your `description` parameters prompt the LLM to return data in a specific format that conflicts with the expected JSON format.
 
@@ -90,28 +90,9 @@ You can view the source text for an LLM's answer highlighted in the document for
 
 ### Specify source context
 
-Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts. To troubleshoot locating context in the document:
+Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts. To troubleshoot locating [context](doc:prompt#notes) in the document:
 
 - For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
 
-- Ensure that the Page Hinting parameter is enabled, then add location information to a prompt. For example:
+- If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced prompt configuration](doc:prompt).  
 
-    **Location relative to page number and position on page**
-
-    ```json
-    - "address in the top left of the first page of the document"
-    
-    - "What is the medical paid value on the last claim of the second page?"
-    
-    - "consumer electronics device with highest sales mentioned*near end of document"
-    ```
-
-    **Location relative to content in document**
-
-    ```json
-    - "total amount in the expense table"
-    
-    - "phone number after section 2"
-    ```
-
-​      For more information about the Page Hinting parameter, see [Advanced prompt configuration](doc:prompt).  
