@@ -63,7 +63,7 @@ For example, you parse automotive repair invoices. For most auto shops' invoices
 
 Fallback fields can be of any kind. For example, you can fallback from an LLM-based field to a layout-based field, or from a computed field to a section group. For more information, see [Field query object](doc:field-query-object).
 
-## Cover longtail documents with fallback configs
+## Capture longtail documents with fallback configs
 
 In this example, you extract data from automotive repair invoices. You have high volume from 5 auto shops, and a long tail of low-volume invoices from hundreds of other shops.  In this case:
 
