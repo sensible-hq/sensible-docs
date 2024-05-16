@@ -10,7 +10,7 @@ Use Sensible's fallback mechanisms to solve missing or inaccurately extracted da
 
 For example, see the following sections.
 
-## Fix nulls or false positives with field fallbacks
+## Fix nulls and false positives with field fallbacks
 
 Sometimes an LLM prompt works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. Rather than rewrite the prompt, which can cause regressions, create fallbacks targeted at the failing documents.
 
