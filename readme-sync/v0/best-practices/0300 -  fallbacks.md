@@ -63,11 +63,11 @@ For example, you parse automotive repair invoices. For most auto shops' invoices
 
 Fallback fields can be of any kind. For example, you can fallback from an LLM-based field to a layout-based field, or from a computed field to a section group. For more information, see [Field query object](doc:field-query-object).
 
-## Capture longtail documents with fallback configs
+## Capture long tail documents with fallback configs
 
-In this example, you extract data from automotive repair invoices. You have high volume from 5 auto shops, and a long tail of low-volume invoices from hundreds of other shops.  In this case:
+In this example, you extract data from automotive repair invoices. You have high volume from 5 auto shops, and a long tail of low-volume invoices from hundreds of other shops. In this case, define a layout-based config for each of your top 5 auto shops to take advantage of layout-based method's speed and deterministic behavior, and define one catch-all LLM-based config for the long tail.
 
-1. Define a layout-based config for each of your top 5 auto shops to take advantage of layout-based method's speed and deterministic behavior:
+1. To define a layout-based config for each of your top 5 auto shops, take the following steps:
 
    - Define  [fingerprints](doc:fingerprint) for each auto shop's config. For example, if Andy and Son's is one of your top 5 shops, then include fingerprints for phrases that occur in those invoices:
 
@@ -112,7 +112,7 @@ In this example, you extract data from automotive repair invoices. You have high
 
       
 
-2. Define an LLM-based config for the long tail:
+2. To define an LLM-based config for the long tail, take the following steps:
 
     - Don't define fingerprints.
 
