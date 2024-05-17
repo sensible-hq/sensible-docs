@@ -1,6 +1,6 @@
 ---
 title: "Using fallbacks"
-hidden: true
+hidden: false
 ---
 
 Use Sensible's fallback mechanisms to solve missing or inaccurately extracted data. You can set fallbacks at different levels of granularity: 
@@ -65,7 +65,7 @@ Fallback fields can be of any kind. For example, you can fallback from an LLM-ba
 
 ## Capture long tail documents with fallback configs
 
-In this example, you extract data from automotive repair invoices. You have high volume from 5 auto shops, and a long tail of low-volume invoices from hundreds of other shops. In this case, define a layout-based config for each of your top 5 auto shops to take advantage of layout-based method's speed and deterministic behavior, and define one catch-all LLM-based config for the long tail.
+In this example, you extract data from automotive repair invoices. You have high volume from 5 auto shops, and a long tail of low-volume invoices from hundreds of other shops. In this case, define a layout-based config for each of your top 5 auto shops to take advantage of layout-based methods' speed and deterministic behavior, and define one catch-all LLM-based config for the long tail.
 
 1. To define a layout-based config for each of your top 5 auto shops, take the following steps:
 
@@ -79,22 +79,13 @@ In this example, you extract data from automotive repair invoices. You have high
            "text": "ANDY AND SON'S",
            "type": "includes",
            "isCaseSensitive": true
-         },
-         {
-           "text": "123 Main Street",
-           "type": "equals",
-           "isCaseSensitive": true,
-           "xRangeFilter": {
-             "minX": 3.3,
-             "maxX": 5.1
-           }
          }
        ]
      },
    ```
-
-    - Leverage the consistent formatting in each of the top vendors to extract data. For example, if Andy and Son's always labels the repaired vehicle's VIN number with the text `VIN #:`, then define a field like
-
+   
+    - Leverage the consistent formatting in each of the top vendors to extract data. For example, if Andy and Son's always labels the repaired vehicle's VIN number with the text `VIN #:`, then define a field similar to the following:
+   
       ```json
       {
         "fields": [
@@ -109,9 +100,9 @@ In this example, you extract data from automotive repair invoices. You have high
         ]
       }
       ```
-
+   
       
-
+   
 2. To define an LLM-based config for the long tail, take the following steps:
 
     - Don't define fingerprints.

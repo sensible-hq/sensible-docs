@@ -26,7 +26,7 @@ Let's get started with extracting document data from an example bank statement. 
 
  In this guide, you'll:
 
-- Extract data from an example document using a natural-language description of your target data 
+- Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
 - Publish your prompt as part of a "config."
 - Test your config against a second, similar document to ensure it extracts the same target data.
 
@@ -34,7 +34,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
-2. Log into the [Sensible app](https://app.sensible.so/signin/).
+2. Log into the [Sensible app](https://app.sensible.so/signin/)
 
 ## View an example
 
