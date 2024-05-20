@@ -108,7 +108,7 @@ The following example shows  defining custom computed fields.
           {
             "id": "vehicle_vin_a",
             "description": "vehicle vin for insurer A",
-            "type":"number"
+            "type": "number"
           }
         ]
       }
@@ -230,19 +230,16 @@ The following example shows  defining custom computed fields.
             {
               /* check that prop_limit_a.value is non-null
                  if it's null, replace it with zero.
-                 otherwise the operation returns null */  
-                
+                 otherwise the operation returns null */
               "if": [
-              {
-                  
-              "var": "prop_limit_a.value"
-              },
-                              {
-                  
-              "var": "prop_limit_a.value"
-              },
-              0      
-                
+                {
+                  "var": "prop_limit_a.value"
+                },
+                {
+                  "var": "prop_limit_a.value"
+                },
+                0
+              ]
             },
             200
           ]
