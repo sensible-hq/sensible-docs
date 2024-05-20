@@ -30,11 +30,72 @@ Let's get started with extracting document data from an example bank statement. 
 - Publish your prompt as part of a "config."
 - Test your config against a second, similar document to ensure it extracts the same target data.
 
-## Get an account
+## alternative 1: Get an account + create an empty config
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
-2. Log into the [Sensible app](https://app.sensible.so/signin/)
+2. Log into the [Sensible app](https://app.sensible.so/signin/). 
+
+3. Fill out the required registration information. Choose **Upload your document**. Upload the following document
+
+   {DOWNLOAD LINK}
+
+   ![image-20240520122345348](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240520122345348.png)
+
+- 
+
+## Alternative 2: Log into an existing account and create a new document type
+
+1. Click new document type:
+2. ![image-20240520122723887](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240520122723887.png)
+3. Give your document type a name (bank_statments). Name the config `1st best bank`. (Later if you decide to extract from a different bank, you'll name a new config after it, for example, `Chase`.)
+4. ![image-20240520122859998](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240520122859998.png)
+5. Click Create Extraction
+
+
+
+## Look at the auto-generated queries
+
+You can see that the previous steps created a bunch of auto extracted data for you:
+
+![image-20240520123032002](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240520123032002.png)
+
+You can even test these queries against a second document. Upload a second document:
+
+![image-20240520123148757](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240520123148757.png)
+
+Notice taht the extracted fields updated when you're viewing the 2nd document:
+
+![image-20240520123226996](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240520123226996.png)
+
+
+
+For the sake of this tutorial, let's build some queries from scratch:
+
+
+
+## Manually create queries
+
+
+
+
+
+1. Click **Switch to SenseML**
+
+2. Delete the entire contents of the left pane. you'll be left with an empty fields array:
+
+   ![image-20240520123409873](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240520123409873.png)
+
+   3. Click **switch to Sensible Instruct**
+   4. (now follow the steps for Query Group)
+
+   ## Extract a table
+
+   TODO- list the steps
+
+
+
+
 
 ## View an example
 
