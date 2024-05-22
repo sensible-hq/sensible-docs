@@ -1,6 +1,6 @@
 ---
-title: "Page filter"
-hidden: false
+title: "(Deprectated) Page filter"
+hidden: true
 ---
 
 Removes pages that match the specified text. 
