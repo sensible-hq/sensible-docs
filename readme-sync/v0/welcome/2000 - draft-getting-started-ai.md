@@ -53,7 +53,35 @@ Sensible displays an example document in the middle pane, and fields of extracte
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_2.png)
 
-Click a field to display the LLM prompts that extracts the data. For example, click the `ending_balance_all_accounts` field to view its prompts:
+##  Upload and test documents
+
+Let's test that the fields in the right pane can accurately extract data from a second document. To test a second bank statement:
+
+- Click the second example in the left pane. Verify that the extracted fields updated:
+
+
+
+
+
+
+
+- Click **Add file**.
+- Select your own bank statement, preferably one that combines multiple accounts. If you don't have one, download and select the following example:
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/bank_2.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+Select your uploaded document in the left pane and verify that the extracted data updated for the new file:
+
+
+
+
+
+
+
+## View extraction configuration
+
+Click a field to display the LLM prompts that extracts the data. These prompts are how you configure extractions. For example, click the `ending_balance_all_accounts` field to view its prompts:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_3.png)
 
@@ -67,9 +95,20 @@ To manually author an extraction prompt, click **Create new query**, author your
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_5.png) 
 
-### Auto-extract data
+## Auto-extract data
 
 To extract document data by automatically authoring prompts, take the following steps:
+
+1. Click **Suggest queries**.
+2. Select the data points that you want to extract from the document, then click **Add selected**:
+
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_6.png) 
+
+Sensible displays the auto-generated prompts and extracted data:
+
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_7.png) 
+
+
 
 
 
