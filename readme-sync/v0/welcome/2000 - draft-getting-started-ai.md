@@ -125,7 +125,7 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
    
 
-## TODO left off/2do
+## 
 
 ## Next
 
