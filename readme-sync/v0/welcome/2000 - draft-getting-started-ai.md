@@ -59,39 +59,26 @@ Sensible displays an example document in the middle pane, and fields of extracte
 
 Let's test that the fields in the right pane can accurately extract data from a second document. To test a second bank statement:
 
-- Click the second example in the left pane. Verify that the extracted fields updated:
+- Click the second example document in the left pane. Verify that the extracted fields updated:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_8.png)
 
 For supported fields, you can click the location icon to view the source of the extraction data:
 
-
-
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_9.png)
 
 ### Upload your own example
 
+To test one of your own documents, take the following steps:
 
+- In the left pane, click **Add file**.
+- Select your own bank statement, preferably one that combines multiple accounts.
 
+- Click your uploaded document in the left pane and verify that the extracted data updated for the new file.
 
+## Edit extraction configuration
 
-- Click **Add file**.
-- Select your own bank statement, preferably one that combines multiple accounts. If you don't have one, download and select the following example:
-
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/bank_2.pdf) |
-| ---------------- | ------------------------------------------------------------ |
-
-Select your uploaded document in the left pane and verify that the extracted data updated for the new file:
-
-
-
-
-
-
-
-## View extraction configuration
-
-Click a field to display the LLM prompts that extracts the data. These prompts are how you configure extractions. For example, click the `ending_balance_all_accounts` field to view its prompts:
+If you uploaded your own bank statement in the previous statement and observed any inaccurately extracted data, then you can edit the extraction configuration for each field.  To edit, click a field to display the LLM prompts that extracts the data. These prompts are how you configure extractions. For example, in the `Alley` bank statement example,  click the `ending_balance_all_accounts` field to view its prompts:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_3.png)
 
@@ -99,13 +86,13 @@ The left pane shows two queries that are grouped together (a "query group") beca
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_4.png) 
 
-## Manually configure extraction
+## Extract more data
 
-To manually author an extraction prompt, click **Create new query**, author your prompt, and click **Extract**. Sensible displays the extracted data below the prompt. For example:
+To manually author an extraction prompt, click **Create new query**, author your prompt, and click **Extract**. Sensible displays the extracted data below the prompt. For example, for the `Alley` bank statement:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_5.png) 
 
-## Auto-extract data
+## Auto-extract more data
 
 To extract document data by automatically authoring prompts, take the following steps:
 
@@ -118,96 +105,27 @@ Sensible displays the auto-generated prompts and extracted data:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_7.png) 
 
+## Extract a table
 
+So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
 
+- Click **Back to fields**.
 
+- Click **Table**
 
-Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_10.png)
 
-1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
+- To extract the account activity for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `credits`, `debits`, and `balance`.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_11.png)
 
+- Scroll down the right pane and click **Extract**. Sensible displays the extracted data:
 
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_12.png)
 
+   
 
-
-Take the following steps to create a prompt to extract more data from the document.
-
-## Auto-extract data
-
-To extract document data automatically, take the following steps:
-
-1. Click **Query group**:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
-
-2. Click **Auto generate**, then click **Generate**:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto.png)
-
-3. Sensible automatically generates queries and extracts their answers from the document:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_2.png)
-
-4. (Optional) Add more queries by clicking **Suggest queries**, selecting the field IDs that interest you, and clicking **Add selected queries**:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_3.png)
-
-To test the automatically generated extraction configuration with another document,  see [Test the prompt](doc:getting-started-ai#test-the-prompt). To author your own extraction configurations, see the following steps.
-
-## Manually configure extraction
-
-1. To author your own LLM prompts to extract data points from the document, click **Query group**.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
-
-2. Edit the query group as shown in the following screenshot by entering `checking account number (not savings)` in the query field.  Click **Extract**. 
-2. Sensible displays the extracted account number, `8347-32348`, in the **Extracted data** section:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
-
-4. Click **Back to fields**.
-
-Congratulations! You extracted the checking account number from the bank statement.
-
-## Publish the prompt
-
-To extract checking account numbers from other bank statements in production,  publish the "config" containing your prompt.
-
- Click **Publish configuration**, click **Production**, then click **Publish to production**:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
-
-## Test the prompt
-
-Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
-
-1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
-
-2. In the right pane, scroll down to the checking account number field you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-32348` to `9876-12345`: 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
-
-It looks like your prompt was successful at extracting the checking account number from another document. Great! 
-
-## (Optional) Extract more data
-
-Try extracting more complex pieces of information. For example, try extracting the time period for each account using the [List method](doc:list-tips). See the  `accounts_list` field in this config for an example of using the List method.
-
-Publish the config to save your changes.
-
-## (Optional) Extract from your own documents
-
-To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
-
-1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
-2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
-3. In the document type's **Reference documents** tab, upload your own example document.
-4. In the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
-5.  Write prompts in the configuration editor to extract data using what you learned in previous steps.
+## TODO left off/2do
 
 ## Next
 
