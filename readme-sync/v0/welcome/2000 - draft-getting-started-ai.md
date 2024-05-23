@@ -53,13 +53,23 @@ Sensible displays an example document in the middle pane, and fields of extracte
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_2.png)
 
-##  Upload and test documents
+##  Test more documents
+
+### View a second example
 
 Let's test that the fields in the right pane can accurately extract data from a second document. To test a second bank statement:
 
 - Click the second example in the left pane. Verify that the extracted fields updated:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_8.png)
 
+For supported fields, you can click the location icon to view the source of the extraction data:
+
+
+
+
+
+### Upload your own example
 
 
 
