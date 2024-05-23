@@ -1,6 +1,6 @@
 ---
 title: "Getting started"
-hidden: true
+hidden: false
 ---
 
 ## Overview
@@ -45,28 +45,41 @@ When you register for a new account, you can upload a document to auto-extract d
    - Click **Start with a sample document**
    - Click **Finance**
    - Click **Bank statement**
+   - Click **Get started**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png) 
 
+Sensible displays an example document in the middle pane, and fields of extracted data in the right pane. 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_2.png)
+
+Click a field to display the LLM prompts that extracts the data. For example, click the `ending_balance_all_accounts` field to view its prompts:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_3.png)
+
+The left pane shows two queries that are grouped together (a "query group") because they target information that's clustered together within the same page or few pages in the document: 
+
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_4.png) 
+
+To add your own prompt to the group, click **Create new query**, author your prompt, and click **Extract**. For example:
 
 
 
 
 
 
-1. 
 
-1. 
 
-1. 
 
-1. 
+Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
-1. To view an example bank statement extraction, navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
+1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
 
-   Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
+
+
+
 
 Take the following steps to create a prompt to extract more data from the document.
 
