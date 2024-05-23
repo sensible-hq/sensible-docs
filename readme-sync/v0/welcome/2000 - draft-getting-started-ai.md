@@ -78,13 +78,19 @@ To test one of your own documents, take the following steps:
 
 ## Edit extraction configuration
 
-If you uploaded your own bank statement in the previous statement and observed any inaccurately extracted data, then you can edit the extraction configuration for each field.  To edit, click a field to display the LLM prompts that extracts the data. These prompts are how you configure extractions. For example, in the `Alley` bank statement example,  click the `ending_balance_all_accounts` field to view its prompts:
+If you uploaded your own bank statement in the previous statement and observed any inaccurately extracted data, then you can edit the extraction configuration for each field.  
+
+### View the prompts
+
+To edit, click a field to display the LLM prompts that extracts the data. These prompts are how you configure extractions. For example, in the `Alley` bank statement example,  click the `ending_balance_all_accounts` field to view its prompts:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_3.png)
 
-The left pane shows two queries that are grouped together (a "query group") because they target information that's clustered together in a one- to two-page range in the document: 
+The left pane shows two prompts that are grouped together (a "query group") because they target information that's clustered together in a one- to two-page range in the document: 
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_4.png) 
+
+Click a prompt to edit it. Or see the following steps to author more prompts.
 
 ## Extract more data
 
@@ -123,13 +129,27 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_12.png)
 
-   
+   It looks like your prompt was successful at extracting the account activity. Great! 
 
-## 
 
-## Next
 
-### Learn more about extraction
+## Publish the prompt and integrate
+
+To extract data from bank statements at scale in production,  publish the "config" containing your prompt.
+
+ Click **Publish configuration**, click **Production**, then click **Publish to production**:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
+
+### 
+
+Now it's published you can get document data using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. See [Integrating](doc:integrate).
+
+
+
+## Next: Learn more about extraction
+
+
 
 - See [prompt authoring tips](doc:instruct)
 - Explore extracting lists, tables, and single data points with other interactive examples: 
@@ -138,9 +158,7 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
 - For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
 
-### Integrate
 
-Get extracted document data out of Sensible and put it to work in Excel files, databases, and other destinations. See [Integrating](doc:integrate).
 
 
 
