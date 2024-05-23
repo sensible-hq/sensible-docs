@@ -57,17 +57,19 @@ Click a field to display the LLM prompts that extracts the data. For example, cl
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_3.png)
 
-The left pane shows two queries that are grouped together (a "query group") because they target information that's clustered together within the same page or few pages in the document: 
+The left pane shows two queries that are grouped together (a "query group") because they target information that's clustered together in a one- to two-page range in the document: 
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_4.png) 
 
-To add your own prompt to the group, click **Create new query**, author your prompt, and click **Extract**. For example:
+## Manually configure extraction
 
+To manually author an extraction prompt, click **Create new query**, author your prompt, and click **Extract**. Sensible displays the extracted data below the prompt. For example:
 
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_5.png) 
 
+### Auto-extract data
 
-
-
+To extract document data by automatically authoring prompts, take the following steps:
 
 
 
