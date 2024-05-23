@@ -3,6 +3,8 @@ title: "Remove page"
 hidden: true
 ---
 
+TODO: add to index
+
 Removes pages that match the specified text. 
 
 Parameters
