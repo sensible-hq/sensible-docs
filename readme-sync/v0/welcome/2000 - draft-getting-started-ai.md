@@ -103,13 +103,13 @@ The left pane shows two prompts that are grouped together (a "query group") beca
 
 Click a prompt to edit it. Or see the following steps to author more prompts.
 
-## Extract more data
+### Extract more data
 
 To manually author an extraction prompt, click **Create new query**, author your prompt, and click **Extract**. Sensible displays the extracted data below the prompt. For example, for the `Alley` bank statement:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_5.png) 
 
-## Auto-extract more data
+### Auto-extract  data
 
 To extract document data by automatically authoring prompts, take the following steps:
 
@@ -122,7 +122,7 @@ Sensible displays the auto-generated prompts and extracted data:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_7.png) 
 
-## Extract a table
+### Extract a table
 
 So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
 
