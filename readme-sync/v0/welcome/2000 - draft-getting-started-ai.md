@@ -20,27 +20,27 @@ See the following list for an overview of going live with Sensible:
 
 This guide gets you started with the first step, extracting data.
 
-## Learn to extract data
+## Learn to extract data - 2do/todo rewrite
 
 Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract a checking account number in minutes.
 
  In this guide, you'll:
 
 - Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
-- Publish your prompt as part of a "config."
 - Test your config against a second, similar document to ensure it extracts the same target data.
+- Publish your prompt as part of a "config."
 
 ## Get an account
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
-2. Log into the [Sensible app](https://app.sensible.so/signin/).
+2. 
 
 ## View an example
 
-When you register for a new account, you can upload a document to auto-extract data from it, or you can view Sensible's example document extractions. Take the following steps to view Sensible's example bank statements extractions:
+When you register for a new account, you can upload a custom document to auto-extract data from it, or you can view Sensible's collection of example document extractions. Take the following steps to view an example extraction:
 
-1. When you sign in as a new user, Sensible displays the following dialog. In the dialog, select the following options:
+1. Log into the [Sensible app](https://app.sensible.so/signin/) as a new user. Sensible displays the following onboarding dialog. In the dialog, select the following options:
 
    - Click **Start with a sample document**
    - Click **Finance**
@@ -59,11 +59,11 @@ Sensible displays an example document in the middle pane, and fields of extracte
 
 Let's test that the fields in the right pane can accurately extract data from a second document. To test a second bank statement:
 
-- Click the second example document in the left pane. Verify that the extracted fields updated:
+- Click the second example document in the left pane. Verify that the extracted fields updated with new data. For example, verify that the `beginning_balance_all_accounts` field updated from `$61715.98` to `$181527.75` :
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_8.png)
 
-For supported fields, you can click the location icon to view the source of the extraction data:
+For supported fields, you can click the location icon to view the source location in the document for the extraction data:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_9.png)
 
@@ -72,9 +72,20 @@ For supported fields, you can click the location icon to view the source of the 
 To test one of your own documents, take the following steps:
 
 - In the left pane, click **Add file**.
-- Select your own bank statement, preferably one that combines multiple accounts.
+- Select a new example bank statement:
+  - If you use one of your own bank statement, ensure it's one that combines multiple accounts. Sensible [supports](doc:library-quickstart) extracting data from a single-account bank statement, but it's outside the scope of this tutorial. 
+  - If you don't have a statement on hand, you can download and then select the following example:
 
-- Click your uploaded document in the left pane and verify that the extracted data updated for the new file.
+
+| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/bank_statements/bank_of_america/boa_sample.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+- Click your uploaded document in the left pane and verify that the extracted data updated for the new file. For example:
+
+  
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png)
+  
+  
 
 ## Edit extraction configuration
 
