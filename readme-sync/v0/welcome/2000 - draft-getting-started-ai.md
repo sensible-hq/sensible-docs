@@ -37,7 +37,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-When you register for a new account, you can upload a custom document to auto-extract data from it, or you can view Sensible's collection of example document extractions. Take the following steps to view an example extraction:
+When you register for a new account, you can upload a custom document to auto-extract data from it, or you can view Sensible's collection of examples. Take the following steps to view an example extraction:
 
 1. Log into the [Sensible app](https://app.sensible.so/signin/) as a new user. Sensible displays the following onboarding dialog. In the dialog, select the following options:
 
