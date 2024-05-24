@@ -83,13 +83,13 @@ To test one of your own documents, take the following steps:
 - Click your uploaded document in the left pane and verify that the extracted data updated for the new file. For example:
 
   
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png)
-  
-  
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png)
+
 
 ## Edit extraction configuration
 
-Behind the scenes, an *extraction configuration* extracts data from each document using the same queries, or *fields*. The fields can be powered by LLM-based prompts, or by layout-based extraction rules written in JSON. Let's take a look at LLM-based prompts.
+Behind the scenes, an *extraction configuration* extracts data from each document using the queries, or *fields*. The fields can be powered by LLM-based prompts, or by layout-based extraction rules written in JSON. Let's take a look at LLM-based prompts.
 
 ### View the prompts
 
@@ -113,8 +113,8 @@ To manually author an extraction prompt, click **Create new query**, author your
 
 To extract document data by automatically authoring prompts, take the following steps:
 
-1. Click **Suggest queries**. Sensible suggests relevant data points to extract.
-2. Select the data points that you want to extract from the document, then click **Add selected**:
+1. Click **Suggest queries**. Sensible suggests relevant facts to extract.
+2. Select the facts that you want to extract from the document, then click **Add selected**:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_6.png) 
 
@@ -142,9 +142,7 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
    It looks like your prompt was successful at extracting the account activity. Great! 
 
-
-
-## Publish the prompt and integrate
+## Publish the prompts and integrate
 
 To extract data from bank statements at scale in production,  publish the "config" containing your prompt.
 
@@ -152,21 +150,11 @@ To extract data from bank statements at scale in production,  publish the "confi
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
-### 
-
-Now it's published you can get document data using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. See [Integrating](doc:integrate).
-
-
+Now you've published your config, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more inforamtion, see [Integrating](doc:integrate).
 
 ## Next: Learn more about extraction
 
-
-
 - See [prompt authoring tips](doc:instruct)
-- Explore extracting lists, tables, and single data points with other interactive examples: 
-  - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
-  - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
-
 - For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
 
 
