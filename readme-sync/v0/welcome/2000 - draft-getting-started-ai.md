@@ -89,17 +89,17 @@ To test one of your own documents, take the following steps:
 
 ## Edit extraction configuration
 
-If you uploaded your own bank statement in the previous statement and observed any inaccurately extracted data, then you can edit the extraction configuration for each field.  
+Behind the scenes, an *extraction configuration* extracts data from each document using the same queries, or *fields*. The fields can be powered by LLM-based prompts, or by layout-based extraction rules written in JSON. Let's take a look at LLM-based prompts.
 
 ### View the prompts
 
-To edit, click a field to display the LLM prompts that extracts the data. These prompts are how you configure extractions. For example, in the `Alley` bank statement example,  click the `ending_balance_all_accounts` field to view its prompts:
+To edit a prompt, click a field to display the LLM prompts that extracts the data. For example, in the `Alley` bank statement example,  click the `ending_balance_all_accounts` field to view its prompts:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_3.png)
 
-The left pane shows two prompts that are grouped together (a "query group") because they target information that's clustered together in a one- to two-page range in the document: 
+The left pane shows two prompts that are grouped together (a "query group") because they target information that's clustered together in a one- to two-page range in the document. Note that the information in the group must be co-located, but it doesn't need to be conceptually related. For an example, see the following image: 
 
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_4.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_4.png) 
 
 Click a prompt to edit it. Or see the following steps to author more prompts.
 
@@ -113,7 +113,7 @@ To manually author an extraction prompt, click **Create new query**, author your
 
 To extract document data by automatically authoring prompts, take the following steps:
 
-1. Click **Suggest queries**.
+1. Click **Suggest queries**. Sensible suggests relevant data points to extract.
 2. Select the data points that you want to extract from the document, then click **Add selected**:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_6.png) 
