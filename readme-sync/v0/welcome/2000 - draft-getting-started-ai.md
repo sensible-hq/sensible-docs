@@ -72,7 +72,7 @@ To test one of your own documents, take the following steps:
 
 - In the left pane, click **Add file**.
 - Select a new example bank statement:
-  - If you use one of your own bank statement, ensure it's one that combines multiple accounts. Sensible [supports](doc:library-quickstart) extracting data from a single-account bank statement, but it's outside the scope of this tutorial. 
+  - If you use one of your own bank statement, ensure it's one that combines multiple accounts. Note that Sensible [supports](doc:library-quickstart) extracting data from a single-account bank statement, but it's outside the scope of this tutorial. 
   - If you don't have a statement on hand, you can download and then select the following example:
 
 
@@ -81,7 +81,6 @@ To test one of your own documents, take the following steps:
 
 - Click your uploaded document in the left pane and verify that the extracted data updated for the new file. For example:
 
-  
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png)
 
