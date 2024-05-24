@@ -20,21 +20,20 @@ See the following list for an overview of going live with Sensible:
 
 This guide gets you started with the first step, extracting data.
 
-## Learn to extract data - 2do/todo rewrite
+## Learn to extract data
 
 Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract a checking account number in minutes.
 
  In this guide, you'll:
 
+- View example document extractions.
+- Test the example extraction configuration against a similar documents to ensure it extracts the same target data.
 - Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
-- Test your config against a second, similar document to ensure it extracts the same target data.
 - Publish your prompt as part of a "config."
 
 ## Get an account
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
-
-2. 
 
 ## View an example
 
