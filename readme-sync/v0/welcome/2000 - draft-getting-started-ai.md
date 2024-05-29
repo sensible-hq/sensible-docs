@@ -22,14 +22,16 @@ This guide gets you started with the first step, extracting data.
 
 ## Learn to extract data
 
-Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract a checking account number in minutes.
+Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract document information in minutes. 
 
  In this guide, you'll:
 
 - View example document extractions.
-- Test the example extraction configuration against a similar documents to ensure it extracts the same target data.
-- Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
-- Publish your prompt as part of a "config."
+- Test the example extraction configuration against similar documents to ensure it extracts the same target data, for example, a checking account number.
+- Extract data from an example document using natural-language prompts describing your target data.
+- Publish your prompts as part of a "config" so you can extract from documents in bulk.
+
+**Note:** In addition to LLM-based extractions, Sensible offers [layout-based](doc:getting-started) extraction methods for advanced use cases.
 
 ## Get an account
 
@@ -71,9 +73,9 @@ For supported fields, you can click the location icon to view the source locatio
 To test one of your own documents, take the following steps:
 
 - In the left pane, click **Add file**.
-- Select a new example bank statement:
-  - If you use one of your own bank statement, ensure it's one that combines multiple accounts. Note that Sensible [supports](doc:library-quickstart) extracting data from a single-account bank statement, but it's outside the scope of this tutorial. 
-  - If you don't have a statement on hand, you can download and then select the following example:
+- Select a new example bank statement to upload from your local file system:
+  - If you use one of your own bank statement, ensure it combines multiple accounts. Note that extracting data from single-account bank statements using our out-of-the-box [support](doc:library-quickstart) is outside the scope of this tutorial. 
+  - If you don't have a statement on hand, you can download the following example, then upload it to the Sensible app:
 
 
 | Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/bank_statements/bank_of_america/boa_sample.pdf) |
@@ -87,11 +89,11 @@ To test one of your own documents, take the following steps:
 
 ## Edit extraction configuration
 
-Behind the scenes, an *extraction configuration* extracts data from each document using the queries, or *fields*. The fields can be powered by LLM-based prompts, or by layout-based extraction rules written in JSON. Let's take a look at LLM-based prompts.
+Behind the scenes, an *extraction configuration* extracts data from each document using queries, or *fields*. The fields can be based on prompts for LLM, or on layout-based extraction rules written in JSON. Let's take a look at LLM-based prompts.
 
 ### View the prompts
 
-To edit a prompt, click a field to display the LLM prompts that extracts the data. For example, in the `Alley` bank statement example,  click the `ending_balance_all_accounts` field to view its prompts:
+To edit a prompt, click a field to display the LLM prompts that extract the data. For example, in the `Alley` bank statement example,  click the `ending_balance_all_accounts` field to view its prompts:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_3.png)
 
@@ -142,7 +144,7 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
 ## Publish the prompts and integrate
 
-To extract data from bank statements at scale in production,  publish the "config" containing your prompt.
+To extract data from bank statements in bulk in production,  publish the "config" containing your prompt.
 
  Click **Publish configuration**, click **Production**, then click **Publish to production**:
 
