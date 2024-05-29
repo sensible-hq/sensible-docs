@@ -1,6 +1,6 @@
 ---
 title: "Getting started"
-hidden: false
+hidden: true
 ---
 
 ## Overview
