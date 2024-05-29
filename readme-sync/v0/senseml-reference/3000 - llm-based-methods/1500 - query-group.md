@@ -156,7 +156,7 @@ The following example shows using a multimodal LLM to extract from a scanned doc
   "preprocessors": [
     /* Returns confidence signals, or LLM accuracy qualifications,
        for all supported fields. Note that confidence signals aren't supported
-       for fields using the Multimodal Engine parameter */
+       for the Multimodal Engine parameter */
     {
       "type": "nlp",
       "confidenceSignals": true
@@ -164,6 +164,10 @@ The following example shows using a multimodal LLM to extract from a scanned doc
   ],
   "fields": [
     {
+      /* use an anchor match to locate the 
+         region, or relevant document excerpt,
+          to send as an image to the multimodal LLM */
+      "anchor": "ownership information",
       "method": {
         "id": "queryGroup",
         /* Use a multimodal LLM to troubleshoot
@@ -171,15 +175,21 @@ The following example shows using a multimodal LLM to extract from a scanned doc
            This 1-step option avoids advanced configuration of the defaults.
              */
         "multimodalEngine": {
-          /* Automatically selects the "context", or relevant excerpt,
-           from the document to send as an image to the multimodal LLM.
-             */
-          "region": "automatic"
+          /* manually specify the region's dimensions in inches 
+         relative to the anchor. Use the green region overlay in the
+         rendered PDF to determine the dimensions */
+          "region": {
+            "start": "below",
+            "width": 8,
+            "height": 6,
+            "offsetX": -1.5,
+            "offsetY": 0.05
+          }
         },
         "queries": [
           {
             "id": "ownership_type",
-            "description": "What is the type of ownership?",
+            "description": "What is type of ownership?",
             "type": "string"
           },
           {
@@ -386,6 +396,8 @@ How location highlighting works
 In the Sensible Instruct editor, you can click the search icon to the right of the output of a query field to view its source text in the document. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
+
+In the SenseML editor, Sensible highlights source text in the document using a [blue box](doc:color). 
 
 For an overview of how Sensible finds the source text in the document for the LLM's response, see the following steps:
 
