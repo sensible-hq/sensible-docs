@@ -32,6 +32,8 @@ Parameters
 Examples
 =====
 
+### Empty cells in tables
+
 The following example shows using the Intersection method to extract a cell from a table that has empty cells.
 
 **Config**
@@ -75,3 +77,68 @@ The following image shows the example document used with this example config:
 
 
 
+### Variable text in cells
+
+The following example shows extracting variably positioned lines by relaxing the criteria by which Sensible determines that a region at the intersection point "contains" lines.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "a_insurers",
+      /* extract text at the intersection of "insurer a"
+           and the vertical anchor ("naic") */
+      "anchor": "insurer a",
+      "match": "all",
+      "method": {
+        "id": "intersection",
+        "verticalAnchor": "naic",
+        /* create a zero-height, 1"-wide rectangle at the
+           intersection point and extract all lines that overlap
+           with the rectangle  */
+        "width": 1,
+        "height": 0,
+        /* Sets the percent by which 
+           the rectangle's and the
+           line's widths must overlap in order to 
+           extract the line. 
+           To extract variably positioned lines,
+           this config specifies a lower percent
+           than the default */
+        "percentOverlapX": 0.5
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/percent_overlap.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/percent_overlap.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "a_insurers": [
+    {
+      "type": "string",
+      "value": "39993"
+    },
+    {
+      "type": "string",
+      "value": "16535"
+    },
+    {
+      "type": "string",
+      "value": "72222"
+    }
+  ]
+}
+```
