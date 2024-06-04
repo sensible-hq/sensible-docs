@@ -9,7 +9,7 @@ You can configure the full prompt that Sensible inputs to a large language model
 When you write a prompt in a Sensible Instruct method, Sensible combines your prompt with other information to create the full prompt. The full prompt includes:
 
 - a prompt introduction
-- "context", made up of chunks excerpted from the document and of page metadata. For more information about chunks, see the Notes section.
+- "context", made up of chunks excerpted from the document and of page metadata. For more information about chunking configuration, see the Notes section.
 - concatenated descriptive prompts you configure in a Sensible Instruct method, such as in the [List](doc:list-tips) or [Query Group](doc:query-group-tips) methods.
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query Group](doc:query-group-tips) method: 
@@ -25,7 +25,7 @@ The following table shows parameters that configure parts of the full prompt and
 | C    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:table-tips) method. | Description                                                  |
 
-You can configure all of these parameters in the SenseML editor and in the Sensible Instruct editor. For example, the following screenshots show prompt settings in Sensible Instruct for a Query Group field: 
+You can configure the preceding parameters in the SenseML editor and in the Sensible Instruct editor. For example, the following screenshots show prompt settings in Sensible Instruct for a Query Group field: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt_instruct_1.png)
 
