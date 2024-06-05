@@ -5,17 +5,39 @@ hidden: true
 
 
 
-Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. use Sensible to build document-automation features into your vertical SaaS products. Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful visual layout-based rules. 
-
-TODO: put these 2 into side-by-side comparison??
-
-LLM based extractions :
+Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. use Sensible to build document-automation features into your vertical SaaS products. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
-Visual-layout-based extractions:
+Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful visual layout-based rules.  In this way, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-text, highly variable legal documents :
 
-![image-20240531145205144](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240531145205144.png)
+![image-20240605094006233](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240605094006233.png)
+
+Sensible offers devops for document automation:
+
+**devops workflow for Extraction**
+
+![image-20240604131029643](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240604131029643.png)
+
+
+
+1. **Ingest** - In this step, you upload document files to Sensible, and Sensible converts them to a standardized text representation in preparation for extracting structured data. Features include:
+   - **file types** supported [file types](doc:file-types) including PDFs, Microsoft Word and Excel, and image types such as JPEG.
+   - **file upload methods** - Use our SDK, API, bulk upload UI ("manual upload"), or Zapier. For more information see [integrati]
+   - **Optimized OCR** - Sensible optimizes performance by choosing between [OCR](doc:ocr) or direct extraction of embedded fonts. Sensible represents the whole document in a standarized format, as an array of text lines with metadata about their layout. 
+2. **Classify**- In this step, Sensible automatically chooses which extraction processor best fits a document. Features include:
+   - **multi-document files** Sensible segments files that combine multiple documents into one PDF [portfolio](doc:portfolio) (for example, a mortgage application package that contains tax forms, bank statements, and application forms into one file)  into separate documents using "[fingerprints](doc:fingerprint)", or text matches that characterize first and last pages.
+   - **layout- and LLM-based extraction templates** You configure an extraction processor (or leverage our out-of-the-box processor [library](doc:library-quickstart)). Configure one processor for each general category of documents, for example, a `bank_statements` processor or a  `tax_documents` processor.  Each processor is an API endpoint. Inside the endpoint, you configure *templates* that define how to extract data from subcategories of documents in the general processor category. The templates contain queries you write in our document-domain specific query language, SenseML. For example, the `bank_statements` processor might have a template for bank of america statements, a template for wells fargo templates, and template for chase statements. Leverage our layout-based extraction SenseML methods (2do link) for fast and determinstic extractions for highly structured documents in the processor, and include an LLM-based, generalized template you can [fall back](doc:fallbacks#capture-long-tail-documents-with-fallback-configs) to if you have a long-tail of variable documents that you want to include in the processor.
+
+3. **Extract** - In this step, Sensible returns the extracted document data. Features include:
+
+   - 
+
+   
+
+
+
+
 
 To use the Sensible platform, you'll:
 
