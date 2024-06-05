@@ -19,20 +19,40 @@ Sensible offers devops for document automation:
 
 ![image-20240604131029643](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240604131029643.png)
 
-
+TODO: split this into a separate topic, just present the visual and a SHORT explanation in the overview?? Like 1 sentence per step, and ask the sales team to review?
 
 1. **Ingest** - In this step, you upload document files to Sensible, and Sensible converts them to a standardized text representation in preparation for extracting structured data. Features include:
    - **file types** supported [file types](doc:file-types) including PDFs, Microsoft Word and Excel, and image types such as JPEG.
    - **file upload methods** - Use our SDK, API, bulk upload UI ("manual upload"), or Zapier. For more information see [integrati]
    - **Optimized OCR** - Sensible optimizes performance by choosing between [OCR](doc:ocr) or direct extraction of embedded fonts. Sensible represents the whole document in a standarized format, as an array of text lines with metadata about their layout. 
+   
 2. **Classify**- In this step, Sensible automatically chooses which extraction processor best fits a document. Features include:
    - **multi-document files** Sensible segments files that combine multiple documents into one PDF [portfolio](doc:portfolio) (for example, a mortgage application package that contains tax forms, bank statements, and application forms into one file)  into separate documents using "[fingerprints](doc:fingerprint)", or text matches that characterize first and last pages.
-   - **layout- and LLM-based extraction templates** You configure an extraction processor (or leverage our out-of-the-box processor [library](doc:library-quickstart)). Configure one processor for each general category of documents, for example, a `bank_statements` processor or a  `tax_documents` processor.  Each processor is an API endpoint. Inside the endpoint, you configure *templates* that define how to extract data from subcategories of documents in the general processor category. The templates contain queries you write in our document-domain specific query language, SenseML. For example, the `bank_statements` processor might have a template for bank of america statements, a template for wells fargo templates, and template for chase statements. Leverage our layout-based extraction SenseML methods (2do link) for fast and determinstic extractions for highly structured documents in the processor, and include an LLM-based, generalized template you can [fall back](doc:fallbacks#capture-long-tail-documents-with-fallback-configs) to if you have a long-tail of variable documents that you want to include in the processor.
-
+   - **layout- and LLM-based extraction templates** You configure an extraction processor (or leverage our out-of-the-box processor [library](doc:library-quickstart)). Configure one processor for each general category of documents, for example, a `bank_statements` processor or a  `tax_documents` processor.  Each processor is an API endpoint. Inside the endpoint, you configure *templates* that define how to extract data from subcategories of documents in the general processor category. The templates contain queries you write in our document-domain specific query language, SenseML. For example, the `bank_statements` processor might have a template for bank of america statements, a template for wells fargo templates, and template for chase statements. Leverage our layout-based extraction SenseML methods (2do link) for fast and determinstic extractions for highly structured documents in the processor, and include an LLM-based, generalized template you can [fall back](doc:fallbacks#capture-long-tail-documents-with-fallback-configs) to if you have a long-tail of variable documents that you want to include in the processor. Here's an example of 2 different templates:
+   - **layout-based template**
+   - ````
+     TODO + include the PDF?
+     ````
+   - **LLM-based template**
+   - ```
+     TODO + include the PDF? (free-form..)
+     ```
+   - 
+   
 3. **Extract** - In this step, Sensible returns the extracted document data. Features include:
 
-   - 
+   - **structured data** Sensible returns data as key-value pairs. For example, for the previous templates, Sensible can return:
 
+   - ```
+     TODO
+     ```
+   
+     **metadata for tracing source text** (bounding box stuff...todo check if this is true for LLM-based methods and link to location highlighting)
+   
+     
+   
+     
+   
    
 
 
