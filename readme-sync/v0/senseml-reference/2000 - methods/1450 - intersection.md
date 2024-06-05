@@ -77,7 +77,7 @@ The following image shows the example document used with this example config:
 
 
 
-### Variable text in cells
+### Variable text positions
 
 The following example shows extracting variably positioned lines by relaxing the criteria by which Sensible determines that a region at the intersection point "contains" lines.
 
@@ -117,9 +117,9 @@ The following example shows extracting variably positioned lines by relaxing the
 **Example document**
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/percent_overlap.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_percent_overlap.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/percent_overlap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/intersection_percent_overlap.pdf) |
 | ---------------- | ------------------------------------------------------------ |
 
 **Output**
