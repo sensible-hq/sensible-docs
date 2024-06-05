@@ -47,7 +47,15 @@ TODO: split this into a separate topic, just present the visual and a SHORT expl
      TODO
      ```
    
-     **metadata for tracing source text** (bounding box stuff...todo check if this is true for LLM-based methods and link to location highlighting)
+     **metadata for tracing source text** (bounding box stuff...todo check if this is true for LLM-based methods and link to location highlighting, maybe link to colors too) doc:validate-extractions and doc:metrics
+   
+     **validations** Quality control the data extractions in a document type by writing validations. FOr example, configure Sensible to throw an error if an extraction zip code is the wrong number of digits.
+   
+     **confidence scores**  - For LLM-based extractions, confidence *signals* offer more nuanced troubleshooting than confidence *scores*. They look like error messages like `multiple_possible_answers` and `answer_may_be_incomplete`.
+   
+     
+   
+4. **Monitor** - 
    
      
    
