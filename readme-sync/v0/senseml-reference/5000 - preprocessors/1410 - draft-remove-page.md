@@ -1,6 +1,6 @@
 ---
 title: "Remove page"
-hidden: false
+hidden: true
 ---
 
 Removes pages that match the specified text.
