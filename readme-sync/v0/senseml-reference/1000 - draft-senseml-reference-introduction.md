@@ -3,6 +3,8 @@ title: "SenseML reference introduction"
 hidden: false
 ---
 
+
+
 TODO: can i use this?
 
 ODO: put these 2 into side-by-side comparison??
@@ -20,6 +22,30 @@ Visual-layout-based extractions:
 ==
 
  Use SenseML to write "configs" (collection of queries) to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.
+
+SenseML lets you:
+
+- Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step.
+
+- Use 'methods' to extract document primitives like rows, columns, tables, boxes, checkbox status, and more.
+
+  - For highly structured document,s use layout-based methods.
+
+  - For unstructured documents, use LLM-based methods
+
+  - You get structured data like:
+
+    Document source (tiny screenshot)
+
+    doucment output:
+
+    ```json
+    #label output todo
+    ```
+
+    TODO: table output as well.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
 
 See the following topics for reference documentation for the SenseML query language:
 
