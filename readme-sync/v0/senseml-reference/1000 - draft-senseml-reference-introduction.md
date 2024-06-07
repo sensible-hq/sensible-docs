@@ -3,7 +3,7 @@ title: "SenseML reference introduction"
 hidden: false
 ---
 
-*SenseML* is a query language that lets you extract structured data from documents, for example, from PDFs. A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is a key part of the larger Sensible devops platform TODO link to overview.
+*SenseML* is a document-specific query language that lets you extract structured data from documents, for example, from PDFs. A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is a key part of the Sensible devops platform TODO link to overview.
 
 Here's a example of a field that extracts a table:
 
@@ -19,7 +19,7 @@ With SenseML, you can:
 
 - Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step.
 
-- Use 'methods' to extract document primitives like rows, columns, tables, boxes, checkbox status, and more. In methods, you can parse entity types like currencies, dates, addresses, or your custom types.
+- Use "methods" in fields to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also can parse extracted data types like currencies, dates, addresses, or your custom types.
 
 -  Post-process extracted document data with logical validations you write like `extracted zip code is 5 digits`, computations like concat/split, and more.
 
@@ -54,9 +54,9 @@ With SenseML, you can:
 Examples
 ====
 
- The following image shows a "config". A "config" is a collection of SenseML preprocessors, queries, and other configurations that you use for extracting from a group of similar documents in bulk. For example, you can write a config for `bank of america bank statments`, a config to handle `1044 forms` , and a config to handle `A1 realty property inspection reports`. Configs can be highly specific to a document form, or LLM-based and generalized for a long tail of documents, for example, `boa_statements` versus `generalized_bank_statements`.
+ The following image shows a "config". A "config" is a collection of SenseML preprocessors, fields, and other configurations that you use for extracting from a group of similar documents in bulk.  Configs can be highly specific to a type of document, in which case you genearlly use layout-based extraction methods, or LLM-based and generalized for a long tail of documents. For example you could write a, `boa_consolidated_statements`  config using layout based methods like Row, Region, and Checkbox, or you could write a  `generalized_bank_statements` config that uses LLM-based methods like Table and List . 
 
-For an overview, see the following example of a short config.
+For an overview of the elements of a config, see the following example:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro.png)
 
