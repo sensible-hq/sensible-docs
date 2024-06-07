@@ -19,6 +19,25 @@ Sensible offers devops for document automation:
 
 ![image-20240604131029643](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240604131029643.png)
 
+The high-level steps to extract are as follows:
+
+1. **Ingest:** Convert the document (PDF, Microsoft document, or image) to text.
+
+2. **Classify**: Determine which configurations in the document type to use for running extractions, optionally using fingerprints.
+
+3. **Extract** Run the extractions:
+
+   1. Optionally validate each extraction using user-configured rules.
+   2. Score each extraction
+
+   3. Return the highest-scoring extraction.
+
+
+
+Let’s look at each step in detail:
+
+
+
 TODO: split this into a separate topic, just present the visual and a SHORT explanation in the overview?? Like 1 sentence per step, and ask the sales team to review?
 
 1. **Ingest** - In this step, you upload document files to Sensible, and Sensible converts them to a standardized text representation in preparation for extracting structured data. Features include:

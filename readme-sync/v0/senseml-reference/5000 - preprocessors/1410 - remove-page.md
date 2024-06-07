@@ -31,8 +31,8 @@ The following example shows removing all pages with an Appendix A header in orde
       "type": "removePage",
       "match": {
         "type":"equals",
-      "text": "Appendix A",
-      "minimumHeight": 0.2
+        "text": "Appendix A",
+        "minimumHeight": 0.2
       },
       "matchAll": true
     }

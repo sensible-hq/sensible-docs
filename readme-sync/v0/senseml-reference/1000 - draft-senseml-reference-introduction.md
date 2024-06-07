@@ -3,68 +3,60 @@ title: "SenseML reference introduction"
 hidden: false
 ---
 
+*SenseML* is a query language that lets you extract structured data from documents, for example, from PDFs. A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is a key part of the larger Sensible devops platform TODO link to overview.
+
+Here's a example of a field that extracts a table:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro_1.png)
+
+SOURCE 2do delete: https://dev.sensible.so/editor/?d=frances_playground&c=table_demo&g=compose_type
 
 
-TODO: can i use this?
-
-ODO: put these 2 into side-by-side comparison??
-
-LLM based extractions :
-
-Visual-layout-based extractions:
-
-![image-20240531145205144](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240531145205144.png)
-
-
-
-
-
-==
-
- Use SenseML to write "configs" (collection of queries) to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.
-
-SenseML lets you:
-
-- Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step.
-
-- Use 'methods' to extract document primitives like rows, columns, tables, boxes, checkbox status, and more.
-
-  - For highly structured document,s use layout-based methods.
-
-  - For unstructured documents, use LLM-based methods
-
-  - You get structured data like:
-
-    Document source (tiny screenshot)
-
-    doucment output:
-
-    ```json
-    #label output todo
-    ```
-
-    TODO: table output as well.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
 
-See the following topics for reference documentation for the SenseML query language:
+With SenseML, you can:
 
-- [Field query object](doc:field-query-object)
-- [Preprocessors](doc:preprocessors)
-- [Methods](doc:methods)
-- [LLM-based methods](doc:llm-based-methods), including LLM-based Sensible Instruct methods. For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
-- [Configuration settings](doc:config-settings)
-- [Computed Field methods](doc:computed-field-methods)
-- [Sections](doc:sections)
+- Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step.
 
-Or, for a getting started tutorial, see:
+- Use 'methods' to extract document primitives like rows, columns, tables, boxes, checkbox status, and more. In methods, you can parse entity types like currencies, dates, addresses, or your custom types.
 
-- [Getting started with layout-based extraction](doc:getting-started)
+-  Post-process extracted document data with logical validations you write like `extracted zip code is 5 digits`, computations like concat/split, and more.
+
+  
+
+  See the following topics for reference documentation for the SenseML query language:
+
+  **Preprocessors**
+
+  - [Preprocessors](doc:preprocessors)
+  - [Classify with fingerprints](doc:fingerprint)
+  - [OCR](doc:ocr)
+
+  **Document primitives**
+  
+  - [Field query object](doc:field-query-object)
+  - [Methods](doc:methods)
+  - [LLM-based methods](doc:llm-based-methods), including LLM-based Sensible Instruct methods. For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
+  - [Sections](doc:sections)
+  - [Configuration settings](doc:config-settings) TODO remove?
+  - [Document type settings](doc:document-type-settings) TODO remove?
+  
+  **Post-processing**
+  
+  - [Computed Field methods](doc:computed-field-methods)
+  
+  - [Verbosity](doc:verbosity)
+  - [Confidence signals](doc:confidence)
+  
+  
 
 Examples
 ====
 
-For an overview, see the following example of a short config:
+ The following image shows a "config". A "config" is a collection of SenseML preprocessors, queries, and other configurations that you use for extracting from a group of similar documents in bulk. For example, you can write a config for `bank of america bank statments`, a config to handle `1044 forms` , and a config to handle `A1 realty property inspection reports`. Configs can be highly specific to a document form, or LLM-based and generalized for a long tail of documents, for example, `boa_statements` versus `generalized_bank_statements`.
+
+For an overview, see the following example of a short config.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro.png)
 
