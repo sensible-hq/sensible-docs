@@ -19,3 +19,7 @@ In a document type, in the **Reivew TBD** tab, you can set the criteria for an e
 After you've set up the rules in the document type and run extractions, you can view extraction flagged for human review in the Review TBD/2do tab:
 
 ![image-20240609101902240](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240609101902240.png)
+
+The flagged extractions are organized by document type. Click a document type to review the flagged extractions:
+
+TODO LEFT OFF
