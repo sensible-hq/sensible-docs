@@ -5,11 +5,13 @@ hidden: true
 
 Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. Use Sensible to build document-automation features into your vertical SaaS products. 
 
+TODO: cut this image in half so it doesn't take so much length, add another question  like earnest money?
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_2.png)
 
 
 
-Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful visual layout-based rules.  Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-text, highly variable legal contracts :
+Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful visual layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-text, highly variable legal contracts :
 
 ![image-20240605094006233](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240605094006233.png)
 
@@ -23,7 +25,7 @@ See the following image steps for a high-level overivew of Sensible's document d
 
 ![image-20240604131029643](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240604131029643.png)
 
-As the preceding image shows, Sensible takes the following steps:
+As the preceding image shows, Sensible's workflow contains the following steps:
 
 1. **Ingest:** Convert the document (PDF, Microsoft document, or image) to text.
 
@@ -31,110 +33,55 @@ As the preceding image shows, Sensible takes the following steps:
 
 3. **Extract** Return the extraction. Optionally validate each extraction using user-configured logical rules.
 
-   
-
 Let’s look at each step in detail:
-
-
 
 1. **Ingest** - In this step, you upload document files to Sensible, and Sensible converts them to a standardized text representation in preparation for extracting structured data. Features include:
 
    - **file types** supported [file types](doc:file-types) including PDFs, Microsoft Word and Excel, and image types such as JPEG.
    - **file upload methods** - Use our SDK, API, bulk upload UI ("manual upload"), or Zapier. For more information see [Integrate](doc:integrate).
-   - **Optimized OCR** - Sensible optimizes performance by choosing between [OCR](doc:ocr) or direct extraction of embedded fonts. Sensible represents the whole document in a standarized format, as an array of text lines with metadata about their layout. 
+   - **Optimized OCR** - Sensible represents the whole document in a standarized text format. Sensible optimizes performance by choosing between [OCR](doc:ocr) or direct extraction of embedded fonts. 
 
-2. **Classify**- In this step, Sensible automatically chooses which extraction parser best fits a document. Features include:
+2. **Classify**- You upload the document to a *processor*, or API endpoint you configure  for extracting data from a general category of similar documents, for example, `bank_statments` or `tax_documents`.  From there, Sensible automatically classifies the document by  the best-fitting extraction *template*  in the processor. Features include:
 
    - **multi-document files** Sensible segments files that combine multiple documents into one PDF [portfolio](doc:portfolio) (for example, a mortgage application package that contains tax forms, bank statements, and application forms into one file)  into separate documents using "[fingerprints](doc:fingerprint)", or text matches that characterize first and last pages.
+   - **optimized fallbacks** TBD talk about fallbacks for LLM vs layout?? and link?
 
-   - **layout- and LLM-based extraction parsers, or "configs"** 
+3. **Extract** - In this step, Sensible returns the extracted document data. Features include: 
 
-     ![image-20240607135147766](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240607135147766.png)
+   - **Highly configurable layout- and LLM-based extraction using SenseML** - The heart of Sensible's power. You configure queries that return data. For example:
+
+     ```
+     TODO put in a couple simple LLM n layout based fields
+     ```
 
      
 
-     You configure extraction templates (or leverage our out-of-the-box [library](doc:library-quickstart)). Configure one processor for each general category of documents, for example, a `bank_statements` processor or a  `tax_documents` processor.  Each processor is an API endpoint. Inside the endpoint, you configure *templates* that define how to extract data from subcategories of documents in the general processor category. The templates contain queries you write in our document-domain specific query language, [SenseML](doc:senseml-reference-introduction). For example, the `bank_statements` processor might have a template for bank of america statements, a template for wells fargo templates, and template for chase statements. Leverage our layout-based extraction SenseML methods (2do link) for fast and determinstic extractions for highly structured documents in the processor, and include an LLM-based, generalized template you can [fall back](doc:fallbacks#capture-long-tail-documents-with-fallback-configs) to if you have a long-tail of variable documents that you want to include in the processor. Here's an example of 2 different templates:
+   -  For more information, see SenseML Reference Introduction and Processors. TODO links.
 
-   - **layout-based template**
-
-   - ````json
-     {
-       "fingerprint": {
-         "tests": [
-           {
-             "text": "bankofamerica",
-             "type": "endsWith",
-           }
-         ]
-       },
-         {
-       "fields": [
-             {
-           "id": "customer_address",
-           "type": "address",
-           "method": {
-             "id": "region",
-             "start": "left",
-             "offsetX": -5.5,
-             "offsetY": 0.3,
-             "width": 3.2,
-             "height": 1.8
-           },
-           "anchor": {
-             "match": {
-               "type": "startsWith",
-               "text": "customer service information"
-             }
-           }
-         },
-       ]
-     }
-         
-     ````
-     
-   - **LLM-based template**
+   - **structured data** Sensible returns data as key-value pairs. For example:
 
    - ```json
-     {
-       "fields": [
-         {
-           "method": {
-             "id": "queryGroup",
-             "queries": [
-               {
-                 "id": "customer_name",
-                 "description": "what is the customer name",
-                 "type": "string"
-               }
-             ]
-           }
-         }
-       ]
-     }
-     ```
-     
-     
-
-3. **Extract** - In this step, Sensible returns the extracted document data. Features include:
-
-   - **structured data** Sensible returns data as key-value pairs. For example, for the previous templates, Sensible can return:
-
-   - ```
-       "customer_name": {
-         "type": "string",
-         "value": "JOHN SMITH",
-         "confidenceSignal": "confident_answer"
-       },
+     [
+     "customer_name": {
+       "type": "string",
+       "value": "JOHN SMITH",
+       "confidenceSignal": "confident_answer"
+     },
+       "customer_address": {
+       "type": "address",
+       "value": "123 Maine Street",
+     },
+     ]
      ```
 
      Or it can return more complex data, like tables or sections. TODO links.
 
      **metadata for tracing source text** (bounding box stuff...todo check if this is true for LLM-based methods and link to location highlighting, maybe link to colors too) doc:validate-extractions and doc:metrics
-     
+
      **validations** Quality control the data extractions in a document type by writing validations. For example, configure Sensible to throw an error if an extraction zip code is the wrong number of digits.
-     
+
      **confidence scores**  - For LLM-based extractions, confidence *signals* offer more nuanced troubleshooting than confidence *scores*. They look like error messages like `multiple_possible_answers` and `answer_may_be_incomplete`.
-     
+
      
 
 4. **Monitor** -  
@@ -147,7 +94,7 @@ Let’s look at each step in detail:
 
    
 
-2. Human reivew: TODO add one it's released
+5. Human reivew: TODO add one it's released
 
 
 

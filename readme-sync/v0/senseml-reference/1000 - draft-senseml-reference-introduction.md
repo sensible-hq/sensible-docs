@@ -3,17 +3,19 @@ title: "SenseML reference introduction"
 hidden: false
 ---
 
-*SenseML* is a document-specific query language that lets you extract structured data from documents, for example, from PDFs. A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is a key part of the Sensible devops platform TODO link to overview.
+*SenseML* is a document-specific query language that lets you extract structured data from documents, for example, from PDFs. A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is a key part of the Sensible devops platform.
 
 Here's a example of a field that extracts a table:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro_1.png)
 
+
+
 SOURCE 2do delete: https://dev.sensible.so/editor/?d=frances_playground&c=table_demo&g=compose_type
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_2.png)
 
 With SenseML, you can:
 
@@ -39,8 +41,6 @@ With SenseML, you can:
   - [Methods](doc:methods)
   - [LLM-based methods](doc:llm-based-methods), including LLM-based Sensible Instruct methods. For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
   - [Sections](doc:sections)
-  - [Configuration settings](doc:config-settings) TODO remove?
-  - [Document type settings](doc:document-type-settings) TODO remove?
   
   **Post-processing**
   
@@ -54,7 +54,7 @@ With SenseML, you can:
 Examples
 ====
 
- The following image shows a "config". A "config" is a collection of SenseML preprocessors, fields, and other configurations that you use for extracting from a group of similar documents in bulk.  Configs can be highly specific to a type of document, in which case you genearlly use layout-based extraction methods, or LLM-based and generalized for a long tail of documents. For example you could write a, `boa_consolidated_statements`  config using layout based methods like Row, Region, and Checkbox, or you could write a  `generalized_bank_statements` config that uses LLM-based methods like Table and List . 
+ The following image shows a "config". A "config" is a collection of SenseML preprocessors, fields, and other configurations that you use for extracting from a group of similar documents in bulk.  Configs can be highly specific to a type of document, in which case use layout-based extraction methods, or LLM-based and generalized for a long tail of documents. For example you could write a, `boa_consolidated_statements`  config using layout based methods like Row, Region, and Checkbox, or you could write a  `generalized_bank_statements` config that uses LLM-based methods like Table and List . 
 
 For an overview of the elements of a config, see the following example:
 
