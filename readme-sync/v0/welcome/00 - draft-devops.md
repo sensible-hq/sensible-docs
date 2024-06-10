@@ -20,8 +20,8 @@ Let’s look at each step in detail:
 2. **Classify**- You upload the document to a *processor*, or API endpoint you configure . Each processor extracts data from a general category of similar documents, for example, `/extract/bank_statments` or `extract/tax_documents`.  From there, Sensible automatically classifies the document by  the highest-scoring extraction *template*  in the processor. A template defines how to extract data and populate a target output schema. Features include:
 
    - **multi-document files** Sensible segments files that combine multiple documents into one PDF [portfolio](doc:portfolio). For example, Sensible splits a mortgage application package into tax forms, bank statements, and application forms. To configure segmentation, you define  "[fingerprints](doc:fingerprint)", or text that characterize first and last pages.
-   - **fallback from layout-specific to general  templates** -  
-   - **out of the box templates**
+   - **fallback from layout-specific to general  templates** -  TODO fill in wording
+   - **out of the box templates** - TODO fill in wording
 
 3. **Extract** - In this step, Sensible returns the extracted document data. Features include: 
 

@@ -44,13 +44,13 @@ See the following image steps for a high-level overivew of Sensible's document d
 
 ![image-20240610110005965](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240610110005965.png)
 
-As the preceding image shows, Sensible's workflow contains the following steps: (TODO: add links to all of these?)
+As the preceding image shows, Sensible's workflow contains the following steps: (TODO: add links to all of these steps)
 
 1. **Ingest:** Convert the document (PDF, Microsoft document, or image) to text.
 
 2. **Classify**: Use a user-defined endpoint to classify the document according to the best-fitting user-configured extraction processor.
 
-3. **Extract** The processor returns the extraction using *SenseML*, a highly configurable document-specific query language that uses both LLMs and layout-based extraction rules. Write the queries yourself, or leverage our open-source library. Write rules in generalized templates for free-form documents like contracts, or in layout-specific templates for high-volume, standardized documents like 1044 tax forms. Optionally validate each extraction using user-configured logical rules. 
+3. **Extract** The processor returns the extraction using *SenseML*, a highly configurable document-specific query language that uses both LLMs and layout-based extraction rules. Write the queries yourself, or leverage our open-source library. Write rules in generalized templates for free-form documents like rental contracts, or in layout-specific templates for high-volume, standardized documents like 1044 tax forms. Optionally validate each extraction using user-configured logical rules. 
 
 For more information, see TODO DEVOPS OVERVIEW LINK.
 
@@ -64,7 +64,7 @@ With SenseML, you can:
 
 - Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step.
 
-- Use "methods" in fields to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also can parse extracted data types like currencies, dates, addresses, or your custom types.
+- Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also can parse extracted data types like currencies, dates, addresses, or your custom types.
 
 - Post-process extracted document data with logical validations you write like `extracted zip code is 5 digits`, computations like concat/split, and more.
 
@@ -81,8 +81,6 @@ senseml_intro_1.png
 For more information about SenseML, see TODO link to SenseML Reference intro.
 
 ## Learn more
-
-
 
 To use the Sensible platform, you'll:
 
