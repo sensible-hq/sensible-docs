@@ -36,25 +36,25 @@ With SenseML, you can:
   - [OCR](doc:ocr)
 
   **Document primitives**
-  
+
   - [Field query object](doc:field-query-object)
   - [Methods](doc:methods)
   - [LLM-based methods](doc:llm-based-methods), including LLM-based Sensible Instruct methods. For more information about choosing whether to author configs in either SenseML or Sensible Instruct, see [Choosing an extraction approach](doc:author).
   - [Sections](doc:sections)
-  
+
   **Post-processing**
-  
+
   - [Computed Field methods](doc:computed-field-methods)
   
   - [Verbosity](doc:verbosity)
   - [Confidence signals](doc:confidence)
-  
+
   
 
 Examples
 ====
 
- The following image shows a "config". A "config" is a collection of SenseML preprocessors, fields, and other configurations that you use for extracting from a group of similar documents in bulk.  Configs can be highly specific to a type of document, in which case use layout-based extraction methods, or LLM-based and generalized for a long tail of documents. For example you could write a, `boa_consolidated_statements`  config using layout based methods like Row, Region, and Checkbox, or you could write a  `generalized_bank_statements` config that uses LLM-based methods like Table and List . 
+ The following image shows a "config". A "config" is a collection of SenseML preprocessors, fields, and other configurations that you use for extracting from a group of similar documents in bulk.  For large-volume documents that share the same layout, you can write layout-based configs that are highly specific to the spacial formatting of that document or even to a revision of that document. For a long tail of variably formatted documents, you can write a generalized LLM-based config.  For example you could write a, `boa_consolidated_statements`  config using spacial layout-based methods like Row, Region, Fixed Table, and Checkbox, or you could write a  `generalized_bank_statements` config that uses LLM-based methods like NLP Table and List . 
 
 For an overview of the elements of a config, see the following example:
 
