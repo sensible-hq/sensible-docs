@@ -7,9 +7,7 @@ A *processor* is an API endpoint that you configure for extracting data from a g
 
  In the endpoint, you configure *templates* that define how to extract data from subcategories of documents in the general processor category. The templates contain queries you write in our document-domain specific query language, [SenseML](doc:senseml-reference-introduction).
 
-
-
-2do: this image should have /bank_statements endpoint covering both classify and extract 
+ 
 
 ![image-20240607135147766](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240607135147766.png)
 

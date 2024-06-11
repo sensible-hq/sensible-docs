@@ -7,9 +7,13 @@ Welcome! Sensible is a developer-first platform for extracting structured data f
 
 intro_SDK_2.png
 
-From any document, you can get back key facts as JSON:
+For any document, you can write extraction queries: 
 
 ![image-20240610103355889](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240610103355889.png)
+
+
+
+And get back key facts as JSON:
 
 ```json
 {
@@ -34,7 +38,7 @@ From any document, you can get back key facts as JSON:
 }
 ```
 
-Sensible is highly configurable: you can get simple data in minutes by leveraging GPT-4 and other large language models (LLMs), or you can tackle complex and idiosyncratic document formatting with Sensible's powerful visual layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, highly variable legal contracts :
+Sensible is highly configurable. You can get simple data in minutes by leveraging GPT-4 and other large language models (LLMs), or you can tackle complex documents with Sensible's powerful visual layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, highly variable legal contracts :
 
 ![image-20240605094006233](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240605094006233.png)
 
