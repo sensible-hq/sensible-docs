@@ -3,9 +3,9 @@ title: "Human review"
 hidden: true
 ---
 
-You can configure rules to trigger review for extractions that fail validations or have missing null data. Using our reivew UI in the Sensible app to manually correct the extraction then approve or reject it.
+You can configure rules to trigger review for extractions that fail validations or have missing null data. Using our review UI in the Sensible app to manually correct the extraction then approve or reject it.
 
-In a document type, in the **Reivew TBD** tab, you can set the criteria for an extraction to be flagged for manual review:
+In a document type, in the **Review TBD** tab, you can set the criteria for an extraction to be flagged for manual review:
 
 - Extraction converage (2do link to /metrics)
 - validations: you can also choose individual validations to trigger or not trigger (2do link to /validations)
