@@ -96,18 +96,22 @@ Sensible is less sensitive to non-address text if you configure `"block_format":
 
 For example:
 
-```123 Waverly Pl
-# block format
+```txt
 
-San Francisco, CA 94110
-
-123 Waverly Pl San Francisco, CA 941104123
-
-PO BOX 1058 San Francisco, CA 94110
+# block formats
 
 123 Waverly Pl
 San Francisco, CA
 941104123
+
+San Francisco, CA 94110
+
+
+123 Waverly Pl San Francisco, CA 941104123
+
+
+PO BOX 1058 San Francisco, CA 94110
+
 
 # inline format
 
