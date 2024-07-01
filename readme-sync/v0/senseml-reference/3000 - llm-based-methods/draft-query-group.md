@@ -4,6 +4,8 @@
 |                       |                         |                                                              |
 |                       |                         |                                                              |
 
+https://dev.sensible.so/editor/?d=summarizer_tests_fr&c=sum_pubmed&g=summarizer_pubmed
+
 
 
 **HOW IT WORKS**
@@ -17,7 +19,7 @@
 EFFECTS on other parameters:
 
 - chunkSize: default is 1, overrides the method's default.
-- chunkCount: default is TODO overriding the default of 5
+- chunkCount: default is  5  overriding the default of 5 (right? and what would happen if yo uconfigred a different one? **is it not configurable seems like it's not?**?)
 - 
 
 paramaeters that get ignored:
