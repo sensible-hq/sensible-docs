@@ -109,7 +109,7 @@ As the preceding image shows, Sensible's workflow contains the following steps:
 
 4. **Monitor** -  Monitor real-time extraction metrics, for example document volume, validations, and percent of non-null extracted fields, using the [metrics](doc:metrics) dashboard. 
 
-For more information, see Devops platform overview TODO LINK doc:draft-devops-platform-overview.
+For more information, see [Devops platform overview](doc:draft-devops-platform-overview)  
 
 ## Learn more
 
