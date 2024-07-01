@@ -14,9 +14,24 @@
 - Sensible prompts an LLM (todo? which one) with your `description` parameters and asks it to return the top page indices most likely to contain the answer to your question, based on the page summaries. (TODO: always ALL page summaries? evne if it's 1k page doc ie like 10k words of prompt?).  You can configure the number of page indices returned using the Chunk Count parameter. (todo: but what if it's a half page...)
   - Sensible prompts an LLM (todo? which one?) to answer the questions in your `description` parameters using the full page text of the top pages as context. (or is it the full chunk text?) 
 
+EFFECTS on other parameters:
 
+- chunkSize: default is 1, overrides the method's default.
+- chunkCount: default is TODO overriding the default of 5
+- 
 
+paramaeters that get ignored:
 
+- Chunk Scoring Text parameter
+- Multimodal Engine parameter
+- chunkOverlapPercentate: it's set to 0 no matter what you do I'm guessing
+
+unaffected/normal behavior:
+
+- Confidence Signals
+- Context Descrripton
+- Page Hinting (TODO: i'm guessing this would get used in the 'top page indices' call but not the 'full text context' call?)
+- Page Range -- could you use this for token overflow problems in large documents?
 
 QUESTIONS:
 
