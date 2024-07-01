@@ -1,3 +1,10 @@
+---
+title: "search summary"
+hidden: true
+
+---
+
+
 |                       |                         |                                                              |
 | --------------------- | ----------------------- | ------------------------------------------------------------ |
 | searchBySummarization | boolean. default: false | Set this to true if Sensible isn't finding the answer to a propmt, or is finding it in the wrong part of the document as a false positive.<br/>If set to true, then Sensible changes its search behavior and the LLM model used as follows:<br/>This parameter is compatible with documents up to 1,280 pages long. <br/>[Beyond embeddings: Navigating the shift to completions-only RAG](https://www.sensible.so/blog/embeddings-vs-completions-only-rag) |
