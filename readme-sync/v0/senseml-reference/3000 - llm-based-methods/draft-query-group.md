@@ -1,6 +1,6 @@
 |                       |                         |                                                              |
 | --------------------- | ----------------------- | ------------------------------------------------------------ |
-| searchBySummarization | boolean. default: false | Set this to true if Sensible isn't finding the answer to a propmt, or is finding it in the wrong part of the document as a false positive.<br/>If set to true, then Sensible changes its search behavior and the LLM model used as follows:<br/> |
+| searchBySummarization | boolean. default: false | Set this to true if Sensible isn't finding the answer to a propmt, or is finding it in the wrong part of the document as a false positive.<br/>If set to true, then Sensible changes its search behavior and the LLM model used as follows:<br/>This parameter is compatible with documents up to 1,280 pages long. <br/>[Beyond embeddings: Navigating the shift to completions-only RAG](https://www.sensible.so/blog/embeddings-vs-completions-only-rag) |
 |                       |                         |                                                              |
 |                       |                         |                                                              |
 
@@ -8,17 +8,34 @@
 
 **HOW IT WORKS**
 
-1. Sensible prompts an LLM to summarize each page's content **in a batch of page ranges that overlaps by 1 page with tpervious batch** default batch is 7p, no need to mention thatup to 28 page batch? total page limit of x = 1280  for picking top chunks with summarization using gpt-4o
-2. Sensible feeds the pages to a second propmt asking for the 'top ten page indices' (QUESTION: what happens in a 200+ page document when each page is summary is 100 words? what happens in a token overflow situation, what error message is returned?) 
-   1. QUESTION: 
-   2.  chunkSize - default is 1, can be either 0.5 or 1 (which is global yeah)
-   3. chunkCount  - relevant???? seems to be
-   4. chunkOverlapPercentage - expect n/a... yeah it's 0
-   5. pageRange - expect applicable
-   6. chunkScoringText - expect N/A
-   7. multimodalEngine - expect N/A
-   8. confidenceSignals - ??
-   9. contextDescription - expect applicable
-   10. pageHinting - expect applicable???
-   11. 
-3. 
+- Sensible prompts an LLM (by default TODO which one?) to summarize each page's content. (TODO: what if you specified a chnkSize = 0.5, would it then be summarizing each half page? and if so, would there be 2x as many summarizations, and maybe a token overflow problem at 1k pages?). The LLM returns summaries like:
+- ```Page 8: This page defines several key terms related to a credit agreement. It includes definitions for "Adjusted Daily Simple SOFR," "Adjusted Term SOFR," "Administrative Agent," and "Administrative Agent Fee Letter. These terms are essential for understanding the roles, responsibilities, and financial metrics within the context of the credit agreement.` 
+
+- Sensible prompts an LLM (todo? which one) with your `description` parameters and asks it to return the top page indices most likely to contain the answer to your question, based on the page summaries. (TODO: always ALL page summaries? evne if it's 1k page doc ie like 10k words of prompt?).  You can configure the number of page indices returned using the Chunk Count parameter. (todo: but what if it's a half page...)
+  - Sensible prompts an LLM (todo? which one?) to answer the questions in your `description` parameters using the full page text of the top pages as context. (or is it the full chunk text?) 
+
+
+
+
+
+QUESTIONS:
+
+` gpt-4o ` vs  `gpt-3.5-turbo-0125` 
+
+RELEVANT VS IRRELEVANT params:
+
+Sensible feeds the pages to a second prompt asking for the 'top ten page indices' (QUESTION: what happens in a 200+ page document when each page is summary is 100 words? what happens in a token overflow situation, what error message is returned?) 
+
+1. QUESTION: 
+2.  chunkSize - default is 1, can be either 0.5 or 1 (which is global yeah)
+3. chunkCount  - relevant???? seems to be
+4. chunkOverlapPercentage - expect n/a... yeah it's 0
+5. pageRange - expect applicable
+6. chunkScoringText - expect N/A
+7. multimodalEngine - expect N/A
+8. confidenceSignals - ??
+9. contextDescription - expect applicable
+10. pageHinting - expect applicable???
+11. 
+
+1. 
