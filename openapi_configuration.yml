@@ -866,13 +866,13 @@ components:
           description: |
             See [OCR level](doc:ocr-level).
         validations:
-          description: Array of validations. See https://docs.sensible.so/docs/validate-extractions
+          description: Array of validations. See [Validating extractions](doc:validate-extractions).
           items:
             $ref: "#/components/schemas/ValidationRequest"
           type: array
         
         review_triggers:
-          description: ->
+          description: >-
             Array of criteria for flagging an extraction for [human review](doc:human-review).
             Set criteria in the Sensible app.
             Criteria include `coverage_threshold`, `validation_warnings_threshold`, and `validation_errors_threshold`.
