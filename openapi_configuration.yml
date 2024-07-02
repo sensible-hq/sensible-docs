@@ -874,9 +874,12 @@ components:
         review_triggers:
           description: ->
             Array of criteria for flagging an extraction for [human review](doc:human-review).
-
+            Set criteria in the Sensible app.
+            Criteria include `coverage_threshold`, `validation_warnings_threshold`, and `validation_errors_threshold`.
           type: array
           items: 
+            type: string
+    
     PutDocumentType:
       type: object
       properties:
