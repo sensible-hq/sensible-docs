@@ -11,7 +11,8 @@ on:
 jobs:
   images:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write # for writing images to the repo
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
