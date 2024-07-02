@@ -33,4 +33,4 @@ You can click a field's value to view its source location highlighted in the doc
 
 You can click the checkmark icon next to each field to mark it approved. When you're done editing field values, click **Approve Extraction** to remove it from the extractions flagged for review.
 
-You can filter by review status for extractions in the **Extraction history** tab using the **Review Status** criterium, and in the Sensible API by the reference/list-extractions by the `review_status` parameter.
+You can filter by review status for extractions in the **Extraction history** tab using the **Review Status** criterium, and in the Sensible API by using the [List extractions](reference:list-extractions) endpoint with the `review_statuses` parameter.
