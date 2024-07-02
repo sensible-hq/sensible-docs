@@ -3,7 +3,7 @@ title: "Reviewing extractions"
 hidden: false
 ---
 
-You can configure rules to flag extractions for manual review process if they fail validations or return null data. Using our review UI in the Sensible app to manually correct the extracted fields, then approve or reject it.
+You can configure rules to flag extractions for manual review and correction. Base your rules on [validations](doc:validate-extractions) and [extraction coverage](doc:metrics). Use the Sensible app's **Human review** tab to manually correct the extracted fields, then approve or reject the extraction.
 
 In a document type, in the **Human Review** tab, you can set the criteria for Sensible to flag an extraction for manual review:
 
