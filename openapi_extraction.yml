@@ -955,7 +955,7 @@ components:
          Comma-delimited list of review statuses (APPROVED, NEEDS_REVIEW, REJECTED) by which to filter the retrieved extractions. For more information, see [Human review](doc:human-review).
          Sensible returns [portfolio](doc:portfolio) extractions if at least one document in the portfolio meets the specified status criteria. 
       schema:
-        type: number
+        type: string
       example: APPROVED,NEEDS_REVIEW
 
 
