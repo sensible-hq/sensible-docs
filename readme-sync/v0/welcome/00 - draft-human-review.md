@@ -23,10 +23,14 @@ After you run extractions in the document type, the **Human review** tab display
 
 
 
-
-
-![image-20240609101902240](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240609101902240.png)
-
 The flagged extractions are organized by document type. Click a document type to review the flagged extractions:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_3.png) 
+
+You can click a field's value to view its source location highlighted in the document and to edit the value:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_4.png)
+
+You can click the checkmark icon next to each field to mark it approved. When you're done editing field values, click **Approve Extraction** to remove it from the extractions flagged for review.
+
+You can filter by review status for extractions in the **Extraction history** tab
