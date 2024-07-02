@@ -1,6 +1,6 @@
 ---
 title: "SenseML reference introduction"
-hidden: false
+hidden: true
 ---
 
 *SenseML* is a document-specific query language that lets you extract structured data from documents, for example, from PDFs. A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is a key part of the Sensible devops platform.
