@@ -5,7 +5,7 @@ hidden: false
 
 
 
-You have the following options for ensuring quality control for your extracted document data:
+You have the following quality-control options for your extracted document data:
 
 |                              |                                                    | notes                                                        |
 | ---------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
