@@ -11,7 +11,7 @@ In a document type, in the **Human Review** tab, set the criteria for Sensible t
 
 Enable human review for all documents in a type, or set criteria to trigger review. Criteria include:
 
-- [Extraction converage](doc:metrics)
+- [Extraction coverage](doc:metrics)
 
 - [Validation](doc:validate-extractions) errors and warnings, if configured. Select all errors, all warnings, or individual validations. 
 
@@ -38,5 +38,5 @@ Click the checkmark icon next to each field to mark it approved. When you're don
 
 Filter past extractions by review status using the following options:
 
-- in the **Extraction history** tab, use the **Review Status** criterium
+- in the **Extraction history** tab, use the **Review Status** criterion
 - in the Sensible API, use the [List extractions](reference:list-extractions) endpoint with the `review_statuses` parameter.
