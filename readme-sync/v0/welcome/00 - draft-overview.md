@@ -121,7 +121,7 @@ To use the Sensible platform, you'll:
 - [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
 - [**Validate**](doc:validate-extractions) extracted data by writing rules for custom errors like `extracted zip code is invalid format` 
 - [**Monitor**](doc:metrics) extracted data in production 
-- 2do: link to HUMAN REVIEW once it's live
+- [**Review**](doc:human-review) and correct extracted data at the field level using the review UI
 
 
 
