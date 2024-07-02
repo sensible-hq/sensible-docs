@@ -870,8 +870,13 @@ components:
           items:
             $ref: "#/components/schemas/ValidationRequest"
           type: array
+        
+        review_triggers:
+          description: ->
+            Array of criteria for flagging an extraction for [human review](doc:human-review).
 
-
+          type: array
+          items: 
     PutDocumentType:
       type: object
       properties:

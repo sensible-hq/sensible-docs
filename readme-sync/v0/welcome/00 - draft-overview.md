@@ -13,7 +13,7 @@ With Sensible, you can write extraction queries for any document:
 
 And get back key facts as JSON:
 
-<br />
+
 
 ```json
 {
@@ -25,13 +25,15 @@ And get back key facts as JSON:
         {
             "value": "washers",Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. Use Sensible to build document-automation features into your vertical SaaS products. 
 
+```
+
 With Sensible, you can write extraction queries for any document:
 
 ![](https://files.readme.io/799bd47-image.png)
 
 And get back key facts as JSON:
 
-<br />
+
 
 ```json
 {
