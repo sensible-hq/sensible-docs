@@ -13,7 +13,7 @@ You can enable human review for all documents in a type, or you can set criteria
 
 - [Extraction converage](doc:metrics)
 
-- Validation errors and warnings, if configured. You can select all errors, all warnings, or individual validations. 
+- [Validation](doc:validate-extractions) errors and warnings, if configured. You can select all errors, all warnings, or individual validations. 
 
   
 
@@ -22,7 +22,7 @@ After you run extractions in the document type, the **Human review** tab display
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_2.png) 
 
 
-The flagged extractions are organized by document type. Click a document type to review the flagged extractions:
+Click a document type to review the flagged extractions:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_3.png) 
 
@@ -32,4 +32,7 @@ You can click a field's value to view its source location highlighted in the doc
 
 You can click the checkmark icon next to each field to mark it approved. When you're done editing field values and approving individual fields, click **Approve Extraction** to remove it from the extractions flagged for review.
 
-You can filter by review status for extractions in the **Extraction history** tab using the **Review Status** criterium, and in the Sensible API by using the [List extractions](reference:list-extractions) endpoint with the `review_statuses` parameter.
+You can filter past extractions by review status using the following options:
+
+- in the **Extraction history** tab, use the **Review Status** criterium
+- in the Sensible API, use the [List extractions](reference:list-extractions) endpoint with the `review_statuses` parameter.
