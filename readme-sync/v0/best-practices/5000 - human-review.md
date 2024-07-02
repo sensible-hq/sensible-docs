@@ -1,6 +1,6 @@
 ---
 title: "Reviewing extractions"
-hidden: true
+hidden: false
 ---
 
 You can configure rules to flag extractions for manual review process if they fail validations or return null data. Using our review UI in the Sensible app to manually correct the extracted fields, then approve or reject it.
