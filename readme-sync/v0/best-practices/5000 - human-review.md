@@ -28,13 +28,13 @@ Click a document type to review the flagged extractions:
 
 Click a field's value to:
 
-- view the full field value for tables, sections, and other complex fields
+- view the field's full value for tables, sections, and other complex fields
 - edit the field's value
 - view the field's source location highlighted in the document
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_4.png)
 
-Click the checkmark icon next to each field to mark it approved. When you're done editing field values and approving individual fields, click **Approve Extraction** to remove it from the extractions flagged for review.
+Click the checkmark icon next to each field to mark it approved. When you're done editing field values and approving individual fields, click **Approve Extraction** or **Reject Extraction** to remove it from the extractions flagged for review.
 
 Filter past extractions by review status using the following options:
 
