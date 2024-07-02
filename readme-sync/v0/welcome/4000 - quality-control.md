@@ -1,5 +1,5 @@
 ---
-title: "Quality control extractions"
+title: "Quality control"
 hidden: false
 ---
 
