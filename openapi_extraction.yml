@@ -531,7 +531,6 @@ paths:
         By default it returns a first page of 20 extractions and an opaque `continuation_token` that you can pass in the next request to get the next page of results, until the endpoint returns `continuation_token` to indicate the last page. 
         Use the `limit` parameter to configure page size. 
 
-
       parameters:
         - $ref: '#/components/parameters/start_date'
         - $ref: '#/components/parameters/end_date'
@@ -543,7 +542,7 @@ paths:
         - $ref: '#/components/parameters/statuses'
         - $ref: '#/components/parameters/min_coverage'
         - $ref: '#/components/parameters/max_coverage'
-
+        - $ref: '#/components/parameters/review_statuses'
       responses:
         '200':
           content:
@@ -929,7 +928,7 @@ components:
          Comma-delimited list of statuses (WAITING, PROCESSING, FAILED, COMPLETE) by which to filter the retrieved extractions.
       schema:
         type: string
-      example: COMPLETE, WAITING
+      example: COMPLETE,WAITING
 
     min_coverage:
       name: min_coverage
@@ -948,6 +947,17 @@ components:
       schema:
         type: number
       example: 1.0
+
+    review_statuses:
+      name: review_statuses
+      in: query
+      description: >-
+         Comma-delimited list of review statuses (APPROVED, NEEDS_REVIEW, REJECTED) by which to filter the retrieved extractions. For more information, see [Human review](doc:human-review).
+         Sensible returns [portfolio](doc:portfolio) extractions if at least one document in the portfolio meets the specified status criteria. 
+      schema:
+        type: number
+      example: APPROVED,NEEDS_REVIEW
+
 
 
 
