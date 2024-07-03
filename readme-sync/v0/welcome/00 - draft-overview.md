@@ -109,7 +109,7 @@ As the preceding image shows, Sensible's workflow contains the following steps:
 
 3. **Extract** The processor returns the extraction using _SenseML_, a highly configurable document-specific query language that combines LLMs and layout-based extraction rules. Write the queries yourself in extraction _templates_, or leverage our open-source library of templates.  Use generalized queries for free-form documents like rental contracts, or in layout-specific queries for high-volume, standardized documents like 1040 tax forms.  Optionally validate each extraction using user-configured logical rules. 
 
-4. **Monitor** -  Monitor real-time extraction metrics, for example document volume, validations, and percent of non-null extracted fields, using the [metrics](doc:metrics) dashboard. 
+4. **Monitor** **and review** -  Monitor real-time extraction metrics, for example document volume, validations, and percent of non-null extracted fields, using the [metrics](doc:metrics) dashboard.  Write rules to automatically flag extractions that contain errors for manual review and correction in the Sensible app's [review][doc:human-review] UI.
 
 For more information, see Devops platform overview/draft-devops-platform-overview TODO link 
 
