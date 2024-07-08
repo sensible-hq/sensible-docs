@@ -101,11 +101,9 @@ As the preceding image shows, Sensible's workflow contains the following steps:
 
    - **Confidence scores**  - For LLM-based extractions, confidence _signals_ offer more nuanced troubleshooting than confidence _scores_, with error messages like `multiple_possible_answers` and `answer_may_be_incomplete`. For more information, see [Qualifying LLM accuracy](doc:confidence).
 
-4. **Monitor** -  
+4. **Monitor** -  Monitor and filter in real-time your extraction metrics using the Sensible app's dashboard. For example, view the number of extractions in recent days or filter by which extractions are returning nulls for target data. For more information, see [Monitoring extractions](doc:metrics).
 
-   - **Dashboard visuals** - Monitor and filter in real-time your extraction metrics using the Sensible app's dashboard. For example, view the number of extractions in recent days or filter by which extractions are returning nulls for target data. For more information, see [Monitoring extractions](doc:metrics).
-
-5. **Human review** -  If extractions contain errors, for example as the result of hard-to-read handwriting, you can configure rules to flag extractions for manual reviewer. A reviewer can correct and approve flagged extractions in the Sensible app's [Human review](doc:human-review)  tab.
+5. **Human review** - If extractions contain errors, for example as the result of hard-to-read handwriting, you can configure rules to flag extractions for manual reviewer. A reviewer can correct and approve flagged extractions in the Sensible app's [Human review](doc:human-review)  tab.
 
 ## Learn more
 
