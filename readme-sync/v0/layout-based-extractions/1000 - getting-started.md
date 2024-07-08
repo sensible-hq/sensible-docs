@@ -41,28 +41,22 @@ Get an account
 Configure the extraction
 ====
 
-1. In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type and name  it "auto_insurance_quote." Leave the defaults and click **Create**.
+1. In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type. In the dialog:
+
+   1. Download and then upload the following example document:
+
+   | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+   | ---------------- | ------------------------------------------------------------ |
+
+   2. For the document type name, enter `auto_insurance_quote`.
+   3. For the configuration name, enter `anyco`.
+   4. Deselect the **Auto-generate configuration** checkbox.
+   5. Click **Start extraction** to create the document type.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
-2. To upload an example document for your document type, take the following steps:
 
-   1. Download the following document:
-
-   | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
-   | --------------------------- | ------------------------------------------------------------ |
-   2. As the following screenshot shows, click the **auto_insurance_quote** document type you created,  click the **Reference documents** tab, and click **Upload document**:
-      ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_upload_doc.png) 
-
-   3. In the file upload dialog, choose the generic car insurance quote you downloaded in a previous step.
-
-
-2. To create a configuration for your document type, take the following steps:
-   1. In your **auto_insurance_quote** document type, click the **Configurations** tab. 
-
-   2. On the tab, click **Create configuration**, name  it "anyco" (for the fictional company providing the quote), and click **Create**.
-
-3. To edit your  **anyco** configuration, click it. Ensure that you're using the SenseML editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
+3. Sensible displays the query editor for your config and example document. Ensure that you're using the SenseML editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
