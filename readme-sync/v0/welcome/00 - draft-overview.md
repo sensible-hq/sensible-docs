@@ -65,9 +65,7 @@ A field is the basic SenseML query unit for extracting a piece of document data.
 
 Here's a example of a field that extracts a table:
 
-senseml_intro_1.png
-
-![](https://files.readme.io/91ad1e2-image.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro_1.png)
 
 For more information about SenseML, see [SenseML reference introduction](doc:senseml-reference-introduction).
 
@@ -79,15 +77,34 @@ See the following image for a high-level overview of Sensible's document data ex
 
 As the preceding image shows, Sensible's workflow contains the following steps: 
 
-1. **Ingest:** Upload the document to Sensible. Sensible converts the document (PDF, Microsoft document, or image) to text. 
+1. **Ingest** - In this step, you upload document files to Sensible, and Sensible converts them to a standardized text representation in preparation for extracting structured data. Features include:
+   - **file types** supported [file types](doc:file-types) including PDFs, Microsoft Word and Excel, and image types such as JPEG.
+   - **file upload methods** - Use our SDK, API, bulk upload UI ("manual upload"), or Zapier. For more information see [Integrate](doc:integrate).
+   - **Optimized OCR** - Sensible represents the whole document in a standarized text format. Sensible optimizes performance by choosing between [OCR](doc:ocr) or direct extraction of embedded fonts. 
 
-2. **Classify**:  You define an API endpoint, or _extraction processor_  for a general category of documents (for example, `bank statements`). In the processor, you define _templates_, or output extraction schemas, for document subtypes, for example,   one for `bank_of_america_combined_statements` and one for `chase_single_checking_statements`. This step automatically classifies each document you submit to the processor into the best-fitting template.  Classification optimizes performance for the next step, extraction.
+2. **Classify**- You upload the document to a _processor_, or API endpoint you configure . Each processor extracts data from a general category of similar documents, for example, `/extract/bank_statments` or `extract/tax_documents`.  From there, Sensible automatically classifies the document by  the highest-scoring extraction *config* in the processor. A config defines how to extract data  using queries, and how to populate a target output schema. Features include:
+   - **multi-document files** Sensible segments files that combine multiple documents into one PDF [portfolio](doc:portfolio). For example, Sensible splits a mortgage application package into tax forms, bank statements, and application forms. To configure segmentation, you define  [fingerprints](doc:fingerprint), or text that characterize first and last pages.
+   - **out-of-the-box templates** - Sensible provides an open-source [library](doc:library-quickstart)  of extraction templates with out-of-the-box support for common business forms, so you can get started extracting from balance sheets, drivers licenses, rent rolls, tax forms, resumes, and more in just minutes.
+   - **Configurable classification** - You can let Sensible handle classification, or you can use _fingerprints_ to improve performance and accuracy. For example, you can leverage [fingerprints](doc:fallbacks#capture-long-tail-documents-with-fallback-configs)  to handle high-volume forms, and default to auto-scoring to handle a long-tail of more variable documents.
+   - **Classification granularity** By default, Sensible automatically classifies by document subtype in the processor during the extraction workflow. Prior to extraction , you can classify a document more broadly into processors using the [classify](doc:classify) endpoints. 
 
-3. **Extract** The processor returns the extraction using _SenseML_, a highly configurable document-specific query language that combines LLMs and layout-based extraction rules. Write the queries yourself in extraction _templates_, or leverage our open-source [library](doc:library-quickstart) of templates.  Use generalized queries for free-form documents like rental contracts, or in layout-specific queries for high-volume, standardized documents like 1040 tax forms.  Optionally validate each extraction using user-configured logical rules. 
+3. **Extract** - In this step, Sensible returns the extracted document data. Features include: 
 
-4. **Monitor** **and review** -  Monitor real-time extraction metrics, for example document volume, validations, and percent of non-null extracted fields, using the [metrics](doc:metrics) dashboard.  Write rules to automatically flag extractions that contain errors for manual review and correction in the Sensible app's [review][doc:human-review] UI.
+   - **Highly configurable layout- and LLM-based extraction using SenseML** -  SenseML provides power and flexibility for your custom extraction needs.  You configure queries that return data. For more information, see  [SenseML reference introduction](doc:senseml-reference-introduction).
 
+   - **structured data** Sensible returns extracted data as key-value pairs, including complex data like [tables](doc:nlp-table)  or [sections](doc:repeat-layouts). 
 
+   **metadata for tracing source text** Sensible offers traceability from the extracted text to the source text in the document through visual overlays in the Sensible app and metadata in the returned JSON. For more information, see [Color coding](doc:color) and [Verbosity](doc:verbosity).
+
+   - **validations** Quality control the data extractions in a document type by writing validations. For example, configure Sensible to throw an error if an extraction zip code is the wrong number of digits. For more information, see [Validating extractions](doc:validate-extractions).
+
+   - **confidence scores**  - For LLM-based extractions, confidence _signals_ offer more nuanced troubleshooting than confidence _scores_. They look like error messages like `multiple_possible_answers` and `answer_may_be_incomplete`. For more information, see [Qualifying LLM accuracy](doc:confidence).
+
+4. **Monitor** -  
+
+   - You can monitor and filter in real-time your extractions at scale using the Sensible app's dashboard. For example, view the number of extractions in recent days or filter by which extractions are returning nulls for target data. For more information, see [Monitoring extractions](doc:metrics).
+
+5. **Human review** - 
 
 ## Learn more
 
