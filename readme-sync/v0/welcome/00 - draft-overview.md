@@ -23,26 +23,6 @@ And get back key facts as JSON:
     },
     "included_appliances": [
         {
-            "value": "washers",Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. Use Sensible to build document-automation features into your vertical SaaS products. 
-
-```
-
-With Sensible, you can write extraction queries for any document:
-
-![](https://files.readme.io/799bd47-image.png)
-
-And get back key facts as JSON:
-
-
-
-```json
-{
-    "street_address": {
-        "value": "1234 ABC COURT",
-        "type": "address"
-    },
-    "included_appliances": [
-        {
             "value": "washers",
             "type": "string"
         },
@@ -97,9 +77,7 @@ See the following image for a high-level overview of Sensible's document data ex
 
 ![](https://files.readme.io/e6320d9-image.png)
 
-<br />
 
-<br />
 
 As the preceding image shows, Sensible's workflow contains the following steps: 
 
@@ -107,7 +85,7 @@ As the preceding image shows, Sensible's workflow contains the following steps:
 
 2. **Classify**:  You define an API endpoint, or _extraction processor_  for a general category of documents (for example, `bank statements`). In the processor, you define _templates_, or output extraction schemas, for document subtypes, for example,   one for `bank_of_america_combined_statements` and one for `chase_single_checking_statements`. This step automatically classifies each document you submit to the processor into the best-fitting template.  Classification optimizes performance for the next step, extraction.
 
-3. **Extract** The processor returns the extraction using _SenseML_, a highly configurable document-specific query language that combines LLMs and layout-based extraction rules. Write the queries yourself in extraction _templates_, or leverage our open-source library of templates.  Use generalized queries for free-form documents like rental contracts, or in layout-specific queries for high-volume, standardized documents like 1040 tax forms.  Optionally validate each extraction using user-configured logical rules. 
+3. **Extract** The processor returns the extraction using _SenseML_, a highly configurable document-specific query language that combines LLMs and layout-based extraction rules. Write the queries yourself in extraction _templates_, or leverage our open-source [library](doc:library-quickstart) of templates.  Use generalized queries for free-form documents like rental contracts, or in layout-specific queries for high-volume, standardized documents like 1040 tax forms.  Optionally validate each extraction using user-configured logical rules. 
 
 4. **Monitor** **and review** -  Monitor real-time extraction metrics, for example document volume, validations, and percent of non-null extracted fields, using the [metrics](doc:metrics) dashboard.  Write rules to automatically flag extractions that contain errors for manual review and correction in the Sensible app's [review][doc:human-review] UI.
 

@@ -5,9 +5,7 @@ hidden: true
 
 See the following image steps for a high-level overview of Sensible's document data extraction workflow:
 
-![](https://files.readme.io/ab70dad-image.png)
-
-<br />
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_devops.png)
 
 <br />
 
