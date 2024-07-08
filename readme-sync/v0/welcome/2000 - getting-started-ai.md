@@ -34,11 +34,11 @@ Let's get started with extracting document data from an example bank statement. 
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
-2. Log into the [Sensible app](https://app.sensible.so/signin/). Complete the dialogues as Sensible guides you through the steps for extracting data from documents.
+2. Log into the [Sensible app](https://app.sensible.so/signin/). As a new user, you complete a guided walkthrough of the steps for extracting data from documents.
 
 ## View an example
 
-1. Once you've completed Sensible's guided tour, you can view a prebuilt example bank extraction. To view an example bank statement extraction, navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
+1. After you complete Sensible's guided tour as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
