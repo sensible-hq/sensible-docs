@@ -43,7 +43,7 @@ Configure the extraction
 
 1. In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type. In the dialog:
 
-   1. Download and then upload the following example document:
+1. Download the following example document, then select it in the dialog for upload:
 
    | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | ---------------- | ------------------------------------------------------------ |
@@ -56,7 +56,7 @@ Configure the extraction
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
 
-3. Sensible displays the query editor for your config and example document. Ensure that you're using the SenseML editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
+2. Sensible displays the query editor for your config and example document. Ensure that you're using the SenseML editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
