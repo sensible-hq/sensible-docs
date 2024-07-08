@@ -9,7 +9,7 @@ Welcome! Sensible is a developer-first platform for extracting structured data f
 
 With Sensible, you can write extraction queries for any document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_sdk_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_3.png)
 
 And get back key facts as JSON:
 
