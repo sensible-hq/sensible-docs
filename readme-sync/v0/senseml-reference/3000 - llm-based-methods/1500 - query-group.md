@@ -126,23 +126,28 @@ The following image shows the example document used with this example config:
 {
   "trees_present": {
     "value": "true",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "not_supported"
   },
   "multistory": {
     "value": "true",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "not_supported"
   },
   "community_amenities": {
     "value": "Gated perimeter with key card access",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "not_supported"
   },
   "ownership_upgrades": {
     "value": "New Signage and Landscaping Enhancements",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "not_supported"
   },
   "exterior": {
-    "value": "Brick",
-    "type": "string"
+    "value": "brick",
+    "type": "string",
+    "confidenceSignal": "not_supported"
   }
 }
 ```
@@ -240,11 +245,13 @@ The following image shows the example document used with this example config:
 {
   "ownership_type": {
     "value": "Natural Person(s)",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "not_supported"
   },
   "owner_name": {
     "value": "Kyle Murray",
-    "type": "string"
+    "type": "string",
+    "confidenceSignal": "not_supported"
   },
   "ownership_type_no_multimodal": {
     "value": "Natural Person(s) UGMA/UTMACustodian Trust",
@@ -254,7 +261,7 @@ The following image shows the example document used with this example config:
   "owner_name_no_multimodal": {
     "value": "Mylic Cardinals Dr Glendale A2 85305",
     "type": "string",
-    "confidenceSignal": "answer_may_be_incomplete"
+    "confidenceSignal": "confident_answer"
   }
 }
 ```

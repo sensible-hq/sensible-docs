@@ -24,6 +24,7 @@ For the Query Group method, Sensible returns the following messages, or "confide
 | Ambiguous query                          | `ambiguous_query`           | The LLM either answers or fails to answer your prompt, and identifies ambiguities in your prompt. | - Rephrase your prompt using the tips for each Instruct method. For example, see [Query Group](doc:query-group-tips) tips.<br/>-  See [Advanced prompt configuration](doc:prompt). |
 | Incorrect answer                         | `incorrect_answer`          | The LLM judges the answer is incorrect given the context that Sensible provides to the LLM. | See [Advanced prompt configuration](doc:prompt).             |
 | Confident answer                         | `confident_answer`          | The LLM is confident about its answer to the prompt.         |                                                              |
+| Not supported                            | `not_supported`             | Sensible returns this if you set the Multimodal Engine parameter to true. |                                                              |
 | Unknown signal                           | `unknown_signal`            | The LLM returns a confidence signal other than the confidence signals Sensible instructs it to return. |                                                              |
 
  
