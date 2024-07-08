@@ -84,7 +84,7 @@ This example uses the following config:
     }
   ],
   "fields": [
-    /* LAYOUT-BASED EXAMPLE */
+    /* LAYOUT-BASED method */
     {
       "id": "_driver_name_raw", // ID for extracted target data
       "anchor": "name of driver", // search for target data near text "name of driver" in doc
@@ -93,7 +93,8 @@ This example uses the following config:
         "position": "below" // target is below anchor line ("name of driver")
       }
     },
-    /* LLM-BASED EXAMPLE */
+    /* LLM-BASED method. 
+       mix and match LLM- and layout-based methods */
     {
       "method": {
         /* to improve performance, group facts to extract if 

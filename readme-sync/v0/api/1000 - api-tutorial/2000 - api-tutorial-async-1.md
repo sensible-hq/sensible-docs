@@ -27,7 +27,7 @@ See [prerequisites](doc:api-tutorial#prerequisites).
 Extract the data 
 ----
 
-To try out the [extract_from_url](https://sensiblehq.readme.io/reference#extract-from-url) endpoint, let's use an example document hosted in GitHub:
+To try out the [extract_from_url](https://docs.sensible.so/reference/extract-from-url) endpoint, let's use an example document hosted in GitHub:
 
 1. Copy the following code sample and replace `*YOUR_API_KEY*` with your [API key](https://app.sensible.so/account/):
 

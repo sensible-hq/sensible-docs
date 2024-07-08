@@ -3,7 +3,7 @@ title: "Try synchronous extraction"
 hidden: false
 ---
 
-Try out a test endpoint, the [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document and returns extracted data synchronously. Use asynchronous endpoints in production.
+Try out a test endpoint, the [/extract endpoint](https://docs.sensible.so/reference/extract-data-from-a-document). This endpoint accepts a document and returns extracted data synchronously. Use asynchronous endpoints in production.
 
 Audience
 ---

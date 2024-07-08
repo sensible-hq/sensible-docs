@@ -46,9 +46,9 @@ Sensible is highly configurable. You can extract data in minutes by leveraging G
 
 Configure your extractions using_SenseML_, Sensible's document-specific query language. SenseML combines the latest in LLM techniques with visual layout-based rules to extract document primitives like rows, tables, checkboxes, sections, and more as JSON. 
 
-![](https://files.readme.io/ee7c021-image.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_senseml.png)
 
-<br />
+
 
 With SenseML, you can:
 
@@ -61,7 +61,7 @@ With SenseML, you can:
   - Manipulate the extracted data schema with [computed methods](doc:computed-field-methods)  like concat, split, and [custom logic](doc:custom-computation) .
   - Get measures of accuracy for LLMs with [confidence scores](doc:confidence), and get overall measures of extraction completeness with [extraction coverage scores](doc:metrics#extraction-coverage)  . 
 
-A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is a key part of the Sensible devops platform.
+A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is the basis for Sensible's extraction process.
 
 Here's a example of a field that extracts a table:
 
@@ -75,9 +75,7 @@ For more information about SenseML, see [SenseML reference introduction](doc:sen
 
 See the following image for a high-level overview of Sensible's document data extraction workflow:
 
-![](https://files.readme.io/e6320d9-image.png)
-
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_devops.png)
 
 As the preceding image shows, Sensible's workflow contains the following steps: 
 
@@ -89,7 +87,7 @@ As the preceding image shows, Sensible's workflow contains the following steps:
 
 4. **Monitor** **and review** -  Monitor real-time extraction metrics, for example document volume, validations, and percent of non-null extracted fields, using the [metrics](doc:metrics) dashboard.  Write rules to automatically flag extractions that contain errors for manual review and correction in the Sensible app's [review][doc:human-review] UI.
 
-For more information, see Devops platform overview/draft-devops-platform-overview TODO link 
+
 
 ## Learn more
 
