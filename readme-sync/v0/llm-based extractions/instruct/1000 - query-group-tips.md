@@ -48,9 +48,7 @@ To try out this example in the Sensible app, take the following steps:
    | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
    | ----------- | ------------------------------------------------------------ |
 
-2. Create a test document type in the Sensible app, then click the document type you created to edit it. In the document type's **Reference documents** tab, upload the example document you downloaded in a previous step.
-
-3. Click the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
+2. Create a test document type in the Sensible app, then follow the prompts in the dialog to upload the example document and create the type.
 
 4. Ensure that you're in the **Sensible Instruct**  editor. Click **Query group** create the following queries to extract data using the following table:
 

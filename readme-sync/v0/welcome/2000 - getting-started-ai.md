@@ -108,7 +108,7 @@ Let's see if the config containing your prompt works with other bank statements.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-2. In the right pane, scroll down to view the fields you authored in previous steps. Verify that the extracted data automatically updated to reflect the second example document.
+2. In the right pane, scroll down to view the fields you authored in previous steps. Verify that the extracted data automatically updated to reflect the second exampl![image-20240709152243539](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240709152243539.png)e document.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
 
@@ -123,10 +123,7 @@ Publish the config to save your changes.
 Sensible recommends grouping similar documents, for example, bank statments, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
-2. Click the **Document types** tab. Create a new document type, then click the type you created to edit it.
-3. In the document type's **Reference documents** tab, upload your own example document.
-4. In the document type's **Configurations** tab, create a new test configuration, and click the configuration you created to edit it.
-5.  Write prompts in the configuration editor to extract data using what you learned in previous steps.
+2. Click the **Document types** tab. Create a new document type by following the prompts, then write prompts in the configuration editor to extract data using what you learned in previous steps.
 
 ## Next
 
