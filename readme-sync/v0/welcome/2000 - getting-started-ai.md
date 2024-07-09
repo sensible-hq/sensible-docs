@@ -78,17 +78,11 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
 - Click **Table**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_10.png)
-
-- The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `credits`, `debits`, and `balance`.
+- The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `date`, `description`, and `amount`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_11.png)
 
-- Scroll down the right pane and click **Extract**. Sensible displays the extracted data:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_12.png)
-
-   It looks like your prompt was successful at extracting the account activity. Great! 
+- Scroll down the right pane and click **Extract**. Sensible displays the extracted data. 
 
 ## Publish the prompt
 
@@ -108,7 +102,7 @@ Let's see if the config containing your prompt works with other bank statements.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-2. In the right pane, scroll down to view the fields you authored in previous steps. Verify that the extracted data automatically updated to reflect the second exampl![image-20240709152243539](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240709152243539.png)e document.
+2. In the right pane, scroll down to view the fields you authored in previous steps. Verify that the extracted data automatically updated to reflect the second example document.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
 
