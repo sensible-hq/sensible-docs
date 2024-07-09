@@ -40,7 +40,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
 
-Take the following steps to create a prompt to extract more data from the document.
+Take the following steps to create prompts to extract more data from the document.
 
 ## Auto-extract data
 
@@ -72,7 +72,7 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
 - Click **Back to fields**.
 
-- Click **Table**
+- Click **Table**.
 
 - The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `date`, `description`, and `amount`.
 
@@ -113,7 +113,7 @@ Publish the config to save your changes.
 Sensible recommends grouping similar documents, for example, bank statments, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
-2. Click the **Document types** tab. Create a new document type by following the prompts, then write prompts in the configuration editor to extract data using what you learned in previous steps.
+2. Click the **Document types** tab. Create a new document type using the dialog, then write prompts in the configuration editor to extract data using what you learned in previous steps.
 
 ## Next
 
