@@ -71,7 +71,9 @@ For more information about SenseML, see [SenseML reference introduction](doc:sen
 
 See the following image for a high-level overview of Sensible's document data extraction workflow:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_devops.png)
+[![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_devops.png)](doc:devops-platform)
+
+
 
 For more information about this diagram, see [Devops platform](doc:devops-platform).
 
