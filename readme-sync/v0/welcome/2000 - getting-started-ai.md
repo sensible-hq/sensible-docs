@@ -70,26 +70,35 @@ To test the automatically generated extraction configuration with another docume
 
 ## Manually configure extraction
 
-1. To author your own LLM prompts to extract data points from the document, click **Query group**.
+### Extract a table
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
+So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
 
-2. Edit the query group as shown in the following screenshot by entering `checking account number (not savings)` in the query field.  Click **Extract**. 
-2. Sensible displays the extracted account number, `8347-32348`, in the **Extracted data** section:
+- Click **Back to fields**.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_3.png)
+- Click **Table**
 
-4. Click **Back to fields**.
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_10.png)
 
-Congratulations! You extracted the checking account number from the bank statement.
+- The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `credits`, `debits`, and `balance`.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_11.png)
+
+- Scroll down the right pane and click **Extract**. Sensible displays the extracted data:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_12.png)
+
+   It looks like your prompt was successful at extracting the account activity. Great! 
 
 ## Publish the prompt
 
-To extract checking account numbers from other bank statements in production,  publish the "config" containing your prompt.
+To extract similar data from other bank statements in production,  publish the "config" containing your prompt.
 
  Click **Publish configuration**, click **Production**, then click **Publish to production**:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
+
+Now you've published your config, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
 
 ## Test the prompt
 
@@ -99,11 +108,9 @@ Let's see if the config containing your prompt works with other bank statements.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-2. In the right pane, scroll down to the checking account number field you authored in previous steps. Verify that the extracted information automatically updated to reflect the second example document. For example, the account number updated from `8347-32348` to `9876-12345`: 
+2. In the right pane, scroll down to view the fields you authored in previous steps. Verify that the extracted data automatically updated to reflect the second example document.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
-
-It looks like your prompt was successful at extracting the checking account number from another document. Great! 
 
 ## (Optional) Extract more data
 

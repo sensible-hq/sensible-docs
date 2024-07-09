@@ -122,25 +122,7 @@ Sensible displays the auto-generated prompts and extracted data:
 
  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_7.png) 
 
-### Extract a table
 
-So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
-
-- Click **Back to fields**.
-
-- Click **Table**
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_10.png)
-
-- To extract the account activity for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `credits`, `debits`, and `balance`.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_11.png)
-
-- Scroll down the right pane and click **Extract**. Sensible displays the extracted data:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_12.png)
-
-   It looks like your prompt was successful at extracting the account activity. Great! 
 
 ## Publish the prompts and integrate
 
