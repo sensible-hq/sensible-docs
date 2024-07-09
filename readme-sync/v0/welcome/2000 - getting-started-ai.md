@@ -102,15 +102,9 @@ Let's see if the config containing your prompt works with other bank statements.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
 
-## (Optional) Extract more data
-
-Try extracting more complex pieces of information. For example, try extracting the time period for each account using the [List method](doc:list-tips). See the  `accounts_list` field in this config for an example of using the List method.
-
-Publish the config to save your changes.
-
 ## (Optional) Extract from your own documents
 
-Sensible recommends grouping similar documents, for example, bank statments, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
+Sensible recommends grouping similar documents, for example, bank statements, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
 
 1. To exit the Sensible Instruct editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type using the dialog, then write prompts in the configuration editor to extract data using what you learned in previous steps.
@@ -119,12 +113,8 @@ Sensible recommends grouping similar documents, for example, bank statments, int
 
 ### Learn more about extraction
 
-- See [prompt authoring tips](doc:instruct)
-- Explore extracting lists, tables, and single data points with other interactive examples: 
-  - [Resume](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=resume&g=resume&v=)
-  - [Purchase contract](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=contract&g=contract&v=)
-
-- For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
+- See [prompt authoring tips](doc:instruct).
+- For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
 
 ### Integrate
 
