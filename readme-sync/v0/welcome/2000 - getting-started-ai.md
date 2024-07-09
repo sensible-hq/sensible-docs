@@ -16,7 +16,7 @@ See the following list for an overview of going live with Sensible:
 - **Learn** to extract data, or use out-of-the-box supported document types
 - [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
 - [**Quality control**](doc:validate-extractions) extracted data
--  [**Monitor**](doc:metrics) extracted data in production 
+-  [**Monitor**](doc:metrics) and [**review**](doc:human-review)  extracted data in production 
 
 This guide gets you started with the first step, extracting data.
 
