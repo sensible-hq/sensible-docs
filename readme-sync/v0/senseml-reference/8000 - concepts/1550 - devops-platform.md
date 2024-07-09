@@ -18,7 +18,7 @@ As the preceding image shows, Sensible's workflow contains the following steps:
    - **Multi-document files** - Sensible splits documents out of a multi-document file (a "PDF portfolio"). For example, Sensible splits a mortgage-application PDF file into tax forms, bank statements, and application forms. For more information, see [Multi-document extractions](doc:portfolio).
    - **Classification granularity** - By default, Sensible automatically classifies by document subtype during the extraction workflow. Prior to extraction, you can classify a document at the document type level using the [classify](doc:classify) endpoints. 
    - **Configurable classification** - Configure Sensible's default subtype classification using _fingerprints_ to improve performance and accuracy. For example, you can use fingerprints to fallback from high-volume documents to long-tail documents in a document type. For more information, see [Fingerprints](doc:fingerprint) and [Using fallbacks](doc:fallbacks#capture-long-tail-documents-with-fallback-configs) .
-   
+
 3. **Extract** - In this step, Sensible returns the extracted document data. Features include: 
 
    - **Highly configurable layout- and LLM-based extraction** -  Configure SenseML queries to extract data from your custom documents. For more information, see  [SenseML reference introduction](doc:senseml-reference-introduction).
@@ -33,6 +33,6 @@ As the preceding image shows, Sensible's workflow contains the following steps:
 
    - **Confidence scores**  - For LLM-based extractions, confidence _signals_ offer more nuanced troubleshooting than confidence _scores_, with error messages like `multiple_possible_answers` and `answer_may_be_incomplete`. For more information, see [Qualifying LLM accuracy](doc:confidence).
 
-4. **Monitor** -  Monitor and filter your  real-time extraction metrics using the Sensible app's dashboard. For example, view the number of extractions in recent days or filter by which extractions are returning nulls for target data. For more information, see [Monitoring extractions](doc:metrics).
-
-5. **Human review** - If extractions contain errors, for example as the result of hard-to-read handwriting, you can configure rules to flag extractions for manual reviewer. A reviewer can correct and approve flagged extractions in the Sensible app's tab. For more information, see [Reviewing extractions](doc:human-review).  
+4. **Monitor** -  Quality control your extractions in production. Features include:
+   - **Metrics dashboard**: View and filter your real-time extraction metrics using the Sensible app's dashboard. For example, view the number of extractions in recent days or filter by which extractions are returning nulls for target data. For more information, see [Monitoring extractions](doc:metrics).
+   - **Human review UI** - If extractions contain errors, for example as the result of hard-to-read handwriting, you can configure rules to flag extractions for manual reviewer. A reviewer can correct and approve flagged extractions in the Sensible app's tab. For more information, see [Reviewing extractions](doc:human-review).  
