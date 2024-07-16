@@ -17,11 +17,12 @@ Parameters
 ====
 
 
-| key               | values                          | description                                                  |
-| :---------------- | :------------------------------ | :----------------------------------------------------------- |
-| id (**required**) | `column`                        |                                                              |
-| tiebreaker        | tiebreaker                      | For information about this global parameter, see [Method](doc:method#parameters). |
-| includeAnchor     | `true`, `false`. default: false | Includes the anchor line in the method output                |
+| key               | values                             | description                                                  |
+| :---------------- | :--------------------------------- | :----------------------------------------------------------- |
+| id (**required**) | `column`                           |                                                              |
+| tiebreaker        | tiebreaker                         | For information about this global parameter, see [Method](doc:method#parameters). |
+| includeAnchor     | `true`, `false`. default: false    | Includes the anchor line in the method output                |
+| position          | `below`, `above`. default: `below` | Matches above or below the anchor line. For example, if you anchor on the bottom line of a column, set this to `above` to extract the column. |
 
 Examples
 ====
