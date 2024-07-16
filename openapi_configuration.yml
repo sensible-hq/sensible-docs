@@ -874,8 +874,9 @@ components:
         review_triggers:
           description: >-
             Array of criteria for flagging an extraction for [human review](doc:human-review).
-            Set criteria in the Sensible app.
             Criteria include `coverage_threshold`, `validation_warnings_threshold`, and `validation_errors_threshold`.
+            If you select individual validations as review criteria in the Sensible app, this parameter displays `selected_validations: true`
+            and the selected validations in the response include a `review_trigger:true` parameter.
           type: array
           items: 
             type: string
