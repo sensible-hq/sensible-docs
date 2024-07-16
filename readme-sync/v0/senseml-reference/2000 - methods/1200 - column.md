@@ -2,7 +2,7 @@
 title: "Column"
 hidden: false
 ---
-Extracts all lines below the anchor line on the current page if:
+Extracts all lines below or above the anchor line on the current page if:
 
 - The anchor line's left and right boundaries ("x extent") contain the target lines' x extent, or vice versa. 
 
