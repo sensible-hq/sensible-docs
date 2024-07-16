@@ -5,9 +5,9 @@ hidden: false
 
 ## Introduction
 
-See the following list for an overview of automating document processing with Sensible:
+See the following list for an overview of how to automate your document processing with Sensible:
 
-- **Learn** to extract data from documents, or use out-of-the-box extraction support (this topic)
+- **Learn** to extract data from documents, or use out-of-the-box extraction support
 - [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
 - [**Quality control**](doc:validate-extractions) extracted data
 -  [**Monitor**](doc:metrics) and [**review**](doc:human-review)  extracted data in production 
