@@ -90,6 +90,14 @@ The following elaborates on the preceding brief overview using JSON instead of Y
 
 ```json
 {
+  "preprocessors": [
+    {
+      /* merge oversplit lines to enable using passthrough methods */
+      "type": "mergeLines",
+      "adjacentThreshold": 0.9,
+      "directlyAdjacentThreshold": 0.4
+    }
+  ],
   "fields": [],
   "sections": [
     {
@@ -183,13 +191,15 @@ The following elaborates on the preceding brief overview using JSON instead of Y
             {
               "id": "engine",
               "method": {
-                "id": "row",
-                "position": "right"
+                "id": "passthrough",
+                "wordFilters": [
+                  "engine"
+                ]
               },
               "anchor": {
                 "match": {
                   "type": "startsWith",
-                  "text": "engine"
+                  "text": "engine",
                 }
               }
             },
@@ -227,7 +237,7 @@ The following image shows the example document used with this example config:
         {
           "everything_in_this_nested_section": {
             "type": "string",
-            "value": "LE trim  Engine 178.0-hp, 2.5-liter, 4   cylinder  Transmission 6-speed A/T  "
+            "value": "LE trim Engine 178.0-hp, 2.5-liter, 4 cylinder Transmission 6-speed A/T"
           },
           "trim_name": {
             "type": "string",
@@ -241,7 +251,7 @@ The following image shows the example document used with this example config:
         {
           "everything_in_this_nested_section": {
             "type": "string",
-            "value": "XLE trim   Engine 268.0-hp, 3.5-liter, V6  cylinder   Transmission 6-speed A/T"
+            "value": "XLE trim Engine 268.0-hp, 3.5-liter, V6 cylinder Transmission 6-speed A/T"
           },
           "trim_name": {
             "type": "string",
@@ -267,7 +277,7 @@ The following image shows the example document used with this example config:
         {
           "everything_in_this_nested_section": {
             "type": "string",
-            "value": "EX trim  Engine 180.0-hp, 1.5-liter, 4   cylinder  Transmission CVT Transmission  "
+            "value": "EX trim Engine 180.0-hp, 1.5-liter, 4 cylinder Transmission CVT Transmission"
           },
           "trim_name": {
             "type": "string",
@@ -281,7 +291,7 @@ The following image shows the example document used with this example config:
         {
           "everything_in_this_nested_section": {
             "type": "string",
-            "value": "LX trim   Engine 158.0-hp, 2.0-liter, 4  cylinder   Transmission CVT Transmission"
+            "value": "LX trim Engine 158.0-hp, 2.0-liter, 4 cylinder Transmission CVT Transmission"
           },
           "trim_name": {
             "type": "string",
