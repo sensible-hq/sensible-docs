@@ -785,7 +785,7 @@ components:
       name: document_type
       required: true
       in: path
-      description: |
+      description: >-
         Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`).
         To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf).
         As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.
