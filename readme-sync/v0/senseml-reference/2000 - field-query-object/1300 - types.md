@@ -199,7 +199,9 @@ Examples
                 /* convert date type's output to YYYY-MM using a capturing group */
                 {
                   "id": "custom",
-                  "pattern": "^([0-9]{4}-[0-9]{2})-[0-9]{2}"
+                  "pattern": "^([0-9]{4}-[0-9]{2})-[0-9]{2}",
+                  /* optionally name a custom type */
+                  "type": "date-YYYY-MM"
                 }
               ]
             },
@@ -239,17 +241,20 @@ The following image shows the example document used with this example config:
         "values": [
           null,
           {
+            "source": "2021-12-03",
             "value": "2021-12",
-            "type": "string"
+            "type": "date-YYYY-MM"
           },
           {
+            "source": "2022-03-14",
             "value": "2022-03",
-            "type": "string"
+            "type": "date-YYYY-MM"
           },
           null,
           {
+            "source": "2023-01-01",
             "value": "2023-01",
-            "type": "string"
+            "type": "date-YYYY-MM"
           }
         ]
       },
@@ -431,7 +436,9 @@ This type outputs strings. For example:
 | pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 | matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
+| type                   | String. default: string  | Name your custom type. For example, `"time_24_hr_military"` or `YY-MM-date`. |
 
+For an example of using the Custom type with the Compose type to transform the standardized output of other types, see the [Compose](doc:types#compose) type.
 
 Date
 ====
@@ -852,6 +859,7 @@ Examples:
 ```
 
 This type does *not* recognize country calling codes formatted with 00, for example, 0091 or 001. 
+
 
 
 String
