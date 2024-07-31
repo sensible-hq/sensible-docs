@@ -790,7 +790,8 @@ components:
         To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf).
         As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries ("configs") in the document type.
         For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs
-        to the document type in the Sensible app. Then, you can extract data from all these carriers using the same document type, without specifying the carrier in the API request.
+        to the document type in the Sensible app. Sensible then automatically classifies each document by its carrier, so you can use the same document type for each carrier
+        without specifying the carrier in the extraction request.
       schema:
         type: string
       example: senseml_basics
