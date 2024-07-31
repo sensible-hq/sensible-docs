@@ -22,6 +22,8 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with the following operatio
 
 ### Exists
 
+Returns a boolean to indicate if the specified value exists.
+
 ```json
 {
     "exists": [
@@ -30,9 +32,11 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with the following operatio
 }
 ```
 
-Most commonly used with the JsonLogic `var`  operation to test that an output value isn't null. The  `var` operation retrieves extracted field values using field `id` keys. <br/>
+Most commonly used with the JsonLogic `var`  operation to test that an output value isn't null. The  `var` operation retrieves extracted field values using field `id` keys. 
 
 ### Match
+
+Returns a boolean to indicate if the specified regular expression matches.
 
 ```json
 {
@@ -48,6 +52,8 @@ Most commonly used with the JsonLogic `var`  operation to test that an output va
 Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. 
 
 ### Replace
+
+Returns a modified string.
 
 One of the following syntaxes:
 
