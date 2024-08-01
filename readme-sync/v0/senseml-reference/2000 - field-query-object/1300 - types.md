@@ -24,11 +24,11 @@ For example, the following field returns null unless it finds data that Sensible
 
 The following types are available:
 
+**Types**
+
 [Address](doc:types#address)
 [Boolean](doc:types#boolean)
-[Compose](doc:types#compose)
 [Currency](doc:types#currency)
-[Custom](doc:types#custom)
 [Date](doc:types#date)
 [Distance](doc:types#distance)
 [Images](doc:types#images)
@@ -40,6 +40,14 @@ The following types are available:
 [String](doc:types#string)
 [Table](doc:types#table)
 [Weight](doc:types#weight)
+
+**Advanced types**
+
+[Compose](doc:types#compose)
+[Custom](doc:types#custom)
+
+**Deprecated types**
+
 [Deprecated types](doc:types#deprecated-types)
 
 Address
@@ -149,142 +157,6 @@ Example output:
   source: "YES",
   type: "boolean",
   value: true,
-}
-```
-
-Compose
-====
-
-Returns a transformed type you define using an array of types. In the array, each successive type in the array takes the previous type's output as its input. For example, use this type:
-
-- As a more syntactically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
-- To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method to transform table cell contents using large language models(LLMs).
-
-Parameters
----
-
-| key                  | value                 | description                                                  |
-| -------------------- | --------------------- | ------------------------------------------------------------ |
-| id (**required**)    | `compose`             |                                                              |
-| types (**required**) | array of type objects | Each type in a compose array takes the output of the previous type as its input. |
-
-
-
-Examples
-----
-
-**Config**
-
-```json
-{
-  "fields": [
-    {
-      "id": "maintenance_records",
-      "anchor": "date",
-      "type": "table",
-      "method": {
-        "id": "fixedTable",
-        "columnCount": 2,
-        "columns": [
-          {
-            "id": "col1_date",
-            "type": {
-              "id": "compose",
-              "types": [
-                {
-                  /* convert variable source date formats to standard format
-                     YYYY-MM-DDT00:00:00.000Z */
-                  "id": "date"
-                },
-                /* convert date type's output to YYYY-MM using a capturing group */
-                {
-                  "id": "custom",
-                  "pattern": "^([0-9]{4}-[0-9]{2})-[0-9]{2}",
-                  /* optionally name a custom type */
-                  "type": "date-YYYY-MM"
-                }
-              ]
-            },
-            "index": 0
-          },
-          {
-            "id": "col2_description",
-            "index": 1
-          }
-        ],
-        "stop": {
-          "type": "startsWith",
-          "text": "keep"
-        }
-      }
-    }
-  ]
-}
-```
-
-**Example document**
-The following image shows the example document used with this example config:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/compose_type.png)
-
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/compose_type.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
-**Output**
-
-```json
-{
-  "maintenance_records": {
-    "columns": [
-      {
-        "id": "col1_date",
-        "values": [
-          null,
-          {
-            "source": "2021-12-03",
-            "value": "2021-12",
-            "type": "date-YYYY-MM"
-          },
-          {
-            "source": "2022-03-14",
-            "value": "2022-03",
-            "type": "date-YYYY-MM"
-          },
-          null,
-          {
-            "source": "2023-01-01",
-            "value": "2023-01",
-            "type": "date-YYYY-MM"
-          }
-        ]
-      },
-      {
-        "id": "col2_description",
-        "values": [
-          {
-            "value": "Maintenance description",
-            "type": "string"
-          },
-          {
-            "value": "Changed oil",
-            "type": "string"
-          },
-          {
-            "value": "New front tires",
-            "type": "string"
-          },
-          {
-            "value": "Battery replaced",
-            "type": "string"
-          },
-          {
-            "value": "Changed oil",
-            "type": "string"
-          }
-        ]
-      }
-    ]
-  }
 }
 ```
 
@@ -399,46 +271,6 @@ Use configurable syntax to change the default recognized formats.
 | alwaysNegative            | boolean                                                      | If true, Sensible assigns a negative value to a number and ignores sign symbols in the document. For example, use this to capture values in the debit column of an accounting document, where negative signs are omitted. |
 | removeSpaces              | boolean                                                      | Removes whitespace in a line for better currency recognition. For example, changes the line `$  12.45` to `$12.45`. |
 | roundTo                   | number of decimal places to round up to.                     | Rounds up to the specified decimal place. <br/> For example if you specify `"roundTo": 3` then Sensible rounds `0.1234` to `0.123`. <br/>  If you specify `"roundTo": 2`  and `"decimalSeparator": ","` then Sensible rounds `5,249` to `5,25`. |
-
-Custom
-====
-
-Returns a custom type you define using regular expressions. For example, define types for zip codes, time durations, customer IDs, and order numbers.
-
-**Example syntax**
-
-```json
-"type":
-  {
-    "id": "custom",
-    "pattern": "Time\\:\\s*([0-9][0-9]:[0-9][0-9])",
-    "type": "time_24_hr_military"
-  }
-```
-
-**Example output**
-
-This type outputs strings. For example:
-
-```json
-{
-    "source": "Time: 14:01",
-    "value": "14:01",
-    "type": "time_24_hr_military"
-  }
-```
-
-**Parameters**
-
-| key                    | value                    | description                                                  |
-| ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| id (**required**)      | `custom`                 |                                                              |
-| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
-| matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
-| type                   | String. default: string  | Name your custom type. For example, `"time_24_hr_military"` or `YY-MM-date`. |
-
-For an example of using the Custom type with the Compose type to transform the standardized output of other types, see the [Compose](doc:types#compose) type.
 
 Date
 ====
@@ -911,6 +743,191 @@ For example:
     "type": "weight"
 }
 ```
+
+
+
+# Advanced types
+
+
+Compose
+====
+
+Returns a transformed type you define using an array of types. In the array, each successive type in the array takes the previous type's output as its input. For example, use this type:
+
+- As a more syntactically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
+- To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method to transform table cell contents using large language models(LLMs).
+
+Parameters
+---
+
+| key                  | value                 | description                                                  |
+| -------------------- | --------------------- | ------------------------------------------------------------ |
+| id (**required**)    | `compose`             |                                                              |
+| types (**required**) | array of type objects | Each type in a compose array takes the output of the previous type as its input. |
+
+
+
+Examples
+----
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "maintenance_records",
+      "anchor": "date",
+      "type": "table",
+      "method": {
+        "id": "fixedTable",
+        "columnCount": 2,
+        "columns": [
+          {
+            "id": "col1_date",
+            "type": {
+              "id": "compose",
+              "types": [
+                {
+                  /* convert variable source date formats to standard format
+                     YYYY-MM-DDT00:00:00.000Z */
+                  "id": "date"
+                },
+                /* convert date type's output to YYYY-MM using a capturing group */
+                {
+                  "id": "custom",
+                  "pattern": "^([0-9]{4}-[0-9]{2})-[0-9]{2}",
+                  /* optionally name a custom type */
+                  "type": "date-YYYY-MM"
+                }
+              ]
+            },
+            "index": 0
+          },
+          {
+            "id": "col2_description",
+            "index": 1
+          }
+        ],
+        "stop": {
+          "type": "startsWith",
+          "text": "keep"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/compose_type.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/compose_type.pdf) |
+| ----------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "maintenance_records": {
+    "columns": [
+      {
+        "id": "col1_date",
+        "values": [
+          null,
+          {
+            "source": "2021-12-03",
+            "value": "2021-12",
+            "type": "date-YYYY-MM"
+          },
+          {
+            "source": "2022-03-14",
+            "value": "2022-03",
+            "type": "date-YYYY-MM"
+          },
+          null,
+          {
+            "source": "2023-01-01",
+            "value": "2023-01",
+            "type": "date-YYYY-MM"
+          }
+        ]
+      },
+      {
+        "id": "col2_description",
+        "values": [
+          {
+            "value": "Maintenance description",
+            "type": "string"
+          },
+          {
+            "value": "Changed oil",
+            "type": "string"
+          },
+          {
+            "value": "New front tires",
+            "type": "string"
+          },
+          {
+            "value": "Battery replaced",
+            "type": "string"
+          },
+          {
+            "value": "Changed oil",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
+
+
+Custom
+====
+
+Returns a custom type you define using regular expressions. For example, define types for zip codes, time durations, customer IDs, and order numbers.
+
+**Example syntax**
+
+```json
+"type":
+  {
+    "id": "custom",
+    "pattern": "Time\\:\\s*([0-9][0-9]:[0-9][0-9])",
+    "type": "time_24_hr_military"
+  }
+```
+
+**Example output**
+
+This type outputs strings. For example:
+
+```json
+{
+    "source": "Time: 14:01",
+    "value": "14:01",
+    "type": "time_24_hr_military"
+  }
+```
+
+**Parameters**
+
+| key                    | value                    | description                                                  |
+| ---------------------- | ------------------------ | ------------------------------------------------------------ |
+| id (**required**)      | `custom`                 |                                                              |
+| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
+| matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
+| type                   | String. default: string  | Name your custom type. For example, `"time_24_hr_military"` or `YY-MM-date`. |
+
+For an example of using the Custom type with the Compose type to transform the standardized output of other types, see the [Compose](doc:types#compose) type.
+
 
 Deprecated types
 ===
