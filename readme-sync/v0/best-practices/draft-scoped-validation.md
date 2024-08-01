@@ -24,22 +24,22 @@ The following example uses the config from  [Table grid example](doc:sections-ex
 
 **Example document**
 
-The output for this example returns nulls for the engine specs for the `SV trim` and the `EX trim`:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/validation_scoped_1.png)
-
-This triggers two validation warnings.
-
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_grid_fail_scoped_validations.pdf) |
 | ---------------- | ------------------------------------------------------------ |
 
+
+
 **Validation output**
 
-The validation reports the indexes of the null output:
+The output for this example returns nulls for the `engine` field for the `SV trim` and the `EX trim`:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/validation_scoped_1.png)
+
+ The two nulls trigger two validation warnings. The validation reports the indexes of the null output:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/validation_scoped.png)
 
- For example, in the first instance of the failed validation, `"car_models",0` indicates the `2016 Nissan Altima` parent section and `"trim_specs", 1` indicates a null engine spec for the SV trim subsection. The second instance, `"car_models", 1..."trim_specs", 0` indicates a null engine spec for the EX trim.
+ For example, in the first failed validation, the `"car_models",0... "trim_specs"`, 1 index indicates null `engine` output in the `SV trim` subsection. The second instance, `"car_models", 1..."trim_specs", 0` indicates a null `engine` output for the `EX trim` subsection.
 
 
 
