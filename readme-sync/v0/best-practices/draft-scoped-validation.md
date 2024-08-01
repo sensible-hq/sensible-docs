@@ -7,7 +7,7 @@ hidden: true
 | ---------------------------- | ---------------------------------- | ------------------------------------------------------------ |
 | *description (**required**)* | *string*                           | *A description of the test*                                  |
 | *severity (**required**)*    | *`error`, `warning`, `skipped`*    | *The severity of the failing test.*                          |
-| scope                        | array of section or subsection IDs | When you create a validation for a field contained in [sections](doc:sections), specify the field's parent section ID in this parameter. <br/>To validate a field in nested sections, use an array to define the scope. For example, to validate a `field_a` field in a  `child_section_2`  that has parent `parent_section_1`, specify  `["parent_section_1", "child_section_2"]`  in this parameter. Sensible applies the validation to each instance of `field_a` in each instance of `child_section_2`.<br/>For an example, see  Validations 6. |
+| scope                        | array of section or subsection IDs | To create a validation for a field contained in [sections](doc:sections), specify the field's parent section ID in this parameter. <br/>To validate a field in nested sections, use an array to define the scope. For example, to validate a `field_a` field in a  `child_section_2`  that has parent `parent_section_1`, specify  `["parent_section_1", "child_section_2"]`  in this parameter. Sensible applies the validation to each instance of `field_a` in each instance of `child_section_2`.<br/>For an example, see  Validations 6. |
 
 ## Validations 6
 
