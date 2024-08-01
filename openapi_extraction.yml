@@ -988,9 +988,11 @@ components:
 
     ReviewStatus:
           type: string
-          enum: [NEEDS_REVIEW, APPROVED, NO_CRITERIA]
+          enum: [NEEDS_REVIEW, APPROVED, REJECTED]
           example: warning
-          description: Whether the extraction is flagged for review according to the [review criteria](doc:human-review).
+          description: >- 
+            The extraction's review status. Included in the response if the document type's criteria triggered review for this extraction.
+            For more information, see [review criteria](doc:human-review).
     Coverage:
       type: number
       description: The coverage score measures how fully an extraction captured all your target data in the document. It's a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields returned by a config for a document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. For more information about scoring, see [Monitoring extractions](doc:metrics).
