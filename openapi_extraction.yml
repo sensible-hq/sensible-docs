@@ -986,13 +986,43 @@ components:
 
   schemas:
 
+
+    Charged:
+      type: integer
+      example: 1
+      description: >- 
+        The number of documents charged to your account for this extraction ID.
+
+    VersionId:
+      type: string
+      format: uuid
+      example: gVfy6JBlZlvRP2XJ72AdFybce7GV5Brf
+      description: >- 
+        The version ID for the config.
+
+    ReviewStatuses:
+      type: string
+      enum: [NEEDS_REVIEW, APPROVED, REJECTED, null]
+      example: NEEDS_REVIEW
+      description: >- 
+        The review statuses for each document in the portfolio. 
+        For more information, see [review criteria](doc:human-review).
+ 
+
+
+
+
     ReviewStatus:
           type: string
           enum: [NEEDS_REVIEW, APPROVED, REJECTED]
-          example: warning
+          example: NEEDS_REVIEW
           description: >- 
             The extraction's review status. Included in the response if the document type's criteria triggered review for this extraction.
             For more information, see [review criteria](doc:human-review).
+ 
+
+
+
     Coverage:
       type: number
       description: The coverage score measures how fully an extraction captured all your target data in the document. It's a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields returned by a config for a document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. For more information about scoring, see [Monitoring extractions](doc:metrics).
@@ -1026,6 +1056,12 @@ components:
               $ref: '#/components/schemas/Coverage'
             reviewStatus:
               $ref: '#/components/schemas/ReviewStatus'
+            charged:
+              $ref: '#/components/schemas/Charged'
+            version_id:
+              $ref: '#/components/schemas/VersionId'
+
+
     DocName:
       type: string
       description: >-
@@ -1245,6 +1281,12 @@ components:
          $ref: '#/components/schemas/Environment'
         coverage:
           $ref: '#/components/schemas/Coverage'
+        charged:
+          $ref: '#/components/schemas/Charged'
+        version_id:
+          $ref: '#/components/schemas/VersionId'
+        reviewStatuses:
+          $ref: '#/components/schemas/ReviewStatuses'
 
 
     # deprecated?
