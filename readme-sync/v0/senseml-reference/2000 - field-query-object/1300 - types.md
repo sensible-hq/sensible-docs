@@ -900,7 +900,7 @@ Returns a custom type you define using regular expressions. For example, define 
   {
     "id": "custom",
     "pattern": "Time\\:\\s*([0-9][0-9]:[0-9][0-9])",
-    "type": "time_24_hr_military"
+    "type": "time_24_hr"
   }
 ```
 
@@ -912,21 +912,30 @@ This type outputs strings. For example:
 {
     "source": "Time: 14:01",
     "value": "14:01",
-    "type": "time_24_hr_military"
+    "type": "time_24"
   }
 ```
 
-**Parameters**
+## Parameters
 
 | key                    | value                    | description                                                  |
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
 | id (**required**)      | `custom`                 |                                                              |
-| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group if specified. As an alternative to capturing groups, use a [tiebreaker](doc:method). See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
 | flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
 | matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
-| type                   | String. default: string  | Name your custom type. For example, `"time_24_hr_military"` or `YY-MM-date`. |
+| type                   | String. default: string  | Name your custom type. For example, `"time_24_hr"` or `YY-MM-date`. |
+
+
+
+## Examples
+
+The following example shows using a tiebreaker as an alternative to a tiebreaker to return one of several matches from the Custom type.
 
 For an example of using the Custom type with the Compose type to transform the standardized output of other types, see the [Compose](doc:types#compose) type.
+
+
+
 
 
 Deprecated types
