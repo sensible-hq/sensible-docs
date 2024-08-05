@@ -27,15 +27,13 @@ The following example uses the config from [Table grid example](doc:sections-exa
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_grid_fail_scoped_validations.pdf) |
 | ---------------- | ------------------------------------------------------------ |
 
-
-
-**Validation output**
+**Output**
 
 The output for this example returns nulls for the `engine` field for the `SV trim` and the `EX trim`:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/validation_scoped_1.png)
 
- The two nulls trigger two validation warnings. The validation reports the indexes of the null output:
+ The two nulls trigger two validation warnings. Each warning reports the location of the null output:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/validation_scoped.png)
 
