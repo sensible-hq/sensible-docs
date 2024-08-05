@@ -987,7 +987,7 @@ For an example of using the Custom type with the Compose type to transform the s
 
 # Replace
 
-Returns a replacement for a match using regular expressions.
+Returns replacements for regular expression pattern matches.
 
 ## Parameters
 
@@ -995,7 +995,7 @@ Returns a replacement for a match using regular expressions.
 | -------------------------- | -------------------------------------- | ------------------------------------------------------------ |
 | id (**required**)          | `replace`                              |                                                              |
 | pattern (**required**)     | Valid JS regex                         | Javascript-flavored regular expression. Replaces all matches. This parameter supports capturing groups. See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| replaceWith (**required**) | string                                 | Specifies the text or capturing group reference to replace the match or matches. |
+| replaceWith (**required**) | string                                 | Specifies the text or capturing group reference to replace the matches. |
 | flags                      | JS-flavored regex flags.  Default: "g" | Flags to apply to the regex. for example: "i" for case-insensitive. Sensible always applies the flag "g" (global). |
 
 ## Examples
