@@ -4,7 +4,7 @@ hidden: true
 ---
 ## Deprecated
 
-This method is deprecated. [LLM-based methods](doc:instruct) replace this method.
+This method is deprecated. [LLM-based](doc:prompt-tips) replace this method.
 
 ## Decription
 

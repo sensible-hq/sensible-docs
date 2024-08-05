@@ -8,7 +8,7 @@ Extract free text from unstructured documents using large language model (LLM)-b
 These methods are low-code alternatives to [layout-based methods](doc:methods) for structured documents, for example, tax documents or insurance forms.  
 
 
-The following topics describe how to author LLM-based methods using the SenseML editor. For information about authoring LLM-based methods using a visual tool instead of JSON, see [Prompt tips](doc:instruct). 
+The following topics describe how to author LLM-based methods using the JSON editor. For information about authoring LLM-based methods using a visual tool instead of JSON, see [Prompt tips](doc:prompt-tips). 
 
 | Method                                                       | Example use case                                             | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |

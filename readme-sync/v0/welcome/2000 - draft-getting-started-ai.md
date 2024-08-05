@@ -136,7 +136,7 @@ Now you've published your config, you can get document data at scale using Sensi
 
 ## Next: Learn more about extraction
 
-- See [prompt authoring tips](doc:instruct)
+- See [prompt authoring tips](doc:prompt-tips)
 - For advanced extraction strategies, see [Choosing an extraction approach](doc:author)
 
 

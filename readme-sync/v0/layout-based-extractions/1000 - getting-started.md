@@ -10,7 +10,7 @@ You can then save your descriptions as a "config." Publish your config to automa
 
 Use this tutorial if you want a guided tour of SenseML concepts and the Sensible app. Or see the following links:
 
-- SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Getting started](doc:getting-started-ai).
+- SenseML is for advanced config authoring. For a simpler authoring experience, use the visual editor. For more information about SenseML versus the visual editor, see [Choosing extraction strategy](doc:author). For authoring in the visual editor, see [Getting started](doc:getting-started-ai).
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials in the `sensible_instruct_basics` document type.
 - If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
@@ -56,7 +56,7 @@ Configure the extraction
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
 
-2. Sensible displays the query editor for your config and example document. Ensure that you're using the SenseML editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
+2. Sensible displays the query editor for your config and example document. Ensure that you're using the JSON editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
@@ -81,7 +81,7 @@ For this tutorial, you'll extract these fields:
         "queries": [
           {
             /* ask a free-text question.
-           You can author LLM-based queries in Sensible Instruct
+           You can author LLM-based queries in the visual editor
            instead of in JSON */
             "id": "bodily_injury_premium",
             "description": "bodily injury premium",
@@ -234,7 +234,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
         "queries": [
           {
             /* ask a free-text question.
-           You can author LLM-based queries in Sensible Instruct
+           You can author LLM-based queries in the visual editor
            instead of in JSON */
             "id": "bodily_injury_premium",
             "description": "in the table, what's the bodily injury premium?",
@@ -267,7 +267,7 @@ This config returns:
   },
 ```
 
-Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's [visual authoring tool](doc:instruct).
+Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's visual authoring tool.
 
 LLM-based methods such as the Query Group method can run up against limitations with complex document formatting. In such cases, combine LLM-based methods with layout-based methods in the same document extraction configuration. 
 

@@ -33,11 +33,11 @@ Tracing the document's source text, or [context](doc:prompt#notes), for an LLM's
 
 You can view the source text for an LLM's answer highlighted in the document for the Query Group method:
 
-- In the Sensible Instruct editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
+- In the visual editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
 
-- In the SenseML editor, Sensible displays location highlighting by outline the context with [blue boxes](doc:color). 
+- In the JSON editor, Sensible displays location highlighting by outline the context with [blue boxes](doc:color). 
 
 ### Specify source context
 

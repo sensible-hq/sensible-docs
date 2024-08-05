@@ -4,7 +4,7 @@ hidden: false
 
 ---
 
-This Sensible Instruct method extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images)
+This LLM-based method extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images)
 
 Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page. You can configure context using [Advanced prompt configuration](doc:prompt). 
 
@@ -50,7 +50,7 @@ To try out this example in the Sensible app, take the following steps:
 
 2. Create a test document type in the Sensible app, then follow the prompts in the dialog to upload the example document and create the type.
 
-4. Ensure that you're in the **Sensible Instruct**  editor. Click **Query group** create the following queries to extract data using the following table:
+4. Click **Query group** create the following queries to extract data using the following table:
 
 | Prompt                                                       | (Optional) Type |
 | ------------------------------------------------------------ | --------------- |

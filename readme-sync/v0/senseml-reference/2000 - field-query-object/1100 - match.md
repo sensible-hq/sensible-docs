@@ -5,7 +5,7 @@ hidden: false
 ---
 
 
-Matches are instructions for matching lines of text in a document. They're valid elements in anchors and other objects. 
+Matches are search criteria for matching lines of text in a document. They're valid elements in anchors and other objects. 
 
 See the following sections for more information:
 

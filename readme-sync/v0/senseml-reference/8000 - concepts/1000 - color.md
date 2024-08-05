@@ -1,9 +1,16 @@
 ---
-title: "Color coding"
+title: "Source text traceability"
 hidden: false
 ---
 
-This topic describes color-coded symbols that the SenseML editor overlays on documents in the Sensible app. These overlays visually represent how SenseML queries operate on documents. Use these symbols to author and troubleshoot queries.
+Sensible displays the source text for extracted fields using:
+
+- color-coded symbols overlaid on the rendered document in the JSON editor
+- location highlighting in the visual editor
+
+## Color coding
+
+The JSON editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text.
 
 | symbol                                                       | represents                           |
 | ------------------------------------------------------------ | ------------------------------------ |
@@ -225,4 +232,25 @@ If you click on a line, it changes to a ***purple box*** and shows the following
 You can select multiple lines to see their combined details.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
+
+
+## Location highlighting
+
+
+In the visual editor, you can click the search icon to the right of the output of a query field to view its source text in the document. 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
+
+Sensible finds source text for LLM responses using fuzzy matching, since the LLM's output can transform the source text. For example, if the LLM returns `4387-09-22-33`, Sensible matches the line `Policy Number: 4387-09-22-33` in the document.
+
+**Limitations**
+
+Sensible can highlight the incorrect location under the following circumstances:
+
+- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:types), then Sensible can fail to find a match or can find an inaccurate match.
+
+- If there are multiple candidates fuzzy matches in the document (for example, two instances of `April 7`), Sensible chooses the top-scoring match. If candidates have similar scores, Sensible uses page location as a tie breaker and chooses the earliest match in the document.
+
+- If the LLM returns text that's not in the document, then location highlighting is inapplicable.
+
 
