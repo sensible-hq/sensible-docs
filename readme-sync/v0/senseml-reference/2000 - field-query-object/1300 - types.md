@@ -1092,8 +1092,6 @@ The following image shows the example document used with this example config:
 }
 ```
 
-For another example of using the Custom type, see the [Compose](doc:types#compose) type.
-
 Deprecated types
 ===
 
