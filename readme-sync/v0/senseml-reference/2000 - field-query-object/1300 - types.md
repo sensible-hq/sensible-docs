@@ -919,13 +919,13 @@ This type outputs strings. For example:
 
 ## Parameters
 
-| key                    | value                                        | description                                                  |
-| ---------------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)      | `custom`                                     |                                                              |
-| pattern (**required**) | Valid JS regex                               | Javascript-flavored regular expression. By default, returns all matches. Returns the first capturing group if specified. As an alternative to capturing groups, use a [tiebreaker](doc:method). See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| flags                  | JS-flavored regex flags. Default: g (global) | Flags to apply to the regex. for example: "i" for case-insensitive. |
-| matchMultipleLines     | Boolean. default: false                      | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
-| type                   | String. default: string                      | Name your custom type. For example, `"time_24_hr"` or `YY-MM-date`. |
+| key                    | value                                          | description                                                  |
+| ---------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)      | `custom`                                       |                                                              |
+| pattern (**required**) | Valid JS regex                                 | Javascript-flavored regular expression. Returns all matches. Returns the first capturing group if specified. As an alternative to capturing groups, use a [tiebreaker](doc:method). See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| flags                  | JS-flavored regex flags. Default: "g" (global) | Flags to apply to the regex. for example: "i" for case-insensitive. |
+| matchMultipleLines     | Boolean. default: false                        | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
+| type                   | String. default: string                        | Name your custom type. For example, `"time_24_hr"` or `YY-MM-date`. |
 
 
 
@@ -950,7 +950,7 @@ The following example shows using a tiebreaker as an alternative to a capturing 
       
       "type": {
         "id": "custom",
-        /* match 24-hr formatted times
+        /* match all 24-hr formatted times.
            tiebreaker determines which of 
            3 matches to return */
         "pattern": "[0-9]{2}:[0-9]{2}",
@@ -991,12 +991,12 @@ Returns a replacement for a match using regular expressions.
 
 ## Parameters
 
-| key                        | value                                        | description                                                  |
-| -------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)          | `replace`                                    |                                                              |
-| pattern (**required**)     | Valid JS regex                               | Javascript-flavored regular expression. By default, replaces all matches. This parameter supports capturing groups. See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| replaceWith (**required**) | string                                       | Specifies the text or capturing group reference to replace the match or matches. |
-| flags                      | JS-flavored regex flags. Default: g (global) | Flags to apply to the regex. for example: "i" for case-insensitive. |
+| key                        | value                                          | description                                                  |
+| -------------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)          | `replace`                                      |                                                              |
+| pattern (**required**)     | Valid JS regex                                 | Javascript-flavored regular expression. Replaces all matches. This parameter supports capturing groups. See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| replaceWith (**required**) | string                                         | Specifies the text or capturing group reference to replace the match or matches. |
+| flags                      | JS-flavored regex flags. Default: "g" (global) | Flags to apply to the regex. for example: "i" for case-insensitive. |
 
 ## Examples
 
