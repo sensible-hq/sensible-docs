@@ -10,10 +10,7 @@ Quality control the data extractions in a document type by writing validations u
 - Test extracted fields using Boolean, logic, numeric, array, string, and other operations.
 - If Sensible extracted a field from OCR'd text,  test the confidence score for the field's anchor and value as a measure of the quality of the text images. For example, test that text in a scanned document isn't blurry or illegible.
 
-Then write your own logic based on the validations, for example:
-
-- pass a document extraction automatically through your pipeline if there are no errors and 10% of warning validations fail
-- flag a document extraction for human review if 5% of error validations fail
+Use validation output to automatically flag extractions for [review](doc:human-review) in the Sensible app. For example, flag a document extraction for [human review](doc:human-review) if 4 out of 5  validations fail.
 
 Sensible uses validation errors to calculate [coverage](doc:metrics) for an extraction.
 
