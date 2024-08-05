@@ -1044,8 +1044,8 @@ The following example shows how to strip all whitespaces and unwanted characters
       }
     },
     {
-      /* without the regex type to strip out whitespaces and capital letters,
-         Sensible can't recognize the amount as a currency */
+       /* this field shows the original string output, 
+         which can't be converted to currency until the spaces and letters are removed */
       "id": "_each_accident_raw",
       "anchor": {
         "match": {
