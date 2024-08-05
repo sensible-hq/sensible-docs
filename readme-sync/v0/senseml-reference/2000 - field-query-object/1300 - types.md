@@ -931,7 +931,7 @@ This type outputs strings. For example:
 
 ## Examples
 
-The following example shows using a tiebreaker as an alternative to a tiebreaker to return one of several matches from the Custom type.
+The following example shows using a tiebreaker as an alternative to a capturing group to return one of several matches from the Custom type.
 
 **Config**
 
