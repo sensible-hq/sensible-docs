@@ -45,6 +45,7 @@ The following types are available:
 
 [Compose](doc:types#compose)
 [Custom](doc:types#custom)
+[Replace](doc:types#replace)
 
 **Deprecated types**
 
@@ -918,13 +919,13 @@ This type outputs strings. For example:
 
 ## Parameters
 
-| key                    | value                    | description                                                  |
-| ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| id (**required**)      | `custom`                 |                                                              |
-| pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group if specified. As an alternative to capturing groups, use a [tiebreaker](doc:method). See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
-| matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
-| type                   | String. default: string  | Name your custom type. For example, `"time_24_hr"` or `YY-MM-date`. |
+| key                    | value                                        | description                                                  |
+| ---------------------- | -------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)      | `custom`                                     |                                                              |
+| pattern (**required**) | Valid JS regex                               | Javascript-flavored regular expression. By default, returns all matches. Returns the first capturing group if specified. As an alternative to capturing groups, use a [tiebreaker](doc:method). See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| flags                  | JS-flavored regex flags. Default: g (global) | Flags to apply to the regex. for example: "i" for case-insensitive. |
+| matchMultipleLines     | Boolean. default: false                      | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
+| type                   | String. default: string                      | Name your custom type. For example, `"time_24_hr"` or `YY-MM-date`. |
 
 
 
@@ -932,11 +933,166 @@ This type outputs strings. For example:
 
 The following example shows using a tiebreaker as an alternative to a tiebreaker to return one of several matches from the Custom type.
 
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "last_appt",
+      "anchor": "available",
+      "method": {
+        "id": "box",
+        "includeAnchor": true,
+        /* return the last pattern match */
+        "tiebreaker": "last"
+      },
+      
+      "type": {
+        "id": "custom",
+        /* match 24-hr formatted times
+           tiebreaker determines which of 
+           3 matches to return */
+        "pattern": "[0-9]{2}:[0-9]{2}",
+        "type": "time_24_hr"
+      } 
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/custom_type.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/custom_type.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "last_appt": {
+    "source": "16:30",
+    "value": "16:30",
+    "type": "time_24_hr"
+  }
+}
+```
+
+
+
 For an example of using the Custom type with the Compose type to transform the standardized output of other types, see the [Compose](doc:types#compose) type.
 
+# Replace
 
+Returns a replacement for a match using regular expressions.
 
+## Parameters
 
+| key                        | value                                        | description                                                  |
+| -------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)          | `replace`                                    |                                                              |
+| pattern (**required**)     | Valid JS regex                               | Javascript-flavored regular expression. By default, replaces all matches. This parameter supports capturing groups. See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| replaceWith (**required**) | string                                       | Specifies the text or capturing group reference to replace the match or matches. |
+| flags                      | JS-flavored regex flags. Default: g (global) | Flags to apply to the regex. for example: "i" for case-insensitive. |
+
+## Examples
+
+The following example shows how to strip all whitespaces and unwanted characters from a number.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      /* the source text contains unexpected whitespaces and capital letters due to line merging problems
+         use the Replace type to strip the whitespaces
+         and the Compose method to convert the stripped output
+         to a currency  */
+      "id": "each_accident",
+      "anchor": {
+        "match": {
+          "text": "EMPLOYER'S LIABILITY",
+          "type": "includes"
+        }
+      },
+      "type": {
+        "id": "compose",
+        "types": [
+          {
+            "id": "replace",
+            /* find all capital letters and whitespaces */
+            "pattern": "[A-Z\\s+]",
+            /*  strip them from the output */
+            "replaceWith": ""
+          },
+          /* convert the output of the Replace type to a currency */
+          "currency"
+        ]
+      },
+      "method": {
+        "id": "region",
+        "start": "left",
+        "offsetX": 0,
+        "offsetY": 0.1,
+        "width": 3,
+        "height": 0.2,
+        "sortLines": "readingOrderLeftToRight",
+      }
+    },
+    {
+      /* without the regex type to strip out whitespaces and capital letters,
+         Sensible can't recognize the amount as a currency */
+      "id": "_each_accident_raw",
+      "anchor": {
+        "match": {
+          "text": "EMPLOYER'S LIABILITY",
+          "type": "includes"
+        }
+      },
+      "method": {
+        "id": "region",
+        "start": "left",
+        "offsetX": 0,
+        "offsetY": 0.1,
+        "width": 3,
+        "height": 0.2,
+        "sortLines": "readingOrderLeftToRight",
+      }
+    },
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/replace_type.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/replace_type.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "each_accident": {
+    "source": "$500,000",
+    "value": 500000,
+    "unit": "$",
+    "type": "currency"
+  },
+  "_each_accident_raw": {
+    "type": "string",
+    "value": "$ 50 0 , 000 ACCIDEN EACH T"
+  }
+}
+```
+
+For another example of using the Custom type, see the [Compose](doc:types#compose) type.
 
 Deprecated types
 ===
