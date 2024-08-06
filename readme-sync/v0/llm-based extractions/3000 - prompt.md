@@ -6,11 +6,11 @@ hidden: false
 
 You can configure the full prompt that Sensible inputs to a large language model (LLM). You can apply configurations to multiple fields in a config, and you can override them for individual fields.
 
-When you write a prompt in a LLM-based method, Sensible combines your prompt with other information to create the full prompt. The full prompt includes:
+When you write a prompt in an LLM-based method, Sensible combines your prompt with other information to create the full prompt. The full prompt includes:
 
 - a prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunking configuration, see the Notes section.
-- concatenated descriptive prompts you configure in a LLM-based method, such as in the [List](doc:list-tips) or [Query Group](doc:query-group-tips) methods.
+- concatenated descriptive prompts you configure in an LLM-based method, such as in the [List](doc:list-tips) or [Query Group](doc:query-group-tips) methods.
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query Group](doc:query-group-tips) method: 
 
