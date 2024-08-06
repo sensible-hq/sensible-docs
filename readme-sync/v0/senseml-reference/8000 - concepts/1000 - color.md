@@ -236,16 +236,18 @@ You can select multiple lines to see their combined details.
 
 ## Location highlighting
 
-
-In the visual editor, you can click the search icon to the right of the output of a query field to view its source text in the document. 
+In the visual editor, Sensible uses location highlighting to show source text for LLM-based methods. Click the location icon to the right of the output of a query field to view its source text in the document: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
 
-Sensible finds source text for LLM responses using fuzzy matching, since the LLM's output can transform the source text. For example, if the LLM returns `4387-09-22-33`, Sensible matches the line `Policy Number: 4387-09-22-33` in the document.
+Since LLMs are indeterminate, Sensible locates source text for LLM-based methods using a variety of approaches:
+
+  - For the Query group method, Sensible uses fuzzy matching, since the LLM's output can transform the source text. For example, if the LLM returns `4387-09-22-33`, Sensible matches the line `Policy Number: 4387-09-22-33` in the document.
+  - For the NLP Table method, Sensible uses the top-scoring table sourced from an OCR provider. For more information, see the NLP Table method's [Notes](doc:nlp-table#notes).
 
 **Limitations**
 
-Sensible can highlight the incorrect location under the following circumstances:
+For the Query Group method, Sensible can highlight the incorrect location under the following circumstances:
 
 - If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:types), then Sensible can fail to find a match or can find an inaccurate match.
 
