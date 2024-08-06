@@ -5,7 +5,9 @@ hidden: false
 
 A field is the basic *SenseML* query unit for extracting a piece of document data. SenseML is a query language that lets you extract structured data from documents, for example, from PDFs.  The output of a field is a JSON key-value pair that structures the extracted data. 
 
-A field uses a *method* to extract data.  SenseML contains *layout-based* and *large language model (LLM)-based* methods. For more information, see the Examples section.
+A field uses a *method* to extract data.  SenseML contains *layout-based* and *large language model (LLM)-based* methods. 
+
+For more information, see the [Examples](doc:examples) section.
 
 [**Parameters**](doc:field-query-object#parameters)
 [**Examples**](doc:field-query-object#examples)
