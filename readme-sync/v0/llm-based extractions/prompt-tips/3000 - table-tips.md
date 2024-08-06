@@ -76,7 +76,7 @@ To try out this example in the Sensible app, take the following steps:
 
 2. Create a test document type in the Sensible app, then follow the prompts in the dialog to upload the example document and create the type.
 
-4. Click **the visual editor** and create prompts to extract data using the following table:
+4. Create prompts to extract data using the following table:
 
 | Field name             | Method | Overall table description            | Column IDs and descriptions                                  |
 | ---------------------- | ------ | ------------------------------------ | ------------------------------------------------------------ |

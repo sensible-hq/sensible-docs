@@ -3,9 +3,8 @@ title: "Prompt tips"
 hidden: false
 ---
 
-To extract from documents, describe your target data using Sensible's prompt-authoring environment, *the visual editor*. the visual editor is a large language model (LLM)-based subset of *SenseML*, Sensible's JSON-based document extraction query language. By combining the visual editor and SenseML, you can extract data from a range of document types, from highly structured business forms to unstructured research documents.
 
-See the following topics for tips on configuring extractions in the visual editor:
+See the following topics for tips on configuring LLM-based prompts in the visual editor:
 
 | Method                             | Example use case                                             | Notes                                                        |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
