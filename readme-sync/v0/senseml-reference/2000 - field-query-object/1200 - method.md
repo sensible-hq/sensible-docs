@@ -3,9 +3,13 @@ title: "Method object"
 hidden: false
 ---
 
-A Method object defines how to extract target data.
+A Method object defines how to extract target data. There are two broad categories of methods:
 
-For a list of methods, see [Methods](doc:methods) and [LLM-based methods](doc:llm-based-methods). 
+|                         | [LLM-based methods](doc:llm-based-methods)                   | [Layout-based methods](doc:methods)                          |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Notes                   | Ask questions about info in the document, as you'd ask a human. For example, "what's the policy period"?  Uses large language models (LLMs). | Find the information in the document using anchoring text and layout data. For example, specify to extract the second cell in a column headed by "premium". |
+| Deterministic           | no                                                           | yes                                                          |
+| Handles complex layouts | no                                                           | yes                                                          |
 
 [**Parameters**](doc:method#parameters)
 [**Examples**](doc:method#examples)

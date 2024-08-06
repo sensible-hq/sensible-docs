@@ -10,7 +10,7 @@ See the following topics for reference documentation for the SenseML query langu
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
 - [Methods](doc:methods)
-- [LLM-based methods](doc:llm-based-methods), including LLM-based methods. For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
+- [LLM-based methods](doc:llm-based-methods). For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
@@ -53,7 +53,10 @@ This example uses the following config:
     /* LAYOUT-BASED EXAMPLE */
     {
       "id": "_driver_name_raw", // ID for extracted target data
-      "anchor": "name of driver", // search for target data near text "name of driver" in doc
+       /* Expand out spatially from this anchoring text ("name of driver")
+          to find the target data. */
+      "anchor": "name of driver", 
+      /* The method specifies how to expand out from the anchor */
       "method": {
         "id": "label", // target to extract is a single line near anchor line
         "position": "below" // target is below anchor line ("name of driver")
@@ -61,15 +64,18 @@ This example uses the following config:
     },
     /* LLM-BASED EXAMPLE */
     {
+      /* no need for an anchor. Sensible searches the whole document 
+         for the answers to the LLM prompts */
       "method": {
-        /* to improve performance, group facts to extract if 
-           they're co-located in the document  */
+        /* to improve performance, group queries if their answers
+           are co-located in the document  */
         "id": "queryGroup",
         "queries": [
           {
             "id": "policy_period",
-            /* described each data point you want to extract
-               with simple, short language */
+            /* prompt an LLM to extract the data you describe. 
+               use simple, short language
+               */
             "description": "policy period",
             "type": "string"
           },
@@ -121,19 +127,8 @@ The output of this example config is as follows:
 
 This example config has the following elements:
 
-- The **field** `_driver_name_raw` is a query that extracts a driver's name by searching below some matched text (`"position": "below"`). Its ID is the key for the extracted data. For more information, see [Field query object](doc:field-query-object).
+-  **Fields** are queries that extract text. For more information, see [Field query object](doc:field-query-object).
 
-- (not applicable for LLM methods) an **anchor** is matched text that helps narrow down a location in the document from which to extract data. In the `"_driver_name_raw"` field, Sensible matches a string (`"name of driver"`). For information about more complex anchors, see [Anchor object](doc:anchor).
-
-- A **method** defines how to extract data after the anchor narrows down the data's location. In this example field, the Label method tells Sensible to extract data that's below and close to the anchor.
-
-  There are two broad categories of methods:
-
-  |                         | [LLM-based methods](doc:llm-based-methods)     | Layout-based [methods](doc:methods)                          |
-  | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Notes                   | Ask questions about info in the document, as you'd ask a human. For example, "what's the policy period"?  Uses large language models (LLMs). | Find the information in the document using anchoring text and layout data. For example, write a prompt to grab the second cell in a column headed by "premium". |
-  | Deterministic           | no                                                           | yes                                                          |
-  | Handles complex layouts | no                                                           | yes                                                          |
 
 - The **preprocessor**, `pageRange`, cuts out irrelevant pages of the document. For more information about using preprocessors to clean up documents before extracting data, see [Preprocessors](doc:preprocessors).
 
