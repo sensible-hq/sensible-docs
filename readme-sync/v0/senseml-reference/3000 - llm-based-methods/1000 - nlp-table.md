@@ -328,7 +328,7 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible splits the document into equal-sized, overlapping chunks. 
    - Sensible scores your concatenated table descriptions against each chunk using the OpenAI Embeddings API.
    - Sensible gets a list of page numbers from the top-scoring chunks.
-2. Sensible extracts all the tables on the pages most likely to contain your table, using an OCR provider. Sensible supports multi-page tables.
+2. Sensible extracts all the tables on the pages most likely to contain your table, using the [OCR engine](doc:ocr-engine) specified by the document type. Sensible supports multi-page tables.
 4. Sensible scores each table by how well it matches the descriptions you provide of the data you want to extract. To create the score:
 
    - Sensible concatenates all your column descriptions with your overall table description. 
@@ -336,5 +336,5 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible concatenates a number of the first rows of the table with the table title.  Sensible uses the table title extracted by the table OCR provider, or falls back to using the text in a region above the table if the OCR provider doesn't find a title.
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
-4. Sensible creates a full prompt for the LLM (GPT-4) that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to restructure the best-scoring table based on your column descriptions and your overall table description. 
+5. Sensible creates a full prompt for the LLM (GPT-4) that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to restructure the best-scoring table based on your column descriptions and your overall table description. 
 6. Sensible returns the restructured table.
