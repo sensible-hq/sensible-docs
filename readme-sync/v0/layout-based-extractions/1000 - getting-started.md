@@ -10,7 +10,7 @@ You can then save your descriptions as a "config." Publish your config to automa
 
 Use this tutorial if you want a guided tour of SenseML's layout-based concepts and the Sensible app. Or see the following links:
 
-- Layout-based methods are for advanced config authoring. For a simpler authoring experience, use the visual editor to author LLM-based methods. For more information about layout-based versus LLM-based extraction methods, see [Choosing extraction strategy](doc:author). For getting started with LLMs, see [Getting started](doc:getting-started-ai).
+- Layout-based methods are for advanced config authoring. For a simpler authoring experience, use LLM-based methods. For more information about layout-based versus LLM-based extraction methods, see [Choosing extraction strategy](doc:author). For getting started with LLMs, see [Getting started](doc:getting-started-ai).
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials.
 - If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
@@ -80,9 +80,7 @@ For this tutorial, you'll extract these fields:
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question.
-           You can author LLM-based queries in the visual editor
-           instead of in JSON */
+            /* ask a free-text question. */
             "id": "bodily_injury_premium",
             "description": "bodily injury premium",
             "type": "currency"
@@ -233,9 +231,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question.
-           You can author LLM-based queries in the visual editor
-           instead of in JSON */
+            /* ask a free-text question. */
             "id": "bodily_injury_premium",
             "description": "in the table, what's the bodily injury premium?",
             "type": "currency"

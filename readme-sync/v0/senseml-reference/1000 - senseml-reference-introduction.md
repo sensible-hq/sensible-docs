@@ -53,10 +53,15 @@ This example uses the following config:
     /* LAYOUT-BASED EXAMPLE */
     {
       "id": "_driver_name_raw", // ID for extracted target data
-       /* Expand out spatially from this anchoring text ("name of driver")
-          to find the target data. */
+       /* an anchor is text that always occurs in the same position relative 
+          to your target text. 
+          Without an anchor, Sensible wouldn't know 
+          which page to search in for your target text. 
+       */
       "anchor": "name of driver", 
-      /* The method specifies how to expand out from the anchor */
+      /* The method specifies how to spatially expand out from 
+         the anchor text ("name of driver") to find the target text.
+      */
       "method": {
         "id": "label", // target to extract is a single line near anchor line
         "position": "below" // target is below anchor line ("name of driver")
@@ -65,17 +70,19 @@ This example uses the following config:
     /* LLM-BASED EXAMPLE */
     {
       /* no need for an anchor. Sensible searches the whole document 
-         for the answers to the LLM prompts */
+         for the answers to the LLM prompts 
+      */
       "method": {
         /* to improve performance, group queries if their answers
-           are co-located in the document  */
+           are co-located in the document
+        */
         "id": "queryGroup",
         "queries": [
           {
             "id": "policy_period",
             /* prompt an LLM to extract the data you describe. 
                use simple, short language
-               */
+            */
             "description": "policy period",
             "type": "string"
           },
@@ -138,4 +145,4 @@ This example config has the following elements:
 
  
 
-Using SenseML, you can extract just about any text, as well as image coordinates, from a document. Happy extracting!
+Using SenseML, you can extract just about any data from a document. Happy extracting!
