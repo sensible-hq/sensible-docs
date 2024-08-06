@@ -4,10 +4,6 @@ hidden:
 ---
 Use the following  [methods](doc:method)  to extract structured data from documents. 
 
-
-
-
-
 ## Layout-based methods
 
 | Method                                       | Image                                                        | Notes                                                        |

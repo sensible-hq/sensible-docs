@@ -12,17 +12,17 @@ Sensible displays the source text for extracted fields using:
 
 The JSON editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text.
 
-| symbol                                                       | represents                           |
-| ------------------------------------------------------------ | ------------------------------------ |
-| [Yellow box](doc:color#yellow-box)                           | anchor                               |
-| [Blue box](doc:color#blue-box)                               | captured method data                 |
-| [Green box](doc:color#green-box)                             | box, region, table, or chunk         |
-| [Green point](doc:color#green-point)                         | starting point for recognizing a box |
-| [Green brackets or yellow brackets](doc:color#green-brackets) | ranges for sections                  |
-| [Dotted blue box](doc:color#dotted-blue-box)                 | discarded method data                |
-| [Dotted yellow box](doc:color#dotted-yellow-box)             | discarded anchor data                |
-| [Pink box](doc:color#pink-box)                               | fingerprint                          |
-| [Purple box](doc:color#purple-box)                           | line details                         |
+| symbol                                                       | represents                                    |
+| ------------------------------------------------------------ | --------------------------------------------- |
+| [Yellow box](doc:color#yellow-box)                           | anchor                                        |
+| [Blue box](doc:color#blue-box)                               | captured method data                          |
+| [Green box](doc:color#green-box)                             | box, region, table, or chunk                  |
+| [Green point](doc:color#green-point)                         | starting point for extracting a box or region |
+| [Green brackets or yellow brackets](doc:color#green-brackets) | ranges for sections                           |
+| [Dotted blue box](doc:color#dotted-blue-box)                 | discarded method data                         |
+| [Dotted yellow box](doc:color#dotted-yellow-box)             | discarded anchor data                         |
+| [Pink box](doc:color#pink-box)                               | fingerprint                                   |
+| [Purple box](doc:color#purple-box)                           | line details                                  |
 
 Yellow box
 ====
@@ -254,5 +254,4 @@ For the Query Group method, Sensible can highlight the incorrect location under 
 - If there are multiple candidates fuzzy matches in the document (for example, two instances of `April 7`), Sensible chooses the top-scoring match. If candidates have similar scores, Sensible uses page location as a tie breaker and chooses the earliest match in the document.
 
 - If the LLM returns text that's not in the document, then location highlighting is inapplicable.
-
 
