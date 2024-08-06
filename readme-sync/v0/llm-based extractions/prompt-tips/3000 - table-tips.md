@@ -92,4 +92,4 @@ For example, use the following screenshot as a guide for configuring the `insure
 
 Notes
 ===
-For the full reference for this method in SenseML, see [NLP Table](doc:nlp-table).
+For the full reference for this method, see [NLP Table](doc:nlp-table).

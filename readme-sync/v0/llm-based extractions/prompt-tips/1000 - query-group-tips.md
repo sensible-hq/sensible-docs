@@ -68,4 +68,4 @@ To try out this example in the Sensible app, take the following steps:
 Notes
 ===
 
-For the full reference for this method in SenseML, see [Query group method](doc:query-group).
+For the full reference for this method, see [Query group method](doc:query-group).

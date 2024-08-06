@@ -10,7 +10,7 @@ You can then save your descriptions as a "config." Publish your config to automa
 
 Use this tutorial if you want a guided tour of SenseML's layout-based concepts and the Sensible app. Or see the following links:
 
-- SenseML's layout-based approach is for advanced config authoring. For a simpler authoring experience, author LLM-based queries using the visual editor. For more information about layout-based versus LLM-based extraction methods, see [Choosing extraction strategy](doc:author). For getting started with LLMs, see [Getting started](doc:getting-started-ai).
+- Layout-based methods are for advanced config authoring. For a simpler authoring experience, use the visual editor to author LLM-based methods. For more information about layout-based versus LLM-based extraction methods, see [Choosing extraction strategy](doc:author). For getting started with LLMs, see [Getting started](doc:getting-started-ai).
 
 - If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials.
 - If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
