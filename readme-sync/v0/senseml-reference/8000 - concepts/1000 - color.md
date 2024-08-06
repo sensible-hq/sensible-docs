@@ -8,7 +8,7 @@ Sensible displays the source text for extracted fields using:
 - color-coded symbols overlaid on the rendered document in the JSON editor
 - location highlighting in the visual editor
 
-## Color coding
+# Color coding
 
 The JSON editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text.
 
@@ -24,8 +24,8 @@ The JSON editor uses color-coded overlays to visually represent how SenseML quer
 | [Pink box](doc:color#pink-box)                               | fingerprint                                   |
 | [Purple box](doc:color#purple-box)                           | line details                                  |
 
-Yellow box
-====
+## Yellow box
+
 
 ***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
 
@@ -53,8 +53,8 @@ The query used for the preceding image is:
 }    
 ```
 
-Blue box
-====
+## Blue box
+
 
 ***Blue boxes*** represent method output. For more information about method, see [Method object](doc:method). 
 
@@ -82,13 +82,11 @@ The query used for the preceding image is:
 }    
 ```
 
-Green box
-====
+## Green box
 
 ***Green boxes*** represent boxes, regions, tables, or [chunks](doc:prompt).
 
-Green point
-====
+## Green point
 
 ***Green points*** represent the following:
 
@@ -106,8 +104,7 @@ If you specify to find the box borders by starting from the right edge of the an
 
 
 
-Green brackets
-===
+## Green brackets
 
 **Green brackets** represent the start and end of each section in a section group:
 
@@ -119,8 +116,8 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 
 
 
-Dotted blue box
-===
+## Dotted blue box
+
 
 ***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
@@ -154,8 +151,7 @@ Common parameters resulting in filtering include:
 
 
 
-Dotted yellow box
-===
+## Dotted yellow box
 
 ***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. 
 
@@ -192,8 +188,8 @@ Common parameters resulting in filtering include:
 
 
 
-Pink box
-====
+## Pink box
+
 ***Pink boxes*** represent matching fingerprint tests.  
 In the following image, the pink text is a matching fingerprint. 
 
@@ -220,8 +216,8 @@ fingerprint": {
 
 **Note** The pink highlighting for fingerprint text isn't compatible with preprocessors that change line indices, such as Split Lines and Merge Lines.
 
-Purple box
-====
+## Purple box
+
 
 If you click on a line, it changes to a ***purple box*** and shows the following details:
 
@@ -234,7 +230,7 @@ You can select multiple lines to see their combined details.
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
 
 
-## Location highlighting
+# Location highlighting
 
 In the visual editor, Sensible uses location highlighting to show source text for LLM-based methods. Click the location icon to the right of the output of a query field to view its source text in the document: 
 
