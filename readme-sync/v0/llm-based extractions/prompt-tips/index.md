@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-See the following topics for tips on configuring LLM-based prompts in the visual editor:
+See the following topics for tips on configuring LLM-based methods:
 
 | Method                             | Example use case                                             | Notes                                                        |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
