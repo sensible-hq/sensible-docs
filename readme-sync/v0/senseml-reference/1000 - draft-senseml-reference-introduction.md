@@ -39,7 +39,7 @@ With SenseML, you can:
 
   - [Field query object](doc:field-query-object)
   - [Methods](doc:methods)
-  - [LLM-based methods](doc:llm-based-methods), including LLM-based LLM-based methods. For more information about choosing whether to author configs in either SenseML or the visual editor, see [Choosing an extraction approach](doc:author).
+  - [LLM-based methods](doc:llm-based-methods), including LLM-based methods. For more information about choosing whether to author configs in either SenseML or the visual editor, see [Choosing an extraction approach](doc:author).
   - [Sections](doc:sections)
 
   **Post-processing**
