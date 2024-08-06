@@ -4,7 +4,7 @@ hidden: false
 ---
 An *anchor* is a string, [Match](doc:match) object, or array of Match objects. 
 
-An anchor's behavior depends on the method category:
+An anchor's behavior depends on its field's method:
 
 | Category             | Required? | Notes                                                        |
 | -------------------- | --------- | ------------------------------------------------------------ |
