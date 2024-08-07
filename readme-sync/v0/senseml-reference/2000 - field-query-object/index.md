@@ -41,10 +41,13 @@ The following example shows a layout-based field and an LLM-based field.
     {
       /* LAYOUT-BASED EXAMPLE */
       "id": "name_of_output_key",
-      /* an anchor is some text to match. define complex anchors using match arrays */
+      /* an anchor is some text to match. define complex anchors using match
+         arrays 
+      */
       "anchor": "here's an anchor",
       /* this method uses spatial information 
-        to locate the target data relative to the anchor */
+         to locate the target data relative to the anchor 
+      */
       "method": {
         "id": "label",
         /* target data is below the anchor */
@@ -55,9 +58,10 @@ The following example shows a layout-based field and an LLM-based field.
     {
       "id": "overview_table",
       "method": {
-        "id": "nlpTable",
         /* this method uses LLMs to search the whole document
-           for your target data based on your prompts ("descriptions") */
+           for your target data based on your prompts ("descriptions") 
+        */
+        "id": "nlpTable",
         "description": "table describing SenseML",
         "columns": [
           {
