@@ -15,15 +15,15 @@ See the following table to learn more about extraction strategies:
 
 | extraction method | notes                                                        | get started                                                  |
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| LLMs              | In a visual editor, prompt an LLM by describing the data you want to extract. | [Getting started](doc:getting-started-ai)                    |
-| layout-based      | To extract from complex document layouts, author layout-based queries in the JSON editor. | [Getting started with layout-based extractions](doc:getting-started) |
+| LLMs              | Prompt an LLM by describing the data you want to extract. | [Getting started](doc:getting-started-ai)                    |
+| layout-based      | To extract from complex document layouts, author layout-based queries. | [Getting started with layout-based extractions](doc:getting-started) |
 | out-of-the-box    | Sensible provides out-of-the-box extraction configurations for common business and tax forms. Use Sensible's pre-built, open-source [configuration library](https://github.com/sensible-hq/sensible-configuration-library/) to extract key information from tax forms such as 1099s, major carrier insurance declaration pages, and other documents. Then tweak the pre-built configurations for your custom data needs. | [Getting started with out-of-the-box extractions](doc:library-quickstart) |
 
 See the following table for an overview of the pros and cons of LLMs versus layout-based extraction:
 
-|                                                              | LLM (the visual editor)                                      | layout-based (SenseML)                                       |
+|                                                              | LLM-based                                      | layout-based                                       |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Technical expertise required                                 | For nontechnical users. Describe what you want to extract in a prompt to an LLM.  For example, "the policy period" or "total amount invoiced". | Offers highly configurable JSON-based extraction configuration for technical users. For example, write instructions in JSON to grab the second cell in a column headed by "premium." |
+| Technical expertise required                                 | For nontechnical users. Describe what you want to extract in a prompt to an LLM.  For example, "the policy period" or "total amount invoiced". | Offers advanced extraction configuration for technical users. For example, grab the second cell in a column headed by "premium." |
 | Workflow automation                                          | Suited to workflows that include [human review](doc:human-review) or that are fault-tolerant. | Suited to automated workflows that require predictable results and validation. |
 | Document variability                                         | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Suited to structured documents with a finite number of variations, where you know the layout of the document in advance. |
 | Deterministic                                                | No                                                           | Yes. Find the information in the document using anchoring text and layout data. |
