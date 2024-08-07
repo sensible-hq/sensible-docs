@@ -17,7 +17,7 @@ A Method object defines how to extract target data. There are two broad categori
 Parameters
 -----
 
-The following global parameters available to all methods:
+The following global parameters are available to all methods:
 
 | Key                         | Value                                                        | Description                                                  |
 | --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
