@@ -5,7 +5,7 @@ hidden: false
 
 Extract free text from unstructured documents using large language model (LLM)-based SenseML methods. For example, extract information from legal paragraphs in contracts and leases, or results from research papers.
 
-These methods are low-code alternatives to [layout-based methods](doc:methods) for structured documents, for example, tax documents or insurance forms.  
+These methods are alternatives to [layout-based methods](doc:methods) for structured documents, for example, tax documents or insurance forms.  
 
 
 The following topics describe how to author LLM-based methods using the JSON editor. For information about authoring LLM-based methods using a visual editor, see [Prompt tips](doc:prompt-tips). 
