@@ -3,9 +3,8 @@ title: "Prompt tips"
 hidden: false
 ---
 
-To extract from documents, describe your target data using Sensible's prompt-authoring environment, *Sensible Instruct*. Sensible Instruct is a large language model (LLM)-based subset of *SenseML*, Sensible's JSON-based document extraction query language. By combining Sensible Instruct and SenseML, you can extract data from a range of document types, from highly structured business forms to unstructured research documents.
 
-See the following topics for tips on configuring extractions in Sensible Instruct:
+See the following topics for tips on configuring LLM-based methods:
 
 | Method                             | Example use case                                             | Notes                                                        |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |

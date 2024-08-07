@@ -4,15 +4,15 @@ hidden: false
 ---
 
 
-In this tutorial, you'll learn to extract data out of a set of similar documents using a layout-based query language, SenseML. You'll write JSON to tell Sensible about which data to extract from an example document, using what you know about the layout of the document. SenseML uses a mix of techniques, including machine learning, heuristics, and rules, to extract your target information.
+In this tutorial, you'll learn to extract data out of a set of similar documents using Sensible's query language, SenseML. You'll write JSON to tell Sensible about which data to extract from an example document, using what you know about the layout of the document. SenseML uses a mix of techniques, including large language models (LLMs), machine learning, heuristics, and rules, to extract your target information.
 
 You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.   
 
-Use this tutorial if you want a guided tour of SenseML concepts and the Sensible app. Or see the following links:
+Use this tutorial if you want a guided tour of SenseML's layout-based concepts and the Sensible app. Or see the following links:
 
-- SenseML is for advanced config authoring. For a simpler authoring experience, use Sensible Instruct. For more information about SenseML versus Sensible Instruct, see [Choosing extraction strategy](doc:author). For authoring in Sensible Instruct, see [Getting started](doc:getting-started-ai).
+- Layout-based methods are for advanced config authoring. For a simpler authoring experience, use LLM-based methods. For more information about layout-based versus LLM-based extraction methods, see [Choosing extraction strategy](doc:author). For getting started with LLMs, see [Getting started](doc:getting-started-ai).
 
-- If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials in the `sensible_instruct_basics` document type.
+- If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials.
 - If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
 
 Get structured data from an auto insurance quote
@@ -56,7 +56,7 @@ Configure the extraction
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
 
-2. Sensible displays the query editor for your config and example document. Ensure that you're using the SenseML editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
+2. Sensible displays the query editor for your config and example document. Ensure that you're using the JSON editor by clicking **Switch to SenseML**.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
@@ -80,9 +80,7 @@ For this tutorial, you'll extract these fields:
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question.
-           You can author LLM-based queries in Sensible Instruct
-           instead of in JSON */
+            /* ask a free-text question. */
             "id": "bodily_injury_premium",
             "description": "bodily injury premium",
             "type": "currency"
@@ -195,7 +193,7 @@ This guide focuses on layout-based document extraction, which works as follows:
 
 - Each "field" is a basic query unit in Sensible.  Each field outputs a piece of data from the document that you want to extract. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
-- Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text . For more information about defining complex anchors, see [Anchor](doc:anchor). 
+- Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text. For more information about defining complex anchors, see [Anchor](doc:anchor). 
 
 - Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Methods](doc:methods).
 
@@ -233,9 +231,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question.
-           You can author LLM-based queries in Sensible Instruct
-           instead of in JSON */
+            /* ask a free-text question. */
             "id": "bodily_injury_premium",
             "description": "in the table, what's the bodily injury premium?",
             "type": "currency"
@@ -267,7 +263,7 @@ This config returns:
   },
 ```
 
-Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's [visual authoring tool](doc:instruct).
+Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's visual authoring tool by clicking **Switch to Sensible Instruct**.
 
 LLM-based methods such as the Query Group method can run up against limitations with complex document formatting. In such cases, combine LLM-based methods with layout-based methods in the same document extraction configuration. 
 
@@ -652,9 +648,11 @@ You should receive a response with errors and warnings in the Validations array,
 }
 ```
 
+Use [validation](doc:validate-extractions) errors and warnings to automatically flag poor-quality extractions for [human review](doc:human-review) in the Sensible app.
+
 
 Next
 ====
 
 - Check out the [SenseML method reference docs](doc:methods) to write your own extractions
-- Learn more about [validations](doc:validate-extractions) to test the quality of your extractions in production
+- Learn about [integration options](doc:integrate).

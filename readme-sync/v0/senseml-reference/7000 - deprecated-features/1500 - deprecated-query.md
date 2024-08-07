@@ -267,7 +267,7 @@ For an overview of how this method works, see the following steps:
 How location highlighting works
 ---
 
-In the Sensible Instruct editor, you can click the output of a query field to view its source text in the document. 
+In the visual editor, you can click the output of a query field to view its source text in the document. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_August2023_location.png)
 
@@ -279,7 +279,7 @@ For an overview of how Sensible finds the source text in the document for the LL
 
 - Sensible selects the three lines in the document that contain the best fuzzy matches. For each line, Sensible concatenates the preceding and succeeding lines, in case the match spans multiple lines.
 - Sensible searches for a fuzzy match in the concatenated lines for the text that the LLM returned.  Sensible returns the best match.
-- Sensible highlights the best match in the document in the Sensible Instruct editor or in the SenseML editor.
+- Sensible highlights the best match in the document in the visual editor or in the JSON editor.
 
 **Limitations**
 

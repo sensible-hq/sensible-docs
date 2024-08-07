@@ -2,13 +2,20 @@
 title: "Anchor object"
 hidden: false
 ---
-An *anchor* is a string, [Match](doc:match) object, or array of Match objects. An anchor is a computationally quick way to narrow down the location of the data you want to extract in a document. After locating the anchor, Sensible uses a ["method"](doc:method) to expand out from the anchor and extract the data you want.
+An *anchor* is a string, [Match](doc:match) object, or array of Match objects. 
+
+An anchor's behavior depends on its field's method:
+
+| Category             | Required? | Notes                                                        |
+| -------------------- | --------- | ------------------------------------------------------------ |
+| Layout-based methods | required  | An anchor is a computationally quick way to narrow down the rough location of the data you want to extract in a document. After locating the anchor, Sensible uses a layout-based ["method"](doc:method) to spatially expand out from the anchor and extract the data you want. |
+| LLM-based methods    | optional  | An anchor is a test for running a field or skipping it. If the anchor is present in the document, Sensible searches the whole document for the target data. If the anchor is missing, Sensible returns null for the field. You can use this behavior to define backup, or  "[fallback](doc:fallbacks)", fields.<br/>For an exception to this behavior, see the [Multimodal Engine](doc:query-group#parameters) parameter. |
 
 [**Parameters**](doc:anchor#parameters)
 [**Examples**](doc:anchor#examples)
 [**Notes**](doc:anchor#notes)
 
-Anchors can be simple or complex. The following example is a simple string anchor:
+Define anchors using simple or complex syntax. The following example shows simple syntax:
 
 ```json
 {

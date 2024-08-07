@@ -1,24 +1,31 @@
 ---
-title: "Color coding"
+title: "Source text traceability"
 hidden: false
 ---
 
-This topic describes color-coded symbols that the SenseML editor overlays on documents in the Sensible app. These overlays visually represent how SenseML queries operate on documents. Use these symbols to author and troubleshoot queries.
+Sensible displays the source text for extracted fields using:
 
-| symbol                                                       | represents                           |
-| ------------------------------------------------------------ | ------------------------------------ |
-| [Yellow box](doc:color#yellow-box)                           | anchor                               |
-| [Blue box](doc:color#blue-box)                               | captured method data                 |
-| [Green box](doc:color#green-box)                             | box, region, table, or chunk         |
-| [Green point](doc:color#green-point)                         | starting point for recognizing a box |
-| [Green brackets or yellow brackets](doc:color#green-brackets) | ranges for sections                  |
-| [Dotted blue box](doc:color#dotted-blue-box)                 | discarded method data                |
-| [Dotted yellow box](doc:color#dotted-yellow-box)             | discarded anchor data                |
-| [Pink box](doc:color#pink-box)                               | fingerprint                          |
-| [Purple box](doc:color#purple-box)                           | line details                         |
+- color-coded symbols overlaid on the rendered document in the JSON editor
+- location highlighting in the visual editor
 
-Yellow box
-====
+# Color coding
+
+The JSON editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text.
+
+| symbol                                                       | represents                                    |
+| ------------------------------------------------------------ | --------------------------------------------- |
+| [Yellow box](doc:color#yellow-box)                           | anchor                                        |
+| [Blue box](doc:color#blue-box)                               | captured method data                          |
+| [Green box](doc:color#green-box)                             | box, region, table, or chunk                  |
+| [Green point](doc:color#green-point)                         | starting point for extracting a box or region |
+| [Green brackets or yellow brackets](doc:color#green-brackets) | ranges for sections                           |
+| [Dotted blue box](doc:color#dotted-blue-box)                 | discarded method data                         |
+| [Dotted yellow box](doc:color#dotted-yellow-box)             | discarded anchor data                         |
+| [Pink box](doc:color#pink-box)                               | fingerprint                                   |
+| [Purple box](doc:color#purple-box)                           | line details                                  |
+
+## Yellow box
+
 
 ***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
 
@@ -46,8 +53,8 @@ The query used for the preceding image is:
 }    
 ```
 
-Blue box
-====
+## Blue box
+
 
 ***Blue boxes*** represent method output. For more information about method, see [Method object](doc:method). 
 
@@ -75,13 +82,11 @@ The query used for the preceding image is:
 }    
 ```
 
-Green box
-====
+## Green box
 
 ***Green boxes*** represent boxes, regions, tables, or [chunks](doc:prompt).
 
-Green point
-====
+## Green point
 
 ***Green points*** represent the following:
 
@@ -99,8 +104,7 @@ If you specify to find the box borders by starting from the right edge of the an
 
 
 
-Green brackets
-===
+## Green brackets
 
 **Green brackets** represent the start and end of each section in a section group:
 
@@ -112,8 +116,8 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 
 
 
-Dotted blue box
-===
+## Dotted blue box
+
 
 ***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
@@ -147,8 +151,7 @@ Common parameters resulting in filtering include:
 
 
 
-Dotted yellow box
-===
+## Dotted yellow box
 
 ***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. 
 
@@ -185,8 +188,8 @@ Common parameters resulting in filtering include:
 
 
 
-Pink box
-====
+## Pink box
+
 ***Pink boxes*** represent matching fingerprint tests.  
 In the following image, the pink text is a matching fingerprint. 
 
@@ -213,8 +216,8 @@ fingerprint": {
 
 **Note** The pink highlighting for fingerprint text isn't compatible with preprocessors that change line indices, such as Split Lines and Merge Lines.
 
-Purple box
-====
+## Purple box
+
 
 If you click on a line, it changes to a ***purple box*** and shows the following details:
 
@@ -225,4 +228,26 @@ If you click on a line, it changes to a ***purple box*** and shows the following
 You can select multiple lines to see their combined details.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
+
+
+# Location highlighting
+
+In the visual editor, Sensible uses location highlighting to show source text for LLM-based methods. Click the location icon to the right of the output of a query field to view its source text in the document: 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
+
+Since LLMs are indeterminate, Sensible locates source text for LLM-based methods using a variety of approaches:
+
+  - For the Query group method, Sensible uses fuzzy matching, since the LLM's output can transform the source text. For example, if the LLM returns `4387-09-22-33`, Sensible matches the line `Policy Number: 4387-09-22-33` in the document.
+  - For the NLP Table method, Sensible uses the top-scoring table sourced from an OCR provider. For more information, see the NLP Table method's [Notes](doc:nlp-table#notes).
+
+**Limitations**
+
+For the Query Group method, Sensible can highlight the incorrect location under the following circumstances:
+
+- If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:types), then Sensible can fail to find a match or can find an inaccurate match.
+
+- If there are multiple candidates fuzzy matches in the document (for example, two instances of `April 7`), Sensible chooses the top-scoring match. If candidates have similar scores, Sensible uses page location as a tie breaker and chooses the earliest match in the document.
+
+- If the LLM returns text that's not in the document, then location highlighting is inapplicable.
 

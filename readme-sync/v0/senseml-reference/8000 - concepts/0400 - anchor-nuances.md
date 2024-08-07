@@ -5,9 +5,6 @@ hidden: false
 
 **Note:** If you're familiar with Sensible, this detailed topic is for you. If you're new to Sensible, see [anchor](doc:anchor).
 
-[anchor syntax](doc:anchor-nuances#anchor-syntax)
-
-[methods-filter-anchors](doc:anchor-nuances#methods-filter-anchors)
 
 Anchor syntax
 ----

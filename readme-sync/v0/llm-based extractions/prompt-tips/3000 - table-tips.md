@@ -3,7 +3,7 @@ title: "NLP table extraction tips"
 hidden: false
 ---
 
-This Sensible Instruct method extracts a table in a document based on your description of the table title and each of its column headers.
+This LLM-based method extracts a table in a document based on your description of the table title and each of its column headers.
 
 **Prompt Tips**
 
@@ -76,7 +76,7 @@ To try out this example in the Sensible app, take the following steps:
 
 2. Create a test document type in the Sensible app, then follow the prompts in the dialog to upload the example document and create the type.
 
-4. Click **Sensible Instruct** and create prompts to extract data using the following table:
+4. Create prompts to extract data using the following table:
 
 | Field name             | Method | Overall table description            | Column IDs and descriptions                                  |
 | ---------------------- | ------ | ------------------------------------ | ------------------------------------------------------------ |
@@ -92,4 +92,4 @@ For example, use the following screenshot as a guide for configuring the `insure
 
 Notes
 ===
-For the full reference for this method in SenseML, see [NLP Table](doc:nlp-table).
+For the full reference for this method, see [NLP Table](doc:nlp-table).

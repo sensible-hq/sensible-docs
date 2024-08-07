@@ -2,7 +2,7 @@
 title: "List tips"
 hidden: false
 ---
-This Sensible Instruct method extracts repeating data in a document based on your description of the list’s overall contents and each individual item. Data such as the work history or skills on a resume, the vehicles on an auto insurance policy, or the line items on an invoice are best suited for this method. 
+This LLM-based method extracts repeating data in a document based on your description of the list’s overall contents and each individual item. Data such as the work history or skills on a resume, the vehicles on an auto insurance policy, or the line items on an invoice are best suited for this method. 
 
 This method is an alternative to the [NLP Table](doc:table-tips) method, when the data you want can appear either as a table or as another layout. The List method can find data in paragraphs of free text or in more structured layouts, such as key/value pairs or tables.  
 
@@ -36,7 +36,7 @@ To try out this example in the Sensible app, take the following steps:
 
 2. Create a test document type in the Sensible app, then follow the prompts in the dialog to upload the example document and create the type.
 
-4. Click **Sensible Instruct** and create fields to extract data using the following table:
+4. Create fields to extract data using the following table:
 
 | Field name | Method | Overall list description                                     | Property ids and descriptions                                |
 | ---------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -51,4 +51,4 @@ For example, use the following screenshot as a guide for configuring the `dinner
 Notes
 ===
 
-For the full reference for this method in SenseML, see [List method](doc:list).
+For the full reference for this method, see [List method](doc:list).
