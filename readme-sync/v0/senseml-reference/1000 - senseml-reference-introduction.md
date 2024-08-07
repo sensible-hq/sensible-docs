@@ -3,21 +3,20 @@ title: "SenseML reference introduction"
 hidden: false
 ---
 
- Use SenseML to write "configs" (collection of queries) to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.
+ Use the SenseML query language to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents. For a brief overview of SenseML, see [Overview](doc:overview#configurable-data-extraction).
+
 
 See the following topics for reference documentation for the SenseML query language:
 
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
-- [Methods](doc:methods)
-- [LLM-based methods](doc:llm-based-methods). For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
+- [LLM-based methods](doc:llm-based-methods) and [layout-based methods](doc:methods). For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
 
-Or, for a getting started tutorial, see:
+You can use all of the preceding SenseML features to write a *config* to handle a collection of similar documents. A config specifies how to extract data and how to populate a target output schema. Publish the config so that you can automate extracting document data using one of Sensible [integration](doc:integrate) options.
 
-- [Getting started with layout-based extraction](doc:getting-started)
 
 Examples
 ====

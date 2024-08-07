@@ -56,8 +56,8 @@ The following example shows a layout-based field and an LLM-based field.
       "id": "overview_table",
       "method": {
         "id": "nlpTable",
-        /* this method uses an LLM to locate target
-           data based on your prompts ("descriptions") */
+        /* this method uses LLMs to search the whole document
+           for your target data based on your prompts ("descriptions") */
         "description": "table describing SenseML",
         "columns": [
           {
