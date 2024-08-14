@@ -567,12 +567,13 @@ paths:
       - Retrieve extractions
       description: |
         Returns daily extraction coverage statistics as a `coverage_histogram` per config. 
-        Sensible returns coverage for each config that was used for at least one extraction performed in the production environment 
+        Sensible returns coverage for each config that was used for at least one extraction performed in the specified environments 
         in the specified time period. For more information about coverage, see [Monitoring extractions](metrics).
         For more information about the returned `coverage_histogram`, see the response model.
       parameters:
         - $ref: '#/components/parameters/start_date_config'
         - $ref: '#/components/parameters/end_date_config'
+        - $ref: '#/components/parameters/environments_statistics'
       responses:
         '200':
           content:
@@ -885,25 +886,35 @@ components:
       in: query
       required: true
       description: >-
-         Retrieves statistics for configs used in production on this day and later.
+         Retrieves statistics for configs used in the specified environemnt on this day and later.
          Sensible returns daily statistics, so if you specify a time in addition to a date, Sensible ignores the time.
       schema:
         type: string
         format: date-time
       example: 2020-10-10T00:00:00.000Z
 
-
     end_date_config:
       name: end_date
       in: query
       required: true
       description: >-
-        Retrieves daily statistics for configs used in production on this day and earlier.
+        Retrieves daily statistics for configs used in the specified environment on this day and earlier.
       schema:
         type: string
         format: date-time
       example: 2020-10-20T00:00:00.000Z
 
+    environments_statistics:
+      name: environments
+      in: query
+      required:
+      description: >-
+        Specifies the comma-delimited list of environments for which to retrieve statistics, for example,
+        `production`.
+        If unspecified, returns statistics for all environments.
+      schema:
+        type: string
+      example: development      
 
     document_type_ids:
       name: document_type_ids
