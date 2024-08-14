@@ -115,6 +115,7 @@ paths:
                   - description: total pay is listed in paystub
                     condition: {"exists":[{"var":"total_pay.value"}]}
                     severity: warning
+                    scope: ["pay_section"]
 
       responses:
         200:
@@ -868,7 +869,7 @@ components:
         validations:
           description: Array of validations. See [Validating extractions](doc:validate-extractions).
           items:
-            $ref: "#/components/schemas/ValidationRequest"
+            $ref: "#/components/schemas/Validation"
           type: array
         
         review_triggers:
@@ -1230,7 +1231,7 @@ components:
             - x: 4.25
               y: 2.236
 
-    ValidationRequest:
+    Validation:
       type: object
       additionalProperties: false
       description: See https://docs.sensible.so/docs/validate-extractions.
@@ -1240,7 +1241,7 @@ components:
           description: User-friendly description for the test
           example: Broker's email is in string@string format
         condition:
-          description: The test for extraction written in JsonLogic.
+          description: The test for validating the field, written in JsonLogic.
           example: {"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}
           type: object
           additionalProperties: true
@@ -1256,36 +1257,21 @@ components:
           enum:
             - warning
             - error
+        scope:
+          type: array
+          description: If the field to validate is in sections, the list of parent sections.
+          example: ["parent_section", "child_section"]
       required:
         - description
         - condition
 
-    ValidationResponse:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Description of the validation
-          example: Dollar amount should be more than $100
-        severity:
-          type: string
-          enum: [error, warning, skipped]
-          example: warning
-          description: Severity of the failing validation (error, warning, skipped)
-        message:
-          type: string
-          description: Messages about why the validation failed
-          example: >-
-            Missing prerequisites: broker.email
-
-
-
+    
 
     Validations:
       description: Which extracted fields failed validation rules you write in the Sensible app
       type: array
       items:
-        $ref: '#/components/schemas/ValidationResponse'
+        $ref: '#/components/schemas/Validation'
       example:
         - description: Load weight should be over 1 ton
           severity: warning

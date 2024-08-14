@@ -213,7 +213,7 @@ For the preceding extraction excerpt, Sensible outputs the following validations
 
 ​	
 
-## Validations 6
+## Validation 6
 
 The following example shows how to validate a field in sections.
 
