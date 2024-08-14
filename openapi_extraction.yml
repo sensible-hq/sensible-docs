@@ -565,7 +565,7 @@ paths:
       summary: Get extraction statistics
       tags:
       - Retrieve extractions
-      description: |
+      description: >-
         Returns daily extraction coverage statistics as a `coverage_histogram` per config. 
         Sensible returns coverage for each config that was used for at least one extraction performed in the specified environments 
         in the specified time period. For more information about coverage, see [Monitoring extractions](metrics).
@@ -886,7 +886,7 @@ components:
       in: query
       required: true
       description: >-
-         Retrieves statistics for configs used in the specified environemnt on this day and later.
+         Retrieves statistics for configs used on this day and later.
          Sensible returns daily statistics, so if you specify a time in addition to a date, Sensible ignores the time.
       schema:
         type: string
@@ -898,7 +898,7 @@ components:
       in: query
       required: true
       description: >-
-        Retrieves daily statistics for configs used in the specified environment on this day and earlier.
+        Retrieves daily statistics for configs used on this day and earlier.
       schema:
         type: string
         format: date-time
