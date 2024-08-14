@@ -989,7 +989,7 @@ The following image shows the example document used with this example config:
 
 # Replace
 
-Use the Replace type to replace all instances of a regular-expression pattern match in source lines and return the transformed source lines. For example, strip out whitespaces from the source text `$ 5 00 0`   and return  `$5000`.
+Use the Replace type to replace all instances of a regular-expression pattern match in source lines and return the transformed source lines as a string. For example, strip out whitespaces from the source text `$ 5 00 0`   and return  `$5000`.
 
 ## Parameters
 
