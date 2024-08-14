@@ -907,7 +907,7 @@ components:
     environments_statistics:
       name: environments
       in: query
-      required:
+      required: false
       description: >-
         Specifies the comma-delimited list of environments for which to retrieve statistics, for example,
         `production`.
