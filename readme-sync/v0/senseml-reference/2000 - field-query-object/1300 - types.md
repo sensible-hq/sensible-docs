@@ -892,7 +892,11 @@ The following image shows the example document used with this example config:
 Custom
 ====
 
-Returns a custom type you define using regular expressions. For example, define types for zip codes, time durations, customer IDs, and order numbers.
+Use the Custom type to return all regular-expression pattern matches in source lines. For example, in the source text `available appointment times include 12:45, 14:15, and 16:30` you can use the regular expression `[0-9]{2}:[0-9]{2}` to match `12:45`, `14:15`, and `16:30`.  By default, this type returns the first match (`12:45`).   Take actions on your matches, for example:
+
+- Configure which match to return using the [Tiebreaker](doc:method#parameters) parameter or the first capturing group. 
+- Specify the match as a custom type, using this type's Type parameter. For example, create types for zip codes, time durations, customer IDs, and order numbers.
+- Transform the match using the Compose type. For an example, see the [Compose](doc:types#compose) type.
 
 **Example syntax**
 
@@ -900,7 +904,7 @@ Returns a custom type you define using regular expressions. For example, define 
 "type":
   {
     "id": "custom",
-    "pattern": "Time\\:\\s*([0-9][0-9]:[0-9][0-9])",
+    "pattern": "Time\\:\\s*([0-9]{2}:[0-9]{2})",
     "type": "time_24_hr"
   }
 ```
@@ -923,8 +927,8 @@ This type outputs strings. For example:
 | ---------------------- | ------------------------ | ------------------------------------------------------------ |
 | id (**required**)      | `custom`                 |                                                              |
 | pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first match, or returns the first capturing group if specified. For full support for capturing groups, see the [Replace](doc:types#replace) type. As an alternative to capturing groups, use a [tiebreaker](doc:method), for example, `"tiebreaker": "second"`. See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex, for example: "i" for case-insensitive. The flag "g" is unsupported. As an alternative, use `"tiebreaker": "join"` returns all matches |
-| matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex, for example: "i" for case-insensitive. The flag "g" is unsupported. As an alternative, use `"tiebreaker": "join"` to return all matches as one string. |
+| matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple [lines](doc:lines). To enable this behavior, Sensible joins each line returned by the method using a whitespace as the separator, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
 | type                   | String. default: string  | Name for your custom type. For example, `"time_24_hr"` or `YY-MM-date`. |
 
 
@@ -983,18 +987,16 @@ The following image shows the example document used with this example config:
 
 
 
-For an example of using the Custom type with the Compose type to transform the standardized output of other types, see the [Compose](doc:types#compose) type.
-
 # Replace
 
-Returns replacements for regular expression pattern matches.
+Use the Replace type to replace all instances of a regular-expression pattern match in source lines and return the transformed source lines. For example, strip out whitespaces from the source text `$ 5 00 0`   and return  `$5000`.
 
 ## Parameters
 
 | key                        | value                                  | description                                                  |
 | -------------------------- | -------------------------------------- | ------------------------------------------------------------ |
 | id (**required**)          | `replace`                              |                                                              |
-| pattern (**required**)     | Valid JS regex                         | Javascript-flavored regular expression. Replaces all matches. This parameter supports capturing groups. See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| pattern (**required**)     | Valid JS regex                         | Javascript-flavored regular expression. Replaces all matches. This parameter doesn't support capturing groups. See the following section for an example.<br/>By default, matches regular expressions that span multiple [lines](doc:lines). To enable this behavior, Sensible joins each line returned by the method using a whitespace as the separator, and runs the regular expression on the joined text.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
 | replaceWith (**required**) | string                                 | Specifies the text or capturing group reference to replace each match. |
 | flags                      | JS-flavored regex flags.  Default: "g" | Flags to apply to the regex. for example: "i" for case-insensitive. Sensible always applies the flag "g" (global). |
 
