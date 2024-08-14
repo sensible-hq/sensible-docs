@@ -9,6 +9,14 @@ In the Sensible dashboard, you can view the following metrics about your extract
 - [Most-used configurations](doc:metrics#most-used-configurations)
 - [Documents extracted](doc:metrics#documents-extracted)
 
+## Documents extracted
+
+To view the number of past extractions you've run by document type, click **Dashboard** and scroll to the **Document extracted** section. You can filter by date range, document types, and extraction coverage:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
+
+
+
 Extraction coverage
 ---
 
@@ -45,14 +53,6 @@ To view which configurations were used for past extractions, click **Dashboard**
 In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% of extractions in the last 30 days in the `tax_form` document type. If you adjust the filter to include both bank statements and tax forms, you see that it was used for 33% of all extractions across the selected document types:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_used_2.png)
-
-
-## Documents extracted
-To view the number of past extractions you've run by document type, click **Dashboard** and scroll to the **Document extracted** section. You can filter by date range, document types, and extraction coverage:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
-
-
 
 
 
