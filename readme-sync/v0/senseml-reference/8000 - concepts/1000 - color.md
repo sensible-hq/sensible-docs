@@ -84,7 +84,7 @@ The query used for the preceding image is:
 
 ## Green box
 
-***Green boxes*** represent boxes, regions, tables, or [chunks](doc:prompt).
+***Green boxes*** represent boxes, regions, tables, or [chunks](doc:prompt#notes).
 
 ## Green point
 
