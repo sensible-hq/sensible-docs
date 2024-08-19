@@ -39,9 +39,9 @@ json_string = response_json.to_json
 
 # Array of replacements
 replacements = [
-  { "[doc:" => "[https://docs.sensible.so/docs/" },
-  { "[ref:" => "[https://docs.sensible.so/reference/" },
-  { "[changelog:" => "[https://docs.sensible.so/changelog/" }
+  { "(doc:" => "(https://docs.sensible.so/docs/" },
+  { "(ref:" => "(https://docs.sensible.so/reference/" },
+  { "(changelog:" => "(https://docs.sensible.so/changelog/" }
 ]
 
 
