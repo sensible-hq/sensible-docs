@@ -27,9 +27,14 @@ if !response.success?
   abort "The request failed: #{response.status} #{response.reason_phrase}"
 end
 
-response_json = JSON.parse(response.body)
 
-# remove relative links from the response_json
+# these two lines are probably redudant, just need the json string really
+# to hash
+response_json = JSON.parse(response.body)
+# to json string
+json_string = response_json.to_json
+
+# remove relative links from the response
 # and convert to absolute URL links
 
 # Array of replacements
@@ -43,11 +48,13 @@ replacements = [
 # Replace all instances of the strings in the hash
 replacements.each do |replacement|
   replacement.each do |old, new_value|
-    response_json = JSON.parse(response_json.to_json.gsub(old, new_value))
+    json_string = JSON.parse(json_string.to_json.gsub(old, new_value))
   end
 end
 
-print(response_json)
+print(json_string)
+
+response_json = JSON.parse(json_string)
 
 #puts JSON.pretty_generate(response_json)
 
