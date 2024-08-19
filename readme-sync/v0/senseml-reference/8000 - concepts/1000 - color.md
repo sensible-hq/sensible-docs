@@ -173,7 +173,7 @@ For example, for the following config:
 }
 ```
 
-Sensible filters out "python" strings that don't meet the Label method's proximity requirements. For example, in the following image, Sensible represents the "python" string with a dotted yellow box to show that it doesn't work with the Label method (it would, however, work with the Row method):
+Sensible filters out "python" strings that don't meet the Label method's proximity requirements. For example, in the following image, Sensible represents the "python" string with a dotted yellow box to show that the Label method doesn't capture it (use the Row method instead):
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
