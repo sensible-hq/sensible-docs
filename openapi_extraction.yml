@@ -1002,7 +1002,7 @@ components:
       type: integer
       example: 1
       description: >- 
-        The number of documents charged to your account for this extraction ID.
+        The number of extractions charged to your account for this extraction ID.
 
     VersionId:
       type: string
@@ -1068,8 +1068,7 @@ components:
               $ref: '#/components/schemas/ReviewStatus'
             charged:
               $ref: '#/components/schemas/Charged'
-            version_id:
-              $ref: '#/components/schemas/VersionId'
+
 
 
     DocName:
@@ -1220,6 +1219,8 @@ components:
                 $ref: '#/components/schemas/DocumentInPortfolio'
             coverage:
               $ref: '#/components/schemas/Coverage'
+            charged:
+              $ref: '#/components/schemas/Charged'
 
     ExtractFromUrlResponse:
       allOf:
@@ -1293,8 +1294,6 @@ components:
           $ref: '#/components/schemas/Coverage'
         charged:
           $ref: '#/components/schemas/Charged'
-        version_id:
-          $ref: '#/components/schemas/VersionId'
         reviewStatuses:
           $ref: '#/components/schemas/ReviewStatuses'
 

@@ -3,7 +3,7 @@ title: "Reviewing extractions"
 hidden: false
 ---
 
-If extractions contain errors, for example as the result of hard-to-read handwriting, you can flag extractions for manual correction by a human reviewer. Flag extractions automatically at scale in production by configuring rules based on [validations](doc:validate-extractions) and [extraction coverage](doc:metrics). Use the Sensible app's **Human review** tab to manually correct the extracted fields, then approve or reject the extraction.
+If extractions contain errors, for example as the result of hard-to-read handwriting, you can flag extractions for manual correction by a human reviewer. Flag extractions automatically at scale in production by configuring rules based on [validations](doc:validate-extractions) and [extraction coverage](doc:coverage). Use the Sensible app's **Human review** tab to manually correct the extracted fields, then approve or reject the extraction.
 
 In a document type, in the **Human Review** tab, set the criteria for Sensible to flag an extraction for manual review:
 
@@ -11,7 +11,7 @@ In a document type, in the **Human Review** tab, set the criteria for Sensible t
 
 Enable human review for all documents in a type, or set criteria to trigger review. Criteria include:
 
-- [Extraction coverage](doc:metrics)
+- [Extraction coverage](doc:coverage)
 
 - [Validation](doc:validate-extractions) errors and warnings, if configured. Select all errors, all warnings, or individual validations. 
 
