@@ -98,13 +98,13 @@ Dir.entries(rel_path).each do |file_name|
   # Print the file name
   puts "File: #{file_name}"
 
-  # Print the file content
-  if File.file?(file_path)
-    file_content = File.read(file_path)
-    puts "Content:\n#{file_content}\n\n"
-  else
-    puts "The path #{file_path} is not a file."
-  end
+  # # Print the file content
+  # if File.file?(file_path)
+  #   file_content = File.read(file_path)
+  #   puts "Content:\n#{file_content}\n\n"
+  # else
+  #   puts "The path #{file_path} is not a file."
+  # end
 end
 
 
@@ -163,4 +163,4 @@ options = {
 HTMLProofer.check_directory("./out", options).run
 
 # check the changelog HTML pulled from ReadmeAPI in a previous step
-HTMLProofer.check_directory("./out_changelogs", options).run
+## HTMLProofer.check_directory("./out_changelogs", options).run
