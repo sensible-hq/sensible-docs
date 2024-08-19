@@ -52,7 +52,7 @@ replacements.each do |replacement|
   end
 end
 
-print(json_string)
+#print(json_string)
 
 response_json = JSON.parse(json_string)
 
@@ -71,6 +71,7 @@ Dir.mkdir(rel_path) unless File.exist?(rel_path)
 #print("PATHS: intended dest:", file_path)
 # left off TODO: make an out dir?
 for page in response_json do
+  print page
   file_path = File.join(rel_path + "/" + page['slug'] + ".html")
   File.open(file_path, 'a+') {|f| f.write(page['html']) }
 end
