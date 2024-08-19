@@ -249,7 +249,7 @@ Since LLMs are indeterminate, Sensible locates source text for LLM-based methods
 
   - If you prompt the LLM to reformat the source text in the document or reformat the text using a [type](doc:types), then Sensible can fail to find a match or can find an inaccurate match.
 
-  - If there are multiple candidates fuzzy matches in the document (for example, two instances of `April 7`), Sensible chooses the top-scoring match. If candidates have similar scores, Sensible uses page location as a tie breaker and chooses the earliest match in the document.
+  - If the document contains multiple candidates fuzzy matches (for example, two instances of `April 7`), Sensible chooses the top-scoring match. If candidates have similar scores, Sensible uses page location as a tie breaker and chooses the earliest match in the document.
 
   - If the LLM returns text that's not in the document, then location highlighting is inapplicable.
 
