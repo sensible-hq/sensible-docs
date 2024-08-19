@@ -49,8 +49,6 @@ end
 
 
 
-
-
 #puts JSON.pretty_generate(response_json)
 
 # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
@@ -117,7 +115,6 @@ end
 options = {
   :log_level => :info,
   :url_ignore => ["https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api","https://platform.openai.com/tokenizer","https://platform.openai.com/docs/guides/prompt-engineering","https://beta.openai.com/docs/"],
-  :external_only
 }
 
 # puts "contents of Out:"
