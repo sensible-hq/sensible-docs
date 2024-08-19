@@ -7,12 +7,6 @@ require 'json'
 require 'pathname'
 require 'fileutils'
 
-# excludes API ref links checking b/c it's tough to parse the downloaded HTML to get the actual documentation part...maybe if I saved the 'body' part??
-# another alternative would be to take the yamls, turn them into markdown, convert internal link syntax to fully expanded URLs, and THEN check that.
-
-# edit this in https://github.com/sensible-hq/sensible-docs/settings/secrets/actions
-README_API_KEY = ENV['README_API_KEY']
-
 # #################
 # get changelogs
 # #################
@@ -106,61 +100,3 @@ Dir.entries(rel_path).each do |file_name|
   #   puts "The path #{file_path} is not a file."
   # end
 end
-
-
-
-
-
-# #################
-# Convert existing local MD files to HTML
-# #################
-
-# make an out dir
-
-Dir.mkdir("out") unless File.exist?("out")
-
-
-
-
-
-pipeline = HTML::Pipeline.new [
-  HTML::Pipeline::MarkdownFilter,
-  HTML::Pipeline::TableOfContentsFilter
-], :gfm => true
-
-# iterate over files, and generate HTML from Markdown
-Find.find("./readme-sync/v0") do |path|
-  if File.extname(path) == ".md"
-    contents = File.read(path)
-    # only check published files ("hidden: true" are unpublished)
-    if not contents.match(/hidden\:\s*true/)
-      result = pipeline.call(contents)
-      # puts "converting file: #{File.basename(path)}"
-      File.open("out/#{path.split("/").pop.sub('.md', '.html')}", 'w') { |file| file.write(result[:output].to_s) }
-    end
-  end
-end
-
-
-
-
-# #################
-# test your out dir's links!
-# #################
-
-options = {
-  :log_level => :info,
-  :url_ignore => ["https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api","https://platform.openai.com/tokenizer","https://platform.openai.com/docs/guides/prompt-engineering","https://beta.openai.com/docs/"],
-  # ignore internal links like doc:color...but it doesn't seem to work
-  :check_internal_links => false
-}
-
-
-
-
-
-# check the guides
-HTMLProofer.check_directory("./out", options).run
-
-# check the changelog HTML pulled from ReadmeAPI in a previous step
-## HTMLProofer.check_directory("./out_changelogs", options).run
