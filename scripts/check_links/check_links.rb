@@ -47,7 +47,7 @@ replacements.each do |replacement|
   end
 end
 
-
+print(response_json)
 
 #puts JSON.pretty_generate(response_json)
 
@@ -109,36 +109,18 @@ end
 
 # #################
 # test your out dir's links!
-# ignore internal links like doc:color
 # #################
 
 options = {
   :log_level => :info,
   :url_ignore => ["https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api","https://platform.openai.com/tokenizer","https://platform.openai.com/docs/guides/prompt-engineering","https://beta.openai.com/docs/"],
+  # ignore internal links like doc:color
   :check_internal_links => false
 }
 
-# puts "contents of Out:"
-# Dir.chdir("out") do
-#   system "pwd"
-#   system "ls"
-# end
 
 # check the guides
 
-
-# make sure that  in the guides, any "internal" '(ref:' links syntax is resolved to full URLs (note: '(doc:' syntax links auto-checked by readme-sync tool anyway, no need to resolve those)
-# not working currently:
-# puts Dir.pwd
-# puts Pathname.new(".").children.select { |c| c.directory? }
-# puts Pathname.new(".out").children.select { |c| c.directory? }
-# Dir.each_child("./out") do |file_name|
-#   puts file_name
-#   text = File.read(file_name)
-#   new_contents = text.gsub(/\(ref\:/, "https://docs.sensible.so/reference/")
-#   puts new_contents
-#   File.open(file_name, "w") {|file| file.puts new_contents }
-# end
 
 HTMLProofer.check_directory("./out", options).run
 
