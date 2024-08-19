@@ -3,7 +3,8 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - 'readme-sync/v0/**.md'
 jobs:
   ci-health:
     name: "CI/Healthcare"
