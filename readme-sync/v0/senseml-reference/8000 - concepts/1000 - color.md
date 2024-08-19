@@ -123,7 +123,6 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (dotted blue box).
 
-
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_method.png)
 
 The query used for the preceding image is:
