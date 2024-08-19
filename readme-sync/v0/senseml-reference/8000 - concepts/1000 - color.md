@@ -214,7 +214,7 @@ fingerprint": {
   
 ```
 
-**Note** The pink highlighting for fingerprint text isn't compatible with preprocessors that change line indices, such as Split Lines and Merge Lines.
+**Note** Sensible doesn't support fingerprint highlighting if you use preprocessors that change line indices, such as Split Lines and Merge Lines.
 
 ## Purple box
 
@@ -252,7 +252,4 @@ Since LLMs are indeterminate, Sensible locates source text for LLM-based methods
   - If the document contains multiple candidates fuzzy matches (for example, two instances of `April 7`), Sensible chooses the top-scoring match. If candidates have similar scores, Sensible uses page location as a tie breaker and chooses the earliest match in the document.
 
   - If the LLM returns text that's not in the document, then location highlighting is inapplicable.
-
-    
-
 
