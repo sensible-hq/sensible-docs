@@ -5,6 +5,7 @@ require 'open3'
 require 'faraday'
 require 'json'
 require 'pathname'
+require 'fileutils'
 
 # excludes API ref links checking b/c it's tough to parse the downloaded HTML to get the actual documentation part...maybe if I saved the 'body' part??
 # another alternative would be to take the yamls, turn them into markdown, convert internal link syntax to fully expanded URLs, and THEN check that.
@@ -62,7 +63,11 @@ response_json = JSON.parse(json_string)
 
 rel_path = "out_changelogs"
 
-Dir.mkdir(rel_path) unless File.exist?(rel_path)
+# Delete the directory if it exists
+FileUtils.rm_rf(rel_path) if File.exist?(rel_path)
+
+# Create the directory
+Dir.mkdir(rel_path)
 
 
 # puts "FILE PATH: "
@@ -80,6 +85,27 @@ end
 # puts "in out_changelogs dir:"
 # puts (Dir.entries(rel_path))
 
+# troubleshoot: did the changelogs print correctly?
+
+# List the files in the directory
+Dir.entries(rel_path).each do |file_name|
+  # Skip "." and ".."
+  next if file_name == "." || file_name == ".."
+
+  # Construct the full path to the file
+  file_path = File.join(rel_path, file_name)
+
+  # Print the file name
+  puts "File: #{file_name}"
+
+  # Print the file content
+  if File.file?(file_path)
+    file_content = File.read(file_path)
+    puts "Content:\n#{file_content}\n\n"
+  else
+    puts "The path #{file_path} is not a file."
+  end
+end
 
 
 
@@ -115,6 +141,9 @@ Find.find("./readme-sync/v0") do |path|
   end
 end
 
+
+
+
 # #################
 # test your out dir's links!
 # #################
@@ -127,9 +156,10 @@ options = {
 }
 
 
+
+
+
 # check the guides
-
-
 HTMLProofer.check_directory("./out", options).run
 
 # check the changelog HTML pulled from ReadmeAPI in a previous step
