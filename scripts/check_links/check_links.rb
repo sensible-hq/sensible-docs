@@ -28,6 +28,29 @@ if !response.success?
 end
 
 response_json = JSON.parse(response.body)
+
+# remove relative links from the response_json
+# and convert to absolute URL links
+
+# Array of replacements
+replacements = [
+  { "[doc:" => "[https://docs.sensible.so/docs/" },
+  { "[ref:" => "[https://docs.sensible.so/reference/" },
+  { "[changelog:" => "[https://docs.sensible.so/changelog/" }
+]
+
+
+# Replace all instances of the strings in the hash
+replacements.each do |replacement|
+  replacement.each do |old, new_value|
+    response_json = JSON.parse(response_json.to_json.gsub(old, new_value))
+  end
+end
+
+
+
+
+
 #puts JSON.pretty_generate(response_json)
 
 # script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
