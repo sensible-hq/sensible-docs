@@ -65,7 +65,7 @@ To view recent configurations, click **Dashboard** and scroll to the **Recent ex
 - extraction [coverage](doc:coverage)
 - extraction status
 - [review](doc:human-review) status
-- [batch](doc:quick-extract#extract-from-multiple-files) ID
+- [batch](doc:quick-extraction#extract-from-multiple-files) ID
 
 
 
