@@ -48,8 +48,9 @@ Configure the extraction
    | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | ---------------- | ------------------------------------------------------------ |
 
-   2. For the document type name, enter `auto_insurance_quote`.
-   3. For the configuration name, enter `anyco`.
+   2. For the document type name, enter `auto_insurance_quotes`.
+   3. For the configuration name, enter `anyco`, for the fictional name of an insurance company. 
+       **Note:**  For layout-based methods, you generally create one configuration for each company or vendor in a document type.
    4. Deselect the **Auto-generate configuration** checkbox.
    5. Click **Start extraction** to create the document type.
 
@@ -76,7 +77,9 @@ For this tutorial, you'll extract these fields:
 {
   "fields": [
     {
+      /* LLM-BASED METHOD */
       "method": {
+        /* for this LLM-based method, no anchor is necessary */
         "id": "queryGroup",
         "queries": [
           {
@@ -92,11 +95,12 @@ For this tutorial, you'll extract these fields:
         ]
       }
     },
+      /* LAYOUT-BASED METHODS */
     {
       /* ID for target data */
       "id": "policy_period",
       /* search for target data 
-      near text "policy period" in doc*/
+      near anchor text "policy period" in doc*/
       "anchor": "policy period",
       "method": {
         /* target to extract is a single line 
@@ -231,7 +235,6 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question. */
             "id": "bodily_injury_premium",
             "description": "in the table, what's the bodily injury premium?",
             "type": "currency"
@@ -265,9 +268,9 @@ This config returns:
 
 Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's visual authoring tool by clicking **Switch to Sensible Instruct**.
 
-LLM-based methods such as the Query Group method can run up against limitations with complex document formatting. In such cases, combine LLM-based methods with layout-based methods in the same document extraction configuration. 
+LLM-based methods such as the Query Group method can run up against limitations with complex document formatting. In such advanced cases, use layout-based methods to extract the target information. 
 
-Let's look next at several simple layout-based methods.
+Let's look next at several basic layout-based methods.
 
 How it works: Label method
 ----
