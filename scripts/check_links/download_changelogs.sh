@@ -14,13 +14,14 @@ url="https://dash.readme.com/api/v1/changelogs?perPage=10&page=1"
 response=$(curl -s -H "Content-Type: application/json" -H "Authorization: Basic $README_API_KEY" -H "x-readme-version: v0" "$url")
 
 # Check if the request was successful
-if [ $? -ne 0 ]; then
-  echo "The request failed."
+if [ $? -ne 0 ] || [ -z "$response" ]; then
+  echo "The request failed or returned no data."
   exit 1
 fi
 
 # Remove relative links from the response and convert to absolute URL links
-response_json=$(echo "$response" | jq -r '. | tostring' | sed -e 's/(doc:/\(https:\/\/docs.sensible.so\/docs\//g' -e 's/(ref:/\(https:\/\/docs.sensible.so\/reference\//g' -e 's/(changelog:/\(https:\/\/docs.sensible.so\/changelog\//g')
+# This time, we handle the JSON properly, without converting it to a string
+response_json=$(echo "$response" | jq 'map_values(gsub("\\(doc:"; "(https://docs.sensible.so/docs/")) | map_values(gsub("\\(ref:"; "(https://docs.sensible.so/reference/")) | map_values(gsub("\\(changelog:"; "(https://docs.sensible.so/changelog/"))')
 
 # Create the output directory
 rel_path="out_changelogs"
