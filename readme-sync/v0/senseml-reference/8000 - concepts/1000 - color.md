@@ -101,7 +101,6 @@ If you specify to find the box borders by starting from the right edge of the an
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_position_right.png)
 
-
 ## Green brackets
 
 **Green brackets** represent the start and end of each section in a section group:
