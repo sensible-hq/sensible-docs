@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies 🔧
         run: cd ./scripts/check_links/ && bundle install
       - name: run download changelogs
-        run: bash ./scripts/check_links/download_changelogs.rb
+        run: ruby ./scripts/check_links/download_changelogs.rb
       - name: Link Checker for all md/mdx # https://github.com/marketplace/actions/lychee-broken-link-checker
         uses: lycheeverse/lychee-action@v1.7.0
         with:
