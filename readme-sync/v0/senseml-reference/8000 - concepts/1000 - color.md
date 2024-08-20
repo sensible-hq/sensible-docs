@@ -55,6 +55,7 @@ The query used for the preceding image is:
 
 ## Blue box
 
+
 ***Blue boxes*** represent method output. For more information about method, see [Method object](doc:method). 
 
 For example, the following image shows:
