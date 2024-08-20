@@ -26,7 +26,7 @@ The JSON editor uses color-coded overlays to visually represent how SenseML quer
 
 ## Yellow box
 
-***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
+***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](https://docs.sensible.so/docs/blah).
 
 For example, the following image shows:
 
