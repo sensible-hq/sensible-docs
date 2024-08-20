@@ -113,6 +113,7 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_dynamic.png)
 
 
+
 ## Dotted blue box
 
 
