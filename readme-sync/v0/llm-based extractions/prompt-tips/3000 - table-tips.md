@@ -38,9 +38,9 @@ To try out this example in the Sensible app, take the following steps:
 2. Create fields to extract data using the following table:
 
 
-| Field name                  | Method | Overall table description     | Column IDs and descriptions                                  |
+| Field name                  | Method | Overall table description     | Column descriptions                                  |
 | --------------------------- | ------ | ----------------------------- | ------------------------------------------------------------ |
-| savings_transaction_history | NLP Table  | "savings transaction history" | **date** - "date"<br/><br/>**description** - "description without totals"<br/><br/>**amount** - "amount" |
+| savings_transaction_history | NLP Table  | "savings transaction history" | "date"<br/><br/> "description without totals"<br/> "amount" |
 
 Click the **Send** icon for each column.
 
@@ -78,10 +78,10 @@ To try out this example in the Sensible app, take the following steps:
 
 4. Create prompts to extract data using the following table:
 
-| Field name             | Method | Overall table description            | Column IDs and descriptions                                  |
+| Field name             | Method | Overall table description            | Column descriptions                                  |
 | ---------------------- | ------ | ------------------------------------ | ------------------------------------------------------------ |
-| insured_vehicles_table | NLP Table  | "insured vehicles"                   | **manufacturer** - "vehicle make (not model)"<br/><br/>**year** - "year of manufacture" |
-| transactions_table     | NLP Table  | "transactions for insurance account" | **transaction_date** - "transaction date."<br/><br/>**transaction_description** - "transaction description" |
+| insured_vehicles_table | NLP Table  | "insured vehicles"                   | "vehicle make (not model)"<br/><br/>"year of manufacture" |
+| transactions_table     | NLP Table  | "transactions for insurance account" | "transaction date."<br/><br/> "transaction description" |
 
 For example, use the following screenshot as a guide for configuring the `insured_vehicles_table` field:
 
