@@ -19,6 +19,9 @@ if [ $? -ne 0 ] || [ -z "$response" ]; then
   exit 1
 fi
 
+echo response:
+echo "$response"
+
 # Replace relative links in the 'html' field within each 'page' object
 response_json=$(echo "$response" | jq '.[].html |= gsub("\\(doc:"; "(https://docs.sensible.so/docs/") |
                                               .html |= gsub("\\(ref:"; "(https://docs.sensible.so/reference/") |
