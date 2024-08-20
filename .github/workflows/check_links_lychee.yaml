@@ -20,7 +20,7 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
       - name: Install dependencies 🔧
-        run: cd ./scripts/check_links/download_changelogs.rb/ && bundle install
+        run: cd ./scripts/check_links/ && bundle install
       - name: run download changelogs
         run: bash ./scripts/download_changelogs.rb
       - name: Link Checker # https://github.com/marketplace/actions/lychee-broken-link-checker
