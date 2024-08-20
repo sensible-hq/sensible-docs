@@ -76,7 +76,7 @@ Dir.mkdir(rel_path)
 #print("PATHS: intended dest:", file_path)
 # left off TODO: make an out dir?
 for page in response_json do
-  print page
+  # print page
   file_path = File.join(rel_path + "/" + page['slug'] + ".html")
   File.open(file_path, 'a+') {|f| f.write(page['html']) }
 end
@@ -96,7 +96,7 @@ Dir.entries(rel_path).each do |file_name|
   file_path = File.join(rel_path, file_name)
 
   # Print the file name
-  puts "File: #{file_name}"
+  puts "Created file: #{file_name}"
 
   # # Print the file content
   # if File.file?(file_path)
