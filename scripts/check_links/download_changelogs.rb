@@ -30,11 +30,9 @@ if !response.success?
 end
 
 
-# these two lines are probably redudant, just need the json string really
-# to hash
-response_json = JSON.parse(response.body)
+
 # to json string
-json_string = response_json.to_json
+json_string = response.body.to_json
 
 # remove relative links from the response
 # and convert to absolute URL links
@@ -47,10 +45,10 @@ replacements = [
 ]
 
 
-# Replace all instances of the strings in the hash
+# Replace all instances of the strings in the JSON string
 replacements.each do |replacement|
   replacement.each do |old, new_value|
-    json_string = JSON.parse(json_string.to_json.gsub(old, new_value))
+    json_string = json_string.gsub(old, new_value))
   end
 end
 
