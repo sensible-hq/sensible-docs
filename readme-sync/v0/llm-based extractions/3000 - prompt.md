@@ -25,15 +25,15 @@ The following table shows parameters that configure parts of the full prompt and
 | C    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:table-tips) method. | Description                                                  |
 
-You can configure the preceding parameters in the JSON editor and in the visual editor. For example, the following screenshots show prompt settings in the visual editor for a Query Group field: 
+You can configure the preceding parameters in the JSON editor and in the visual editor.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt_instruct_1.png)
-
-The following screenshot shows prompt settings in the visual editor for all fields in a config:
+For example, the following screenshot shows prompt settings in the visual editor for all fields in a config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt_instruct_2.png)
 
+To edit the preceding parameters in the visual editor for individual fields, click the field to edit it, then click the advanced settings drop-down. For example, for a List field:
 
+ 
 
 Global LLM-based parameters
 ===
