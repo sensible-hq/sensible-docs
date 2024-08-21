@@ -31,41 +31,7 @@ Combining queries for the location, phone number, and email into the same group 
   -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
   -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
 
-Examples
-===
+### Notes
 
-Example 1
----
-
-The following example shows using the Query Group method to extract agricultural data from a government report:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_instruct.png)
-
-To try out this example in the Sensible app, take the following steps: 
-
-1. Download the following example document:
-
-   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
-   | ----------- | ------------------------------------------------------------ |
-
-2. Create a test document type in the Sensible app, then follow the prompts in the dialog to upload the example document and create the type.
-
-4. Click **Query group** create the following queries to extract data using the following table:
-
-| Prompt                                                       | (Optional) Type |
-| ------------------------------------------------------------ | --------------- |
-| tenancy terms start date                                     | Date            |
-| tenancy terms end date                                       | Date            |
-| number of days notice for tenant must give to terminate lease | String          |
-| monthly rents in dollars                                     | Currency        |
-| when is the rent due in the month                            | String          |
-| grace period for the rent due                                | String          |
-| late fee amount                                              | String          |
-| fee in dollars for returned checks or rejected payments      | Currency        |
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_instruct_1.png)
-
-Notes
-===
 
 For the full reference for this method, see [Query group method](doc:query-group).
