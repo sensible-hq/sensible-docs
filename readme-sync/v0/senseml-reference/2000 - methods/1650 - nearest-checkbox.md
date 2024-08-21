@@ -20,7 +20,7 @@ Sensible uses one of two data sources, pixels or metadata, to extract selection 
 Parameters
 =====
 
-**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
+**Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
 | key                     | values                       | description                                                  |
 | ----------------------- | ---------------------------- | ------------------------------------------------------------ |
