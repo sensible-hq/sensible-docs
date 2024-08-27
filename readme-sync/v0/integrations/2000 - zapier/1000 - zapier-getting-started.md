@@ -35,15 +35,24 @@ Configure Zapier
 Take the following steps to connect Sensible to Airtable using Zapier:
 
 1. Sign in or create a [Zapier account](https://zapier.com/).
+
 2. Create a new Zap. For your trigger, search for and select **Sensible**.
+
 3. Take the following steps to connect your Sensible account to Zapier:
    1. Click to expand the **Trigger** section.
    2. Click to expand the **Choose account** section, then follow the prompts to connect your Sensible account.
+
 4. In the **Set up trigger** section:
+
    1. Select the **tax_forms** document type you created in the previous steps.
+
    2. Select the **Production** environment.
+
    3. Select the **Complete** status. 
-   4. Leave the default for the **Create Excel output** option. Note that if you select true for this option, you can access an `Excel Output` field in the following **Test** step. This field's value is a URL for downloading the extracted document data [converted](doc:excel-reference) to an Excel file.
+
+   4. Leave the default for the **Create Excel output** option. 
+
+      **Note:** that if you select true for this option, you can access the extracted document data [converted](doc:excel-reference) to an Excel file in succeeding Zapier actions. For an example of using this option, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).
 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_1.png)
