@@ -33,7 +33,6 @@ Sensible supports the following file sizes:
      - Converts sheets to pages by scaling text so that all sheets have the same width and by breaking long sheets into consecutive pages.
      - Adds the sheet name as a header on each page.
 - For TIFF documents, SenseML methods that attempt to render pages return an error, including:
-     - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method
-     - Key/Value method
+     - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method.
      - Fixed Table method with the Stop parameter specified. Use the Text Table method as an alternative.
 
