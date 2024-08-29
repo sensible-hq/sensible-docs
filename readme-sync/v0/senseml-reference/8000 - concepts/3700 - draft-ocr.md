@@ -1,0 +1,32 @@
+---
+title: "OCR"
+hidden: true
+---
+
+When you [extract document data with Sensible](doc:getting-started-ai), Sensible automatically performs optical character recognition (OCR) on the document for you, except in advanced cases. If the document doesn't require OCR, Sensible automatically extracts embedded text directly from the document to optimize performance.
+
+For advanced cases, you can configure how Sensible OCRs documents using the following parameters:
+
+| option                                   | configurable for | notes                                                        |
+| ---------------------------------------- | ---------------- | ------------------------------------------------------------ |
+| [OCR Level parameter](doc:ocr-level)     | document types   | Use this option to configure the criteria by which Sensible determines if a whole document requires OCR. |
+| [OCR preprocessor](doc:ocr-preprocessor) | configs          | Use this option to OCR specified pages or page ranges in a document. |
+| [OCR Engine](doc:ocr-engine) parameter   | document types   | Use this option to choose your OCR provider, for example, Amazon, Google, or Microsoft. |
+
+For an overview of how Sensible handles OCR, see the following steps:
+
+1. Sensible converts Microsoft Office files into PDFs or extracts the text directly, depending on the [file type](doc:file-types). If Sensible extracts text directly in this step, it skips the following steps.
+
+2. Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:
+
+   - If the file type is an image (for example, PNG), Sensible runs OCR for the whole document, as specified by the document type's OCR Engine parameter.
+
+   - **(Configurable)** if the file is a PDF, Sensible processes the file using heuristics to determine if the whole document needs OCR.  Configure this step using the document type's OCR Level parameter and OCR Engine.
+
+3. **(Configurable)** This preprocessor runs for documents that don't trigger whole-document OCR in a previous step. After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. 
+
+## Notes
+
+- For more information about OCR versus embedded text extraction, see [Solving direct text extraction from PDFs](https://www.sensible.so/blog/solving-direct-text-extraction-from-pdfs).
+
+- For information about extracting data from non-text images, such as photographs, charts, or illustrations, see the [Query Group](doc:query-group) method's Multimodal Engine parameter. You can use the Multimodal Engine parameter as an alternative to OCR to extract from poor-quality text images, such as handwriting.

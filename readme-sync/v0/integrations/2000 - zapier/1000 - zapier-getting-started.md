@@ -109,7 +109,7 @@ Notes
 
 **Limitations**
 
-- By default, you can configure single-value field output with the Sensible-Zapier integration. To handle fields that output data objects, such as tables and sections in Zapier, you can convert the Sensible extraction to Excel by checking the **Excel output** option on the Sensible trigger. Then you can access the tables, sections, or other complex fields as rows in the sheet. For example, you can compile document extractions into a spreadsheet or CSV file using the Create Spreadsheet Row in Zapier's Google Sheets integrations. For more information about Sensible's Excel exports, see [SenseML to Excel reference](doc:excel-reference).
+- You can configure single-value field output with the Sensible-Zapier integration. To handle fields that output data objects, such as tables and sections in Zapier, you can convert the Sensible extraction to Excel by checking the **Excel output** option on the Sensible trigger. Then you can access extracted tables, sections, or other complex fields as rows in the sheet using Zapier's spreadsheet integrations, for example, their Google Sheets integrations. For more information about Sensible's Excel exports, see [SenseML to Excel reference](doc:excel-reference).
 - You can extract from single-document files with Zapier. If you want to extract from portfolio files (files that contain multiple documents, for example, insurance application bundles), use the Sensible API or SDKs. 
 
 
