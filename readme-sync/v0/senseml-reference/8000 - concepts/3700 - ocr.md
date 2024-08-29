@@ -23,7 +23,7 @@ For an overview of how Sensible handles OCR, see the following steps:
 
    - **(Configurable)** if the file is a PDF, Sensible processes the file using heuristics to determine if the whole document needs OCR.  Configure this step using the document type's OCR Level parameter and OCR Engine.
 
-3. **(Configurable)** This preprocessor runs for documents that don't trigger whole-document OCR in a previous step. After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. 
+3. **(Configurable)** After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. This preprocessor runs for documents that don't trigger whole-document OCR in a previous step. 
 
 ## Notes
 
