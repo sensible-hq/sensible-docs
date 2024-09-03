@@ -43,7 +43,7 @@ Configure the extraction
 
 1. In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type. In the dialog:
 
-1. Download the following example document, then select it in the dialog for upload:
+   1. Download the following example document, then select it in the dialog for upload:
 
    | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | ---------------- | ------------------------------------------------------------ |
