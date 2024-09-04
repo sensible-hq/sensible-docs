@@ -29,13 +29,13 @@ Sensible supports the following file sizes:
 - When extracting from image file formats, Sensible ignores OCR or OCR preprocessor settings you configure in the document type or SenseML configuration. For more information about OCR, see [OCR level](doc:ocr-level).
 - For DOC and DOCX documents, Sensible converts the document to PDF before processing it.
 - For XLSX documents, Sensible extracts text directly from the file. Sensible takes these steps:
-     - Standardizes the formatting of all text in the file and removes extra whitespaces and newlines, so that each cell contains exactly one [line](doc:lines).
+     - Standardizes the formatting of all text in the file. Each cell contains exactly one [line](doc:lines).
      - Standardizes cell height at 0.25'' tall and cell width at 1''. Overflow text in a cell is still available for extraction but isn't viewable in the JSON editor unless you click on a line in the rendered document to view its details. 
      - Standardizes the maximum page height at 15 inches. Sensible splits longer sheets into consecutive pages.
      - Sensible doesn't support the following methods for this file type:
        - Pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, images returned by the Multi Modal Engine parameter on the Query Group method, and image coordinates returned by the Document Range method.
        - OCR-based methods, such as NLP Table and Fixed Table methods. Use Text Table or List as alternatives. All [OCR](doc:ocr) settings are inapplicable for this file type.
 - For TIFF documents, SenseML methods that attempt to render pages return an error, including:
-     - pixel-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method.
+     - pixel- or image-based methods, such as Box, Checkbox, Signature, and image coordinates returned by the Document Range method.
      - Fixed Table method with the Stop parameter specified. Use the Text Table method as an alternative.
 
