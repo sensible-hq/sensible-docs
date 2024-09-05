@@ -24,7 +24,7 @@ For example, the following field returns null unless it finds data that Sensible
 
 The following types are available:
 
-#### **Types**
+#### **TYPES**
 
 [Address](doc:types#address)
 [Boolean](doc:types#boolean)
@@ -41,13 +41,13 @@ The following types are available:
 [Table](doc:types#table)
 [Weight](doc:types#weight)
 
-#### **Advanced types**
+#### **ADVANCED TYPES**
 
 [Compose](doc:types#compose)
 [Custom](doc:types#custom)
 [Replace](doc:types#replace)
 
-#### **Deprecated types**
+#### **DEPRECATED TYPES**
 
 [Accounting currency](doc:types#accounting-currency)
 
