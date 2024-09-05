@@ -49,7 +49,7 @@ The following types are available:
 
 #### **Deprecated types**
 
-[Deprecated types](doc:types#deprecated-types)
+[Accounting currency](doc:types#accounting-currency)
 
 Address
 ====
