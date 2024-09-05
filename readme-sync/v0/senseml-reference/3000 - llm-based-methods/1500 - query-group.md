@@ -402,7 +402,7 @@ The following image shows the example document used with this example config:
 - For an overview of how this method works when `"searchBySummarization": true`, see the following steps.
   1. Sensible prompts an LLM (as configured by the LLM Engine parameter) to summarize each page in the document. Sensible ignores the Chunk Scoring Text parameter.
   
-  2. Sensible prompts an LLM (GPT-4o mini) with all the indexed page summaries as context, and asks it to return a number of page indices that are most relevant to your concatenated Description parameters. The Chunk Count parameter configures the number of page indices that the LLM returns. Sensible recommends setting the Chunk Count parameter to less than 10.
+  2. Sensible prompts an LLM (GPT-4o) with all the indexed page summaries as context, and asks it to return a number of page indices that are most relevant to your concatenated Description parameters. The Chunk Count parameter configures the number of page indices that the LLM returns. Sensible recommends setting the Chunk Count parameter to less than 10.
   
   3. Sensible prompts an LLM (as configured by the LLM Engine parameter) to answer your prompts, with the full text of the relevant pages as context. If you configure the Page Hinting parameter, it takes effect in this and the preceding step. If you configure the Multimodal Engine parameter, it takes effect in this step. 
 
