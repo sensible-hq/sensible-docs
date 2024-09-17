@@ -5,7 +5,20 @@ hidden: true
 
 Define your own  custom output schema using [JsonLogic](https://jsonlogic.com/). For example, TBD.
 
-# Postprocessor
+
+
+
+
+# Postprocessors
+
+
+
+| Preprocessor                | Image                                                        | Notes                                  |
+| --------------------------- | ------------------------------------------------------------ | -------------------------------------- |
+| **[JsonLogic](doc:deskew)** | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TBD.png) | Define a custom schema using JsonLogic |
+|                             |                                                              |                                        |
+
+
 
 Parameters
 ====
@@ -13,12 +26,147 @@ Parameters
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 
-| key                      | value                                      | description                                                  |
-| :----------------------- | :----------------------------------------- | :----------------------------------------------------------- |
-| id (**required**)        | `customComputation`                        | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method doesn't output [Sensible types](doc:types). It outputs `string, number, boolean, null` , or an array of those. For example, adding two currencies results in a number.<br/>- This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
-| jsonLogic (**required**) | [JsonLogic](https://jsonlogic.com/) object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using JsonLogic. Supports all [JsonLogic operations](https://jsonlogic.com/operations.html) and extends them with Sensible operations. For more information, see the following section.<br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). Use dot notation to access arrays, for example, `test_table.columns.3.values` to access the 4th column in a table. |
+| key                                   | value                                      | description |
+| :------------------------------------ | :----------------------------------------- | :---------- |
+| type TODO: why not "ID"(**required**) | `jsonLogic`                                |             |
+| rule TODO: why isn't it renamed yet?  | [JsonLogic](https://jsonlogic.com/) object |             |
 
 ## Examples
+
+```json
+{
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "object": [
+        [
+          [
+            "data",
+            {
+              "object": [
+                [
+                  [
+                    "account",
+                    "my-hardcoded-account-id"
+                  ],
+                  [
+                    "state",
+                    {
+                      "var": "state.value"
+                    }
+                  ],
+                  [
+                    "tax_info",
+                    {
+                      "object": [
+                        [
+                          [
+                            "state_tax",
+                            {
+                              "var": "state_tax.value"
+                            }
+                          ],
+                          [
+                            "state_wages",
+                            {
+                              "var": "state_wages.value"
+                            }
+                          ]
+                        ]
+                      ]
+                    }
+                  ],
+                  [
+                    "wage_entries",
+                    {
+                      "map": [
+                        {
+                          "var": "all_wage_fields"
+                        },
+                        {
+                          "var": "value"
+                        }
+                      ]
+                    }
+                  ]
+                ]
+              ]
+            }
+          ],
+          [
+            "sent_by",
+            "my-name"
+          ]
+        ]
+      ]
+    }
+  },
+  "fields": [
+    {
+      "id": "state",
+      "anchor": {
+        "match": "15 State"
+      },
+      "method": {
+        "id": "label",
+        "position": "below"
+      },
+      "type": {
+        "id": "replace",
+        "pattern": "\\W",
+        "replaceWith": ""
+      }
+    },
+    {
+      "id": "state_wages",
+      "anchor": {
+        "match": "16 State wages"
+      },
+      "method": {
+        "id": "label",
+        "position": "below",
+        "textAlignment": "hangingIndent"
+      },
+      "type": "currency"
+    },
+    {
+      "id": "state_tax",
+      "anchor": {
+        "match": "17 State income tax"
+      },
+      "method": {
+        "id": "label",
+        "position": "below",
+        "textAlignment": "hangingIndent"
+      },
+      "type": "currency"
+    },
+    {
+      "id": "all_wage_fields",
+      "match": "all",
+      "type": "currency",
+      "method": {
+        "id": "label",
+        "position": "below",
+        "textAlignment": "hangingIndent"
+      },
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "wages"
+        }
+      }
+    }
+  ]
+}
+```
+
+Output:
+
+```json
+```
+
+
 
 
 
