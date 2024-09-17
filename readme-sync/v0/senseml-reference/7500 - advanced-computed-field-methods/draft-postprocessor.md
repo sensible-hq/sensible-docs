@@ -5,6 +5,8 @@ hidden: true
 
 Define your own  custom output schema using [JsonLogic](https://jsonlogic.com/). For example, TBD.
 
+# Postprocessor
+
 Parameters
 ====
 
@@ -16,74 +18,74 @@ The following parameters are in the computed field's [global Method](doc:compute
 | id (**required**)        | `customComputation`                        | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method doesn't output [Sensible types](doc:types). It outputs `string, number, boolean, null` , or an array of those. For example, adding two currencies results in a number.<br/>- This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
 | jsonLogic (**required**) | [JsonLogic](https://jsonlogic.com/) object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using JsonLogic. Supports all [JsonLogic operations](https://jsonlogic.com/operations.html) and extends them with Sensible operations. For more information, see the following section.<br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). Use dot notation to access arrays, for example, `test_table.columns.3.values` to access the 4th column in a table. |
 
+## Examples
+
+
+
+
+
 ## Sensible operations
 
 Sensible extends [JsonLogic](https://jsonlogic.com/) with the following operations:
 
-### Exists
+### Object
 
-Returns a boolean to indicate if the specified value exists.
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom schemas. 
 
 ```json
 {
-    "exists": [
-        JsonLogic
+    "object": [
+        [
+         "desiredKeyName": JsonLogic,
+         "desiredKeyName": JsonLogic
+        ]
     ]
 }
 ```
 
-Most commonly used with the JsonLogic `var`  operation to test that an output value isn't null. The  `var` operation retrieves extracted field values using field `id` keys. 
-
-### Match
-
-Returns a boolean to indicate if the specified regular expression matches.
+Or, the schema in the `object` array can come entirely from another JsonLogic operation:
 
 ```json
 {
-    "match": [
-        JsonLogic,
-        regex
+    "object": [
+        [ 
+            JsonLogic
+        ]
     ]
 }
 ```
 
- Where `regex` is a Javascript-flavored regular expression.
 
-Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. 
 
-### Replace
 
-Returns a modified string.
 
-One of the following syntaxes:
+
+
+As a simple example,
 
 ```json
 {
-    "replace": {
-        "source": JsonLogic,
-        "find": JsonLogic
-        "replace": JsonLogic
-    }
+  "object": [
+    [
+      ["key_1", "value"],
+      ["another_key", "some other value"]
+    ]
+  ]
 }
 ```
 
-Or:
+returns:
 
 ```json
 {
-    "replace": {
-        "source": JsonLogic,
-        "find_regex": regex
-        "replace": JsonLogic,
-        "flags": "string" //optional
-    }
+  "key_1": "value",
+  "another_key": "some other value"
 }
 ```
 
-Where `regex` is a Javascript-flavored regular expression.  Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation supports:
 
-- regex capturing groups
-- regex flags, such as `i` for case insensitive. 
+
+For an example, see TBD
 
 Examples
 ====
