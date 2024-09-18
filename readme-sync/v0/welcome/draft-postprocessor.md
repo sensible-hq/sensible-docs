@@ -3,22 +3,49 @@ title: "postprocessor n object operator"
 hidden: true
 ---
 
-Define your own  custom output schema using [JsonLogic](https://jsonlogic.com/). For example, TBD.
+Define your own  custom output schema using [JsonLogic](https://jsonlogic.com/). For example, Sensible's parsed document schema generally follows the schema to represent extracted document data:
 
+```json
+"fields":
+[
+  {
+   "field_key":
+    {
+     "value": "value_1",
+     "type": "string"
+    }
+  },
+    {
+   "field_key_2":
+    {
+     "value": "value_2",
+     "type": "string"
+    }
+  }
+]
+```
 
+Using a postprocessor, you can transform the extracted data into a custom schema,  for example:
 
+```json
+"data":
+[
+    "custom_object": 
+     {
+      "field_1": "value_1",
+      "field_2": "value_2"
+    }
+]
+```
 
+TODO: talk about why it's more flexible than custom computation
 
 # Postprocessors
-
-
 
 | Preprocessor                | Image                                                        | Notes                                  |
 | --------------------------- | ------------------------------------------------------------ | -------------------------------------- |
 | **[JsonLogic](doc:deskew)** | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TBD.png) | Define a custom schema using JsonLogic |
 |                             |                                                              |                                        |
-
-
 
 Parameters
 ====
@@ -33,6 +60,10 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 ## Examples
 
+
+
+**Config**
+
 ```json
 {
   "postprocessor": {
@@ -43,24 +74,24 @@ The following parameters are in the computed field's [global Method](doc:compute
           [
             "data",
             {
+              /* specify a schema that's a key-value array  */
               "object": [
                 [
                   [
-                    "account",
-                    "my-hardcoded-account-id"
+                    "sent_by",
+                    /* value for the `sent_by` key is a hardcoded string. */
+                    "sensible-api"
                   ],
                   [
-                    "state",
-                    {
-                      "var": "state.value"
-                    }
-                  ],
-                  [
+                    /* `tax_info` object has two fields, each of which is pulled from the 
+                    parsed document */
                     "tax_info",
                     {
                       "object": [
                         [
                           [
+                            /* the `var` operator gets a value from the parsed document. 
+                        in this case, the `value` property from the `state_tax` field.*/
                             "state_tax",
                             {
                               "var": "state_tax.value"
@@ -77,6 +108,9 @@ The following parameters are in the computed field's [global Method](doc:compute
                     }
                   ],
                   [
+                    /* `"wage_entries"` is an array. 
+                    the array values come entirely from the `map` operation, which returns the value for
+                    each item in the parsed document's `all_wage_fields` */
                     "wage_entries",
                     {
                       "map": [
@@ -92,35 +126,17 @@ The following parameters are in the computed field's [global Method](doc:compute
                 ]
               ]
             }
-          ],
-          [
-            "sent_by",
-            "my-name"
           ]
         ]
       ]
     }
   },
   "fields": [
-    {
-      "id": "state",
-      "anchor": {
-        "match": "15 State"
-      },
-      "method": {
-        "id": "label",
-        "position": "below"
-      },
-      "type": {
-        "id": "replace",
-        "pattern": "\\W",
-        "replaceWith": ""
-      }
-    },
+    
     {
       "id": "state_wages",
       "anchor": {
-        "match": "16 State wages"
+        "match": "16 State"
       },
       "method": {
         "id": "label",
@@ -132,7 +148,7 @@ The following parameters are in the computed field's [global Method](doc:compute
     {
       "id": "state_tax",
       "anchor": {
-        "match": "17 State income tax"
+        "match": "17 State"
       },
       "method": {
         "id": "label",
@@ -161,9 +177,78 @@ The following parameters are in the computed field's [global Method](doc:compute
 }
 ```
 
-Output:
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
 
 ```json
+// POSTPROCESSED OUTPUT
+
+{
+  "data": {
+    "sent_by": "sensible-api",
+    "tax_info": {
+      "state_tax": 3438.56,
+      "state_wages": 68780.48
+    },
+    "wage_entries": [
+      69780.46,
+      77447.24,
+      22474.24,
+      68780.48
+    ]
+  }
+}
+
+// PARSED DOCUMENT OUTPUT
+
+{
+  "state_wages": {
+    "source": "68780.48",
+    "value": 68780.48,
+    "unit": "$",
+    "type": "currency"
+  },
+  "state_tax": {
+    "source": "3438.56",
+    "value": 3438.56,
+    "unit": "$",
+    "type": "currency"
+  },
+  "all_wage_fields": [
+    {
+      "source": "69780.46",
+      "value": 69780.46,
+      "unit": "$",
+      "type": "currency"
+    },
+    {
+      "source": "77447.24",
+      "value": 77447.24,
+      "unit": "$",
+      "type": "currency"
+    },
+    {
+      "source": "22474.24",
+      "value": 22474.24,
+      "unit": "$",
+      "type": "currency"
+    },
+    {
+      "source": "68780.48",
+      "value": 68780.48,
+      "unit": "$",
+      "type": "currency"
+    }
+  ]
+}
+
 ```
 
 
