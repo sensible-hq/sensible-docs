@@ -3,7 +3,9 @@ title: "postprocessor n object operator"
 hidden: true
 ---
 
-Define your own  custom output schema using [JsonLogic](https://jsonlogic.com/). For example, Sensible's parsed document schema generally follows the schema to represent extracted document data:
+Define your own  custom output schema with a [JsonLogic](https://jsonlogic.com/)-based postprocessor. 
+
+For example, Sensible's parsed document schema generally follows the schema to represent extracted document data:
 
 ```json
 "fields":
@@ -38,7 +40,15 @@ Using a postprocessor, you can transform the extracted data into a custom schema
 ]
 ```
 
+The postprocessor offers you more flexibility than the [Custom Computation](doc:custom-computation) computed field method, because it can 
+
 TODO: talk about why it's more flexible than custom computation
+
+Postprocessor output is available in the `postprocessor` tab in the JSON editor and in the ` ` array in the API response. postprocessor can output arbitrary schemas, customcomputation will always return ValueOutput
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessed_tab.png) 
 
 # Postprocessors
 
@@ -180,9 +190,9 @@ The following parameters are in the computed field's [global Method](doc:compute
 **Example document**
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessor.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/postprocessor.pdf) |
 | ---------------- | ------------------------------------------------------------ |
 
 **Output**
