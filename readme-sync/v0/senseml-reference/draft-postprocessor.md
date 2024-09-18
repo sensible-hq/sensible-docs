@@ -58,10 +58,10 @@ Parameters
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
 
-| key                 | value                                      | description |
-| :------------------ | :----------------------------------------- | :---------- |
-| type (**required**) | `jsonLogic`                                |             |
-| rule                | [JsonLogic](https://jsonlogic.com/) object |             |
+| key                 | value                                      | description                                                  |
+| :------------------ | :----------------------------------------- | :----------------------------------------------------------- |
+| type (**required**) | `jsonLogic`                                |                                                              |
+| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using JsonLogic, including Sensible's [object](doc:custom-computation#object) operator. |
 
 ## Examples
 
@@ -257,63 +257,6 @@ The following image shows the example document used with this example config:
 ```
 
 
-
-
-
-
-
-## Sensible operations
-
-Sensible extends [JsonLogic](https://jsonlogic.com/) with the following operations:
-
-### Object
-
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom schemas. 
-
-```json
-{
-    "object": [
-        [
-         "desiredKeyName": JsonLogic,
-         "desiredKeyName": JsonLogic
-        ]
-    ]
-}
-```
-
-Or, the schema in the `object` array can come entirely from another JsonLogic operation:
-
-```json
-{
-    "object": [
-        [ 
-            JsonLogic
-        ]
-    ]
-}
-```
-
-As a simple example,
-
-```json
-{
-  "object": [
-    [
-      ["key_1", "value"],
-      ["another_key", "some other value"]
-    ]
-  ]
-}
-```
-
-returns:
-
-```json
-{
-  "key_1": "value",
-  "another_key": "some other value"
-}
-```
 
 
 

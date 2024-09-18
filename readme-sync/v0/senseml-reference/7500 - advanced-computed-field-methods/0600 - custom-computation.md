@@ -75,7 +75,7 @@ Or:
         "source": JsonLogic,
         "find_regex": regex
         "replace": JsonLogic,
-        "flags": "string" //optional
+        "flags": "i" //optional
     }
 }
 ```
@@ -84,6 +84,55 @@ Where `regex` is a Javascript-flavored regular expression.  Double escape specia
 
 - regex capturing groups
 - regex flags, such as `i` for case insensitive. 
+
+### Object
+
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. 
+
+```json
+{
+    "object": [
+        [
+         "desiredKeyName": JsonLogic,
+         "desiredKeyName": JsonLogic
+        ]
+    ]
+}
+```
+
+Or, specify the schema in the `object` array using another JsonLogic operation, for example, `map`:
+
+```json
+{
+    "object": [
+        [ 
+            JsonLogic
+        ]
+    ]
+}
+```
+
+As a simple example,
+
+```json
+{
+  "object": [
+    [
+      ["key_1", "value"],
+      ["another_key", "some other value"]
+    ]
+  ]
+}
+```
+
+returns:
+
+```json
+{
+  "key_1": "value",
+  "another_key": "some other value"
+}
+```
 
 Examples
 ====
