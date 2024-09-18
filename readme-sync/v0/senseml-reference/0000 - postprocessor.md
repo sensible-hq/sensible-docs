@@ -256,7 +256,3 @@ The following image shows the example document used with this example config:
 
 ```
 
-
-
-
-
