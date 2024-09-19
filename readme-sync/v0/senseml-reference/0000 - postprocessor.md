@@ -8,62 +8,112 @@ Define your own custom output schema with a [JsonLogic](https://jsonlogic.com/)-
 In detail, Sensible's `parsed_document` output schema represents extracted document data as follows:
 
 ```json
-"fields":
-[
-  {
-   "field_key":
-    {
-     "value": "value_1",
-     "type": "string"
-    }
-  },
-    {
-   "field_key_2":
-    {
-     "value": "value_2",
-     "type": "string"
-    }
-  }
-]
+{
+    "fields": [
+        {
+            "field_key": {
+                "value": "value_1",
+                "type": "string"
+            }
+        },
+        {
+            "field_key_2": {
+                "value": "value_2",
+                "type": "string"
+            }
+        }
+    ]
+}
 ```
 
 Using a postprocessor, you can transform the extracted data into a custom schema,  for example:
 
 ```json
-"data":
-[
-    "custom_object": 
-     {
-      "field_1": "value_1",
-      "field_2": "value_2"
-    }
-]
+{
+    "data": [
+        {
+            "custom_object": {
+                "field_1": "value_1",
+                "field_2": "value_2"
+            }
+        }
+    ]
+}
 ```
 
-The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it can output an arbitrary schema instead of a `parsed_document` schema. 
+The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it supports the [object](doc:postprocessor#object) operator and can output an arbitrary schema instead of a `parsed_document` schema. 
 
 Postprocessor output is available in the `postprocessorOutput` array in the API response and in the `postprocessor` tab in the JSON editor: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessed_tab.png) 
 
-# Postprocessor types
-
-| Postprocessor | Notes                                  |
-| ------------- | -------------------------------------- |
-| **JsonLogic** | Define a custom schema using JsonLogic |
-
-Parameters
-====
-
-The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+# Parameters
 
 
 | key                 | value                                      | description                                                  |
 | :------------------ | :----------------------------------------- | :----------------------------------------------------------- |
 | type (**required**) | `jsonLogic`                                |                                                              |
-| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using JsonLogic, including Sensible's [object](doc:custom-computation#object) operator. |
+| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using JsonLogic and Sensible's [object](doc:custom-computation#object) operator. For more information, see the following section. |
 
-## Examples
+### Object operator
+
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. 
+
+```json
+{
+    "object": [
+        [
+         ["desiredKeyName", JsonLogic],
+         ["desiredKeyName", JsonLogic]
+        ]
+    ]
+}
+```
+
+Or, specify the schema in the `object` array using another JsonLogic operation, for example, `map`:
+
+```json
+{
+    "object": [
+        [ 
+            [JsonLogic]
+        ]
+    ]
+}
+```
+
+As a simple example,  
+
+```json
+{
+    "object": [
+        [
+            [
+                "key_1",
+                "string_constant"
+            ],
+            [
+                "another_key",
+                {
+                    // where the extracted field `account_number` has value `12345`
+                    "var": "account_number.value"
+                }
+            ]
+        ]
+    ]
+}
+```
+
+returns:
+
+```json
+{
+  "key_1": "string_constant",
+  "another_key": 12345
+}
+```
+
+# Examples
 
 ## Example 1
 
@@ -83,6 +133,7 @@ The following parameters are in the computed field's [global Method](doc:compute
               "object": [
                 [
                   [
+                    /* define a key-value pair */
                     "sent_by",
                     /* value for the `sent_by` key is a hardcoded string. */
                     "sensible-api"
