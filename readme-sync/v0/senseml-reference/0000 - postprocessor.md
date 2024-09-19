@@ -124,12 +124,13 @@ returns:
   "postprocessor": {
     "type": "jsonLogic",
     "rule": {
+       /* specify a schema that's a key-value array */
       "object": [
         [
           [
-            "data",
+            "tax_summary",
             {
-              /* specify a schema that's a key-value array  */
+              /* nest an object inside an object   */
               "object": [
                 [
                   [
@@ -247,7 +248,7 @@ The following image shows the example document used with this example config:
 // POSTPROCESSED OUTPUT
 
 {
-  "data": {
+  "tax_summary": {
     "sent_by": "sensible-api",
     "tax_info": {
       "state_tax": 3438.56,
