@@ -52,8 +52,8 @@ Postprocessor output is available in the `postprocessorOutput` array in the API 
 
 | key                 | value                                      | description                                                  |
 | :------------------ | :----------------------------------------- | :----------------------------------------------------------- |
-| type (**required**) | `jsonLogic`                                |                                                              |
-| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using JsonLogic and Sensible's [object](doc:custom-computation#object) operator. For more information, see the following section. |
+| type (**required**) | `jsonLogic`                                | Supports [JsonLogic](https://jsonlogic.com/) and  Sensible's extended JsonLogic [operations](doc:custom-computation#sensible-operations) |
+| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using Sensible's [object](doc:custom-computation#object) operator. For more information, see the following section. |
 
 ### Object operator
 
@@ -65,18 +65,6 @@ Returns a JSON object that is an array of key/value pairs. You can nest object o
         [
          ["desiredKeyName", JsonLogic],
          ["desiredKeyName", JsonLogic]
-        ]
-    ]
-}
-```
-
-Or, specify the schema in the `object` array using another JsonLogic operation, for example, `map`:
-
-```json
-{
-    "object": [
-        [ 
-            [JsonLogic]
         ]
     ]
 }
