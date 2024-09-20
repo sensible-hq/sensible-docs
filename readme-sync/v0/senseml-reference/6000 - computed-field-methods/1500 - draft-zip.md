@@ -1,6 +1,6 @@
 ---
 title: "Zip"
-hidden: true
+hidden: false
 ---
 Zips one of the following:
 
@@ -16,7 +16,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                        | value                                    | description                                                  |
 | :------------------------- | :--------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)          | `zip`                                    |                                                              |
-| source_ids  (**required**) | array of field IDs in the current config | One of the following: <br/><br/>- the IDs of the source fields to zip. Each source field must output an array.<br/><br/>- a single ID for a field that returns a table. Sensible returns an array of zipped row objects.<br/><br/>- the IDs of the section groups to zip together. Sensible returns a zipped section group containing all the fields from the source section groups. If there are identically named field IDs in the source section groups, Sensible falls back to outputting the IDs in the last section group listed in the `source_id` array.<br/><br/><br/>Zips operate with the following precedence for source IDs: <br/>- If at least one source field is a section group, Sensible outputs the section group and ignores all other types of sources.<br/><br/> - If at least one source is a table and there are no section group sources, Sensible outputs the first table ID and ignores all other sources.  <br/><br/>-  If the output of the source IDs are arrays, the Zip method joins them. If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array.  Examples of source IDs that output arrays include fields with `"match":"allWithNull"` configured and section groups. For an example, see the Examples section.<br/>**Note:** Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths. <br/> |
+| source_ids  (**required**) | array of field IDs in the current config | One of the following: <br/><br/>- the IDs of the source fields to zip. Each source field must output an array.<br/><br/>- a single ID for a field that returns a table. Sensible returns an array of zipped row objects.<br/><br/>- the IDs of the section groups to zip together. Sensible returns a zipped section group containing all the fields from the source section groups. If there are identically named field IDs in the source section groups, Sensible falls back to outputting the IDs in the last section group listed in the `source_id` array.<br/><br/><br/>Zips operate with the following precedence for source IDs: <br/>- If at least one source field is a section group, Sensible outputs the section group and ignores all other types of sources.<br/><br/> - If at least one source is a table and there are no section group sources, Sensible outputs the first table ID and ignores all other sources.  <br/><br/>-  If the output of the source IDs are arrays, the Zip method joins them up to their maximum shared length. For example, if you zip arrays that have 4, 5, and 6 elements respectively, the zipped array has 4 elements. Examples of source IDs that output arrays include fields with `"match": "all"` configured, and section groups. To ensure the longest source array isn't shortened when using `"match": "all"`, instead use  `"match":"allWithNull"` for all source fields. For an example, see the Examples section. <br/> |
 
 Examples
 ====
@@ -188,9 +188,7 @@ The following image shows the example document used with this example config:
 All With Null zip
 ---
 
-The following example shows using `"match":"allWithNull"` as an alternative to [sections](doc:sections) to return parallel arrays of phones and last names. 
-
-**Note:** Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.
+The following example shows using `"match":"allWithNull"` as an alternative to [sections](doc:sections) to return parallel arrays of phones and last names. If you used `"match":"all"` instead of `allWithNull`, the missing phone number for claimant Badawi would result in that claimant's omission from the zipped `name_and_phone` array.
 
 **Config**
 
@@ -206,10 +204,7 @@ The following example shows using `"match":"allWithNull"` as an alternative to [
     {
       /* using `allWithNull` outputs a 5-element array
          with one null element (phone for Badawi).
-         This is preferable to  using `all`, which would strip 
-         out a null and output a 4-element array, resulting in 
-         erroneous phone and name pairs
-         starting with the last name "Badawi  */
+         Using `all`  would output a 4-element array  */
       "id": "phone_number",
       "match": "allWithNull",
       "anchor": {
@@ -223,6 +218,10 @@ The following example shows using `"match":"allWithNull"` as an alternative to [
       }
     },
     {
+      /* using either `all` or
+         `allWithNull` outputs a 5-element array, 
+         because no last 
+         names are missing in doc */
       "id": "last_name",
       "match": "allWithNull",
       "anchor": {
@@ -239,6 +238,11 @@ The following example shows using `"match":"allWithNull"` as an alternative to [
   ],
   "computed_fields": [
     {
+      /* if you used `all` instead of `allWithNull`,
+         `name_and_phone` zipped output
+         would omit claimant Bawadi, because Zip 
+         method joins arrays up to 
+         their maximum shared length. */
       "id": "name_and_phone",
       "method": {
         "id": "zip",
