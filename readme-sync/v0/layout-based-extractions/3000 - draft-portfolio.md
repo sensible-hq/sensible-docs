@@ -9,23 +9,19 @@ Sensible recommends extracting each document in a portfolio using its own docume
 
 To extract from a portfolio,  you have the following options:
 
-|                              | LLM-based                                                    | Text matching ("fingerprints")                               |
-| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Segmentation method          | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their first and last page contents. | Sensible finds user-configured text matches to segment documents |
-| Document variability         | Suited to documents that are unstructured or that have a large number of layout variations or revisions. | Suited to structured documents with a finite number of variations, where you know the layout of the document in advance. |
-| Deterministic                | No                                                           | Yes. Find the information in the document using anchoring text and layout data. |
-| Technical expertise required | For nontechnical users. Describe what you want to extract in a prompt to an LLM. For example, "the policy period" or "total amount invoiced". | Offers powerful extraction configuration for technical users based on spatial layout. For example, grab the text in a rectangular region relative to the word "Addendums" |
-| Performance                  | Data extraction takes a few seconds for each LLM-based method. | Offers faster performance in general. For more information, see [Optimizing extraction performance](https://docs.sensible.so/docs/performance). |
-| Specificity                  | at the document type level                                   | at the config level                                          |
+|                     | LLM-based                                                    | Match-based ("fingerprints")                                 |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. | Sensible finds user-configured text matches on first and last pages to segment documents |
+| Specificity         | at the document type level                                   | at the config level                                          |
 
-
+Other tradeoffs between LLM and layout-based methods apply. For more tradeoffs see [Choosing an extraction approach](doc:author).
 
 
 
 To extract from a portfolio, take the following steps:
 
 - Configure how Sensible segments the portfolio into documents with one of the following alternatives:
-  - **LLM mode**: In the document type's  **Settings** tab, specify **LLM mode**. Provide a natural-language description of the document type, especially first and last page contents. For example: TODO image or text
+  - **LLM mode**: In the document type's  **Settings** tab, specify **LLM mode**. Provide a natural-language description of the document type, especially first and last page contents. For more information, see [document descriptions](doc:draft-descriptions). 
   - **Fingerprint mode**  - In the document type's  **Settings** tab, specify **Fingerprint mode**. Specify [fingerprints](doc:fingerprint) in each config. Fingerprints test for text matches on first pages, last pages, and other page types.
 - Create an extraction request by taking the following steps:
 
@@ -42,7 +38,7 @@ To extract from a portfolio, take the following steps:
 
 ## LLM example
 
-TODO
+
 
 
 
