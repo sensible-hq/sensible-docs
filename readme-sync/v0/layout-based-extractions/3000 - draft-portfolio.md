@@ -9,7 +9,7 @@ Sensible recommends extracting each document in a portfolio using its own docume
 
 To extract from a portfolio,  you have the following options:
 
-|                     | LLM-based                                                    | Match-based ("fingerprints")                                 |
+|                     | LLM-based                                                    | Text-based ("fingerprints")                                  |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. | Sensible finds user-configured text matches on first and last pages to segment documents |
 | Specificity         | at the document type level                                   | at the config level                                          |
@@ -20,18 +20,50 @@ Other tradeoffs between LLM and layout-based methods apply. For more tradeoffs s
 
 To extract from a portfolio, take the following steps:
 
-- Configure how Sensible segments the portfolio into documents with one of the following alternatives:
-  - **LLM mode**: In the document type's  **Settings** tab, specify **LLM mode**. Provide a natural-language description of the document type, especially first and last page contents. For more information, see [document descriptions](doc:draft-descriptions). 
-  - **Fingerprint mode**  - In the document type's  **Settings** tab, specify **Fingerprint mode**. Specify [fingerprints](doc:fingerprint) in each config. Fingerprints test for text matches on first pages, last pages, and other page types.
+
+
+- Configure how Sensible segments the portfolio into documents with one of the following alternatives: 
+  -  **LLM mode**: In the document type's **Settings** tab, describe the document type in the **LLM portfolio description** field. For examples, see TODO link to descriptions topic.
+  -  **Fingerprint mode**: In the document type's  **Settings** tab, specify **Fingerprint mode**. Specify [fingerprints](doc:fingerprint) in each config. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
+
 - Create an extraction request by taking the following steps:
 
-  - Indicate the file is a portfolio:
-    - Sensible app: Click the **Portfolio** button on the **Extract** tab.
-    - SDKs: Specify the Document Types parameter in the Extract method.
-    - API:  Use one of the Portfolio extraction endpoints. 
+  - **Sensible app**: 
+    
+    - Click the **Portfolio** button on the **Extract** tab.  
+    
+    - Specify either **fingerprint mode** or **LLM mode**.
+    
+    - Select the document types contained in the portfolio file.
+    
+    - Upload the portfolio file and click **Extract**.
+    
+  - **API or SDK**:     
+  
+    - In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example:
+  
+      ```json
+      curl --location 'https://api.sensible.so/dev/extract_from_url?environment=production&document_name=portfolio_llm_filename_test' \
+      --header 'Content-Type: application/json' \
+      --header 'Authorization: ••••••' \
+      --data '{
+          "document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf",
+          "types": [
+                "bank_statements",
+                "tax_forms",
+                "pay_stubs"
+                
+           ],
+           "segment_documents_with": "llm"
+           
+      }'
+      ```
+  
+      For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides)  
+  
 
+The extraction response includes document extractions and their page ranges in the portfolio. For examples, see the following section.
 
-  - In the request, specify the doc types that exist in the portfolio. For example, using the API, `"types": ["insurance_quotes_auto", "insurance_quotes_home"]`. The extraction response includes document extractions and their page ranges in the portfolio.
 
 
 # Examples
