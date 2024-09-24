@@ -11,16 +11,14 @@ To extract from a portfolio,  you have the following options:
 
 |                     | LLM-based                                                    | Text-based ("fingerprints")                                  |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. | Sensible finds user-configured text matches on first and last pages to segment documents |
-| Specificity         | at the document type level                                   | at the config level                                          |
+| Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. | Sensible finds user-configured text matches ("fingerprints") on first and last pages to segment documents |
+| Granularity         | at the document type level                                   | at the config level                                          |
 
 Other tradeoffs between LLM and layout-based methods apply. For more tradeoffs see [Choosing an extraction approach](doc:author).
 
-
+## Extracting from a portfolio
 
 To extract from a portfolio, take the following steps:
-
-
 
 - Configure how Sensible segments the portfolio into documents with one of the following alternatives: 
   -  **LLM mode**: In the document type's **Settings** tab, describe the document type in the **LLM portfolio description** field. For examples, see TODO link to descriptions topic.
@@ -62,15 +60,15 @@ To extract from a portfolio, take the following steps:
       For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides)  
   
 
-The extraction response includes document extractions and their page ranges in the portfolio. For examples, see the following section.
+- The extraction response includes document extractions and their page ranges in the portfolio.  In the Sensible app, you can navigate through the portfolio's extractions using the dropdown:
 
-
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav.png) 
 
 # Examples
 
 ## LLM example
 
-The following example shows extracting three documents from a portfolio using LLMs to segment the documents. The portfolio contains a bank statement, a paystub, and a tax form.
+The following example shows extracting three documents from a portfolio using LLMs to segment the documents. The portfolio contains a bank statement, a paystub, and a tax form. To try out the example, take the following steps:
 
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart)  to add support for the **bank statements**, **tax forms**, and **pay stubs** document types to your account.
 
@@ -89,7 +87,7 @@ The following example shows extracting three documents from a portfolio using LL
 
 
 4. In the **Extract** tab:
-   - TODO left off, select doc types and LLM splitting, then hit extract
+   - TODO left off do a screenshot once it's in place showing the doc types selected (re-clone them to avoid 'described') 
 
 You should see results like the following (in the UI, page through the results TODO how to describe? TODO test these updated descriptions:
 
