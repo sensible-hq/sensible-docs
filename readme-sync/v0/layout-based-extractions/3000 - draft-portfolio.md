@@ -82,7 +82,14 @@ The following example shows extracting three documents from a portfolio using LL
    | pay stubs       | this is a pay stub document type.                            |
    | tax forms       | this is a tax form document type. Each page in each document contains the form number in the bottom right corner of the page. |
 
-3. In the **Extract**
+3. Download the following example document:
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+
+
+4. In the **Extract** tab:
+   - TODO left off, select doc types and LLM splitting, then hit extract
 
 You should see results like the following (in the UI, page through the results TODO how to describe? TODO test these updated descriptions:
 
