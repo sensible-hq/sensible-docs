@@ -41,7 +41,7 @@ To extract from a portfolio, take the following steps:
     - In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example:
   
       ```json
-      curl --location 'https://api.sensible.so/dev/extract_from_url?environment=production&document_name=portfolio_llm_filename_test' \
+      curl --location 'https://api.sensible.so/v0/extract_from_url?environment=production&document_name=portfolio_bank_paystub_tax' \
       --header 'Content-Type: application/json' \
       --header 'Authorization: ••••••' \
       --data '{
@@ -59,8 +59,7 @@ To extract from a portfolio, take the following steps:
   
       For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides)  
   
-
-- The extraction response includes document extractions and their page ranges in the portfolio.  In the Sensible app, you can navigate through the portfolio's extractions using the dropdown:
+- The extraction response includes document extractions and their page ranges in the portfolio.  In the Sensible app, you can navigate through the extractions in the portfolio using the dropdown:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav.png) 
 
@@ -148,166 +147,7 @@ You should see results like the following (in the UI, page through the results T
                         "type": "string",
                         "value": "Carmella Finnerty"
                     },
-                    "spouse_ssn": {
-                        "type": "string",
-                        "value": "772-98-1129"
-                    },
-                    "home_street_address": {
-                        "type": "string",
-                        "value": "4880 Combe Street"
-                    },
-                    "home_apartment_number": null,
-                    "home_city_state_zipcode": {
-                        "type": "string",
-                        "value": "Newark, New Jersey 99033"
-                    },
-                    "wages_salaries_tips": {
-                        "source": "502,213",
-                        "value": 502213,
-                        "type": "number"
-                    },
-                    "tax_exempt_interest": null,
-                    "taxable_interest": {
-                        "source": "2,049",
-                        "value": 2049,
-                        "type": "number"
-                    },
-                    "qualified_dividends": {
-                        "source": "25",
-                        "value": 25,
-                        "type": "number"
-                    },
-                    "ordinary_dividends": {
-                        "source": "69",
-                        "value": 69,
-                        "type": "number"
-                    },
-                    "ira_distributions": null,
-                    "ira_distributions_taxable_amount": null,
-                    "pensions_and_annuities": null,
-                    "pensions_and_annuities_taxable_amount": null,
-                    "social_security_benefits": null,
-                    "social_security_benefits_taxable_amount": null,
-                    "capital_gain_or_loss": {
-                        "source": "7",
-                        "value": 7,
-                        "type": "number"
-                    },
-                    "other_income": {
-                        "source": "0",
-                        "value": 0,
-                        "type": "number"
-                    },
-                    "total_income": {
-                        "source": "504,331",
-                        "value": 504331,
-                        "type": "number"
-                    },
-                    "adjustments_to_income": null,
-                    "adjusted_gross_income": {
-                        "source": "504,331",
-                        "value": 504331,
-                        "type": "number"
-                    },
-                    "standard_deduction": {
-                        "source": "24,800",
-                        "value": 24800,
-                        "type": "number"
-                    },
-                    "qualified_business_deduction": {
-                        "source": "13",
-                        "value": 13,
-                        "type": "number"
-                    },
-                    "taxable_income": {
-                        "source": "479,531",
-                        "value": 479531,
-                        "type": "number"
-                    },
-                    "tax": null,
-                    "child_tax_credit": {
-                        "source": "19",
-                        "value": 19,
-                        "type": "number"
-                    },
-                    "other_tax_including_self_employment": {
-                        "source": "0",
-                        "value": 0,
-                        "type": "number"
-                    },
-                    "total_tax": {
-                        "source": "32",
-                        "value": 32,
-                        "type": "number"
-                    },
-                    "federal_income_tax_withheld": null,
-                    "earned_income_credit": {
-                        "source": "27",
-                        "value": 27,
-                        "type": "number"
-                    },
-                    "additional_child_tax_credit": {
-                        "source": "28",
-                        "value": 28,
-                        "type": "number"
-                    },
-                    "american_opportunity_credit": {
-                        "source": "29",
-                        "value": 29,
-                        "type": "number"
-                    },
-                    "total_other_payments": {
-                        "source": "32",
-                        "value": 32,
-                        "type": "number"
-                    },
-                    "total_payments": {
-                        "source": "500",
-                        "value": 500,
-                        "type": "number"
-                    },
-                    "overpaid_amount": {
-                        "source": "468",
-                        "value": 468,
-                        "type": "number"
-                    },
-                    "overpaid_refund_amount": {
-                        "source": "0",
-                        "value": 0,
-                        "type": "number"
-                    },
-                    "routing_number": {
-                        "type": "string",
-                        "value": "X X X X X X X X X"
-                    },
-                    "account_type.checking": {
-                        "type": "boolean",
-                        "value": true
-                    },
-                    "account_type.savings": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "account_number": {
-                        "type": "string",
-                        "value": "X X X X X X X X X X X X X X X X X"
-                    },
-                    "amount_you_owe": null,
-                    "estimated_tax_penalty": {
-                        "source": "38",
-                        "value": 38,
-                        "type": "number"
-                    },
-                    "signed": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "signed_date": null,
-                    "spouse_signed": {
-                        "type": "boolean",
-                        "value": false
-                    },
-                    "spouse_signed_date": null
+                    // RESPONSE ABBREVIATED
                 },
                 "configuration": "1040_2019",
                 "validations": [],
@@ -458,1362 +298,8 @@ You should see results like the following (in the UI, page through the results T
                                 "value": 688.82,
                                 "unit": "$",
                                 "type": "currency"
-                            },
-                            "deposits_table": [
-                                {
-                                    "date": {
-                                        "value": "7/15",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "167.00",
-                                        "value": 167,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "3,764.53",
-                                        "value": 3764.53,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/23",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "7,189.15",
-                                        "value": 7189.15,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/23",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "123.45",
-                                        "value": 123.45,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/27",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "s",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "4,961.00",
-                                        "value": 4961,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/29",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "2.69",
-                                        "value": 2.69,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/30",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "3,772.62",
-                                        "value": 3772.62,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "1,300.00",
-                                        "value": 1300,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/4",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "75.00",
-                                        "value": 75,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/5",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "194.36",
-                                        "value": 194.36,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/6",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "2,613.23",
-                                        "value": 2613.23,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                }
-                            ],
-                            "withdrawals_table": [
-                                {
-                                    "date": {
-                                        "value": "7/14",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "10.00",
-                                        "value": 10,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/14",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "11.77",
-                                        "value": 11.77,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/15",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "n",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "3.45",
-                                        "value": 3.45,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/15",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "co",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "70.66",
-                                        "value": 70.66,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/15",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "44.24",
-                                        "value": 44.24,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/15",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "101.93",
-                                        "value": 101.93,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/15",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "1,400.00",
-                                        "value": 1400,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "14.99",
-                                        "value": 14.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "11.88",
-                                        "value": 11.88,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "58.26",
-                                        "value": 58.26,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "5.00",
-                                        "value": 5,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "1,300.00",
-                                        "value": 1300,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "8.80",
-                                        "value": 8.8,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/16",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "167.00",
-                                        "value": 167,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "2.99",
-                                        "value": 2.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "212.83",
-                                        "value": 212.83,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "39.99",
-                                        "value": 39.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "198.59",
-                                        "value": 198.59,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "295.82",
-                                        "value": 295.82,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "4.00",
-                                        "value": 4,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "55.84",
-                                        "value": 55.84,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "10.00",
-                                        "value": 10,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "65.00",
-                                        "value": 65,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "35.26",
-                                        "value": 35.26,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "k",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "1,300.00",
-                                        "value": 1300,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "149.11",
-                                        "value": 149.11,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "150.00",
-                                        "value": 150,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/19",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "250.00",
-                                        "value": 250,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/20",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "8.86",
-                                        "value": 8.86,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/20",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "A",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "19.88",
-                                        "value": 19.88,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/20",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "Check",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "399.14",
-                                        "value": 399.14,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/21",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "29.18",
-                                        "value": 29.18,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/22",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "e",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "36.00",
-                                        "value": 36,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/22",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "33.48",
-                                        "value": 33.48,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/22",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "17.02",
-                                        "value": 17.02,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/23",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "8.00",
-                                        "value": 8,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "value": "8",
-                                        "type": "string"
-                                    },
-                                    "amount": {
-                                        "source": "195.28",
-                                        "value": 195.28,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "93.98",
-                                        "value": 93.98,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "18.44",
-                                        "value": 18.44,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "113.68",
-                                        "value": 113.68,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "219.93",
-                                        "value": 219.93,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "10.00",
-                                        "value": 10,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "250.00",
-                                        "value": 250,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "400.00",
-                                        "value": 400,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/26",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "2,500.00",
-                                        "value": 2500,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/27",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "45.85",
-                                        "value": 45.85,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/27",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "600.00",
-                                        "value": 600,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/27",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "3,123.43",
-                                        "value": 3123.43,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/28",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "11.99",
-                                        "value": 11.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/30",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "54.99",
-                                        "value": 54.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "7/30",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "10.89",
-                                        "value": 10.89,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "98.09",
-                                        "value": 98.09,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "18.99",
-                                        "value": 18.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "82.12",
-                                        "value": 82.12,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "56.40",
-                                        "value": 56.4,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "255.25",
-                                        "value": 255.25,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "102.20",
-                                        "value": 102.2,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "145.37",
-                                        "value": 145.37,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "10.00",
-                                        "value": 10,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "53.56",
-                                        "value": 53.56,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "35.00",
-                                        "value": 35,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "2.18",
-                                        "value": 2.18,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "11.06",
-                                        "value": 11.06,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "800.00",
-                                        "value": 800,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "215.62",
-                                        "value": 215.62,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "250.00",
-                                        "value": 250,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/2",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "1,500.00",
-                                        "value": 1500,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/3",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "15.99",
-                                        "value": 15.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/5",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "7.99",
-                                        "value": 7.99,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/5",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "250.00",
-                                        "value": 250,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/5",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "20.00",
-                                        "value": 20,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/6",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "3.00",
-                                        "value": 3,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/6",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "83.00",
-                                        "value": 83,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/6",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "4,961.98",
-                                        "value": 4961.98,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "176.66",
-                                        "value": 176.66,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "146.82",
-                                        "value": 146.82,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "13.87",
-                                        "value": 13.87,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "88.00",
-                                        "value": 88,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "25.96",
-                                        "value": 25.96,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "16.86",
-                                        "value": 16.86,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "35.53",
-                                        "value": 35.53,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "42.19",
-                                        "value": 42.19,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "7.00",
-                                        "value": 7,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "74.19",
-                                        "value": 74.19,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "150.00",
-                                        "value": 150,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "810.00",
-                                        "value": 810,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/9",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "1,300.00",
-                                        "value": 1300,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/10",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "161.45",
-                                        "value": 161.45,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/10",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "100.00",
-                                        "value": 100,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/10",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "250.00",
-                                        "value": 250,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                },
-                                {
-                                    "date": {
-                                        "value": "8/11",
-                                        "type": "string"
-                                    },
-                                    "description": null,
-                                    "amount": {
-                                        "source": "3.25",
-                                        "value": 3.25,
-                                        "unit": "$",
-                                        "type": "currency"
-                                    }
-                                }
-                            ],
-                            "transaction_table": null
+                            }],
+                            // RESPONSE ABBREVIATED
                         }
                     ]
                 },
@@ -1923,156 +409,7 @@ You should see results like the following (in the UI, page through the results T
                         "type": "string",
                         "confidenceSignal": "confident_answer"
                     },
-                    "pay_date": null,
-                    "pay_period_start_date": null,
-                    "pay_period_end_date": null,
-                    "net_pay": {
-                        "source": "$2,076.28",
-                        "value": 2076.28,
-                        "unit": "$",
-                        "type": "currency",
-                        "confidenceSignal": "confident_answer"
-                    },
-                    "earnings": [
-                        {
-                            "earnings_type": {
-                                "value": "Regular Hours I Salaried",
-                                "type": "string"
-                            },
-                            "rate": {
-                                "value": "$74.52",
-                                "type": "string"
-                            },
-                            "hours": {
-                                "value": "40.0",
-                                "type": "string"
-                            },
-                            "amount": {
-                                "value": "$2,980.77",
-                                "type": "string"
-                            },
-                            "ytd": {
-                                "value": "$17,288.47",
-                                "type": "string"
-                            }
-                        },
-                        {
-                            "earnings_type": {
-                                "value": "Total Hours Worked",
-                                "type": "string"
-                            },
-                            "rate": null,
-                            "hours": {
-                                "value": "40.0",
-                                "type": "string"
-                            },
-                            "amount": null,
-                            "ytd": null
-                        },
-                        {
-                            "earnings_type": {
-                                "value": "Paid Holidays",
-                                "type": "string"
-                            },
-                            "rate": null,
-                            "hours": null,
-                            "amount": null,
-                            "ytd": {
-                                "value": "$596.15",
-                                "type": "string"
-                            }
-                        },
-                        {
-                            "earnings_type": {
-                                "value": "Commission",
-                                "type": "string"
-                            },
-                            "rate": null,
-                            "hours": null,
-                            "amount": {
-                                "value": "$0.00",
-                                "type": "string"
-                            },
-                            "ytd": {
-                                "value": "$33,591.83",
-                                "type": "string"
-                            }
-                        },
-                        {
-                            "earnings_type": {
-                                "value": "Gross Earnings",
-                                "type": "string"
-                            },
-                            "rate": null,
-                            "hours": null,
-                            "amount": {
-                                "value": "$2,980.77",
-                                "type": "string"
-                            },
-                            "ytd": {
-                                "value": "$51,476.45",
-                                "type": "string"
-                            }
-                        }
-                    ],
-                    "deductions": [
-                        {
-                            "deduction": {
-                                "value": "Employee Vision Insurance",
-                                "type": "string"
-                            },
-                            "this_period": {
-                                "value": "$0.02",
-                                "type": "string"
-                            },
-                            "ytd": {
-                                "value": "$0.14",
-                                "type": "string"
-                            }
-                        },
-                        {
-                            "deduction": {
-                                "value": "Employee Dental Insurance",
-                                "type": "string"
-                            },
-                            "this_period": {
-                                "value": "$0.15",
-                                "type": "string"
-                            },
-                            "ytd": {
-                                "value": "$1.07",
-                                "type": "string"
-                            }
-                        },
-                        {
-                            "deduction": {
-                                "value": "Employee Medical Insurance",
-                                "type": "string"
-                            },
-                            "this_period": {
-                                "value": "$1.12",
-                                "type": "string"
-                            },
-                            "ytd": {
-                                "value": "$6.72",
-                                "type": "string"
-                            }
-                        },
-                        {
-                            "deduction": {
-                                "value": "Dependents Medical Insurance",
-                                "type": "string"
-                            },
-                            "this_period": {
-                                "value": "$1.11",
-                                "type": "string"
-                            },
-                            "ytd": {
-                                "value": "$6.66",
-                                "type": "string"
-                            }
-                        }
-                    ]
+                    // RESPONSE ABBREVIATED
                 },
                 "configuration": "pay_stubs",
                 "validations": [],
@@ -2140,7 +477,7 @@ You should see results like the following (in the UI, page through the results T
         "warnings": 0,
         "skipped": 0
     },
-    "download_url": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/c024cd1c-5f33-4a82-b2ea-2c807e44988b/MULTIDOC_EXTRACTION/cdbc284f-2681-4681-ad6e-cfb0108d546c.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAR355P7ASS36YVB52%2F20240924%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240924T161349Z&X-Amz-Expires=900&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJ%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQC%2FhsviH7McR4SqqKyegBpXSrK5XHEOLMmPD1aJT8dzGAIhAK6qW3O2MTzJFlw7lCyYvPvefZsBOaWlwFguk1Lc4Z1sKpQDCNj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMMTI4NzA5NTU2MjYxIgzs6oTDT9ISsiENbqkq6AKPyGaxlwtg7hzJB2uzU10XQWN%2Fn52MfjpyD8%2FTT7fw%2BH66qJ6vItiktBb2YCuVqoWTK0ViKSoP4rRGr9ccgtBhpyRBXjgcK8zC8f2JgbPdLcBOm0Rb9xIHKSSZErtFzHnsypx2w9N5AK%2BPans66ORzXZsFzNK%2F06bybDAAqAD5ve4Ghy9ryUqHsoxPEgRq0aQGIvp1reAc2dbJUdjKxtnwHbBx2OGhGkF5shtKg%2Bp62QRRV530ki87Ub6MiwhdOt%2BOYREapd3krRYTp5eprsCyVpcj1w7MRwAP9TuBinrn4Utib8QkLGDeh8cFoX1%2FZD6NQJDVIPlAht7rkuAG9ub4u25W41Ikbvhkv8NlOAvba0HgY%2FphipYp0Lcqf5I%2Bqn%2Fp%2BYT7Xj%2FACkMb5rDiUjZfSa3us%2BaQOzdyhHl3ZoUclNiqU%2FcBpkxgSg%2BcbMDnBdzHigyGmoXegvIJAMIymFRNR7oc39o6D6gw9KbLtwY6nAFDrMzClFRTheORjP4btj%2BmhKx7phlY6esYQfPbk5kqDNTMA4aUWCa8GjMW8aBZj448muHl89feN1SLl4csDRbYBrOXwe8EIxybl%2FvfJ9TIXVxWALO2baX4qSf7ThzXQLPOzgE5FDrL4pHKxaNGhWT%2FUSS34WMjo88hmZyKiEHgIUxeUNuEQJjYZI4u9aFnk2U%2BayWXfIDWZEODKuI%3D&X-Amz-Signature=e28cc057947a95f97ae2a27a4d01c92af5ae40d6e8f70ea99242e3557e1e2544&X-Amz-SignedHeaders=host&x-id=GetObject",
+    "download_url": "REDACTED",
     "coverage": 0.7134182495817716,
     "charged": 3,
     "version_id": "DkxGjnwpLR0xqiO13PTtTTJflQ8vhvBd",
@@ -2157,7 +494,6 @@ You should see results like the following (in the UI, page through the results T
 ## Fingerprint example
 
 
-
 The following example shows extracting three one-page documents from a portfolio using fingerprints to segment the documents. The portfolio contains two car insurance quotes and one loss run.
 
 ### Config
@@ -2165,9 +501,9 @@ The following example shows extracting three one-page documents from a portfolio
 
 ***Document type 1***
 
-- **doc type**: "auto_insurance_quote"
+- **doc type**: "auto_insurance_quotes"
 
-- **config name**: "anyco_quote"
+- **config name**: "anyco"
 
 - **config content:**
 
@@ -2178,7 +514,7 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
     "tests": [
       {
         /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
-           in the match array. */
+           in the match array using the`any` match type. */
         "page": "first",
         "match": [         
           {
@@ -2197,20 +533,20 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 
 ***Document type 2***
 
-- **doc type**: "loss_run"
+- **doc type**: "loss_run_reports"
 
-- **config name**: "anyco_claims"
+- **config name**: "acme"
 
 - **config content:**
 
-To the config in the [Sections](doc:sections) topic, append the following fingerprint:
+To the config in the [Example loss run](doc:sections-example-loss-run) topic, append the following fingerprint:
 
 ```json
 "fingerprint": {
     "tests": [
       {
         /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
-           in the match array. */
+           in the match array using the`any` match type. */
         "page": "first",
         "match": [
           {
@@ -2241,9 +577,9 @@ curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
-"types":["auto_insurance_quote","loss_run"]}'
+"types":["auto_insurance_quotes","loss_run_reports"]}'
 ```
-2. This request returns an extraction ID. Use it to retrieve the extractions by replacing `*YOUR_EXTRACTION_ID* with the returned ID in the following example code:
+2. This request returns an extraction ID. Use it to retrieve the extractions by replacing *YOUR_EXTRACTION_ID* with the returned ID in the following example code:
 ```
 curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 --header 'Authorization: Bearer YOUR_API_KEY'
@@ -2251,23 +587,37 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 The response contains extractions from three documents:
 
-```
+```json
 {
-    "id": "7c269ef2-f9f1-4271-82e0-79b60887f45a",
-    "created": "2021-09-29T17:03:06.058Z",
+    "id": "56a27285-9465-4781-82d1-3010bd5c589f",
+    "created": "2024-09-26T19:26:13.492Z",
+    "completed": "2024-09-26T19:26:21.691Z",
     "status": "COMPLETE",
     "types": [
-        "auto_insurance_quote",
-        "loss_run"
+        "auto_insurance_quotes",
+        "loss_run_reports"
     ],
+    "environment": "production",
     "documents": [
         {
-            "documentType": "auto_insurance_quote",
-            "configuration": "anyco_quote",
+            "documentType": "auto_insurance_quotes",
+            "configuration": "anyco",
             "startPage": 0,
             "endPage": 0,
             "output": {
                 "parsedDocument": {
+                    "bodily_injury_premium": {
+                        "source": "$100",
+                        "value": 100,
+                        "unit": "$",
+                        "type": "currency",
+                        "confidenceSignal": "confident_answer"
+                    },
+                    "customer_service_phone": {
+                        "value": "18001234567",
+                        "type": "string",
+                        "confidenceSignal": "confident_answer"
+                    },
                     "policy_period": {
                         "type": "string",
                         "value": "April 14, 2021 - Oct 14, 2021"
@@ -2278,22 +628,35 @@ The response contains extractions from three documents:
                         "unit": "$",
                         "type": "currency"
                     },
-                    "property_liability_premium": {
-                        "source": "$10",
-                        "value": 10,
-                        "unit": "$",
-                        "type": "currency"
-                    },
                     "policy_number": {
-                        "value": "123456789",
-                        "type": "string"
+                        "type": "string",
+                        "value": "123456789"
                     }
                 },
-                "configuration": "anyco_claims",
+                "configuration": "anyco",
                 "validations": [],
+                "coverage": 1,
+                "fileMetadata": {
+                    "info": {
+                        "modification_date": "2021-09-29T10:51:49.000-07:00"
+                    }
+                },
+                "errors": [],
+                "needsReview": false,
+                "classificationSummary": [
+                    {
+                        "configuration": "anyco",
+                        "score": {
+                            "score": 5,
+                            "coverage": 1,
+                            "fieldsPresent": 5,
+                            "penalties": 0
+                        }
+                    }
+                ],
                 "validation_summary": {
-                    "fields": 4,
-                    "fields_present": 4,
+                    "fields": 5,
+                    "fields_present": 5,
                     "errors": 0,
                     "warnings": 0,
                     "skipped": 0
@@ -2301,12 +664,24 @@ The response contains extractions from three documents:
             }
         },
         {
-            "documentType": "auto_insurance_quote",
-            "configuration": "anyco_quote",
+            "documentType": "auto_insurance_quotes",
+            "configuration": "anyco",
             "startPage": 1,
             "endPage": 1,
             "output": {
                 "parsedDocument": {
+                    "bodily_injury_premium": {
+                        "source": "$90",
+                        "value": 90,
+                        "unit": "$",
+                        "type": "currency",
+                        "confidenceSignal": "confident_answer"
+                    },
+                    "customer_service_phone": {
+                        "value": "18001234567",
+                        "type": "string",
+                        "confidenceSignal": "confident_answer"
+                    },
                     "policy_period": {
                         "type": "string",
                         "value": "May 20, 2021 - Nov 20,"
@@ -2317,22 +692,35 @@ The response contains extractions from three documents:
                         "unit": "$",
                         "type": "currency"
                     },
-                    "property_liability_premium": {
-                        "source": "$15",
-                        "value": 15,
-                        "unit": "$",
-                        "type": "currency"
-                    },
                     "policy_number": {
-                        "value": "987654321",
-                        "type": "string"
+                        "type": "string",
+                        "value": "987654321"
                     }
                 },
-                "configuration": "anyco_multidoc",
+                "configuration": "anyco",
                 "validations": [],
+                "coverage": 1,
+                "fileMetadata": {
+                    "info": {
+                        "modification_date": "2021-09-29T10:51:49.000-07:00"
+                    }
+                },
+                "errors": [],
+                "needsReview": false,
+                "classificationSummary": [
+                    {
+                        "configuration": "anyco",
+                        "score": {
+                            "score": 5,
+                            "coverage": 1,
+                            "fieldsPresent": 5,
+                            "penalties": 0
+                        }
+                    }
+                ],
                 "validation_summary": {
-                    "fields": 4,
-                    "fields_present": 4,
+                    "fields": 5,
+                    "fields_present": 5,
                     "errors": 0,
                     "warnings": 0,
                     "skipped": 0
@@ -2340,8 +728,8 @@ The response contains extractions from three documents:
             }
         },
         {
-            "documentType": "loss_run",
-            "configuration": "anyco_claims",
+            "documentType": "loss_run_reports",
+            "configuration": "acme",
             "startPage": 2,
             "endPage": 2,
             "output": {
@@ -2351,7 +739,7 @@ The response contains extractions from three documents:
                         "value": 5,
                         "type": "number"
                     },
-                    "monthly_number_unprocessed_claims": [
+                    "monthly_total_unprocessed_claims": [
                         {
                             "type": "string",
                             "value": "Sept unprocessed claims: 2"
@@ -2365,7 +753,7 @@ The response contains extractions from three documents:
                             "value": "Nov unprocessed claims: 2"
                         }
                     ],
-                    "unprocessed_sept_oct_claims": [
+                    "unprocessed_sept_oct_claims_sections": [
                         {
                             "claim_number": {
                                 "source": "1223456789",
@@ -2376,6 +764,10 @@ The response contains extractions from three documents:
                                 "type": "phoneNumber",
                                 "source": "512 409 8765",
                                 "value": "+15124098765"
+                            },
+                            "_everything_in_this_section": {
+                                "type": "string",
+                                "value": "Claim number: 1223456789 Claimant last name: Diaz Date of claim 09/15/2021 Phone number 512 409 8765"
                             }
                         },
                         {
@@ -2384,7 +776,11 @@ The response contains extractions from three documents:
                                 "value": 9876543211,
                                 "type": "number"
                             },
-                            "phone_number": null
+                            "phone_number": null,
+                            "_everything_in_this_section": {
+                                "type": "string",
+                                "value": "Claim number: 9876543211 Claimant last name: Badawi Date of claim 09/08/2021 Phone number"
+                            }
                         },
                         {
                             "claim_number": {
@@ -2396,12 +792,35 @@ The response contains extractions from three documents:
                                 "type": "phoneNumber",
                                 "source": "505 238 8765",
                                 "value": "+15052388765"
+                            },
+                            "_everything_in_this_section": {
+                                "type": "string",
+                                "value": "Claim number: 6785439210 Claimant last name: Levy Date of claim 10/03/2021 Phone number 505 238 8765"
                             }
                         }
                     ]
                 },
-                "configuration": "sections",
+                "configuration": "acme",
                 "validations": [],
+                "coverage": 0.9090909090909091,
+                "fileMetadata": {
+                    "info": {
+                        "modification_date": "2021-09-29T10:51:49.000-07:00"
+                    }
+                },
+                "errors": [],
+                "needsReview": false,
+                "classificationSummary": [
+                    {
+                        "configuration": "acme",
+                        "score": {
+                            "score": 10,
+                            "coverage": 0.9090909090909091,
+                            "fieldsPresent": 10,
+                            "penalties": 0
+                        }
+                    }
+                ],
                 "validation_summary": {
                     "fields": 7,
                     "fields_present": 7,
@@ -2413,7 +832,22 @@ The response contains extractions from three documents:
         }
     ],
     "page_count": 3,
-    "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/sensible/MULTIDOC_EXTRACTION/7c269ef2-f9f1-4271-82e0-79b60887f45a.pdf?AWSAccessKeyId=REDACTED"
+    "validation_summary": {
+        "fields": 17,
+        "fields_present": 17,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
+    },
+    "download_url": "REDACTED",
+    "coverage": 0.9696969696969697,
+    "charged": 3,
+    "version_id": "2ZjsLpUxhkv4SqiHxugHKXNhbV_S1jah",
+    "reviewStatuses": [
+        null,
+        null,
+        null
+    ]
 }
 ```
 
