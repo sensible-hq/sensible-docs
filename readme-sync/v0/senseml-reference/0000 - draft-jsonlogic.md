@@ -9,6 +9,10 @@ TODO ON publish: X link from validations, postprocessor, and custom computation 
 
 TODO: add very simple examples to each of these?
 
+TODO: update all my "jsonlogic" links to this topic
+
+INtroduce the CONCEPT of JSONLOGIC, refer reader to the ops page, and note the docs limits?
+
 
 
 Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported
