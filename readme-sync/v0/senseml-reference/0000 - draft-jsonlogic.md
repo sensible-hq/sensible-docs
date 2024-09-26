@@ -7,6 +7,10 @@ TODO ON publish: X link from validations, postprocessor, and custom computation 
 
 
 
+TODO: add very simple examples to each of these?
+
+
+
 Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported
 
 | Operation                                              | Validations               | Custom computation method | Postprocessor |
@@ -35,7 +39,7 @@ Most commonly used with the JsonLogic `var`  operation to test that an output va
 
 ### Examples
 
-See TBD/2do
+See [Validating extractions](doc:validate-extractions#examples).
 
 ## Match
 
@@ -56,7 +60,7 @@ Double escape special regex characters, since the regex is in a JSON object (for
 
 ### Examples
 
-See TBD/2do
+See [Validating extractions](doc:validate-extractions#examples). 
 
 ## Replace
 
@@ -94,7 +98,7 @@ Where `regex` is a Javascript-flavored regular expression.  Double escape specia
 
 ### Examples
 
-See TBD/2do
+ See [Custom Computation](doc:custom-computation#examples).
 
 ## Object
 
@@ -144,5 +148,5 @@ returns:
 
 ### Examples
 
-See TBD/2do
+See [Postprocessor](doc:postprocessor#examples). 
 
