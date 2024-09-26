@@ -11,11 +11,11 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The
 
 | Operation                                              | Validations               | Custom computation method | Postprocessor |
 | ------------------------------------------------------ | ------------------------- | ------------------------- | ------------- |
-| [exists](doc:jsonlogic#exists)                         | ✅                         | ✅                         | ✅             |
-| [match](doc:jsonlogic#match)                           | ✅                         | ✅                         | ✅             |
-| [replace](doc:jsonlogic#replace)                       | mostly n/a (TODO: true??) | ✅                         | ✅             |
-| [object](doc:jsonlogic#object)                         | ❌                         | ❌                         | ✅             |
-| [array-with-context](doc:jsonlogic#array-with-context) | ❌                         | ❌                         | ❌             |
+| [exists](doc:draft-jsonlogic#exists)                         | ✅                         | ✅                         | ✅             |
+| [match](doc:draft-jsonlogic#match)                           | ✅                         | ✅                         | ✅             |
+| [replace](doc:draft-jsonlogic#replace)                       | mostly n/a (TODO: true??) | ✅                         | ✅             |
+| [object](doc:draft-jsonlogic#object)                         | ❌                         | ❌                         | ✅             |
+| [array-with-context](doc:draft-jsonlogic#array-with-context) | ❌                         | ❌                         | ❌             |
 
 
 
