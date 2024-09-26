@@ -3,6 +3,9 @@ title: "jsonLogic extensions"
 hidden: true
 ---
 
+TODO ON publish: X link from validations, postprocessor, and custom computation to this topic
+
+
 
 Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported
 
