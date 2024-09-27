@@ -9,21 +9,20 @@ TODO ON publish: X link from validations, postprocessor, and custom computation 
 
 TODO: add very simple examples to each of these?
 
-TODO: update all my "jsonlogic" links to this topic
+TODO: update all my "jsonlogic" links to this topic, including this one: custom-computation#sensible-operations 
 
 INtroduce the CONCEPT of JSONLOGIC, refer reader to the ops page, and note the docs limits?
 
+Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
 
-
-Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported
-
-| Operation                                              | Validations               | Custom computation method | Postprocessor |
-| ------------------------------------------------------ | ------------------------- | ------------------------- | ------------- |
-| [exists](doc:draft-jsonlogic#exists)                         | ✅                         | ✅                         | ✅             |
-| [match](doc:draft-jsonlogic#match)                           | ✅                         | ✅                         | ✅             |
-| [replace](doc:draft-jsonlogic#replace)                       | mostly n/a (TODO: true??) | ✅                         | ✅             |
-| [object](doc:draft-jsonlogic#object)                         | ❌                         | ❌                         | ✅             |
-| [array-with-context](doc:draft-jsonlogic#array-with-context) | ❌                         | ❌                         | ❌             |
+| Operation                                                    | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
+| ------------------------------------------------------------ | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
+| [Exists](doc:draft-jsonlogic#exists)                         | ✅                                       | ✅                                                   | ✅                                  |
+| [Match](doc:draft-jsonlogic#match)                           | ✅                                       | ✅                                                   | ✅                                  |
+| [Replace](doc:draft-jsonlogic#replace)                       | mostly n/a (TODO: true??)               | ✅                                                   | ✅                                  |
+| [Object](doc:draft-jsonlogic#object)                         | ❌                                       | ❌                                                   | ✅                                  |
+| [Array With Context](doc:draft-jsonlogic#array-with-context) | ?                                       | ?                                                   | ✅                                  |
+| [Flatten](doc:draft-jsonlogic#flatten)                       | ?                                       | ?                                                   | ✅                                  |
 
 
 
@@ -150,7 +149,45 @@ returns:
 }
 ```
 
+
+
 ### Examples
 
 See [Postprocessor](doc:postprocessor#examples). 
 
+
+
+## Flatten
+
+takes in an array that may contain nested arrays, returns a single-level array populated with all the same values.
+
+- Example: `{ "flatten": [[1, [2, 3], [4, [5, 6]]] }` will return: `[1, 2, 3, 4, 5, 6]` 
+
+### Examples
+
+## Array With Context
+
+The `"array_with_context"` operator is a convenience for shortening jsonLogic syntax when you write loops that operate on arrays.
+
+takes in an array (or something that evaluates to an array, like the result of another rule), returns a new array of objects with an `item` and `context` property, where `item` is the item from the passed-in array and `context` is the data in JsonLogic's context at the time of creation (it's what you would get if you used `{ var: "" }`). TODO: test this, not sure what this means exactly
+
+- Example: `{ "array_with_context": [1, 2, 3, 4] }` when  the current data is `{ "customer_name": "Your Name" }` will return TODO rewrite this to be more real world:
+
+```
+[
+  { "item": 1, "context": { "customer_name": "Your Name" } },
+  { "item": 2, "context": { "customer_name": "Your Name" } },
+  { "item": 3, "context": { "customer_name": "Your Name" } },
+  { "item": 4, "context": { "customer_name": "Your Name" } }
+]
+```
+
+## Flatten
+
+  : takes in an array that may contain nested arrays to any depth, returns a single-level array populated with all the same values. It's similar to a [merge](https://jsonlogic.com/operations.html#merge) except it's recursive.
+
+  - Example: `{ "flatten": [1, [2, 3], [4, [5, 6, 7]]] }` will return: `[1, 2, 3, 4, 5, 6, 7]` TODO test this!
+
+### Examples
+
+TBOD

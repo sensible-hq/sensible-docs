@@ -3,6 +3,18 @@ title: "Postprocessor"
 hidden: true
 ---
 
+> ![img](https://ca.slack-edge.com/T017UPRAE94-U0794D6MU56-6a77bb7ffdda-48)
+
+DevonDevon[Friday at 11:57 AM](https://sensiblehq.slack.com/archives/C0215T9K86P/p1726855039655909?thread_ts=1726764646.424009&cid=C0215T9K86P)
+
+I'd be inclined to clarify in the object operator description description that it's possible for object to take in the result of some other rule, rather than strictly needing the key/value pairs spelled out outright. That may be an unlikely scenario, and it may make it more complicated to think about, so I can also see the argument for not explicitly bringing this up here. (the example is passing object a map rule, where the map results in the right shape: [["some string", some value] ...])Otherwise it all makes sense to me!
+
+---
+
+
+
+
+
 Define your own custom output schema with a [JsonLogic](https://jsonlogic.com/)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
 In detail, Sensible's `parsed_document` output schema represents extracted document data as follows:
@@ -41,9 +53,9 @@ Using a postprocessor, you can transform the extracted data into a custom schema
 }
 ```
 
-The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it supports the [object](doc:postprocessor#object) operator and can output an arbitrary schema instead of a `parsed_document` schema. 
+The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it supports more [extended jsonLogic operations](doc:jsonlogic) and can output an arbitrary schema instead of outputting fields. 
 
-Postprocessor output is available in the `postprocessorOutput` array in the API response and in the `postprocessor` tab in the JSON editor: 
+Postprocessor output is available in the `postprocessorOutput` object in the API response and in the `postprocessor` tab in the JSON editor: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessed_tab.png) 
 
@@ -53,7 +65,7 @@ Postprocessor output is available in the `postprocessorOutput` array in the API 
 | key                 | value                                      | description                                                  |
 | :------------------ | :----------------------------------------- | :----------------------------------------------------------- |
 | type (**required**) | `jsonLogic`                                | Supports [JsonLogic](https://jsonlogic.com/) and  Sensible's extended JsonLogic [operations](doc:custom-computation#sensible-operations) |
-| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using Sensible's [object](doc:custom-computation#object) operator. For more information, see the following section. |
+| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using Sensible's [object](doc:custom-computation#object) operator and other . For more information, see the following section. |
 
 ### Object operator
 
@@ -100,6 +112,21 @@ returns:
   "another_key": 12345
 }
 ```
+
+TODO: describe that if the output shape of a jsonlgoic operation is a hash (right word?) ie like map, then you can just input that: 
+
+```json
+{
+    "object": [
+        [
+         [ JsonLogic]
+         
+        ]
+    ]
+}
+```
+
+
 
 # Examples
 
@@ -296,3 +323,50 @@ The following image shows the example document used with this example config:
 
 ```
 
+TODO:
+
+
+
+#### Example 3
+
+Lastly, here's a contrived but hopefully illustrative example where the value in the `"object"` array comes entirely from another rule:
+
+```json
+{
+  "object": [
+    {
+      "map": [
+        [{ "var": "name" }, { "var": "occupation" }],
+        [{ "var": "value" }, "test value"]
+      ]
+    }
+  ]
+}
+```
+
+In this case, the `"map"` operation iterates over an array made up of the `name` and `occupation` fields from our document, which might look like this:
+
+```json
+[
+  { "type": "string", "value": "some name" },
+  { "type": "string", "value": "excellent rule writer" }
+]
+```
+
+For each of the items in that array, the map will return back an array of the item's value and the string "test value", for a result that looks like this:
+
+```json
+[
+  ["some name", "test value"],
+  ["excellent rule editor", "test value"]
+]
+```
+
+Then, when that gets run through the `"object"` operation, we get a final result of:
+
+```json
+{
+  "some name": "test value",
+  "excellent rule writer": "test value"
+}
+```
