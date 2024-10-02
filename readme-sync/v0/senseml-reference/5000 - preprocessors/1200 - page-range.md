@@ -5,7 +5,7 @@ hidden: false
 
 Ignores pages outside the start page and end page.
 
-To configure a page range on a field-by-field basis for LLM-based methods, see the [Page Range parameter](doc:prompt).
+To configure a page range on a field-by-field basis for LLM-based methods, see the [Page Range parameter](doc:prompt#parameters).
 
 Parameters
 ----
