@@ -967,7 +967,7 @@ components:
       name: review_statuses
       in: query
       description: >-
-         Comma-delimited list of review statuses (APPROVED, NEEDS_REVIEW, REJECTED) by which to filter the retrieved extractions. For more information, see [Reviewing extractions](doc:human-review).
+         Comma-delimited list of review statuses (APPROVED, NEEDS_REVIEW, REJECTED) by which to filter the retrieved extractions. For more information, see [Human review](doc:human-review).
          Sensible returns [portfolio](doc:portfolio) extractions if at least one document in the portfolio meets the specified status criteria. 
       schema:
         type: string
@@ -1016,7 +1016,7 @@ components:
       example: NEEDS_REVIEW
       description: >- 
         The review statuses for each document in the portfolio. 
-        For more information, see [review criteria](doc:human-review).
+        For more information, see [Human review](doc:human-review).
  
 
 
@@ -1028,7 +1028,7 @@ components:
           example: NEEDS_REVIEW
           description: >- 
             The extraction's review status. Included in the response if the document type's criteria triggered review for this extraction.
-            For more information, see [review criteria](doc:human-review).
+            For more information, see [Human review](doc:human-review).
  
 
 
