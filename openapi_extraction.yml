@@ -949,7 +949,7 @@ components:
       name: min_coverage
       in: query
       description: >-
-         Minimum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extractions](doc:metrics).
+         Minimum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](doc:metrics).
       schema:
         type: number
       example: 0.8
@@ -958,7 +958,7 @@ components:
       name: max_coverage
       in: query
       description: >-
-         Maximum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extractions](doc:metrics).
+         Maximum extraction coverage score by which to filter the retrieved extractions. For more information about scoring, see [Monitoring extraction metrics](doc:metrics).
       schema:
         type: number
       example: 1.0
@@ -1035,7 +1035,7 @@ components:
 
     Coverage:
       type: number
-      description: The coverage score measures how fully an extraction captured all your target data in the document. It's a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields returned by a config for a document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. For more information about scoring, see [Monitoring extractions](doc:metrics).
+      description: The coverage score measures how fully an extraction captured all your target data in the document. It's a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields returned by a config for a document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. For more information about scoring, see [Monitoring extraction metrics](doc:metrics).
       example: 0.75
     Environment:
       type: string
@@ -1122,7 +1122,7 @@ components:
 
             `[` denotes inclusive and `)` denotes exclusive.
             For example, when this endpoint returns `"coverage_histogram":[7,5,3,3,2,1,1,4,7,9,13,15]` , the first and last items in the array show that on specified date for the specified config, 7 extractions scored in the lowest bucket of 0-10%, and 15 scored in the highest bucket of 100%.
-             For more information about extraction coverage scores, see [Monitoring extractions](doc:metrics).
+             For more information about extraction coverage scores, see [Monitoring extraction metrics](doc:metrics).
              From the payload returned by this endpoint, you can calculate other metrics, for example:
               - total number of extractions in a time period
               - doc type and config usage

@@ -12,7 +12,7 @@ Quality control the data extractions in a document type by writing validations u
 
 Use validation output to automatically flag extractions for [review](doc:human-review) in the Sensible app. For example, flag a document extraction for [human review](doc:human-review) if 4 out of 5  validations fail.
 
-Sensible uses validation errors to calculate [coverage](doc:metrics) for an extraction.
+Sensible uses validation errors to calculate [coverage](doc:metrics#extraction-coverage) for an extraction.
 
 Create validations
 ----
