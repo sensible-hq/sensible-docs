@@ -19,7 +19,7 @@ For tips on authoring this method in the visual editor, see [NLP Table tips](doc
 
 **Alternatives**
 
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
+For alternatives to this method, see [Table methods](doc:table-methods). 
 
 **How it works**
 

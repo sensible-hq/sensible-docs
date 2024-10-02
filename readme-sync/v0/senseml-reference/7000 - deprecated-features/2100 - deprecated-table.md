@@ -12,7 +12,7 @@ Extracts tables based on bag-of-words scoring and returns their collated column 
 
  Use the Table method for tables that have variable column formatting.  
 
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
+For alternatives to this method, see [Table methods](doc:table-methods). 
 
 [**Parameters**](doc:deprecated-table#parameters)
 [**Examples**](doc:deprecated-table#examples)
@@ -139,5 +139,5 @@ The following image shows the example document used with this example config: ![
 Notes
 ====
 
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
+For alternatives to this method, see [Table methods](doc:table-methods). 
 
