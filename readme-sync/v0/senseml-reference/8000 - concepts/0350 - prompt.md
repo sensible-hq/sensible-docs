@@ -4,9 +4,9 @@ hidden: false
 ---
 
 
-You can configure the full prompt that Sensible inputs to a large language model (LLM). You can apply configurations to multiple fields in a config, and you can override them for individual fields.
+To [troubleshoot LLM extractions](doc:troubleshoot-llms), you can configure the full prompt that Sensible inputs to a large language model (LLM). A *full prompt* is the combination of a user-author prompted and additional back-end LLM prompts.
 
-When you write a prompt in an LLM-based method, Sensible combines your prompt with other information to create the full prompt. The full prompt includes:
+In detail, when you write a prompt using an LLM-based method, Sensible creates a full prompt using the following:
 
 - a prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunking configuration, see the Notes section.
