@@ -13,7 +13,7 @@ This LLM-based method extracts a table in a document based on your description o
 
 - For more information about how to write descriptions, or "prompts", see [Query Group](doc:query-group-tips).
 
-- For advanced options, see [Advanced prompt configuration](doc:prompt).
+- For advanced options, see [Advanced LLM prompt configuration](doc:prompt).
 
 
 ### Notes

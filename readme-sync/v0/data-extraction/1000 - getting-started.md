@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-In this tutorial, you'll learn to extract data out of a set of similar documents using Sensible's query language, SenseML. You'll write JSON to tell Sensible about which data to extract from an example document, using what you know about the layout of the document. SenseML uses a mix of techniques, including large language models (LLMs), machine learning, heuristics, and rules, to extract your target information.
+In this tutorial, you'll learn to extract data out of a set of similar documents using Sensible's query language, SenseML. You'll write JSON-formatted SenseML to tell Sensible about which data to extract from an example document, using what you know about the layout of the document.
 
 You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.   
 
@@ -21,7 +21,7 @@ Get structured data from an auto insurance quote
 Let's get started with SenseML!
 
 
-If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer.
+If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer. 
 
  In this tutorial, you'll:
 

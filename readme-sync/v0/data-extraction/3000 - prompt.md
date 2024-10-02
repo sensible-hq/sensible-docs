@@ -1,5 +1,5 @@
 ---
-title: "Advanced prompt configuration"
+title: "Advanced LLM prompt configuration"
 hidden: false
 ---
 

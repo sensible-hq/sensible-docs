@@ -11,7 +11,7 @@ This method is an alternative to the [NLP Table](doc:table-tips) method, when th
 - The list description describes the overall contents for the list, while each property is a single description of an item that repeats in the list.
 - You can use location hints to describe the target list's position in the document. For examples of location hints, see [Query Group](doc:query-group-tips) extraction tips.
 - For more information about how to write descriptions, or "prompts", see [Query Group](doc:query-group-tips) extraction tips.
-- For advanced options, see [Advanced prompt configuration](doc:prompt).
+- For advanced options, see [Advanced LLM prompt configuration](doc:prompt).
 
 ### Troubleshooting
 

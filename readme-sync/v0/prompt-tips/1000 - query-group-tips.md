@@ -6,7 +6,7 @@ hidden: false
 
 This LLM-based method extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images)
 
-Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page. You can configure context using [Advanced prompt configuration](doc:prompt). 
+Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page. You can configure context using [Advanced LLM prompt configuration](doc:prompt). 
 
 For example, contact information can usually be found in the same location of a document:
 
