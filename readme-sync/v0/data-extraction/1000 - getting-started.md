@@ -199,7 +199,7 @@ This guide focuses on layout-based document extraction, which works as follows:
 
 - Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text. For more information about defining complex anchors, see [Anchor](doc:anchor). 
 
-- Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Methods](doc:methods).
+- Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Layout-based methods](doc:methods).
 
 This config uses three types of layout-based methods:
 
@@ -443,7 +443,7 @@ You can get more advanced with this auto insurance config. For example:
 - What if the document listed emails, and you wanted to capture all those emails? You could use a regular expression (regex) in a `"match":"all"` anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
 - You can split the policy period into two dates, either by using the [Split computed field method](doc:split), or by setting the [Date](doc:types#date) type on the field and using a tiebreaker.
 
-To check out other methods, see [Methods](doc:methods).
+To check out other methods, see [Layout-based methods](doc:methods).
 
 Test the config
 ====
@@ -657,5 +657,5 @@ Use [validation](doc:validate-extractions) errors and warnings to automatically 
 Next
 ====
 
-- Check out the [SenseML method reference docs](doc:methods) to write your own extractions
+- Check out the [SenseML reference docs](doc:senseml-reference-introduction) to write your own extractions
 - Learn about [integration options](doc:integrate).

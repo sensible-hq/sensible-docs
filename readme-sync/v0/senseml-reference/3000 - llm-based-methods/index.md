@@ -24,4 +24,4 @@ Notes
 
 
 
-For layout-based extraction methods, see [methods](doc:methods).
+For layout-based extraction, see [Layout-based methods](doc:methods).
