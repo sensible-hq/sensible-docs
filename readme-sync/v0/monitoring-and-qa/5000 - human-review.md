@@ -1,5 +1,5 @@
 ---
-title: "Human in the loop review"
+title: "Human review"
 hidden: false
 ---
 
