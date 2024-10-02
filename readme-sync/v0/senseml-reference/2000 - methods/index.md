@@ -1,8 +1,8 @@
 ---
-title: "Methods"
+title: "Layout-based methods"
 hidden: 
 ---
-Use the following  [methods](doc:method)  to extract structured data from documents. 
+Use the following  [methods](doc:method) to extract structured data from documents. 
 
 ## Layout-based methods
 
