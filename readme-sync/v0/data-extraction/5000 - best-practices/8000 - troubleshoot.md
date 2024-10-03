@@ -1,5 +1,5 @@
 ---
-title: "Troubleshooting tools"
+title: "Troubleshooting"
 hidden: false
 ---
 
