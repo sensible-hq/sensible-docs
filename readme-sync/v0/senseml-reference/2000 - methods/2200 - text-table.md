@@ -11,7 +11,7 @@ This method's advantages are:
 
 Its disadvantage is that it's more limited than other table methods, because it relies on line alignment to find the table. 
 
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
+For alternatives to this method, see [Table methods](doc:table-methods). 
 
 [**Parameters**](doc:text-table#parameters)
 [**Examples**](doc:text-table#examples)
@@ -249,7 +249,7 @@ You can output the issuing financial institution and the displayed account numbe
 Notes
 ====
 
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
+For alternatives to this method, see [Table methods](doc:table-methods). 
 
 
 

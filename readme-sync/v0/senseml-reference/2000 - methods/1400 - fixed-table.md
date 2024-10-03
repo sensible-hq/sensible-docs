@@ -6,7 +6,7 @@ Extracts tables with a fixed number of columns and returns their collated column
 
 Use the Fixed Table method for tables in the same document type that always have the same column layout (same headings in the same order, same number of columns). 
 
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
+For alternatives to this method, see [Table methods](doc:table-methods). 
 
 [**Parameters**](doc:fixed-table#parameters)
 [**Examples**](doc:fixed-table#examples)
@@ -434,4 +434,4 @@ The following image shows the example document used with this example config:
 Notes
 ====
 
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
+For alternatives to this method, see [Table methods](doc:table-methods). 

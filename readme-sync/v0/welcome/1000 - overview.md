@@ -52,7 +52,7 @@ With SenseML, you can:
 
 - Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step. For more information, see [Preprocessors](doc:preprocessors). 
 
-- Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also parse extracted data types like currencies, dates, addresses, or your custom types. For more information, see [Methods](doc:methods). 
+- Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also parse extracted data types like currencies, dates, addresses, or your custom types. For more information, see [Layout-based methods](doc:methods). 
 
 - Post-process extracted document data. For example:
   - Write logical [validations](doc:validate-extractions)  like `customer ID is 9 digits` to throw custom errors and warnings about your extracted data. 
@@ -81,10 +81,10 @@ For more information about this diagram, see [Devops platform](doc:devops-platfo
 
 To use the Sensible platform, you'll:
 
-- Learn  to extract data, or use out-of-the-box supported document types. See [Getting started](doc:draft-getting-started-ai) and [Getting started with layout-based extractions](doc:getting-started).
+- Learn  to extract data, or use out-of-the-box supported document types. See [Getting started](doc:getting-started-ai) and [Getting started with layout-based extractions](doc:getting-started).
 - [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
 - [**Validate**](doc:validate-extractions) extracted data by writing rules for custom errors like `extracted zip code is invalid format` 
-- [**Monitor**](doc:metrics) extracted data in production
+- [**Monitor**](doc:metrics) extraction metrics in production
 - [**Review**](doc:human-review) and correct extracted data at the field level using the review UI
 
 

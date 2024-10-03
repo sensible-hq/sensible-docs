@@ -1,18 +1,18 @@
 ---
-title: "Advanced prompt configuration"
+title: "Advanced LLM prompt configuration"
 hidden: false
 ---
 
 
-You can configure the full prompt that Sensible inputs to a large language model (LLM). You can apply configurations to multiple fields in a config, and you can override them for individual fields.
+To [troubleshoot LLM extractions](doc:troubleshoot-llms), you can configure the full prompt that Sensible inputs to a large language model (LLM). A *full prompt* is the combination of user-author LLM prompts and additional back-end prompts.
 
-When you write a prompt in an LLM-based method, Sensible combines your prompt with other information to create the full prompt. The full prompt includes:
+In detail, when you write a prompt using an LLM-based method, Sensible creates a full prompt using the following:
 
 - a prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. For more information about chunking configuration, see the Notes section.
-- concatenated descriptive prompts you configure in an LLM-based method, such as in the [List](doc:list-tips) or [Query Group](doc:query-group-tips) methods.
+- concatenated descriptive prompts you configure in an LLM-based method, such as in the [List](doc:list) or [Query Group](doc:query-group) methods.
 
-See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query Group](doc:query-group-tips) method: 
+See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query Group](doc:query-group) method: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
@@ -23,7 +23,7 @@ The following table shows parameters that configure parts of the full prompt and
 | A    | Overall description of the chunks.<br/>The preceding image shows an example of a user-configured context description overriding the default. | Context Description                                          |
 | B    | Page metadata for chunks.                                    | Page Hinting                                                 |
 | C    | Chunks, or "context", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
-| D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:table-tips) method. | Description                                                  |
+| D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description                                                  |
 
 You can configure the preceding parameters in the JSON editor and in the visual editor.
 

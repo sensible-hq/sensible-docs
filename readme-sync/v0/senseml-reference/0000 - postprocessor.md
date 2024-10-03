@@ -53,7 +53,7 @@ Using a postprocessor, you can transform the extracted data into a custom schema
 }
 ```
 
-The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it supports more [extended jsonLogic operations](doc:jsonlogic) and can output an arbitrary schema instead of outputting fields. 
+The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it supports more [extended jsonLogic operations](doc:draft-jsonlogic) and can output an arbitrary schema instead of outputting fields. 
 
 Postprocessor output is available in the `postprocessorOutput` object in the API response and in the `postprocessor` tab in the JSON editor: 
 

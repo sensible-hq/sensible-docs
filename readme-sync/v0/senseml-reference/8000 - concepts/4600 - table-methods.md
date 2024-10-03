@@ -1,5 +1,5 @@
 ---
-title: "Choosing a Table method"
+title: "Table methods"
 hidden: false
 ---
 

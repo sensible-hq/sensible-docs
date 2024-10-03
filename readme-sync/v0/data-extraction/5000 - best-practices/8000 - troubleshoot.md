@@ -8,7 +8,7 @@ Sensible offers you several ways to troubleshoot your configs and extractions.
 API logging levels
 ----
 
-To troubleshoot extractions in API or SDK responses, you can add a verbosity level to a config. For more information, see [verbosity](doc:verbosity).
+To troubleshoot extractions in API or SDK responses, you can configure verbosity level. For more information, see [verbosity](doc:verbosity).
 
 
 Inspect extracted text
@@ -46,10 +46,10 @@ You can inspect a line to see:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_details.png)
 
-Inspect SenseML
+Inspect source text
 -----
 
-The Sensible app visually represents SenseML queries in rendered documents using colored symbols. For more information, see [UI guide](doc:color).
+The Sensible app visually represents SenseML queries in rendered documents using colored symbols. For more information, see [Source text traceability](doc:color).
 
 Lint SenseML
 ----
@@ -60,5 +60,7 @@ The SenseML pane has a built-in linter for both JSON and the SenseML model. If y
 
 You can also use the linter to autocomplete parameters.
 
+## Notes
 
+For more troubleshooting tips, see [Troubleshooting LLM extractions](doc:troubleshoot-llms).
 

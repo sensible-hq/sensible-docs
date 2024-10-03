@@ -1,5 +1,5 @@
 ---
-title: "Testing before integrating configs"
+title: "Environments"
 hidden: false
 ---
 
@@ -13,7 +13,7 @@ Environment fallback behavior
 
 When you  specify `?environment=development` in an API endpoint, Sensible falls back to the production version for each configuration if it can't find a development version.
 
-To understand fallback behavior, imagine the document type `test_doc_type` has the following config versions, which fit a `document_a` with varying degrees of accuracy:
+To understand fallback behavior in detail, imagine the document type `test_doc_type` has the following config versions, which fit a `document_a` with varying degrees of accuracy:
 
 | Config  | Version in prod | Version in dev       |
 | ------- | --------------- | -------------------- |

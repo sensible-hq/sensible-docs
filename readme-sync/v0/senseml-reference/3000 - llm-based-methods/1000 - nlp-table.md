@@ -2,28 +2,19 @@
 title: "NLP table"
 hidden: false
 ---
-Extracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages.
+Extracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages. This method is suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements or other complex table layouts. For alternatives to this method, see [Table methods](doc:table-methods). 
 
-For tips on authoring this method in the visual editor, see [NLP Table tips](doc:table-tips).
+#### Prompt Tips
 
-**Advantages**
+- Extract all columns to get the best results. If you describe only a few of the columns, your results may be less accurate.
 
-- Low code. Describe what you want to extract in prompts for a large language model (LLM).
-- Can reformat or filter extracted column data based on your prompts. 
-- Doesn't require an [anchor](doc:anchor).
+- Use the table titles or table column headers in the document as descriptions.
 
-**Limitations**
+- For more information about how to write descriptions, or "prompts", see [Query Group](doc:query-group).
 
-- Can have a moderate impact on performance. For more information, see [Optimizing extraction performance](doc:performance).
-- Suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements.
+- For advanced options, see [Advanced LLM prompt configuration](doc:prompt).
 
-**Alternatives**
-
-For alternatives to this method, see [Choosing a table method](doc:table-methods). 
-
-**How it works**
-
-For more information about how this method works, see [Notes ](doc:nlp-table#notes).
+For information about how this method works, see [Notes ](doc:nlp-table#notes).
 
 [**Parameters**](doc:nlp-table#parameters)
 [**Examples**](doc:nlp-table#examples)
@@ -47,12 +38,12 @@ Parameters
 | pageSpanThreshold                   | object                  | Configure the Page Span Threshold parameter to troubleshoot automatic multi-page table recognition. <br/>By default, Sensible detects multi-page tables by checking if the table is near the top or bottom of the page. If it is, Sensible searches previous and succeeding pages for continuations of the table. This default behavior fails when intervening, non-table text introduces a large vertical space between a multi-page table and the top or bottom of a page, bumping the table toward the center of the page. Examples of non-table text include footnotes and text box inserts. To allow for such large spaces, configure the following parameters:<br/>- `top`: number. default: 0.4. Sensible searches the previous page for a continuation of a multi-page table if the table starts in the top 40% of the page. Change the percent using this parameter.<br/>-  `bottom`: number. default: 0.2. Sensible searches the next page for a continuation of a multi-page table if the table ends in the bottom 20% of the page. Change the percent using this parameter.<br/>Sensible continues merging the multi-page table until the Page Span Threshold conditions are no longer met, or until Sensible encounters LLM token limits. |
 | detectTableStructureOnly            | boolean. default: false | Set this parameter to true to troubleshoot optional character recognition (OCR) in a table. If true, Sensible bypasses the text output by the table recognition OCR provider. Sensible instead recognizes the table's text using the  [OCR engine](doc:ocr-engine) specified by your document type, or by using text embedded in the document file if present. For an example, see [Example: Troubleshoot Table OCR](doc:fixed-table#example-troubleshoot-table-ocr).<br/>If `"detectTableStructureOnly": true` causes incorrect [line sorting](doc:lines#line-sorting), set `annotateSuperscriptAndSubscript": true` to correct the line sorting.<br/> |
 | annotateSuperscriptAndSubscript     | boolean. default: false | Set to true only if the Detect Table Structure Only parameter is set to true. When true:<br/>-  Sensible annotates subscript and superscript text in the table with `[^...]` and `[_...]`, respectively. This parameter doesn't support annotating text in multi-line cells. |
-| contextDescription                  |                         | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| pageHinting                         |                         | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkCount                          | default: 5              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkSize                           | default: 0.5            | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkOverlapPercentage              | default: 0.5            | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| pageRange                           |                         | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| contextDescription                  |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| pageHinting                         |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkCount                          | default: 5              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkSize                           | default: 0.5            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkOverlapPercentage              | default: 0.5            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| pageRange                           |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
 
 
 
@@ -336,5 +327,5 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible concatenates a number of the first rows of the table with the table title.  Sensible uses the table title extracted by the table OCR provider, or falls back to using the text in a region above the table if the OCR provider doesn't find a title.
 
    - Sensible compares the two concatenations using the OpenAI Embeddings API. 
-5. Sensible creates a full prompt for the LLM (GPT-4) that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt). The full prompt instructs the LLM to restructure the best-scoring table based on your column descriptions and your overall table description. 
+5. Sensible creates a full prompt for the LLM (GPT-4) that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt). The full prompt instructs the LLM to restructure the best-scoring table based on your column descriptions and your overall table description. 
 6. Sensible returns the restructured table.

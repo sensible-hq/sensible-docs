@@ -4,13 +4,35 @@ hidden: false
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. 
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
 
-Sensible uses a large language model (LLM)  to find data in paragraphs of free text, in images, or in more structured layouts, for example key/value pairs or tables. Create a query group to extract multiple facts that share a [context](doc:query-group#notes), or are co-located in the document.
+Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page.
 
-For tips and troubleshooting, see [Query Group](doc:query-group-tips) extraction tips.
+For example, contact information can usually be found in the same location of a document:
 
-For more information about how this method works, see [Notes](doc:query-group#notes).
+```json
+Janelle Smith
+New York City, NY
+(123) 456-7890
+jsmith@email.com 
+```
+
+Combining queries for the custom name, location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. Frame each query, or prompt, in the group so that it has a single, short answer. Sensible recommends a maximum group size of 10 queries.
+
+#### Prompt Tips
+
+- Try framing each query, or prompt, so that it has a single, short answer such as:
+
+  - "company address"
+  - "name of recipient"
+  - "document date"
+- See the following resources for creating prompts:
+
+  -  [Prompt engineering](https://platform.openai.com/docs/guides/prompt-engineering)
+  -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
+  -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
+
+For information about how this method works, see [Notes](doc:query-group#notes).
 
 [**Parameters**](doc:query-group#parameters)
 [**Examples**](doc:query-group#examples)
@@ -21,7 +43,7 @@ Parameters
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method. 
 
-**Note** You can configure some of the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you c
+**Note** You can configure some of the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrides the NLP preprocessor's parameter.
 
 
 
@@ -44,13 +66,13 @@ Parameters
 | multimodalEngine       | object                  | Configure this parameter to:<br/>- Extract data from images embedded in a document, for example, photos, charts, or illustrations.<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines, lines between lines, and handwriting. For example, use this as an alternative to the [Signature](doc:signature) method, the [Nearest Checkbox](doc:nearest-checkbox) method, the [OCR engine](doc:ocr-engine), and line [preprocessors](doc:preprocessors).<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM (GPT-4 Vision Preview), so that you can ask questions about text and non-text images. This bypasses Sensible's [OCR](doc:ocr) and direct-text extraction processes for the region. Note that this option doesn't support confidence signals.<br/>This parameter has the following parameters:<br/><br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/><br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. If you configure this option for a non-text image, then help Sensible locate the context by including queries in the group that target text near the image, or by specifying the nearby text in the Chunk Scoring Text parameter. <br/><br/>- To manually specify a region, specify an [anchor](doc:anchor) close to the region you want to capture. Specify the region's dimensions in inches relative to the anchor using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |
 | searchBySummarization  | boolean. default: false | Set this to true to troubleshoot situations in which Sensible misidentifies the part of the document that contains the answers to your prompts. <br/>This parameter is compatible with documents up to 1,280 pages long.<br/>When true, Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag): Sensible prompts an LLM to summarize each page in the document, prompts a second LLM to return the pages most relevant to your prompt based on the summaries, and extracts the answers to your prompts from those pages.<br/>If you set this parameter to true, then Sensible sets the following for chunk-related parameters and ignores any configured values:<br/><br/>-  Chunk Size parameter: 1<br/>- Chunk Overlap Percentage parameter: 0<br/><br/>For more information about this parameter, see the Notes section. |
 | llmEngine              | object                  | Where applicable, configures the LLM engine Sensible uses to answer your prompts. <br/>Configure this parameter to troubleshoot situations in which Sensible correctly identifies the part of the document that contains the answers to your prompts, but the LLM's answer contains problems. For example, Sensible returns an LLM error because the answer isn't properly formatted, or the LLM doesn't follow instructions in your prompt.<br/><br/>Contains the following parameters:<br/>`provider`:  <br/>- If set to `open-ai` (default), Sensible uses GPT-4o mini  where not hard coded. See the Notes section for more information.  <br/> - If set to `anthropic`, Sensible uses Claude 3 Haiku where not hard coded. See the Notes section for more information. |
-| confidenceSignals      |                         | For information about this parameter, see [Advanced prompt configuration](doc:prompt). |
-| contextDescription     |                         | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| pageHinting            |                         | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkCount             | default: 5              | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkSize              | default: 0.5            | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| chunkOverlapPercentage | default: 0.5            | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
-| pageRange              |                         | For information about this parameter, see [Advanced prompt configuration](doc:prompt#parameters). |
+| confidenceSignals      |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt). |
+| contextDescription     |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| pageHinting            |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkCount             | default: 5              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkSize              | default: 0.5            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkOverlapPercentage | default: 0.5            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| pageRange              |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
 
 ## Examples
 
@@ -397,7 +419,7 @@ The following image shows the example document used with this example config:
   - To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
   - Sensible scores each chunk by its similarity to either the concatenated Description parameters for the queries in the group, or by the `chunkScoringText` parameter. Sensible scores each chunk using the OpenAPI Embeddings API.
   - Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
-  - Sensible creates a full prompt for the LLM (as determined by the LLM Engine parameter) that includes the chunks, page hinting data, and your Description parameters. For more information about the full prompt, see [Advanced prompt configuration](doc:prompt).
+  - Sensible creates a full prompt for the LLM (as determined by the LLM Engine parameter) that includes the chunks, page hinting data, and your Description parameters. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt).
 
 - For an overview of how this method works when `"searchBySummarization": true`, see the following steps.
   1. Sensible prompts an LLM (GPT-4o mini) to summarize each page in the document. Sensible ignores the Chunk Scoring Text parameter.

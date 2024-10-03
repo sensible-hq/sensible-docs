@@ -113,8 +113,8 @@ Sensible recommends grouping similar documents, for example, bank statements, in
 
 ### Learn more about extraction
 
-- See [prompt authoring tips](doc:prompt-tips).
 - For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
+
 
 ### Integrate
 

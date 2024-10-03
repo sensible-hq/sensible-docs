@@ -25,7 +25,7 @@ Confidence signals are an alternative to confidence scores and to error messages
 
 ### Create fallbacks for null responses or false positives
 
-Sometimes an LLM prompt works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. Rather than rewrite the prompt, which can cause regressions, create fallbacks targeted at the failing documents. For more information, see [Using fallbacks](doc:fallbacks).
+Sometimes an LLM prompt works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. Rather than rewrite the prompt, which can cause regressions, create fallbacks targeted at the failing documents. For more information, see [Fallback strategies](doc:fallbacks).
 
 ### Trace source context
 
@@ -41,9 +41,9 @@ You can view the source text for an LLM's answer highlighted in the document for
 
 ### Specify source context
 
-Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts. To troubleshoot locating [context](doc:prompt#notes) in the document:
+Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts.  To troubleshoot targeting the wrong source text, or [context](doc:prompt#notes), in the document:
 
 - For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
 
-- If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced prompt configuration](doc:prompt).  
+- If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced LLM prompt configuration](doc:prompt).  
 

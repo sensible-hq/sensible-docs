@@ -6,7 +6,7 @@ hidden: true
 
 ## Deprecated
 
-This method is deprecated. [LLM-based methods](doc:prompt-tips) replace this method.
+This method is deprecated. [LLM-based methods](doc:llm-based-methods) replace this method.
 
 ## Description
 

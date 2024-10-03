@@ -1,5 +1,5 @@
 ---
-title: "Reviewing extractions"
+title: "Human review"
 hidden: false
 ---
 
