@@ -25,7 +25,7 @@ Confidence signals are an alternative to confidence scores and to error messages
 
 ### Create fallbacks for null responses or false positives
 
-Sometimes an LLM prompt works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. Rather than rewrite the prompt, which can cause regressions, create fallbacks targeted at the failing documents. For more information, see [Using fallbacks](doc:fallbacks).
+Sometimes an LLM prompt works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. Rather than rewrite the prompt, which can cause regressions, create fallbacks targeted at the failing documents. For more information, see [Fallback strategies](doc:fallbacks).
 
 ### Trace source context
 

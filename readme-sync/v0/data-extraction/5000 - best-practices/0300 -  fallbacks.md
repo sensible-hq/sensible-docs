@@ -1,14 +1,14 @@
 ---
-title: "Using fallbacks"
+title: "Fallback strategies"
 hidden: false
 ---
 
 Use Sensible's fallback mechanisms to solve missing or inaccurately extracted data. You can set fallbacks at different levels of granularity: 
 
 - You can fall back from one field to another, allowing you to try multiple methods or prompts to extract a target piece of data from the same document. Define fallback fields in the fields array, where each fallback shares the same field ID.
-- You can fall back from one config to another, allowing you to try multiple configs on the same document and pick the winning config. Define fallback configs using [fingerprints](doc:fingerprint).
+- You can fall back from one config to another, allowing you to try multiple configs on the same document and pick the winning config. Specify fallback configs using [fingerprints](doc:fingerprint).
 
-For example, see the following sections.
+For examples, see the following sections.
 
 ## Fix nulls and false positives with field fallbacks
 
