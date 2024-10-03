@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-To [troubleshoot LLM extractions](doc:troubleshoot-llms), you can configure the full prompt that Sensible inputs to a large language model (LLM). A *full prompt* is the combination of a user-author prompted and additional back-end LLM prompts.
+To [troubleshoot LLM extractions](doc:troubleshoot-llms), you can configure the full prompt that Sensible inputs to a large language model (LLM). A *full prompt* is the combination of user-author LLM prompts and additional back-end prompts.
 
 In detail, when you write a prompt using an LLM-based method, Sensible creates a full prompt using the following:
 
