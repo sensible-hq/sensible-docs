@@ -3,7 +3,7 @@ title: "Multi-document extractions"
 hidden: true
 ---
 
-TEST 
+ 
 
 Sensible supports extracting multiple documents from a single file (a "portfolio"). For example, for a portfolio PDF file containing two invoices, a 1040 tax document, and a contract, Sensible can segment out each document and return its extracted data separately. 
 
