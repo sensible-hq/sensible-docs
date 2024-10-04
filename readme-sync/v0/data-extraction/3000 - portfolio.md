@@ -20,43 +20,44 @@ Other tradeoffs between LLM and layout-based methods apply. For more tradeoffs, 
 
 To extract from a portfolio, take the following steps:
 
-- Enable segmentation with one of the following alternatives: 
+1. Enable segmentation with one of the following alternatives: 
+
   -  **LLM mode**: In the document type's **Settings** tab, describe the document type in the **LLM portfolio description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [LLM portfolio description](doc:portfolio). 
   -  **Fingerprint mode**: Specify [fingerprints](doc:fingerprint) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
 
-- Create an extraction request by taking the following steps:
+2. Create an extraction request with one of the following alternatives:
 
-  - **Sensible app**: 
-    
-    - On the **Extract** tab, upload the portfolio file.
-    - Click the **Portfolio** button and specify either **fingerprint mode** or **LLM mode**.
-    - Select the document types contained in the portfolio file.
-    -  Click **Extract**. 
-    
-  - **API or SDK**:     
+- **Sensible app**: 
   
-    - In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example:
+  - On the **Extract** tab, upload the portfolio file.
+  - Click the **Portfolio** button and specify either **fingerprint mode** or **LLM mode**.
+  - Select the document types contained in the portfolio file.
+  -  Click **Extract**. 
   
-      ```json
-      curl --location 'https://api.sensible.so/v0/extract_from_url?environment=production&document_name=portfolio_bank_paystub_tax' \
-      --header 'Content-Type: application/json' \
-      --header 'Authorization: ••••••' \
-      --data '{
-          "document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf",
-          "types": [
-                "bank_statements",
-                "pay_stubs",
-                "1040s"
-                
-           ],
-           "segment_documents_with": "llm"
-           
-      }'
-      ```
-  
-      For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides).  
-  
-  The extraction response includes document extractions and their page ranges in the portfolio.  
+- **API or SDK**:     
+
+  - In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example:
+
+    ```json
+    curl --location 'https://api.sensible.so/v0/extract_from_url?environment=production&document_name=portfolio_bank_paystub_tax' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: ••••••' \
+    --data '{
+        "document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf",
+        "types": [
+              "bank_statements",
+              "pay_stubs",
+              "1040s"
+              
+         ],
+         "segment_documents_with": "llm"
+         
+    }'
+    ```
+
+    For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides).  
+
+The extraction response includes document extractions and their page ranges in the portfolio.  
 
 # Examples
 
