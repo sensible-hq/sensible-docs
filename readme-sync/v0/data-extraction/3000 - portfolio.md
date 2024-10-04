@@ -45,7 +45,7 @@ To extract from a portfolio, take the following steps:
           "document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf",
           "types": [
                 "bank_statements",
-                "tax_forms",
+                "pay_stubs",
                 "1040s"
                 
            ],

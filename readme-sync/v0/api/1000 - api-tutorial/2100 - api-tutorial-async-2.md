@@ -16,14 +16,21 @@ For either option, you can get the results as soon as they're ready by specifyin
 Extract from a URL Sensible provides
 ====
 
-Prerequisites
-----
-
-See [prerequisites](doc:api-tutorial#prerequisites).
+## Prerequisites
 
 
-Generate the upload URL
-----
+To follow these tutorials, you need:
+
+- An [API key](https://app.sensible.so/account). Create this key after you sign up for a [Sensible account](https://app.sensible.so/register). 
+- [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed..
+
+## Configure the extraction
+
+To create example extraction configuration, follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add support for the **1040s** document type to your account. You'll use this document type in the following steps.
+
+
+## Generate the upload URL
+
 
 
 Generate a temporary, one-time Sensible URL for a document: 
@@ -32,7 +39,7 @@ Generate a temporary, one-time Sensible URL for a document:
 
 
 ```json
-curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \
+curl --request POST 'https://api.sensible.so/v0/generate_upload_url/1040s' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
 --data '{"content_type":"application/pdf"}'
@@ -49,13 +56,13 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/tax_forms' \
     "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
     "created": "2021-06-16T16:22:56.576Z",
     "status": "WAITING",
-    "type": "tax_forms",
+    "type": "1040s",
     "upload_url": "https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED"
 }
 ```
 
-Extract the data 
-----
+## Extract the data 
+
 
 
 Use the one-time URL you generated in the previous step to extract data from the document:
@@ -82,9 +89,9 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_headers_2.png)
 
-3. If you haven't already, download the following example document, which works with the example `tax_forms` document type you created in the **Prerequisites** section:
+3. If you haven't already, download the following example document, which works with the example `1040s` document type you created in the **Prerequisites** section:
 
-| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) |
 | --------------------------- | ------------------------------------------------------------ |
 
 4. Correct the path to the downloaded document in your request: click the **Body** tab, select **binary**, then click **Select file** and select the document:
@@ -98,8 +105,8 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_200.png) 
 
 
-Retrieve extraction
-----
+## Retrieve extraction
+
 
  To retrieve the document extraction, you have two options:
 

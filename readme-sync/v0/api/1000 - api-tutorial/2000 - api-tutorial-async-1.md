@@ -3,8 +3,6 @@ title: "Try asynchronous extraction from your URL"
 hidden: false
 ---
 
-
-
 Use Sensible's asynchronous endpoints in production scenarios. You have two options for asynchronous processing:
 
 - Provide your own URLs for your documents. 
@@ -18,11 +16,17 @@ For either option, you can get the results as soon as they're ready by specifyin
 Extract from a URL you provide 
 ====
 
-
 Prerequisites
-----
+---
 
-See [prerequisites](doc:api-tutorial#prerequisites).
+To follow these tutorials, you need:
+
+- An [API key](https://app.sensible.so/account). Create this key after you sign up for a [Sensible account](https://app.sensible.so/register). 
+- [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed.
+
+## Configure the extraction
+
+To create example extraction configuration, follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add support for the **1040s** document type to your account. You'll use this document type in the following steps.
 
 Extract the data 
 ----
@@ -32,10 +36,10 @@ To try out the [extract_from_url](https://docs.sensible.so/reference/extract-fro
 1. Copy the following code sample and replace `*YOUR_API_KEY*` with your [API key](https://app.sensible.so/account/):
 
    ```json
-   curl --request POST 'https://api.sensible.so/v0/extract_from_url/tax_forms' \
+   curl --request POST 'https://api.sensible.so/v0/extract_from_url/1040s' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --header 'Content-Type: application/json' \
-   --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf"}'
+   --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf"}'
    ```
 
    
@@ -51,11 +55,11 @@ To try out the [extract_from_url](https://docs.sensible.so/reference/extract-fro
        "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836",
        "created": "2021-06-15T16:29:27.875Z",
        "status": "WAITING",
-       "type": "tax_forms"
+       "type": "1040s"
    }
    ```
 
-**Note:** You don't have to specify the config for document (`1040_2021`) in this call. Sensible looks at all the configs for the document type (`tax_forms`), and **automatically** chooses the one that fits best!
+**Note:** You don't have to specify the config for document (`1040_2021`) in this call. Sensible looks at all the configs for the document type (`1040s`), and **automatically** chooses the one that fits best!
 
 Retrieve extraction
 ----

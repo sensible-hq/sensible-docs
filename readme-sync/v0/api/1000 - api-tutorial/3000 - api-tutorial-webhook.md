@@ -7,14 +7,20 @@ For asynchronous extractions, you can retrieve extraction results using either A
 
 For this tutorial, let's try a webhook in combination with the `/extract_from_url` endpoint. Note you can also use the webhook with the `/generate_upload_url` endpoint and other asynchronous endpoints. 
 
-Prerequisites
-====
-
-See [prerequisites](doc:api-tutorial#prerequisites). 
+## Prerequisites
 
 
-Configure the webhook
-====
+To follow these tutorials, you need:
+
+- An [API key](https://app.sensible.so/account). Create this key after you sign up for a [Sensible account](https://app.sensible.so/register). 
+- [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed.
+
+## Configure the extraction
+
+To create example extraction configuration, follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add support for the **1040s** document type to your account. You'll use this document type in the following steps.
+
+
+## Configure the webhook
 
 1. Generate a destination for the webhook: navigate to [https://webhook.site/](https://webhook.site/) to automatically create a unique test page:
 
@@ -24,10 +30,10 @@ Configure the webhook
 2. Copy the following code sample, and replace `YOUR_UNIQUE_URL` with your uniquely generated webhook.site URL: 
 
 ```json
-curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/tax_forms' \
+curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/1040s' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
---data-raw '{"document_url":"https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf",
+--data-raw '{"document_url":"https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf",
 "webhook": {"url":"YOUR_WEBHOOK_URL","payload":"some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc"}}'
 ```
 
@@ -39,8 +45,8 @@ curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/tax_
 
 4. Click **Send** in Postman.
 
-Check the webhook response
-====
+## Check the webhook response
+
 
 Visit your unique URL at webhook.site to verify there's a response at the URL that includes  `parsed_document` and  `webhook` objects that look something like the following: 
 

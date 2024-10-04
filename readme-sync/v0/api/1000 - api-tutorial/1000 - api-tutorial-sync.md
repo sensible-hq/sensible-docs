@@ -8,7 +8,7 @@ Try out a test endpoint, the [/extract endpoint](https://docs.sensible.so/refere
 Audience
 ---
 
-If you're new to APIs, use this tutorial to return document data from an example tax form.
+If you're new to APIs, use this tutorial to return document data from an example tax document.
 
 Or, if you're familiar with APIs:
 
@@ -21,7 +21,15 @@ Or, if you're familiar with APIs:
 Prerequisites
 ---
 
-See [prerequisites](doc:api-tutorial#prerequisites).
+To follow these tutorials, you need:
+
+- An [API key](https://app.sensible.so/account). Create this key after you sign up for a [Sensible account](https://app.sensible.so/register). 
+- [Postman](https://www.postman.com/) desktop app, or a command line with cURL installed.
+- An example extraction configuration. See the following section.
+
+## Configure the extraction
+
+To create example extraction configuration, follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add support for the **1040s** document type to your account. You'll use this document type in the following steps.
 
 Run the request in Postman
 ----
@@ -33,7 +41,7 @@ To run a Sensible API request in Postman, follow these steps:
 
 ```curl
 curl --request POST \
-  --url 'https://api.sensible.so/v0/extract/tax_forms' \
+  --url 'https://api.sensible.so/v0/extract/1040s' \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --header 'Content-Type: application/pdf' \
   --data-binary '@/PATH_TO_DOWNLOADED_DOCUMENT.pdf'
@@ -43,9 +51,9 @@ curl --request POST \
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_import.png)
 
-3. Download the following example document, which works with the prerequisite  **tax_forms**  document type:
+3. Download the following example document, which works with the prerequisite  **1040s**  document type:
 
-| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) |
 | ----------- | ------------------------------------------------------------ |
 
 4.  Correct the path to the downloaded document: In the request, click the **Body** tab, select **binary**, then click **Select file** and select the document you downloaded:
@@ -95,7 +103,7 @@ curl --request POST \
 }
 ```
 
-**Note:**  Did you notice that this API call doesn't specify a config (`1040_2021`)? As a convenience, Sensible evaluates all the configs for the document type  (`tax_forms`), and **automatically** chooses the one that fits best.
+**Note:**  Did you notice that this API call doesn't specify a config (`1040_2021`)? As a convenience, Sensible evaluates all the configs for the document type  (`1040s`), and **automatically** chooses the one that fits best.
 
 (Optional) See how it works in the Sensible app
 =====
@@ -104,7 +112,7 @@ To see this example in the Sensible app:
 
 1. Log into the [Sensible app](https://app.sensible.so/signin/).
 
-2. Navigate to the [1040 configuration](https://app.sensible.so/editor/?d=tax_forms&c=1040_2021&g=1040_2021_sample) in the **tax forms** document type.
+2. On the **Document types** tab, select the **1040s** document type, then select the 1040_2021 configuration.
 
 3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the configuration for the API call you just ran:
 

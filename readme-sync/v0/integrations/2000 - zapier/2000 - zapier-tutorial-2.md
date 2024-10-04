@@ -27,12 +27,12 @@ Take the following steps to run these Zaps with example data, then modify them f
 Prerequisite: Configure 1040 extractions in Sensible
 ----
 
-Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to configure extracting data from a 1040 tax form. 
+Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `1040s`  document type to your account. 
 
 Prerequisite: Configure Google accounts
 ----
 
-1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
+1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
 2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data.
 3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email link`, and `Extraction link`.
 
@@ -79,18 +79,17 @@ See the following steps to configure Zap 2.
 
 Congratulations, your integration is now published and running! Take the following steps to continue populating a Google folder from example documents:
 
-1. Email the following example 1040 documents to the Gmail account, ensuring that they match the search criteria you created in Zapier:
-   - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018)
-   - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)
-   - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)
+1. Download example 1040 documents from the Sensible [library](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s/refdocs).
 
-2. Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, navigate to the **Zaps** tab in Zapier, right-click the Zap's ellipsis (...) icon and click **Run**.
+2. Email the example 1040 documents to the Gmail account, ensuring that they match the search criteria you created in Zapier:
 
-3. Wait a few minutes, then verify the extractions show up in your Google Drive folder as spreadsheets:
+3. Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, navigate to the **Zaps** tab in Zapier, right-click the Zap's ellipsis (...) icon and click **Run**.
+
+4. Wait a few minutes, then verify the extractions show up in your Google Drive folder as spreadsheets:
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_3.png)
 
-4. Verify the extractions show up in your optionally configured logs:
+5. Verify the extractions show up in your optionally configured logs:
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_4.png)
 

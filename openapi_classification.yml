@@ -295,7 +295,7 @@ components:
       example:
         document_type:
           id: 77c2ab88-3389-4ea8-93c7-912c2bfd373a
-          name: tax_forms
+          name: 1040s
           score: 0.9637581544082083
         reference_documents:
         - id: b4fbc822-de99-4916-b43a-2902131f2619

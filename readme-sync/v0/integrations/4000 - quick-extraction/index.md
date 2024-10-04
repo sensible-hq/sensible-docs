@@ -20,9 +20,9 @@ Take the following steps:
 
 2. Select **Document** for single-document files or **Portfolio** for [documents bundled into a single file](doc:portfolio).
 
-3. In the **Document type** dropdown in the right pane, select the category that describes your document, for example, `resumes` or `tax_forms`. For portfolios, select multiple types.
+3. In the **Document type** dropdown in the right pane, select the category that describes your document, for example, `resumes` or `bank_statements`. For portfolios, select multiple types.
 
-   If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . The `sensible_instruct_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
+   Note: If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . The `sensible_instruct_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 

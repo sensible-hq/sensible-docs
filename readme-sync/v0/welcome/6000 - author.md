@@ -17,7 +17,7 @@ See the following table to learn more about extraction strategies:
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | LLMs              | [Getting started](doc:getting-started-ai)                    | Prompt an LLM by describing the data you want to extract.    |
 | layout-based      | [Getting started with layout-based extractions](doc:getting-started) | To extract from complex document layouts, author layout-based queries. |
-| out-of-the-box    | [Getting started with out-of-the-box extractions](doc:library-quickstart) | Sensible provides out-of-the-box extraction configurations for common business and tax forms. Use Sensible's pre-built, open-source [configuration library](https://github.com/sensible-hq/sensible-configuration-library/) to extract key information from tax forms such as 1099s, major carrier insurance declaration pages, and other documents. Then tweak the pre-built configurations for your custom data needs. |
+| out-of-the-box    | [Getting started with out-of-the-box extractions](doc:library-quickstart) | Sensible provides out-of-the-box extraction configurations for common business forms. Use Sensible's pre-built, open-source [configuration library](https://github.com/sensible-hq/sensible-configuration-library/) to extract key information from tax documents such as 1040s, major carrier insurance declaration pages, and other documents. Then tweak the pre-built configurations for your custom data needs. |
 
 See the following table for an overview of the pros and cons of LLMs versus layout-based extraction:
 
