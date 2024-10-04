@@ -54,7 +54,7 @@ To extract from a portfolio, take the following steps:
       }'
       ```
   
-      For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides)  
+      For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides).  
   
   The extraction response includes document extractions and their page ranges in the portfolio.  
 
@@ -62,11 +62,11 @@ To extract from a portfolio, take the following steps:
 
 ## LLM example
 
-The following example shows extracting three documents from a portfolio using LLMs to segment the documents. The portfolio contains a bank statement, a paystub, and a tax form. To try out the example, take the following steps:
+The following example shows extracting three documents from a portfolio using LLMs to segment the documents. The portfolio contains a bank statement, a paystub, and a tax document. To try out the example, take the following steps:
 
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart)  to add support for the **bank statements**, **1040s**, and **pay stubs** document types to your account.
 
-   **Note:** Each out-of-the-box document type comes preconfigured with a description in its **LLM portfolio description** field. The descriptions are as follows:
+   **Note:** Each out-of-the-box document type comes preconfigured with a description in its **LLM portfolio description** field to enable LLM-based portfolio segmentation. The descriptions are as follows:
 
    | document type   | LLM portfolio description                                    |
    | --------------- | ------------------------------------------------------------ |
