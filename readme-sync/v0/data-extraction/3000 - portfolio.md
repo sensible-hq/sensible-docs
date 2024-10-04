@@ -3,26 +3,193 @@ title: "Multi-document extractions"
 hidden: false
 ---
 
-Sensible supports extracting multiple documents from a single file (a "portfolio"). For example, for a portfolio PDF file containing two invoices, a 1040 tax document, and a contract, Sensible can segment out each document and return its extracted data separately. 
+ Sensible supports extracting multiple documents from a single file (a "portfolio"). For example, for a portfolio PDF file containing two invoices, a 1040 tax document, and a contract, Sensible can segment each document by its page range in the file, and return its extracted data separately. 
 
-Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type, rather than creating a "combined_tax_and_invoice" doc type.
+Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type for the portfolio file in the previous example, rather than creating a "combined_tax_and_invoice" doc type.
+
+To extract from a portfolio,  you have the following options:
+
+|                     | LLM-based                                                    | Text-based ("fingerprints")                                  |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. | Sensible finds user-configured text matches ("fingerprints") to segment documents |
+| Granularity         | at the document type level                                   | at the config level                                          |
+
+Other tradeoffs between LLM and layout-based methods apply. For more tradeoffs, see [Choosing an extraction approach](doc:author).
+
+## Extracting from a portfolio
 
 To extract from a portfolio, take the following steps:
 
-- Specify [fingerprints](doc:fingerprint) to configure how Sensible segments the portfolio into documents. Fingerprints test for text matches on first pages, last pages, and other page types.
+- Enable segmentation with one of the following alternatives: 
+  -  **LLM mode**: In the document type's **Settings** tab, describe the document type in the **LLM portfolio description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [LLM portfolio description](doc:portfolio). 
+  -  **Fingerprint mode**: Specify [fingerprints](doc:fingerprint) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
+
 - Create an extraction request by taking the following steps:
 
-  - Indicate the file is a portfolio:
-    - Sensible app: Click the **Portfolio** button on the **Extract** tab.
-    - SDKs: Specify the Document Types parameter in the Extract method.
-    - API:  Use one of the Portfolio extraction endpoints. 
+  - **Sensible app**: 
+    
+    - On the **Extract** tab, upload the portfolio file.
+    - Click the **Portfolio** button and specify either **fingerprint mode** or **LLM mode**.
+    - Select the document types contained in the portfolio file.
+    -  Click **Extract**. 
+    
+  - **API or SDK**:     
+  
+    - In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example:
+  
+      ```json
+      curl --location 'https://api.sensible.so/v0/extract_from_url?environment=production&document_name=portfolio_bank_paystub_tax' \
+      --header 'Content-Type: application/json' \
+      --header 'Authorization: ••••••' \
+      --data '{
+          "document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf",
+          "types": [
+                "bank_statements",
+                "tax_forms",
+                "1040s"
+                
+           ],
+           "segment_documents_with": "llm"
+           
+      }'
+      ```
+  
+      For information about extracting from portfolios using the SDKs, see the [SDK documentation](doc:sdk-guides)  
+  
+  The extraction response includes document extractions and their page ranges in the portfolio.  
+
+# Examples
+
+## LLM example
+
+The following example shows extracting three documents from a portfolio using LLMs to segment the documents. The portfolio contains a bank statement, a paystub, and a tax form. To try out the example, take the following steps:
+
+1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart)  to add support for the **bank statements**, **1040s**, and **pay stubs** document types to your account.
+
+   **Note:** Each out-of-the-box document type comes preconfigured with a description in its **LLM portfolio description** field. The descriptions are as follows:
+
+   | document type   | LLM portfolio description                                    |
+   | --------------- | ------------------------------------------------------------ |
+   | bank statements | List of all transactions for a bank account over a set period |
+   | pay stubs       | Historic payments to employees                               |
+   | 1040s           | The standard individual income tax return form for U.S. taxpayers to report their annual income and calculate their federal tax liability. |
+
+3. Download the following example document:
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf) |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 
-  - In the request, specify the doc types that exist in the portfolio. For example, using the API, `"types": ["insurance_quote", "insurance_loss_run"]`. The extraction response includes document extractions and their page ranges in the portfolio.
+4. In the **Extract** tab, upload the example document, select **Portfolio**, select **LLM mode**, and select the document types you just added support for:
+
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav_2.png) 
+
+5. Click **Extract**.  After the extraction completes, you can navigate through the extraction results in the portfolio using the dropdown:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav.png)
+
+You should see results like the following:
+
+#### Pages 1 - 2 | 1040s | 1040_2019
+
+```json
+{
+  "year": {
+    "type": "string",
+    "value": "2020"
+  },
+  "filing_status.single": {
+    "type": "boolean",
+    "value": false
+  },
+  "filing_status.marrid_filing_jointly": {
+    "type": "boolean",
+    "value": true
+  },
+  "filing_status.marrid_filing_separately": {
+    "type": "boolean",
+    "value": false
+  },
+  "filing_status.head_of_household": {
+    "type": "boolean",
+    "value": false
+  },
+  "filing_status.qualifying_widow": {
+    "type": "boolean",
+    "value": false
+  },
+  "name": {
+    "type": "string",
+    "value": "Kevin Finnerty"
+  },
+  "ssn": {
+    "type": "string",
+    "value": "091-30-1116"
+  },
+    /* etc */
+```
+
+#### Pages 3 - 7 | bank_statements | wells_fargo_checking
+
+```json
+{
+  "start_date": {
+    "source": "07/14/2021",
+    "value": "2021-07-14T00:00:00.000Z",
+    "type": "date"
+  },
+  "end_date": {
+    "source": "08/11/2021",
+    "value": "2021-08-11T00:00:00.000Z",
+    "type": "date"
+  },
+  "customer_name": {
+    "type": "string",
+    "value": "DOMINIC BOGDAN"
+  },
+  "customer_address": {
+    "value": "111 LAKES RD\nSAN DEGO CA 11111",
+    "type": "address"
+  },
+  "account_summary_table": null,
+
+/* etc */
+```
+
+#### Pages 8 - 8 | pay_stubs | pay_stubs
+
+```json
+{
+  "employer_name": {
+    "value": "Delta Airlines",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "employee_name": {
+    "value": "Clyde Drexler",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "employee_address": {
+    "value": "1123 Drive street",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "pay_date": null,
+  "pay_period_start_date": null,
+  "pay_period_end_date": null,
+  "net_pay": {
+    "source": "$2,076.28",
+    "value": 2076.28,
+    "unit": "$",
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
+  },
+```
 
 
-Examples
-===
+
+## Fingerprint example
 
 
 The following example shows extracting three one-page documents from a portfolio using fingerprints to segment the documents. The portfolio contains two car insurance quotes and one loss run.
