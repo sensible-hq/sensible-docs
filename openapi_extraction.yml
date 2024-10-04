@@ -408,6 +408,9 @@ paths:
                     $ref: '#/components/schemas/Webhook'
                   types:
                     $ref: '#/components/schemas/DocumentTypeNames'
+                  segment_documents_with:
+                    $ref: '#/components/schemas/SegmentDocumentsWith'                
+
                 required:
                   - types
       tags:
@@ -455,6 +458,8 @@ paths:
                     $ref: '#/components/schemas/DocumentUrl'
                   types:
                     $ref: '#/components/schemas/DocumentTypeNames'
+                  segment_documents_with:
+                    $ref: '#/components/schemas/SegmentDocumentsWith'
                   webhook:
                     $ref: '#/components/schemas/Webhook'
                 required:
@@ -1746,6 +1751,16 @@ components:
       items:
         type: string
         example: [tax_returns, bank_statements, credit_reports]
+    
+    SegmentDocumentsWith:
+      type: string
+      enum: [llm | fingerprints]
+      default: fingerprints
+      description: >- 
+        Specifies how to segment the page ranges of the documents in the portfolio.
+        For more information, see [Multi-document extraction](doc:portfolio).
+
+
     Webhook:
       type: object
       description: >-
