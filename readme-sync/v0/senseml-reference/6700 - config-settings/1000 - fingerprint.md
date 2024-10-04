@@ -87,7 +87,7 @@ A fingerprint consists of an array of tests, where each test contains a Page par
 
 Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:
 
-- If you specify a Match array in a test, then Sensible must find all the matches in the array on the same page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.
+- If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.
 - Sensible must find 100% of all matches in all tests to segment a document in a portfolio. In single-file documents, Sensible must find 50% of all matches anywhere in the document by default to give the document a "passing" score.
 
  The following table shows parameters for each test for  portfolio documents:
@@ -102,13 +102,74 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 
 Use the following tips when you define fingerprints for portfolios:
 
-- If the first page contains unique text, Sensible recommends specifying solely a `first` page test.
+####  page types
 
+- Only use  `"page": "first"` and  `"page": "last"` if you're confident that these pages will never be omitted from the document.
+- If using `"page": "first"` always pair it with another test type such as `"page": "every"` or `"page": "last"`.
 - If the first page doesn't contain unique text and the last page does, Sensible recommends specifying a `last` page test and an `every` page test. 
-
 - Avoid specifying an `any` page test unless other page types fail to segment the document.
-
 - If you want to specify fallback matches for the same page type, specify the matches in separate tests. For example, a form has revisions 1 and 2 that have slightly different wordings on the first page. Specify one test with a `first` page type and wording A, and specify a second test with a `first` page type and wording B.
+
+####  text matches
+
+- Sensible runs `fingerprints` before any `preprocessors`. Because of this, make sure to comment out any `preprocessors` before writing `fingerprints` so that the document in the editor displays the lines of text exactly as they will be recognized when the fingerprints tests are ran.
+
+- Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests.  In other words, don't write the following:
+
+```json
+// AVOID THIS SYNTAX
+"fingerprint": {
+    "tests": [
+      {
+        "page": "every"
+        "match": [
+          {
+            "text": "NARS",
+            "type": "includes",
+            "isCaseSensitive": true
+          }
+        ]
+      },
+      {
+        "page": "every"
+        "match": [
+          {
+            "text": "Name of Insured",
+            "type": "includes",
+            "isCaseSensitive": true
+          }
+        ]
+      },
+    ]
+  }
+```
+
+  Instead, write the following:
+
+```json
+// PREFER THIS SYNTAX
+"fingerprint": {
+    "tests": [
+      {
+        "page": "every"
+        "match": [
+					[
+          {
+            "text": "NARS",
+            "type": "includes",
+            "isCaseSensitive": true
+          },
+          {
+            "text": "Name of Insured",
+            "type": "includes",
+            "isCaseSensitive": true
+          },
+		  ]
+        ]
+      }
+    ]
+  }
+```
 
 
 
