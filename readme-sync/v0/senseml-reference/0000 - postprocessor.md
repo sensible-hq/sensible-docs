@@ -13,6 +13,8 @@ I'd be inclined to clarify in the object operator description description that i
 
 
 
+TODO: mention in docs that schema manipulated output doesn't show up in excel/csv exports since there's no way to map an arbitrary shema to a spreadsheet
+
 
 
 Define your own custom output schema with a [JsonLogic](https://jsonlogic.com/)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
