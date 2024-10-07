@@ -124,11 +124,11 @@ Or:
 
 ```json
 {
-    "object": [
+    "object": 
+        [
          /* where the JsonLogic operation returns `[["string", value] ...]`, e.g., map  */
          JsonLogic
         ]
-    ]
 }
 ```
 
