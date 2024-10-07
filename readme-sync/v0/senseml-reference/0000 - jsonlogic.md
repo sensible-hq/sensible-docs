@@ -15,14 +15,14 @@ JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is
 
 Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
 
-| Operation                                                    | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
-| ------------------------------------------------------------ | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
+| Operation                                              | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
+| ------------------------------------------------------ | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
 | [Exists](doc:jsonlogic#exists)                         | ✅                                       | ✅                                                   | ✅                                  |
 | [Match](doc:jsonlogic#match)                           | ✅                                       | ✅                                                   | ✅                                  |
 | [Replace](doc:jsonlogic#replace)                       | ✅                                       | ✅                                                   | ✅                                  |
 | [Object](doc:jsonlogic#object)                         | ❌                                       | ❌                                                   | ✅                                  |
-| [Array With Context](doc:jsonlogic#array-with-context) | ?                                       | ?                                                   | ✅                                  |
-| [Flatten](doc:jsonlogic#flatten)                       | ?                                       | ?                                                   | ✅                                  |
+| [Array With Context](doc:jsonlogic#array-with-context) | ? TODO                                  | ? TODO                                              | ✅                                  |
+| [Flatten](doc:jsonlogic#flatten)                       | ? TODO                                  | ? TODO                                              | ✅                                  |
 
 
 
