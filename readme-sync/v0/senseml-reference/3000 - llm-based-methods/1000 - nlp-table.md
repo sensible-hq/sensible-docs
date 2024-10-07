@@ -2,7 +2,7 @@
 title: "NLP table"
 hidden: false
 ---
-Extracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages. This method is suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements or other complex table layouts. For alternatives to this method, see [Table methods](doc:table-methods). 
+Extracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages. This method is suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements, or to other complex table layouts. For alternatives to this method, see [Table methods](doc:table-methods). 
 
 #### Prompt Tips
 
@@ -14,7 +14,7 @@ Extracts a table based on your natural-language description of the data you want
 
 - For advanced options, see [Advanced LLM prompt configuration](doc:prompt).
 
-For information about how this method works, see [Notes ](doc:nlp-table#notes).
+For information about how this method works, see [Notes](doc:nlp-table#notes).
 
 [**Parameters**](doc:nlp-table#parameters)
 [**Examples**](doc:nlp-table#examples)

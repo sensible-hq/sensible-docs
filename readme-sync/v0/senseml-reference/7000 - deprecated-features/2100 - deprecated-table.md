@@ -4,7 +4,7 @@ hidden: true
 ---
 # Deprecated
 
-This method is deprecated. To duplicate this method's function, use the [NLP Table ](doc:nlp-table)method and set the Rewrite Table parameter to false.
+This method is deprecated. To duplicate this method's function, use the [NLP Table](doc:nlp-table) method and set the Rewrite Table parameter to false.
 
 ## Description
 
