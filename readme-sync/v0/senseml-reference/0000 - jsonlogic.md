@@ -5,13 +5,15 @@ hidden: true
 
 TODO ON publish: X link from validations, postprocessor, and custom computation to this topic
 
-
-
 TODO: add very simple examples to each of these?
 
 TODO: update all my "jsonlogic" links to this topic, including this one: custom-computation#sensible-operations 
 
 INtroduce the CONCEPT of JSONLOGIC, refer reader to the ops page, and note the docs limits?
+
+
+
+JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. For more information about JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 
 Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
 
@@ -19,7 +21,7 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The
 | ------------------------------------------------------------ | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
 | [Exists](doc:draft-jsonlogic#exists)                         | ✅                                       | ✅                                                   | ✅                                  |
 | [Match](doc:draft-jsonlogic#match)                           | ✅                                       | ✅                                                   | ✅                                  |
-| [Replace](doc:draft-jsonlogic#replace)                       | mostly n/a (TODO: true??)               | ✅                                                   | ✅                                  |
+| [Replace](doc:draft-jsonlogic#replace)                       | ✅                                       | ✅                                                   | ✅                                  |
 | [Object](doc:draft-jsonlogic#object)                         | ❌                                       | ❌                                                   | ✅                                  |
 | [Array With Context](doc:draft-jsonlogic#array-with-context) | ?                                       | ?                                                   | ✅                                  |
 | [Flatten](doc:draft-jsonlogic#flatten)                       | ?                                       | ?                                                   | ✅                                  |
@@ -105,7 +107,7 @@ Where `regex` is a Javascript-flavored regular expression.  Double escape specia
 
 ## Object
 
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. 
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  One of the following syntaxes:
 
 ```json
 {
@@ -118,6 +120,18 @@ Returns a JSON object that is an array of key/value pairs. You can nest object o
 }
 ```
 
+Or:
+
+```json
+{
+    "object": [
+         /* where the JsonLogic operation returns `[["string", value] ...]`, e.g., map  */
+         JsonLogic
+        ]
+    ]
+}
+```
+
 As a simple example,  
 
 ```json
@@ -125,11 +139,11 @@ As a simple example,
     "object": [
         [
             [
-                "key_1",
-                "string_constant"
+                "customer_name",
+                "Erika Mustermann"
             ],
             [
-                "another_key",
+                "customer_acct",
                 {
                     // where the extracted field `account_number` has value `12345`
                     "var": "account_number.value"
@@ -144,50 +158,80 @@ returns:
 
 ```json
 {
-  "key_1": "string_constant",
-  "another_key": 12345
+  "customer_name": "Erika Mustermann",
+  "customer_acct": 12345
 }
 ```
-
-
 
 ### Examples
 
 See [Postprocessor](doc:postprocessor#examples). 
 
-
-
 ## Flatten
 
-takes in an array that may contain nested arrays, returns a single-level array populated with all the same values.
-
-- Example: `{ "flatten": [[1, [2, 3], [4, [5, 6]]] }` will return: `[1, 2, 3, 4, 5, 6]` 
-
-### Examples
+Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to a [merge](https://jsonlogic.com/operations.html#merge) except that it's recursive to any depth. For example,  `{ "flatten": [1, [2, 3], [4, [5, 6, 7]]] }` returns `[1, 2, 3, 4, 5, 6, 7]`.
 
 ## Array With Context
 
-The `"array_with_context"` operator is a convenience for shortening jsonLogic syntax when you write loops that operate on arrays.
+The `"array_with_context"` operator is a convenience for shortening jsonLogic syntax when you write loops that operate on arrays. It allows you to access parent variables inside nested loops.
 
-takes in an array (or something that evaluates to an array, like the result of another rule), returns a new array of objects with an `item` and `context` property, where `item` is the item from the passed-in array and `context` is the data in JsonLogic's context at the time of creation (it's what you would get if you used `{ var: "" }`). TODO: test this, not sure what this means exactly
+Takes as an input an array (or an operation that evaluates to an array), and returns a new array of objects with the following shape: 
 
-- Example: `{ "array_with_context": [1, 2, 3, 4] }` when  the current data is `{ "customer_name": "Your Name" }` will return TODO rewrite this to be more real world:
-
-```
+```json
 [
-  { "item": 1, "context": { "customer_name": "Your Name" } },
-  { "item": 2, "context": { "customer_name": "Your Name" } },
-  { "item": 3, "context": { "customer_name": "Your Name" } },
-  { "item": 4, "context": { "customer_name": "Your Name" } }
+    {
+        "item": "passed_in_array_item",
+        "context": "current_value"
+    },
+    {
+        "item": "passed_in_array_item",
+        "context": "current_value"
+    },
+    ....
 ]
 ```
 
-## Flatten
+where:
 
-  : takes in an array that may contain nested arrays to any depth, returns a single-level array populated with all the same values. It's similar to a [merge](https://jsonlogic.com/operations.html#merge) except it's recursive.
+- `item` is the item from the passed-in array
 
-  - Example: `{ "flatten": [1, [2, 3], [4, [5, 6, 7]]] }` will return: `[1, 2, 3, 4, 5, 6, 7]` TODO test this!
+- `context` is the data in JsonLogic's context at the time of creation, e.g., the result of `"var"` operation on the current item in a loop
 
-### Examples
+  
 
-TBOD
+**Example**
+
+
+
+
+
+![image-20241007114155231](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20241007114155231.png)
+
+For example, say you extract an array of product names,  `"product_names" : ["basic_term_life", "dental"]`  from the preceding table along with other data.       
+
+As part of a larger goal of transforming extracted data, you're looping through products for each customer. In the loop, you want to keep track of the employee name for each product. 
+
+If you use the operation:
+
+```json
+{ "array_with_context": ["basic_term_life", "dental"l] }
+```
+
+when in the current loop iteration,  `{ "var" : ["employee_name.value"] }`   evaluates to the current data  `"Smith, Zoe"`, you'll get as output: 
+
+
+
+```json
+[
+  { "item": "basic_term_life", "context": "Smith, Zoe" },
+  { "item": "dental", "context": "Smith, Zoe" },
+]
+```
+
+
+
+
+
+
+
+

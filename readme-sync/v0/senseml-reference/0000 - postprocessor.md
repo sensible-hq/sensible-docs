@@ -3,20 +3,6 @@ title: "Postprocessor"
 hidden: true
 ---
 
-> ![img](https://ca.slack-edge.com/T017UPRAE94-U0794D6MU56-6a77bb7ffdda-48)
-
-DevonDevon[Friday at 11:57 AM](https://sensiblehq.slack.com/archives/C0215T9K86P/p1726855039655909?thread_ts=1726764646.424009&cid=C0215T9K86P)
-
-I'd be inclined to clarify in the object operator description description that it's possible for object to take in the result of some other rule, rather than strictly needing the key/value pairs spelled out outright. That may be an unlikely scenario, and it may make it more complicated to think about, so I can also see the argument for not explicitly bringing this up here. (the example is passing object a map rule, where the map results in the right shape: [["some string", some value] ...])Otherwise it all makes sense to me!
-
----
-
-
-
-TODO: mention in docs that schema manipulated output doesn't show up in excel/csv exports since there's no way to map an arbitrary shema to a spreadsheet
-
-
-
 Define your own custom output schema with a [JsonLogic](https://jsonlogic.com/)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
 In detail, Sensible's `parsed_document` output schema represents extracted document data as follows:
@@ -61,74 +47,15 @@ Postprocessor output is available in the `postprocessorOutput` object in the API
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessed_tab.png) 
 
+Postprocessor output isn't available in [Excel output](doc:excel-reference).
+
 # Parameters
 
 
 | key                 | value                                      | description                                                  |
 | :------------------ | :----------------------------------------- | :----------------------------------------------------------- |
 | type (**required**) | `jsonLogic`                                | Supports [JsonLogic](https://jsonlogic.com/) and  Sensible's extended JsonLogic [operations](doc:custom-computation#sensible-operations) |
-| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using Sensible's [object](doc:custom-computation#object) operator and other . For more information, see the following section. |
-
-### Object operator
-
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. 
-
-```json
-{
-    "object": [
-        [
-         ["desiredKeyName", JsonLogic],
-         ["desiredKeyName", JsonLogic]
-        ]
-    ]
-}
-```
-
-As a simple example,  
-
-```json
-{
-    "object": [
-        [
-            [
-                "key_1",
-                "string_constant"
-            ],
-            [
-                "another_key",
-                {
-                    // where the extracted field `account_number` has value `12345`
-                    "var": "account_number.value"
-                }
-            ]
-        ]
-    ]
-}
-```
-
-returns:
-
-```json
-{
-  "key_1": "string_constant",
-  "another_key": 12345
-}
-```
-
-TODO: describe that if the output shape of a jsonlgoic operation is a hash (right word?) ie like map, then you can just input that: 
-
-```json
-{
-    "object": [
-        [
-         [ JsonLogic]
-         
-        ]
-    ]
-}
-```
-
-
+| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using Sensible's [object](doc:jsonlogic#object) operator and other extended operations. |
 
 # Examples
 
