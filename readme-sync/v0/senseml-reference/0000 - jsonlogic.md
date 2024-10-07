@@ -9,8 +9,6 @@ TODO: add very simple examples to each of these?
 
 TODO: update all my "jsonlogic" links to this topic, including this one: custom-computation#sensible-operations 
 
-INtroduce the CONCEPT of JSONLOGIC, refer reader to the ops page, and note the docs limits?
-
 
 
 JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. For more information about JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
