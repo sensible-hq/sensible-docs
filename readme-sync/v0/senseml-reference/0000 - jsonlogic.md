@@ -19,12 +19,12 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The
 
 | Operation                                                    | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
 | ------------------------------------------------------------ | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
-| [Exists](doc:draft-jsonlogic#exists)                         | ✅                                       | ✅                                                   | ✅                                  |
-| [Match](doc:draft-jsonlogic#match)                           | ✅                                       | ✅                                                   | ✅                                  |
-| [Replace](doc:draft-jsonlogic#replace)                       | ✅                                       | ✅                                                   | ✅                                  |
-| [Object](doc:draft-jsonlogic#object)                         | ❌                                       | ❌                                                   | ✅                                  |
-| [Array With Context](doc:draft-jsonlogic#array-with-context) | ?                                       | ?                                                   | ✅                                  |
-| [Flatten](doc:draft-jsonlogic#flatten)                       | ?                                       | ?                                                   | ✅                                  |
+| [Exists](doc:jsonlogic#exists)                         | ✅                                       | ✅                                                   | ✅                                  |
+| [Match](doc:jsonlogic#match)                           | ✅                                       | ✅                                                   | ✅                                  |
+| [Replace](doc:jsonlogic#replace)                       | ✅                                       | ✅                                                   | ✅                                  |
+| [Object](doc:jsonlogic#object)                         | ❌                                       | ❌                                                   | ✅                                  |
+| [Array With Context](doc:jsonlogic#array-with-context) | ?                                       | ?                                                   | ✅                                  |
+| [Flatten](doc:jsonlogic#flatten)                       | ?                                       | ?                                                   | ✅                                  |
 
 
 
