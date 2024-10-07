@@ -195,7 +195,7 @@ where:
 
 - `item` is the item from the passed-in array
 
-- `context` is the data in JsonLogic's context at the time of creation, e.g., the result of `"var"` operation on the current item in a loop
+- `context` is the data in JsonLogic's context at the time of creation, e.g., the result of a  `"var"` operation on the current item in a loop
 
   
 
@@ -227,7 +227,6 @@ when in the current loop iteration,  `{ "var" : ["employee_name.value"] }`   eva
   { "item": "dental", "context": "Smith, Zoe" },
 ]
 ```
-
 
 
 
