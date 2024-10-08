@@ -21,7 +21,7 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The
 | [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
 | [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
 | [Object](doc:jsonlogic#object)   | ❌                                       | ❌                                                   | ✅                                  |
-| [Flatten](doc:jsonlogic#flatten) | ? TODO                                  | ? TODO                                              | ✅                                  |
+| [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅ see example TODO                                  | ✅ see example                      |
 
 
 
@@ -166,7 +166,13 @@ See [Postprocessor](doc:postprocessor#examples).
 
 ## Flatten
 
-Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to the built-in JsonLogic [merge](https://jsonlogic.com/operations.html#merge) operation, except that it's recursive to any depth. For example:
+Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to the built-in JsonLogic [merge](https://jsonlogic.com/operations.html#merge) operation, except that it's recursive to any depth. 
+
+Note that output varies 
+
+### Examples
+
+For example:
 
 ````json
 {
