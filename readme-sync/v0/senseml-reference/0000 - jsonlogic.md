@@ -3,6 +3,10 @@ title: "JsonLogic extensions"
 hidden: true
 ---
 
+TODO on publish: RM ops from custom computation and xlink to this topic
+
+
+
 JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. 
 
 Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
