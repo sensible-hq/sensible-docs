@@ -198,7 +198,9 @@ The following example shows that the Flatten operation's output varies depending
       ]
     }
   },
-  /* wraps the returned output in value/type field syntax, i.e.,  */
+  /* since the output must be a field or fields,
+     wraps the returned output in value/type syntax, 
+     i.e., `{ "value": 1, "type": "number" }, { "value": 2, "type": "number" }, ... ]` */
   "computed_fields": [
     {
       "id": "flatten_in_custom_comp",
