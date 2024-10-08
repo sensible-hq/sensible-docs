@@ -5,11 +5,11 @@ hidden: false
 
  Quality control the data extractions in a document type by writing validations. For example, use validations to:
 
-- Test an extracted field's value using Boolean, logic, numeric, array, string, and other operations. For example, test that the field `bank_account_balance` is non-null and greater than $100.
+- Test an extracted field's value using Boolean, logic, numeric, array, string, and other operations. For example, test that the field `bank_account_balance` is non-null and greater than $100, or check fields' sums (e.g., initial balance + sum of credits - sum of debits = ending balance).
 - If Sensible extracted a field from OCR'd text,  test the confidence score for the field's anchor and value as a measure of the quality of the text images. For example, test that text in a scanned document isn't blurry or illegible.
 - Use validation output to automatically flag extractions for [review](doc:human-review) in the Sensible app. For example, flag a document extraction for [human review](doc:human-review) if 4 out of 5  validations fail.
 
-A validation is a rule for a field written in [JsonLogic](https://jsonlogic.com/)  that evaluate to true or false and either passes or fails.  Validations have access to fields' values in the `parsed_document` object.  Sensible uses validation errors to calculate [coverage](doc:metrics#extraction-coverage) for an extraction. 
+A validation is a condition for a field or fields written in [JsonLogic](https://jsonlogic.com/)  that evaluate to true or false and either passes or fails.  Validations have access to fields' values in the `parsed_document` object.
 
 Create validations
 ----
@@ -34,7 +34,7 @@ A validation has the following parameters:
 | description (**required**) | string                             | A description of the test                                    |
 | severity (**required**)    | `error`, `warning`, `skipped`      | The severity of the failing test.                            |
 | prerequisite fields        | array                              | Use this parameter to generate `skipped` error messages when optional extracted fields are null. For example, if a missing broker's email address doesn't greatly affect the quality of your extraction, then write a condition to verify `broker.email` is properly formatted, but specify [`"broker\\.email"`]  in this parameter to skip the verification if the email is null. For an example, see Validation 3 in the Examples section. <br/>Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). |
-| condition (**required**)   | JsonLogic object                   | Tests an extracted field with a rule that evaluates to true or false. Write the rule using Boolean, logic, numeric, array, string, and other operations.   Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with Sensible operations. For the list of Sensible operations, and for more information about syntax, see the [Custom Computation](doc:custom-computation) method. |
+| condition (**required**)   | JsonLogic object                   | Tests an extracted field or fields with a condition that evaluates to true or false. Write the condition using Boolean, logic, numeric, array, string, and other operations.  Supports all [JsonLogic operations](https://jsonlogic.com/operations.html)  and extends them with Sensible operations. For the list of Sensible operations, and for more information about syntax, see the [Custom Computation](doc:custom-computation) method. |
 | scope                      | array of section or subsection IDs | To create a validation for a field contained in [sections](doc:sections), specify the field's parent section ID in this parameter. For example, `["section_1"]`. <br/>To validate a field in nested sections, specify the scope in descending order. For example, to validate `field_a` in  `child_section_2`  that has parent `parent_section_1`, specify  `["parent_section_1", "child_section_2"]`  in this parameter. Sensible applies the validation to each instance of `field_a` in each instance of `child_section_2`.<br/>For an example, see  Validations 6. |
 
 Examples

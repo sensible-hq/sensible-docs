@@ -168,19 +168,17 @@ See [Postprocessor](doc:postprocessor#examples).
 
 Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to the built-in JsonLogic [merge](https://jsonlogic.com/operations.html#merge) operation, except that it's recursive to any depth. 
 
-Note that output varies 
-
 ### Examples
 
-For example:
+The following example shows that the Flatten operation's output varies depending on the context.
 
 ````json
 {
   "fields": [],
   "postprocessor": {
+    /* returns a flat array, i.e. [1,2,3,4,5,6,7] */
     "type": "jsonLogic",
     "rule": {
-      // return all members of the following nested array as a single-level array  
       "flatten": [
         [
           1,
@@ -199,13 +197,42 @@ For example:
         ]
       ]
     }
-  }
+  },
+  /* wraps the returned output in value/type field syntax, i.e.,  */
+  "computed_fields": [
+    {
+      "id": "flatten_in_custom_comp",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "flatten": [
+            [
+              1,
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                [
+                  5,
+                  6,
+                  7
+                ]
+              ]
+            ]
+          ]
+        }
+      }
+    },
+  ],
 }
 ````
 
-returns
+returns the following:
 
 ```json
+// in postprocessorOutput
 [
   1,
   2,
@@ -215,5 +242,39 @@ returns
   6,
   7
 ]
+
+// in parsed_document
+{
+  "flatten_in_custom_comp": [
+    {
+      "value": 1,
+      "type": "number"
+    },
+    {
+      "value": 2,
+      "type": "number"
+    },
+    {
+      "value": 3,
+      "type": "number"
+    },
+    {
+      "value": 4,
+      "type": "number"
+    },
+    {
+      "value": 5,
+      "type": "number"
+    },
+    {
+      "value": 6,
+      "type": "number"
+    },
+    {
+      "value": 7,
+      "type": "number"
+    }
+  ]
+}
 ```
 
