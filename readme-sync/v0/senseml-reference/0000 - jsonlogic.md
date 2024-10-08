@@ -166,5 +166,48 @@ See [Postprocessor](doc:postprocessor#examples).
 
 ## Flatten
 
-Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to the [merge](https://jsonlogic.com/operations.html#merge) operation except that it's recursive to any depth. For example,  `{ "flatten": [1, [2, 3], [4, [5, 6, 7]]] }` returns `[1, 2, 3, 4, 5, 6, 7]`.
+Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to the [merge](https://jsonlogic.com/operations.html#merge) operation except that it's recursive to any depth. For example:
+
+````json
+{
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      // return all members of the following nested array as a single-level array  
+      "flatten": [
+        [
+          1,
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            [
+              5,
+              6,
+              7
+            ]
+          ]
+        ]
+      ]
+    }
+  }
+}
+````
+
+returns
+
+```json
+[
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7
+]
+```
 
