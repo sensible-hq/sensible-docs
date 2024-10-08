@@ -3,7 +3,7 @@ title: "Postprocessor"
 hidden: true
 ---
 
-Define your own custom output schema with a [JsonLogic](https://jsonlogic.com/)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
+Define your own custom output schema with a [JsonLogic](doc:jsonlogic)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
 In detail, Sensible's `parsed_document` output schema represents extracted document data as follows:
 
@@ -54,8 +54,8 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 | key                 | value                                      | description                                                  |
 | :------------------ | :----------------------------------------- | :----------------------------------------------------------- |
-| type (**required**) | `jsonLogic`                                | Supports [JsonLogic](https://jsonlogic.com/) and  Sensible's extended JsonLogic [operations](doc:custom-computation#sensible-operations) |
-| rule                | [JsonLogic](https://jsonlogic.com/) object | Define the custom schema using Sensible's [object](doc:jsonlogic#object) operator and other extended operations. |
+| type (**required**) | `jsonLogic`                                | Supports [JsonLogic](doc:jsonlogic) and  Sensible's extended JsonLogic [operations](doc:custom-computation#sensible-operations) |
+| rule                | [JsonLogic](doc:jsonlogic) object | Define the custom schema using Sensible's [object](doc:jsonlogic#object) operator and other extended operations. |
 
 # Examples
 
@@ -252,50 +252,3 @@ The following image shows the example document used with this example config:
 
 ```
 
-TODO:
-
-
-
-#### Example 3
-
-Lastly, here's a contrived but hopefully illustrative example where the value in the `"object"` array comes entirely from another rule:
-
-```json
-{
-  "object": [
-    {
-      "map": [
-        [{ "var": "name" }, { "var": "occupation" }],
-        [{ "var": "value" }, "test value"]
-      ]
-    }
-  ]
-}
-```
-
-In this case, the `"map"` operation iterates over an array made up of the `name` and `occupation` fields from our document, which might look like this:
-
-```json
-[
-  { "type": "string", "value": "some name" },
-  { "type": "string", "value": "excellent rule writer" }
-]
-```
-
-For each of the items in that array, the map will return back an array of the item's value and the string "test value", for a result that looks like this:
-
-```json
-[
-  ["some name", "test value"],
-  ["excellent rule editor", "test value"]
-]
-```
-
-Then, when that gets run through the `"object"` operation, we get a final result of:
-
-```json
-{
-  "some name": "test value",
-  "excellent rule writer": "test value"
-}
-```

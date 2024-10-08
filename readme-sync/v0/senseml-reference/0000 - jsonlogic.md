@@ -1,15 +1,7 @@
 ---
-title: "jsonLogic extensions"
+title: "JsonLogic extensions"
 hidden: true
 ---
-
-TODO ON publish: X link from validations, postprocessor, and custom computation to this topic
-
-TODO: add very simple examples to each of these?
-
-TODO: update all my "jsonlogic" links to this topic, including this one: custom-computation#sensible-operations 
-
-
 
 JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. For more information about JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 
@@ -21,7 +13,7 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The
 | [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
 | [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
 | [Object](doc:jsonlogic#object)   | ❌                                       | ❌                                                   | ✅                                  |
-| [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅ see example TODO                                  | ✅ see example                      |
+| [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
 
 
 

@@ -3,7 +3,7 @@ title: "Custom computation"
 hidden: false
 ---
 
-Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](https://jsonlogic.com/). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null.
+Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null.
 
 Parameters
 ====
@@ -14,11 +14,11 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                      | value                                      | description                                                  |
 | :----------------------- | :----------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)        | `customComputation`                        | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method doesn't output [Sensible types](doc:types). It outputs `string, number, boolean, null` , or an array of those. For example, adding two currencies results in a number.<br/>- This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
-| jsonLogic (**required**) | [JsonLogic](https://jsonlogic.com/) object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using JsonLogic. Supports all [JsonLogic operations](https://jsonlogic.com/operations.html) and extends them with Sensible operations. For more information, see the following section.<br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). Use dot notation to access arrays, for example, `test_table.columns.3.values` to access the 4th column in a table. |
+| jsonLogic (**required**) | [JsonLogic](doc:jsonlogic) object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using JsonLogic. Supports all [JsonLogic operations](https://jsonlogic.com/operations.html) and extends them with Sensible operations. For more information, see the following section.<br/> Double escape any dots in the field keys (for example, `delivery\\.zip\\.code`). Use dot notation to access arrays, for example, `test_table.columns.3.values` to access the 4th column in a table. |
 
 ## Sensible operations
 
-Sensible extends [JsonLogic](https://jsonlogic.com/) with the following operations:
+Sensible extends [JsonLogic](doc:jsonlogic) with the following operations:
 
 ### Exists
 
