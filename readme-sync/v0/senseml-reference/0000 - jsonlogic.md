@@ -15,8 +15,6 @@ Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The
 | [Object](doc:jsonlogic#object)   | ❌                                       | ❌                                                   | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
 
-
-
 ## Exists
 
 Returns a boolean to indicate if the specified value exists.
