@@ -30,14 +30,12 @@ Using a postprocessor, you can transform the extracted data into a custom schema
 
 ```json
 {
-    "data": [
-        {
-            "custom_object": {
-                "field_1": "value_1",
-                "field_2": "value_2"
-            }
+    "postprocessorOutput": {
+        "custom_object": {
+            "field_1": "value_1",
+            "field_2": "value_2"
         }
-    ]
+    }
 }
 ```
 
@@ -52,10 +50,10 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 # Parameters
 
 
-| key                 | value                                      | description                                                  |
-| :------------------ | :----------------------------------------- | :----------------------------------------------------------- |
-| type (**required**) | `jsonLogic`                                | Supports [JsonLogic](doc:jsonlogic) and  Sensible's extended JsonLogic [operations](doc:custom-computation#sensible-operations) |
-| rule                | [JsonLogic](doc:jsonlogic) object | Define the custom schema using Sensible's [object](doc:jsonlogic#object) operator and other extended operations. |
+| key                 | value            | description                                                  |
+| :------------------ | :--------------- | :----------------------------------------------------------- |
+| type (**required**) | `jsonLogic`      | Supports JsonLogic and Sensible's extended JsonLogic [operations](doc:jsonlogic) |
+| rule                | JsonLogic object | Define the custom schema using Sensible's [object](doc:jsonlogic#object) operator and other extended operations. |
 
 # Examples
 
@@ -251,4 +249,3 @@ The following image shows the example document used with this example config:
 }
 
 ```
-
