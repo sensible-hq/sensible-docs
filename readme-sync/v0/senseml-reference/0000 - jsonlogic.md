@@ -15,14 +15,13 @@ JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is
 
 Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
 
-| Operation                                              | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
-| ------------------------------------------------------ | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
-| [Exists](doc:jsonlogic#exists)                         | ✅                                       | ✅                                                   | ✅                                  |
-| [Match](doc:jsonlogic#match)                           | ✅                                       | ✅                                                   | ✅                                  |
-| [Replace](doc:jsonlogic#replace)                       | ✅                                       | ✅                                                   | ✅                                  |
-| [Object](doc:jsonlogic#object)                         | ❌                                       | ❌                                                   | ✅                                  |
-| [Array With Context](doc:jsonlogic#array-with-context) | ? TODO                                  | ? TODO                                              | ✅                                  |
-| [Flatten](doc:jsonlogic#flatten)                       | ? TODO                                  | ? TODO                                              | ✅                                  |
+| Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
+| -------------------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
+| [Exists](doc:jsonlogic#exists)   | ✅                                       | ✅                                                   | ✅                                  |
+| [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
+| [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
+| [Object](doc:jsonlogic#object)   | ❌                                       | ❌                                                   | ✅                                  |
+| [Flatten](doc:jsonlogic#flatten) | ? TODO                                  | ? TODO                                              | ✅                                  |
 
 
 
@@ -167,68 +166,5 @@ See [Postprocessor](doc:postprocessor#examples).
 
 ## Flatten
 
-Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to a [merge](https://jsonlogic.com/operations.html#merge) except that it's recursive to any depth. For example,  `{ "flatten": [1, [2, 3], [4, [5, 6, 7]]] }` returns `[1, 2, 3, 4, 5, 6, 7]`.
-
-## Array With Context
-
-The `"array_with_context"` operator is a convenience for shortening jsonLogic syntax when you write loops that operate on arrays. It allows you to access parent variables inside nested loops.
-
-Takes as an input an array (or an operation that evaluates to an array), and returns a new array of objects with the following shape: 
-
-```json
-[
-    {
-        "item": "passed_in_array_item",
-        "context": "current_value"
-    },
-    {
-        "item": "passed_in_array_item",
-        "context": "current_value"
-    },
-    ....
-]
-```
-
-where:
-
-- `item` is the item from the passed-in array
-
-- `context` is the data in JsonLogic's context at the time of creation, e.g., the result of a  `"var"` operation on the current item in a loop
-
-  
-
-**Example**
-
-
-
-
-
-![image-20241007114155231](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20241007114155231.png)
-
-For example, say you extract an array of product names,  `"product_names" : ["basic_term_life", "dental"]`  from the preceding table along with other data.       
-
-As part of a larger goal of transforming extracted data, you're looping through products for each customer. In the loop, you want to keep track of the employee name for each product. 
-
-If you use the operation:
-
-```json
-{ "array_with_context": ["basic_term_life", "dental"l] }
-```
-
-when in the current loop iteration,  `{ "var" : ["employee_name.value"] }`   evaluates to the current data  `"Smith, Zoe"`, you'll get as output: 
-
-
-
-```json
-[
-  { "item": "basic_term_life", "context": "Smith, Zoe" },
-  { "item": "dental", "context": "Smith, Zoe" },
-]
-```
-
-
-
-
-
-
+Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to the [merge](https://jsonlogic.com/operations.html#merge) operation except that it's recursive to any depth. For example,  `{ "flatten": [1, [2, 3], [4, [5, 6, 7]]] }` returns `[1, 2, 3, 4, 5, 6, 7]`.
 
