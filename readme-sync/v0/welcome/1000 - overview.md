@@ -58,6 +58,7 @@ With SenseML, you can:
   - Write logical [validations](doc:validate-extractions)  like `customer ID is 9 digits` to throw custom errors and warnings about your extracted data. 
   - Manipulate the extracted data schema with [computed methods](doc:computed-field-methods)  like concat, split, and [custom logic](doc:custom-computation).
   - Get measures of accuracy for LLMs with [confidence scores](doc:confidence), and get overall measures of extraction completeness with [extraction coverage scores](doc:metrics#extraction-coverage). 
+  - Transform Sensible's standardized `parsed_document` output into any schema to fit your data consupmtion needs using a [JsonLogic postprocessor](doc:postprocessor). 
 
 A [field](doc:field-query-object) is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is the basis for Sensible's extraction workflow.
 

@@ -14,6 +14,7 @@ See the following topics for reference documentation for the SenseML query langu
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
+- [Postprocessor](doc:postprocessor)
 
 You can use all of the preceding SenseML features to write a *config* to handle a collection of similar documents. A config specifies how to extract data and how to populate a target output schema. Publish the config so that you can automate extracting document data using one of Sensible [integration](doc:integrate) options.
 
@@ -142,6 +143,6 @@ This example config has the following elements:
 
 - The **computed field** `"driver_name_last"` extracts the last name from the raw output of the `_driver_name_raw` field. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).  You can also capture the full name as typed output. See [types](doc:types).
 
- 
+  
 
 Using SenseML, you can extract just about any data from a document. Happy extracting!
