@@ -7,7 +7,62 @@ A field is the basic *SenseML* query unit for extracting a piece of document dat
 
 A field uses a *method* to extract data.  SenseML contains *layout-based* and *large language model (LLM)-based* methods. 
 
-For more information, see the [Examples](doc:examples) section.
+Here's a simple example of a layout-based field and its output:
+
+#### Field query
+
+```json
+{
+ "fields": [
+   {
+     /* find the first box in the document 
+         containing the text 'rents'
+        and return all the other text in the box */
+     "anchor": "rents",
+     "id": "rents_income",
+     "method": {
+       "id": "box",
+     }
+   }
+ ]
+}
+```
+
+#### Extracted field output
+
+```json
+{
+  "rents_income": {
+    "type": "string",
+    "value": "$ 4,200"
+  }
+}
+```
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_1099.png)
+
+
+
+The following example shows the syntax for all the top-level parameters of the Field object:
+
+```json
+{
+  "fields": [
+    {
+      "id": "name_of_output_key",
+      "anchor": "text to match",        
+      "type":"accountingCurrency",
+      "match":"last",
+      "method": {
+        "id": "row",
+        "position": "right",
+      }
+    }
+  ],
+}
+```
+
+For more information, see the following sections.
 
 [**Parameters**](doc:field-query-object#parameters)
 [**Examples**](doc:field-query-object#examples)
@@ -16,7 +71,7 @@ For more information, see the [Examples](doc:examples) section.
 Parameters
 ====
 
-The Field object has the following top-level parameters:
+The Field query object has the following top-level parameters:
 
 | Parameter             | Value                                                        | Description for layout-based methods                         | Description for LLM-based methods                            |
 | --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -129,29 +184,6 @@ The following image shows the example document used with this example config:
       "value": "SenseML overview"
     }
   }
-}
-```
-
-Example 2
------
-
-
-The following example shows all the top-level parameters of the Field object:
-
-```json
-{
-  "fields": [
-    {
-      "id": "name_of_output_key",
-      "anchor": "text to match",        
-      "type":"accountingCurrency",
-      "match":"last",
-      "method": {
-        "id": "row",
-        "position": "right",
-      }
-    }
-  ],
 }
 ```
 

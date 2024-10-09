@@ -1,25 +1,21 @@
 ---
 title: "JsonLogic extensions"
-hidden: true
+hidden: false
 ---
-
-TODO on publish: RM ops from custom computation and xlink to this topic
-
-
 
 JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. 
 
-Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
+For information about built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html). Additionally, Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
 | -------------------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
 | [Exists](doc:jsonlogic#exists)   | ✅                                       | ✅                                                   | ✅                                  |
-| [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
-| [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
-| [Object](doc:jsonlogic#object)   | ❌                                       | ❌                                                   | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
+| [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
+| [Object](doc:jsonlogic#object)   | ❌                                       | ❌                                                   | ✅                                  |
+| [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
 
-For information about built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
+See the following sections for more information.
 
 ## Exists
 
@@ -38,127 +34,6 @@ Most commonly used with the JsonLogic `var`  operation to test that an output va
 ### Examples
 
 See [Validating extractions](doc:validate-extractions#examples).
-
-## Match
-
-Returns a boolean to indicate if the specified regular expression matches.
-
-```json
-{
-    "match": [
-        JsonLogic,
-        regex
-    ]
-}
-```
-
- Where `regex` is a Javascript-flavored regular expression.
-
-Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. 
-
-### Examples
-
-See [Validating extractions](doc:validate-extractions#examples). 
-
-## Replace
-
-Returns a modified string.
-
-One of the following syntaxes:
-
-```json
-{
-    "replace": {
-        "source": JsonLogic,
-        "find": JsonLogic
-        "replace": JsonLogic
-    }
-}
-```
-
-Or:
-
-```json
-{
-    "replace": {
-        "source": JsonLogic,
-        "find_regex": regex
-        "replace": JsonLogic,
-        "flags": "i" //optional
-    }
-}
-```
-
-Where `regex` is a Javascript-flavored regular expression.  Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation supports:
-
-- regex capturing groups
-- regex flags, such as `i` for case insensitive. 
-
-### Examples
-
- See [Custom Computation](doc:custom-computation#examples).
-
-## Object
-
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  One of the following syntaxes:
-
-```json
-{
-    "object": [
-        [
-         ["desiredKeyName", JsonLogic],
-         ["desiredKeyName", JsonLogic]
-        ]
-    ]
-}
-```
-
-Or:
-
-```json
-{
-    "object": 
-        [
-         /* where the JsonLogic operation returns `[["string", value] ...]`, e.g., map  */
-         JsonLogic
-        ]
-}
-```
-
-As a simple example,  
-
-```json
-{
-    "object": [
-        [
-            [
-                "customer_name",
-                "Erika Mustermann"
-            ],
-            [
-                "customer_acct",
-                {
-                    // where the extracted field `account_number` has value `12345`
-                    "var": "account_number.value"
-                }
-            ]
-        ]
-    ]
-}
-```
-
-returns:
-
-```json
-{
-  "customer_name": "Erika Mustermann",
-  "customer_acct": 12345
-}
-```
-
-### Examples
-
-See [Postprocessor](doc:postprocessor#examples). 
 
 ## Flatten
 
@@ -275,4 +150,129 @@ returns the following:
   ]
 }
 ```
+
+## Match
+
+Returns a boolean to indicate if the specified regular expression matches.
+
+```json
+{
+    "match": [
+        JsonLogic,
+        regex
+    ]
+}
+```
+
+ Where `regex` is a Javascript-flavored regular expression.
+
+Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. 
+
+### Examples
+
+See [Validating extractions](doc:validate-extractions#examples). 
+
+## Object
+
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  One of the following syntaxes:
+
+```json
+{
+    "object": [
+        [
+         ["desiredKeyName", JsonLogic],
+         ["desiredKeyName", JsonLogic]
+        ]
+    ]
+}
+```
+
+Or:
+
+```json
+{
+    "object": 
+        [
+         /* where the JsonLogic operation returns `[["string", value] ...]`, e.g., map  */
+         JsonLogic
+        ]
+}
+```
+
+As a simple example,  
+
+```json
+{
+    "object": [
+        [
+            [
+                "customer_name",
+                "Erika Mustermann"
+            ],
+            [
+                "customer_acct",
+                {
+                    // where the extracted field `account_number` has value `12345`
+                    "var": "account_number.value"
+                }
+            ]
+        ]
+    ]
+}
+```
+
+returns:
+
+```json
+{
+  "customer_name": "Erika Mustermann",
+  "customer_acct": 12345
+}
+```
+
+### Examples
+
+See [Postprocessor](doc:postprocessor#examples). 
+
+## Replace
+
+Returns a modified string.
+
+One of the following syntaxes:
+
+```json
+{
+    "replace": {
+        "source": JsonLogic,
+        "find": JsonLogic
+        "replace": JsonLogic
+    }
+}
+```
+
+Or:
+
+```json
+{
+    "replace": {
+        "source": JsonLogic,
+        "find_regex": regex
+        "replace": JsonLogic,
+        "flags": "i" //optional
+    }
+}
+```
+
+Where `regex` is a Javascript-flavored regular expression.  Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation supports:
+
+- regex capturing groups
+- regex flags, such as `i` for case insensitive. 
+
+### Examples
+
+ See [Custom Computation](doc:custom-computation#examples).
+
+
+
+
 

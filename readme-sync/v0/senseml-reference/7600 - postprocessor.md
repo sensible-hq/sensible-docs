@@ -1,11 +1,11 @@
 ---
 title: "Postprocessor"
-hidden: true
+hidden: false
 ---
 
 Define your own custom output schema with a [JsonLogic](doc:jsonlogic)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
-In detail, Sensible's `parsed_document` output schema represents extracted document data as follows:
+In detail, Sensible's `parsed_document` output schema represents extracted document data as [fields](doc:field-query-object):
 
 ```json
 {
@@ -52,8 +52,8 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 | key                 | value            | description                                                  |
 | :------------------ | :--------------- | :----------------------------------------------------------- |
-| type (**required**) | `jsonLogic`      | Supports JsonLogic and Sensible's extended JsonLogic [operations](doc:jsonlogic) |
-| rule                | JsonLogic object | Define the custom schema using Sensible's [object](doc:jsonlogic#object) operator and other extended operations. |
+| type (**required**) | `jsonLogic`      | Supports JsonLogic                                           |
+| rule                | JsonLogic object | Define the custom schema using  JsonLogic [operations](doc:jsonlogic).  To create custom objects in the schema, you can use Sensible's [object](doc:jsonlogic#object) operator. |
 
 # Examples
 
