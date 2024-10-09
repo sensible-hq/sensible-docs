@@ -5,24 +5,19 @@ hidden: false
 
 Define your own custom output schema with a [JsonLogic](doc:jsonlogic)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
-In detail, Sensible's `parsed_document` output schema represents extracted document data as [fields](doc:field-query-object):
+In detail, Sensible's `parsed_document` output schema represents extracted document data as typed [fields](doc:field-query-object):
 
 ```json
 {
-    "fields": [
-        {
-            "field_key": {
-                "value": "value_1",
-                "type": "string"
-            }
+"parsed_document": {
+        "contract_date": {
+            "value": "2023-01-01T00:00:00.000Z",
+            "type": "date"
         },
-        {
-            "field_key_2": {
-                "value": "value_2",
-                "type": "string"
+         "customer_name": {
+                "type": "string",
+                "value": "John Smith"
             }
-        }
-    ]
 }
 ```
 
@@ -32,8 +27,8 @@ Using a postprocessor, you can transform the extracted data into a custom schema
 {
     "postprocessorOutput": {
         "custom_object": {
-            "field_1": "value_1",
-            "field_2": "value_2"
+            "contract_date": "2023-01-01T00:00:00.000Z",
+            "customer_name": "John Smith"
         }
     }
 }
