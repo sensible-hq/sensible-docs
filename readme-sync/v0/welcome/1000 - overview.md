@@ -51,14 +51,11 @@ Configure your extractions using _SenseML_, Sensible's document-specific query l
 With SenseML, you can:
 
 - Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step. For more information, see [Preprocessors](doc:preprocessors). 
-
 - Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also parse extracted data types like currencies, dates, addresses, or your custom types. For more information, see [Layout-based methods](doc:methods). 
-
 - Post-process extracted document data. For example:
   - Write logical [validations](doc:validate-extractions)  like `customer ID is 9 digits` to throw custom errors and warnings about your extracted data. 
-  - Manipulate the extracted data schema with [computed methods](doc:computed-field-methods)  like concat, split, and [custom logic](doc:custom-computation).
+  - Manipulate the extracted data schema with [computed methods](doc:computed-field-methods)  like concat, split, and [custom logic](doc:custom-computation). Or, completely transform Sensible's standardized `parsed_document` output into any schema to fit your data consupmtion needs using a [JsonLogic postprocessor](doc:postprocessor). 
   - Get measures of accuracy for LLMs with [confidence scores](doc:confidence), and get overall measures of extraction completeness with [extraction coverage scores](doc:metrics#extraction-coverage). 
-  - Transform Sensible's standardized `parsed_document` output into any schema to fit your data consupmtion needs using a [JsonLogic postprocessor](doc:postprocessor). 
 
 A [field](doc:field-query-object) is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is the basis for Sensible's extraction workflow.
 
