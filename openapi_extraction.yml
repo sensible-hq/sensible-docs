@@ -1009,11 +1009,17 @@ components:
       description: >- 
         The number of extractions charged to your account for this extraction ID.
 
-    VersionId:
-      type: string
-      example: gVfy6JBlZlvRP2XJ72AdFybce7GV5Brf
-      description: >- 
-        The version ID for the config Sensible used for this extraction.
+    
+    PostprocessorOutput:
+      type: object 
+      additionalProperties: true
+      description: >-
+        Output with a custom schema that you define using a [postprocessor](doc:postprocessor).
+        For example, define this output when your app consumes a pre-existing schema and you don't want to use  
+        Sensible's `parsed_document` schema.
+
+
+    # don't document: VersionId is internal
 
     ReviewStatuses:
       type: string
@@ -1073,7 +1079,8 @@ components:
               $ref: '#/components/schemas/ReviewStatus'
             charged:
               $ref: '#/components/schemas/Charged'
-
+            postprocessorOutput:
+              $ref: '#/components/schemas/PostprocessorOutput'
 
 
     DocName:
@@ -1226,7 +1233,9 @@ components:
               $ref: '#/components/schemas/Coverage'
             charged:
               $ref: '#/components/schemas/Charged'
-
+            postprocessorOutput:
+              $ref: '#/components/schemas/PostprocessorOutput'
+              
     ExtractFromUrlResponse:
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleBase'
