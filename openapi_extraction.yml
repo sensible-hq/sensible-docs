@@ -1233,9 +1233,8 @@ components:
               $ref: '#/components/schemas/Coverage'
             charged:
               $ref: '#/components/schemas/Charged'
-            postprocessorOutput:
-              $ref: '#/components/schemas/PostprocessorOutput'
-              
+
+
     ExtractFromUrlResponse:
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleBase'
@@ -1341,7 +1340,7 @@ components:
           $ref: '#/components/schemas/ValidationsSummary'
         errors:
            $ref: '#/components/schemas/Errors'
-
+        
 
     PortfolioBase:
       type: object
@@ -1361,9 +1360,10 @@ components:
         - $ref: '#/components/schemas/ExtractionContent'
         - type: object
           properties:
-            classification_summary:
+            classificationSummary:
               $ref: '#/components/schemas/ClassificationSummaryPortfolio'
-
+            postprocessorOutput:
+              $ref: '#/components/schemas/PostprocessorOutput'
 
 
     MultiExtractionSummaryDocument:
