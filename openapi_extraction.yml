@@ -1244,7 +1244,7 @@ components:
         charged:
           $ref: '#/components/schemas/Charged'
         reviewStatuses:
-          $ref: '#/components/schemas/reviewStatuses' 
+          $ref: '#/components/schemas/ReviewStatuses' 
         documents:
           type: array
           items:
