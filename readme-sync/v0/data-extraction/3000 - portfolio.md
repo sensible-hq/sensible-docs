@@ -77,7 +77,7 @@ The following example shows extracting three documents from a portfolio using LL
 
    For example, the following image shows the description for the `bank_statements` document type:
 
-   
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav3.png)
 
 2. Download the following example document:
 
@@ -87,7 +87,7 @@ The following example shows extracting three documents from a portfolio using LL
 
 4. In the **Extract** tab, upload the example document, select **Portfolio**, select **LLM mode**, and select the document types you just added support for:
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav_2.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav_2.png) 
 
 5. Click **Extract**.  After the extraction completes, you can navigate through the extraction results in the portfolio using the dropdown:
 

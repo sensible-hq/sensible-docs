@@ -3,9 +3,9 @@ title: "Try a webhook"
 hidden: false
 ---
 
-For asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook. A webhook allows you to receive the extraction as a push, rather than waiting for responses from API endpoints. 
+For asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook. A webhook allows you to receive the extraction as a push when the extraction status is `COMPLETE`, rather than polling the `/documents/{id}` API endpoint for extraction status. 
 
-For this tutorial, let's try a webhook in combination with the `/extract_from_url` endpoint. Note you can also use the webhook with the `/generate_upload_url` endpoint and other asynchronous endpoints. 
+For this tutorial, let's try a webhook in combination with the `/extract_from_url` endpoint. Note you can also use a webhook with any other extraction endpoint.
 
 ## Prerequisites
 
