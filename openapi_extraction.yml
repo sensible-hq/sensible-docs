@@ -821,17 +821,7 @@ components:
         type: string
       example: test.pdf
 
-    environment:
-      name: environment
-      in: query
-      description: >-
-        If you specify `development`, extracts preferentially using config versions
-        published to the development environment in the Sensible app. The extraction runs all configs in the doc type before
-        picking the best fit. For each config, falls back to production version if no development version of the config exists.
-      schema:
-        type: string
-        enum: [production, development]
-        default: production
+
 
 
     start_date:
@@ -978,7 +968,17 @@ components:
         type: string
       example: APPROVED,NEEDS_REVIEW
 
-
+    environment:
+      name: environment
+      in: query
+      description: >-
+        If you specify `development`, extracts preferentially using config versions
+        published to the development environment in the Sensible app. The extraction runs all configs in the doc type before
+        picking the best fit. For each config, falls back to production version if no development version of the config exists.
+      schema:
+        type: string
+        enum: [production, development]
+        default: production
 
 
     environments:
@@ -1053,15 +1053,14 @@ components:
         validation errors means that 30% of fields were null. For more information about scoring, 
         see [Monitoring extraction metrics](doc:metrics).
       example: 0.75
-    Environment:
-      type: string
-      description: >-
-        The environment in which the version of the config used to run the extraction was published.
+    
+
+
+
+    EnvironmentResponse:
+      description: Name of the environment to which the configuration used by this extraction was published.
       example: DEVELOPMENT
-
-
-
-
+      type: string
 
     ExtractionSingleResponse: #single doc extraction
       allOf:
@@ -1078,7 +1077,7 @@ components:
               example: 100
               description: Total number of pages in the document.
             environment:
-              $ref: '#/components/schemas/EnvironmentName'
+              $ref: '#/components/schemas/EnvironmentResponse'
             document_name:
               $ref: '#/components/schemas/DocName'  
             coverage:
@@ -1231,7 +1230,7 @@ components:
         types:
           $ref: '#/components/schemas/DocumentTypeNames'
         environment:
-          $ref: '#/components/schemas/EnvironmentName'            
+          $ref: '#/components/schemas/EnvironmentResponse'            
         document_name:
           $ref: '#/components/schemas/DocName'
         page_count:
@@ -1327,12 +1326,7 @@ components:
         The coverage score for all fields in the portfolio file. For more information about scoring, 
         see [Monitoring extraction metrics](doc:metrics).
       example: 0.60
-    
-    Environment:
-      type: string
-      description: >-
-        The environment in which the version of the config used to run the extraction was published.
-      example: DEVELOPMENT
+
 
 
     ExtractFromUrlResponse:
@@ -1341,7 +1335,7 @@ components:
         - type: object
           properties:
             environment:
-              $ref: '#/components/schemas/EnvironmentName'
+              $ref: '#/components/schemas/EnvironmentResponse'
             document_name:
               $ref: '#/components/schemas/DocName'
             errors:
@@ -1402,7 +1396,7 @@ components:
         document_name:
          $ref: '#/components/schemas/DocName'
         environment:
-         $ref: '#/components/schemas/Environment'
+         $ref: '#/components/schemas/EnvironmentResponse'
         coverage:
           $ref: '#/components/schemas/Coverage'
         charged:
@@ -1516,10 +1510,6 @@ components:
 
 
 
-    EnvironmentName:
-      description: Name of the environment to which the configuration used by this extraction was published.
-      example: development
-      type: string
 
 
 
