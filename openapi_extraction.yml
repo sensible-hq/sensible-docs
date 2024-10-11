@@ -1019,14 +1019,14 @@ components:
         Sensible's `parsed_document` schema.
 
 
-    # don't document: VersionId is internal
+    # don't document VersionId. it is internal
 
     ReviewStatuses:
       type: string
-      enum: [NEEDS_REVIEW, APPROVED, REJECTED, null]
+      enum: [NEEDS_REVIEW, APPROVED, null, APPROVED, REJECTED]
       example: NEEDS_REVIEW
       description: >- 
-        The review statuses for each document in the portfolio. 
+        The review statuses for each document in the portfolio, in order of their page ranges in the portfolio. 
         For more information, see [Human review](doc:human-review).
  
 
@@ -1046,13 +1046,21 @@ components:
 
     Coverage:
       type: number
-      description: The coverage score measures how fully an extraction captured all your target data in the document. It's a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields returned by a config for a document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of fields were null. For more information about scoring, see [Monitoring extraction metrics](doc:metrics).
+      description: >- 
+        The coverage score measures how fully an extraction captured all your target data in the document. 
+        It's a percentage comparing non-null, [validated](doc:validate-extractions) fields to total fields 
+        returned by a config for a document. For example, a coverage score of 70% for an extraction with no 
+        validation errors means that 30% of fields were null. For more information about scoring, 
+        see [Monitoring extraction metrics](doc:metrics).
       example: 0.75
     Environment:
       type: string
       description: >-
         The environment in which the version of the config used to run the extraction was published.
       example: DEVELOPMENT
+
+
+
 
 
     ExtractionSingleResponse: #single doc extraction
@@ -1198,7 +1206,7 @@ components:
             $ref: '#/components/schemas/MultiExtractionSummaryDocument'
 
 
-    # deprecated:
+    
     ExtractionSingleRetrievalResponse: # through /documents/{id} endpoint
       allOf:
         - $ref: '#/components/schemas/ExtractionSingleResponse'
@@ -1207,32 +1215,123 @@ components:
             download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'
 
-    # deprecated:
+    
     ExtractionPortfolioRetrievalResponse:
-      allOf:
-        - $ref: '#/components/schemas/PortfolioBase'
-        - type: object
+      # this object is pretty long, but it's easier to keep track of this way rather than breaking into smaller schemas
+      type: object 
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        completed:
+          $ref: '#/components/schemas/ExtractionCompleted'
+        status:
+          $ref: '#/components/schemas/ExtractionStatus'
+        types:
+          $ref: '#/components/schemas/DocumentTypeNames'
+        environment:
+          $ref: '#/components/schemas/EnvironmentName'            
+        document_name:
+          $ref: '#/components/schemas/DocName'
+        page_count:
+          $ref: '#/components/schemas/PageCountPortfolio'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationSummaryPortfolio' 
+        download_url:
+              $ref: '#/components/schemas/DownloadUrlDocument'        
+        coverage: 
+          $ref: '#/components/schemas/CoveragePortfolio'
+        charged:
+          $ref: '#/components/schemas/Charged'
+        reviewStatuses:
+          $ref: '#/components/schemas/reviewStatuses' 
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentInPortfolio'
+    
+
+    DocumentInPortfolio:
+        type: object
           properties:
-            completed:
-              $ref: '#/components/schemas/ExtractionCompleted'
-            page_count:
+            documentType:
+              $ref: '#/components/schemas/DocumentTypeName'
+            configuration:
+              $ref: '#/components/schemas/ConfigurationName'
+            startPage:
               type: integer
-              example: 100
-              description: Total number of pages in the portfolio.
-            environment:
-              $ref: '#/components/schemas/EnvironmentName'
-            document_name:
-              $ref: '#/components/schemas/DocName'
-            download_url:
-              $ref: '#/components/schemas/DownloadUrlDocument'
-            documents:
-              type: array
-              items:
-                $ref: '#/components/schemas/DocumentInPortfolio'
-            coverage:
-              $ref: '#/components/schemas/Coverage'
-            charged:
-              $ref: '#/components/schemas/Charged'
+              description: Page in the portfolio on which the document for this extraction starts.
+              example: 2
+            endPage:
+              type: integer
+              description: Page in the portfolio on which this document for this extraction ends.
+              example: 6
+            output:    
+                type: object
+                properties:
+                  parsed_document:
+                    $ref: '#/components/schemas/ParsedDocument'
+                  configuration:
+                    $ref: '#/components/schemas/ConfigurationName'
+                  validations:
+                    $ref: '#/components/schemas/Validations'
+                  coverage:
+                    $ref: '#/components/schemas/Coverage'          
+                  file_metadata:
+                    $ref: '#/components/schemas/FileMetadata'
+                  errors:
+                     $ref: '#/components/schemas/Errors'
+                  # don't publically document: needsReview boolean. should use higher-level review statuses instead
+                  classificationSummary:
+                    $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+                  postprocessorOutput:
+                      $ref: '#/components/schemas/PostprocessorOutput'
+                  validation_summary:
+                    $ref: '#/components/schemas/ValidationsSummary'                  
+    
+    PageCountPortfolio:
+      type: integer
+      example: 100 
+      description: Total number of pages in the portfolio.
+
+
+    ValidationSummaryPortfolio:
+      type: object
+      description: Summary for the whole portfolio file of the extracted fields that fail validation rules you write in the Sensible app.
+      properties:
+        fields:
+          type: integer
+          description: Number of fields specified to extract from all documents in the portfolio
+          example: 6
+        fields_present:
+          type: integer
+          description: Actual number of non-null fields extracted from the portfolio file
+          example: 4
+        errors:
+          type: number
+          description: Number of validation errors for all extractions in the portfolio
+          example: 0
+        warnings:
+          type: number
+          description: Number of validation warnings for all extractions in the portfolio
+          example: 1
+        skipped:
+          type: integer
+          description: Number of fields skipped for all extractions in the portfolio because a prerequisite field was null
+          example: 1
+
+    CoveragePortfolio:
+      type: number
+      description: >- 
+        The coverage score for all fields in the portfolio file. For more information about scoring, 
+        see [Monitoring extraction metrics](doc:metrics).
+      example: 0.60
+    Environment:
+      type: string
+      description: >-
+        The environment in which the version of the config used to run the extraction was published.
+      example: DEVELOPMENT
 
 
     ExtractFromUrlResponse:
@@ -1389,23 +1488,7 @@ components:
             validations:
               $ref: '#/components/schemas/Validations'
 
-    DocumentInPortfolio:
-      type: object
-      properties:
-        documentType:
-          $ref: '#/components/schemas/DocumentTypeName'
-        configuration:
-          $ref: '#/components/schemas/ConfigurationName'
-        startPage:
-          type: integer
-          description: Page in the portfolio on which the document for this extraction starts.
-          example: 2
-        endPage:
-          type: integer
-          description: Page in the portfolio on which this document for this extraction ends.
-          example: 6
-        output:
-          $ref: '#/components/schemas/ExtractionContentPortfolio'
+
 
 
     GenerateUrlRequest:
