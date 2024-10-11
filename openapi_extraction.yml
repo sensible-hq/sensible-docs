@@ -1254,41 +1254,41 @@ components:
 
     DocumentInPortfolio:
       type: object
-        properties:
-          documentType:
-            $ref: '#/components/schemas/DocumentTypeName'
-          configuration:
-            $ref: '#/components/schemas/ConfigurationName'
-          startPage:
-            type: integer
-            description: Page in the portfolio on which the document for this extraction starts.
-            example: 2
-          endPage:
-            type: integer
-            description: Page in the portfolio on which this document for this extraction ends.
-            example: 6
-          output:    
-              type: object
-              properties:
-                parsed_document:
-                  $ref: '#/components/schemas/ParsedDocument'
-                configuration:
-                  $ref: '#/components/schemas/ConfigurationName'
-                validations:
-                  $ref: '#/components/schemas/Validations'
-                coverage:
-                  $ref: '#/components/schemas/Coverage'          
-                file_metadata:
-                  $ref: '#/components/schemas/FileMetadata'
-                errors:
-                   $ref: '#/components/schemas/Errors'
-                # don't publically document: needsReview boolean. should use higher-level review statuses instead
-                classificationSummary:
-                  $ref: '#/components/schemas/ClassificationSummaryPortfolio'
-                postprocessorOutput:
-                    $ref: '#/components/schemas/PostprocessorOutput'
-                validation_summary:
-                  $ref: '#/components/schemas/ValidationsSummary'                  
+      properties:
+        documentType:
+          $ref: '#/components/schemas/DocumentTypeName'
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        startPage:
+          type: integer
+          description: Page in the portfolio on which the document for this extraction starts.
+          example: 2
+        endPage:
+          type: integer
+          description: Page in the portfolio on which this document for this extraction ends.
+          example: 6
+        output:    
+            type: object
+            properties:
+              parsed_document:
+                $ref: '#/components/schemas/ParsedDocument'
+              configuration:
+                $ref: '#/components/schemas/ConfigurationName'
+              validations:
+                $ref: '#/components/schemas/Validations'
+              coverage:
+                $ref: '#/components/schemas/Coverage'          
+              file_metadata:
+                $ref: '#/components/schemas/FileMetadata'
+              errors:
+                 $ref: '#/components/schemas/Errors'
+              # don't publically document: needsReview boolean. should use higher-level review statuses instead
+              classificationSummary:
+                $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+              postprocessorOutput:
+                  $ref: '#/components/schemas/PostprocessorOutput'
+              validation_summary:
+                $ref: '#/components/schemas/ValidationsSummary'                  
     
     PageCountPortfolio:
       type: integer
