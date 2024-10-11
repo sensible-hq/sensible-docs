@@ -1327,6 +1327,7 @@ components:
         The coverage score for all fields in the portfolio file. For more information about scoring, 
         see [Monitoring extraction metrics](doc:metrics).
       example: 0.60
+    
     Environment:
       type: string
       description: >-
