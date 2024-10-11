@@ -75,7 +75,11 @@ The following example shows extracting three documents from a portfolio using LL
    | pay stubs       | Historic payments to employees                               |
    | 1040s           | The standard individual income tax return form for U.S. taxpayers to report their annual income and calculate their federal tax liability. |
 
-3. Download the following example document:
+   For example, the following image shows the description for the `bank_statements` document type:
+
+   
+
+2. Download the following example document:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf) |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
