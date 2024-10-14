@@ -3,7 +3,7 @@ title: "Human review"
 hidden: false
 ---
 
-If extractions contain errors, for example as the result of hard-to-read handwriting, you can flag extractions for manual correction by a human reviewer. Flag extractions automatically at scale in production by configuring rules based on [validations](doc:validate-extractions) and [extraction coverage](doc:coverage). Use the Sensible app's **Human review** tab to manually correct the extracted fields, then approve or reject the extraction.
+If extractions contain errors, for example as the result of hard-to-read handwriting, you can flag extractions for manual correction by a human reviewer. Flag extractions automatically at scale in production by configuring rules based on [validations](doc:validate-extractions) and [extraction coverage](doc:coverage). Use the Sensible app's **Human review** tab to manually correct the extracted fields, then approve or reject the extraction. Once you approve or reject, you can't change the status again.
 
 In a document type, in the **Human Review** tab, set the criteria for Sensible to flag an extraction for manual review:
 
@@ -36,7 +36,10 @@ Click a field's value to:
 
 Click the checkmark icon next to each field to mark it approved. When you're done editing field values and approving individual fields, click **Approve Extraction** or **Reject Extraction** to remove it from the extractions flagged for review.
 
-Filter past extractions by review status using the following options:
+## Tracking review status
 
-- in the **Extraction history** tab, use the **Review Status** criterion
-- in the Sensible API, use the [List extractions](reference:list-extractions) endpoint with the `review_statuses` parameter.
+You can track review status for past extractions in one of the following ways:
+
+- **Sensible API/SDK**: If you enable human review for a document type, then set a [webhook](doc:api-tutorial-webhook) for each extraction request in the document type. Sensible pushes the extraction, including any manual corrections from the reviewer and the review status, to the specified webhook when a reviewer approves or rejects an extraction.  You can also filter by extraction status by specifying the `review_statuses` parameter on the [List extractions](reference:list-extractions) endpoint.
+
+- **Sensible app**: Filter past extractions by review status. In the **Extraction history** tab, use the **Review Status** criterion.

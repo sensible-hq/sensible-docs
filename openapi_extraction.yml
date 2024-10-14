@@ -1026,9 +1026,10 @@ components:
       enum: [NEEDS_REVIEW, APPROVED, null, APPROVED, REJECTED]
       example: NEEDS_REVIEW
       description: >- 
-        The review statuses for each document in the portfolio, in order of their page ranges in the portfolio. 
+        The review status for each document in the portfolio, in order of their page ranges in the portfolio. 
         For more information, see [Human review](doc:human-review).
- 
+        Specify a webhook in the extraction request so that you can get a push notification when 
+        a review status in the reviewStatuses array changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`.
 
 
 
@@ -1038,8 +1039,11 @@ components:
           enum: [NEEDS_REVIEW, APPROVED, REJECTED]
           example: NEEDS_REVIEW
           description: >- 
-            The extraction's review status. Included in the response if the document type's criteria triggered review for this extraction.
-            For more information, see [Human review](doc:human-review).
+            The extraction's review status. For more information, see [Human review](doc:human-review).
+            Specify a webhook in the extraction request so that you can get a push notification when 
+            review status changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`.
+            Sensible omits this property from the extraction response 
+            if the extraction doesn't need review.
  
 
 
@@ -1847,8 +1851,10 @@ components:
     Webhook:
       type: object
       description: >-
-        Specifies to return extraction results to the defined webhook as soon as they're complete,
-        so you don't have to poll for results status. Sensible also calls this webhook on error.
+        Pushes extraction results to the specified webhook under the following circumstances,
+        so you don't have to poll for results status:
+          - When Sensible sets `"status": "COMPLETE"` or `"status": "FAILED"` 
+          - When the value for `reviewStatus` (for portfolio extractions) or `reviewStatus` (for single-document extractions) changes.
       properties:
         url:
           type: string
