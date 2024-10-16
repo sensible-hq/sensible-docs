@@ -55,4 +55,4 @@ For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM
 
 - Sensible excludes fields listed in the Suppress Output method when calculating the coverage.
 - Sensible includes fields output in [sections](doc:sections) when calculating the coverage.
-- The overall coverage for a portfolio document is the average of all subdocument coverages.
+- The overall coverage for a portfolio document is the weighted average of all subdocument coverages.

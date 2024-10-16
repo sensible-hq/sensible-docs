@@ -21,7 +21,7 @@ In the preceding table, Sensible calculates a score as follows:
 - `validation error penalty` = 1 * `num fields with validation errors`
 - `validation warning penalty` = 0.5 * `num of fields with validation warnings`
 
-The classification score is for comparing extractions within a single document type. To compare scores across document types, see [Accuracy measures](doc:accuracy-measures).
+Classification scoring is for comparing extractions within a single document type. To compare scores across document types, see [Accuracy measures](doc:accuracy-measures).
 
 ## Portfolio fingerprints
 
