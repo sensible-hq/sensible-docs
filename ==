@@ -1,0 +1,46 @@
+OK
+
+
+
+"Sensible falls back to the production version for each configuration if it can't find a development version."
+
+smaller_test
+prod has 3 fields
+dev has 0 fields
+
+
+bigger_test
+prod has 5 fields
+dev has 1 field
+
+yes_prod__no_dev__current_draft
+prod has 6 fields
+current draft (not published in dev) has 8 fields (or 2 fields)
+
+yes_prod_no_dev
+prod has 7 fields
+(current draft implicitly has 7 fields, no edits made after publish)
+
+
+Specify dev:
+----
+
+Specify smaller_test which has bad dev and good prod: you get smaller_test dev 0 fields
+
+Speicfy Auto select when you only have smaller_test and bigger_test -- you get  bigger test dev 1 field
+
+specify auto select with all three -- you get back 5 fields which is prod bigger_test so wait whaaaat? I would expect to get back 6 fields for `yes_prod__no_dev__current_draft`
+
+specify auto select with all 4 - got back 7 fields meaning yes_prod_no_dev DEV implicit draft
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1327,7 +1327,10 @@ components:
     CoveragePortfolio:
       type: number
       description: >- 
-        The coverage score for all fields in the portfolio file. For more information about scoring, 
+        The overall coverage score for the portfolio is the weighted average of the coverage scores of its subdocuments. 
+        For example, if subdocA has 1 non-null field out of 2 specified, and subdocB has 0 non-null fields out of 4 specified,
+        the average is (1/2 + 0/4)/2 = 0.25
+        For more information about scoring, 
         see [Monitoring extraction metrics](doc:metrics).
       example: 0.60
 
