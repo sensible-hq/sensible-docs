@@ -8,29 +8,16 @@ Before integrating existing config updates into your application, test the updat
 1. In the Sensible app, click **Publish configuration** and choose **Development** to save your updates to a development environment.
 2. To test your updated config, specify `development` for the Environment parameter in your API, SDK, or Sensible app extraction calls.
 
-Environment fallback behavior
-----
+## Tips for testing in development
 
-When you  specify the development environment for an extraction, Sensible falls back to the production version for each configuration if it can't find a development version.
+When you test a config in the  `development` environment, your success criteria include:
 
-To understand fallback behavior in detail, imagine the document type `test_doc_type` has the following config versions, which fit a `document_a` with varying degrees of accuracy:
+1. How the new version performs when you run an extraction against it specifically.
 
-| Config  | Version in prod | Version in dev       |
-| ------- | --------------- | -------------------- |
-| configA | best fit        | bad fit              |
-| configB | OK fit          | no published version |
+2. How the new version [performs](doc:fingerprint) against other configs in the doc type when you run an extraction using the **Auto select** option in the Sensible app's **Extract** tab, or when using an extraction endpoint in which you omit specifying the config, for example, `/extract/{docType}?environment=development` .
 
-If you specify `?environment=development` and `autoselect`, Sensible searches for a best fit across both production and development by comparing:
 
- -  `configA` in development (bad fit). Sensible excludes config A (best fit) since you selected `development`
- -   `configB` in production (OK fit).
+For the second criterion, note the following tips:  
 
-Sensible returns output from  `configB`  (OK fit) in production. Notice that even though the API call specifies  the Development environment, the call returns output from a *production* config because of fallback behavior.
-
-If you don't specify an environment, Sensible ignores development versions and compares:
-
-- `configA` in production (best fit)
-- `configB` in production (OK fit)
-
-And returns output from `configA` (best fit) in production.
-
+- While you're testing, avoid config [classification scoring](doc:fingerprint) surprises by making sure your development environment mimics your production environment. In other words, if the document type contains configs other than the ones you're currently testing, ensure those other configs have identical production and development versions. That way, the changes in the configs you're testing will perform the same in development against all other configs as they do once in production. Note that if you've *never* published a config to development but you have published it to production, then during extraction, Sensible falls back to the config's production version as a convenience when it auto-selects a config in the document type.
+-  If you publish changes to more than one config in development, then publish them all to production at the same time to avoid classification scoring surprises.  
