@@ -12,12 +12,12 @@ Before integrating existing config updates into your application, test the updat
 
 When you test a config in the  `development` environment, your success criteria include:
 
-1. How the new version performs when you run an extraction against it specifically.
+1. Does the new version correctly extract your target fields you run an extraction against it specifically?
 
-2. How the new version [performs](doc:fingerprint) against other configs in the doc type when you run an extraction using the **Auto select** option in the Sensible app's **Extract** tab, or when using an extraction endpoint in which you omit specifying the config, for example, `/extract/{docType}?environment=development` .
+2. Does Sensible correctly auto-select the new version when [classifying](doc:fingerprint) a document against other configs in the document type?
 
 
-For the second criterion, note the following tips:  
+For the second criterion, note the following tips to avoid config [classification](doc:fingerprint) surprises:  
 
-- While you're testing, avoid config [classification scoring](doc:fingerprint) surprises by making sure your development environment mimics your production environment. In other words, if the document type contains configs *other* than the ones you're currently testing, ensure those other configs have identical published production and development versions. Note that if you never published a config to development but you published it to production, then during classification scoring, Sensible falls back to the config's production version. This behavior is a convenience for mimicking the production environment's classification scoring  in the development environment.
--  If you publish changes to more than one config in development, then publish them all to production at the same time to avoid classification scoring surprises.  
+- Ensure your development environment mimics your production environment. In other words, if the document type contains configs *other* than the ones you're currently testing, ensure those other configs have identical published production and development versions. Note that if you published a config to production but never published it to development, Sensible uses the config's production version to mimic the production environment.
+-  If you publish changes to more than one config in development, then publish them all to production at the same time.
