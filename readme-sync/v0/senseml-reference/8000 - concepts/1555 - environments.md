@@ -10,7 +10,7 @@ Before integrating existing config updates into your application, test the updat
 
 ## Tips for testing in development
 
-When you test a config in the  `development` environment, your success criteria include:
+When you test a config in the  `development` environment, consider the following:
 
 1. Does the new version correctly extract your target fields you run an extraction against it specifically?
 
