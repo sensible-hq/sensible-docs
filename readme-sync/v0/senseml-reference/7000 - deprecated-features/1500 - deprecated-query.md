@@ -6,7 +6,7 @@ hidden: true
 
 # Deprecated
 
-The Query method is deprecated. The Query Group method replaces this method. See [Query Group](doc:query-group) for more information.
+The Query method is deprecated. The Query Group method replaces this method. Any existing Query method in your configs is automatically handled as if it were a Query Group method. See [Query Group](doc:query-group) for more information.
 
 ## Description
 
@@ -262,7 +262,7 @@ For an overview of how this method works, see the following steps:
 - To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
 - Sensible scores each chunk by its similarity to either the `description` or the `chunkScoringText` parameters. Sensible scores each chunk using the OpenAPI Embeddings API.
 - Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
-- Sensible creates a full prompt for the LLM (GPT-3.5 Turbo) that includes the chunks, page hinting data, and your prompt. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt).
+- Sensible creates a full prompt for the LLM that includes the chunks, page hinting data, and your prompt. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt).
 
 How location highlighting works
 ---
