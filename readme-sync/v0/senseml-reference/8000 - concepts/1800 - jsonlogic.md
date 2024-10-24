@@ -181,7 +181,7 @@ See [Validating extractions](doc:validate-extractions#examples).
 
 ## Object
 
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. Note that the `"eachKey"` operation is an alternative to this operation. Use this operation instead of `"eachKey"` when the keys in the object you intend to build can vary depending on a calculation, i.e., the second of the following syntaxes.
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. Note that the `"eachKey"` operation is an alternative to this operation. Use this operation instead of `"eachKey"` when the keys in the object you intend to build can vary depending on a calculation (i.e., the second of the following syntaxes).
 
  One of the following syntaxes:
 
