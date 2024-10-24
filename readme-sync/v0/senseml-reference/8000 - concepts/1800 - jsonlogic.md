@@ -9,9 +9,9 @@ Sensible supports both built-in and extended JsonLogic operators:
 
 - For information about built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 - Sensible supports extended operations in the [Json Logic Engine](https://jessemitchell.me/json-logic-engine/).  For more information, see the [documentation](https://jessemitchell.me/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
-  - Array operations: `length`, `get`. 
-  - Miscellaneous operations: `preserve`, `keys`. 
-  - Higher Order Operations: `every`, `eachKey`
+  - Array operations: `"length"`, `"get"`. 
+  - Miscellaneous operations: `"preserve"`, `"keys"`. 
+  - Higher Order Operations: `"every"`, `"eachKey"`
 -  Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
