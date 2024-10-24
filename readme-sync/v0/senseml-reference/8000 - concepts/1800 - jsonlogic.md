@@ -8,7 +8,7 @@ JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is
 Sensible supports both built-in and extended JsonLogic operators:
 
 - For information about built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
-- Sensible supports extended operations in the [Json Logic Engine](https://jessemitchell.me/json-logic-engine/).  For more information, see the [documentation](https://jessemitchell.me/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
+- Sensible supports extended operations available in the [Json Logic Engine](https://jessemitchell.me/json-logic-engine/).  For more information, see the [documentation](https://jessemitchell.me/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
   - Array operations: `"length"`, `"get"`. 
   - Miscellaneous operations: `"preserve"`, `"keys"`. 
   - Higher Order Operations: `"every"`, `"eachKey"`
