@@ -8,10 +8,18 @@
 	"buffers":
 	[
 		{
-			"contents": "Searching 166 files for \"(doc:nlp-table-tips)\"\n\n0 matches\n\nSearching 166 files for \"(doc:table-tips)\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\3000 - llm-based-methods\\1000 - list.md:\n    7  This LLM-based method extracts repeating data in a document based on your description of the list’s overall contents and each individual item. Data such as the work history or skills on a resume, the vehicles on an auto insurance policy, or the line items on an invoice are best suited for this method. \n    8  \n    9: This method is an alternative to the [NLP Table](doc:table-tips) method, when the data you want can appear either as a table or as another layout. The List method can find data in paragraphs of free text or in more structured layouts, such as key/value pairs or tables.  \n   10  \n   11  #### Limitations\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\8000 - concepts\\0350 - prompt.md:\n   24  | B    | Page metadata for chunks.                                    | Page Hinting                                                 |\n   25  | C    | Chunks, or \"context\", excerpted from document.               | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |\n   26: | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:table-tips) method. | Description                                                  |\n   27  \n   28  You can configure the preceding parameters in the JSON editor and in the visual editor.\n\n2 matches across 2 files\n\n\nSearching 166 files for \"(doc:jsonlogi\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\0000 - postprocessor.md:\n   54  ```\n   55  \n   56: The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it supports more [extended jsonLogic operations](doc:jsonlogic) and can output an arbitrary schema instead of outputting fields. \n   57  \n   58  Postprocessor output is available in the `postprocessorOutput` object in the API response and in the `postprocessor` tab in the JSON editor: \n\n1 match in 1 file\n\n\nSearching 165 files for \"results like\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\data-extraction\\3000 - portfolio.md:\n   89  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/portfolio_nav.png)\n   90  \n   91: You should see results like the following:\n   92  \n   93  #### Pages 1 - 2 | 1040s | 1040_2019\n\n1 match in 1 file\n\n\nSearching 165 files for \"configuration-library\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\1000 - api-tutorial-sync.md:\n   46  3. Download the following example document, which works with the prerequisite  **tax_forms**  document type:\n   47  \n   48: | Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.png) |\n   49  | ----------- | ------------------------------------------------------------ |\n   50  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\2000 - api-tutorial-async-1.md:\n   36     --header 'Authorization: Bearer YOUR_API_KEY' \\\n   37     --header 'Content-Type: application/json' \\\n   38:    --data-raw '{\"document_url\":\"https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf\"}'\n   39     ```\n   40  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\2100 - api-tutorial-async-2.md:\n   85  3. If you haven't already, download the following example document, which works with the example `tax_forms` document type you created in the **Prerequisites** section:\n   86  \n   87: | Example document | [Download link](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) |\n   88  | --------------------------- | ------------------------------------------------------------ |\n   89  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\3000 - api-tutorial-webhook.md:\n   28  --header 'Authorization: Bearer YOUR_API_KEY' \\\n   29  --header 'Content-Type: application/json' \\\n   30: --data-raw '{\"document_url\":\"https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf\",\n   31  \"webhook\": {\"url\":\"YOUR_WEBHOOK_URL\",\"payload\":\"some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc\"}}'\n   32  ```\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\data-extraction\\2000 - library-quickstart.md:\n    5  \n    6  \n    7: If you want to extract from any of the following document types, you can get started in minutes using the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). The library provides out-of-the-box support for common business forms:\n    8  \n    9  - auto policy declaration pages\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\document-type-classification\\1000 - classify.md:\n   12  This topic covers classifying a document by its type.\n   13  \n   14: For example, if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements) type and a [tax_forms](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms) type in your account, you can classify 1040 forms, 1099 forms, Bank of America statements, Chase statements, and other documents, into those two types. In this scenario, for a  `2023-1-1_bankofamerica_statement_jon_doe.pdf` document, Sensible: \n   15  \n   16  - Classifies this document into the `bank_statements` document type.\n   17: - Classifies the statement doc by its similarity to reference documents in the `bank_statements` document type. The highest score is for [a Bank of America sample statement](https://github.com/sensible-hq/sensible-configuration-library/blob/main/templates/Financial%20Services/Bank%20Statements/refdocs/bank_of_america_sample.pdf).\n   18  - Provides metadata for the classification, including similarity scores for this document compared to each document type in your Sensible account and to each reference document in the `bank_statements` type.\n   19  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\2000 - zapier\\1000 - zapier-getting-started.md:\n   72  8. (Optional) If you created extra fields in the database, map each one.\n   73  \n   74: 9. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf) as a row in Airtable:\n   75  \n   76  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_4.png)\n   ..\n   85  1. Navigate to the Sensible [Extract tab](https://app.sensible.so/quick-extraction/).\n   86  2. Upload and run extractions for the following example 1040 documents:\n   87:    - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018)\n   88:    - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)\n   89:    - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)\n   90  \n   91  3. Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, navigate to the **Zaps** tab in Zapier, right-click the Zap's ellipsis (...) icon and click **Run**.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\integrations\\2000 - zapier\\2000 - zapier-tutorial-2.md:\n   33  ----\n   34  \n   35: 1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.\n   36  2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data.\n   37  3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email link`, and `Extraction link`.\n   ..\n   81  \n   82  1. Email the following example 1040 documents to the Gmail account, ensuring that they match the search criteria you created in Zapier:\n   83:    - [2018 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018)\n   84:    - [2019 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019)\n   85:    - [2020 1040 example document](https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020)\n   86  \n   87  2. Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, navigate to the **Zaps** tab in Zapier, right-click the Zap's ellipsis (...) icon and click **Run**.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\welcome\\6000 - author.md:\n   18  | LLMs              | [Getting started](doc:getting-started-ai)                    | Prompt an LLM by describing the data you want to extract.    |\n   19  | layout-based      | [Getting started with layout-based extractions](doc:getting-started) | To extract from complex document layouts, author layout-based queries. |\n   20: | out-of-the-box    | [Getting started with out-of-the-box extractions](doc:library-quickstart) | Sensible provides out-of-the-box extraction configurations for common business and tax forms. Use Sensible's pre-built, open-source [configuration library](https://github.com/sensible-hq/sensible-configuration-library/) to extract key information from tax forms such as 1099s, major carrier insurance declaration pages, and other documents. Then tweak the pre-built configurations for your custom data needs. |\n   21  \n   22  See the following table for an overview of the pros and cons of LLMs versus layout-based extraction:\n\n17 matches across 9 files\n",
+			"file": "/C/Users/franc/Documents/GitHub/sensible-docs/openapi_extraction.yml",
 			"settings":
 			{
-				"buffer_size": 10690,
+				"buffer_size": 1933692,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 165 files for \"pixel\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\data-extraction\\5000 - best-practices\\1000 - performance.md:\n   37   **Under 1 second per document**\n   38  \n   39: Some Sensible methods use pixels, for example to recognize borders. Pixel recognition for PDF documents requires rendering a PDF page, which can take hundreds of milliseconds. To improve processing time, use coordinate-based alternatives to these methods. \n   40  \n   41  | Factor                                                       | Notes                                                        |\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1000 - box.md:\n   18  | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |\n   19  | id (**required**) | `box`                                                        | Extracts all lines in a box. If you define an anchor that's outside the box borders, then use offset parameters to define a point that's inside the box borders so that Sensible recognizes the box. |\n   20: <skipped 174 characters> ...ting point for the box recognition relative to the anchor. For example, `right` specifies starting at the midpoint of the anchor line's right boundary, and `below` specifies starting at the midpoint of the anchor line's bottom boundary.  Sensible searches outward from this point until it finds dark pixels signifying the box border. <br/> For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   21  | offsetX           | number in inches default: 0                                  | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   22  | offsetY           | number in inches default: 0                                  | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page.  For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   23  | offsetBoxes       | object. default: `none`                                      | Recognize a box offset from the point defined in the Position parameter by a number of contiguous boxes that share borders. For example, use this parameter for tables or grids where borders surround every cell. Contains the following parameters:<br/>\\- `direction`: The direction to search in (`above, below, right, left`, relative to the starting box.<br/>\\- `number`: The number of boxes to offset by.<br/>For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   24: | darknessThreshold | number between 0 and 1. default: 0.9                         | The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br/>If the document has a white background, the default value is 0.9.<br/>If the document has dark or mottled background, for example as the result of a scan, then Sen... <skipped 195 characters> ...\n   25  | includeAnchor     | `true`, `false`. default: false                              | If true, includes anchors lines that are inside the box borders in the method output. Ignores anchor lines that are outside box borders. |\n   26  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1100 - checkbox.md:\n    5  Searches for a checkbox near to the anchor and returns a boolean indicating if it is selected or unselected. \n    6  \n    7: Sensible uses one of two data sources, pixels or metadata, to extract selection status:\n    8  \n    9  - If the document is a PDF that contains checkbox metadata, then Sensible preferentially uses the metadata to extract selection status.  \n   10  \n   11: - If there's no metadata, Sensible falls back to pixel recognition. By default Sensible recognizes pixels as checkboxes if they have a light background and dark, continuous borders. The maximum checkbox size supported by default for pixel recognition is a square with sides 0.3 inches long. Sensible returns true if  there are more that 5% darkened pixels within the box, indicating that it contains a selection mark.  Sensible  returns false if the box is empty. \n   12  \n   13  [**Parameters**](doc:checkbox#parameters)\n   ..\n   23  | id (**required**) | `checkbox`                      |                                                              |\n   24  | position          | `left`, `right`                 | Searches horizontally for a checkbox starting at the left or right anchor line boundaries and ending at the page margin. <br/> |\n   25: | offsetX           | number in inches. default: 0    | Indicates a point inside the checkbox. Instead of searching horizontally, Sensible  expands the search out in all directions from the point specified to find the checkbox bounding box.<br/><br/> For difficult pixel recognition, for example for large checkboxes or selection marks with no borders,  use the offset parameters in combination with Width and Height parameters to define the selection mark region.<br/> |\n   26: | offsetY           | number in inches. default: 0    | Indicates a point inside the checkbox. Instead of searching horizontally, Sensible  expands the search out in all directions from the point specified to find the checkbox bounding box.<br/><br/>For difficult pixel recognition, for example for large checkboxes or selection marks with no borders,  use the offset parameters in combination with Width and Height parameters to define the selection mark region.<br/> |\n   27: | width             | number in inches. default: none | **For pixel recognition:**  Configure this parameter for pixel recognition of checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders.<br/><br/>The Width and Height parameters define a region in which to find a selection mark. Specify a region inside the checkbox borders that doesn't touch the borders. <br/> |\n   28: | height            | number in inches. default: none | **For pixel recognition:**  Configure this parameter for pixel recognition of checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders.<br/><br/>The Width and Height parameters define a region in which to find a selection mark. Specify a region inside the checkbox borders that doesn't touch the borders. <br/> |\n   29: | darknessThreshold | number between 1 and 0.         | **For pixel recognition:**  The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document.<br/> |\n   30  \n   31  Examples\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1300 - document-range.md:\n  265  \n  266  - Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.\n  267: - Convert Sensible's coordinates for the image region to pixel per inch (PPI) coordinates. Sensible's region coordinates follow these conventions:\n  268    - they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)\n  269:   - they're in inches (to convert inches to pixels, multiply the inches coordinates by your PPI setting. For example, an x-coordinate of 3.156 inches is ~227 pixels for a PPI setting of 72 (72 PPI * 3.156 inches)).\n  270    - they're ordered clockwise from top left: (top left), (top right), (bottom right), (bottom left)\n  271  - Extract a partial bitmap defined by the PPI coordinates of the image from the rendered page.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1650 - nearest-checkbox.md:\n    7  Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it's more flexible, requires less configuration, and recognizes a wider range of checkbox formats. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. \n    8  \n    9: Sensible uses one of two data sources, pixels or metadata, to extract selection status:\n   10  \n   11  - If the document is a PDF that contains checkbox metadata, then Sensible preferentially uses the metadata to extract selection status.  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\2100 - signature.md:\n    5  ## Description\n    6  \n    7: Returns true if more than 3% of the pixels in the specified region are dark.\n    8  \n    9  | key              | value                                               | description                                                  |\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\8000 - concepts\\3670 - file-types.md:\n   19  | OCR-based methods<sup>2</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |\n   20  \n   21: 1. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, image coordinates returned by the Document Range method.\n   22  \n   23  2. OCR-based methods include NLP Table and Fixed Table methods. Use Text Table or List as alternatives. All [OCR](doc:ocr) settings are inapplicable for this file type.\n   24  \n   25: TODO: Where does \"Fixed Table method with the Stop parameter specified\" fit into all this? Is it pixel/render-based or OCR-based? How about NLP Table?\n   26  \n   27  \n\n24 matches across 7 files\n\n\nSearching 165 files for \"pixel\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\data-extraction\\5000 - best-practices\\1000 - performance.md:\n   37   **Under 1 second per document**\n   38  \n   39: Some Sensible methods use pixels, for example to recognize borders. Pixel recognition for PDF documents requires rendering a PDF page, which can take hundreds of milliseconds. To improve processing time, use coordinate-based alternatives to these methods. \n   40  \n   41  | Factor                                                       | Notes                                                        |\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1000 - box.md:\n   18  | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |\n   19  | id (**required**) | `box`                                                        | Extracts all lines in a box. If you define an anchor that's outside the box borders, then use offset parameters to define a point that's inside the box borders so that Sensible recognizes the box. |\n   20: <skipped 174 characters> ...ting point for the box recognition relative to the anchor. For example, `right` specifies starting at the midpoint of the anchor line's right boundary, and `below` specifies starting at the midpoint of the anchor line's bottom boundary.  Sensible searches outward from this point until it finds dark pixels signifying the box border. <br/> For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   21  | offsetX           | number in inches default: 0                                  | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   22  | offsetY           | number in inches default: 0                                  | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page.  For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   23  | offsetBoxes       | object. default: `none`                                      | Recognize a box offset from the point defined in the Position parameter by a number of contiguous boxes that share borders. For example, use this parameter for tables or grids where borders surround every cell. Contains the following parameters:<br/>\\- `direction`: The direction to search in (`above, below, right, left`, relative to the starting box.<br/>\\- `number`: The number of boxes to offset by.<br/>For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |\n   24: | darknessThreshold | number between 0 and 1. default: 0.9                         | The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br/>If the document has a white background, the default value is 0.9.<br/>If the document has dark or mottled background, for example as the result of a scan, then Sen... <skipped 195 characters> ...\n   25  | includeAnchor     | `true`, `false`. default: false                              | If true, includes anchors lines that are inside the box borders in the method output. Ignores anchor lines that are outside box borders. |\n   26  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1100 - checkbox.md:\n    5  Searches for a checkbox near to the anchor and returns a boolean indicating if it is selected or unselected. \n    6  \n    7: Sensible uses one of two data sources, pixels or metadata, to extract selection status:\n    8  \n    9  - If the document is a PDF that contains checkbox metadata, then Sensible preferentially uses the metadata to extract selection status.  \n   10  \n   11: - If there's no metadata, Sensible falls back to pixel recognition. By default Sensible recognizes pixels as checkboxes if they have a light background and dark, continuous borders. The maximum checkbox size supported by default for pixel recognition is a square with sides 0.3 inches long. Sensible returns true if  there are more that 5% darkened pixels within the box, indicating that it contains a selection mark.  Sensible  returns false if the box is empty. \n   12  \n   13  [**Parameters**](doc:checkbox#parameters)\n   ..\n   23  | id (**required**) | `checkbox`                      |                                                              |\n   24  | position          | `left`, `right`                 | Searches horizontally for a checkbox starting at the left or right anchor line boundaries and ending at the page margin. <br/> |\n   25: | offsetX           | number in inches. default: 0    | Indicates a point inside the checkbox. Instead of searching horizontally, Sensible  expands the search out in all directions from the point specified to find the checkbox bounding box.<br/><br/> For difficult pixel recognition, for example for large checkboxes or selection marks with no borders,  use the offset parameters in combination with Width and Height parameters to define the selection mark region.<br/> |\n   26: | offsetY           | number in inches. default: 0    | Indicates a point inside the checkbox. Instead of searching horizontally, Sensible  expands the search out in all directions from the point specified to find the checkbox bounding box.<br/><br/>For difficult pixel recognition, for example for large checkboxes or selection marks with no borders,  use the offset parameters in combination with Width and Height parameters to define the selection mark region.<br/> |\n   27: | width             | number in inches. default: none | **For pixel recognition:**  Configure this parameter for pixel recognition of checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders.<br/><br/>The Width and Height parameters define a region in which to find a selection mark. Specify a region inside the checkbox borders that doesn't touch the borders. <br/> |\n   28: | height            | number in inches. default: none | **For pixel recognition:**  Configure this parameter for pixel recognition of checkboxes larger than the default supported size, or for checkboxes with discontinuous or missing borders.<br/><br/>The Width and Height parameters define a region in which to find a selection mark. Specify a region inside the checkbox borders that doesn't touch the borders. <br/> |\n   29: | darknessThreshold | number between 1 and 0.         | **For pixel recognition:**  The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document.<br/> |\n   30  \n   31  Examples\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1300 - document-range.md:\n  265  \n  266  - Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.\n  267: - Convert Sensible's coordinates for the image region to pixel per inch (PPI) coordinates. Sensible's region coordinates follow these conventions:\n  268    - they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)\n  269:   - they're in inches (to convert inches to pixels, multiply the inches coordinates by your PPI setting. For example, an x-coordinate of 3.156 inches is ~227 pixels for a PPI setting of 72 (72 PPI * 3.156 inches)).\n  270    - they're ordered clockwise from top left: (top left), (top right), (bottom right), (bottom left)\n  271  - Extract a partial bitmap defined by the PPI coordinates of the image from the rendered page.\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\1650 - nearest-checkbox.md:\n    7  Use this method as an alterative to the Checkbox method. The advantage of the Nearest Checkbox method is that it's more flexible, requires less configuration, and recognizes a wider range of checkbox formats. The disadvantage is that it's slower than the Checkbox method, because the Nearest Checkbox method uses OCR. \n    8  \n    9: Sensible uses one of two data sources, pixels or metadata, to extract selection status:\n   10  \n   11  - If the document is a PDF that contains checkbox metadata, then Sensible preferentially uses the metadata to extract selection status.  \n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\2000 - methods\\2100 - signature.md:\n    5  ## Description\n    6  \n    7: Returns true if more than 3% of the pixels in the specified region are dark.\n    8  \n    9  | key              | value                                               | description                                                  |\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\8000 - concepts\\3670 - file-types.md:\n   19  | OCR-based methods<sup>2</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |\n   20  \n   21: 1. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, image coordinates returned by the Document Range method.\n   22  \n   23  2. OCR-based methods include NLP Table and Fixed Table methods. Use Text Table or List as alternatives. All [OCR](doc:ocr) settings are inapplicable for this file type.\n   24  \n   25: TODO: Where does \"Fixed Table method with the Stop parameter specified\" fit into all this? Is it pixel/render-based or OCR-based? How about NLP Table?\n   26  \n   27  \n\n24 matches across 7 files\n\n\nSearching 166 files for \"postprocessedout\"\n\n0 matches\n\nSearching 166 files for \"postprocessed\"\n\nC:\\Users\\franc\\Documents\\GitHub\\sensible-docs\\readme-sync\\v0\\senseml-reference\\7600 - postprocessor.md:\n   39  Postprocessor output is available in the `postprocessorOutput` object in the API response and in the `postprocessed` tab in the JSON editor: \n   40  \n   41: ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessed_tab.png) \n   42  \n   43  Postprocessor output isn't available in [Excel output](doc:excel-reference).\n   ..\n  183  \n  184  ```json\n  185: // POSTPROCESSED OUTPUT\n  186  \n  187  {\n\n2 matches in 1 file\n",
+			"settings":
+			{
+				"buffer_size": 21282,
 				"line_ending": "Windows",
 				"name": "Find Results",
 				"scratch": true
@@ -19,230 +27,98 @@
 			"undo_stack":
 			[
 				[
-					25,
-					1,
-					"paste",
-					null,
-					"AgAAAAMMAAAAAAAAgwwAAAAAAAAAAAAAgwwAAAAAAACDDAAAAAAAAG8AAABodHRwczovL2dpdGh1Yi5jb20vc2Vuc2libGUtaHEvc2Vuc2libGUtY29uZmlndXJhdGlvbi1saWJyYXJ5L3Jhdy9tYWluL3RheF9mb3Jtcy8xMDQwLzIwMjEvMTA0MF8yMDIxX3NhbXBsZS5wZGY",
-					"AQAAAAAAAAABAAAAAwwAAAAAAAByDAAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					28,
-					4,
+					38,
+					2,
 					"left_delete",
 					null,
-					"BAAAAEQMAAAAAAAARAwAAAAAAAABAAAAYkMMAAAAAAAAQwwAAAAAAAABAAAAb0IMAAAAAAAAQgwAAAAAAAABAAAAbEEMAAAAAAAAQQwAAAAAAAABAAAAYg",
-					"AQAAAAAAAAABAAAARQwAAAAAAABFDAAAAAAAAAAAAAAAAPC/"
+					"AgAAAKlRAAAAAAAAqVEAAAAAAAABAAAAcqhRAAAAAAAAqFEAAAAAAAABAAAAbw",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAACqUQAAAAAAAKpRAAAAAAAAAAAAAAAA8L8"
 				],
 				[
-					29,
+					39,
 					1,
 					"insert",
 					{
-						"characters": "raw"
+						"characters": "ed"
 					},
-					"AwAAAEEMAAAAAAAAQgwAAAAAAAAAAAAAQgwAAAAAAABDDAAAAAAAAAAAAABDDAAAAAAAAEQMAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAQQwAAAAAAABBDAAAAAAAAAAAAAAAAPC/"
+					"AgAAAKhRAAAAAAAAqVEAAAAAAAAAAAAAqVEAAAAAAACqUQAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAACoUQAAAAAAAKhRAAAAAAAAAAAAAAAA8L8"
 				]
 			]
 		},
 		{
-			"file": "v0/api/1000 - api-tutorial/2000 - api-tutorial-async-1.md",
+			"file": "v0/senseml-reference/7600 - postprocessor.md",
 			"settings":
 			{
-				"buffer_size": 4011,
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-			]
-		},
-		{
-			"file": "v0/api/1000 - api-tutorial/1000 - api-tutorial-sync.md",
-			"settings":
-			{
-				"buffer_size": 3726,
+				"buffer_size": 6751,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-				[
-					4,
-					1,
-					"paste",
-					null,
-					"AgAAACsGAAAAAAAAqwYAAAAAAAAAAAAAqwYAAAAAAACrBgAAAAAAAG8AAABodHRwczovL2dpdGh1Yi5jb20vc2Vuc2libGUtaHEvc2Vuc2libGUtY29uZmlndXJhdGlvbi1saWJyYXJ5L3Jhdy9tYWluL3RheF9mb3Jtcy8xMDQwLzIwMjEvMTA0MF8yMDIxX3NhbXBsZS5wZGY",
-					"AQAAAAAAAAABAAAAKwYAAAAAAACaBgAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					9,
-					8,
-					"left_delete",
-					null,
-					"CAAAAM4DAAAAAAAAzgMAAAAAAAABAAAAbc0DAAAAAAAAzQMAAAAAAAABAAAAcswDAAAAAAAAzAMAAAAAAAABAAAAb8sDAAAAAAAAywMAAAAAAAABAAAAZsoDAAAAAAAAygMAAAAAAAABAAAAX8kDAAAAAAAAyQMAAAAAAAABAAAAeMgDAAAAAAAAyAMAAAAAAAABAAAAYccDAAAAAAAAxwMAAAAAAAABAAAAdA",
-					"AQAAAAAAAAABAAAAzwMAAAAAAADPAwAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					10,
-					1,
-					"insert",
-					{
-						"characters": "1040"
-					},
-					"BAAAAMcDAAAAAAAAyAMAAAAAAAAAAAAAyAMAAAAAAADJAwAAAAAAAAAAAADJAwAAAAAAAMoDAAAAAAAAAAAAAMoDAAAAAAAAywMAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAxwMAAAAAAADHAwAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					17,
-					9,
-					"left_delete",
-					null,
-					"CQAAAO0FAAAAAAAA7QUAAAAAAAABAAAAc+wFAAAAAAAA7AUAAAAAAAABAAAAbesFAAAAAAAA6wUAAAAAAAABAAAAcuoFAAAAAAAA6gUAAAAAAAABAAAAb+kFAAAAAAAA6QUAAAAAAAABAAAAZugFAAAAAAAA6AUAAAAAAAABAAAAX+cFAAAAAAAA5wUAAAAAAAABAAAAeOYFAAAAAAAA5gUAAAAAAAABAAAAYeUFAAAAAAAA5QUAAAAAAAABAAAAdA",
-					"AQAAAAAAAAABAAAA7gUAAAAAAADuBQAAAAAAAAAAAAAAAPC/"
-				],
-				[
-					18,
-					1,
-					"insert",
-					{
-						"characters": "1040s"
-					},
-					"BQAAAOUFAAAAAAAA5gUAAAAAAAAAAAAA5gUAAAAAAADnBQAAAAAAAAAAAADnBQAAAAAAAOgFAAAAAAAAAAAAAOgFAAAAAAAA6QUAAAAAAAAAAAAA6QUAAAAAAADqBQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA5QUAAAAAAADlBQAAAAAAAAAAAAAAAPC/"
-				]
-			]
-		},
-		{
-			"file": "v0/api/1000 - api-tutorial/index.md",
-			"settings":
-			{
-				"buffer_size": 1632,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-				[
-					3,
-					1,
-					"insert",
-					{
-						"characters": "1040s"
-					},
-					"BgAAAOwEAAAAAAAA7QQAAAAAAAAAAAAA7QQAAAAAAADtBAAAAAAAAAkAAABUYXggZm9ybXPtBAAAAAAAAO4EAAAAAAAAAAAAAO4EAAAAAAAA7wQAAAAAAAAAAAAA7wQAAAAAAADwBAAAAAAAAAAAAADwBAAAAAAAAPEEAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA9QQAAAAAAADsBAAAAAAAAAAAAAAAAPC/"
-				]
-			]
-		},
-		{
-			"file": "v0/senseml-reference/0000 - postprocessor.md",
-			"settings":
-			{
-				"buffer_size": 9760,
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-				[
-					4,
-					1,
-					"insert",
-					{
-						"characters": "draft-"
-					},
-					"BgAAAK8HAAAAAAAAsAcAAAAAAAAAAAAAsAcAAAAAAACxBwAAAAAAAAAAAACxBwAAAAAAALIHAAAAAAAAAAAAALIHAAAAAAAAswcAAAAAAAAAAAAAswcAAAAAAAC0BwAAAAAAAAAAAAC0BwAAAAAAALUHAAAAAAAAAAAAAA",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAACvBwAAAAAAAK8HAAAAAAAAAAAAAAAA8L8"
-				],
-				[
-					7,
-					1,
-					"revert",
-					null,
-					"AwAAAAAAAAAAAAAAAAAAAAAAAACFJQAALS0tCnRpdGxlOiAiUG9zdHByb2Nlc3NvciIKaGlkZGVuOiB0cnVlCi0tLQoKPiAhW2ltZ10oaHR0cHM6Ly9jYS5zbGFjay1lZGdlLmNvbS9UMDE3VVBSQUU5NC1VMDc5NEQ2TVU1Ni02YTc3YmI3ZmZkZGEtNDgpCgpEZXZvbkRldm9uW0ZyaWRheSBhdCAxMTo1NyBBTV0oaHR0cHM6Ly9zZW5zaWJsZWhxLnNsYWNrLmNvbS9hcmNoaXZlcy9DMDIxNVQ5Szg2UC9wMTcyNjg1NTAzOTY1NTkwOT90aHJlYWRfdHM9MTcyNjc2NDY0Ni40MjQwMDkmY2lkPUMwMjE1VDlLODZQKQoKSSdkIGJlIGluY2xpbmVkIHRvIGNsYXJpZnkgaW4gdGhlIG9iamVjdCBvcGVyYXRvciBkZXNjcmlwdGlvbiBkZXNjcmlwdGlvbiB0aGF0IGl0J3MgcG9zc2libGUgZm9yIG9iamVjdCB0byB0YWtlIGluIHRoZSByZXN1bHQgb2Ygc29tZSBvdGhlciBydWxlLCByYXRoZXIgdGhhbiBzdHJpY3RseSBuZWVkaW5nIHRoZSBrZXkvdmFsdWUgcGFpcnMgc3BlbGxlZCBvdXQgb3V0cmlnaHQuIFRoYXQgbWF5IGJlIGFuIHVubGlrZWx5IHNjZW5hcmlvLCBhbmQgaXQgbWF5IG1ha2UgaXQgbW9yZSBjb21wbGljYXRlZCB0byB0aGluayBhYm91dCwgc28gSSBjYW4gYWxzbyBzZWUgdGhlIGFyZ3VtZW50IGZvciBub3QgZXhwbGljaXRseSBicmluZ2luZyB0aGlzIHVwIGhlcmUuICh0aGUgZXhhbXBsZSBpcyBwYXNzaW5nIG9iamVjdCBhIG1hcCBydWxlLCB3aGVyZSB0aGUgbWFwIHJlc3VsdHMgaW4gdGhlIHJpZ2h0IHNoYXBlOiBbWyJzb21lIHN0cmluZyIsIHNvbWUgdmFsdWVdIC4uLl0pT3RoZXJ3aXNlIGl0IGFsbCBtYWtlcyBzZW5zZSB0byBtZSEKCi0tLQoKCgoKCkRlZmluZSB5b3VyIG93biBjdXN0b20gb3V0cHV0IHNjaGVtYSB3aXRoIGEgW0pzb25Mb2dpY10oaHR0cHM6Ly9qc29ubG9naWMuY29tLyktYmFzZWQgcG9zdHByb2Nlc3Nvci4gIEZvciBleGFtcGxlLCB1c2UgYSBwb3N0cHJvY2Vzc29yIGlmIHlvdXIgYXBwIG9yIEFQSSBjb25zdW1lcyBkYXRhIHVzaW5nIGEgcHJlLWV4aXN0aW5nIHNjaGVtYSwgYW5kIHlvdSBkb24ndCB3YW50IHRvIGludGVncmF0ZSB1c2luZyBTZW5zaWJsZSdzIG91dHB1dCBzY2hlbWEuCgpJbiBkZXRhaWwsIFNlbnNpYmxlJ3MgYHBhcnNlZF9kb2N1bWVudGAgb3V0cHV0IHNjaGVtYSByZXByZXNlbnRzIGV4dHJhY3RlZCBkb2N1bWVudCBkYXRhIGFzIGZvbGxvd3M6CgpgYGBqc29uCnsKICAgICJmaWVsZHMiOiBbCiAgICAgICAgewogICAgICAgICAgICAiZmllbGRfa2V5IjogewogICAgICAgICAgICAgICAgInZhbHVlIjogInZhbHVlXzEiLAogICAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICAgICAgICB9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAgICJmaWVsZF9rZXlfMiI6IHsKICAgICAgICAgICAgICAgICJ2YWx1ZSI6ICJ2YWx1ZV8yIiwKICAgICAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIF0KfQpgYGAKClVzaW5nIGEgcG9zdHByb2Nlc3NvciwgeW91IGNhbiB0cmFuc2Zvcm0gdGhlIGV4dHJhY3RlZCBkYXRhIGludG8gYSBjdXN0b20gc2NoZW1hLCAgZm9yIGV4YW1wbGU6CgpgYGBqc29uCnsKICAgICJkYXRhIjogWwogICAgICAgIHsKICAgICAgICAgICAgImN1c3RvbV9vYmplY3QiOiB7CiAgICAgICAgICAgICAgICAiZmllbGRfMSI6ICJ2YWx1ZV8xIiwKICAgICAgICAgICAgICAgICJmaWVsZF8yIjogInZhbHVlXzIiCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICBdCn0KYGBgCgpUaGUgcG9zdHByb2Nlc3NvciBvZmZlcnMgc2ltaWxhciBkYXRhIG1hbmlwdWxhdGlvbiB0byB0aGUgIFtDdXN0b20gQ29tcHV0YXRpb25dKGRvYzpjdXN0b20tY29tcHV0YXRpb24pIGNvbXB1dGVkIGZpZWxkIG1ldGhvZCwgYnV0IG9mZmVycyBncmVhdGVyIGZsZXhpYmlsaXR5IGJlY2F1c2UgaXQgc3VwcG9ydHMgbW9yZSBbZXh0ZW5kZWQganNvbkxvZ2ljIG9wZXJhdGlvbnNdKGRvYzpkcmFmdC1qc29ubG9naWMpIGFuZCBjYW4gb3V0cHV0IGFuIGFyYml0cmFyeSBzY2hlbWEgaW5zdGVhZCBvZiBvdXRwdXR0aW5nIGZpZWxkcy4gCgpQb3N0cHJvY2Vzc29yIG91dHB1dCBpcyBhdmFpbGFibGUgaW4gdGhlIGBwb3N0cHJvY2Vzc29yT3V0cHV0YCBvYmplY3QgaW4gdGhlIEFQSSByZXNwb25zZSBhbmQgaW4gdGhlIGBwb3N0cHJvY2Vzc29yYCB0YWIgaW4gdGhlIEpTT04gZWRpdG9yOiAKCiFbQ2xpY2sgdG8gZW5sYXJnZV0oaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3NlbnNpYmxlLWhxL3NlbnNpYmxlLWRvY3MvbWFpbi9yZWFkbWUtc3luYy9hc3NldHMvdjAvaW1hZ2VzL2ZpbmFsL3Bvc3Rwcm9jZXNzZWRfdGFiLnBuZykgCgojIFBhcmFtZXRlcnMKCgp8IGtleSAgICAgICAgICAgICAgICAgfCB2YWx1ZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBkZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAp8IDotLS0tLS0tLS0tLS0tLS0tLS0gfCA6LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfCA6LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfAp8IHR5cGUgKCoqcmVxdWlyZWQqKikgfCBganNvbkxvZ2ljYCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBTdXBwb3J0cyBbSnNvbkxvZ2ljXShodHRwczovL2pzb25sb2dpYy5jb20vKSBhbmQgIFNlbnNpYmxlJ3MgZXh0ZW5kZWQgSnNvbkxvZ2ljIFtvcGVyYXRpb25zXShkb2M6Y3VzdG9tLWNvbXB1dGF0aW9uI3NlbnNpYmxlLW9wZXJhdGlvbnMpIHwKfCBydWxlICAgICAgICAgICAgICAgIHwgW0pzb25Mb2dpY10oaHR0cHM6Ly9qc29ubG9naWMuY29tLykgb2JqZWN0IHwgRGVmaW5lIHRoZSBjdXN0b20gc2NoZW1hIHVzaW5nIFNlbnNpYmxlJ3MgW29iamVjdF0oZG9jOmN1c3RvbS1jb21wdXRhdGlvbiNvYmplY3QpIG9wZXJhdG9yIGFuZCBvdGhlciAuIEZvciBtb3JlIGluZm9ybWF0aW9uLCBzZWUgdGhlIGZvbGxvd2luZyBzZWN0aW9uLiB8CgojIyMgT2JqZWN0IG9wZXJhdG9yCgpSZXR1cm5zIGEgSlNPTiBvYmplY3QgdGhhdCBpcyBhbiBhcnJheSBvZiBrZXkvdmFsdWUgcGFpcnMuIFlvdSBjYW4gbmVzdCBvYmplY3Qgb3BlcmF0aW9ucyB0byBidWlsZCBjb21wbGV4IGN1c3RvbSBvYmplY3RzLiAKCmBgYGpzb24KewogICAgIm9iamVjdCI6IFsKICAgICAgICBbCiAgICAgICAgIFsiZGVzaXJlZEtleU5hbWUiLCBKc29uTG9naWNdLAogICAgICAgICBbImRlc2lyZWRLZXlOYW1lIiwgSnNvbkxvZ2ljXQogICAgICAgIF0KICAgIF0KfQpgYGAKCkFzIGEgc2ltcGxlIGV4YW1wbGUsICAKCmBgYGpzb24KewogICAgIm9iamVjdCI6IFsKICAgICAgICBbCiAgICAgICAgICAgIFsKICAgICAgICAgICAgICAgICJrZXlfMSIsCiAgICAgICAgICAgICAgICAic3RyaW5nX2NvbnN0YW50IgogICAgICAgICAgICBdLAogICAgICAgICAgICBbCiAgICAgICAgICAgICAgICAiYW5vdGhlcl9rZXkiLAogICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgIC8vIHdoZXJlIHRoZSBleHRyYWN0ZWQgZmllbGQgYGFjY291bnRfbnVtYmVyYCBoYXMgdmFsdWUgYDEyMzQ1YAogICAgICAgICAgICAgICAgICAgICJ2YXIiOiAiYWNjb3VudF9udW1iZXIudmFsdWUiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICBdCiAgICBdCn0KYGBgCgpyZXR1cm5zOgoKYGBganNvbgp7CiAgImtleV8xIjogInN0cmluZ19jb25zdGFudCIsCiAgImFub3RoZXJfa2V5IjogMTIzNDUKfQpgYGAKClRPRE86IGRlc2NyaWJlIHRoYXQgaWYgdGhlIG91dHB1dCBzaGFwZSBvZiBhIGpzb25sZ29pYyBvcGVyYXRpb24gaXMgYSBoYXNoIChyaWdodCB3b3JkPykgaWUgbGlrZSBtYXAsIHRoZW4geW91IGNhbiBqdXN0IGlucHV0IHRoYXQ6IAoKYGBganNvbgp7CiAgICAib2JqZWN0IjogWwogICAgICAgIFsKICAgICAgICAgWyBKc29uTG9naWNdCiAgICAgICAgIAogICAgICAgIF0KICAgIF0KfQpgYGAKCgoKIyBFeGFtcGxlcwoKIyMgRXhhbXBsZSAxCgoqKkNvbmZpZyoqCgpgYGBqc29uCnsKICAicG9zdHByb2Nlc3NvciI6IHsKICAgICJ0eXBlIjogImpzb25Mb2dpYyIsCiAgICAicnVsZSI6IHsKICAgICAgIC8qIHNwZWNpZnkgYSBzY2hlbWEgdGhhdCdzIGEga2V5LXZhbHVlIGFycmF5ICovCiAgICAgICJvYmplY3QiOiBbCiAgICAgICAgWwogICAgICAgICAgWwogICAgICAgICAgICAidGF4X3N1bW1hcnkiLAogICAgICAgICAgICB7CiAgICAgICAgICAgICAgLyogbmVzdCBhbiBvYmplY3QgaW5zaWRlIGFuIG9iamVjdCAgICovCiAgICAgICAgICAgICAgIm9iamVjdCI6IFsKICAgICAgICAgICAgICAgIFsKICAgICAgICAgICAgICAgICAgWwogICAgICAgICAgICAgICAgICAgIC8qIGRlZmluZSBhIGtleS12YWx1ZSBwYWlyICovCiAgICAgICAgICAgICAgICAgICAgInNlbnRfYnkiLAogICAgICAgICAgICAgICAgICAgIC8qIHZhbHVlIGZvciB0aGUgYHNlbnRfYnlgIGtleSBpcyBhIGhhcmRjb2RlZCBzdHJpbmcuICovCiAgICAgICAgICAgICAgICAgICAgInNlbnNpYmxlLWFwaSIKICAgICAgICAgICAgICAgICAgXSwKICAgICAgICAgICAgICAgICAgWwogICAgICAgICAgICAgICAgICAgIC8qIGB0YXhfaW5mb2Agb2JqZWN0IGhhcyB0d28gZmllbGRzLCBlYWNoIG9mIHdoaWNoIGlzIHB1bGxlZCBmcm9tIHRoZSAKICAgICAgICAgICAgICAgICAgICBwYXJzZWQgZG9jdW1lbnQgKi8KICAgICAgICAgICAgICAgICAgICAidGF4X2luZm8iLAogICAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAgICJvYmplY3QiOiBbCiAgICAgICAgICAgICAgICAgICAgICAgIFsKICAgICAgICAgICAgICAgICAgICAgICAgICBbCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAvKiB0aGUgYHZhcmAgb3BlcmF0b3IgZ2V0cyBhIHZhbHVlIGZyb20gdGhlIHBhcnNlZCBkb2N1bWVudC4gCiAgICAgICAgICAgICAgICAgICAgICAgIGluIHRoaXMgY2FzZSwgdGhlIGB2YWx1ZWAgcHJvcGVydHkgZnJvbSB0aGUgYHN0YXRlX3RheGAgZmllbGQuKi8KICAgICAgICAgICAgICAgICAgICAgICAgICAgICJzdGF0ZV90YXgiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAidmFyIjogInN0YXRlX3RheC52YWx1ZSIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICAgICAgICBdLAogICAgICAgICAgICAgICAgICAgICAgICAgIFsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICJzdGF0ZV93YWdlcyIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ2YXIiOiAic3RhdGVfd2FnZXMudmFsdWUiCiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICBdLAogICAgICAgICAgICAgICAgICBbCiAgICAgICAgICAgICAgICAgICAgLyogYCJ3YWdlX2VudHJpZXMiYCBpcyBhbiBhcnJheS4gCiAgICAgICAgICAgICAgICAgICAgdGhlIGFycmF5IHZhbHVlcyBjb21lIGVudGlyZWx5IGZyb20gdGhlIGBtYXBgIG9wZXJhdGlvbiwgd2hpY2ggcmV0dXJucyB0aGUgdmFsdWUgZm9yCiAgICAgICAgICAgICAgICAgICAgZWFjaCBpdGVtIGluIHRoZSBwYXJzZWQgZG9jdW1lbnQncyBgYWxsX3dhZ2VfZmllbGRzYCAqLwogICAgICAgICAgICAgICAgICAgICJ3YWdlX2VudHJpZXMiLAogICAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAgICJtYXAiOiBbCiAgICAgICAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAidmFyIjogImFsbF93YWdlX2ZpZWxkcyIKICAgICAgICAgICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICAgICAgICJ2YXIiOiAidmFsdWUiCiAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICBdCiAgICAgICAgICAgIH0KICAgICAgICAgIF0KICAgICAgICBdCiAgICAgIF0KICAgIH0KICB9LAogICJmaWVsZHMiOiBbCiAgICAKICAgIHsKICAgICAgImlkIjogInN0YXRlX3dhZ2VzIiwKICAgICAgImFuY2hvciI6IHsKICAgICAgICAibWF0Y2giOiAiMTYgU3RhdGUiCiAgICAgIH0sCiAgICAgICJtZXRob2QiOiB7CiAgICAgICAgImlkIjogImxhYmVsIiwKICAgICAgICAicG9zaXRpb24iOiAiYmVsb3ciLAogICAgICAgICJ0ZXh0QWxpZ25tZW50IjogImhhbmdpbmdJbmRlbnQiCiAgICAgIH0sCiAgICAgICJ0eXBlIjogImN1cnJlbmN5IgogICAgfSwKICAgIHsKICAgICAgImlkIjogInN0YXRlX3RheCIsCiAgICAgICJhbmNob3IiOiB7CiAgICAgICAgIm1hdGNoIjogIjE3IFN0YXRlIgogICAgICB9LAogICAgICAibWV0aG9kIjogewogICAgICAgICJpZCI6ICJsYWJlbCIsCiAgICAgICAgInBvc2l0aW9uIjogImJlbG93IiwKICAgICAgICAidGV4dEFsaWdubWVudCI6ICJoYW5naW5nSW5kZW50IgogICAgICB9LAogICAgICAidHlwZSI6ICJjdXJyZW5jeSIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJhbGxfd2FnZV9maWVsZHMiLAogICAgICAibWF0Y2giOiAiYWxsIiwKICAgICAgInR5cGUiOiAiY3VycmVuY3kiLAogICAgICAibWV0aG9kIjogewogICAgICAgICJpZCI6ICJsYWJlbCIsCiAgICAgICAgInBvc2l0aW9uIjogImJlbG93IiwKICAgICAgICAidGV4dEFsaWdubWVudCI6ICJoYW5naW5nSW5kZW50IgogICAgICB9LAogICAgICAiYW5jaG9yIjogewogICAgICAgICJtYXRjaCI6IHsKICAgICAgICAgICJ0eXBlIjogImluY2x1ZGVzIiwKICAgICAgICAgICJ0ZXh0IjogIndhZ2VzIgogICAgICAgIH0KICAgICAgfQogICAgfQogIF0KfQpgYGAKCioqRXhhbXBsZSBkb2N1bWVudCoqClRoZSBmb2xsb3dpbmcgaW1hZ2Ugc2hvd3MgdGhlIGV4YW1wbGUgZG9jdW1lbnQgdXNlZCB3aXRoIHRoaXMgZXhhbXBsZSBjb25maWc6CgohW0NsaWNrIHRvIGVubGFyZ2VdKGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9zZW5zaWJsZS1ocS9zZW5zaWJsZS1kb2NzL21haW4vcmVhZG1lLXN5bmMvYXNzZXRzL3YwL2ltYWdlcy9maW5hbC9wb3N0cHJvY2Vzc29yLnBuZykKCnwgRXhhbXBsZSBkb2N1bWVudCB8IFtEb3dubG9hZCBsaW5rXShodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vc2Vuc2libGUtaHEvc2Vuc2libGUtZG9jcy9tYWluL3JlYWRtZS1zeW5jL2Fzc2V0cy92MC9wZGZzL3Bvc3Rwcm9jZXNzb3IucGRmKSB8CnwgLS0tLS0tLS0tLS0tLS0tLSB8IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB8CgoqKk91dHB1dCoqCgpgYGBqc29uCi8vIFBPU1RQUk9DRVNTRUQgT1VUUFVUCgp7CiAgInRheF9zdW1tYXJ5IjogewogICAgInNlbnRfYnkiOiAic2Vuc2libGUtYXBpIiwKICAgICJ0YXhfaW5mbyI6IHsKICAgICAgInN0YXRlX3RheCI6IDM0MzguNTYsCiAgICAgICJzdGF0ZV93YWdlcyI6IDY4NzgwLjQ4CiAgICB9LAogICAgIndhZ2VfZW50cmllcyI6IFsKICAgICAgNjk3ODAuNDYsCiAgICAgIDc3NDQ3LjI0LAogICAgICAyMjQ3NC4yNCwKICAgICAgNjg3ODAuNDgKICAgIF0KICB9Cn0KCi8vIFBBUlNFRCBET0NVTUVOVCBPVVRQVVQKCnsKICAic3RhdGVfd2FnZXMiOiB7CiAgICAic291cmNlIjogIjY4NzgwLjQ4IiwKICAgICJ2YWx1ZSI6IDY4NzgwLjQ4LAogICAgInVuaXQiOiAiJCIsCiAgICAidHlwZSI6ICJjdXJyZW5jeSIKICB9LAogICJzdGF0ZV90YXgiOiB7CiAgICAic291cmNlIjogIjM0MzguNTYiLAogICAgInZhbHVlIjogMzQzOC41NiwKICAgICJ1bml0IjogIiQiLAogICAgInR5cGUiOiAiY3VycmVuY3kiCiAgfSwKICAiYWxsX3dhZ2VfZmllbGRzIjogWwogICAgewogICAgICAic291cmNlIjogIjY5NzgwLjQ2IiwKICAgICAgInZhbHVlIjogNjk3ODAuNDYsCiAgICAgICJ1bml0IjogIiQiLAogICAgICAidHlwZSI6ICJjdXJyZW5jeSIKICAgIH0sCiAgICB7CiAgICAgICJzb3VyY2UiOiAiNzc0NDcuMjQiLAogICAgICAidmFsdWUiOiA3NzQ0Ny4yNCwKICAgICAgInVuaXQiOiAiJCIsCiAgICAgICJ0eXBlIjogImN1cnJlbmN5IgogICAgfSwKICAgIHsKICAgICAgInNvdXJjZSI6ICIyMjQ3NC4yNCIsCiAgICAgICJ2YWx1ZSI6IDIyNDc0LjI0LAogICAgICAidW5pdCI6ICIkIiwKICAgICAgInR5cGUiOiAiY3VycmVuY3kiCiAgICB9LAogICAgewogICAgICAic291cmNlIjogIjY4NzgwLjQ4IiwKICAgICAgInZhbHVlIjogNjg3ODAuNDgsCiAgICAgICJ1bml0IjogIiQiLAogICAgICAidHlwZSI6ICJjdXJyZW5jeSIKICAgIH0KICBdCn0KCmBgYAoKVE9ETzoKCgoKIyMjIyBFeGFtcGxlIDMKCkxhc3RseSwgaGVyZSdzIGEgY29udHJpdmVkIGJ1dCBob3BlZnVsbHkgaWxsdXN0cmF0aXZlIGV4YW1wbGUgd2hlcmUgdGhlIHZhbHVlIGluIHRoZSBgIm9iamVjdCJgIGFycmF5IGNvbWVzIGVudGlyZWx5IGZyb20gYW5vdGhlciBydWxlOgoKYGBganNvbgp7CiAgIm9iamVjdCI6IFsKICAgIHsKICAgICAgIm1hcCI6IFsKICAgICAgICBbeyAidmFyIjogIm5hbWUiIH0sIHsgInZhciI6ICJvY2N1cGF0aW9uIiB9XSwKICAgICAgICBbeyAidmFyIjogInZhbHVlIiB9LCAidGVzdCB2YWx1ZSJdCiAgICAgIF0KICAgIH0KICBdCn0KYGBgCgpJbiB0aGlzIGNhc2UsIHRoZSBgIm1hcCJgIG9wZXJhdGlvbiBpdGVyYXRlcyBvdmVyIGFuIGFycmF5IG1hZGUgdXAgb2YgdGhlIGBuYW1lYCBhbmQgYG9jY3VwYXRpb25gIGZpZWxkcyBmcm9tIG91ciBkb2N1bWVudCwgd2hpY2ggbWlnaHQgbG9vayBsaWtlIHRoaXM6CgpgYGBqc29uClsKICB7ICJ0eXBlIjogInN0cmluZyIsICJ2YWx1ZSI6ICJzb21lIG5hbWUiIH0sCiAgeyAidHlwZSI6ICJzdHJpbmciLCAidmFsdWUiOiAiZXhjZWxsZW50IHJ1bGUgd3JpdGVyIiB9Cl0KYGBgCgpGb3IgZWFjaCBvZiB0aGUgaXRlbXMgaW4gdGhhdCBhcnJheSwgdGhlIG1hcCB3aWxsIHJldHVybiBiYWNrIGFuIGFycmF5IG9mIHRoZSBpdGVtJ3MgdmFsdWUgYW5kIHRoZSBzdHJpbmcgInRlc3QgdmFsdWUiLCBmb3IgYSByZXN1bHQgdGhhdCBsb29rcyBsaWtlIHRoaXM6CgpgYGBqc29uClsKICBbInNvbWUgbmFtZSIsICJ0ZXN0IHZhbHVlIl0sCiAgWyJleGNlbGxlbnQgcnVsZSBlZGl0b3IiLCAidGVzdCB2YWx1ZSJdCl0KYGBgCgpUaGVuLCB3aGVuIHRoYXQgZ2V0cyBydW4gdGhyb3VnaCB0aGUgYCJvYmplY3QiYCBvcGVyYXRpb24sIHdlIGdldCBhIGZpbmFsIHJlc3VsdCBvZjoKCmBgYGpzb24KewogICJzb21lIG5hbWUiOiAidGVzdCB2YWx1ZSIsCiAgImV4Y2VsbGVudCBydWxlIHdyaXRlciI6ICJ0ZXN0IHZhbHVlIgp9CmBgYAoAAAAAAAAAAIUlAAAAAAAAAAAAAAAAAAAAAAAAICYAAAAAAAAAAAAA",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAB9CAAAAAAAAH0IAAAAAAAAAAAAAAAA8L8"
-				]
-			]
-		},
-		{
-			"file": "v0/welcome/1000 - overview.md",
-			"settings":
-			{
-				"buffer_size": 4657,
 				"line_ending": "Windows"
 			},
 			"undo_stack":
 			[
 				[
 					12,
-					6,
+					2,
 					"left_delete",
 					null,
-					"BgAAAEQQAAAAAAAARBAAAAAAAAABAAAALUMQAAAAAAAAQxAAAAAAAAABAAAAdEIQAAAAAAAAQhAAAAAAAAABAAAAZkEQAAAAAAAAQRAAAAAAAAABAAAAYUAQAAAAAAAAQBAAAAAAAAABAAAAcj8QAAAAAAAAPxAAAAAAAAABAAAAZA",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAABFEAAAAAAAAEUQAAAAAAAAAAAAAAAA8L8"
+					"AgAAAHYFAAAAAAAAdgUAAAAAAAABAAAAcnUFAAAAAAAAdQUAAAAAAAABAAAAbw",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAB3BQAAAAAAAHcFAAAAAAAAAAAAAAAA8L8"
 				],
 				[
-					15,
+					13,
 					1,
-					"revert",
-					null,
-					"AwAAAAAAAAAAAAAAAAAAAAAAAAAxEgAALS0tCnRpdGxlOiAiT3ZlcnZpZXciCmhpZGRlbjogZmFsc2UKLS0tCgoKCldlbGNvbWUhIFNlbnNpYmxlIGlzIGEgZGV2ZWxvcGVyLWZpcnN0IHBsYXRmb3JtIGZvciBleHRyYWN0aW5nIHN0cnVjdHVyZWQgZGF0YSBmcm9tIGRvY3VtZW50cywgZm9yIGV4YW1wbGUsIGJ1c2luZXNzIGZvcm1zIGluIFBERiBmb3JtYXQuIFVzZSBTZW5zaWJsZSB0byBidWlsZCBkb2N1bWVudC1hdXRvbWF0aW9uIGZlYXR1cmVzIGludG8geW91ciB2ZXJ0aWNhbCBTYWFTIHByb2R1Y3RzLiAKCldpdGggU2Vuc2libGUsIHlvdSBjYW4gd3JpdGUgZXh0cmFjdGlvbiBxdWVyaWVzIGZvciBhbnkgZG9jdW1lbnQ6CgohW0NsaWNrIHRvIGVubGFyZ2VdKGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9zZW5zaWJsZS1ocS9zZW5zaWJsZS1kb2NzL21haW4vcmVhZG1lLXN5bmMvYXNzZXRzL3YwL2ltYWdlcy9maW5hbC9pbnRyb19TREtfMy5wbmcpCgpBbmQgZ2V0IGJhY2sga2V5IGZhY3RzIGFzIEpTT046CgpgYGBqc29uCnsKICAgICJzdHJlZXRfYWRkcmVzcyI6IHsKICAgICAgICAidmFsdWUiOiAiMTIzNCBBQkMgQ09VUlQiLAogICAgICAgICJ0eXBlIjogImFkZHJlc3MiCiAgICB9LAogICAgImluY2x1ZGVkX2FwcGxpYW5jZXMiOiBbCiAgICAgICAgewogICAgICAgICAgICAidmFsdWUiOiAid2FzaGVycyIsCiAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgInZhbHVlIjogImRyeWVycyIsCiAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICAgInZhbHVlIjogInJlZnJpZ2VyYXRvcnMiLAogICAgICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgICAgfQogICAgXQp9CmBgYAoKU2Vuc2libGUgaXMgaGlnaGx5IGNvbmZpZ3VyYWJsZS4gWW91IGNhbiBleHRyYWN0IGRhdGEgaW4gbWludXRlcyBieSBsZXZlcmFnaW5nIEdQVC00IGFuZCBvdGhlciBsYXJnZSBsYW5ndWFnZSBtb2RlbHMgKExMTXMpLCBvciB5b3UgY2FuIGdldCBmaW5lLWdyYWluZWQgY29udHJvbCB3aXRoIFNlbnNpYmxlJ3MgdmlzdWFsLCBsYXlvdXQtYmFzZWQgcnVsZXMuIEJ5IGNvbWJpbmluZyBsYXlvdXQtIGFuZCBMTE0tYmFzZWQgZXh0cmFjdGlvbiBtZXRob2RzLCBTZW5zaWJsZSBzdXBwb3J0cyB0aGUgZW50aXJlIGRvY3VtZW50IGxhbmRzY2FwZSwgZnJvbSBjb25zaXN0ZW50bHkgbGFpZC1vdXQsIGhpZ2hseSBzdHJ1Y3R1cmVkIGJ1c2luZXNzIGZvcm1zIHRvIGZyZWUtZm9ybSwgdmFyaWFibGUgbGVnYWwgY29udHJhY3RzIDoKCiFbQ2xpY2sgdG8gZW5sYXJnZV0oaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3NlbnNpYmxlLWhxL3NlbnNpYmxlLWRvY3MvbWFpbi9yZWFkbWUtc3luYy9hc3NldHMvdjAvaW1hZ2VzL2ZpbmFsL2RvY3VtZW50X2xhbmRzY2FwZS5wbmcpCgojIyBDb25maWd1cmFibGUgZGF0YSBleHRyYWN0aW9uCgpDb25maWd1cmUgeW91ciBleHRyYWN0aW9ucyB1c2luZyBfU2Vuc2VNTF8sIFNlbnNpYmxlJ3MgZG9jdW1lbnQtc3BlY2lmaWMgcXVlcnkgbGFuZ3VhZ2UuIFNlbnNlTUwgY29tYmluZXMgdGhlIGxhdGVzdCBMTE0gdGVjaG5pcXVlcyB3aXRoIHZpc3VhbCBsYXlvdXQtYmFzZWQgcnVsZXMgdG8gZXh0cmFjdCBkb2N1bWVudCBwcmltaXRpdmVzIGxpa2Ugcm93cywgdGFibGVzLCBjaGVja2JveGVzLCBzZWN0aW9ucywgYW5kIG1vcmUgYXMgSlNPTi4gCgohW0NsaWNrIHRvIGVubGFyZ2VdKGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9zZW5zaWJsZS1ocS9zZW5zaWJsZS1kb2NzL21haW4vcmVhZG1lLXN5bmMvYXNzZXRzL3YwL2ltYWdlcy9maW5hbC9wbGF0Zm9ybV9zZW5zZW1sLnBuZykKCgoKV2l0aCBTZW5zZU1MLCB5b3UgY2FuOgoKLSBQcmVwcm9jZXNzIGRvY3VtZW50cyBieSBjb3JyZWN0aW5nIGxheW91dCBtZXRhZGF0YSBwcm9ibGVtcywgcmVtb3ZpbmcgdW53YW50ZWQgcGFnZXMsIGFuZCBtb3JlLCBzbyB0aGF0IFNlbnNpYmxlIGhhcyBhIGNsZWFuLCBzdGFuZGFyZGl6ZWQgdGV4dCByZXByZXNlbnRhdGlvbiBvZiB0aGUgZG9jdW1lbnQgZnJvbSB3aGljaCB0byBleHRyYWN0IHN0cnVjdHVyZWQgZGF0YSBpbiBhIGxhdGVyIHN0ZXAuIEZvciBtb3JlIGluZm9ybWF0aW9uLCBzZWUgW1ByZXByb2Nlc3NvcnNdKGRvYzpwcmVwcm9jZXNzb3JzKS4gCgotIFVzZSAibWV0aG9kcyIgdG8gZXh0cmFjdCBkb2N1bWVudCBwcmltaXRpdmVzLCBsaWtlIHJvd3MsIGNvbHVtbnMsIHRhYmxlcywgYm94ZXMsIGNoZWNrYm94IHN0YXR1cywgYW5kIG1vcmUuIFlvdSBjYW4gYWxzbyBwYXJzZSBleHRyYWN0ZWQgZGF0YSB0eXBlcyBsaWtlIGN1cnJlbmNpZXMsIGRhdGVzLCBhZGRyZXNzZXMsIG9yIHlvdXIgY3VzdG9tIHR5cGVzLiBGb3IgbW9yZSBpbmZvcm1hdGlvbiwgc2VlIFtMYXlvdXQtYmFzZWQgbWV0aG9kc10oZG9jOm1ldGhvZHMpLiAKCi0gUG9zdC1wcm9jZXNzIGV4dHJhY3RlZCBkb2N1bWVudCBkYXRhLiBGb3IgZXhhbXBsZToKICAtIFdyaXRlIGxvZ2ljYWwgW3ZhbGlkYXRpb25zXShkb2M6dmFsaWRhdGUtZXh0cmFjdGlvbnMpICBsaWtlIGBjdXN0b21lciBJRCBpcyA5IGRpZ2l0c2AgdG8gdGhyb3cgY3VzdG9tIGVycm9ycyBhbmQgd2FybmluZ3MgYWJvdXQgeW91ciBleHRyYWN0ZWQgZGF0YS4gCiAgLSBNYW5pcHVsYXRlIHRoZSBleHRyYWN0ZWQgZGF0YSBzY2hlbWEgd2l0aCBbY29tcHV0ZWQgbWV0aG9kc10oZG9jOmNvbXB1dGVkLWZpZWxkLW1ldGhvZHMpICBsaWtlIGNvbmNhdCwgc3BsaXQsIGFuZCBbY3VzdG9tIGxvZ2ljXShkb2M6Y3VzdG9tLWNvbXB1dGF0aW9uKS4KICAtIEdldCBtZWFzdXJlcyBvZiBhY2N1cmFjeSBmb3IgTExNcyB3aXRoIFtjb25maWRlbmNlIHNjb3Jlc10oZG9jOmNvbmZpZGVuY2UpLCBhbmQgZ2V0IG92ZXJhbGwgbWVhc3VyZXMgb2YgZXh0cmFjdGlvbiBjb21wbGV0ZW5lc3Mgd2l0aCBbZXh0cmFjdGlvbiBjb3ZlcmFnZSBzY29yZXNdKGRvYzptZXRyaWNzI2V4dHJhY3Rpb24tY292ZXJhZ2UpLiAKCkEgW2ZpZWxkXShkb2M6ZmllbGQtcXVlcnktb2JqZWN0KSBpcyB0aGUgYmFzaWMgU2Vuc2VNTCBxdWVyeSB1bml0IGZvciBleHRyYWN0aW5nIGEgcGllY2Ugb2YgZG9jdW1lbnQgZGF0YS4gVGhlIG91dHB1dCBvZiBhIGZpZWxkIGlzIGEgSlNPTiBrZXktdmFsdWUgcGFpciB0aGF0IHN0cnVjdHVyZXMgdGhlIGV4dHJhY3RlZCBkYXRhLiBTZW5zZU1MIGlzIHRoZSBiYXNpcyBmb3IgU2Vuc2libGUncyBleHRyYWN0aW9uIHdvcmtmbG93LgoKSGVyZSdzIGFuIGV4YW1wbGUgb2YgYSBmaWVsZCB0aGF0IGV4dHJhY3RzIGEgdGFibGU6CgohW0NsaWNrIHRvIGVubGFyZ2VdKGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9zZW5zaWJsZS1ocS9zZW5zaWJsZS1kb2NzL21haW4vcmVhZG1lLXN5bmMvYXNzZXRzL3YwL2ltYWdlcy9maW5hbC9zZW5zZW1sX2ludHJvXzEucG5nKQoKRm9yIG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgU2Vuc2VNTCwgc2VlIFtTZW5zZU1MIHJlZmVyZW5jZSBpbnRyb2R1Y3Rpb25dKGRvYzpzZW5zZW1sLXJlZmVyZW5jZS1pbnRyb2R1Y3Rpb24pLgoKIyMgRGV2b3BzIHBsYXRmb3JtIGZvciBkb2N1bWVudCBkYXRhIGV4dHJhY3Rpb24KClNlZSB0aGUgZm9sbG93aW5nIGltYWdlIGZvciBhIGhpZ2gtbGV2ZWwgb3ZlcnZpZXcgb2YgU2Vuc2libGUncyBkb2N1bWVudCBkYXRhIGV4dHJhY3Rpb24gd29ya2Zsb3c6CgpbIVtDbGljayB0byBlbmxhcmdlXShodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vc2Vuc2libGUtaHEvc2Vuc2libGUtZG9jcy9tYWluL3JlYWRtZS1zeW5jL2Fzc2V0cy92MC9pbWFnZXMvZmluYWwvcGxhdGZvcm1fZGV2b3BzLnBuZyldKGRvYzpkZXZvcHMtcGxhdGZvcm0pCgoKCkZvciBtb3JlIGluZm9ybWF0aW9uIGFib3V0IHRoaXMgZGlhZ3JhbSwgc2VlIFtEZXZvcHMgcGxhdGZvcm1dKGRvYzpkZXZvcHMtcGxhdGZvcm0pLgoKIyMgTGVhcm4gbW9yZQoKVG8gdXNlIHRoZSBTZW5zaWJsZSBwbGF0Zm9ybSwgeW91J2xsOgoKLSBMZWFybiAgdG8gZXh0cmFjdCBkYXRhLCBvciB1c2Ugb3V0LW9mLXRoZS1ib3ggc3VwcG9ydGVkIGRvY3VtZW50IHR5cGVzLiBTZWUgW0dldHRpbmcgc3RhcnRlZF0oZG9jOmdldHRpbmctc3RhcnRlZC1haSkgYW5kIFtHZXR0aW5nIHN0YXJ0ZWQgd2l0aCBsYXlvdXQtYmFzZWQgZXh0cmFjdGlvbnNdKGRvYzpnZXR0aW5nLXN0YXJ0ZWQpLgotIFsqKkludGVncmF0ZSoqXShkb2M6aW50ZWdyYXRlKSB1c2luZyBTZW5zaWJsZSdzIEFQSSwgU0RLcywgcXVpY2stZXh0cmFjdCBVSSwgb3Igb3RoZXIgdG9vbHMKLSBbKipWYWxpZGF0ZSoqXShkb2M6dmFsaWRhdGUtZXh0cmFjdGlvbnMpIGV4dHJhY3RlZCBkYXRhIGJ5IHdyaXRpbmcgcnVsZXMgZm9yIGN1c3RvbSBlcnJvcnMgbGlrZSBgZXh0cmFjdGVkIHppcCBjb2RlIGlzIGludmFsaWQgZm9ybWF0YCAKLSBbKipNb25pdG9yKipdKGRvYzptZXRyaWNzKSBleHRyYWN0aW9uIG1ldHJpY3MgaW4gcHJvZHVjdGlvbgotIFsqKlJldmlldyoqXShkb2M6aHVtYW4tcmV2aWV3KSBhbmQgY29ycmVjdCBleHRyYWN0ZWQgZGF0YSBhdCB0aGUgZmllbGQgbGV2ZWwgdXNpbmcgdGhlIHJldmlldyBVSQoKCgoKCgoKCgoKCgAAAAAAAAAAMRIAAAAAAAAAAAAAAAAAAAAAAAAxEgAAAAAAAAAAAAA",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAjEQAAAAAAACMRAAAAAAAAAAAAAAAA8L8"
-				]
-			]
-		},
-		{
-			"file": "v0/senseml-reference/3000 - llm-based-methods/1000 - list.md",
-			"settings":
-			{
-				"buffer_size": 16827,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-				[
-					1,
-					1,
-					"",
-					null,
-					"AQAAAIcBAAAAAAAAlgEAAAAAAAAQAAAAKGRvYzp0YWJsZS10aXBzKQ",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8"
+					"insert",
+					{
+						"characters": "ed"
+					},
+					"AgAAAHUFAAAAAAAAdgUAAAAAAAAAAAAAdgUAAAAAAAB3BQAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAB1BQAAAAAAAHUFAAAAAAAAAAAAAAAA8L8"
 				],
 				[
+					16,
+					1,
+					"left_delete",
+					null,
+					"AQAAAGkFAAAAAAAAaQUAAAAAAAABAAAAYA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAABqBQAAAAAAAGoFAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					17,
+					1,
+					"insert",
+					{
+						"characters": "**"
+					},
+					"AgAAAGkFAAAAAAAAagUAAAAAAAAAAAAAagUAAAAAAABrBQAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAABpBQAAAAAAAGkFAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					20,
 					2,
-					1,
-					"revert",
+					"left_delete",
 					null,
-					"AwAAAAAAAAAAAAAAAAAAAAAAAAC9QQAALS0tCnRpdGxlOiAiTGlzdCIKaGlkZGVuOiBmYWxzZQotLS0KCgpUaGlzIExMTS1iYXNlZCBtZXRob2QgZXh0cmFjdHMgcmVwZWF0aW5nIGRhdGEgaW4gYSBkb2N1bWVudCBiYXNlZCBvbiB5b3VyIGRlc2NyaXB0aW9uIG9mIHRoZSBsaXN04oCZcyBvdmVyYWxsIGNvbnRlbnRzIGFuZCBlYWNoIGluZGl2aWR1YWwgaXRlbS4gRGF0YSBzdWNoIGFzIHRoZSB3b3JrIGhpc3Rvcnkgb3Igc2tpbGxzIG9uIGEgcmVzdW1lLCB0aGUgdmVoaWNsZXMgb24gYW4gYXV0byBpbnN1cmFuY2UgcG9saWN5LCBvciB0aGUgbGluZSBpdGVtcyBvbiBhbiBpbnZvaWNlIGFyZSBiZXN0IHN1aXRlZCBmb3IgdGhpcyBtZXRob2QuIAoKVGhpcyBtZXRob2QgaXMgYW4gYWx0ZXJuYXRpdmUgdG8gdGhlIFtOTFAgVGFibGVdKGRvYzpubHAtdGFibGUpIG1ldGhvZCwgd2hlbiB0aGUgZGF0YSB5b3Ugd2FudCBjYW4gYXBwZWFyIGVpdGhlciBhcyBhIHRhYmxlIG9yIGFzIGFub3RoZXIgbGF5b3V0LiBUaGUgTGlzdCBtZXRob2QgY2FuIGZpbmQgZGF0YSBpbiBwYXJhZ3JhcGhzIG9mIGZyZWUgdGV4dCBvciBpbiBtb3JlIHN0cnVjdHVyZWQgbGF5b3V0cywgc3VjaCBhcyBrZXkvdmFsdWUgcGFpcnMgb3IgdGFibGVzLiAgCgojIyMjIExpbWl0YXRpb25zCgotIFNlbnNpYmxlIGNhbiBleHRyYWN0IHVwIHRvIDIwIHBhZ2VzIGZvciBhIHNpbmdsZSBsaXN0IGZpZWxkLiBJZiB0aGUgbGlzdCBleGNlZWRzIHRoYXQgbGltaXQsIFNlbnNpYmxlIHRydW5jYXRlcyB0aGUgbGlzdC4KLSBGb3IgaGlnaGx5IGNvbXBsZXggcmVwZWF0aW5nIGxheW91dHMsIHN1Y2ggYXMgaW5zdXJhbmNlIGxvc3MgcnVuIGRvY3VtZW50cywgdXNlIHRoZSBbU2VjdGlvbnNdKGRvYzpzZWN0aW9ucykgbWV0aG9kLgoKIyMjIyBQcm9tcHQgdGlwcwoKLSBUaGUgbGlzdCBkZXNjcmlwdGlvbiBkZXNjcmliZXMgdGhlIG92ZXJhbGwgY29udGVudHMgZm9yIHRoZSBsaXN0LCB3aGlsZSBlYWNoIHByb3BlcnR5IGlzIGEgc2luZ2xlIGRlc2NyaXB0aW9uIG9mIGFuIGl0ZW0gdGhhdCByZXBlYXRzIGluIHRoZSBsaXN0LgotIFlvdSBjYW4gdXNlIGxvY2F0aW9uIGhpbnRzIHRvIGRlc2NyaWJlIHRoZSB0YXJnZXQgbGlzdCdzIHBvc2l0aW9uIGluIHRoZSBkb2N1bWVudC4gRm9yIGV4YW1wbGVzIG9mIGxvY2F0aW9uIGhpbnRzLCBzZWUgW1F1ZXJ5IEdyb3VwXShkb2M6cXVlcnktZ3JvdXApIGV4dHJhY3Rpb24gdGlwcy4KLSBGb3IgbW9yZSBpbmZvcm1hdGlvbiBhYm91dCBob3cgdG8gd3JpdGUgZGVzY3JpcHRpb25zLCBvciAicHJvbXB0cyIsIHNlZSBbUXVlcnkgR3JvdXBdKGRvYzpxdWVyeS1ncm91cCkgZXh0cmFjdGlvbiB0aXBzLgotIEZvciBhZHZhbmNlZCBvcHRpb25zLCBzZWUgW0FkdmFuY2VkIExMTSBwcm9tcHQgY29uZmlndXJhdGlvbl0oZG9jOnByb21wdCkuCgojIyMjIFRyb3VibGVzaG9vdGluZwoKLSBJZiBTZW5zaWJsZSBwYXJ0aWFsbHkgZXh0cmFjdHMgYSBtdWx0aS1wYWdlIGxpc3QsIGZvciBleGFtcGxlIHNraXBwaW5nIHBhZ2VzIGluIHRoZSBsaXN0LCBjb25maWd1cmUgdGhlIFtMTE0gRW5naW5lIHBhcmFtZXRlcl0oZG9jOmxpc3QjcGFyYW1ldGVycykuIAoKCgpGb3IgaW5mb3JtYXRpb24gYWJvdXQgaG93IHRoaXMgbWV0aG9kIHdvcmtzLCBzZWUgW05vdGVzXShkb2M6bmxwLXRhYmxlI25vdGVzKS4KClsqKlBhcmFtZXRlcnMqKl0oZG9jOmxpc3QjcGFyYW1ldGVycykKWyoqRXhhbXBsZXMqKl0oZG9jOmxpc3QjZXhhbXBsZXMpClsqKk5vdGVzKipdKGRvYzpsaXN0I25vdGVzKQoKUGFyYW1ldGVycwo9PT09CgoqKk5vdGU6KiogRm9yIGFkZGl0aW9uYWwgcGFyYW1ldGVycyBhdmFpbGFibGUgZm9yIHRoaXMgbWV0aG9kLCBzZWUgW0dsb2JhbCBwYXJhbWV0ZXJzIGZvciBtZXRob2RzXShkb2M6bWV0aG9kI2dsb2JhbC1wYXJhbWV0ZXJzLWZvci1tZXRob2RzKS4gVGhlIGZvbGxvd2luZyB0YWJsZSBvbmx5IHNob3dzIHBhcmFtZXRlcnMgbW9zdCByZWxldmFudCB0byBvciBzcGVjaWZpYyB0byB0aGlzIG1ldGhvZC4gCgoqKk5vdGUqKiBZb3UgY2FuIGNvbmZpZ3VyZSBzb21lIG9mIHRoZSBmb2xsb3dpbmcgcGFyYW1ldGVycyBpbiBib3RoIHRoZSBbTkxQXShkb2M6bmxwKSBwcmVwcm9jZXNzb3IgYW5kIGluIGEgZmllbGQncyBtZXRob2QuIElmIHlvdSBjb25maWd1cmUgYm90aCwgdGhlIGZpZWxkJ3MgcGFyYW1ldGVyIG92ZXJyaWRlcyB0aGUgTkxQIHByZXByb2Nlc3NvcidzIHBhcmFtZXRlci4KCgp8IGtleSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgdmFsdWUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBkZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfAp8IDotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHwgOi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfCA6LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfAp8IGlkICgqKnJlcXVpcmVkKiopICAgICAgICAgICAgICAgICAgIHwgYGxpc3RgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBUaGUgQW5jaG9yIHBhcmFtZXRlciBpcyBvcHRpb25hbCBmb3IgZmllbGRzIHRoYXQgdXNlIHRoaXMgbWV0aG9kLiBJZiB5b3Ugc3BlY2lmeSBhbiBhbmNob3I6PGJyLz4tIFNlbnNpYmxlIGlnbm9yZXMgdGhlIGFuY2hvciBpZiBpdCdzIHByZXNlbnQgaW4gdGhlIGRvY3VtZW50Ljxici8+LSBTZW5zaWJsZSByZXR1cm5zIG51bGwgZm9yIHRoZSBmaWVsZCBpZiB0aGUgYW5jaG9yIGlzbid0IHByZXNlbnQgaW4gdGhlIGRvY3VtZW50LiB8CnwgZGVzY3JpcHRpb24gKCoqcmVxdWlyZWQqKikgICAgICAgICAgfCBzdHJpbmcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IEEgcHJvbXB0IGRlc2NyaWJpbmcgdGhlIGxpc3QncyBzdWJqZWN0IG1hdHRlciBhcyBhIHdob2xlLiAgICB8CnwgcHJvcGVydGllcyAoKipyZXF1aXJlZCoqKSAgICAgICAgICAgfCBvYmplY3QgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IEFuIGFycmF5IG9mIG9iamVjdHMgd2l0aCB0aGUgZm9sbG93aW5nIHBhcmFtZXRlcnM6IDxici8+IC1gaWRgICgqKnJlcXVpcmVkKiopOiBBIHVzZXItZnJpZW5kbHkgSUQgZm9yIHRoZSBkYXRhIGluIHRoZSBleHRyYWN0aW9uIG91dHB1dC4gPGJyLz4gIC1gZGVzY3JpcHRpb25gICgqKnJlcXVpcmVkKiopOiAgQSBwcm9tcHQgZGVzY3JpYmluZyB0aGUgbGlzdCBpdGVtIHRoYXQgeW91IHdhbnQgdG8gZXh0cmFjdC4gWW91IGNhbiBwcm9tcHQgdGhlIExMTSB0byByZWZvcm1hdCBvciBmaWx0ZXIgdGhlIGRhdGEuIEZvciBleGFtcGxlLCBwcm92aWRlIHByb21wdHMgbGlrZSBgIiB0cmFuc2FjdGlvbiBhbW91bnQuIHJldHVybiB0aGUgYWJzb2x1dGUgdmFsdWUiYCBvciBgInZlaGljbGUgbWFrZSAobm90IG1vZGVsKSJgLiAgPGJyLz4gLWB0eXBlYDogVGhlIGxpc3QgaXRlbSdzIHR5cGUuIEZvciBtb3JlIGluZm9ybWF0aW9uLCBzZWUgW3R5cGVzXShkb2M6dHlwZXMpLiB8CnwgKCoqRGVwcmVjYXRlZCoqKSBwcm9tcHRJbnRyb2R1Y3Rpb24gfCBzdHJpbmcuICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICoqKERlcHJlY2F0ZWQpKiogIG92ZXJ3cml0ZXMgdGhlIGludHJvZHVjdG9yeSB0ZXh0IGF0IHRoZSBiZWdpbm5pbmcgb2YgdGhlIFtmdWxsIHByb21wdF0oaHR0cHM6Ly9kb2NzLnNlbnNpYmxlLnNvL2RvY3MvcHJvbXB0KSB0aGF0IFNlbnNpYmxlIHN1Ym1pdHMgdG8gdGhlIExMTSBmb3IgdGhpcyBmaWVsZC4gfAp8IGxsbUVuZ2luZSAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgYGZhc3RgLCBgdGhvcm91Z2hgLiBkZWZhdWx0OiBgZmFzdGAgfCBTcGVjaWZpZXMgdGhlIExMTSBtb2RlbCB0byB3aGljaCBTZW5zaWJsZSBzdWJtaXRzIHRoZSBmdWxsIHByb21wdCwgYW5kIGFmZmVjdHMgdGhlIG51bWJlciBvZiBjaHVua3MgdGhhdCBTZW5zaWJsZSBzdWJtaXRzIHRvIHRoZSBMTE0uPGJyLz5JZiB0aGUgRmFzdCBwYXJhbWV0ZXIgcmVzdWx0cyBpbiBpbmNvbXBsZXRlIGV4dHJhY3Rpb25zIGZvciBtdWx0aS1wYWdlIGxpc3RzLCB1c2UgVGhvcm91Z2ggYXMgYW4gYWx0ZXJuYXRpdmUuPGJyLz4tIGBmYXN0YDogIFNlbnNpYmxlIHVzZXMgYSBmYXN0ZXIgTExNIG1vZGVsIChHUFQtNG8gbWluaSkgYW5kIGNhbiBzdWJtaXQgYSBzbWFsbGVyIG51bWJlciBvZiBjaHVua3MgdGhhbiBzcGVjaWZpZWQgYnkgdGhlIENodW5rIENvdW50IHBhcmFtZXRlci48YnIvPi0gYHRob3JvdWdoYDogU2Vuc2libGUgdXNlcyBhIHNsb3dlciBMTE0gbW9kZWwgKEdQVC00IFR1cmJvKSBhbmQgc3VibWl0cyBleGFjdGx5IHRoZSBudW1iZXIgb2YgY2h1bmtzIHNwZWNpZmllZCBieSB0aGUgQ2h1bmsgQ291bnQgcGFyYW1ldGVyLiBTZW5zaWJsZSBjYW4gdGFrZSBzZXZlcmFsIG1pbnV0ZXMgdG8gcmV0dXJuIHRoZSBsaXN0LiA8YnIvPkZvciBtb3JlIGluZm9ybWF0aW9uLCBzZWUgW05vdGVzXSgjbm90ZXMpLiB8CnwgY29udGV4dERlc2NyaXB0aW9uICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IEZvciBpbmZvcm1hdGlvbiBhYm91dCB0aGlzIHBhcmFtZXRlciwgc2VlIFtBZHZhbmNlZCBMTE0gcHJvbXB0IGNvbmZpZ3VyYXRpb25dKGRvYzpwcm9tcHQjcGFyYW1ldGVycykgfAp8IHBhZ2VIaW50aW5nICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBGb3IgaW5mb3JtYXRpb24gYWJvdXQgdGhpcyBwYXJhbWV0ZXIsIHNlZSBbQWR2YW5jZWQgTExNIHByb21wdCBjb25maWd1cmF0aW9uXShkb2M6cHJvbXB0I3BhcmFtZXRlcnMpIHwKfCBjaHVua0NvdW50ICAgICAgICAgICAgICAgICAgICAgICAgICB8IDIwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgRm9yIGluZm9ybWF0aW9uIGFib3V0IHRoaXMgcGFyYW1ldGVyLCBzZWUgW0FkdmFuY2VkIExMTSBwcm9tcHQgY29uZmlndXJhdGlvbl0oZG9jOnByb21wdCNwYXJhbWV0ZXJzKSB8CnwgY2h1bmtTaXplICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IEZvciBpbmZvcm1hdGlvbiBhYm91dCB0aGlzIHBhcmFtZXRlciwgc2VlIFtBZHZhbmNlZCBMTE0gcHJvbXB0IGNvbmZpZ3VyYXRpb25dKGRvYzpwcm9tcHQjcGFyYW1ldGVycykgfAp8IGNodW5rT3ZlcmxhcFBlcmNlbnRhZ2UgICAgICAgICAgICAgIHwgMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBGb3IgaW5mb3JtYXRpb24gYWJvdXQgdGhpcyBwYXJhbWV0ZXIsIHNlZSBbQWR2YW5jZWQgTExNIHByb21wdCBjb25maWd1cmF0aW9uXShkb2M6cHJvbXB0I3BhcmFtZXRlcnMpIHwKfCBwYWdlUmFuZ2UgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgRm9yIGluZm9ybWF0aW9uIGFib3V0IHRoaXMgcGFyYW1ldGVyLCBzZWUgW0FkdmFuY2VkIExMTSBwcm9tcHQgY29uZmlndXJhdGlvbl0oZG9jOnByb21wdCNwYXJhbWV0ZXJzKS4gfAoKCgpFeGFtcGxlcwo9PT09CgpUaGUgZm9sbG93aW5nIGV4YW1wbGUgc2hvd3MgdXNpbmcgdGhlIExpc3QgbWV0aG9kIHRvIGV4dHJhY3QgaW5mb3JtYXRpb24gZnJvbSBhIG1lbnUgYWJvdXQgbGlzdGVkIG1lbnUgaXRlbXMuCgoqKkNvbmZpZyoqCgpgYGBqc29uCnsKICAiZmllbGRzIjogWwogICAgewogICAgICAvKiB0aGUgaWQgaXMgYSB1c2VyLWZyaWVuZGx5IG5hbWUgZm9yIHRoZSB0YXJnZXQgbGlzdCAqLwogICAgICAiaWQiOiAiZGlubmVycyIsCiAgICAgICJ0eXBlIjogInRhYmxlIiwKICAgICAgIm1ldGhvZCI6IHsKICAgICAgICAiaWQiOiAibGlzdCIsCiAgICAgICAgLyogb3ZlcmFsbCBkZXNjcmlwdGlvbiBvZiBsaXN0J3MgY29udGVudHMgKi8KICAgICAgICAiZGVzY3JpcHRpb24iOiAiZGlubmVyIHNwZWNpYWwgbWVudSBpdGVtcyIsCiAgICAgICAgInByb3BlcnRpZXMiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgIC8qIGZvciBlYWNoIGl0ZW0gaW4gdGhlIGxpc3QsIHByb3ZpZGUgYSB1c2VyLWZyaWVuZGx5IElEIGFuZCAKICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gb2YgdGhlIGRhdGEgeW91IHdhbnQgdG8gZXh0cmFjdAogICAgICAgICAgICAgICBhbmQgb3B0aW9uYWwgaW5zdHJ1Y3Rpb25zIHRvIGZpbHRlciBvciByZWZvcm1hdCB0aGUgZGF0YSAqLwogICAgICAgICAgICAiaWQiOiAiZGlubmVyX2Rlc2NyaXB0aW9uIiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogImVudHJlZSBkZXNjcmlwdGlvbiIKICAgICAgICAgIH0sCiAgICAgICAgICAvKiBvcHRpb25hbDogdGFyZ2V0IGRhdGEgaXMgYSBjdXJyZW5jeSAqLwogICAgICAgICAgewogICAgICAgICAgICAiaWQiOiAicHJpY2UiLAogICAgICAgICAgICAidHlwZSI6ICJjdXJyZW5jeSIsCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJkaW5uZXIgcHJpY2UiCiAgICAgICAgICB9LAogICAgICAgIF0KICAgICAgfQogICAgfSwKICAgIHsKICAgICAgImlkIjogImRlc3NlcnRzIiwKICAgICAgInR5cGUiOiAidGFibGUiLAogICAgICAibWV0aG9kIjogewogICAgICAgICJpZCI6ICJsaXN0IiwKICAgICAgICAiZGVzY3JpcHRpb24iOiAiZGVzc2VydCBzcGVjaWFsIG1lbnUgaXRlbXMiLAogICAgICAgICJwcm9wZXJ0aWVzIjogWwogICAgICAgICAgewogICAgICAgICAgICAiaWQiOiAiZGVzc2VydF9kZXNjcmlwdGlvbiIsCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJkZXNzZXJ0IGRlc2NyaXB0aW9uIgogICAgICAgICAgfSwKICAgICAgICAgIHsKICAgICAgICAgICAgImlkIjogInByaWNlIiwKICAgICAgICAgICAgInR5cGUiOiJjdXJyZW5jeSIsCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJkZXNzZXJ0IHByaWNlIgogICAgICAgICAgfSwKICAgICAgICBdCiAgICAgIH0KICAgIH0sCiAgICAvKiBsaXN0cyBjYW4gc3BhbiByb3VnaGx5IGEgZG9jdW1lbnQgcGFnZSwgaWYgdGhlIGxpc3QgZXhjZWVkcyB0aGF0LAogICAgICBTZW5zaWJsZSBtYXkgdHJ1bmNhdGUgdGhlIGV4dHJhY3RlZCBsaXN0ICovCiAgICB7CiAgICAgICJpZCI6ICJ3aW5lcyIsCiAgICAgICJ0eXBlIjogInRhYmxlIiwKICAgICAgIm1ldGhvZCI6IHsKICAgICAgICAiaWQiOiAibGlzdCIsCiAgICAgICAgLyogb3B0aW9uYWw6IHRyeSByZXN0cmljdGluZyB0aGUgbGlzdCB0byB3aGl0ZSB3aW5lcywKICAgICAgICAgICBvciB0cnkgbWFraW5nIGEgbmV3IGxpc3QgZm9yIGxpcXVvcnMgYW5kIHRoZWlyIHNlcnZpbmcgc2l6ZXMgKi8KICAgICAgICAiZGVzY3JpcHRpb24iOiAicmVkIHdpbmVzIGFuZCB3aGl0ZSB3aW5lcyAobm90IG90aGVyIGRyaW5rcyBzdWNoIGFzIGJlZXJzIG9yIGxpcXVvcnMpIiwKICAgICAgICAicHJvcGVydGllcyI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgImlkIjogIndpbmVfbmFtZSIsCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJ3aW5lIGJyYW5kIG5hbWUiCiAgICAgICAgICB9LAogICAgICAgICAgewogICAgICAgICAgICAiaWQiOiAid2luZV90eXBlIiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogIndpbmUgdmFyaWV0YWwgbmFtZSAobm90IGJyYW5kKSwgZm9yIGV4YW1wbGUsIHJldHVybiAnUmVkOmNhYmVybmV0IHNhdmlnbm9uJyBvciAnd2hpdGU6dmFyaWV0YWwgbm90IGZvdW5kJyIKICAgICAgICAgIH0sCiAgICAgICAgICB7CiAgICAgICAgICAgICJpZCI6ICJ3aW5lX2Rlc2NyaXB0aW9uIiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogIndpbmUgZGVzY3JpcHRpb24iCiAgICAgICAgICB9LAogICAgICAgICAgewogICAgICAgICAgICAiaWQiOiAic21hbGxlc3Rfc2VydmluZ19wcmljZSIsCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJzbWFsbGVzdCB3aW5lIHNlcnZpbmcgc2l6ZSBhbmQgaXRzIGRvbGxhciBwcmljZSwgZm9ybWF0dGVkIGxpa2UgJzYgb3o6ICQxMSciCiAgICAgICAgICB9LAogICAgICAgICAgewogICAgICAgICAgICAiaWQiOiAic2Vjb25kX3NtYWxsZXN0X3NlcnZpbmdfcHJpY2UiLAogICAgICAgICAgICAiZGVzY3JpcHRpb24iOiAic2Vjb25kLXNtYWxsZXN0IHdpbmUgc2VydmluZyBzaXplIGFuZCBpdHMgZG9sbGFyIHByaWNlLCBmb3JtYXR0ZWQgbGlrZSAnNiBvejogJDExJyIKICAgICAgICAgIH0sCiAgICAgICAgICB7CiAgICAgICAgICAgICJpZCI6ICJib3R0bGVfcHJpY2UiLAogICAgICAgICAgICAidHlwZSI6ImN1cnJlbmN5IiwKICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogInByaWNlIHBlciBib3R0bGUsIGluIGRvbGxhcnMiCiAgICAgICAgICB9LAogICAgICAgIF0KICAgICAgfQogICAgfSwKICBdLAogICJjb21wdXRlZF9maWVsZHMiOiBbCiAgICAvKiBvcHRpb25hbDogZm9yIGNsZWFuZXIgb3V0cHV0LCB6aXAgZWFjaCBsaXN0ICovCiAgICB7CiAgICAgICJpZCI6ICJkaW5uZXJzX3ppcHBlZCIsCiAgICAgICJtZXRob2QiOiB7CiAgICAgICAgImlkIjogInppcCIsCiAgICAgICAgInNvdXJjZV9pZHMiOiBbCiAgICAgICAgICAiZGlubmVycyIsCiAgICAgICAgXQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAiZGVzc2VydHNfemlwcGVkIiwKICAgICAgIm1ldGhvZCI6IHsKICAgICAgICAiaWQiOiAiemlwIiwKICAgICAgICAic291cmNlX2lkcyI6IFsKICAgICAgICAgICJkZXNzZXJ0cyIsCiAgICAgICAgXQogICAgICB9CiAgICB9LAogICAgewogICAgICAiaWQiOiAid2luZXNfemlwcGVkIiwKICAgICAgIm1ldGhvZCI6IHsKICAgICAgICAiaWQiOiAiemlwIiwKICAgICAgICAic291cmNlX2lkcyI6IFsKICAgICAgICAgICJ3aW5lcyIsCiAgICAgICAgXQogICAgICB9CiAgICB9LAogICAgLyogb3B0aW9uYWw6IGZvciBjbGVhbmVyIG91dHB1dCwgcmVtb3ZlIHRoZSBzb3VyY2UKICAgICAgIGZpZWxkcy4gKi8KICAgIHsKICAgICAgImlkIjogImhpZGVfZmllbGRzIiwKICAgICAgIm1ldGhvZCI6IHsKICAgICAgICAiaWQiOiAic3VwcHJlc3NPdXRwdXQiLAogICAgICAgICJzb3VyY2VfaWRzIjogWwogICAgICAgICAgImRpbm5lcnMiLAogICAgICAgICAgImRlc3NlcnRzIiwKICAgICAgICAgICJ3aW5lcyIKICAgICAgICBdCiAgICAgIH0KICAgIH0KICBdCn0KYGBgCgoqKkV4YW1wbGUgZG9jdW1lbnQqKgpUaGUgZm9sbG93aW5nIGltYWdlIHNob3dzIHRoZSBleGFtcGxlIGRvY3VtZW50IHVzZWQgd2l0aCB0aGlzIGV4YW1wbGUgY29uZmlnOgoKIVtDbGljayB0byBlbmxhcmdlXShodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vc2Vuc2libGUtaHEvc2Vuc2libGUtZG9jcy9tYWluL3JlYWRtZS1zeW5jL2Fzc2V0cy92MC9pbWFnZXMvZmluYWwvbGlzdC5wbmcpCgp8IEV4YW1wbGUgZG9jdW1lbnQgfCBbRG93bmxvYWQgbGlua10oaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3NlbnNpYmxlLWhxL3NlbnNpYmxlLWRvY3MvbWFpbi9yZWFkbWUtc3luYy9hc3NldHMvdjAvcGRmcy9saXN0LnBkZikgfAp8IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHwKCioqT3V0cHV0KioKCmBgYGpzb24KewogICJkaW5uZXJzX3ppcHBlZCI6IFsKICAgIHsKICAgICAgImRpbm5lcl9kZXNjcmlwdGlvbiI6IHsKICAgICAgICAidmFsdWUiOiAiR3JpbGxlZCBzYWxtb24gd2l0aCBhbG1vbmQgcmljZSBwaWxhZiBhbmQgc3BpbmFjaCB3aXRoIHBpbmUgbnV0cyIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAicHJpY2UiOiB7CiAgICAgICAgInNvdXJjZSI6ICIkNDUiLAogICAgICAgICJ2YWx1ZSI6IDQ1LAogICAgICAgICJ1bml0IjogIiQiLAogICAgICAgICJ0eXBlIjogImN1cnJlbmN5IgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZGlubmVyX2Rlc2NyaXB0aW9uIjogewogICAgICAgICJ2YWx1ZSI6ICJTZWFyZWQgYmVlZiB3aXRoIGZpbmdlcmxpbmcgcG90YXRvZXMgYW5kIGFzcGFyYWd1cyIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAicHJpY2UiOiB7CiAgICAgICAgInNvdXJjZSI6ICIkNTYiLAogICAgICAgICJ2YWx1ZSI6IDU2LAogICAgICAgICJ1bml0IjogIiQiLAogICAgICAgICJ0eXBlIjogImN1cnJlbmN5IgogICAgICB9CiAgICB9CiAgXSwKICAiZGVzc2VydHNfemlwcGVkIjogWwogICAgewogICAgICAiZGVzc2VydF9kZXNjcmlwdGlvbiI6IHsKICAgICAgICAidmFsdWUiOiAiQ2Fubm9saSBjYWtlIHdpdGggY2FuZGllZCBsYXZlbmRlciIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAicHJpY2UiOiB7CiAgICAgICAgInNvdXJjZSI6ICIkMTQiLAogICAgICAgICJ2YWx1ZSI6IDE0LAogICAgICAgICJ1bml0IjogIiQiLAogICAgICAgICJ0eXBlIjogImN1cnJlbmN5IgogICAgICB9CiAgICB9LAogICAgewogICAgICAiZGVzc2VydF9kZXNjcmlwdGlvbiI6IHsKICAgICAgICAidmFsdWUiOiAiQ3JlbWUgYnJ1bGVlIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJwcmljZSI6IHsKICAgICAgICAic291cmNlIjogIiQxMyIsCiAgICAgICAgInZhbHVlIjogMTMsCiAgICAgICAgInVuaXQiOiAiJCIsCiAgICAgICAgInR5cGUiOiAiY3VycmVuY3kiCiAgICAgIH0KICAgIH0KICBdLAogICJ3aW5lc196aXBwZWQiOiBbCiAgICB7CiAgICAgICJ3aW5lX25hbWUiOiB7CiAgICAgICAgInZhbHVlIjogIkhvdXNlIHdoaXRlIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJ3aW5lX3R5cGUiOiB7CiAgICAgICAgInZhbHVlIjogIndoaXRlOnZhcmlldGFsIG5vdCBmb3VuZCIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAid2luZV9kZXNjcmlwdGlvbiI6IHsKICAgICAgICAidmFsdWUiOiAiRHJ5IHdpdGggY2l0cnVzIG5vdGVzIHJlbWluaXNjZW50IG9mIGdyYXBlZnJ1aXQiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgInNtYWxsZXN0X3NlcnZpbmdfcHJpY2UiOiB7CiAgICAgICAgInZhbHVlIjogIjYgb3o6ICQxMCIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAic2Vjb25kX3NtYWxsZXN0X3NlcnZpbmdfcHJpY2UiOiB7CiAgICAgICAgInZhbHVlIjogIjkgb3o6ICQxNiIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAiYm90dGxlX3ByaWNlIjogewogICAgICAgICJzb3VyY2UiOiAiMzIiLAogICAgICAgICJ2YWx1ZSI6IDMyLAogICAgICAgICJ1bml0IjogIiQiLAogICAgICAgICJ0eXBlIjogImN1cnJlbmN5IgogICAgICB9CiAgICB9LAogICAgewogICAgICAid2luZV9uYW1lIjogewogICAgICAgICJ2YWx1ZSI6ICJCYXJvbmUgVmVudG91cmEiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgIndpbmVfdHlwZSI6IHsKICAgICAgICAidmFsdWUiOiAid2hpdGU6dmFyaWV0YWwgbm90IGZvdW5kIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJ3aW5lX2Rlc2NyaXB0aW9uIjogewogICAgICAgICJ2YWx1ZSI6ICJTdWJ0bGUgaG9uZXkgbm90ZXMgd2l0aCBmbG9yYWwgYXJvbWFzIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJzbWFsbGVzdF9zZXJ2aW5nX3ByaWNlIjogewogICAgICAgICJ2YWx1ZSI6ICI2IG96OiAkMTIiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgInNlY29uZF9zbWFsbGVzdF9zZXJ2aW5nX3ByaWNlIjogewogICAgICAgICJ2YWx1ZSI6ICI5IG96OiAkMTgiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgImJvdHRsZV9wcmljZSI6IHsKICAgICAgICAic291cmNlIjogIjQwIiwKICAgICAgICAidmFsdWUiOiA0MCwKICAgICAgICAidW5pdCI6ICIkIiwKICAgICAgICAidHlwZSI6ICJjdXJyZW5jeSIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgIndpbmVfbmFtZSI6IHsKICAgICAgICAidmFsdWUiOiAiVmFsIEZldWlsbGF0dGUiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgIndpbmVfdHlwZSI6IHsKICAgICAgICAidmFsdWUiOiAid2hpdGU6dmFyaWV0YWwgbm90IGZvdW5kIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJ3aW5lX2Rlc2NyaXB0aW9uIjogewogICAgICAgICJ2YWx1ZSI6ICJCb2xkLCBkaXN0aW5jdGl2ZSBzcGljZSBub3RlcyIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAic21hbGxlc3Rfc2VydmluZ19wcmljZSI6IG51bGwsCiAgICAgICJzZWNvbmRfc21hbGxlc3Rfc2VydmluZ19wcmljZSI6IG51bGwsCiAgICAgICJib3R0bGVfcHJpY2UiOiB7CiAgICAgICAgInNvdXJjZSI6ICI2NSIsCiAgICAgICAgInZhbHVlIjogNjUsCiAgICAgICAgInVuaXQiOiAiJCIsCiAgICAgICAgInR5cGUiOiAiY3VycmVuY3kiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJ3aW5lX25hbWUiOiB7CiAgICAgICAgInZhbHVlIjogIkhvdXNlIHJlZCIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAid2luZV90eXBlIjogewogICAgICAgICJ2YWx1ZSI6ICJyZWQ6dmFyaWV0YWwgbm90IGZvdW5kIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJ3aW5lX2Rlc2NyaXB0aW9uIjogewogICAgICAgICJ2YWx1ZSI6ICJBIHNhdGlzZnlpbmcgYmxlbmQiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgInNtYWxsZXN0X3NlcnZpbmdfcHJpY2UiOiB7CiAgICAgICAgInZhbHVlIjogIjYgb3o6ICQxMSIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAic2Vjb25kX3NtYWxsZXN0X3NlcnZpbmdfcHJpY2UiOiB7CiAgICAgICAgInZhbHVlIjogIjkgb3o6ICQxNyIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAiYm90dGxlX3ByaWNlIjogewogICAgICAgICJzb3VyY2UiOiAiMzMiLAogICAgICAgICJ2YWx1ZSI6IDMzLAogICAgICAgICJ1bml0IjogIiQiLAogICAgICAgICJ0eXBlIjogImN1cnJlbmN5IgogICAgICB9CiAgICB9LAogICAgewogICAgICAid2luZV9uYW1lIjogewogICAgICAgICJ2YWx1ZSI6ICJXcmF0aCBjYWJlcm5ldCBzYXV2aWdub24iLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgIndpbmVfdHlwZSI6IHsKICAgICAgICAidmFsdWUiOiAicmVkOmNhYmVybmV0IHNhdXZpZ25vbiIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAid2luZV9kZXNjcmlwdGlvbiI6IHsKICAgICAgICAidmFsdWUiOiAiQm9sZCB3aXRoIG9hayBub3RlcyIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAic21hbGxlc3Rfc2VydmluZ19wcmljZSI6IG51bGwsCiAgICAgICJzZWNvbmRfc21hbGxlc3Rfc2VydmluZ19wcmljZSI6IG51bGwsCiAgICAgICJib3R0bGVfcHJpY2UiOiB7CiAgICAgICAgInNvdXJjZSI6ICI2MiIsCiAgICAgICAgInZhbHVlIjogNjIsCiAgICAgICAgInVuaXQiOiAiJCIsCiAgICAgICAgInR5cGUiOiAiY3VycmVuY3kiCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJ3aW5lX25hbWUiOiB7CiAgICAgICAgInZhbHVlIjogIlR1cmJlbGwgRXN0YXRlIFBpbm90IG5vaXIiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgIndpbmVfdHlwZSI6IHsKICAgICAgICAidmFsdWUiOiAicmVkOnBpbm90IG5vaXIiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgIndpbmVfZGVzY3JpcHRpb24iOiB7CiAgICAgICAgInZhbHVlIjogIk1lbGxvdyB3aXRoIGRhcmsgY2hvY29sYXRlIG5vdGVzIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJzbWFsbGVzdF9zZXJ2aW5nX3ByaWNlIjogewogICAgICAgICJ2YWx1ZSI6ICI2IG96OiAkMTMiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgInNlY29uZF9zbWFsbGVzdF9zZXJ2aW5nX3ByaWNlIjogewogICAgICAgICJ2YWx1ZSI6ICI5IG96OiAkMTgiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgImJvdHRsZV9wcmljZSI6IHsKICAgICAgICAic291cmNlIjogIjM1IiwKICAgICAgICAidmFsdWUiOiAzNSwKICAgICAgICAidW5pdCI6ICIkIiwKICAgICAgICAidHlwZSI6ICJjdXJyZW5jeSIKICAgICAgfQogICAgfSwKICAgIHsKICAgICAgIndpbmVfbmFtZSI6IHsKICAgICAgICAidmFsdWUiOiAiQ2hhcHBlbGxldCBTaGlyYXoiLAogICAgICAgICJ0eXBlIjogInN0cmluZyIKICAgICAgfSwKICAgICAgIndpbmVfdHlwZSI6IHsKICAgICAgICAidmFsdWUiOiAicmVkOnNoaXJheiIsCiAgICAgICAgInR5cGUiOiAic3RyaW5nIgogICAgICB9LAogICAgICAid2luZV9kZXNjcmlwdGlvbiI6IHsKICAgICAgICAidmFsdWUiOiAiQ29tcGxleCBhbmQgc3VidGxlIiwKICAgICAgICAidHlwZSI6ICJzdHJpbmciCiAgICAgIH0sCiAgICAgICJzbWFsbGVzdF9zZXJ2aW5nX3ByaWNlIjogbnVsbCwKICAgICAgInNlY29uZF9zbWFsbGVzdF9zZXJ2aW5nX3ByaWNlIjogbnVsbCwKICAgICAgImJvdHRsZV9wcmljZSI6IHsKICAgICAgICAic291cmNlIjogIjcyIiwKICAgICAgICAidmFsdWUiOiA3MiwKICAgICAgICAidW5pdCI6ICIkIiwKICAgICAgICAidHlwZSI6ICJjdXJyZW5jeSIKICAgICAgfQogICAgfQogIF0KfQpgYGAKCgoKTm90ZXMKPT09CgpGb3IgYW4gb3ZlcnZpZXcgb2YgaG93IHRoZSBMaXN0IG1ldGhvZCB3b3Jrcywgc2VlIHRoZSBmb2xsb3dpbmcgc3RlcHM6CgoxLiBTZW5zaWJsZSBmaW5kcyB0aGUgY2h1bmtzIG9mIHRoZSBkb2N1bWVudCB0aGF0IG1vc3QgbGlrZWx5IGNvbnRhaW4geW91ciB0YXJnZXQgZGF0YTogCgogIC0gU2Vuc2libGUgY29uY2F0ZW5hdGVzIGFsbCB5b3VyIHByb3BlcnR5IGRlc2NyaXB0aW9ucyB3aXRoIHlvdXIgb3ZlcmFsbCBsaXN0IGRlc2NyaXB0aW9uLiAKICAtIFNlbnNpYmxlIHNwbGl0cyB0aGUgZG9jdW1lbnQgaW50byBlcXVhbC1zaXplZCBjaHVua3MuIAogIC0gU2Vuc2libGUgc2NvcmVzIHlvdXIgY29uY2F0ZW5hdGVkIGxpc3QgZGVzY3JpcHRpb25zIGFnYWluc3QgZWFjaCBjaHVuay4KCjIuIFNlbnNpYmxlIHNlbGVjdHMgYSBudW1iZXIgb2YgdGhlIHRvcC1zY29yaW5nIGNodW5rczogCiAgIDEuIElmIHlvdSBzcGVjaWZ5IFRob3JvdWdoIGZvciB0aGUgTExNIEVuZ2luZSBwYXJhbWV0ZXIsIHRoZSBDaHVuayBDb3VudCBwYXJhbWV0ZXIgZGV0ZXJtaW5lcyB0aGUgbnVtYmVyIG9mIHRvcC1zY29yaW5nIGNodW5rcyBTZW5zaWJsZSBzZWxlY3RzIHRvIHN1Ym1pdCB0byB0aGUgTExNLgogICAyLiBJZiB5b3Ugc3BlY2lmeSBGYXN0IGZvciB0aGUgTExNIEVuZ2luZSBwYXJhbWV0ZXIsICAxLiBTZW5zaWJsZSBzZWxlY3RzIGEgbnVtYmVyIG9mIHRvcC1zY29yaW5nIGNodW5rcyBhcyBkZXRlcm1pbmVkIGJ5IHRoZSBDaHVuayBDb3VudCBwYXJhbWV0ZXIuIDIuIFRvIGltcHJvdmUgcGVyZm9ybWFuY2UsIFNlbnNpYmxlIHJlbW92ZXMgY2h1bmtzIHRoYXQgYXJlIHNpZ25pZmljYW50bHkgbGVzcyByZWxldmFudCBmcm9tIHRoZSBsaXN0IG9mIHRvcC1zY29yaW5nIGNodW5rcy4gVGhlIG51bWJlciBvZiBjaHVua3MgU2Vuc2libGUgc3VtYml0cyB0byB0aGUgTExNIGNhbiB0aGVyZWZvcmUgYmUgc21hbGxlciB0aGFuIHRoZSBudW1iZXIgc3BlY2lmaWVkIGJ5IHRoZSBDaHVuayBDb3VudCBwYXJhbWV0ZXIuCjMuIFRvIGF2b2lkIGxhcmdlIGxhbmd1YWdlIG1vZGVsIChMTE0pJ3MgdG9rZW4gbGltaXRzLCBTZW5zaWJsZSBiYXRjaGVzIHRoZSBjaHVua3MgaW50byBncm91cHMgYnkgcGFnZSBudW1iZXJzLiBTZW5zaWJsZSBiYXRjaGVzIGEgbWF4aXVtdW0gb2YgMjAgcGFnZSBudW1iZXJzLiBUaGUgY2h1bmtzIGluIGVhY2ggcGFnZSBncm91cCBjYW4gYmUgbm9uLWNvbnNlY3V0aXZlIGluIHRoZSBkb2N1bWVudC4KNC4gRm9yIGVhY2ggcGFnZSBncm91cCwgU2Vuc2libGUgc3VibWl0cyBhIGZ1bGwgcHJvbXB0IHRvIHRoZSBMTE0gdGhhdCBpbmNsdWRlcyB0aGUgcGFnZXMnIGNodW5rcyBhcyBjb250ZXh0LCBwYWdlLWhpbnRpbmcgZGF0YSwgYW5kIHlvdXIgcHJvbXB0cy4gRm9yIGluZm9ybWF0aW9uIGFib3V0IHRoZSBMTE0gbW9kZWwsIHNlZSB0aGUgTExNIEVuZ2luZSBwYXJhbWV0ZXIuIEZvciBtb3JlIGluZm9ybWF0aW9uIGFib3V0IHRoZSBmdWxsIHByb21wdCwgc2VlIFtBZHZhbmNlZCBMTE0gcHJvbXB0IGNvbmZpZ3VyYXRpb25dKGRvYzpwcm9tcHQpLiBUaGUgZnVsbCBwcm9tcHQgaW5zdHJ1Y3RzIHRoZSBMTE0gdG8gY3JlYXRlIGEgbGlzdCBmb3JtYXR0ZWQgYXMgYSB0YWJsZSwgYmFzZWQgb24gdGhlIGNvbnRleHQuCjUuIFNlbnNpYmxlIGNvbmNhdGVuYXRlcyB0aGUgcmVzdWx0cyBmcm9tIHRoZSBMTE0gZm9yIGVhY2ggcGFnZSBncm91cCBhbmQgcmV0dXJucyBhIGxpc3QsIGZvcm1hdHRlZCBhcyBhIHRhYmxlLgoAAAAAAAAAALtBAAAAAAAAAAAAAAAAAAAAAAAAu0EAAAAAAAAAAAAA",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8"
-				]
-			]
-		},
-		{
-			"file": "v0/senseml-reference/8000 - concepts/0350 - prompt.md",
-			"settings":
-			{
-				"buffer_size": 10021,
-				"line_ending": "Windows"
-			},
-			"undo_stack":
-			[
-				[
-					1,
-					1,
-					"",
-					null,
-					"AQAAAEQIAAAAAAAAUwgAAAAAAAAQAAAAKGRvYzp0YWJsZS10aXBzKQ",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8"
+					"AgAAAHgFAAAAAAAAeAUAAAAAAAABAAAAYHcFAAAAAAAAdwUAAAAAAAABAAAAZA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAB5BQAAAAAAAHkFAAAAAAAAAAAAAAAA8L8"
 				],
 				[
-					4,
+					21,
 					1,
-					"revert",
-					null,
-					"AwAAAAAAAAAAAAAAAAAAAAAAAAAlJwAALS0tCnRpdGxlOiAiQWR2YW5jZWQgTExNIHByb21wdCBjb25maWd1cmF0aW9uIgpoaWRkZW46IGZhbHNlCi0tLQoKClRvIFt0cm91Ymxlc2hvb3QgTExNIGV4dHJhY3Rpb25zXShkb2M6dHJvdWJsZXNob290LWxsbXMpLCB5b3UgY2FuIGNvbmZpZ3VyZSB0aGUgZnVsbCBwcm9tcHQgdGhhdCBTZW5zaWJsZSBpbnB1dHMgdG8gYSBsYXJnZSBsYW5ndWFnZSBtb2RlbCAoTExNKS4gQSAqZnVsbCBwcm9tcHQqIGlzIHRoZSBjb21iaW5hdGlvbiBvZiB1c2VyLWF1dGhvciBMTE0gcHJvbXB0cyBhbmQgYWRkaXRpb25hbCBiYWNrLWVuZCBwcm9tcHRzLgoKSW4gZGV0YWlsLCB3aGVuIHlvdSB3cml0ZSBhIHByb21wdCB1c2luZyBhbiBMTE0tYmFzZWQgbWV0aG9kLCBTZW5zaWJsZSBjcmVhdGVzIGEgZnVsbCBwcm9tcHQgdXNpbmcgdGhlIGZvbGxvd2luZzoKCi0gYSBwcm9tcHQgaW50cm9kdWN0aW9uCi0gImNvbnRleHQiLCBtYWRlIHVwIG9mIGNodW5rcyBleGNlcnB0ZWQgZnJvbSB0aGUgZG9jdW1lbnQgYW5kIG9mIHBhZ2UgbWV0YWRhdGEuIEZvciBtb3JlIGluZm9ybWF0aW9uIGFib3V0IGNodW5raW5nIGNvbmZpZ3VyYXRpb24sIHNlZSB0aGUgTm90ZXMgc2VjdGlvbi4KLSBjb25jYXRlbmF0ZWQgZGVzY3JpcHRpdmUgcHJvbXB0cyB5b3UgY29uZmlndXJlIGluIGFuIExMTS1iYXNlZCBtZXRob2QsIHN1Y2ggYXMgaW4gdGhlIFtMaXN0XShkb2M6bGlzdCkgb3IgW1F1ZXJ5IEdyb3VwXShkb2M6cXVlcnktZ3JvdXApIG1ldGhvZHMuCgpTZWUgdGhlIGZvbGxvd2luZyBpbWFnZSBmb3IgYW4gZXhhbXBsZSBvZiBhIGZ1bGwgcHJvbXB0IHRoYXQgU2Vuc2libGUgaW5wdXRzIHRvIGFuIExMTSBmb3IgdGhlIFtRdWVyeSBHcm91cF0oZG9jOnF1ZXJ5LWdyb3VwKSBtZXRob2Q6IAoKIVtDbGljayB0byBlbmxhcmdlXShodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vc2Vuc2libGUtaHEvc2Vuc2libGUtZG9jcy9tYWluL3JlYWRtZS1zeW5jL2Fzc2V0cy92MC9pbWFnZXMvZmluYWwvcHJvbXB0LnBuZykKClRoZSBmb2xsb3dpbmcgdGFibGUgc2hvd3MgcGFyYW1ldGVycyB0aGF0IGNvbmZpZ3VyZSBwYXJ0cyBvZiB0aGUgZnVsbCBwcm9tcHQgYW5kIHRoYXQgYXJlIGdsb2JhbCwgb3IgY29tbW9uIHRvIGFsbCBMTE0tYmFzZWQgbWV0aG9kczoKCnwga2V5ICB8IGRlc2NyaXB0aW9uICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IGdsb2JhbCBwYXJhbWV0ZXIgbmFtZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8CnwgLS0tLSB8IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB8IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB8CnwgQSAgICB8IE92ZXJhbGwgZGVzY3JpcHRpb24gb2YgdGhlIGNodW5rcy48YnIvPlRoZSBwcmVjZWRpbmcgaW1hZ2Ugc2hvd3MgYW4gZXhhbXBsZSBvZiBhIHVzZXItY29uZmlndXJlZCBjb250ZXh0IGRlc2NyaXB0aW9uIG92ZXJyaWRpbmcgdGhlIGRlZmF1bHQuIHwgQ29udGV4dCBEZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKfCBCICAgIHwgUGFnZSBtZXRhZGF0YSBmb3IgY2h1bmtzLiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgUGFnZSBIaW50aW5nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKfCBDICAgIHwgQ2h1bmtzLCBvciAiY29udGV4dCIsIGV4Y2VycHRlZCBmcm9tIGRvY3VtZW50LiAgICAgICAgICAgICAgIHwgQ2h1bmsgQ291bnQ8YnIvPkNodW5rIFNpemU8YnIvPkNodW5rIE92ZXJsYXAgUGVyY2VudGFnZTxici8+UGFnZSBSYW5nZSB8CnwgRCAgICB8IENvbmNhdGVuYXRpb24gb2YgYWxsIHRoZSBkZXNjcmlwdGl2ZSBwcm9tcHRzIHlvdSBjb25maWd1cmVkIGluIHRoZSBtZXRob2QuIEZvciBleGFtcGxlLCBjb25jYXRlbmF0aW9uIG9mIGFsbCB0aGUgY29sdW1uIGRlc2NyaXB0aW9ucyBhbmQgdGhlIG92ZXJhbGwgdGFibGUgZGVzY3JpcHRpb24gZm9yIHRoZSBbTkxQIFRhYmxlXShkb2M6bmxwLXRhYmxlKSBtZXRob2QuIHwgRGVzY3JpcHRpb24gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKCllvdSBjYW4gY29uZmlndXJlIHRoZSBwcmVjZWRpbmcgcGFyYW1ldGVycyBpbiB0aGUgSlNPTiBlZGl0b3IgYW5kIGluIHRoZSB2aXN1YWwgZWRpdG9yLgoKRm9yIGV4YW1wbGUsIHRoZSBmb2xsb3dpbmcgc2NyZWVuc2hvdCBzaG93cyBwcm9tcHQgc2V0dGluZ3MgaW4gdGhlIHZpc3VhbCBlZGl0b3IgZm9yIGFsbCBmaWVsZHMgaW4gYSBjb25maWc6CgohW0NsaWNrIHRvIGVubGFyZ2VdKGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9zZW5zaWJsZS1ocS9zZW5zaWJsZS1kb2NzL21haW4vcmVhZG1lLXN5bmMvYXNzZXRzL3YwL2ltYWdlcy9maW5hbC9wcm9tcHRfaW5zdHJ1Y3RfMi5wbmcpCgpUbyBlZGl0IHRoZSBwcmVjZWRpbmcgcGFyYW1ldGVycyBpbiB0aGUgdmlzdWFsIGVkaXRvciBmb3IgaW5kaXZpZHVhbCBmaWVsZHMsIGNsaWNrIHRoZSBmaWVsZCB0byBlZGl0IGl0LCB0aGVuIGNsaWNrIHRoZSBhZHZhbmNlZCBzZXR0aW5ncyBkcm9wLWRvd24uIEZvciBleGFtcGxlLCBmb3IgYSBMaXN0IGZpZWxkOgoKICFbQ2xpY2sgdG8gZW5sYXJnZV0oaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3NlbnNpYmxlLWhxL3NlbnNpYmxlLWRvY3MvbWFpbi9yZWFkbWUtc3luYy9hc3NldHMvdjAvaW1hZ2VzL2ZpbmFsL3Byb21wdF9pbnN0cnVjdF8xLnBuZykKCkdsb2JhbCBMTE0tYmFzZWQgcGFyYW1ldGVycwo9PT0KClRoZSBmb2xsb3dpbmcgdGFibGUgc2hvd3MgZ2xvYmFsIHBhcmFtZXRlcnMsIG9yIHBhcmFtZXRlcnMgdGhhdCBhcmUgY29tbW9uIHRvIGFsbCBMTE0tYmFzZWQgbWV0aG9kcy4gWW91IGNhbiBjb25maWd1cmUgdGhlc2UgcGFyYW1ldGVycyBmb3IgYWxsIGZpZWxkcyBpbiBhIGNvbmZpZywgb3Igb24gYSBmaWVsZC1ieS1maWVsZCBiYXNpcy4KCkZvciBwYXJhbWV0ZXJzIHNwZWNpZmljIHRvIGFuIExMTS1iYXNlZCBtZXRob2QsIHNlZSBpdHMgcmVmZXJlbmNlIHRvcGljLCBmb3IgZXhhbXBsZSwgdGhlIFtRdWVyeSBHcm91cF0oZG9jOnF1ZXJ5LWdyb3VwI3BhcmFtZXRlcnMpIG1ldGhvZCByZWZlcmVuY2UgdG9waWMuIExpa2UgZ2xvYmFsIHBhcmFtZXRlcnMsIG1ldGhvZC1zcGVjaWZpYyBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgZm9yIGFsbCBmaWVsZHMgaW4gYSBjb25maWcsIG9yIG9uIGEgZmllbGQtYnktZmllbGQgYmFzaXMuCgoKfCBTZW5zZU1MIHBhcmFtZXRlciAgICAgICAgICAgICAgICAgICB8IHZhbHVlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IGNvbmZpZy1sZXZlbDo8YnIvPmNvbmZpZ3VyZSBpbiBbTkxQIHByZXByb2Nlc3Nvcl0oZG9jOm5scCkgb3IgaW4gdGhlIHZpc3VhbCBlZGl0b3IncyBjb25maWd1cmF0aW9uIHNldHRpbmdzIHwgbWV0aG9kLWxldmVsOjxici8+Y29uZmlndXJlIGluIGEgZmllbGQgICB8CnwgOi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfCA6LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHwKfCBjb25maWRlbmNlU2lnbmFscyAgICAgICAgICAgICAgICAgICB8IGJvb2xlYW4uPGJyLz5kZWZhdWx0czogdHJ1ZSBpbiAgdmlzdWFsIGVkaXRvciw8YnIvPiBmYWxzZSBpbiBKU09OIGVkaXRvciB8IElmIHNwZWNpZmllZCwgU2Vuc2libGUgcHJvbXB0cyB0aGUgTExNIHRvIHJlcG9ydCBhbnkgdW5jZXJ0YWludGllcyBpdCBoYXMgYWJvdXQgdGhlIGFjY3VyYWN5IG9mIGl0cyByZXNwb25zZS4gIEZvciBtb3JlIGluZm9ybWF0aW9uLCBzZWUgW1F1YWxpZnlpbmcgTExNIGFjY3VyYWN5XShkb2M6Y29uZmlkZW5jZSkuPGJyLz5BcHBsaWVzIHRvIGVhY2ggc3VwcG9ydGVkIG1ldGhvZCBpbiB0aGUgY29uZmlnLiBTZW5zaWJsZSBjdXJyZW50bHkgc3VwcG9ydHMgdGhpcyBwYXJhbWV0ZXIgZm9yIHRoZSBbUXVlcnkgR3JvdXBdKGRvYzpxdWVyeS1ncm91cCkgbWV0aG9kLiB8IE92ZXJyaWRlcyBjb25maWctbGV2ZWwgcGFyYW1ldGVyIGZvciBhIHNpbmdsZSBmaWVsZC4gfAp8IGNvbnRleHREZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgIHwgc3RyaW5nLiBkZWZhdWx0OiBgVGhlIGJlbG93IGNvbnRleHQgaXMgYW4gZXhjZXJwdCBmcm9tIGEgZG9jdW1lbnQuYCB8IENvbmZpZ3VyZXMgY29udGV4dCdzIG1ldGFkYXRhLiBGb3IgZGV0YWlscyBhYm91dCBjb250ZXh0IGFuZCBjaHVua3MsIHNlZSB0aGUgTm90ZXMgc2VjdGlvbi48YnIvPk92ZXJ3cml0ZXMgdGhlIGRlZmF1bHQgY29udGV4dCBkZXNjcmlwdGlvbi48YnIvPkFwcGxpZXMgdG8gZWFjaCBMTE0tYmFzZWQgZmllbGQgaW4gdGhlIGNvbmZpZy48YnIvPkZvciBleGFtcGxlOjxici8+XC0gYFRoZSBiZWxvdyBjb250ZXh0IGlzIGFuIGV4Y2VycHQgZnJvbSBhIHNjYW5uZWQgaW5kZXggY2FyZCB0aGF0IGNvbnRhaW5zIGJvdGFuaWNhbCBpbmZvcm1hdGlvbiBhYm91dCBhIHNpbmdsZSBwbGFudCBzcGVjaWVzLCBpbmNsdWRpbmcgcGhlbm9sb2d5IGluZm9ybWF0aW9uLmA8YnIvPlwtIGBUaGUgYmVsb3cgY29udGV4dCBpcyBhbiBleGNlcnB0IGZyb20gYW4gZW1haWwuIEFzc3VtZSB0aGUgc2VuZGVyIGlzIGFsd2F5cyBhbiBhdXRvbWF0ZWQgc3lzdGVtIGZyb20gYW4gaW5zdXJhbmNlIGJyb2tlci5gIHwgT3ZlcnJpZGVzIGNvbmZpZy1sZXZlbCBwYXJhbWV0ZXIgZm9yIGEgc2luZ2xlIGZpZWxkLiB8CnwgcGFnZUhpbnRpbmcgICAgICAgICAgICAgICAgICAgICAgICAgfCBib29sZWFuLiBkZWZhdWx0OiB0cnVlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBDb25maWd1cmVzIGNvbnRleHQncyBtZXRhZGF0YS4gRm9yIGRldGFpbHMgYWJvdXQgY29udGV4dCBhbmQgY2h1bmtzLCBzZWUgdGhlIE5vdGVzIHNlY3Rpb24uIDxici8+SW5jbHVkZXMgb3Igb3IgcmVtb3ZlcyBwYWdlIG1ldGFkYXRhIGZvciBlYWNoIGNodW5rIGZyb20gdGhlIGZ1bGwgcHJvbXB0IFNlbnNpYmxlIGlucHV0cyB0byBhbiBMTE0uPGJyLz5BcHBsaWVzIHRvIGVhY2ggTExNLWJhc2VkIGZpZWxkIGluIHRoZSBjb25maWcuPGJyLz5Gb3IgZXhhbXBsZSwgaWYgeW91ciBQREYgY29udmVydGVyIGF1dG9tYXRpY2FsbHkgYXBwbGllZCBwYWdlIG51bWJlcnMgdG8gc2Nhbm5lZCBJRCBjYXJkcywgc2V0IHRoaXMgcGFyYW1ldGVyIHRvIGZhbHNlIHRvIGlnbm9yZSB0aGUgcGFnZSBudW1iZXJzLCBzaW5jZSB0aGVpciByZWxhdGlvbnNoaXAgdG8gdGhlIGNhcmRzJyB0ZXh0IGlzIGFyYml0cmFyeS48YnIvPjxici8+SWYgc2V0IHRvIHRydWUsIHRoZW4geW91IGNhbiBhZGQgbG9jYXRpb24gaW5mb3JtYXRpb24gdG8gYSBwcm9tcHQgdG8gbmFycm93IGRvd24gdGhlIGNvbnRleHQncyBsb2NhdGlvbi4gRm9yIGV4YW1wbGU6PGJyLz4qKkxvY2F0aW9uIHJlbGF0aXZlIHRvIHBhZ2UgbnVtYmVyIGFuZCBwb3NpdGlvbiBvbiBwYWdlKio8YnIvPi0gImFkZHJlc3MgaW4gdGhlIHRvcCBsZWZ0IG9mIHRoZSBmaXJzdCBwYWdlIG9mIHRoZSBkb2N1bWVudCI8YnIvPiAtICJXaGF0IGlzIHRoZSBtZWRpY2FsIHBhaWQgdmFsdWUgb24gdGhlIGxhc3QgY2xhaW0gb2YgdGhlIHNlY29uZCBwYWdlPyI8YnIvPioqTG9jYXRpb24gcmVsYXRpdmUgdG8gY29udGVudCBpbiBkb2N1bWVudCoqPGJyLz4tICJ0b3RhbCBhbW91bnQgaW4gdGhlIGV4cGVuc2UgdGFibGUiIDxici8+LSAicGhvbmUgbnVtYmVyIGFmdGVyIHNlY3Rpb24gMiIgfCBPdmVycmlkZXMgY29uZmlnLWxldmVsIHBhcmFtZXRlciBmb3IgYSBzaW5nbGUgZmllbGQuIHwKfCBjaHVua0NvdW50ICAgICAgICAgICAgICAgICAgICAgICAgICB8IG51bWJlci4gZGVmYXVsdDogc2VlIGVhY2ggbWV0aG9kJ3MgW3JlZmVyZW5jZSB0b3BpY10oZG9jOmxsbS1iYXNlZC1tZXRob2RzKSB8IENvbmZpZ3VyZXMgY29udGV4dCdzIHNpemUuIEZvciBkZXRhaWxzIGFib3V0IGNvbnRleHQgYW5kIGNodW5rcywgc2VlIHRoZSBOb3RlcyBzZWN0aW9uLjxici8+VGhlIG51bWJlciBvZiB0b3Atc2NvcmluZyBjaHVua3MgU2Vuc2libGUgY29tYmluZXMgYXMgY29udGV4dCBhcyBwYXJ0IG9mIHRoZSBmdWxsIHByb21wdCBpdCBzdWJtaXRzIHRvIGFuIExMTS4gPGJyLz5BcHBsaWVzIHRvIGVhY2ggTExNLWJhc2VkIGZpZWxkIGluIHRoZSBjb25maWcuPGJyLz5PZnRlbiwgY2h1bmsgY291bnQgYW5kIGNodW5rIHNpemUgYXJlIHJlbGF0ZWQuIEZvciBleGFtcGxlLCBpZiB5b3Uga25vdyB0aGF0IHlvdXIgdGFyZ2V0IGRhdGEgYXJlIHNwcmVhZCBvdmVyIDctMTAgcGFnZXMsIGFuZCBvY2N1cHkgYSBzbWFsbCBwb3J0aW9uIG9mIHRob3NlIHBhZ2VzLCB5b3UgY2FuIHNwZWNpZnkgYSBjaHVuayBjb3VudCBvZiAxMCBhbmQgYSBoYWxmLXBhZ2UgIGNodW5rIHNpemUuIHwgT3ZlcnJpZGVzIGNvbmZpZy1sZXZlbCBwYXJhbWV0ZXIgZm9yIGEgc2luZ2xlIGZpZWxkLiB8CnwgY2h1bmtTaXplICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBgMC41YCwgYDFgIGRlZmF1bHQ6ICBzZWUgZWFjaCBtZXRob2QncyBbcmVmZXJlbmNlIHRvcGljXShkb2M6bGxtLWJhc2VkLW1ldGhvZHMpIHwgQ29uZmlndXJlcyBjb250ZXh0J3Mgc2l6ZS4gRm9yIGRldGFpbHMgYWJvdXQgY29udGV4dCBhbmQgY2h1bmtzLCBzZWUgdGhlIE5vdGVzIHNlY3Rpb24uPGJyLz5UaGUgc2l6ZSBvZiB0aGUgY2h1bmtzIFNlbnNpYmxlIHNwbGl0cyB0aGUgZG9jdW1lbnQgaW50bywgYXMgYSBwYWdlIGZyYWN0aW9uLiBGb3IgZXhhbXBsZSwgYDAuNWAgc3BlY2lmaWVzIGVhY2ggY2h1bmsgaXMgaGFsZiBhIHBhZ2UuPGJyLz5BcHBsaWVzIHRvIGVhY2ggTExNLWJhc2VkIGZpZWxkIGluIHRoZSBjb25maWcuIDxici8+T2Z0ZW4sIGNodW5rIGNvdW50IGFuZCBjaHVuayBzaXplIGFyZSByZWxhdGVkLiBGb3IgZXhhbXBsZSwgaWYgeW91IGtub3cgdGhhdCB0aGUgZGF0YSB5b3Ugc2VlayBpcyBjb250YWluZWQgaW4gb25lIGNvdmVyIHBhZ2UsIHlvdSBjYW4gc2V0IGNodW5rIHNpemUgdG8gMSBhbmQgYSBjaHVuayBjb3VudCB0byAxLiB8IE92ZXJyaWRlcyBjb25maWctbGV2ZWwgcGFyYW1ldGVyIGZvciBhIHNpbmdsZSBmaWVsZC4gfAp8IGNodW5rT3ZlcmxhcFBlcmNlbnRhZ2UgICAgICAgICAgICAgIHwgYDBgLCBgMC4yNWAsIGAwLjVgIGRlZmF1bHQ6IHNlZSBlYWNoIG1ldGhvZCdzIFtyZWZlcmVuY2UgdG9waWNdKGRvYzpsbG0tYmFzZWQtbWV0aG9kcykgfCBDb25maWd1cmVzIGNvbnRleHQncyBzaXplLiBGb3IgZGV0YWlscyBhYm91dCBjb250ZXh0IGFuZCBjaHVua3MsIHNlZSB0aGUgTm90ZXMgc2VjdGlvbi48YnIvPlRoZSBleHRlbnQgdG8gd2hpY2ggY2h1bmtzIG92ZXJsYXAsIGFzIGEgcGVyY2VudGFnZSBvZiB0aGUgY2h1bmtzJyBoZWlnaHQuIEZvciBleGFtcGxlLCBgMC41YCBzcGVjaWZpZXMgZWFjaCBjaHVuayBvdmVybGFwcyBieSBoYWxmIGl0cyBoZWlnaHQuIDxici8+QXBwbGllcyB0byBlYWNoIExMTS1iYXNlZCBmaWVsZCBpbiB0aGUgY29uZmlnLiA8YnIvPlNlbnNpYmxlIHJlY29tbWVuZHMgc2V0dGluZyBhIG5vbi16ZXJvIG92ZXJsYXAgdG8gYXZvaWQgc3BsaXR0aW5nIGRhdGEgYWNyb3NzIGNodW5rcy4gU2V0IG92ZXJsYXAgdG8gMCBzb2xlbHkgaWYgeW91J3JlIGNvbmZpZGVudCB0aGF0IHlvdXIgZG9jdW1lbnQgbGF5b3V0IGRvZXNuJ3QgZmxvdyBhY3Jvc3MgcGFnZSBib3VuZGFyaWVzIGFuZCB5b3UncmUgdXNpbmcgYSBvbmUtcGFnZSBjaHVuayBzaXplLiB8IE92ZXJyaWRlcyBjb25maWctbGV2ZWwgcGFyYW1ldGVyIGZvciBhIHNpbmdsZSBmaWVsZC4gfAp8IHBhZ2VSYW5nZSAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgb2JqZWN0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgQ29uZmlndXJlcyB0aGUgY29udGV4dCdzIHJhbmdlIGluIHRoZSBkb2N1bWVudC4gRm9yIGRldGFpbHMgYWJvdXQgY29udGV4dCBhbmQgY2h1bmtzLCBzZWUgdGhlIE5vdGVzIHNlY3Rpb24uPGJyLz5JZiBzcGVjaWZpZWQsIFNlbnNpYmxlIGNyZWF0ZXMgY2h1bmtzIGluIHRoZSBwYWdlIHJhbmdlIGFuZCBpZ25vcmVzIG90aGVyIHBhZ2VzLiBGb3IgZXhhbXBsZSwgdXNlIHRoaXMgcGFyYW1ldGVyIHRvIGltcHJvdmUgcGVyZm9ybWFuY2UsIG9yIHRvIGF2b2lkIGV4dHJhY3RpbmcgdW53YW50ZWQgZGF0YSBpZiB5b3VyIHByb21wdCBoYXMgbXVsdGlwbGUgY2FuZGlkYXRlIGFuc3dlcnMuPGJyLz48YnIvPkNvbnRhaW5zIHRoZSBmb2xsb3dpbmcgcGFyYW1ldGVyczogPGJyLz5gc3RhcnRQYWdlYDogIFplcm8tYmFzZWQgaW5kZXggb2YgdGhlIHBhZ2UgYXQgd2hpY2ggU2Vuc2libGUgc3RhcnRzIGNyZWF0aW5nIGNodW5rcyAoaW5jbHVzaXZlKS4gPGJyLz5gZW5kUGFnZWA6IFplcm8tYmFzZWQgaW5kZXggb2YgdGhlIHBhZ2UgYXQgd2hpY2ggU2Vuc2libGUgc3RvcHMgY3JlYXRpbmcgY2h1bmtzIChleGNsdXNpdmUpLjxici8+PGJyLz4qKk5vdGU6KiogU2Vuc2libGUgaWdub3JlcyB0aGlzIHBhcmFtZXRlciB3aGVuIHNlYXJjaGluZyBmb3IgYSBmaWVsZCdzIGFuY2hvci4gSWYgeW91IHdhbnQgdG8gZXhjbHVkZSB0aGUgZmllbGQncyBhbmNob3IgZnJvbSB0aGUgcGFnZSByYW5nZSwgdXNlIHRoZSBbUGFnZSBSYW5nZV0oZG9jOnBhZ2UtcmFuZ2UpIHByZXByb2Nlc3NvciBpbnN0ZWFkLjxici8+IHwgT3ZlcnJpZGVzIGNvbmZpZy1sZXZlbCBwYXJhbWV0ZXIgZm9yIGEgc2luZ2xlIGZpZWxkLiB8CnwgKCoqRGVwcmVjYXRlZCoqKSBwcm9tcHRJbnRyb2R1Y3Rpb24gfCBzdHJpbmcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBEZXByZWNhdGVkLiBPdmVyd3JpdGVzIHRoZSBpbnRyb2R1Y3RvcnkgdGV4dCBhdCB0aGUgYmVnaW5uaW5nIG9mIHRoZSBmdWxsIHByb21wdCB0aGF0IFNlbnNpYmxlIHN1Ym1pdHMgdG8gdGhlIExMTS4gfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKCgpOb3Rlcwo9PT0KRm9yIGFuIG92ZXJ2aWV3IG9mIGhvdyBMTE0tYmFzZWQgbWV0aG9kcyB3b3JrLCBzZWUgdGhlIGZvbGxvd2luZyBzdGVwcy4gCgoxLiBUbyBtZWV0IHRoZSBMTE0ncyBpbnB1dCB0b2tlbiBsaW1pdCwgU2Vuc2libGUgc3BsaXRzIHRoZSBkb2N1bWVudCBpbnRvIGNodW5rcy4KMi4gU2Vuc2libGUgc2VsZWN0cyB0aGUgbW9zdCByZWxldmFudCBjaHVua3MgYW5kIGNvbWJpbmVzIHRoZW0gd2l0aCBwYWdlLWhpbnRpbmcgZGF0YSB0byBjcmVhdGUgYSAiY29udGV4dCIuCjMuIFNlbnNpYmxlIGNyZWF0ZXMgYSBmdWxsIHByb21wdCBmb3IgdGhlIExMTSB0aGF0IGluY2x1ZGVzIHRoZSBjb250ZXh0IGFuZCB0aGUgZGVzY3JpcHRpdmUgcHJvbXB0cyB5b3UgY29uZmlndXJlIGluIHRoZSBtZXRob2QuIEZvciBhbiBleGFtcGxlIG9mIGEgZnVsbCBwcm9tcHQsIHNlZSB0aGUgYmVnaW5uaW5nIG9mIHRoaXMgdG9waWMuCjQuIFNlbnNpYmxlIHJldHVybnMgdGhlIExMTSdzIHJlc3BvbnNlLgoKRm9yIHNwZWNpZmljcyBhYm91dCBob3cgZWFjaCBMTE0tYmFzZWQgbWV0aG9kIHdvcmtzLCBzZWUgdGhlIE5vdGVzIHNlY3Rpb24gZm9yIGVhY2ggbWV0aG9kJ3MgU2Vuc2VNTCByZWZlcmVuY2UgdG9waWMsIGZvciBleGFtcGxlLCBbTGlzdF0oZG9jOmxpc3Qjbm90ZXMpIG1ldGhvZC4KCgAAAAAAAAAAJScAAAAAAAAAAAAAAAAAAAAAAAAlJwAAAAAAAAAAAAA",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAADUAQAAAAAAANQBAAAAAAAAAAAAAAAA8L8"
+					"insert",
+					{
+						"characters": "**"
+					},
+					"AgAAAHcFAAAAAAAAeAUAAAAAAAAAAAAAeAUAAAAAAAB5BQAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAB3BQAAAAAAAHcFAAAAAAAAAAAAAAAA8L8"
+				],
+				[
+					26,
+					1,
+					"insert",
+					{
+						"characters": "d"
+					},
+					"AQAAAHcFAAAAAAAAeAUAAAAAAAAAAAAA",
+					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAB3BQAAAAAAAHcFAAAAAAAAAAAAAAAA8L8"
 				]
 			]
 		}
@@ -293,19 +169,46 @@
 	],
 	"file_history":
 	[
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6800 - document-type-settings/1000 - fingerprint-mode.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/monitor-and-qa/4000 - validate-extractions.md",
+		"/C/Users/franc/Downloads/fallback tests.txt",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/1560 - coverage.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/openapi_extraction.yml",
+		"/C/Users/franc/Downloads/rework documentInPortfolio",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/0000 - jsonlogic.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/0000 - postprocessor.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7500 - advanced-computed-field-methods/0600 - custom-computation.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/0300 - accuracy-measures.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/0350 - prompt.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - llm-based-methods/1000 - list.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/1000 - overview.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/4600 - table-methods.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7000 - deprecated-features/2100 - deprecated-table.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6700 - config-settings/1000 - fingerprint.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/data-extraction/3000 - portfolio.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/api/1000 - api-tutorial/index.md",
+		"/C/Users/franc/Documents/GitHub/sensible-api-py/README.md",
+		"/C/Users/franc/Documents/GitHub/sensible-sdk-js/README.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/6000 - author.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/1550 - devops-platform.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/monitor-and-qa/0310 - metrics.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/4000 - quick-extraction/index.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/2000 - zapier/index.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/2000 - zapier/2000 - zapier-tutorial-2.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/2000 - zapier/1000 - zapier-getting-started.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/document-type-classification/1000 - classify.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/api/1000 - api-tutorial/2100 - api-tutorial-async-2.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/openapi_classification.yml",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/api/1000 - api-tutorial/2000 - api-tutorial-async-1.md",
+		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/api/1000 - api-tutorial/1000 - api-tutorial-sync.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/data-extraction/3000 - draft-portfolio.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/data-extraction/5000 - best-practices/3000 - confidence.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - llm-based-methods/1000 - list.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - llm-based-methods/1000 - nlp-table.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - llm-based-methods/1600 - summarizer.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/0350 - prompt.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/document-type-classification/1000 - classify.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/2000 - draft-getting-started-ai.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - llm-based-methods/index.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/6000 - author.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/data-extraction/5000 - best-practices/0200 - troubleshoot-llms.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/cheat/4000 - cheat-4.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/1000 - overview.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - field-query-object/index.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - field-query-object/1200 - method.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/1000 - senseml-reference-introduction.md",
@@ -315,8 +218,6 @@
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/5000 - preprocessors/1200 - page-range.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/monitoring-and-qa/0310 - metrics.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/4000 - quality-control.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/1550 - devops-platform.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/0300 - accuracy-measures.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/5000 - preprocessors/index.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7000 - deprecated-features/2000 - deprecated-topic.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7000 - deprecated-features/2000 - deprecated-tfidf.md",
@@ -326,9 +227,7 @@
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/data-extraction/5000 - best-practices/1000 - performance.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - methods/1400 - fixed-table.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - methods/2200 - text-table.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7000 - deprecated-features/2100 - deprecated-table.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/2000 - getting-started-ai.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/openapi_extraction.yml",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7000 - deprecated-features/1500 - deprecated-query.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7000 - deprecated-features/1100 - deprecated-page-filter.md",
 		"/C/Users/franc/Downloads/old_toc",
@@ -339,24 +238,20 @@
 		"/C/Users/franc/Documents/GitHub/sensible-docs/.github/workflows/style_images.yml",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/scripts/style_images.sh",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - llm-based-methods/1500 - query-group.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6700 - config-settings/1000 - fingerprint.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/7500 - advanced-computed-field-methods/0100 - add-computed-fields.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/3700 - ocr.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/llm-based extractions/3000 - prompt.md",
 		"/C/Users/franc/Documents/GitHub/test-docs/mint.json",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/openapi_configuration.yml",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/openapi_classification.yml",
 		"/C/Users/franc/Documents/GitHub/test-mintlify/.github/workflows/check_links.yml",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6800 - document-type-settings/2000 - ocr-engine.md",
 		"/C/Users/franc/Documents/GitHub/test-mintlify/mint.json",
 		"/C/Users/franc/Documents/GitHub/docs/snippets/param1.md",
 		"/C/Users/franc/Documents/GitHub/docs/snippets/snippet1.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/4000 - quick-extraction/index.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/llm-based extractions/instruct/1000 - query-group-tips.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/llm-based extractions/instruct/3000 - table-tips.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - methods/2200 - draft-text-table.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - methods/1300 - document-range.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6800 - document-type-settings/1000 - fingerprint-mode.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/.github/workflows/sync_dev_guides_readme.yml",
 		"/C/Users/franc/Documents/GitHub/sensible-sdk-js/.gitignore",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - field-query-object/1300 - types.md",
@@ -381,9 +276,6 @@
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/5000 - preprocessors/1100 - page-filter.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - natural-language-methods/2000 - topic.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - methods/1500 - invoice.md",
-		"/C/Users/franc/Documents/GitHub/sensible-sdk-js/README.md",
-		"/C/Users/franc/Documents/GitHub/sensible-api-py/README.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/8000 - concepts/4600 - table-methods.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - natural-language-methods/1600 - summarizer.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - natural-language-methods/1000 - nlp-table.md",
 		"/C/Users/franc/Documents/GitHub/sensible-code-examples/readme.md",
@@ -392,8 +284,6 @@
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6800 - document-type-settings/4000 - ocr-level.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6500 - sections/6000 - sections-example-table-grid.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/6500 - sections/4000 - sections-example-nested-columns.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/2000 - zapier/index.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/integrations/2000 - zapier/1000 - zapier-getting-started.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/best-practices/5000 - guides/3000 - go-live.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/best-practices/5000 - guides/2000 - troubleshoot.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/best-practices/5000 - guides/1000 - test-before-integrating-configs.md",
@@ -406,21 +296,7 @@
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - natural-language-methods/1500 - draft-group.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/3000 - natural-language-methods/1500 - query.md",
 		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/llm-based extractions/instruct/1000 - query-tips.md",
-		"/C/Users/franc/Downloads/for the following table represented in json,",
-		"/C/Users/franc/Downloads/bal",
-		"/C/Users/franc/Downloads/balasdf",
-		"/C/Users/franc/Downloads/asdfasdf",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/senseml-reference/2000 - field-query-object/1100 - match.md",
-		"/C/Users/franc/Downloads/fdas.yaml",
-		"/C/Users/franc/Documents/GitHub/sensible/.git/info/exclude",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/assets/v0/json/verbose_extraction_3_verbosity.json",
-		"/C/Users/franc/Pictures/greenshot pics/2023-12-15 12_52_16-Franco Fontana _ Basilicata (1986) _ Available for Sale _ Artsy.png",
-		"/C/Users/franc/Documents/GitHub/sensible-code-examples/node/readme.md",
-		"/C/Users/franc/Documents/GitHub/sensible-code-examples/python/readme.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/welcome/3000 - integrate.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/readme-sync/v0/layout-based-extractions/2000 - library-quickstart.md",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/scripts/check_links/check_links.rb",
-		"/C/Users/franc/Documents/GitHub/sensible-docs/.github/workflows/check_links.yml"
+		"/C/Users/franc/Downloads/for the following table represented in json,"
 	],
 	"find":
 	{
@@ -458,6 +334,87 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"postprocessed",
+			"postprocessedout",
+			"pixel",
+			"file-ty",
+			"tiff",
+			"pixel",
+			"a score as follow",
+			"classificationS",
+			"classification_score",
+			"classification",
+			"average of all su",
+			"validationsummaryp",
+			"CoveragePortfolio",
+			"approved",
+			"webhook:",
+			"webhook",
+			"ExtractionSingleResponse",
+			"RetrievalRe\nExtractionSingleResponse",
+			"retrievalre",
+			"reviewStatuses",
+			"environment",
+			"environmentresponse:",
+			"environment:",
+			"evironment:",
+			"EnvironmentName:",
+			"Environment:",
+			"coverageport",
+			"CoveragePortfoli",
+			"environment:",
+			"Environment:",
+			"CoveragePortfolio:",
+			"ValidationSummaryPortfolio:",
+			"Environment",
+			"CoveragePortfolio",
+			"portfoliobase",
+			"retrievalre",
+			"documentinport",
+			"reviewstatuses",
+			"ReviewStatuses",
+			"reviewstatuses",
+			"types:",
+			"validationssummary",
+			"validationsummary",
+			"Types:",
+			"/coverage",
+			"coverage",
+			"validationssum",
+			"validation_s",
+			"retrievalr",
+			"types:",
+			"ExtractionSingleRetrievalResponse",
+			"documents/{id}",
+			"portfolio",
+			"postproc",
+			"extractioncontent",
+			"extractioncontent:",
+			"ExtractionContent",
+			"ExtractionContentPortfolio",
+			"postprocess",
+			"type: object",
+			"charged:",
+			"custom-com",
+			"jsonlogic",
+			"(doc:custom-computation)",
+			"(https://jsonlogic.com/)",
+			"jsonlogic",
+			"jsonlgoic",
+			"draft-json",
+			" ](",
+			" )[",
+			"types:",
+			"DocumentTypeNames",
+			"the document types cont",
+			"llm example",
+			"tax.*?form",
+			"tax.*?f",
+			"tax",
+			"tax_f",
+			"  ",
+			"tax",
+			"tax.*?forms",
 			"configuration-library",
 			"results like",
 			"(doc:jsonlogi",
@@ -504,88 +461,7 @@
 			"llmEngine",
 			"llm_engine",
 			"contain",
-			"extarctfromurlresponse",
-			"singleextractionresponse",
-			"doc:bag-of-words",
-			"bag of words",
-			"  !",
-			"page fil",
-			"page filter",
-			"instruct",
-			"capture",
-			"threshold",
-			"fallback column",
-			"fallback",
-			"vision preview",
-			"for the ocr e",
-			"versus embe",
-			"GetAllDocumentTypes",
-			"PutDocumentType",
-			"PutConfiguration",
-			"schema:",
-			"schema",
-			"get",
-			"\"Add Computed",
-			"docname",
-			"DocumentName",
-			"schemas:",
-			"DocumentName",
-			"/DocumentN",
-			"DocumentName",
-			"if you specify a match array",
-			"if you specify a match",
-			"thorough",
-			"documentname",
-			"schemas:",
-			"portfolio",
-			"types:",
-			"PortfolioBase:",
-			"PortfolioBase",
-			"documents:",
-			"environment:",
-			"PortfolioBase",
-			"documentName",
-			"document_name",
-			": \"query g",
-			": \"query",
-			": \"NL",
-			": \"text",
-			": \"fixed",
-			": \"document r",
-			"type settings tab:",
-			") method",
-			"] method",
-			"method]",
-			"instruct",
-			"up to 20 pages",
-			"notes .",
-			"ignore",
-			"put",
-			"document typ",
-			"date",
-			"iso",
-			"continuation_to",
-			"cutoff",
-			"cutoff_d",
-			"cutoff_",
-			"end_date",
-			"_crop",
-			"iso",
-			"multimodal",
-			"ocr",
-			"doc:ocr)",
-			"doc:ocr",
-			"description:",
-			"/topic",
-			"doc:topic",
-			"detectmulti",
-			"turbo",
-			"turo",
-			"query-group#exa",
-			"query-group#",
-			"handwriting",
-			"direct-text",
-			"xmajor"
+			"extarctfromurlresponse"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -593,6 +469,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"(doc:jsonlogic)",
+			"json",
 			"(doc:nlp-table)",
 			"(doc:query-group)",
 			"(doc:list)",
@@ -645,10 +523,41 @@
 			[
 				{
 					"buffer": 0,
+					"file": "/C/Users/franc/Documents/GitHub/sensible-docs/openapi_extraction.yml",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10690,
+						"buffer_size": 1933692,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								27154,
+								27161
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 14737.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21282,
 						"regions":
 						{
 							"match":
@@ -657,88 +566,204 @@
 								"regions":
 								[
 									[
-										597,
-										613
+										236,
+										241
 									],
 									[
-										1463,
-										1479
+										278,
+										283
 									],
 									[
-										2069,
-										2082
+										1501,
+										1506
 									],
 									[
-										2643,
-										2655
+										3120,
+										3125
 									],
 									[
-										3202,
-										3202
+										3983,
+										3988
 									],
 									[
-										3609,
-										3630
+										4249,
+										4254
 									],
 									[
-										4092,
-										4113
+										4299,
+										4304
 									],
 									[
-										4577,
-										4598
+										4433,
+										4438
 									],
 									[
-										5148,
-										5169
+										4549,
+										4554
 									],
 									[
-										5564,
-										5585
+										5318,
+										5323
 									],
 									[
-										5709,
-										5730
+										5796,
+										5801
 									],
 									[
-										6314,
-										6335
+										6072,
+										6077
 									],
 									[
-										7022,
-										7043
+										6123,
+										6128
 									],
 									[
-										7525,
-										7546
+										6498,
+										6503
 									],
 									[
-										7659,
-										7680
+										6549,
+										6554
 									],
 									[
-										7793,
-										7814
+										6924,
+										6929
 									],
 									[
-										8325,
-										8346
+										6997,
+										7002
 									],
 									[
-										9096,
-										9117
+										7661,
+										7666
 									],
 									[
-										9230,
-										9251
+										7982,
+										7987
 									],
 									[
-										9364,
-										9385
+										8096,
+										8101
 									],
 									[
-										10332,
-										10353
+										8865,
+										8870
+									],
+									[
+										9256,
+										9261
+									],
+									[
+										9695,
+										9700
+									],
+									[
+										10193,
+										10198
+									],
+									[
+										10528,
+										10533
+									],
+									[
+										10570,
+										10575
+									],
+									[
+										11793,
+										11798
+									],
+									[
+										13412,
+										13417
+									],
+									[
+										14275,
+										14280
+									],
+									[
+										14541,
+										14546
+									],
+									[
+										14591,
+										14596
+									],
+									[
+										14725,
+										14730
+									],
+									[
+										14841,
+										14846
+									],
+									[
+										15610,
+										15615
+									],
+									[
+										16088,
+										16093
+									],
+									[
+										16364,
+										16369
+									],
+									[
+										16415,
+										16420
+									],
+									[
+										16790,
+										16795
+									],
+									[
+										16841,
+										16846
+									],
+									[
+										17216,
+										17221
+									],
+									[
+										17289,
+										17294
+									],
+									[
+										17953,
+										17958
+									],
+									[
+										18274,
+										18279
+									],
+									[
+										18388,
+										18393
+									],
+									[
+										19157,
+										19162
+									],
+									[
+										19548,
+										19553
+									],
+									[
+										19987,
+										19992
+									],
+									[
+										20485,
+										20490
+									],
+									[
+										21068,
+										21081
+									],
+									[
+										21223,
+										21236
 									]
 								],
 								"scope": ""
@@ -747,15 +772,15 @@
 						"selection":
 						[
 							[
-								3626,
-								3626
+								21056,
+								21056
 							]
 						],
 						"settings":
 						{
 							"detect_indentation": false,
 							"line_numbers": false,
-							"output_tag": 5,
+							"output_tag": 4,
 							"result_base_dir": "",
 							"result_file_regex": "^([^ \t].*):$",
 							"result_line_regex": "^ +([0-9]+):",
@@ -763,69 +788,7 @@
 							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1564.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "v0/api/1000 - api-tutorial/2000 - api-tutorial-async-1.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4011,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1207,
-								1207
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 686.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "v0/api/1000 - api-tutorial/1000 - api-tutorial-sync.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3726,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1958,
-								1958
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1311.0,
+						"translation.y": 5912.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -833,154 +796,34 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "v0/api/1000 - api-tutorial/index.md",
+					"buffer": 2,
+					"file": "v0/senseml-reference/7600 - postprocessor.md",
 					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1632,
+						"buffer_size": 6751,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1313,
-								1313
+								1378,
+								1378
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 345.0,
+						"translation.y": 673.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "v0/senseml-reference/0000 - postprocessor.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9760,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1238.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "v0/welcome/1000 - overview.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4657,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4018,
-								4018
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2410.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "v0/senseml-reference/3000 - llm-based-methods/1000 - list.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16827,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "v0/senseml-reference/8000 - concepts/0350 - prompt.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10021,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								468,
-								468
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
 					"stack_multiselect": false,
 					"type": "text"
 				}
@@ -1035,6 +878,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"postpr",
+				"sensible-docs\\readme-sync\\v0\\senseml-reference\\7600 - postprocessor.md"
+			],
 			[
 				"api-tutorial",
 				"sensible-docs\\readme-sync\\v0\\api\\1000 - api-tutorial\\index.md"
