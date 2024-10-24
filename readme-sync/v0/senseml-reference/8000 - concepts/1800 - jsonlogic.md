@@ -11,7 +11,7 @@ Sensible supports both built-in and extended JsonLogic operators:
 - Sensible supports extended operations available in the [Json Logic Engine](https://jessemitchell.me/json-logic-engine/).  For more information, see the [documentation](https://jessemitchell.me/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
   - Array operations: `"length"`, `"get"`. 
   - Miscellaneous operations: `"preserve"`, `"keys"`. 
-  - Higher Order Operations: `"every"`, `"eachKey"`
+  - Higher Order Operations: `"every"`, `"eachKey"`. 
 -  Sensible extends [JsonLogic](https://jsonlogic.com/) with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
@@ -19,7 +19,7 @@ Sensible supports both built-in and extended JsonLogic operators:
 | [Exists](doc:jsonlogic#exists)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
 | [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
-| [Object](doc:jsonlogic#object)   | ❌                                       | ❌                                                   | ✅                                  |
+| [Object](doc:jsonlogic#object)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
 
 See the following sections for more information.
@@ -181,7 +181,9 @@ See [Validating extractions](doc:validate-extractions#examples).
 
 ## Object
 
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  One of the following syntaxes:
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. Note that the `"eachKey"` operation is an alternative to this operation. Use this operation instead of `"eachKey"` when the keys in the object you intend to build can vary depending on a calculation, i.e., the second of the following syntaxes.
+
+ One of the following syntaxes:
 
 ```json
 {
