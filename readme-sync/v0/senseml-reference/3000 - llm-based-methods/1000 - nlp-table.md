@@ -40,9 +40,9 @@ Parameters
 | annotateSuperscriptAndSubscript     | boolean. default: false | Set to true only if the Detect Table Structure Only parameter is set to true. When true:<br/>-  Sensible annotates subscript and superscript text in the table with `[^...]` and `[_...]`, respectively. This parameter doesn't support annotating text in multi-line cells. |
 | contextDescription                  |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
 | pageHinting                         |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| chunkCount                          | default: 5              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| chunkSize                           | default: 0.5            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| chunkOverlapPercentage              | default: 0.5            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkCount                          | integer. default: 5     | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkSize                           | integer. default: 0.5   | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| chunkOverlapPercentage              | integer. default: 0.5   | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
 | pageRange                           |                         | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
 
 
