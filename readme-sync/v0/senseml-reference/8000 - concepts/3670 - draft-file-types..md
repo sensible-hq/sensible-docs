@@ -7,28 +7,37 @@ hidden: true
 
 Sensible supports the following file types:
 
-|                    | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br> (TIFF) |
+|                    | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>2</sup><br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br> (TIFF) |
 | -------------------------------------- | ---- | ---------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | **Operation** |  |  |  |  |  |
 | Sensible app's Extract tab    | ✅    | ✅                                  | ✅                                 | ❌                                       | ❌                                      |
 | Single-file extraction with SDKs or API | ✅    | ✅                                  | ✅                                 | ✅                                       | ✅                                      |
 | Portfolio extraction with SDKs or API   | ✅    | ✅                                  | ❌ | ❌                                       | ❌                                      |
 | Classification with SDKs or API         | ✅    | ✅                                  | ✅                                 | ✅                                       | ✅                                      |
+|  |  |  |  |  |  |
 | **Feature** |  |  |  |  |  |
 | Methods that require rendering an image<sup>1</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |
-| MY TESTS w null fields on checkbox, nearestCheckbox, box, multimodal | as expected no errors | as expected no errors | unexpected: **no errors** except on MULTIMODAL | no errors | **unexpected: no errors** |
-| OCR-based methods<sup>2</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |
-| My tests w/ null fields on NLP Table (I assume "detectTableStruct" makes no difference) and Fixed Table no stop (MIcrosoft OCR) | as expected no errors | as expected no errors | **unexpected**: unsupported image type on NLP TABLE BUT NONE on Fixed Table w/ No Stop | as expected no errors | **unexpected**: unsupported image type on NLP TABLE BUT NONE on Fixed Table w/ No Stop |
-| Table-recognition methods |  |  |  |  |  |
-| Fixed Table w Stop? (Amazon table recognition) |  |  |  |  |  |
-
-1. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, image coordinates returned by the Document Range method.
-
-2. OCR-based methods include NLP Table and Fixed Table methods. Use Text Table or List as alternatives. All [OCR](doc:ocr) settings are inapplicable for this file type.
-
-TODO: Where does "Fixed Table method with the Stop parameter specified" fit into all this? Is it pixel/render-based or OCR-based? How about NLP Table?
+| NLP Table<br/> Fixed Table (no Stop)<br/>  (textractPage/ Microsoft OCR) | ✅ | ✅ |  | ✅ | ❌ |
+| Fixed Table with Stop<br/> (renderer.recognizeInvoice ... OCR whole page) | ✅ | ✅ | ❌ | ✅ | ❌ |
+| OCR'd text (not direct-text extraction) | ✅ | ✅ | ❌ | ✅ | ✅ |
 
 
+1. Methods that require rendering an image of a page include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
+
+2. All [OCR](doc:ocr) settings are inapplicable for this file type.
+
+MY TESTS:
+
+
+|                    | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>2</sup><br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br> (TIFF) |
+| -------------------------------------- | ---- | ---------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| -                                                            |                       |                                    |                                                              |                                            |                                                              |
+|                                                              |                       |                                    |                                                              |                                            |                                                              |
+| MY TESTS w null fields on checkbox, nearestCheckbox, box, multimodal | as expected no errors | as expected no errors | unexpected: **no errors** except on MULTIMODAL               | no errors             | **unexpected: no errors** only nulls when field was gonna return null anyway. when field is potentially non-null, then you get the expected errors. |
+| *OCR-based methods<sup>2</sup>*                              | ✅                     | ✅                     | ❌                                                            | ✅                     | ❌                                                            |
+| My tests w/ null fields on NLP Table (I assume "detectTableStruct" makes no difference) and Fixed Table no stop (**MIcrosoft OCR**) | as expected no errors | as expected no errors | **unexpected**: unsupported image type on NLP TABLE BUT NONE on Fixed Table w/ No Stop | as expected no errors | **unexpected**: unsupported image type on NLP TABLE BUT NONE on Fixed Table w/ No Stop, even though it did return null |
+| *misc*                                                       |                       |                       |                                                              |                       |                                                              |
+| Fixed Table w Stop (Amazon table recognition)                |                       |                       | null + error message   (unsupported image type)              | as expected no errors | null + error message   (unsupported image type)              |
 
 ## File sizes
 
