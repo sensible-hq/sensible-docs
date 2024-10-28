@@ -1002,7 +1002,7 @@ Use the Replace type to replace all instances of a regular-expression pattern ma
 
 ## Examples
 
-The following example shows how to strip all whitespaces and unwanted characters from a number.
+The following example shows how to strip all whitespaces and unwanted characters from a number, and how to use capturing groups with the replace type.
 
 **Config**
 
