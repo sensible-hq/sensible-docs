@@ -22,7 +22,7 @@ Sensible supports the following file types:
 | OCR'd text (not direct-text extraction) | ✅ | ✅ | ❌ | ✅ | ✅ |
 
 
-1. Methods that require rendering an image of a page include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
+1. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
 
 2. All [OCR](doc:ocr) settings are inapplicable for this file type.
 
