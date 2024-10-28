@@ -996,8 +996,8 @@ Use the Replace type to replace all instances of a regular-expression pattern ma
 | key                        | value                                  | description                                                  |
 | -------------------------- | -------------------------------------- | ------------------------------------------------------------ |
 | id (**required**)          | `replace`                              |                                                              |
-| pattern (**required**)     | Valid JS regex                         | Javascript-flavored regular expression. Replaces all matches. This parameter doesn't support capturing groups. See the following section for an example.<br/>By default, matches regular expressions that span multiple [lines](doc:lines). To enable this behavior, Sensible joins each line returned by the method using a whitespace as the separator, and runs the regular expression on the joined text.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| replaceWith (**required**) | string                                 | Specifies the text or capturing group reference to replace each match. |
+| pattern (**required**)     | Valid JS regex                         | Javascript-flavored regular expression. Replaces all matches. Supports capturing groups. See the following section for an example.<br/>By default, matches regular expressions that span multiple [lines](doc:lines). To enable this behavior, Sensible joins each line returned by the method using a whitespace as the separator, and runs the regular expression on the joined text.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
+| replaceWith (**required**) | string                                 | Specifies the text with which to replace each match. For example, replace every digit in a string (`"pattern:"[0-9]"`) with the character "x" (`"replaceWith":"x"`). <br/><br/>Or, specifies to replace capturing groups. For example, `"pattern": "(account) (number)"` and `"replaceWith": "$2, $1"` returns `number, account`. |
 | flags                      | JS-flavored regex flags.  Default: "g" | Flags to apply to the regex. for example: "i" for case-insensitive. Sensible always applies the flag "g" (global). |
 
 ## Examples
@@ -1046,7 +1046,7 @@ The following example shows how to strip all whitespaces and unwanted characters
       }
     },
     {
-       /* this field shows the original string output, 
+      /* this field shows the original string output, 
          which can't be converted to currency until the spaces and letters are removed */
       "id": "_each_accident_raw",
       "anchor": {
@@ -1054,6 +1054,31 @@ The following example shows how to strip all whitespaces and unwanted characters
           "text": "EMPLOYER'S LIABILITY",
           "type": "includes"
         }
+      },
+      "method": {
+        "id": "region",
+        "start": "left",
+        "offsetX": 0,
+        "offsetY": 0.1,
+        "width": 3,
+        "height": 0.2,
+        "sortLines": "readingOrderLeftToRight",
+      }
+    },
+    {
+      "id": "proposed_exp_date",
+      "anchor": {
+        "match": {
+          "text": "proposed exp",
+          "type": "includes"
+        }
+      },
+      "type": {
+        "id": "replace",
+        /*regex pattern, using capturing groups */
+        "pattern": "([0-9]{2}).*?([0-9]{2}).*?([0-9]{4})",
+        /* outputs the capturing groups in a new order */
+        "replaceWith": "$3-$1-$2",
       },
       "method": {
         "id": "region",
@@ -1090,6 +1115,11 @@ The following image shows the example document used with this example config:
   "_each_accident_raw": {
     "type": "string",
     "value": "$ 50 0 , 000 ACCIDEN EACH T"
+  },
+  "proposed_exp_date": {
+    "source": "12/26/2024",
+    "value": "2024-12-26",
+    "type": "replaced_string"
   }
 }
 ```
