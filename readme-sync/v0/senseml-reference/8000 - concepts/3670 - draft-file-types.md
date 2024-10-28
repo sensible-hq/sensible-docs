@@ -17,7 +17,7 @@ Sensible supports the following file types:
 |  |  |  |  |  |  |
 | **Feature** |  |  |  |  |  |
 | Methods that require rendering an image<sup>1</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |
-| NLP Table<br/> Fixed Table (no Stop)<br/>  (textractPage/ Microsoft OCR) | ✅ | ✅ |  | ✅ | ❌ |
+| NLP Table,<br/> Fixed Table (no Stop)<br/>  (textractPage/ Microsoft OCR) | ✅ | ✅ |  | ✅ | ❌ |
 | Fixed Table with Stop<br/> (renderer.recognizeInvoice ... OCR whole page) | ✅ | ✅ | ❌ | ✅ | ❌ |
 | OCR'd text (not direct-text extraction) | ✅ | ✅ | ❌ | ✅ | ✅ |
 
