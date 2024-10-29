@@ -185,7 +185,7 @@ components:
 
   requestBodies:
     SupportedFileTypes:
-      description: Supported file types
+      description: Supported [file types](doc:file-types).
       required: true
       content:
         application/pdf:
@@ -230,7 +230,7 @@ components:
             type: string
             format: binary
             description: non-encoded document bytes as the entire request body
-            
+
   schemas:
 
     ClassifyAsyncSingleResponse:
