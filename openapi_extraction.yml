@@ -62,7 +62,7 @@ paths:
       requestBody:
         required: true
         content:
-          $ref: '#/schemas/supportedFileTypes
+          $ref: '#/schemas/SupportedFileTypes
 
 
 
@@ -215,49 +215,8 @@ paths:
         - $ref: '#/components/parameters/document_name'
       requestBody:
         required: true
-
         content:
-          image/jpeg:
-            schema:
-              type: string
-              format: binary
-          image/png:
-            schema:
-              type: string
-              format: binary
-          image/tiff:
-            schema:
-              type: string
-              format: binary
-              description: non-encoded document bytes as the entire request body
-          application/pdf:
-            schema:
-              type: string
-              format: binary
-              description: non-encoded document bytes as the entire request body
-          # doc
-          application/msword:
-            schema:
-              type: string
-              format: binary
-              description: non-encoded document bytes as the entire request body
-          # docx
-          application/vnd.openxmlformats-officedocument.wordprocessingml.document:
-            schema:
-              type: string
-              format: binary
-              description: non-encoded document bytes as the entire request body
-          # xlsx
-          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
-            schema:
-              type: string
-              format: binary
-              description: non-encoded document bytes as the entire request body
-
-
-          application/json:
-            schema:
-              $ref: "#/components/schemas/encodedPdf"
+          $ref: '#/schemas/SupportedFileTypes
 
 
 
@@ -975,7 +934,7 @@ components:
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 
   schemas:
-    supportedFileTypes:
+    SupportedFileTypes:
       type: object
       properties:
         application/pdf:
