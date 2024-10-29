@@ -43,9 +43,7 @@ paths:
         
 
       requestBody:
-        required: true
-        content:
-          $ref: '#components/schemas/SupportedFileTypes'
+        $ref: '#/components/requestBodies/SupportedFileTypes'
 
       tags:
       - Document
@@ -90,9 +88,7 @@ paths:
         
         For supported file size and types, see [Supported file types](doc:file-types).
       requestBody:
-        required: true
-        content:
-          $ref: '#components/schemas/SupportedFileTypes'
+        $ref: '#/components/requestBodies/SupportedFileTypes'
 
       tags:
       - Document
