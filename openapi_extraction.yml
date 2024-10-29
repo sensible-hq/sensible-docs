@@ -60,9 +60,7 @@ paths:
         - $ref: '#/components/parameters/environment'
         - $ref: '#/components/parameters/document_name'
       requestBody:
-        required: true
-        content:
-          $ref: '#components/schemas/SupportedFileTypes'
+        $ref: '#/components/requestBodies/SupportedFileTypes'
 
 
 
