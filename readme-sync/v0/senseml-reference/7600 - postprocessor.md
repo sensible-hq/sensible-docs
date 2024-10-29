@@ -48,7 +48,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 | key                 | value            | description                                                  |
 | :------------------ | :--------------- | :----------------------------------------------------------- |
 | type (**required**) | `jsonLogic`      | Supports JsonLogic                                           |
-| rule                | JsonLogic object | Define the custom schema using  JsonLogic [operations](doc:jsonlogic).  To create custom objects in the schema, you can use Sensible's [object](doc:jsonlogic#object) operator. |
+| rule                | JsonLogic object | Define the custom schema using  JsonLogic [operations](doc:jsonlogic).  To create custom objects in the schema, you can use the [eachKey](https://jessemitchell.me/json-logic-engine/docs/higher) operation. Or, if the keys of the object you intend to build can vary depending on the calculation, use Sensible's [object](doc:jsonlogic#object) operator. |
 
 # Examples
 
