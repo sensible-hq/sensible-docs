@@ -18,7 +18,7 @@ Sensible supports the following file types:
 | **Feature** |  |  |  |  |  |
 | Methods that require rendering non-text image pixels<sup>2</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |
 | NLP Table,<br/>Fixed Table<sup>3</sup><br/> | ✅ | ✅ | ❌ | ✅ | ❌ |
-| extraction of text that requires [OCR](doc:ocr) | ✅ | ✅ | ❌ | ✅ | ✅ |
+| Extraction of text that requires [OCR](doc:ocr) | ✅ | ✅ | ❌ | ✅ | ✅ |
 
 
 1. All [OCR](doc:ocr) settings are inapplicable for this file type.
