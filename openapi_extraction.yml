@@ -61,9 +61,15 @@ paths:
         - $ref: '#/components/parameters/document_name'
       
       requestBody:
-        oneOf:
-          - $ref: '#/components/requestBodies/SupportedFileTypes'
-          - $ref: '#/components/requestBodies/DocumentField'          
+        $ref: '#/components/requestBodies/SupportedFileTypes'
+
+      ## invalid syntax; doesn't seem to be openapi support for describing totally different request schemas where you could have direct
+      ## file upload OR a json request body 
+      ## if you wanted oneOf, you'd have to have both be application/json and just specify different schemas unfortunately
+      #requestBody:
+        #oneOf:
+          #- $ref: '#/components/requestBodies/SupportedFileTypes'
+          #- $ref: '#/components/requestBodies/DocumentField'          
 
 
 
@@ -934,16 +940,7 @@ components:
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
   
   requestBodies:
-    DocumentField:
-      description: See endpoint description for request body options.
-      required: true
-      content:
-        application/json:
-          schema:
-            document:
-              type: string
-              format: base64
-              description: Base64-encoded bytes of the document.
+
     SupportedFileTypes:
       description: >- 
         See endpoint description for request body options.  
