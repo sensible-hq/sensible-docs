@@ -7,7 +7,7 @@ hidden: true
 
 Sensible supports the following file types:
 
-|                    | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>2</sup><br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br> (TIFF) |
+|                    | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>1</sup><br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br> (TIFF) |
 | -------------------------------------- | ---- | ---------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | **Operation** |  |  |  |  |  |
 | Sensible app's Extract tab    | ✅    | ✅                                  | ✅                                 | ❌                                       | ❌                                      |
@@ -16,15 +16,16 @@ Sensible supports the following file types:
 | Classification with SDKs or API         | ✅    | ✅                                  | ✅                                 | ✅                                       | ✅                                      |
 |  |  |  |  |  |  |
 | **Feature** |  |  |  |  |  |
-| Methods that require rendering non-text image pixels<sup>1</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |
-| NLP Table,<br/> Fixed Table (no Stop)<br/>  (textractPage/ Microsoft OCR) | ✅ | ✅ | ❌ | ✅ | ❌ |
-| Fixed Table with Stop<br/> (renderer.recognizeInvoice ... OCR whole page) | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Methods that require rendering non-text image pixels<sup>2</sup> | ✅ | ✅ | ❌ | ✅ | ❌ |
+| NLP Table,<br/> Fixed Table (with or without a Stop parameter)<sup>3</sup><br/> | ✅ | ✅ | ❌ | ✅ | ❌ |
 | OCR'd text (not direct-text extraction) | ✅ | ✅ | ❌ | ✅ | ✅ |
 
 
-1. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
+1. All [OCR](doc:ocr) settings are inapplicable for this file type.
 
-2. All [OCR](doc:ocr) settings are inapplicable for this file type.
+2. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
+
+3. As alternatives to these Table methods, use the Fixed Table method or the List method.
 
 MY TESTS:
 
