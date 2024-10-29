@@ -60,7 +60,9 @@ paths:
         - $ref: '#/components/parameters/environment'
         - $ref: '#/components/parameters/document_name'
       requestBody:
-        $ref: '#/components/requestBodies/SupportedFileTypes'
+        oneOf:
+          - $ref: '#/components/requestBodies/SupportedFileTypes'
+          - $ref: '#/components/requestBodies/DocumentField'          
 
 
 
@@ -929,10 +931,20 @@ components:
         Sensible uses API keys to authenticate requests.
         Keep your API keys secure and do not share them publicly accessible areas such as GitHub, client-side code, etc.
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
-
+  
   requestBodies:
+    DocumentField:
+      description: See endpoint description for request body options.
+      required: true
+      content:
+        application/json:
+          schema:
+            document:
+              type: string
+              description: Base64-encoded bytes of the document.
     SupportedFileTypes:
-      description: Supported file types
+      description: >- 
+        See endpoint description for request body options.  
       required: true
       content:
         application/pdf:
