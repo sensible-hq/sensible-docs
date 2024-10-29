@@ -62,7 +62,7 @@ paths:
       requestBody:
         required: true
         content:
-          $ref: '#/schemas/SupportedFileTypes
+          $ref: '#components/schemas/SupportedFileTypes'
 
 
 
@@ -216,7 +216,7 @@ paths:
       requestBody:
         required: true
         content:
-          $ref: '#/schemas/SupportedFileTypes
+          $ref: '#components/schemas/SupportedFileTypes'
 
 
 
