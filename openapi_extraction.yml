@@ -91,6 +91,12 @@ paths:
               type: string
               format: binary
               description: non-encoded document bytes as the entire request body
+          text/csv:
+            schema:
+              type: string
+              format: binary
+              description: non-encoded document bytes as the entire request body
+
 
           application/json:
             schema:
@@ -267,16 +273,25 @@ paths:
               type: string
               format: binary
               description: non-encoded document bytes as the entire request body
+          # doc
           application/msword:
             schema:
               type: string
               format: binary
               description: non-encoded document bytes as the entire request body
+          # docx
           application/vnd.openxmlformats-officedocument.wordprocessingml.document:
             schema:
               type: string
               format: binary
               description: non-encoded document bytes as the entire request body
+          # xlsx
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+            schema:
+              type: string
+              format: binary
+              description: non-encoded document bytes as the entire request body
+
 
           application/json:
             schema:
@@ -746,16 +761,13 @@ components:
           schema:
             title: Unsupported Media Type
             type: string
-            example: >-
-              One of the following error messages -
-              Content-Type must be application/json
-              Content-Type must be application/json or application/pdf or image/jpeg or image/png or image/tiff
+            description: Unsupported file type. See https://docs.sensible.so/docs/file-types.
     429:
       description: Too Many Requests
       content:
         text/plain:
           schema:
-            title: Unsupported Media Type
+            title: Too Many Requests
             type: string
             example: >-
               One of the following error messages -
@@ -1880,7 +1892,7 @@ components:
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
     ContentTypeParameter:
       type: string
-      enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+      enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv"]
 
       # If you use this parameter with the `/generate_upload_url` endpoint (recommended), you must also use it in the subsequent PUT call to upload the file.
       description: >-

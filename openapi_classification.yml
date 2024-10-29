@@ -38,34 +38,15 @@ paths:
 
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
 
-        For supported file size and types, see [Supported file types](doc:file-types).
+        For supported file sizes, see [Supported file types](doc:file-types).
 
         
-
-
-
 
       requestBody:
         required: true
 
         content:
-          image/jpeg:
-            schema:
-              type: string
-              format: binary
-          image/png:
-            schema:
-              type: string
-              format: binary
-          image/tiff:
-            schema:
-              type: string
-              format: binary
-          application/pdf:
-            schema:
-              type: string
-              format: binary
-              description: non-encoded document bytes as the entire request body
+          $ref: '#/schemas/supportedFileTypes'
 
       tags:
       - Document
@@ -111,25 +92,8 @@ paths:
         For supported file size and types, see [Supported file types](doc:file-types).
       requestBody:
         required: true
-
         content:
-          image/jpeg:
-            schema:
-              type: string
-              format: binary
-          image/png:
-            schema:
-              type: string
-              format: binary
-          image/tiff:
-            schema:
-              type: string
-              format: binary
-          application/pdf:
-            schema:
-              type: string
-              format: binary
-              description: non-encoded document bytes as the entire request body
+          $ref: '#/schemas/supportedFileTypes'
 
       tags:
       - Document
@@ -225,6 +189,52 @@ components:
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 
   schemas:
+
+
+  supportedFileTypes:
+    type: object
+    properties:
+      aplication/pdf:
+        schema:
+          type: string
+          format: binary
+          description: non-encoded document bytes as the entire request body
+      image/jpeg:
+        schema:
+          type: string
+          format: binary
+      image/png:
+        schema:
+          type: string
+          format: binary
+      image/tiff:
+        schema:
+          type: string
+          format: binary
+      # docx
+      application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+        schema:
+          type: string
+          format: binary
+          description: non-encoded document bytes as the entire request body
+      # doc
+      application/msword:
+        schema:
+          type: string
+          format: binary
+          description: non-encoded document bytes as the entire request body
+      # xlsx
+      application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+        schema:
+          type: string
+          format: binary
+          description: non-encoded document bytes as the entire request body
+      # csv
+      text/csv:
+        schema:
+          type: string
+          format: binary
+          description: non-encoded document bytes as the entire request body
 
     ClassifyAsyncSingleResponse:
       type: object
