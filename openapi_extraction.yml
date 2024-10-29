@@ -59,6 +59,7 @@ paths:
         # - $ref: '#/components/parameters/configuration' # todo follow up on https://sensiblehq.slack.com/archives/C0215T9K86P/p1686933600795399
         - $ref: '#/components/parameters/environment'
         - $ref: '#/components/parameters/document_name'
+      
       requestBody:
         oneOf:
           - $ref: '#/components/requestBodies/SupportedFileTypes'
@@ -941,6 +942,7 @@ components:
           schema:
             document:
               type: string
+              format: base64
               description: Base64-encoded bytes of the document.
     SupportedFileTypes:
       description: >- 
