@@ -44,7 +44,6 @@ paths:
 
       requestBody:
         required: true
-
         content:
           $ref: '#/schemas/supportedFileTypes'
 
@@ -189,12 +188,10 @@ components:
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 
   schemas:
-
-
     supportedFileTypes:
       type: object
       properties:
-        aplication/pdf:
+        application/pdf:
           schema:
             type: string
             format: binary

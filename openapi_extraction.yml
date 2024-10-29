@@ -61,9 +61,8 @@ paths:
         - $ref: '#/components/parameters/document_name'
       requestBody:
         required: true
-
         content:
-          $ref: '#/components/schemas/supportedFileTypes' 
+          $ref: '#/schemas/supportedFileTypes
 
 
 
@@ -976,12 +975,10 @@ components:
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 
   schemas:
-
-
     supportedFileTypes:
       type: object
       properties:
-        aplication/pdf:
+        application/pdf:
           schema:
             type: string
             format: binary
@@ -1900,7 +1897,7 @@ components:
         The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.
       example: https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf
     ContentTypeParameter:
-      type: string
+      type: string #pdf, jpeg, png, tiff, doc, docx, xlsx, csv
       enum: ["application/pdf", "image/jpeg", "image/png", "image/tiff", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv"]
 
       # If you use this parameter with the `/generate_upload_url` endpoint (recommended), you must also use it in the subsequent PUT call to upload the file.
