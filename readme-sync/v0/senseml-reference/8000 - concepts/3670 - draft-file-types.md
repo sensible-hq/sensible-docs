@@ -44,7 +44,7 @@ MY TESTS:
 
 Sensible supports the following file sizes:
 
-| Operation              | Size limit for `/extract/{doc-type}` API endpoint                | Size limit for aysnchronous calls |
+| Operation              | Size limit for `/extract/{doc-type}` API endpoint                | Size limit for asynchronous calls |
 | ---------------------- | ------------------------------------------------ | ----------------------- |
 | Single-document file extraction | under 4.5MB, or under 30 seconds processing time | 6 GB                    |
 | Portfolio extraction   | n/a                                              | 6 GB                    |
