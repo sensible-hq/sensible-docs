@@ -7,13 +7,25 @@ hidden: false
 
 Sensible supports the following file types:
 
-| Operation                              | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<br/>(XLSX) | image formats<br/>(JPEG, PNG, and TIFF) |
-| -------------------------------------- | ---- | ---------------------------------- | --------------------------------------- | --------------------------------------- |
-| Sensible app's Extract tab    | ✅    | ✅                                  | ✅                                 | ❌                                       |
-| Single-file extraction with SDKs or API | ✅    | ✅                                  | ✅                                 | ✅                                       |
-| Portfolio extraction with SDKs or API   | ✅    | ✅                                  | ✅                                 | ❌                                       |
-| Classification with SDKs or API         | ✅    | ✅                                  | ✅                                 | ✅                                       |
+|                                                              | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>1</sup><br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br> (TIFF) |
+| ------------------------------------------------------------ | ---- | ---------------------------------- | -------------------------------------- | ------------------------------------------ | ----------------------------------- |
+| **Extraction context**                                       |      |                                    |                                        |                                            |                                     |
+| Sensible app's Extract tab                                   | ✅    | ✅                                  | ✅                                      | ❌                                          | ❌                                   |
+| Single-file extraction with SDKs or API                      | ✅    | ✅                                  | ✅                                      | ✅                                          | ✅                                   |
+| Portfolio extraction with SDKs or API                        | ✅    | ✅                                  | ❌                                      | ❌                                          | ❌                                   |
+| Classification with SDKs or API                              | ✅    | ✅                                  | ✅                                      | ✅                                          | ✅                                   |
+|                                                              |      |                                    |                                        |                                            |                                     |
+| **Extraction method**                                        |      |                                    |                                        |                                            |                                     |
+| Methods that require rendering non-text image pixels<sup>2</sup> | ✅    | ✅                                  | ❌                                      | ✅                                          | ❌                                   |
+| NLP Table method,<br/>Fixed Table method<sup>3</sup><br/>    | ✅    | ✅                                  | ❌                                      | ✅                                          | ❌                                   |
+| Extraction of text that requires [OCR](doc:ocr)              | ✅    | ✅                                  | ❌                                      | ✅                                          | ✅                                   |
 
+
+1. All [OCR](doc:ocr) settings are inapplicable for this file type.
+
+2. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
+
+3. As alternatives to these Table methods, use the Fixed Table method or the List method.
 ## File sizes
 
 Sensible supports the following file sizes:

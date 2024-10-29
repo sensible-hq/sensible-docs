@@ -183,15 +183,17 @@ components:
         Keep your API keys secure and do not share them publicly accessible areas such as GitHub, client-side code, etc.
         Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value.
 
-  schemas:
+  requestBodies:
     SupportedFileTypes:
-      type: object
-      properties:
+      description: Supported file types
+      required: true
+      content:
         application/pdf:
           schema:
             type: string
             format: binary
             description: non-encoded document bytes as the entire request body
+        # image types
         image/jpeg:
           schema:
             type: string
@@ -228,6 +230,8 @@ components:
             type: string
             format: binary
             description: non-encoded document bytes as the entire request body
+            
+  schemas:
 
     ClassifyAsyncSingleResponse:
       type: object
