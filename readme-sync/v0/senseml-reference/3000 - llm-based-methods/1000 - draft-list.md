@@ -38,6 +38,18 @@ Parameters
 **Note** You can configure some of the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrides the NLP preprocessor's parameter.
 
 
+
+
+
+TODO: gropu into categories again?
+
+
+
+
+
+
+
+
 | key                                 | value                               | description                                                  |
 | :---------------------------------- | :---------------------------------- | :----------------------------------------------------------- |
 | id (**required**)                   | `list`                              | The Anchor parameter is optional for fields that use this method. If you specify an anchor:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns null for the field if the anchor isn't present in the document. |
@@ -45,7 +57,7 @@ Parameters
 | properties (**required**)           | object                              | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the data in the extraction output. <br/>  -`description` (**required**):  A prompt describing the list item that you want to extract. You can prompt the LLM to reformat or filter the data. For example, provide prompts like `" transaction amount. return the absolute value"` or `"vehicle make (not model)"`.  <br/> -`type`: The list item's type. For more information, see [types](doc:types). |
 | (**Deprecated**) promptIntroduction | string.                             | **(Deprecated)**  overwrites the introductory text at the beginning of the [full prompt](https://docs.sensible.so/docs/prompt) that Sensible submits to the LLM for this field. |
 | llmEngine                           | `fast`, `thorough`. default: `fast` | Specifies the LLM model to which Sensible submits the full prompt, and affects the number of chunks that Sensible submits to the LLM.<br/>If the Fast parameter results in incomplete extractions for multi-page lists, use Thorough as an alternative.<br/>- `fast`:  Sensible uses a faster LLM model (GPT-4o mini) and can submit a smaller number of chunks than specified by the Chunk Count parameter.<br/>- `thorough`: Sensible uses a slower LLM model (GPT-4o) and submits exactly the number of chunks specified by the Chunk Count parameter. Sensible can take several minutes to return the list. <br/>For more information, see [Notes](#notes). |
-| singleLLMCompletion                 | boolean. default: false.            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) TODO: |
+| Single LLM Completion               | boolean. default: false             | Expects output to be less than the model output token limit. TODO: |
 | searchBySummarization               | boolean. default: false             | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) |
 | contextDescription                  |                                     | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) |
 | pageHinting                         |                                     | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) |

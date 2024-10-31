@@ -58,6 +58,10 @@ Parameters
 
 
 
+TODO: add categories like in the draf-tprompt
+
+
+
 | key                    | value                   | description                                                  | interactions |
 | :--------------------- | :---------------------- | :----------------------------------------------------------- | ------------ |
 | id (**required**)      | `queryGroup`            |                                                              |              |
