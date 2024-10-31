@@ -24,8 +24,6 @@ This method is an alternative to the [NLP Table](doc:nlp-table) method, when the
 
 - If Sensible partially extracts a multi-page list, for example skipping pages in the list, configure the [LLM Engine parameter](doc:list#parameters). 
 
-
-
 For information about how this method works, see [Notes](doc:nlp-table#notes).
 
 [**Parameters**](doc:list#parameters)
@@ -47,6 +45,7 @@ Parameters
 | properties (**required**)           | object                              | An array of objects with the following parameters: <br/> -`id` (**required**): A user-friendly ID for the data in the extraction output. <br/>  -`description` (**required**):  A prompt describing the list item that you want to extract. You can prompt the LLM to reformat or filter the data. For example, provide prompts like `" transaction amount. return the absolute value"` or `"vehicle make (not model)"`.  <br/> -`type`: The list item's type. For more information, see [types](doc:types). |
 | (**Deprecated**) promptIntroduction | string.                             | **(Deprecated)**  overwrites the introductory text at the beginning of the [full prompt](https://docs.sensible.so/docs/prompt) that Sensible submits to the LLM for this field. |
 | llmEngine                           | `fast`, `thorough`. default: `fast` | Specifies the LLM model to which Sensible submits the full prompt, and affects the number of chunks that Sensible submits to the LLM.<br/>If the Fast parameter results in incomplete extractions for multi-page lists, use Thorough as an alternative.<br/>- `fast`:  Sensible uses a faster LLM model (GPT-4o mini) and can submit a smaller number of chunks than specified by the Chunk Count parameter.<br/>- `thorough`: Sensible uses a slower LLM model (GPT-4o) and submits exactly the number of chunks specified by the Chunk Count parameter. Sensible can take several minutes to return the list. <br/>For more information, see [Notes](#notes). |
+| singleLLMCompletion                 | boolean. default: false.            | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) |
 | contextDescription                  |                                     | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) |
 | pageHinting                         |                                     | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) |
 | chunkCount                          | 20                                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters) |
