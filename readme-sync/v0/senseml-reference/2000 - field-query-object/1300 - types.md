@@ -46,6 +46,7 @@ The following types are available:
 [Compose](doc:types#compose)
 [Custom](doc:types#custom)
 [Replace](doc:types#replace)
+[Any](doc:types#any)
 
 #### **DEPRECATED TYPES**
 
@@ -1123,6 +1124,36 @@ The following image shows the example document used with this example config:
   }
 }
 ```
+
+# Any
+
+Use the Any type to specify an array of possible types for a field. Sensible uses the first-matching type in the array. Use the Any type as a more concise syntatical altenative to defining an array of [fallback](doc:fallbacks) fields of different types to capture variations in target data's formatting or type.
+
+For example, to specify a field that Sensible might recognize as a distance, a number, or a string, depending on the document formatting, use the Any type:
+
+```json
+{
+    "fields": [
+        {
+            "id": "contracted_route_distance",
+            "type": {
+                "id": "any",
+                "types": [
+                    "distance",
+                    "number",
+                    "string"
+                ]
+            },
+            "anchor": "distance in miles:",
+            "method": {
+                "id": "passthrough"
+            }
+        }
+    ]
+}
+```
+
+
 
 Deprecated types
 ===
