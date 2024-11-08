@@ -1159,6 +1159,36 @@ For example, to specify a field that Sensible might recognize as a currency, a n
 }
 ```
 
+If Sensible recognizes a currency, it can for example return:
+
+```json
+{
+  "total_charge": {
+    "source": "$ 1,000",
+    "value": 1000,
+    "unit": "$",
+    "type": "currency",
+  }
+}    
+```
+
+Or, if it fails to recognize the total charge as a currency but does recognize it as a number, it can fall back to returning:
+
+```json
+{
+  "total_charge": {
+    "source": "1,000",
+    "value": 1000,
+    "type": "number",
+ 
+  }
+}
+```
+
+
+
+
+
 
 
 Deprecated types
