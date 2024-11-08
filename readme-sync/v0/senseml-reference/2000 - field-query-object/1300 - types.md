@@ -1129,22 +1129,28 @@ The following image shows the example document used with this example config:
 
 Use the Any type to specify an array of possible types for a field. Sensible uses the first-matching type in the array. Use the Any type as a more concise syntatical altenative to defining an array of [fallback](doc:fallbacks) fields of different types to capture variations in target data's formatting or type.
 
-For example, to specify a field that Sensible might recognize as a distance, a number, or a string, depending on the document formatting, use the Any type:
+For example, to specify a field that Sensible might recognize as a currency, a number, or a string, depending on the document formatting, use the Any type:
 
 ```json
 {
     "fields": [
         {
-            "id": "contracted_route_distance",
+            "id": "total_charge",
             "type": {
-                "id": "any",
-                "types": [
-                    "distance",
-                    "number",
-                    "string"
-                ]
-            },
-            "anchor": "distance in miles:",
+              "id": "any",
+              "types": [
+                 {
+                  "id": "currency",
+                  "requireCurrencySymbol": false,
+                  "maxValue": 10000,
+                  "roundTo": 2
+                },
+                "number",
+                "string"
+              ]
+            }
+          }
+            "anchor": "total charge:",
             "method": {
                 "id": "passthrough"
             }
