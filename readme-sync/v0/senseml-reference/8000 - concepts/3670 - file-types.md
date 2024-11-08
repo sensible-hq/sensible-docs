@@ -21,7 +21,7 @@ Sensible supports the following file types:
 | Extraction of text that requires [OCR](doc:ocr)              | ✅    | ✅                                  | ❌                                                  | ✅                                                      | ✅                                               |
 
 
-1. All [OCR](doc:ocr) settings are inapplicable for this file type.
+1. All [OCR](doc:ocr) settings are inapplicable for Microsoft Excel andCSV. 
 
 2. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
 
