@@ -7,18 +7,18 @@ hidden: false
 
 Sensible supports the following file types:
 
-|                                                              | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>1</sup><br/>(XLSX) | single-page image formats<sup>1</sup><br/> (JPEG, PNG) | multi-page image formats<sup>1</sup><br> (TIFF) |
-| ------------------------------------------------------------ | ---- | ---------------------------------- | -------------------------------------- | ------------------------------------------------------ | ----------------------------------------------- |
-| **Context**                                                  |      |                                    |                                        |                                                        |                                                 |
-| Sensible app's Extract tab                                   | ✅    | ✅                                  | ✅                                      | ❌                                                      | ❌                                               |
-| Single-file extraction with SDKs or API                      | ✅    | ✅                                  | ✅                                      | ✅                                                      | ✅                                               |
-| Portfolio extraction with SDKs or API                        | ✅    | ✅                                  | ❌                                      | ❌                                                      | ❌                                               |
-| Classification with SDKs or API                              | ✅    | ✅                                  | ✅                                      | ✅                                                      | ✅                                               |
-|                                                              |      |                                    |                                        |                                                        |                                                 |
-| **Extraction method**                                        |      |                                    |                                        |                                                        |                                                 |
-| Methods that require rendering non-text image pixels<sup>2</sup> | ✅    | ✅                                  | ❌                                      | ✅                                                      | ❌                                               |
-| NLP Table method,<br/>Fixed Table method<sup>3</sup><br/>    | ✅    | ✅                                  | ❌                                      | ✅                                                      | ❌                                               |
-| Extraction of text that requires [OCR](doc:ocr)              | ✅    | ✅                                  | ❌                                      | ✅                                                      | ✅                                               |
+|                                                              | PDF  | Microsoft Word<br/> (DOC and DOCX) | Spreadsheet<sup>1</sup><br/>(XLSX and CSV) | single-page image formats<sup>1</sup><br/> (JPEG, PNG) | multi-page image formats<sup>1</sup><br> (TIFF) |
+| ------------------------------------------------------------ | ---- | ---------------------------------- | ------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------- |
+| **Context**                                                  |      |                                    |                                            |                                                        |                                                 |
+| Sensible app's Extract tab                                   | ✅    | ✅                                  | ✅                                          | ❌                                                      | ❌                                               |
+| Single-file extraction with SDKs or API                      | ✅    | ✅                                  | ✅                                          | ✅                                                      | ✅                                               |
+| Portfolio extraction with SDKs or API                        | ✅    | ✅                                  | ❌                                          | ❌                                                      | ❌                                               |
+| Classification with SDKs or API                              | ✅    | ✅                                  | ✅                                          | ✅                                                      | ✅                                               |
+|                                                              |      |                                    |                                            |                                                        |                                                 |
+| **Extraction method**                                        |      |                                    |                                            |                                                        |                                                 |
+| Methods that require rendering non-text image pixels<sup>2</sup> | ✅    | ✅                                  | ❌                                          | ✅                                                      | ❌                                               |
+| NLP Table method,<br/>Fixed Table method<sup>3</sup><br/>    | ✅    | ✅                                  | ❌                                          | ✅                                                      | ❌                                               |
+| Extraction of text that requires [OCR](doc:ocr)              | ✅    | ✅                                  | ❌                                          | ✅                                                      | ✅                                               |
 
 
 1. All [OCR](doc:ocr) settings are inapplicable for this file type.
@@ -39,7 +39,7 @@ Sensible supports the following file sizes:
 ## Notes
 
 - For DOC and DOCX documents, Sensible converts the document to PDF before processing it.
-- For XLSX documents, Sensible extracts text directly from the file. Sensible takes these steps:
+- For spreadsheet documents (XLSX and CSV), Sensible extracts text directly from the file without OCR. Sensible takes these steps:
      - Standardizes the formatting of all text in the file. Each cell contains exactly one [line](doc:lines).
      - Standardizes cell height at 0.25'' tall and cell width at 1''. Overflow text in a cell is still available for extraction but isn't viewable in the JSON editor unless you click on a line in the rendered document to view its details. 
      - Standardizes the maximum page height at 15 inches. Sensible splits longer sheets into consecutive pages.
