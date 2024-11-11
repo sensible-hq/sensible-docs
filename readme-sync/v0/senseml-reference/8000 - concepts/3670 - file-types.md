@@ -39,8 +39,8 @@ Sensible supports the following file sizes:
 ## Notes
 
 - For DOC and DOCX documents, Sensible converts the document to PDF before processing it.
-- For spreadsheet documents (XLSX and CSV), Sensible extracts text directly from the file without OCR. Sensible takes these steps:
+- For spreadsheet documents (XLSX and CSV), Sensible extracts text directly from the file without OCR. Sensible represents the text both internally and in the Sensible app's editor as follows:
      - Standardizes the formatting of all text in the file. Each cell contains exactly one [line](doc:lines).
-     - Standardizes cell height at 0.25'' tall and cell width at 1''. Overflow text in a cell is still available for extraction but isn't viewable in the JSON editor unless you click on a line in the rendered document to view its details. 
+     - Standardizes cell height at 0.25'' tall and cell width at 1''. Overflow text in a cell is still available for extraction but isn't viewable in the Sensible app editor unless you click on a line in the rendered document to view its details. 
      - Standardizes the maximum page height at 15 inches. Sensible splits longer sheets into consecutive pages.
 
