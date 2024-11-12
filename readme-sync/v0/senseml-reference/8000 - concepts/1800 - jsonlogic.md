@@ -181,12 +181,12 @@ See [Validating extractions](doc:validate-extractions#examples).
 
 ## Object
 
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  This operation is an alternative to the `"eachKey"` when the keys in the object you intend to build can vary depending on a calculation:
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  This operation is an alternative to the  `"eachKey"`  operation. Use the Object operation when the keys in the object you intend to build can vary depending on other operations:
 
 
 ```json
 {
-    /* Sensible recommends this syntax as an alternative to the "eachKey" operator */
+    /* Sensible recommends this syntax as an alternative to the "eachKey" operator if you don't know the keys in the object before building it */
     "object": 
         [
          /* where the JsonLogic operation returns `[["string", value] ...]`, e.g., map  */
