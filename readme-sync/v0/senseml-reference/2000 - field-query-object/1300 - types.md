@@ -748,7 +748,7 @@ For example:
 
 
 
-# Advanced types
+# ADVANCED TYPES
 
 
 Compose
@@ -1127,7 +1127,7 @@ The following image shows the example document used with this example config:
 
 # Any
 
-Use the Any type to specify an array of possible types for a field. Sensible uses the first-matching type in the array. Use the Any type as a more concise syntatical altenative to defining an array of [fallback](doc:fallbacks) fields of different types to capture variations in target data's formatting or type.
+Use the Any type to specify an array of possible types for a field. Sensible uses the first-matching type in the array. Use the Any type as a more concise syntactical alternative to defining an array of [fallback](doc:fallbacks) fields of different types to capture variations in target data's formatting or type.
 
 For example, to specify a field that Sensible might recognize as a currency, a number, or a string, depending on the document formatting, use the Any type:
 
@@ -1187,11 +1187,7 @@ Or, if it fails to recognize the total charge as a currency but does recognize i
 
 
 
-
-
-
-
-Deprecated types
+DEPRECATED TYPES
 ===
 
 
