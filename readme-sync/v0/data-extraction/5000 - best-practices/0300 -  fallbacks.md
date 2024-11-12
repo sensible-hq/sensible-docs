@@ -101,6 +101,8 @@ Fallback fields can be of any kind. For example, you can fallback from an LLM-ba
 
 Use fallback configs to capture long-tail document variations in a document type.
 
+### Example 1
+
 For example, say you extract data from automotive repair invoices. You have high volume from 5 auto shops, and a long tail of low-volume invoices from hundreds of other shops. In this case, define a layout-based config for each of your top 5 auto shops to take advantage of layout-based methods' speed and deterministic behavior, and define one catch-all LLM-based config for the long tail.
 
 1. To define a layout-based config for each of your top 5 auto shops, take the following steps:
