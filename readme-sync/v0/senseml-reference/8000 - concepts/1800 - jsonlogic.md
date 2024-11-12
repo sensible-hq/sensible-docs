@@ -11,7 +11,7 @@ Sensible supports both built-in and extended JsonLogic operators:
 - Sensible supports extended operations available in the [Json Logic Engine](https://jessemitchell.me/json-logic-engine/).  For more information, see the [documentation](https://jessemitchell.me/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
   - Array operations: `"length"`, `"get"`. 
   - Miscellaneous operations: `"preserve"`, `"keys"`. 
-  - Higher order operations: `"every"`, `"eachKey"`. 
+  - Higher order operations: `"every"`, [`"eachKey"`](https://jessemitchell.me/json-logic-engine/docs/higher/#each-key). 
 -  Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
@@ -181,25 +181,8 @@ See [Validating extractions](doc:validate-extractions#examples).
 
 ## Object
 
-Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects. Note that the `"eachKey"` operation is an alternative to this operation. 
+Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  This operation is an alternative to the `"eachKey"` when the keys in the object you intend to build can vary depending on a calculation:
 
-Use this operation instead of `"eachKey"` when the keys in the object you intend to build can vary depending on a calculation (i.e., the second of the following syntaxes).
-
- One of the following syntaxes:
-
-```json
-{
-    /* Sensible recommends using the "eachKey" operator instead of this syntax */
-    "object": [
-        [
-         ["desiredKeyName", JsonLogic],
-         ["desiredKeyName", JsonLogic]
-        ]
-    ]
-}
-```
-
-Or:
 
 ```json
 {
@@ -212,40 +195,6 @@ Or:
 }
 ```
 
-As a simple example,  
-
-```json
-{
-    "object": [
-        [
-            [
-                "customer_name",
-                "Erika Mustermann"
-            ],
-            [
-                "customer_acct",
-                {
-                    // where the extracted field `account_number` has value `12345`
-                    "var": "account_number.value"
-                }
-            ]
-        ]
-    ]
-}
-```
-
-returns:
-
-```json
-{
-  "customer_name": "Erika Mustermann",
-  "customer_acct": 12345
-}
-```
-
-### Examples
-
-See [Postprocessor](doc:postprocessor#examples). 
 
 ## Replace
 
