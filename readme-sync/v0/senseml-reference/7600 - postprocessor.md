@@ -61,72 +61,47 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
   "postprocessor": {
     "type": "jsonLogic",
     "rule": {
-       /* specify a schema that's a key-value array */
-      "object": [
-        [
-          [
-            "tax_summary",
-            {
-              /* nest an object inside an object   */
-              "object": [
-                [
-                  [
-                    /* define a key-value pair */
-                    "sent_by",
-                    /* value for the `sent_by` key is a hardcoded string. */
-                    "sensible-api"
-                  ],
-                  [
-                    /* `tax_info` object has two fields, each of which is pulled from the 
-                    parsed document */
-                    "tax_info",
-                    {
-                      "object": [
-                        [
-                          [
-                            /* the `var` operator gets a value from the parsed document. 
-                        in this case, the `value` property from the `state_tax` field.*/
-                            "state_tax",
-                            {
-                              "var": "state_tax.value"
-                            }
-                          ],
-                          [
-                            "state_wages",
-                            {
-                              "var": "state_wages.value"
-                            }
-                          ]
-                        ]
-                      ]
-                    }
-                  ],
-                  [
-                    /* `"wage_entries"` is an array. 
-                    the array values come entirely from the `map` operation, which returns the value for
-                    each item in the parsed document's `all_wage_fields` */
-                    "wage_entries",
-                    {
-                      "map": [
-                        {
-                          "var": "all_wage_fields"
-                        },
-                        {
-                          "var": "value"
-                        }
-                      ]
-                    }
-                  ]
-                ]
+      /* specify a custom object schema that's a key-value array */
+      "eachKey": {
+        "tax_summary": {
+          /* nest an object inside an object with eachKey   */
+          "eachKey": {
+            /* define a key-value pair object.
+            value for the `sent_by` key is a hardcoded string.*/
+            "sent_by": "sensible-api",
+            /* `state_info` object has two fields, 
+            each of which is pulled from the parsed document */
+            "state_info": {
+              "eachKey": {
+                /* the `var` operator gets a value from the parsed document. 
+                   in this case, the `value` property from the `state_tax` field.*/
+                "state_tax": {
+                  "var": "state_tax.value"
+                },
+                "state_wages": {
+                  "var": "state_wages.value"
+                }
+              }
+            },
+            /* `"wage_entries"` is an array. 
+                the array values come entirely from the `map` operation, which returns the value for
+                each item in the parsed document's `all_wage_fields` */
+            "wage_entries": {
+              "map": [
+                {
+                  "var": "all_wage_fields"
+                },
+                {
+                  "var": "value"
+                }
               ]
             }
-          ]
-        ]
-      ]
+          }
+        }
+      }
     }
   },
   "fields": [
-    
     {
       "id": "state_wages",
       "anchor": {
@@ -187,7 +162,7 @@ The following image shows the example document used with this example config:
 {
   "tax_summary": {
     "sent_by": "sensible-api",
-    "tax_info": {
+    "state_info": {
       "state_tax": 3438.56,
       "state_wages": 68780.48
     },
