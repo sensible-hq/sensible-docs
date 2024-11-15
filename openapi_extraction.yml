@@ -178,7 +178,7 @@ paths:
         1. Run this endpoint. Sensible recommends including `content_type` body parameter:
 
         ```curl
-        curl --location 'https://api.sensible.so/v0/extract-from-url/<YOUR_DOCUMENT_TYPE>' \
+        curl --location 'https://api.sensible.so/v0/extract_from_url/<YOUR_DOCUMENT_TYPE>' \
         --header 'Content-Type: application/json' \
         --header 'Accept: application/json' \
         --header 'Authorization: Bearer REDACTED' \
