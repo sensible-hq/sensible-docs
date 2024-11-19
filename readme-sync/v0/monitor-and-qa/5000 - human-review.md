@@ -43,3 +43,5 @@ You can track review status for past extractions in one of the following ways:
 - **Sensible API/SDK**: If you enable human review for a document type, then set a [webhook](doc:api-tutorial-webhook) for each extraction request in the document type. Sensible pushes the extraction, including any manual corrections the reviewer made and the review status, to the specified webhook when a reviewer approves or rejects an extraction.  You can also filter by extraction status by specifying the `review_statuses` parameter on the [List extractions](reference:list-extractions) endpoint.
 
 - **Sensible app**: Filter past extractions by review status. In the **Extraction history** tab, use the **Review Status** criterion.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_5.png)
