@@ -27,21 +27,19 @@ paths:
       summary: Classify document by type
 
       description: |
-        Score a document's similarity to each document type you defined in your Sensible account and to each reference document in the highest-scoring type.
-        To retrieve the scores, poll the `download_link` in this endpoint's response until it returns a non-error response.
-        This endpoint is asynchronous. For more information about scores, expand the 200 response in the synchronous [classification](ref:classify-document-sync) endpoint.
+
+        Classify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](doc:classify).
 
         Use this endpoint:
 
          - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
-         - Outside an extraction workflow. For example, to determine where to route each document or to label each document in a system of record.
+         - Outside an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
 
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
-
-        For supported file sizes, see [Supported file types](doc:file-types).
-
         
+        For supported file size and types, see [Supported file types](doc:file-types).
 
+      
       requestBody:
         $ref: '#/components/requestBodies/SupportedFileTypes'
 
@@ -77,7 +75,7 @@ paths:
 
         **Note:** Use this Classify endpoint for testing. Use the asynchronous Classify endpoint for production.
 
-        Score a document's similarity to each document type you defined in your Sensible account. Get scores for the document's similarity to document types and to their reference documents.
+        Classify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](doc:classify).
 
         Use this endpoint:
 
@@ -99,7 +97,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClassifySingleResponse'
           description: |
-            The document type and reference documents in the Sensible account that are most similar to this document.
+            The document type in your Sensible account that's most similar to this document.
         '401':
           $ref: '#/components/responses/401'
         '400':
@@ -110,12 +108,6 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-
-
-
-
-
-
 
 components:
 
@@ -171,8 +163,6 @@ components:
             type: string
             example: Sensible encountered an unknown error
   #parameters:
-
-
 
   securitySchemes:
     bearerAuth:       # arbitrary name for the security scheme
@@ -243,7 +233,8 @@ components:
           type: string
           description: File format of the document for which you requested classification.
         download_link:
-          description: Poll until the download URL returns a non-error response. Links to a JSON download that contains the same response as from the synchronous Classify endpoint request.
+          description: |
+            Poll until the download URL returns a non-error response. Links to a JSON download that contains the same response as from the synchronous Classify endpoint request.
           type: string
           format: url
       example:
@@ -256,7 +247,7 @@ components:
       properties:
         document_type:
           type: object
-          description: Document type defined in the Sensible account that this doc is most similar to. To use a document type for classification, Sensible requires that the type contains at least one reference document.
+          description: The document type defined in your Sensible account that this document is most similar to.
           properties:
             id:
               type: string
@@ -266,64 +257,23 @@ components:
               description: User-friendly name for the document type.
             score:
               type: number
-              description: Similarity score comparing the document to the document type, between 0 and 1.
+              description: Deprecated. Similarity score comparing the document to the document type, where a score of 1 indicates a match.
         reference_documents:
-          type: array
-          description: Reference documents uploaded to the Sensible account that this document is most similar to.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Unique ID for the reference document.
-              name:
-                type: string
-                description: User-friendly name for the reference document.
-              score:
-                type: number
-                description: Similarity score comparing the document to the reference document, between 0 and 1.
+          type: object
+          description: Deprecated. Empty array. Scoring for embeddings-based classification, replaced by LLM-based classification. 
+          additionalProperties: true
 
         classification_summary:
-          type: array
-          description: Scores for this document's similarity to each document type in the Sensible account, excluding document types Sensible created in your account as tutorials, such as `senseml_basics`.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Unique ID for the document type.
-              name:
-                type: string
-                description: User-friendly name for the document type.
-              score:
-                type: number
-                description: Similarity score comparing the document to the document type, between 0 and 1.
+          type: object
+          additionalProperties: true
+          description: |
+            Deprecated. Empty array. Scoring for embeddings-based classification, replaced by LLM-based classification. 
+  
 
       example:
         document_type:
           id: 77c2ab88-3389-4ea8-93c7-912c2bfd373a
           name: 1040s
-          score: 0.9637581544082083
-        reference_documents:
-        - id: b4fbc822-de99-4916-b43a-2902131f2619
-          name: 1040_2020_sample
-          score: 0.999649884175599
-        - id: 23680cc8-7855-4698-b51f-6a054704fd1e
-          name: 1040_2019_sample
-          score: 0.983879165384638
-        - id: 58aef918-7017-4576-ad5c-f987b98b4ae7
-          name: 1040_2021_sample
-          score: 0.9670293766923486
-        - id: 161b27ab-5218-4650-a919-65df03de3454
-          name: senior_1040_2021_sample
-          score: 0.939401195335292
-        - id: fb9ed1c3-0545-4f79-bd00-565838bd96a4
-          name: 1040_2018_sample
-          score: 0.9288311504531641
-        classification_summary:
-        - id: 28eee728-e51b-471c-ba92-827c995476f6
-          name: home_policy_declaration_pages
-          score: 0.7760597095611765
-        - id: 16b06941-9486-475a-a6bf-120cf433f6f3
-          name: bank_statements
-          score: 0.7639481987557378
+          score: 1
+        reference_documents: []
+        classification_summary: []

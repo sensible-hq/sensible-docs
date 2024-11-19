@@ -11,11 +11,18 @@ Sensible supports two levels of document classification:
 
 This topic covers classifying a document by its type.
 
-For example, if you define a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements) type and a [1040s](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s) type in your account, you can classify 1040 forms, 1099 forms, Bank of America statements, Chase statements, and other documents, into those two types. In this scenario, for a  `2023-1-1_bankofamerica_statement_jon_doe.pdf` document, Sensible: 
+Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types in your account:
 
-- Classifies this document into the `bank_statements` document type.
-- Classifies the statement doc by its similarity to reference documents in the `bank_statements` document type. The highest score is for [a Bank of America sample statement](https://github.com/sensible-hq/sensible-configuration-library/blob/main/templates/Financial%20Services/Bank%20Statements/refdocs/bank_of_america_sample.pdf).
-- Provides metadata for the classification, including similarity scores for this document compared to each document type in your Sensible account and to each reference document in the `bank_statements` type.
+- a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements) type
+
+- a [1040s](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s) type
+
+Sensible uses a document type's name and its description for LLM-based classification:
+
+- If Sensible doesn't find an existing document type to which to match your document in your account, it returns an error.
+- Since Sensible doesn't use configs or reference documents for classification, Sensible can classify documents into your document types even if the document type lacks a config or example. For example, if you lack a  `citibank` config or reference document in your `bank_statements` type, Sensible can still classify a  `2023-1-1_citbank_statement_jon_doe.pdf` document as a bank statement. 
+
+ To improve classification results, describe each document type in your account in its **Settings** tab. For examples of descriptions, see [Document type descriptions](doc:descriptions). 
 
 Use document type classification:
 
@@ -23,6 +30,5 @@ Use document type classification:
 
 - Independent from an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
 
-To improve classification results, Sensible recommends that a document type includes a sample set of reference documents that represent the diversity you expect to see in the document type. To use a document type for classification, Sensible requires that the type contains at least one reference document.
-
 To classify documents, use the Sensible API or SDKs.
+
