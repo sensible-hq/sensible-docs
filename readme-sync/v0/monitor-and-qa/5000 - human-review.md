@@ -36,12 +36,24 @@ Click a field's value to:
 
 Click the checkmark icon next to each field to mark it approved. When you're done editing field values and approving individual fields, click **Approve Extraction** or **Reject Extraction** to remove it from the extractions flagged for review.
 
-## Tracking review status
+## Review status
 
-You can track review status for past extractions in one of the following ways:
+You can check review status for past extractions in one of the following ways:
 
 - **Sensible API/SDK**: If you enable human review for a document type, then set a [webhook](doc:api-tutorial-webhook) for each extraction request in the document type. Sensible pushes the extraction, including any manual corrections the reviewer made and the review status, to the specified webhook when a reviewer approves or rejects an extraction.  You can also filter by extraction status by specifying the `review_statuses` parameter on the [List extractions](reference:list-extractions) endpoint.
 
 - **Sensible app**: Filter past extractions by review status. In the **Extraction history** tab, use the **Review Status** criterion.
 
+## Review lifecycle
+
+The following diagram shows how to integrate human-in-the-loop review into your application: 
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_5.png)
+
+1. **Configure review triggers**: Configure extraction quality validation for a document type, for example, tax documents or pay stubs. Any extraction that doesn’t meet your quality validations triggers a human review.
+2. **Specify a webhook for each document extraction:** When extracting data from a document using Sensible’s API or SDK, specify a webhook destination URL that receives updates to the extraction’s review status. 
+3. **Notify a reviewer**: When the webhook indicates that a completed extraction needs review and correction, notify a reviewer and send them a link to the review interface.
+4. **Ingest corrected extractions**: When the webhook indicates that a reviewer approved an extraction, ingest the document data into your system.
+
+
+
