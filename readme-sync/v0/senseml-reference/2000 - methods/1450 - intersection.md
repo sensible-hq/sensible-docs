@@ -146,7 +146,7 @@ The following image shows the example document used with this example config:
 
 ### Example 3: Multiple cells in row
 
-The following example shows using a horizontal anchor to extract multiple cells from a row.
+The following example shows using a horizontal anchor to extract multiple cells from a row. This is an alternative when it's not possible to use the [Row](doc:row) method.
 
 **Config**
 
