@@ -1044,7 +1044,11 @@ components:
             Sensible omits this property from the extraction response 
             if the extraction doesn't need review.
  
-
+    ContentType:
+      type: string
+      description: |
+        The content type of the document.
+      example: image/png
 
 
     Coverage:
@@ -1065,14 +1069,35 @@ components:
       example: DEVELOPMENT
       type: string
 
+    
+
     ExtractionSingleResponse: #single doc extraction
-      allOf:
-        - $ref: '#/components/schemas/ExtractionSingleBase'
-        - $ref: '#/components/schemas/ExtractionContent'
-        - type: object
+          type: object
           properties:
+            id:
+              $ref: '#/components/schemas/ExtractionId'
+            created:
+              $ref: '#/components/schemas/ExtractionCreated'
+            type:
+             $ref: '#/components/schemas/DocumentTypeName'
+            status:
+             $ref: '#/components/schemas/ExtractionStatus'
             completed:
               $ref: '#/components/schemas/ExtractionCompleted'
+            configuration:
+              $ref: '#/components/schemas/ConfigurationName'
+            configuration_version:
+              $ref: '#/components/schemas/ConfigurationVersion'
+            parsed_document:
+              $ref: '#/components/schemas/ParsedDocument'
+            validations:
+              $ref: '#/components/schemas/Validations'
+            file_metadata:
+              $ref: '#/components/schemas/FileMetadata'
+            validation_summary:
+              $ref: '#/components/schemas/ValidationsSummary'
+            errors:
+               $ref: '#/components/schemas/Errors'            
             classification_summary:
               $ref: '#/components/schemas/ClassificationSummary'
             page_count:
@@ -1083,6 +1108,8 @@ components:
               $ref: '#/components/schemas/EnvironmentResponse'
             document_name:
               $ref: '#/components/schemas/DocName'  
+            content_type:
+              $ref: '#/components/schemas/ContentType'
             coverage:
               $ref: '#/components/schemas/Coverage'
             reviewStatus:
@@ -1242,6 +1269,8 @@ components:
           $ref: '#/components/schemas/ValidationSummaryPortfolio' 
         download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'        
+        content_type:
+              $ref: '#/components/schemas/ContentType'
         coverage: 
           $ref: '#/components/schemas/CoveragePortfolio'
         charged:
@@ -1252,7 +1281,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DocumentInPortfolio'
-    
+        
 
     DocumentInPortfolio:
       type: object
@@ -1269,7 +1298,9 @@ components:
           type: integer
           description: Page in the portfolio on which this document for this extraction ends.
           example: 6
-        output:    
+        configuration_version:
+              $ref: '#/components/schemas/ConfigurationVersion'
+        output:   
             type: object
             properties:
               parsed_document:
@@ -1336,29 +1367,41 @@ components:
 
 
     ExtractFromUrlResponse:
-      allOf:
-        - $ref: '#/components/schemas/ExtractionSingleBase'
-        - type: object
-          properties:
-            environment:
-              $ref: '#/components/schemas/EnvironmentResponse'
-            document_name:
-              $ref: '#/components/schemas/DocName'
-            errors:
-              $ref: '#/components/schemas/Errors'
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        type:
+         $ref: '#/components/schemas/DocumentTypeName'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus'
+        environment:
+          $ref: '#/components/schemas/EnvironmentResponse'
+        document_name:
+          $ref: '#/components/schemas/DocName'
+        errors:
+          $ref: '#/components/schemas/Errors'
 
 
 
     UploadResponse:
-      allOf:
-        - $ref: '#/components/schemas/ExtractionSingleBase'
-        - type: object
-          properties:
-            upload_url:
-              type: string
-              format: url
-              description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
-              example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+      type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/ExtractionId'
+          created:
+            $ref: '#/components/schemas/ExtractionCreated'
+          type:
+           $ref: '#/components/schemas/DocumentTypeName'
+          status:
+           $ref: '#/components/schemas/ExtractionStatus'
+          upload_url:
+            type: string
+            format: url
+            description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+            example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
 
 
     ExtractFromUrlPortfolioResponse:
@@ -1411,35 +1454,11 @@ components:
           $ref: '#/components/schemas/ReviewStatuses'
 
 
-    # deprecated?
-    ExtractionSingleBase:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/ExtractionId'
-        created:
-          $ref: '#/components/schemas/ExtractionCreated'
-        type:
-         $ref: '#/components/schemas/DocumentTypeName'
-        status:
-         $ref: '#/components/schemas/ExtractionStatus'
 
-    ExtractionContent: #         created:
-          #$ref: '#/components/schemas/ExtractionCreated'
-      type: object
-      properties:
-        configuration:
-          $ref: '#/components/schemas/ConfigurationName'
-        parsed_document:
-          $ref: '#/components/schemas/ParsedDocument'
-        validations:
-          $ref: '#/components/schemas/Validations'
-        file_metadata:
-          $ref: '#/components/schemas/FileMetadata'
-        validation_summary:
-          $ref: '#/components/schemas/ValidationsSummary'
-        errors:
-           $ref: '#/components/schemas/Errors'
+
+
+
+
         
 
     PortfolioBase:
@@ -1456,14 +1475,24 @@ components:
 
 
     ExtractionContentPortfolio: # portfolio extraction
-      allOf:
-        - $ref: '#/components/schemas/ExtractionContent'
-        - type: object
-          properties:
-            classificationSummary:
-              $ref: '#/components/schemas/ClassificationSummaryPortfolio'
-            postprocessorOutput:
-              $ref: '#/components/schemas/PostprocessorOutput'
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/ConfigurationName'
+        parsed_document:
+          $ref: '#/components/schemas/ParsedDocument'
+        validations:
+          $ref: '#/components/schemas/Validations'
+        file_metadata:
+          $ref: '#/components/schemas/FileMetadata'
+        validation_summary:
+          $ref: '#/components/schemas/ValidationsSummary'
+        errors:
+           $ref: '#/components/schemas/Errors'
+        classificationSummary:
+          $ref: '#/components/schemas/ClassificationSummaryPortfolio'
+        postprocessorOutput:
+          $ref: '#/components/schemas/PostprocessorOutput'
 
 
     MultiExtractionSummaryDocument:
@@ -1541,6 +1570,13 @@ components:
       description: >-
         Name of the "configuration", a collection of SenseML queries for extracting document data.
       example: config_for_x_company
+
+
+
+    ConfigurationVersion:
+      type: string
+      description: >-
+        Version number for the configuration.
 
     ConfigurationId:
       type: string
