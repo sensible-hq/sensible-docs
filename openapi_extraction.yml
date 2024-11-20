@@ -1383,25 +1383,26 @@ components:
           $ref: '#/components/schemas/DocName'
         errors:
           $ref: '#/components/schemas/Errors'
-
+        content_type:
+          $ref: '#/components/schemas/ContentTypeParameter'
 
 
     UploadResponse:
       type: object
-        properties:
-          id:
-            $ref: '#/components/schemas/ExtractionId'
-          created:
-            $ref: '#/components/schemas/ExtractionCreated'
-          type:
-           $ref: '#/components/schemas/DocumentTypeName'
-          status:
-           $ref: '#/components/schemas/ExtractionStatus'
-          upload_url:
-            type: string
-            format: url
-            description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
-            example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
+      properties:
+        id:
+          $ref: '#/components/schemas/ExtractionId'
+        created:
+          $ref: '#/components/schemas/ExtractionCreated'
+        type:
+         $ref: '#/components/schemas/DocumentTypeName'
+        status:
+         $ref: '#/components/schemas/ExtractionStatus'
+        upload_url:
+          type: string
+          format: url
+          description: URL at which to PUT the PDF bytes array for extraction. for example, curl -T ./sample.pdf "YOUR_UPLOAD_URL"
+          example: https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED
 
 
     ExtractFromUrlPortfolioResponse:
