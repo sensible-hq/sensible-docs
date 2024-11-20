@@ -64,7 +64,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
       /* specify a custom object schema that's a key-value array */
       "eachKey": {
         "tax_summary": {
-          /* nest an object inside an object with eachKey   */
+          /* nest an output object inside another output object with eachKey   */
           "eachKey": {
             /* define a key-value pair object.
             value for the `sent_by` key is a hardcoded string.*/
