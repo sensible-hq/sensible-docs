@@ -1044,7 +1044,7 @@ components:
             Sensible omits this property from the extraction response 
             if the extraction doesn't need review.
  
-    ContentType:
+    ContentTypeResponse:
       type: string
       description: |
         The content type of the document.
@@ -1109,7 +1109,7 @@ components:
             document_name:
               $ref: '#/components/schemas/DocName'  
             content_type:
-              $ref: '#/components/schemas/ContentType'
+              $ref: '#/components/schemas/ContentTypeResponse'
             coverage:
               $ref: '#/components/schemas/Coverage'
             reviewStatus:
@@ -1270,7 +1270,7 @@ components:
         download_url:
               $ref: '#/components/schemas/DownloadUrlDocument'        
         content_type:
-              $ref: '#/components/schemas/ContentType'
+              $ref: '#/components/schemas/ContentTypeResponse'
         coverage: 
           $ref: '#/components/schemas/CoveragePortfolio'
         charged:
