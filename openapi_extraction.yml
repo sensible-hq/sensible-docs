@@ -1384,7 +1384,7 @@ components:
         errors:
           $ref: '#/components/schemas/Errors'
         content_type:
-          $ref: '#/components/schemas/ContentTypeParameter'
+          $ref: '#/components/schemas/ContentTypeResponse'
 
 
     UploadResponse:
