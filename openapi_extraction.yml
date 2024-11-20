@@ -1578,6 +1578,7 @@ components:
       type: string
       description: >-
         Version number for the configuration.
+      example: N39i3ZvEbPCkcjOtYIAU1_ADSovnUC5I  
 
     ConfigurationId:
       type: string
