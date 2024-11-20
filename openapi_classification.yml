@@ -29,7 +29,8 @@ paths:
       description: |
 
         Classify a document into one of the document types you defined in your Sensible account. For more information, see [Classifying documents by type](doc:classify).
-
+        To retrieve document's classification, poll the `download_link` in this endpoint's response until it returns a non-error response.
+        
         Use this endpoint:
 
          - In an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint.
