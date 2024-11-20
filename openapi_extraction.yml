@@ -1013,7 +1013,7 @@ components:
       type: object 
       additionalProperties: true
       description: >-
-        Outputs a custom schema that you define using a [postprocessor](doc:postprocessor).
+        A custom schema that you define using a [postprocessor](doc:postprocessor).
         For example, define this output when your app consumes a pre-existing schema and you don't want to use  
         Sensible's `parsed_document` schema.
 
