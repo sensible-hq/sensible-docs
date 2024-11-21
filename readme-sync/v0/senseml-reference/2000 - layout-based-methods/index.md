@@ -1,6 +1,6 @@
 ---
 title: "Layout-based methods"
-hidden: 
+hidden: false
 ---
 Use the following  [methods](doc:method) to extract structured data from documents. 
 
