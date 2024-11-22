@@ -13,6 +13,8 @@ Advanced: Zip table sections
 
 The following example shows zipping multiple tables together by treating each table as a section group and each row or column as a section.
 
+**Note:** For an alternative to this example, see [Example 3: Zip tables](doc:zip).
+
 As an overview, this example shows creating a  `zipped_vehicle_description_and_coverages` array, where each  object in the array contains information from the vehicles table and from the limitations table in the following image:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_zip.png)

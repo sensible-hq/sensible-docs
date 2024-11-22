@@ -19,14 +19,14 @@ Zips tables into rows, or zips tables, arrays, and sections as follows:
 - If there are duplicate field keys when merging, the last-listed key in the `source_fields` array overwrites any preceding ones. For example, say you have source fields with output like the following:
 
 ```json
-"item_colors": [ {"color": "blue", "ID": 123}, {"color": "red", "ID": 456}, ... ],
-"item_sizes":  [ {"size": "x-large", "ID": 789}, {"size": "small", "ID": 456} ... ]
+"item_color": [ {"color": "blue", "ID": 123}, {"color": "red", "ID": 456}, ... ],
+"item_size":  [ {"size": "x-large", "ID": 789}, {"size": "small", "ID": 456} ... ]
 ```
 
-If you zip with `"source_ids": ["item_color", "item_sizes"]`, then the first merged item is `[ {color: "blue", "ID": 789, "size": "x-large"}]`.
+If you zip with `"source_ids": ["item_color", "item_size"]`, then the first merged item is `[ {color: "blue", "ID": 789, "size": "x-large"}]`.
 
 
-If you zip with `"source_ids": ["item_sizes", "item_color"]`, then the first merged item is  `[ {"color": "blue", "ID": 123, "size": "x-large"}]`.
+If you zip with `"source_ids": ["item_size", "item_color"]`, then the first merged item is  `[ {"color": "blue", "ID": 123, "size": "x-large"}]`.
 
 Parameters
 ====
@@ -185,7 +185,7 @@ The following image shows the example document used with this example config:
 
 
 
-## Example 2: Table zip
+## Example 2: Zip table
 
 The following example shows using the Zip method to transform each row from a table of vehicles into a vehicle object.
 
