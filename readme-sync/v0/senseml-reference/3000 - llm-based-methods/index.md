@@ -5,7 +5,7 @@ hidden: false
 
 Extract free text from unstructured documents using large language model (LLM)-based SenseML methods. For example, extract information from legal paragraphs in contracts and leases, or results from research papers.
 
-The following LLM-based methods are alternatives to [layout-based methods](doc:methods) for structured documents, for example, tax documents or insurance forms. 
+The following LLM-based methods are alternatives to [layout-based methods](doc:layout-based-methods) for structured documents, for example, tax documents or insurance forms. 
 
 | Method                                                       | Example use case                                             | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -17,4 +17,4 @@ The following LLM-based methods are alternatives to [layout-based methods](doc:m
 Notes
 ====
 
-For layout-based extraction, see [Layout-based methods](doc:methods).
+For layout-based extraction, see [Layout-based methods](doc:layout-based-methods).

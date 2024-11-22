@@ -10,7 +10,7 @@ See the following topics for reference documentation for the SenseML query langu
 
 - [Field query object](doc:field-query-object)
 - [Preprocessors](doc:preprocessors)
-- [LLM-based methods](doc:llm-based-methods) and [layout-based methods](doc:methods). For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
+- [LLM-based methods](doc:llm-based-methods) and [layout-based methods](doc:layout-based-methods). For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
