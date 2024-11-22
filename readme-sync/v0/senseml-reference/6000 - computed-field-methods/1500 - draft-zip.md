@@ -6,25 +6,27 @@ Zips tables into rows, or zips tables, arrays, and sections as follows:
 
 | Input                                             | result                                                       | notes                                                        |
 | ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| array of arrays                                   | zips the arrays                                              | Each source field must output an array, for example, as a result of configuring `"match": "allWithNull"` or `"type": "name"` for the field. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For an example, see example 1. |
-| 1 [table](doc:table-methods)                      | returns an array of zipped row objects                       | for an example, see Example 2.                               |
-| array of tables                                   | zips the rows of the tables TODO - test if this is true?     | TODO - test                                                  |
-| array of [section](doc:sections) groups           | returns a zipped section group containing all the fields from the source section groups. | >For an example, see [Zip sections example](doc:sections-example-zip). |
-| mixed array of tables, section groups, and arrays | zips each row, section, and array item                       | for an example, see Example 3.                               |
+| array of arrays                                   | returns a section group containing zipped arrays             | Each source field must output an array, for example, as a result of configuring `"match": "allWithNull"` or `"type": "name"` for the field. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For an example, see example 1. |
+| one [table](doc:table-methods)                    | returns section group containing rows                        | For an example, see Example 2.                               |
+| array of tables                                   | returns a zipped section group containing merged rows        | For an example, see Example 3.                               |
+| array of [section](doc:sections) groups           | returns a section group containing merged sections           | For an example, see [Zip sections example](doc:sections-example-zip). |
+| mixed array of tables, section groups, and arrays | returns a section group containing merged rows, sections, and array items | For an example, see Example 4. <br/>**Note:** If there's more than one table listed in the source fields, then Sensible discards all non-table source fields. |
 
   ### Notes
 
-When you a specify an array of source IDs, Sensible gives preference to keys listed later in the array if keys collide. For example, if there are identically named field IDs in source section groups, Sensible falls back to outputting the IDs in the last section group listed in the `source_id` array.  In other words, if you have sections with output like the following:
+- Before performing a zip, Sensible converts all source fields into sections.
+
+- If there are duplicate field keys when merging, the last-listed key in the `source_fields` array overwrites any preceding ones. For example, say you have source fields with output like the following:
 
 ```json
-"item_descriptions": [ {"description": "blue", "ID": 123}, {"description": "red", "ID": 456}, ... ],
-"item_sizes":        [ {"size": "x-large", "ID": 789},      {"size": "small", "ID": 456} ... ]
+"item_colors": [ {"color": "blue", "ID": 123}, {"color": "red", "ID": 456}, ... ],
+"item_sizes":  [ {"size": "x-large", "ID": 789}, {"size": "small", "ID": 456} ... ]
 ```
 
-If you zip with `"source_ids": ["item_descriptions", "item_sizes"]`, then the first zipped item is `[ {description: "blue", "ID": 789, "size": "x-large"}]`.
+If you zip with `"source_ids": ["item_color", "item_sizes"]`, then the first merged item is `[ {color: "blue", "ID": 789, "size": "x-large"}]`.
 
 
-  If you zip with `"source_ids": ["item_sizes", "item_descriptions"]`, then the first zipped item is  `[ {"description": "blue", "ID": 123, "size": "x-large"}]`.
+If you zip with `"source_ids": ["item_sizes", "item_color"]`, then the first merged item is  `[ {"color": "blue", "ID": 123, "size": "x-large"}]`.
 
 Parameters
 ====
@@ -244,9 +246,9 @@ Notes:
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip_tables.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/zip.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/zip_tables.pdf) |
 | ------------------- | ------------------------------------------------------------ |
 
 **Output**
@@ -340,7 +342,218 @@ The following image shows the example document used with this example config:
 }
 ```
 
-## Example 3: Mixed zip
+## Example 3: Zip tables
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "table_1",
+      "anchor": "description",
+      "method": {
+        "id": "fixedTable",
+        "columnCount": 3,
+        "startOnRow": 1,
+        "columns": [
+          {
+            "id": "vehicle_num",
+            "index": 0
+          },
+          {
+            "id": "description",
+            "index": 1
+          },
+        ],
+        "stop": "schedule"
+      }
+    },
+    {
+      "id": "table_2",
+      "anchor": "liability",
+      "method": {
+        "id": "fixedTable",
+        "columnCount": 4,
+        "startOnRow": 1,
+        "columns": [
+          {
+            "id": "coverage",
+            "index": 0
+          },
+          {
+            "id": "vehicle_1",
+            "index": 2
+          },
+          {
+            "id": "vehicle_2",
+            "index": 3
+          },
+        ],
+        "stop": "see"
+      }
+    },
+    {
+      "id": "zip",
+      "method": {
+        "id": "zip",
+        "source_ids": [
+          "table_1",
+          "table_2"
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip_tables.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/.zip_tables.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "table_1": {
+    "columns": [
+      {
+        "id": "vehicle_num",
+        "values": [
+          {
+            "value": "1",
+            "type": "string"
+          },
+          {
+            "value": "2",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "description",
+        "values": [
+          {
+            "value": "2003 Mits Lancer Es",
+            "type": "string"
+          },
+          {
+            "value": "2019 Nissan pathfinder",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "title": {
+      "type": "string",
+      "value": "Covered vehicles"
+    }
+  },
+  "table_2": {
+    "columns": [
+      {
+        "id": "coverage",
+        "values": [
+          {
+            "value": "Bodily injury liability",
+            "type": "string"
+          },
+          {
+            "value": "Property damage liability",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "vehicle_1",
+        "values": [
+          {
+            "value": "89.70",
+            "type": "string"
+          },
+          {
+            "value": "61.69",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "vehicle_2",
+        "values": [
+          {
+            "value": "138.66",
+            "type": "string"
+          },
+          {
+            "value": "79.45",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "title": {
+      "type": "string",
+      "value": "Schedule of coverages and limitations"
+    },
+    "footer": {
+      "type": "string",
+      "value": "For more information about coverages, see Appendix."
+    }
+  },
+  "zip": [
+    {
+      "vehicle_num": {
+        "value": "1",
+        "type": "string"
+      },
+      "description": {
+        "value": "2003 Mits Lancer Es",
+        "type": "string"
+      },
+      "coverage": {
+        "value": "Bodily injury liability",
+        "type": "string"
+      },
+      "vehicle_1": {
+        "value": "89.70",
+        "type": "string"
+      },
+      "vehicle_2": {
+        "value": "138.66",
+        "type": "string"
+      }
+    },
+    {
+      "vehicle_num": {
+        "value": "2",
+        "type": "string"
+      },
+      "description": {
+        "value": "2019 Nissan pathfinder",
+        "type": "string"
+      },
+      "coverage": {
+        "value": "Property damage liability",
+        "type": "string"
+      },
+      "vehicle_1": {
+        "value": "61.69",
+        "type": "string"
+      },
+      "vehicle_2": {
+        "value": "79.45",
+        "type": "string"
+      }
+    }
+  ]
+}
+```
+
+## Example 4: Mixed zip
 
 The following example demonstrates zipping sections, tables, and arrays.
 
@@ -556,3 +769,4 @@ The following image shows the example document used with this example config:
   ]
 }
 ```
+
