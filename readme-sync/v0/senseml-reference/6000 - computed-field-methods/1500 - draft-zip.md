@@ -2,9 +2,23 @@
 title: "Zip"
 hidden: true
 ---
-Zips tables into rows, or zips tables, arrays, and sections as follows:
+Zips tables into rows, or zips tables, arrays, and sections. 
 
-| Input                                             | result                                                       | notes                                                        |
+
+# Parameters
+
+
+The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+
+| key                        | value                                    | description                    |
+| :------------------------- | :--------------------------------------- | :----------------------------- |
+| id (**required**)          | `zip`                                    |                                |
+| source_ids  (**required**) | array of field IDs in the current config | See notes in succeeding table. |
+
+
+See  the following table for Zip behavior depending on the types of output of the fields you specify in the `source_ids` parameters.
+
+| input                                             | result                                                       | notes                                                        |
 | ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | array of arrays                                   | returns a section group containing zipped arrays             | Each source field must output an array, for example, as a result of configuring `"match": "allWithNull"` or `"type": "name"` for the field. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For an example, see example 1. |
 | one [table](doc:table-methods)                    | returns section group containing rows                        | For an example, see Example 2.                               |
@@ -27,16 +41,6 @@ If you zip with `"source_ids": ["item_color", "item_size"]`, then the first merg
 
 
 If you zip with `"source_ids": ["item_size", "item_color"]`, then the first merged item is  `[ {"color": "blue", "ID": 123, "size": "x-large"}]`.
-
-Parameters
-====
-
-The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
-
-| key                        | value                                    | description                    |
-| :------------------------- | :--------------------------------------- | :----------------------------- |
-| id (**required**)          | `zip`                                    |                                |
-| source_ids  (**required**) | array of field IDs in the current config | See notes in previous section. |
 
 # Examples
 
