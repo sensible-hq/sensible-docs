@@ -39,7 +39,6 @@ The following example shows using a mapper to standardize a time duration.
   "computed_fields": [
     {
       "id": "premium_period_months",
-      "type": "number",
       "method": {
         "id": "mapper",
         "source_id": "_premium_period_raw",
@@ -51,8 +50,8 @@ The following example shows using a mapper to standardize a time duration.
           "six months": "6",
           "Twelve months": "12",
           "twelve months": "12",
-          "default": "mapping doesn't exist"
-        }
+        },
+        "default": "mapping doesn't exist"
       }
     }
   ]
@@ -77,9 +76,8 @@ The following image shows the example document used with this example config:
     "value": "Six months"
   },
   "premium_period_months": {
-    "source": "6",
-    "value": 6,
-    "type": "number"
+    "value": "6",
+    "type": "string"
   }
 }
 ```
