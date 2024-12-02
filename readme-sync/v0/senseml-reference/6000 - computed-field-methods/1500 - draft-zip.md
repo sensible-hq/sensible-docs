@@ -34,13 +34,13 @@ See  the following table for information about the Zip method's output.
 
 ```json
 "item_color": [ {"color": "blue", "ID": 123}, {"color": "red", "ID": 456}, ... ],
-"item_size":  [ {"size": "x-large", "ID": 789}, {"size": "small", "ID": 456} ... ]
+"item_size":  [ {"size": "x-large", "ID": 789}, {"size": "small", "ID": 456}, ... ]
 ```
 
-If you zip with `"source_ids": ["item_color", "item_size"]`, then the first merged item is `[ {color: "blue", "ID": 789, "size": "x-large"}]`.
+If you zip with `"source_ids": ["item_color", "item_size"]`, then the first merged item is `[ {color: "blue", "ID": 789, "size": "x-large"}, ... ]`.
 
 
-If you zip with `"source_ids": ["item_size", "item_color"]`, then the first merged item is  `[ {"color": "blue", "ID": 123, "size": "x-large"}]`.
+If you zip with `"source_ids": ["item_size", "item_color"]`, then the first merged item is  `[ {"color": "blue", "ID": 123, "size": "x-large"}, ... ]`.
 
 # Examples
 
