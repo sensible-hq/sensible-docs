@@ -10,21 +10,21 @@ Zips tables into rows, or zips tables, arrays, and sections.
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key                        | value                                    | description                    |
-| :------------------------- | :--------------------------------------- | :----------------------------- |
-| id (**required**)          | `zip`                                    |                                |
-| source_ids  (**required**) | array of field IDs in the current config | See notes in succeeding table. |
+| key                        | value                                    | description                                                  |
+| :------------------------- | :--------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)          | `zip`                                    |                                                              |
+| source_ids  (**required**) | array of field IDs in the current config | Zip output depends on the types of fields you specify as sources. See notes in succeeding table. |
 
 
-See  the following table for Zip behavior depending on the types of output of the fields you specify in the `source_ids` parameters.
+See  the following table for information about the Zip method's output.
 
-| input                                             | result                                                       | notes                                                        |
+| source ids                                        | result                                                       | notes                                                        |
 | ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| array of arrays                                   | returns a section group containing zipped arrays             | Each source field must output an array, for example, as a result of configuring `"match": "allWithNull"` or `"type": "name"` for the field. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For an example, see example 1. |
-| one [table](doc:table-methods)                    | returns section group containing rows                        | For an example, see Example 2.                               |
-| array of tables                                   | returns a zipped section group containing merged rows        | For an example, see Example 3.                               |
-| array of [section](doc:sections) groups           | returns a section group containing merged sections           | For an example, see [Zip sections example](doc:sections-example-zip). |
-| mixed array of tables, section groups, and arrays | returns a section group containing merged rows, sections, and array items | For an example, see Example 4. <br/>**Note:** If there's more than one table listed in the source fields, then Sensible discards all non-table source fields. |
+| array of arrays                                   | section group containing zipped arrays                       | Each source field must output an array, for example, as a result of configuring `"match": "allWithNull"` or `"type": "name"` for the field. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For an example, see example 1. |
+| one [table](doc:table-methods)                    | section group containing rows                                | For an example, see Example 2.                               |
+| array of tables                                   | section group containing merged rows                         | For an example, see Example 3.                               |
+| array of [section](doc:sections) groups           | section group containing merged sections                     | For an example, see [Zip sections example](doc:sections-example-zip). |
+| mixed array of tables, section groups, and arrays | section group containing merged rows, sections, and array items | For an example, see Example 4. <br/>**Note:** If you list more than one table in the source fields, then Sensible discards all non-table source fields. |
 
   ### Notes
 
