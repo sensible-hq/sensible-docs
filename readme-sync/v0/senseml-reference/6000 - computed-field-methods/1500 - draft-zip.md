@@ -18,13 +18,13 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 See  the following table for information about the Zip method's output.
 
-| source ids                                        | output                                                       | notes                                                        |
-| ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| array of arrays                                   | section group containing zipped arrays                       | Each source field must output an array, for example, as a result of configuring `"match": "allWithNull"` or `"type": "name"` for the field. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For an example, see Example 1. |
-| one [table](doc:table-methods)                    | section group containing rows                                | For an example, see Example 2.                               |
-| array of tables                                   | section group containing merged rows                         | For an example, see Example 3.                               |
-| array of [section](doc:sections) groups           | section group containing merged sections                     | For an example, see [Zip sections example](doc:sections-example-zip). |
-| mixed array of tables, section groups, and arrays | section group containing merged rows, sections, and array items | For an example, see Example 4. <br/>**Note:** If you list more than one table in the source fields, then Sensible discards all non-table source fields. |
+| source ids                         | output                                                       | notes                                                        |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| arrays                             | section group containing zipped arrays                       | Examples of source fields that output arrays include those with `"match": "allWithNull"` or `"type": "name"` configured. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For an example, see Example 1. |
+| one [table](doc:table-methods)     | section group containing rows                                | For an example, see Example 2.                               |
+| tables                             | section group containing merged rows                         | For an example, see Example 3.                               |
+| [section](doc:sections) groups     | section group containing merged sections                     | For an example, see [Zip sections example](doc:sections-example-zip). |
+| tables, section groups, and arrays | section group containing merged rows, sections, and array items | For an example, see Example 4. <br/><br/>**Note:** If a single source field ID outputs an array of tables, then for backward compatibility Sensible discards all other source fields, and zips the tables in the array.  For example, if you configure `"source_ids": [table_1, table_2, table_array, section_1]`, where `table_array` is configured with `"match":"all"`  and outputs an array of tables, then Sensible discards all source fields except `table_array`. |
 
   ### Notes
 
