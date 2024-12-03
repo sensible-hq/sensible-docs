@@ -24,7 +24,7 @@ See  the following table for information about the Zip method's output, dependin
 | one [table](doc:table-methods)     | section group containing rows                                | For an example, see Example 2.                               |
 | tables                             | section group containing merged rows                         | For an example, see Example 3.                               |
 | [section](doc:sections) groups     | section group containing merged sections                     | For an example, see [Zip sections example](doc:sections-example-zip). |
-| tables, section groups, and arrays | section group containing merged rows, sections, and array items | For an example, see Example 4. <br/><br/>**Note:** If a single source field ID outputs an array of tables, then for backward compatibility Sensible discards all other source fields, and zips the tables in the array.  For example, if you configure `"source_ids": [table_1, table_2, table_array, section_1]`, where `table_array` is configured with `"match":"all"` , then Sensible discards all source fields except `table_array`. |
+| tables, section groups, and arrays | section group containing merged rows, sections, and array items | For an example, see Example 4. <br/><br/>**Note:** If a single source field ID outputs an array of tables, then for backward compatibility Sensible discards all other source fields, and zips the tables in the array.  For example, if you configure `"source_ids": ["table_1", "table_2", "table_array", "section_1"]`, where `"table_array"` is configured with `"match":"all"` , then Sensible discards all source fields except `"table_array"`. |
 
   ### Notes
 
