@@ -89,7 +89,7 @@ The following example shows extracting variably positioned lines by relaxing the
     {
       "id": "a_insurers",
       /* extract text at the intersection of "insurer a"
-         and the vertical anchor ("naic") */
+         and the vertical anchor (the FIRST instance of "naic") */
       "anchor": "insurer a",
       /* create an intersection for each instance of "insurer a" */  
       "match": "all",
