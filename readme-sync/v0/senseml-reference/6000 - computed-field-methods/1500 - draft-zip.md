@@ -13,10 +13,10 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                        | value                                    | description                                                  |
 | :------------------------- | :--------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)          | `zip`                                    |                                                              |
-| source_ids  (**required**) | array of field IDs in the current config | Zip output depends on the types of fields you specify as sources. See notes in succeeding table. |
+| source_ids  (**required**) | array of field IDs in the current config | Zip output depends on the types of output of the source fields. See notes in succeeding table. |
 
 
-See  the following table for information about the Zip method's output.
+See  the following table for information about the Zip method's output, depending on the types of output of the source fields.
 
 | source ids                         | output                                                       | notes                                                        |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
