@@ -782,7 +782,7 @@ The following image shows the example document used with this example config:
 
 - If a single source field ID outputs an array of tables, then for backward compatibility Sensible discards all other source fields, and returns an array of sections groups, each containing a zipped table.  For example, if you configure `"source_ids": ["table_1", "table_2", "table_array", "section_1"]`, where `"table_array"` is configured with `"match":"all"` , then Sensible discards all source fields except `"table_array"`.  
 
-- If there are duplicate field keys when merging, the last-listed key in the `source_fields` array overwrites any preceding ones. For example, say you have source fields with output like the following:
+- If there are duplicate field keys when merging, the last-listed key in the `source_fields` array overwrites any preceding ones. The following is an example of source fields with simplified syntax: 
 
 ```json
 "item_color": [ {"color": "blue", "ID": 123}, {"color": "red", "ID": 456}, ... ],
