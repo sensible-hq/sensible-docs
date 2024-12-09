@@ -1,6 +1,6 @@
 ---
 title: "Query group"
-hidden: false
+hidden: true
 
 ---
 
