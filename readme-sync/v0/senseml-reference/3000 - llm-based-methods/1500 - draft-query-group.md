@@ -7,7 +7,9 @@ hidden: true
 Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. 
 
 - When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
-- When you configure the Source Fields parameter, you can use an LLM prompt to transform the extracted facts. For example, TBD/TODO take from summarizer lanugage
+- When you configure the Source Fields parameter, you can use an LLM prompt to transform the extracted facts from other Query Group method calls. 
+  - For example, TBD/TODO take from summarizer lanugage
+  - TBD: i think it can be ANY source field type including sections + nested sections; what matters is that the shape of the questions is Query Group and the shape of the output is query group.  (see "sourceFields": ["transactions"] which is a zip of a table)
 
 #### Prompt Tips
 
