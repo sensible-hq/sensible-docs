@@ -4,7 +4,12 @@ hidden: true
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. 
+
+- When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
+- When you configure the Source Fields parameter, you can use an LLM prompt to transform the extracted facts. For example, TBD/TODO take from summarizer lanugage
+
+#### Prompt Tips
 
 Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page.
 
@@ -18,8 +23,6 @@ jsmith@email.com
 ```
 
 Combining queries for the custom name, location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. Frame each query, or prompt, in the group so that it has a single, short answer. Sensible recommends a maximum group size of 10 queries.
-
-#### Prompt Tips
 
 - Try framing each query, or prompt, so that it has a single, short answer such as:
 
