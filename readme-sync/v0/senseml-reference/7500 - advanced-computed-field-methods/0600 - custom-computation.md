@@ -479,27 +479,21 @@ The following example shows using the Custom Computation method to perform the f
       "id": "total_incurred",
       "method": {
         "id": "customComputation",
-        "jsonLogic": {
-          /* combine elements of array into a 
-          single value with Reduce operation */
-          "reduce": [
-            {
-              "var": "claims_sections"
-            },
-            {
-              "+": [
-                {
-                  /* for the current element in the array .. */
-                  "var": "current.incurred_amount.value"
-                },
-                {
-                  /* ...add its value to the running total */
-                  "var": "accumulator"
-                }
-              ]
-            },
-            0
-          ]
+        "jsonLogic":
+        /* for each incurred_amount value,
+           add it to a running total sum
+           Note: this syntax is an alternative to the Reduce operation */
+        {
+          "+": {
+            "map": [
+              {
+                "var": "claims_sections"
+              },
+              {
+                "var": "incurred_amount.value"
+              }
+            ]
+          }
         }
       }
     },

@@ -9,7 +9,11 @@ Extracts individual facts in a document, such as the date of an invoice, the lia
 - When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
 - When you configure the Source Fields parameter, you can use an LLM prompt to transform the extracted facts from other Query Group method calls. 
   - For example, TBD/TODO take from summarizer lanugage
-  - TBD: i think it can be ANY source field type including sections + nested sections; what matters is that the shape of the questions is Query Group and the shape of the output is query group.  (see "sourceFields": ["transactions"] which is a zip of a table)
+    - *The Summarizer computed field method takes as input another extracted field's output, and transforms the text based on prompts or short samples of extracted values you provide. Use this method to transform another method's output when you can't use [types](doc:types) or other [computed field methods](doc:computed-field-methods). For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. You can reformat with instructions like `reformat each inconsistently formatted instance of rank as a word (i.e. \"first\" not \"1st\" or \"1\") `.* 
+  - TBD: i think it can be ANY source field type including sections + nested sections; what matters is that the shape of the questions is Query Group and the shape of the output is query group.  (see "sourceFields": ["transactions"] which is a zip of a table) ... so it should be a 'global' param' b/c it's about locating the context ... advice to use is is when your prompts are getting too complex?
+  - TODO: note that confidence signals aren't supported in 'interactions' note.
+  - TODO: how does it handle Sections? would that be better supported by List method's source fields
+    - possible answer: it's best for getting single data points/answer out of sections: ""what is the smallest value for b in all subsection values in section?"" "which patients are ?"
 
 #### Prompt Tips
 
