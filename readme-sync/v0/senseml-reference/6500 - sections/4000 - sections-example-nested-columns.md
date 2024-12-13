@@ -19,38 +19,26 @@ To give a brief overview of using vertical sections for columns, the following i
 The following config uses abbreviated YML notation to give an overview of the more complex SenseML JSON: 
 
 ```yml
-fields: []
-sections:
-- id: parentSections
-  range:
-    anchor:
-      match:
-        type: startsWith
-        text: heading
-  fields:
-  - id: sectionTitle
-    method:
-      id: passthrough
-    anchor:
-      match:
-        type: startsWith
-        text: heading
-  sections:
-  - id: nestedColumns
+fields:
+  - id: parentSections
+    type: section
     range:
-      direction: vertical
-      anchor:
-        match:
-          type: startsWith
-          text: column
+      anchor: heading
     fields:
-    - id: columnTitle
-      method:
-        id: passthrough
-      anchor:
-        match:
-          type: startsWith
-          text: column
+      - id: sectionTitle
+        method:
+          id: passthrough
+        anchor: heading
+    sections:
+      - id: nestedColumns
+        range:
+          direction: vertical
+          anchor: column
+        fields:
+          - id: columnTitle
+            method:
+              id: passthrough
+            anchor: column
 
 ```
 
@@ -96,10 +84,10 @@ The following elaborates on the preceding overview using JSON instead of YML.
 
 ```json
 {
-  "fields": [],
-  "sections": [
+  "fields": [
     {
       "id": "parentSections",
+      "type": "sections",
       "range": {
         "anchor": {
           "match": {
