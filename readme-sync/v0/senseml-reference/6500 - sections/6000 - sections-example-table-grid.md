@@ -140,11 +140,10 @@ The following elaborates on the preceding brief overview using JSON instead of Y
               "type": "first"
             }
           }
-        }
-      ],
-      "sections": [
+        },
         {
           "id": "trim_specs",
+          "type": "sections",
           "range": {
             "direction": "vertical",
             /* exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
