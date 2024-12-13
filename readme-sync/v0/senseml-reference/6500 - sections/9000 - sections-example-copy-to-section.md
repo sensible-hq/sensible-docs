@@ -34,13 +34,11 @@ The following example shows using computed fields to transform sections data. Th
         "id": "row",
       }
     },
-  ],
-  /*
-     each claim starts with "claim number" and ends with 
+    /*    each claim starts with "claim number" and ends with 
      "Date of claim" */
-  "sections": [
     {
       "id": "claims_sections",
+      "type": "sections",
       "range": {
         "anchor": {
           "match": {
@@ -141,7 +139,7 @@ The following example shows using computed fields to transform sections data. Th
               "_raw_phone_number"
             ]
           }
-        },
+        }
       ]
     }
   ]
