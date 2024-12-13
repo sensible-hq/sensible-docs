@@ -42,12 +42,11 @@ The following example shows extracting repeated fields from a section group cont
         "position": "right",
         "includeAnchor": true
       }
-    }
-  ],
-  /* define section group containing subset of document's claims */
-  "sections": [
+    },
     {
+      /* define section group containing subset of document's claims */
       "id": "unprocessed_sept_oct_claims_sections",
+      "type": "sections",
       "range": {
         "anchor": {
           /* start looking for claims after "September" */
