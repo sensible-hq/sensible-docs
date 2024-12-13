@@ -98,10 +98,10 @@ The following elaborates on the preceding brief overview using JSON instead of Y
       "directlyAdjacentThreshold": 0.4
     }
   ],
-  "fields": [],
-  "sections": [
+  "fields": [
     {
       "id": "car_models",
+      "type": "sections",
       "range": {
         /* uses an offset to include the heading with car model and year */
         "offsetY": -1.1,
@@ -202,7 +202,7 @@ The following elaborates on the preceding brief overview using JSON instead of Y
                   "text": "engine",
                 }
               }
-            },
+            }
           ]
         }
       ]
