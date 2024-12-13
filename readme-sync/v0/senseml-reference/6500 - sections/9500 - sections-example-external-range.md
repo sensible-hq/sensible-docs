@@ -18,11 +18,11 @@ In the following screenshot, the green brackets denote sections, where each sect
 
 ```json
 {
-  "fields": [],
-  /* define section group containing document's claims */
-  "sections": [
+  "fields": [
     {
+      /* define section group containing document's claims */
       "id": "unprocessed_claims_sections",
+      "type": "sections",
       /* each section contains unlabeled information.
          the labels are at the beginning of the document ("Claims contents")
          use the External Range parameter to make these labels
@@ -239,11 +239,11 @@ In the following screenshot, the green brackets denote sections, where each sect
 
 ```json
 {
-  "fields": [],
-  /* define section group containing document's claims */
-  "sections": [
+  "fields": [
     {
+      /* define section group containing document's claims */
       "id": "claims_sections",
+      "type": "sections",
       /* each section (in this case, a claim) contains unlabeled information, such as the claim #.
          the labels are at the top of each page under a "Claims contents" heading
          use the External Range parameter to make these labels
