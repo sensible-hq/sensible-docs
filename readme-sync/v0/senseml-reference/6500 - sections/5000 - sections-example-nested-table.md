@@ -12,7 +12,7 @@ The following example:
 
 
 
-```
+```json
 {
   "preprocessors": [
     {
@@ -20,10 +20,10 @@ The following example:
       "minSpaces": 3
     }
   ],
-  "fields": [],
-  "sections": [
+  "fields": [
     {
       "id": "table_columns",
+      "type": "sections",
       "range": {
         "direction": "vertical",
         "columnSelection": [
@@ -70,7 +70,7 @@ The following example:
                 "id": "col1_age",
                 "minX": -0.1,
                 "maxX": 0.5,
-                "type":"number"
+                "type": "number"
               },
               {
                 "id": "col2_reduction",
