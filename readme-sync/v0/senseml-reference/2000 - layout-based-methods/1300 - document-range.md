@@ -177,10 +177,10 @@ The following example shows using an Offset Y parameter to extract content that 
 
 ```json
 {
-  "fields": [],
-  "sections": [
+  "fields": [
     {
       "id": "injuries",
+      "type": "sections",
       "range": {
         "anchor": {
           "match": {
