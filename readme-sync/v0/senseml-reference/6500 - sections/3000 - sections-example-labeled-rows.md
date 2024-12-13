@@ -11,10 +11,10 @@ The following example shows using a vertical section group to capture a table th
 
 ```json
 {
-  "fields": [],
-  "sections": [
+  "fields": [
     {
       "id": "nutrition_table",
+      "type": "sections",
       "range": {
         "direction": "vertical",
         /* columnSelection specifies that each vertical section is a table slice that
@@ -40,7 +40,7 @@ The following example shows using a vertical section group to capture a table th
         "offsetY": -0.3
       },
       "fields": [
-         /* In each vertical section, the 1st
+        /* In each vertical section, the 1st
              cell to the right of "Nutrition"
              is always the name for that section's fruit,
              as configured by columnSelection */
