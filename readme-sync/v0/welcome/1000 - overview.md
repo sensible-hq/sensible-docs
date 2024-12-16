@@ -7,7 +7,7 @@ hidden: false
 
 Welcome! Sensible is a developer-first platform for extracting structured data from documents, for example, business forms in PDF format. Use Sensible to build document-automation features into your vertical SaaS products. 
 
-With Sensible, you can write extraction queries for any document:
+With Sensible's SenseML language, you can write extraction queries for any document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_3.png)
 
