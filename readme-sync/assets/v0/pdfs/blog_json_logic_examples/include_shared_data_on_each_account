@@ -1,4 +1,5 @@
 {
+// see end of config for customComputation and postprocessor JsonLogic examples
   "fingerprint": {
     "tests": [
       {
