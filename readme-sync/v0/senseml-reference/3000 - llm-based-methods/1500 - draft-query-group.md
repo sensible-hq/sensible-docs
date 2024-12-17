@@ -4,6 +4,12 @@ hidden: true
 
 ---
 
+TODOs:
+
+- how to integrate into wording for Summarizer (if not deprecated) and Computed Fields
+
+
+
 Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. 
 
 - When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
