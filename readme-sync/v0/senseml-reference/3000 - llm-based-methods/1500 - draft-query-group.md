@@ -4,9 +4,11 @@ hidden: true
 
 ---
 
-TODOs:
+TODOs before publish `source_ids`:
 
 - how to integrate into wording for Summarizer (if not deprecated) and Computed Fields
+- how to integrate into List method -- > PROMPT level topic?
+- 
 
 
 
