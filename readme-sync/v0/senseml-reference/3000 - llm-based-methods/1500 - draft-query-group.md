@@ -424,7 +424,7 @@ The following image shows the example document used with this example config:
 
 ## Example: Transform fields
 
-The following example shows TBD:
+The following example shows how to use the output from other extracted fields as the context for new prompts, in order to transform or ask questions about the original fields:
 
 **Config**
 
@@ -521,9 +521,9 @@ The following example shows TBD:
 **Example document**
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_source_fields.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/query_group_source_fields.pdf) |
 | ---------------- | ------------------------------------------------------------ |
 
 **Output**
