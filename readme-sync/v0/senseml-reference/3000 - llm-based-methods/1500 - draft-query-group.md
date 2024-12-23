@@ -426,7 +426,125 @@ The following image shows the example document used with this example config:
 
 The following example shows TBD:
 
+**Config**
 
+```json
+{
+  "fields": [
+    {
+      /* extract the transactions table ("account activity") */
+      "id": "_transactions",
+      "type": "table",
+      "method": {
+        "id": "list",
+        "description": "transactions detail",
+        "properties": [
+          {
+            "id": "transaction_date",
+            "description": "date of transaction"
+          },
+          {
+            "id": "merchant_name",
+            "description": "merchant"
+          },
+          {
+            "id": "transaction_description",
+            "description": "description or category of transaction"
+          },
+          {
+            "id": "transaction_amount",
+            "description": "amount",
+            "type": "accountingCurrency",
+            "isRequired": true
+          }
+        ]
+      }
+    },
+    {
+      "method": {
+        "id": "queryGroup",
+        "source_ids": [
+          /* restrict queries to data in _transactions field */
+          "_transactions"
+        ],
+        "confidenceSignals": false,
+        "queries": [
+          {
+            // correct answer is "Payment Thank You - Web"
+            "id": "freq_merchant_chained_query",
+            "type": "string",
+            "description": "What is the most frequent merchant?"
+          },
+          {
+            // correct answer is 1287.37
+            "id": "max_transaction_amount_chained_query",
+            "description": "what is the maximum transaction amount?"
+          }
+        ]
+      }
+    },
+    {
+      "method": {
+        "id": "queryGroup",
+        "confidenceSignals": false,
+        /* for contrast, if you query the whole document rather than the 
+           transactions table, you get incorrect answers to the same queries  */
+        "queries": [
+          {
+            // correct answer is "Payment Thank You - Web"
+            "id": "freq_merchant",
+            "type": "string",
+            "description": "What is the most frequent merchant?"
+          },
+          {
+            // correct answer is 1287.37
+            "id": "max_transaction_amount",
+            "description": "what is the maximum transaction amount?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean",
+      "method": {
+        "id": "suppressOutput",
+        "source_ids": [
+          "_transactions",
+         
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "freq_merchant_chained_query": {
+    "value": "Payment Thank You - Web",
+    "type": "string"
+  },
+  "max_transaction_amount_chained_query": {
+    "value": "1287.37",
+    "type": "string"
+  },
+  "freq_merchant": null,
+  "max_transaction_amount": {
+    "value": "$604.47",
+    "type": "string"
+  }
+}
+```
 
 
 
