@@ -733,9 +733,10 @@ components:
       name: ids
       required: true
       in: path
+      style: simple
       description: Comma-delimited list of unique extraction IDs.
       schema:
-        $ref: '#/components/schemas/ExtractionId'
+        $ref: '#/components/schemas/ExtractionIds'
 
 
     document_type:
@@ -1843,6 +1844,11 @@ components:
       description: URL of the document extraction
       example: https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e.pdf?AWSAccessKeyId=REDACTED
 
+    ExtractionIds:
+      type: array
+      description: Unique extraction IDs 
+      items:
+         $ref: '#/components/schemas/ExtractionId'     
 
     ExtractionId:
       type: string
