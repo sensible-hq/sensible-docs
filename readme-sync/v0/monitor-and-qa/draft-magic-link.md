@@ -28,14 +28,14 @@ To implement sending document extractions for review without requiring reviewers
                "route": "/documents/{id}",
                "method": "GET",
                "path": {
-                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf&sd"
+                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
                }
            },
            {
                "route": "/extractions/{id}",
                "method": "PUT",
                "path": {
-                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf&sd"
+                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
                }
            }
        ],
@@ -50,22 +50,22 @@ To implement sending document extractions for review without requiring reviewers
 
    ```json
    {
-       "token": "e84057ab-bf38-4c9a-9c7d-5a2ec24b00fc:e91e77c1-d1a3-456c-9465-07b2bc654eb0",
-       "created": "2025-01-07T18:40:14.038Z",
+       "token": "870b8162-c6af-47e3-99c6-61311eaf98e0:9e6432c5-b342-4971-9af7-046f7cd60070",
+       "created": "2025-01-07T18:59:57.844Z",
        "expires": "2025-01-15T22:14:35.720Z",
        "grants": [
            {
                "route": "/documents/{id}",
                "method": "GET",
                "path": {
-                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf&sd"
+                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
                }
            },
            {
                "route": "/extractions/{id}",
                "method": "PUT",
                "path": {
-                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf&sd"
+                   "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
                }
            }
        ],
@@ -77,8 +77,8 @@ To implement sending document extractions for review without requiring reviewers
 
 5. create the URL with data from the response to the previous request as follows:
 
-   ```https://dev.sensible.so/human-review/embedded/?token=e84057ab-bf38-4c9a-9c7d-5a2ec24b00fc:e91e77c1-d1a3-456c-9465-07b2bc654eb0&extraction=b84bd1c8-113e-4e1e-8462-379f0dde2abf&sd ```
+   ```https://dev.sensible.so/human-review/embedded/?token=870b8162-c6af-47e3-99c6-61311eaf98e0:9e6432c5-b342-4971-9af7-046f7cd60070&extraction=b84bd1c8-113e-4e1e-8462-379f0dde2abf ```
 
-6. give your reviewer the URL. They should be able to edit and review the extraction using the link without logging in. For example:
+6. give your reviewer the URL. They should be able to edit and review the extraction using the link without logging in. For example, in incognito mode:
 
-   
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_magic_link.png) 
