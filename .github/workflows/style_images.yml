@@ -15,7 +15,7 @@ jobs:
       contents: write # for writing images to the repo
     steps:
       - name: checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: update packages
         run: sudo apt update
       - name: Install ghostscript for ImageMagick

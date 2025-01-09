@@ -16,9 +16,7 @@ The following diagram shows how to integrate human-in-the-loop review into your 
 3. **Notify a reviewer**: When the webhook indicates that a completed extraction needs review and correction, notify a reviewer and send them a link to the review interface that they can following without having to log into Sensible.
 4. **Ingest corrected extractions**: When the webhook indicates that a reviewer approved an extraction, ingest the document data into your system.
 
-
-
-## Configure flagging
+## 1. Configure review triggers
 
 In a document type, in the **Human Review** tab, set the criteria for Sensible to flag an extraction for manual review:
 
@@ -31,8 +29,6 @@ Enable human review for all documents in a type, or set criteria to trigger revi
 - [Validation](doc:validate-extractions) errors and warnings, if configured. Select all errors, all warnings, or individual validations. 
 
   
-
-
 
 ## Review status
 
