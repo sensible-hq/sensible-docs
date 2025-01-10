@@ -1138,7 +1138,7 @@ components:
         method:
           type: string
           description: "GET"
-          example: "GET"
+          
         path:
           type: object
           properties:
@@ -1157,7 +1157,7 @@ components:
         method:
           type: string
           description: "PUT"
-          example: "PUT"
+          
         path:
           type: object
           properties:
