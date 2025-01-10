@@ -23,7 +23,8 @@ tags:
     description: "Retrieve data extracted asynchronously from documents"
   - name: Get Excel from documents
     description: "Convert extracted document data to spreadsheet"
-
+  - name: Review extractions
+    description: "Approve, reject, and edit extracted document data"
 
 
 paths:
@@ -645,6 +646,89 @@ paths:
           $ref: '#/components/responses/500'
 
 
+  /account/auth_tokens:
+    post:
+      operationId: account-auth-tokens
+      summary: Get token for review link
+      description: |
+        Use this endpoint to provide a [reviewer](doc:human-review) with a "magic link" they can use to 
+        approve, reject, and edit extracted document data without logging into a Sensible account. 
+        This endpoint's response includes an authorization token you can use to compose the magic link. 
+        For information about implementing human review, see [Human review implementation](doc:human-review-implementation).
+        For example, for an extraction id `b84bd1c8-113e-4e1e-8462-379f0dde2abf`, make the following request:
+        
+        ```curl
+        curl --location 'https://api.sensible.so/v0/account/auth_tokens' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Bearer YOUR_API_KEY' \
+        --data '{
+            "grants": [
+                {
+                    "route": "/documents/{id}",
+                    "method": "GET",
+                    "path": {
+                        "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
+                    }
+                },
+                {
+                    "route": "/extractions/{id}",
+                    "method": "PUT",
+                    "path": {
+                        "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
+                    }
+                }
+            ],
+            "expires": "2025-01-15T22:14:35.720Z"
+        }'
+
+        ```
+      
+      requestBody:
+        content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grants:
+                    $ref: '#/components/schemas/Grants'          
+                required:
+                  - grants
+              example: 
+                grants:
+                - route: "/documents/{id}"
+                  method: GET
+                  path:
+                    id: b84bd1c8-113e-4e1e-8462-379f0dde2abf
+                - route: "/extractions/{id}"
+                  method: PUT
+                  path:
+                    id: b84bd1c8-113e-4e1e-8462-379f0dde2abf
+                expires: '2025-01-15T22:14:35.720Z' 
+
+      tags:
+      - Review extractions
+      
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthTokenResponse'
+          description: >-
+            Contains the extraction ID and authorization token you can use to compose the "magic link" for the reviewer.  
+        '401':
+          $ref: '#/components/responses/401'
+        '400':
+          $ref: '#/components/responses/400'
+      
+        '500':
+          $ref: '#/components/responses/500'
+
+
+
+
+
+
 
 
 
@@ -1003,6 +1087,85 @@ components:
             description: non-encoded document bytes as the entire request body
   schemas:
     
+
+    
+
+
+    AuthTokenResponse:
+      type: object
+      description: >-
+        Contains the extraction ID and authorization token you can use to compose the "magic link" for the reviewer.
+      properties:
+        token:
+          type: string
+          description: the authorization token for reviewing this extraction
+          example: 09b33af4-6811-4d8e-8c56-2f197b8648d6:4174564c-2211-4e42-bcc4-66e025b29728
+        created:
+          type: string
+          format: date-time
+          description: the date-time the token was created
+          example: 2025-01-01T18:43:45.532Z
+        expires:
+          format: date-time
+          type: string
+          description: | 
+            the date-time the token expires.
+            Set this to a future date with enough time for the reviewer to complete the review.
+            The maximum value you can set is 30 days.
+          example: 2025-01-15T22:14:35.720Z
+        grants:
+          $ref: '#/components/schemas/Grants'
+        usage:
+          type: string
+          description: array
+          example: []
+    
+    Grants:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/GetGrant'
+          - $ref: '#/components/schemas/PutGrant'
+ 
+
+    GetGrant:
+      type: object 
+      properties: 
+        route:
+          type: string
+          description: "/documents/{id}"
+          example: "/documents/{id}"
+        method:
+          type: string
+          description: "GET"
+          example: "GET"
+        path:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ID of the extraction
+              example: b84bd1c8-113e-4e1e-8462-379f0dde2abf 
+
+    PutGrant:
+      type: object 
+      properties: 
+        route:
+          type: string
+          description: "/extractions/{id}"
+          example: "/extractions/{id}"
+        method:
+          type: string
+          description: "PUT"
+          example: "PUT"
+        path:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ID of the extraction
+              example: b84bd1c8-113e-4e1e-8462-379f0dde2abf
+
     Charged:
       type: integer
       example: 1

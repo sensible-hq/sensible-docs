@@ -3,7 +3,7 @@ title: "Human review"
 hidden: true
 ---
 
-As a reviewer, you can use the Sensible app's **Human review** tab to manually correct extracted document data that's been flagged TODO LINK for review, then approve or reject the extraction. Once you approve or reject, you can't change the status again.
+As a reviewer, you can use the Sensible app's **Human review** tab to manually correct extracted document data that's been flagged TODO LINK for review, then approve or reject the extraction. Once you approve or reject, you can't change the status again. 
 
 Click the **Human review** tab to display the document types that contain extractions flagged for review:
 
