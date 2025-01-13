@@ -1095,6 +1095,24 @@ components:
       type: object
       description: >-
         Contains the extraction ID and authorization token you can use to compose the "magic link" for the reviewer.
+      example:
+
+        token: '09b33af4-6811-4d8e-8c56-2f197b8648d6:4174564c-2211-4e42-bcc4-66e025b29728'
+        created: '2025-01-01T18:43:45.532Z'
+        expires: '2025-01-15T22:14:35.720Z'
+        grants:
+        - route: "/documents/{id}"
+          method: GET
+          path:
+            id: b84bd1c8-113e-4e1e-8462-379f0dde2abf
+        grants:
+        - route: "/documents/{id}"
+          method: PUT
+          path:
+            id: b84bd1c8-113e-4e1e-8462-379f0dde2abf
+        usage: []
+
+        
       properties:
         token:
           type: string
@@ -1126,6 +1144,7 @@ components:
           type: string
           description: array
           example: []
+    
     
     Grants:
       type: array
