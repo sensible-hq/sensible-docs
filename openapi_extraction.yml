@@ -1114,7 +1114,14 @@ components:
             The maximum value you can set is 30 days.
           example: 2025-01-15T22:14:35.720Z
         grants:
-          $ref: '#/components/schemas/Grants'
+          #: $ref: '#/components/schemas/Grants'
+          # doesn't seem to fully work w readme api ref
+          # so duplicating grants schema here instead
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/GetGrant'
+              - $ref: '#/components/schemas/PutGrant'
         usage:
           type: string
           description: array
