@@ -1134,6 +1134,25 @@ components:
           - $ref: '#/components/schemas/GetGrant'
           - $ref: '#/components/schemas/PutGrant'
  
+    PutGrant:
+      type: object 
+      properties: 
+        route:
+          type: string
+          description: "/extractions/{id}"
+          example: "/extractions/{id}"
+        method:
+          type: string
+          description: "PUT"
+          example: "PUT"
+          
+        path:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ID of the extraction
+              example: b84bd1c8-113e-4e1e-8462-379f0dde2abf
 
     GetGrant:
       type: object 
@@ -1155,25 +1174,6 @@ components:
               description: ID of the extraction
               example: b84bd1c8-113e-4e1e-8462-379f0dde2abf 
 
-    PutGrant:
-      type: object 
-      properties: 
-        route:
-          type: string
-          description: "/extractions/{id}"
-          example: "/extractions/{id}"
-        method:
-          type: string
-          description: "PUT"
-          example: "PUT"
-          
-        path:
-          type: object
-          properties:
-            id:
-              type: string
-              description: ID of the extraction
-              example: b84bd1c8-113e-4e1e-8462-379f0dde2abf
 
     Charged:
       type: integer
