@@ -1,9 +1,7 @@
 ---
-title: "Human review configuration"
+title: "Human review implementation"
 hidden: false
 ---
-
-
 
 When you extract document data at scale using Sensible, automating human-in-the-loop review can become essential to your quality-control process. 
 
