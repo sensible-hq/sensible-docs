@@ -20,6 +20,8 @@ jobs:
         run: sudo apt update
       - name: Install ghostscript for ImageMagick
         run: sudo apt install ghostscript
+      - name: Install ImageMagick
+        run: sudo apt install -y imagemagick
       - name: run ImageMagick
         run: bash ./scripts/style_images.sh
       - name: auto commit changes from this workflow
