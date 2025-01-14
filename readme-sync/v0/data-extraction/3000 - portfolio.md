@@ -22,7 +22,7 @@ To extract from a portfolio, take the following steps:
 
 1. Enable segmentation with one of the following alternatives: 
 
-  -  **LLM mode**: In the document type's **Settings** tab, describe the document type in the **LLM portfolio description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [LLM portfolio description](doc:portfolio). 
+  -  **LLM mode**: In the document type's **Settings** tab, describe the document type in the **Description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [Document type descriptions](doc:descriptions). 
   -  **Fingerprint mode**: Specify [fingerprints](doc:fingerprint) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
 
 2. Create an extraction request with one of the following alternatives:
@@ -67,9 +67,9 @@ The following example shows extracting three documents from a portfolio using LL
 
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart)  to add support for the **bank statements**, **1040s**, and **pay stubs** document types to your account.
 
-   **Note:** Each out-of-the-box document type comes preconfigured with a description in its **LLM portfolio description** field to enable LLM-based portfolio segmentation. The descriptions are as follows:
+   **Note:** Each out-of-the-box document type comes preconfigured with a description in its **Description** field to enable LLM-based portfolio segmentation. The descriptions are as follows:
 
-   | document type   | LLM portfolio description                                    |
+   | document type   | Description                                    |
    | --------------- | ------------------------------------------------------------ |
    | bank statements | List of all transactions for a bank account over a set period |
    | pay stubs       | Historic payments to employees                               |
