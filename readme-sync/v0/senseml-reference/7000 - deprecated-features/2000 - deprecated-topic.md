@@ -10,7 +10,7 @@ This method is deprecated. [LLM-based methods](doc:llm-based-methods) replace th
 
 ## Description
 
-Finds a range of lines in a document that best match a topic as determined by a [bag of words](doc:deprecated-bag-of-words) scoring approach. Most useful in long, unstructured documents. For example, this method in conjunction with the [Summarizer method](doc:summarizer) can extract key-value pairs from free text using ML (machine learning).
+Finds a range of lines in a document that best match a topic as determined by a [bag of words](doc:deprecated-bag-of-words) scoring approach. Most useful in long, unstructured documents. For example, this method in conjunction with the [Summarizer method](doc:deprecated-summarizer) can extract key-value pairs from free text using ML (machine learning).
 
 [**Parameters**](doc:deprecated-topic#parameters)
 [**Examples**](doc:deprecated-topic#examples)
