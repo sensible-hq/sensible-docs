@@ -4,7 +4,12 @@ hidden: false
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. 
+
+- When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
+- When you configure the Source Fields parameter, you can chain LLM prompts together. In other words, you can extract data with one prompt, then apply further prompts to the extracted data.
+
+#### Prompt Tips
 
 Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page.
 
@@ -18,8 +23,6 @@ jsmith@email.com
 ```
 
 Combining queries for the custom name, location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. Frame each query, or prompt, in the group so that it has a single, short answer. Sensible recommends a maximum group size of 10 queries.
-
-#### Prompt Tips
 
 - Try framing each query, or prompt, so that it has a single, short answer such as:
 
@@ -50,27 +53,28 @@ Parameters
 | key                   | value  | description                                                  |
 | :-------------------- | :----- | :----------------------------------------------------------- |
 | method (**required**) | object | For this object's parameters, see the following table.       |
-| anchor                |        | The Anchor parameter is optional for fields that use LLM-based methods.<br/><br/>If you specify an anchor and leave the Multimodal Engine unconfigured or configured with `"region": "automatic`" then:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns nulls for the fields in this query group if the anchor isn't present in the document.<br/><br/>If you specify an anchor and configure the Multimodal Engine parameter's region manually, then Sensible locates the prompt's [context](doc:query-group#notes) relative to the anchor. |
+| anchor                |        | The Anchor parameter is optional for fields that use this method.<br/><br/>If you specify an anchor and leave the Multimodal Engine unconfigured or configured with `"region": "automatic`" then:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns nulls for the fields in this query group if the anchor isn't present in the document.<br/><br/>If you specify an anchor and configure the Multimodal Engine parameter's region manually, then Sensible creates the prompt's [context](doc:query-group#notes) relative to the anchor. |
 
 ## Query group parameters
 
 
 
-| key                    | value            | description                                                  | interactions                                                 |
-| :--------------------- | :--------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)      | `queryGroup`     |                                                              |                                                              |
-| queries                | array of objects | An array of query objects, where each extracts a single fact and outputs a single field. Each query contains the following parameters:<br/>`id` (**required**) - The ID for the extracted field. <br/>`description`  (**required**) - A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. For more information about how to write questions (or "prompts"), see [Query Group](https://docs.sensible.so/docs/query-group-tips) extraction tips. |                                                              |
-| chunkScoringText       | string           | Use this parameter to narrow down the page location of the answer to your prompt. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt.  For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to score chunks' relevancy. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet. | If you set the Search By Summarization parameter to true, Sensible ignores any configured value for this parameter. |
-| multimodalEngine       | object           | Configure this parameter to:<br/>- Extract data from images embedded in a document, for example, photos, charts, or illustrations.<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines, lines between lines, and handwriting. For example, use this as an alternative to the [Signature](doc:signature) method, the [Nearest Checkbox](doc:nearest-checkbox) method, the [OCR engine](doc:ocr-engine), and line [preprocessors](doc:preprocessors).<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM (GPT-4o mini), so that you can ask questions about text and non-text images. This bypasses Sensible's [OCR](doc:ocr) and direct-text extraction processes for the region. <br/>This parameter has the following parameters:<br/><br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/><br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. If you configure this option for a non-text image, then help Sensible locate the context by including queries in the group that target text near the image, or by specifying the nearby text in the Chunk Scoring Text parameter. <br/><br/>- To manually specify a region, specify an [anchor](doc:anchor) close to the region you want to capture. Specify the region's dimensions in inches relative to the anchor using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` | If you configure this parameter, Sensible doesn't support confidence signals for the multimodal output. |
-| llmEngine              | object           | Where applicable, configures the LLM engine Sensible uses to answer your prompts. <br/>Configure this parameter to troubleshoot situations in which Sensible correctly identifies the part of the document that contains the answers to your prompts, but the LLM's answer contains problems. For example, Sensible returns an LLM error because the answer isn't properly formatted, or the LLM doesn't follow instructions in your prompt.<br/><br/>Contains the following parameters:<br/>`provider`:  <br/>- If set to `open-ai` (default), Sensible uses GPT-4o mini  where not hard coded. See the Notes section for more information.  <br/> - If set to `anthropic`, Sensible uses Claude 3 Haiku where not hard coded. See the Notes section for more information. |                                                              |
-| searchBySummarization  |                  | or information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
-| confidenceSignals      |                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt). |                                                              |
-| contextDescription     |                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
-| pageHinting            |                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
-| chunkCount             |                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
-| chunkSize              |                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
-| chunkOverlapPercentage |                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
-| pageRange              |                  | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
+| key                    | value                                    | description                                                  | interactions                                                 |
+| :--------------------- | :--------------------------------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)      | `queryGroup`                             |                                                              |                                                              |
+| queries                | array of objects                         | An array of query objects, where each extracts a single fact and outputs a single field. Each query contains the following parameters:<br/>`id` (**required**) - The ID for the extracted field. <br/>`description`  (**required**) - A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. For more information about how to write questions (or "prompts"), see [Query Group](https://docs.sensible.so/docs/query-group-tips) extraction tips. |                                                              |
+| chunkScoringText       | string                                   | Use this parameter to narrow down the page location of the answer to your prompt. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt.  For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to score chunks' relevancy. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet. | If you set the Search By Summarization parameter to true, Sensible ignores any configured value for this parameter for the queries in the group. |
+| multimodalEngine       | object                                   | Configure this parameter to:<br/>- Extract data from images embedded in a document, for example, photos, charts, or illustrations.<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines, lines between lines, and handwriting. For example, use this as an alternative to the [Signature](doc:signature) method, the [Nearest Checkbox](doc:nearest-checkbox) method, the [OCR engine](doc:ocr-engine), and line [preprocessors](doc:preprocessors).<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM (GPT-4o mini), so that you can ask questions about text and non-text images. This bypasses Sensible's [OCR](doc:ocr) and direct-text extraction processes for the region. <br/>This parameter has the following parameters:<br/><br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/><br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. If you configure this option for a non-text image, then help Sensible locate the context by including queries in the group that target text near the image, or by specifying the nearby text in the Chunk Scoring Text parameter. <br/><br/>- To manually specify a region, specify an [anchor](doc:anchor) close to the region you want to capture. Specify the region's dimensions in inches relative to the anchor using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |                                                              |
+| llmEngine              | object                                   | Where applicable, configures the LLM engine Sensible uses to answer your prompts. <br/>Configure this parameter to troubleshoot situations in which Sensible correctly identifies the part of the document that contains the answers to your prompts, but the LLM's answer contains problems. For example, Sensible returns an LLM error because the answer isn't properly formatted, or the LLM doesn't follow instructions in your prompt.<br/><br/>Contains the following parameters:<br/>`provider`:  <br/>- If set to `open-ai` (default), Sensible uses GPT-4o mini  where not hard coded. See the Notes section for more information.  <br/> - If set to `anthropic`, Sensible uses Claude 3 Haiku where not hard coded. See the Notes section for more information. |                                                              |
+| source_ids             | array of field IDs in the current config | If specified, prompts an LLM to extract data from another field's output. For example, if you extract a field `_checking_transactions` and specify it in this parameter, then Sensible searches for the answer to `what is the largest transaction?` in `_checking_transactions`, rather than searching the whole document to locate the [context](doc:prompt#notes) and answer. Note that the `_checking_transactions` field must precede the `largest_transaction` field in the fields array in this example. <br/><br/>Use this parameter to:<br/>-  reformat or otherwise transform the outputs of other fields. <br/> - narrow down the [context](doc:prompt#notes) for your prompts to a specific part of the document. <br/>-  troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source Ids in the fields array. <br/><br/>For an example, see [Examples](doc:query-group#example-transform-fields). | If you configure this parameter, then in the query group:<br/>- Sensible doesn't support confidence signals.<br/>- Sensible doesn't allow you to specify the following parameters:<br/>- Multimodal Engine parameter <br/>-  Chunk Scoring Text parameter<br/>- Search By Summarization parameter<br/>- Page Hinting parameter<br/>- Chunk Count parameter<br/>- Chunk Size parameter<br/>- Chunk Overlap Percentage parameter<br/>- Page Range parameter |
+| searchBySummarization  |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
+| confidenceSignals      |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt). |                                                              |
+| contextDescription     |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
+| pageHinting            |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
+| chunkCount             |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
+| chunkSize              |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
+| chunkOverlapPercentage |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
+| pageRange              |                                          | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |                                                              |
 
 ## Examples
 
@@ -409,6 +413,132 @@ The following image shows the example document used with this example config:
   }
 }
 ```
+
+## Example: Extract data from other fields
+
+The following example shows how to prompt an LLM to answer questions about another field's output.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      /* extract the transactions table ("account activity") */
+      "id": "_transactions",
+      "type": "table",
+      "method": {
+        "id": "list",
+        "description": "transactions detail",
+        "properties": [
+          {
+            "id": "transaction_date",
+            "description": "date of transaction"
+          },
+          {
+            "id": "merchant_name",
+            "description": "merchant"
+          },
+          {
+            "id": "transaction_description",
+            "description": "description or category of transaction"
+          },
+          {
+            "id": "transaction_amount",
+            "description": "amount",
+            "type": "accountingCurrency",
+            "isRequired": true
+          }
+        ]
+      }
+    },
+    {
+      "method": {
+        "id": "queryGroup",
+        "source_ids": [
+          /* restrict queries to data in _transactions field */
+          "_transactions"
+        ],
+        "confidenceSignals": false,
+        "queries": [
+          {
+            // correct answer is "Payment Thank You - Web"
+            "id": "freq_merchant_chained_query",
+            "type": "string",
+            "description": "What is the most frequent merchant?"
+          },
+          {
+            // correct answer is 1287.37
+            "id": "max_transaction_amount_chained_query",
+            "description": "what is the maximum transaction amount?"
+          }
+        ]
+      }
+    },
+    {
+      "method": {
+        "id": "queryGroup",
+        "confidenceSignals": false,
+        /* for contrast, if you query the whole document rather than the 
+           transactions table, you get incorrect answers to the same queries  */
+        "queries": [
+          {
+            // correct answer is "Payment Thank You - Web"
+            "id": "freq_merchant",
+            "type": "string",
+            "description": "What is the most frequent merchant?"
+          },
+          {
+            // correct answer is 1287.37
+            "id": "max_transaction_amount",
+            "description": "what is the maximum transaction amount?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean",
+      "method": {
+        "id": "suppressOutput",
+        "source_ids": [
+          "_transactions",
+         
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_source_ids.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/query_group_source_ids.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "freq_merchant_chained_query": {
+    "value": "Payment Thank You - Web",
+    "type": "string"
+  },
+  "max_transaction_amount_chained_query": {
+    "value": "1287.37",
+    "type": "string"
+  },
+  "freq_merchant": null,
+  "max_transaction_amount": {
+    "value": "$604.47",
+    "type": "string"
+  }
+}
+```
+
+
 
 ## Notes
 
