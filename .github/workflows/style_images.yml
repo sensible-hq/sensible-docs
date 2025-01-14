@@ -22,9 +22,9 @@ jobs:
         run: sudo apt install ghostscript
       - name: Install ImageMagick
         run: sudo apt install -y imagemagick
-      - name: troubleshoot
+      - name: troubleshoot - verify convert location
         run: whereis convert
-      - name: Verify ImageMagick installation
+      - name: troubleshoot - Verify ImageMagick installation
         run: convert --version
       - name: run ImageMagick
         run: bash ./scripts/style_images.sh
