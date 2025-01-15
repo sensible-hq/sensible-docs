@@ -35,7 +35,7 @@ You can set the output of other fields as the [context](doc:prompt#notes) for ot
 - Reformat or otherwise transform the outputs of other fields.
 - Compute or generate new data from the output of other fields
 -  Narrow down the [context](doc:prompt#notes) for your prompts to a specific part of the document.
-- Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source Ids in the fields array.
+- Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array.
 
 To transform extracted document data using LLMs, configure the Source Ids parameter for the [Query Group](doc:query-group).
 
