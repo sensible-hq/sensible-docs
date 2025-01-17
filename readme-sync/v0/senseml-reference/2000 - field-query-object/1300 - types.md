@@ -758,6 +758,7 @@ Returns a transformed type you define using an array of types. In the array, eac
 
 - As a more syntactically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
 - To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method to transform table cell contents using large language models(LLMs).
+- As an alternative to this type, see the Source ID parameters on the [Query Group](doc:query-group#parameters) method. You can use this parameter to transform extracted data, for example, `format the extracted data in mm-dd-yyy format`.
 
 Parameters
 ---
