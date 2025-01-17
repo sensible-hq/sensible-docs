@@ -22,6 +22,8 @@ For example, the following field returns null unless it finds data that Sensible
 }
 ```
 
+As an alternative to types, you can use LLM-based fields to format and filter data. For example, instead of using the [Compose](doc:types#compose) type, you can use the Source IDs parameter on the [Query Group](doc:query-group) method.
+
 The following types are available:
 
 #### **TYPES**
