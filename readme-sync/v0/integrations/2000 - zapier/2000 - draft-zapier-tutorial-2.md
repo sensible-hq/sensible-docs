@@ -39,7 +39,7 @@ Prerequisite: Configure Google accounts
 
 1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
 2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data. Name it `1040s_extracted`.
-3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , `Email link`, and `Extraction link`.
+3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , and `Extraction link`.
 
 Zap 1: Extract emailed 1040 doc with Sensible
 ---
@@ -72,7 +72,7 @@ See the following steps to configure Zap 1:
       1. **Document type**: 1040s
       2. **Environment**: Production
       3. **Document**: `Attachment (Exists but not shown)`.  This specify to extract from the email attachment.
-      4. **Reference**: `Attachment (Exists but not shown)`. If you were working in Google Drive, you'd input "File".
+      4. **Reference**: `Attachment (Exists but not shown)`. Note that if you were working in Google Drive, you'd select "File".
    3. Test:
       1. Click test, then verify that the extraction is in `WAITING` status
       2. Click **Publish**.
@@ -132,15 +132,33 @@ See the following steps to configure Zap 2.
 
     To log when Zap 1 and Zap 2 run, take the following actions:   
 
-    1. Setup:
+    1. Setup: 
 
-       	1. Click **Edit Zap** to edit the Zap 2.
+       1. Click **Edit Zap** to edit the Zap 2.
 
        1. Click **Add step**
-
-       1. Search for and select `Google Sheets`.
-
-   1. 
+    
+      1. Search for and select `Google Sheets`.
+      1. **Event**: Create Spreadsheet Row
+      1. **Account**: Select your Google account.
+   
+   1. Configure:
+   
+      1. **Drive**: Select your Google Drive.
+   
+      1. **Spreadsheet**: Select the `Zapier-Sensible Extractions Logs` spreadsheet you created in a previous step.
+   
+      1. **Worksheet**: Select the sheet in which you created column headings in a previous step.
+   
+      1. For each column heading you created, select the corresponding extraction information. For example:
+   
+         1. **extraction id**: ID
+   
+         1. **extraction date**: Completed
+   
+         1. **extraction link**: Embed Link
+   
+            Note that if you want to include a column containing links back to the original email URLs, you'd need to create an additional reference in Zap 1 that includes the email URL, and additionally select the corresponding webhook payload reference in Zap 2.
 
 (Optional) Test your integration
 ---
