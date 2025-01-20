@@ -57,7 +57,7 @@ See the following steps to configure Zap 1:
       1. **Label or mailbox**: Inbox and all labels
       2. **Search keywords**: `subject:1040` (This triggers on each attachment if the email's subject contains "1040")
    3. Test:
-      1. Before you click **Test trigger**, send an email to yourself with an attached 1040 document and the subject "1040".
+      1. Before you click **Test trigger**, ensure you sent an email to yourself with an attached 1040 document and the subject "1040".
       2.  Select the email attachment you sent.
 
 3. For the action, take the following steps: 
