@@ -106,15 +106,41 @@ See the following steps to configure Zap 2.
    1. Filter:
       1. Search for **Filter** and select Filter conditions.
       2. **Only continue if**: Webhook Payload Reference 1
-      3. **Condition or rule**: Exists. This ensures that you take action on the same extraction that was created in the previous Zap.
+      3. **Condition**: Exists. This ensures that you take action on the same extraction that was created in the previous Zap.
+
    2. Setup:
       1. Search for and select `Google Drive`.
       2. **Action event**: Upload file. This will upload the Excel file of extracted document data you created in the previous Zap.
       3. **Account**: Select your Google account.
+
    3. Configure:
       1. **Drive**: Select your Google drive
       2. **Folder**: Select the `1040s_extracted` folder you created in a previous step.
-      3. 
+      3. **File**: Select `New Document Extraction in Sensible`, then select `Excel Output` to select the Excel file you created in a previous Zap, which Sensible outputs to a URL.
+      4. **Convert to Document**: True
+      5. **File Name**: Choose `New Document Extraction in Sensible`,  then select `ID` to name the uploaded file after the Sensible extraction ID.
+
+   4. Test:
+
+      1. Click **Test Step**.
+
+      2. Navigate to the `1040s_extracted` Google Drive folder you created in a previous step and verify it now contains a spreadsheet with extracted document data, for example:
+
+         ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_spreadsheet.png) 
+
+4. (Optional): Log zapier actions
+
+    To log when Zap 1 and Zap 2 run, take the following actions:   
+
+    1. Setup:
+
+       	1. Click **Edit Zap** to edit the Zap 2.
+
+       1. Click **Add step**
+
+       1. Search for and select `Google Sheets`.
+
+   1. 
 
 (Optional) Test your integration
 ---
