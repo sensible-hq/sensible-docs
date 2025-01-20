@@ -128,37 +128,25 @@ See the following steps to configure Zap 2.
 
          ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_spreadsheet.png) 
 
-4. (Optional): Log zapier actions
+4. (Optional): Log zapier actions: To log when Zap 1 and Zap 2 run, take the following actions:
 
-    To log when Zap 1 and Zap 2 run, take the following actions:   
-
-    1. Setup: 
-
+   1. Setup: 
        1. Click **Edit Zap** to edit the Zap 2.
+       2. Click **Add step**
+       3. Search for and select `Google Sheets`.
+       4. **Event**: Create Spreadsheet Row
+       5. **Account**: Select your Google account.
 
-       1. Click **Add step**
-    
-      1. Search for and select `Google Sheets`.
-      1. **Event**: Create Spreadsheet Row
-      1. **Account**: Select your Google account.
-   
-   1. Configure:
-   
-      1. **Drive**: Select your Google Drive.
-   
-      1. **Spreadsheet**: Select the `Zapier-Sensible Extractions Logs` spreadsheet you created in a previous step.
-   
-      1. **Worksheet**: Select the sheet in which you created column headings in a previous step.
-   
-      1. For each column heading you created, select the corresponding extraction information. For example:
-   
-         1. **extraction id**: ID
-   
-         1. **extraction date**: Completed
-   
-         1. **extraction link**: Embed Link
-   
-            Note that if you want to include a column containing links back to the original email URLs, you'd need to create an additional reference in Zap 1 that includes the email URL, and additionally select the corresponding webhook payload reference in Zap 2.
+   2. Configure:
+       1. **Drive**: Select your Google Drive.
+       2. **Spreadsheet**: Select the `Zapier-Sensible Extractions Logs` spreadsheet you created in a previous step.
+       3. **Worksheet**: Select the sheet in which you created column headings in a previous step.
+       4. For each column heading you created, select the corresponding extraction information. For example:
+           1. **extraction id**: ID
+           2. **extraction date**: Completed
+           3. **Extraction link**: Embed Link
+           4. Use additional references and webhook payloads to log addition information from Zap 1. For example, if you want to include a column containing links back to the original email URLs, you'd need to create an additional reference in Zap 1 that includes the email URL, and additionally select the corresponding webhook payload reference in Zap 2. 
+
 
 (Optional) Test your integration
 ---
