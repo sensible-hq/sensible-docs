@@ -1,29 +1,19 @@
 ---
 title: "JsonLogic extensions"
-hidden: false
+hidden: true
 ---
 
-JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. 
+TODO: add link to LOG
 
-Sensible supports both built-in and extended JsonLogic operators:
+## Log
 
-- For a Sensible-specific tutorial, see [The opinionated guide to JsonLogic for transforming document data](https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data).
-- For information about built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
-- Sensible supports extended operations available in the Json Logic Engine.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
-  - Array operations: `"length"`, `"get"`. 
-  - Miscellaneous operations: `"preserve"`, `"keys"`. 
-  - Higher order operations: `"every"`, [`"eachKey"`](https://json-logic.github.io/json-logic-engine/docs/higher). 
--  Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
+Note that this operation replaces the native  [JsonLogic](https://jsonlogic.com/operations.html#log) operation.
 
-| Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
-| -------------------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
-| [Exists](doc:jsonlogic#exists)   | ✅                                       | ✅                                                   | ✅                                  |
-| [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
-| [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
-| [Object](doc:jsonlogic#object)   | ✅                                       | ✅                                                   | ✅                                  |
-| [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
+Takes as input an array, where the first argument is the log message and the second is a JsonLogic expression you want to evaluate. Sensible returns the extracted document data unmodified. To view the results of the Log operation,  see the `errors` array of the API extraction response, or in the **Errors** tab of the JSON editor's output pane. 
 
-See the following sections for more information.
+LEFT OFF: find an example with traversal, look in my blog post/notion post?
+
+
 
 ## Exists
 
