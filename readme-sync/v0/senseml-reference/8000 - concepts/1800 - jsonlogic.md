@@ -19,7 +19,7 @@ Sensible supports both built-in and extended JsonLogic operators:
 | -------------------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
 | [Exists](doc:jsonlogic#exists)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
-| [Log](doc:jsonlogic#log)         |                                         | ✅                                                   |                                    |
+| [Log](doc:jsonlogic#log)         | ❌                                       | ✅                                                   | ❌                                  |
 | [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
 | [Object](doc:jsonlogic#object)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
