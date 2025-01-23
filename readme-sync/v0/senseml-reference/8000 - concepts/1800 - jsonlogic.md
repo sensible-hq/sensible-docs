@@ -19,6 +19,7 @@ Sensible supports both built-in and extended JsonLogic operators:
 | -------------------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
 | [Exists](doc:jsonlogic#exists)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
+| [Log](doc:jsonlogic#log)         |                                         | ✅                                                   |                                    |
 | [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
 | [Object](doc:jsonlogic#object)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
@@ -158,6 +159,29 @@ returns the following:
   ]
 }
 ```
+
+## Log
+
+Note that this operation replaces the native  [JsonLogic](https://jsonlogic.com/operations.html#log) operation.
+
+Takes as input an array, where the first argument is the log message and the second is a JsonLogic expression you want to evaluate. 
+
+```json
+{
+    "log": [
+        "log message",
+         JsonLogic
+    ]
+}
+```
+
+By default, the log operation doesn't modify extracted document data. It returns its results as errors.  If you want to view log results as an extracted field instead of as an error, define a field that uses the Custom Computation method and specifies the log operation as its top-level JsonLogic operation.
+
+To view the results of the Log operation,  see the `errors` array of the API extraction response, or in the **Errors** tab of the JSON editor's output pane. 
+
+### Examples
+
+See [Advanced: Transform sections data](doc:sections-example-copy-to-section).
 
 ## Match
 
