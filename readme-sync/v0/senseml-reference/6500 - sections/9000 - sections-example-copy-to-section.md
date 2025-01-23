@@ -98,7 +98,7 @@ The following example shows using computed fields to transform sections data. Th
             "jsonLogic": {
               /*
           print the value for ../_raw_policy_name as a field using the
-          "log" operator to ensure you're at the right level
+          "log" operator to ensure you're at the right traversal level
            */
               "log": [
                 "testing traversal for policy number w/ output as field",
