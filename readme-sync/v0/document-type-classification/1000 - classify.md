@@ -5,9 +5,9 @@ hidden: false
 
 Sensible supports two levels of document classification:
 
-1. Classify a document by its similarity to each document type you define in your Sensible account. 
+1. Classify a document by its similarity to document types you define in your Sensible account. For example, classify a document as a `1040s` document type or a `pay_stubs` document type.
 
-2. Classify a document by its subtype during the extraction workflow. By default, Sensible performs this step automatically.  For more information, see [Devops platform](doc:devops-platform).
+2. Classify a document by its subtype during the extraction workflow. By default, Sensible performs this step automatically.  For example, classify a document as a `1040_2018` or `1040_2019` subtype (or "config"). For more information, see [Devops platform](doc:devops-platform).
 
 This topic covers classifying a document by its type.
 
@@ -22,7 +22,7 @@ Sensible uses a document type's name and its description for LLM-based classific
 - If Sensible doesn't find an existing document type to which to match your document in your account, it returns an error.
 - Since Sensible doesn't use configs or reference documents for classification, Sensible can classify documents into your document types even if the document type lacks a config or example. For example, if you lack a  `citibank` config or reference document in your `bank_statements` type, Sensible can still classify a  `2023-1-1_citbank_statement_jon_doe.pdf` document as a bank statement. 
 
- To improve classification results, describe each document type in your account in its **Settings** tab. For examples of descriptions, see [Document type descriptions](doc:descriptions). 
+ To improve classification results, describe each document type in your account in its **Settings** tab. For examples of descriptions, see [Document type descriptions](doc:descriptions).  By default, Sensible classifies a document using all the types you define in your account. You can optionally define a subset of document types for classifying a document.
 
 Use document type classification:
 

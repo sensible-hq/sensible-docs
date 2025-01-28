@@ -89,6 +89,9 @@ paths:
         To post the document bytes, specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,"application/pdf" or "image/jpeg".
         
         For supported file size and types, see [Supported file types](doc:file-types).
+            
+      parameters:
+        - $ref: '#/components/parameters/document_types'
       requestBody:
         $ref: '#/components/requestBodies/SupportedFileTypes'
 
@@ -167,13 +170,12 @@ components:
             type: string
             example: Sensible encountered an unknown error
   parameters:
-    # todo improve description
     document_types:
       name: document_types
       in: query
       description: >-
-        Comma-delimited list of document types for Sensible to compare
-        when classfying this type.
+        Comma-delimited list of document types Sensible uses to classify the document. 
+        If you don't specify this, Sensible uses all the document types you define in your account.
       schema:
         type: array
         items:
