@@ -91,6 +91,8 @@ The following example shows using computed fields to transform sections data. Th
           JSON output. e.g., use
           ../_raw_policy_name since it's in a parent array
           */
+          
+        /* as an alternative to this syntax, see the copy_to_section method */
         {
           "id": "print_policy_no",
           "method": {
@@ -120,12 +122,16 @@ The following example shows using computed fields to transform sections data. Th
         },
         {
           /* copy the policy name and policy number from the parent `fields`
-            array into each section in the `claims_sections` array,
-            and concatenate them w/ an underscore separator */
+            array into each section in the `claims_sections` array */
+            
+          /* as an alternative to this syntax, see the copy_to_section method */
+            
+            
           "id": "policy_name_and_number",
           "method": {
             "id": "customComputation",
             "jsonLogic": {
+              /* concat the policy nam + number w/ an underscore separator */  
               "cat": [
                 {
                   
