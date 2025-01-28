@@ -41,6 +41,9 @@ paths:
         For supported file size and types, see [Supported file types](doc:file-types).
 
       
+      parameters:
+        - $ref: '#/components/parameters/document_types'
+
       requestBody:
         $ref: '#/components/requestBodies/SupportedFileTypes'
 
@@ -163,7 +166,17 @@ components:
             title: Sensible encountered an unknown error
             type: string
             example: Sensible encountered an unknown error
-  #parameters:
+  parameters:
+    # todo improve description
+    document_types:
+      name: document_types
+      in: query
+      description: >-
+        Comma-delimited list of document types for Sensible to compare
+        when classfying this type.
+      schema:
+        type: array
+      example: 1040s, pay_stubs, bank_statements
 
   securitySchemes:
     bearerAuth:       # arbitrary name for the security scheme

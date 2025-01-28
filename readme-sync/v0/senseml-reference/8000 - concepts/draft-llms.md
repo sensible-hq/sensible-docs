@@ -10,6 +10,10 @@ title: "Configure/troubleshoot LLMs"
 - other stuff?
 - BLOG post on chaining prompts?
 
+
+
+TO DOs: -- search by summarization is NOT global; NLP table don't support it.
+
 ## HOW IT WORKS
 
 
@@ -67,16 +71,31 @@ You can locate context using page summaries when you set the Search By Summariza
 Sensible's default method for locating context is as follows: 
 
 1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are usually a fraction of a page and can overlap. Configurable parameters include:
+
    - Chunk Count
    - Chunk Size
    - Chunk Overlap Percentage
    - Page Range
    - MORE, depending on the method
+
 2. Sensible selects the most relevant chunks and combines them with page-hinting data to create a "context".  Configurable parameters include:
-   1. Context Description
-   2. MORE depending on the method
-3. Sensible creates a full prompt for the LLM that includes the context and the descriptive prompts you configure in the method. Configurable parameters include:
-   1. Context Description
+
+   1. Page Hinting
+   2. MORE depending on the method. for example, for List and Query Group, you can use the LLM Engine parameter to determine the # of relevant chunks Sensible selects as relelvant.
+
+3. Sensible creates a full prompt for the LLM that includes the context and the descriptive prompts you configure in the method. In detail, when you write a prompt using an LLM-based method, Sensible creates a full prompt using the following:
+
+   - a prompt introduction
+
+   - "context", made up of chunks excerpted from the document and of page metadata. 
+
+   - concatenated descriptive prompts you configure in an LLM-based method, such as in the [List](doc:list) or [Query Group](doc:query-group) methods.
+
+   - Configurable parameters include:
+
+     1. Context Description
+
+     1. TODO/2do: are there actually more?
 
 4. Sensible returns the LLM's response.
 
@@ -84,11 +103,7 @@ For specifics about how each LLM-based method works, see the Notes section for e
 
 You can configure a lot of the variables in the preceding steps:
 
-In detail, when you write a prompt using an LLM-based method, Sensible creates a full prompt using the following:
-
-- a prompt introduction
-- "context", made up of chunks excerpted from the document and of page metadata. For more information about chunking configuration, see the Notes section.
-- concatenated descriptive prompts you configure in an LLM-based method, such as in the [List](doc:list) or [Query Group](doc:query-group) methods.
+- 
 
 See the following image for an example of a full prompt that Sensible inputs to an LLM for the [Query Group](doc:query-group) method: 
 
@@ -96,13 +111,12 @@ See the following image for an example of a full prompt that Sensible inputs to 
 
 The following table shows parameters that configure parts of the full prompt and that are global, or common to all LLM-based methods:
 
-| key  | description                                                  | global parameters                                            |
+| key  | description                                                  | todo/2do delete this? global parameters                      |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | A    | Overall description of the chunks.<br/>The preceding image shows an example of a user-configured context description overriding the default. | Context Description                                          |
 | B    | Page metadata for chunks.                                    | Page Hinting                                                 |
 | C    | Chunks excerpted from document, concatenated into "context"  | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description fields                                           |
-|      |                                                              |                                                              |
 
 
 
