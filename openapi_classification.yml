@@ -176,6 +176,8 @@ components:
         when classfying this type.
       schema:
         type: array
+        items:
+          type: string
       example: 1040s, pay_stubs, bank_statements
 
   securitySchemes:
