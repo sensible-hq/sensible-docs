@@ -3,13 +3,6 @@ title: "Custom computation group"
 hidden: true
 ---
 
-*TODO before publish:*  
-
-- *adjust wording for custom comp group ('returns a single field')*
-- *add to the advanced-computed INDEX file*
-- *search on links to doc:custom-computation*
-- *move json logic tips from here and custom-computation (assuming all apply) to /jsonlogic topic*
-
 Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). Can return multiple fields.
 
 Parameters
@@ -27,3 +20,10 @@ Examples
 ====
 
 See [Advanced: Transform sections data](doc:sections-example-copy-to-section).
+
+*TODO before publish:*  
+
+- *adjust wording for custom comp group ('returns a single field')*
+- *add to the advanced-computed INDEX file*
+- *search on links to doc:custom-computation*
+- *move json logic tips from here and custom-computation (assuming all apply) to /jsonlogic topic*
