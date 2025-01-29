@@ -5,15 +5,31 @@ hidden: false
 
 JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. 
 
-Sensible supports both built-in and extended JsonLogic operators:
+Sensible supports both built-in and extended JsonLogic operators.
+
+### Documentation
 
 - For a Sensible-specific tutorial, see [The opinionated guide to JsonLogic for transforming document data](https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data).
+
 - For information about built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
-- Sensible supports extended operations available in the Json Logic Engine.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
+
+
+### Syntax tips
+
+- Double escape dots in field IDs. For example, `"delivery\\.zip\\.code"` to reference the field `"delivery.zip.code": 87112`. 
+- Use dot notation to access arrays, for example, `test_table.columns.3.values` to access the 4th column in a table. 
+- Use traversal notation to access data in hierarchies. For example, in a section, use `"../"` to access fields in the parent `fields` array.
+- To evaluate the current context, use `"var":""`.
+
+### Extended operations
+
+
+  Sensible supports extended operations available in the Json Logic Engine.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
+
   - Array operations: `"length"`, `"get"`. 
   - Miscellaneous operations: `"preserve"`, `"keys"`. 
   - Higher order operations: `"every"`, [`"eachKey"`](https://json-logic.github.io/json-logic-engine/docs/higher). 
--  Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
+  - Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
 | -------------------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
