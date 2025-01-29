@@ -5,7 +5,7 @@ hidden: true
 
 Sensible supports two levels of document classification:
 
-1. Classify a document by its similarity to each document type you define in your Sensible account.
+1. Classify a document by its similarity to the document types you define in your Sensible account.
 2. Classify a document by its subtype, or "config", during the extraction workflow.  
 
 This topic covers classifying a document by its subtype. You can configure the defaults for how this step is performed.
