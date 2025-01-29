@@ -32,7 +32,7 @@ As a simplified example, if you apply the rule:
 {
   "pick_fields": [
     // `"var": ""` returns the current context, in this case, a fields array
-    // you can use traversal syntax to access other levels of data hierarchy, i.e., "var:" "../.."  
+    // you can use traversal syntax to access other levels of data hierarchy, e.g., "var:" "../.."  
     { "var": "" }, 
     // the IDs of the fields to copy into this context
     ["field_morning", "field_afternoon"]
