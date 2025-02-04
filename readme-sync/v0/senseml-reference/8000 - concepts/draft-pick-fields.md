@@ -10,37 +10,23 @@ Returns the specified fields. Takes an array of two items:
 
 ```json
 {
-    "pick_fields": [
-        { sourceContext },
-        ["field_id_1", "field_id_2", "field_id_3"]
-    ]
+  "pick_fields": [
+    sourceObject,
+    ["field_id_1", "field_id_2", "field_id_3"]
+  ]
 }
 ```
 
-returns an empty object if:
+`pick_fields` will return an empty object if:
 
 - you pass an empty array as the second argument, or if Sensible can't find the specified field IDs
--  if the source is empty, null, or undefined
+- if the source is empty, null, or undefined
 
 ### Examples
 
 #### Example 1
 
-As a simplified example, if you apply the rule:
-
-```json
-{
-  "pick_fields": [
-    // `"var": ""` returns the current context, in this case, a fields array
-    // you can use traversal syntax to access other levels of data hierarchy, e.g., "var:" "../.."  
-    { "var": "" }, 
-    // the IDs of the fields to copy into this context
-    ["field_morning", "field_afternoon"]
-  ]
-}
-```
-
-to the following extracted fields:
+As a simplified example, given the following extracted fields:
 
 ```json
 {
@@ -50,7 +36,20 @@ to the following extracted fields:
 }
 ```
 
-then the Pick Fields operator outputs:
+if you apply the rule:
+
+```json
+{
+  "pick_fields": [
+    // `"var": ""` returns the current context, in this case, the whole object described above
+    { "var": "" },
+    // the IDs of the fields to be returned by the rule
+    ["field_morning", "field_afternoon"]
+  ]
+}
+```
+
+the rule will output:
 
 ```json
 {
