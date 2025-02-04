@@ -87,9 +87,10 @@ The following example shows using computed fields to transform sections data. Th
         },
         /* to access the `_raw_policy_number` field from
           inside the `claims_sections field`, use
-          ../../ syntax to traverse levels of scope in the
-          JSON output. e.g., use
-          ../_raw_policy_name since it's in a parent array
+          ../ syntax to traverse levels of scope in the
+          JSON output. e.g., use ../_raw_policy_name since 
+          it's in the parent object, one level above the
+          "claims_sections" array
           */
           
         /* as an alternative to this syntax, see the copy_to_section method */
@@ -99,22 +100,13 @@ The following example shows using computed fields to transform sections data. Th
             "id": "customComputation",
             "jsonLogic": {
               /*
-          print the value for ../_raw_policy_name as a field using the
+          print the value for ../_raw_policy_number as a field using the
           "log" operator to ensure you're at the right traversal level
            */
               "log": [
                 "testing traversal for policy number w/ output as field",
                 {
-                  "var": {
-                    /* to evaluate tranversal syntax,
-                          concatenate it first,
-                          e.g., "cat" outputs 
-                          "../_raw_policy_name.value" */
-                    "cat": [
-                      "../",
-                      "_raw_policy_number.value"
-                    ]
-                  }
+                  "var": "../_raw_policy_number.value",
                 }
               ]
             },
@@ -131,7 +123,7 @@ The following example shows using computed fields to transform sections data. Th
           "method": {
             "id": "customComputation",
             "jsonLogic": {
-              /* concat the policy nam + number w/ an underscore separator */  
+              /* concat the policy name + number w/ an underscore separator */  
               "cat": [
                 {
                   
@@ -140,27 +132,13 @@ The following example shows using computed fields to transform sections data. Th
                   "log": [
                     "testing traversal for policy number, no field output",
                     {
-                      "var": {
-                        /* to evaluate tranversal syntax,
-                          concatenate it first,
-                          e.g., "cat" outputs 
-                          "../_raw_policy_name.value" */
-                        "cat": [
-                          "../",
-                          "_raw_policy_name.value"
-                        ]
-                      }
+                      "var": "../_raw_policy_name.value"
                     },
                   ]
                 },
                 "_",
                 {
-                  "var": {
-                    "cat": [
-                      "../",
-                      "_raw_policy_number.value"
-                    ]
-                  }
+                  "var": "../_raw_policy_number.value"
                 }
               ]
             }
