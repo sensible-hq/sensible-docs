@@ -1,12 +1,11 @@
 ---
 title: "Advanced: Transform sections data"
 hidden: false
-
 ---
 
 The following example shows using computed fields to transform sections data. The example:
 
-- Copies a policy number and name from the parent `fields` object to each section using the Custom Computation method. The policy number and name are listed once in the document and are relevant to each extracted claim.  To access the parent object's scope from inside each section, the method uses data-structure traversal syntax (`../`).  The example shows how to transform copied data, in this case by concatenating the copied fields. 
+- Copies a policy number and name from the parent `fields` object to each section using the Custom Computation method. The policy number and name are listed once in the document and are relevant to each extracted claim. To access the parent object's scope from inside each section, the method uses data-structure traversal syntax (`../`). The example shows how to transform copied data, in this case by concatenating the copied fields.
 - Redacts a telephone number. The example uses the Custom Computation method to replace digits in the number, and the Suppress Output method to omit the complete number from the output.
 
 **Config**
@@ -31,7 +30,7 @@ The following example shows using computed fields to transform sections data. Th
       "id": "_raw_policy_name",
       "anchor": "policy name",
       "method": {
-        "id": "row",
+        "id": "row"
       }
     },
     /*    each claim starts with "claim number" and ends with 
@@ -44,7 +43,7 @@ The following example shows using computed fields to transform sections data. Th
           "match": {
             "type": "includes",
             "text": "claim number"
-          },
+          }
         },
         "stop": {
           "type": "includes",
@@ -90,23 +89,22 @@ The following example shows using computed fields to transform sections data. Th
           fields from inside the `claims_sections field`, use ../ syntax
           to traverse levels of scope in the JSON output.
           e.g., use ../_raw_policy_name since it's in the parent object, one level above the "claims_sections" array */
-            
+
           /* as an alternative to this syntax, see the copy_to_section method */
           "id": "policy_name_and_number",
           "method": {
             "id": "customComputation",
             "jsonLogic": {
-              /* concat the policy name + number w/ an underscore separator */  
+              /* concat the policy name + number w/ an underscore separator */
               "cat": [
                 {
-                  
                   /* print a log message and field value to Errors output
                   to verify what gets returned by the logged rule */
                   "log": [
                     "testing traversal for policy name",
                     {
                       "var": "../_raw_policy_name.value"
-                    },
+                    }
                   ]
                 },
                 "_",
@@ -117,8 +115,6 @@ The following example shows using computed fields to transform sections data. Th
             }
           }
         },
-      ],
-      "computed_fields": [
         /* redact the phone number using Custom Computation method's regex replace operation */
         {
           "id": "redacted_phone_number",
@@ -130,7 +126,7 @@ The following example shows using computed fields to transform sections data. Th
                   "var": "_raw_phone_number.value"
                 },
                 "find_regex": "^.*(\\d{4})$",
-                "replace": "***$1",
+                "replace": "***$1"
               }
             }
           }
@@ -159,7 +155,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/copy_to_section.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -290,4 +286,3 @@ And the `errors` output for the log operations is as follows:
   }
 ]
 ```
-
