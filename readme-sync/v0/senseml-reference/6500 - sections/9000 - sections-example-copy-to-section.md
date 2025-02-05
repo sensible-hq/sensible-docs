@@ -91,7 +91,6 @@ The following example shows using computed fields to transform sections data. Th
           JSON output. e.g., use
           ../_raw_policy_name since it's in a parent array
           */
-          
         /* as an alternative to this syntax, see the copy_to_section method */
         {
           "id": "print_policy_no",
@@ -123,18 +122,14 @@ The following example shows using computed fields to transform sections data. Th
         {
           /* copy the policy name and policy number from the parent `fields`
             array into each section in the `claims_sections` array */
-            
           /* as an alternative to this syntax, see the copy_to_section method */
-            
-            
           "id": "policy_name_and_number",
           "method": {
             "id": "customComputation",
             "jsonLogic": {
-              /* concat the policy nam + number w/ an underscore separator */  
+              /* concat the policy nam + number w/ an underscore separator */
               "cat": [
                 {
-                  
                   /* print a log message and field value to Errors output
                      instead of fields output */
                   "log": [
@@ -166,8 +161,6 @@ The following example shows using computed fields to transform sections data. Th
             }
           }
         },
-      ],
-      "computed_fields": [
         /* redact the phone number using Custom Computation method's regex replace operation */
         {
           "id": "redacted_phone_number",
@@ -215,8 +208,9 @@ The following image shows the example document used with this example config:
 ```json
 {
   "_raw_policy_number": {
-    "type": "string",
-    "value": "5501234567"
+    "source": "5501234567",
+    "value": 5501234567,
+    "type": "number"
   },
   "_raw_policy_name": {
     "type": "string",
@@ -230,8 +224,8 @@ The following image shows the example document used with this example config:
         "type": "number"
       },
       "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
+        "value": 5501234567,
+        "type": "number"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
@@ -249,8 +243,8 @@ The following image shows the example document used with this example config:
         "type": "number"
       },
       "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
+        "value": 5501234567,
+        "type": "number"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
@@ -268,8 +262,8 @@ The following image shows the example document used with this example config:
         "type": "number"
       },
       "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
+        "value": 5501234567,
+        "type": "number"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
@@ -287,8 +281,8 @@ The following image shows the example document used with this example config:
         "type": "number"
       },
       "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
+        "value": 5501234567,
+        "type": "number"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
@@ -306,8 +300,8 @@ The following image shows the example document used with this example config:
         "type": "number"
       },
       "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
+        "value": 5501234567,
+        "type": "number"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
