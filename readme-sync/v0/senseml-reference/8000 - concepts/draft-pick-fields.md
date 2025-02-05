@@ -17,10 +17,10 @@ Returns the specified fields. Takes an array of two items:
 }
 ```
 
-`pick_fields` will return an empty object if:
+The Pick Fields operator returns an empty object if:
 
 - you pass an empty array as the second argument, or if Sensible can't find the specified field IDs
-- if the source is empty, null, or undefined
+- the source is empty, null, or undefined
 
 ### Examples
 
@@ -41,7 +41,7 @@ if you apply the rule:
 ```json
 {
   "pick_fields": [
-    // `"var": ""` returns the current context, in this case, the whole object described above
+    // `"var": ""` returns the current context, in this case, the preceding extracted fields
     { "var": "" },
     // the IDs of the fields to be returned by the rule
     ["field_morning", "field_afternoon"]
@@ -49,7 +49,7 @@ if you apply the rule:
 }
 ```
 
-the rule will output:
+the rule outputs:
 
 ```json
 {
