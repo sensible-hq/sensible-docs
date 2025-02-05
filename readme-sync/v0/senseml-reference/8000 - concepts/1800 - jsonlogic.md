@@ -191,7 +191,7 @@ Takes as input an array, where the first argument is the log message and the sec
 }
 ```
 
-The log operation doesn't modify extracted document data. It returns its results as part of the extraction errors. The data wrapped in a log operation will be passed to whatever other operations surround it as if "log" were not there. For example `{ "*": [{ "log": ["first multiplication item", { "+": [1, 2] }], 4}] }` will return a result of 12, and will show a log in the extraction errors with the fields `"message": "first multiplication item"` and `"result": 3`.
+The log operation doesn't modify extracted document data. It returns its results as part of the extraction errors. Sensible passes the data wrapped in a log operation to whatever other operations surround it as if "log" were not there. For example `{ "*": [{ "log": ["first multiplication item", { "+": [1, 2] }], 4}] }` will return a result of 12, and will show a log in the extraction errors with the fields `"message": "first multiplication item"` and `"result": 3`.
 
 To view the results of the Log operation, see the `errors` array of the API extraction response, or in the **Errors** tab of the JSON editor's output pane. 
 
