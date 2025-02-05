@@ -6,7 +6,7 @@ hidden: false
 
 The following example shows using computed fields to transform sections data. The example:
 
-- Copies a policy number and name from the parent `fields` array  to each section using the Custom Computation method. The policy number and name are listed once in the document and are relevant to each extracted claim.  To access the parent array's scope from inside each section, the method uses data-structure traversal syntax (`../`).  The example shows how to transform copied data, in this case by concatenating the copied fields. 
+- Copies a policy number and name from the parent `fields` object to each section using the Custom Computation method. The policy number and name are listed once in the document and are relevant to each extracted claim.  To access the parent object's scope from inside each section, the method uses data-structure traversal syntax (`../`).  The example shows how to transform copied data, in this case by concatenating the copied fields. 
 - Redacts a telephone number. The example uses the Custom Computation method to replace digits in the number, and the Suppress Output method to omit the complete number from the output.
 
 **Config**
@@ -85,40 +85,13 @@ The following example shows using computed fields to transform sections data. Th
             "position": "right"
           }
         },
-        /* to access the `_raw_policy_number` field from
-          inside the `claims_sections field`, use
-          ../ syntax to traverse levels of scope in the
-          JSON output. e.g., use ../_raw_policy_name since 
-          it's in the parent object, one level above the
-          "claims_sections" array
-          */
-          
-        /* as an alternative to this syntax, see the copy_to_section method */
         {
-          "id": "print_policy_no",
-          "method": {
-            "id": "customComputation",
-            "jsonLogic": {
-              /*
-          print the value for ../_raw_policy_number as a field using the
-          "log" operator to ensure you're at the right traversal level
-           */
-              "log": [
-                "testing traversal for policy number w/ output as field",
-                {
-                  "var": "../_raw_policy_number.value",
-                }
-              ]
-            },
-          }
-        },
-        {
-          /* copy the policy name and policy number from the parent `fields`
-            array into each section in the `claims_sections` array */
+          /* to access the `_raw_policy_number` and `_raw_policy_name`
+          fields from inside the `claims_sections field`, use ../ syntax
+          to traverse levels of scope in the JSON output.
+          e.g., use ../_raw_policy_name since it's in the parent object, one level above the "claims_sections" array */
             
           /* as an alternative to this syntax, see the copy_to_section method */
-            
-            
           "id": "policy_name_and_number",
           "method": {
             "id": "customComputation",
@@ -128,9 +101,9 @@ The following example shows using computed fields to transform sections data. Th
                 {
                   
                   /* print a log message and field value to Errors output
-                     instead of fields output */
+                  to verify what gets returned by the logged rule */
                   "log": [
-                    "testing traversal for policy number, no field output",
+                    "testing traversal for policy name",
                     {
                       "var": "../_raw_policy_name.value"
                     },
@@ -193,8 +166,9 @@ The following image shows the example document used with this example config:
 ```json
 {
   "_raw_policy_number": {
-    "type": "string",
-    "value": "5501234567"
+    "source": "5501234567",
+    "value": 5501234567,
+    "type": "number"
   },
   "_raw_policy_name": {
     "type": "string",
@@ -206,10 +180,6 @@ The following image shows the example document used with this example config:
         "source": "1223456789",
         "value": 1223456789,
         "type": "number"
-      },
-      "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
@@ -226,10 +196,6 @@ The following image shows the example document used with this example config:
         "value": 9876543211,
         "type": "number"
       },
-      "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
-      },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
         "type": "string"
@@ -244,10 +210,6 @@ The following image shows the example document used with this example config:
         "source": "6785439210",
         "value": 6785439210,
         "type": "number"
-      },
-      "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
@@ -264,10 +226,6 @@ The following image shows the example document used with this example config:
         "value": 7235439210,
         "type": "number"
       },
-      "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
-      },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
         "type": "string"
@@ -282,10 +240,6 @@ The following image shows the example document used with this example config:
         "source": "8235439211",
         "value": 8235439211,
         "type": "number"
-      },
-      "print_policy_no": {
-        "value": "5501234567",
-        "type": "string"
       },
       "policy_name_and_number": {
         "value": "National Landscaping Solutions_5501234567",
@@ -306,61 +260,31 @@ And the `errors` output for the log operations is as follows:
 [
   {
     "type": "log",
-    "message": "testing traversal for policy number w/ output as field",
-    "result": "5501234567",
-    "field_id": "claims_sections.undefined"
-  },
-  {
-    "type": "log",
-    "message": "testing traversal for policy number, no field output",
+    "message": "testing traversal for policy name",
     "result": "National Landscaping Solutions",
     "field_id": "claims_sections.undefined"
   },
   {
     "type": "log",
-    "message": "testing traversal for policy number w/ output as field",
-    "result": "5501234567",
-    "field_id": "claims_sections.undefined"
-  },
-  {
-    "type": "log",
-    "message": "testing traversal for policy number, no field output",
+    "message": "testing traversal for policy name",
     "result": "National Landscaping Solutions",
     "field_id": "claims_sections.undefined"
   },
   {
     "type": "log",
-    "message": "testing traversal for policy number w/ output as field",
-    "result": "5501234567",
-    "field_id": "claims_sections.undefined"
-  },
-  {
-    "type": "log",
-    "message": "testing traversal for policy number, no field output",
+    "message": "testing traversal for policy name",
     "result": "National Landscaping Solutions",
     "field_id": "claims_sections.undefined"
   },
   {
     "type": "log",
-    "message": "testing traversal for policy number w/ output as field",
-    "result": "5501234567",
-    "field_id": "claims_sections.undefined"
-  },
-  {
-    "type": "log",
-    "message": "testing traversal for policy number, no field output",
+    "message": "testing traversal for policy name",
     "result": "National Landscaping Solutions",
     "field_id": "claims_sections.undefined"
   },
   {
     "type": "log",
-    "message": "testing traversal for policy number w/ output as field",
-    "result": "5501234567",
-    "field_id": "claims_sections.undefined"
-  },
-  {
-    "type": "log",
-    "message": "testing traversal for policy number, no field output",
+    "message": "testing traversal for policy name",
     "result": "National Landscaping Solutions",
     "field_id": "claims_sections.undefined"
   }
