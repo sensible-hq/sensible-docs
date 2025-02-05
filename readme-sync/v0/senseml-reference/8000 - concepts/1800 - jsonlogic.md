@@ -11,31 +11,32 @@ Sensible supports both built-in and extended JsonLogic operators.
 
 - For a Sensible-specific tutorial, see [The opinionated guide to JsonLogic for transforming document data](https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data).
 
-- For information about built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
+- For information about the base built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 
 
 ### Syntax tips
 
 - Double escape dots in field IDs. For example, `"delivery\\.zip\\.code"` to reference the field `"delivery.zip.code": 87112`. 
-- Use dot notation to access arrays, for example, `test_table.columns.3.values` to access the 4th column in a table. 
-- Use traversal notation to access data in hierarchies. For example, in a section, use `"../"` to access fields in the parent `fields` array.
+- Use dot notation to access properties of an object (by name) or items in an array (by index), for example, `test_table.columns.3.values` to access the 4th column in a table. 
+- Use traversal notation to access data in hierarchies. For example, from within a section, use `"../"` to access fields in the parent object.
 - To evaluate the current context, use `"var":""`.
 
 ### Extended operations
 
 
-  Sensible supports extended operations available in the Json Logic Engine.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs/math). For example, this engine includes the following extended operations:
+  Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes (but is not limited to) the following extended operations:
 
   - Array operations: `"length"`, `"get"`. 
   - Miscellaneous operations: `"preserve"`, `"keys"`. 
-  - Higher order operations: `"every"`, [`"eachKey"`](https://json-logic.github.io/json-logic-engine/docs/higher). 
-  - Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
+  - [Higher order operations](https://json-logic.github.io/json-logic-engine/docs/higher): `"every"`, `"eachKey"`
+  
+  Sensible also extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                        | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) method | [Postprocessor](doc:postprocessor) |
 | -------------------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------------------- |
 | [Exists](doc:jsonlogic#exists)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten) | ✅                                       | ✅                                                   | ✅                                  |
-| [Log](doc:jsonlogic#log)         | ❌                                       | ✅                                                   | ❌                                  |
+| [Log](doc:jsonlogic#log)         | ✅                                       | ✅                                                   | ✅                                  |
 | [Match](doc:jsonlogic#match)     | ✅                                       | ✅                                                   | ✅                                  |
 | [Object](doc:jsonlogic#object)   | ✅                                       | ✅                                                   | ✅                                  |
 | [Replace](doc:jsonlogic#replace) | ✅                                       | ✅                                                   | ✅                                  |
@@ -48,13 +49,11 @@ Returns a boolean to indicate if the specified value exists.
 
 ```json
 {
-    "exists": [
-        JsonLogic
-    ]
+    "exists": JsonLogic
 }
 ```
 
-Most commonly used with the JsonLogic `var`  operation to test that an output value isn't null. The  `var` operation retrieves extracted field values using field `id` keys. 
+Most commonly used with the JsonLogic `var` operation to test that an output value isn't null. Returns true if the value being evaluated is neither null nor undefined. Can take an array (where it will check the first item only) or a single value (e.g., `{ "exists": [{ "var": "some_field" }] }` or `{ "exists": { "var": "some_field" } }`).
 
 ### Examples
 
@@ -62,11 +61,11 @@ See [Validating extractions](doc:validate-extractions#examples).
 
 ## Flatten
 
-Takes as input an array that can contain nested arrays, and returns a single-level array populated with the same values.  This operation is similar to the built-in JsonLogic [merge](https://jsonlogic.com/operations.html#merge) operation, except that it's recursive to any depth. 
+Takes as input an array that can contain any depth of nested arrays, and returns a single-level array populated with the same values.
 
 ### Examples
 
-The following example shows that the Flatten operation's output varies depending on the context.
+The following example uses Flatten, and also shows how JsonLogic output may be reshaped when used as part of custom computation.
 
 ````json
 {
@@ -95,8 +94,9 @@ The following example shows that the Flatten operation's output varies depending
     }
   },
   /* since the output must be a field or fields,
-     wraps the returned output in value/type syntax, 
-     i.e., `{ "value": 1, "type": "number" }, { "value": 2, "type": "number" }, ... ]` */
+     custom computation wraps the returned output
+     in value/type syntax, i.e., `{ "value": 1, "type": "number" },
+     { "value": 2, "type": "number" }, ... ]` */
   "computed_fields": [
     {
       "id": "flatten_in_custom_comp",
@@ -178,7 +178,7 @@ returns the following:
 
 ## Log
 
-Note that this operation replaces the native  [JsonLogic](https://jsonlogic.com/operations.html#log) operation.
+Note that this operation replaces the native [JsonLogic](https://jsonlogic.com/operations.html#log) operation.
 
 Takes as input an array, where the first argument is the log message and the second is a JsonLogic expression you want to evaluate. 
 
@@ -191,9 +191,9 @@ Takes as input an array, where the first argument is the log message and the sec
 }
 ```
 
-By default, the log operation doesn't modify extracted document data. It returns its results as errors.  If you want to view log results as an extracted field instead of as an error, define a field that uses the Custom Computation method and specifies the log operation as its top-level JsonLogic operation.
+The log operation doesn't modify extracted document data. It returns its results as part of the extraction errors. The data wrapped in a log operation will be passed to whatever other operations surround it as if "log" were not there. For example `{ "*": [{ "log": ["first multiplication item", { "+": [1, 2] }], 4}] }` will return a result of 12, and will show a log in the extraction errors with the fields `"message": "first multiplication item"` and `"result": 3`.
 
-To view the results of the Log operation,  see the `errors` array of the API extraction response, or in the **Errors** tab of the JSON editor's output pane. 
+To view the results of the Log operation, see the `errors` array of the API extraction response, or in the **Errors** tab of the JSON editor's output pane. 
 
 ### Examples
 
@@ -236,6 +236,8 @@ Returns a JSON object that is an array of key/value pairs. You can nest object o
 }
 ```
 
+### Examples
+
 
 ## Replace
 
@@ -247,8 +249,8 @@ One of the following syntaxes:
 {
     "replace": {
         "source": JsonLogic,
-        "find": JsonLogic
-        "replace": JsonLogic
+        "find": string, // or JsonLogic that evaluates to string
+        "replace": string // or JsonLogic that evaluates to string
     }
 }
 ```
@@ -259,14 +261,14 @@ Or:
 {
     "replace": {
         "source": JsonLogic,
-        "find_regex": regex
-        "replace": JsonLogic,
-        "flags": "i" //optional
+        "find_regex": regex,
+        "replace": string, // or JsonLogic that evaluates to string
+        "flags": "i" // optional
     }
 }
 ```
 
-Where `regex` is a Javascript-flavored regular expression.  Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation supports:
+Where `regex` is a Javascript-flavored regular expression. Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s`, to represent a whitespace character). This operation supports:
 
 - regex capturing groups
 - regex flags, such as `i` for case insensitive. 
@@ -274,8 +276,3 @@ Where `regex` is a Javascript-flavored regular expression.  Double escape specia
 ### Examples
 
  See [Custom Computation](doc:custom-computation#examples).
-
-
-
-
-
