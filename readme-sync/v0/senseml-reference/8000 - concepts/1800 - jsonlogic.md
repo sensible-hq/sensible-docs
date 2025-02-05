@@ -24,7 +24,7 @@ Sensible supports both built-in and extended JsonLogic operators.
 ### Extended operations
 
 
-  Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes (but is not limited to) the following extended operations:
+  Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
 
   - Array operations: `"length"`, `"get"`. 
   - Miscellaneous operations: `"preserve"`, `"keys"`. 
@@ -45,7 +45,7 @@ See the following sections for more information.
 
 ## Exists
 
-Returns a boolean to indicate if the specified value exists.
+Returns a boolean to indicate if the specified value exists. Returns false if the value is null or undefined.
 
 ```json
 {
@@ -53,7 +53,9 @@ Returns a boolean to indicate if the specified value exists.
 }
 ```
 
-Most commonly used with the JsonLogic `var` operation to test that an output value isn't null. Returns true if the value being evaluated is neither null nor undefined. Can take an array (where it will check the first item only) or a single value (e.g., `{ "exists": [{ "var": "some_field" }] }` or `{ "exists": { "var": "some_field" } }`).
+Most commonly used with the JsonLogic `var` operation to test a field's output. Accepts as input:
+- a single value, e.g., `{ "exists": { "var": "some_field" } }`)
+- an array, in which case it checks the first item only, e.g., `{ "exists": [{ "var": "some_field" },...,] }`
 
 ### Examples
 
