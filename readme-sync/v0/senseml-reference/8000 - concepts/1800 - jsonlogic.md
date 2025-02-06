@@ -32,15 +32,15 @@ Sensible supports both built-in and extended JsonLogic operators.
 
   Sensible also extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
 
-| Operation                                | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) methods         | [Postprocessor](doc:postprocessor) |
-| ---------------------------------------- | --------------------------------------- | ------------------------------------------------------------ | ---------------------------------- |
-| [Exists](doc:jsonlogic#exists)           | ✅                                       | ✅                                                            | ✅                                  |
-| [Flatten](doc:jsonlogic#flatten)         | ✅                                       | ✅                                                            | ✅                                  |
-| [Log](doc:jsonlogic#log)                 | ✅                                       | ✅                                                            | ✅                                  |
-| [Match](doc:jsonlogic#match)             | ✅                                       | ✅                                                            | ✅                                  |
-| [Object](doc:jsonlogic#object)           | ✅                                       | ✅                                                            | ✅                                  |
-| [Pick Fields](doc:jsonlogic#pick-fields) | ✅                                       | ✅ ([Custom Computation Group](doc:custom-computation-group) method only) |                                    |
-| [Replace](doc:jsonlogic#replace)         | ✅                                       | ✅                                                            | ✅                                  |
+| Operation                                | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) methods | [Postprocessor](doc:postprocessor) |
+| ---------------------------------------- | --------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
+| [Exists](doc:jsonlogic#exists)           | ✅                                       | ✅                                                    | ✅                                  |
+| [Flatten](doc:jsonlogic#flatten)         | ✅                                       | ✅                                                    | ✅                                  |
+| [Log](doc:jsonlogic#log)                 | ✅                                       | ✅                                                    | ✅                                  |
+| [Match](doc:jsonlogic#match)             | ✅                                       | ✅                                                    | ✅                                  |
+| [Object](doc:jsonlogic#object)           | ✅                                       | ✅                                                    | ✅                                  |
+| [Pick Fields](doc:jsonlogic#pick-fields) | ✅                                       | ✅                                                    | ✅                                  |
+| [Replace](doc:jsonlogic#replace)         | ✅                                       | ✅                                                    | ✅                                  |
 
 See the following sections for more information.
 
