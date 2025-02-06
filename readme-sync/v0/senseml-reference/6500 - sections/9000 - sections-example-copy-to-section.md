@@ -136,8 +136,6 @@ The following example shows using computed fields to transform sections data. Th
           "method": {
             "id": "suppressOutput",
             "source_ids": [
-              "copied_policy_name",
-              "copied_policy_number",
               "_raw_phone_number"
             ]
           }
