@@ -54,7 +54,10 @@ Returns a boolean to indicate if the specified value exists. Returns false if th
 }
 ```
 
-Most commonly used with the JsonLogic `var` operation to test a field's output. Accepts as input:
+Most commonly used with the JsonLogic `var` operation to test a field's output. 
+
+Accepts as input:
+
 - a single value, e.g., `{ "exists": { "var": "some_field" } }`)
 - an array, in which case it checks the first item only, e.g., `{ "exists": [{ "var": "some_field" },...,] }`
 

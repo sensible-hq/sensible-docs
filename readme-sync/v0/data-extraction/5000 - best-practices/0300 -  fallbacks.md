@@ -8,11 +8,19 @@ Use Sensible's fallback mechanisms to solve missing or inaccurately extracted da
 - You can fall back from one field to another, allowing you to try multiple methods or prompts to extract a target piece of data from a single document.
 - You can fall back from one config to another, allowing you to try multiple configs on a single document and pick the winning config. Specify fallback configs using [fingerprints](https://docs.sensible.so/docs/fingerprint).
 
-For examples of both strategies, see the following sections.
+For more information, see the following sections.
 
 ## Fallback fields
 
-Use fallback fields to define alternate methods of extracting the same target data. This enables you to use a single configuration to extract data from similar documents whose formatting can vary.
+If a field fails to extract data, you can specify a backup, or fallback field to target the same data with a different method. To specify fallbacks between fields, specify consecutive fields that use the same ID. 
+
+Use fallback fields to define alternate methods of extracting the same target data. This enables you to use a single configuration to extract data from similar documents whose formatting can vary. For example, say you want to extract a "total amount" field which appears in a table in document revision A and in a free-text paragraph in document revision B. You can define two fields in one configuration with the same ID (`total_amount`), which use the Row method and the Query Group method, respectively. 
+
+A field evaluates as "failed" and falls back if it returns an empty array, null, or undefined. A field evaluates to "passed" and doesn't fall back if it returns an empty string or 0. Fallback fields can be of any kind. For example, you can fallback from a field, to a computed field, to a section group.<br/>
+
+**Limitations:**<br/>- Fallbacks don't work across nested structures. For example, you can't fall back from a parent section group's field to a child section group's field.<br/>- Fallbacks don't work within a Query Group method. To specify fallback fields, define each one in a separate query group.
+
+
 
 ### Example 1
 
