@@ -9,7 +9,7 @@ hidden: false
 - If Sensible extracted a field from OCR'd text,  test the confidence score for the field's anchor and value as a measure of the quality of the text images. For example, test that text in a scanned document isn't blurry or illegible.
 - Use validation output to automatically flag extractions for [review](doc:human-review) in the Sensible app. For example, flag a document extraction for [human review](doc:human-review) if 4 out of 5  validations fail.
 
-A validation is a condition for a field or fields written in [JsonLogic](doc:jsonlogic)  that evaluate to true or false and either passes or fails.  Validations have access to fields' values in the `parsed_document` object. 
+A validation is a condition for a field or fields written in [JsonLogic](doc:jsonlogic)  that outputs a Boolean and either passes (for `true` output) or fails (for `false` output).  Validations have access to fields' values in the `parsed_document` object. 
 
 Create validations
 ----
