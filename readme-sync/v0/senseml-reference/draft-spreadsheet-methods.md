@@ -3,9 +3,16 @@ title: "Cell Rows"
 hidden: true
 ---
 
+TODO: impacted topics:
+
+- overview
+- SenseML reference introduction
+- devops platform
+- 'alternative to...' (sections? ROW METHOD?? TABLE METHODS TOPIC?)
+
 ## parent topic:
 
-Spreadsheet methods
+In general, you can use SenseML methods to extract data from spreadsheets. See the following information for a method specific to very long spreadsheets/ for optiizing performance when yo uwant to extract thousands or millions of spreadsheet rows.
 
 See child topics for methods specific to extracting data from spreadsheets.
 
@@ -13,7 +20,7 @@ See child topics for methods specific to extracting data from spreadsheets.
 
 Extracts rows from a spreadsheet, where the rows are all under a single row of headings. Use this method as an alternative to more general SenseML methods to optimize speed of extraction for lengthy spreadsheets (i.e. contain thousands or millions of rows). 
 
-TODO: a screenshot here of the typical layout captured.
+TODO: a screenshot here of the typical layout captured + maybe a YAML version of the senseml to capture it
 
 
 
