@@ -40,10 +40,10 @@ QUESTION: can you use global parameters for methods? NO YOU CANNOT; how to phras
 
 Note: The [method](doc:method) object's global parameters aren't available for this method.
 
-| key               | value                                                      | description                                                  |
-| ----------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `cell`                                                     | Extracts all lines in a cell in a spreadsheet.               |
-| header            | A [Match](doc:match) object or array of Match objects<br/> | Use this parameter to fine tune box recognition. Defines the starting point for the box recognition relative to the anchor. For example, `right` specifies starting at the midpoint of the anchor line's right boundary, and `below` specifies starting at the midpoint of the anchor line's bottom boundary.  Sensible searches outward from this point until it finds dark pixels signifying the box border. <br/> For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
+| key               | value                                            | description                                                  |
+| ----------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| id (**required**) | `cell`                                           | Extracts all the lines in a cell in a spreadsheet **IN A REPEATING MANNER** -> how to word it? |
+| header            | Anchor object (or is it a match object TODO/2do) | *An anchor object that defines an intersection with a column heading in the row specified by the field-level Header Row parameter. <br/*> For the specified column heading (contained in the Header Row), Sensible finds that header cell, then extracts each cell in each row that falls in that column  Sensible works down the column and ends when UNTIL WHEN? empty row cell? |
 
 ## Examples
 
