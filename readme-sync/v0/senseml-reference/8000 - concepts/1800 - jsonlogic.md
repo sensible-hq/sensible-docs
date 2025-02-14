@@ -23,8 +23,8 @@ Sensible supports both built-in and extended JsonLogic operators.
 
 ### Syntax tips
 
-- Double escape dots in field IDs. For example, `"delivery\\.zip\\.code"` to reference the field `"delivery.zip.code": 87112`. 
 - Use dot notation to access properties of an object (by name) or items in an array (by index), for example, `test_table.columns.3.values` to access the 4th column in a table. 
+- Double escape dots in field IDs. For example, `"delivery\\.zip\\.code.value"` to reference `87112` in the field `{"delivery.zip.code":{"value":87112}}`. 
 - Use traversal notation to access data in hierarchies. For example, from within a section, use `"../"` to access fields in the parent object.
 - To evaluate the current context, use `"var":""`.
 
