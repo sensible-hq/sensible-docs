@@ -13,6 +13,13 @@ Sensible supports both built-in and extended JsonLogic operators.
 
 - For information about the base built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 
+-   Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
+
+    - Array operations: `"length"`, `"get"`. 
+    - Miscellaneous operations: `"preserve"`, `"keys"`. 
+    - [Higher order operations](https://json-logic.github.io/json-logic-engine/docs/higher): `"every"`, `"eachKey"`
+
+
 
 ### Syntax tips
 
@@ -21,16 +28,9 @@ Sensible supports both built-in and extended JsonLogic operators.
 - Use traversal notation to access data in hierarchies. For example, from within a section, use `"../"` to access fields in the parent object.
 - To evaluate the current context, use `"var":""`.
 
-### Extended operations
+### Sensible-specific operations
 
-
-  Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
-
-  - Array operations: `"length"`, `"get"`. 
-  - Miscellaneous operations: `"preserve"`, `"keys"`. 
-  - [Higher order operations](https://json-logic.github.io/json-logic-engine/docs/higher): `"every"`, `"eachKey"`
-
-  Sensible also extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
+Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                                | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) methods | [Postprocessor](doc:postprocessor) |
 | ---------------------------------------- | --------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
