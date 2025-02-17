@@ -12,7 +12,7 @@ TODO: impacted topics:
 
 ## parent topic:
 
- See the following information for a method specific to very long spreadsheets/ for optiizing performance when yo uwant to extract thousands or millions of spreadsheet rows. This method is an alternative to more general-purpose  SenseML methods, which are also compatible with spreadsheets.
+ See the following information for a method specific to very long spreadsheets/ for optimizing performance when yo uwant to extract thousands or millions of spreadsheet rows. This method is an alternative to more general-purpose  SenseML methods, which are also compatible with spreadsheets.
 
 See child topics for methods specific to extracting data from spreadsheets.
 
