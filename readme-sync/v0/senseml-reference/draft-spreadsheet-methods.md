@@ -12,7 +12,7 @@ TODO: impacted topics:
 
 ## parent topic:
 
-In general, you can use SenseML methods to extract data from spreadsheets. See the following information for a method specific to very long spreadsheets/ for optiizing performance when yo uwant to extract thousands or millions of spreadsheet rows.
+ See the following information for a method specific to very long spreadsheets/ for optiizing performance when yo uwant to extract thousands or millions of spreadsheet rows. This method is an alternative to more general-purpose  SenseML methods, which are also compatible with spreadsheets.
 
 See child topics for methods specific to extracting data from spreadsheets.
 
@@ -22,12 +22,18 @@ Extracts rows from a spreadsheet, where the rows are all under a single row of h
 
 TODO: a screenshot here of the typical layout captured + maybe a YAML version of the senseml to capture it
 
+TODO: it kinda seems like Sensible ignores empty rows and columns, right? so note that here *and* in the file-tyes notes
 
+- or maybe it's more complicated? seems like for a moment there they didn't render, but now they do render, but Sensible ignores them. so it must just go to the end of the file for ending the rows
 
 TODO/2q: remember to refer the reader to file-types notes on how Sensible STANDARDIZES spreadsheets?
 
 Parameters
 ====
+
+TODO: note that this won't work on a spreadsheet converted to a PDF before Sensible got its hands on it. you've got to upload the spreadsheeet as is so that Sensible can do its conversion/standardization process
+
+
 
 
 | key                      | value                                                        | description                                                  |
