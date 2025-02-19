@@ -11,7 +11,7 @@ hidden: true
 
 Extracts alternate sets of fields, depending on if a [JsonLogic](doc:jsonlogic) rules passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution.
 
-The following simplified code snippet shows an overview of the Conditional method:
+The following simplified code snippet shows an overview of the Conditional method: 
 
 ```json
 id: conditional
@@ -24,9 +24,9 @@ fieldsOnFail: [] # fields to extract if the boolean is false
 
 | key                                                   | value                                     | description                                                  |
 | ----------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)                                     | `conditional`                             | Extracts alternate lists of fields based on a pass/fail condition. You can nest conditional methods inside conditional methods to any depth. Fields can [fallback](doc:fallbacks) across conditional methods at any depth. For example, a nested `checking_transactions` field can fallback from a nested conditional method to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
+| id (**required**)                                     | `conditional`                             | Extracts alternate lists of fields based on a pass/fail condition. You can nest conditional methods inside conditional methods to any depth. Fields can [fallback](doc:fallbacks) across conditional methods at any depth. For example, a checking_transactions` field can fallback from a nested conditional method to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
 | rule (**required**)                                   | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The rule passes if it outputs true and fails if it outputs false. For example, test if an extracted field is non-null, and extract different sets of fields depending on its presence. |
-| fieldsOnPass<br/> or<br/> fieldsOnFail (**required**) | array of [fields](doc:field-query-object) | Specifies lists of fields to extract if the rule passes or fails, respectively. You can specify either or both lists. |
+| fieldsOnPass<br/> or<br/> fieldsOnFail (**required**) | array of [fields](doc:field-query-object) | Specifies lists of fields to extract if the rule passes or fails, respectively. You can specify either or both lists. For easier troubleshooting, Sensible surfaces any errors from fields that don't run in the configuration errors output. |
 
 ## Examples
 
