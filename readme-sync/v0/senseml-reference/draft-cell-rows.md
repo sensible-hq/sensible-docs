@@ -6,6 +6,7 @@ hidden: true
 *TODO: impacted topics:*
 
 - *overview*
+- *new toipc in extracting data section: "how to handle spreadsheets"?*
 - *SenseML reference introduction*
 - *devops platform*
 - *'alternative to...' (sections? ROW METHOD?? TABLE METHODS TOPIC?)*
@@ -13,6 +14,8 @@ hidden: true
 ## 
 
 For large spreadsheets, the Cell Rows field can extract rows from under a specified column headings row until the end of the document. This method is a speedier alternative to general-purpose SenseML methods.
+
+**question**: can we offer guidance on side? eg thousands of rows? millions?
 
 **Notes**:
 
