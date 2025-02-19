@@ -45,7 +45,7 @@ The following example shows using the Cell Rows method to extract rows from a sp
     {
       "id": "bestselling_books",
       "type": "cellRows",
-      /* Sensible extracts cells from all the rows under this row until the end of the document */
+      /* Sensible extracts cells from all the rows under the row that contains the matching strings "book" and "author", until the end of the document */
       "headerRow": {
         "match": [
           {
@@ -63,10 +63,8 @@ The following example shows using the Cell Rows method to extract rows from a sp
           "id": "book",
           "method": {
             "id": "cell",
-            /* in each row until the end of the document, 
-               extract the cell under column header cell that contains 
-               the text "book" 
-               (skips empty rows)  */
+            /* for each row, extract the cell under the header that starts with 
+               the text "book" (skips empty rows)  */
             "header": {
               "type": "startsWith",
               "text": "book",
@@ -77,7 +75,7 @@ The following example shows using the Cell Rows method to extract rows from a sp
           "id": "first_published",
           "method": {
             "id": "cell",
-            /* in each row, extract the cell under the sales header */
+            /* for each row, extract the cell under the published header */
             "header": {
               "type": "includes",
               "text": "published",
