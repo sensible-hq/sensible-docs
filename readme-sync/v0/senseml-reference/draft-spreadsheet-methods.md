@@ -3,61 +3,297 @@ title: "Cell Rows"
 hidden: true
 ---
 
-TODO: impacted topics:
+*TODO: impacted topics:*
 
-- overview
-- SenseML reference introduction
-- devops platform
-- 'alternative to...' (sections? ROW METHOD?? TABLE METHODS TOPIC?)
+- *overview*
+- *SenseML reference introduction*
+- *devops platform*
+- *'alternative to...' (sections? ROW METHOD?? TABLE METHODS TOPIC?)*
 
-## parent topic:
+## 
 
- See the following information for a method specific to very long spreadsheets/ for optimizing performance when yo uwant to extract thousands or millions of spreadsheet rows. This method is an alternative to more general-purpose  SenseML methods, which are also compatible with spreadsheets.
+For large spreadsheets, the Cell Rows field can extract rows from under a specified column headings row until the end of the document. This method is a speedier alternative to general-purpose SenseML methods.
 
-See child topics for methods specific to extracting data from spreadsheets.
+**Notes**:
 
-## Cell rows
-
-Extracts rows from a spreadsheet, where the rows are all under a single row of headings. Use this method as an alternative to more general SenseML methods to optimize speed of extraction for lengthy spreadsheets (i.e. contain thousands or millions of rows). 
-
-TODO: a screenshot here of the typical layout captured + maybe a YAML version of the senseml to capture it
-
-TODO: it kinda seems like Sensible ignores empty rows and columns, right? so note that here *and* in the file-tyes notes
-
-- or maybe it's more complicated? seems like for a moment there they didn't render, but now they do render, but Sensible ignores them. so it must just go to the end of the file for ending the rows
-
-TODO/2q: remember to refer the reader to file-types notes on how Sensible STANDARDIZES spreadsheets?
+- This method ignores empty rows and columns and extracts data from the specified starting row to the end of the worksheet.
+- This method doesn't work with PDFs. You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types.
 
 Parameters
 ====
 
-TODO: note that this won't work on a spreadsheet converted to a PDF before Sensible got its hands on it. you've got to upload the spreadsheeet as is so that Sensible can do its conversion/standardization process
-
-
-
 
 | key                      | value                                                        | description                                                  |
 | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet area under the area defined by the Header Row anchor.  TODO: how does the area stop?? how to recognize a new Header Row? |
+| id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet area under the area defined by the Header Row anchor. |
 | type  (**required**)     | `cellRows`                                                   | Specifies that this field extracts spreadsheet rows.         |
-| headerRow (**required**) | object                                                       | Specifies an anchor that matches any line in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects<br/>TODO: is there a way to specify the end of the row? I assume it just goes to the end of the spreadsheet horizontally |
-| fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/>- fields that use a spreadsheet-specific method. For more information, see the following section.<br/>- fields that use [computed fields methods](doc:computed-field-methods) |
-
-## Spreadsheet-specific methods
-
-In a Cell Rows field, you can use the following spreadsheet-specific method:
-
-
-
-QUESTION: can you use global parameters for methods? NO YOU CANNOT; how to phrase it??
-
-Note: The [method](doc:method) object's global parameters aren't available for this method.
-
-| key               | value                                            | description                                                  |
-| ----------------- | ------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `cell`                                           | Extracts all the lines in a cell in a spreadsheet **IN A REPEATING MANNER** -> how to word it? |
-| header            | Anchor object (or is it a match object TODO/2do) | *An anchor object that defines an intersection with a column heading in the row specified by the field-level Header Row parameter. <br/*> For the specified column heading (contained in the Header Row), Sensible finds that header cell, then extracts each cell in each row that falls in that column  Sensible works down the column and ends when UNTIL WHEN? empty row cell? |
+| headerRow (**required**) | Anchor object                                                | Specifies the row containing column headers, by matching the specified line or lines in the row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects. |
+| fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/>- fields that use a spreadsheet-specific method, `cell`. The cell method extracts a cell under the specified header for each extracted row. has the following parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/>- fields that use [computed fields methods](doc:computed-field-methods) |
 
 ## Examples
 
-TODO
+The following example shows using the Cell Rows method to extract rows from a spreadsheet. This method is optimized for long spreadsheets.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "bestselling_books",
+      "type": "cellRows",
+      /* Sensible extracts cells from all the rows under this row until the end of the document */
+      "headerRow": {
+        "match": [
+          {
+            "type": "startsWith",
+            "text": "book"
+          },
+          {
+            "type": "startsWith",
+            "text": "author"
+          }
+        ],
+      },
+      "fields": [
+        {
+          "id": "book",
+          "method": {
+            "id": "cell",
+            /* in each row until the end of the document, 
+               extract the cell under column header cell that contains 
+               the text "book" 
+               (skips empty rows)  */
+            "header": {
+              "type": "startsWith",
+              "text": "book",
+            },
+          }
+        },
+        {
+          "id": "first_published",
+          "method": {
+            "id": "cell",
+            /* in each row, extract the cell under the sales header */
+            "header": {
+              "type": "includes",
+              "text": "published",
+            },
+          }
+        }
+      ]
+    },
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cell_rows.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/cell_rows.xlsx) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "bestselling_books": [
+    {
+      "book": {
+        "value": "A Tale of Two Cities",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1859",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "The Little Prince (Le Petit Prince)",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1943",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "The Alchemist (O Alquimista)",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1988",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "Harry Potter and the Philosopher's Stone",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1997",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "And Then There Were None",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1939",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "Dream of the Red Chamber (紅樓夢)",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1791",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "The Hobbit",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1937",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "Alice's Adventures in Wonderland",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1865",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "Between 50 million and 100 million copies",
+        "type": "string"
+      },
+      "first_published": null
+    },
+    {
+      "book": {
+        "value": "The Lion, the Witch and the Wardrobe",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1950",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "She: A History of Adventure",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1887",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "The Da Vinci Code",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "2003",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "Harry Potter and the Chamber of Secrets",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1998",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "The Catcher in the Rye",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1951",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "The Bridges of Madison County",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1992",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "One Hundred Years of Solitude (Cien años de soledad)",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1967",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "Lolita",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1955",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "Heidi",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1880",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "The Common Sense Book of Baby and Child Care",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1946",
+        "type": "string"
+      }
+    },
+    {
+      "book": {
+        "value": "attribution:",
+        "type": "string"
+      },
+      "first_published": null
+    }
+  ]
+}
+```
