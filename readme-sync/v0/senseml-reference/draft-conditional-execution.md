@@ -7,7 +7,7 @@ hidden: true
 
 - *updates to* *overview/ devops platform*
 - *updates to* *senseml reference introduction?*
-- *fallbacks topic: add info on 'conditional execution' as a more sophisticated form of falling back?*
+- *fallbacks topic: add info on 'conditional execution' framed as a more sophisticated form of falling back/alternative to 'fallback configs'?*
 
 Extracts alternate sets of fields, depending on if a [JsonLogic](doc:jsonlogic) rules passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution.
 
