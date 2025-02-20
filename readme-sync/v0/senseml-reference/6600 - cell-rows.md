@@ -1,21 +1,9 @@
 ---
-title: "Cell Rows"
-hidden: true
+title: "Spreadsheet method"
+hidden: false
 ---
 
-*TODO: impacted topics:*
-
-- *overview*
-- *new toipc in extracting data section: "how to handle spreadsheets"?*
-- *SenseML reference introduction*
-- *devops platform*
-- *'alternative to...' (sections? ROW METHOD?? TABLE METHODS TOPIC?)*
-
-## 
-
-For large spreadsheets with tens of thousands of rows, the Cell Rows field can extract rows from under a specified column headings row until the end of the document. This method is a speedier alternative to general-purpose SenseML methods.
-
-**question**: can we offer guidance on side? eg thousands of rows? millions?
+For large spreadsheets with tens of thousands of rows, the Cell Rows field can extract rows from under a specified row containing column headings until the end of the document. This method is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets.
 
 **Notes**:
 
@@ -31,11 +19,11 @@ Parameters
 | id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet under the area defined by the Header Row anchor. |
 | type  (**required**)     | `cellRows`                                                   | Specifies that this field extracts spreadsheet rows.         |
 | headerRow (**required**) | Anchor object                                                | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects. |
-| fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/>- fields that use [computed fields methods](doc:computed-field-methods).<br/>- fields that use a spreadsheet-specific method, `cell`. The cell method extracts a cell under the specified header for each extracted row. It contains the following parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section. |
+| fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/><br/><br/>- fields that use a spreadsheet-specific method, `cell`. The cell method extracts a cell under the specified header for each extracted row. It contains the following parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/><br/>- fields that use [computed fields methods](doc:computed-field-methods).<br/> |
 
 ## Examples
 
-The following example shows using a Cell Rows field to extract rows from a spreadsheet. This method is optimized for long spreadsheets.
+The following example shows using a Cell Rows field to extract rows from a spreadsheet.
 
 **Config**
 
@@ -45,7 +33,7 @@ The following example shows using a Cell Rows field to extract rows from a sprea
     {
       "id": "bestselling_books",
       "type": "cellRows",
-      /* Sensible extracts cells from all the rows under the row that contains the matching strings "book" and "author", until the end of the document */
+      /* Sensible extracts specified cells from all the rows under the row that contains the matching strings "book" and "author", until the end of the document */
       "headerRow": {
         "match": [
           {
