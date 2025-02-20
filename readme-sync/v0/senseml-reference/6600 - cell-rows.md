@@ -3,11 +3,10 @@ title: "Spreadsheet method"
 hidden: false
 ---
 
-For large spreadsheets with tens of thousands of rows, the Cell Rows field can extract rows from under a specified row containing column headings until the end of the document. This method is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets.
+For large spreadsheets with tens of thousands of rows, the Cell Rows field can extract rows under a specified column-headings row. Sensible extracts rows until the end of the document. This method is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets.
 
 **Notes**:
 
-- This method ignores empty rows and extracts data from the specified starting row to the end of the worksheet.
 - This method doesn't work with PDFs. You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types.
 
 Parameters
@@ -16,7 +15,7 @@ Parameters
 
 | key                      | value                                                        | description                                                  |
 | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet under the area defined by the Header Row anchor. |
+| id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet. Sensible ignores empty rows and extracts data under the specified Header Row to the end of the worksheet. |
 | type  (**required**)     | `cellRows`                                                   | Specifies that this field extracts spreadsheet rows.         |
 | headerRow (**required**) | Anchor object                                                | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects. |
 | fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/><br/><br/>- fields that use a spreadsheet-specific method, `cell`. The cell method extracts a cell under the specified header for each extracted row. It contains the following parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/><br/>- fields that use [computed fields methods](doc:computed-field-methods).<br/> |
