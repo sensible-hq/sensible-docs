@@ -9,24 +9,25 @@ hidden: true
 - *updates to* *senseml reference introduction?*
 - *fallbacks topic: add info on 'conditional execution' framed as a more complex form of falling back + alternative to 'fallback configs'?*
 
-Extracts alternate sets of fields, depending on if a [JsonLogic](doc:jsonlogic) rules passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution.
+Extracts alternate sets of fields, depending on if a [JsonLogic](doc:jsonlogic) condition passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution.
 
 The following simplified code snippet shows an overview of the Conditional method: 
 
 ```json
 id: conditional
-rule: JsonLogic # must output a boolean 
+condition: JsonLogic # must output a boolean 
 fieldsOnPass: [] # fields to extract if the boolean is true
 fieldsOnFail: [] # fields to extract if the boolean is false
 ```
 
 ## Parameters
 
-| key                                                   | value                                     | description                                                  |
-| ----------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)                                     | `conditional`                             | Extracts alternate lists of fields based on a pass/fail condition. You can nest conditional methods inside conditional methods to any depth. Fields can [fallback](doc:fallbacks) across conditional methods at any depth. For example, a checking_transactions` field can fallback from a nested conditional method to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
-| rule (**required**)                                   | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The rule passes if it outputs true and fails if it outputs false. For example, test if an extracted field is non-null, and extract different sets of fields depending on its presence. |
-| fieldsOnPass<br/> or<br/> fieldsOnFail (**required**) | array of [fields](doc:field-query-object) | Specifies lists of fields to extract if the rule passes or fails, respectively. You can specify either or both lists. For troubleshooting purposes, if a field contains invalid syntax but doesn't run due to the conditional, Sensible outputs a configuration error. |
+| key                          | value                                     | description                                                  |
+| ---------------------------- | ----------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)            | `conditional`                             | Extracts alternate lists of fields based on a pass/fail condition. You can nest conditional methods inside conditional methods to any depth. Fields can [fallback](doc:fallbacks) across conditional methods at any depth. For example, a checking_transactions` field can fallback from a nested conditional method to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
+| condition (**required**)     | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The condition passes if it outputs true and fails if it outputs false. For example, you can test if an extracted field is non-null, and extract different sets of fields depending on its presence. |
+| fieldsOnPass  (**required**) | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition passes. |
+| fieldsOnFail                 |                                           | Specifies a list of fields to extract if the condition fails. |
 
 ## Examples
 
@@ -63,7 +64,7 @@ The following example shows  using conditional execution to standardize output a
     {
       "method": {
         "id": "conditional",
-        "rule": {
+        "conditional": {
           "exists": {
             /* if the transaction_history table is non-null,
             it's a statement from Sensible Bank */
@@ -185,7 +186,7 @@ The following example shows  using conditional execution to standardize output a
         ]
       }
     },
-    /* zip the transactions for easier viewing */
+    /* zip the deposits for easier viewing */
     {
       "id": "deposits",
       "method": {
@@ -195,6 +196,7 @@ The following example shows  using conditional execution to standardize output a
         ]
       }
     },
+      /* zip the withdrawals for easier viewing */
     {
       "id": "withdrawals",
       "method": {
