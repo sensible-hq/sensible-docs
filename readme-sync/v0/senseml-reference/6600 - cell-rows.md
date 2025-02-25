@@ -68,6 +68,42 @@ The following example shows using a Cell Rows field to extract rows from a sprea
               "text": "published",
             },
           }
+        },
+        {
+          /* get the raw sales data,
+           which includes footnotes, e.g., 50 million[47] */
+          "id": "_sales_raw",
+          "method": {
+            "id": "cell",
+            /* for each row, extract the cell under the header that starts with 
+               the text `approximate` (skips empty rows)  */
+            "header": {
+              "type": "startsWith",
+              "text": "approximate",
+            },
+          }
+        },
+        {
+          /* strip the footnotes from the sales data
+             by splitting the extracted _sales_raw string 
+             on the start of the first footnote ([)] */
+          "id": "sales",
+          "method": {
+            "id": "split",
+            "source_id": "_sales_raw",
+            "separator": "[",
+            "index": 0
+          }
+        },
+        {
+          /* for cleaner output, hide the raw sales data */
+          "id": "hide_fields",
+          "method": {
+            "id": "suppressOutput",
+            "source_ids": [
+              "_sales_raw"
+            ]
+          }
         }
       ]
     },
@@ -96,6 +132,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1859",
         "type": "string"
+      },
+      "sales": {
+        "value": ">200 million",
+        "type": "string"
       }
     },
     {
@@ -105,6 +145,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "1943",
+        "type": "string"
+      },
+      "sales": {
+        "value": "200 million",
         "type": "string"
       }
     },
@@ -116,6 +160,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1988",
         "type": "string"
+      },
+      "sales": {
+        "value": "150 million",
+        "type": "string"
       }
     },
     {
@@ -125,6 +173,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "1997",
+        "type": "string"
+      },
+      "sales": {
+        "value": "120 million",
         "type": "string"
       }
     },
@@ -136,6 +188,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1939",
         "type": "string"
+      },
+      "sales": {
+        "value": "100 million",
+        "type": "string"
       }
     },
     {
@@ -145,6 +201,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "1791",
+        "type": "string"
+      },
+      "sales": {
+        "value": "100 million",
         "type": "string"
       }
     },
@@ -156,6 +216,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1937",
         "type": "string"
+      },
+      "sales": {
+        "value": "100 million",
+        "type": "string"
       }
     },
     {
@@ -166,6 +230,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1865",
         "type": "string"
+      },
+      "sales": {
+        "value": "100 million",
+        "type": "string"
       }
     },
     {
@@ -173,7 +241,8 @@ The following image shows the example document used with this example config:
         "value": "Between 50 million and 100 million copies",
         "type": "string"
       },
-      "first_published": null
+      "first_published": null,
+      "sales": null
     },
     {
       "book": {
@@ -182,6 +251,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "1950",
+        "type": "string"
+      },
+      "sales": {
+        "value": "85 million",
         "type": "string"
       }
     },
@@ -193,6 +266,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1887",
         "type": "string"
+      },
+      "sales": {
+        "value": "83 million",
+        "type": "string"
       }
     },
     {
@@ -202,6 +279,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "2003",
+        "type": "string"
+      },
+      "sales": {
+        "value": "80 million",
         "type": "string"
       }
     },
@@ -213,6 +294,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1998",
         "type": "string"
+      },
+      "sales": {
+        "value": "77 million",
+        "type": "string"
       }
     },
     {
@@ -222,6 +307,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "1951",
+        "type": "string"
+      },
+      "sales": {
+        "value": "65 million",
         "type": "string"
       }
     },
@@ -233,6 +322,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1992",
         "type": "string"
+      },
+      "sales": {
+        "value": "60 million",
+        "type": "string"
       }
     },
     {
@@ -242,6 +335,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "1967",
+        "type": "string"
+      },
+      "sales": {
+        "value": "50 million",
         "type": "string"
       }
     },
@@ -253,6 +350,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1955",
         "type": "string"
+      },
+      "sales": {
+        "value": "50 million",
+        "type": "string"
       }
     },
     {
@@ -262,6 +363,10 @@ The following image shows the example document used with this example config:
       },
       "first_published": {
         "value": "1880",
+        "type": "string"
+      },
+      "sales": {
+        "value": "50 million",
         "type": "string"
       }
     },
@@ -273,6 +378,10 @@ The following image shows the example document used with this example config:
       "first_published": {
         "value": "1946",
         "type": "string"
+      },
+      "sales": {
+        "value": "50 million",
+        "type": "string"
       }
     },
     {
@@ -280,7 +389,8 @@ The following image shows the example document used with this example config:
         "value": "attribution:",
         "type": "string"
       },
-      "first_published": null
+      "first_published": null,
+      "sales": null
     }
   ]
 }
