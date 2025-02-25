@@ -39,6 +39,7 @@ The following example shows  using conditional execution to standardize output a
 {
   "fields": [
     {
+      /* no matter which bank authored the statement, always attempt to extract a transactions table */
       "id": "transaction_history",
       "anchor": "transaction history",
       "type": "table",
@@ -66,8 +67,9 @@ The following example shows  using conditional execution to standardize output a
         "id": "conditional",
         "conditional": {
           "exists": {
-            /* if the transaction_history table is non-null,
-            it's a statement from Sensible Bank */
+            /* if Sensible successfully extracted the transaction_history table 
+            (i.e. it's non-null),
+            the document is a statement from Sensible Bank */
             "var": "transaction_history"
           }
         },
