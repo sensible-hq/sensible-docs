@@ -10,7 +10,7 @@ hidden: true
 Sensible offers features for handling variations in a set of similar documents (a *document type*). For example, say you extract data from bank statements. The statements all convey the same basic information, but vary in large and small ways:
 
 -  Each major bank has its own distinctive layout and formatting for its statements.  Some combine checking and savings into one statement, and others separate them.
-- Some affiliate banks have slightly different layouts but share major similarities.
+- Some affiliate banks have slightly different layouts but share many similarities.
 - You have a long tail of small regional credit unions you want to extract from, where it would be an overwhelming task to qualify all the minor variations.
 
 For both layout-based and LLM-based extraction methods (TODO: link) you can handle these variations by executing different types of SenseML queries to extract the same target data across the bank statements using different extraction methods. In the end, your goal is to produce a unified data output schema. To achieve this, you'll conditionally execute  data-extraction queries based on factors such as which bank issued a statement, whether a query is returning null, or on the shape of the extracted data. Here are the features available to you for conditionally executing data-extraction queries: 
