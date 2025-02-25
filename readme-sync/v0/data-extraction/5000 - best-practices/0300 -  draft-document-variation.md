@@ -13,7 +13,9 @@ Sensible offers features for handling variations in a set of similar documents (
 - Some affiliate banks have slightly different layouts but share many similarities.
 - You have a long tail of small regional credit unions you want to extract from, where it would be an overwhelming task to qualify all the minor variations.
 
-For both layout-based and LLM-based extraction methods (TODO: link) you can handle these variations by executing different types of SenseML queries to extract the same target data across the bank statements using different extraction methods. In the end, your goal is to produce a unified data output schema. To achieve this, you'll conditionally execute  data-extraction queries based on factors such as which bank issued a statement, whether a query is returning null, or on the shape of the extracted data. Here are the features available to you for conditionally executing data-extraction queries: 
+For both layout-based and LLM-based extraction methods (TODO: link) you can handle these variations by executing different types of SenseML queries to extract the same target data across the bank statements using different extraction methods. 
+
+Your goal is to produce a unified data output schema. To achieve this, you'll conditionally execute  data-extraction queries based on factors such as which bank issued a statement, whether a query is returning null, or on the shape of the extracted data. Here are the features available to you for conditionally executing data-extraction queries: 
 
 ## Handling document variations
 
