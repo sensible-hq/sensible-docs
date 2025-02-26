@@ -5,9 +5,9 @@ hidden: false
 
 Use fallback fields to handle [document variations](doc:document-variations) in a document type. If a field fails to extract data, you can specify a backup, or fallback field to extract the same data using a different method. To specify fallbacks between fields, specify consecutive fields that use the same ID. 
 
-Fallbacks enable you to use a single config to extract data from similar documents whose formatting can vary. For example, say you want to extract a "total amount" field which appears in a table in document revision A and in a free-text paragraph in document revision B. You can define two fields in one configuration with the same ID (`total_amount`), which use the Row method and the Query Group method, respectively. 
+Fallbacks enable you to use a single config to extract data from similar documents whose formatting can vary. For example, say you want to extract a "total amount" field that appears in a table in document revision A and in a free-text paragraph in document revision B. You can define two fields in one configuration with the same ID (`total_amount`), which use the Row method and the Query Group method, respectively. 
 
-A field evaluates as "failed" and falls back if it returns an empty array, null, or undefined. A field evaluates to "passed" and doesn't fall back if it returns an empty string or 0. Fallback fields can be of any kind. For example, you can fallback from a field, to a computed field, to a section group.
+A field evaluates as "failed" and falls back if it returns an empty array, null, or undefined. A field evaluates to "passed" and doesn't fall back if it returns an empty string or 0. Fallback fields can be of any kind. For example, you can fall back from a field, to a computed field, to a section group.
 
 **Limitations:**
 
@@ -16,15 +16,15 @@ A field evaluates as "failed" and falls back if it returns an empty array, null,
 
 ### Example 1
 
-If a company's explanation of benefits lists the patient name near the phrase "received for" in other cases and near the phrase "claimant" in others, you can write fallbacks like the following:
+If a company's explanation of benefits lists the patient's name near the phrase "received for" in other cases and near the phrase "claimant" in others, you can write fallbacks like the following:
 
 ```json
 {
   "fields": [
     {
-      /* first look for patient name near phrase "recieved for" */
+      /* first look for patient name near phrase "received for" */
       "id": "patient_name",
-      "anchor": "recieved for"
+      "anchor": "received for"
               "method": {
         "id": "label",
         "position": "right"
@@ -46,7 +46,7 @@ If a company's explanation of benefits lists the patient name near the phrase "r
 
 ### Example 2: LLM prompt fallbacks
 
-Sometimes a field works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. This situation is most common with LLM-based methods. Rather than rewrite the LLM prompt, which can cause regressions, create fallbacks targeted at the failing documents. 
+Sometimes a field works for most documents in a document type, but returns null or an inaccurate response (a "false positive") for a few documents. This situation is most common with LLM-based methods. Rather than rewrite the LLM prompt, which can cause regressions, create fallbacks targeted at the failing documents. 
 
 LLM-based field fallbacks differ from other field fallbacks, because the failing field can return a non-null false positive. To force a failing field to return null, add an anchor to the field. The field returns `null` if the text isn't present in the document. 
 
@@ -68,7 +68,7 @@ For example, you parse automotive repair invoices. For most auto shops' invoices
           "Andy & Son's" in the invoice,
            it returns null for the parts_total_price field in this group
            and falls back to the parts_total_price in the next group.
-           Use the anchor to avoid non-null false positives
+           Use the anchor to avoid non-null false positives.
            */
       "anchor": "Andy & Son's",
       "method": {
