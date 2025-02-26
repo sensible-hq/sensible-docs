@@ -7,7 +7,7 @@ hidden: false
 
 When you extract data from a set of similar documents (a *document type*), you encounter variations in layout, formatting, and content. Your goal is often to extract data across all these variations and output them into a unified data schema. To achieve this goal, you can take the following steps:
 
-1. You can author data-extraction fields using a variety of SenseML  [methods](doc:methods) and [computed methods](doc:computed-field-methods) to extract the same target data from differing sources.
+1. You can author data-extraction fields using a variety of SenseML [methods](doc:senseml-reference-introduction) to extract the same target data from differing sources.
 2. You can conditionally execute the fields you author depending on the variations you encounter in the source documents.
 
 This topic covers conditional execution. 
