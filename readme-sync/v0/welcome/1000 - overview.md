@@ -52,7 +52,7 @@ With SenseML, you can:
 
 - Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step. For more information, see [Preprocessors](doc:preprocessors). 
 - Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also parse extracted data types like currencies, dates, addresses, or your custom types. For more information, see [Layout-based methods](doc:layout-based-methods). 
-- [Handle document variations](doc:document-variations)  in a set of similar documents (a "document type") by conditionally executing SenseML based on the document's contents.
+- [Handle document variations](doc:document-variations)  in a set of similar documents (a "document type") by conditionally executing SenseML methods based on the document's contents.
 - Post-process extracted document data. For example:
   - Write logical [validations](doc:validate-extractions)  like `customer ID is 9 digits` to throw custom errors and warnings about your extracted data. 
   - Manipulate the extracted data schema with [computed methods](doc:computed-field-methods)  like concat, split, and [custom logic](doc:custom-computation). Or, completely transform Sensible's standardized `parsed_document` output into any schema to fit your data consupmtion needs using a [JsonLogic postprocessor](doc:postprocessor). 
