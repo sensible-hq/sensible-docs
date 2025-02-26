@@ -1,15 +1,9 @@
 ---
 title: "Conditional execution"
-hidden: true
+hidden: false
 ---
 
-*TODOs before publish:*
-
-- *updates to* *overview/ devops platform*
-- *updates to* *senseml reference introduction?*
-- *fallbacks topic: add info on 'conditional execution' framed as a more complex form of falling back + alternative to 'fallback configs'?*
-
-This method extracts alternate sets of fields, depending on if a [JsonLogic](doc:jsonlogic) condition passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution.
+Use the Conditional method to handle [document variations](doc:document-variations) in a document type. This method extracts alternate sets of fields, depending on if a [JsonLogic](doc:jsonlogic) condition passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution. 
 
 The following simplified code snippet shows an overview of the Conditional method: 
 
@@ -27,7 +21,7 @@ fieldsOnFail: [] # fields to extract if the boolean is false
 | id (**required**)            | `conditional`                             | Specifies that this field extracts alternate lists of fields based on a pass/fail condition. You can nest conditions inside conditions to any depth. Fields can [fallback](doc:fallbacks) across conditions at any depth. For example, a `checking_transactions` field can fallback from a nested condition to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
 | condition (**required**)     | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The condition passes if it outputs true and fails if it outputs false. For example, you can test if an extracted field is non-null, and extract different sets of fields depending on its presence. |
 | fieldsOnPass  (**required**) | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition passes. |
-| fieldsOnFail                 |                                           | Specifies a list of fields to extract if the condition fails. |
+| fieldsOnFail                 | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition fails. |
 
 ## Examples
 

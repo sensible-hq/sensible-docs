@@ -14,6 +14,7 @@ See the following topics for reference documentation for the SenseML query langu
 - [Configuration settings](doc:config-settings)
 - [Computed Field methods](doc:computed-field-methods)
 - [Sections](doc:sections)
+- [Conditional](doc:conditional) execution of SenseML
 - [Large spreadsheet ](doc:cell-rows) extraction
 - [Postprocessor](doc:postprocessor)
 
