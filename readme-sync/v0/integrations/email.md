@@ -3,16 +3,13 @@ title: "Email rough draft"
 hidden: true
 ---
 
-
-
 You can extract data from email bodies and attachments by emailing them to Sensible.
 
 The following image shows an overview for the email extraction workflow:
 
 
 
-[block:mermaid]
-
+```
 graph TD;
     A[User receives email] --> B[User sends email to Sensible]
     B --> C[Email is classified into an email type]
@@ -20,8 +17,13 @@ graph TD;
     C --> E[Email is extracted]
     D --> F[Extracted data is sent and appears in the extractions history]
     E --> F
+```
 
-[/block]
+
+
+
+
+
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email.png)
 
