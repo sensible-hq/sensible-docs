@@ -3,7 +3,7 @@ title: "Conditional execution"
 hidden: false
 ---
 
-Use the Conditional method to handle [document variations](doc:document-variations) in a document type. This method extracts alternate sets of fields, depending on if a [JsonLogic](doc:jsonlogic) condition passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution. 
+Use the Conditional method to handle [document variations](doc:document-variations) in a document type. This method extracts alternate sets of fields, depending on whether a [JsonLogic](doc:jsonlogic) condition passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution. 
 
 The following simplified code snippet shows an overview of the Conditional method: 
 
@@ -18,14 +18,14 @@ fieldsOnFail: [] # fields to extract if the boolean is false
 
 | key                          | value                                     | description                                                  |
 | ---------------------------- | ----------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)            | `conditional`                             | Specifies that this field extracts alternate lists of fields based on a pass/fail condition. You can nest conditions inside conditions to any depth. Fields can [fallback](doc:fallbacks) across conditions at any depth. For example, a `checking_transactions` field can fallback from a nested condition to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
-| condition (**required**)     | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The condition passes if it outputs true and fails if it outputs false. For example, you can test if an extracted field is non-null, and extract different sets of fields depending on its presence. |
+| id (**required**)            | `conditional`                             | Specifies that this field extracts alternate lists of fields based on a pass/fail condition. You can nest conditions inside conditions to any depth. Fields can [fall back](doc:fallbacks) across conditions at any depth. For example, a `checking_transactions` field can fall back from a nested condition to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
+| condition (**required**)     | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The condition passes if it outputs true and fails if it outputs false. For example, you can test if an extracted field is non-null, and extract alternate sets of fields depending on its presence. |
 | fieldsOnPass  (**required**) | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition passes. |
 | fieldsOnFail                 | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition fails. |
 
 ## Examples
 
-The following example shows  using conditional execution to standardize output across two similar banks. Bank A lists deposits and withdrawals separately in statements, and bank B combines them in a transactions table. Using conditional execution, you can standardize output for both banks.
+The following example shows using conditional execution to standardize output across two similar banks. Bank A lists deposits and withdrawals separately in statements, and bank B combines them in a transactions table.  The example transforms Bank B's output so it's consistent with Bank A.
 
 **Config**
 
