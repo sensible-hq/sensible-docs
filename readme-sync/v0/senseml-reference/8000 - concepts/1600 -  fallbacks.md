@@ -7,14 +7,12 @@ Use fallback fields to handle [document variations](doc:document-variations) in 
 
 Fallbacks enable you to use a single config to extract data from similar documents whose formatting can vary. For example, say you want to extract a "total amount" field which appears in a table in document revision A and in a free-text paragraph in document revision B. You can define two fields in one configuration with the same ID (`total_amount`), which use the Row method and the Query Group method, respectively. 
 
-A field evaluates as "failed" and falls back if it returns an empty array, null, or undefined. A field evaluates to "passed" and doesn't fall back if it returns an empty string or 0. Fallback fields can be of any kind. For example, you can fallback from a field, to a computed field, to a section group.<br/>
+A field evaluates as "failed" and falls back if it returns an empty array, null, or undefined. A field evaluates to "passed" and doesn't fall back if it returns an empty string or 0. Fallback fields can be of any kind. For example, you can fallback from a field, to a computed field, to a section group.
 
 **Limitations:**
 
 - Fallbacks don't work across nested objects. For example, you can't fall back from a parent section group's field to a child section group's field. Fallbacks work across nested [Conditional](doc:conditional) methods.
 - Fallbacks don't work within a Query Group method. To specify fallback fields, define each one in a separate query group.
-
-
 
 ### Example 1
 
