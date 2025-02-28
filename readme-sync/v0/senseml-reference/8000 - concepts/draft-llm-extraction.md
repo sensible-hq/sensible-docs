@@ -1,32 +1,19 @@
 ---
 hidden: true
-title: "Configure/troubleshoot LLMs"
+title: "How LLM-based extraction works"
 ---
 
-- see also: troubleshoot-llms
-
-- prompt tips stuff in each LLM topic
-- prompt tips in /prompt
-- other stuff?
-- BLOG post on chaining prompts?
-
-
-
-TO DOs: -- search by summarization is NOT global; NLP table don't support it.
-
-## HOW IT WORKS
-
-
-
-
+## How LLM-based extraction works
 
 The following is an overview of how Sensible's LLM-based methods work. Use this overview to understand your configuration and troubleshooting options.
 
-### Overview
+### Overview: understanding prompt *context*
 
 Sensible supports LLM-based data extraction methods from documents. For example, for an insurance declaration document, you can submit the prompt `when does the insurance coverage start?`, and the LLM returns `08-14-24`. 
 
-LLMs' input token limits are important constraints in this scenario. Because of these limits, Sensible must generally submit an excerpt of the document rather than the whole document to the LLM. This relevant excerpt is called *context*. For example, for the prompt  `when does the insurance coverage start?`, the abbreviated context can be something like:
+LLMs' input token limits are important constraints for document data extraction. Because of these limits, Sensible must generally submit an excerpt of the document rather than the whole document to the LLM. This relevant excerpt is called *context*. 
+
+For example, for the prompt  `when does the insurance coverage start?`, the context can look like:
 
 ````txt
 Tel: 1-800-851-2000    Declarations Page
@@ -42,7 +29,7 @@ Note that context doesn't have to be limited to contiguous pages in the document
 
 ### Example: Full prompt with context
 
-See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default embeddings scoring approach (TODO link to that section).  When you write a prompt using an LLM-based method, Sensible creates a full prompt using the following:
+See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method. When you write a prompt using an LLM-based method, by default (embeddings scoring approach (TODO link to that section). ) Sensible creates a full prompt using the following:
 
 - A prompt introduction
 - "context", made up of chunks excerpted from the document and of page metadata. 
@@ -59,9 +46,11 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 
 Sensible provides configuration options for ensuring correct and complete contexts. For more information, see the following section.
 
-// TODO: add a mermaid chart here??? https://docs.readme.com/main/docs/creating-mermaid-diagrams 
+// TODO: add a mermaid chart here for the different options??? https://docs.readme.com/main/docs/creating-mermaid-diagrams 
 
 ## Options for locating context
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/llm_extraction.png)
 
 ####  (Most determinate) Use other extracted fields as context
 
