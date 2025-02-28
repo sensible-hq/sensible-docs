@@ -3,9 +3,26 @@ hidden: true
 title: "How LLM-based extraction works"
 ---
 
+### alt title: Advanced LLM prompt configuration and troubleshooting
+
+TO DOs before publish:
+
+- *remove the global params from the advanced topic and put them back in each individual LLM method ????* 
+
 ## How LLM-based extraction works
 
 The following is an overview of how Sensible's LLM-based methods work. Use this overview to understand your configuration and troubleshooting options.
+
+For an overview of how LLM-based methods work, see the following steps. 
+
+1. To meet the LLM's input token limit, Sensible splits the document into chunks.
+2. Sensible selects the most relevant chunks and combines them with page-hinting data to create a "context".
+3. Sensible creates a full prompt for the LLM that includes the context and the descriptive prompts you configure in the method. For an example of a full prompt, see the beginning of this topic.
+4. Sensible returns the LLM's response.
+
+For specifics about how each LLM-based method works, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
+
+**TODO add a MERMAID CHART HERE**
 
 ### Overview: understanding prompt *context*
 
@@ -50,6 +67,10 @@ Sensible provides configuration options for ensuring correct and complete contex
 
 ## Options for locating context
 
+TODO: add a lil screenshot of a bank statement w/ a checkings table?? for context for the diagram.
+
+
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/llm_extraction.png)
 
 ####  (Most determinate) Use other extracted fields as context
@@ -74,7 +95,15 @@ To use other fields as context, configure the Source Ids parameter for the [Quer
 
 #### (Best for legalese) Find context with page summaries
 
-You can locate context using page summaries when you set the Search By Summarization parameter for supported LLM-based methods. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag): Sensible prompts an LLM to summarize each page in the document, prompts a second LLM to return the pages most relevant to your prompt based on the summaries, and uses those pages' text as the context.  This strategy is can be useful for long documents in which multiple mentions of the same concept make finding relevant context difficult.
+You can locate context using page summaries when you set the Search By Summarization parameter for supported LLM-based methods. For this option, Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag): 
+
+- Sensible prompts an LLM to summarize each page in the document
+
+- prompts a second LLM to return the pages most relevant to your prompt based on the summaries
+
+- uses those pages' text as the context. 
+
+This strategy is can be useful for long documents in which multiple mentions of the same concept make finding relevant context difficult.
 
 #### (Most configurable) Find context with embeddings scores
 
@@ -102,6 +131,28 @@ For specifics about how each LLM-based method works, see the Notes section for e
 
 See the following tips for troubleshooting situations in which large language model (LLM)-based extraction methods return inaccurate responses, nulls, or errors.
 
+### Trace source context
+
+Tracing the document's source text, or [context](doc:prompt#notes), for an LLM's answer can help you determine if the LLM is misinterpreting the correct text, or targeting the wrong text.
+
+You can view the source text for an LLM's answer highlighted in the document for the Query Group method:
+
+- In the visual editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
+
+- In the JSON editor, Sensible displays location highlighting by outline the context with [blue boxes](doc:color). 
+
+### Locate source context
+
+Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts.  To troubleshoot targeting the wrong source text, or [context](doc:prompt#notes), in the document:
+
+- For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
+
+- If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced LLM prompt configuration](doc:prompt).  
+
+- (TODO: rename topic to "global parameters"? rm this tip entirelyt entirely?)
+
 ### Fix error messages
 
 **Error message**
@@ -122,33 +173,13 @@ Sensible returns this error when the LLM doesn't return its response in the JSON
 - Where supported, select the non-default option for the method's LLM provider.
 - Add a fallback field to bypass the error if the original query is working for most documents and you're only seeing the error intermittently. See the following section for more information about fallbacks.
 
-
-
 ### Interpret confidence signals
 
 Confidence signals are an alternative to confidence scores and to error messages. For information about troubleshooting LLM confidence signals, such as `multiple_possible_answers` or `answer_maybe_be_incomplete`, see [Qualifying LLM accuracy](doc:confidence).
 
 ### Create fallbacks for null responses or false positives
 
-Sometimes an LLM prompt works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. Rather than rewrite the prompt, which can cause regressions, create fallbacks targeted at the failing documents. For more information, see [Fallback fields](doc:fallbacks).
+Sometimes an LLM prompt works for the majority of documents in a document type, but returns null or an inaccurate response (a "false positive") for a minority of documents. Rather than rewrite the prompt, which can cause regressions, create fallbacks targeted at the failing documents. For more information, see [Fallback fields](doc:fallbacks). 
 
-### Trace source context
-
-Tracing the document's source text, or [context](doc:prompt#notes), for an LLM's answer can help you determine if the LLM is misinterpreting the correct text, or targeting the wrong text.
-
-You can view the source text for an LLM's answer highlighted in the document for the Query Group method:
-
-- In the visual editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
-
-- In the JSON editor, Sensible displays location highlighting by outline the context with [blue boxes](doc:color). 
-
-### Locate source context
-
-Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts.  To troubleshoot targeting the wrong source text, or [context](doc:prompt#notes), in the document:
-
-- For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
-
-- If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced LLM prompt configuration](doc:prompt).  (TODO: rename topic to "global parameters"? rm it entirely?)
+TODO add conditional execution LINK TOO!
 
