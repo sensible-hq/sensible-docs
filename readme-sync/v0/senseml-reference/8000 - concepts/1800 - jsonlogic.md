@@ -261,7 +261,7 @@ Returns the specified fields. Takes an array of two items:
 The Pick Fields operator returns an empty object if:
 
 - you pass an empty array as the second argument, or if Sensible can't find the specified field IDs
-- the source is empty, null, or undefined
+- the source object is empty, null, or undefined
 
 ### Examples
 
