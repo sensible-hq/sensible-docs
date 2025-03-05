@@ -11,6 +11,8 @@ Merges lines distributed along a horizontal axis more aggressively than the buil
 
  There are limitations to the combinations of parameter values you can set. For more information, see the Notes section.
 
+As an alternative to this preprocessor, use a multimodal LLM. See the Query Group method's [Multimodal Engine](doc:query-group#parameters) parameter for more information.
+
 [**Parameters**](doc:merge-lines#parameters)
 [**Examples**](doc:merge-lines#examples)
 [**Notes**](doc:merge-lines#notes)
@@ -33,6 +35,8 @@ Handwriting OCR
 ----
 
 Use the Merge Lines preprocessor to clean up OCRed handwriting text. This preprocessor is useful for Google OCR, which by default groups text into words rather than lines.
+
+
 
 **PROBLEM**
 
