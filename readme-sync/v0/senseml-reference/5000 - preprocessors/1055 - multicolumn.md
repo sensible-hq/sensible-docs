@@ -27,10 +27,10 @@ Use this preprocessor for documents containing columns of text. Ensures that Sen
 Parameters
 ====
 
-| key                 | value              | description                                    |
-| ------------------- | ------------------ | ---------------------------------------------- |
-| type (**required**) | `multicolumn`      | Recognizes multi-column layouts in documents   |
-| minGap              | number. default: 1 | Configures detecting the gaps between columns. |
+| key                 | value                               | description                                                  |
+| ------------------- | ----------------------------------- | ------------------------------------------------------------ |
+| type (**required**) | `multicolumn`                       | Recognizes multi-column layouts in documents                 |
+| minGutterArea       | number in square inches. default: 1 | Configures detecting the gutters between columns. Any gutters between columns with area less than that the specified square number of inches will be ignored (I.e. it is not a column separator). To measure area, Sensible detects whitespace between columns, draws the maximum-sized rectangle afforded by the whitespace, and measure the area of the rectangle. This means Sensible prefers gutters (and columns of text) that extend down the whole page rather than partially filled columns. |
 
 Configures column recognition by specifying the smallest allowed width of the gutters separating the columns. For an example, see [Table grid example](doc:sections-example-table-grid). Use when text in a column contains whitespace gaps such that Sensible can split one column into two. To avoid this split, set a minimum gap that's larger than the gaps inside the column. The default (0) means that zero-width vertical lines define the column boundaries.
 
