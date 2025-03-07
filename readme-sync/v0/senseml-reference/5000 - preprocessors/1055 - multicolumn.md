@@ -1,24 +1,9 @@
 ---
 title: "Multicolumn"
-hidden: true
+hidden: false
 ---
 
-*TODO -*
-
- *contrast this to:*
-
-- *x range filter*
-- *document range*
-- *paragraph*
-- *readingOrderLeftToRight (? test how it works...shouldn't have an effect)*
-
-*ohh! Add a MULTIMODAL QUERY FOR THE CHARTS!!!*
-
-
-
 Use this preprocessor for documents containing columns of text. Ensures that Sensible [sort lines](doc:lines#line-sorting) into columns when present, rather than the default behavior of sorting lines left to right across the page.
-
-
 
 [**Parameters**](doc:multicolumn#parameters)
 [**Examples**](doc:multicolumn#examples)

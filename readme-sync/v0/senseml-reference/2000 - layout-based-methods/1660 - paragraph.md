@@ -13,9 +13,9 @@ Parameters
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key               | value       | description |
-| ----------------- | ----------- | ----------- |
-| id (**required**) | `paragraph` |             |
+| key               | value       | description                                                  |
+| ----------------- | ----------- | ------------------------------------------------------------ |
+| id (**required**) | `paragraph` | This method uses document layout, including columns, to detect paragraphs. To format the extracted paragraph with newlines, use in combination with the [Paragraph](doc:types#paragraph) type. |
 
 
 Examples
@@ -85,8 +85,4 @@ The following image shows the example document used with this example config:
 ```
 
 
-Notes
-====
-
-This method uses document layout to detect paragraphs. In contrast, the Document Range method extracts all the text between an upper and a lower bound. 
 

@@ -4,6 +4,8 @@ hidden: false
 ---
 Extracts consecutive lines succeeding the anchor line, for example, paragraphs of legal text. For the full definition of "succeeding", see [Line sorting](doc:lines#line-sorting).
 
+The Document Range method extracts all the text between an upper and a lower bound. To extract text from columns, use this method in combination with the [Multicolumn](doc:multicolumn) preprocessor, or use the [Paragraph](doc:paragraph) method as an alternative.
+
 Or, use this method to return the coordinates of regions containing images.
 
 [**Parameters**](doc:document-range#parameters)
@@ -272,8 +274,5 @@ To extract images, set `"includeImages":true` for the Document Range method. Sen
 - Extract a partial bitmap defined by the PPI coordinates of the image from the rendered page.
 - Encode the bitmap to bytes in the image format of your choice. 
 
-Document range versus paragraphs
-----
 
-The Document Range method extracts all the text between an upper and a lower bound.  If you instead want to extract paragraphs, for example in a two-column format, then use the [Paragraph](doc:paragraph) method.
 
