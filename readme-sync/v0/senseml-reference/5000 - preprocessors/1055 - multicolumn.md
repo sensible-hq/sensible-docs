@@ -14,15 +14,11 @@ Parameters
 
 | key                 | value                               | description                                                  |
 | ------------------- | ----------------------------------- | ------------------------------------------------------------ |
-| type (**required**) | `multicolumn`                       | Recognizes multi-column layouts in documents. Each page in a document can have a different column layout. |
+| type (**required**) | `multicolumn`                       | Recognizes multi-column layouts in documents.                |
 | minGutterArea       | number in square inches. default: 1 | Configures detecting the gutters between columns. Sensible ignores a gutter between columns with an area less than that the specified square number of inches.<br/> To determine the area, Sensible detects whitespace between columns, draws a rectangular gutter in the whitespace, and measures the rectangle's area. |
 
 Examples
 ====
-
-
-
-- `https://dev.sensible.so/editor/instruct/?d=frances_playground&c=multicolumn_preprocessor&g=multicolumn___google_docs`
 
 The following example shows extracting text from a research paper that contains a 3-column layout, a 2-column layout, and a page with no columns.
 
