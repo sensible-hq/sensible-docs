@@ -15,7 +15,7 @@ Parameters
 | key                 | value                               | description                                                  |
 | ------------------- | ----------------------------------- | ------------------------------------------------------------ |
 | type (**required**) | `multicolumn`                       | Recognizes multi-column layouts in documents.                |
-| minGutterArea       | number in square inches. default: 1 | Configures detecting the gutters between columns. Sensible ignores a gutter between columns with an area less than that the specified square number of inches.<br/> To determine the area, Sensible detects whitespace between columns, draws a rectangular gutter in the whitespace, and measures the rectangle's area. |
+| minGutterArea       | number in square inches. default: 1 | Configures detecting the gutters between columns. Sensible ignores a gutter between columns with an area less than the specified square number of inches.<br/> To determine the area, Sensible detects whitespace between columns, draws a rectangular gutter in the whitespace, and measures the rectangle's area. |
 
 Examples
 ====
@@ -72,7 +72,6 @@ The following example shows extracting text from a research paper that contains 
           that the answer is incomplete. */
         "id": "queryGroup",
         "searchBySummarization": true,
-        "chunkSize": 1,
         "queries": [
           {
             "id": "methodology",
@@ -114,7 +113,7 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/multicolumn.pdf) |
 | ---------------- | ------------------------------------------------------------ |
 
 **Output**
