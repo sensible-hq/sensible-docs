@@ -99,7 +99,7 @@ The following example shows extracting text from a research paper that contains 
           },
           {
             "id": "data_set_type",
-            "description": "Is the data set real or simulated? answer 'real' or 'simulated'"
+            "description": "Is the data set real or simulated? Answer 'real' or 'simulated'"
           }
         ]
       }
@@ -111,7 +111,7 @@ The following example shows extracting text from a research paper that contains 
 **Example document**
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multicolumn.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/multicolumn.pdf) |
 | ---------------- | ------------------------------------------------------------ |
