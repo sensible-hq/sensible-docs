@@ -3,7 +3,11 @@ title: "omit fields, merge objects"
 hidden: true
 ---
 
-TODO: operation or operator + how to relate that to 'rule' , 'condition' or 'logic'? be consistent across this + other topics
+*TODO: style guide:* 
+
+- *operation or operator* 
+
++ *how to relate that to 'rule' , 'condition' or 'logic'? be consistent across this + other topics*
 
 ## Omit fields
 
@@ -64,7 +68,141 @@ the rule outputs:
 
 #### Example 2
 
-For a complete example, see TODO TBD.
+The following example shows removing extracted IDs from the [postprocessed](doc:postprocessor) output for a W-2 form.
+
+**Config**
+
+```json
+{
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "eachKey": {
+        "extraction_w_ids_removed": {
+          "omit_fields": [
+            {
+              /* in postprocessor output,
+              omit `employers_id` and `employees_ssn`
+              from the array of all extracted fields,
+              `["state", "state_wages", "state_tax", ...]`
+              */
+              "var": ""
+            },
+            [
+              "employers_id",
+              "employees_ssn"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "state",
+            "description": "state",
+            "type": "string"
+          },
+          {
+            "id": "state_wages",
+            "description": "state wages",
+            "type": "string"
+          },
+          {
+            "id": "state_tax",
+            "description": "state income tax",
+            "type": "string"
+          },
+          {
+            "id": "employers_id",
+            "description": "employers_id",
+            "type": "string"
+          },
+          {
+            "id": "employees_ssn",
+            "description": "employees_ssn",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/omit_fields.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/omit_fields.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Postprocessor output**
+
+```json
+{
+  "extraction_w_ids_removed": {
+    "state": {
+      "value": "CA",
+      "type": "string",
+      "confidenceSignal": "confident_answer"
+    },
+    "state_wages": {
+      "value": "52231.46",
+      "type": "string",
+      "confidenceSignal": "confident_answer"
+    },
+    "state_tax": {
+      "value": "3461.27",
+      "type": "string",
+      "confidenceSignal": "confident_answer"
+    }
+  }
+}
+```
+
+**Extraction output**
+
+```json
+{
+  "state": {
+    "value": "CA",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "state_wages": {
+    "value": "52231.46",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "state_tax": {
+    "value": "3461.27",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "employers_id": {
+    "value": "12-3456789",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "employees_ssn": {
+    "value": "123-45-6789",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  }
+}
+```
+
+
+
+=======
+
+**Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#section-global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method.
 
 ## Merge objects
 
