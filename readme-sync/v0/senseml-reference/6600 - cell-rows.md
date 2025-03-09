@@ -7,7 +7,7 @@ For large spreadsheets with tens of thousands of rows, the Cell Rows field extra
 
 **Notes**:
 
-- This method doesn't work with PDFs. You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types.
+This method doesn't work with PDFs. You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types.
 
 Parameters
 ====
