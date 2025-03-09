@@ -39,6 +39,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Log](doc:jsonlogic#log)                 | ✅                                       | ✅                                                    | ✅                                  |
 | [Match](doc:jsonlogic#match)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Object](doc:jsonlogic#object)           | ✅                                       | ✅                                                    | ✅                                  |
+| [Omit fields](doc:jsonlogic#omit-fields) | ✅                                       | ✅                                                    | ✅                                  |
 | [Pick Fields](doc:jsonlogic#pick-fields) | ✅                                       | ✅                                                    | ✅                                  |
 | [Replace](doc:jsonlogic#replace)         | ✅                                       | ✅                                                    | ✅                                  |
 
@@ -233,7 +234,7 @@ Returns a JSON object that is an array of key/value pairs. You can nest object o
 
 ```json
 {
-    /* Sensible recommends this syntax as an alternative to the "eachKey" operator if you don't know the keys in the object before building it */
+    /* Sensible recommends the Ojbect operation as an alternative to the "eachKey" operation if you don't know the keys in the object before building it */
     "object": 
         [
          /* where the JsonLogic operation returns `[["string", value] ...]`, e.g., map  */
@@ -241,6 +242,189 @@ Returns a JSON object that is an array of key/value pairs. You can nest object o
         ]
 }
 ```
+
+## Omit fields
+
+Creates a new object that includes all the fields from a source object except those specified. Takes an array of two items:
+
+- an object to get fields from
+- an array of field IDs to omit
+
+```json
+{
+  "omit_fields": [
+    sourceObject,
+    ["field_id_1", "field_id_2", "field_id_3"]
+  ]
+}
+```
+
+Edge cases:
+
+- The Omit Fields operator returns an empty object if the source object is empty, null, or undefined
+- The Omit Fields operator returns the original source object if it can't find the specified fields to omit.
+
+### Examples
+
+#### Example 1
+
+As a simplified example, given the following extracted fields:
+
+```json
+{
+  "field_morning": "good morning",
+  "field_afternoon": "good afternoon",
+  "field_evening": "good evening"
+}
+```
+
+if you apply the rule:
+
+```json
+{
+  "omit_fields": [
+    // `"var": ""` returns the current context, in this case, the preceding extracted fields
+    { "var": "" },
+    // the IDs of the fields to be omitted
+    ["field_morning"]
+  ]
+}
+```
+
+the rule outputs:
+
+```json
+{
+  "field_afternoon": "good afternoon",
+  "field_evening": "good evening"
+}
+```
+
+#### Example 2
+
+The following example shows removing extracted IDs from the [postprocessed](doc:postprocessor) output for a W-2 form.
+
+**Config**
+
+```json
+{
+  /* output result of omit_fields in `postprocessorOutput` */
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "omit_fields": [
+        {
+          /*  the source object, `"var": ""`, returns the current context, in this case, all extracted fields */
+          "var": ""
+        },
+        /* the IDs of the fields to omit */
+        [
+          "employers_id",
+          "employees_ssn"
+        ]
+      ]
+    }
+  },
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "state",
+            "description": "state",
+            "type": "string"
+          },
+          {
+            "id": "state_wages",
+            "description": "state wages",
+            "type": "string"
+          },
+          {
+            "id": "state_tax",
+            "description": "state income tax",
+            "type": "string"
+          },
+          {
+            "id": "employers_id",
+            "description": "employers_id",
+            "type": "string"
+          },
+          {
+            "id": "employees_ssn",
+            "description": "employees_ssn",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/omit_fields.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/omit_fields.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Postprocessor output**
+
+```json
+{
+  "state": {
+    "value": "CA",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "state_wages": {
+    "value": "52231.46",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "state_tax": {
+    "value": "3461.27",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  }
+}
+```
+
+**Extraction output**
+
+```json
+{
+  "state": {
+    "value": "CA",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "state_wages": {
+    "value": "52231.46",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "state_tax": {
+    "value": "3461.27",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "employers_id": {
+    "value": "12-3456789",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "employees_ssn": {
+    "value": "123-45-6789",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  }
+}
+```
+
+
 
 ## Pick fields
 
