@@ -262,7 +262,7 @@ Creates a new object that includes all the fields from a source object except th
 Edge cases:
 
 - The Omit Fields operator returns an empty object if the source object is empty, null, or undefined
-- The Omit Fields operator returns the original source object if it can't find the specified fields to omit.
+- The Omit Fields operator returns the source object if it can't find the specified fields to omit.
 
 ### Examples
 
