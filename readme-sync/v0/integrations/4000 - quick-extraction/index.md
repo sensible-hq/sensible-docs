@@ -18,7 +18,9 @@ Take the following steps:
 
 1. Navigate to the [Extract](https://app.sensible.so/quick-extraction/) tab.
 
-2. Select **Document** for single-document files or **Portfolio** for [documents bundled into a single file](doc:portfolio).
+2. Select **Document** for single-document files or **Portfolio** for documents bundled into a single file.
+
+   1. If you select **Portfolio**, choose between **Fingerprint** mode or **LLM** mode for segmenting the portfolio into subdocuments. For more information, see [Multi-document extractions](doc:portfolio). 
 
 3. In the **Document type** dropdown in the right pane, select the category that describes your document, for example, `resumes` or `bank_statements`. For portfolios, select multiple types.
 

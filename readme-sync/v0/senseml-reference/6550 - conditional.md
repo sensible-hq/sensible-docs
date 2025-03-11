@@ -9,7 +9,7 @@ The following simplified code snippet shows an overview of the Conditional metho
 
 ```json
 id: conditional
-condition: JsonLogic # must output a boolean 
+condition: JsonLogic # condition about already extracted fields. must output a boolean 
 fieldsOnPass: [] # fields to extract if the boolean is true
 fieldsOnFail: [] # fields to extract if the boolean is false
 ```

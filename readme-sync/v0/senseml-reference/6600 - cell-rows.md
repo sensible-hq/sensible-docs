@@ -3,7 +3,7 @@ title: "Spreadsheet extraction"
 hidden: false
 ---
 
-For large spreadsheets with tens of thousands of rows, the Cell Rows field extracts rows under a specified column-headings row. Sensible extracts rows until the end of the document. The Cell Rows field is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets.
+For large spreadsheets with tens of thousands of rows, the Cell Rows field type extracts rows under a specified column-headings row. Sensible extracts rows until the end of the document. The Cell Rows field type is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets.
 
 **Notes**:
 

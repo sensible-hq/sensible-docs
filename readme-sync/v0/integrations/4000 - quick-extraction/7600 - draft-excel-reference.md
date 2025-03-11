@@ -37,26 +37,12 @@ To generate CSV files, Sensible uses the same rules described in the following s
 Multi-document spreadsheet
 ====
 
-TODO: note yo ucan mix portfolio and single-doc files
 
-| Column name                                       | notes                                                        |      |      |      |      |
-| ------------------------------------------------- | ------------------------------------------------------------ | ---- | ---- | ---- | ---- |
-| metadata.documents                                | name of the document file (auto w/ quickupload, document name param in API).  If there are any tabs then they are indexed according to how they appear in this column. IE<br/>metadata.documents<br/>1040_john_smith<br/> |      |      |      |      |
-| metadata.startPage and metadata.endPage           | if the document is in a portfolio, the page range for the document. |      |      |      |      |
-| metadata.documentType and  metadata.configuration | The document type and config used to extract this document.  |      |      |      |      |
-
-Example:
-
-| metadata.documents | metadata.startPage | metadata.endPage | metadata.documentType | metadata.configuration      | <single_value_fields> |
-| ------------------ | ------------------ | ---------------- | --------------------- | --------------------------- | --------------------- |
-| portfolio          | 0                  | 0                | auto_insurance_quotes | anyco                       |                       |
-| portfolio          | 1                  | 1                | auto_insurance_quotes | anyco                       |                       |
-| portfolio          | 2                  | 2                | frances_playground    | portfolio_sections_loss_run |                       |
 
 Sensible combines multiple document extractions into one spreadsheet when:
 
 - You extract from a [portfolio](doc:portfolio) document.
-- You input multiple extractions to the Generate Excel [method](doc:sdk-guides) or [endpoint](ref:get-excel-extraction).
+- You input multiple extractions to the Generate Excel [method](doc:sdk-guides) or [endpoint](ref:get-excel-extraction), or select multiple documents and click **Download Excel** in the Sensible app. Note you can combine portfolio and single-document extractions.
 
 To combine extractions, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:
 
@@ -64,8 +50,14 @@ To combine extractions, Sensible uses the same rules described in the following 
 
 - For the `<fields>`sheet, Sensible appends data for each document in a new row. For each field ID, Sensible appends data under the same column if it finds a matching field ID from another extraction in your call to the Generate Excel method or endpoint, or under a new column if it doesn't find an matching field ID.
 
-- For portfolio extractions, Sensible adds metadata to the `<fields>` sheet, for example, the page range of the document in the portfolio.
+- For portfolio extractions, Sensible adds metadata to the `<fields>` sheet, for example, the page range of the document in the portfolio. As an example, for documents `any_single_account_bank_statement_sample.pdf`  and `portfolio_bank_paystub_tax.pdf`, Sensible outputs the following:
 
+  
+  
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/excel_mix.png)
+  
+  Where `doc_0` refers to [any_single_account_bank_statement_sample.pdf](https://github.com/sensible-hq/sensible-configuration-library/blob/main/templates/Financial%20Services/Bank%20Statements/refdocs/any_single_account_bank_statement_sample.pdf), and `doc_2` refers to the bank statement document in page range 2-6 of [portfolio_bank_paystub_tax.pdf](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf).
+  
   
 
 **Tips**

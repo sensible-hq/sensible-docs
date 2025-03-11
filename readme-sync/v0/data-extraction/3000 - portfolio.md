@@ -11,7 +11,7 @@ To extract from a portfolio,  you have the following options:
 
 |                     | LLM-based                                                    | Text-based ("fingerprints")                                  |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. | Sensible finds user-configured text matches ("fingerprints") to segment documents |
+| Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. For more information, see [Document type descriptions](doc:descriptions). | Sensible finds user-configured text matches ("fingerprints") to segment documents. For more information, see [fingerprints](doc:fingerprint). |
 | Granularity         | at the document type level                                   | at the config level                                          |
 
 Other tradeoffs between LLM and layout-based methods apply. For more tradeoffs, see [Choosing an extraction approach](doc:author).
