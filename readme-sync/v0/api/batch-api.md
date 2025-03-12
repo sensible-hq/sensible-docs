@@ -38,9 +38,9 @@ The following parameters are available to you for the `POST extract/batch` endpo
 | Parameter                    | description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
 | documentNames (**required**) | Array of the file names of the documents in the batch, for example, `["1.pdf", "2.png"]`. The maximum batch size is 5,000. |
-| contentTypes                 | Array of the content types of the documents in the `documentNames` array, for example, `["application/pdf",  "image/png"]`. For information about supported content types, see [Supported file types](doc:file-types). |
+| contentTypes                 | Array of the content types of the documents in the Document Names array, for example, `["application/pdf",  "image/png"]`. For information about supported content types, see [Supported file types](doc:file-types). |
 | description                  | Description of the batch.                                    |
-| docType (**required**)       | The document type in your Sensible account to extract from.  If you don't specify this parameter, you must specify the portfolioDocTypes parameter. |
+| docType (**required**)       | The document type in your Sensible account to extract from.  If you don't specify this parameter, you must specify the Portfolio Doc Types parameter. |
 | portfolioDocTypes            | Array of document types to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
 | configuration                | The configuration to use when extracting the documents in the batch. N/A for portfolioDocTypes. |
 
