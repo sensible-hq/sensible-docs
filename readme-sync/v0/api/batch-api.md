@@ -42,7 +42,7 @@ The following parameters are available to you for the `POST extract/batch` endpo
 | description                  | Description of the batch.                                    |
 | docType (**required**)       | The document type in your Sensible account to extract from.  If you don't specify this parameter, you must specify the Portfolio Doc Types parameter. |
 | portfolioDocTypes            | Array of document types to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
-| configuration                | The configuration to use when extracting the documents in the batch. N/A for portfolioDocTypes. |
+| configuration                | The configuration to use when extracting the documents in the batch. N/A for the Portfolio Doc Types parameter. |
 
 
 
