@@ -37,7 +37,8 @@ The following parameters are available to you for the `POST extract/batch` endpo
 
 | Parameter                    | description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
-| documentNames (**required**) | The file names of the documents in the batch. This endpoint supports PDFs and Word documents. The maximum batch size is 5000. |
+| documentNames (**required**) | Array of the file names of the documents in the batch, for example, `["1.pdf", "2.png"]`. The maximum batch size is 5,000. |
+| contentTypes                 | Array of the content types of the documents in the `documentNames` array, for example, `["application/pdf",  "image/png"]`. For information about supported content types, see [Supported file types](doc:file-types). |
 | description                  | Description of the batch.                                    |
 | docType (**required**)       | Type of document to extract from.  If you don't specify this parameter, you must specify the portfolioDocTypes parameter. |
 | portfolioDocTypes            | Array of types of documents to extract from, if all the documents in the batch are [portfolio](doc:portfolio) documents. |
@@ -91,7 +92,7 @@ The following parameters are available to you for the `POST extract/batch` endpo
    }
 ```
 
-You can also update the batch description using `PUT extract/batch/{batchId}` and specifying the new `description` in the body as JSON.
+You can update the batch description using `PUT extract/batch/{batchId}` and specifying the new `description` in the body as JSON.
 
 Each extraction returns the `batchID`. For example:
 
