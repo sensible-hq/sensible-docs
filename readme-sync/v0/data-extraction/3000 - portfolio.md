@@ -7,7 +7,7 @@ hidden: false
 
 Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type for the portfolio file in the previous example, rather than creating a "combined_tax_and_invoice" doc type.
 
-To extract from a portfolio,  you have the following options:
+To segment the subdocuments in a portfolio file,  you have the following options:
 
 |                     | LLM-based                                                    | Text-based ("fingerprints")                                  |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
