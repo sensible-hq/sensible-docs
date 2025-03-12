@@ -768,7 +768,7 @@ Parameters
 | key                  | value                 | description                                                  |
 | -------------------- | --------------------- | ------------------------------------------------------------ |
 | id (**required**)    | `compose`             |                                                              |
-| types (**required**) | array of type objects | Each type in a compose array takes the output of the previous type as its input. Note that Sensible recommends explicitly configuring a  [tiebreaker](doc:method#parameters)  if you configure this type for a field that can output an array. The tiebreaker applies to the output of the last type in the array. |
+| types (**required**) | array of type objects | Each type in a compose array takes the output of the previous type as its input. Note that Sensible recommends explicitly configuring a  [tiebreaker](doc:method#parameters)  if you configure this type for a method that can output an array. The tiebreaker applies to the output of the last type in the array. |
 
 
 
