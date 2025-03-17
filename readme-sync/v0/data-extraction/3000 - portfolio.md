@@ -107,11 +107,11 @@ You should see results like the following:
     "type": "boolean",
     "value": false
   },
-  "filing_status.marrid_filing_jointly": {
+  "filing_status.married_filing_jointly": {
     "type": "boolean",
     "value": true
   },
-  "filing_status.marrid_filing_separately": {
+  "filing_status.married_filing_separately": {
     "type": "boolean",
     "value": false
   },
