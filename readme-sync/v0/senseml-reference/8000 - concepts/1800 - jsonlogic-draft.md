@@ -20,6 +20,10 @@ hidden: true
 
 For an array of objects, returns a single object containing all the fields from each object. 
 
+
+
+TODO: does it do nested fields, eg sections? 
+
 Edge cases:
 
 - *If passed an empty array, it returns an empty object*
