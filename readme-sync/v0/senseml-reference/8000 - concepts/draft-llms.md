@@ -8,7 +8,8 @@ title: "Configure/troubleshoot LLMs"
 - prompt tips stuff in each LLM topic
 - prompt tips in /prompt
 - other stuff?
-- BLOG post on chaining prompts?
+- BLOG post on chaining prompts? 
+- TODO: use Josh's overview slides
 
 
 
