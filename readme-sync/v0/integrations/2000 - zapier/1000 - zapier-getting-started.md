@@ -8,6 +8,11 @@ This topic describes sending extracted data from example documents into an Airta
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_0.png)
 
+This Zap:
+
+1. triggers every time that Sensible extracts from a document of the specified document type and 
+2. creates a new record in a database from the extracted data..
+
 Create an example Sensible extraction
 ----
 
