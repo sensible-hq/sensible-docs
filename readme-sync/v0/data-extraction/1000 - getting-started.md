@@ -4,7 +4,7 @@ hidden: false
 ---
 
 
-In this tutorial, you'll learn to extract data out of a set of similar documents using Sensible's query language, SenseML. You'll write JSON-formatted SenseML to tell Sensible about which data to extract from an example document, using what you know about the layout of the document.
+In this tutorial, you'll learn to extract data from a set of similar documents using Sensible's query language, SenseML. You'll write JSON-formatted SenseML to tell Sensible about which data to extract from an example document, using what you know about the layout of the document.
 
 You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.   
 

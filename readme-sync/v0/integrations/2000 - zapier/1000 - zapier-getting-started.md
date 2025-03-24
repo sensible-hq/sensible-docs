@@ -11,7 +11,7 @@ This topic describes sending extracted data from example documents into an Airta
 This Zap:
 
 1. triggers every time that Sensible extracts from a document of the specified document type and 
-2. creates a new record in a database from the extracted data..
+2. creates a new record in a database from the extracted data.
 
 Create an example Sensible extraction
 ----
