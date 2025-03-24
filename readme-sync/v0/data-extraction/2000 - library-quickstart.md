@@ -28,8 +28,8 @@ If you want to extract from any of the following document types, you can get sta
 To add supported document types to your Sensible account:
 
 1. Click the **Template library** tab, and browse for your document type. Click **Use case** to view document types by industry:
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/library_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_library_1.png)
 2. Click the document type you want to extract from. Sensible displays the specific forms it supports in the document type.
 3. Click **Clone to account**. Sensible displays the cloned document type and its form-specific configs in the **Document types** tab.
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/library_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_library_2.png)
 4. Test the document type by uploading your sample documents, for example, using the [Extract](doc:quick-extraction) tab.
