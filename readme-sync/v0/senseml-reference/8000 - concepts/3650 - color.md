@@ -232,7 +232,7 @@ You can select multiple lines to see their combined details.
 
 In the visual editor, Sensible uses location highlighting to show source text for LLM-based methods. Click the location icon to the right of the output of a query field to view its source text in the document: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_location.png)
 
 Since LLMs are indeterminate, Sensible locates source text for LLM-based methods using a variety of approaches:
 

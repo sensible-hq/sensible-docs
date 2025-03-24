@@ -29,11 +29,11 @@ You can configure the preceding parameters in the JSON editor and in the visual 
 
 For example, the following screenshot shows prompt settings in the visual editor for all fields in a config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt_instruct_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_prompt_instruct_2.png)
 
 To edit the preceding parameters in the visual editor for individual fields, click the field to edit it, then click the advanced settings drop-down. For example, for a List field:
 
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt_instruct_1.png)
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_prompt_instruct_1.png)
 
 Global LLM-based parameters
 ===
