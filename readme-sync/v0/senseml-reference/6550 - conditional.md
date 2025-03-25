@@ -59,7 +59,7 @@ The following example shows using conditional execution to standardize output ac
     {
       "method": {
         "id": "conditional",
-        "conditional": {
+        "condition": {
           "exists": {
             /* if Sensible successfully extracted the transaction_history table 
             (i.e. it's non-null),
