@@ -3,6 +3,12 @@ hidden: true
 title: "Configure/troubleshoot LLMs"
 ---
 
+- w/ Instruct going away, i can TOTALLY delete the /prompt topic! And maybe just xlink btwn the NLP preprocessor in each method ... 
+
+- 
+
+- 
+
 - see also: troubleshoot-llms
 
 - prompt tips stuff in each LLM topic
@@ -15,39 +21,57 @@ title: "Configure/troubleshoot LLMs"
 
 TO DOs: -- search by summarization is NOT global; NLP table don't support it.
 
-## HOW IT WORKS
+## Overview
+
+To capture specific data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  It can't submit the full document, because that impacts performance. 
+
+Given this constraint, Sensible offers configuration options so that you can troubleshoot which part of the document to submit. The excerpt that Sensible submits is the *context*.
+
+The following is an overview of how Sensible's LLM-based methods find a prompt's *context* . Use this overview to understand your configuration and troubleshooting options.
+
+### 
+
+*Note that context doesn't have to be limited to contiguous pages in the document; it can consist of extracts scattered across the document.*
 
 
 
+1. Find context with embeddings scores
+2. Find context w/ page summaries
+3. Methods that bypass context (chain prompts and multimodal)
 
 
-The following is an overview of how Sensible's LLM-based methods work. Use this overview to understand your configuration and troubleshooting options.
 
-### Overview
+#### (default) Find context with embeddings scores
 
-Sensible supports LLM-based data extraction methods from documents. For example, for an insurance declaration document, you can submit the prompt `when does the insurance coverage start?`, and the LLM returns `08-14-24`. 
+Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using embeddings, and then return the top-scoring chunks as context:
 
-LLMs' input token limits are important constraints in this scenario. Because of these limits, Sensible must generally submit an excerpt of the document rather than the whole document to the LLM. This relevant excerpt is called *context*. For example, for the prompt  `when does the insurance coverage start?`, the abbreviated context can be something like:
+![image-20250325115727224](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250325115727224.png)
 
-````txt
-Tel: 1-800-851-2000    Declarations Page
-This is a description of you coverage
-Please retain for your coverage.
-Policy Number: 555-555-55-55
-Coverage Period:
-08-14-24 through 02-14-25
-[etc]
-````
+The advantage of this approach is that it's fast and works well; the disadvantage is that it can be brittle, especially with configuration options.
 
-Note that context doesn't have to be limited to contiguous pages in the document; it can consist of extracts scattered across the document.
 
-### Example: Full prompt with context
 
-See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default embeddings scoring approach (TODO link to that section).  When you write a prompt using an LLM-based method, Sensible creates a full prompt using the following:
+The following steps provide details about the parameters you can use to configure this default process:
 
-- A prompt introduction
-- "context", made up of chunks excerpted from the document and of page metadata. 
-- concatenated descriptive prompts you configure in an LLM-based method, such as in the [List](doc:list) or [Query Group](doc:query-group) methods.
+1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap. Parameters TODO LINK TO ADVANCED PROPMT CONFIG PARAMS TABLE that configure this step include:
+   - Chunk Count
+   - Chunk Size
+   - Chunk Overlap Percentage
+   - Page Range
+2. Sensible selects the most relevant chunks and combines them with page-hinting data to create a "context".  Parameters that configure this step include:
+   1. Page Hinting
+   2. LLM Engine parameter
+
+3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Parameters that configure this step include:
+   1. Context Description
+
+4. Sensible returns the LLM's response.
+
+For specifics about how each LLM-based method works, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
+
+
+
+See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default embeddings scoring approach:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
@@ -57,8 +81,6 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 | B    | Page metadata for chunks.                                    |
 | C    | Chunks excerpted from document, concatenated into "context"  |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |
-
-Sensible provides configuration options for ensuring correct and complete contexts. For more information, see the following section.
 
 // TODO: add a mermaid chart here??? https://docs.readme.com/main/docs/creating-mermaid-diagrams 
 
@@ -88,27 +110,7 @@ To use other fields as context, configure the Source Ids parameter for the [Quer
 
 You can locate context using page summaries when you set the Search By Summarization parameter for supported LLM-based methods. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag): Sensible prompts an LLM to summarize each page in the document, prompts a second LLM to return the pages most relevant to your prompt based on the summaries, and uses those pages' text as the context.  This strategy is can be useful for long documents in which multiple mentions of the same concept make finding relevant context difficult.
 
-#### (Most configurable) Find context with embeddings scores
 
-Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using embeddings, and then return the top-scoring chunks as context. 
-
-The following steps provide details about the parameters you can use to configure this process:
-
-1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap. Parameters that configure this step include:
-   - Chunk Count
-   - Chunk Size
-   - Chunk Overlap Percentage
-   - Page Range
-2. Sensible selects the most relevant chunks and combines them with page-hinting data to create a "context".  Parameters that configure this step include:
-   1. Page Hinting
-   2. LLM Engine parameter
-
-3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Parameters that configure this step include:
-   1. Context Description
-
-4. Sensible returns the LLM's response.
-
-For specifics about how each LLM-based method works, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
 
 ## Troubleshooting options
 
@@ -155,4 +157,6 @@ Sometimes, an LLM fails to locate the relevant portion of the document that cont
 - For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
 
 - If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced LLM prompt configuration](doc:prompt).  (TODO: rename topic to "global parameters"? rm it entirely?)
+
+
 
