@@ -41,7 +41,7 @@ The advantage of this approach is that it's fast and works well; the disadvantag
 
 The following steps provide details about the parameters you can use to configure this default process:
 
-1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap. Parameters TODO LINK TO ADVANCED PROPMT CONFIG PARAMS TABLE that configure this step include:
+1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap. Parameters TODO LINK TO ADVANCED PROPMT CONFIG PARAMS TABLE?? NLP PREprocessor??? that configure this step include:
    - Chunk Count
    - Chunk Size
    - Chunk Overlap Percentage
@@ -56,6 +56,8 @@ The following steps provide details about the parameters you can use to configur
 4. Sensible returns the LLM's response.
 
 For specifics about how each LLM-based method works, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
+
+
 
 
 
@@ -85,6 +87,8 @@ You can locate context using page summaries when you set the Search By Summariza
    
 
 This strategy is can be useful for long documents in which multiple mentions of the same concept make finding relevant context difficult. For example, long legal documents.
+
+![image-20250325124929585](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250325124929585.png)
 
 ## Bypass context
 
