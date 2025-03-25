@@ -25,31 +25,19 @@ TO DOs: -- search by summarization is NOT global; NLP table don't support it.
 
 To capture specific data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  It can't submit the full document, because that impacts performance. 
 
-Given this constraint, Sensible offers configuration options so that you can troubleshoot which part of the document to submit. The excerpt that Sensible submits is the *context*.
+You can troubleshoot which part of the document ( the *context*) to submit with the following approaches:
 
-The following is an overview of how Sensible's LLM-based methods find a prompt's *context* . Use this overview to understand your configuration and troubleshooting options.
-
-### 
-
-*Note that context doesn't have to be limited to contiguous pages in the document; it can consist of extracts scattered across the document.*
-
-
-
-1. Find context with embeddings scores
+1. (Default) Find context with embeddings scores
 2. Find context w/ page summaries
-3. Methods that bypass context (chain prompts and multimodal)
+3. Bypass context (chain prompts and multimodal)
 
-
-
-#### (default) Find context with embeddings scores
+#### (Default) Find context with embeddings scores
 
 Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using embeddings, and then return the top-scoring chunks as context:
 
 ![image-20250325115727224](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250325115727224.png)
 
-The advantage of this approach is that it's fast and works well; the disadvantage is that it can be brittle, especially with configuration options.
-
-
+The advantage of this approach is that it's fast and works well; the disadvantage is that it can be brittle.
 
 The following steps provide details about the parameters you can use to configure this default process:
 
@@ -84,9 +72,23 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 
 // TODO: add a mermaid chart here??? https://docs.readme.com/main/docs/creating-mermaid-diagrams 
 
-## Options for locating context
+#### Find context with page summaries
 
-####  (Most determinate) Use other extracted fields as context
+You can locate context using page summaries when you set the Search By Summarization parameter for supported LLM-based methods. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
+
+1.  Sensible prompts an LLM to summarize each page in the document,
+
+2. prompts a second LLM to return the pages most relevant to your prompt based on the summaries, and
+
+3. uses those pages' text as the context. 
+
+   
+
+This strategy is can be useful for long documents in which multiple mentions of the same concept make finding relevant context difficult. For example, long legal documents.
+
+## Bypass context
+
+### Chain prompts
 
 You can prompt an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. For example, say you use the Text Table method to extract the following data in a `snacks_rank` table: 
 
@@ -106,11 +108,9 @@ If you create a Query Group method with the prompt `what is the best-selling sna
 
 To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods.
 
-#### (Best for legalese) Find context with page summaries
+### Multimodal extraction 
 
-You can locate context using page summaries when you set the Search By Summarization parameter for supported LLM-based methods. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag): Sensible prompts an LLM to summarize each page in the document, prompts a second LLM to return the pages most relevant to your prompt based on the summaries, and uses those pages' text as the context.  This strategy is can be useful for long documents in which multiple mentions of the same concept make finding relevant context difficult.
-
-
+TODO
 
 ## Troubleshooting options
 
