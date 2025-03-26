@@ -8,7 +8,7 @@ Use this option to configure the criteria by which Sensible determines if a whol
 
 ## Enums
 
-The following table shows the enums available for the OCR Level parameter. 
+The following table shows the enums available for the OCR Level parameter through the Sensible API. 
 
 **Note:** Set this parameter in the [Sensible API](ref:create-document-type).
 
