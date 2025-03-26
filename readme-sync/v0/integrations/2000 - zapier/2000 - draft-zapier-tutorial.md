@@ -4,6 +4,10 @@ hidden: true
 
 ---
 
+TODO: test these steps and also test this statement: "If you select **New file in folder**  event in Google Drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. "
+
+
+
 This topic describes how to configure an example two-Zap workflow for Zapier. The example workflow extracts data from documents uploaded to one Google drive folder and uploads them as spreadsheets to another Google Drive folder. 
 
 Sensible supports two-step Zapier workflows as follows:
@@ -11,7 +15,7 @@ Sensible supports two-step Zapier workflows as follows:
 - The first Zap extracts the document and returns a `WAITING` extraction status.
 - The second Zap triggers when the extraction status is `COMPLETE` and takes action on the extraction.
 
-You can use the example Zaps in this topic as templates. For example, modify this workflow to trigger extractions based on other file actions in Zapier-support apps (for example, a new document uploaded to Google Drive instead of a new email in Gmail). Or, output to different destinations (for example, a database record instead of spreadsheet files in Google Drive).
+You can use the example Zaps in this topic as templates. For example, modify this workflow to trigger extractions based on other file actions in Zapier-support apps. Or, output to different destinations (for example, a database record instead of spreadsheet files in Google Drive).
 
 Zap 1
 ---
@@ -26,12 +30,22 @@ graph TD;
 
 
 
-Every time you receive an email in Gmail with a 1040 document attached, Zapier triggers Sensible to start extracting data from it.
+Every time you add a new file to a specified Google Drive folder, Zapier triggers Sensible to start extracting data from it.
 
 Zap 2
 ---
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2.png)
+
+```
+graph TD;
+    A["Trigger: New Document Extraction in Sensible"] --> B["(Optional) Only continue if extraction is 1040 tax document"];
+    B --> C["Upload extraction as spreadsheet file to Google Drive"];
+    C --> D["(Optional) Update logs file"];
+
+```
+
+
 
 Every time Sensible completes extracting from a document, Zapier checks if the extraction was triggered by Zap 1. If it is, Zapier triggers Sensible to create a spreadsheet of the extracted data, and uploads the spreadsheet to a folder in Google Drive.
 
@@ -45,11 +59,11 @@ Follow the steps in [Getting started with out-of-the-box extractions](doc:librar
 Prerequisite: Configure Google accounts
 ----
 
-1. Choose a Gmail account for the Zaps. Send a test email to it with an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf)  attached and make sure the subject line includes the text `1040`.
+1. Choose a Google Drive account for the Zaps. Create an empty Google Drive folder  for the uploaded 1040 documents you want to extract from. Name it `1040s_uploads`. Upload an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf).
 2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data. Name it `1040s_extracted`.
-3. (Optional) In the Google Drive folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , and `Extraction link`.
+3. (Optional) In the `1040s_extracted` folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , and `Extraction link`.
 
-Zap 1: Extract emailed 1040 doc with Sensible
+Zap 1: Extract new file in Google Drive with Sensible
 ---
 
 See the following steps to configure Zap 1:
@@ -58,15 +72,15 @@ See the following steps to configure Zap 1:
 
 2. For the trigger, take the following steps:
    1. Setup:
-      1. **App**: Gmail
-      2. **Trigger event**: New Attachment
+      1. **App**: Google drive
+      2. **Trigger event**: New File in Folder
       3. **Account**: Your Google account.
    2. Configure:
-      1. **Label or mailbox**: Inbox and all labels
-      2. **Search keywords**: `subject:1040` (This triggers on each attachment if the email's subject contains "1040")
+      1. **Drive**: Select your Google Drive.
+      2. **Folder**: Select the `1040s_uploads` folder you created.
    3. Test:
-      1. Before you click **Test trigger**, ensure you sent an email to your  Gmail account with an attached 1040 document and the subject "1040".
-      2.  Select the email attachment you sent.
+      1. Before you click **Test trigger**, ensure you've uploaded a 1040 document to the `1040s_uploads` folder.
+      2.  Select the document you uploaded.
 
 3. For the action, take the following steps: 
 
@@ -79,9 +93,9 @@ See the following steps to configure Zap 1:
    2. Configure:
       1. **Document type**: 1040s
       2. **Environment**: Production
-      3. **Document**: `Attachment (Exists but not shown)`.  This specifies to extract from the email attachment.
-      4. **Reference**: `Attachment (Exists but not shown)`. Note that if you were working in Google Drive, you'd select "File". You'll use this reference to connect Zap 1 and Zap 2 in a succeeding step.
-      5. (Optional): You can specify additional references to log additional information. For example, if you specify the email URL as a reference, you can use it in a succeeding optional logging step.
+      3. **Document**: `File (Exists but not shown)`.  This specifies to extract from the email attachment.
+      4. **Reference**: `File (Exists but not shown)`. Note that if you were working in Google Drive, you'd select "File". You'll use this reference to connect Zap 1 and Zap 2 in a succeeding step. TODO is it file or file (exists but not shown) for both of these
+      5. (Optional): You can specify additional references to log additional information in succeeding steps.
    3. Test:
       1. Click test, then verify that the extraction is in `WAITING` status
       2. Click **Publish**.
@@ -102,14 +116,14 @@ See the following steps to configure Zap 2.
       2. **Trigger event**: New Document Extraction
       3. **Account**: Select your Sensible account.
 
-   	2. Configure:
+   2. Configure:
        	1. **Document type**: 1040s
        	2. **Environment**: Production
        	3. **Status**: Complete
        	4. **Create Excel output**: True. This creates an Excel [spreadsheet](doc:excel-reference) from the extracted document data and stores it at URL.
-   	3. Test:
-       	1. Click **Test trigger**.
-                	1. Select the extraction you triggered in the previous Zap. Verify its status is now `COMPLETE` and that the `parsed_document` object contains extracted data from the example document you emailed in a previous step. For example, `Parsed Document Year Value` is `2021`.
+   3. Test:
+        1. Click **Test trigger**.
+        2. Select the extraction you triggered in the previous Zap. Verify its status is now `COMPLETE` and that the `parsed_document` object contains extracted data from the example document you uploaded in a previous step. For example, `Parsed Document Year Value` is `2021`.
 
 3. For the action, take the following steps:
    1. Filter:
@@ -154,7 +168,7 @@ See the following steps to configure Zap 2.
            1. **extraction id**: ID
            2. **extraction date**: Completed
            3. **Extraction link**: Embed Link
-           4. Use additional references and webhook payloads to log more information from Zap 1. For example, if you want to include a column containing links back to the original email URLs, you'd need to create an additional reference in Zap 1 that includes the email URL, and additionally select the corresponding webhook payload reference in Zap 2. 
+           4. (Optional) Use additional references and webhook payloads to log more information from Zap 1.
 
 
 (Optional) Test your integration
@@ -164,7 +178,7 @@ Congratulations, your integration is now published and running! Take the followi
 
 1. Download example 1040 documents from the Sensible [library](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s/refdocs).
 
-2. Email the example 1040 documents to the Gmail account, ensuring that they match the search criteria you created in Zapier.
+2. Upload them to the Google Drive folder you created.
 
 3. Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, navigate to the **Zaps** tab in Zapier, right-click the Zap's ellipsis (...) icon and click **Run**.
 
