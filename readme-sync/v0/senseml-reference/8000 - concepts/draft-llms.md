@@ -23,13 +23,15 @@ TO DOs: -- search by summarization is NOT global; NLP table don't support it.
 
 ## Overview
 
-To capture specific data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  It can't submit the full document, because that impacts performance. 
+To capture specific data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy.
 
-You can troubleshoot which part of the document ( the *context*) to submit with the following approaches:
+To troubleshoot, you can configure which part of the document (the *context*) to submit with one of the following approaches:
 
 1. (Default) Find context with embeddings scores
-2. Find context w/ page summaries
-3. Bypass context (chain prompts and multimodal)
+2. Find context with page summaries
+3. Bypass finding context
+
+For information about configuring each of these approaches, see the following sections.
 
 #### (Default) Find context with embeddings scores
 
@@ -39,25 +41,23 @@ Sensible's default method for locating context is to split the document into fra
 
 The advantage of this approach is that it's fast and works well; the disadvantage is that it can be brittle.
 
-The following steps provide details about the parameters you can use to configure this default process:
+The following steps outline how Sensible finds context using embeddings and provide details about the parameters you can use to configure this default process:
 
-1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap. Parameters TODO LINK TO ADVANCED PROPMT CONFIG PARAMS TABLE?? NLP PREprocessor??? that configure this step include:
+1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters TODO LINK TO ADVANCED PROPMT CONFIG PARAMS TABLE?? NLP PREprocessor??? that configure this step include:
    - Chunk Count
    - Chunk Size
    - Chunk Overlap Percentage
    - Page Range
 2. Sensible selects the most relevant chunks and combines them with page-hinting data to create a "context".  Parameters that configure this step include:
-   1. Page Hinting
-   2. LLM Engine parameter
+   - Page Hinting
+   - LLM Engine parameter
 
 3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Parameters that configure this step include:
-   1. Context Description
+   - Context Description
 
 4. Sensible returns the LLM's response.
 
-For specifics about how each LLM-based method works, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
-
-
+The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
 
 
 
@@ -76,7 +76,7 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 
 #### Find context with page summaries
 
-You can locate context using page summaries when you set the Search By Summarization parameter for supported LLM-based methods. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
+When you set the Search By Summarization parameter to true for supported LLM-based methods, Sensible finds context using LLM-generated page summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
 
 1.  Sensible prompts an LLM to summarize each page in the document,
 
@@ -86,15 +86,21 @@ You can locate context using page summaries when you set the Search By Summariza
 
    
 
-This strategy is can be useful for long documents in which multiple mentions of the same concept make finding relevant context difficult. For example, long legal documents.
+
 
 ![image-20250325124929585](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250325124929585.png)
+
+This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult. For example, long legal documents.
 
 ## Bypass context
 
 ### Chain prompts
 
-You can prompt an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. For example, say you use the Text Table method to extract the following data in a `snacks_rank` table: 
+When you specify the Source IDS parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
+
+
+
+For example, say you use the Text Table TODO LINK method to extract the following data in a `snacks_rank` table: 
 
 ```json
 snack       annual regional sales
@@ -103,7 +109,24 @@ corn chips  $200k
 bananas     $150k
 ```
 
-If you create a Query Group method with the prompt `what is the best-selling snack?`, and specify `snacks_rank` as the context using the Source IDs parameter, then Sensible searches for answers to your question only in the extracted `snacks_rank` table rather than in the entire document. Use other fields as context to: 
+If you create a Query Group method with the prompt `what is the best-selling snack?`, and specify `snacks_rank` as the context using the Source IDs parameter, then Sensible searches for answers to your question only in the extracted `snacks_rank` table rather than in the entire document:
+
+![image-20250326101247413](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250326101247413.png)
+
+```
+graph TD
+    A[Industry sales report PDF] -->|LLM extracts from doc| B[Table of product sales]
+    B -->|LLM extracts from table| C[Top seller]
+
+```
+
+
+
+
+
+*TODO: Mermaid diagram of this?*
+
+ Use other fields as context to: 
 
 - Reformat or otherwise transform the outputs of other fields.
 - Compute or generate new data from the output of other fields
@@ -114,7 +137,17 @@ To use other fields as context, configure the Source Ids parameter for the [Quer
 
 ### Multimodal extraction 
 
-TODO
+When you configure the Multimodal Engine parameter for the Query Group method, you can extract from non-text data, such as photographs, charts, or illustrations. 
+
+
+
+TODO: add a question overlay: "are the buildings multistory? return true or false"
+
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
+
+When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor TODO LINK and region coordinates, or use an embeddings approach.   TODO cross link to 'embeddings' approach from query gorup parameter table to here.
 
 ## Troubleshooting options
 

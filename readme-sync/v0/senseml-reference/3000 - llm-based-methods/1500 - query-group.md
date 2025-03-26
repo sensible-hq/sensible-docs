@@ -6,7 +6,7 @@ hidden: false
 
 Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. 
 
-- When you configure the Multimodal Engine parameter, this method can extra data from non-text images, such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
+- When you configure the Multimodal Engine parameter, you can extract from non-text data such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
 - When you configure the Source Fields parameter, you can chain LLM prompts together. In other words, you can extract data with one prompt, then apply further prompts to the extracted data.
 
 #### Prompt Tips
