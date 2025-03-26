@@ -10,10 +10,8 @@ Describe a document type in its **Settings** tab to:
 
 Examples of document type descriptions:
 
-- `To accurately classify this type of document look at the bottom left of each page of the document and if you see ACORD 131 then it is an instance of an Acord 131 form.`
-- `This type of document is a scanned bank check. Usually only a single page.`
-- `This type of document is a scanned envelope that is stamped. Can be 1 - 2 pages long. If the page after an envelope image is empty and there is not information other than the header and footer, then please include that page in the envelope document as well.`
-- `This type of document is an insurance policy. Each policy usually contains a distinct policy number` . 
-- `This type of document is an invoice. Each invoice usually lists balance and payments.`
-- `This type of document is a car rental agreement. Note that each car rental agreement can include images of the reservation confirmation, bank account screenshots and drivers license. The first page of each document includes a rental-agreement/reservation number.` 
+- `Bank Statement - A financial document summarizing account activity over a defined period. Typically includes the bank’s name/logo, account holder details, statement date, beginning and ending balances, and a detailed list of transactions such as deposits, withdrawals, and fees`
+- `form 5500 - A federally required document that reports the financial condition and operations of employee benefit plans, such as 401(k)s and pension plans. Typically includes plan details, sponsor and administrator information, participant counts, and financial statements. The first page contains the form title, plan sponsor name, and employer identification number (EIN). The last page may include attached schedules or auditor’s reports`
+- `Verification of employment - A formal document issued by an employer to confirm a person's job status, salary, and length of employment. The first page typically includes the employer’s name/logo, employee’s full name, position, employment start date, and salary details. The last page may contain the employer’s contact information, verification signatures, or additional employment-related remarks`
+- `Rate Confirmation - A document issued by a freight broker or carrier outlining the agreed-upon payment for a specific shipment. Typically includes the shipper’s and carrier’s names, load details, pickup and delivery locations, total freight charge, and payment terms. The first page usually presents key shipping and payment details, while additional pages may contain signatures, terms, or special instructions`
 
