@@ -1,0 +1,16 @@
+## mermaid_chain_prompt
+
+graph TD
+    A[Industry sales report PDF] -->|LLM extracts from doc| B[Table of product sales]
+    B -->|LLM extracts from table| C[Top seller]
+
+
+## mermaid_llm_context
+
+graph TD
+    style A fill:#fafaf8,stroke:#000,stroke-width:1px;
+    style B fill:#fafaf8,stroke:#000,stroke-width:1px;
+    style C fill:#fafaf8,stroke:#000,stroke-width:1px;
+
+    A[Industry sales report PDF] -->|LLM extracts from doc| B[Table of product sales]
+    B -->|LLM extracts from table| C[Top seller]

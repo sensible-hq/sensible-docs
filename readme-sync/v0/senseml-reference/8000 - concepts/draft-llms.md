@@ -26,17 +26,6 @@ To troubleshoot, you can configure which part of the document (the *context*) to
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_llm_context.png)
 
-```
-graph TD
-    style A fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style B fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style C fill:#fafaf8,stroke:#000,stroke-width:1px;
-
-    A[Industry sales report PDF] -->|LLM extracts from doc| B[Table of product sales]
-    B -->|LLM extracts from table| C[Top seller]
-
-```
-
 For information about configuring each of these approaches, see the following sections.
 
 #### (Default) Locate context by scoring page chunks
@@ -90,7 +79,7 @@ When you set the Search By Summarization parameter to true for supported LLM-bas
 
    
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/page_summary.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_page_summary.png)
 
 This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
@@ -109,14 +98,9 @@ bananas     $150k
 
 If you create a Query Group method with the prompt `what is the best-selling snack?`, and specify `snacks_rank` as the context using the Source IDs parameter, then Sensible searches for answers to your question (`corn chips`) only in the extracted `snacks_rank` table rather than in the entire document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chain_prompt.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_chain_prompt.png)
 
-```
-graph TD
-    A[Industry sales report PDF] -->|LLM extracts from doc| B[Table of product sales]
-    B -->|LLM extracts from table| C[Top seller]
 
-```
 
  Use other fields as context to: 
 
