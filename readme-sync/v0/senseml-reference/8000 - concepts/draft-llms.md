@@ -1,25 +1,14 @@
 ---
 hidden: true
-title: "Configure/troubleshoot LLMs"
+title: "Configure and troubleshoot LLMs"
 ---
 
-- w/ Instruct going away, i can TOTALLY delete the /prompt topic! And maybe just xlink btwn the NLP preprocessor in each method ... 
-
-- 
-
-- 
-
-- see also: troubleshoot-llms
-
-- prompt tips stuff in each LLM topic
-- prompt tips in /prompt
-- other stuff?
-- BLOG post on chaining prompts? 
-- TODO: use Josh's overview slides
+- *TODO before publish:*
+- *w/ Instruct going away, i can delete/replace the /prompt topic! And maybe just xlink btwn the NLP preprocessor in each method ...* 
+- *prompt tips stuff in each LLM topic*
+- *prompt tips in /prompt*
 
 
-
-TO DOs: -- search by summarization is NOT global; NLP table don't support it.
 
 ## Overview
 
@@ -27,38 +16,30 @@ To capture specific data from a document (e.g., a policy number or a list of tra
 
 To troubleshoot, you can configure which part of the document (the *context*) to submit using one of the following approaches:
 
-1. (Default) Find context by scoring page chunks
+1. (Default) Locate context by scoring page chunks
 
-2. Find context by summarizing pages
+2. Locate context by summarizing pages
 
-3. Find context by chaining prompts
+3. Locate context by chaining prompts
 
-4. Find multimodal data
-
-   TODO: update this diagram!
+4. Locate multimodal (non-text) data
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_llm_context.png)
 
 ```
-graph TD;
+graph TD
     style A fill:#fafaf8,stroke:#000,stroke-width:1px;
     style B fill:#fafaf8,stroke:#000,stroke-width:1px;
     style C fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style D fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style E fill:#fafaf8,stroke:#000,stroke-width:1px;
 
-    A -->|default| D["locate context using page chunks"]
-    A -->|searchBySummarization| C["locate context using page summaries"]
-    A["'what's the largest checking transaction in the bank statement?'"] -->|source_ids| B["look in an extracted field"]
-    A -->|multimodalEngine| E["locate non-text data"]
+    A[Industry sales report PDF] -->|LLM extracts from doc| B[Table of product sales]
+    B -->|LLM extracts from table| C[Top seller]
 
 ```
 
-
-
 For information about configuring each of these approaches, see the following sections.
 
-#### (Default) Find context with embeddings scores
+#### (Default) Locate context by scoring page chunks
 
 Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using embeddings, and then return the top-scoring chunks as context:
 
@@ -66,9 +47,9 @@ Sensible's default method for locating context is to split the document into fra
 
 The advantage of this approach is that it's fast. The disadvantage is that it can be brittle.
 
-The following steps outline how Sensible finds context using embeddings and provide details about the parameters you can use to configure this default process:
+The following steps outline this default approach and provides configuration details:
 
-1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters TODO LINK TO ADVANCED PROPMT CONFIG PARAMS TABLE?? NLP PREprocessor??? that configure this step include:
+1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters that configure this step include:
    - Chunk Count parameter
    - Chunk Size parameter
    - Chunk Overlap Percentage parameter
@@ -86,7 +67,7 @@ The details for this general process vary for each LLM-based method. For more in
 
 
 
-See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default embeddings scoring approach:
+See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default approach:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
@@ -96,8 +77,6 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 | B    | Page metadata for chunks.                                    |
 | C    | Chunks excerpted from document, concatenated into "context"  |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |
-
-// TODO: add a mermaid chart here??? https://docs.readme.com/main/docs/creating-mermaid-diagrams 
 
 #### Find context with page summaries
 
@@ -111,19 +90,15 @@ When you set the Search By Summarization parameter to true for supported LLM-bas
 
    
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/page_summary.png)
 
-
-![image-20250325124929585](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250325124929585.png)
-
-This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult. For example, long legal documents.
+This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
 ## Chain prompts
 
-When you specify the Source IDS parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
+When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
 
-
-
-For example, say you use the Text Table TODO LINK method to extract the following data in a `snacks_rank` table: 
+For example, you use the [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
 
 ```json
 snack       annual regional sales
@@ -132,9 +107,9 @@ corn chips  $200k
 bananas     $150k
 ```
 
-If you create a Query Group method with the prompt `what is the best-selling snack?`, and specify `snacks_rank` as the context using the Source IDs parameter, then Sensible searches for answers to your question only in the extracted `snacks_rank` table rather than in the entire document:
+If you create a Query Group method with the prompt `what is the best-selling snack?`, and specify `snacks_rank` as the context using the Source IDs parameter, then Sensible searches for answers to your question (`corn chips`) only in the extracted `snacks_rank` table rather than in the entire document:
 
-![image-20250326101247413](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250326101247413.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chain_prompt.png)
 
 ```
 graph TD
@@ -142,8 +117,6 @@ graph TD
     B -->|LLM extracts from table| C[Top seller]
 
 ```
-
-
 
  Use other fields as context to: 
 
@@ -160,13 +133,19 @@ When you configure the Multimodal Engine parameter for the Query Group method, y
 
 
 
-TODO: add a question overlay: "are the buildings multistory? return true or false"
+For example, for the following image, you can prompt,  `"are the buildings multistory? return true or false"`.
 
 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
 
-When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor TODO LINK and region coordinates, or use an embeddings approach.   TODO cross link to 'embeddings' approach from query gorup parameter table to here.
+When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor  and region coordinates, or use the default page chunk scoring approach.  
+
+
+
+ *TODO cross link to 'embeddings' approach from query group parameter table to here on publish.*
+
+
 
 ## Troubleshooting options
 
