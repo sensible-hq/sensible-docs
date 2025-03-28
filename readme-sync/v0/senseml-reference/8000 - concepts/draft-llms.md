@@ -8,8 +8,6 @@ title: "Configure and troubleshoot LLMs"
 - *prompt tips stuff in each LLM topic*
 - *prompt tips in /prompt*
 
-
-
 ## Overview
 
 To capture specific data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy.
