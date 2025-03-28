@@ -8,6 +8,10 @@ TODO: test these steps and also test this statement: "If you select **New file i
 
 
 
+LEFT OFF: OK. it seems that if i give a link to https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/blog_salesforce/blog_lease_1.pdf and say download raw file, I actually get something w/ today's create/modified date. sooooo... that could work??
+
+
+
 This topic describes how to configure an example two-Zap workflow for Zapier. The example workflow extracts data from documents uploaded to one Google drive folder and uploads them as spreadsheets to another Google Drive folder. 
 
 Sensible supports two-step Zapier workflows as follows:
@@ -20,13 +24,9 @@ You can use the example Zaps in this topic as templates. For example, modify thi
 Zap 1
 ---
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/draft_zapier_action_1.png)
 
-```
-graph TD;
-    A[Google Drive<br>New File in Folder] --> B[Sensible<br>Extract Document];
 
-```
 
 
 
