@@ -8,7 +8,7 @@ Sensible supports large language model (LLM)-based document automation workflows
 - extract data from documents
 - classify documents by the document types you define in your Sensible account
 
-#### Document data extraction  features
+## Document data extraction  features
 
 With LLMs, you can extract data from documents structured as:
 
@@ -25,8 +25,7 @@ In addition, use Sensible's LLM configuration options and features to:
 - Advanced configuration options for troubleshooting.
   -  *TODO LINK ON PUBLISH: For more information, see draft-llms*
 
-
-#### Document classification features
+## Document classification features
 
 With LLMs, you can automate document classification:
 

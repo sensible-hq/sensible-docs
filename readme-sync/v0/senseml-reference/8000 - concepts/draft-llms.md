@@ -28,13 +28,13 @@ For information about configuring each of these approaches, see the following se
 
 ## (Default) Locate context by scoring page chunks
 
-Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using embeddings, and then return the top-scoring chunks as context:
+Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using [embeddings](https://platform.openai.com/docs/guides/embeddings), and then return the top-scoring chunks as context:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chunk_score.png)
 
 The advantage of this approach is that it's fast. The disadvantage is that it can be brittle.
 
-The following steps outline this default approach and provides configuration details:
+The following steps outline this default approach and provide configuration details:
 
 1. Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters that configure this step include:
    - Chunk Count parameter
@@ -60,7 +60,7 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | A    | Context description: an overall description of the chunks.<br/>Note that the preceding image shows an example of a user-configured context description overriding the default. | Context Description                                          |
 | B    | Page metadata for chunks.                                    | Page Hinting                                                 |
-| C    | Chunks excerpted from document, concatenated into "context"  | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
+| C    | Chunks excerpted from the document, concatenated into "context" | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description fields                                           |
 
 ## Locate context by summarizing pages
