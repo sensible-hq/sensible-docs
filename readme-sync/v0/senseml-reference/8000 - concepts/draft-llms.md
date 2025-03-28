@@ -4,6 +4,7 @@ title: "Configure and troubleshoot LLMs"
 ---
 
 - *TODO before publish:*
+- *title in gerund case?*
 - *w/ Instruct going away, i can delete/replace the /prompt topic! And maybe just xlink btwn the NLP preprocessor in each method ...* 
 - *prompt tips stuff in each LLM topic*
 - *prompt tips in /prompt*
