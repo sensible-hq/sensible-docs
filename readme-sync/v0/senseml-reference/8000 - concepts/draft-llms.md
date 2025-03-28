@@ -8,9 +8,9 @@ title: "Configure and troubleshoot LLMs"
 - *prompt tips stuff in each LLM topic*
 - *prompt tips in /prompt*
 
-## Overview
+# Overview
 
-To capture specific data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy.
+To capture data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy.
 
 To troubleshoot, you can configure which part of the document (the *context*) to submit using one of the following approaches:
 
@@ -26,7 +26,7 @@ To troubleshoot, you can configure which part of the document (the *context*) to
 
 For information about configuring each of these approaches, see the following sections.
 
-#### (Default) Locate context by scoring page chunks
+## (Default) Locate context by scoring page chunks
 
 Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using embeddings, and then return the top-scoring chunks as context:
 
@@ -36,7 +36,7 @@ The advantage of this approach is that it's fast. The disadvantage is that it ca
 
 The following steps outline this default approach and provides configuration details:
 
-1. To meet the LLM's input token limit, Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters that configure this step include:
+1. Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters that configure this step include:
    - Chunk Count parameter
    - Chunk Size parameter
    - Chunk Overlap Percentage parameter
@@ -52,8 +52,6 @@ The following steps outline this default approach and provides configuration det
 
 The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
 
-
-
 See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default approach:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
@@ -65,15 +63,17 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 | C    | Chunks excerpted from document, concatenated into "context"  |
 | D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |
 
-#### Find context with page summaries
+## Locate context by summarizing pages
 
 When you set the Search By Summarization parameter to true for supported LLM-based methods, Sensible finds context using LLM-generated page summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
 
-1.  Sensible prompts an LLM to summarize each page in the document,
+1. Sensible prompts an LLM to summarize each page in the document.
 
-2. prompts a second LLM to return the pages most relevant to your prompt based on the summaries, and
+   1.  TODO: what params are useful here??
 
-3. uses those pages' text as the context. 
+2. Sensible prompts a second LLM to return the pages most relevant to your prompt based on the summaries.
+
+3. Sensible uses those pages' text as the context. 
 
    
 
@@ -81,7 +81,7 @@ When you set the Search By Summarization parameter to true for supported LLM-bas
 
 This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
-## Chain prompts
+## Locate context by chaining prompts
 
 When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
 
@@ -109,11 +109,9 @@ If you create a Query Group method with the prompt `what is the best-selling sna
 
 To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods.
 
-### Multimodal extraction 
+## Locate multimodal (non-text) data
 
 When you configure the Multimodal Engine parameter for the Query Group method, you can extract from non-text data, such as photographs, charts, or illustrations. 
-
-
 
 For example, for the following image, you can prompt,  `"are the buildings multistory? return true or false"`.
 
