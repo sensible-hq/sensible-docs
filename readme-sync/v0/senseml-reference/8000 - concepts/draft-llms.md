@@ -56,12 +56,12 @@ See the following image for an example of a *full prompt* that Sensible inputs t
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
 
-| key  | description                                                  |
-| ---- | ------------------------------------------------------------ |
-| A    | Context description: an overall description of the chunks.<br/>Note that the preceding image shows an example of a user-configured context description overriding the default. |
-| B    | Page metadata for chunks.                                    |
-| C    | Chunks excerpted from document, concatenated into "context"  |
-| D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. |
+| key  | description                                                  | relevant parameters                                          |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| A    | Context description: an overall description of the chunks.<br/>Note that the preceding image shows an example of a user-configured context description overriding the default. | Context Description                                          |
+| B    | Page metadata for chunks.                                    | Page Hinting                                                 |
+| C    | Chunks excerpted from document, concatenated into "context"  | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
+| D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description fields                                           |
 
 ## Locate context by summarizing pages
 
