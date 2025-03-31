@@ -1,5 +1,5 @@
 ---
-hidden: true
+hidden: false
 title: "LLM features overview"
 ---
 
@@ -22,8 +22,7 @@ In addition, use Sensible's LLM configuration options and features to:
 - Qualify LLM accuracy with confidence signals. Get feedback from the LLM if it's uncertain about its answer. For more information, see [Qualifying LLM accuracy](doc:confidence).
 - Extract multimodal data from non-text data, such as photographs, charts, or illustrations embedded in documents. Using multimodal LLMs, you can also extract from poor-quality text, such as handwritten notes on top of typed text or crossed-out text. For more information, see the Query Group method's [Multimodal Engine parameter](doc:query-group#parameters).
 - Auto-extract from a new document when you upload it to the Sensible app. Sensible auto-generates a config to extract a few salient facts. Modify the config to extract more information.
-- Advanced configuration options for troubleshooting.
-  -  *TODO LINK ON PUBLISH: For more information, see draft-llms*
+- [Advanced configuration options](doc:prompt) for troubleshooting. 
 
 ## Document classification features
 
