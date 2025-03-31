@@ -21,7 +21,7 @@ For information about configuring each of these approaches, see the following se
 
 ## (Default) Locate context by scoring page chunks
 
-Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using [embeddings](https://platform.openai.com/docs/guides/embeddings), and then return the top-scoring chunks as context:
+Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then return the top-scoring chunks as context:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chunk_score.png)
 
