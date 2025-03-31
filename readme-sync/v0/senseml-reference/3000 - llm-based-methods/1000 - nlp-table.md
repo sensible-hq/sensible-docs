@@ -332,7 +332,7 @@ For an overview of how the NLP Table method works, see the following steps:
    - Sensible concatenates a number of the first rows of the table with the table title.  Sensible uses the table title extracted by the table OCR provider, or falls back to using the text in a region above the table if the OCR provider doesn't find a title.
 
    - Sensible compares the two concatenations using a nonconfigurable OpenAI Embeddings API. 
-4. Sensible creates a full prompt for the LLM that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt). 
+4. Sensible creates a full prompt for the LLM that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt#full-prompt). 
 
    1. If `rewriteTable:false`, the full prompt instructs the LLM (as specified by the LLM Engine parameter) to rewrite or restructure the best-scoring table based on your column descriptions and your overall table description. 
    2. If `rewriteTable: false`, the full prompt instructs the LLM (GPT-4) to rewrite the column headings' IDs, but doesn't otherwise restructure the table.

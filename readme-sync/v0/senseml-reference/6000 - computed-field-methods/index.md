@@ -30,11 +30,11 @@ The following global parameters are common to all logic-based Computed Field met
 
 ## LLM-based prompts
 
-You can set the output of other fields as the [context](doc:prompt#notes) for other LLM-based fields' prompts. In other words, prompt an LLM to answer questions about other fields' extracted data. Use other fields as context to:
+You can set the output of other fields as the [context](doc:prompt) for other LLM-based fields' prompts. In other words, prompt an LLM to answer questions about other fields' extracted data. Use other fields as context to:
 
 - Reformat or otherwise transform the outputs of other fields.
 - Compute or generate new data from the output of other fields
--  Narrow down the [context](doc:prompt#notes) for your prompts to a specific part of the document.
+-  Narrow down the [context](doc:prompt) for your prompts to a specific part of the document.
 - Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array.
 
 To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods.
