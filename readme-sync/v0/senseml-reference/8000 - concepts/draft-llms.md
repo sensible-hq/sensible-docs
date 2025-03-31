@@ -8,12 +8,14 @@ title: "Configure and troubleshoot LLMs"
 - *w/ Instruct going away, i can delete/replace the /prompt topic! And maybe just xlink btwn the NLP preprocessor in each method ...* 
 - *prompt tips stuff in each LLM topic*
 - *prompt tips in /prompt*
+- *search on links to /prompt*
+- *REDO   #notes links and context links [context](doc:query-group#notes)*
 
 # Overview
 
-To capture data from a document (e.g., a policy number or a list of transactions in a bank statement), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy.
+To capture data from a document (e.g., a policy number or a list of transactions in a bank statement) using [LLM-based methods](doc:llm-based-methods), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy.
 
-To troubleshoot, you can configure which part of the document (the *context*) to submit using one of the following approaches:
+To troubleshoot LLM-based methods, you can configure which part of the document (the *context*) to submit using one of the following approaches:
 
 1. (Default) Locate context by scoring page chunks
 
@@ -38,10 +40,11 @@ The advantage of this approach is that it's fast. The disadvantage is that it ca
 The following steps outline this default approach and provide configuration details:
 
 1. Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters that configure this step include:
-   - Chunk Count parameter
+   - Chunk Count parameter.
    - Chunk Size parameter
    - Chunk Overlap Percentage parameter
    - Page Range parameter
+   - **Note:** Defaults for these parameters can vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method.
 2. Sensible selects the most relevant chunks and combines them with page-hinting data to create a "context".  Parameters that configure this step include:
    - Page Hinting parameter
    - LLM Engine parameter
