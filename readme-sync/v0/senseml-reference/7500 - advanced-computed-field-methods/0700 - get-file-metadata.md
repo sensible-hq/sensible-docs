@@ -39,7 +39,7 @@ The following example shows extracting the filename from the example document.
 **Example document**
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/get_file_metadata.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_get_file_metadata.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/utility_statement_gas_dec_2019.pdf) |
 | ---------------- | ------------------------------------------------------------ |
