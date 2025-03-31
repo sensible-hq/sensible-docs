@@ -62,5 +62,5 @@ You can also use the linter to autocomplete parameters.
 
 ## Notes
 
-For more troubleshooting tips, see [Troubleshooting LLM extractions](doc:troubleshoot-llms).
+For more troubleshooting tips, see [Advanced LLM prompt configuration](doc:prompt).
 
