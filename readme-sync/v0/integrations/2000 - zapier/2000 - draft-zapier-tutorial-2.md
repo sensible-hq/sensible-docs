@@ -163,7 +163,7 @@ Congratulations, your integration is now published and running! Take the followi
 
 1. Download example 1040 documents from the Sensible [library](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s/refdocs).
 
-2. Upload them to the Google Drive folder you created.
+2. Upload them to the Slack channel you created.
 
 3. Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, navigate to the **Zaps** tab in Zapier, right-click the Zap's ellipsis (...) icon and click **Run**.
 
