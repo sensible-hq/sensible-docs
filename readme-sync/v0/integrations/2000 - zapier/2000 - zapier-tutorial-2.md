@@ -3,8 +3,6 @@ title: "Advanced Zapier tutorial"
 hidden: false
 ---
 
-
-
 This topic describes how to configure an example two-Zap workflow for Zapier. The example workflow extracts data from documents uploaded to a Slack channel and uploads them as spreadsheets to a Google Drive folder. 
 
 Sensible supports two-step Zapier workflows as follows:
@@ -17,20 +15,24 @@ You can use the example Zaps in this topic as templates. For example, modify thi
 Zap 1
 ---
 
+Every time you add a new file to a specified Slack channel, Zapier triggers Sensible to start extracting data from it.
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_1_slack.png)
 
 
 
-
-
-Every time you add a new file to a specified Slack channel, Zapier triggers Sensible to start extracting data from it.
-
 Zap 2
 ---
 
+Every time Sensible completes extracting from a document:
+
+1. Zapier checks if the extraction was triggered by Zap 1. 
+2. If it is, Zapier triggers Sensible to create a spreadsheet of the extracted data, and uploads the spreadsheet to a folder in Google Drive.
+3. (Optional) Zapier logs that the Zap ran.
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2_slack.png)
 
-Every time Sensible completes extracting from a document, Zapier checks if the extraction was triggered by Zap 1. If it is, Zapier triggers Sensible to create a spreadsheet of the extracted data, and uploads the spreadsheet to a folder in Google Drive.
+
 
 Take the following steps to run these Zaps with example data, then modify them for your needs.
 
