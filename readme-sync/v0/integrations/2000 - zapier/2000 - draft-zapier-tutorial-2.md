@@ -24,7 +24,7 @@ Zap 1
 
 
 
-Every time you add a new file to a specified Google Drive folder, Zapier triggers Sensible to start extracting data from it.
+Every time you add a new file to a specified Slack channel, Zapier triggers Sensible to start extracting data from it.
 
 Zap 2
 ---
