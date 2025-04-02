@@ -6,13 +6,7 @@ hidden: true
 
 
 
-
-
-LEFT OFF: OK. it seems that if i give a link to https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/blog_salesforce/blog_lease_1.pdf and say download raw file, I actually get something w/ today's create/modified date. sooooo... that could work??
-
-
-
-This topic describes how to configure an example two-Zap workflow for Zapier. The example workflow extracts data from documents uploaded to a Slack channel and uploads them as spreadsheets to another Google Drive folder. 
+This topic describes how to configure an example two-Zap workflow for Zapier. The example workflow extracts data from documents uploaded to a Slack channel and uploads them as spreadsheets to a Google Drive folder. 
 
 Sensible supports two-step Zapier workflows as follows:
 
@@ -35,7 +29,7 @@ Every time you add a new file to a specified Google Drive folder, Zapier trigger
 Zap 2
 ---
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2_slack.png)
 
 Every time Sensible completes extracting from a document, Zapier checks if the extraction was triggered by Zap 1. If it is, Zapier triggers Sensible to create a spreadsheet of the extracted data, and uploads the spreadsheet to a folder in Google Drive.
 
