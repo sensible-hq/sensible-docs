@@ -4,7 +4,7 @@ hidden: true
 
 ---
 
-TODO: test these steps and also test this statement: "If you select **New file in folder**  event in Google Drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. "
+
 
 
 
@@ -12,7 +12,7 @@ LEFT OFF: OK. it seems that if i give a link to https://github.com/sensible-hq/s
 
 
 
-This topic describes how to configure an example two-Zap workflow for Zapier. The example workflow extracts data from documents uploaded to one Google drive folder and uploads them as spreadsheets to another Google Drive folder. 
+This topic describes how to configure an example two-Zap workflow for Zapier. The example workflow extracts data from documents uploaded to a Slack channel and uploads them as spreadsheets to another Google Drive folder. 
 
 Sensible supports two-step Zapier workflows as follows:
 
@@ -24,7 +24,7 @@ You can use the example Zaps in this topic as templates. For example, modify thi
 Zap 1
 ---
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/draft_zapier_action_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_1_slack.png)
 
 
 
@@ -37,16 +37,6 @@ Zap 2
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2.png)
 
-```
-graph TD;
-    A["Trigger: New Document Extraction in Sensible"] --> B["(Optional) Only continue if extraction is 1040 tax document"];
-    B --> C["Upload extraction as spreadsheet file to Google Drive"];
-    C --> D["(Optional) Update logs file"];
-
-```
-
-
-
 Every time Sensible completes extracting from a document, Zapier checks if the extraction was triggered by Zap 1. If it is, Zapier triggers Sensible to create a spreadsheet of the extracted data, and uploads the spreadsheet to a folder in Google Drive.
 
 Take the following steps to run these Zaps with example data, then modify them for your needs.
@@ -56,14 +46,14 @@ Prerequisite: Configure 1040 extractions in Sensible
 
 Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `1040s`  document type to your account. 
 
-Prerequisite: Configure Google accounts
+Prerequisite: Configure accounts
 ----
 
-1. Choose a Google Drive account for the Zaps. Create an empty Google Drive folder  for the uploaded 1040 documents you want to extract from. Name it `1040s_uploads`. Upload an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf).
+1. Create a test Slack channel. Name it `1040s_uploads`. Upload an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) to the channel.
 2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data. Name it `1040s_extracted`.
 3. (Optional) In the `1040s_extracted` folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , and `Extraction link`.
 
-Zap 1: Extract new file in Google Drive with Sensible
+Zap 1: Extract new file in Slack with Sensible
 ---
 
 See the following steps to configure Zap 1:
@@ -72,16 +62,17 @@ See the following steps to configure Zap 1:
 
 2. For the trigger, take the following steps:
    1. Setup:
-      1. **App**: Google drive
-      2. **Trigger event**: New File in Folder
-      3. **Account**: Your Google account.
+      1. **App**: Slack
+      2. **Trigger event**: New File
+      3. **Account**: Your Slack account.
    2. Configure:
-      1. **Drive**: Select your Google Drive.
-      2. **Folder**: Select the `1040s_uploads` folder you created.
+      1. **Channel**: Select the test `1040s_uploads` channel you created in the Prerequisites steps.
+      2. **User Name**: Leave unselected
+      3. **Shared**: Select **True**.
    3. Test:
-      1. Before you click **Test trigger**, ensure you've uploaded a 1040 document to the `1040s_uploads` folder.
+      1. Before you click **Test trigger**, ensure you've uploaded a 1040 document to the `1040s_uploads` Slack channel.
       2.  Select the document you uploaded.
-
+   
 3. For the action, take the following steps: 
 
    1. Setup:
@@ -93,8 +84,8 @@ See the following steps to configure Zap 1:
    2. Configure:
       1. **Document type**: 1040s
       2. **Environment**: Production
-      3. **Document**: `File (Exists but not shown)`.  This specifies to extract from the email attachment.
-      4. **Reference**: `File (Exists but not shown)`. Note that if you were working in Google Drive, you'd select "File". You'll use this reference to connect Zap 1 and Zap 2 in a succeeding step. TODO is it file or file (exists but not shown) for both of these
+      3. **Document**: `File (Exists but not shown)`.  This specifies to extract from the document uploaded to Slack.
+      4. **Reference**: `File (Exists but not shown)`.  You'll use this reference to connect Zap 1 and Zap 2 in a succeeding step.
       5. (Optional): You can specify additional references to log additional information in succeeding steps.
    3. Test:
       1. Click test, then verify that the extraction is in `WAITING` status
@@ -128,7 +119,7 @@ See the following steps to configure Zap 2.
 3. For the action, take the following steps:
    1. Filter:
       1. Search for **Filter** and select Filter conditions.
-      2. **Only continue if**: Webhook Payload Reference 1
+      2. **Only continue if**: Webhook Payload Reference 1 (Exists but not shown)
       3. **Condition**: Exists. This ensures that you take action on the same extraction that was triggered in the previous Zap.
 
    2. Setup:
