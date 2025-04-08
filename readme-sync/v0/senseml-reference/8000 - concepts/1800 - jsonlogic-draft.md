@@ -66,20 +66,26 @@ Example use cases include:
 - Mixed headers and items data in a table: persist the headers and apply them to items until the header changes. 
 
 ```json
-stateful_map: [
-[/* array_to_map */], 
 {
- /*  mapping function that has access to:
-    - `current` var - the current item in the array
-    -  `index` var - index of item in the array
-    - `state` var - the current state. initialized as null unless you pass it as a 3rd param - TODO: doesn't seem to be true?
-    
-    Sensible expects the function to output an array with 2 elements:
-    [ /* mapped item(s) */, /* new state */ ]
- */
-},
-    {/* optional 3rd arg: initialize the state* -- TODO if i try to add it, throws a syntax error?? /}
-]
+  "stateful_map": [
+    [ /* 1st arg: array_to_map */ ],
+    {
+      /* 2nd arg: mapping function that has access to:
+         - `current` var - the current item in the array
+         - `index` var - index of item in the array
+         - `state` var - the current state
+         
+         The function is expected to output an array with 2 elements:
+         [ /* mapped item(s) */, /* new state */ ]
+      */
+    },
+    { 
+      /* 3rd arg (optional): initialize the state 
+      */
+    }
+  ]
+}
+
 ```
 
 
