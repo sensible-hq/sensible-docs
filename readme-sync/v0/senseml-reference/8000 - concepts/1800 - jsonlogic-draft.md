@@ -1,5 +1,5 @@
 ---
-title: " merge objects"
+title: " merge objects + stateful map drafts"
 hidden: true
 ---
 
@@ -220,5 +220,110 @@ The following example shows using the Stateful Map and Merge Objects operations 
 
 
 
+**Example document**
+The following image shows the example document used with this example config:
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/stateful_map_merge_objects.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/stateful_map_merge_objects.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "ranked_paints": [
+    {
+      "description": {
+        "value": "Alabaster",
+        "type": "string"
+      },
+      "rank": {
+        "source": "1",
+        "value": 1,
+        "type": "number"
+      },
+      "vendor": {
+        "value": "ACME CO",
+        "type": "string"
+      }
+    },
+    {
+      "description": {
+        "value": "Sonoma blue",
+        "type": "string"
+      },
+      "rank": {
+        "source": "2",
+        "value": 2,
+        "type": "number"
+      },
+      "vendor": {
+        "value": "ACME CO",
+        "type": "string"
+      }
+    },
+    {
+      "description": {
+        "value": "Mushroom",
+        "type": "string"
+      },
+      "rank": {
+        "source": "3",
+        "value": 3,
+        "type": "number"
+      },
+      "vendor": {
+        "value": "ACME CO",
+        "type": "string"
+      }
+    },
+    {
+      "description": {
+        "value": "Slate gray",
+        "type": "string"
+      },
+      "rank": {
+        "source": "1",
+        "value": 1,
+        "type": "number"
+      },
+      "vendor": {
+        "value": "ANYCO INC",
+        "type": "string"
+      }
+    },
+    {
+      "description": {
+        "value": "Buttercream",
+        "type": "string"
+      },
+      "rank": {
+        "source": "2",
+        "value": 2,
+        "type": "number"
+      },
+      "vendor": {
+        "value": "ANYCO INC",
+        "type": "string"
+      }
+    },
+    {
+      "description": {
+        "value": "Seaspray",
+        "type": "string"
+      },
+      "rank": {
+        "source": "3",
+        "value": 3,
+        "type": "number"
+      },
+      "vendor": {
+        "value": "ANYCO INC",
+        "type": "string"
+      }
+    }
+  ]
+}
+```
 
