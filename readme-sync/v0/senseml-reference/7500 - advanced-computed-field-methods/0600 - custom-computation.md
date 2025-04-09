@@ -606,7 +606,7 @@ As an exception to the Custom Computation's limited [types](doc:types) output, y
   "method": {
     "id": "customComputation",
     "jsonLogic": {
-      "var": "../total_unprocessed_claims"
+      "var": "total_unprocessed_claims"
     }
   }
 }
