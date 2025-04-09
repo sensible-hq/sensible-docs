@@ -13,8 +13,10 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 | key                      | value                             | description                                                  |
 | :----------------------- | :-------------------------------- | :----------------------------------------------------------- |
-| id (**required**)        | `customComputation`               | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method doesn't output [Sensible types](doc:types). It outputs `string, number, boolean, null` , or an array of those. For example, adding two currencies results in a number.<br/>- This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
+| id (**required**)        | `customComputation`               | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method doesn't output [Sensible types](doc:types).<sup>1</sup> It outputs `string, number, boolean, null` , or an array of those. For example, adding two currencies results in a number.<br/>However, if you - This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
 | jsonLogic (**required**) | JsonLogic object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using [JsonLogic operations](doc:jsonlogic).<br/>Outputs one field. |
+
+<sup>1</sup> For an exception to the restricted types that Custom Computation outputs, see the Notes section. 
 
 Examples
 ====
@@ -585,3 +587,42 @@ The following image shows the example document used with this example config:
   }
 }
 ```
+
+## Notes
+
+As an exception to the Custom Computation's limited [types](doc:types) output, you can use the Custom Computation to  pass through existing fields, including their `type`, `source`, and `value`. For example, you can pass through a  `total_unprocessed_claims` field in the [Claims loss run example](doc:sections-example-loss-run): 
+
+```json
+{
+  /* field to copy:
+  {
+    "total_unprocessed_claims": {
+      "source": "5",
+      "value": 5,
+      "type": "number"
+    },
+  */
+  "id": "copy_field_into_this_key",
+  "method": {
+    "id": "customComputation",
+    "jsonLogic": {
+      "var": "../total_unprocessed_claims"
+    }
+  }
+}
+
+```
+
+The  Custom Computation method in the preceding code sample returns:
+
+```json
+{
+      "copy_field_into_this_key": {
+        "source": "5",
+        "value": 5,
+        "type": "number"
+      }
+```
+
+
+
