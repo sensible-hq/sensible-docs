@@ -153,7 +153,7 @@ The following example shows using the Stateful Map and Merge Objects operations 
                  - the `current` item in the array, 
                  - the `index` of the current item in the array
                  - a `state` variable 
-                 Sensible expects the mapping function to return [mapped items, new state] */
+                 Sensible expects the mapping function to return [mapped items, updated state] */
               "if": [
                 {
                   "==": [
