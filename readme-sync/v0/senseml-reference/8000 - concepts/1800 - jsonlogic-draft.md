@@ -180,12 +180,13 @@ The following example shows using the Stateful Map and Merge Objects operations 
                 [
                   /* add current row to mapped items */
                   {
-                    /* To the current row, merge in a new key 'vendor' from state */
+                    /* To the current row, merge in a new field 'vendor' from state */
                     "merge_objects": [
                       {
                         "var": "current"
                       },
                       {
+                        /* create a new field with key 'vendor' and value from state */
                         "eachKey": {
                           "vendor": {
                             "var": "state"
