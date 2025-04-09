@@ -76,19 +76,17 @@ Example use cases include:
          - `state` var - the current state
          
          The function is expected to output an array with 2 elements:
-         [ /* mapped item(s) */, /* new state */ ]
+         [  mapped item(s) ,  updated state  ]
       */
     },
     { 
-      /* 3rd arg (optional): initialize the state 
+      /* 3rd arg (optional): initialize the state for 1st item in array
       */
     }
   ]
 }
 
 ```
-
-
 
 
 
