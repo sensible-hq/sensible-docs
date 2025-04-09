@@ -137,7 +137,7 @@ The following example shows using the Stateful Map and Merge Objects operations 
 
          If a row has a rank value, it's a data row, and the current state (i.e., the last header) is used to set the vendor
 
-         The result is a flat list of rows, each annotated with the appropriate vendor inferred from the most recent header. */
+         The result is a flat list of rows, each annotated with the appropriate vendor taken from the most recent header. */
       "id": "ranked_paints",
       "method": {
         "id": "customComputation",
