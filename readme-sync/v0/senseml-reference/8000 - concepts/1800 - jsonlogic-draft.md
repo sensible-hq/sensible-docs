@@ -58,7 +58,10 @@ This operator maps an array and persists a `state` variable across items in the 
 Example use cases include:
 
 - Keeping a rolling balance of transactions.
-- Mixed headers and items data in a table: persist the headers and apply them to items until the header changes. 
+
+- Mixed headers and items data in a table: persist the headers and apply them to items until the header changes. For example, use the Stateful Map operation to keep track of the header rows (vendors) and data rows (paint names) in the  following table:
+
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/stateful_map_merge_objects.png)
 
 ```json
 {
@@ -71,11 +74,12 @@ Example use cases include:
          - `state` variable - the current state
          
          The function is expected to output an array with 2 elements:
-         [  mapped item(s) ,  updated state  ]
+         [ <item to be added to the mapped array>, <updated state to use when mapping next item> ]
       */
     },
     { 
-      /* 3rd arg (optional): initialize the state for 1st item in array
+      /* 3rd arg (optional): initialize the state for 1st item in array. 
+      If unspecified, state is undefined until set on 2nd iteration through loop
       */
     }
   ]
@@ -148,11 +152,11 @@ The following example shows using the Stateful Map and Merge Objects operations 
                  - the `current` item in the array, 
                  - the `index` of the current item in the array
                  - a `state` variable 
-                 Sensible expects the mapping function to return [mapped items, updated state] */
+                 Sensible expects the mapping function to return [mapped item, updated state] */
               "if": [
                 {
                   "==": [
-                    /* Check if 'volume' cell is null to identify a header row */
+                    /* Check if 'rank' cell is null to identify a header row */
                     {
                       "var": "current.rank"
                     },
