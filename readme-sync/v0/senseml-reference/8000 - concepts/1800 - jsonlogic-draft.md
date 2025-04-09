@@ -71,9 +71,9 @@ Example use cases include:
     [ /* 1st arg: array_to_map */ ],
     {
       /* 2nd arg: mapping function that has access to:
-         - `current` var - the current item in the array
-         - `index` var - index of item in the array
-         - `state` var - the current state
+         - `current` variable - the current item in the array
+         - `index` variable - index of current item in the array
+         - `state` variable - the current state
          
          The function is expected to output an array with 2 elements:
          [  mapped item(s) ,  updated state  ]
@@ -196,7 +196,7 @@ The following example shows using the Stateful Map and Merge Objects operations 
                     ]
                   },
                   {
-                    /* Retain current state (the last header description) */
+                    /* Retain current state (the last header) */
                     "var": "state"
                   }
                 ]
