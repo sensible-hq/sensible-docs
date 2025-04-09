@@ -92,7 +92,7 @@ Example use cases include:
 
 ### Examples
 
-The following example shows using the Stateful Map and Merge Objects operations to transform an extracted table into a list of rows. The table contains a mix of header and data rows, and the JsonLogic operation transforms the table by appending header information to each row.
+The following example shows using the Stateful Map and Merge Objects operations to transform an extracted table into a list of rows. The table contains a mix of header and data rows, and the JsonLogic operation transforms the table by skipping header rows and appending header information to each row.
 
 ```json
 {
@@ -131,7 +131,7 @@ The following example shows using the Stateful Map and Merge Objects operations 
       }
     },
     {
-      /* The stateful_map operation is used to track which vendor we’re currently in.
+      /* The stateful_map operation is used to track which header we’re currently in.
 
          If a row has rank: null, it's a header row, and its description becomes the new state.
 
