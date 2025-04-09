@@ -588,9 +588,9 @@ The following image shows the example document used with this example config:
 }
 ```
 
-## Notes
+# Notes
 
-As an exception to the Custom Computation's limited [types](doc:types) output, you can use the Custom Computation to  pass through existing fields, including their `type`, `source`, and `value`. For example, you can pass through a  `total_unprocessed_claims` field in the [Claims loss run example](doc:sections-example-loss-run): 
+As an exception to the Custom Computation's limited [types](doc:types) output, you can output properties of existing fields, including their `type`, `source`, and `value` by accessing them with `"var": "field_id"` rather than `"var": "field_id.value"` notation. For example, you can copy a  `total_unprocessed_claims` field in the [Claims loss run example](doc:sections-example-loss-run): 
 
 ```json
 {
