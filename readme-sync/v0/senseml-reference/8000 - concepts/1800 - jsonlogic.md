@@ -592,7 +592,7 @@ Example use cases include:
          - `state` variable - the current state
          
          The function is expected to output an array with 2 elements:
-         [ <item to be added to the mapped array>, <updated state to use when mapping next item> ]
+         [ <item or items to be added to the mapped array>, <updated state to use when mapping next item> ]
       */
     },
     { 
@@ -670,7 +670,7 @@ The following example shows using the Stateful Map and Merge Objects operations 
                  - the `current` item in the array, 
                  - the `index` of the current item in the array
                  - a `state` variable 
-                 Sensible expects the mapping function to return [mapped item, updated state] */
+                 Sensible expects the mapping function to return [mapped item or items, updated state] */
               "if": [
                 {
                   "==": [
