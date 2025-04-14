@@ -45,7 +45,7 @@ Using a postprocessor, you can specify your target JSON schema, and then the LLM
 
 For example, for the following  extracted data:
 
-``` json
+```json
 {
     "eobs": [
         {
@@ -125,9 +125,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 **Config**
 
-```json
 
-```
 
 **Example document**
 The following image shows the example document used with this example config:
