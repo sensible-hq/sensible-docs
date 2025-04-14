@@ -14,14 +14,14 @@ TODOS:
 
 - TODO: ask an LLM how it interfaces with Json Schema (+ test its answers in real life w/ chat/claude). like what does it do when raw data fails json schema specs:
 
-  - <u>what are descriptions good for?</u> 
+  - what are descriptions good for?
 
-  - <u>what if an LLM can't recognize a speciied type compared to the source data?</u> 
-  - <u>what does required do if the required extracted data isn't present?</u>
+  -  what if an LLM can't recognize a speciied type compared to the source data? 
+  - what does required do if the required extracted data isn't present?
 
 
 
-# rough draft:
+## rough draft
 
 Define your custom output [JSON schema](https://json-schema.org/learn) with an LLM-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
