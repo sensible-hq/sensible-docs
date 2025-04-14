@@ -527,9 +527,10 @@ Simple syntax
 
 **Formats recognized** 
 
-Recognizes digits in USA decimal notation. Recognizes one or more digits, optionally followed either by: 
+By default, recognizes digits in USA decimal notation, where thousands are separated by commas and the decimal place is denoted by a period. In detail, recognizes one or more digits, optionally followed either by: 
 
 - commas preceding every three digits, optional digits after period, or by 
+
 - digits after period
 
 For example:
@@ -540,7 +541,7 @@ For example:
 1234567890
 ```
 
-This type does **not** recognize text such as `3.061.534,45`. Configure the Currency type instead. 
+To recognize numbers formatted like `3.061.534,45`, configure the Thousands Separator and Decimal Separator parameters. 
 
 Configurable syntax
 ----
@@ -550,6 +551,7 @@ Configurable syntax
 ```json
 "type":
   {
+     // source text is 1,234.56989
     "id": "number",
     "roundTo": "2"
   }
@@ -559,7 +561,7 @@ Configurable syntax
 
 ```json
 {
-    "source": "1234.56989",
+    "source": "1,234.56989",
     "value": 1234.57,
     "type": "number"
 }
@@ -571,6 +573,8 @@ Configurable syntax
 | ----------------- | ---------------------------------------- | ------------------------------------------------------------ |
 | id (**required**) | `number`                                 |                                                              |
 | roundTo           | number of decimal places to round up to. | Rounds up to the specified decimal place. <br/> For example if you specify `"roundTo": 3` then Sensible rounds `0.1234` to `0.123`. |
+| thousandsSeparator        | string. Default: `,`                                         | The separator to require, for example `.`                    |
+| decimalSeparator          | string. Default: `.`                                         | For numbers with a decimal place, specify the separator, for example `,`. |
 
 Paragraph
 ====
