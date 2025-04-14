@@ -15,10 +15,10 @@ TODOS:
 
 - TODO: ask an LLM how it interfaces with Json Schema (+ test its answers in real life w/ chat/claude). like what does it do when raw data fails json schema specs:
 
-  - what are descriptions good for? 
+  - <u>what are descriptions good for?</u> 
 
-  - what if an LLM can't recognize a speciied type compared to the source data? 
-  - what does required do if the required extracted data isn't present?
+  - <u>what if an LLM can't recognize a speciied type compared to the source data?</u> 
+  - <u>what does required do if the required extracted data isn't present?</u>
 
 
 
