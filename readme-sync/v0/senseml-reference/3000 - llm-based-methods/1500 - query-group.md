@@ -555,7 +555,7 @@ The following image shows the example document used with this example config:
 
 ## Notes
 
-For an overview of how this method works by default, see the following steps.  For alternative configuration options, see [Advanced LLM prompt configuration](doc:prompt#full-prompt). 
+For an overview of how this method works by default, see the following steps.  For alternate configuration options, see [Advanced LLM prompt configuration](doc:prompt#full-prompt). 
 - Sensible finds the chunks of the document that most likely contain your target data:
   - Sensible splits the document into equal-sized, overlapping chunks. 
   - Sensible scores each chunk by its similarity to either the concatenated Description parameters for the queries in the group, or by the `chunkScoringText` parameter. Sensible scores each chunk using a nonconfigurable OpenAPI Embeddings API.
