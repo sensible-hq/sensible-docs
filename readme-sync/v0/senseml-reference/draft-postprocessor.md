@@ -24,7 +24,7 @@ TODOS:
 
 # rough draft:
 
-Define your own custom output [JSON schema](https://json-schema.org/learn) with an LLM-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
+Define your custom output [JSON schema](https://json-schema.org/learn) with an LLM-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
 In detail, Sensible's `parsed_document` API output schema represents extracted document data as typed [fields](doc:field-query-object):
 
@@ -42,7 +42,9 @@ In detail, Sensible's `parsed_document` API output schema represents extracted d
 }
 ```
 
-Using a postprocessor, you can specify your target JSON schema, and the LLM takes your extracted data and transforms it.  For example, for the  extracted data:
+Using a postprocessor, you can specify your target JSON schema, and then the LLM takes your extracted data and transforms it. T*ODO award, simply sentence.*  
+
+For example, for the following  extracted data:
 
 ``` json
 {
@@ -138,11 +140,6 @@ The following image shows the example document used with this example config:
 
 **Output**
 
-```json
-// POSTPROCESSED OUTPUT
 
 
-
-// PARSED DOCUMENT OUTPUT
-
-```
+remember to do  // POSTPROCESSED OUTPUT and  // PARSED DOCUMENT OUTPUT 
