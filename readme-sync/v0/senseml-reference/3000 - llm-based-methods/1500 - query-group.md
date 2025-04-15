@@ -91,7 +91,7 @@ Parameters
 
 ## Examples
 
-### Example: Extract from images
+## Example: Extract from images
 
 **Config**
 
@@ -189,7 +189,7 @@ The following image shows the example document used with this example config:
 }
 ```
 
-### Example: Extract handwriting
+## Example: Extract handwriting
 
 The following example shows using a multimodal LLM to extract from a scanned document containing handwriting. For an alternate approach to extracting from this document, see also the [Sort Lines](doc:method#sort-lines-example) example.
 
@@ -306,7 +306,7 @@ The following image shows the example document used with this example config:
 
 
 
-### Example: Extract from lease
+## Example: Extract from lease
 
 The following example shows using the Query Group method to extract information from a lease.
 
