@@ -104,6 +104,40 @@ The following example shows extracting text from a research paper that contains 
         ]
       }
     },
+          {
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "Proportions of fraudulent"
+        }
+      },
+      "method": {
+        "id": "queryGroup",
+        /* use a multimodal LLM to extract visual/non-text information from 
+        a pie chart */
+        "multimodalEngine": {
+          "region": {
+            "start": "above",
+            "width": 2,
+            "height": 3,
+            "offsetX": -1,
+            "offsetY": -2.5
+          }
+        },
+        "queries": [
+          {
+            "id": "cash_out_pie_chart",
+            "type": "string",
+            "description": "in the pie chart, approximately what proportion of fraudulent transactions by type are cash_out?"
+          },
+          {
+            "id": "transfer_pie_chart",
+            "type": "string",
+            "description": "in the pie chart, approximately what proportion of fraudulent transactions by type are transfer?"
+          }
+        ]
+      }
+    }    
   ]
 }
 ```
@@ -137,6 +171,16 @@ The following image shows the example document used with this example config:
   },
   "data_set_type": {
     "value": "simulated",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "cash_out_pie_chart": {
+    "value": "50%",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "transfer_pie_chart": {
+    "value": "50%",
     "type": "string",
     "confidenceSignal": "not_supported"
   }
