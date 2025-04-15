@@ -427,6 +427,10 @@ The following image shows the example document used with this example config:
 }
 ```
 
+## Example: Extract from pie charts
+
+For an example of extracting visual data from a pie chart using the Multimodal Engine parameter, see the example in the [Multicolumn](doc:multicolumn#examples) preprocessor topic.
+
 ## Example: Extract data from other fields
 
 The following example shows how to prompt an LLM to answer questions about another field's output.
