@@ -114,7 +114,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 
 ####  text matches
 
-- Sensible runs `fingerprints` before any `preprocessors`. Because of this, make sure to comment out any `preprocessors` before writing `fingerprints` so that the document in the editor displays the lines of text exactly as they will be recognized when the fingerprints tests are ran.
+- Sensible runs `fingerprints` before any `preprocessors`. Because of this, make sure to comment out any `preprocessors` before writing `fingerprints` so that the document in the editor displays the lines of text exactly as Sensible recognizes them when Sensible runs the fingerprint tests.
 
 - Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests.  In other words, don't write the following:
 
