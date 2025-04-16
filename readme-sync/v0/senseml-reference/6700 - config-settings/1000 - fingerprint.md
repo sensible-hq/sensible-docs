@@ -4,19 +4,19 @@ hidden: false
 
 ---
 
-Fingerprints test for matching text in a document to determine whether it's a good fit for a config or not.  There are two types of fingerprints:
+Fingerprints test for matching text in a document to determine:
 
-- one for optimizing extraction performance for standalone documents
-- one for segmenting portfolio files into separate documents.
+1. the document's subtype, or "config", for standalone files
+2. a document's page range in multi-document files.
+
+See the following table for more information:
+
+| use case                                                     | description                                                  | related concepts and alternatives                            |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [standalone documents](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a "config," or subtype, in a specified document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like LLM-based methods, selective OCR, table recognition, or box recognition methods. | To test for matching text at the field level instead of the config level, specify field fallbacks. For more information, see [Fallback fields](doc:fallbacks).  <br/> To determine the type of a standalone document instead of its subtype, or "config", see [Classifying documents by type](doc:classify). |
+| [portfolios](doc:fingerprint#portfolios)                     | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). | Use LLMs as an alternative to fingerprints to segment portfolios. |
 
 If you use a config for both portfolio and standalone versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint.
-
-| fingerprints for:                                            | notes                                                        |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [standalone documents](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a config in a given document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like LLM-based methods, selective OCR, table recognition, or box recognition methods.<br/><br/>Fingerprints test for matching text at the config level. To test for matching text at the field level instead of the config level, specify field fallbacks. For more information, see [Fallback fields](doc:fallbacks). |
-| [portfolios](doc:fingerprint#portfolios)                     | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). |
-
-
 
 Standalone documents
 ====

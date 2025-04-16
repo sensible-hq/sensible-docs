@@ -3,11 +3,18 @@ title: "Fingerprint mode"
 hidden: false
 ---
 
-A [fingerprint](doc:fingerprint) for standalone documents changes Sensible's default behavior of running *all* the configs in a single document type. For example, if you extract company A and company B quotes, by default Sensible runs both the company A and the company B configs for a given document, then returns the extraction with the highest score. 
+[Fingerprints](doc:fingerprint) test for matching text in a document to determine:
 
-The following tables show how this default behavior changes when you configure the following levels of strictness for a document type's fingerprints. You can configure strictness in the Sensible app in the document type settings tab.
+1. the document's subtype for single-document files
+2. the document's page range in multi-document files.
 
-## Single-document file fingerprints
+The Fingerprint Mode configuration option applies to scenario 1, not to scenario 2.  You can configure this option in the Sensible app in the document type settings tab.
+
+## Single-document file
+
+Fingerprints improve performance by testing for matching text in a single-document document before running or skipping a config in a specified document type.  
+
+The Fingerprint Mode configuration option determines the strictness of the tests as follows:
 
 | Strictness level | Description                                                  | If more than one config's tests pass over 50%                | If no configs' tests passes over 50% or if no configs contain a fingerprint |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -16,14 +23,12 @@ The following tables show how this default behavior changes when you configure t
 
 In the preceding table, Sensible calculates a score as follows:
 
-`classification score` = `num of non-null fields` - `penalties for validation errors or warnings`, where penalties are as follows:
+` score` = `num of non-null fields` - `penalties for validation errors or warnings`, where penalties are as follows:
 
 - `validation error penalty` = 1 * `num fields with validation errors`
 - `validation warning penalty` = 0.5 * `num of fields with validation warnings`
 
-Classification scoring is for comparing extractions within a single document type. To compare scores across document types, see [Accuracy measures](doc:accuracy-measures).
+## Portfolio file
 
-## Portfolio fingerprints
-
-When using fingerprints for segmenting portfolio files into documents, Sensible ignores the document type's fingerprint mode setting. 
+When using fingerprints for segmenting portfolio files into documents, Sensible ignores the document type's Fingerprint Mode setting. 
 
