@@ -13,7 +13,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 | key                      | value                             | description                                                  |
 | :----------------------- | :-------------------------------- | :----------------------------------------------------------- |
-| id (**required**)        | `customComputation`               | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1).<br/>-  This method outputs the result of the JsonLogic as a single Sensible field. If the result doesn't conform to the Sensible field's schema, Sensible transforms the output where possible to conform. For more information, see the Schema example. TODO LINK. |
+| id (**required**)        | `customComputation`               | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1).<br/>-  This method outputs the result of the JsonLogic as a single Sensible field. If the result doesn't conform to Sensible's schema for a field, Sensible transforms the output where possible to conform. For more information, see the Schema example.. TODO LINK. |
 | jsonLogic (**required**) | JsonLogic object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using [JsonLogic operations](doc:jsonlogic). |
 
 <sup>1</sup> For an exception to the restricted types that Custom Computation outputs, see the Notes section. 
@@ -32,11 +32,14 @@ The following example shows how Sensible enforces outputting the results of Json
     {
       "id": "enforce_field_schema_1",
       "method": {
-        /* to enforce field schema, wraps boolean constant in a field 
+        /* to enforce field schema, Sensible wraps boolean constant in a field 
         and recognize it as
         `"type": "boolean" 
-        Sensible automatically converts string, number, boolean, null, or arrays of these values
-        into the Sensible field output schema
+        Sensible automatically converts:
+        - string, number, boolean, null
+        - arrays of these values
+        - sections-shaped arrays
+        into the Sensible field output schema. See following comments for more examples.
         
         */
         "id": "customComputation",
