@@ -7,7 +7,7 @@ hidden: false
 Fingerprints test for matching text in a document to determine:
 
 1. the document's subtype, or "config", for standalone files
-2. a document's page range in multi-document files.
+2. a document's page range in multi-document, or "portfolio", files.
 
 See the following table for more information:
 

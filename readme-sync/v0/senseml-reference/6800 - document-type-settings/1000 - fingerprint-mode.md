@@ -5,20 +5,20 @@ hidden: false
 
 [Fingerprints](doc:fingerprint) test for matching text in a document to determine:
 
-1. the document's subtype for single-document files
-2. the document's page range in multi-document files.
+1. the document's subtype for standalone files
+2. the document's page range in multi-document, or "portfolio", files.
 
-The Fingerprint Mode configuration option applies to scenario 1, not to scenario 2.  You can configure this option in the Sensible app in the document type settings tab.
+The Fingerprint Mode configuration option applies to scenario 1, not scenario 2.  You can configure this option in the Sensible app in the document type settings tab.
 
-## Single-document file
+## Standalone files
 
 Fingerprints improve performance by testing for matching text in a single-document document before running or skipping a config in a specified document type.  
 
 The Fingerprint Mode configuration option determines the strictness of the tests as follows:
 
-| Strictness level | Description                                                  | If more than one config's tests pass over 50%                | If no configs' tests passes over 50% or if no configs contain a fingerprint |
+| Strictness level | Description                                                  | If more than one config's tests pass over 50%                | If no configs' tests pass over 50%<br/> or if no configs contain a fingerprint |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests. | Sensible chooses the output from the passing config with the highest score | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one that has the highest score. |
+| standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests. | Sensible chooses the output from the passing config with the highest score | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one with the highest score. |
 | strict           | The doc type must have at least one config containing a fingerprint. | Sensible chooses the output from the passing config that has the highest score. | Sensible returns a 400 error.                                |
 
 In the preceding table, Sensible calculates a score as follows:
@@ -28,7 +28,7 @@ In the preceding table, Sensible calculates a score as follows:
 - `validation error penalty` = 1 * `num fields with validation errors`
 - `validation warning penalty` = 0.5 * `num of fields with validation warnings`
 
-## Portfolio file
+## Portfolio files
 
-When using fingerprints for segmenting portfolio files into documents, Sensible ignores the document type's Fingerprint Mode setting. 
+Sensible ignores the document type's Fingerprint Mode setting for portfolio files. 
 
