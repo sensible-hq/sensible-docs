@@ -52,7 +52,7 @@ See the following sections for more information.
 
 Use this operation to add or subtract days, months, or years to a date.
 
-As input, takes:
+Takes as input:
 
 - an ISO 8601-formatted date string  (for example, the Sensible [date type](doc:types#date)).
 
