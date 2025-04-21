@@ -5,7 +5,7 @@ hidden: false
 
 JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ "operator" : ["values" ... ] }`.  For example, `{ "cat" : ["I love", "pie"] }` results in `"I love pie"`. 
 
-Sensible supports both built-in and extended JsonLogic operators.
+Sensible supports both built-in and extended JsonLogic operators so that you can transform and validate extracted document data.
 
 ### Documentation
 
