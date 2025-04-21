@@ -596,7 +596,7 @@ For any move in date that is after the 15th of the month, Tenant must pay a full
 
 **Formats recognized** 
 
-Sensible recognizes paragraphs separated by configurable vertical gaps, or "paragraph breaks." Sensible doesn't use paragraph margins, for indentations, to detect paragraphs.
+Sensible recognizes paragraphs separated by configurable vertical gaps, or "paragraph breaks." Sensible doesn't use paragraph margins, for example indentations, to detect paragraphs.
 
 Configurable syntax
 ----
@@ -609,6 +609,7 @@ Use configurable syntax to change the formatting of the extracted text.
 "type":
   {
     "id": "paragraph",
+    /* if you set this to true, also set `"prevent_default_merge_lines": true` for the document type using the Sensible API's Document Type endpoints */
     "annotateSuperscriptAndSubscript": true
   }
 ```
@@ -619,7 +620,7 @@ For the following document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/annotate_superscript_and_subscript.png) 
 
-When you set`"annotateSuperscriptAndSubscript": true` , Sensible formats the footnote symbols to indicate they're superscripted, for example,  `[^1]`:
+When you set `"annotateSuperscriptAndSubscript": true` , Sensible formats the footnote symbols to indicate they're superscripted, for example,  `[^1]`:
 
 ```json
 {
@@ -635,7 +636,7 @@ When you set`"annotateSuperscriptAndSubscript": true` , Sensible formats the foo
 | key                             | value                   | description                                                  |
 | ------------------------------- | ----------------------- | ------------------------------------------------------------ |
 | id (**required**)               | `paragraph`             |                                                              |
-| annotateSuperscriptAndSubscript | Boolean. default: false | When true:<br/>-  Sensible annotates subscript and superscript text with `[^...]` and `[_...]`, respectively.<br/>- Sensible annotates end-of-page breaks with `[EOP]`. |
+| annotateSuperscriptAndSubscript | Boolean. default: false | When true:<br/>-  Sensible annotates subscript and superscript text with `[^...]` and `[_...]`, respectively.<br/>If you set this to true, also set `"prevent_default_merge_lines": true` for the document type using the Sensible API's Document Type endpoints. This ensures that Sensible interleaves the annotation symbols with the text instead of placing them at the end of the line. <br/>- Sensible annotates end-of-page breaks with `[EOP]`. |
 | allNewlines                     | Boolean. default: false | When true, Sensible inserts a newline (`\n`) in the output for every line break in the document text, and two newlines (`\n\n`), for every paragraph break.<br/>When false, Sensible inserts a newline for every paragraph break.<br/> |
 | paragraphBreakThreshold         | default: 0.4            | By default, Sensible detects paragraph breaks when the vertical gap between two lines is larger than 40% of the font height of the output line. Use this parameter to change the percentage. |
 
