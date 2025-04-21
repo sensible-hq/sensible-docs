@@ -66,18 +66,33 @@ For example:
 
 ```json
 {
-    "date_shift": [
-        "2024-01-02T00:00:00.000Z",
-        2,
-        "months"
-    ]
+  "fields": [
+    {
+      "id": "add_years",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "date_shift": [
+            "2024-01-02",
+            3,
+            "years"
+          ]
+        }
+      }
+    },
+  ]
 }
 ```
 
 returns:
 
 ```json
-"2024-03-02T00:00:00.000Z"
+{
+  "add_years": {
+    "value": "2027-01-02T00:00:00.000Z",
+    "type": "string"
+  }
+}
 ```
 
 ## 
