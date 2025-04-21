@@ -34,6 +34,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 
 | Operation                                    | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) methods | [Postprocessor](doc:postprocessor) |
 | -------------------------------------------- | --------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
+| [Date Shift](doc:jsonlogic#date-shift)       | ✅                                       | ✅                                                    | ✅                                  |
 | [Exists](doc:jsonlogic#exists)               | ✅                                       | ✅                                                    | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Log](doc:jsonlogic#log)                     | ✅                                       | ✅                                                    | ✅                                  |
@@ -46,6 +47,40 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                  |
 
 See the following sections for more information.
+
+## Date Shift
+
+Use this operation to add or subtract days, months, or years to a date.
+
+As input, takes:
+
+- an ISO 8601-formatted date string  (for example, the Sensible [date type](doc:types#date)).
+
+- a number
+
+- a unit (`"days"`, `"months"`, or `"years"`)
+
+Returns an ISO 8601-formatted date-time string that's the result of adding the number of units to the date. Use negative numbers to calculate prior dates.
+
+For example:
+
+```json
+{
+    "date_shift": [
+        "2024-01-02T00:00:00.000Z",
+        2,
+        "months"
+    ]
+}
+```
+
+returns:
+
+```json
+"2024-03-02T00:00:00.000Z"
+```
+
+## 
 
 ## Exists
 

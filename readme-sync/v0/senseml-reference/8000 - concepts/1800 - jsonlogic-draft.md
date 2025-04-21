@@ -13,7 +13,17 @@ hidden: true
 
 ## Date Shift
 
-Takes a date, a number, and a unit ('days", "months", or "years"), and returns an ISO 8601-formatted date-time string that is the result of adding the number of units to the date.
+Use this operation to add or subtract days, months, or years to a date.
+
+As input, takes:
+
+- an ISO 8601-formatted date string  (for example, the Sensible [date type](doc:types#date))
+
+- a number
+
+- a unit (`"days"`, `"months"`, or `"years"`)
+
+Returns an ISO 8601-formatted date-time string that's the result of adding the number of units to the date. Use negative numbers to calculate prior dates.
 
 For example:
 
@@ -32,24 +42,6 @@ returns:
 ```json
 "2024-03-02T00:00:00.000Z"
 ```
-
-**Notes**:
-
-- date arg supports `Date` type as well as other values that can be cast to dates. TODO: what does Date type mean?   I think it means strings that typescript can succesfful cast in the typescript Date type... which I believe means ISO 8601 format strings , like 
-
-  ```
-  date_type_date: {
-          source: "10/4/2024",
-          value: new Date("10/4/2024"),
-          type: "date",
-        },
-  ```
-
-  
-
-- number arg supports `number` type as well as other values that can be cast to numbers.
-
-- supports use of negative numbers to calculate prior dates.
 
 ## Map Object
 
