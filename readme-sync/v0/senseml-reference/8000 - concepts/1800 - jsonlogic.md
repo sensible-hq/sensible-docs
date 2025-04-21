@@ -54,7 +54,7 @@ Use this operation to add or subtract days, months, or years to a date.
 
 Takes as input:
 
-- an ISO 8601-formatted date string  (for example, the Sensible [date type](doc:types#date)).
+- a date. Can be an ISO 8601-formatted date string  (for example, the Sensible [date type](doc:types#date)). Also accepts dates like `February 27, 2024` or `Thu Jan 01 1970 05:30:00 GMT+0530 (India Standard Time)`  or `12-31-2022`.
 
 - a number
 
