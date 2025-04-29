@@ -44,8 +44,9 @@ Example:
           /*
             input an array to be grouped
             in practice, you often input an
-            array with `{"var":"field_key"}` syntax
-            this example uses 'preserve' to input an array constant
+            array with `{"var":"field_key"}` syntax.
+            this example uses 'preserve' to input a
+            simple array constant
             as literal json rather than JsonLogic
           */
           "preserve": [
