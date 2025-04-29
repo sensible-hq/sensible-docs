@@ -29,10 +29,7 @@ Example:
 ```json
 {
   /* groups a list of items by a property (`category`),
-  and for each group, returns:
-    - the group key (the value of the category)
-    - count of how many items are in the group
-    - array of the colors associated with the items in the group.
+  and for each group, returns computed information abt the group
   */
   "fields": [],
   "postprocessor": {
@@ -47,38 +44,38 @@ Example:
             array with `{"var":"field_key"}` syntax.
             this example uses 'preserve' to input a
             simple array constant
-            as literal json rather than JsonLogic
+            as literal JSON rather than JsonLogic
           */
           "preserve": [
             {
-              "category": "shirts",
+              "apparel_type": "shirt",
               "color": "yellow"
             },
             {
-              "category": "shoes",
-              "color": "brown"
+              "apparel_type": "dress",
+              "color": "green"
             },
             {
-              "category": "shirts",
+              "apparel_type": "shirt",
               "color": "red"
             }
           ]
         },
-        /* group by the `category` key */
-        "category",
-        /* for each group, return the following fields:
+        /* group by the `apparel_type` key */
+        "apparel_type",
+        /* for each group, return the following computed fields:
              - group key
              - count of items in group
              - array of colors of items in group  */
         [
-          /*  return each group key value (`shirts` and `shoes`)  */
+          /*  return the values of the group keys  */
           [
-            "category_group_key",
+            "group_key",
             {
               "var": "key"
             }
           ],
-          /* count how many items are in each group */
+          /* return group item counts */
           [
             "count_of_items_in_group",
             {
@@ -87,9 +84,9 @@ Example:
               }
             }
           ],
-          /* return an array of the colors of the items in each group */
+          /* return colors of items in groups*/
           [
-            "colors_in_category",
+            "colors_in_group",
             {
               "map": [
                 {
@@ -113,18 +110,18 @@ This outputs:
 ```json
 [
   {
-    "category_group_key": "shirts",
+    "group_key": "shirt",
     "count_of_items_in_group": 2,
-    "colors_in_category": [
+    "colors_in_group": [
       "yellow",
       "red"
     ]
   },
   {
-    "category_group_key": "shoes",
+    "group_key": "dress",
     "count_of_items_in_group": 1,
-    "colors_in_category": [
-      "brown"
+    "colors_in_group": [
+      "green"
     ]
   }
 ]
