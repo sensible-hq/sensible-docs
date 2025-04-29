@@ -46,8 +46,7 @@ Example:
             in practice, you often input an
             array with `{"var":"field_key"}` syntax
             this example uses 'preserve' to input an array constant
-            (preserve prevents interpreting a literal
-            json array as JsonLogic)
+            as literal json rather than JsonLogic
           */
           "preserve": [
             {
@@ -71,14 +70,14 @@ Example:
              - count of items in group
              - array of colors of items in group  */
         [
-          /*  return group keys (`shirts` and `shoes`)  */
+          /*  return each group key value (`shirts` and `shoes`)  */
           [
             "category_group_key",
             {
               "var": "key"
             }
           ],
-          /* return item counts  */
+          /* count how many items are in each group */
           [
             "count_of_items_in_group",
             {
@@ -87,7 +86,7 @@ Example:
               }
             }
           ],
-          /* return colors of the items in each group */
+          /* return an array of the colors of the items in each group */
           [
             "colors_in_category",
             {
