@@ -9,6 +9,127 @@ hidden: true
 
 + *how to relate that to 'rule' , 'condition' or 'logic'? be consistent across this + other topics*
 
+## Group
+
+ Groups an array of objects by the specified key and returns computed fields for each group.
+
+```json
+"group":
+[
+ <input_array>,
+ "key_to_group_by", 
+[[<field_to_return>], [<field_to_return>] ... ]]
+]
+```
+
+
+
+Example:
+
+```json
+{
+  /* groups a list of items by a property (`category`),
+  and for each group, returns:
+    - the group key (the value of the category)
+    - count of how many items are in the group
+    - array of the colors associated with the items in the group.
+  */
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      /* */
+      "group": [
+        {
+          /*
+            input an array to be grouped
+            in practice, you often input an
+            array with `{"var":"field_key"}` syntax
+            this example uses 'preserve' to input an array constant
+            (preserve prevents interpreting a literal
+            json array as JsonLogic)
+          */
+          "preserve": [
+            {
+              "category": "shirts",
+              "color": "yellow"
+            },
+            {
+              "category": "shoes",
+              "color": "brown"
+            },
+            {
+              "category": "shirts",
+              "color": "red"
+            }
+          ]
+        },
+        /* group by the `category` key */
+        "category",
+        /* for each group, return the following fields:
+             - group key
+             - count of items in group
+             - array of colors of items in group  */
+        [
+          /*  return group keys (`shirts` and `shoes`)  */
+          [
+            "category_group_key",
+            {
+              "var": "key"
+            }
+          ],
+          /* return item counts  */
+          [
+            "count_of_items_in_group",
+            {
+              "length": {
+                "var": "values"
+              }
+            }
+          ],
+          /* return colors of the items in each group */
+          [
+            "colors_in_category",
+            {
+              "map": [
+                {
+                  "var": "values"
+                },
+                {
+                  "var": "color"
+                }
+              ]
+            }
+          ]
+        ]
+      ]
+    }
+  }
+}
+```
+
+This outputs:
+
+```json
+[
+  {
+    "category_group_key": "shirts",
+    "count_of_items_in_group": 2,
+    "colors_in_category": [
+      "yellow",
+      "red"
+    ]
+  },
+  {
+    "category_group_key": "shoes",
+    "count_of_items_in_group": 1,
+    "colors_in_category": [
+      "brown"
+    ]
+  }
+]
+```
+
 
 
 ## Map Object
@@ -228,122 +349,3 @@ It makes it easy to transform objects dynamically in JsonLogic rules without man
 
 Want a sample implementation of this custom operator in code?
 
-## Group
-
- this `group` operation is a **custom JSONLogic function** that's essentially performing a **group-by operation** on an array of objects, and then **running additional logic on each group** to produce a summarized result.
-
-Let’s break it down.
-
-------
-
-### 🔍 `group` Operation - What It Does:
-
-**Signature:**
-
-```
-
-group([array, key, fields])
-```
-
-#### **Parameters:**
-
-1. **`array`** – The array of objects you want to group (e.g., `transactions`).
-2. **`key`** – The key to group by (e.g., `"date"`).
-3. **`fields`** – The list of fields (in JSONLogic) to compute for each group.
-
-------
-
-### 🧠 How It Works:
-
-1. **Run `input[0]`** – evaluates to the array you want to group (e.g., `data.transactions`).
-2. **Run `input[1]`** – evaluates to the key to group by (`"date"`).
-3. **Group** the array by the value of the `key`, using `JSON.stringify(v[key])` to avoid object identity issues.
-4. **For each group:**
-   - Set context:
-     - `key`: the value of the grouping key
-     - `values`: the array of objects in this group
-   - Run the provided `fields` logic in this context to produce the result object.
-
-------
-
-### 🧪 The Test Example Explained:
-
-You’re grouping transactions **by `date`**, and for each date, computing:
-
-- The field `"date"` is just set to the group key.
-- The `"average"` is computed over the `ending_daily_balance.value` of all items in the group.
-
-#### Breakdown of the logic:
-
-```
-jsonCopyEdit"group": [
-  { "var": "transactions" },
-  "date",
-  [
-    ["date", { "var": "key" }],
-    ["average", { 
-      "object": [
-        [
-          ["type", "currency"],
-          ["unit", "$"],
-          [
-            "value",
-            {
-              "/": [
-                {
-                  "reduce": [
-                    { "var": "values" },
-                    {
-                      "+": [
-                        { "var": "accumulator" },
-                        { "var": "current.ending_daily_balance.value" }
-                      ]
-                    },
-                    0
-                  ]
-                },
-                { "length": { "var": "values" } }
-              ]
-            }
-          ]
-        ]
-      ]
-    }]
-  ]
-]
-```
-
-This calculates the **average ending_daily_balance.value** per date.
-
-------
-
-### ✅ Result:
-
-You end up with:
-
-```
-tsCopyEdit[
-  {
-    date: { value: "7/14", type: "string" },
-    average: { value: 2500, unit: "$", type: "currency" }
-  },
-  {
-    date: { value: "7/15", type: "string" },
-    average: { value: 4000, unit: "$", type: "currency" }
-  }
-]
-```
-
-------
-
-### ✨ Summary:
-
-The `group` operation:
-
-- Groups an array by a specified field.
-- Runs custom logic per group using the key (`key`) and values (`values`) in context.
-- Returns an array of results for each group, based on the provided fields logic.
-
-It’s like a very JSONLogic-ish version of SQL’s `GROUP BY ... SELECT`.
-
-Let me know if you want help adapting or extending it!
