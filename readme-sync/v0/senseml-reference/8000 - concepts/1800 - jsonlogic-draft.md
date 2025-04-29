@@ -16,7 +16,7 @@ hidden: true
 ```json
 "group":
 [
- <input_array>,
+ <array_to_group>,
  "key_to_group_by", 
 [[<field_to_return>], [<field_to_return>] ... ]]
 ]
