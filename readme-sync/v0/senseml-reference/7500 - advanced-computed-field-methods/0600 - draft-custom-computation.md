@@ -13,16 +13,16 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 | key                      | value                             | description                                                  |
 | :----------------------- | :-------------------------------- | :----------------------------------------------------------- |
-| id (**required**)        | `customComputation`               | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1).<br/>-  This method outputs the result of the JsonLogic as a single Sensible field. If the result doesn't conform to Sensible's schema for a field, Sensible transforms the output where possible to conform. For more information, see the Schema example.. TODO LINK. |
+| id (**required**)        | `customComputation`               | - This method has access to the  `parsed_document` object at the extraction's level of [verbosity](doc:verbosity).<br/><br/>-  This method outputs the result of the JsonLogic as a single Sensible field. If the result doesn't conform to Sensible's schema for a field, Sensible transforms the output to conform when possible. For more information, see the Schema  enforcement example. TODO LINK.<br/><br/> - This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
 | jsonLogic (**required**) | JsonLogic object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using [JsonLogic operations](doc:jsonlogic). |
 
-<sup>1</sup> For an exception to the restricted types that Custom Computation outputs, see the Notes section. 
+
 
 # Examples
 
 ## Schema enforcement
 
-The following example shows how Sensible enforces outputting the results of JsonLogic as a Sensible field:
+The following example shows how Sensible enforces outputting the results of JsonLogic as a Sensible field for the Custom Computation method:
 
 **config**
 
@@ -61,7 +61,7 @@ The following example shows how Sensible enforces outputting the results of Json
     {
       "id": "Sensible_typed_field",
       "method": {
-        /* creates field with the Sensible currency type.
+        /* creates field with the specified Sensible currency type.
         Sensible enforces Sensible types.
         If you try to output an unsupported type, like
         `"type": "accountID"`, Sensible returns null */
@@ -80,8 +80,7 @@ The following example shows how Sensible enforces outputting the results of Json
       "id": "output_sections",
       "method": {
         /*  if you input an array in the shape of a sections group, Sensible 
-        recognizes and converts it to a sections group
-        Sensible can't recognize arrays in the shape of nested sections */
+        recognizes and converts it to a sections group */
         "id": "customComputation",
         "jsonLogic": [
           {
@@ -99,6 +98,59 @@ The following example shows how Sensible enforces outputting the results of Json
         ]
       }
     },
+    {
+      "id": "output_nested_sections",
+      "method": {
+        /*  if you input an array in the shape of a nested sections group, Sensible 
+        recognizes and converts it to a nested sections group */
+        "id": "customComputation",
+        "jsonLogic": {
+          /* use `preserve` to input a literal JSON object instead of JsonLogic */
+          "preserve": [
+            {
+              "parentSectionTitle": {
+                "type": "string",
+                "value": "Heading 1"
+              },
+              "nestedSections": [
+                {
+                  "subheading": {
+                    "type": "string",
+                    "value": "Heading A"
+                  }
+                },
+                {
+                  "subheading": {
+                    "type": "string",
+                    "value": "Heading B"
+                  }
+                }
+              ]
+            },
+            {
+              "parentSectionTitle": {
+                "type": "string",
+                "value": "Heading 2"
+              },
+              "nestedSections": [
+                {
+                  "subheading": {
+                    "type": "string",
+                    "value": "Heading C"
+                  }
+                },
+                {
+                  "subheading": {
+                    "type": "string",
+                    "value": "Heading D"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
   ]
 }
 ```
@@ -148,65 +200,52 @@ The following example shows how Sensible enforces outputting the results of Json
         "type": "string"
       }
     }
+  ],
+  "output_nested_sections": [
+    {
+      "parentSectionTitle": {
+        "type": "string",
+        "value": "Heading 1"
+      },
+      "nestedSections": [
+        {
+          "subheading": {
+            "type": "string",
+            "value": "Heading A"
+          }
+        },
+        {
+          "subheading": {
+            "type": "string",
+            "value": "Heading B"
+          }
+        }
+      ]
+    },
+    {
+      "parentSectionTitle": {
+        "type": "string",
+        "value": "Heading 2"
+      },
+      "nestedSections": [
+        {
+          "subheading": {
+            "type": "string",
+            "value": "Heading C"
+          }
+        },
+        {
+          "subheading": {
+            "type": "string",
+            "value": "Heading D"
+          }
+        }
+      ]
+    }
   ]
 }
 ```
 
-
-
-
-
-
-
-
-
-## Notes
-
-Outputs `string, number, boolean, null` , arrays of these types, and non-nested section groups. For more information about output types and Sensible [types](doc:types), see [Notes](doc:custom-computation#notes).
-
-
-
-
-
-
-
-
-
-
-
-As an exception to the Custom Computation's limited [types](doc:types) output, you can output properties of extracted fields, including their `type`, `source`, and `value` by accessing them with `"var": "field_id"` rather than `"var": "field_id.value"` notation. For example, you can copy a  `total_unprocessed_claims` field in the [Claims loss run example](doc:sections-example-loss-run): 
-
-```json
-{
-  /* field to copy:
-  {
-    "total_unprocessed_claims": {
-      "source": "5",
-      "value": 5,
-      "type": "number"
-    },
-  */
-  "id": "copy_field_into_this_key",
-  "method": {
-    "id": "customComputation",
-    "jsonLogic": {
-      "var": "total_unprocessed_claims"
-    }
-  }
-}
-
-```
-
-The  Custom Computation method in the preceding code sample returns:
-
-```json
-{
-      "copy_field_into_this_key": {
-        "source": "5",
-        "value": 5,
-        "type": "number"
-      }
-```
 
 
 
