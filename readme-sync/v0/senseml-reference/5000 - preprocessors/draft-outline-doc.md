@@ -8,6 +8,7 @@ hidden: true
 #### Todo before publish
 
 - create an LLM preprocessor category and rename existing to laytoub-ased preprocessor
+- fixed LINKS in outline
 
 
 
@@ -18,9 +19,9 @@ Creates an outline of the document that helps with downstream data extraction th
 
 It's not meant for end-user use but if you want to view it, you can set verbosity = 3 in the config, then see it in the API response in an `outline` object.
 
-[**Parameters**](doc:outline-doc#parameters)
-[**Examples**](doc:outline-doc#examples)
-[**Notes**](doc:outline-doc#notes)
+[**Parameters**] (doc:outline-doc#parameters)
+[**Examples**] (doc:outline-doc#examples)
+[**Notes**] (doc:outline-doc#notes)
 
 # Parameters
 
