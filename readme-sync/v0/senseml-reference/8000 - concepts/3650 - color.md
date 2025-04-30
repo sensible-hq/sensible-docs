@@ -19,7 +19,7 @@ The JSON editor uses color-coded overlays to visually represent how SenseML quer
 | [Dotted blue box](doc:color#dotted-blue-box)                 | discarded method data                         |
 | [Dotted yellow box](doc:color#dotted-yellow-box)             | discarded anchor data                         |
 | [Pink box](doc:color#pink-box)                               | fingerprint                                   |
-| [Purple box](doc:color#purple-box)                           | line details                                  |
+| [Purple box](doc:color#purple-box)                           | location highlighting of source text for an extracted field; line details                                  |
 
 ## Yellow box
 
@@ -214,7 +214,16 @@ fingerprint": {
 ## Purple box
 
 
-If you click on a line, it changes to a ***purple box*** and shows the following details:
+Purple boxes represet a selected line. To select a line:
+
+- Click a line directly in the rendered document.
+
+- (Location highlighting) In the visual output pane, click the location icon to the right of the output of a query field to jump to its source text in the rendered document.
+
+- (Location highlighting) In the JSON output pane, click the gutter to the left of a field ID to jump to its source text in the rendered document.
+
+
+A selected line shows the following details:
 
 - underlying extracted text
 - coordinates of the line's boundaries
@@ -225,16 +234,14 @@ You can select multiple lines to see their combined details.
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
 
 
-# Location highlighting
+### Location highlighting
 
-In the visual output pane, you can click the location icon to the right of the output of a query field to view its source text in the document.
+Note the following limitations for location highlighting for LLM-based methods: 
 
-Since LLMs are indeterminate, Sensible locates source text for LLM-based methods using a variety of approaches:
+- In general, since LLMs are indeterminate,Sensible selects source text for LLM-based methods using a variety of best-guess approaches:
 
   - For the Query group method, Sensible uses fuzzy matching, since the LLM's output can transform the source text. For example, if the LLM returns `4387-09-22-33`, Sensible matches the line `Policy Number: 4387-09-22-33` in the document.
   - For the NLP Table method, Sensible uses the top-scoring table sourced from an OCR provider. For more information, see the NLP Table method's [Notes](doc:nlp-table#notes).
-
-**Limitations**
 
 - Sensible doesn't support location highlighting for the List method.
 
