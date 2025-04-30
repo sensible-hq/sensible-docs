@@ -147,13 +147,13 @@ Sometimes an LLM prompt works for the majority of documents in a document type, 
 
 Tracing the document's source text, or *context*, for an LLM's answer can help you determine if the LLM is misinterpreting the correct text, or targeting the wrong text.
 
-You can view the source text for an LLM's answer highlighted in the document for the Query Group method:
+You can view the source text for an LLM's answer highlighted in the document:
 
-- In the visual editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
+- In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes). Sensible highlights the context in a [purple box](doc:color).
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_location.png)
 
-- In the JSON editor, Sensible displays location highlighting by outline the context with [blue boxes](doc:color). 
+ 
 
 
 

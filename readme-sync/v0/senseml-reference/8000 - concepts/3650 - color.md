@@ -3,10 +3,7 @@ title: "Source text traceability"
 hidden: false
 ---
 
-Sensible displays the source text for extracted fields using:
-
-- color-coded symbols overlaid on the rendered document in the JSON editor
-- location highlighting in the visual editor
+Sensible displays the source text for extracted fields using color-coded symbols overlaid on the rendered document in the JSON editor
 
 # Color coding
 
@@ -230,9 +227,7 @@ You can select multiple lines to see their combined details.
 
 # Location highlighting
 
-In the visual editor, Sensible uses location highlighting to show source text for LLM-based methods. Click the location icon to the right of the output of a query field to view its source text in the document: 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_location.png)
+In the visual output pane, you can click the location icon to the right of the output of a query field to view its source text in the document.
 
 Since LLMs are indeterminate, Sensible locates source text for LLM-based methods using a variety of approaches:
 

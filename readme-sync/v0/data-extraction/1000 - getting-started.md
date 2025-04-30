@@ -266,7 +266,7 @@ This config returns:
   },
 ```
 
-Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get. For easy authoring, try out this method in Sensible's visual authoring tool by clicking **Switch to Sensible Instruct**.
+Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get.
 
 LLM-based methods such as the Query Group method can run up against limitations with complex document formatting. In such advanced cases, use layout-based methods to extract the target information. 
 
