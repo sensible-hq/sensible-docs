@@ -84,7 +84,8 @@ The following example shows how Sensible enforces outputting the results of Json
         "id": "customComputation",
         "jsonLogic": [
           {
-            "eachKey": {
+            /* use `preserve` to input a literal JSON object instead of JsonLogic */
+            "preserve": {
               "claim_number": 2345,
               "description": "slip and fall"
             }
