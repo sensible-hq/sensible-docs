@@ -11,21 +11,18 @@ hidden: true
 
 ## Group
 
- Groups an array of objects by the specified key and returns computed fields for each group.
+ Groups an array of objects by the specified key and returns computed fields for each group:
 
 ```json
 "group":
 [
- <array_of_objects_to_group>,
+ [ /* array_of_objects_to_group */ ],
  "key_to_group_by", 
-/* specify each <field_to_return> with syntax ["key", JsonLogic] */
-[[<field_to_return>], [<field_to_return>] ... ]]
+[[/* field_to_return */ ], [/* field_to_return */ ] ... ] /* specify each field_to_return with syntax ["key", JsonLogic] */
 ]
 ```
 
-
-
-Example:
+For example, the following code groups an array of clothes objects by their apparel type:
 
 ```json
 {
@@ -40,11 +37,11 @@ Example:
       "group": [
         {
           /*
-            input an array to be grouped
-            in practice, you often input an
+            The array of objects to group.
+            In practice, you often input an
             array with `{"var":"field_key"}` syntax.
-            this example uses 'preserve' to input a
-            simple array constant
+            This example uses `preserve` to input an
+            array constant
             as literal JSON rather than JsonLogic
           */
           "preserve": [
@@ -64,7 +61,7 @@ Example:
         },
         /* group by the `apparel_type` key */
         "apparel_type",
-        /* for each group, return the following computed fields:
+        /* for each group, return the following fields:
              - group key
              - count of items in group
              - array of colors of items in group  */
@@ -106,7 +103,7 @@ Example:
 }
 ```
 
-This outputs:
+The preceding code sample returns the following output:
 
 ```json
 [
@@ -128,11 +125,23 @@ This outputs:
 ]
 ```
 
-
-
 ## Map Object
 
-Takes an object containing key-value pairs, and iterate over the object performing operations on each key and each value.
+For an object containing key-value pairs, iterates over the object and operates on each key and each value:
+
+```json
+"mapObject": [
+    { /* key_value_pairs_to_map */},
+[
+    { /* JsonLogic_for_keys */ },
+    { /* JsonLogic_for_values */ }
+]
+]
+```
+
+### Example
+
+The following example shows extracting fields, then modifying the key and the value for each field.
 
 **Config**
 
@@ -144,6 +153,7 @@ Takes an object containing key-value pairs, and iterate over the object performi
         "id": "queryGroup",
         "queries": [
           {
+            /* extract fields */
             "id": "lime pies",
             "description": "number of lime pies",
             "type": "number"
@@ -162,29 +172,29 @@ Takes an object containing key-value pairs, and iterate over the object performi
     "rule": {
       "mapObject": [
         {
-          /* the object to map. in this case, the current context, 
+          /* The object to map. In this case, the current context, 
           i.e. the extracted fields
           */
           "var": ""
         },
         [
           {
-            // operation to perform on each field's key
+            /*  operation to perform on each field's key */
             "cat": [
-              // prefix each key with its meal category
+              /* prefix each key with its meal category */
               "DESSERT_",
               {
                 "var": "key"
               },
             ]
           },
-          // operation to perform on each field's value 
+          /* operation to perform on each field's value */ 
           {
-            // multiply the value by 4
+            /* multiply the value by 4 */
             "*": [
               {
-                // since each field's value is an object,
-                // access nested value with value.value
+                /* since each field's value is an object,
+                 access nested value with value.value */
                 "var": "value.value"
               },
               4
@@ -202,7 +212,7 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/map_object.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/map_object.pdf) |
 | ---------------- | ------------------------------------------------------------ |
 
 **Output**
