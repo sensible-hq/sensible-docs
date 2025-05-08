@@ -14,7 +14,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                      | value                             | description                                                  |
 | :----------------------- | :-------------------------------- | :----------------------------------------------------------- |
 | id (**required**)        | `customComputationGroup`          | This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. |
-| jsonLogic (**required**) | JsonLogic object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using [JsonLogic operations](doc:jsonlogic). Expects to output an object as the result of the JsonLogic operations. Converts the attributes of the output object to fields. |
+| jsonLogic (**required**) | JsonLogic object | A [JsonLogic rule](doc:jsonlogic) that transforms the output of [Field objects](https://docs.sensible.so/docs/field-query-object) and outputs multiple fields. |
 
 Examples
 ====

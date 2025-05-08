@@ -27,6 +27,8 @@ Sensible supports both built-in and extended JsonLogic operators so that you can
 - Double escape dots in field IDs. For example, `"delivery\\.zip\\.code.value"` to reference `87112` in the field `{"delivery.zip.code":{"value":87112}}`. 
 - Use traversal notation to access data in hierarchies. For example, from within a section, use `"../"` to access fields in the parent object.
 - To evaluate the current context, use `"var":""`.
+- The `"var"` operator returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`. 
+- Math that include a null return null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1).
 
 ### Sensible-specific operations
 
