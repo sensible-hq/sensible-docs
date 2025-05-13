@@ -36,7 +36,7 @@ hidden: true
           /* declare values with key:value pair syntax */
           "a": 5,
           "b": 3,
-          /* c is sum of a + b, or 8 */
+          /* c is sum of a + b (8) */
           "c": {
             "+": [
               {
