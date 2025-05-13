@@ -11,7 +11,7 @@ hidden: true
 
 ## Let
 
- Declares named variables scoped to the Let operator.  This custom operation addresses the limitation that native JsonLogic operators don't support named variable declaration. 
+ Declares named variables scoped to the Let operator.  This custom operator addresses  JsonLogic's lack of built-in support for named variable declaration. 
 
 ```json
 {
