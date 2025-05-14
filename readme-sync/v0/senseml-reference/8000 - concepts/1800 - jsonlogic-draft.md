@@ -3,7 +3,7 @@ title: " style notes"
 hidden: true
 ---
 
-*TODO: style guide:* 
+*TODO: style guide notes to self/backlog:* 
 
 - *operation or operator* 
 
@@ -30,7 +30,6 @@ hidden: true
   "postprocessor": {
     "type": "jsonLogic",
     "rule": {
-      /* create & operate on named variables scoped to the Let operator */
       "let": [
         {
           /* declare values with key:value pair syntax */
