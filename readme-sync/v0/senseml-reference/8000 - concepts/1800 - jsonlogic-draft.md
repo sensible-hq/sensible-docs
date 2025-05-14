@@ -17,7 +17,7 @@ hidden: true
 {
 "let": [
 { /* 1st arg: initialize named variables using key/value pair syntax */ },
-{ /* 2nd arg: operate on the named variables. Sensible evaluates variables in order, and can access previously defined variables  */ }
+{ /* 2nd arg: operate on the named variables. Sensible evaluates variables in order */ }
 ]
 }
 ```
