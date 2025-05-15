@@ -27,7 +27,7 @@ Sensible supports both built-in and extended JsonLogic operators so that you can
 - Double escape dots in field IDs. For example, `"delivery\\.zip\\.code.value"` to reference `87112` in the field `{"delivery.zip.code":{"value":87112}}`. 
 - Use traversal notation to access data in hierarchies. For example, in a section, use `"../"` to access fields in the parent object.
 - To evaluate the current context, use `"var":""`.
-- The `"var"` operator returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`. 
+- The `"var"` operator returns null if you attempt to reference a field that Sensible can't find in the `parsed_document`. 
 - Math that include a null return null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1).
 
 ### Sensible-specific operations
@@ -40,6 +40,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Exists](doc:jsonlogic#exists)               | ✅                                       | ✅                                                    | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Group](doc:jsonlogic#group)                 | ✅                                       | ✅                                                    | ✅                                  |
+| [Let](doc:jsonlogic#let)                     | ✅                                       | ✅                                                    | ✅                                  |
 | [Log](doc:jsonlogic#log)                     | ✅                                       | ✅                                                    | ✅                                  |
 | [Map Object](doc:jsonlogic#map-object)       | ✅                                       | ✅                                                    | ✅                                  |
 | [Match](doc:jsonlogic#match)                 | ✅                                       | ✅                                                    | ✅                                  |
@@ -355,9 +356,67 @@ The preceding code sample returns the following output:
 ]
 ```
 
+## Let
 
+ Use this operator to declare named variables scoped to the Let operator.  This operator addresses JsonLogic's lack of built-in support for named variable declaration. 
 
+```json
+{
+"let": [
+{ /* 1st arg: initialize named variables using key/value pair syntax */ },
+{ /* 2nd arg: operate on the named variables. Sensible evaluates variables in order */ }
+]
+}
+```
 
+## Example
+
+```json
+{
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "let": [
+        {
+          /* declare values with key:value pair syntax */
+          "a": 5,
+          "b": 3,
+          /* c is sum of a + b (8) */
+          "c": {
+            "+": [
+              {
+                "var": "a"
+              },
+              {
+                "var": "b"
+              }
+            ]
+          }
+        },
+        /* operate on named values (5 * 8) */
+        {
+          "*": [
+            {
+              "var": "a"
+            },
+            {
+              "var": "c"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+```
+
+This returns:
+
+```json
+/* postprocessor output */
+40
+```
 
 ## Log
 
