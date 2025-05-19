@@ -76,7 +76,7 @@ So far, you've extracted short, simple facts. Now let's extract more complex dat
 
 - The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `date`, `description`, and `amount`.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_11.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_13.png)
 
 - Scroll down the right pane and click **Extract**. Sensible displays the extracted data. 
 
