@@ -34,39 +34,21 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2&om=2>. 
+1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2&om=1>. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
 
+
+
+## Extract more data 
+
 Take the following steps to create prompts to extract more data from the document.
 
-## Auto-extract data
+### Extract a list
 
-To extract document data automatically, take the following steps:
-
-1. Click **Query group**:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
-
-2. Click **Auto generate**, then click **Generate**:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto.png)
-
-3. Sensible automatically generates queries and extracts their answers from the document:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_2.png)
-
-4. (Optional) Add more queries by clicking **Suggest queries**, selecting the field IDs that interest you, and clicking **Add selected queries**:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_3.png)
-
-To test the automatically generated extraction configuration with another document,  see [Test the prompt](doc:getting-started-ai#test-the-prompt). To author your own extraction configurations, see the following steps.
-
-## Manually configure extraction
-
-### Extract a table
+TODO  change these to be for list
 
 So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
 
