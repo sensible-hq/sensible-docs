@@ -70,7 +70,7 @@ To extract short, simple facts, author queries.  Group them in a Query Group met
     },
 ```
 
-You should see newly extracted data as a result:
+You should see additional extracted data as a result:
 
 
 
@@ -109,7 +109,9 @@ The example already extracts the transaction history for the checking account. T
     }
 ```
 
-You should see newly extracted data as a result.
+You should see additional extracted data as a result:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_2.png)
 
 ## Publish the prompt
 
@@ -119,13 +121,13 @@ To extract similar data from other bank statements in production,  publish the "
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
-Now you've published your config, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
+Now you've published your config to the endpoint `https://api.sensible.so/v0/extract/llm_basics` document type, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
 
-## Test the prompt
+## Test the prompt LEFT OFF
 
 Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
-1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
+1. Navigate to <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
