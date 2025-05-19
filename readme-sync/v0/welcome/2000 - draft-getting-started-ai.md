@@ -123,17 +123,17 @@ To extract similar data from other bank statements in production,  publish the "
 
 Now you've published your config to the endpoint `https://api.sensible.so/v0/extract/llm_basics` document type, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
 
-## Test the prompt LEFT OFF
+## Test the prompt
 
 Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
 1. Navigate to <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
 
+TODO NEW IMAGE:
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
-2. In the right pane, scroll down to view the fields you authored in previous steps. Verify that the extracted data automatically updated to reflect the second example document.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
+ Verify that the extracted data automatically updated to reflect the second example document.
 
 ## (Optional) Extract from your own documents
 
@@ -146,7 +146,7 @@ Sensible recommends grouping similar documents, for example, bank statements, in
 
 ### Learn more about extraction
 
-- For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
+For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
 
 
 ### Integrate
