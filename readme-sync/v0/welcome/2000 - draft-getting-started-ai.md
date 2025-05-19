@@ -34,7 +34,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
+1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2&om=2>. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
