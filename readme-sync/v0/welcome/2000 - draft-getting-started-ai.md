@@ -46,21 +46,70 @@ Let's get started with extracting document data from an example bank statement. 
 
 Take the following steps to create prompts to extract more data from the document.
 
-### Extract a list
+###  Extract facts
 
-TODO  change these to be for list
+To extract short, simple facts, author queries.  Group them in a Query Group method if they're clustered within 1-2 pages of each other in the document. For example, append the following code to the array of fields in the left pane to extract two more facts:
 
-So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
+```json
+{
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "bank_name",
+            "description": "What is the name of the bank?",
+            "type": "string"
+          },
+          {
+            "id": "bank_website",
+            "description": "What is the banks website URL?",
+            "type": "string"
+          }
+        ]
+      }
+    },
+```
 
-- Click **Back to fields**.
+You should see newly extracted data as a result:
 
-- Click **Table**.
 
-- The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `date`, `description`, and `amount`.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_13.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png)
 
-- Scroll down the right pane and click **Extract**. Sensible displays the extracted data. 
+
+
+### Extract a table
+
+The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account,  copy the checking transactions field in the left pane, then modify it to extract your target data. For example, append the following field to the fields array in the left pane:
+
+```json
+{
+      "id": "savings_transaction_history",
+      "method": {
+        "id": "nlpTable",
+        "description": "savings transaction history, not checkings",
+        "columns": [
+          {
+            "id": "date",
+            "description": "date",
+            "type": "date"
+          },
+          {
+            "id": "description",
+            "description": "description without totals",
+            "type": "string"
+          },
+          {
+            "id": "amount",
+            "description": "amount",
+            "type": "currency"
+          }
+        ]
+      }
+    }
+```
+
+You should see newly extracted data as a result.
 
 ## Publish the prompt
 
