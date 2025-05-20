@@ -16,11 +16,11 @@ This guide gets you started with the first step, extracting data.
 
 ## Learn to extract data
 
-Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract a checking account number in minutes.
+Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract data in a matter of minutes.
 
  In this guide, you'll:
 
-- Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
+- Extract data from an example document using a natural-language description of your target data, for example, "what's the customer service number?". 
 - Publish your prompt as part of a "config."
 - Test your config against a second, similar document to ensure it extracts the same target data.
 
@@ -34,51 +34,82 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
+1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2&om=1>. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png) 
+
+
+
+## Extract more data 
 
 Take the following steps to create prompts to extract more data from the document.
 
-## Auto-extract data
+###  Extract facts
 
-To extract document data automatically, take the following steps:
+To extract short, simple facts, author queries.  Group them in a Query Group method if they're clustered within 1-2 pages of each other in the document. For example, append the following code to the array of fields in the left pane to extract two more facts:
 
-1. Click **Query group**:
+```json
+{
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "bank_name",
+            "description": "What is the name of the bank?",
+            "type": "string"
+          },
+          {
+            "id": "bank_website",
+            "description": "What is the banks website URL?",
+            "type": "string"
+          }
+        ]
+      }
+    },
+```
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_2.png)
+You should see additional extracted data as a result:
 
-2. Click **Auto generate**, then click **Generate**:
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto.png)
 
-3. Sensible automatically generates queries and extracts their answers from the document:
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png)
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_2.png)
 
-4. (Optional) Add more queries by clicking **Suggest queries**, selecting the field IDs that interest you, and clicking **Add selected queries**:
-
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_auto_3.png)
-
-To test the automatically generated extraction configuration with another document,  see [Test the prompt](doc:getting-started-ai#test-the-prompt). To author your own extraction configurations, see the following steps.
-
-## Manually configure extraction
 
 ### Extract a table
 
-So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
+The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account,  copy the checking transactions field in the left pane, then modify it to extract your target data. For example, append the following field to the fields array in the left pane:
 
-- Click **Back to fields**.
+```json
+{
+      "id": "savings_transaction_history",
+      "method": {
+        "id": "nlpTable",
+        "description": "savings transaction history, not checkings",
+        "columns": [
+          {
+            "id": "date",
+            "description": "date",
+            "type": "date"
+          },
+          {
+            "id": "description",
+            "description": "description without totals",
+            "type": "string"
+          },
+          {
+            "id": "amount",
+            "description": "amount",
+            "type": "currency"
+          }
+        ]
+      }
+    }
+```
 
-- Click **Table**.
-
-- The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `date`, `description`, and `amount`.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_13.png)
-
-- Scroll down the right pane and click **Extract**. Sensible displays the extracted data. 
+You should see additional extracted data as a result.
 
 ## Publish the prompt
 
@@ -88,23 +119,21 @@ To extract similar data from other bank statements in production,  publish the "
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
-Now you've published your config, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
+Now you've published your config to the endpoint `https://api.sensible.so/v0/extract/llm_basics` document type, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
 
 ## Test the prompt
 
 Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
-1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
+1. Navigate to <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement&om=1>. Notice that the middle pane now displays a statement for a different customer.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_2.png)
 
-2. In the right pane, scroll down to view the fields you authored in previous steps. Verify that the extracted data automatically updated to reflect the second example document.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_9.png)
+ Note that the extracted data in the right pane automatically updates to reflect the second example document.
 
 ## (Optional) Extract from your own documents
 
-Sensible recommends grouping similar documents, for example, bank statements, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
+Sensible recommends grouping similar documents, for example, bank statements, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by taking the following steps:
 
 1. To exit the visual editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type using the dialog, then write prompts in the configuration editor to extract data using what you learned in previous steps.
@@ -113,7 +142,7 @@ Sensible recommends grouping similar documents, for example, bank statements, in
 
 ### Learn more about extraction
 
-- For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
+For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
 
 
 ### Integrate

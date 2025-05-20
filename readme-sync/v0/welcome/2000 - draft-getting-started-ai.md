@@ -16,11 +16,11 @@ This guide gets you started with the first step, extracting data.
 
 ## Learn to extract data
 
-Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract data from a bank account statement in minutes.
+Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract data in a matter of minutes.
 
  In this guide, you'll:
 
-- Extract data from an example document using a natural-language description of your target data, for example, a customer service number. 
+- Extract data from an example document using a natural-language description of your target data, for example, "what's the customer service number?". 
 - Publish your prompt as part of a "config."
 - Test your config against a second, similar document to ensure it extracts the same target data.
 
