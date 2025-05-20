@@ -16,11 +16,11 @@ This guide gets you started with the first step, extracting data.
 
 ## Learn to extract data
 
-Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract a checking account number in minutes.
+Let's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract data from a bank account statement in minutes.
 
  In this guide, you'll:
 
-- Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
+- Extract data from an example document using a natural-language description of your target data, for example, a customer service number. 
 - Publish your prompt as part of a "config."
 - Test your config against a second, similar document to ensure it extracts the same target data.
 
@@ -34,13 +34,13 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement_2&g=bank_statement&om=1>. 
+1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2&om=1>. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png) 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_1.png)
 
 ## Extract more data 
 
@@ -127,13 +127,13 @@ Let's see if the config containing your prompt works with other bank statements.
 
 1. Navigate to <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement&om=1>. Notice that the middle pane now displays a statement for a different customer.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_2.png)
 
- Verify that the extracted data in the right pane also automatically updated to reflect the second example document.
+ Note that the extracted data in the right pane automatically updates to reflect the second example document.
 
 ## (Optional) Extract from your own documents
 
-Sensible recommends grouping similar documents, for example, bank statements, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by using the interactive [tutorial](https://app.sensible.so/tutorial/) or taking the following steps:
+Sensible recommends grouping similar documents, for example, bank statements, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by taking the following steps:
 
 1. To exit the visual editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type using the dialog, then write prompts in the configuration editor to extract data using what you learned in previous steps.
