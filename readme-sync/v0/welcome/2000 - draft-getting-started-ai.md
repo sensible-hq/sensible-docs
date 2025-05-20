@@ -34,13 +34,13 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement&om=1>. 
+1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement_2&g=bank_statement&om=1>. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_1.png)
 
 ## Extract more data 
 
@@ -125,11 +125,11 @@ Now you've published your config to the endpoint `https://api.sensible.so/v0/ext
 
 Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
-1. Navigate to <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2&om=1>. Notice that the left pane now displays a statement for a different customer.
+1. Navigate to <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement&om=1>. Notice that the middle pane now displays a statement for a different customer.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png)
 
- Verify that the extracted data automatically updated to reflect the second example document.
+ Verify that the extracted data in the right pane also automatically updated to reflect the second example document.
 
 ## (Optional) Extract from your own documents
 
