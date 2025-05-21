@@ -74,7 +74,7 @@ You should see additional extracted data as a result:
 
 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_1.png)
 
 
 
@@ -109,7 +109,9 @@ The example already extracts the transaction history for the checking account. T
     }
 ```
 
-You should see additional extracted data as a result.
+You should see additional extracted data as a result:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_3.png).
 
 ## Publish the prompt
 
