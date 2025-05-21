@@ -24,13 +24,13 @@ Take the following steps:
 
 3. In the **Document type** dropdown in the right pane, select the category that describes your document, for example, `resumes` or `bank_statements`. For portfolios, select multiple types.
 
-   Note: If you haven't created your own document type, select `sensible_instruct_basics / Auto select` . The `sensible_instruct_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
+   Note: If you haven't created your own document type, select `llm_basics / Auto select` . The `llm_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
 3. Click **Upload document** and select your example document or documents. For a list of supported file types, see [Supported file types](doc:file-types). Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr-preprocessor).
 
-​       If you don't have an example document, use the following document with the `sensible_instruct_basics` document type :
+​       If you don't have an example document, use the following document with the `llm_basics` document type :
 
 | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
 | ----------- | ------------------------------------------------------------ |

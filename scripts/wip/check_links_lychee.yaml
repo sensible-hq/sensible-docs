@@ -29,4 +29,4 @@ jobs:
         uses: lycheeverse/lychee-action@v1.7.0
         with:
           fail: true
-          args: --verbose --no-progress --exclude-all-private --exclude 'stackoverflow.com' --exclude 'https://api.sensible.so/v0/extract/senseml_basics' --exclude 'https://platform.openai.com' --exclude 'support.discord.com' --exclude-path './node_modules' --exclude-path 'examples' --exclude-path 'docs/snippets/callouts.mdx' .
+          args: --verbose --no-progress --exclude-all-private --exclude 'stackoverflow.com' --exclude 'https://api.sensible.so/v0/extract/layout_basics' --exclude 'https://platform.openai.com' --exclude 'support.discord.com' --exclude-path './node_modules' --exclude-path 'examples' --exclude-path 'docs/snippets/callouts.mdx' .
