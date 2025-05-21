@@ -29,22 +29,12 @@ To run an API call and return extracted, structured data from a downloaded examp
 
 2. Copy the following code example into a plain-text application and replace `*YOUR_API_KEY*` with your API key:
 
-[block:code]
-{
-  "codes": [
-    {
-      "code": "curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf \\\n  --output 1_extract_your_first_data.pdf && \\\ncurl --request POST \\\n  --url \"https://api.sensible.so/v0/extract/layout_basics\" \\\n  --header \"Authorization: Bearer YOUR_API_KEY\" \\\n  --header \"Content-Type: application/pdf\" \\\n  --data-binary \"@1_extract_your_first_data.pdf\" \n",
-      "language": "shell",
-      "name": "Linux/Mac"
-    },
-    {
-      "code": "curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf ^\n  --output 1_extract_your_first_data.pdf && ^\ncurl --request POST ^\n  --url \"https://api.sensible.so/v0/extract/layout_basics\" ^\n  --header \"Authorization: Bearer YOUR_API_KEY\" ^\n  --header \"Content-Type: application/pdf\" ^\n  --data-binary \"@1_extract_your_first_data.pdf\" \n",
-      "language": "shell",
-      "name": "Windows"
-    }
-  ]
-}
-[/block]
+
+```shell
+curl -L https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf --output 1_extract_your_first_data.pdf && curl --request POST --url "https://api.sensible.so/v0/extract/layout_basics" --header "Authorization: Bearer YOUR_API_KEY" --header "Content-Type: application/pdf" --data-binary "@1_extract_your_first_data.pdf"
+
+```
+
 
 3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`layout_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: 
 
