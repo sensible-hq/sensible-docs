@@ -2070,7 +2070,7 @@ components:
     
     SegmentDocumentsWith:
       type: string
-      enum: [llm | fingerprints]
+      enum: [llm, fingerprints]
       default: fingerprints
       description: >- 
         Specifies how to segment the page ranges of the documents in the portfolio.
