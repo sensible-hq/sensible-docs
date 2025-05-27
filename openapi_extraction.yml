@@ -2072,6 +2072,7 @@ components:
       type: string
       enum: [llm, fingerprints]
       default: fingerprints
+      example: llm
       description: >- 
         Specifies how to segment the page ranges of the documents in the portfolio.
         For more information, see [Multi-document extraction](doc:portfolio).
