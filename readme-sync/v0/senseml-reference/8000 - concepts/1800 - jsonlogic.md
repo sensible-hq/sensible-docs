@@ -572,19 +572,58 @@ Returns a boolean to indicate if the specified regular expression matches.
 ```json
 {
     "match": [
-        JsonLogic,
-        regex
+       { /* JsonLogic that evaluates to the text in which to find the match */ },
+       " /* Javascript-flavored regular expression */ ",
+       " /* optional: case-insensitive flag (i) */ "
     ]
 }
 ```
 
- Where `regex` is a Javascript-flavored regular expression.
-
-Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character). This operation does *not* support regular expression flags such as `i` for case insensitive. 
+Double escape special regex characters since the regex is in a JSON object. For example,  use `\\s`, not `\s` , to represent a whitespace character.
 
 ### Examples
 
-See [Validating extractions](doc:validate-extractions#examples). 
+```json
+{
+  "fields": [
+    {
+      "id": "customer_id",
+      "method": {
+        "id": "constant",
+        "value": "ID1234",
+      },
+    },
+    {
+      // check that customer ID is formatted as "ID" + 4 digits (case-insensitive)
+      "id": "correct_id_format",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "match": [{ "var": "customer_id.value" }, "^id\\d{4}$", "i"],
+        },
+      },
+    },
+  ],
+}
+
+```
+
+This example returns:
+
+```
+{
+  "customer_id": {
+    "value": "ID1234",
+    "type": "string"
+  },
+  "correct_id_format": {
+    "value": true,
+    "type": "boolean"
+  }
+}
+```
+
+
 
 
 
