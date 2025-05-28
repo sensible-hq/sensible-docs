@@ -43,6 +43,8 @@ Behind the scenes, Sensible expands string anchors to case-insensitive `includes
       },
 ```
 
+### Reusing anchors
+
 You can reuse anchors by defining them and then referring to them:
 
 ```json
