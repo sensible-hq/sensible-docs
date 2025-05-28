@@ -57,9 +57,11 @@ Configure the extraction
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
 
-2. Sensible displays the query editor for your config and example document. In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right. Click the code icon in the right pane to ensure you view the output as JSON:
+2. Sensible displays the query editor for your config and example document.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
+
+Click the code bracket icon in the right pane to ensure you view the output as JSON.
 
 Extract data
 ====
