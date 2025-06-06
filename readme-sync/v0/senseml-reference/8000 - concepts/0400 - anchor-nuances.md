@@ -99,10 +99,10 @@ You can define named anchors in a [Conditional](doc:conditional) method and refe
 }
 ```
 
-Methods filter anchors
+Filter methods by anchors
 -----
 
-In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies as an anchor.
+In addition to the match conditions you specify (such as `isCaseSensitive`), the method type influences whether text qualifies as an anchor.
 
 For example, if you specify the Label method, Sensible anchors on text that is a good label candidate. Sensible disqualifies any line as a label that is too far away from other lines, even if it otherwise meets the conditions in the anchor's parameters.
 
