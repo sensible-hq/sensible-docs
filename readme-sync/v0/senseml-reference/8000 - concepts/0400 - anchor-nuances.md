@@ -12,7 +12,7 @@ This topic covers advanced anchor concepts:
 
 For related information about match use in anchors, see [Match arrays](doc:match-arrays).
 
-## Reuse anchors
+## Reuse anchor variables
 
 You can reuse anchors by defining them and then referring to them as variables. For example, reuse a complex anchor for concise syntax:
 
