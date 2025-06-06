@@ -19,7 +19,7 @@ You can reuse anchors by defining them and then referring to them as variables. 
 ```json
   "fields": [
     {
-      /* declare the named anchor for later reuse */
+      /* declare the named anchor variable for later reuse */
       "type": "anchorDefinition",
       "name": "liability_workers_comp",
       "anchor": {
