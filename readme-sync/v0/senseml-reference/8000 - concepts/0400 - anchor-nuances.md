@@ -14,12 +14,12 @@ For related information about match use in anchors, see [Match arrays](doc:match
 
 ## Reuse anchors
 
-You can reuse anchors by defining them and then referring to them. For example, reuse a complex anchor for concise syntax:
+You can reuse anchors by defining them and then referring to them as variables. For example, reuse a complex anchor for concise syntax:
 
 ```json
   "fields": [
     {
-      /* declare the anchor definition for later reuse */
+      /* declare the named anchor for later reuse */
       "type": "anchorDefinition",
       "name": "liability_workers_comp",
       "anchor": {
@@ -29,7 +29,7 @@ You can reuse anchors by defining them and then referring to them. For example, 
       }
     },
     {
-      /* extract text from a box 1.15" to the right of the reused anchor  */
+      /* extract text from a box 1.15" to the right of the named anchor  */
       "id": "subrogation_waived",
       "method": {
         "id": "box",
@@ -41,7 +41,7 @@ You can reuse anchors by defining them and then referring to them. For example, 
       }
     },
     {
-      /* extract text from a box 0.07" to the left of the reused anchor  */
+      /* extract text from a box 0.07" to the left of the named anchor  */
       "id": "insurer_letter",
       "method": {
         "id": "box",
@@ -74,13 +74,13 @@ You can define named anchors in a [Conditional](doc:conditional) method and refe
       "condition": {"==": [{"var": "language.value"}, "english"]},
       "fieldsOnPass": [
     {
-      /* the value for the customer ID anchor is English */
+      /* declare the named anchor in English  */
       "type": "anchorDefinition",
       "name": "customer_id_anchor",
       "anchor": "customer ID number"
     },
     ], "fieldsOnFail": [{
-      /* otherwise it's Spanish */  
+      /* otherwise declare it in Spanish */  
       "type": "anchorDefinition",
       "name": "customer_id_anchor",
       "anchor": "identificación del cliente"
@@ -88,7 +88,7 @@ You can define named anchors in a [Conditional](doc:conditional) method and refe
     {
       "id": "customer_id",
       "anchor": {
-        /* refer to the anchor to find the customer ID in either language  */
+        /* refer to the named anchor to find the customer ID in either language  */
         "ref": "customer_id_anchor"
       },
       "method": {
