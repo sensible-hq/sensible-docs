@@ -88,7 +88,7 @@ You can define named anchors in a [Conditional](doc:conditional) method and refe
     {
       "id": "customer_id",
       "anchor": {
-        /* refer to the named anchor to find the customer ID in either language  */
+        /* use the named anchor to extract the customer ID in either language  */
         "ref": "customer_id_anchor"
       },
       "method": {
