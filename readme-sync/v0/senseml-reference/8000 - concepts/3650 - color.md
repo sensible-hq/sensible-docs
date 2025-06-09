@@ -150,9 +150,9 @@ Common parameters resulting in filtering include:
 
 ***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. 
 
-For example, for the following config:
+For example, for the following config and example document:
 
-```
+```json
 {
   "fields": [
     {
@@ -168,18 +168,21 @@ For example, for the following config:
 }
 ```
 
-Sensible filters out "python" strings that don't meet the Label method's proximity requirements. For example, in the following image, Sensible represents the "python" string with a dotted yellow box to show that the Label method doesn't capture it (use the Row method instead):
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
+| ---------------- | ------------------------------------------------------------ |
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
 
 
-Common parameters resulting in filtering include:
+Sensible discards the "python" string since it doesn't meet the Label method's proximity requirements.  In this instance, use the Row method instead to capture the data.
+
+Common parameters resulting in discarded anchors include:
 
 -  the field's data type (currency, date, address, etc)
 -  the field's match method (first, last, all)
 -  the anchor's start and end
--  the method's id (for example, a Label method filters out all lines that aren't close to other lines)
+-  the method's ID (for example, the Checkbox method filters out all anchor lines that aren't near a checkbox) 
 
 
 

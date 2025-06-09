@@ -90,7 +90,7 @@ Here's an example of an Anchor object that uses all these parameters:
 Notes
 ====
 
-For information about complex anchor syntax, see [Anchor nuances](doc:anchor-nuances).
+For information about complex anchor syntax, see [Anchor variables](doc:anchor-nuances) and .[Match arrays](doc:match-arrays).
 
 
 

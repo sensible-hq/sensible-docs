@@ -1,16 +1,11 @@
 ---
-title: "Anchor nuances"
+title: "Anchor variables"
 hidden: false
 ---
 
 **Note:** If you're familiar with Sensible, this detailed topic is for you. If you're new to Sensible, see [anchor](doc:anchor).
 
-This topic covers advanced anchor concepts:
-
-- Define and reuse anchor definitions for concise syntax
-- Filter anchors by the field's method
-
-For related information about match use in anchors, see [Match arrays](doc:match-arrays).
+This topic covers defining and reusing anchor definitions for concise syntax
 
 ## Reuse anchor variables
 
@@ -100,47 +95,3 @@ You can define named anchors in a [Conditional](doc:conditional) method and refe
 }
 ```
 
-Filter methods by anchors
------
-
-In addition to the match conditions you specify (such as `isCaseSensitive`), the method type influences whether text qualifies as an anchor.
-
-For example, if you specify the Label method, Sensible anchors on text that is a good label candidate. Sensible disqualifies any line as a label that is too far away from other lines, even if it otherwise meets the conditions in the anchor's parameters.
-
-The following example shows two anchors qualified by the Label method:
-
-**Example Config**
-
-```json
-{
-  "fields": [
-    {
-      "id": "anchors_candidates_filtered_by_method",
-      "anchor": "python",
-      "match": "first",
-      "method": {
-        "id": "label",
-        "position": "right"
-      }
-    }
-  ]
-}
-```
-
-**Example document**
-
-The following image shows the example document used with this example config:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
-
-
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
-**Example Output**
-
-The example config returns null, but returns data if you specify the Row method instead.
-
-**Example Notes**
-
-In this example, Sensible filters out the anchor candidates (surrounded by light yellow boxes) because they do not meet the Label method's proximity requirements. The strings "python" are far enough away from other lines that you should use the Row method here instead. 
