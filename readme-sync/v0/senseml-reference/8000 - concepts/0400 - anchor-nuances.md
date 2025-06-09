@@ -5,7 +5,7 @@ hidden: false
 
 **Note:** If you're familiar with Sensible, this detailed topic is for you. If you're new to Sensible, see [anchor](doc:anchor).
 
-This topic covers defining and reusing anchor definitions for concise syntax
+This topic covers defining and reusing anchor definitions for concise syntax.
 
 ## Reuse anchor variables
 
