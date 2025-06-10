@@ -40,10 +40,10 @@ Fingerprints improve performance by testing for matching text in a single-docume
 
 The Fingerprint Mode configuration option determines the strictness of the tests as follows:
 
-| Strictness level | Description                                                  | If more than one config's tests pass over 50%                | If no configs' tests pass over 50%<br/> or if no configs contain a fingerprint |
-| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests. | Sensible chooses the output from the passing config with the highest score | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one with the highest score. |
-| strict           | The doc type must have at least one config containing a fingerprint. | Sensible chooses the output from the passing config that has the highest score. | Sensible returns a 400 error.                                |
+| Strictness level | Description                                                  | If more than one config's tests pass over 50%                | If no configs' tests pass over 50%                           | If no configs contain a fingerprint                          |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests. | Sensible chooses the output from the passing config with the highest score | Sensible ignores the failing configs. Sensible runs all the configs with no fingerprints and chooses the one with the highest score. | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one with the highest score. |
+| strict           | The doc type must have at least one config containing a fingerprint. | Sensible chooses the output from the passing config that has the highest score. | Sensible returns a 400 error.                                | Sensible returns a 400 error.                                |
 
 In the preceding table, Sensible calculates a score as follows:
 
