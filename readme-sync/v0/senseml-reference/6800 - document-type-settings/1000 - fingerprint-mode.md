@@ -12,20 +12,20 @@ The Fingerprint Mode configuration option applies to scenario 1, not scenario 2.
 
 ## Standalone files
 
-Fingerprints improve performance by testing for matching text in a single-document document before running or skipping a config in a specified document type.  
+Fingerprints improve performance by testing for matching text in a single document before running or skipping a config in a specified document type.  
 
 The Fingerprint Mode configuration option determines the strictness of the tests as follows:
 
-| Strictness level | Description                                                  | If more than one config's tests pass over 50%                | If no configs' tests pass over 50%<br/> or if no configs contain a fingerprint |
-| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| standard         | If any of the configs in the document type contain a fingerprint, then Sensible runs extractions using any configs that pass over 50% of the fingerprint tests. | Sensible chooses the output from the passing config with the highest score | Sensible falls back to the default behavior of running extractions for the document using *all* configurations, and returns the one with the highest score. |
-| strict           | The doc type must have at least one config containing a fingerprint. | Sensible chooses the output from the passing config that has the highest score. | Sensible returns a 400 error.                                |
+| Are fingerprinted configs present in doctype? | Fingerprint test results                                     | Normal mode                                                  | Strict mode |
+| --------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------- |
+| yes                                           | One or more fingerprinted configs passes (>=50% tests in a config match text in document) | - Run extractions for all fingerprinted configs<br/>- Skip extractions for non-fingerprinted configs if present in document type | Same        |
+| yes                                           | All fingerprinted configs fail                               | - If non-fingerprinted configs are present, run all *non*-fingerprinted configs and skip fingerprinted configs<br/>- If all configs are fingerprinted, run all configs | 400 error   |
+| no                                            | N/A                                                          | Run all configs                                              | 400 error   |
 
-In the preceding table, Sensible calculates a score as follows:
-
-` score` = `num of non-null fields` - `penalties for validation errors or warnings`, where penalties are as follows:
+After Sensible runs and skips extractions,  it returns the extraction that ran with the highest-scoring config.  Sensible calculates the score as follows: ` score` = `num of non-null fields` - `penalties for validation errors or warnings`, where penalties are as follows:
 
 - `validation error penalty` = 1 * `num fields with validation errors`
+
 - `validation warning penalty` = 0.5 * `num of fields with validation warnings`
 
 ## Portfolio files
