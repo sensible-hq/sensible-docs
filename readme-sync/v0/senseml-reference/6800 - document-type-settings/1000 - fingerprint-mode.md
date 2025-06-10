@@ -18,7 +18,7 @@ The Fingerprint Mode configuration option determines the strictness of the tests
 
 | Are fingerprinted configs present in doctype? | Fingerprint test results                                     | Normal mode                                                  | Strict mode |
 | --------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------- |
-| yes                                           | One or more fingerprinted configs passes (>=50% tests in a config match text in document) | - Run extractions for all fingerprinted configs<br/>- Skip extractions for non-fingerprinted configs if present in document type | Same        |
+| yes                                           | One or more fingerprinted configs passes.<br/> A config passes if 50% or more of tests in a config match text in document. | - Run extractions for all fingerprinted configs<br/>- Skip extractions for non-fingerprinted configs if present in document type | Same        |
 | yes                                           | All fingerprinted configs fail                               | - If non-fingerprinted configs are present, run all *non*-fingerprinted configs and skip fingerprinted configs<br/>- If all configs are fingerprinted, run all configs | 400 error   |
 | no                                            | N/A                                                          | Run all configs                                              | 400 error   |
 
