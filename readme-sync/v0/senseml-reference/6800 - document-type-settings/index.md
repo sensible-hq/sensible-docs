@@ -4,6 +4,10 @@ hidden: false
 
 ---
 
+A document type is a 
+
+
+
 See the following topics for options you can set in the **Settings** tab for each document type:
 
 - [Fingerprint mode](doc:fingerprint-mode)
