@@ -19,19 +19,109 @@ TODO: add image here (email_overview.png)
 
 To implement this workflow, take the following general steps:
 
-**Email setup**
+**Configure email**
 
-1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from lease applications. The emails for each property manager are similar to each other. This example uses the manager *Sensible Property*. 
-2. Define a Sensible forwarding email address for the set of emails. For example, *blah*.
-3. Set up your email filters so your *blah* emails automatically forward to the Sensible address.
+1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from residential lease applications.
+2. Define a Sensible forwarding email address for the set of emails. For example, `residential-lease-applications@sensible.so`.
+3. Set up your email filters so your lease application emails automatically forward to the Sensible address.
 
-**Data extraction configuration**
+**Configure data extraction**
 
-1. In the Sensible app, define [document types](doc:document-type-settings) for each email attachment in the similar emails that you want to extract from, and 1 for the email body. For example, *blah blah balh*
+1. In the Sensible app, define [document types](doc:document-type-settings) for each email attachment in the similar emails that you want to extract from and optionally one for the email body. For example, `driverse_licenses` and `paystubs` and `email_body_lease_applications`.
 
-**Receive extracted data**
+**Configure data destination**
 
 1. Define a webhook to receive the extracted data, or view the extracted data in the Sensible app
+
+The following sections provide more implementation detail.
+
+## Getting started
+
+Let's walk through an example scenario of extracting data from emails. In this example, you're in PropTech and you want to extract data from lease applications. 
+
+This example uses the manager *Sensible Property*.  Lease application emails to this property manager typically include the following attachments:
+
+- paystub
+- drivers license
+- signed lease
+- email body that includes the applicant's name
+
+Let's walk through extracting data from these email documents.
+
+## Configure email
+
+1. Determine your filtering criteria for forwarding lease applications for Sensible Property for extraction. For example, you filter on emails addressed to `applications@sensibleproperty.com`. 
+2. Determine the name for the forwarding `@sensible.so` address you'd like to use for this set of emails. For example, `residential-lease-applications@sensible.so`.
+
+## Configure data classification and extraction
+
+To configure email data classification and extraction in your Sensible account, take the following steps.
+
+#### Create out-of-the-box document types
+
+Create document types to handle the paystub, drivers license, and signed lease attachments:
+1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add extraction support for the following document types to your account: 
+   1. **driver_license** document type
+   2. **pay_stubs** document type  
+      Each document type contains _configs_, or collections of SenseML extraction queries. Configs handle variations in a document type; for example TODO more definition.
+
+#### (Optional) Create custom document types
+
+The Sensible prebuilt config library doesn't support rental property lease applications. To support it, take the following steps:
+
+   1. In the **Document Types** tab, Click **New document type** and name it `leases`. In the dialog, take the following steps:
+      1. Upload the example document from TODO LINK QUERY GROUP.
+      2. Name the config `sensibleproperties`  for the fictional property management company in this example. 
+      3. After you create the document type, edit the config you created. Paste the example from TODOQUERY GROUP into the empty config and publish it.
+
+1. (Optional) To support extracting from the email body:
+   1. Follow the preceding steps to create a document type named`email_body_lease_applications`:
+      1. Upload the following example document:
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Note**: this example is a PDF export of an email body.  When you need to configure extraction support, it's a one-time setup process to convert or print the email body to a supported file type (TODO LINK) so you can test your extraction queries on it.
+
+b. For the configuration, paste in the following code:
+
+```json
+{
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "applicant_name",
+            "description": "What is the name of the applicant?",
+            "type": "string"
+          },
+          {
+            "id": "date_sent",
+            "description": "What is the date the email was sent?",
+            // this type formats the extracted data as a ISO 8601 date
+            "type": "date"
+          },
+          {
+            "id": "attachment_count",
+            "description": "How many attachments are included in the email?",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+When you forward an email to Senislbe automatically classifies documents as paystubs, drivers licenses, signed leases, or email bodies of lease applications, and extracts data from them.
+
+
+
+## Configure data destination
+
+
 
 
 
