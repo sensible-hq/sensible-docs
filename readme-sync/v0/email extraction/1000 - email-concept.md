@@ -21,8 +21,8 @@ To implement this workflow, take the following general steps:
 
 **Email setup**
 
-1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from lease applications sent to a property manager, *Sensible Property*. 
-2. Define a Sensible forwarding email address  for the set of emails. For example, *blah*.
+1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from lease applications. The emails for each property manager are similar to each other. This example uses the manager *Sensible Property*. 
+2. Define a Sensible forwarding email address for the set of emails. For example, *blah*.
 3. Set up your email filters so your *blah* emails automatically forward to the Sensible address.
 
 **Data extraction configuration**
