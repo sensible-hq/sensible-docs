@@ -51,7 +51,7 @@ Let's walk through extracting data from these email documents.
 ## Configure email
 
 1. Determine your filtering criteria for forwarding lease applications for Sensible Property for extraction. For example, you filter on emails addressed to `applications@sensibleproperty.com`. 
-2. Determine the name for the forwarding `@sensible.so` address you'd like to use for this set of emails. For example, `residential-lease-applications@sensible.so`.
+2. Determine the name for the Sensible  email address to which you want to forward this set of emails. The email must be at the Sensible domain, for example, `residential-lease-applications@sensible.so`. You'll provide Sensible with this email address in a later step.
 
 ## Configure data classification and extraction
 
@@ -120,6 +120,59 @@ When you forward an email to Senislbe automatically classifies documents as pays
 
 
 ## Configure data destination
+
+To recieve extracted email data, you have the following options:
+
+	1. View and download the extracted data in the Sensible app on the **Extraction history** tab.
+	1. Implement a webhook as a destination for the extracted data. You'll provide Sensible with its URL in a later step.
+
+
+
+## Configure email processor
+
+So far, you've created all the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
+
+- the name of your Sensible email forwarding address  (TODO: specify it here or say 'see earlier steps')
+- the names of the document types you created in your account (TODO: specify it here)
+- (optional) the URL of your webhook (TODO: specify it here)
+
+## (Optional) Send a test email
+
+Send a test email to the processor you created. You can download  the example documents for attachments from the following locations:
+
+- GH location
+- GH location 
+
+
+
+ For the body, you can use the following text:
+
+```
+TODO: CHANGE THIS TEXT
+Dear Anita Patel,
+
+I hope you’re doing well. I’m writing to formally submit my application for the rental unit at  123 Sample St unit #3. I am very interested in leasing this apartment and have attached all the necessary documents for your review.
+
+Please find attached:
+
+Signed lease agreement
+Proof of income (recent pay stub)
+Copy of my ID ( driver’s license)
+Please let me know if you need any additional information or if there are any next steps in the approval process.
+
+Thank you for your time and consideration. I look forward to your response.
+
+
+Best regards,
+Brenda Sample
+(505) 123 4567
+brenda.sample@gmail.com
+
+```
+
+You should get back an extraction response for each attachment at the webhook.
+
+You can also view the extractions in the Sensible app's **Extraction history** tab:
 
 
 
