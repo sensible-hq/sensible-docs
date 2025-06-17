@@ -1,7 +1,17 @@
 ---
-"title": "Email data extraction"
+"title": "Getting started with email extraction"
 "hidden": true
 ---
+
+## Notes/TODOS
+
+- TODO:  "We need to be transparent and clear with the security implications of the data they’re forwarding and how it’s protected" \<-- how much of this is on the docs, how much on the UI, how much on just linking to AWS infra docs??
+
+- For email size limitations, see [Supported file formats] TODO --> link + include the info there
+
+- DX FEEDBACK: My current Zapier docs really emphasize triggering on emails, so I'll be revising them to deemphasize that use case and point them to email processors instead.  It got me thinking though: would it be potentially useful in Sensible's Zapier trigger to be able to filter recent Sensible extractions by the Sensible email alias to which they were sent?
+
+  
 
 ## Introduction
 
@@ -11,7 +21,7 @@ The following image shows an overview of  email extraction:
 
 
 
-![image-20250617131007756](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617131007756.png)
+![image-20250617152603258](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617152603258.png)
 
 TODO: add image here (email_overview.png)
 
@@ -125,8 +135,6 @@ To recieve extracted email data, you have the following options:
 
 	1. View and download the extracted data in the Sensible app on the **Extraction history** tab.
 	1. Implement a webhook as a destination for the extracted data. You'll provide Sensible with its URL in a later step.
-
-
 
 ## Configure email processor
 
