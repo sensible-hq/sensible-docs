@@ -5,7 +5,7 @@
 
 ## Introduction
 
-You can extract structured data from email bodies and attachments by emailing them to Sensible. Define [document types](doc:document-type-settings) to handle the extractions.
+You can automatically extract structured data from email bodies and attachments by forwarding them to Sensible. Define [document types](doc:document-type-settings) in the Sensible app to handle the extractions.
 
 The following image shows an overview of  email extraction:
 
