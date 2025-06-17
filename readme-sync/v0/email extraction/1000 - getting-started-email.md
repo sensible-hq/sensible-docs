@@ -11,6 +11,10 @@
 
 - DX FEEDBACK: My current Zapier docs really emphasize triggering on emails, so I'll be revising them to deemphasize that use case and point them to email processors instead.  It got me thinking though: would it be potentially useful in Sensible's Zapier trigger to be able to filter recent Sensible extractions by the Sensible email alias to which they were sent?
 
+- DOES UI for monitoring extraction metrics change at all?
+
+- TODO: devops platform topic would need to be udpated with an 'email' icon ugh
+
   
 
 ## Introduction
