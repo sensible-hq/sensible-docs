@@ -69,14 +69,14 @@ Create document types to handle the paystub, drivers license, and signed lease a
 
 The Sensible prebuilt config library doesn't support rental property lease applications. To support it, take the following steps:
 
-   1. In the **Document Types** tab, Click **New document type** and name it `leases`. In the dialog, take the following steps:
+   1. In the **Document Types** tab, Click **New document type**. In the dialog, take the following steps:
+      1. Name it `leases`. 
       1. Upload the example document from TODO LINK QUERY GROUP.
-      2. Name the config `sensibleproperties`  for the fictional property management company in this example. 
-      3. After you create the document type, edit the config you created. Paste the example from TODOQUERY GROUP into the empty config and publish it.
+      1. Name the config `sensibleproperties`  for the fictional property management company in this example. 
+      1. After you create the document type, edit the config you created. Paste the example from TODOQUERY GROUP into the empty config and publish it.
 
 1. (Optional) To support extracting from the email body:
-   1. Follow the preceding steps to create a document type named`email_body_lease_applications`:
-      1. Upload the following example document:
+   1. Follow the preceding steps to create a document type named`email_body_lease_applications` with a config named `sensibleproperties`. Upload the following example document:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
 | ---------------- | ------------------------------------------------------------ |
@@ -132,9 +132,9 @@ To recieve extracted email data, you have the following options:
 
 So far, you've created all the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
 
-- the name of your Sensible email forwarding address  (TODO: specify it here or say 'see earlier steps')
-- the names of the document types you created in your account (TODO: specify it here)
-- (optional) the URL of your webhook (TODO: specify it here)
+- the name you determined for your Sensible email forwarding address  (`applications@sensibleproperty.com`)
+- the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
+- (optional) the URL of the webhook you implemented, for example, TODO.
 
 ## (Optional) Send a test email
 
@@ -174,7 +174,11 @@ You should get back an extraction response for each attachment at the webhook.
 
 You can also view the extractions in the Sensible app's **Extraction history** tab:
 
+![image-20250617151333817](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617151333817.png)
 
+Click each extraction to view its data. For example, the paystub extraction includes the extracted fields `employer_name: Delta Airlines` and `employee_name: Brenda Sample`:
+
+![image-20250617151346480](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617151346480.png)
 
 
 
