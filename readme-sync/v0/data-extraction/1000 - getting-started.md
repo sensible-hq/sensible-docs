@@ -99,7 +99,7 @@ For this tutorial, you'll extract these fields:
     },
       /* LAYOUT-BASED METHODS */
     {
-      /* ID for target data */
+      /* user-friendly ID for target data */
       "id": "policy_period",
       /* search for target data 
       near anchor text "policy period" in doc*/
@@ -113,8 +113,9 @@ For this tutorial, you'll extract these fields:
       }
     },
     {
-      /* target data is near text "comprehensive" */
+      /* user-friendly ID for target data */
       "id": "comprehensive_premium",
+      /* target data is near text "comprehensive" */
       "anchor": "comprehensive",
       /* target data is a currency, else return null */
       "type": "currency",
@@ -123,7 +124,7 @@ For this tutorial, you'll extract these fields:
         "id": "row",
         /* target is to right of anchor ("comprehensive") in row */
         "position": "right",
-        /* grab 2nd row cell (right of anchor) */
+        /* grab 2nd row cell */
         "tiebreaker": "second"
       }
     },
