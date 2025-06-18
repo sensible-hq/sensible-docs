@@ -19,7 +19,7 @@
 
 ## Introduction
 
-You can automatically extract structured data from email bodies and attachments by forwarding them to Sensible. Define [document types](doc:document-type-settings) in the Sensible app to handle the extractions.
+You can automatically extract structured data from email bodies and attachments by forwarding them to Sensible. Define [document types](doc:document-type-settings) in the Sensible app to handle the extractions. TODO: reword or remove this sentence + the link.
 
 The following image shows an overview of  email extraction:
 
@@ -36,16 +36,16 @@ To implement this workflow, take the following general steps:
 **Configure email**
 
 1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from residential lease applications.
-2. Define a Sensible forwarding email address for the set of emails. For example, `residential-lease-applications@sensible.so`.
+2. Determine a *name* for a Sensible forwarding email address for the set of emails. For example, `residential-lease-applications@sensible.so`.
 3. Set up your email filters so your lease application emails automatically forward to the Sensible address.
 
 **Configure data extraction**
 
 1. In the Sensible app, define [document types](doc:document-type-settings) for each email attachment in the similar emails that you want to extract from and optionally one for the email body. For example, `driverse_licenses` and `paystubs` and `email_body_lease_applications`.
 
-**Configure data destination**
+**(Optional) Configure data destination**
 
-1. Define a webhook to receive the extracted data, or view the extracted data in the Sensible app
+By default, view the extracted data in the Sensible app. Optionally you can also define a webhook to receive the extracted data.
 
 The following sections provide more implementation detail.
 
@@ -59,6 +59,10 @@ This example uses the manager *Sensible Property*.  Lease application emails to 
 - drivers license
 - signed lease
 - email body that includes the applicant's name
+
+The following image shows an example email:
+
+![image-20250618075010589](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250618075010589.png)
 
 Let's walk through extracting data from these email documents.
 
@@ -133,16 +137,17 @@ When you forward an email to Senislbe automatically classifies documents as pays
 
 
 
-## Configure data destination
+## (Optional) Configure data destination
 
 To recieve extracted email data, you have the following options:
 
-	1. View and download the extracted data in the Sensible app on the **Extraction history** tab.
-	1. Implement a webhook as a destination for the extracted data. You'll provide Sensible with its URL in a later step.
+1. By default, view and download the extracted data in the Sensible app on the **Extraction history** tab:
+2. ![image-20250617151333817](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617151333817.png)
+3.  Implement a webhook as a destination for the extracted data. You'll provide Sensible with its URL in a later step.
 
-## Configure email processor
+## Specify email processor
 
-So far, you've created all the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
+In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
 
 - the name you determined for your Sensible email forwarding address  (`applications@sensibleproperty.com`)
 - the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
@@ -182,13 +187,11 @@ brenda.sample@gmail.com
 
 ```
 
-You should get back an extraction response for each attachment at the webhook.
+You should get back an extraction response for each attachment at the webhook you specified.
 
-You can also view the extractions in the Sensible app's **Extraction history** tab:
 
-![image-20250617151333817](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617151333817.png)
 
-Click each extraction to view its data. For example, the paystub extraction includes the extracted fields `employer_name: Delta Airlines` and `employee_name: Brenda Sample`:
+In the Sensible app, click each extraction to view its data. For example, the paystub extraction includes the extracted fields `employer_name: Delta Airlines` and `employee_name: Brenda Sample`:
 
 ![image-20250617151346480](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617151346480.png)
 
