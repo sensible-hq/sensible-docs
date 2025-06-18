@@ -87,13 +87,13 @@ Create document types to handle the paystub, drivers license, and signed lease a
 
 The Sensible prebuilt config library doesn't support rental property lease applications. To support it, take the following steps:
 
-   1. In the **Document Types** tab, Click **New document type**. In the dialog, take the following steps:
+   1. Create a document type for leases: In the **Document Types** tab, Click **New document type**. In the dialog, take the following steps:
       1. Name it `leases`. 
       1. Upload the example document from TODO LINK QUERY GROUP.
       1. Name the config `sensibleproperties`  for the fictional property management company in this example. 
       1. After you create the document type, edit the config you created. Paste the example from TODOQUERY GROUP into the empty config and publish it.
 
-1. (Optional) To support extracting from the email body:
+1. (Optional) Create a document type for lease application email bodies:
    1. Follow the preceding steps to create a document type named`email_body_lease_applications` with a config named `sensibleproperties`. Upload the following example document:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
@@ -143,13 +143,13 @@ To recieve extracted email data, you have the following options:
 
 1. By default, view and download the extracted data in the Sensible app on the **Extraction history** tab:
 2. ![image-20250617151333817](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617151333817.png)
-3.  Implement a webhook as a destination for the extracted data. You'll provide Sensible with its URL in a later step.
+3.  Implement a webhook as a destination for the extracted data. You'll provide Sensible with its URL in a succeeding step.
 
 ## Specify email processor
 
 In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
 
-- the name you determined for your Sensible email forwarding address  (`applications@sensibleproperty.com`)
+- the name you determined for your Sensible email forwarding address  (`residential-lease-applications@sensibleproperty.com`) TODO double check
 - the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
 - (optional) the URL of the webhook you implemented, for example, TODO.
 
