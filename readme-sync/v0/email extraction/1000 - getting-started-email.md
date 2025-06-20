@@ -23,9 +23,7 @@ You can automatically extract structured data from email bodies and attachments 
 
 The following image shows an overview of  email extraction:
 
-
-
-![image-20250617152603258](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617152603258.png)
+![image-20250620114409264](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250620114409264.png)
 
 TODO: add image here (email_overview.png)
 
@@ -33,19 +31,31 @@ TODO: add image here (email_overview.png)
 
 To implement this workflow, take the following general steps:
 
-**Configure email**
+- **Configure email**
 
-1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from residential lease applications.
-2. Determine a *name* for a Sensible forwarding email address for the set of emails. For example, `residential-lease-applications@sensible.so`.
-3. Set up your email filters so your lease application emails automatically forward to the Sensible address.
+  1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from residential lease applications. 
 
-**Configure data extraction**
+  1. Determine email filtering criteria for this set of emails. In a succeeding step, you'll implement the filters to automatically forward these emails to a Sensible address.
 
-1. In the Sensible app, define [document types](doc:document-type-settings) for each email attachment in the similar emails that you want to extract from and optionally one for the email body. For example, `driverse_licenses` and `paystubs` and `email_body_lease_applications`.
 
-**(Optional) Configure data destination**
+- **Configure data extraction**
+  1. In the Sensible app, define [document types](doc:document-type-settings) for each email attachment in the similar emails that you want to extract from and optionally one for the email body. For example, `driverse_licenses` and `paystubs` and `lease_application_email_bodies`.
 
-By default, view the extracted data in the Sensible app. Optionally you can also define a webhook to receive the extracted data.
+
+- **(Optional) Configure data destination**
+  1. By default, view the extracted data in the Sensible app. Optionally you can also define a webhook to receive the extracted data.
+  
+- **Create email processor**
+  - When you've completed the preceding steps, contact Sensible to create an *email processor* for you. An email processor contains the specified document types, webhook URL(s), and a forwarding email alias(es).
+
+**Email processor overview**
+
+When an email processor receives an email, it takes the following steps:
+
+1.  Extracts data from the email body using the document type you specify, e.g. `lease_application_email_bodies`.
+2. For each attachment, classifies it into one of the document types you specify, for example, `paystubs` or `drivers_licenses`, then extracts data from the attachment.
+
+![image-20250620120610991](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250620120610991.png)
 
 The following sections provide more implementation detail.
 
@@ -66,10 +76,9 @@ The following image shows an example email:
 
 Let's walk through extracting data from these email documents.
 
-## Configure email
+## Determine email filters
 
-1. Determine your filtering criteria for forwarding lease applications for Sensible Property for extraction. For example, you filter on emails addressed to `applications@sensibleproperty.com`. 
-2. Determine the name for the Sensible  email address to which you want to forward this set of emails. The email must be at the Sensible domain, for example, `residential-lease-applications@sensible.so`. You'll provide Sensible with this email address in a later step.
+1. Determine your filtering criteria for forwarding lease applications for Sensible Property for extraction. For example, you filter on emails addressed to `applications@sensibleproperty.com`.  
 
 ## Configure data classification and extraction
 
@@ -149,9 +158,10 @@ To recieve extracted email data, you have the following options:
 
 In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
 
-- the name you determined for your Sensible email forwarding address  (`residential-lease-applications@sensibleproperty.com`) TODO double check
 - the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
 - (optional) the URL of the webhook you implemented, for example, TODO.
+
+After implmenting the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb.email_processing_test@app.sensible.so`. Forward the lease-application emails you want to extract data from to this address.
 
 ## (Optional) Send a test email
 
@@ -159,8 +169,6 @@ Send a test email to the processor you created. You can download  the example do
 
 - GH location
 - GH location 
-
-
 
  For the body, you can use the following text:
 
@@ -189,8 +197,6 @@ brenda.sample@gmail.com
 
 You should get back an extraction response for each attachment at the webhook you specified.
 
-
-
 In the Sensible app, click each extraction to view its data. For example, the paystub extraction includes the extracted fields `employer_name: Delta Airlines` and `employee_name: Brenda Sample`:
 
 ![image-20250617151346480](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250617151346480.png)
@@ -200,19 +206,24 @@ In the Sensible app, click each extraction to view its data. For example, the pa
 TODO: DELETE:
 
 ```
----
-config:
-  layout: dagre
----
+
 flowchart TD
     A["User receives email"] --> B["User fowards email to Sensible"]
-    B --> C["Classify attachments"]
-    C --> D["Extract data"]
-    D --> E["User gets extracted data with webhook"]
+    B --> C["Extract data"]
+    C --> D["User gets extracted data with webhook"]
     style A fill:#fafaf8,stroke:#000,stroke-width:1px
     style B fill:#fafaf8,stroke:#000,stroke-width:1px
     style C fill:#fafaf8,stroke:#000,stroke-width:1px
     style D fill:#fafaf8,stroke:#000,stroke-width:1px
+
+```
+
+2nd one:
+
+```
+graph TD
+  A[email processor] -- extract data from body   --> B[body document type]
+  A -- classify attachments and extract data --> C[attachment document types]
 
 ```
 
