@@ -36,7 +36,7 @@ To implement this workflow, take the following general steps:
 When an email processor receives an email, it takes the following steps:
 
 1.  Extracts data from the email body using the document type you specify, e.g. `lease_application_email_bodies`.
-2.  For each attachment, classifies it into one of the document types you specify, for example, `paystubs` or `drivers_licenses`, then extracts data from the attachment. 
+2.  For each attachment, [classifies](doc:classify) it as one of the document types you specify, for example, `paystubs` or `drivers_licenses`, then extracts data from the attachment. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_processor_overview.png)
 
@@ -67,7 +67,7 @@ To configure email data classification and extraction in your Sensible account, 
 
 #### Create out-of-the-box document types
 
-Create document types to classify and extract from the paystub, drivers license, and signed lease attachments:
+Create document types to [classify](doc:classify) and extract from the paystub, drivers license, and signed lease attachments:
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add extraction support for the following document types to your account: 
    1. **driver_license** document type
    2. **pay_stubs** document type  
