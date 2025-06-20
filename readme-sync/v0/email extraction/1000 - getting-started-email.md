@@ -31,11 +31,10 @@ TODO: add image here (email_overview.png)
 
 To implement this workflow, take the following general steps:
 
-- **Configure email**
-
-  1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from residential lease applications. 
-
-  1. Determine email filtering criteria for this set of emails. In a succeeding step, you'll implement the filters to automatically forward these emails to a Sensible address.
+- **Determine email filters**
+1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from residential lease applications. 
+  
+1. Determine email filtering criteria for this set of emails. In a succeeding step, you'll implement the filters to automatically forward these emails to a Sensible address.
 
 
 - **Configure data extraction**
@@ -55,7 +54,7 @@ When an email processor receives an email, it takes the following steps:
 1.  Extracts data from the email body using the document type you specify, e.g. `lease_application_email_bodies`.
 2. For each attachment, classifies it into one of the document types you specify, for example, `paystubs` or `drivers_licenses`, then extracts data from the attachment.
 
-![image-20250620120610991](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250620120610991.png)
+![image-20250620122118717](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250620122118717.png)
 
 The following sections provide more implementation detail.
 
@@ -90,7 +89,8 @@ Create document types to handle the paystub, drivers license, and signed lease a
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add extraction support for the following document types to your account: 
    1. **driver_license** document type
    2. **pay_stubs** document type  
-      Each document type contains _configs_, or collections of SenseML extraction queries. Configs handle variations in a document type; for example TODO more definition.
+
+Each document type contains _configs_, or collections of SdenseML extraction queries. Configs handle variations in a document type; for example TODO more definition.
 
 #### (Optional) Create custom document types
 
@@ -222,8 +222,10 @@ flowchart TD
 
 ```
 graph TD
-  A[email processor] -- extract data from body   --> B[body document type]
-  A -- classify attachments and extract data --> C[attachment document types]
+  A[email processor]   --> B[body document type]
+  A -- classify attachments --> C[attachment document types]
+  C --> D
+  B --> D[extract data]
 
 ```
 
