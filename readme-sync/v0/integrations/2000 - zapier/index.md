@@ -6,18 +6,20 @@ hidden: false
 
 With Sensible's Zapier integration, you can transform data in PDFs and other document file types into emails, databases, Google sheets, and other Zapier-supported destinations.
 
-For example, you can extract data in 1040 tax forms: 
+For example, you can extract data in 1040 tax forms and send the data to a database. The following image shows a sample 1040 tax form: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_6.png)
 
-And send the data to a database. The following image shows how Zapier can send extracted data from each document to a record, or row, in an Airtable database: 
+ The following image shows extracted data from each document as a record in an Airtable database. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_5.png)
 
-When creating a Zapier integration, you can either:
+You can automatically create records like these using Zapier and Sensible. When creating a Zapier integration, you can either:
 
 - Run extractions in Sensible and then act on the data with a **Sensible trigger**.
 - Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
+
+**Note:** If you want to trigger Sensible extractions of emails, see instead [Getting started with email extractions](doc:getting-started-email).
 
 Sensible trigger
 ---
