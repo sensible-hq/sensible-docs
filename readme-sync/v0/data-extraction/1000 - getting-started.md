@@ -85,7 +85,7 @@ For this tutorial, you'll extract these fields:
         "id": "queryGroup",
         "queries": [
           {
-            /* ask a free-text question. */
+            /* describe target data for AI to extract */
             "id": "bodily_injury_premium",
             "description": "bodily injury premium",
             "type": "currency"
