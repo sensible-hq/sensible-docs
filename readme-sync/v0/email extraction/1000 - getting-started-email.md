@@ -35,7 +35,7 @@ To implement this workflow, take the following general steps:
 
 When an email processor receives an email, it takes the following steps:
 
-1.  Extracts data from the email body using the document type you specify, e.g. `lease_application_email_bodies`.
+1.  Extracts data from the email body using the document type you specify, for example, `lease_application_email_bodies`.
 2.  For each attachment, [classifies](doc:classify) it as one of the document types you specify, for example, `paystubs` or `drivers_licenses`, then extracts data from the attachment. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_processor_overview.png)
