@@ -20,7 +20,7 @@ To implement this workflow, take the following general steps:
   1. Determine a set of similar emails from which you want to extract data. For example, you're in PropTech and you want to extract data from residential lease applications.
 
 
-  1. Determine email filtering criteria for the set of emails. In a succeeding step, you'll use the filters to automatically forward these emails to a Sensible address.
+  1. Determine email filtering criteria for the set of emails. In a succeeding step,  use the filters to automatically forward these emails to a Sensible address.
 
 
 - **Configure data extraction**
@@ -33,7 +33,7 @@ To implement this workflow, take the following general steps:
 - **Create email processor**
   1. When you've completed the preceding steps, contact Sensible to create an *email processor*. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can now start forwarding lease application emails to the processor and receive extracted data.
 
-**Email processor overview**
+### Email processor overview
 
 When an email processor receives an email, it takes the following steps:
 
@@ -166,7 +166,7 @@ To receive extracted email data, you have the following options:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_history_ui.png)
 
-- Implement a webhook as a destination for the extracted data. You'll provide Sensible with its URL in a succeeding step.
+- Implement a webhook as a destination for the extracted data. In a succeeding step, provide Sensible with its URL.
 
 ## Specify email processor
 
