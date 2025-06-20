@@ -85,15 +85,14 @@ Each document type contains [_configs_](doc:config-settings), or collections of 
 Sensible doesn't provide out-of-the-box extraction support for lease applications. To create support in your account, take the following steps:
 
    1. Create a document type for **leases**. In the **Document Types** tab, Click **New document type**. In the dialog, take the following steps:
-      1. Name it `leases`. 
-      1. Upload the following example document:
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
+      1. Name the document type `leases`. 
+      2. Upload the following example document:
+
+       | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
          | ---------------- | ------------------------------------------------------------ |
 
-
-​      
-      1. Name the config `sensibleproperties`  for the fictional property management company in this example. 
-      1. After you create the document type, edit the config you created. Paste the following code into the left pane:
+      3. Name the config `sensibleproperties`  for the fictional property management company in this example. 
+      4. After you create the document type, edit the config you created. Paste the following code into the left pane:
       
          ```json
          {
@@ -125,14 +124,12 @@ Sensible doesn't provide out-of-the-box extraction support for lease application
          ```
 
 1. (Optional) Create a document type for **lease application email bodies**:
-   1. Follow the preceding steps to create a document type named `email_body_lease_applications` with a config named `sensibleproperties`. Upload the following example document: TODO is the wrong named doc?
+   1. Follow the preceding steps to create a document type named `email_body_lease_applications` with a config named `sensibleproperties`. Upload the following example document: 
+   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_body_lease.pdf) |
+   | ---------------- | ------------------------------------------------------------ |
+   **Note**: This example document is a PDF exported from an email body for testing. In production, Sensible automatically converts email bodies to PDFs.
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_body_lease.pdf) |
-| ---------------- | ------------------------------------------------------------ |
-
-**Note**: this example is a PDF export of an email body.  When you need to configure extraction support, it's a one-time setup process to convert or print the email body to a supported file type (TODO LINK) so you can test your extraction queries on it.
-
-b. For the configuration, paste in the following code:
+   2. In the config, paste the following code:
 
 ```json
 {
@@ -164,13 +161,9 @@ b. For the configuration, paste in the following code:
 }
 ```
 
-When you forward an email to Senislbe automatically classifies documents as paystubs, drivers licenses, signed leases, or email bodies of lease applications, and extracts data from them.
-
-
-
 ## (Optional) Configure data destination
 
-To recieve extracted email data, you have the following options:
+To receive extracted email data, you have the following options:
 
 - By default, view and download the extracted data in the Sensible app on the **Extraction history** tab:
 
@@ -183,21 +176,20 @@ To recieve extracted email data, you have the following options:
 In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
 
 - the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
-- (optional) the URL of the webhook you implemented, for example, TODO.
+- (optional) the URL of the webhook you implemented.
 
-After implmenting the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb.email_processing_test@app.sensible.so`. Forward the lease-application emails you want to extract data from to this address.
+After implementing the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb@app.sensible.so`. Forward your lease application emails to this address.
 
 ## (Optional) Send a test email
 
-Send a test email to the processor you created. You can download  the example documents for attachments from the following locations:
+Send a test email to the processor you created. You can download  the example attachment documents from the following locations:
 
 - GH location
 - GH location 
 
  For the body, you can use the following text:
 
-```
-TODO: CHANGE THIS TEXT
+```json
 Dear Anita Patel,
 
 I hope you’re doing well. I’m writing to formally submit my application for the rental unit at  123 Sample St unit #3. I am very interested in leasing this apartment and have attached all the necessary documents for your review.
