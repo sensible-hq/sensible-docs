@@ -180,8 +180,11 @@ After implementing the email processor, Sensible provides you with the  email al
 
 Send a test email to the processor you created. You can download  the example attachment documents from the following locations:
 
-- GH location
-- GH location
+| document        | link                                                         |
+| --------------- | ------------------------------------------------------------ |
+| Drivers license | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_drivers_license_sample.pdf) |
+| Pay stub        | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_gusto_sample.pdf) |
+| Lease           | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
 
  For the body, you can use the following text:
 
