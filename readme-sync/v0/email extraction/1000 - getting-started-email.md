@@ -16,20 +16,20 @@ The following image shows an overview of  email extraction:
 To implement this workflow, take the following general steps:
 
 - **Determine email filters**
-1. Determine a set of similar emails that you want to extract from. For example, you're in PropTech and you want to extract data from residential lease applications.
+1. Determine a set of similar emails from which you want to extract data. For example, you're in PropTech and you want to extract data from residential lease applications.
 
-1. Determine email filtering criteria for this set of emails. In a succeeding step, you'll use the filters to automatically forward these emails to a Sensible address.
+1. Determine email filtering criteria for the set of emails. In a succeeding step, you'll use the filters to automatically forward these emails to a Sensible address.
 
 
 - **Configure data extraction**
-  1. In the Sensible app, define a [document type](doc:document-type-settings) for each email attachment in the lease application emails that you want to extract data from. You can optionally define a document type for the email body. For example, `driverse_licenses`, `paystubs`, `leases`, and `email_body_lease_applications`.
+  1. In the Sensible app, define a [document type](doc:document-type-settings) for each email attachment in the lease application emails from which you want to extract data. You can optionally define a document type for the email body. For example, `driverse_licenses`, `paystubs`, `leases`, and `email_body_lease_applications`.
 
 
 - **(Optional) Configure data destination**
   1. By default, view the extracted data in the Sensible app. Optionally you can also define a webhook to receive the extracted data.
 
 - **Create email processor**
-  - When you've completed the preceding steps, contact Sensible to create an *email processor* for you. An email processor contains the specified document types, webhook URLs, and a forwarding email aliases. You can now start automatically forwarding lease application emails to the processor and receive extracted data back.
+  - When you've completed the preceding steps, contact Sensible to create an *email processor*. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can now start forwarding lease application emails to the processor and receive extracted data.
 
 **Email processor overview**
 
@@ -42,16 +42,15 @@ When an email processor receives an email, it takes the following steps:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_processor.png)
 
 
-The following sections provide more implementation detail.
+The following sections provide an implementation example.
 
 ## Getting started
 
-Let's walk through an example scenario of extracting data from emails. In this example, you're in PropTech and you want to extract data from lease applications addressed to the property manager *Sensible Property*.  Lease application emails to this property manager typically include the following attachments:
+Let's walk through an example email data extraction. In this example, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property".  Lease application emails to this property manager typically include the following attachments:
 
 - paystub
 - drivers license
 - signed lease
-- email body that includes the applicant's name
 
 The following image shows an example email:
 
@@ -61,7 +60,7 @@ Let's walk through extracting data from these emails.
 
 ## Determine email filters
 
-1. Determine your filtering criteria for forwarding lease applications for Sensible Property for extraction. For example, you filter on emails addressed to `applications@sensibleproperty.com`.
+1. Determine your filtering criteria for forwarding Sensible Property lease applications. For example, you filter by emails addressed to `applications@sensibleproperty.com`.
 
 ## Configure data classification and extraction
 
@@ -169,7 +168,7 @@ To receive extracted email data, you have the following options:
 
 ## Specify email processor
 
-In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. The last step is to contact Sensible to implement the email processor. Provide the following details:
+In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. Contact Sensible to implement the email processor. Provide the following details:
 
 - the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
 - (optional) the URL of the webhook you implemented.
@@ -178,7 +177,7 @@ After implementing the email processor, Sensible provides you with the  email al
 
 ## (Optional) Send a test email
 
-Send a test email to the processor you created. You can download  the example attachment documents from the following locations:
+Send a test email with attachments to the processor you created. You can download example documents from the following locations:
 
 | document        | link                                                         |
 | --------------- | ------------------------------------------------------------ |
@@ -186,7 +185,7 @@ Send a test email to the processor you created. You can download  the example at
 | Pay stub        | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_gusto_sample.pdf) |
 | Lease           | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
 
- For the body, you can use the following text:
+ For the body, use the following text:
 
 
 > Dear Anita Patel,
