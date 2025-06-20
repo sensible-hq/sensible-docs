@@ -1,6 +1,6 @@
 ---
 "title": "Getting started with email extraction"
-"hidden": true
+"hidden": false
 ---
 
 ## Introduction
