@@ -183,27 +183,26 @@ Send a test email to the processor you created. You can download  the example at
 
  For the body, you can use the following text:
 
-```json
-Dear Anita Patel,
+> Dear Anita Patel,
+>
+> I hope you’re doing well. I’m writing to formally submit my application for the rental unit at 123 Sample St unit #3. I am very interested in leasing this apartment and have attached all the necessary documents for your review.
+>
+> Please find attached:
+>
+> - Signed lease agreement  
+> - Proof of income (recent pay stub)  
+> - Copy of my ID (driver’s license)
+>
+> Please let me know if you need any additional information or if there are any next steps in the approval process.
+>
+> Thank you for your time and consideration. I look forward to your response.
+>
+> Best regards,  
+> Brenda Sample  
+> (505) 123 4567  
+> brenda.sample@gmail.com
 
-I hope you’re doing well. I’m writing to formally submit my application for the rental unit at  123 Sample St unit #3. I am very interested in leasing this apartment and have attached all the necessary documents for your review.
 
-Please find attached:
-
-Signed lease agreement
-Proof of income (recent pay stub)
-Copy of my ID ( driver’s license)
-Please let me know if you need any additional information or if there are any next steps in the approval process.
-
-Thank you for your time and consideration. I look forward to your response.
-
-
-Best regards,
-Brenda Sample
-(505) 123 4567
-brenda.sample@gmail.com
-
-```
 
 You should get back an extraction response for each attachment at the webhook you specified.
 
