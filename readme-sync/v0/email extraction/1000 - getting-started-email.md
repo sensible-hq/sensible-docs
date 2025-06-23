@@ -35,7 +35,7 @@ To implement this workflow, take the following general steps:
 
 ## Getting started
 
-Let's walk through an example of implementing an email processor. In this example implementation, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property".  Lease application emails to this property manager typically include the following attachments:
+Let's walk through an example of implementing an email processor. In this example implementation, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property."  Lease application emails to this property manager typically include the following attachments:
 
 - paystub
 - drivers license
@@ -149,12 +149,12 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
 Your `residential_lease_applications` email processor uses the document types you configured in previous steps for classification and extraction: 
 
 1.  You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify. For example, it classifies an attached Gusto paystub against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
-2.  You can specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
+2.  You specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_processor.png)
 
-Each document type contains [_configs_](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) extraction queries. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity.
+Each document type contains [_configs_](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) queries for extracting document data. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity.
 
 ## (Optional) Configure data destination
 
