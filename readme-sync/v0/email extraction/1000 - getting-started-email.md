@@ -31,7 +31,7 @@ To implement this workflow, take the following general steps:
   1. By default, view the extracted data in the Sensible app. Optionally you can also define a webhook to receive the extracted data.
 
 - **Create email processor**
-  1. When you've completed the preceding steps, contact Sensible to create an *email processor*. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can now start forwarding lease application emails to the processor and receive extracted data.
+  1. When you've completed the preceding steps, contact Sensible to create an *email processor*. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can now start forwarding emails to the processor and receive extracted data.
 
 ## Getting started
 
