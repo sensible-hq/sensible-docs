@@ -33,22 +33,9 @@ To implement this workflow, take the following general steps:
 - **Create email processor**
   1. When you've completed the preceding steps, contact Sensible to create an *email processor*. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can now start forwarding lease application emails to the processor and receive extracted data.
 
-### Email processor overview
-
-When an email processor receives an email, it takes the following steps:
-
-1.  Extracts data from the email body using the document type you specify, for example, `lease_application_email_bodies`.
-2.  For each attachment, [classifies](doc:classify) it as one of the document types you specify, for example, `paystubs` or `drivers_licenses`, then extracts data from the attachment.
-
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_processor.png)
-
-
-The following sections provide an implementation example.
-
 ## Getting started
 
-Let's walk through an example email data extraction. In this example, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property".  Lease application emails to this property manager typically include the following attachments:
+Let's walk through an example of implementing an email processor. In this example implementation, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property".  Lease application emails to this property manager typically include the following attachments:
 
 - paystub
 - drivers license
@@ -58,7 +45,7 @@ The following image shows an example email:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_sample.png)
 
-Let's walk through extracting data from these emails.
+ You'll create a `residential_lease_applications` email processor to handle emails like this one.
 
 ## Determine email filters
 
@@ -75,11 +62,9 @@ Create document types to [classify](doc:classify) and extract from the paystub, 
    1. **driver_license** document type
    2. **pay_stubs** document type
 
-Each document type contains [_configs_](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) extraction queries. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity.
-
 #### (Optional) Create custom document types
 
-Sensible doesn't provide out-of-the-box extraction support for lease applications. To create support in your account, take the following steps:
+Sensible doesn't provide out-of-the-box extraction support for leases. To create support in your account, take the following steps:
 
    1. Create a document type for **leases**. In the **Document Types** tab, Click **New document type**. In the dialog, take the following steps:
       1. Name the document type `leases`.
@@ -124,8 +109,9 @@ Sensible doesn't provide out-of-the-box extraction support for lease application
    1. Follow the preceding steps to create a document type named `email_body_lease_applications` with a config named `sensibleproperties`. Upload the following example document:
    | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_body_lease.pdf) |
    | ---------------- | ------------------------------------------------------------ |
-   **Note**: This example document is a PDF exported from an email body for testing. In production, Sensible automatically converts email bodies to PDFs.
-
+   
+      **Note**: This example document is a PDF exported from an email body for testing. In production, Sensible automatically converts email bodies to PDFs.
+   
    2. In the config, paste the following code:
 
 ```json
@@ -158,6 +144,18 @@ Sensible doesn't provide out-of-the-box extraction support for lease application
 }
 ```
 
+### How it works: email processors and document types
+
+Your `residential_lease_applications` email processor uses the document types you configured in previous steps for classification and extraction: 
+
+1.  You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify. For example, it classifies an attached Gusto paystub against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
+2.  You can specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
+
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_processor.png)
+
+Each document type contains [_configs_](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) extraction queries. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity.
+
 ## (Optional) Configure data destination
 
 To receive extracted email data, you have the following options:
@@ -172,6 +170,7 @@ To receive extracted email data, you have the following options:
 
 In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. Contact Sensible to implement the email processor. Provide the following details:
 
+- the name of the email processor, for example, `residential_leases`.
 - the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
 - (optional) the URL of the webhook you implemented.
 
