@@ -107,6 +107,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
 
 1. (Optional) Create a document type for **lease application email bodies**:
    1. Follow the preceding steps to create a document type named `email_body_lease_applications` with a config named `sensibleproperties`. Upload the following example document:
+   
    | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_body_lease.pdf) |
    | ---------------- | ------------------------------------------------------------ |
    
