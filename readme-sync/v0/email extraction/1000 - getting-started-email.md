@@ -166,15 +166,15 @@ To receive extracted email data, you have the following options:
 
 - Implement a webhook as a destination for the extracted data. In a succeeding step, provide Sensible with its URL.
 
-## Specify email processor
+## Create email processor
 
-In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. Contact Sensible to implement the email processor. Provide the following details:
+In the preceding steps, you configured the necessary prerequisites for an *email processor* that can handle lease applications. Contact Sensible to create the email processor. Provide the following details:
 
 - the name of the email processor, for example, `residential_lease_applications`.
-- the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`.)
+- the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`).
 - (optional) the URL of the webhook you implemented.
 
-After implementing the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb@app.sensible.so`. Forward your lease application emails to this address.
+After creating the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb@app.sensible.so`. Forward your lease application emails to this address.
 
 ## (Optional) Send a test email
 
