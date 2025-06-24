@@ -3,11 +3,11 @@ title: "Advanced LLM prompt configuration"
 hidden: true
 ---
 
-To capture data from a document (e.g., a policy number or a list of transactions in a bank statement) using [LLM-based methods](doc:llm-based-methods), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called the prompt's *context*.
+To extract data from a document using [LLM-based methods](doc:llm-based-methods), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called a prompt's *context*.
 
-To troubleshoot LLM-based methods, you can configure the context to submit using one of the following approaches:
+To troubleshoot LLM-based methods, you can configure a prompt's context using one of the following approaches:
 
-1. (Default) Locate context by scoring page chunks
+1. (Default) Locate context by scoring document chunks
 
 2. Locate context by summarizing pages
 

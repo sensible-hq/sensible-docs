@@ -1,0 +1,569 @@
+---
+title: "Query group"
+hidden: true
+
+---
+
+Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. 
+
+- When you configure the Multimodal Engine parameter, you can extract from non-text data such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
+- When you configure the Source Fields parameter, you can chain LLM prompts together. In other words, you can extract data with one prompt, then apply further prompts to the extracted data.
+
+### Prompt Tips
+
+#### Group prompts
+
+Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page.
+
+For example, contact information can usually be found in the same location of a document:
+
+```json
+Janelle Smith
+New York City, NY
+(123) 456-7890
+jsmith@email.com 
+```
+
+Combining queries for the custom name, location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. 
+
+Sensible recommends a maximum group size of 10 queries.
+
+####  Phrase prompts
+
+- Try framing each query, or prompt, so that it has a single, short answer such as:
+
+  - "company address"
+  - "name of recipient"
+  - "document date"
+- Break up complex prompts into multiple prompts and chain them together.
+- See the following resources for creating prompts:
+
+  -  [Prompt engineering](https://platform.openai.com/docs/guides/prompt-engineering)
+  -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
+  -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
+
+For information about how this method works, see [Notes](doc:query-group#notes).
+
+[**Parameters**](doc:query-group#parameters)
+[**Examples**](doc:query-group#examples)
+[**Notes**](doc:query-group#examples)
+
+Parameters
+=====
+
+**Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table only shows parameters most relevant to or specific to this method. 
+
+**Note** You can configure some of the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrides the NLP preprocessor's parameter.
+
+## Parameters
+
+| key                   | value  | description                                                  |
+| :-------------------- | :----- | :----------------------------------------------------------- |
+| method (**required**) | object | For this object's parameters, see the following table.       |
+| anchor                |        | The Anchor parameter is optional for fields that use this method.<br/><br/>If you specify an anchor and leave the Multimodal Engine unconfigured or configured with `"region": "automatic`" then:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns nulls for the fields in this query group if the anchor isn't present in the document.<br/><br/>If you specify an anchor and configure the Multimodal Engine parameter's region manually, then Sensible creates the prompt's [context](doc:query-group#notes) relative to the anchor. |
+
+## Query group parameters
+
+
+
+| key                   | value                                              | description                                                  | interactions                                                 |
+| :-------------------- | :------------------------------------------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
+| id (**required**)     | `queryGroup`                                       |                                                              |                                                              |
+| queries               | array of objects                                   | An array of query objects, where each extracts a single fact and outputs a single field. Each query contains the following parameters:<br/>`id` (**required**) - The ID for the extracted field. <br/>`description`  (**required**) - A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. For more information about how to write questions (or "prompts"), see [Query Group](https://docs.sensible.so/docs/query-group-tips) extraction tips. |                                                              |
+|                       |                                                    | ***CHAIN PROMPTS***                                          |                                                              |
+| source_ids            | array of field IDs in the current config           | If specified, prompts an LLM to extract data from another field's output. For example, if you extract a field `_checking_transactions` and specify it in this parameter, then Sensible searches for the answer to `what is the largest transaction?` in `_checking_transactions`, rather than searching the whole document to locate the [context](doc:prompt). Note that the `_checking_transactions` field must precede the `largest_transaction` field in the fields array in this example. <br/><br/>Use this parameter to:<br/> - narrow down the [context](doc:prompt) for your prompts to a specific part of the document. <br/>-  reformat or otherwise transform the outputs of other fields. For example, you can use this as an alternative to types such as the  [Compose](doc:types#compose) type with prompts such as `if the context includes a date, return it in mm/dd/yyy format`.<br/>-  troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array. <br/>To extract repeating data, such as a list, specify the Source Ids parameter for the [List](doc:list#parameters) method rather than for the Query Group method. <br/><br/>For an example, see [Examples](doc:query-group#example-transform-fields). | If you configure this parameter, then the following parameters aren't supported:<br/>- Anchor parameter in the field<br/>- Confidence Signals<br/>- Multimodal Engine parameter <br/>- Search By Summarization parameter<br/>- Page Range parameter |
+|                       |                                                    | ***EXTRACT FROM IMAGES***                                    |                                                              |
+| multimodalEngine      | object                                             | Configure this parameter to:<br/>- Extract data from images embedded in a document, for example, photos, charts, or illustrations.<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines, lines between lines, and handwriting. For example, use this as an alternative to the [Signature](doc:signature) method, the [Nearest Checkbox](doc:nearest-checkbox) method, the [OCR engine](doc:ocr-engine), and line [preprocessors](doc:preprocessors).<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM (GPT-4o mini), so that you can ask questions about text and non-text images. This bypasses Sensible's [OCR](doc:ocr) and direct-text extraction processes for the region. <br/>This parameter has the following parameters:<br/><br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/><br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. If you configure this option for a non-text image, then help Sensible locate the context by including queries in the group that target text near the image, or by specifying the nearby text in the Chunk Scoring Text parameter. <br/><br/>- To manually specify a region, specify an [anchor](doc:anchor) close to the region you want to capture. Specify the region's dimensions in inches relative to the anchor using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |                                                              |
+|                       |                                                    | ***TROUBLESHOOT PROMPT***                                    |                                                              |
+| llmEngine             | object                                             | Where applicable, configures the LLM engine Sensible uses to answer your prompts. <br/>Configure this parameter to troubleshoot situations in which Sensible correctly identifies the part of the document that contains the answers to your prompts, but the LLM's answer contains problems. For example, Sensible returns an LLM error because the answer isn't properly formatted, or the LLM doesn't follow instructions in your prompt.<br/><br/>Contains the following parameters:<br/>`provider`:  <br/>- If set to `open-ai` (default), Sensible uses OpenAI's GPT-4o mini to answer your prompts.<br/> - If set to `anthropic`, Sensible uses Anthropic's Claude 3 Haiku to answer your prompts. |                                                              |
+| confidenceSignals     | boolean<br/>or<br/>`"strict"`<br/>default: `false` | If true, Sensible prompts the LLM to report any uncertainties it has about the accuracy of its response.  For more information, see [Qualifying LLM accuracy](doc:confidence).<br>If `"strict"`, Sensible returns null for a field if its confidence signal is `incorrect_answer`. | Not supported if you set the Multimodal Engine parameter on the Query Group method. |
+|                       |                                                    | ***FIND CONTEXT***                                           |                                                              |
+| searchBySummarization | boolean. default: false                            | Set this to true to troubleshoot situations in which Sensible misidentifies the part of the document that contains the answers to your prompts. <br/>This parameter is compatible with documents up to 1,280 pages long.<br/>When true, Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag): Sensible prompts an LLM to summarize each page in the document, prompts a second LLM to return the pages most relevant to your prompt based on the summaries, and extracts the answers to your prompts from those pages. | If you set this parameter to true for a document 5 pages or under in length, Sensible submits the entire document as context, bypassing summarization.<br/><br/> If you set this parameter to true for a document over 5 pages long, then Sensible sets the Chunk Count parameter to 5 and ignores any configured value. |
+| pageRange             | object                                             | Configures the possible page range for finding the context in the document.<br/>If specified, Sensible creates chunks in the page range and ignores other pages. For example, use this parameter to improve performance, or to avoid extracting unwanted data if your prompt has multiple candidate answers.<br/><br/>Contains the following parameters: <br/>`startPage`:  Zero-based index of the page at which Sensible starts creating chunks (inclusive). <br/>`endPage`: Zero-based index of the page at which Sensible stops creating chunks (exclusive). | Sensible ignores this parameter when searching for a field's [anchor](doc:anchor). If you want to exclude the field's anchor using a page range, use the [Page Range](doc:page-range) preprocessor instead. |
+|                       |                                                    | ***CONFIGURE CONTEXT SIZE***                                 |                                                              |
+| chunkCount            | number.<br/> default: 5                            | The number of top-scoring chunks Sensible combines as context as part of the full prompt it submits to an LLM.<br/>Each page is one chunk. |                                                              |
+
+## Examples
+
+## Example: Extract from images
+
+**Config**
+
+The following example shows extracting structured data from real estate photographs embedded in an offering memorandum document using the Multimodal Engine parameter. It also shows extracting data from text.
+
+```json
+{
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        /* send 2 pages as context to the LLM */
+        "chunkSize": 1,
+        "chunkCount": 2,
+        /* Use a multimodal LLM to extract data about a photograph embedded in a document, 
+          for example the presence or absence of trees in the photo. */
+        "multimodalEngine": {
+          /* Sends the "context", or relevant document excerpt, as an image to the multimodal LLM.
+           If you configure "region":"automatic" for a non-text image, 
+           then help Sensible locate the context by including queries 
+           in the group that target text near the image, or by specifying 
+           the nearby text in the Chunk Scoring Text parameter */
+          "region": "automatic"
+        },
+        "queries": [
+          {
+            "id": "trees_present",
+            "description": "are there trees on the property? respond true or false",
+            "type": "string"
+          },
+          {
+            "id": "multistory",
+            "description": "are the buildings multistory? return true or false",
+            "type": "string"
+          },
+          {
+            "id": "community_amenities",
+            "description": "give one example of a community amenity listed",
+            "type": "string"
+          },
+          {
+            "id": "ownership_upgrades",
+            "description": "give one example of an existing upgrade that current ownership made",
+            "type": "string"
+          },
+          {
+            "id": "exterior",
+            "description": "what is the exterior of the building made of (walls, not roof)?",
+            "type": "string"
+          },
+        ]
+      }
+    },
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/multimodal_photo.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "trees_present": {
+    "value": "true",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "multistory": {
+    "value": "true",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "community_amenities": {
+    "value": "Gated perimeter with key card access",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "ownership_upgrades": {
+    "value": "New Signage and Landscaping Enhancements",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "exterior": {
+    "value": "brick",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  }
+}
+```
+
+## Example: Extract handwriting
+
+The following example shows using a multimodal LLM to extract from a scanned document containing handwriting. For an alternate approach to extracting from this document, see also the [Sort Lines](doc:method#sort-lines-example) example.
+
+**Config**
+
+```json
+{
+  "preprocessors": [
+    /* Returns confidence signals, or LLM accuracy qualifications,
+       for all supported fields. Note that confidence signals aren't supported
+       for the Multimodal Engine parameter */
+    {
+      "type": "nlp",
+      "confidenceSignals": true
+    }
+  ],
+  "fields": [
+    {
+      /* use an anchor match to locate the 
+         region, or relevant document excerpt,
+          to send as an image to the multimodal LLM */
+      "anchor": "ownership information",
+      "method": {
+        "id": "queryGroup",
+        /* Use a multimodal LLM to troubleshoot
+           problems with Sensible's default OCR engine and line merging.
+           This 1-step option avoids advanced configuration of the defaults.
+             */
+        "multimodalEngine": {
+          /* manually specify the region's dimensions in inches 
+         relative to the anchor. Use the green region overlay in the
+         rendered PDF to determine the dimensions */
+          "region": {
+            "start": "below",
+            "width": 8,
+            "height": 6,
+            "offsetX": -1.5,
+            "offsetY": 0.05
+          }
+        },
+        "queries": [
+          {
+            "id": "ownership_type",
+            "description": "What is type of ownership?",
+            "type": "string"
+          },
+          {
+            "id": "owner_name",
+            "description": "What is the full name of the owner?",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    /* Without the multimodal LLM engine, Sensible's default
+       OCR, line sorting, and line merging options result 
+      in incorrect answers. */
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "ownership_type_no_multimodal",
+            "description": "What is the type of ownership?",
+            "type": "string"
+          },
+          {
+            "id": "owner_name_no_multimodal",
+            "description": "What is the full name of the owner?",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ],
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "ownership_type": {
+    "value": "Natural Person(s)",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "owner_name": {
+    "value": "Kyle Murray",
+    "type": "string",
+    "confidenceSignal": "not_supported"
+  },
+  "ownership_type_no_multimodal": {
+    "value": "Natural Person(s) UGMA/UTMACustodian Trust",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "owner_name_no_multimodal": {
+    "value": "Mylic Cardinals Dr Glendale A2 85305",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  }
+}
+```
+
+
+
+
+## Example: Extract from lease
+
+The following example shows using the Query Group method to extract information from a lease.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "tenancy_terms_start",
+            "description": "tenancy terms start date",
+            "type": "date"
+          },
+          {
+            "id": "tenancy_terms_end",
+            "description": "tenancy terms end date",
+            "type": "date"
+          },
+          {
+            "id": "notice_days_tenant_break",
+            "description": "number of days notice for tenant must give to terminate lease",
+            "type": "string"
+          },
+          {
+            "id": "monthly_rents_dollars",
+            "description": "monthly rents in dollars",
+            "type": "currency"
+          },
+          {
+            "id": "rent_due_in_month",
+            "description": "when is the rent due in the month",
+            "type": "string"
+          },
+          {
+            "id": "grace_period_rent_due",
+            "description": "grace period for the rent due",
+            "type": "string"
+          },
+          {
+            "id": "late_fee_amounts",
+            "description": "late fee amount",
+            "type": "string"
+          },
+          {
+            "id": "fee_returned_checks",
+            "description": "fee in dollars for returned checks or rejected payments",
+            "type": "currency"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_2.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "tenancy_terms_start": {
+    "source": "01/01/2022",
+    "value": "2022-01-01T00:00:00.000Z",
+    "type": "date",
+    "confidenceSignal": "confident_answer"
+  },
+  "tenancy_terms_end": {
+    "source": "12/31/2023",
+    "value": "2023-12-31T00:00:00.000Z",
+    "type": "date",
+    "confidenceSignal": "confident_answer"
+  },
+  "notice_days_tenant_break": {
+    "value": "30 days",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "monthly_rents_dollars": {
+    "source": "895.00",
+    "value": 895,
+    "unit": "$",
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
+  },
+  "rent_due_in_month": {
+    "value": "on or before the 1st day of each month",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "grace_period_rent_due": {
+    "value": "5 days",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "late_fee_amounts": {
+    "value": "10 Percent of Recurring Rent Only",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "fee_returned_checks": {
+    "source": "$50",
+    "value": 50,
+    "unit": "$",
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
+  }
+}
+```
+
+## Example: Extract from pie charts
+
+For an example of extracting visual data from a pie chart using the Multimodal Engine parameter, see the example in the [Multicolumn](doc:multicolumn#examples) preprocessor topic.
+
+## Example: Extract data from other fields
+
+The following example shows how to prompt an LLM to answer questions about another field's output.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      /* extract the transactions table ("account activity") */
+      "id": "_transactions",
+      "type": "table",
+      "method": {
+        "id": "list",
+        "description": "transactions detail",
+        "properties": [
+          {
+            "id": "transaction_date",
+            "description": "date of transaction"
+          },
+          {
+            "id": "merchant_name",
+            "description": "merchant"
+          },
+          {
+            "id": "transaction_description",
+            "description": "description or category of transaction"
+          },
+          {
+            "id": "transaction_amount",
+            "description": "amount",
+            "type": "accountingCurrency",
+            "isRequired": true
+          }
+        ]
+      }
+    },
+    {
+      "method": {
+        "id": "queryGroup",
+        "source_ids": [
+          /* restrict queries to data in _transactions field */
+          "_transactions"
+        ],
+        "confidenceSignals": false,
+        "queries": [
+          {
+            // correct answer is "Payment Thank You - Web"
+            "id": "freq_merchant_chained_query",
+            "type": "string",
+            "description": "What is the most frequent merchant?"
+          },
+          {
+            // correct answer is 1287.37
+            "id": "max_transaction_amount_chained_query",
+            "description": "what is the maximum transaction amount?"
+          }
+        ]
+      }
+    },
+    {
+      "method": {
+        "id": "queryGroup",
+        "confidenceSignals": false,
+        /* for contrast, if you query the whole document rather than the 
+           transactions table, you get incorrect answers to the same queries  */
+        "queries": [
+          {
+            // correct answer is "Payment Thank You - Web"
+            "id": "freq_merchant",
+            "type": "string",
+            "description": "What is the most frequent merchant?"
+          },
+          {
+            // correct answer is 1287.37
+            "id": "max_transaction_amount",
+            "description": "what is the maximum transaction amount?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean",
+      "method": {
+        "id": "suppressOutput",
+        "source_ids": [
+          "_transactions",
+         
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/query_group_source_ids.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/query_group_source_ids.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "freq_merchant_chained_query": {
+    "value": "Payment Thank You - Web",
+    "type": "string"
+  },
+  "max_transaction_amount_chained_query": {
+    "value": "1287.37",
+    "type": "string"
+  },
+  "freq_merchant": null,
+  "max_transaction_amount": {
+    "value": "$604.47",
+    "type": "string"
+  }
+}
+```
+
+
+
+## Notes
+
+For an overview of how this method works by default, see the following steps.  For alternate configuration options, see [Advanced LLM prompt configuration](doc:prompt#full-prompt). 
+- Sensible finds the chunks of the document that most likely contain your target data:
+  - Sensible splits the document into equal-sized, overlapping chunks. 
+  - Sensible scores each chunk by its similarity to either the concatenated Description parameters for the queries in the group, or by the `chunkScoringText` parameter. Sensible scores each chunk using a nonconfigurable OpenAPI Embeddings API.
+- Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
+- Sensible creates a full prompt for the LLM (as determined by the LLM Engine parameter) that includes the chunks, page hinting data, and your Description parameters. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt#full-prompt).
+
+- For an overview of how this method works when `"searchBySummarization": true`, see the following steps.
+  1. Sensible prompts an LLM (GPT-4o mini) to summarize each page in the document. Sensible ignores the Chunk Scoring Text parameter.
+
+  2. Sensible prompts an LLM (GPT-4o) with all the indexed page summaries as context, and asks it to return a number of page indices that are most relevant to your concatenated Description parameters. The Chunk Count parameter configures the number of page indices that the LLM returns. Sensible recommends setting the Chunk Count parameter to less than 10.
+
+  3. Sensible prompts an LLM (as configured by the LLM Engine parameter) to answer your prompts, with the full text of the relevant pages as context. If you configure the Page Hinting parameter, it takes effect in this and the preceding step. If you configure the Multimodal Engine parameter, it takes effect in this step. 
+
