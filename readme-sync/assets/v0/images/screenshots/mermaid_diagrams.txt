@@ -1,5 +1,5 @@
 ####
-# use these with https://mermaid.live/ (corporate theme)
+# use these with https://mermaid.live/ (corporate theme); these are examples of the color scheme:
 ### 
 
 

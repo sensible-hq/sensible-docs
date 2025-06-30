@@ -23,8 +23,6 @@ For information about configuring each of these approaches, see the following se
 
 Sensible's default method for locating context is to split the document into 1-page chunks, score them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then return the top-scoring chunks as context:
 
-TODO: UPDATE this diagram so it shows 1 embedding vector per page
-
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chunk_score.png)
 
 The advantage of this approach is that it's fast. The disadvantage is that it can be brittle.
@@ -41,19 +39,6 @@ The following steps outline this default approach and provide configuration deta
 4. Sensible returns the LLM's response.
 
 The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
-
-### Full prompt
-
-See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default approach:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
-
-| key  | description                                                  | relevant parameters        |
-| ---- | ------------------------------------------------------------ | -------------------------- |
-| A    | Context description: an overall description of the chunks.<br/>Note that the preceding image shows an example of a user-configured context description overriding the default. | nonconfigurable            |
-| B    | Page metadata for chunks.                                    | nonconfigurable            |
-| C    | Chunks excerpted from the document, concatenated into "context" | Chunk Count<br/>Page Range |
-| D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description fields         |
 
 ## Locate context by summarizing pages
 
