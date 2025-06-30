@@ -5,11 +5,7 @@ hidden: true
 
 
 
-LEFT OFF:  https://sensiblehq.slack.com/archives/C0215T9K86P/p1750789433364139 
-
-
-
-Configures the full prompt for all [LLM-based](doc:llm-based-methods) methods in a config. For information about configuring the full prompt, see [Advanced LLM prompt configuration](doc:prompt#full-prompt).
+ Configures the full prompt for all [LLM-based](doc:llm-based-methods) methods in a config. For information about configuring the full prompt, see [Advanced LLM prompt configuration](doc:prompt#full-prompt).
 
 [**Parameters**](doc:nlp#parameters)
 [**Examples**](doc:nlp#examples)
