@@ -239,7 +239,7 @@ You can select multiple lines to see their combined details.
 
 ### Location highlighting
 
-Note the following limitations for location highlighting for LLM-based methods: 
+Sensible can highlight the location of the source text for an LLM's response. Note the following limitations for location highlighting for LLM-based methods: 
 
 - In general, since LLMs are indeterminate,Sensible selects source text for LLM-based methods using a variety of best-guess approaches:
 
