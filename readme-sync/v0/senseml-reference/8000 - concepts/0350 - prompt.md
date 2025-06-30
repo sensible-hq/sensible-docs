@@ -3,11 +3,11 @@ title: "Advanced LLM prompt configuration"
 hidden: false
 ---
 
-To capture data from a document (e.g., a policy number or a list of transactions in a bank statement) using [LLM-based methods](doc:llm-based-methods), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called the prompt's *context*.
+To extract data from a document using [LLM-based methods](doc:llm-based-methods), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called a prompt's *context*.
 
-To troubleshoot LLM-based methods, you can configure the context to submit using one of the following approaches:
+To troubleshoot LLM-based methods, you can configure a prompt's context using one of the following approaches:
 
-1. (Default) Locate context by scoring page chunks
+1. (Default) Locate context by scoring document chunks
 
 2. Locate context by summarizing pages
 
@@ -21,7 +21,7 @@ For information about configuring each of these approaches, see the following se
 
 ## (Default) Locate context by scoring page chunks
 
-Sensible's default method for locating context is to split the document into fractional page chunks, score them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then return the top-scoring chunks as context:
+Sensible's default method for locating context is to split the document into 1-page chunks, score them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then return the top-scoring chunks as context:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chunk_score.png)
 
@@ -29,35 +29,16 @@ The advantage of this approach is that it's fast. The disadvantage is that it ca
 
 The following steps outline this default approach and provide configuration details:
 
-1. Sensible splits the document into chunks. These chunks are a fraction of a page and can overlap or be noncontiguous. Parameters that configure this step include:
+1. Sensible splits the document into chunks. Each chunk is 1 page long. Parameters that configure this step include:
    - Chunk Count parameter.
-   - Chunk Size parameter
-   - Chunk Overlap Percentage parameter
    - Page Range parameter
-   - **Note:** Defaults for these parameters can vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method.
-2. Sensible selects the most relevant chunks and combines them with page-hinting data to create a "context".  Parameters that configure this step include:
-   - Page Hinting parameter
-   - LLM Engine parameter
-
-3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Parameters that configure this step include:
-   - Context Description parameter
-
+   - **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method.
+2. Sensible selects the most relevant chunks and combines them with page-number metadata to create a "context".  Parameters that configure this step include:
+   - LLM Engine parameter 
+3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Sensible sends the full prompt to the LLM.
 4. Sensible returns the LLM's response.
 
 The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
-
-### Full prompt
-
-See the following image for an example of a *full prompt* that Sensible inputs to an LLM for the [Query Group](doc:query-group) method using the default approach:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/prompt.png)
-
-| key  | description                                                  | relevant parameters                                          |
-| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| A    | Context description: an overall description of the chunks.<br/>Note that the preceding image shows an example of a user-configured context description overriding the default. | Context Description                                          |
-| B    | Page metadata for chunks.                                    | Page Hinting                                                 |
-| C    | Chunks excerpted from the document, concatenated into "context" | Chunk Count<br/>Chunk Size<br/>Chunk Overlap Percentage<br/>Page Range |
-| D    | Concatenation of all the descriptive prompts you configured in the method. For example, concatenation of all the column descriptions and the overall table description for the [NLP Table](doc:nlp-table) method. | Description fields                                           |
 
 ## Locate context by summarizing pages
 
