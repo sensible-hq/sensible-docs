@@ -20,15 +20,19 @@ Sensible classifies a document by comparing it to the types you define in your a
 Sensible uses a document type's name and its description for LLM-based classification:
 
 - If Sensible doesn't find an existing document type to which to match your document in your account, it returns an error.
-- Since Sensible doesn't use configs or reference documents for classification, Sensible can classify documents into your document types even if the document type lacks a config or example. For example, if you lack a  `citibank` config or reference document in your `bank_statements` type, Sensible can still classify a  `2023-1-1_citbank_statement_jon_doe.pdf` document as a bank statement. 
+- Sensible can classify documents into your document types even if the document type lacks a config or reference document. For example, if you lack a  `citibank` config or reference document in your `bank_statements` type, Sensible can still classify a  `2023-1-1_citbank_statement_jon_doe.pdf` document as a bank statement. 
 
  To improve classification results, describe each document type in your account in its **Settings** tab. For examples of descriptions, see [Document type descriptions](doc:descriptions).  By default, Sensible classifies a document using all the types you define in your account. You can optionally define a subset of document types for classifying a document.
 
-Use document type classification:
+### Classification workflows
 
-- Prior to an extraction workflow. For example, determine which documents to extract prior to calling a Sensible extraction endpoint. 
+Sensible classifies documents into types as part of:
+
+- extracting from [portfolio](doc:portfolio) documents
+- extracting from [emails](doc:getting-started-email)
+
+You can use Sensible's API and SDK to classify documents for your use cases, for example:
+
+- Prior to an extraction workflow. Determine which documents to extract prior to calling a Sensible extraction endpoint. 
 
 - Independent from an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
-
-To classify documents, use the Sensible API or SDKs.
-
