@@ -98,7 +98,6 @@ The following example shows extracting structured data from real estate photogra
       "method": {
         "id": "queryGroup",
         /* send 2 pages as context to the LLM */
-        "chunkSize": 1,
         "chunkCount": 2,
         /* Use a multimodal LLM to extract data about a photograph embedded in a document, 
           for example the presence or absence of trees in the photo. */
@@ -491,7 +490,7 @@ The following example shows how to prompt an LLM to answer questions about anoth
         "id": "queryGroup",
         "confidenceSignals": false,
         /* for contrast, if you query the whole document rather than the 
-           transactions table, you get incorrect answers to the same queries  */
+           transactions table, you get incorrect answers  */
         "queries": [
           {
             // correct answer is "Payment Thank You - Web"
