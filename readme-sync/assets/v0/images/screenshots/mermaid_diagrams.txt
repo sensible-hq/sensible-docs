@@ -3,21 +3,6 @@
 ### 
 
 
-## mermaid_llm_context
-
-
-
-graph TD;
-    style A fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style B fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style C fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style D fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style E fill:#fafaf8,stroke:#000,stroke-width:1px;
-
-    A -->|1 - default| D["locate context using page chunks"]
-    A -->|2 - searchBySummarization| C["locate context using page summaries"]
-    A["'what's the largest checking transaction in the bank statement?'"] -->|3 - source_ids| B["use extracted field as context"]
-    A -->|4- multimodalEngine| E["locate non-text data"]
 
 ## mermaid_chain_prompt
 

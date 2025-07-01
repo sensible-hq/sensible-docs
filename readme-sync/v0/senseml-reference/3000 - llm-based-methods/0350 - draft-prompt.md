@@ -46,7 +46,7 @@ When you set the Search By Summarization parameter to true for supported LLM-bas
 
 1. Sensible prompts an LLM to summarize segments of the document. You can summarize by page or by outline. If you summarize by outline, an LLM generates a table of contents of the document, or *outline*, then summarizes each segment of the outline.
 
-2. Sensible prompts a second LLM to return the pages most relevant to your prompt based on the summaries.
+2. Sensible prompts a second LLM to return the page indices most relevant to your prompt based on the summaries.
 
 3. Sensible uses those pages' text as the context. 
 
