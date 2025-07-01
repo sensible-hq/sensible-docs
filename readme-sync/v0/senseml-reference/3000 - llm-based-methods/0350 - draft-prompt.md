@@ -9,7 +9,7 @@ To troubleshoot LLM-based methods, you can configure a prompt's context using on
 
 1. (Default) Locate context by scoring document chunks
 
-2. Locate context by summarizing pages or outline segments 
+2. Locate context by summarizing document content
 
 3. Locate context by chaining prompts
 
