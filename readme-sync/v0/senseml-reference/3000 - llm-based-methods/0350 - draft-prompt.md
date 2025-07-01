@@ -9,11 +9,11 @@ To troubleshoot LLM-based methods, you can configure a prompt's context using on
 
 1. (Default) Locate context by scoring document chunks
 
-2. Locate context by summarizing document pages or outline segments 
+2. Locate context by summarizing pages or outline segments 
 
 3. Locate context by chaining prompts
 
-4. Locate multimodal (non-text) context
+4. Locate non-text images as context
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_llm_context.png)
 
@@ -40,11 +40,11 @@ The following steps outline this default approach and provide configuration deta
 
 The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
 
-## Locate context by summarizing pages
+## Locate context by summarizing document
 
-When you set the Search By Summarization parameter to true for supported LLM-based methods, Sensible finds context using LLM-generated page summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
+When you set the Search By Summarization parameter to true for supported LLM-based methods, Sensible finds context using LLM-generated summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
 
-1. Sensible prompts an LLM to summarize each page in the document.
+1. Sensible prompts an LLM to summarize segments of the document. You can configure to summarize each page of the document, or segments of outlined content.
 
 2. Sensible prompts a second LLM to return the pages most relevant to your prompt based on the summaries.
 
