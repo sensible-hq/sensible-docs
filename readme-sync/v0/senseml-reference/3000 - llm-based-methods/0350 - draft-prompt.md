@@ -44,15 +44,15 @@ The details for this general process vary for each LLM-based method. For more in
 
 When you set the Search By Summarization parameter to true for supported LLM-based methods, Sensible finds context using LLM-generated summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
 
-1. Sensible prompts an LLM to summarize segments of the document. You can configure to summarize each page of the document, or segments of outlined content.
+1. Sensible prompts an LLM to summarize segments of the document. You can summarize by page or by outline. If you summarize by outline, an LLM generates a table of contents of the document, or *outline*, then summarizes each segment of the outline.
 
 2. Sensible prompts a second LLM to return the pages most relevant to your prompt based on the summaries.
 
 3. Sensible uses those pages' text as the context. 
 
-   
+The following image shows summarizing a document by its outline:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_page_summary.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summary_scoring_powerpoint.png)
 
 This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
@@ -60,7 +60,7 @@ This strategy is useful for long documents in which multiple mentions of the sam
 
 When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
 
-For example, you use the [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
+For example, you use the layout-based [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
 
 ```json
 snack       annual regional sales
