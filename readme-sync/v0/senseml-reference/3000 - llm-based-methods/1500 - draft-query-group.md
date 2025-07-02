@@ -4,49 +4,10 @@ hidden: true
 
 ---
 
-Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. 
+## Draft todo:
 
-- When you configure the Multimodal Engine parameter, you can extract from non-text data such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).
-- When you configure the Source Fields parameter, you can chain LLM prompts together. In other words, you can extract data with one prompt, then apply further prompts to the extracted data.
+what does chunk Count mean when OUTLINE set? (same for list)
 
-### Prompt Tips
-
-#### Group prompts
-
-Sensible recommends grouping queries together if they share [context](doc:query-group#notes).  Queries share context when data exists in the same location or region of a document, for example, on the same page.
-
-For example, contact information can usually be found in the same location of a document:
-
-```json
-Janelle Smith
-New York City, NY
-(123) 456-7890
-jsmith@email.com 
-```
-
-Combining queries for the custom name, location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. 
-
-Sensible recommends a maximum group size of 8 queries.
-
-####  Phrase prompts
-
-- Try framing each query, or prompt, so that it has a single, short answer such as:
-
-  - "company address"
-  - "name of recipient"
-  - "document date"
-- Break up complex prompts into multiple prompts and chain them together.
-- See the following resources for creating prompts:
-
-  -  [Prompt engineering](https://platform.openai.com/docs/guides/prompt-engineering)
-  -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
-  -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
-
-For information about how this method works, see [Notes](doc:query-group#notes).
-
-[**Parameters**](doc:query-group#parameters)
-[**Examples**](doc:query-group#examples)
-[**Notes**](doc:query-group#examples)
 
 Parameters
 =====
@@ -68,20 +29,20 @@ Parameters
 
 | key                   | value                                                   | description                                                  | interactions                                                 |
 | :-------------------- | :------------------------------------------------------ | :----------------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)     | `queryGroup`                                            |                                                              |                                                              |
-| queries               | array of objects                                        | An array of query objects, where each extracts a single fact and outputs a single field. Each query contains the following parameters:<br/>`id` (**required**) - The ID for the extracted field. <br/>`description`  (**required**) - A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. For more information about how to write questions (or "prompts"), see [Query Group](https://docs.sensible.so/docs/query-group-tips) extraction tips. |                                                              |
-|                       |                                                         | ***CHAIN PROMPTS***                                          |                                                              |
-| source_ids            | array of field IDs in the current config                | If specified, prompts an LLM to extract data from another field's output. For example, if you extract a field `_checking_transactions` and specify it in this parameter, then Sensible searches for the answer to `what is the largest transaction?` in `_checking_transactions`, rather than searching the whole document to locate the [context](doc:prompt). Note that the `_checking_transactions` field must precede the `largest_transaction` field in the fields array in this example. <br/><br/>Use this parameter to:<br/> - narrow down the [context](doc:prompt) for your prompts to a specific part of the document. <br/>-  reformat or otherwise transform the outputs of other fields. For example, you can use this as an alternative to types such as the  [Compose](doc:types#compose) type with prompts such as `if the context includes a date, return it in mm/dd/yyy format`.<br/>-  troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array. <br/>To extract repeating data, such as a list, specify the Source Ids parameter for the [List](doc:list#parameters) method rather than for the Query Group method. <br/><br/>For an example, see [Examples](doc:query-group#example-transform-fields). | If you configure this parameter, then the following parameters aren't supported:<br/>- Anchor parameter in the field<br/>- Confidence Signals<br/>- Multimodal Engine parameter <br/>- Search By Summarization parameter<br/>- Page Range parameter |
-|                       |                                                         | ***EXTRACT FROM IMAGES***                                    |                                                              |
-| multimodalEngine      | object                                                  | Configure this parameter to:<br/>- Extract data from images embedded in a document, for example, photos, charts, or illustrations.<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines, lines between lines, and handwriting. For example, use this as an alternative to the [Signature](doc:signature) method, the [Nearest Checkbox](doc:nearest-checkbox) method, the [OCR engine](doc:ocr-engine), and line [preprocessors](doc:preprocessors).<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM (GPT-4o mini), so that you can ask questions about text and non-text images. This bypasses Sensible's [OCR](doc:ocr) and direct-text extraction processes for the region. <br/>This parameter has the following parameters:<br/><br/>`region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/><br/>- To automatically select the [context](doc:query-group#notes) as the region, specify `"region": "automatic"`. If you configure this option for a non-text image, then help Sensible locate the context by including queries in the group that target text near the image, or by specifying the nearby text in the Chunk Scoring Text parameter. <br/><br/>- To manually specify a region, specify an [anchor](doc:anchor) close to the region you want to capture. Specify the region's dimensions in inches relative to the anchor using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}` |                                                              |
-|                       |                                                         | ***TROUBLESHOOT PROMPT***                                    |                                                              |
-| llmEngine             | object                                                  | Where applicable, configures the LLM engine Sensible uses to answer your prompts. <br/>Configure this parameter to troubleshoot situations in which Sensible correctly identifies the part of the document that contains the answers to your prompts, but the LLM's answer contains problems. For example, Sensible returns an LLM error because the answer isn't properly formatted, or the LLM doesn't follow instructions in your prompt.<br/><br/>Contains the following parameters:<br/>`provider`:  <br/>- If set to `open-ai` (default), Sensible uses OpenAI's GPT-4o mini to answer your prompts.<br/> - If set to `anthropic`, Sensible uses Anthropic's Claude 3 Haiku to answer your prompts. |                                                              |
-| confidenceSignals     | boolean<br/>or<br/>`"strict"`<br/>default: `false`      | If true, Sensible prompts the LLM to report any uncertainties it has about the accuracy of its response.  For more information, see [Qualifying LLM accuracy](doc:confidence).<br>If `"strict"`, Sensible returns null for a field if its confidence signal is `incorrect_answer`. | Not supported if you set the Multimodal Engine parameter     |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
 |                       |                                                         | ***FIND CONTEXT***                                           |                                                              |
 | searchBySummarization | boolean<br/>or<br>`outline`, `page`<br/> default: false | Configure this to troubleshoot situations in which Sensible misidentifies the part of the document that contains the answers to your prompts. <br/>Setting `true` is equivalent to setting `page`.  <br/>This parameter is compatible with documents up to 1,280 pages long.<br/>When you set `page` or `outline`, Sensible uses content [summarization](https://www.sensible.so/blog/embeddings-vs-completions-only-rag) to locate context. Sensible:<br/>1.  prompts an LLM to summarize document content.  If you set `outline`, the LLM generates an outline of the document and summarizes each segment of the outline. If you set `page`, the LLM summarizes each page in the document.<br/>2. prompts a second LLM to return the page indices most relevant to your prompt based on the summaries.<br/>3. extracts the answers to your prompts from those pages' full text.<br/>When you set this to false, Sensible uses the default [approach](doc:prompt) to finding context. | If you set this parameter to a non-false value for a document 5 pages or under in length, Sensible submits the entire document as context, bypassing summarization.<br/> If you set this parameter to a non-false value for a document over 5 pages long, then Sensible sets the Chunk Count parameter to 5 and ignores any configured value.<br/>Note that the LLM Engine parameter doesn't configure the LLMs Sensible uses for locating context. |
-| pageRange             | object                                                  | Configures the possible page range for finding the context in the document.<br/>If specified, Sensible creates chunks in the page range and ignores other pages. For example, use this parameter to improve performance, or to avoid extracting unwanted data if your prompt has multiple candidate answers.<br/><br/>Contains the following parameters: <br/>`startPage`:  Zero-based index of the page at which Sensible starts creating chunks (inclusive). <br/>`endPage`: Zero-based index of the page at which Sensible stops creating chunks (exclusive). | Sensible ignores this parameter when searching for a field's [anchor](doc:anchor). If you want to exclude the field's anchor using a page range, use the [Page Range](doc:page-range) preprocessor instead. |
-|                       |                                                         | ***CONFIGURE CONTEXT SIZE***                                 |                                                              |
-| chunkCount            | number.<br/> default: 5                                 | The number of top-scoring chunks Sensible combines as context as part of the full prompt it submits to an LLM.<br/>Each chunk is one page. |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
+|                       |                                                         |                                                              |                                                              |
 
 ## Examples
 
@@ -105,8 +66,7 @@ The following example shows extracting structured data from real estate photogra
           /* Sends the "context", or relevant document excerpt, as an image to the multimodal LLM.
            If you configure "region":"automatic" for a non-text image, 
            then help Sensible locate the context by including queries 
-           in the group that target text near the image, or by specifying 
-           the nearby text in the Chunk Scoring Text parameter */
+           in the group that target text near the image */
           "region": "automatic"
         },
         "queries": [

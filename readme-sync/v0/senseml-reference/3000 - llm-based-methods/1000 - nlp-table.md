@@ -43,7 +43,7 @@ Parameters
 |                                 |                         | ***FIND CONTEXT***                                           |                                                              |
 | pageRange                       | object                  | Configures the possible page range for finding the context in the document.<br/>If specified, Sensible creates chunks in the page range and ignores other pages. For example, use this parameter to improve performance, or to avoid extracting unwanted data if your prompt has multiple candidate answers.<br/><br/>Contains the following parameters: <br/>`startPage`:  Zero-based index of the page at which Sensible starts creating chunks (inclusive). <br/>`endPage`: Zero-based index of the page at which Sensible stops creating chunks (exclusive). | Sensible ignores this parameter when searching for a field's [anchor](doc:anchor). If you want to exclude the field's anchor using a page range, use the [Page Range](doc:page-range) preprocessor instead. |
 |                                 |                         | ***CONFIGURE CONTEXT SIZE***                                 |                                                              |
-| chunkCount                      | number. default: 5      | The number of top-scoring chunks Sensible combines as context as part of the full prompt it submits to an LLM. <br/>Each chunk is one page. |                                                              |
+| chunkCount                      | number. default: 5      | The number of top-scoring document chunks Sensible combines as context as part of the full prompt it submits to an LLM. <br/> |                                                              |
 
 
 
@@ -316,7 +316,7 @@ For an overview of how the NLP Table method works, see the following steps:
 
 1. Sensible makes a list of the pages that are most likely to contain your target table. To make the list:
    - Sensible concatenates all your column descriptions with your overall table description. 
-   - Sensible splits the document into equal-sized chunks. 
+   - Sensible splits the document into equal-sized chunks.  A chunk is less than or equal to a page in length.
    - Sensible scores your concatenated table descriptions against each chunk using a nonconfigurable OpenAI Embeddings API.
    - Sensible gets a list of page numbers from the top-scoring chunks.
 2. Sensible extracts all the tables on the pages most likely to contain your table, using the [OCR engine](doc:ocr-engine) specified by the document type. Sensible supports multi-page tables.
