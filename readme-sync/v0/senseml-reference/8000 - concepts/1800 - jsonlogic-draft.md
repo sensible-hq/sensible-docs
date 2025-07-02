@@ -17,7 +17,7 @@ hidden: true
 ]
 ```
 
-For example, the following code sorts an array:
+For example, the following code sorts an array of dates:
 
 ```json
 {
