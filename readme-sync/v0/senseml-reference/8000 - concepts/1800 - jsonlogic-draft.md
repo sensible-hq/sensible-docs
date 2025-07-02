@@ -28,7 +28,7 @@ For example, the following code sorts an array:
       "sort_by": [
         {
           /*
-            The array of objects to srot.
+            The array of objects to sort.
             In practice, you often input an
             array with `{"var":"field_key"}` syntax.
             This example uses `preserve` to input an
