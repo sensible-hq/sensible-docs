@@ -10,7 +10,7 @@ hidden: true
  Sorts an array of objects by the specified key. Expects numbers or strings for the key's values. Sorts in ascending alphanumeric order. Numbers are treated as strings when sorting.
 
 ```json
-"group":
+"sort_by":
 [
  [ /* array_of_objects_to_sort */ ],
  "key_to_sort_by", 
