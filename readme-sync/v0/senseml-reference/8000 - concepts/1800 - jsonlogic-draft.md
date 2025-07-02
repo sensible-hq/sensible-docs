@@ -7,7 +7,7 @@ hidden: true
 
 
 
- Sorts an array of objects by the specified key. Expects numbers or strings for the key's values. Sorts in ascending alphanumeric order.
+ Sorts an array of objects by the specified key. Expects numbers or strings for the key's values. Sorts in ascending alphanumeric order. Numbers are treated as strings when sorting.
 
 ```json
 "group":
