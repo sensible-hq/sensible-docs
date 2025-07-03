@@ -42,7 +42,7 @@ Parameters
 
 
 
-The following example shows troubleshooting image resolution for a utility bill bar graph in order to extract from its small font size.
+The following example shows troubleshooting image resolution for a utility bill bar graph that uses a small font size.
 
 **Config**
 
