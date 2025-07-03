@@ -118,6 +118,7 @@ The following example shows troubleshooting image resolution for a utility bill 
     {
       "anchor": {
         "match": {
+          /* field to demonstrate that Sensible strips text when onlyImages:true */
           "text": "energy use snapshot",
           "type": "includes"
         }
