@@ -38,7 +38,7 @@ Parameters
 |                  |        |                                                              |              |
 |                  |        |                                                              |              |
 
-## Troubleshoot image resolution  example
+## Example: Troubleshoot image resolution  
 
 
 
