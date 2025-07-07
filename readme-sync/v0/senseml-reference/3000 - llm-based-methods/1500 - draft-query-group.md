@@ -26,17 +26,6 @@ Parameters
 |                       |                              |             |              |
 | searchBySummarization | WORDING IS IDENTICAL TO LIST |             |              |
 |                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
-|                       |                              |             |              |
 
 ## Examples
 
