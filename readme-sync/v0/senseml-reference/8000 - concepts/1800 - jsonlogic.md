@@ -60,7 +60,7 @@ Use this operation to add or subtract days, months, or years to a date.
 
 Takes as input:
 
-- a date. Can be any date string for which the Javascript `Date` objects ' `getTime()` function can return a number. For example, can be an ISO 8601-formatted Sensible [date type](doc:types#date)), or `February 27, 2024` or `12-31-2022`.
+- a date. Can be any date string for which the Javascript `Date` objects ' `getTime()` function can return a number. For example, can be an ISO 8601-formatted Sensible [date type](doc:types#date), or `February 27, 2024` or `12-31-2022`.
 
 - a number
 
