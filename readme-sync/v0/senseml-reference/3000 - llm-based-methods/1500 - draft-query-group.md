@@ -37,3 +37,7 @@ Parameters
 |                       |                              |             |              |
 |                       |                              |             |              |
 |                       |                              |             |              |
+
+## Examples
+
+For an example of using `"searchBySummarization": "outline"`, see [Multicolumn](doc:multicolumn#examples).
