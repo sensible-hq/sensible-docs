@@ -18,7 +18,7 @@ Parameters
 | ------------------------- | ------ | ------------------------------------------------------------ |
 | type (**required**)     | `deskew` |                                                    |
 | fixedPoints (**required**) | object | Deskews the text in a skewed document by mapping the positions of three skewed points to their ideal positions in an unskewed document. Define the target Fixed Points using the coordinates of [lines](doc:lines) in an unskewed example of the document. Choose points that form as large a triangle as possible on a single page, ideally at three corners of the document page. Choosing the best points can take trial and error. <br/>Contains an array of 3 objects, each containing the following parameters: <br/>-   `match` -  the text to match for a Fixed Point. Choose `"type": "startsWith"`  or `"type": "endsWith"` to avoid problems with lines oversplit by skew. See [Match object](doc:match) for more details.<br/>- `targetPosition` - contains  `x` and  `y` parameters that define the coordinates of the Fixed Points in inches relative to the 0,0 origin at the top left corner of the page. For more information about defining the positions, see the Examples section. |
-| matchAll | Boolean | If true, deskew all pages containing the lines specified by the Fixed Points parameter. |
+| matchAll | Boolean. default: false | If true, deskews all pages containing the lines specified by the Fixed Points parameter. |
 | start | `left` , `right`. default: `left` | Specifies whether the Fixed Point is at the upper-*left* corner of the anchor line's boundaries, or the upper-*right* corner. <br/>With a Match parameter of `"type": "startsWith"`, use `left`.<br/>With a Match parameter of `"type": "endsWith"`, use `right`. |
 
 Examples
