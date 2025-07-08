@@ -21,7 +21,7 @@ For information about configuring each of these approaches, see the following se
 
 ## (Default) Locate context by scoring page chunks
 
-Sensible's default method for locating context is to split the document into 1-page chunks, score them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then return the top-scoring chunks as context:
+By default, Sensible locates context by splitting the document into chunks, scoring them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then returning the top-scoring chunks as context:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chunk_score.png)
 
@@ -32,7 +32,7 @@ The following steps outline this default approach and provide configuration deta
 1. Sensible splits the document into chunks. Each chunk is 1 page long. Parameters that configure this step include:
    - Chunk Count parameter.
    - Page Range parameter
-   - **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method.
+   - **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method. Each method has a default chunk size, ranging from a half page to a page.
 2. Sensible selects the most relevant chunks and combines them with page-number metadata to create a "context".  Parameters that configure this step include:
    - LLM Engine parameter 
 3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Sensible sends the full prompt to the LLM.
