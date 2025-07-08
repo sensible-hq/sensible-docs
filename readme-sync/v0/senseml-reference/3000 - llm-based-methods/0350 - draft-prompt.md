@@ -11,7 +11,7 @@ To troubleshoot LLM-based methods, you can configure how Sensible locates a prom
 
 2. Locate context by summarizing document content
 
-3. Locate context by chaining prompts
+3. Locate context by "chaining" or "pipelining" prompts
 
 4. Locate non-text images as context
 
@@ -56,7 +56,7 @@ The following image shows summarizing a document by its outline:
 
 This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
-## Locate context by chaining prompts
+## Locate context by pipelining prompts
 
 When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
 

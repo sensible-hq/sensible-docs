@@ -60,7 +60,7 @@ Parameters
 Notes
 ===
 
-For an overview of how this method's default approach to locating context, see the following steps. 
+For an overview of this method's default approach to locating context, see the following steps. 
 
 For alternate approaches, see [Advanced LLM prompt configuration](doc:prompt#full-prompt).
 
