@@ -7,7 +7,7 @@ To extract data from a document using [LLM-based methods](doc:llm-based-methods)
 
 To troubleshoot LLM-based methods, you can configure how Sensible locates a prompt's context using one of the following approaches:
 
-1. (Default) Locate context by scoring document chunks
+1. (Default) Locate context with embeddings scores
 
 2. Locate context by summarizing document content
 
@@ -19,7 +19,7 @@ To troubleshoot LLM-based methods, you can configure how Sensible locates a prom
 
 For information about configuring each of these approaches, see the following sections.
 
-## (Default) Locate context by scoring page chunks
+## (Default) Locate context with embeddings scores
 
 By default, Sensible locates context by splitting the document into chunks, scoring them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then returning the top-scoring chunks as context:
 
@@ -29,10 +29,10 @@ The advantage of this approach is that it's fast. The disadvantage is that it ca
 
 The following steps outline this default approach and provide configuration details:
 
-1. Sensible splits the document into chunks. Each chunk is 1 page long. Parameters that configure this step include:
+1. Sensible splits the document into equal-sized chunks. Each chunk is up to one page long. Parameters that configure this step include:
    - Chunk Count parameter.
    - Page Range parameter
-   - **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method. Each method has a default chunk size, ranging from a half page to a page.
+   - **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method. Each method has a default chunk size.
 2. Sensible selects the most relevant chunks and combines them with page-number metadata to create a "context".  Parameters that configure this step include:
    - LLM Engine parameter 
 3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Sensible sends the full prompt to the LLM.
@@ -40,21 +40,20 @@ The following steps outline this default approach and provide configuration deta
 
 The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
 
-## Locate context by summarizing document
+## (Recommended) Locate context by summarizing document
 
-When you set the Search By Summarization parameter to true for supported LLM-based methods, Sensible finds context using LLM-generated summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
+When you configure the Search By Summarization parameter for supported LLM-based methods, Sensible finds context using LLM-generated summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
 
-1. Sensible prompts an LLM to summarize segments of the document. You can summarize by page or by outline. If you summarize by outline, an LLM generates a table of contents of the document, or *outline*, then summarizes each segment of the outline.
+1. Sensible prompts an LLM to summarize chunks of the document. If you set `page`, a chunk is a page. If you set `outline`, an LLM generates a table of contents of the document, then summarizes each chunk of the outline.
 
-2. Sensible prompts a second LLM to return the page indices most relevant to your prompt based on the summaries.
+2. Sensible prompts a second LLM to identify the most relevant chunks based on the summaries, then uses their text as the context.
 
-3. Sensible uses those pages' text as the context. 
 
-The following image shows summarizing a document by its outline:
+The following image shows how an LLM can outline and summarize a document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summary_scoring_powerpoint.png)
 
-This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
+This strategy often outperforms the default approach to locating context. It's useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
 ## Locate context by pipelining prompts
 

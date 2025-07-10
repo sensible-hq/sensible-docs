@@ -35,12 +35,10 @@ Sensible recommends a maximum group size of 10 queries.
   - "company address"
   - "name of recipient"
   - "document date"
+  
 - Break up complex prompts into multiple prompts and chain them together.
-- See the following resources for creating prompts:
 
-  -  [Prompt engineering](https://platform.openai.com/docs/guides/prompt-engineering)
-  -  [Introduction to prompt engineering](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/prompt-engineering)
-  -  [Short course: Building systems with the ChatGPT API](https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/) and [Short course: ChatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/). 
+  
 
 For information about how this method works, see [Notes](doc:query-group#notes).
 
