@@ -44,7 +44,7 @@ The details for this general process vary for each LLM-based method. For more in
 
 When you configure the Search By Summarization parameter for supported LLM-based methods, Sensible finds context using LLM-generated summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
 
-1. Sensible prompts an LLM to summarize chunks of the document. If you set `page`, a chunk is a page. If you set `outline`, an LLM generates a table of contents of the document, and each segment of the outline is a chunk.
+1. Sensible prompts an LLM to summarize chunks of the document. If you set `page`, each page is a chunk. If you set `outline`, an LLM generates a table of contents of the document, and each segment of the outline is a chunk.
 
 2. Sensible prompts a second LLM to identify the most relevant chunks based on the summaries, then uses their text as the context.
 
