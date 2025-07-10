@@ -3,25 +3,25 @@ title: "Advanced LLM prompt configuration"
 hidden: false
 ---
 
-To extract data from a document using [LLM-based methods](doc:llm-based-methods), Sensible has to submit a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called a prompt's *context*.
+To extract data from a document using [LLM-based methods](doc:llm-based-methods), Sensible submits a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called a prompt's *context*.
 
-To troubleshoot LLM-based methods, you can configure a prompt's context using one of the following approaches:
+To troubleshoot LLM-based methods, you can configure how Sensible locates a prompt's context using one of the following approaches:
 
-1. (Default) Locate context by scoring document chunks
+1. (Default) Locate context with embeddings scores
 
-2. Locate context by summarizing pages
+2. Locate context by summarizing document content
 
-3. Locate context by chaining prompts
+3. Locate context by "chaining" or "pipelining" prompts
 
-4. Locate multimodal (non-text) data
+4. Locate non-text images as context
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_llm_context.png)
 
 For information about configuring each of these approaches, see the following sections.
 
-## (Default) Locate context by scoring document chunks
+## (Default) Locate context with embeddings scores
 
-Sensible's default method for locating context is to split the document into chunks, score them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then return the top-scoring chunks as context:
+By default, Sensible locates context by splitting the document into equally sized chunks, scoring them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then returning the top-scoring chunks as context:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chunk_score.png)
 
@@ -29,10 +29,10 @@ The advantage of this approach is that it's fast. The disadvantage is that it ca
 
 The following steps outline this default approach and provide configuration details:
 
-1. Sensible splits the document into chunks. A chunk is less than or equal to a page in length. Parameters that configure this step include:
+1. Sensible splits the document into chunks. Parameters that configure this step include:
    - Chunk Count parameter.
    - Page Range parameter
-   - **Note:** Defaults for chunking vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method, and each method has a default chunk size.
+   - **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method. Each method has a default chunk size, up to one page.
 2. Sensible selects the most relevant chunks and combines them with page-number metadata to create a "context".  Parameters that configure this step include:
    - LLM Engine parameter 
 3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Sensible sends the full prompt to the LLM.
@@ -40,27 +40,25 @@ The following steps outline this default approach and provide configuration deta
 
 The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
 
-## Locate context by summarizing pages
+## (Recommended) Locate context by summarizing document
 
-When you set the Search By Summarization parameter to true for supported LLM-based methods, Sensible finds context using LLM-generated page summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
+When you configure the Search By Summarization parameter for supported LLM-based methods, Sensible finds context using LLM-generated summaries. Sensible uses a [completion-only retrieval-augmented generation (RAG) strategy](https://www.sensible.so/blog/embeddings-vs-completions-only-rag):
 
-1. Sensible prompts an LLM to summarize each page in the document.
+1. Sensible prompts an LLM to summarize chunks of the document. If you set `page`, a chunk is a page. If you set `outline`, an LLM generates a table of contents of the document, and each segment of the outline is a chunk.
 
-2. Sensible prompts a second LLM to return the pages most relevant to your prompt based on the summaries.
+2. Sensible prompts a second LLM to identify the most relevant chunks based on the summaries, then uses their text as the context.
 
-3. Sensible uses those pages' text as the context. 
+The following image shows how an LLM can outline and summarize a document:
 
-   
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summary_scoring_powerpoint.png)
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_page_summary.png)
+This strategy often outperforms the default approach to locating context. It's useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
-This strategy is useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
-
-## Locate context by chaining prompts
+## Locate context by pipelining prompts
 
 When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
 
-For example, you use the [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
+For example, you use the layout-based [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
 
 ```json
 snack       annual regional sales
@@ -94,7 +92,7 @@ For example, for the following image, you can prompt,  `"are the buildings multi
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
 
-When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor and region coordinates. If you specify `automatic`, Sensible selects the top-scoring document chunks and sends them as images.
+When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor  and region coordinates, or use the default page chunk scoring approach.  
 
 
 
