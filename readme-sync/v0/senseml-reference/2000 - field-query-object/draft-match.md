@@ -1,5 +1,5 @@
 ---
-title: "draft"
+title: "drafts"
 hidden: true
 ---
 
@@ -7,10 +7,6 @@ hidden: true
 
 
 Matches the specified number of consecutive occurrences of a string.
-
-
-
-
 
 **Parameters**
 
@@ -46,3 +42,16 @@ expands to:
 ]
 ```
 
+## detect
+
+
+
+|                           |                                               |                                                              |
+| ------------------------- | --------------------------------------------- | ------------------------------------------------------------ |
+| detectMultipleLinesPerRow | boolean<br/>or<br/>object<br/> default: false | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row. In detail, Sensible detects that a cell contains multiple lines if the vertical gap between two lines is less than half the height of the second line.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same height as row gutters, Sensible can incorrectly merge multiple rows into one.<br/><br/>To configure the vertical gap, you can set `"detectMultipleLinesPerRow": {"maxGap": /* fraction_of_inches */ } `. If configured, Sensible considers multiple lines to belong to the same cell if the vertical gap between each line in the cell is less than or equal to the specified number in inches. Configure this parameter to account for varying font sizes in a multi-line cell. Make sure that the gap you specify is smaller than the vertical gap between rows. TODO: "line" could mean sensible-specific or it could mean newline; specify it means NEWLINES. |
+|                           |                                               |                                                              |
+|                           |                                               |                                                              |
+
+**EXAMPLE**
+
+https://dev.sensible.so/editor/?d=frances_playground&c=text_table_multi_gap&g=multicolumn&om=2 
