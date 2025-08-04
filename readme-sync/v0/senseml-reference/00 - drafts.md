@@ -74,7 +74,11 @@ https://dev.sensible.so/editor/?d=frances_playground&c=text_table_multi_gap&g=mu
 
 
 
-Rounds the specified numeric value. Takes the value and number of decimal places to which to round. 
+Rounds the specified numeric value. Takes as input the value and number of decimal places to which to round. 
+
+```json
+"round": [/* number to round */, /* number of decimal places to round to */]
+```
 
 
 
@@ -82,27 +86,20 @@ For example:
 
 ```json
 {
-  "fields": [
-    {
-      "id": "add_years",
-      "method": {
-        "id": "customComputation",
-        "jsonLogic": {
-          "date_shift": [
-            "2024-01-02",
-            3,
-            "years"
-          ]
-        }
-      }
-    },
-  ]
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "round": [5.32914124, 2]
+    }
+  }
 }
+
 ```
 
 returns:
 
-```
-tbd
+```json
+5.33
 ```
 
