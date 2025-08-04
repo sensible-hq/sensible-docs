@@ -69,3 +69,48 @@ TODO: make it into a footnote for the smaller font?
 https://dev.sensible.so/editor/?d=frances_playground&c=text_table_multi_gap&g=multicolumn&om=2 
 
 ![image-20250804113716033](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250804113716033.png)
+
+## Round
+
+## Date Shift
+
+Use this operation to add or subtract days, months, or years to a date.
+
+Takes as input:
+
+- a date. Can be any date string for which the Javascript `Date` objects ' `getTime()` function can return a number. For example, can be an ISO 8601-formatted Sensible [date type](doc:types#date), or `February 27, 2024` or `12-31-2022`.
+
+- a number
+
+- a unit (`"days"`, `"months"`, or `"years"`)
+
+Returns an ISO 8601-formatted date-time string that's the result of adding the number of units to the date. Use negative numbers to calculate prior dates.
+
+For example:
+
+```json
+{
+  "fields": [
+    {
+      "id": "add_years",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "date_shift": [
+            "2024-01-02",
+            3,
+            "years"
+          ]
+        }
+      }
+    },
+  ]
+}
+```
+
+returns:
+
+```
+tbd
+```
+

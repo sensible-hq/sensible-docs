@@ -101,8 +101,6 @@ returns:
 }
 ```
 
-## 
-
 ## Exists
 
 Returns a boolean to indicate if the specified value exists. Returns false if the value is null or undefined.
