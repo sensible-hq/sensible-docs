@@ -106,7 +106,6 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 
 ####  page types
 
-- Only use  `"page": "first"` and  `"page": "last"` if you're confident that these pages will never be omitted from the document.
 - If using `"page": "first"` always pair it with another test type such as `"page": "every"` or `"page": "last"`.
 - If the first page doesn't contain unique text and the last page does, Sensible recommends specifying a `last` page test and an `every` page test. 
 - Avoid specifying an `any` page test unless other page types fail to segment the document.
