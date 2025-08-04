@@ -6,7 +6,7 @@ hidden: true
 ## Repeat match
 
 
-Matches the specified number of consecutive occurrences of a string.
+Matches the nth consecutive occurrence of a string.
 
 **Parameters**
 
@@ -41,6 +41,16 @@ expands to:
           { "type": "startsWith", "text": "Value:" }
 ]
 ```
+
+
+
+https://dev.sensible.so/editor/?d=frances_playground&c=repeat_matcher&g=repeat&om=2
+
+
+
+![image-20250804115220053](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250804115220053.png)
+
+
 
 ## detect
 
