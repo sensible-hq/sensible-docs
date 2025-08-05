@@ -299,7 +299,7 @@ Matches the nth occurrence of a string. This is a more concise syntactical alter
 | key                  | values       | description                                                  |
 | -------------------- | ------------ | ------------------------------------------------------------ |
 | type (**required**)  | `repeat`     |                                                              |
-| times (**required**) | integer      | The number of times the specified match must occur in [succeeding](doc:line-sorting) lines.  For example, if you specify 3, matches the third occurrence of the specified match. |
+| times (**required**) | integer      | The number of times the specified match must occur in [succeeding](doc:lines#line-sorting) lines.  For example, if you specify 3, matches the third occurrence of the specified match. |
 | match                | Match object | The string to match in each succeeding line.                 |
 
 **EXAMPLE**
