@@ -12,10 +12,11 @@ See the following sections for more information:
 [**Match types**](doc:match#match-types)
 
 - [Global parameters](doc:match#global-parameters)
-- [Simple match](doc:match#simple-match)
+- [String match](doc:match#simple-match)
 - [Regex match](doc:match#regex-match)
 - [First match](doc:match#first-match)
 - [Boolean matches](doc:match#boolean-matches)
+- [Repeat match](doc:match#repeat-match)
 
 [**Match arrays**](doc:match#match-arrays)
 
@@ -38,7 +39,7 @@ The following parameters are available to most* types of Match objects.
 
 *These parameters aren't available as top-level parameters for a Boolean match.
 
-Simple match
+String match
 -------
 
 Match using strings.  
@@ -54,7 +55,7 @@ Match using strings.
 
 **SYNTAX EXAMPLE**
 
-The following config uses a simple match:
+The following config uses a string match:
 
 ```json
   {
@@ -194,7 +195,7 @@ This example matches the first line after a matched line in an array:
 Boolean matches
 ---
 
-Use Boolean matches to write Boolean logic about your matches.  For example, use the Any match to match on an array of synonymous terms if a document contains small wording variations across revisions.
+Use Boolean matches to write Boolean logic about your matches.  For example, use the Any match to match an array of synonymous terms if a document contains small wording variations across revisions.
 
 **Parameters**
 
@@ -288,6 +289,85 @@ The following image shows the example document used with this example config:
   ]
 }
 ```
+
+## Repeat match
+
+Matches the nth occurrence of a string. This is a more concise syntactical alternative to a match array.
+
+**Parameters**
+
+| key                  | values       | description                                                  |
+| -------------------- | ------------ | ------------------------------------------------------------ |
+| type (**required**)  | `repeat`     |                                                              |
+| times (**required**) | integer      | The number of times the specified match must occur in [succeeding](doc:line-sorting) lines.  For example, if you specify 3, matches the third occurrence of the specified match. |
+| match                | Match object | The string to match in each succeeding line.                 |
+
+**EXAMPLE**
+
+The following example shows matching the fifth occurrence of the string "customer account".
+
+*Config*
+
+```json
+{
+  "fields": [
+    
+    {
+      "id": "repeat_match_test",
+      "anchor": {
+        "match": [
+          {
+            /* match the 5th line that starts with "customer account" */
+            "type": "repeat",
+            "times": 5,
+            "match": { "type": "startsWith", "text": "customer account" }
+          }
+        ]
+      },
+      "method": { "id": "passthrough" }
+    },
+  ]
+}
+
+```
+
+Sensible automatically expands this syntax as follows:
+
+```json
+      "anchor": {
+        "match": [
+          { "type": "startsWith", "text": "customer account" },
+          { "type": "startsWith", "text": "customer account" },
+          { "type": "startsWith", "text": "customer account" },
+          { "type": "startsWith", "text": "customer account" },
+          { "type": "startsWith", "text": "customer account" },
+         
+        ]  
+      }
+```
+
+
+
+*Example document*
+
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/repeat_match.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/repeat_match.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+*Output*
+
+```json
+{
+  "repeat_match_test": {
+    "type": "string",
+    "value": "Customer account # 5 - 98765"
+  }
+}
+```
+
 
 
 Match arrays

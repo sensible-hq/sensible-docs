@@ -52,7 +52,7 @@ https://dev.sensible.so/editor/?d=frances_playground&c=repeat_matcher&g=repeat&o
 
 
 
-## detect
+## detect lines
 
 
 
