@@ -49,7 +49,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Omit fields](doc:jsonlogic#omit-fields)     | ✅                                       | ✅                                                    | ✅                                  |
 | [Pick Fields](doc:jsonlogic#pick-fields)     | ✅                                       | ✅                                                    | ✅                                  |
 | [Replace](doc:jsonlogic#replace)             | ✅                                       | ✅                                                    | ✅                                  |
-| Round                                        |                                         |                                                      |                                    |
+| [Round](doc:jsonlogic#round)                 | ✅                                       | ✅                                                    | ✅                                  |
 | [Sort By](doc:jsonlogic#sort-by)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                  |
 
