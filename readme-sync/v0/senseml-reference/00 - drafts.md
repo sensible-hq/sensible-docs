@@ -70,36 +70,3 @@ https://dev.sensible.so/editor/?d=frances_playground&c=text_table_multi_gap&g=mu
 
 ![image-20250804113716033](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250804113716033.png)
 
-## Round
-
-
-
-Rounds the specified numeric value. Takes as input the value and number of decimal places to which to round. 
-
-```json
-"round": [/* number to round */, /* number of decimal places to round to */]
-```
-
-
-
-For example:
-
-```json
-{
-  "fields": [],
-  "postprocessor": {
-    "type": "jsonLogic",
-    "rule": {
-      "round": [5.32914124, 2]
-    }
-  }
-}
-
-```
-
-returns:
-
-```json
-5.33
-```
-

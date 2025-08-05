@@ -49,6 +49,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Omit fields](doc:jsonlogic#omit-fields)     | ✅                                       | ✅                                                    | ✅                                  |
 | [Pick Fields](doc:jsonlogic#pick-fields)     | ✅                                       | ✅                                                    | ✅                                  |
 | [Replace](doc:jsonlogic#replace)             | ✅                                       | ✅                                                    | ✅                                  |
+| Round                                        |                                         |                                                      |                                    |
 | [Sort By](doc:jsonlogic#sort-by)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                  |
 
@@ -936,8 +937,8 @@ One of the following syntaxes:
 {
     "replace": {
         "source": JsonLogic,
-        "find": string, // or JsonLogic that evaluates to string
-        "replace": string // or JsonLogic that evaluates to string
+        "find": /* string or JsonLogic that evaluates to string */
+        "replace": /* string or JsonLogic that evaluates to string */
     }
 }
 ```
@@ -949,8 +950,8 @@ Or:
     "replace": {
         "source": JsonLogic,
         "find_regex": regex,
-        "replace": string, // or JsonLogic that evaluates to string
-        "flags": "i" // optional
+        "replace": /* string or JsonLogic that evaluates to string */
+        "flags": "i" /* optional */
     }
 }
 ```
@@ -963,6 +964,37 @@ Where `regex` is a Javascript-flavored regular expression. Double escape special
 ### Examples
 
  See [Custom Computation](doc:custom-computation#examples).
+
+## Round
+
+Rounds the specified numeric value. Takes as input the number to round and the number of decimal places to which to round. 
+
+```json
+"round": [/* number to round */, /* number of decimal places to round to */]
+```
+
+For example:
+
+```json
+{
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "round": [5.32914, 2]
+    }
+  }
+}
+
+```
+
+returns:
+
+```json
+5.33
+```
+
+
 
 ## Sort By
 
