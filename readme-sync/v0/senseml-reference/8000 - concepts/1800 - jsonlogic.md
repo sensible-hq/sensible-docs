@@ -970,7 +970,9 @@ Where `regex` is a Javascript-flavored regular expression. Double escape special
 Rounds the specified numeric value. Takes as input the number to round and the number of decimal places to which to round. 
 
 ```json
-"round": [/* number to round */, /* number of decimal places to round to */]
+{ 
+    "round": [/* number to round */, /* number of decimal places to round to */]
+}
 ```
 
 For example:
