@@ -292,7 +292,7 @@ The following image shows the example document used with this example config:
 
 ## Repeat match
 
-Matches the nth occurrence of a string. This is a more concise syntactical alternative to a match array.
+Matches the nth occurrence of a string. This is a more concise syntactical alternative to a [match array](doc:match-arrays).
 
 **Parameters**
 
