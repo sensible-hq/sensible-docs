@@ -331,7 +331,7 @@ The following example shows matching the fifth occurrence of the string "custome
 
 ```
 
-Sensible automatically expands this syntax as follows:
+Sensible automatically expands this match syntax as follows:
 
 ```json
       "anchor": {
