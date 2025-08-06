@@ -3,53 +3,6 @@ title: "drafts"
 hidden: true
 ---
 
-## Repeat match
-
-
-Matches the nth consecutive occurrence of a string.
-
-**Parameters**
-
-| key                  | values   | description                                                  |
-| -------------------- | -------- | ------------------------------------------------------------ |
-| type (**required**)  | `repeat` |                                                              |
-| times (**required**) | integer  | Number of times the string must consecutively occur. TODO: how to say it must be startsWith |
-
-**Example**
-
-```json
-{
-    "type": "repeat",
-    "times": 5,
-    "match": {
-        "type": "startsWith",
-        "text": "Value:"
-    }
-}
-```
-
-
-
-expands to:
-
-```json
-[
-          { "type": "startsWith", "text": "Value:" },
-          { "type": "startsWith", "text": "Value:" },
-          { "type": "startsWith", "text": "Value:" },
-          { "type": "startsWith", "text": "Value:" },
-          { "type": "startsWith", "text": "Value:" }
-]
-```
-
-
-
-https://dev.sensible.so/editor/?d=frances_playground&c=repeat_matcher&g=repeat&om=2
-
-
-
-![image-20250804115220053](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250804115220053.png)
-
 
 
 ## detect lines
@@ -62,11 +15,27 @@ https://dev.sensible.so/editor/?d=frances_playground&c=repeat_matcher&g=repeat&o
 |                           |                                               |                                                              |
 |                           |                                               |                                                              |
 
-**EXAMPLE**
+## Examples
 
-TODO: make it into a footnote for the smaller font?
+## TBD example
 
-https://dev.sensible.so/editor/?d=frances_playground&c=text_table_multi_gap&g=multicolumn&om=2 
+The following example shows TBD
 
-![image-20250804113716033](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20250804113716033.png)
+**Config**
+
+```json
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TB_D.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TB_D.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+```
 
