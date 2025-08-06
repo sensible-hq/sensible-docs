@@ -37,7 +37,7 @@ The following example shows TBD
       "method": {
         "id": "textTable",
         /* ensures small fonts are recognized as 
-        belonging to a cell rather than their own row. To determine the numeric value, measure the gap between the small font-line and the larger-font line that succeeds it, and set this value to be a little larger than that gap */
+        belonging to a cell rather than their own row. To determine the numeric value, measure the gap in inches between the small font-line and the larger-font line that succeeds it, and set this value to be a little larger than that gap */
        "detectMultipleLinesPerRow": { "maxGap": 0.2 },
         "stop": "for more details",
         "columns": [
