@@ -11,7 +11,7 @@ hidden: true
 
 |                           |                                               |                                                              |
 | ------------------------- | --------------------------------------------- | ------------------------------------------------------------ |
-| detectMultipleLinesPerRow | boolean<br/>or<br/>object<br/> default: false | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row. In detail, Sensible detects that a cell contains multiple lines if the vertical gap between two lines is less than half the height of the second line.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same height as row gutters, Sensible can incorrectly merge multiple rows into one.<br/><br/>To configure the vertical gap, you can set `"detectMultipleLinesPerRow": {"maxGap": /* fraction_of_inches */ } `. If configured, Sensible considers multiple lines to belong to the same cell if the vertical gap between each line in the cell is less than or equal to the specified number in inches. Configure this parameter to account for varying font sizes in a multi-line cell. Make sure that the gap you specify is smaller than the vertical gap between rows. Specify the maxiumum allowable vertical gap between newlines in a cell; above that threshold, Sensible identifies a vertical gap as seprating rows from each other than than newlines in a single cell. TODO: "line" could mean sensible-specific or it could mean newline; specify it means NEWLINES. |
+| detectMultipleLinesPerRow | boolean<br/>or<br/>object<br/> default: false | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row. In detail, Sensible detects that a cell contains multiple lines if the vertical gap between two lines is less than half the height of the second line.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same height as row gutters, Sensible can incorrectly merge multiple rows into one.<br/><br/>To configure the vertical gap, you can set `"detectMultipleLinesPerRow": {"maxGap": /* fraction_of_inches */ } `. If configured, Sensible considers multiple lines to belong to the same cell if the vertical gap between each line in the cell is less than or equal to the specified number in inches. Configure this parameter to account for varying font sizes in a multi-line cell. Make sure that the gap you specify is smaller than the vertical gaps that separate rows. |
 |                           |                                               |                                                              |
 |                           |                                               |                                                              |
 
@@ -24,6 +24,44 @@ The following example shows TBD
 **Config**
 
 ```json
+{
+  "fields": [
+    {
+      "id": "table_test",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "disability"
+        }
+      },
+      "method": {
+        "id": "textTable",
+        /* ensures small fonts are recognized as 
+        belonging to a cell rather than their own row */
+       "detectMultipleLinesPerRow": { "maxGap": 0.2 },
+        "stop": "for more details",
+        "columns": [
+          {
+            "id": "col1",
+            "minX": 1,
+            "maxX": 2.9
+          },
+          {
+            "id": "col2",
+            "minX": 2.9,
+            "maxX": 5.7
+          },
+          {
+            "id": "col3",
+            "minX": 5.7,
+            "maxX": 9
+          }
+        ]
+      }
+    }
+  ]
+}
+
 ```
 
 **Example document**
@@ -37,5 +75,71 @@ The following image shows the example document used with this example config:
 **Output**
 
 ```json
+{
+  "table_test": {
+    "columns": [
+      {
+        "id": "col1",
+        "values": [
+          null,
+          {
+            "value": "Employee benefit",
+            "type": "string"
+          },
+          {
+            "value": "Common carrier",
+            "type": "string"
+          },
+          {
+            "value": "Benefit reduction",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "col2",
+        "values": [
+          {
+            "value": "Employees paid 100k",
+            "type": "string"
+          },
+          {
+            "value": "100% of salary, max $100k After a 3 month waiting period",
+            "type": "string"
+          },
+          {
+            "value": "Not included",
+            "type": "string"
+          },
+          {
+            "value": "See table C. Not adjusted for inflation",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "col3",
+        "values": [
+          {
+            "value": "All other employees",
+            "type": "string"
+          },
+          {
+            "value": "50% of salary, max $50k After a 3 month waiting period",
+            "type": "string"
+          },
+          {
+            "value": "Not included",
+            "type": "string"
+          },
+          {
+            "value": "See table C. Not adjusted for inflation",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
