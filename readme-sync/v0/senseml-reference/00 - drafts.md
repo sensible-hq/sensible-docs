@@ -11,15 +11,15 @@ hidden: true
 
 |                           |                                               |                                                              |
 | ------------------------- | --------------------------------------------- | ------------------------------------------------------------ |
-| detectMultipleLinesPerRow | boolean<br/>or<br/>object<br/> default: false | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row. In detail, Sensible detects that a cell contains multiple lines if the vertical gap between two lines is less than half the height of the second line.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same height as row gutters, Sensible can incorrectly merge multiple rows into one.<br/><br/>To configure the vertical gap, you can set `"detectMultipleLinesPerRow": {"maxGap": /* fraction_of_inches */ } `. If configured, Sensible considers multiple lines to belong to the same cell if the vertical gap between each line in the cell is less than or equal to the specified number in inches. Configure this parameter to account for varying font sizes in a multi-line cell. Make sure that the gap you specify is smaller than the vertical gaps that separate rows. |
+| detectMultipleLinesPerRow | boolean<br/>or<br/>object<br/> default: false | If true, Sensible detects table cells containing newlines, rather than the default of treating each newline as a new row. In detail, Sensible detects that a cell contains newlines if the vertical gap between two lines is less than half the height of the second line.<br/><br/>To troubleshoot multiline cell recognition, you can configure a Max Gap parameter that specifies the maximum allowable vertical gap between newlines in a cell. For example, use this parameter to account for varying font sizes in a multi-line cell.  Ensure that the gap you specify is smaller than the vertical gaps between rows. For example, if the vertical gaps between rows are 0.3 inches, specify 0.2 inches as follows: <br/> `"detectMultipleLinesPerRow": {"maxGap": 0.2 }`.<br/>For an example, see TODO - LINK TO EXAMPLE ON PUBLISH |
 |                           |                                               |                                                              |
 |                           |                                               |                                                              |
 
 ## Examples
 
-## TBD example
+### Example: Troubleshoot newline recognition
 
-The following example shows TBD
+The following example shows handling newlines in a cell with varying font sizes using the Max Gap parameter.
 
 **Config**
 
