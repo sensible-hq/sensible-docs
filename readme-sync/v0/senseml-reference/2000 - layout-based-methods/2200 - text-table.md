@@ -243,7 +243,7 @@ The following image shows the example document used with this example config:
 
 ## Example: Troubleshoot newlines
 
-The following example shows handling newlines in a cell with varying font sizes using the Max Gap parameter.
+The following example shows handling newlines in a cell with varying font sizes using the Max Gap parameter. This ensures that smaller fonts are recognized as belonging to a cell rather than defining their own row.
 
 **Config**
 
