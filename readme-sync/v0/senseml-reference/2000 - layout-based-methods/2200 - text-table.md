@@ -260,8 +260,7 @@ The following example shows handling newlines in a cell with varying font sizes 
       },
       "method": {
         "id": "textTable",
-        /* ensures small fonts are recognized as 
-        belonging to a cell rather than their own row. To determine the numeric value, measure the gap in inches between the small font-line and the larger-font line that succeeds it, and set this value to be a little larger than that gap */
+        /* ensures Sensible detects a small-font newline as part of a cell rather than as a new row. Configure a value that's a little larger than the vertical gap in inches between the smaller-font and the larger-font lines. */
        "detectMultipleLinesPerRow": { "maxGap": 0.2 },
         "stop": "for more details",
         "columns": [
