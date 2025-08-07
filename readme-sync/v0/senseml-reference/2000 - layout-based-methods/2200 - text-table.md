@@ -141,12 +141,10 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Example 2
----
-
-This example shows defining two columns with the same coordinates, in order to split data in the column into two columns determined by type.
+## Example 2
 
 
+This example shows defining two columns with the same coordinates, in order to split data in the column into two columns determined by type. In this case, you output the issuing financial institution and the displayed account number as separate columns.
 
 **Config**
 
@@ -243,11 +241,7 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
-You can output the issuing financial institution and the displayed account number as separate columns, with a configuration like the following configuration.
-
-### Example: Troubleshoot newlines
+## Example: Troubleshoot newlines
 
 The following example shows handling newlines in a cell with varying font sizes using the Max Gap parameter.
 
