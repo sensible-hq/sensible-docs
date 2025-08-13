@@ -69,7 +69,7 @@ Parameters
 | id (**required**)     | `queryGroup`                                                 |                                                              |                                                              |
 | queries               | array of objects                                             | An array of query objects, where each extracts a single fact and outputs a single field. Each query contains the following parameters:<br/>`id` (**required**) - The ID for the extracted field. <br/>`description`  (**required**) - A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`. For more information about how to write questions (or "prompts"), see [Query Group](https://docs.sensible.so/docs/query-group-tips) extraction tips. |                                                              |
 |                       |                                                              | ***CHAIN PROMPTS***                                          |                                                              |
-| source_ids            | array of field IDs in the current config                     | If specified, prompts an LLM to extract data from another field's output. For example, if you extract a field `_checking_transactions` and specify it in this parameter, then Sensible searches for the answer to `what is the largest transaction?` in `_checking_transactions`, rather than searching the whole document to locate the [context](doc:prompt). Note that the `_checking_transactions` field must precede the `largest_transaction` field in the fields array in this example. <br/><br/>Use this parameter to:<br/> - narrow down the [context](doc:prompt) for your prompts to a specific part of the document. <br/>-  reformat or otherwise transform the outputs of other fields. For example, you can use this as an alternative to types such as the  [Compose](doc:types#compose) type with prompts such as `if the context includes a date, return it in mm/dd/yyy format`.<br/>-  troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array. <br/>To extract repeating data, such as a list, specify the Source Ids parameter for the [List](doc:list#parameters) method rather than for the Query Group method. <br/><br/>For an example, see [Examples](doc:query-group#example-transform-fields). | If you configure this parameter, then the following parameters aren't supported:<br/>- Anchor parameter in the field<br/>- Confidence Signals<br/>- Multimodal Engine parameter <br/>- Search By Summarization parameter<br/>- Page Range parameter |
+| source_ids            | array of field IDs in the current config<br/>or<br/>object   | If specified, prompts an LLM to extract data from another field's output. For example, if you extract a field `_checking_transactions` and specify it in this parameter, then Sensible searches for the answer to `what is the largest transaction?` in `_checking_transactions`, rather than searching the whole document to locate the [context](doc:prompt). Note that the `_checking_transactions` field must precede the `largest_transaction` field in the fields array in this example. For more information about this example, see [Example: Transform fields](doc:query-group#example-transform-fields).<br/><br/>You can use a JavaScript-flavored regular expression to specify all field IDs that contain a pattern.  For example, if you extract all wages fields from a W-2 tax form, Sensible can expand the following syntax:<br/> `"source_ids": { "pattern": ".*wage.*" }`<br/>  to the following array:<br/> `"source_ids": ["wages_tips", "medicare_wages", "ss_wages", "state_wages"]`.<br/>When you use regex, Sensible populates the IDs in the array in the same order in which they're defined in the config.  For more information about this example, see [Example: Chain prompts with regex](doc:query-group#chain-prompts-with-regex) .<br/><br/>To extract repeating data, such as a list, specify the Source Ids parameter for the [List](doc:list#parameters) method rather than for the Query Group method. <br/><br/>For more information about chaining prompts, see [Advanced LLM prompt configuration](doc:prompt#locate-context-by-pipelining-prompts). | If you configure this parameter, then the following parameters aren't supported:<br/>- Anchor parameter in the field<br/>- Confidence Signals<br/>- Multimodal Engine parameter <br/>- Search By Summarization parameter<br/>- Page Range parameter |
 |                       |                                                              | ***EXTRACT FROM IMAGES***                                    |                                                              |
 | multimodalEngine      | object                                                       | Configure this parameter to:<br/>- Extract data from images embedded in a document, for example, photos, charts, or illustrations.<br/>- Troubleshoot extracting from complex text layouts, such as overlapping lines, lines between lines, and handwriting. For example, use this as an alternative to the [Signature](doc:signature) method, the [Nearest Checkbox](doc:nearest-checkbox) method, the [OCR engine](doc:ocr-engine), and line [preprocessors](doc:preprocessors).<br/><br/>This parameter sends an image of the document region containing the target data to a multimodal LLM (GPT-4o mini), so that you can ask questions about text and non-text images. This bypasses Sensible's [OCR](doc:ocr) and direct-text extraction processes for the region. <br/>This parameter has the following parameters:<br/><br/>- `region`: The document region to send as an image to the multimodal LLM. Configurable with the following options :<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;- To automatically select top-scoring document chunks as the region, specify `"region": "automatic"`. If you configure this option, then help Sensible locate the region by including queries in the group that target text [lines](doc:lines) near the image you want to extract from. <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;- To manually specify a region, specify an [anchor](doc:anchor) close to the region you want to capture. Specify the region's dimensions in inches relative to the anchor using the [Region](doc:region) method's parameters, for example:<br/>`"region": { `<br/>          `"start": "below",`<br/>          `"width": 8,`<br/>          `"height": 1.2,`<br/>          `"offsetX": -2.5,`<br/>         `"offsetY": -0.25`<br/>          `}`<br/><br/><br/>- `onlyImages`: boolean. default: false. Configure this to troubleshoot image resolution. If set to true, Sensible sends only the images it detects overlapping the region and omits any [lines](doc:lines) overlapping the region. Sends the images at their original resolution. For an example, see [Example: troubleshoot image resolution](doc:query-group#example-troubleshoot-image-resolution). | If you configure this parameter, then the Confidence Signals parameter isn't supported. |
 |                       |                                                              | ***TROUBLESHOOT PROMPT***                                    |                                                              |
@@ -423,7 +423,7 @@ For an example of extracting visual data from a pie chart using the Multimodal E
 
 ## Example: Extract data from other fields
 
-The following example shows how to prompt an LLM to answer questions about another field's output.
+The following example shows how to chain prompts. It restricts an LLM's context for a prompt to another field's output.
 
 **Config**
 
@@ -683,6 +683,121 @@ The following image shows the example document used with this example config:
     "type": "string"
   },
   "daily_cost": null
+}
+```
+
+## Example: Chain prompts with regex
+
+The following example shows how to chain prompts using a regular expression. The example extracts wages fields from a W-2 tax form, then searches for all extracted field IDs that contain the string `"wages"` in order to sum their values. 
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "searchBySummarization": "page",
+        "queries": [
+          /* extract all wages fields */
+          {
+            "id": "wages_tips_compensation",
+            "description": "Total wages, tips, and other compensation"
+          },
+          {
+            "id": "fed_income tax_withheld",
+            "description": "federal income tax withheld"
+          },
+          {
+            "id": "social_security_wages",
+            "description": "Social security wages"
+          },
+          {
+            "id": "medicare_wages",
+            "description": "medicare wages and tips"
+          },
+          {
+            "id": "state_wages",
+            "description": "state wages and tips"
+          }
+        ]
+      }
+    },
+
+    {
+      "method": {
+        "id": "queryGroup",
+        /* regular expression to find all 
+        source IDs that include the string "wage"*/
+        "source_ids": { "pattern": ".*wage.*" },
+        "confidenceSignals": false,
+        "queries": [
+          {
+            /* chain prompts: calculate sums based 
+            on the extracted wages fields */
+            "id": "sum_wages",
+            "type": "string",
+            "description": "sum of all wages"
+          },
+          {
+            "id": "sum_wages_minus_medicare",
+            "type": "string",
+            "description": "sum of all wages excluding medicare wages and tips"
+          }
+        ]
+      }
+    }
+  ]
+}
+
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/source_fields_pattern.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/source_fields_pattern.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "wages_tips_compensation": {
+    "value": "69780.46",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "fed_income tax_withheld": {
+    "value": "5393.17",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "social_security_wages": {
+    "value": "77447.24",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "medicare_wages": {
+    "value": "22474.24",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "state_wages": {
+    "value": "68780.48",
+    "type": "string",
+    "confidenceSignal": "confident_answer"
+  },
+  "sum_wages": {
+    "value": "238482.42",
+    "type": "string"
+  },
+  "sum_wages_minus_medicare": {
+    "value": "216008.18",
+    "type": "string"
+  }
 }
 ```
 

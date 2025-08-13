@@ -61,7 +61,7 @@ Use this operation to add or subtract days, months, or years to a date.
 
 Takes as input:
 
-- a date. Can be any date string for which the Javascript `Date` objects ' `getTime()` function can return a number. For example, can be an ISO 8601-formatted Sensible [date type](doc:types#date), or `February 27, 2024` or `12-31-2022`.
+- a date. Can be any date string for which the JavaScript `Date` objects ' `getTime()` function can return a number. For example, can be an ISO 8601-formatted Sensible [date type](doc:types#date), or `February 27, 2024` or `12-31-2022`.
 
 - a number
 
@@ -573,7 +573,7 @@ Returns a boolean to indicate if the specified regular expression matches.
 {
     "match": [
        { /* JsonLogic that evaluates to the text in which to find the match */ },
-       " /* Javascript-flavored regular expression */ ",
+       " /* JavaScript-flavored regular expression */ ",
        " /* optional: case-insensitive flag (i) */ "
     ]
 }
@@ -956,7 +956,7 @@ Or:
 }
 ```
 
-Where `regex` is a Javascript-flavored regular expression. Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s`, to represent a whitespace character). This operation supports:
+Where `regex` is a JavaScript-flavored regular expression. Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s`, to represent a whitespace character). This operation supports:
 
 - regex capturing groups
 - regex flags, such as `i` for case insensitive. 

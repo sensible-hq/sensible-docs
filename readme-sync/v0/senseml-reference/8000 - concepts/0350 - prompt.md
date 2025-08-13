@@ -56,7 +56,7 @@ This strategy often outperforms the default approach to locating context. It's u
 
 ## Locate context by pipelining prompts
 
-When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields. 
+When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields.  By pipelining prompts, you can configure agentic workflows to extract document data.
 
 For example, you use the layout-based [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
 
@@ -75,12 +75,10 @@ If you create a Query Group method with the prompt `what is the best-selling sna
 
  Use other fields as context to: 
 
-- Reformat or otherwise transform the outputs of other fields.
-- Compute or generate new data from the output of other fields
-- Narrow down the context for your prompts to a specific part of the document.
-- Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array.
-
-To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods.
+- Narrow down the [context](doc:prompt) for your prompts to a specific part of the document.
+-  Reformat or otherwise transform the outputs of other fields. For example, you can use this as an alternative to types such as the  [Compose](doc:types#compose) type with prompts such as `if the context includes a date, return it in mm/dd/yyy format`.
+- Compute or generate new data from the output of other fields. For example, prompt an LLM to sum the output of the wages fields extracted from a tax form.
+-  Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array. 
 
 ## Locate multimodal (non-text) data
 

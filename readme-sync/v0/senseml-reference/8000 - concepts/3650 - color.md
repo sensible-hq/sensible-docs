@@ -127,7 +127,7 @@ The query used for the preceding image is:
   "fields": [
     {
       "id": "filtered_by_tiebreaker",
-      "anchor": "Javascript",
+      "anchor": "javascript",
       "method": {
         "id": "row",
         "position": "right",
