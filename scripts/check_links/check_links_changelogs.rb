@@ -79,23 +79,67 @@ else
   puts "No cache file found. This appears to be the first run."
 end
 
-json_string = all_changelogs.to_json
+# #################
+# Process URL replacements with tracking
+# #################
+puts "\nProcessing URL replacements..."
 
-# Remove relative links from the response and convert to absolute URL links
 replacements = [
   { "(doc:" => "(https://docs.sensible.so/docs/" },
   { "(ref:" => "(https://docs.sensible.so/reference/" },
   { "(changelog:" => "(https://docs.sensible.so/changelog/" }
 ]
 
-# Replace all instances of the strings
-replacements.each do |replacement|
-  replacement.each do |old, new_value|
-    json_string = JSON.parse(json_string.to_json.gsub(old, new_value))
+# Track replacements for each changelog
+replacement_count = 0
+total_replacements = 0
+
+# Process each changelog individually to track replacements
+all_changelogs.each_with_index do |changelog, index|
+  changelog_slug = changelog['slug'] || "changelog_#{index}"
+  changelog_replacements = []
+  
+  # Convert changelog to JSON string for processing
+  changelog_json = changelog.to_json
+  
+  # Apply each replacement and track changes
+  replacements.each do |replacement|
+    replacement.each do |old_pattern, new_pattern|
+      # Count occurrences before replacement
+      before_count = changelog_json.scan(old_pattern).length
+      
+      if before_count > 0
+        # Perform replacement
+        changelog_json = changelog_json.gsub(old_pattern, new_pattern)
+        changelog_replacements << {
+          pattern: old_pattern,
+          replacement: new_pattern,
+          count: before_count
+        }
+        total_replacements += before_count
+      end
+    end
+  end
+  
+  # Update the changelog object with processed content
+  all_changelogs[index] = JSON.parse(changelog_json)
+  
+  # Print replacement summary for this changelog
+  if changelog_replacements.any?
+    puts "📝 Changelog: #{changelog_slug}"
+    changelog_replacements.each do |repl|
+      puts "  └─ Replaced #{repl[:count]}x: #{repl[:pattern]} → #{repl[:replacement]}"
+    end
+    replacement_count += 1
   end
 end
 
-response_json = JSON.parse(json_string)
+puts "\n📊 Replacement Summary:"
+puts "  Changelogs with replacements: #{replacement_count}/#{all_changelogs.length}"
+puts "  Total URL replacements made: #{total_replacements}"
+
+# Update response_json to use the processed changelogs
+response_json = all_changelogs
 
 # Create output directory for changelogs
 rel_path = "out_changelogs"
@@ -113,7 +157,7 @@ for page in response_json do
 end
 
 # List created files
-puts "Created changelog files:"
+puts "\nCreated changelog files:"
 Dir.entries(rel_path).each do |file_name|
   next if file_name == "." || file_name == ".."
   puts "  #{file_name}"
