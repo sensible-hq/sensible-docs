@@ -79,7 +79,7 @@ else
   puts "No cache file found. This appears to be the first run."
 end
 
-json_string = response_json.to_json
+json_string = all_changelogs.to_json
 
 # Remove relative links from the response and convert to absolute URL links
 replacements = [
