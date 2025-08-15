@@ -85,6 +85,9 @@ end
 puts "\nProcessing URL replacements..."
 
 replacements = [
+  { 'href="/docs/' => 'href="https://docs.sensible.so/docs/' },
+  { 'href="/reference/' => 'href="https://docs.sensible.so/reference/' },
+  { 'href="/changelog/' => 'href="https://docs.sensible.so/changelog/' },
   { "(doc:" => "(https://docs.sensible.so/docs/" },
   { "(ref:" => "(https://docs.sensible.so/reference/" },
   { "(changelog:" => "(https://docs.sensible.so/changelog/" }
@@ -99,18 +102,18 @@ all_changelogs.each_with_index do |changelog, index|
   changelog_slug = changelog['slug'] || "changelog_#{index}"
   changelog_replacements = []
   
-  # Convert changelog to JSON string for processing
-  changelog_json = changelog.to_json
+  # Get the HTML content for processing
+  html_content = changelog['html'] || ''
   
   # Apply each replacement and track changes
   replacements.each do |replacement|
     replacement.each do |old_pattern, new_pattern|
       # Count occurrences before replacement
-      before_count = changelog_json.scan(old_pattern).length
+      before_count = html_content.scan(Regexp.escape(old_pattern)).length
       
       if before_count > 0
         # Perform replacement
-        changelog_json = changelog_json.gsub(old_pattern, new_pattern)
+        html_content = html_content.gsub(old_pattern, new_pattern)
         changelog_replacements << {
           pattern: old_pattern,
           replacement: new_pattern,
@@ -121,8 +124,8 @@ all_changelogs.each_with_index do |changelog, index|
     end
   end
   
-  # Update the changelog object with processed content
-  all_changelogs[index] = JSON.parse(changelog_json)
+  # Update the changelog object with processed HTML content
+  all_changelogs[index]['html'] = html_content
   
   # Print replacement summary for this changelog
   if changelog_replacements.any?
