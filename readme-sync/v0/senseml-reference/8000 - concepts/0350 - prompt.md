@@ -126,7 +126,7 @@ Tracing the document's source text, or *context*, for an LLM's answer can help y
 
 You can view the source text for an LLM's answer highlighted in the document:
 
-- In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:color#location-highlighting).
+- In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:color#location-highlighting). [.](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/diagrams_mermaid/readme1.txt) 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_location.png)
 
