@@ -51,4 +51,4 @@ options = {
 
 puts "\nChecking guide links..."
 HTMLProofer.check_directory("./out", options).run
-puts "Guide link checking complete!"
+puts "Guide link checking complete! Skipped hidden files"
