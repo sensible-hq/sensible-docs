@@ -1,25 +1,22 @@
-name: Link checking - changelogs
+name: Changelog Link Checking
 on:
   push:
     branches:
       - main
-    paths:
-      - 'readme-sync/v0/**.md'
 jobs:
-  check-links:
+  check-changelog-links:
     runs-on: ubuntu-latest
     steps:
-      # get the changelogs and save locally so you can check those links
       - name: Checkout 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: '3.0'
           bundler-cache: true
       - name: Install dependencies 🔧
-        run: cd ./scripts/check_links_changelog/ && bundle install
-      - name: Build HTML frm markdown and check links 🏗
-        run: ruby ./scripts/check_links/check_links.rb
+        run: cd ./scripts/check_links/ && bundle install
+      - name: Check changelog links 🔗
+        run: ruby ./scripts/check_links/check_links_changelogs.rb
         env:
-          README_API_KEY: ${{ secrets.README_API_KEY}}
+          README_API_KEY: ${{ secrets.README_API_KEY }}
