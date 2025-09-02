@@ -155,6 +155,7 @@ b. For the configuration, paste in the following code:
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "applicant_name",

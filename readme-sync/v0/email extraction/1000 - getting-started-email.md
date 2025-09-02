@@ -82,6 +82,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
              {
                "method": {
                  "id": "queryGroup",
+                 "searchBySummarization": "page",
                  "queries": [
                    {
                      "id": "tenancy_terms_start",
@@ -121,6 +122,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "applicant_name",

@@ -73,6 +73,7 @@ For example, you parse automotive repair invoices. For most auto shops' invoices
       "anchor": "Andy & Son's",
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "parts_total_price",
@@ -85,6 +86,7 @@ For example, you parse automotive repair invoices. For most auto shops' invoices
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             /* this field runs only if the previous

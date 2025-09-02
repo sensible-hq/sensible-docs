@@ -79,6 +79,7 @@ This example uses the following config:
            are co-located in the document
         */
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "policy_period",

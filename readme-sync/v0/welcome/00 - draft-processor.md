@@ -33,6 +33,7 @@ A *processor* is an API endpoint that you configure for extracting data from a g
       {
         "method": {
           "id": "queryGroup",
+          "searchBySummarization": "page",
           "queries": [
             {
               "id": "customer_name",

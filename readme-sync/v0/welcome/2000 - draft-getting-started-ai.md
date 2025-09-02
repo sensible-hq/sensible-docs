@@ -54,6 +54,7 @@ To extract short, simple facts, author queries.  Group them in a Query Group met
 {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "bank_name",

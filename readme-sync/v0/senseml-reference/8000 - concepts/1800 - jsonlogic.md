@@ -467,6 +467,7 @@ The following example shows extracting fields, then modifying the key and the va
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             /* extract fields */
@@ -769,6 +770,7 @@ The following example shows removing extracted IDs from the [postprocessed](doc:
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "state",

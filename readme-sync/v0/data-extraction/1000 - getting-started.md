@@ -83,6 +83,7 @@ For this tutorial, you'll extract these fields:
       "method": {
         /* for this LLM-based method, no anchor is necessary */
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             /* describe target data for AI to extract */
@@ -236,6 +237,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
  {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "bodily_injury_premium",

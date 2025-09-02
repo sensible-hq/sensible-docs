@@ -64,6 +64,7 @@ The following example shows using the Summarizer method to:
       "method": {
         /* get the high school's info */
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "high_school_name",

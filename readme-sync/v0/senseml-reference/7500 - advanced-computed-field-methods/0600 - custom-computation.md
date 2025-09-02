@@ -36,6 +36,7 @@ The following example shows  defining custom computed fields.
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "prop_limit_a",
@@ -237,18 +238,21 @@ The following image shows the example document used with this example config:
     "source": "$5,000",
     "value": 5000,
     "unit": "$",
-    "type": "currency"
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
   },
   "injury_limit_a": {
     "source": "$3,000",
     "value": 3000,
     "unit": "$",
-    "type": "currency"
+    "type": "currency",
+    "confidenceSignal": "confident_answer"
   },
   "vehicle_vin_a": {
     "source": "12345678",
     "value": 12345678,
-    "type": "number"
+    "type": "number",
+    "confidenceSignal": "confident_answer"
   },
   "table_b": {
     "columns": [

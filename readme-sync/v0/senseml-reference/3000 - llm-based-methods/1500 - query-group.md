@@ -95,8 +95,7 @@ The following example shows extracting structured data from real estate photogra
     {
       "method": {
         "id": "queryGroup",
-        /* send document chunks as context to the LLM */
-        "chunkCount": 2,
+        "searchBySummarization": "page",
         /* Use a multimodal LLM to extract data about a photograph embedded in a document, 
           for example the presence or absence of trees in the photo. */
         "multimodalEngine": {
@@ -106,6 +105,8 @@ The following example shows extracting structured data from real estate photogra
            in the group that target text near the image */
           "region": "automatic"
         },
+        // multimodal egnine doesn't support confidence signals
+        "confidenceSignals": false,
         "queries": [
           {
             "id": "trees_present",
@@ -123,20 +124,16 @@ The following example shows extracting structured data from real estate photogra
             "type": "string"
           },
           {
-            "id": "ownership_upgrades",
-            "description": "give one example of an existing upgrade that current ownership made",
-            "type": "string"
-          },
-          {
             "id": "exterior",
             "description": "what is the exterior of the building made of (walls, not roof)?",
             "type": "string"
-          },
+          }
         ]
       }
-    },
+    }
   ]
 }
+
 ```
 
 **Example document**
@@ -153,28 +150,19 @@ The following image shows the example document used with this example config:
 {
   "trees_present": {
     "value": "true",
-    "type": "string",
-    "confidenceSignal": "not_supported"
+    "type": "string"
   },
   "multistory": {
     "value": "true",
-    "type": "string",
-    "confidenceSignal": "not_supported"
+    "type": "string"
   },
   "community_amenities": {
-    "value": "Gated perimeter with key card access",
-    "type": "string",
-    "confidenceSignal": "not_supported"
-  },
-  "ownership_upgrades": {
-    "value": "New Signage and Landscaping Enhancements",
-    "type": "string",
-    "confidenceSignal": "not_supported"
+    "value": "Playground",
+    "type": "string"
   },
   "exterior": {
     "value": "brick",
-    "type": "string",
-    "confidenceSignal": "not_supported"
+    "type": "string"
   }
 }
 ```
@@ -187,15 +175,6 @@ The following example shows using a multimodal LLM to extract from a scanned doc
 
 ```json
 {
-  "preprocessors": [
-    /* Returns confidence signals, or LLM accuracy qualifications,
-       for all supported fields. Note that confidence signals aren't supported
-       for the Multimodal Engine parameter */
-    {
-      "type": "nlp",
-      "confidenceSignals": true
-    }
-  ],
   "fields": [
     {
       /* use an anchor match to locate the 
@@ -240,6 +219,7 @@ The following example shows using a multimodal LLM to extract from a scanned doc
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "ownership_type_no_multimodal",
@@ -276,19 +256,19 @@ The following image shows the example document used with this example config:
     "confidenceSignal": "not_supported"
   },
   "owner_name": {
-    "value": "Kyle Murray",
+    "value": "Kyler Murray",
     "type": "string",
     "confidenceSignal": "not_supported"
   },
   "ownership_type_no_multimodal": {
-    "value": "Natural Person(s) UGMA/UTMACustodian Trust",
+    "value": "Natural Person(s) UGMA/UTMACustodian Trust - (If selecting a Trust, submit the Certificate of Entity Ownership for Trusts form with this application.)",
     "type": "string",
     "confidenceSignal": "confident_answer"
   },
   "owner_name_no_multimodal": {
-    "value": "Mylic Cardinals Dr Glendale A2 85305",
+    "value": "Mylic",
     "type": "string",
-    "confidenceSignal": "confident_answer"
+    "confidenceSignal": "answer_may_be_incomplete"
   }
 }
 ```
@@ -308,6 +288,7 @@ The following example shows using the Query Group method to extract information 
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "queries": [
           {
             "id": "tenancy_terms_start",
@@ -485,6 +466,7 @@ The following example shows how to chain prompts. It restricts an LLM's context 
     {
       "method": {
         "id": "queryGroup",
+        "searchBySummarization": "page",
         "confidenceSignals": false,
         /* for contrast, if you query the whole document rather than the 
            transactions table, you get incorrect answers  */
@@ -539,7 +521,7 @@ The following image shows the example document used with this example config:
   },
   "freq_merchant": null,
   "max_transaction_amount": {
-    "value": "$604.47",
+    "value": "$6,186.83",
     "type": "string"
   }
 }
