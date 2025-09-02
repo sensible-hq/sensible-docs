@@ -417,6 +417,7 @@ The following example shows how to chain prompts. It restricts an LLM's context 
       "type": "table",
       "method": {
         "id": "list",
+        "searchBySummarization": "page",
         "description": "transactions detail",
         "properties": [
           {
