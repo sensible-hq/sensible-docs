@@ -34,41 +34,41 @@ The following example shows using a Cell Rows field to extract rows from a sprea
     {
       "id": "bestselling_books",
       "type": "cellRows",
-      /* Sensible extracts specified cells from all the rows under the row that contains the matching strings "book" and "author", until the end of the document */
+      /* specify the column headings row: contains the lines 'author(s)' and 'genre */
       "headerRow": {
         "match": [
           {
             "type": "startsWith",
-            "text": "book"
+            "text": "author"
           },
           {
-            "type": "startsWith",
-            "text": "author"
+            "type": "includes",
+            "text": "genre"
           }
-        ],
+        ]
       },
       "fields": [
         {
-          "id": "book",
+          "id": "book_title",
           "method": {
             "id": "cell",
-            /* for each row, extract the cell under the header that starts with 
-               the text `book` (skips empty rows)  */
+            /* extract all the cells under the column header that starts with 
+               the text `book` until the end of the sheet (skips empty rows)  */
             "header": {
               "type": "startsWith",
-              "text": "book",
-            },
+              "text": "book"
+            }
           }
         },
         {
           "id": "first_published",
           "method": {
             "id": "cell",
-            /* for each row, extract the cell under the header containing `published` */
+            /* extract the cells under the header containing `published` */
             "header": {
               "type": "includes",
-              "text": "published",
-            },
+              "text": "published"
+            }
           }
         },
         {
@@ -77,12 +77,12 @@ The following example shows using a Cell Rows field to extract rows from a sprea
           "id": "_sales_raw",
           "method": {
             "id": "cell",
-            /* for each row, extract the cell under the header that starts with 
-               the text `approximate` (skips empty rows)  */
+            /* extract the cells under the header that starts with 
+               the text `approximate`  */
             "header": {
               "type": "startsWith",
-              "text": "approximate",
-            },
+              "text": "approximate"
+            }
           }
         },
         {
@@ -102,15 +102,14 @@ The following example shows using a Cell Rows field to extract rows from a sprea
           "id": "hide_fields",
           "method": {
             "id": "suppressOutput",
-            "source_ids": [
-              "_sales_raw"
-            ]
+            "source_ids": ["_sales_raw"]
           }
         }
       ]
-    },
+    }
   ]
 }
+
 ```
 
 **Example document**
@@ -127,7 +126,7 @@ The following image shows the example document used with this example config:
 {
   "bestselling_books": [
     {
-      "book": {
+      "book_title": {
         "value": "A Tale of Two Cities",
         "type": "string"
       },
@@ -141,7 +140,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Little Prince (Le Petit Prince)",
         "type": "string"
       },
@@ -155,7 +154,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Alchemist (O Alquimista)",
         "type": "string"
       },
@@ -169,7 +168,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "Harry Potter and the Philosopher's Stone",
         "type": "string"
       },
@@ -183,7 +182,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "And Then There Were None",
         "type": "string"
       },
@@ -197,7 +196,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "Dream of the Red Chamber (紅樓夢)",
         "type": "string"
       },
@@ -211,7 +210,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Hobbit",
         "type": "string"
       },
@@ -225,7 +224,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "Alice's Adventures in Wonderland",
         "type": "string"
       },
@@ -239,7 +238,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "Between 50 million and 100 million copies",
         "type": "string"
       },
@@ -247,7 +246,7 @@ The following image shows the example document used with this example config:
       "sales": null
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Lion, the Witch and the Wardrobe",
         "type": "string"
       },
@@ -261,7 +260,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "She: A History of Adventure",
         "type": "string"
       },
@@ -275,7 +274,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Da Vinci Code",
         "type": "string"
       },
@@ -289,7 +288,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "Harry Potter and the Chamber of Secrets",
         "type": "string"
       },
@@ -303,7 +302,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Catcher in the Rye",
         "type": "string"
       },
@@ -317,7 +316,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Bridges of Madison County",
         "type": "string"
       },
@@ -331,7 +330,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "One Hundred Years of Solitude (Cien años de soledad)",
         "type": "string"
       },
@@ -345,7 +344,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "Lolita",
         "type": "string"
       },
@@ -359,7 +358,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "Heidi",
         "type": "string"
       },
@@ -373,7 +372,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "The Common Sense Book of Baby and Child Care",
         "type": "string"
       },
@@ -387,7 +386,7 @@ The following image shows the example document used with this example config:
       }
     },
     {
-      "book": {
+      "book_title": {
         "value": "attribution:",
         "type": "string"
       },
