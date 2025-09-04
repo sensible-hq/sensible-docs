@@ -3,11 +3,13 @@ title: "Spreadsheet extraction"
 hidden: false
 ---
 
-For large spreadsheets with tens of thousands of rows, the Cell Rows field type extracts rows under a specified column-headings row. Sensible extracts rows until the end of the document. The Cell Rows field type is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets.
+For large spreadsheets with tens of thousands of rows, the Cell Rows field type extracts cells under specified column headings. This method has the following limitations:
 
-**Notes**:
+- The spreadsheet must have a simple columnar layout, where the first row or rows contains your target column headers. This method extracts cells in each specified column until the end of the sheet. 
+- This method extracts solely from the first tab in multi-tab spreadsheets. 
+- You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types. This method doesn't support PDFs. 
 
-This method doesn't work with PDFs. You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types.
+The Cell Rows field type is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets. 
 
 Parameters
 ====
@@ -16,7 +18,7 @@ Parameters
 | key                      | value                                                        | description                                                  |
 | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet. Sensible ignores empty rows and extracts data under the specified Header Row to the end of the worksheet. |
-| type  (**required**)     | `cellRows`                                                   | Specifies that this field extracts spreadsheet rows.         |
+| type  (**required**)     | `cellRows`                                                   |                                                              |
 | headerRow (**required**) | Anchor object                                                | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects. |
 | headerRowsCount          | integer. default: 1                                          | Specifies the number of consecutive header rows. You can specify a match in the Field object's Header parameter for any header row. |
 | stop                     | [Match object](doc:match) or array of Match objects. default: none | Stops extraction at the end of the row above the matched line. Excludes the row containing the matched line. |
