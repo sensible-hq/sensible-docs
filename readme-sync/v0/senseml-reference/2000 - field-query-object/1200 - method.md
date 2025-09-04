@@ -3,7 +3,7 @@ title: "Method object"
 hidden: false
 ---
 
-A Method object defines how to extract target data. There are two broad categories of methods:
+A Method object defines how to extract target data. There are two primary categories of methods:
 
 |                         | [LLM-based methods](doc:llm-based-methods)                   | [Layout-based methods](doc:layout-based-methods)                          |
 | ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -39,7 +39,7 @@ Sort Lines example
 
 **PROBLEM**
 
-In the following example, the handwritten text "Nash" is slightly taller than the text "Steve", so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader) and outputs `"Nash Steve"` as the name:
+In the following example, the handwritten text "Nash" is slightly taller than the text "Steve" with the document type's [OCR engine](doc:ocr-engine) set to Google , so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader) and outputs `"Nash Steve"` as the name:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_1.png)
 
@@ -64,6 +64,8 @@ To reliably capture the first and last name in their left-to-right order,  set `
       },
       "method": {
         "id": "region",
+        /* when OCR Engine is set to Google, "Nash" is higher on the page than "Steve" 
+        use the Sort Lines parameter to avoid erroneously outputting "Nash Steve" */
         "sortLines": "readingOrderLeftToRight",
         "start": "left",
         "width": 2.5,
