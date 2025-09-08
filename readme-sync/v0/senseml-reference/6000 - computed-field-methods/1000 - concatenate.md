@@ -19,7 +19,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                       | value                                    | description                                                  |
 | :------------------------ | :--------------------------------------- | :----------------------------------------------------------- |
 | id (**required**)         | `concat`                                 |                                                              |
-| source_ids (**required**) | array of field IDs in the current config | The id of the fields to concatenate.<br/>You can use a JavaScript-flavored regular expression to specify all field IDs that contain a pattern.  For example,  to specify all the field IDs containing the text `wage` extracted from a W-2 form, you can write  `"source_ids": { "pattern": ".*wage.*" }`. For more information and an example, see [Example: Chain prompts with regex](doc:query-group#chain-prompts-with-regex). |
+| source_ids (**required**) | array of field IDs in the current config | The id of the fields to concatenate.<br/>You can use a JavaScript-flavored regular expression to specify all field IDs that contain a pattern.  For example,  to specify all the field IDs containing the text `wage` extracted from a W-2 form, you can write  `"source_ids": { "pattern": ".*wage.*" }`. For more information and an example, see [Example: Chain prompts with regex](doc:query-group#example-chain-prompts-with-regex). |
 | delimiter                 | string. default: " "                     | The delimiter with which to join the output of the source fields |
 
 Examples
