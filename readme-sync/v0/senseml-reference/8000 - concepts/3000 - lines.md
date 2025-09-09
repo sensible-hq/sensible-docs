@@ -5,7 +5,7 @@ hidden: false
 
 
 
-A *line* is a rectangular region containing text. Sensible represents line boundaries as gray boxes. Lines can occupy the same height on the page:
+A *line* is a rectangular region containing text. Sensible represents a line's boundary box as a gray box. Lines can occupy the same height on the page:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/line_concept.png)
 
