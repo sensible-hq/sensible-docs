@@ -24,7 +24,7 @@ Parameters
 | percentOverlapY | number. default: 0.8 | Configures strictness in the same manner as the Percent Overlap X parameter, but applies to height instead of width. |
 |                 |                      |                                                              |
 |                 |                      |                                                              |
-|                 |                      | *By default, Sensible determines that a box contains a line if their heights overlap by more than 80%  of the smaller of the two's height. Loosen the criteria if a line can partly fall outside a box. For example, if you set this parameter to 0.4, then Sensible determines that a box contains a line if they overlap by more than 40%  of the smaller of the two's height.* |
+|                 |                      |                                                              |
 
 Examples
 ====
