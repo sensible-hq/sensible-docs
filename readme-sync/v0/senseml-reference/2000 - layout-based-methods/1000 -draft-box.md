@@ -33,7 +33,7 @@ Examples
 
 ## Example: Lines overlapping box
 
-The following example shows TBD/TODO
+The following example shows extracting lines that partly fall inside a box.
 
 **Config**
 
