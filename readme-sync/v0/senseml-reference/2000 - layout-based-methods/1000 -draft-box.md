@@ -42,7 +42,6 @@ The following example shows extracting lines that partly fall inside a box.
   "fields": [
     {
       "id": "insured_item",
-      /* extract all text (minus anchor) in the box containing the text  "subject" */
       "anchor": "subject",
 
       "method": {
