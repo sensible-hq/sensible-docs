@@ -21,10 +21,10 @@ Parameters
 |                 |                      |                                                              |
 |                 |                      |                                                              |
 | percentOverlapX | number. default: 0.9 | Configures the strictness of the criteria by which a box "contains" a line using this parameter.<br/>By default, Sensible determines that a box contains a line if they overlap by more than 90%  of the smaller of the two's width. Loosen the criteria if a line can partly fall outside a box. For example,  if you set this parameter to 0.5, then Sensible determines that a box contains a line if they overlap by more than 50%  of the smaller of the two's width. Note the line must also meet the Percent Overlap Y parameter's criteria. See [Lines overlapping box](doc:box#example-lines-overlapping-box) for an example. |
-| percentOverlapY | number. default: 0.8 | Configures the strictness of the criteria by which a box "contains" a line using this parameter. For information about the criteria, see the [Region](doc:region) method.<br/>By default, Sensible determines that a box contains a line if their heights overlap by more than 80%  of the smaller of the two's height. Loosen the criteria if a line can partly fall outside a box. For example, if you set this parameter to 0.4, then Sensible determines that a box contains a line if they overlap by more than 40%  of the smaller of the two's height. Note the line must also meet the Percent Overlap X parameter's criteria. See [Lines overlapping box](doc:box#example-lines-overlapping-box) for an example. |
+| percentOverlapY | number. default: 0.8 | Configures strictness in the same manner as the Percent Overlap X parameter, but applies to height instead of width. |
 |                 |                      |                                                              |
 |                 |                      |                                                              |
-|                 |                      |                                                              |
+|                 |                      | *By default, Sensible determines that a box contains a line if their heights overlap by more than 80%  of the smaller of the two's height. Loosen the criteria if a line can partly fall outside a box. For example, if you set this parameter to 0.4, then Sensible determines that a box contains a line if they overlap by more than 40%  of the smaller of the two's height.* |
 
 Examples
 ====
