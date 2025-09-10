@@ -4,15 +4,7 @@ hidden: true
 
 ---
 
-Extract lines inside a box. This method works by default with boxes that have a light background and dark, continuous borders. 
-
-[**Parameters**](doc:box#parameters)
-[**Examples**](doc:box#examples)
-
-Parameters
-====
-
-**Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
+# WAIT TO PUBLISH until example works in prod (naming change)
 
 | key             | value                | description                                                  |
 | --------------- | -------------------- | ------------------------------------------------------------ |
@@ -53,7 +45,7 @@ The following example shows extracting lines that partly fall inside a box.
            line's widths must overlap in order to 
            extract the line.   
         */
-        "overlapX": 0.5
+        "percentOverlapX": 0.5
       }
     }
   ]
