@@ -15,7 +15,7 @@ Parameters
 | type (**required**)      | `splitLines`                                          | splits lines distributed along a horizontal axis.            |
 | minSpaces (**required**) | number                                                | The number of consecutive whitespace characters (`&#x20;`) at or above which to split lines. |
 | separator                | string                                                | Modifies the Min Spaces parameter to split on the specified character, for example "-", instead of the default whitespace character. For example, if you specify `"-"` for this parameter and `2` for the Min Spaces parameter, then Sensible splits lines when it finds `--`. |
-| match                    | A [Match](doc:match) object or array of Match objects | If specified, Sensible runs the Split Lines preprocessor on pages containing the matched text and ignores all other pages. For example, if a document contains a typewritten page while all other pages are digitally formatted, use the parameter to match and split lines on that page only. |
+| match                    | A [Match](doc:match) object or array of Match objects | If specified, Sensible runs the Split Lines preprocessor on pages containing the matched text and ignores all other pages. For example, if a document contains an unusually formatted page that differs from all other pages' formatting and that has undersplit lines, use the parameter to match and split lines on that page only. |
 
 Examples
 ====
