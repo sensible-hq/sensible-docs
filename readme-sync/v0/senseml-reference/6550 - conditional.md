@@ -25,7 +25,7 @@ fieldsOnFail: [] # fields to extract if the boolean is false
 
 ## Examples
 
-The following example shows using conditional execution to standardize output across two similar banks. Bank A lists deposits and withdrawals separately in statements, and bank B combines them in a transactions table.  The example transforms Bank B's output so it's consistent with Bank A.
+The following example shows using conditional execution to standardize output across two similar banks. Bank A lists deposits and withdrawals separately in statements, and bank B combines them in a transactions table.  The example transforms Bank B's output so it's consistent with Bank A's output.
 
 **Config**
 
