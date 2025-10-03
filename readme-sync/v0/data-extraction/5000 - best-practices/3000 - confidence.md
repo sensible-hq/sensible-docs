@@ -7,7 +7,7 @@ For data extracted by large language models (LLMs), Sensible asks the LLMs to re
 
 Note that LLMs can inaccurately report confidence signals.  For more information about confidence signals, see the research paper [Teaching models to express their uncertainties in words](https://arxiv.org/pdf/2205.14334.pdf). 
 
-Sensible support confidence signals for the Query Group method. To enable confidence signals for a field in the JSON editor, set the Query Group method's Confidence Signals parameter to true.
+Sensible support confidence signals for the Query Group method.
 
 For more information about troubleshooting confidence signals, see the following table.
 

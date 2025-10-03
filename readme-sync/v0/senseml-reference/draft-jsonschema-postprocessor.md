@@ -103,7 +103,7 @@ And the LLM transforms the extracted data to fit your specified JSON schema:
 
 This postprocessor is a low-code, indeterminate alternative to the JsonLogic postprocessor TODO LINK.
 
-Postprocessor output is available in the `postprocessorOutput` object in the API response and in the **postprocessed** tab in the JSON editor: 
+Postprocessor output is available in the `postprocessorOutput` object in the API response and in the **postprocessed** tab in the SenseML editor: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_postprocessed_tab.png) 
 

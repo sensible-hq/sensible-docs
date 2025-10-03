@@ -138,7 +138,7 @@ Let's see if the config containing your prompt works with other bank statements.
 
 Sensible recommends grouping similar documents, for example, bank statements, into a *document type*. To extract data from your documents, first check if they're on Sensible's list of out-of-the-box [supported document types](doc:library-quickstart). If not, create document types and configure your custom extractions by taking the following steps:
 
-1. To exit the visual editor, click **Sensible** in the upper left corner.
+1. To exit the SenseML editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type using the dialog, then write prompts in the configuration editor to extract data using what you learned in previous steps.
 
 ## Next

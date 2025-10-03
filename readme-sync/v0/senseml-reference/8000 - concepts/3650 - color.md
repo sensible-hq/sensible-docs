@@ -3,11 +3,11 @@ title: "Source text traceability"
 hidden: false
 ---
 
-Sensible displays the source text for extracted fields using color-coded symbols overlaid on the rendered document in the JSON editor
+Sensible displays the source text for extracted fields using color-coded symbols overlaid on the rendered document in the SenseML editor.
 
 # Color coding
 
-The JSON editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text.
+The SenseML editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text.
 
 | symbol                                                       | represents                                    |
 | ------------------------------------------------------------ | --------------------------------------------- |

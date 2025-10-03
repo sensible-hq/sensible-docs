@@ -36,7 +36,7 @@ To view an individual extraction's coverage, click **Dashboard** and scroll to t
 
 In the preceding screenshot, get a coverage breakdown by viewing the extraction. You can view the extraction by clicking the extraction date in the **Recent extractions** column or downloading the Excel file.
 
-For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  in the **Created**  column to count the extracted fields in the JSON editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null. Or, you can retrieve the information from the [Sensible API](ref:retrieving-results) or SDK. The following code sample shows an except from an API response with the `validation_summary` used to calculate the `coverage` for the Sept 25 extraction:
+For example, in the preceding screenshot, you can click  `Sept 25, 2023, 7:30 PM`  in the **Created**  column to count the extracted fields in the SenseML editor and find that the score of `61.1%` means that 33 of 54 total fields output were valid and non-null. Or, you can retrieve the information from the [Sensible API](ref:retrieving-results) or SDK. The following code sample shows an except from an API response with the `validation_summary` used to calculate the `coverage` for the Sept 25 extraction:
 
 ```json
 {
