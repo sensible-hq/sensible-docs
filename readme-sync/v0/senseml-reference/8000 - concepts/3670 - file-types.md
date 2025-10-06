@@ -16,7 +16,7 @@ Sensible supports the following file types:
 | Microsoft Word<br/> (DOC and DOCX) | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
 | Spreadsheet formats<sup>1</sup><br/>(XLSX, XLS, and CSV) | ✅ | ✅ | ❌ | ✅ | | ❌ | ❌ | ❌ |
 | single-page image formats<sup>1</sup><br/> (JPEG, PNG) | ❌ | ✅ | ❌ | ✅ | | ✅ | ✅ | ✅ |
-| multi-page image formats<sup>1</sup><br> (TIFF) | ❌ | ✅ | ❌ | ✅ | | ❌ | ❌ | ✅ |
+| multi-page image formats<sup>1</sup><br/> (TIFF) | ❌ | ✅ | ❌ | ✅ | | ❌ | ❌ | ✅ |
 | Email bodies | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 

@@ -20,8 +20,8 @@ Parameters
 | -------------- | ------ | ------------------------------------------------------------ |
 | type (**required**) | `removeFooter` | For an example, see the Examples section. |
 | startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
-| match | [Match](doc:match) object or array of Match objects | Bypasses automatic footer recognition.<br/>Removes all text on the page below the bottom boundary of the matched line.<br>If Sensible doesn't find the match, it doesn't perform footer removal. |
-| offsetY | number in inches. default: 0 | Bypasses automatic footer recognition.<br/>Defines a point at which to start text removal. Positive values offset down the page, negative values offset up the page.<br/>If used with no Match parameter defined, offsets from the bottom of the page.<br>If used with the Match parameter, offsets from the bottom boundary of the matched line. <br/> |
+| match | [Match](doc:match) object or array of Match objects | Bypasses automatic footer recognition.<br/>Removes all text on the page below the bottom boundary of the matched line.<br/>If Sensible doesn't find the match, it doesn't perform footer removal. |
+| offsetY | number in inches. default: 0 | Bypasses automatic footer recognition.<br/>Defines a point at which to start text removal. Positive values offset down the page, negative values offset up the page.<br/>If used with no Match parameter defined, offsets from the bottom of the page.<br/>If used with the Match parameter, offsets from the bottom boundary of the matched line. <br/> |
 
 Examples
 ====

@@ -9,7 +9,7 @@ hidden: true
 MY TESTS:
 
 
-|                    | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>2</sup><br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br> (TIFF) |
+|                    | PDF  | Microsoft Word<br/> (DOC and DOCX) | Microsoft Excel<sup>2</sup><br/>(XLSX) | single-page image formats<br/> (JPEG, PNG) | multi-page image formats<br/> (TIFF) |
 | -------------------------------------- | ---- | ---------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | -                                                            |                       |                                    |                                                              |                                            |                                                              |
 |                                                              |                       |                                    |                                                              |                                            |                                                              |
