@@ -14,9 +14,9 @@ Sensible supports the following file types:
 | | **Sensible app's Extract tab** | **Single-file extraction with SDKs or API** | **Portfolio extraction with SDKs or API** | **Classification by type with SDKs or API** | | **Methods that require rendering non-text image pixels<sup>2</sup>** | **NLP Table method,<br/>Fixed Table method<sup>3</sup>** | **Extraction of text that requires OCR** |
 | PDF | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
 | Microsoft Word<br/> (DOC and DOCX) | ✅ | ✅ | ✅ | ✅ | | ✅ | ✅ | ✅ |
-| Spreadsheet formats<sup>1</sup><br/>(XLSX, XLS, and CSV) | ✅ | ✅ | ❌ | ✅ | | ❌ | ❌ | ❌ |
-| single-page image formats<sup>1</sup><br/> (JPEG, PNG) | ❌ | ✅ | ❌ | ✅ | | ✅ | ✅ | ✅ |
-| multi-page image formats<sup>1</sup><br/> (TIFF) | ❌ | ✅ | ❌ | ✅ | | ❌ | ❌ | ✅ |
+| Spreadsheet formats<sup>1</sup><br/>(XLSX, XLS, XLSM, and CSV) | ✅ | ✅ | ❌ | ✅ | | ❌ | ❌ | ❌ |
+| Single-page image formats<sup>1</sup><br/> (JPEG, PNG) | ❌ | ✅ | ❌ | ✅ | | ✅ | ✅ | ✅ |
+| Multi-page image formats<sup>1</sup><br/> (TIFF) | ❌ | ✅ | ❌ | ✅ | | ❌ | ❌ | ✅ |
 | Email bodies | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 
@@ -37,9 +37,9 @@ Sensible supports the following file sizes:
 
 ## Notes
 
-- **Word documents (DOC and DOCX):** Sensible converts the document to PDF before processing it.
+- **Word documents**: Sensible converts the document to PDF before processing it.
 - **Email bodies**: Sensible converts the body to PDF before processing it.
-- **Spreadsheet documents (XLSX, XLS, and CSV)**: Sensible extracts text directly from the file without OCR. Sensible represents the text both internally and in the Sensible app's editor as follows:
+- **Spreadsheet documents**: Sensible extracts text directly from the file without OCR. Sensible represents the text both internally and in the Sensible app's editor as follows:
      - Standardizes the formatting of all text in the file. Each cell contains exactly one [line](doc:lines).
      - Standardizes cell height at 0.25'' tall and cell width at 1''. Overflow text in a cell is still available for extraction but isn't viewable in the Sensible app editor unless you click on a line in the rendered document to view its details. 
      - Standardizes the maximum page height at 15 inches. Sensible splits longer sheets into consecutive pages.
