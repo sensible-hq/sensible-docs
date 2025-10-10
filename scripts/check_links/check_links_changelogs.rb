@@ -172,6 +172,7 @@ end
 
 options = {
   :log_level => :info,
+  :ignore_missing_alt => true, # because current version of Readme.io strips them as a bug; if I can't fix, I will ignore until i can upgrade Readme.io to refactored version
   :url_ignore => [
     "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api",
     "https://platform.openai.com/tokenizer",
