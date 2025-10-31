@@ -18,10 +18,15 @@ Ensures that Sensible [sort lines](doc:lines#line-sorting) into the specified, c
 Parameters
 ====
 
-| key                 | value                       | description                                                  |
-| ------------------- | --------------------------- | ------------------------------------------------------------ |
-| type (**required**) | `linearize`                 | *Recognizes multi-column layouts in documents and sorts lines into blocks in whatever or you specify.* |
-| blocks              | array of objects TODO check | TODO                                                         |
+| key                    | value                                                        | description                                                  |
+| ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| type (**required**)    | `linearize`                                                  | *Recognizes multi-column layouts in documents and sorts lines into blocks in whatever or you specify.* |
+| match<br/>or<br/>range | [Match](doc:match) object or array of Match objects<br/>or<br/>Range object | Specifies the pages or page portions on which to run this preprocessor.<br/>Match:<br/>adfasdf<br/>Range:<br/> See following table |
+| blocks                 | array of objects                                             | TODO: blocks specify BLAH BLAH. Each rectangular block object in the array has the following parameters: TODO which required? To visually determine the following coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions.<br/>`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: 0<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: page's width in inches<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page. |
+
+
+
+
 
 Examples
 ====
