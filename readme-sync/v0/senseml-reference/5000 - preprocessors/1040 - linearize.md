@@ -24,7 +24,7 @@ Parameters
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | type (**required**)    | `linearize`                                                  | *Recognizes multi-column layouts in documents and sorts lines into blocks in whatever or you specify.* |
 | match<br/>or<br/>range | [Match](doc:match) object or array of Match objects<br/><br/>or<br/><br/>Range object TODO LINK? | Specifies the matching pages or repeating sections ("ranges") in which to run this preprocessor.<br/>`match`: TODO HOW TO FORMAT?<br/>or<br/>`range`:<br/>See the the Range parameter table, horizontal sections column. TODO REWORD |
-| blocks                 | array of objects                                             | TODO: blocks specify BLAH BLAH. Each rectangular block object in the array has the following parameters: TODO which required? To visually determine the following coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions.<br/>`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: 0<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: page's width in inches<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page. |
+| blocks                 | array of objects                                             | TODO: blocks specify BLAH BLAH. Each rectangular block object in the array has the following parameters: TODO which required? To visually determine the following coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions.<br/>TODO: DO NOT mention it messes up section visualization, not worth it`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: 0<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: page's width in inches<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page. |
 
 ### LINEARIZE Horizontal Section Range parameters
 
@@ -144,6 +144,141 @@ The following image shows the example document used with this example config:
   "all_lines_in_doc": {
     "type": "string",
     "value": "block 1 header block 1 text block 1 end block 2 header block 2 text block 2 end Some header text Block 3 block 3 spans page width"
+  }
+}
+```
+
+## Example 2
+
+The following example shows TBD
+
+**Config**
+
+```json
+{
+  "preprocessors": [
+    {
+      "type": "linearize",
+      /* linearize columns in repeating sections */
+      "range": {
+        "anchor": "date",
+        "stop": "don't",
+        "stopOffsetY": -0.1 // without this,
+      },
+      /* define two columuar blocks within the repeating ranges 
+         so col 1 text preceeds col 2 text
+         otherwise, Sensible orders the text in rows
+         and the output in the following sections field would be 
+         jan 2, jan 1, jan 4, jan 3 ... not
+         jan 1, jan 2, jan 3, jan 4 ... */
+      "blocks": [
+        {
+          "minX": 0.5,
+          "maxX": 4.2
+        },
+        {
+          "minX": 4.21
+        }
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "id": "month_rows_sections",
+      "type": "sections",
+      "range": {
+        "anchor": {
+          "match": {
+            "type": "regex",
+            "pattern": "Jan|Jul|Aug"
+          }
+        }
+      },
+      "fields": [
+        {
+          "id": "date",
+          "anchor": {
+            "match": {
+              "type": "regex",
+              "pattern": "Jan|Jul|Aug"
+            }
+          },
+          "method": {
+            "id": "passthrough"
+          }
+        }
+      ]
+    },
+    {
+      "id": "all_lines_in_doc",
+      "method": {
+        "id": "documentRange",
+        "includeAnchor": true
+      },
+      "anchor": {
+        "match": {
+          "type": "first"
+        }
+      }
+    }
+  ]
+}
+
+```
+
+**Example document**
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/linearize_2.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/linearize_2.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "month_rows_sections": [
+    {
+      "date": {
+        "type": "string",
+        "value": "Jan 1"
+      }
+    },
+    {
+      "date": {
+        "type": "string",
+        "value": "Jan 2"
+      }
+    },
+    {
+      "date": {
+        "type": "string",
+        "value": "Jan 3"
+      }
+    },
+    {
+      "date": {
+        "type": "string",
+        "value": "Jan 4"
+      }
+    },
+    {
+      "date": {
+        "type": "string",
+        "value": "Jan 5"
+      }
+    },
+    {
+      "date": {
+        "type": "string",
+        "value": "Jan 6"
+      }
+    }
+  ],
+  "all_lines_in_doc": {
+    "type": "string",
+    "value": "Don't linearize this text. Phone line 1 data Customer name: Sandy Sanchez Customer account: XXX-XXX-1234 charge date Jan 1 _1 2 3 4 continued Jan 2 5 6 _8 7 Don't linearize this text. Phone line 2 data Customer name: Sam Sanderson Customer account: XXX-XXX-5678 charge date Jan 3 '6 2 3 4 continued Jan 4 5 6 7 _10 Don't linearize this text. Phone line 4 data Customer name: Salma al Saad Customer account: XXX-XXX-9123 charge date Jan 5 _11 2 3 4 continued Jan 6 5 6 _12 7"
   }
 }
 ```
