@@ -14,15 +14,15 @@ Sections
 
 Sensible finds the sections as follows:
 
-1. Finds the range, or y-extent, for a section in the group using Match and Stop lines.  Sections’  ranges never overlap, and ranges can span pages. In detail:
+1. Finds the range, or y-extent, for each section using Match and Stop lines.  Sections’  ranges never overlap, and ranges can span pages. In detail:
    - If there's *no* Stop parameter, the current section's range stops above the next anchor's Match + Y Offset parameters. 
    - If there's an *optional* Stop parameter, the current section stops either:
      -  above the next anchor's Match + Y Offset parameter, *or*
      - below the next Stop line + Stop Y Offset parameter. 
      - Use an *optional* stop to prevent the last section in the group from extending to the end of the document.
    - If there's a *required* Stop, the next section stops below the next Stop line + Stop Y Offset parameter, and Sensible ignores any intervening anchor matches.
-2. (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the section group ends with the End parameter, or Sensible reaches the end of the document.
-3. Extracts fields from each section in the group. Sensible expects but doesn't require that the data is in a repeated structure for each section.
+2. (repeats) Continues finding ranges for the group of sections, searching down the page and across page breaks, until the last section ends at the End parameter or at the end of the document.
+3. Extracts fields from each section. Sensible expects but doesn't require that the data is in a repeated structure for each section.
 
  
 
@@ -35,20 +35,20 @@ Vertical sections
 
 Sensible:
 
-1. (one time) Finds the section group's range in which to recognize columns using Match and Stop lines. A range can span pages.
+1. (one time) Finds the vertical document range in which to recognize columns using Match and Stop lines. The range can span pages.
 2. (repeats) Recognizes columns inside the range, based on whitespace gutters and searching left-to-right. If non-columnar text is present in the range, it can affect column recognition as follows:
 
    - If there's a Stop parameter, Sensible adds the non-column text to each column. Each column then has a nonlinear, irregular shape. For example, this allows each column to use a table title that spans multiple columns as an anchor. 
 
    - If there's no Stop parameter, any non-columnar text in the range breaks column recognition. Exclude the text from the range using the offset parameters or the Lines Filter parameter.
-3. Extracts fields from each column in the group. Sensible expects but doesn't require that the data is in a repeated structure for each column.
+3. Extracts fields from each column in the range. Sensible expects but doesn't require that the data is in a repeated structure for each column.
 
-**Tip:** To extract repeated vertical section groups, nest them in a parent section group.  For an example, see [Advanced: nested columns example](doc:sections-example-nested-columns).
+**Tip:** To define multiple vertical ranges in which to extract columnar sections, nest the sections in a parent section group.  For an example, see [Advanced: nested columns example](doc:sections-example-nested-columns).
 
 Column Selection
 ----
 
-By default, Sensible creates a section from each column it detects in the section group range. You can configure Sensible to handle columns in the following ways:
+By default, Sensible creates a section from each column it detects. You can configure Sensible to handle columns in the following ways:
 
 - "Selected" columns: Sensible creates a section for each column specified in the Column Selection parameter.
 
@@ -99,7 +99,7 @@ If you want to ignore multiple anchor matches inside the section, use the Requir
 
 For horizontal sections, you can create a section starting at each newline if you match on all text for the Match parameter. Take the following steps:
 
-- Define a section group with specific text matches for the Start and End parameters of the section group.
+- Define a section array with specific text matches for the Start and End parameters of the sections.
 
 - Specify the anchor's Match parameter using the regular expression `.+`, which matches any characters.
 
@@ -108,7 +108,7 @@ In this case, Sensible creates sections by splitting text into "rows" at each ne
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
-For vertical sections, specifying the regular expression `".+"`   for the Match parameter can be useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the section group in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
+For vertical sections, specifying the regular expression `".+"`   for the Match parameter can be useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the sections in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).
 
 
 
