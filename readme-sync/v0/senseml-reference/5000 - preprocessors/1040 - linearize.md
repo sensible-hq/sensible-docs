@@ -3,6 +3,8 @@ title: "draft Linearize"
 hidden: true
 ---
 
+**TODO**: add to preprocessor INDEX TOPIC
+
 
 
 **Note:** If you're familiar with Sensible, this advanced topic is for you.
@@ -10,6 +12,10 @@ hidden: true
 Use this preprocessor for documents containing columns of text that the [Multicolumn](doc:multicolumn) preprocessor can't recognize. 
 
 Ensures that Sensible breaks pages into an array of coordinate-based blocks, before [sorting lines](doc:lines#line-sorting).
+
+For example, in the following image, you can configure Sensible to output block 3 after blocks 1 and 2,  by specifying block 3 last in an array of blocks:
+
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/linearize_1.png)
 
 [**Parameters**](doc:linearize#parameters)
 [**Examples**](doc:linearize#examples)
@@ -20,32 +26,16 @@ Parameters
 
 | key                    | value                                                        | description                                                  |
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| type (**required**)    | `linearize`                                                  | Recognizes multi-column layouts in documents and sorts lines into blocks in the specified order. |
-| match<br/>or<br/>range | [Match](doc:match) object or array of Match objects<br/><br/>or<br/><br/>Range object | Specifies the matching pages or repeating sections ("ranges") in which to run this preprocessor.<br/>`match`: TODO HOW TO FORMAT?<br/>or<br/>`range`:<br/>See the the Range parameter table, horizontal sections column. TODO REWORD |
-| blocks (**required**)  | array of objects                                             | TODO: blocks specify BLAH BLAH. Each rectangular block object in the array has the following parameters: TODO which required? To visually determine the following coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions.<br/>TODO: DO NOT mention it messes up section visualization, not worth it`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: 0<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: page's width in inches<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page. |
-
-### LINEARIZE Horizontal Section Range parameters
-
-
-
-TODO: figure this out and define it better!!  WITH A NICE PICTURE?
-
-
-
-Horizontal sections: repeating stacked blocks of text in a defined range, *which can be discontinous/interrupted by other igored text???*
-
-Vertical sections: columns of text containing repeated text in a defined range, *which doesn't itself repeat and which can't be discontinious??*.f
-
-RANGE contains repeating sections (blocks)
-
-
+| type (**required**)    | `linearize`                                                  | Recognizes multi-column or block layouts in documents.       |
+| match<br/>or<br/>range | [Match](doc:match) object or array of Match objects<br/><br/>or<br/><br/>Range object | Specifies the matching pages or repeating document ranges ("sections") in which to run this preprocessor.<br/><br/>`match`:  Sensible runs this preprocessor on each page containing the matched text.<br/><br/>`range`:  Sensible runs this preprocessor in the specified repeating document ranges. For information about this option's parameters, see the [Range](doc:sections#range-parameters) parameters for horizontal sections. For an example, see TODO. |
+| blocks (**required**)  | array of objects                                             | Specify an array of blocks. Each rectangular block object in the array has the following parameters: <br/>`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: page's width in inches<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: 0<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page.<br/><br/>To visually determine the inch coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions. Any lines that fall partially outside a block aren't included in a block. TODO IS THAT TRUE? |
 
 Examples
 ====
 
 ## Example 1
 
-The following example shows TBD.
+The following example shows sorting a page's lines into three blocks.
 
 **Config**
 
@@ -53,9 +43,9 @@ The following example shows TBD.
 {
   "preprocessors": [
     {
-      // todo: show outline of blocks in screenshot markup in docs
+      
       "type": "linearize",
-      // page identifier
+      /* run this preprocessor on all pages containing the match*/
       "match": "some header text",
       "blocks": [
         {
@@ -68,13 +58,11 @@ The following example shows TBD.
         {
           /* block 2 */
           "minX": 4.5,
-          // TODO: question
-          // these are strict, not like Region I believe; if even a little of a line out of range, it's NOT contained in block
           "minY": 2.5,
           "maxY": 8.5
         },
         {
-          /* block 3 */
+          /* block 3: top of page, outputs header text */
           "maxY": 2.4
         }
       ]
@@ -83,7 +71,7 @@ The following example shows TBD.
   "fields": [
     {
       /* outputs all lines of the document to check block order
-         note footer text is excluded since no block coordinates capture it; that text is unavailble for output from SenseML queries */
+         note footer text is excluded since no block coordinates capture it, and is unavailable to SenseML queries */
       "id": "all_lines_in_doc",
       "method": {
         "id": "documentRange",
@@ -121,7 +109,7 @@ The following image shows the example document used with this example config:
 
 ## Example 2
 
-The following example shows TBD
+The following example shows sorting lines in "sections", or repeating ranges containing blocks.
 
 **Config**
 
@@ -130,11 +118,14 @@ The following example shows TBD
   "preprocessors": [
     {
       "type": "linearize",
-      /* linearize columns in repeating sections */
+      /* linearize columns in repeating ranges ("sections") */
       "range": {
+        /* start creating blocks before each instance of "date" */
         "anchor": "date",
-        "stop": "do not",
-        "stopOffsetY": -0.1 // without this,
+        /* stop creating blocks before each instance of "do not" TODO: OR AFTER? LEFT OFF */
+        "stop": "do not", 
+        /* without this, */
+        "stopOffsetY": -0.1 
       },
       /* define two columuar blocks within the repeating ranges 
          so col 1 text preceeds col 2 text
