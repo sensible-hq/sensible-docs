@@ -5,13 +5,11 @@ hidden: true
 
 
 
-DRAFT
+**Note:** If you're familiar with Sensible, this advanced topic is for you.
 
-**Note:** This is advanced. for most use cases, see Multicolumn. TODO look up other wordings
+Use this preprocessor for documents containing columns of text that the [Multicolumn](doc:multicolumn) preprocessor can't recognize. 
 
-Use this preprocessor for documents containing columns of text that the Multicolumn (TODO LINK) preprocessor can't recognize. 
-
-Ensures that Sensible [sort lines](doc:lines#line-sorting) into the specified, coordinate-based blocks,  rather than the default behavior of sorting lines left to right across the page.
+Ensures that Sensible breaks pages into an array of coordinate-based blocks, before [sorting lines](doc:lines#line-sorting).
 
 [**Parameters**](doc:linearize#parameters)
 [**Examples**](doc:linearize#examples)
@@ -22,9 +20,9 @@ Parameters
 
 | key                    | value                                                        | description                                                  |
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| type (**required**)    | `linearize`                                                  | *Recognizes multi-column layouts in documents and sorts lines into blocks in whatever or you specify.* |
-| match<br/>or<br/>range | [Match](doc:match) object or array of Match objects<br/><br/>or<br/><br/>Range object TODO LINK? | Specifies the matching pages or repeating sections ("ranges") in which to run this preprocessor.<br/>`match`: TODO HOW TO FORMAT?<br/>or<br/>`range`:<br/>See the the Range parameter table, horizontal sections column. TODO REWORD |
-| blocks                 | array of objects                                             | TODO: blocks specify BLAH BLAH. Each rectangular block object in the array has the following parameters: TODO which required? To visually determine the following coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions.<br/>TODO: DO NOT mention it messes up section visualization, not worth it`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: 0<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: page's width in inches<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page. |
+| type (**required**)    | `linearize`                                                  | Recognizes multi-column layouts in documents and sorts lines into blocks in the specified order. |
+| match<br/>or<br/>range | [Match](doc:match) object or array of Match objects<br/><br/>or<br/><br/>Range object | Specifies the matching pages or repeating sections ("ranges") in which to run this preprocessor.<br/>`match`: TODO HOW TO FORMAT?<br/>or<br/>`range`:<br/>See the the Range parameter table, horizontal sections column. TODO REWORD |
+| blocks (**required**)  | array of objects                                             | TODO: blocks specify BLAH BLAH. Each rectangular block object in the array has the following parameters: TODO which required? To visually determine the following coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions.<br/>TODO: DO NOT mention it messes up section visualization, not worth it`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: 0<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: page's width in inches<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page. |
 
 ### LINEARIZE Horizontal Section Range parameters
 
