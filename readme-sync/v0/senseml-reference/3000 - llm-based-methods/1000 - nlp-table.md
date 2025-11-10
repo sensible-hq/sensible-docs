@@ -328,5 +328,5 @@ For an overview of how the NLP Table method works, see the following steps:
 4. Sensible creates a full prompt for the LLM that includes the top-scoring table, page hinting data, and your prompts. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt#full-prompt). 
 
    1. If `rewriteTable:false`, the full prompt instructs the LLM (as specified by the LLM Engine parameter) to rewrite or restructure the best-scoring table based on your column descriptions and your overall table description. 
-   2. If `rewriteTable: false`, the full prompt instructs the LLM (GPT-4) to rewrite the column headings' IDs, but doesn't otherwise restructure the table.
+   2. If `rewriteTable: true`, the full prompt instructs a nonconfigurable LLM to rewrite the column headings' IDs, but doesn't otherwise restructure the table.
 5. Sensible returns the restructured table.

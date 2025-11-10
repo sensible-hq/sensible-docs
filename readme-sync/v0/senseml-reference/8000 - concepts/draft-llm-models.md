@@ -3,26 +3,38 @@ title: "LLM models"
 hidden: true
 ---
 
-| Feature                                                      | parameter configuration                                      | LLM model                                                    | Comments                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| List method                                                  | mode: fast, provider: anthropic                              | Claude 3.5 Haiku                                             |                                                              |
-| List method                                                  | mode: fast, provider: openai                                 | GPT-4o mini                                                  |                                                              |
-| List method                                                  | mode: thorough, provider: anthropic                          | Claude 3.5 Sonnet                                            |                                                              |
-| List method                                                  | mode: thorough, provider: openai                             | GPT-4o                                                       |                                                              |
-| List method                                                  | mode: long, provider: anthropic                              | Claude 3.5 Haiku                                             |                                                              |
-| List method                                                  | mode: long, provider: openai                                 | GPT-4o mini                                                  |                                                              |
-| List method                                                  | searchBySummarization: page or outline<br/>and<br/>confidence signal: true |                                                              | Note that the LLM Engine parameter doesn't configure the LLMs Sensible uses for summarizing and locating context or for generating confidence signals when you set these parameters, respectively. TODO: list the models we use here...?? ALSO note that |
-| Query Group method                                           | provider: open-ai                                            | GPT-4o mini                                                  |                                                              |
-| Query Group method                                           |                                                              | Anthropic's Claude 3 Haiku                                   |                                                              |
-| Query Group method                                           | searchBySummarization: page or outline<br/>and<br/>confidence signal: true |                                                              | same notes as for List method                                |
-| NLP Table                                                    | provider: open-ai                                            | GPT-4o                                                       |                                                              |
-| NLP Table                                                    | provider: anthropic                                          | Claude 3 Haiku                                               |                                                              |
-| NLP Table                                                    | rewriteTable: false                                          | GPT-4                                                        | overrides provider parameter                                 |
-|                                                              |                                                              |                                                              |                                                              |
-| Classify single-document file by type                        |                                                              |                                                              |                                                              |
-| Classify documents by type in a portfolio (multi-document file) |                                                              |                                                              |                                                              |
-| any other LLM use I forgot? Embeddings AI for chunk scoring? (could be footnote) |                                                              |                                                              |                                                              |
-| referring lang to use:                                       |                                                              |                                                              |                                                              |
-| llmEngine                                                    | object                                                       | Configures the LLM model to which Sensible submits the full prompt. Contains the following parameters:<br/><br/>`provider`:  Contains the following options:<br/> - `open-ai` (default): Sensible uses OpenAI's models. <br/> - `anthropic`: Sensible uses Anthropic's models.  Select this option to troubleshoot situations in which Sensible correctly identifies the part of the document that contains the answers to your prompts, but the LLM's answer contains problems. For example, Sensible returns an LLM error because the answer isn't properly formatted, or the LLM doesn't follow instructions in your prompt.<br/>For more information about LLM models and versions, see [LLM models]TODOLINK. <br/><br/>`mode`:  Contains the following options<br/>- `fast` (default):  Sensible uses a faster LLM model. <br/>- `thorough`: Sensible uses a slower and more powerful LLM model. Sensible can take several minutes to return the list.  Use this option if the Fast parameter results in incomplete extractions for multi-page lists.<br/>- `long`: Sensible uses a faster LLM model. If you set this value, then Sensible can output lists extracted from up to 100 one-page source [chunks](doc:list#notes). Otherwise Sensible by default extracts from 20 one-page chunks. If the list in the document is longer than the number of source chunks, Sensible truncates the list.<br/>For more information, see [Notes](#notes). | If you set the Mode parameter to Long, then Sensible sets the Chunk Count parameter to 100. |
 
+
+You can configure which LLMs Sensible uses to answer your prompts. The following tables list your configuration options.
+
+**Note** 
+
+Note there are several non-configurable LLM processes as well. For example, there's no option for configuring the LLMs that Sensible uses for locating context TODO or for classifying documents by type TODO. 
+
+### List method
+
+| configuration                 | configuration       | LLM model used for finding answer in context | Comments |
+| ----------------------------- | ------------------- | -------------------------------------------- | -------- |
+| LLM Engine<br/> mode: fast    | provider: anthropic | Claude 3.5 Haiku                             |          |
+|                               | provider: openapi   | GPT-4o mini                                  |          |
+| LLM Engine<br/>mode: thorough | provider: anthropic | Claude 3.5 Sonnet                            |          |
+|                               | provider: openapi   | GPT-4o                                       |          |
+| LLM Engine<br/>  mode: long   | provider: anthropic | Claude 3.5 Haiku                             |          |
+|                               | provider: openapi   | GPT-4o mini                                  |          |
+
+### Query Group method
+
+| configuration                      | configuration                           | LLM model used for finding answer in context |
+| ---------------------------------- | --------------------------------------- | -------------------------------------------- |
+| LLM Engine<br/>provider: anthropic |                                         | Claude 3 Haiku                               |
+| LLM Engine<br/> provider openapi   |                                         | GPT 4.0 mini                                 |
+| Multimodal Engine: true            | LLM Engine<br/>provider: <br/>anthropic | Claude 3.5 Haiku                             |
+|                                    | LLM Engine<br/>provider:<br/> openapi   | GPT-4o mini                                  |
+
+### NLP Table method
+
+| configuration                      | LLM model used for finding answer in context |
+| ---------------------------------- | -------------------------------------------- |
+| LLM Engine<br/>provider: anthropic | Claude 3 Haiku                               |
+| LLM Engine<br/> provider openapi   | GPT-4o                                       |
 
