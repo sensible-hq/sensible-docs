@@ -123,9 +123,9 @@ The following example shows sorting lines in "sections", or repeating ranges con
         /* start creating blocks before each instance of "date" */
         "anchor": "date",
         /* stop creating blocks after each instance of "do not" */
-        "stop": "do not", 
+        "stop": "do not",
         /* offset the stop up the page to exclude "do not" from the blocks */
-        "stopOffsetY": -0.5 
+        "stopOffsetY": -0.5
       },
       /* define two columuar blocks in the repeating ranges 
          so that col 1 text preceeds col 2 text
@@ -136,6 +136,7 @@ The following example shows sorting lines in "sections", or repeating ranges con
           "maxX": 4.2
         },
         {
+          /* col 2 starts at 4.21" from left edge of page and extends to width of page */
           "minX": 4.21
         }
       ]
@@ -153,7 +154,7 @@ The following example shows sorting lines in "sections", or repeating ranges con
       }
     },
     {
-        /* output all lines in doc to check lines were sorted in blocks */
+      /* output all lines in doc to check lines were sorted in blocks */
       "id": "all_lines_in_doc",
       "method": {
         "id": "documentRange",
@@ -212,7 +213,7 @@ The following image shows the example document used with this example config:
   ],
   "all_lines_in_doc": {
     "type": "string",
-    "value": "Do not linearize this text. Phone line 1 data Customer name: Sandy Sanchez Customer account: xxx-xxx-1234 date charge Jan 1 _1 2 3 4 Donʼt linearize this text. Phone line 2 data Customer name: Sam Sanderson Customer account: xxx-xxx-5678 ...continued Jan 2 5 6 7 _8 date charge Jan 3 _9 2 ...continued Jan 4 5 6 7 _10 Do not linearize this text. Phone line 4 data Customer name: Salma al Saad Customer account: xxx-xxx-9123 date charge Jan 5 _11 2 3 4 ...continued Jan 6 5 6 7 _12"
+    "value": "Do not linearize this text. Phone line 1 data Customer name: Sandy Sanchez Customer account: xxx-xxx-1234 date/time charge Jan 1 1005 $12.50 ...continued Jan 2 1211 $7.99 1245 $1.23 Do not linearize this text. Phone line 2 data Customer name: Sam Sanderson Customer account: xxx-xxx-5678 date/time charge Jan 3 805 $2.45 ...continued Jan 4 1055 $6.56 1131 $13.18 Do not linearize this text. Phone line 4 data Customer name: Salma al Saad Customer account: xxx-xxx-9123 date/time charge Jan 5 1105 $2.34 1116 $4.55 ...continued Jan 6 1204 $9.99 1255 $1.98"
   }
 }
 ```
