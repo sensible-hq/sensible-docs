@@ -24,7 +24,7 @@ You can configure which LLM models Sensible uses to find answers in context for 
 | --------------------------------------- | --------------------------------------- | ----------------- |
 | LLM Engine:<br/> provider: **openapi**  |                                         | GPT-4o mini       |
 | LLM Engine:<br/>provider: **anthropic** |                                         | Claude 3.7 Sonnet |
-| Multimodal Engine: true                 | LLM Engine:<br/>provider: **openapi**   | GPT-4o mini       |
+| Multimodal Engine: **true**             | LLM Engine:<br/>provider: **openapi**   | GPT-4o mini       |
 |                                         | LLM Engine:<br/>provider: **anthropic** | Claude 3 Haiku    |
 
 ### NLP Table method
