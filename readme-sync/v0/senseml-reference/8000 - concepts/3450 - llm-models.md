@@ -9,14 +9,14 @@ You can configure which LLM models Sensible uses to find answers in [context](do
 
 ### List method TODO link to parameters table
 
-| configuration                      | configuration                           | LLM model         |
-| ---------------------------------- | --------------------------------------- | ----------------- |
-| LLM Engine:<br/> mode: **fast**    | LLM Engine:<br/>provider: **openai**   | GPT-4o mini       |
-|                                    | LLM Engine:<br/>provider: **anthropic** | Claude 3.5 Haiku  |
-| LLM Engine:<br/>mode: **thorough** | LLM Engine:<br/>provider: **openai**   | GPT-4o            |
-|                                    | LLM Engine:<br/>provider: **anthropic** | Claude 3.7 Sonnet |
-| LLM Engine:<br/>  mode: **long**   | LLM Engine:<br/>provider: **openai**   | GPT-4o mini       |
-|                                    | LLM Engine:<br/>provider: **anthropic** | Claude 3.5 Haiku  |
+| configuration                           | configuration                      | LLM model         |
+| --------------------------------------- | ---------------------------------- | ----------------- |
+| LLM Engine:<br/>provider: **openai**    | LLM Engine:<br/> mode: **fast**    | GPT-4o mini       |
+| LLM Engine:<br/>provider: **anthropic** | LLM Engine:<br/> mode: **fast**    | Claude 3.5 Haiku  |
+| LLM Engine:<br/>provider: **openai**    | LLM Engine:<br/>mode: **thorough** | GPT-4o            |
+| LLM Engine:<br/>provider: **anthropic** | LLM Engine:<br/>mode: **thorough** | Claude 3.7 Sonnet |
+| LLM Engine:<br/>provider: **openai**    | LLM Engine:<br/>  mode: **long**   | GPT-4o mini       |
+| LLM Engine:<br/>provider: **anthropic** | LLM Engine:<br/>  mode: **long**   | Claude 3.5 Haiku  |
 
 ### Query Group method
 
