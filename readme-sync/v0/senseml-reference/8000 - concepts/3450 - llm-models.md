@@ -11,26 +11,26 @@ You can configure which LLM models Sensible uses to find answers in [context](do
 
 | configuration                      | configuration                           | LLM model         |
 | ---------------------------------- | --------------------------------------- | ----------------- |
-| LLM Engine:<br/> mode: **fast**    | LLM Engine:<br/>provider: **openapi**   | GPT-4o mini       |
+| LLM Engine:<br/> mode: **fast**    | LLM Engine:<br/>provider: **openai**   | GPT-4o mini       |
 |                                    | LLM Engine:<br/>provider: **anthropic** | Claude 3.5 Haiku  |
-| LLM Engine:<br/>mode: **thorough** | LLM Engine:<br/>provider: **openapi**   | GPT-4o            |
+| LLM Engine:<br/>mode: **thorough** | LLM Engine:<br/>provider: **openai**   | GPT-4o            |
 |                                    | LLM Engine:<br/>provider: **anthropic** | Claude 3.7 Sonnet |
-| LLM Engine:<br/>  mode: **long**   | LLM Engine:<br/>provider: **openapi**   | GPT-4o mini       |
+| LLM Engine:<br/>  mode: **long**   | LLM Engine:<br/>provider: **openai**   | GPT-4o mini       |
 |                                    | LLM Engine:<br/>provider: **anthropic** | Claude 3.5 Haiku  |
 
 ### Query Group method
 
 | configuration                           | configuration                           | LLM model         |
 | --------------------------------------- | --------------------------------------- | ----------------- |
-| LLM Engine:<br/> provider: **openapi**  |                                         | GPT-4o mini       |
+| LLM Engine:<br/> provider: **openai**  |                                         | GPT-4o mini       |
 | LLM Engine:<br/>provider: **anthropic** |                                         | Claude 3.7 Sonnet |
-| Multimodal Engine: **true**             | LLM Engine:<br/>provider: **openapi**   | GPT-4o mini       |
+| Multimodal Engine: **true**             | LLM Engine:<br/>provider: **openai**   | GPT-4o mini       |
 |                                         | LLM Engine:<br/>provider: **anthropic** | Claude 3 Haiku    |
 
 ### NLP Table method
 
 | configuration                          | LLM model      |
 | -------------------------------------- | -------------- |
-| LLM Engine:<br/> provider: **openapi** | GPT-4o         |
+| LLM Engine:<br/> provider: **openai** | GPT-4o         |
 | LLM Engine<br/>provider: **anthropic** | Claude 3 Haiku |
 
