@@ -9,7 +9,7 @@ hidden: true
 
 **Note:** If you're familiar with Sensible, this advanced topic is for you.
 
-Use this preprocessor for documents containing columns of text that the [Multicolumn](doc:multicolumn) preprocessor can't recognize. 
+Use this preprocessor for documents containing columns or other sequential blocks of of text that the [Multicolumn](doc:multicolumn) preprocessor can't recognize. 
 
 Ensures that Sensible breaks pages into an array of coordinate-based blocks, before [sorting lines](doc:lines#line-sorting).
 
