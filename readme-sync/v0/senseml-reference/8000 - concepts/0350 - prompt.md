@@ -98,20 +98,6 @@ When you extract multimodal data, Sensible sends an image of the relevant docume
 
 See the following tips for troubleshooting situations in which large language model (LLM)-based extraction methods return inaccurate responses, nulls, or errors.
 
-### Fix error messages
-
-**Error message**
-
-```
-ConfigurationError: LLM response format is invalid
-```
-
-**Notes**
-
-Reword the prompt in simpler terms, chain the prompt using the Source Ids parameter, or avoid specifying a format in the prompt for the extracted data. Or, add a fallback field to bypass the error if the original query is working for most documents and you're only seeing the error intermittently. See the following section for more information about fallbacks.
-
-Background: Sensible returns this error when the LLM doesn't return its response in the JSON format that Sensible specifies in the backend for full prompts. This can occur when your `description` parameters prompt the LLM to return data in a specific format that conflicts with the expected JSON format.
-
 ### Interpret confidence signals
 
 Confidence signals are an alternative to confidence scores and to error messages. For information about troubleshooting LLM confidence signals, such as `multiple_possible_answers` or `answer_maybe_be_incomplete`, see [Qualifying LLM accuracy](doc:confidence).

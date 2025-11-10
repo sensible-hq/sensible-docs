@@ -26,8 +26,6 @@ jsmith@email.com
 
 Combining queries for the custom name, location, phone number, and email into the same group will help you maximize the accuracy and speed of your extractions. 
 
-Sensible recommends a maximum group size of 10 queries.
-
 ####  Phrase prompts
 
 - Try framing each query, or prompt, so that it has a single, short answer such as:
