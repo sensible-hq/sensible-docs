@@ -20,14 +20,14 @@ You can configure which LLM models Sensible uses to find answers in [context](do
 
 ### Query Group method
 
-| configuration                           | configuration                           | LLM model         |
-| --------------------------------------- | --------------------------------------- | ----------------- |
-| LLM Engine:<br/> provider: **openai**   |                                         | GPT-4o mini       |
-| LLM Engine:<br/>provider: **anthropic** |                                         | Claude 3 Haiku    |
-| Multimodal Engine: **true**             | LLM Engine:<br/>provider: **openai**    | GPT-4o mini       |
-|                                         | LLM Engine:<br/>provider: **anthropic** | Claude 3 Haiku    |
-| Source Ids parameter is specified       | LLM Engine:<br/>provider: **openai**    | GPT-4o mini       |
-|                                         | LLM Engine:<br/>provider: **anthropic** | Claude 3.7 Sonnet |
+| configuration                           | configuration                     | LLM model         |
+| --------------------------------------- | --------------------------------- | ----------------- |
+| LLM Engine:<br/> provider: **openai**   |                                   | GPT-4o mini       |
+| LLM Engine:<br/>provider: **anthropic** |                                   | Claude 3 Haiku    |
+| LLM Engine:<br/>provider: **openai**    | Multimodal Engine: **true**       | GPT-4o mini       |
+| LLM Engine:<br/>provider: **anthropic** | Multimodal Engine: **true**       | Claude 3 Haiku    |
+| LLM Engine:<br/>provider: **openai**    | Source Ids parameter is specified | GPT-4o mini       |
+| LLM Engine:<br/>provider: **anthropic** | Source Ids parameter is specified | Claude 3.7 Sonnet |
 
 ### NLP Table method
 
