@@ -1,6 +1,6 @@
 ---
 title: "LLM models"
-hidden: true
+hidden: false
 ---
 
 
