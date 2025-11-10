@@ -3,8 +3,6 @@ title: "LLM models"
 hidden: false
 ---
 
-
-
 You can configure which LLM models Sensible uses to find answers in [context](doc:prompt) for LLM-based methods. The following tables list your configuration options.
 
 ### List method
