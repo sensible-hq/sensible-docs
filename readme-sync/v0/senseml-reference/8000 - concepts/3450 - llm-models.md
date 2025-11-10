@@ -22,10 +22,12 @@ You can configure which LLM models Sensible uses to find answers in [context](do
 
 | configuration                           | configuration                           | LLM model         |
 | --------------------------------------- | --------------------------------------- | ----------------- |
-| LLM Engine:<br/> provider: **openai**  |                                         | GPT-4o mini       |
-| LLM Engine:<br/>provider: **anthropic** |                                         | Claude 3.7 Sonnet |
-| Multimodal Engine: **true**             | LLM Engine:<br/>provider: **openai**   | GPT-4o mini       |
+| LLM Engine:<br/> provider: **openai**   |                                         | GPT-4o mini       |
+| LLM Engine:<br/>provider: **anthropic** |                                         | Claude 3 Haiku    |
+| Multimodal Engine: **true**             | LLM Engine:<br/>provider: **openai**    | GPT-4o mini       |
 |                                         | LLM Engine:<br/>provider: **anthropic** | Claude 3 Haiku    |
+| Source Ids parameter is specified       | LLM Engine:<br/>provider: **openai**    | GPT-4o mini       |
+|                                         | LLM Engine:<br/>provider: **anthropic** | Claude 3.7 Sonnet |
 
 ### NLP Table method
 
