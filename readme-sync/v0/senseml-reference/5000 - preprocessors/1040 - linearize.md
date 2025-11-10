@@ -3,7 +3,7 @@ title: "draft Linearize"
 hidden: true
 ---
 
-**TODO**: add to preprocessor INDEX TOPIC
+**TODO**: add to preprocessor INDEX TOPIC, rm remaining 'todo'
 
 
 
@@ -28,7 +28,7 @@ Parameters
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | type (**required**)    | `linearize`                                                  | Recognizes multi-column or block layouts in documents.       |
 | match<br/>or<br/>range | [Match](doc:match) object or array of Match objects<br/><br/>or<br/><br/>Range object | Specifies the matching pages or repeating document ranges ("sections") in which to run this preprocessor.<br/><br/>`match`:  Sensible runs this preprocessor on each page containing the matched text.<br/><br/>`range`:  Sensible runs this preprocessor in the specified repeating document ranges. For information about this option's parameters, see the [Range](doc:sections#range-parameters) parameters for horizontal sections. For an example, see [Example 2](doc:linearize#example-2). |
-| blocks (**required**)  | array of objects                                             | Specifies an array of blocks. Each rectangular block object in the array has the following parameters: <br/>`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: page's width in inches<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: 0<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page.<br/><br/>To visually determine the inch coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions. Any lines that fall partially or completely outside a block are excluded from the preprocessor and are unavailable for SenseML queries. TODO IS THAT TRUE? |
+| blocks (**required**)  | array of objects                                             | Specifies an array of blocks. Each rectangular block object in the array has the following parameters: <br/>`minX`: default: 0 <br/>Specifies the left boundary of the block, in inches from the left edge of the page. <br/>`maxX`: default: page's width in inches<br/>Specifies the right boundary of the block, in inches from the left edge of the page. <br/> `minY`: default: 0<br/>Specifies the top boundary of the block, in inches from the top edge of the page.<br/>`maxY`: default: page's height in inches<br/>Specifies the bottom boundary of the block, in inches from the top edge of the page.<br/><br/>To visually determine the inch coordinates, click a point in the document in the Sensible app, then drag to display inch dimensions. Any lines that fall partially or completely outside a block are excluded from the preprocessor and are unavailable for SenseML queries. TODO/question IS THAT TRUE? |
 
 Examples
 ====
