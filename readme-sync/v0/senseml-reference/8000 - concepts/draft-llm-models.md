@@ -5,7 +5,7 @@ hidden: true
 
 
 
-You can configure which LLM models Sensible uses to find answers in context for LLM-based methods. The following tables list your configuration options.
+You can configure which LLM models Sensible uses to find answers in [context](doc:prompt) for LLM-based methods. The following tables list your configuration options.
 
 ### List method TODO link to parameters table
 
