@@ -41,7 +41,7 @@ And get back key facts as JSON:
 }
 ```
 
-Sensible is highly configurable. You can extract data in minutes by leveraging GPT-4 and other large language models (LLMs), or you can get fine-grained control with Sensible's visual, layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, variable legal contracts :
+Sensible is highly configurable. You can extract data in minutes by leveraging large language models (LLMs), or you can get fine-grained control with Sensible's visual, layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, variable legal contracts :
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
 

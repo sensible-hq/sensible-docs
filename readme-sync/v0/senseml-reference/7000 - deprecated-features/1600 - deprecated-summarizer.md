@@ -8,7 +8,7 @@ This method is deprecated. Configure the Source ID parameters on the Query Group
 
 ## Description
 
-Transforms short snippets of free text using an LLM (GPT-3.5 Turbo Instruct). The Summarizer computed field method takes as input another extracted field's output, and transforms the text based on prompts or short samples of extracted values you provide. Use this method to transform another method's output when you can't use [types](doc:types) or other [computed field methods](doc:computed-field-methods). For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. You can reformat with instructions like `reformat each inconsistently formatted instance of rank as a word (i.e. \"first\" not \"1st\" or \"1\") `. 
+Transforms short snippets of free text using an LLM. The Summarizer computed field method takes as input another extracted field's output, and transforms the text based on prompts or short samples of extracted values you provide. Use this method to transform another method's output when you can't use [types](doc:types) or other [computed field methods](doc:computed-field-methods). For example, if you use the [Row](doc:row) method to return an inconsistently formatted ranking (`first`, `1st`,  `1`), then you can use this method to consistently format the ranking. You can reformat with instructions like `reformat each inconsistently formatted instance of rank as a word (i.e. \"first\" not \"1st\" or \"1\") `. 
 
 Parameters
 ====

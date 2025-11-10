@@ -87,8 +87,8 @@ The following example shows using the NLP Table method to extract information fr
         "columns": [
           {
             "id": "transaction_date",
-            /* note GPT has some limitations due to its training data. 
-               For example, if it doesn't know the current year 
+            /* note LLMs have some limitations due to its training data. 
+               For example, if an LLM doesn't know the current year 
                it makes one up in the output */
             "description": "transaction date. If there's no year, append the current year.",
           },
