@@ -7,27 +7,21 @@ hidden: false
 
 You can configure which LLM models Sensible uses to find answers in [context](doc:prompt) for LLM-based methods. The following tables list your configuration options.
 
-### List method TODO link to parameters table
+### List method
 
-| configuration                           | configuration                      | LLM model         |
-| --------------------------------------- | ---------------------------------- | ----------------- |
-| LLM Engine:<br/>provider: **openai**    | LLM Engine:<br/> mode: **fast**    | GPT-4o mini       |
-| LLM Engine:<br/>provider: **anthropic** | LLM Engine:<br/> mode: **fast**    | Claude 3.5 Haiku  |
-| LLM Engine:<br/>provider: **openai**    | LLM Engine:<br/>mode: **thorough** | GPT-4o            |
-| LLM Engine:<br/>provider: **anthropic** | LLM Engine:<br/>mode: **thorough** | Claude 3.7 Sonnet |
-| LLM Engine:<br/>provider: **openai**    | LLM Engine:<br/>  mode: **long**   | GPT-4o mini       |
-| LLM Engine:<br/>provider: **anthropic** | LLM Engine:<br/>  mode: **long**   | Claude 3.5 Haiku  |
+| configuration                      | LLM Engine:<br/>provider: **openai** | LLM Engine:<br/>provider: **anthropic** |
+| ---------------------------------- | ------------------------------------ | --------------------------------------- |
+| LLM Engine:<br/> mode: **fast**    | GPT-4o mini                          | Claude 3.5 Haiku                        |
+| LLM Engine:<br/>mode: **thorough** | GPT-4o                               | Claude 3.7 Sonnet                       |
+| LLM Engine:<br/>  mode: **long**   | GPT-4o mini                          | Claude 3.5 Haiku                        |
 
 ### Query Group method
 
-| configuration                           | configuration                     | LLM model         |
-| --------------------------------------- | --------------------------------- | ----------------- |
-| LLM Engine:<br/> provider: **openai**   |                                   | GPT-4o mini       |
-| LLM Engine:<br/>provider: **anthropic** |                                   | Claude 3 Haiku    |
-| LLM Engine:<br/>provider: **openai**    | Multimodal Engine: **true**       | GPT-4o mini       |
-| LLM Engine:<br/>provider: **anthropic** | Multimodal Engine: **true**       | Claude 3 Haiku    |
-| LLM Engine:<br/>provider: **openai**    | Source Ids parameter is specified | GPT-4o mini       |
-| LLM Engine:<br/>provider: **anthropic** | Source Ids parameter is specified | Claude 3.7 Sonnet |
+| configuration                     | LLM Engine:<br/> provider: **openai** | LLM Engine:<br/>provider: **anthropic** |
+| --------------------------------- | ------------------------------------- | --------------------------------------- |
+|                                   | GPT-4o mini                           | Claude 3 Haiku                          |
+| Multimodal Engine: **true**       | GPT-4o mini                           | Claude 3 Haiku                          |
+| Source Ids parameter is specified | GPT-4o mini                           | Claude 3.7 Sonnet                       |
 
 ### NLP Table method
 
