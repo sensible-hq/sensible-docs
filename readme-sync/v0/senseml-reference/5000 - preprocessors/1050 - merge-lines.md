@@ -129,6 +129,7 @@ CONFIG
 {
   "preprocessors": [
     {
+      /* without the preprocessor, Sensible incorrectly outputs 113 instead of -113 */
       "type": "mergeLines",
       "directlyAdjacentThreshold": 0.16,
       "adjacentThreshold": 1
@@ -162,13 +163,16 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_2.png)
 
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines.pdf) |
+| ---------------- | ------------------------------------------------------------ |
+
 OUTPUT
 
 ```json
 {
   "premier_driver_discount": {
-    "source": "113.00",
-    "value": 113,
+    "source": "-$ 113.00",
+    "value": -113,
     "unit": "$",
     "type": "currency"
   }

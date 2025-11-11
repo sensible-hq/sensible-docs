@@ -53,6 +53,7 @@ To reliably capture the first and last name in their left-to-right order,  set `
 {
   "fields": [
     {
+       /* Ensure the document type's OCR Engine parameter is set to Google for this example */  
       "id": "_name_joint_owner_raw",
       "match": "last",
       "anchor": {

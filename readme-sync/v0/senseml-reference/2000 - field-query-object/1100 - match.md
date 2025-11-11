@@ -92,6 +92,7 @@ The following example shows setting the Edit Distance parameter on a simple matc
 {
   "fields": [
     {
+      /* Ensure the document type's OCR Engine parameter is set to Microsoft for this example */
       "id": "simple_anchor",
     
       "anchor": {

@@ -188,3 +188,7 @@ The following image shows the example document used with this example config:
   }
 }
 ```
+
+## Notes
+
+For an advanced alternative to this preprocessor, see the [Linearize](doc:linearize) preprocessor.

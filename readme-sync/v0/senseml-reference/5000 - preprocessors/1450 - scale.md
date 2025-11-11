@@ -48,7 +48,6 @@ The following example shows using the Per Page parameter to scale an ID card tha
     }
   ],
   "fields": [
-    
     {
       "id": "white_house_tenure",
       "anchor": "tenure",
@@ -56,14 +55,15 @@ The following example shows using the Per Page parameter to scale an ID card tha
       "method": {
         "id": "region",
         "start": "below",
-        "offsetX": -1.7,
+        "offsetX": -1.3,
         "offsetY": 0,
-        "width": 1.5,
+        "width": 2,
         "height": 0.6
       }
     }
   ]
 }
+
 ```
 
 **Example document**
