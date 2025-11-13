@@ -123,8 +123,8 @@ The following example shows sorting lines in "sections", or repeating ranges con
         /* offset the stop up the page to exclude "do not" from the blocks */
         "stopOffsetY": -0.5
       },
-      /* define two columuar blocks in the repeating ranges 
-         so that col 1 text preceeds col 2 text
+      /* define two columnar blocks in the repeating ranges 
+         so that col 1 text precedes col 2 text
          */
       "blocks": [
         {
