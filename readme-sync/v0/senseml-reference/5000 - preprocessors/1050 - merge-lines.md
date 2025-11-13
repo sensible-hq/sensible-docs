@@ -24,9 +24,9 @@ Parameters
 | ---------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
 | type (**required**)                      | `mergeLines`                           | merges lines distributed along a horizontal axis.            |
 | directlyAdjacentThreshold (**required**) | number >= 0.16                         | Threshold for merging adjacent lines when you don't want the output lines separated by whitespaces. For example, use this parameter to merge one-letter lines into a one-word line. Choosing a larger number merges more aggressively.<br/>If you configure the document type's OCR engine to use Google, then Sensible recommends using this parameter's default value. <br/>In detail, if the distance between two adjacent lines is equal to or smaller than the threshold defined in this parameter, Sensible merges the lines. This parameter expresses the distance as a fraction of the lines' height.<br/>For limitations on the values you can set for this parameter, see the Notes section. |
-| adjacentThreshold (**required**)         | number >= 0.6                          | Threshold for merging adjacent lines when you want the output lines separated by whitespaces. For example, use this to merge cells in a row into one line. Sensible joins the lines returned by the method using one whitespace as the separator. Choosing a larger number merges more aggressively. <br/>In detail, the behavior of this parameter is the same as for the Directly Adjacent Threshold parameter, except that Sensible inserts a whitespace between merged lines.<br/> For an example, see the Examples section.<br/>For limitations on the values you can set for this parameter, see the Notes section. |
+| adjacentThreshold (**required**)         | number >= 0.6                          | Threshold for merging adjacent lines when you want the output lines separated by whitespaces. For example, use this to merge cells in a row into one line. Sensible joins the lines returned by the method using one whitespace as the separator. Choosing a larger number merges more aggressively. <br/>In detail, the behavior of this parameter is the same as for the Directly Adjacent Threshold parameter, except that Sensible inserts a whitespace between merged lines.<br/>For limitations on the values you can set for this parameter, see the Notes section. |
 | yOverlapThreshold                        | number between 0 and 1.0. default: 1.0 | Merges lines that aren't perfectly aligned at the same height on the page. <br/> Specifies the y overlap above which the Merge Lines preprocessor merges two adjacent lines. Y overlap is the section of the joint y-axis range of two lines that's occupied by both lines. For example, if two lines share the same minimum and maximum y-axis values, their overlap is 1. If one line's extent is from 0 to 10 and the other line’s extent is from 2 to 12 on the y-axis, their overlap is .667 (8 / 12). <br/>For an example, see the Examples section. |
-| minXGapThreshold                         | number in inches                       | Configure this parameter if two lines overlap on an x-axis. The default behavior is to merge these overlapping lines into one line. To split them instead, set a cap on the amount of allowable overlap. For example:<br/>0 - splits lines if their line boundaries are touching but not overlapping.<br/>0.1 - splits lines if their boundaries overlap a little, up to 0.1 inches.<br/>2.0 - splits lines even when they overlap a lot, up to 2.0 inches.<br/>For an example, see the Examples section. |
+| minXGapThreshold                         | number in inches                       | Configure this parameter if two lines overlap on an x-axis. The default behavior is to merge these overlapping lines into one line. To split them instead, set a cap on the amount of allowable overlap. For example:<br/>0 - splits lines if their line boundaries are touching but not overlapping.<br/>0.1 - splits lines if their boundaries overlap a little, up to 0.1 inches.<br/>2.0 - splits lines even when they overlap a lot, up to 2.0 inches. |
 
 Examples
 ====
@@ -54,6 +54,8 @@ CONFIG
 {
   "preprocessors": [
     {
+        /* Ensure the document type's OCR Engine parameter is set to Google for this example */
+      
       "type": "mergeLines",
       "directlyAdjacentThreshold": 0.15,
       "adjacentThreshold": 0.8,
@@ -110,74 +112,7 @@ Modify this example to observe the effects of the different parameters on the ou
   
 
 
-Oversplit lines
-----
 
-**PROBLEM**
-
-The following image shows oversplit lines. For example, Sensible splits the phrase "premium driver discount" into three lines even though the human eye perceives it as one phrase:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_1.png)
-
-**SOLUTION**
-
-The following example shows using the Merge Lines preprocessor to fix the oversplit lines and find a discount amount for a specific vehicle.
-
-CONFIG
-
-```json
-{
-  "preprocessors": [
-    {
-      /* without the preprocessor, Sensible incorrectly outputs 113 instead of -113 */
-      "type": "mergeLines",
-      "directlyAdjacentThreshold": 0.16,
-      "adjacentThreshold": 1
-    }
-  ],
-  "fields": [
-    {
-      "id": "premier_driver_discount",
-      "type": "currency",
-      "method": {
-        "id": "row"
-      },
-      "anchor": {
-        "match": {
-          "type": "includes",
-          "text": "premier driver discount"
-        },
-        "end": {
-          "type": "includes",
-          "text": "vehicle 06"
-        }
-      }
-    }
-  ]
-}
-```
-
-Example document
-
-The following image shows the example document used with this example config:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_oversplit_2.png)
-
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines.pdf) |
-| ---------------- | ------------------------------------------------------------ |
-
-OUTPUT
-
-```json
-{
-  "premier_driver_discount": {
-    "source": "-$ 113.00",
-    "value": -113,
-    "unit": "$",
-    "type": "currency"
-  }
-}
-```
 Jittery lines on a y-axis
 ----
 
@@ -230,57 +165,7 @@ The following image shows the example document used with this example config:
   }
 }
 ```
-Overlapping lines on an x-axis
-----
 
-The following example shows using the Min X Gap Threshold parameter to extract overlapping text in a poorly formatted document. In this example, the built-in behavior without a Min X Gap Threshold is to merge the overlapping lines into one line (`Supplementary underinsured/uninsured motorist coverage500,000 USD Combined single limit incl. umbl`). 
-
-The Min X Gap Threshold preserves the intended document formatting, which is a two-column table. By preserving this format, you can consistently use the Row method on the table in this document, as well as in other examples of this table in documents in which the lines don't overlap.
-
-**Config**
-
-```json
-{
-  "preprocessors": [
-    {
-      "type": "mergeLines",
-      "directlyAdjacentThreshold": 0.16,
-      "adjacentThreshold": 0.6,
-      "minXGapThreshold": 1.0
-    }
-  ],
-  "fields": [
-    {
-      "id": "underinsured_limit",
-      "method": {
-        "id": "row"
-      },
-      "anchor": "supplementary",
-  
-    }
-  ]
-}
-```
-
-**Example document**
-
-The following image shows the example document used with this example config:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_minxgap.png)
-
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/merge_lines_minxgap.pdf) |
-| ----------------------------------- | ------------------------------------------------------------ |
-
-**Output**
-
-```json
-{
-  "underinsured_limit": {
-    "type": "string",
-    "value": "500,000 USD Combined single limit incl. umbl"
-  }
-}
-```
 
 Notes
 ====
