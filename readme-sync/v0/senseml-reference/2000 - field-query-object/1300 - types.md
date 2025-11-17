@@ -2,6 +2,7 @@
 title: "Types"
 hidden: false
 ---
+
 Filter and format extracted data using the Type parameter in a [Field object](doc:field-query-object). 
 
 For example, the following field returns null unless it finds data that Sensible recognizes as a number: 
@@ -54,18 +55,20 @@ The following types are available:
 
 [Accounting currency](doc:types#accounting-currency)
 
-Address
-====
+## Address
+
 Returns USA-based addresses.  By default, Sensible recognizes  single- or multi-line addresses isolated from other lines in "block" format. For example, `"type":"address"` recognizes address such as:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/type_address_block.png)
 
 Use the Block Format parameter to recognize addresses embedded in non-address lines, for example, use:
 
+```json
       "type": {
         "id": "address",
         "block_format": false
       } 
+```
 
 to find addresses in paragraphs:
 
@@ -140,7 +143,7 @@ Boolean
 
 Returns true for the following case-insensitive strings:
 
-```json
+```txt
 true
 yes
 y
@@ -148,7 +151,7 @@ y
 
 Returns false for the following case-insensitive strings:
 
-```json
+```txt
 false
 no
 n
@@ -158,9 +161,9 @@ Example output:
 
 ```json
 {
-  source: "YES",
-  type: "boolean",
-  value: true,
+  "source": "YES",
+  "type": "boolean",
+  "value": true,
 }
 ```
 
@@ -181,7 +184,7 @@ Simple syntax
 
 Returns USA dollars as absolute value. For example,
 
-``` json
+```json
 {
     "source": "3 bil",
     "value": 3000000000,
@@ -231,7 +234,7 @@ Configurable syntax
 
 Use configurable syntax to change the default recognized formats.
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -259,25 +262,25 @@ Use configurable syntax to change the default recognized formats.
 
 **Parameters**
 
+
 | key                       | value                                                        | description                                                  |
 | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | id (**required**)         | `currency`                                                   |                                                              |
 | requireCurrencySymbol     | boolean. Default: false                                      | Requires a currency symbol preceding the amount.             |
-| currencySymbol            | string or object. Default: `$`                               | The text to recognize as a currency symbol, for example "€" or "EURO". The text must precede the amount. This parameter sets the Unit parameter in the output.<br/>To specify multiple currencies to recognize, use this parameter to specify a lookup table. The table maps source text to the Unit parameter.  For example, the following lookup table recognizes currency codes and symbols for dollars and euros, and outputs symbols to the Unit parameter:<br/> `"currencySymbol": {`<br/>`"$": "$"`<br/>`"€": "€"`<br/>`"USD": "$",`<br/>`"EUR": "€",`<br/>`"default": "€"}`<br/>If the source text doesn't include a currency symbol, Sensible uses the default specified in the lookup table. If the lookup table doesn't include a default, Sensible falls back to the $ symbol. |
+| currencySymbol            | string or object. Default: `$`                               | The text to recognize as a currency symbol, for example "€" or "EURO". The text must precede the amount. This parameter sets the Unit parameter in the output.<br/>To specify multiple currencies to recognize, use this parameter to specify a lookup table. The table maps source text to the Unit parameter.  For example, the following lookup table recognizes currency codes and symbols for dollars and euros, and outputs symbols to the Unit parameter:<br/> `"currencySymbol": { "$": "$", "€": "€", "USD": "$", "EUR": "€", "default": "€" }`<br/>If the source text doesn't include a currency symbol, Sensible uses the default specified in the lookup table. If the lookup table doesn't include a default, Sensible falls back to the $ symbol. |
 | requireThousandsSeparator | boolean.  Default: false                                     | Requires a thousands separator in numbers with a thousands place. |
 | thousandsSeparator        | string. Default: `,`                                         | The separator to require, for example `.`                    |
 | decimalSeparator          | string. Default: `.`                                         | For numbers with a decimal place, specify the separator, for example `,`. |
 | maxDecimalDigits          | number. Default: 4                                           | The maximum number of decimal digits to recognize.           |
 | maxValue                  | number. Default: infinity                                    | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
 | minValue                  | number. Default: infinity                                    | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
-| relaxedWithCents          | Boolean. default: false                                      | Use this parameter when poor-quality scans or photographed documents result in erroneous OCR output for the decimal separator or thousands separator.  <br/> If true, Sensible overrides all other Currency type parameters, outputs USD currency, and recognizes the following number format as a currency:<br/><br/>- any number of digits mixed with `<fuzzySeparator>` characters, followed by<br/>- one `<fuzzySeparator>` character, followed by<br/>- two digits (for the cents)<br/><br/>where a `<fuzzySeparator>` character is any of the following common erroneous OCR outputs for a period or comma: <br/>`.,;: _ `  (period, comma, semicolon, colon, space, underscore)<br/><br/>For example, if you set this parameter to true, then for the erroneous OCR output  `"7.859:36"`, Sensible returns: <br/>{"source": "7.859:36",<br/>"type": "currency",<br/>"unit": "$",<br/>"value": 7859.36} |
+| relaxedWithCents          | Boolean. default: false                                      | Use this parameter when poor-quality scans or photographed documents result in erroneous OCR output for the decimal separator or thousands separator.  <br/> If true, Sensible overrides all other Currency type parameters, outputs USD currency, and recognizes the following number format as a currency:<br/><br/>- any number of digits mixed with `<fuzzySeparator>` characters, followed by<br/>- one `<fuzzySeparator>` character, followed by<br/>- two digits (for the cents)<br/><br/>where a `<fuzzySeparator>` character is any of the following common erroneous OCR outputs for a period or comma: <br/>`.,;: _ `  (period, comma, semicolon, colon, space, underscore)<br/><br/>For example, if you set this parameter to true, then for the erroneous OCR output  `"7.859:36"`, Sensible returns: <br/>`{"source": "7.859:36", "type": "currency", "unit": "$", "value": 7859.36}` |
 | accountingNegative        | `default`, `anyParentheses`, `bothParentheses`, `suffixNegativeSign` Default: `null` | Replaces the deprecated Accounting Currency type. Specifies to recognize accounting sign conventions for negative numbers.<br/>`null` Sensible recognizes negative numbers as described in the preceding **formats recognized** section.<br/>`bothParentheses` -  Sensible assigns a negative value to a number prefixed and suffixed by parentheses.<br/>`anyParentheses` - Sensible assigns a negative value to a number that includes any parentheses as a suffix or prefix. Use this option to handle OCR errors, where an opening or closing parenthesis can be  incorrectly recognized as other characters.<br/>`suffixNegativeSign` - Sensible assigns a negative value to number suffixed by a negative sign.<br/>`default`  Replaces the behavior of the Accounting Currency type for backward compatibility. The equivalent of `bothParentheses` and `suffixNegativeSign`. <br/> |
 | alwaysNegative            | boolean                                                      | If true, Sensible assigns a negative value to a number and ignores sign symbols in the document. For example, use this to capture values in the debit column of an accounting document, where negative signs are omitted. |
 | removeSpaces              | boolean                                                      | Removes whitespace in a line for better currency recognition. For example, changes the line `$  12.45` to `$12.45`. |
 | roundTo                   | number of decimal places to round up to.                     | Rounds up to the specified decimal place. <br/> For example if you specify `"roundTo": 3` then Sensible rounds `0.1234` to `0.123`. <br/>  If you specify `"roundTo": 2`  and `"decimalSeparator": ","` then Sensible rounds `5,249` to `5,25`. |
 
-Date
-====
+## Date
 
 You can define this type using concise syntax,  or you can configure options with expanded syntax.
 
@@ -473,7 +476,7 @@ Argos Fullington, Jax Odenson, Ollie Longstreet
 Configurable syntax
 ----
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -546,12 +549,12 @@ To recognize numbers formatted like `3.061.534,45`, configure the Thousands Sepa
 Configurable syntax
 ----
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
   {
-     // source text is 1,234.56989
+     /* source text is 1,234.56989 */
     "id": "number",
     "roundTo": "2"
   }
@@ -579,7 +582,7 @@ Configurable syntax
 Paragraph
 ====
 
-Use with methods that return paragraphs, for example  [Document Range](https://docs.sensible.so/docs/document-range) or [Paragraph](doc:paragraph), to format the extracted text. By default, returns paragraphs formatted with newline characters (\n), instead of formatted as a single string.
+Use with methods that return paragraphs, for example  [Document Range](doc:document-range) or [Paragraph](doc:paragraph), to format the extracted text. By default, returns paragraphs formatted with newline characters (\n), instead of formatted as a single string.
 
 Simple syntax
 ----
@@ -603,7 +606,7 @@ Configurable syntax
 
 Use configurable syntax to change the formatting of the extracted text.
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -1214,7 +1217,7 @@ Recognizes digits in USA decimal notation (for example, 1,500.06):
 
 Examples: 
 
-```
+```txt
 56,999
 -$527.01
 $527.01-
