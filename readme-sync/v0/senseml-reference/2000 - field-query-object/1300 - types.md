@@ -347,13 +347,13 @@ Configurable syntax
 
 The following example:
 
-````json
+```json
 "type":
   {
     "id": "date",
     "format": ["%b-%d[a-z]{2}-%y$", "%y%M%D", "%b\\\\%d\\\\%Y", "%b\\s*?%Y"]   
   }
-````
+```
 
 Recognizes the following date formats and ignores all default formats:
 

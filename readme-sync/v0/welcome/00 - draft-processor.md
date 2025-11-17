@@ -17,7 +17,7 @@ A *processor* is an API endpoint that you configure for extracting data from a g
 
 - **layout-based template**
 
-- ````json
+- ```json
   {
     "fingerprint": {
       "tests": [
@@ -65,6 +65,6 @@ A *processor* is an API endpoint that you configure for extracting data from a g
     ]
   }
       
-  ````
+  ```
 
   

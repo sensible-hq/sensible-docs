@@ -131,7 +131,7 @@ Takes as input an array that can contain any depth of nested arrays, and returns
 
 The following example shows how to flatten a nested array. It also shows how Sensible transforms the JsonLogic output into the [fields](doc:field-query-object) schema when you use Flatten inside the Custom Computation method.
 
-````json
+```json
 {
   "fields": [],
   "postprocessor": {
@@ -189,7 +189,7 @@ The following example shows how to flatten a nested array. It also shows how Sen
     },
   ],
 }
-````
+```
 
 returns the following:
 
