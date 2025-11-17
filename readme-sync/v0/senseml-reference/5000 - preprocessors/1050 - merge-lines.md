@@ -187,4 +187,3 @@ In this situation,   `"directlyAdjacentThreshold"` and `"adjacentThreshold"` hav
     }
 
 ```
-
