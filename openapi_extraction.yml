@@ -37,7 +37,7 @@ paths:
 
       description: |
 
-        **Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints for production.
+        **Note:** Use this endpoint when testing. Use the asynchronous extraction endpoints when in production.
 
         Extract data from a local document synchronously.
 
