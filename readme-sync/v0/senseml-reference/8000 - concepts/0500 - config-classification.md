@@ -1,7 +1,9 @@
 ---
-title: "Config classification"
+title: "draft Config classification"
 hidden: true
 ---
+
+**draft concept topic -- not necessary?**
 
 Sensible supports two levels of document classification:
 
