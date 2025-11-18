@@ -48,7 +48,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 | key                 | value                  | description                                                  |
 | :------------------ | :--------------------- | :----------------------------------------------------------- |
 | type (**required**) | `jsonLogic`            | Transform extracted data using [JsonLogic](doc:jsonlogic).   |
-| keepParsedDocument  | Boolean. default: true | If false, Sensible suppresses the `parsed_document` object's output. Set to false if you want to reduce the size of the output and you're interested solely in the output of the postprocessor. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review). |
+| keepParsedDocument  | Boolean. default: true | If false, Sensible suppresses the `parsed_document` object's output. Set to false if you want to reduce the size of a large output and you're interested solely in the output of the postprocessor. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review). |
 | rule (**required**) | JsonLogic object       | Define the custom schema using  JsonLogic [operations](doc:jsonlogic).  To create custom objects in the schema, you can use the [eachKey](https://json-logic.github.io/json-logic-engine/docs/higher) operation. Or, if the keys of the object you intend to build can vary depending on the calculation, use Sensible's [object](doc:jsonlogic#object) operator. |
 
 # Examples
