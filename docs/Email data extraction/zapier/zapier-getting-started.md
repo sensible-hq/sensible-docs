@@ -104,12 +104,12 @@ Congratulations, your integration is now published and running! Take the followi
 
 ## (Optional) Scale up
 
-You can extract from more documents automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps.  
+You can extract from more documents automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps.\
 Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action.png)
 
 # Notes
 
 **Limitations**
 
-- You can configure single-value field output with the Sensible-Zapier integration. To handle fields that output data objects, such as tables and sections in Zapier, you can convert the Sensible extraction to Excel by checking the **Excel output** option on the Sensible trigger. Then you can access extracted tables, sections, or other complex fields as rows in the sheet using Zapier's spreadsheet integrations, for example, their Google Sheets integrations. For more information about Sensible's Excel exports, see [SenseML to Excel reference](doc:excel-reference).
-- You can extract from single-document files with Zapier. If you want to extract from portfolio files (files that contain multiple documents, for example, insurance application bundles), use the Sensible API or SDKs.
+* You can configure single-value field output with the Sensible-Zapier integration. To handle fields that output data objects, such as tables and sections in Zapier, you can convert the Sensible extraction to Excel by checking the **Excel output** option on the Sensible trigger. Then you can access extracted tables, sections, or other complex fields as rows in the sheet using Zapier's spreadsheet integrations, for example, their Google Sheets integrations. For more information about Sensible's Excel exports, see [SenseML to Excel reference](doc:excel-reference).
+* You can extract from single-document files with Zapier. If you want to extract from portfolio files (files that contain multiple documents, for example, insurance application bundles), use the Sensible API or SDKs.
