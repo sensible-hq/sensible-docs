@@ -16,24 +16,22 @@ Sensible supports both built-in and extended JsonLogic operators.
 
 ### Documentation
 
-- For a Sensible-specific tutorial, see [The opinionated guide to JsonLogic for transforming document data](https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data).
+* For a Sensible-specific tutorial, see [The opinionated guide to JsonLogic for transforming document data](https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data).
 
-- For information about the base built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
+* For information about the base built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 
--   Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
+* Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
 
-    - Array operations: `"length"`, `"get"`. 
-    - Miscellaneous operations: `"preserve"`, `"keys"`. 
-    - [Higher order operations](https://json-logic.github.io/json-logic-engine/docs/higher): `"every"`, `"eachKey"`
-
-
+  * Array operations: `"length"`, `"get"`. 
+  * Miscellaneous operations: `"preserve"`, `"keys"`. 
+  * [Higher order operations](https://json-logic.github.io/json-logic-engine/docs/higher): `"every"`, `"eachKey"`
 
 ### Syntax tips
 
-- Use dot notation to access properties of an object (by name) or items in an array (by index), for example, `test_table.columns.3.values` to access the 4th column in a table. 
-- Double escape dots in field IDs. For example, `"delivery\\.zip\\.code.value"` to reference `87112` in the field `{"delivery.zip.code":{"value":87112}}`. 
-- Use traversal notation to access data in hierarchies. For example, from within a section, use `"../"` to access fields in the parent object.
-- To evaluate the current context, use `"var":""`.
+* Use dot notation to access properties of an object (by name) or items in an array (by index), for example, `test_table.columns.3.values` to access the 4th column in a table. 
+* Double escape dots in field IDs. For example, `"delivery\\.zip\\.code.value"` to reference `87112` in the field `{"delivery.zip.code":{"value":87112}}`. 
+* Use traversal notation to access data in hierarchies. For example, from within a section, use `"../"` to access fields in the parent object.
+* To evaluate the current context, use `"var":""`.
 
 ### Sensible-specific operations
 
@@ -66,8 +64,8 @@ Most commonly used with the JsonLogic `var` operation to test a field's output.
 
 Accepts as input:
 
-- a single value, e.g., `{ "exists": { "var": "some_field" } }`)
-- an array, in which case it checks the first item only, e.g., `{ "exists": [{ "var": "some_field" },...,] }`
+* a single value, e.g., `{ "exists": { "var": "some_field" } }`)
+* an array, in which case it checks the first item only, e.g., `{ "exists": [{ "var": "some_field" },...,] }`
 
 ### Examples
 
@@ -81,7 +79,7 @@ Takes as input an array that can contain any depth of nested arrays, and returns
 
 The following example shows how to flatten a nested array. It also shows how Sensible transforms the JsonLogic output into the [fields](doc:field-query-object) schema when you use Flatten inside the Custom Computation method.
 
-````json
+```json
 {
   "fields": [],
   "postprocessor": {
@@ -139,7 +137,7 @@ The following example shows how to flatten a nested array. It also shows how Sen
     },
   ],
 }
-````
+```
 
 returns the following:
 
@@ -238,7 +236,6 @@ See [Validating extractions](doc:validate-extractions#examples).
 
 Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  This operation is an alternative to the  `"eachKey"`  operation. Use the Object operation when the keys in the object you intend to build can vary depending on other operations:
 
-
 ```json
 {
     /* Sensible recommends the Ojbect operation as an alternative to the "eachKey" operation if you don't know the keys in the object before building it */
@@ -254,8 +251,8 @@ Returns a JSON object that is an array of key/value pairs. You can nest object o
 
 Creates a new object that includes all the fields from a source object except those specified. Takes an array of two items:
 
-- an object to get fields from
-- an array of field IDs to omit
+* an object to get fields from
+* an array of field IDs to omit
 
 ```json
 {
@@ -268,8 +265,8 @@ Creates a new object that includes all the fields from a source object except th
 
 Edge cases:
 
-- The Omit Fields operator returns an empty object if the source object is empty, null, or undefined
-- The Omit Fields operator returns the source object if it can't find the specified fields to omit.
+* The Omit Fields operator returns an empty object if the source object is empty, null, or undefined
+* The Omit Fields operator returns the source object if it can't find the specified fields to omit.
 
 ### Examples
 
@@ -369,13 +366,13 @@ The following example shows removing extracted IDs from the [postprocessed](doc:
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/omit_fields.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/omit_fields.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Postprocessor output**
 
@@ -431,14 +428,12 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
 ## Pick fields
 
 Returns the specified fields. Takes an array of two items:
 
-- an object to get fields from
-- an array of field IDs to pick
+* an object to get fields from
+* an array of field IDs to pick
 
 ```json
 {
@@ -451,8 +446,8 @@ Returns the specified fields. Takes an array of two items:
 
 The Pick Fields operator returns an empty object if:
 
-- you pass an empty array as the second argument, or if Sensible can't find the specified field IDs
-- the source object is empty, null, or undefined
+* you pass an empty array as the second argument, or if Sensible can't find the specified field IDs
+* the source object is empty, null, or undefined
 
 ### Examples
 
@@ -525,8 +520,8 @@ Or:
 
 Where `regex` is a Javascript-flavored regular expression. Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s`, to represent a whitespace character). This operation supports:
 
-- regex capturing groups
-- regex flags, such as `i` for case insensitive. 
+* regex capturing groups
+* regex flags, such as `i` for case insensitive. 
 
 ### Examples
 
