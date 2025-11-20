@@ -14,27 +14,24 @@ Extracts consecutive lines succeeding the anchor line, for example, paragraphs o
 
 Or, use this method to return the coordinates of regions containing images.
 
-[**Parameters**](doc:document-range#parameters)
-[**Examples**](doc:document-range#examples)
+[**Parameters**](doc:document-range#parameters)\
+[**Examples**](doc:document-range#examples)\
 [**Notes**](doc:document-range#notes)
 
-Parameters
-====
+# Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key               | value                                                   | description                                                  |
-| ----------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `documentRange`                                         | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
-| stop              | Match object or array of Match objects. default: `none` | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document. |
-| includeAnchor     | boolean. default: `false`                               | Includes the anchor line in the method output                |
+| key               | value                                                   | description                                                                                                                                                                                                                                                                                                   |
+| ----------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `documentRange`                                         | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output.                                                                                                                                                                                                            |
+| stop              | Match object or array of Match objects. default: `none` | Stops extraction at the matched line. Matched line isn't included in the method output. If unspecified, matches to the end of the document.                                                                                                                                                                   |
+| includeAnchor     | boolean. default: `false`                               | Includes the anchor line in the method output                                                                                                                                                                                                                                                                 |
 | includeImages     | boolean. default: `false`                               | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. |
 
-Examples
-====
+# Examples
 
-Paragraphs and lists
-----
+## Paragraphs and lists
 
 The following example extracts a list of four sworn statements from a W-9 form.
 
@@ -80,8 +77,7 @@ The following image shows the example PDF used with this example config:
 }
 ```
 
-Images
-----
+## Images
 
 The following example shows extracting two images' coordinates.
 
@@ -108,14 +104,13 @@ The following example shows extracting two images' coordinates.
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -170,23 +165,20 @@ The following image shows the example PDF used with this example config:
 }
 ```
 
-Notes
-====
+# Notes
 
-Extracting images
-----
+## Extracting images
 
 Document Range is the sole method that supports images Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
 
-- Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
-- Convert from Sensible's region coordinates to DPI coordinates. Sensible region coordinates follow these conventions:
-  - they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
-  - they're in inches (to convert inches to DPI, multiply the inches coordinates by your DPI setting. For example, an x-coordinate of 3.156 inches is ~227 DPI for a DPI setting of 72 (72 DPI * 3.156 inches).
-  - they're ordered clockwise from top left: top left, top right, bottom right, bottom left
-- Extract a partial bitmap defined by the image region coordinates from the page.
-- Encode the bitmap to bytes in the image format of your choice. 
+* Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
+* Convert from Sensible's region coordinates to DPI coordinates. Sensible region coordinates follow these conventions:
+  * they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
+  * they're in inches (to convert inches to DPI, multiply the inches coordinates by your DPI setting. For example, an x-coordinate of 3.156 inches is \~227 DPI for a DPI setting of 72 (72 DPI \* 3.156 inches).
+  * they're ordered clockwise from top left: top left, top right, bottom right, bottom left
+* Extract a partial bitmap defined by the image region coordinates from the page.
+* Encode the bitmap to bytes in the image format of your choice. 
 
-Document range versus paragraphs
-----
+## Document range versus paragraphs
 
 The Document Range method extracts all the text between an upper and a lower bound.  If you want to extract paragraphs, not a vertical range of text, use the [Paragraph](doc:paragraph) method to detect paragraphs.
