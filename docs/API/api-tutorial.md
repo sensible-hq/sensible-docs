@@ -14,14 +14,13 @@ Get started with extracting structured data from documents using the Sensible AP
 
 If you're new to APIs in general, this tutorial is a good starting point. Or, if you're familiar with APIs, see the [quickstart](doc:quickstart) to get a sample API response.
 
-Prerequisites
-====
+# Prerequisites
 
 To follow this tutorial, you need:
 
-- An API key (you receive this key when you sign up for a [Sensible account](https://app.sensible.so/register)) 
--  [Postman](https://www.postman.com/) desktop app (or follow along with cURL in the command line)
--  An example config. See the following section.
+* An API key (you receive this key when you sign up for a [Sensible account](https://app.sensible.so/register)) 
+* [Postman](https://www.postman.com/) desktop app (or follow along with cURL in the command line)
+* An example config. See the following section.
 
 **Prerequisite: Create an example config**
 
@@ -30,13 +29,10 @@ To follow this tutorial, you need:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
 
- 
-
-Next steps
-====
+# Next steps
 
 Try out the endpoints with these tutorials:
 
-- [Try synchronous extraction](doc:api-tutorial-sync)
-- [Try asynchronous extraction](doc:api-tutorial-async-1)
-- [Try a webhook](doc:api-tutorial-webhook)
+* [Try synchronous extraction](doc:api-tutorial-sync)
+* [Try asynchronous extraction](doc:api-tutorial-async-1)
+* [Try a webhook](doc:api-tutorial-webhook)
