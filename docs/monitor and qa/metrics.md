@@ -12,9 +12,9 @@ next:
 ---
 In the Sensible dashboard, you can view the following metrics about your extractions in real time:
 
-- [Extraction coverage](doc:metrics#extraction-coverage)
-- [Most-used configurations](doc:metrics#most-used-configurations)
-- [Documents extracted](doc:metrics#documents-extracted)
+* [Extraction coverage](doc:metrics#extraction-coverage)
+* [Most-used configurations](doc:metrics#most-used-configurations)
+* [Documents extracted](doc:metrics#documents-extracted)
 
 For all metrics, you can filter by date range and environments (for example, production or development). If you don't specify an environment, Sensible shows metrics for all metrics by default.
 
@@ -22,20 +22,19 @@ For all metrics, you can filter by date range and environments (for example, pro
 
 To view the number of past extractions you've run by document type, click **Dashboard** and scroll to the **Document extracted** section. In the section, you can filter by:
 
--  document types
-- extraction coverage
+* document types
+* extraction coverage
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/dashboard_count.png)
 
-Extraction coverage
----
+## Extraction coverage
 
 Extraction coverage measures how fully an extraction captures your target data from the document.  For more information, see [Extraction coverage](doc:coverage).
 
 In this section, you can filter by:
 
-- document type
-- extraction coverage percentage ranges
+* document type
+* extraction coverage percentage ranges
 
 For example, the following screenshot shows filtering by coverage and document type:
 
@@ -49,7 +48,7 @@ To view an individual extraction's coverage score, click **Dashboard** and scrol
 
 In the preceding screenshot, the `Sept 25, 2023 7:30 PM` extraction has a coverage score of `61.1%`.
 
-## Most-used configurations 
+## Most-used configurations
 
 To view which configurations were used for past extractions, click **Dashboard** and scroll to the **Most used** section:
 
@@ -61,15 +60,15 @@ In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% o
 
 In this section, you can filter by:
 
-- document type
+* document type
 
 ## Recent extractions
 
 To view recent configurations, click **Dashboard** and scroll to the **Recent extraction** section. In the section, you can filter by:
 
-- document type
-- configuration
-- extraction [coverage](doc:coverage)
-- extraction status
-- [review](doc:human-review) status
-- [batch](doc:quick-extraction#extract-from-multiple-files) ID
+* document type
+* configuration
+* extraction [coverage](doc:coverage)
+* extraction status
+* [review](doc:human-review) status
+* [batch](doc:quick-extraction#extract-from-multiple-files) ID
