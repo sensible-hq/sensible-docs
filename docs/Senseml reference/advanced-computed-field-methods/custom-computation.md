@@ -12,24 +12,19 @@ next:
 ---
 Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null.
 
-- Input: This method has access to the  `parsed_document` object at the extraction's level of [verbosity](doc:verbosity).
-- Output: This method outputs the result of the JsonLogic as a single Sensible field. Where possible, Sensible transforms output to conform to Sensible's schema for a field. For more information, see [Example 3](doc:custom-computation#example-3).
+* Input: This method has access to the  `parsed_document` object at the extraction's level of [verbosity](doc:verbosity).
+* Output: This method outputs the result of the JsonLogic as a single Sensible field. Where possible, Sensible transforms output to conform to Sensible's schema for a field. For more information, see [Example 3](doc:custom-computation#example-3).
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-
-| key                      | value               | description                                                  |
-| :----------------------- | :------------------ | :----------------------------------------------------------- |
-| id (**required**)        | `customComputation` |                                                              |
+| key                      | value               | description                                                                                                                                                   |
+| :----------------------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**)        | `customComputation` |                                                                                                                                                               |
 | jsonLogic (**required**) | JsonLogic object    | A [JsonLogic rule](doc:jsonlogic) that transforms the output of [Field objects](https://docs.sensible.so/docs/field-query-object) and outputs a single field. |
 
-
-
-Examples
-====
+# Examples
 
 ## Example 1
 
@@ -229,13 +224,13 @@ The following example shows  defining custom computed fields.
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/add_computed_fields.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
@@ -399,11 +394,11 @@ The following image shows the example document used with this example config:
 
 The following example shows using the Custom Computation method to perform the following operations on data extracted from an claims loss run insurance document:
 
-- Get the total number of claims listed in the document
+* Get the total number of claims listed in the document
 
-- Redact the claim IDs
+* Redact the claim IDs
 
-- Sum up the incurred cost for all claims listed
+* Sum up the incurred cost for all claims listed
 
 **Config**
 
@@ -517,13 +512,13 @@ The following example shows using the Custom Computation method to perform the f
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/blog_custom_computations.png) 
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/blog_custom_computations.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
