@@ -12,31 +12,28 @@ next:
 ---
 Extract lines inside a box. This method works by default with boxes that have a light background and dark, continuous borders. 
 
-[**Parameters**](doc:box#parameters)
+[**Parameters**](doc:box#parameters)\
 [**Examples**](doc:box#examples)
 
-Parameters
-====
+# Parameters
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key               | value                                                        | description                                                  |
-| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `box`                                                        | Extracts all lines in a box. If you define an anchor that's outside the box borders, then use offset parameters to define a point that's inside the box borders so that Sensible recognizes the box. |
-| position          | `right`, `left`, `below`, `above`. default: center of the anchor line's bounding box | Use this parameter to fine tune box recognition. Defines the starting point for the box recognition relative to the anchor. For example, `right` specifies starting at the midpoint of the anchor line's right boundary, and `below` specifies starting at the midpoint of the anchor line's bottom boundary.  Sensible searches outward from this point until it finds dark pixels signifying the box border. <br/> For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| offsetX           | number in inches default: 0                                  | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| offsetY           | number in inches default: 0                                  | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page.  For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| percentOverlapX   | number. default: 0.9                                         | Configures the strictness of the criteria by which a box "contains" a line using this parameter.<br/>By default, Sensible determines that a box contains a line if they overlap by more than 90%  of the smaller of the two's width. Loosen the criteria if a line can partly fall outside a box. For example,  if you set this parameter to 0.5, then Sensible determines that a box contains a line if they overlap by more than 50%  of the smaller of the two's width. Note the line must also meet the Percent Overlap Y parameter's criteria. See [Lines overlapping box](doc:box#example-lines-overlapping-box) for an example. |
-| percentOverlapY   | number. default: 0.8                                         | Configures strictness in the same manner as the Percent Overlap X parameter, but applies to height instead of width. |
-| offsetBoxes       | object. default: `none`                                      | Recognize a box offset from the point defined in the Position parameter by a number of contiguous boxes that share borders. For example, use this parameter for tables or grids where borders surround every cell. Contains the following parameters:<br/>\- `direction`: The direction to search in (`above, below, right, left`, relative to the starting box.<br/>\- `number`: The number of boxes to offset by.<br/>For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| darknessThreshold | number between 0 and 1. default: 0.9                         | The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br/>If the document has a white background, the default value is 0.9.<br/>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| includeAnchor     | `true`, `false`. default: false                              | If true, includes anchors lines that are inside the box borders in the method output. Ignores anchor lines that are outside box borders. |
+| key               | value                                                                                | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `box`                                                                                | Extracts all lines in a box. If you define an anchor that's outside the box borders, then use offset parameters to define a point that's inside the box borders so that Sensible recognizes the box.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| position          | `right`, `left`, `below`, `above`. default: center of the anchor line's bounding box | Use this parameter to fine tune box recognition. Defines the starting point for the box recognition relative to the anchor. For example, `right` specifies starting at the midpoint of the anchor line's right boundary, and `below` specifies starting at the midpoint of the anchor line's bottom boundary.  Sensible searches outward from this point until it finds dark pixels signifying the box border. <br/> For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                                                              |
+| offsetX           | number in inches default: 0                                                          | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                                                                                                                                                                                                                                                                                                          |
+| offsetY           | number in inches default: 0                                                          | Searches for a box starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page.  For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                                                                                                                                                                                                                                                                                                        |
+| percentOverlapX   | number. default: 0.9                                                                 | Configures the strictness of the criteria by which a box "contains" a line using this parameter.<br/>By default, Sensible determines that a box contains a line if they overlap by more than 90%  of the smaller of the two's width. Loosen the criteria if a line can partly fall outside a box. For example,  if you set this parameter to 0.5, then Sensible determines that a box contains a line if they overlap by more than 50%  of the smaller of the two's width. Note the line must also meet the Percent Overlap Y parameter's criteria. See [Lines overlapping box](doc:box#example-lines-overlapping-box) for an example. |
+| percentOverlapY   | number. default: 0.8                                                                 | Configures strictness in the same manner as the Percent Overlap X parameter, but applies to height instead of width.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| offsetBoxes       | object. default: `none`                                                              | Recognize a box offset from the point defined in the Position parameter by a number of contiguous boxes that share borders. For example, use this parameter for tables or grids where borders surround every cell. Contains the following parameters:<br/>\- `direction`: The direction to search in (`above, below, right, left`, relative to the starting box.<br/>\- `number`: The number of boxes to offset by.<br/>For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                                                           |
+| darknessThreshold | number between 0 and 1. default: 0.9                                                 | The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br/>If the document has a white background, the default value is 0.9.<br/>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document. For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                  |
+| includeAnchor     | `true`, `false`. default: false                                                      | If true, includes anchors lines that are inside the box borders in the method output. Ignores anchor lines that are outside box borders.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
-Examples
-====
+# Examples
 
-Simple box
-----
+## Simple box
 
 The following example shows extracting a dollar amount from a box in a 1099 form, based on anchor text matching in the box.
 
@@ -60,17 +57,13 @@ The following example shows extracting a dollar amount from a box in a 1099 form
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_1099.png)
 
-
-
-
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_1099.pdf) |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -85,14 +78,9 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
-
-Dark box
-----
+## Dark box
 
 The following example shows extracting text from a box with a dark background and light text using the `darknessThreshold` parameter.
-
 
 **Config**
 
@@ -111,15 +99,13 @@ The following example shows extracting text from a box with a dark background an
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_dark.png)
 
-
-
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_dark.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -132,10 +118,7 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
-Offset boxes
-----
+## Offset boxes
 
 The following example shows recognizing boxes relative to other boxes using the Box Offset parameter.
 
@@ -190,7 +173,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_offset.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_offset.pdf) |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -254,13 +237,13 @@ The following example shows extracting lines that partly fall inside a box.
 
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_overlap.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_overlap.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -273,17 +256,14 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Box coordinates
-----
+## Box coordinates
 
 You can use the Offset X and Offset Y parameters:
 
-- to anchor on text *outside* the target box, for example, if the box's title is outside the box.
-- as an alternative to the Offset Boxes parameter. Offsets provide faster performance, but are more sensitive to inconsistent box positioning across documents and require more configuration. 
+* to anchor on text *outside* the target box, for example, if the box's title is outside the box.
+* as an alternative to the Offset Boxes parameter. Offsets provide faster performance, but are more sensitive to inconsistent box positioning across documents and require more configuration. 
 
 The following example shows the same document as the Offset Boxes example, but uses distances in inches rather than boxes to define the offsets.
-
-
 
 **Config**
 
@@ -330,7 +310,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_offset_3.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_offset.pdf) |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 The red arrows in the preceding image show the offsets in inches from the point defined by the Position parameter. The green dots move as you adjust the inches coordinates, so you can visually tweak your measurements in the Sensible app.
 
@@ -353,8 +333,7 @@ The red arrows in the preceding image show the offsets in inches from the point 
 }
 ```
 
-Troubleshoot box recognition
-----
+## Troubleshoot box recognition
 
 Use the Position parameter to fine tune box recognition.
 
@@ -391,7 +370,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_position_left.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_recognition.pdf) |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 **SOLUTION**
 
@@ -433,7 +412,6 @@ Output
 }
 ```
 
-Notes
-====
+# Notes
 
 The Box method is an alternative to the [Region method](doc:region) that requires less configuration and is slightly slower. Use the Region method instead of the Box method for faster performance, or if the borders of a box are incomplete or discontinuous.
