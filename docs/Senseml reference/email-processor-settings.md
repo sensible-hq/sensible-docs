@@ -18,13 +18,13 @@ Settings:
 
 **document types**
 
-- Body document type
-- Attachment document types
+* Body document type
+* Attachment document types
 
 **aliases**
 
 For each alias:
 
-- Status (production or Development)
-- Address
-- Webhook
+* Status (production or Development)
+* Address
+* Webhook
