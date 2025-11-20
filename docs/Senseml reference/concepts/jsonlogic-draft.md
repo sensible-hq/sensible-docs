@@ -12,17 +12,17 @@ next:
 ---
 ## Join
 
-https://dev.sensible.so/editor/?d=frances_playground&c=join_jsonlogic&g=linearize_2__1_
+[https://dev.sensible.so/editor/?d=frances\_playground\&c=join\_jsonlogic\&g=linearize\_2\_\_1](https://dev.sensible.so/editor/?d=frances_playground\&c=join_jsonlogic\&g=linearize_2__1)\_
 
-// joins two arrays by using a common key
-// args:
-// - tableA, must resolve to an array
-// - fnA, takes an item from tableA and returns the joining key
-// - tableB
-// - fnB
-// - fn, takes [itemA, itemB]
-//
-// it always return an array of the same length as tableA
+// joins two arrays by using a common key\
+// args:\
+// - tableA, must resolve to an array\
+// - fnA, takes an item from tableA and returns the joining key\
+// - tableB\
+// - fnB\
+// - fn, takes [itemA, itemB]\
+//\
+// it always return an array of the same length as tableA\
 // if for an item of tableA there is no corresponding item on tableB, fn will get [itemA, null]
 
 // if for an item of tableA there are multiple corresponding items on tableB, fn will get called just once (with an arbitrary itemB)
@@ -43,15 +43,9 @@ For example, the following code groups an array of clothes objects by their appa
 ```
 ```
 
-
-
-
-
 ## Slice
 
-https://dev.sensible.so/editor/?d=frances_playground&c=slice_jsonlogic&g=linearize_2__1_&v=
-
-
+[https://dev.sensible.so/editor/?d=frances\_playground\&c=slice\_jsonlogic\&g=linearize\_2\_\_1\_\&v=](https://dev.sensible.so/editor/?d=frances_playground\&c=slice_jsonlogic\&g=linearize_2__1_\&v=)
 
 ```
 it("slice", () => {
