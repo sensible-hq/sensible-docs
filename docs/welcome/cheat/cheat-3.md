@@ -14,7 +14,7 @@ next:
 
 ## Solution: Mix it up
 
-After you complete all the Mix it up steps in the tutorial, the final config is:
+After you've complete all the Mix it up steps in the tutorial, the final config is:
 
 ```json
 {

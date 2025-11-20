@@ -14,7 +14,7 @@ next:
 
 ## Solution
 
-After you complete all the steps in the tutorial, the final config is the following:
+After you've complete all the steps in the tutorial, the final config is the following:
 
 ```json
 {
