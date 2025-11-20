@@ -12,21 +12,18 @@ next:
 ---
 Automatically extracts key/value pairs from short snippets of free text using [OpenAI's GPT-3 completion API](https://beta.openai.com/docs/). The Summarizer computed field method takes as input a snippet of free text, and extracts key/value pairs informed by short samples of extracted values you provide. 
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
+| key                       | value        | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :------------------------ | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)         | `summarizer` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| source\_id (**required**) | field ID     | Specifies a field whose output is a snippet of text with the key/value information you want to extract. If the snippet doesn't occur at a predictable location in the document, then you can use the [Topic](doc:topic) method to find it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| fields                    | string array | Names of the keys you want to extract. These names have an impact on the free-text extraction, so choose names that have a meaningful relationship to the target data to extract. For example, for a dollar amount of rent to extract,  `rent`, `rents`, and `rent_in_dollars` are good naming choices.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| samples                   | object array | Short snippets of text containing examples of how to extract information. Contains these parameters:<br/>`prompt` (string): A free-text example of the information you want to extract.<br/>`values` (string array):  The target information to extract from this prompt. This array is a parallel array to the Fields parameter's array (the same length and same sequence). If GPT-3 can't find the target information in the Source ID parameter, it can generate an arbitrary value. To override this behavior, specify a Sample parameter whose Prompt parameter has a text snippet that's missing the target data, and whose Values array indicates the data is missing (for example, "N/A" or "not found").<br/> |
 
-| key                      | value        | description                                                  |
-| :----------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)        | `summarizer` |                                                              |
-| source_id (**required**) | field ID     | Specifies a field whose output is a snippet of text with the key/value information you want to extract. If the snippet doesn't occur at a predictable location in the document, then you can use the [Topic](doc:topic) method to find it. |
-| fields                   | string array | Names of the keys you want to extract. These names have an impact on the free-text extraction, so choose names that have a meaningful relationship to the target data to extract. For example, for a dollar amount of rent to extract,  `rent`, `rents`, and `rent_in_dollars` are good naming choices. |
-| samples                  | object array | Short snippets of text containing examples of how to extract information. Contains these parameters:<br/>`prompt` (string): A free-text example of the information you want to extract.<br/>`values` (string array):  The target information to extract from this prompt. This array is a parallel array to the Fields parameter's array (the same length and same sequence). If GPT-3 can't find the target information in the Source ID parameter, it can generate an arbitrary value. To override this behavior, specify a Sample parameter whose Prompt parameter has a text snippet that's missing the target data, and whose Values array indicates the data is missing (for example, "N/A" or "not found").<br/> |
-
-Examples
-====
+# Examples
 
 The following example shows using the Summarizer method to extract the monthly rent and the payment frequency from a lease.
 
@@ -100,7 +97,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summarizer.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
