@@ -12,24 +12,21 @@ next:
 ---
 Use the SenseML query language to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents. For a brief overview of SenseML, see [Overview](doc:overview#configurable-data-extraction).
 
-
 See the following topics for reference documentation for the SenseML query language:
 
-- [Field query object](doc:field-query-object)
-- [Preprocessors](doc:preprocessors)
-- [LLM-based methods](doc:llm-based-methods) and [layout-based methods](doc:layout-based-methods). For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
-- [Configuration settings](doc:config-settings)
-- [Computed Field methods](doc:computed-field-methods)
-- [Sections](doc:sections)
-- [Conditional](doc:conditional) execution of SenseML
-- [Large spreadsheet ](doc:cell-rows) extraction
-- [Postprocessor](doc:postprocessor)
+* [Field query object](doc:field-query-object)
+* [Preprocessors](doc:preprocessors)
+* [LLM-based methods](doc:llm-based-methods) and [layout-based methods](doc:layout-based-methods). For more information about choosing whether to author layout- or LLM-based methods, see [Choosing an extraction approach](doc:author).
+* [Configuration settings](doc:config-settings)
+* [Computed Field methods](doc:computed-field-methods)
+* [Sections](doc:sections)
+* [Conditional](doc:conditional) execution of SenseML
+* [Large spreadsheet ](doc:cell-rows) extraction
+* [Postprocessor](doc:postprocessor)
 
 You can use all of the preceding SenseML features to write a *config* to handle a collection of similar documents. A config specifies how to extract data and how to populate a target output schema. Publish the config so that you can automate extracting document data using one of Sensible [integration](doc:integrate) options.
 
-
-Examples
-====
+# Examples
 
 For an overview, see the following example of a short config:
 
@@ -38,10 +35,9 @@ For an overview, see the following example of a short config:
 Try out this example in the Sensible app using the following document and config:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split.pdf) |
-| ---------------------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:
-
 
 ```json
 {
@@ -144,15 +140,12 @@ The output of this example config is as follows:
 
 This example config has the following elements:
 
--  **Fields** are queries that extract text. For more information, see [Field query object](doc:field-query-object).
+* **Fields** are queries that extract text. For more information, see [Field query object](doc:field-query-object).
 
+* The **preprocessor**, `pageRange`, cuts out irrelevant pages of the document. For more information about using preprocessors to clean up documents before extracting data, see [Preprocessors](doc:preprocessors).
 
-- The **preprocessor**, `pageRange`, cuts out irrelevant pages of the document. For more information about using preprocessors to clean up documents before extracting data, see [Preprocessors](doc:preprocessors).
+* The **fingerprint** tells Sensible to preferentially run this config if the document contains the terms "anyco" or "quoted coverage changes." For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:config-settings).
 
-- The **fingerprint** tells Sensible to preferentially run this config if the document contains the terms "anyco" or "quoted coverage changes." For more information about using fingerprints to improve performance, and other configuration settings, see [Configuration Settings](doc:config-settings).
-
-- The **computed field** `"driver_name_last"` extracts the last name from the raw output of the `_driver_name_raw` field. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).  You can also capture the full name as typed output. See [types](doc:types).
-
-  
+* The **computed field** `"driver_name_last"` extracts the last name from the raw output of the `_driver_name_raw` field. For more information about transforming field output, see [Computed field methods](doc:computed-field-methods).  You can also capture the full name as typed output. See [types](doc:types).
 
 Using SenseML, you can extract just about any data from a document. Happy extracting!
