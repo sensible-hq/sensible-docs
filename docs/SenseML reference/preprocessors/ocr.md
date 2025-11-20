@@ -14,25 +14,23 @@ Selectively OCRs pages. This preprocessor is useful when a PDF has some pages th
 
 If the whole document is a scan, you don't need to configure this preprocessor. In that case, Sensible automatically OCRs the whole document.
 
-Parameters
-====
+# Parameters
 
-| key                                                          | value        | description                                                  |
-| ------------------------------------------------------------ | ------------ | ------------------------------------------------------------ |
-| `type` (**required**)                                        | `ocr`        |                                                              |
-| match (**required** unless you specify Minimum Lines parameter) | Match object | The text relative to which you define the page number to OCR. For example, if you know that the page after the heading "Policy Addendums" is always a scanned image, then you specify: <br>      `"type": "ocr"`,<br/>      `"match": "policy addendums",`<br/>      `"pageOffset": 1`<br/>If there are multiple text matches in the document, matches the first. To specify a second or later match, use an array of Match objects.<br/> To OCR a single page offset from the first page of the document, rather than offset from matched text, specify `"match": { "type": "first" }`.<br/> |
-| pageOffset (**required**)                                    | number       | The zero-indexed number of the page to OCR, counting from the page number of the text matched by the Match parameter. |
-| matchAll                                                     | boolean      | If true, OCRs all pages containing the line specified by the Match parameter. |
-| minimumLines                                                 | integer      | Performs OCR on all pages containing the specified number of embedded text lines or fewer.<br/>Use this parameter to OCR pages for which no reliable text anchors exist. Sensible verifies the qualifying pages contain text images before perform OCR, in order to avoid processing blank pages.<br>If you specify this in combination with a Match parameter, Sensible OCR all pages that meets any of the match criteria or the number of lines criteria. |
+| key                                                             | value        | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| --------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type` (**required**)                                           | `ocr`        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| match (**required** unless you specify Minimum Lines parameter) | Match object | The text relative to which you define the page number to OCR. For example, if you know that the page after the heading "Policy Addendums" is always a scanned image, then you specify: <br />      `"type": "ocr"`,<br/>      `"match": "policy addendums",`<br/>      `"pageOffset": 1`<br/>If there are multiple text matches in the document, matches the first. To specify a second or later match, use an array of Match objects.<br/> To OCR a single page offset from the first page of the document, rather than offset from matched text, specify `"match": { "type": "first" }`.<br/> |
+| pageOffset (**required**)                                       | number       | The zero-indexed number of the page to OCR, counting from the page number of the text matched by the Match parameter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| matchAll                                                        | boolean      | If true, OCRs all pages containing the line specified by the Match parameter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| minimumLines                                                    | integer      | Performs OCR on all pages containing the specified number of embedded text lines or fewer.<br/>Use this parameter to OCR pages for which no reliable text anchors exist. Sensible verifies the qualifying pages contain text images before perform OCR, in order to avoid processing blank pages.<br />If you specify this in combination with a Match parameter, Sensible OCR all pages that meets any of the match criteria or the number of lines criteria.                                                                                                                                  |
 
-Examples
-====
+# Examples
 
 The following config specifies to apply OCR processing:
 
-- to the first page of the document (`"pageOffset": 0`)
-- to the fourth page of the document (`"pageOffset": 3`)
-- to whichever page the text "additional riders" occurs on (`"match": "additional riders"`)
+* to the first page of the document (`"pageOffset": 0`)
+* to the fourth page of the document (`"pageOffset": 3`)
+* to whichever page the text "additional riders" occurs on (`"match": "additional riders"`)
 
 The config then outputs all lines of the document (`"id": "all_lines_in_doc"`), to double check that OCR extracted the text on those pages. 
 
