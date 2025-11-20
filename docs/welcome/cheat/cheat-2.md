@@ -10,14 +10,9 @@ metadata:
 next:
   description: ''
 ---
-Tables and rows
-===
+# Tables and rows
 
-
-
-Solution: Mix it up
----
-
+## Solution: Mix it up
 
 After you've completed all the Mix it up steps in the tutorial, the final config is:
 
@@ -62,8 +57,7 @@ After you've completed all the Mix it up steps in the tutorial, the final config
 }
 ```
 
-Solution: Challenges
----
+## Solution: Challenges
 
 After you've completed all the Challenges steps in the tutorial, the final config is:
 
@@ -108,10 +102,7 @@ After you've completed all the Challenges steps in the tutorial, the final confi
 }
 ```
 
-
-
-Learn more
----
+## Learn more
 
 To learn more about the steps you took in the tutorial, see:
 
@@ -121,8 +112,7 @@ To learn more about the steps you took in the tutorial, see:
 | [Fixed Table](doc:fixed-table) | A frequently used extraction method. |
 | [Types](doc:types)             | Filter and type your output.         |
 
-Initial config
----
+## Initial config
 
 To undo all your changes, paste the following config into the left pane of the SenseML editor:
 
