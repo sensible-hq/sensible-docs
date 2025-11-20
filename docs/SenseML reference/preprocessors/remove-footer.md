@@ -16,33 +16,32 @@ To recognize a footer, this preprocessor starts at the bottom of the page and mo
 
 Sensible recognizes these elements as "repeating":
 
-- Elements whose y-extent doesn't overlap with any variable element on the page
-- Positively incrementing page numbers
+* Elements whose y-extent doesn't overlap with any variable element on the page
+* Positively incrementing page numbers
 
 These elements are *not* recognized as "repeating": 
 
-- Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
-- A repeating element that's missing from even one page (for example, from an intentionally blank page). 
+* Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
+* A repeating element that's missing from even one page (for example, from an intentionally blank page). 
 
-Parameters
-====
+# Parameters
 
-| key            | value   | description                                                      |
-| -------------- | ------ | ------------------------------------------------------------ |
-| type (**required**) | `removeFooter` | For an example, see the Examples section. |
-| startsOnPage | integer. default: 1 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
+| key                 | value               | description                                                                                                                                                                                                                                                                         |
+| ------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**) | `removeFooter`      | For an example, see the Examples section.                                                                                                                                                                                                                                           |
+| startsOnPage        | integer. default: 1 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
 
-Examples
-====
+# Examples
 
 The following example shows:
 
-- A repeating footer with an incrementing page number. Sensible removes this from the direct text extraction.
-- A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it from the direct text extraction.
-  - Where it overlaps variable text, Sensible treats it as nonrepeating and includes it in the direct text extraction
+* A repeating footer with an incrementing page number. Sensible removes this from the direct text extraction.
+* A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
+  * Where it overlaps a repeating element, Sensible treats it as repeating and removes it from the direct text extraction.
+  * Where it overlaps variable text, Sensible treats it as nonrepeating and includes it in the direct text extraction
 
 **Config**
+
 ```json
 {
   "preprocessors": [
@@ -76,9 +75,8 @@ The following images show the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_footer_2.png)
 
-
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/remove_footer.pdf) |
-| ------------------------------------------ | ------------------------------------------------------------ |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
