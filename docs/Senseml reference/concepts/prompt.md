@@ -37,11 +37,11 @@ The advantage of this approach is that it's fast. The disadvantage is that it ca
 The following steps outline this default approach and provide configuration details:
 
 1. Sensible splits the document into chunks. Parameters that configure this step include:
-   - Chunk Count parameter.
-   - Page Range parameter
-   - **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method. Each method has a default chunk size, up to one page.
+   * Chunk Count parameter.
+   * Page Range parameter
+   * **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method. Each method has a default chunk size, up to one page.
 2. Sensible selects the most relevant chunks and combines them with page-number metadata to create a "context".  Parameters that configure this step include:
-   - LLM Engine parameter 
+   * LLM Engine parameter 
 3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Sensible sends the full prompt to the LLM.
 4. Sensible returns the LLM's response.
 
@@ -78,14 +78,12 @@ If you create a Query Group method with the prompt `what is the best-selling sna
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_chain_prompt.png)
 
-
-
  Use other fields as context to: 
 
-- Narrow down the [context](doc:prompt) for your prompts to a specific part of the document.
--  Reformat or otherwise transform the outputs of other fields. For example, you can use this as an alternative to types such as the  [Compose](doc:types#compose) type with prompts such as `if the context includes a date, return it in mm/dd/yyy format`.
-- Compute or generate new data from the output of other fields. For example, prompt an LLM to sum the output of the wages fields extracted from a tax form.
--  Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array. 
+* Narrow down the [context](doc:prompt) for your prompts to a specific part of the document.
+* Reformat or otherwise transform the outputs of other fields. For example, you can use this as an alternative to types such as the  [Compose](doc:types#compose) type with prompts such as `if the context includes a date, return it in mm/dd/yyy format`.
+* Compute or generate new data from the output of other fields. For example, prompt an LLM to sum the output of the wages fields extracted from a tax form.
+* Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array. 
 
 ## Locate multimodal (non-text) data
 
@@ -93,13 +91,9 @@ When you configure the Multimodal Engine parameter for the Query Group method, y
 
 For example, for the following image, you can prompt,  `"are the buildings multistory? return true or false"`.
 
-
-
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
 
 When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor  and region coordinates, or use the default page chunk scoring approach.  
-
-
 
 ## Troubleshooting
 
@@ -119,6 +113,6 @@ Tracing the document's source text, or *context*, for an LLM's answer can help y
 
 You can view the source text for an LLM's answer highlighted in the document:
 
-- In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For information about how location highlighting works and its limitations, see [Location highlighting](doc:color#location-highlighting). 
+* In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For information about how location highlighting works and its limitations, see [Location highlighting](doc:color#location-highlighting). 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_location.png)
