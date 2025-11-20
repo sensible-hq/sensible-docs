@@ -24,11 +24,7 @@ curl --request POST \
   --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco.pdf'
 ```
 
-
-
----
-
-
+***
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
@@ -41,9 +37,9 @@ curl --request POST 'https://api.sensible.so/v0/extract_from_url/auto_insurance_
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"}'
 ```
 
------
+***
 
-**_2**
+**\_2**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_2.png)
 
@@ -54,11 +50,11 @@ curl --request GET 'https://api.sensible.so/v0/documents/14d82783-c12b-4e70-b0ae
 --header 'Authorization: Bearer 123abc'
 ```
 
-----
+***
 
-**_3**
+**\_3**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_3.png)\
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/source/api_quickstart_postman_3.png)
 
 ```
@@ -67,9 +63,9 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insuran
 --header 'Authorization: Bearer 123abc'
 ```
 
-**_4**
+**\_4**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_4.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_4.png)\
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/source/api_quickstart_postman_4.png)
 
 ```
@@ -77,13 +73,11 @@ curl --request PUT 'https://sensible-so-document-type-bucket-prod-us-west-2.s3.u
 --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco.pdf'
 ```
 
-
-
 WEBHOOK
 
-**webhook_2**
+**webhook\_2**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_2.png)\
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/source/api_quickstart_webhook_2.png)
 
 ```json
