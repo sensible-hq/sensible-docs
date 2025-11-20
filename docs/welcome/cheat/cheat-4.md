@@ -10,14 +10,11 @@ metadata:
 next:
   description: ''
 ---
-Challenges
-===
+# Challenges
 
-Solution
-----
+## Solution
 
 After you've completed all the steps in the tutorial, the final config is:
-
 
 ```json
 {
@@ -73,12 +70,11 @@ After you've completed all the steps in the tutorial, the final config is:
 }
 ```
 
-Learn more
----
+## Learn more
 
 Congratulations, you're done with the tutorials! Next steps:
 
-- Check out the [SenseML reference docs](doc:senseml-reference-introduction) to write your own extractions.
-- See the [API quickstart](doc:quickstart) to try out calling an Sensible extraction API endpoint.
-- Learn about other SenseML features such as preprocessors. For an overview of all features, see [SenseML reference introduction](doc:senseml-reference-introduction).
-- Learn more about [validations](doc:validate-extractions) to test the quality of your extractions in production.
+* Check out the [SenseML reference docs](doc:senseml-reference-introduction) to write your own extractions.
+* See the [API quickstart](doc:quickstart) to try out calling an Sensible extraction API endpoint.
+* Learn about other SenseML features such as preprocessors. For an overview of all features, see [SenseML reference introduction](doc:senseml-reference-introduction).
+* Learn more about [validations](doc:validate-extractions) to test the quality of your extractions in production.
