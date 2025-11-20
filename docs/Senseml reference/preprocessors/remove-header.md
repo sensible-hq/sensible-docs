@@ -14,31 +14,27 @@ Ignores repeating elements at the tops of pages.
 
 Sensible recognizes headers in one of two ways:
 
-- (Default)  Sensible searches for repeated text at the top of the page. For more information about automatic recognition, see [Notes](doc:remove-header#notes). 
+* (Default)  Sensible searches for repeated text at the top of the page. For more information about automatic recognition, see [Notes](doc:remove-header#notes). 
 
-- (Configurable) To bypass automatic recognition, for example to recognize header text that varies slightly, configure a text match. Sensible removes all text above the top boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match. 
+* (Configurable) To bypass automatic recognition, for example to recognize header text that varies slightly, configure a text match. Sensible removes all text above the top boundary of the matched text. The preprocessor removes text on pages in which it finds the match, and ignores pages missing the match. 
 
-Parameters
-====
+# Parameters
 
-| key                 | value                                               | description                                                  |
-| ------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
-| type (**required**) | `removeHeader`                                      | For an example, see the Examples section.                    |
-| startsOnPage        | integer. default: 1                                 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter. |
-| match               | [Match](doc:match) object or array of Match objects | Bypasses automatic header recognition.<br/>Removes all text on the page above the top boundary of the matched line.<br/>If Sensible doesn't find the match, it doesn't perform header removal. |
+| key                 | value                                               | description                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**) | `removeHeader`                                      | For an example, see the Examples section.                                                                                                                                                                                                                                                                                                          |
+| startsOnPage        | integer. default: 1                                 | The first page number on which to start checking for repeated elements. Note this is the page *number*, not the page's zero-based index in the pages array. To filter out end pages that lack a repeating element, use the Page Range preprocessor to define an End Page parameter.                                                                |
+| match               | [Match](doc:match) object or array of Match objects | Bypasses automatic header recognition.<br/>Removes all text on the page above the top boundary of the matched line.<br/>If Sensible doesn't find the match, it doesn't perform header removal.                                                                                                                                                     |
 | offsetY             | number in inches. default: 0                        | Bypasses automatic footer recognition.<br/>Defines a point at which to start text removal. Positive values offset down the page, negative values offset up the page.<br/>If used with no Match parameter defined, offsets from the top of the page.<br/>If used with the Match parameter, offsets from the top boundary of the matched line. <br/> |
 
-Examples
-====
+# Examples
 
 The following example shows:
 
-- A repeating header with an incrementing page number. Sensible removes this.
-- A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
-  - Where it overlaps a repeating element, Sensible treats it as repeating and removes it.
-  - Where it overlaps variable text, Sensible treats it as nonrepeating and retains it.
-
-  
+* A repeating header with an incrementing page number. Sensible removes this.
+* A repeating sidebar that overlaps the y-extent of both repeating and variable elements: 
+  * Where it overlaps a repeating element, Sensible treats it as repeating and removes it.
+  * Where it overlaps variable text, Sensible treats it as nonrepeating and retains it.
 
 **Config**
 
@@ -80,7 +76,7 @@ The following images show the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/remove_header_2.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/remove_header.pdf) |
-| ------------------------------------------ | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
@@ -93,8 +89,7 @@ The following images show the example document used with this example config:
 }
 ```
 
-Notes
-----
+## Notes
 
 **Automatic header recognition**
 
@@ -102,10 +97,10 @@ To recognize a header, this preprocessor starts at the top of the page and moves
 
 Sensible recognizes these elements as "repeating":
 
-- Elements whose y-extent doesn't overlap with any variable element
-- Positively incrementing page numbers
+* Elements whose y-extent doesn't overlap with any variable element
+* Positively incrementing page numbers
 
 These elements aren't recognized as "repeating": 
 
-- Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
-- A repeating element that's missing from even one page (for example, from an intentionally blank page).
+* Elements that change their alignment on alternate pages (for example, page numbers aligned alternately left and right, as in a book)
+* A repeating element that's missing from even one page (for example, from an intentionally blank page).
