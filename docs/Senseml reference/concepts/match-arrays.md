@@ -12,12 +12,10 @@ next:
 ---
 **Note:** If you're familiar with Sensible, this detailed topic is for you. If you're new to Sensible, see [match](doc:match).
 
-
-
 Sensible matches the last element in a Match array if:
 
-- Each array element targets a separate successive line in the document. 
-- The matches specified in the array occur in the document in the same order as in the array. For more information about line ordering, see [Lines](doc:lines).
+* Each array element targets a separate successive line in the document. 
+* The matches specified in the array occur in the document in the same order as in the array. For more information about line ordering, see [Lines](doc:lines).
 
 This example creates an Anchor line using the last element in the array:
 
@@ -55,8 +53,7 @@ This example creates an Anchor line using the last element in the array:
 }
 ```
 
-Reverse match arrays
----
+## Reverse match arrays
 
 Use the Reverse parameter when a difficult-to-match target line precedes an easy-to-match line. You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line. 
 
@@ -94,8 +91,6 @@ Use the Reverse parameter when a difficult-to-match target line precedes an easy
 }
 ```
 
-
-
 **Example document**
 
 The following image shows the example document used with this example config:
@@ -103,7 +98,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/reverse_1.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/reverse.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
@@ -122,7 +117,7 @@ In a reverse match array, Sensible searches for anchor candidates in sequence, a
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/reverse_2.png)
 
-## Nuances: Match arrays versus Anchor start 
+## Nuances: Match arrays versus Anchor start
 
 Match arrays have a different effect from a start-and-match combination. For example, at first glance, the following anchors may appear to be different syntaxes for finding the same matching text:
 
@@ -164,8 +159,8 @@ Versus:
 
 The difference between these two is:
 
-- anchor 1 finds an instance of line B preceded by line A.
-- anchor 2 searches after the first instance of line A for a line B, and discards anything earlier in the document. 
+* anchor 1 finds an instance of line B preceded by line A.
+* anchor 2 searches after the first instance of line A for a line B, and discards anything earlier in the document. 
 
 To clarify the difference,  consider a simple document with the following content:
 
@@ -197,20 +192,18 @@ Here is a B line that is the 2nd occurrence of “B following A” in the doc
 Here is an ending line.
 ```
 
-
-
 For **Anchor 1**, Sensible anchors on the last Match array element if it's preceded by the other array elements in order.  `"match":all"` finds two anchors. See the following image for an illustration: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_2.png)
 
-- For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it doesn't anchor on the first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
+* For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it doesn't anchor on the first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_3.png)
 
 Try out this example in the Sensible app using the following document and config:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/anchor.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:
 
