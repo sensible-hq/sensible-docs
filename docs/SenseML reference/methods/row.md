@@ -16,25 +16,20 @@ Matches all lines to the left or right of the anchor line.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row_align.png)
 
-[**Parameters**](doc:row#parameters)
-[**Examples**](doc:row#examples)
+[**Parameters**](doc:row#parameters)\
+[**Examples**](doc:row#examples)\
 [**Notes**](doc:row#notes)
 
-Parameters
-====
+# Parameters
 
-
-| key               | value                                        | description                                                  |
-| ----------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `row`                                        |                                                              |
-| includeAnchor     | boolean. default: `false`                    | Includes the anchor line in the method output                |
-| position          | `right`, `left`. default: `right`            | Matches to the left or right                                 |
+| key               | value                                        | description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ----------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**) | `row`                                        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| includeAnchor     | boolean. default: `false`                    | Includes the anchor line in the method output                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| position          | `right`, `left`. default: `right`            | Matches to the left or right                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the row is the target. Use the comparisons `>` and `<` to extract maximum and minimum values in the row. Lines are [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values. If you want to compare numeric amounts and ignore non-numbers in the row,  then add a number [type](doc:types) such as  `type: currency` as a top-level parameter to the field. |
 
-
-
-Examples
-====
+# Examples
 
 The following example shows  extracting data from two consecutive tables using the Row method:
 
@@ -96,7 +91,7 @@ The following image shows the data extracted by this config for the following ex
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -114,9 +109,8 @@ The following image shows the data extracted by this config for the following ex
 }
 ```
 
-Notes
------
+## Notes
 
-- To extract an entire table, see the [Table method](doc:table). 
-- To extract a column, see the [Column method](doc:column). 
-- In a row with optional empty cells, a tiebreaker can return lines from inconsistent columns. Use the [Intersection method](doc:intersection) instead.
+* To extract an entire table, see the [Table method](doc:table). 
+* To extract a column, see the [Column method](doc:column). 
+* In a row with optional empty cells, a tiebreaker can return lines from inconsistent columns. Use the [Intersection method](doc:intersection) instead.
