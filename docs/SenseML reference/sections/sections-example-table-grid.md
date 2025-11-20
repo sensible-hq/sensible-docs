@@ -10,11 +10,9 @@ metadata:
 next:
   description: ''
 ---
-Advanced: table grid
-====
+# Advanced: table grid
 
-Overview
-----
+## Overview
 
 To give a broad overview using vertical sections for a table grid:
 
@@ -28,10 +26,10 @@ In the preceding image,
 
 The following abbreviated YML notation to give a brief idea of the more complex SenseML JSON, and shows:
 
-- Using the Offset Y parameter in a vertical section to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
-- The parent section group, `car_model`, uses an offset to include the heading with car model and year. 
-- The parent section demonstrates that without a Require Stop parameter, Sensible starts the next section on the first repeated instance of `trim` that follows the starting line vertically, but ignores repeats on the same horizontal line as the starting line. The nested section demonstrates the same behavior with the match-all regex `.+` . For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
-- Configuring column recognition in a vertical section with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps in each trim specs column. 
+* Using the Offset Y parameter in a vertical section to exclude non-columnar headings (for example, "2014 Toyota Camry") so as not to break column recognition.
+* The parent section group, `car_model`, uses an offset to include the heading with car model and year. 
+* The parent section demonstrates that without a Require Stop parameter, Sensible starts the next section on the first repeated instance of `trim` that follows the starting line vertically, but ignores repeats on the same horizontal line as the starting line. The nested section demonstrates the same behavior with the match-all regex `.+` . For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
+* Configuring column recognition in a vertical section with the Min Column Gap parameter, so that column recognition doesn't break on the whitespace gaps in each trim specs column. 
 
 ```yml
 sections:
@@ -90,8 +88,7 @@ car_models:
    
 ```
 
-Details
-----
+## Details
 
 The following elaborates on the preceding brief overview using JSON instead of YML. To illustrate each section's range and for troubleshooting purposes, the config includes a field that outputs the entire contents of each section.
 
@@ -197,13 +194,13 @@ The following elaborates on the preceding brief overview using JSON instead of Y
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_table_grid_1.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_table_grid.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
