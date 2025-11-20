@@ -12,24 +12,21 @@ next:
 ---
 Maps output from source fields using a case-sensitive lookup table. A common use case for this method is to standardize output across configs. For example, if different documents inconsistently format data ("6 month policy period" versus "6 mo. policy duration"), you can map those data to a common format using the Mapper method. Consistently formatted output simplifies your application logic by allowing you to ignore distinctions between document sources.
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key                      | value                                   | description                                                  |
-| :----------------------- | :-------------------------------------- | :----------------------------------------------------------- |
-| id (**required**)        | `mapper`                                |                                                              |
-| source_id (**required**) | a field id in the current configuration | The id of the field to map                                   |
-| mappings (**required**)  | object                                  | An object with mappings from strings or numbers to output strings represented as key/value pairs, for example, `{ "03/04": "March 4th" }`. Key value pairs are case sensitive. |
+| key                       | value                                   | description                                                                                                                                                                    |
+| :------------------------ | :-------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)         | `mapper`                                |                                                                                                                                                                                |
+| source\_id (**required**) | a field id in the current configuration | The id of the field to map                                                                                                                                                     |
+| mappings (**required**)   | object                                  | An object with mappings from strings or numbers to output strings represented as key/value pairs, for example, `{ "03/04": "March 4th" }`. Key value pairs are case sensitive. |
 
-Examples
-====
+# Examples
 
 The following example shows using a mapper to standardize a time duration.
 
 **Config**
-
 
 ```json
 {
@@ -71,7 +68,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mapper.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/mapper.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
