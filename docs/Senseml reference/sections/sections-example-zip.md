@@ -10,10 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Advanced: Zip table sections
-====
-
-
+# Advanced: Zip table sections
 
 The following example shows zipping multiple tables together by treating each table as a section group and each row or column as a section.
 
@@ -23,15 +20,11 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_zip.png)
 
-
-
  It also illustrates the following sections behavior:
 
-- Splitting tables into sections, where each section is a row, agnostic of the text in the table.  For an illustration of this behavior, see [Section nuances](doc:section-nuances#multiple-anchors-in-section).
-- Uses the Column Selection parameter in a vertical sections group to make sections out of table "slices". For more information about the Column Selection parameter, see [Section nuances](doc:section-nuances#column-selection).
-- Using SenseML execution order to output the zipped section group and suppress the source section groups. See [Field extraction order](doc:field-order).
-
-
+* Splitting tables into sections, where each section is a row, agnostic of the text in the table.  For an illustration of this behavior, see [Section nuances](doc:section-nuances#multiple-anchors-in-section).
+* Uses the Column Selection parameter in a vertical sections group to make sections out of table "slices". For more information about the Column Selection parameter, see [Section nuances](doc:section-nuances#column-selection).
+* Using SenseML execution order to output the zipped section group and suppress the source section groups. See [Field extraction order](doc:field-order).
 
 **Config**
 
@@ -200,13 +193,13 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_zip.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_zip.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
