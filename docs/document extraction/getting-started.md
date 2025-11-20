@@ -16,52 +16,48 @@ You can then save your descriptions as a "config." Publish your config to automa
 
 Use this tutorial if you want a guided tour of SenseML's layout-based concepts and the Sensible app. Or see the following links:
 
-- Layout-based methods are for advanced config authoring. For a simpler authoring experience, use LLM-based methods. For more information about layout-based versus LLM-based extraction methods, see [Choosing extraction strategy](doc:author). For getting started with LLMs, see [Getting started](doc:getting-started-ai).
+* Layout-based methods are for advanced config authoring. For a simpler authoring experience, use LLM-based methods. For more information about layout-based versus LLM-based extraction methods, see [Choosing extraction strategy](doc:author). For getting started with LLMs, see [Getting started](doc:getting-started-ai).
 
-- If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials.
-- If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
+* If you instead want to explore without much explanation, then [sign up](https://app.sensible.so/register) for an account and check out our interactive in-app tutorials.
 
-Get structured data from an auto insurance quote
-===
+* If you want a quick "hello world" API response, see the [API quickstart](doc:quickstart).
+
+# Get structured data from an auto insurance quote
 
 Let's get started with SenseML!
-
 
 If you can write basic SQL queries, you can write SenseML queries. SenseML shields you from the underlying complexities of PDFs, so you can  write queries that are visually and logically clear to a human programmer. 
 
  In this tutorial, you'll:
 
-- [Write a collection of queries ( a "config")](doc:getting-started#create-a-config) to [extract structured data](doc:getting-started#extract-data) from an example auto insurance document 
-- [Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods
-- [Test the config](doc:getting-started#test-the-config) by running your config against a second, similar auto insurance document
-- [Use the API](doc:getting-started#integrate-with-your-application) or [SDKs](doc:sdk-guides) to integrate your Sensible config with your application
-- [Validate extractions in production](doc:getting-started#validate-extractions-in-production) by using JsonLogic to define expected extracted values and flag unexpected values as warnings or errors
+* [Write a collection of queries ( a "config")](doc:getting-started#create-a-config) to [extract structured data](doc:getting-started#extract-data) from an example auto insurance document 
+* [Learn how the config works](doc:getting-started#how-it-works), including key concepts like lines, anchors, and methods
+* [Test the config](doc:getting-started#test-the-config) by running your config against a second, similar auto insurance document
+* [Use the API](doc:getting-started#integrate-with-your-application) or [SDKs](doc:sdk-guides) to integrate your Sensible config with your application
+* [Validate extractions in production](doc:getting-started#validate-extractions-in-production) by using JsonLogic to define expected extracted values and flag unexpected values as warnings or errors
 
-Get an account
-====
+# Get an account
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
 2. Log into the [Sensible app](https://app.sensible.so/signin/).
 
-Configure the extraction
-====
+# Configure the extraction
 
 1. In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type. In the dialog:
 
    1. Download the following example document, then select it in the dialog for upload:
 
    | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
-   | ---------------- | ------------------------------------------------------------ |
+   | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
    2. For the document type name, enter `auto_insurance_quotes`.
-   3. For the configuration name, enter `anyco`, for the fictional name of an insurance company. 
-       **Note:**  For layout-based methods, you generally create one configuration for each company or vendor in a document type.
+   3. For the configuration name, enter `anyco`, for the fictional name of an insurance company.\
+      **Note:**  For layout-based methods, you generally create one configuration for each company or vendor in a document type.
    4. Deselect the **Auto-generate configuration** checkbox.
    5. Click **Start extraction** to create the document type.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
-
 
 2. Sensible displays the query editor for your config and example document.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
@@ -69,15 +65,13 @@ Configure the extraction
 
 Click the code bracket icon in the right pane to ensure you view the output as JSON.
 
-Extract data
-====
-
+# Extract data
 
 For this tutorial, you'll extract these fields:
 
-- a couple of premiums
-- the policy number
-- the policy period
+* a couple of premiums
+* the policy number
+* the policy period
 
 1. Paste this config into the left pane in the editor to extract the data:
 
@@ -156,10 +150,7 @@ For this tutorial, you'll extract these fields:
 
 The following image shows this example in the Sensible app:
 
-
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_after_paste.png)
-
-
 
 You should see the following extracted data in the right pane:
 
@@ -196,46 +187,41 @@ You should see the following extracted data in the right pane:
 
 Congratulations! You created your first config and extracted your first document data. If you want to process car insurance quotes generated by a different company, you can create a new config and upload a new reference document. 
 
-- For a deep dive on how the config works, see [the following section](doc:getting-started#how-it-works).
+* For a deep dive on how the config works, see [the following section](doc:getting-started#how-it-works).
 
-- If you want to skip ahead and try out the API or SDKs, see [Integrate with your application](doc:getting-started#integrate-with-your-application). 
+* If you want to skip ahead and try out the API or SDKs, see [Integrate with your application](doc:getting-started#integrate-with-your-application). 
 
-How layout-based extraction works
-====
+# How layout-based extraction works
 
 This guide focuses on layout-based document extraction, which works as follows:
 
-- Each "field" is a basic query unit in Sensible.  Each field outputs a piece of data from the document that you want to extract. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
+* Each "field" is a basic query unit in Sensible.  Each field outputs a piece of data from the document that you want to extract. Sensible uses the field `id` as the key in the key/value JSON output. For more information, see [Field](doc:field-query-object).
 
-- Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text. For more information about defining complex anchors, see [Anchor](doc:anchor). 
+* Sensible searches first for a text "anchor" because it's a computationally quick way to narrow down the location of the target data to extract.  An anchor is text that always occurs close to your target text. Without it, Sensible wouldn't know which page to search in for your target text. For more information about defining complex anchors, see [Anchor](doc:anchor). 
 
-- Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Layout-based methods](doc:layout-based-methods).
+* Then, Sensible uses a "method" to expand its search out from the anchor and extract the data you want. For more information about methods, see [Layout-based methods](doc:layout-based-methods).
 
 This config uses three types of layout-based methods:
 
-  | Type of method | explanation                                                  | description                                       |
-  | -------------- | ------------------------------------------------------------ | ------------------------------------------------- |
-  | layout         | [How it works: label method](doc:getting-started#how-it-works-label-method) | Grab info immediately proximate to labeling text. |
-  | layout         | [How it works: row method](doc:getting-started#how-it-works-row-method) | Grab info from a cell in a row.                   |
-  | layout         | [How it works: box method](doc:getting-started#how-it-works-box-method) | Grab info from a box.                             |
-
+| Type of method | explanation                                                                 | description                                       |
+| -------------- | --------------------------------------------------------------------------- | ------------------------------------------------- |
+| layout         | [How it works: label method](doc:getting-started#how-it-works-label-method) | Grab info immediately proximate to labeling text. |
+| layout         | [How it works: row method](doc:getting-started#how-it-works-row-method)     | Grab info from a cell in a row.                   |
+| layout         | [How it works: box method](doc:getting-started#how-it-works-box-method)     | Grab info from a box.                             |
 
 This config also uses one large language model (LLM)-based method, to demonstrate that you can combine layout-based and LLM-based methods in the same config:
 
-| Type of method   | explanation                                                  | description                                                  |
-| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| LLM-based | [How it works: query group method](doc:getting-started#how-it-works-query-group-method) | Ask a free-text question about simple information in the document |
+| Type of method | explanation                                                                             | description                                                       |
+| -------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| LLM-based      | [How it works: query group method](doc:getting-started#how-it-works-query-group-method) | Ask a free-text question about simple information in the document |
 
-How it works: Query Group method
----
+## How it works: Query Group method
 
 The easiest way to start extracting simple information is to author a natural-language question, or prompt, for a large language model (LLM).
 
 For example, to extract the bodily injury liability:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_question.png)
-
-
 
 The config uses the [Query Group](doc:query-group) method to query for the  `bodily injury premium`. You can group together other queries if the answers are located within a page or two of each other in the document. For example, in the group, the config also queries for the  `insurer's customer service phone number`.  
 
@@ -283,10 +269,9 @@ LLM-based methods such as the Query Group method can run up against limitations 
 
 Let's look next at several basic layout-based methods.
 
-How it works: Label method
-----
+## How it works: Label method
 
-To extract the policy period from the document:
+To extract the policy period from the document:\
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_label_right.png)
 
 The config uses the [Label method](doc:label):
@@ -304,8 +289,8 @@ The config uses the [Label method](doc:label):
 
 This describes the layout of the data to extract relative to the anchor:
 
-- The anchor (`"policy period"`) is text that's pretty close to the text to extract, so it can serve as a "label" for that text  (`"id": "label"`). 
-- The text to extract is to the right of the anchor (`"position": "right"`).  
+* The anchor (`"policy period"`) is text that's pretty close to the text to extract, so it can serve as a "label" for that text  (`"id": "label"`). 
+* The text to extract is to the right of the anchor (`"position": "right"`).  
 
 This config returns:
 
@@ -318,8 +303,7 @@ This config returns:
 
 You can extract text to the right, left, above, or below a label. For example, how would you use a label to extract the driver's name? Try it out.
 
-Key concept: lines
-----
+## Key concept: lines
 
 See those gray boxes around the text in the following image?
 
@@ -329,14 +313,16 @@ Each gray box shows the boundaries for a "line." Sensible recognizes lines using
 
 The Label method can operate in a single line, or on consecutive lines. Here's a question: for the preceding image, can you use the Label method to anchor on  "Bodily injury"  and return "$25,000 each"? Try it out:
 
-    {
-        "id": "doesnt_work_returns_null",
-        "anchor": "bodily injury",
-        "method": {
-            "id": "label",
-            "position": "right"
-        }
+```
+{
+    "id": "doesnt_work_returns_null",
+    "anchor": "bodily injury",
+    "method": {
+        "id": "label",
+        "position": "right"
     }
+}
+```
 
 This returns null, because the Label method works for text in the same line or in proximate lines. In this case, the problem is that the gap between the two lines of text is more than 0.2 inches:
 
@@ -344,8 +330,7 @@ This returns null, because the Label method works for text in the same line or i
 
  Take a look instead at a purpose-built Row method instead to extract text in a table. 
 
-How it works: Row method
-----
+## How it works: Row method
 
 To extract the comprehensive premium of $150:
 
@@ -367,10 +352,10 @@ The config uses the [Row method](doc:row):
 
 This describes the data to extract:
 
-- The anchor text (`"comprehensive"`) is part of a row of lines (`"id": "row"`).
-- The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
-- The text to extract is the second line in the row after the anchor  (`"tiebreaker": "second"`).  Use tiebreakers to select lines in rows, for example maximum and minimum values (`<` and `>`).
-- By default, the Row method extracts values to the right of the anchor. You can override the default by specifying (`"position":"left"`). 
+* The anchor text (`"comprehensive"`) is part of a row of lines (`"id": "row"`).
+* The returned value is a currency (`"type": "currency"`). For other data types you can define, see [Field query object](doc:field-query-object).
+* The text to extract is the second line in the row after the anchor  (`"tiebreaker": "second"`).  Use tiebreakers to select lines in rows, for example maximum and minimum values (`<` and `>`).
+* By default, the Row method extracts values to the right of the anchor. You can override the default by specifying (`"position":"left"`). 
 
 This returns: 
 
@@ -387,14 +372,13 @@ But wait! Why didn't `"tiebreaker": "second"` select $250 instead of $150, since
 
 The reason is that `"tiebreaker": "second"` evaluates *after* the data type specified in the field, `"type": "currency"`. Instead of looking for the second line after the anchor in general, Sensible looks for the second line *that contains a currency*.  Convenient, right?
 
-Key concept: visualize anchors and matches
-----
+## Key concept: visualize anchors and matches
 
 In the app, you can visually inspect anchors and methods by looking at their color coding:
 
-- Orange boxes show lines matched by the Anchor object.
-- Blue boxes show lines matched by the Method object.
-- Dotted blue boxes show lines discarded by the Method object. Seeing the entire method match in the app can help you troubleshoot unexpected output.
+* Orange boxes show lines matched by the Anchor object.
+* Blue boxes show lines matched by the Method object.
+* Dotted blue boxes show lines discarded by the Method object. Seeing the entire method match in the app can help you troubleshoot unexpected output.
 
 To continue the Row method example from the previous section, in the following image the orange box shows that "Comprehensive" is the anchor line:
 
@@ -402,8 +386,7 @@ To continue the Row method example from the previous section, in the following i
 
 The dotted blue boxes show you that the Row method matches *all* the lines  in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. 
 
-How it works: Box method
-----
+## How it works: Box method
 
 To extract the policy number from this document:
 
@@ -430,9 +413,9 @@ The config uses the [Box method](doc:box):
 
  This describes the data to extract:
 
-- The anchor is inside a box (`"id": "box"`).
-- The anchor text  is `policy number`.
-- The anchor line is a little more complex than previous examples, because it also defines a match type (`"type": "startsWith"`). You can write a simpler string anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor).
+* The anchor is inside a box (`"id": "box"`).
+* The anchor text  is `policy number`.
+* The anchor line is a little more complex than previous examples, because it also defines a match type (`"type": "startsWith"`). You can write a simpler string anchor as `"anchor":"policy number"`, or you can expand to complex anchors. For more information, see [Anchor object](doc:anchor).
 
  This returns: 
 
@@ -445,28 +428,26 @@ The config uses the [Box method](doc:box):
 
 **Note:** Sensible extracts the box contents, but not the anchor itself.  By default, Sensible returns method results, not anchor results.
 
-Advanced layout-based queries
-----
+## Advanced layout-based queries
 
 You can get more advanced with this auto insurance config. For example:
 
-- The limits listed in the table are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible extracts the first line. Instead, use the [NLP Table method](doc:nlp-table) to more reliably capture the data in each cell of the whole table. 
-- What if the document listed emails, and you wanted to capture all those emails? You could use a regular expression (regex) in a `"match":"all"` anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
-- You can split the policy period into two dates, either by using the [Split computed field method](doc:split), or by setting the [Date](doc:types#date) type on the field and using a tiebreaker.
+* The limits listed in the table are tricky for the Row method to capture since they can be a variable number of lines. Row methods depend on strict horizontal alignment of lines, so Sensible extracts the first line. Instead, use the [NLP Table method](doc:nlp-table) to more reliably capture the data in each cell of the whole table. 
+* What if the document listed emails, and you wanted to capture all those emails? You could use a regular expression (regex) in a `"match":"all"` anchor coupled with a [Passthrough method](doc:passthrough), or the [Regex method](doc:regex).
+* You can split the policy period into two dates, either by using the [Split computed field method](doc:split), or by setting the [Date](doc:types#date) type on the field and using a tiebreaker.
 
 To check out other methods, see [Layout-based methods](doc:layout-based-methods).
 
-Test the config
-====
+# Test the config
 
 Before integrating the config with an application and writing [validation tests](doc:validate-extractions) against it, double check the config by uploading another quote.
 
 1. Repeat the steps in the previous section to upload a second generic car insurance quote:
 
-   | auto_insurance_anyco_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_2.pdf) |
-   | ----------------------------- | ------------------------------------------------------------ |
+   | auto\_insurance\_anyco\_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_2.pdf) |
+   | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
-2. Click the **anyco** config, select the "auto_insurance_anyco_2" document, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
+2. Click the **anyco** config, select the "auto\_insurance\_anyco\_2" document, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
 
    ```json
    {
@@ -480,15 +461,15 @@ Before integrating the config with an application and writing [validation tests]
 
 That seems like sloppy document formatting, but let's work with it. There are several options for capturing the policy period reliably, including:  
 
-- Document Range method
-- Region method
+* Document Range method
+* Region method
 
 **Alternative 1: Document Range method**
 
 You can use the [Document Range](doc:document-range) method to extract the policy period. This method extracts succeeding lines of text after an anchor. You need to configure some optional parameters, because the Document Range method by default discards anchor lines. Since the date range is part of the anchor line (the line containing `"policy period"`), you need to specify to:
 
-- include the anchor with `"includeAnchor": true`
-- filter out unwanted text in the anchor (the words "Policy period") with a Word Filters parameter.
+* include the anchor with `"includeAnchor": true`
+* filter out unwanted text in the anchor (the words "Policy period") with a Word Filters parameter.
 
 Try it out by replacing your existing `policy_period` field with this example:
 
@@ -555,32 +536,30 @@ Yes, it works too.
 
 In a production scenario, continue testing documents until you have confidence your configs work with the document type you've defined.  Then, write tests to validate the extractions in production.
 
-Integrate with your application
-====
+# Integrate with your application
 
 When you're ready to integrate with your application, enable using the config with the Sensible SDKs or API by taking the following steps:
 
 1. Click **Publish configuration**.  The config is still a work in progress, so click **Development**.  Now you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
 2. Use the Sensible SDKs or API to integrate with your application.
 
-Validate extractions in production 
-====
+# Validate extractions in production
 
 In a previous section, you tested a couple of documents manually. Now it's time to scale up and quality control the extractions by writing tests that run for all API extractions in a doc type.
 
 Use JsonLogic to validate that the extracted information makes sense for the car insurance document:
 
-- Test that the property damage liability premium is cheaper than the comprehensive premium:
-  -  `{"<":[{"var":"property_liability_premium.value"},{"var":"comprehensive_premium.value"}]}`
-- Test that the policy number is a nine-digit number:
-  - `{"match":[{"var":"policy_number.value"},"\\d{9}"]}`
+* Test that the property damage liability premium is cheaper than the comprehensive premium:
+  * `{"<":[{"var":"property_liability_premium.value"},{"var":"comprehensive_premium.value"}]}`
+* Test that the policy number is a nine-digit number:
+  * `{"match":[{"var":"policy_number.value"},"\\d{9}"]}`
 
 To add these tests:
 
-1. In the **auto_insurance_quote** document type, click **Create validation**. Add the following input to the dialog:
-   - Set the **Severity** to **Warning**
-   - Set the **Description** to "prop. damage is less than comprehensive"
-   - Set the **Condition** to:
+1. In the **auto\_insurance\_quote** document type, click **Create validation**. Add the following input to the dialog:
+   * Set the **Severity** to **Warning**
+   * Set the **Description** to "prop. damage is less than comprehensive"
+   * Set the **Condition** to:
 
 ```json
 {"<":
@@ -595,9 +574,9 @@ To add these tests:
 
 3. Click **Create**.
 4. Repeat the previous steps to create another validation with the following settings:
-   -  Set the **Severity** to **Error**
-   -  Set the **Description** to "policy number is a nine-digit number"
-   -  Set the **Condition** to:
+   * Set the **Severity** to **Error**
+   * Set the **Description** to "policy number is a nine-digit number"
+   * Set the **Condition** to:
 
 ```json
 {"match":
@@ -607,15 +586,13 @@ To add these tests:
 }
 ```
 
-
-
 5. To test the validations with a document that's missing information, [try out an API call](doc:api-tutorial-async-1) with the following example document that has these errors:
 
-   -  the policy number is missing
-   -  the property damage liability premium is $200 more than the comprehensive premium
+   * the policy number is missing
+   * the property damage liability premium is $200 more than the comprehensive premium
 
-| auto_insurance_anyco_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
-| ----------------------------- | ------------------------------------------------------------ |
+| auto\_insurance\_anyco\_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 You should receive a response with errors and warnings in the Validations array, as shown in the following API response excerpt:
 
@@ -664,9 +641,7 @@ You should receive a response with errors and warnings in the Validations array,
 
 Use [validation](doc:validate-extractions) errors and warnings to automatically flag poor-quality extractions for [human review](doc:human-review) in the Sensible app.
 
+# Next
 
-Next
-====
-
-- Check out the [SenseML reference docs](doc:senseml-reference-introduction) to write your own extractions
-- Learn about [integration options](doc:integrate).
+* Check out the [SenseML reference docs](doc:senseml-reference-introduction) to write your own extractions
+* Learn about [integration options](doc:integrate).
