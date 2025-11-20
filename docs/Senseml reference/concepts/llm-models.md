@@ -30,7 +30,7 @@ You can configure which LLM models Sensible uses to find answers in [context](do
 
 ### NLP Table method
 
-| configuration                          | LLM model      |
-| -------------------------------------- | -------------- |
-| LLM Engine parameter:<br/> provider: **openai** | GPT-4o         |
+| configuration                                     | LLM model      |
+| ------------------------------------------------- | -------------- |
+| LLM Engine parameter:<br/> provider: **openai**   | GPT-4o         |
 | LLM Engine parameter:<br/>provider: **anthropic** | Claude 3 Haiku |
