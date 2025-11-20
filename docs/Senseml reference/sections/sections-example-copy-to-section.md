@@ -12,8 +12,8 @@ next:
 ---
 The following example shows using computed fields to transform sections data. The example:
 
-- Copies a policy number and name from the parent `fields` object to each section using the Custom Computation method. The policy number and name are listed once in the document and are relevant to each extracted claim. To access the parent object's scope from inside each section, the method uses data-structure traversal syntax (`../`). The example shows how to transform copied data, in this case by concatenating the copied fields.
-- Redacts a telephone number. The example uses the Custom Computation method to replace digits in the number, and the Suppress Output method to omit the complete number from the output.
+* Copies a policy number and name from the parent `fields` object to each section using the Custom Computation method. The policy number and name are listed once in the document and are relevant to each extracted claim. To access the parent object's scope from inside each section, the method uses data-structure traversal syntax (`../`). The example shows how to transform copied data, in this case by concatenating the copied fields.
+* Redacts a telephone number. The example uses the Custom Computation method to replace digits in the number, and the Suppress Output method to omit the complete number from the output.
 
 **Config**
 
