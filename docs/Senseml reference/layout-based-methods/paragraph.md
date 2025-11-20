@@ -12,24 +12,19 @@ next:
 ---
 Extracts paragraphs in various layouts, including paragraphs in columns and paragraphs that span pages. 
 
-[**Parameters**](doc:document-range#parameters)
-[**Examples**](doc:document-range#examples)
+[**Parameters**](doc:document-range#parameters)\
+[**Examples**](doc:document-range#examples)\
 [**Notes**](doc:document-range#notes)
 
-Parameters
-====
+# Parameters
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key               | value       | description                                                  |
-| ----------------- | ----------- | ------------------------------------------------------------ |
+| key               | value       | description                                                                                                                                                                                    |
+| ----------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id (**required**) | `paragraph` | This method uses document layout, including columns, to detect paragraphs. To format the extracted paragraph with newlines, use in combination with the [Paragraph](doc:types#paragraph) type. |
 
-
-Examples
-====
-
-
+# Examples
 
 **Config**
 
@@ -67,7 +62,7 @@ Examples
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/paragraph.png)
@@ -75,7 +70,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/paragraph_1.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/paragraph.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
