@@ -1,0 +1,173 @@
+---
+title: Zip
+excerpt: ''
+deprecated: false
+hidden: false
+metadata:
+  title: ''
+  description: ''
+  robots: noindex
+next:
+  description: ''
+---
+Zips the output of fields together into an array of objects, or zips the output of Table methods into row objects.
+
+Parameters
+====
+
+The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+
+| key                        | value                                    | description                                                  |
+| :------------------------- | :--------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)          | `zip`                                    |                                                              |
+| source_ids  (**required**) | array of field ids in the current config | The ids of the fields to zip together, or a single id for a field that returns a table. If the output of the source IDs are arrays (for example, if you specify `"match: all"`), the Zip method joins them up to their maximum shared length. For example, if you zip arrays that have 4, 5, and 6 elements respectively, the zipped array has 4 elements. If you mix array source IDs with one or more table source IDs, the Zip method zips the first table and ignores everything else (tables take precedence over arrays for zipping). |
+
+Examples
+====
+
+The following example shows using the Zip method to extract each row from a table of vehicles as a vehicle object.
+
+Notes:
+
+- In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col3_year_made` .
+
+- To improve performance, the config specifies a Stop parameter. This ensures Sensible restricts table recognition to the relevant page area.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "_insured_vehicles_table",
+      "anchor": "insured vehicles",
+      "type": "table",
+      "method": {
+        "id": "fixedTable",
+        "columnCount": 4,
+        "columns": [
+          {
+            "id": "col2_model",
+            "index": 1
+          },
+          {
+            "id": "col3_year_made",
+            "index": 2,
+            "type": "number",
+            "isRequired": true
+          }
+        ],
+        "stop": {
+          "type": "startsWith",
+          "text": "please"
+        }
+      }
+    }
+  ],
+  "computed_fields": [
+    {
+      "id": "insured_vehicles",
+      "method": {
+        "id": "zip",
+        "source_ids": [
+          "_insured_vehicles_table"
+        ]
+      }
+    }
+  ]
+}
+```
+
+
+
+**Example document**
+
+The following image shows the example PDF used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip.png)
+
+| Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/zip.pdf) |
+| ------------------- | ------------------------------------------------------------ |
+
+**Output**
+
+```json
+{
+  "_insured_vehicles_table": {
+    "columns": [
+      {
+        "id": "col2_model",
+        "values": [
+          {
+            "value": "Camry",
+            "type": "string"
+          },
+          {
+            "value": "CR-V",
+            "type": "string"
+          },
+          {
+            "value": "Golf",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "col3_year_made",
+        "values": [
+          {
+            "source": "2010",
+            "value": 2010,
+            "type": "number"
+          },
+          {
+            "source": "2015",
+            "value": 2015,
+            "type": "number"
+          },
+          {
+            "source": "2020",
+            "value": 2020,
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "insured_vehicles": [
+    {
+      "col2_model": {
+        "value": "Camry",
+        "type": "string"
+      },
+      "col3_year_made": {
+        "source": "2010",
+        "value": 2010,
+        "type": "number"
+      }
+    },
+    {
+      "col2_model": {
+        "value": "CR-V",
+        "type": "string"
+      },
+      "col3_year_made": {
+        "source": "2015",
+        "value": 2015,
+        "type": "number"
+      }
+    },
+    {
+      "col2_model": {
+        "value": "Golf",
+        "type": "string"
+      },
+      "col3_year_made": {
+        "source": "2020",
+        "value": 2020,
+        "type": "number"
+      }
+    }
+  ]
+}
+```
