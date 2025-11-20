@@ -14,22 +14,18 @@ This topic describes how to configure an example two-Zap workflow for Zapier. Th
 
 Sensible supports two-step Zapier workflows as follows:
 
-- The first Zap extracts the document and returns a `WAITING` extraction status.
-- The second Zap triggers when the extraction status is `COMPLETE` and takes action on the extraction.
+* The first Zap extracts the document and returns a `WAITING` extraction status.
+* The second Zap triggers when the extraction status is `COMPLETE` and takes action on the extraction.
 
 You can use the example Zaps in this topic as templates. For example, modify this workflow to trigger extractions based on other file actions in Zapier-support apps. Or, output to different destinations (for example, a database record instead of spreadsheet files in Google Drive).
 
-Zap 1
----
+## Zap 1
 
 Every time you add a new file to a specified Slack channel, Zapier triggers Sensible to start extracting data from it.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_1_slack.png)
 
-
-
-Zap 2
----
+## Zap 2
 
 Every time Sensible completes extracting from a document:
 
@@ -39,24 +35,19 @@ Every time Sensible completes extracting from a document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_2_slack.png)
 
-
-
 Take the following steps to run these Zaps with example data, then modify them for your needs.
 
-Prerequisite: Configure 1040 extractions in Sensible
-----
+## Prerequisite: Configure 1040 extractions in Sensible
 
 Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `1040s`  document type to your account. 
 
-Prerequisite: Configure accounts
-----
+## Prerequisite: Configure accounts
 
 1. Create a test Slack channel. Name it `1040s_uploads`. Upload an [example 1040 document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) to the channel.
 2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data. Name it `1040s_extracted`.
 3. (Optional) In the `1040s_extracted` folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , and `Extraction link`.
 
-Zap 1: Extract new file in Slack with Sensible
----
+## Zap 1: Extract new file in Slack with Sensible
 
 See the following steps to configure Zap 1:
 
@@ -78,25 +69,25 @@ See the following steps to configure Zap 1:
 3. For the action, take the following steps: 
 
    1. Setup:
+
       1. Search for and select `Sensible`.
+
       2. **Action event**: Extract document
+
       3. **Account**: Select your Sensible account.
 
-
-      2. Configure:
+      4. Configure:
          1. **Document type**: 1040s
          2. **Environment**: Production
          3. **Document**: `File (Exists but not shown)`.  This specifies to extract from the document uploaded to Slack.
          4. **Reference**: `File (Exists but not shown)`.  You'll use this reference to connect Zap 1 and Zap 2 in a succeeding step.
          5. (Optional): You can specify additional references to log additional information in succeeding steps.
-      3. Test:
+
+      5. Test:
          1. Click test, then verify that the extraction is in `WAITING` status
          2. Click **Publish**.
 
-
-
-Zap 2: Upload extraction as spreadsheet to Google drive
----
+## Zap 2: Upload extraction as spreadsheet to Google drive
 
 See the following steps to configure Zap 2.
 
@@ -110,10 +101,11 @@ See the following steps to configure Zap 2.
       3. **Account**: Select your Sensible account.
 
    2. Configure:
-      	1. **Document type**: 1040s
-      	2. **Environment**: Production
-      	3. **Status**: Complete
-      	4. **Create Excel output**: True. This creates an Excel [spreadsheet](doc:excel-reference) from the extracted document data and stores it at URL.
+      1. **Document type**: 1040s
+      2. **Environment**: Production
+      3. **Status**: Complete
+      4. **Create Excel output**: True. This creates an Excel [spreadsheet](doc:excel-reference) from the extracted document data and stores it at URL.
+
    3. Test:
       1. Click **Test trigger**.
       2. Select the extraction you triggered in the previous Zap. Verify its status is now `COMPLETE` and that the `parsed_document` object contains extracted data from the example document you uploaded in a previous step. For example, `Parsed Document Year Value` is `2021`.
@@ -167,9 +159,7 @@ See the following steps to configure Zap 2.
          3. **Extraction link**: Embed Link
          4. (Optional) Use additional references and webhook payloads to log more information from Zap 1.
 
-
-(Optional) Test your integration
----
+## (Optional) Test your integration
 
 Congratulations, your integration is now published and running! Take the following steps to continue populating a Google folder from example documents:
 
@@ -187,15 +177,14 @@ Congratulations, your integration is now published and running! Take the followi
 
    ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zapier_action_4.png)
 
-Notes
----
+## Notes
 
 **General Limitations**
 
-- You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
-- You can extract from single-document files with Zapier. If you want to extract from portfolio files (documents that contain multiple documents, for example, insurance application bundles), use the Sensible app, API, or SDK. 
+* You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
+* You can extract from single-document files with Zapier. If you want to extract from portfolio files (documents that contain multiple documents, for example, insurance application bundles), use the Sensible app, API, or SDK. 
 
 **Sensible action limitations**
 
-- If you select **New file in folder**  event in Google Drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
-- Run an extraction on the file you intend to use for your Zapier sample setup a minute or so before you start configuring Zap 2. Otherwise, Zapier can return an incomplete example extraction.
+* If you select **New file in folder**  event in Google Drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
+* Run an extraction on the file you intend to use for your Zapier sample setup a minute or so before you start configuring Zap 2. Otherwise, Zapier can return an incomplete example extraction.
