@@ -12,13 +12,9 @@ next:
 ---
 **Note:** If you're familiar with Sensible, this detailed topic is for you. If you're new to Sensible, see [anchor](doc:anchor).
 
-
-Anchor syntax
-----
+## Anchor syntax
 
 At first glance, the following anchors may appear to be different syntaxes for finding the same matching text:
-
-
 
 **Anchor 1**
 
@@ -56,8 +52,8 @@ Versus:
 
 The difference between these two is:
 
-- anchor 1 finds an instance of line B preceded by line A.
-- anchor 2 searches after the first instance of line A for a line B, and discards anything earlier in the document. 
+* anchor 1 finds an instance of line B preceded by line A.
+* anchor 2 searches after the first instance of line A for a line B, and discards anything earlier in the document. 
 
 To clarify the difference,  consider a simple document with the following content:
 
@@ -89,20 +85,18 @@ Here is a B line that is the 2nd occurrence of “B following A” in the doc
 Here is an ending line.
 ```
 
-
-
 For **Anchor 1**, Sensible anchors on the last Match array element if it's preceded by the other array elements in order.  `"match":all"` finds two anchors. See the following image for an illustration: 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_2.png)
 
-- For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it doesn't anchor on the first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
+* For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it doesn't anchor on the first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_3.png)
 
 Try out this example in the Sensible app using the following document and config:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/anchor.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:
 
@@ -184,10 +178,7 @@ And the output of this example is:
 }
 ```
 
-
-
-Methods filter anchors
------
+## Methods filter anchors
 
 In addition to the match conditions you specify (such as `isCaseSensitive`), the method type also influences whether text qualifies as an anchor.
 
@@ -219,9 +210,8 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
-
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Example Output**
 
