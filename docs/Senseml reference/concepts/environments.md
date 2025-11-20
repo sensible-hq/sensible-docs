@@ -24,8 +24,7 @@ When you test a config in the  `development` environment, consider the following
 
 2. Does Sensible correctly auto-select the new version when [classifying](doc:fingerprint) a document against other configs in the document type?
 
-
 For the second question, note the following tips to avoid config [classification](doc:fingerprint) surprises:  
 
-- Ensure your development environment mimics your production environment. In other words, if the document type contains configs *other* than the ones you're currently testing, ensure those other configs have identical published production and development versions. Note that if you published a config to production but never published it to development, Sensible uses the config's production version to mimic the production environment.
--  If you publish changes to more than one config in development, then publish them all to production at the same time.
+* Ensure your development environment mimics your production environment. In other words, if the document type contains configs *other* than the ones you're currently testing, ensure those other configs have identical published production and development versions. Note that if you published a config to production but never published it to development, Sensible uses the config's production version to mimic the production environment.
+* If you publish changes to more than one config in development, then publish them all to production at the same time.
