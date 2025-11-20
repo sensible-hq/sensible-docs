@@ -12,19 +12,16 @@ next:
 ---
 Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null. Returns one field.
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
+| key                      | value               | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| :----------------------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**)        | `customComputation` | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method doesn't output [Sensible types](doc:types). It outputs `string, number, boolean, null` , or an array of those. For example, adding two currencies results in a number.<br/>- This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
+| jsonLogic (**required**) | JsonLogic object    | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using [JsonLogic operations](doc:jsonlogic).<br/>Outputs one field.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
-| key                      | value                             | description                                                  |
-| :----------------------- | :-------------------------------- | :----------------------------------------------------------- |
-| id (**required**)        | `customComputation`               | - This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. <br/> - This method doesn't output [Sensible types](doc:types). It outputs `string, number, boolean, null` , or an array of those. For example, adding two currencies results in a number.<br/>- This method returns null if you attempt to reference a variable that Sensible can't find in the `parsed_document`.<br/>- This method returns null if calculations include a null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1). |
-| jsonLogic (**required**) | JsonLogic object | Transforms the output of one or more [Field objects](https://docs.sensible.so/docs/field-query-object) using [JsonLogic operations](doc:jsonlogic).<br/>Outputs one field. |
-
-Examples
-====
+# Examples
 
 ## Example 1
 
@@ -223,13 +220,13 @@ The following example shows  defining custom computed fields.
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/add_computed_fields.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
@@ -390,11 +387,11 @@ The following image shows the example document used with this example config:
 
 The following example shows using the Custom Computation method to perform the following operations on data extracted from an claims loss run insurance document:
 
-- Get the total number of claims listed in the document
+* Get the total number of claims listed in the document
 
-- Redact the claim IDs
+* Redact the claim IDs
 
-- Sum up the incurred cost for all claims listed
+* Sum up the incurred cost for all claims listed
 
 **Config**
 
@@ -508,13 +505,13 @@ The following example shows using the Custom Computation method to perform the f
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/blog_custom_computations.png) 
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/blog_custom_computations.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
