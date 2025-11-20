@@ -14,9 +14,9 @@ After you've configured extractions for your [custom documents](doc:getting-star
 
  In this tutorial you'll learn to:
 
-- upload documents to the Sensible app's **Extract** tab
-- automatically extract from the documents using pre-existing document types and configs
-- download the extracted data as Excel.
+* upload documents to the Sensible app's **Extract** tab
+* automatically extract from the documents using pre-existing document types and configs
+* download the extracted data as Excel.
 
 ## Extract from a file
 
@@ -39,7 +39,7 @@ Take the following steps:
 ​       If you don't have an example document, use the following document with the `llm_basics` document type :
 
 | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
 
 3. Click **Run Extraction**.
 
@@ -49,11 +49,10 @@ Take the following steps:
 
  The following spreadsheet shows output for the example bank statement. The first tab contains fields with single values, for example the start date field. Succeeding tabs contain fields with table output, for example, the accounts list table. 
 
-[block:html]
-{
-  "html": "<div><iframe class=\"spreadsheet\" src=\"https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false\"></iframe></div>\n<style>.spreadsheet{width:100%;height:200px}</style>"
-}
-[/block]
+<HTMLBlock>{`
+<div><iframe class="spreadsheet" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false"></iframe></div>
+<style>.spreadsheet{width:100%;height:200px}</style>
+`}</HTMLBlock>
 
 **Note** Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the [Sensible API](https://docs.sensible.so/reference/get-excel-extraction) or [Sensible SDKs](doc:sdk-guides).
 
@@ -63,6 +62,6 @@ To extract from multiple files in a batch, select and upload multiple files in s
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_extract_bulk.png)
 
-##  Next
+## Next
 
 For more information about how Sensible converts JSON document extractions to Excel, see [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference).
