@@ -10,11 +10,9 @@ metadata:
 next:
   description: ''
 ---
-Checkboxes and regions
-===
+# Checkboxes and regions
 
-Solution: Mix it up
----
+## Solution: Mix it up
 
 After you've completed all the Mix it up steps in the tutorial, the final config is:
 
@@ -92,8 +90,7 @@ After you've completed all the Mix it up steps in the tutorial, the final config
 }
 ```
 
-Solution: Challenges
-----
+## Solution: Challenges
 
 After you've completed all the Challenges steps in the tutorial, the final config is:
 
@@ -160,8 +157,7 @@ After you've completed all the Challenges steps in the tutorial, the final confi
 }
 ```
 
-Learn more
----
+## Learn more
 
 To learn more about the steps you took in the tutorial, see:
 
@@ -172,8 +168,7 @@ To learn more about the steps you took in the tutorial, see:
 | [Region](doc:region)                 | A frequently used extraction method.                      |
 | [Match arrays](doc:match-arrays)     | Narrow down a match when multiple match candidates exist. |
 
-Initial config
----
+## Initial config
 
 To undo all your changes, paste the following config into the left pane of the SenseML editor:
 
