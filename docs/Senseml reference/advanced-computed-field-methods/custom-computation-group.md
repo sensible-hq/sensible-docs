@@ -12,19 +12,16 @@ next:
 ---
 Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). Can return multiple fields.
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
+| key                      | value                    | description                                                                                                                                                    |
+| :----------------------- | :----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)        | `customComputationGroup` | This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0.                                                                     |
+| jsonLogic (**required**) | JsonLogic object         | A [JsonLogic rule](doc:jsonlogic) that transforms the output of [Field objects](https://docs.sensible.so/docs/field-query-object) and outputs multiple fields. |
 
-| key                      | value                             | description                                                  |
-| :----------------------- | :-------------------------------- | :----------------------------------------------------------- |
-| id (**required**)        | `customComputationGroup`          | This method has access to the  `parsed_document` object at [verbosity](doc:verbosity) = 0. |
-| jsonLogic (**required**) | JsonLogic object | A [JsonLogic rule](doc:jsonlogic) that transforms the output of [Field objects](https://docs.sensible.so/docs/field-query-object) and outputs multiple fields. |
-
-Examples
-====
+# Examples
 
 The following example shows using the Custom Computation Group method in combination with the Pick Values operator to copy fields from the parent `fields` object into sections.
 
@@ -124,13 +121,13 @@ The following example shows using the Custom Computation Group method in combina
   }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/copy_to_section.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
