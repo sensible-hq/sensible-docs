@@ -10,9 +10,11 @@ metadata:
 next:
   description: ''
 ---
+DRAFT CONCEPT TOPIC
+
 **notes** draft is on hold, based on team meeting onboarding slides from aug 2022 as well as notion docs for onboarding devs. publish if there's an audience need for it (hasn't really come up)
 
-**Note:** If you're familiar with Sensible, this advanced topic is for you. 
+**Note:** If you're familiar with Sensible, this advanced topic is for you.
 
 This topic gives an overview of the Sensible's extraction engine, including the order of execution for SenseML, for example, preprocessors, fields, computed fields, and sections.
 
@@ -28,7 +30,7 @@ Transform the bytes of the document into raw text. Determine whether the documen
 
 * If the file is an image file (for example, PNG), run OCR.
 
-* If the file is a PDF, the default `OCR_level` behavior is to run OCR if: 
+* If the file is a PDF, the default `OCR_level` behavior is to run OCR if:
   * The average number of lines per page is less than 10.
   * The font is corrupted (lots of unprintable characters).
   * The text is extensively garbled. Use regular expressions to test for ungarbled text.
@@ -57,9 +59,9 @@ Take the raw text representation (from OCR or directly from the PDF), clean it, 
 
 ***
 
-Reduce the number of configurations that Sensible runs on the document to improve performance. Without fingerprints, Sensible runs every configuration in the document type. With them, Sensible can test if an "ACME\_CO\_INSURANCE" config should run on an "ACME\_quote.pdf" by examining the PDF's standardized text output for key text like "ACME" and "insurance" and filtering out documents that don't contain the key phrases. 
+Reduce the number of configurations that Sensible runs on the document to improve performance. Without fingerprints, Sensible runs every configuration in the document type. With them, Sensible can test if an "ACME_CO_INSURANCE" config should run on an "ACME_quote.pdf" by examining the PDF's standardized text output for key text like "ACME" and "insurance" and filtering out documents that don't contain the key phrases.
 
-* Score each configuration against its configured fingerprint tests, if present.  
+* Score each configuration against its configured fingerprint tests, if present.
 * Return a set of configurations to create extractions for.
 
 For more information, see [Fingerprints](doc:fingerprint).
@@ -78,7 +80,7 @@ Extract candidate output for the document using the SenseML configurations in th
 
 **1. Preprocessors**
 
-Run any preprocessors (e.g., removeHeaders), in the order in which the user specified them in the SenseML array. Sensible then applies a final global preprocessor to remove repeated whitespaces. 
+Run any preprocessors (e.g., removeHeaders), in the order in which the user specified them in the SenseML array. Sensible then applies a final global preprocessor to remove repeated whitespaces.
 
 **2. Fields**
 
@@ -108,7 +110,7 @@ Score each configuration's extraction based on how much data it found, and its [
 * For each validation error, -1 point.
 * For each validation warning, -0.5 points.
 
-The configuration with the highest score wins\
+The configuration with the highest score wins  
 Summarize the scores for the end user.
 
 ```json
@@ -117,7 +119,7 @@ todo: add json example
 
 ## Return results
 
-Return the extraction, and other information, to the user as an API response. 
+Return the extraction, and other information, to the user as an API response.
 
 * Use the winning configuration data from the previous step
 
