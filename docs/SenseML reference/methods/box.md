@@ -12,28 +12,25 @@ next:
 ---
 Extract lines inside a box. This method works by default with boxes that have a light background and dark, continuous borders. 
 
-[**Parameters**](doc:box#parameters)
+[**Parameters**](doc:box#parameters)\
 [**Examples**](doc:box#examples)
 
-Parameters
-====
+# Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key               | value                                                        | description                                                  |
-| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `box`                                                        | Extracts all lines in a box. If you define an anchor that's outside the box borders, then use offset parameters to define a point that's inside the box borders so that Sensible recognizes the box. |
-| position          | `right`, `left`, `below`, `above`. default: center of the anchor line's bounding box | Use this parameter to fine tune box recognition. The Position parameter defines a starting point for recognizing a box. Sensible searches outward from this point until it finds dark pixels signifying the box border. <br/> For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| offsetX           | number in inches default: 0                                  | Searches for a box starting at a point offset horizontally from the point defined by the Position parameter. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| offsetY           | number in inches default: 0                                  | Searches for a box starting at a point offset vertically from the point defined by the Position parameter. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| offsetBoxes       | object. default: `none`                                      | Recognize a box separated by offsetting boxes from the point defined in the Position parameter. For example, use this parameter for tables or grids where continuous borders surround every cell. The boxes must share borders. Contains the following parameters:<br/>\- `direction`: The direction to search in (`above, below, right, left`, relative to the starting box.<br/>\- `number`: The number of boxes to offset by.<br/>For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
-| darknessThreshold | number between 0 and 1. default: 0.9                         | The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br/>If the document has a white background, the default value is 0.9.<br/>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
+| key               | value                                                                                | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `box`                                                                                | Extracts all lines in a box. If you define an anchor that's outside the box borders, then use offset parameters to define a point that's inside the box borders so that Sensible recognizes the box.                                                                                                                                                                                                                                                                                                                                                                  |
+| position          | `right`, `left`, `below`, `above`. default: center of the anchor line's bounding box | Use this parameter to fine tune box recognition. The Position parameter defines a starting point for recognizing a box. Sensible searches outward from this point until it finds dark pixels signifying the box border. <br/> For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                                                                                                                                                                                    |
+| offsetX           | number in inches default: 0                                                          | Searches for a box starting at a point offset horizontally from the point defined by the Position parameter. For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                                                                                                                                                                                                                                                                                                     |
+| offsetY           | number in inches default: 0                                                          | Searches for a box starting at a point offset vertically from the point defined by the Position parameter. For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                                                                                                                                                                                                                                                                                                                                                       |
+| offsetBoxes       | object. default: `none`                                                              | Recognize a box separated by offsetting boxes from the point defined in the Position parameter. For example, use this parameter for tables or grids where continuous borders surround every cell. The boxes must share borders. Contains the following parameters:<br/>\- `direction`: The direction to search in (`above, below, right, left`, relative to the starting box.<br/>\- `number`: The number of boxes to offset by.<br/>For an example of how to use this parameter, see the following [Examples section](doc:box#examples).                             |
+| darknessThreshold | number between 0 and 1. default: 0.9                                                 | The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background.<br/>If the document has a white background, the default value is 0.9.<br/>If the document has dark or mottled background, for example as the result of a scan, then Sensible automatically chooses a default value based on the amount of contrast in the document. For an example of how to use this parameter, see the following [Examples section](doc:box#examples). |
 
-Examples
-====
+# Examples
 
-Simple box
-----
+## Simple box
 
 The following example shows extracting a dollar amount from a box in a 1099 form, based on anchor text matching in the box.
 
@@ -54,15 +51,13 @@ The following example shows extracting a dollar amount from a box in a 1099 form
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_1099.png)
 
-
-
 | Example PDF | [Download link](https://www.irs.gov/pub/irs-pdf/f1099msc.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ----------- | ------------------------------------------------------------- |
 
 **Output**
 
@@ -77,14 +72,9 @@ The following image shows the example PDF used with this example config:
 }
 ```
 
-
-
-
-Dark box
-----
+## Dark box
 
 The following example shows extracting text from a box with a dark background and light text using the `darknessThreshold` parameter.
-
 
 **Config**
 
@@ -103,15 +93,13 @@ The following example shows extracting text from a box with a dark background an
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_dark.png)
 
-
-
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_dark.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -124,10 +112,7 @@ The following image shows the example PDF used with this example config:
 }
 ```
 
-
-
-Offset boxes
-----
+## Offset boxes
 
 The following example shows recognizing boxes relative to other boxes using the Box Offset parameter.
 
@@ -182,7 +167,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_offset.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_offset.pdf) |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -216,17 +201,14 @@ The following image illustrates how Sensible recognizes offset boxes after the f
 
 When boxes are complex (inconsistently sized, spanned, or aligned, as in the preceding image), Sensible's  methods for recognizing boxes can be correspondingly complex. In such cases, use the Sensible app to [visually examine](doc:color) and understand the extraction. Or, see the following example for an alternative approach. 
 
-Box coordinates
-----
+## Box coordinates
 
 You can use the Offset X and Offset Y parameters:
 
-- to anchor on text *outside* the target box, for example, if all the box's contents are variable.
-- as an alternative to the Offset Boxes parameter. Offsets provide faster performance, but are more sensitive to inconsistent box positioning across PDFs and require more configuration. 
+* to anchor on text *outside* the target box, for example, if all the box's contents are variable.
+* as an alternative to the Offset Boxes parameter. Offsets provide faster performance, but are more sensitive to inconsistent box positioning across PDFs and require more configuration. 
 
 The following example shows the same PDF as the Offset Boxes example, but uses distances in inches rather than boxes to define the offsets.
-
-
 
 **Config**
 
@@ -273,7 +255,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_offset_3.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_offset.pdf) |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 The red arrows in the preceding image show the offsets in inches from the point defined by the Position parameter. The green dots move as you adjust the inches coordinates, so you can visually tweak your measurements in the Sensible app.
 
@@ -296,8 +278,7 @@ The red arrows in the preceding image show the offsets in inches from the point 
 }
 ```
 
-Troubleshoot box recognition
-----
+## Troubleshoot box recognition
 
 Use the Position parameter to fine tune box recognition.
 
@@ -332,7 +313,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_position_left.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/box_recognition.pdf) |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 **SOLUTION**
 
@@ -373,7 +354,6 @@ Output
 }
 ```
 
-Notes
-====
+# Notes
 
 The Box method is an alternative to the [Region method](doc:region) that requires less configuration and is slightly slower. Use the Region method instead of the Box method for faster performance, or if the borders of a box are incomplete or discontinuous.
