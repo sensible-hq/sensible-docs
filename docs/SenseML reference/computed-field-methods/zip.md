@@ -12,26 +12,24 @@ next:
 ---
 Zips the output of fields together into an array of objects, or zips the output of Table methods into row objects.
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key                        | value                                    | description                                                  |
-| :------------------------- | :--------------------------------------- | :----------------------------------------------------------- |
-| id (**required**)          | `zip`                                    |                                                              |
-| source_ids  (**required**) | array of field ids in the current config | The ids of the fields to zip together, or a single id for a field that returns a table. If the output of the source IDs are arrays (for example, if you specify `"match: all"`), the Zip method joins them up to their maximum shared length. For example, if you zip arrays that have 4, 5, and 6 elements respectively, the zipped array has 4 elements. If you mix array source IDs with one or more table source IDs, the Zip method zips the first table and ignores everything else (tables take precedence over arrays for zipping). |
+| key                         | value                                    | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| :-------------------------- | :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**)           | `zip`                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| source\_ids  (**required**) | array of field ids in the current config | The ids of the fields to zip together, or a single id for a field that returns a table. If the output of the source IDs are arrays (for example, if you specify `"match: all"`), the Zip method joins them up to their maximum shared length. For example, if you zip arrays that have 4, 5, and 6 elements respectively, the zipped array has 4 elements. If you mix array source IDs with one or more table source IDs, the Zip method zips the first table and ignores everything else (tables take precedence over arrays for zipping). |
 
-Examples
-====
+# Examples
 
 The following example shows using the Zip method to extract each row from a table of vehicles as a vehicle object.
 
 Notes:
 
-- In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col3_year_made` .
+* In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col3_year_made` .
 
-- To improve performance, the config specifies a Stop parameter. This ensures Sensible restricts table recognition to the relevant page area.
+* To improve performance, the config specifies a Stop parameter. This ensures Sensible restricts table recognition to the relevant page area.
 
 **Config**
 
@@ -78,8 +76,6 @@ Notes:
 }
 ```
 
-
-
 **Example document**
 
 The following image shows the example PDF used with this example config:
@@ -87,7 +83,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/zip.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ----------- | -------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
