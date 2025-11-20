@@ -131,6 +131,50 @@ The following image shows the example document used with this example config:
 
 **Output**
 
+```json
+{
+  "name_of_output_key": {
+    "type": "string",
+    "value": "Below the matching anchor, this is the data to extract. The anchor is a label for this data."
+  },
+  "overview_table": {
+    "columns": [
+      {
+        "id": "attribute",
+        "values": [
+          {
+            "value": "key concepts",
+            "type": "string"
+          },
+          {
+            "value": "key method categories",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "description",
+        "values": [
+          {
+            "value": "Fields, anchors, and methods",
+            "type": "string"
+          },
+          {
+            "value": "LLM-based, layout-based, and computed",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "title": {
+      "type": "string",
+      "value": "SenseML overview"
+    }
+  }
+}
+
+```
+
 # Next
 
 The Field object contains:
