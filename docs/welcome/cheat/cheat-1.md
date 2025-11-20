@@ -10,11 +10,9 @@ metadata:
 next:
   description: ''
 ---
-Hello world
-===
+# Hello world
 
-Solution
----
+## Solution
 
 After you've completed all the steps in the tutorial, the final config is the following:
 
@@ -33,23 +31,20 @@ After you've completed all the steps in the tutorial, the final config is the fo
 }
 ```
 
-Learn more
----
+## Learn more
 
 To learn more about the steps you took in the tutorial, see:
 
-| Link                      | Notes                                                        |
-| ------------------------- | ------------------------------------------------------------ |
-| [Anchor](doc:anchor)      | Fundamental concepts.                                        |
-| [Label](doc:label)        | A frequently used extraction method.                         |
-| [Box](doc:box)            | A frequently used extraction method.                         |
+| Link                      | Notes                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| [Anchor](doc:anchor)      | Fundamental concepts.                                                            |
+| [Label](doc:label)        | A frequently used extraction method.                                             |
+| [Box](doc:box)            | A frequently used extraction method.                                             |
 | [Color coding](doc:color) | Explains the colored boxes you see overlaid on the document in the Sensible app. |
 
-Initial config
----
+## Initial config
 
 To undo all your changes, paste the following config into the left pane of the SenseML editor:
-
 
 ```json
 {
