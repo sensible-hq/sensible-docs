@@ -46,21 +46,19 @@ and return a filled document, like this:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/docgen-2.png)
 
-Get started
----
+## Get started
 
-For each unique fillable template you create, email the following to Sensible customer support at support@sensible.so to get started with calling the API: 
+For each unique fillable template you create, email the following to Sensible customer support at [support@sensible.so](mailto:support@sensible.so) to get started with calling the API: 
 
-- The fillable template document containing unique IDs for the fields you want to fill.
+* The fillable template document containing unique IDs for the fields you want to fill.
 
-- A mapping you write between the field IDs you created in the fillable document template and the JSON keys you submit to the generation API. See [Mappings](doc:document-generation-intro#mappings) for more information. 
+* A mapping you write between the field IDs you created in the fillable document template and the JSON keys you submit to the generation API. See [Mappings](doc:document-generation-intro#mappings) for more information. 
 
-- A name for the "generator" for this fillable form. A generator can contain related templates and mappings. For example, if you submit a `6_month_customer_contract.pdf` template, Sensible can store it in a `customer_contracts` generator along with a `3_month_customer_contract.pdf` and other related templates and their mappings.
+* A name for the "generator" for this fillable form. A generator can contain related templates and mappings. For example, if you submit a `6_month_customer_contract.pdf` template, Sensible can store it in a `customer_contracts` generator along with a `3_month_customer_contract.pdf` and other related templates and their mappings.
 
-Mappings
-----
+## Mappings
+
 The following example JSON maps the names of field IDs in a fillable PDF named `customer_contract_6_months` to JSON keys used in the API call:
-
 
 ```json
 [
@@ -86,12 +84,11 @@ The following example JSON maps the names of field IDs in a fillable PDF named `
 
 This mapping specifies, for example:
 
-- To fill the PDF field `customerName`, take the values of the JSON keys `customer.first_name`, `customer.last_name` in the API request and concatenate them. 
-- To fill the PDF field `customerStrAdr`, get the second element in the addresses array in the API request, then get the value of the `street_address` key.
-- To fill the PDF field `contractStart`, look for the JSON key `contract.start_date` in the API request. If Sensible doesn't find that key, then fallback to an alternative and synonymous key, `policy.start_date`.
+* To fill the PDF field `customerName`, take the values of the JSON keys `customer.first_name`, `customer.last_name` in the API request and concatenate them. 
+* To fill the PDF field `customerStrAdr`, get the second element in the addresses array in the API request, then get the value of the `street_address` key.
+* To fill the PDF field `contractStart`, look for the JSON key `contract.start_date` in the API request. If Sensible doesn't find that key, then fallback to an alternative and synonymous key, `policy.start_date`.
 
-Portfolio generation
-----
+## Portfolio generation
 
 You can generate a portfolio file containing filled documents packaged into one "portfolio" file. For example, if you write a mapping like this:
 
@@ -122,11 +119,10 @@ You can generate a portfolio file containing filled documents packaged into one 
 
 You can use one API request with one JSON payload to generate a portfolio file containing two separate filled-out forms: an auto policy declaration and an umbrella policy declaration.
 
-Notes
----
+## Notes
 
 Sensible currently supports the following:
 
-- fillable text fields, not for example checkboxes or radio buttons.
-- PDF templates, not for example HTML (support coming soon).
-- the concat method, not for example split or join.
+* fillable text fields, not for example checkboxes or radio buttons.
+* PDF templates, not for example HTML (support coming soon).
+* the concat method, not for example split or join.
