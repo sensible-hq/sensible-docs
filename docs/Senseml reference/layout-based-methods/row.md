@@ -16,26 +16,21 @@ Matches all lines to the left or right of the anchor line.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row_align.png)
 
-[**Parameters**](doc:row#parameters)
-[**Examples**](doc:row#examples)
+[**Parameters**](doc:row#parameters)\
+[**Examples**](doc:row#examples)\
 [**Notes**](doc:row#notes)
 
-Parameters
-====
+# Parameters
 
+| key               | value                                                                             | description                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ----------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `row`                                                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| includeAnchor     | boolean. default: `false`                                                         | Includes the anchor line in the method output                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| position          | `right`, `left`. default: `right`                                                 | Matches to the left or right                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| tiebreaker        | For information about this global parameter, see [Method](doc:method#parameters). | For information about this global parameter, see [Method](doc:method#parameters).                                                                                                                                                                                                                                                                                                                                                                                   |
+| tolerance         | number in inches. default: 0.08                                                   | Configure this for unusual font sizes. By default, each matching line in the "row" must have a top boundary that's within 0.08 inches below or above the anchor's top boundary (total range is 0.16" inches). The default tolerance of 0.08 works well for font sizes around 12 pts (\~0.17 inches).  Configure this default when the font size of the row is unusual.  For example, if your font size is a tiny 1.44 pt (0.02 inches), set this parameter to 0.01. |
 
-| key               | value                                                        | description                                                  |
-| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `row`                                                        |                                                              |
-| includeAnchor     | boolean. default: `false`                                    | Includes the anchor line in the method output                |
-| position          | `right`, `left`. default: `right`                            | Matches to the left or right                                 |
-| tiebreaker        | For information about this global parameter, see [Method](doc:method#parameters). | For information about this global parameter, see [Method](doc:method#parameters). |
-| tolerance        | number in inches. default: 0.08 | Configure this for unusual font sizes. By default, each matching line in the "row" must have a top boundary that's within 0.08 inches below or above the anchor's top boundary (total range is 0.16" inches). The default tolerance of 0.08 works well for font sizes around 12 pts (~0.17 inches).  Configure this default when the font size of the row is unusual.  For example, if your font size is a tiny 1.44 pt (0.02 inches), set this parameter to 0.01.   |
-
-
-
-Examples
-====
+# Examples
 
 The following example shows  extracting data from two consecutive tables using the Row method:
 
@@ -97,7 +92,7 @@ The following image shows the data extracted by this config for the following ex
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/row.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -115,10 +110,9 @@ The following image shows the data extracted by this config for the following ex
 }
 ```
 
-Notes
------
+## Notes
 
-- To extract an entire table, see the [table methods](doc:table-methods). 
-- To extract a column, see the [Column method](doc:column). 
-- In a row with optional empty cells, a tiebreaker can return lines from inconsistent columns. Use the [Intersection method](doc:intersection) instead.
-- The Row method can't extract multiple lines in a cell. Use the [Document Range](doc:document-range#offset-y-parameter) or [Intersection](doc:intersection) methods instead.
+* To extract an entire table, see the [table methods](doc:table-methods). 
+* To extract a column, see the [Column method](doc:column). 
+* In a row with optional empty cells, a tiebreaker can return lines from inconsistent columns. Use the [Intersection method](doc:intersection) instead.
+* The Row method can't extract multiple lines in a cell. Use the [Document Range](doc:document-range#offset-y-parameter) or [Intersection](doc:intersection) methods instead.
