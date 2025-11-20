@@ -2,3 +2,4 @@
 - create_configuration
 - get_configuration
 - replace_configuration
+- delete_configuration
