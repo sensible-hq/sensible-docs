@@ -12,35 +12,28 @@ next:
 ---
 Zips tables into rows, or zips tables, arrays, and sections. 
 
-
 # Parameters
-
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
-| key                        | value                                    | description                                                  |
-| :------------------------- | :--------------------------------------- | :----------------------------------------------------------- |
-| id (**required**)          | `zip`                                    |                                                              |
-| source_ids  (**required**) | array of field IDs in the current config | This method returns a section group. For more information, see notes in succeeding table. |
-
+| key                         | value                                    | description                                                                               |
+| :-------------------------- | :--------------------------------------- | :---------------------------------------------------------------------------------------- |
+| id (**required**)           | `zip`                                    |                                                                                           |
+| source\_ids  (**required**) | array of field IDs in the current config | This method returns a section group. For more information, see notes in succeeding table. |
 
 See  the following table for information about the Zip method's output:
 
-| source ids                                          | output                                                       | notes                                                        |
-| --------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| arrays                                              | section group containing zipped arrays                       | For each element in each array, Sensible adds the element identified by the field ID to a section. As an example with simplified syntax,<br/> `"product_color":["blue", "red"]` <br/>and<br/> `"product_id": [123, 456]` <br/>zip to<br/> `"zipped_products":[ {"product_color": "blue", "product_id": 123}, {"product_color": "red", "product_id": 456} ]`. <br/>Examples of source fields that output arrays include those with `"match": "allWithNull"` or `"type": "name"` configured. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For a full example, see Example 1. |
-| one [table](doc:table-methods)                      | section group containing rows                                | Sensible zips the columns in a table into row objects. As an example with simplified syntax: <br/>`{"source_table":{"columns":[`<br/>`{"id":"car_model","values":["Camry","CR-V"]},`<br/>`{"id":"car_year","values":[2010,2015]}]}}` <br/> zips to:<br/>`{"zipped_table":[{"car_model":"Camry","car_year":2010},{"car_model":"CR-V","car_year":2015}]}`<br/>For information about how Sensible handles fields that return table arrays, see the Notes section.<br/>For a full example, see Example 2. |
-| tables                                              | section group containing merged rows                         | For an example, see Example 3. For information about how Sensible handles fields that return table arrays, see the Notes section. |
-| [section](doc:sections) groups                      | section group containing merged sections                     | For an example, see [Zip sections example](doc:sections-example-zip). |
-| mixed input:<br/>tables, section groups, and arrays | section group containing merged rows, sections, and array items | For an example, see Example 4.  For information about how Sensible handles fields that return table arrays, see the Notes section. |
-
-
+| source ids                                          | output                                                          | notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| --------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| arrays                                              | section group containing zipped arrays                          | For each element in each array, Sensible adds the element identified by the field ID to a section. As an example with simplified syntax,<br/> `"product_color":["blue", "red"]` <br/>and<br/> `"product_id": [123, 456]` <br/>zip to<br/> `"zipped_products":[ {"product_color": "blue", "product_id": 123}, {"product_color": "red", "product_id": 456} ]`. <br/>Examples of source fields that output arrays include those with `"match": "allWithNull"` or `"type": "name"` configured. <br/>If the source arrays are of different lengths, Sensible appends `null` values for the shorter of the two arrays in the zipped output, up to the length of the longer array. <br/>Avoid using `"match":"all"` with the Zip computed field method. This option strips out null array elements and can result in source arrays of unpredictably different lengths.<br/>For a full example, see Example 1. |
+| one [table](doc:table-methods)                      | section group containing rows                                   | Sensible zips the columns in a table into row objects. As an example with simplified syntax: <br/>`{"source_table":{"columns":[`<br/>`{"id":"car_model","values":["Camry","CR-V"]},`<br/>`{"id":"car_year","values":[2010,2015]}]}}` <br/> zips to:<br/>`{"zipped_table":[{"car_model":"Camry","car_year":2010},{"car_model":"CR-V","car_year":2015}]}`<br/>For information about how Sensible handles fields that return table arrays, see the Notes section.<br/>For a full example, see Example 2.                                                                                                                                                                                                                                                                                                                                                                                                  |
+| tables                                              | section group containing merged rows                            | For an example, see Example 3. For information about how Sensible handles fields that return table arrays, see the Notes section.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| [section](doc:sections) groups                      | section group containing merged sections                        | For an example, see [Zip sections example](doc:sections-example-zip).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| mixed input:<br/>tables, section groups, and arrays | section group containing merged rows, sections, and array items | For an example, see Example 4.  For information about how Sensible handles fields that return table arrays, see the Notes section.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 # Examples
 
-
 ## Example 1: All With Null zip
-
 
 The following example shows using `"match":"allWithNull"` as an alternative to [sections](doc:sections) to return parallel arrays of phones and last names. 
 
@@ -116,13 +109,13 @@ The following example shows using `"match":"allWithNull"` as an alternative to [
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/all_with_null.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/all_with_null.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
@@ -180,18 +173,15 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
-
 ## Example 2: Zip table
 
 The following example shows using the Zip method to transform each row from a table of vehicles into a vehicle object.
 
 Notes:
 
-- In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col3_year_made` .
+* In order to filter out all column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col3_year_made` .
 
-- To improve performance, the config specifies a Stop parameter. This ensures Sensible restricts table recognition to the relevant page area.
+* To improve performance, the config specifies a Stop parameter. This ensures Sensible restricts table recognition to the relevant page area.
 
 **Config**
 
@@ -238,8 +228,6 @@ Notes:
 }
 ```
 
-
-
 **Example document**
 
 The following image shows the example document used with this example config:
@@ -247,7 +235,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip_tables.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/zip_tables.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -405,13 +393,13 @@ The following image shows the example document used with this example config:
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip_tables.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/zip_tables.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -627,13 +615,13 @@ The following example demonstrates zipping sections, tables, and arrays.
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/zip_mixed.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/zip_mixed.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -770,9 +758,9 @@ The following image shows the example document used with this example config:
 
 # Notes
 
-- If a single source field ID outputs an array of tables, then for backward compatibility Sensible discards all other source fields, and returns an array of sections groups, each containing a zipped table.  For example, if you configure `"source_ids": ["table_1", "table_2", "table_array", "section_1"]`, where `"table_array"` is configured with `"match":"all"` , then Sensible discards all source fields except `"table_array"`.  
+* If a single source field ID outputs an array of tables, then for backward compatibility Sensible discards all other source fields, and returns an array of sections groups, each containing a zipped table.  For example, if you configure `"source_ids": ["table_1", "table_2", "table_array", "section_1"]`, where `"table_array"` is configured with `"match":"all"` , then Sensible discards all source fields except `"table_array"`.  
 
-- If there are duplicate field keys when merging, the last-listed key in the `source_fields` array overwrites any preceding ones. The following is an example of source fields with simplified syntax: 
+* If there are duplicate field keys when merging, the last-listed key in the `source_fields` array overwrites any preceding ones. The following is an example of source fields with simplified syntax: 
 
 ```json
 "item_color": [ {"color": "blue", "ID": 123}, {"color": "red", "ID": 456}, ... ],
@@ -780,6 +768,5 @@ The following image shows the example document used with this example config:
 ```
 
 If you zip with `"source_ids": ["item_color", "item_size"]`, then the first merged item is `[ {color: "blue", "ID": 789, "size": "x-large"}, ... ]`.
-
 
 If you zip with `"source_ids": ["item_size", "item_color"]`, then the first merged item is  `[ {"color": "blue", "ID": 123, "size": "x-large"}, ... ]`.
