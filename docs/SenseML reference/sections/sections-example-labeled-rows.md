@@ -12,11 +12,9 @@ next:
 ---
 The following example shows using a vertical section to capture a table that has both column labels and row labels. It also shows:
 
-- Using the Column Selection parameter to exclude the first and last columns from the output but make their text available as anchoring information for each outputted column.
-- To aid column recognition, excluding the anchor from the vertical section using the Offset Y parameter.
-- To illustrate each section's range, the config includes a field that outputs the entire contents of each section.
-
-
+* Using the Column Selection parameter to exclude the first and last columns from the output but make their text available as anchoring information for each outputted column.
+* To aid column recognition, excluding the anchor from the vertical section using the Offset Y parameter.
+* To illustrate each section's range, the config includes a field that outputs the entire contents of each section.
 
 **Config**
 
@@ -91,7 +89,7 @@ The following image shows the data extracted by this config for the following ex
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_labeled_rows.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_labeled_rows.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
