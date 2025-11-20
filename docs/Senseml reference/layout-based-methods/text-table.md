@@ -14,43 +14,40 @@ Matches tables based on column coordinates in inches and returns their collated 
 
 This method's advantages are:
 
-- It's faster than other table methods because it doesn't use table recognition.
-- It can extract unusally formatted tables that other table methods can't recognize.
+* It's faster than other table methods because it doesn't use table recognition.
+* It can extract unusally formatted tables that other table methods can't recognize.
 
 Its disadvantage is that it's more limited than other table methods, because it relies on line alignment to find the table. 
 
 For alternatives to this method, see [Table methods](doc:table-methods). 
 
-[**Parameters**](doc:text-table#parameters)
+[**Parameters**](doc:text-table#parameters)\
 [**Examples**](doc:text-table#examples)
 
-Parameters
-=====
+# Parameters
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key                       | value                                                    | description                                                  |
-| :------------------------ | :------------------------------------------------------- | :----------------------------------------------------------- |
-| id **required**           | `table`                                                  | When you specify this method, you must also specify `"type": "table"` in the field's parameters. |
+| key                       | value                                                    | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| :------------------------ | :------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id **required**           | `table`                                                  | When you specify this method, you must also specify `"type": "table"` in the field's parameters.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | columns **required**      | array                                                    | An array of objects with the following parameters:<br/> -`id` (**required**): The id for the column in the extraction output.<br/> -`minX` (**required**):  The distance in inches on the page from the left edge of the page to the left edge of the column. To visually determine this coordinate, click a point in the document in the Sensible app, then drag to display inch dimensions.  <br/>  -`maxX` (**required**):  The distance in inches on the page from the left edge of the page to the right edge of the column. To visually determine this coordinate, click a point in the document in the Sensible app, then drag to display inch dimensions. <br/>  -`type`: The table cell's type. For more information about types, see [Types](doc:types). <br/>   -`isRequired` (default false):  If true, Sensible omits a row if its cell is empty in this column. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns.<br/><br/>**Tip:** You can define columns with overlapping coordinates, for example in order to output data in a single column as multiple columns. For more information, see the Examples section. |
-| offsetY                   | number in inches.                                        | Defines a starting point for recognizing a table, offset vertically from the anchor line's lower boundary. <br/>For example, if no table title precedes the table, then anchor instead on a column heading and use a negative Offset Y parameter to define a starting point above the table. |
-| stop                      | Match object, array of Match objects, or number (inches) | (**Recommended**) Line to match or number in inches to stop table recognition:.<br/>  - A Match object or array specifies to stop table recognition when Sensible matches text.<br/> - A number specifies the end of the table as the number of the inches offset along a Y-axis from the start of the table.<br/><br/>Specify this parameter to prevent extracting non-table data and to enable recognizing a table that spans pages. If you don't specify this parameter, the table extends to the end of the page.<br/><br/>**Tip:**  In advanced use cases, you can use the syntax `"stop": {"type": "last"}` to recognize tables that span pages, but where there's no text you can use match on with the Stop parameter.  This type of stop specifies to end the table at the end of the document or [section](doc:sections). For example, use this type of stop to recognize tables in sections, where each table extends to the end of each section. |
-| startOnRow                | integer. default: 0                                      | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section). |
-| stopOnRow                 | integer                                                  | Zero-indexed row number of the last table row to include in the table extraction. For example, specify `"stopOnRow:2"` to return the first 3 rows. <br/>Use negative numbers to specify a stop row that's offset from the last row of the table, where `-1` specifies to include the last row.  For example,  specify `"stopOnRow:-3"` to return all rows except the last 2 rows of the table. |
-| detectMultipleLinesPerRow | boolean. default: false                                  | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row. In detail, Sensible detects that a cell contains multiple lines if the vertical gap between two lines is less than half the height of the second line.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same height as row gutters, Sensible can incorrectly merge multiple rows into one. |
-| columnsRelativeToAnchor   | boolean. Default: false                                  | If true, specifies that the column coordinates `minX` and `maxX` are relative to the left edge of the anchor line, rather than to the left edge of the page. For example, use this parameter to recognize [nested tables inside tables](doc:sections-example-nested-table). |
+| offsetY                   | number in inches.                                        | Defines a starting point for recognizing a table, offset vertically from the anchor line's lower boundary. <br/>For example, if no table title precedes the table, then anchor instead on a column heading and use a negative Offset Y parameter to define a starting point above the table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| stop                      | Match object, array of Match objects, or number (inches) | (**Recommended**) Line to match or number in inches to stop table recognition:.<br/>  - A Match object or array specifies to stop table recognition when Sensible matches text.<br/> - A number specifies the end of the table as the number of the inches offset along a Y-axis from the start of the table.<br/><br/>Specify this parameter to prevent extracting non-table data and to enable recognizing a table that spans pages. If you don't specify this parameter, the table extends to the end of the page.<br/><br/>**Tip:**  In advanced use cases, you can use the syntax `"stop": {"type": "last"}` to recognize tables that span pages, but where there's no text you can use match on with the Stop parameter.  This type of stop specifies to end the table at the end of the document or [section](doc:sections). For example, use this type of stop to recognize tables in sections, where each table extends to the end of each section.                                                                                                                                                                                                                                                                                                                                         |
+| startOnRow                | integer. default: 0                                      | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| stopOnRow                 | integer                                                  | Zero-indexed row number of the last table row to include in the table extraction. For example, specify `"stopOnRow:2"` to return the first 3 rows. <br/>Use negative numbers to specify a stop row that's offset from the last row of the table, where `-1` specifies to include the last row.  For example,  specify `"stopOnRow:-3"` to return all rows except the last 2 rows of the table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| detectMultipleLinesPerRow | boolean. default: false                                  | If true, Sensible detects table cells containing multiple lines, rather than the default of treating each line as a new row. In detail, Sensible detects that a cell contains multiple lines if the vertical gap between two lines is less than half the height of the second line.<br/>Set this to false if row gutters are narrow. For example, if vertical gaps between lines in the cells are the same height as row gutters, Sensible can incorrectly merge multiple rows into one.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| columnsRelativeToAnchor   | boolean. Default: false                                  | If true, specifies that the column coordinates `minX` and `maxX` are relative to the left edge of the anchor line, rather than to the left edge of the page. For example, use this parameter to recognize [nested tables inside tables](doc:sections-example-nested-table).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
-Examples
-====
+# Examples
 
-Example 1
-----
+## Example 1
 
 The following example shows extracting two columns from a difficult-to-recognize table in the Sensible app:
 
-- To prevent Sensible from returning unwanted term matches, the config specifies a Stop parameter.
-- To handle cells with multiple lines, the config specifies true for the Detect Multiple Lines Per Row parameter.
-- To exclude column headings, the config sets the Is Required parameter to true for column 4 and specifies the cell contents must be a currency.
+* To prevent Sensible from returning unwanted term matches, the config specifies a Stop parameter.
+* To handle cells with multiple lines, the config specifies true for the Detect Multiple Lines Per Row parameter.
+* To exclude column headings, the config sets the Is Required parameter to true for column 4 and specifies the cell contents must be a currency.
 
 **Config**
 
@@ -95,7 +92,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/text_table_2.pdf) |
-| -------------------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -148,12 +145,9 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Example 2
----
+## Example 2
 
 This example shows defining two columns with the same coordinates, in order to split data in the column into two columns determined by type.
-
-
 
 **Config**
 
@@ -199,13 +193,13 @@ This example shows defining two columns with the same coordinates, in order to s
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/text_table_overlap.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/text_table_overlap.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -250,11 +244,8 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
 You can output the issuing financial institution and the displayed account number as separate columns, with a configuration like the following configuration.
 
-Notes
-====
+# Notes
 
 For alternatives to this method, see [Table methods](doc:table-methods).
