@@ -6,3 +6,4 @@
 - get-configuration-versions
 - get-configuration-by-version
 - publish-configuration-by-version
+- delete-configuration-by-version
