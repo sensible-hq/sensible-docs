@@ -29,11 +29,7 @@ As a convenience, Sensible automatically classifies each document you upload to 
 
 A config specifies how to extract data using queries, and how to populate a target output schema.  You should design each config so it can handle edge cases for each subtype, so that you can ultimately output the extraction for each subtype to a uniform `bank_statements` schema.
 
-
-
 TODO: an image showing how different templates w different fields/queries can all produce the same unified field??
-
-
 
 Sensible classifies the document by its subtype as follows:
 
