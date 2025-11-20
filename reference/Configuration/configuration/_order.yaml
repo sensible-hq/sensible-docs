@@ -3,3 +3,4 @@
 - get_configuration
 - replace_configuration
 - delete_configuration
+- get_configuration_versions
