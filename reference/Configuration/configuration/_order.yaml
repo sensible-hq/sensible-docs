@@ -2,3 +2,4 @@
 - create-configuration
 - get-configuration
 - update-configuration
+- delete-configuration
