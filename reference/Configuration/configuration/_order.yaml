@@ -4,3 +4,4 @@
 - update-configuration
 - delete-configuration
 - get-configuration-versions
+- get-configuration-by-version
