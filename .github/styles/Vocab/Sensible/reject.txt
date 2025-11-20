@@ -1,3 +1,0 @@
-JSON editor
-dashboard
-parse
