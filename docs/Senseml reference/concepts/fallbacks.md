@@ -18,8 +18,8 @@ A field evaluates as "failed" and falls back if it returns an empty array, null,
 
 **Limitations:**
 
-- Fallbacks don't work across nested objects. For example, you can't fall back from a parent section group's field to a child section group's field. Fallbacks work across nested [Conditional](doc:conditional) methods.
-- Fallbacks don't work within a Query Group method. To specify fallback fields, define each one in a separate query group.
+* Fallbacks don't work across nested objects. For example, you can't fall back from a parent section group's field to a child section group's field. Fallbacks work across nested [Conditional](doc:conditional) methods.
+* Fallbacks don't work within a Query Group method. To specify fallback fields, define each one in a separate query group.
 
 ### Example 1
 
@@ -49,7 +49,6 @@ If a company's explanation of benefits lists the patient's name near the phrase 
   ]
 }
 ```
-
 
 ### Example 2: LLM prompt fallbacks
 
