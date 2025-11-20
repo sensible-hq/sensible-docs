@@ -12,26 +12,21 @@ next:
 ---
 Concatenates the output of two or more fields:
 
-- If the fields' outputs are all strings, the output is a single string.
-- If any field output is an array, the output is an array if the array lengths match. The output is a string if the array lengths are unequal (using the first element of each array).
-- If a string output is present among arrays, Sensible repeats its value for every element of the output.
+* If the fields' outputs are all strings, the output is a single string.
+* If any field output is an array, the output is an array if the array lengths match. The output is a string if the array lengths are unequal (using the first element of each array).
+* If a string output is present among arrays, Sensible repeats its value for every element of the output.
 
-
-
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
+| key                        | value                                    | description                                                      |
+| :------------------------- | :--------------------------------------- | :--------------------------------------------------------------- |
+| id (**required**)          | `concat`                                 |                                                                  |
+| source\_ids (**required**) | array of field IDs in the current config | a list of field `id`s to concatenate in the config               |
+| delimiter                  | string. default: " "                     | The delimiter with which to join the output of the source fields |
 
-| key                       | value                                    | description                                                  |
-| :------------------------ | :--------------------------------------- | :----------------------------------------------------------- |
-| id (**required**)         | `concat`                                 |                                                              |
-| source_ids (**required**) | array of field IDs in the current config | a list of field `id`s to concatenate in the config           |
-| delimiter                 | string. default: " "                     | The delimiter with which to join the output of the source fields |
-
-Examples
-====
+# Examples
 
 The following example shows using the Concat method to concatenate two address fields into one.
 
@@ -94,7 +89,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/concat.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/concat.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
