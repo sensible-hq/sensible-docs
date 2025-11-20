@@ -12,20 +12,19 @@ next:
 ---
 TODOS:
 
-- experiment with descriptions. what if you make a validating description and the raw data doesn fit it?
+* experiment with descriptions. what if you make a validating description and the raw data doesn fit it?
 
-- Reword the existing preprocessor to xlink/relate to this one
+* Reword the existing preprocessor to xlink/relate to this one
 
-- new LLM postprocessors category?
+* new LLM postprocessors category?
 
-- TODO: ask an LLM how it interfaces with Json Schema (+ test its answers in real life w/ chat/claude). like what does it do when raw data fails json schema specs:
+* TODO: ask an LLM how it interfaces with Json Schema (+ test its answers in real life w/ chat/claude). like what does it do when raw data fails json schema specs:
 
-  - what are descriptions good for?
+  * what are descriptions good for?
 
-  -  what if an LLM can't recognize a speciied type compared to the source data? 
-  - what does required do if the required extracted data isn't present?
+  * what if an LLM can't recognize a speciied type compared to the source data? 
 
-
+  * what does required do if the required extracted data isn't present?
 
 ## rough draft
 
@@ -117,13 +116,10 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 # Parameters
 
-
-| key                   | value        | description                                                  |
-| :-------------------- | :----------- | :----------------------------------------------------------- |
-| type (**required**)   | `jsonSchema` | Specify the target [JSON schema](https://json-schema.org/learn) into which to transform the existing extracted JSON data TDODO word better |
+| key                   | value        | description                                                                                                                                                                     |
+| :-------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| type (**required**)   | `jsonSchema` | Specify the target [JSON schema](https://json-schema.org/learn) into which to transform the existing extracted JSON data TDODO word better                                      |
 | schema (**required**) | Json  object | Define a custom JSON schema for the LLM to transform your existing extracted data.  TODOs -- update w guidance abt what might happen when raw data fails the json schema specs. |
-
-
 
 # Examples
 
@@ -131,18 +127,14 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 **Config**
 
-
-
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/TBD.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/TBD.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
-
-
 
 remember to do  // POSTPROCESSED OUTPUT and  // PARSED DOCUMENT OUTPUT
