@@ -32,35 +32,32 @@ For example, the following field returns null unless it finds data that Sensible
 
 The following types are available:
 
-[Accounting Currency](doc:types#accounting-currency)
-[Address](doc:types#address)
-[Boolean](doc:types#boolean)
-[Currency](doc:types#currency)
-[Custom](doc:types#custom)
-[Date](doc:types#date)
-[Distance](doc:types#distance)
-[Images](doc:types#images)
-[Name](doc:types#name)
-[Number](doc:types#number)
-[Paragraph](doc:types#paragraph)
-[Percentage](doc:types#percentage)
-[Period Delimited Currency](doc:types#period-delimited-currency) 
-[Phone Number](doc:types#phone-number)
-[String](doc:types#string)
-[Table](doc:types#table)
+[Accounting Currency](doc:types#accounting-currency)\
+[Address](doc:types#address)\
+[Boolean](doc:types#boolean)\
+[Currency](doc:types#currency)\
+[Custom](doc:types#custom)\
+[Date](doc:types#date)\
+[Distance](doc:types#distance)\
+[Images](doc:types#images)\
+[Name](doc:types#name)\
+[Number](doc:types#number)\
+[Paragraph](doc:types#paragraph)\
+[Percentage](doc:types#percentage)\
+[Period Delimited Currency](doc:types#period-delimited-currency)\
+[Phone Number](doc:types#phone-number)\
+[String](doc:types#string)\
+[Table](doc:types#table)\
 [Weight](doc:types#weight)
 
-
-
-Accounting Currency
-====
+# Accounting Currency
 
 Returns US dollar numbers. Supports negative numbers represented either with parentheses `()` or with the minus sign (`-`).
 
 Recognizes digits in USA decimal notation (for example, 1,500.06):
 
-- digits are in the format recognized by the [Number](doc:types#number) type
-- digits are optionally preceded by a USA dollar sign ($) 
+* digits are in the format recognized by the [Number](doc:types#number) type
+* digits are optionally preceded by a USA dollar sign ($) 
 
 Examples: 
 
@@ -73,7 +70,6 @@ Examples:
 
 Example output:
 
-
 ```json
  {
     "source": "($400.567)",
@@ -83,14 +79,14 @@ Example output:
   }
 ```
 
-Address
-====
+# Address
+
 Returns USA-based addresses. Matches:
 
-- City, State, Zip, and variant representations of these elements such as abbreviations
-- Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations   
-- PO boxes with a number represented in digits
-- Lists of addresses in the preceding formats
+* City, State, Zip, and variant representations of these elements such as abbreviations
+* Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations   
+* PO boxes with a number represented in digits
+* Lists of addresses in the preceding formats
 
 For example:
 
@@ -110,6 +106,7 @@ San Francisco, CA
 This type **doesn't** match text  that lacks a zip code, such as `11 Center Street, Amherst, MA`.
 
 Example output:
+
 ```json
  {
     "value": "123 Waverly Pl\nSan Francisco, CA\n941104123",
@@ -117,10 +114,7 @@ Example output:
   }
 ```
 
-
-
-Boolean
-====
+# Boolean
 
 Returns true for the following case-insensitive strings:
 
@@ -148,13 +142,11 @@ Example output:
 }
 ```
 
-Currency
-====
+# Currency
 
 You can define this type using concise syntax, or you can configure options with expanded syntax.
 
-Simple syntax
-----
+## Simple syntax
 
 **Syntax example**
 
@@ -164,7 +156,7 @@ Simple syntax
 
 Returns USA dollars as absolute value. For example,
 
-``` json
+```json
 {
     "source": "3 bil",
     "value": 3000000000,
@@ -181,19 +173,18 @@ To recognize European decimal notation (for example, 1.500,06), see the followin
 
 Recognizes digits with the following formatting:
 
-- dollar sign, optional commas every three digits, optional cents after period
+* dollar sign, optional commas every three digits, optional cents after period
 
-- commas every three digits, optional cents after period
+* commas every three digits, optional cents after period
 
-- no dollar sign, up to six digits without commas as sole line contents. Allow up to nine digits if cents are present.
-
+* no dollar sign, up to six digits without commas as sole line contents. Allow up to nine digits if cents are present.
 
 Recognizes abbreviated and written-out quantities as follows:
 
-- thousand, k
-- million, mil, mm, m
-- billion, bil, b
-- trillion, t
+* thousand, k
+* million, mil, mm, m
+* billion, bil, b
+* trillion, t
 
 For example: 
 
@@ -209,12 +200,11 @@ $5.33
 
 This type **doesn't** match text such as `one million`  or `123456789`.
 
-Configurable syntax
-----
+## Configurable syntax
 
 Use configurable syntax to change the default recognized formats.
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -241,20 +231,19 @@ Use configurable syntax to change the default recognized formats.
 
 **Parameters**
 
-| key                       | value                     | description                                                  |
-| ------------------------- | ------------------------- | ------------------------------------------------------------ |
-| id (**required**)         | `currency`                |                                                              |
-| requireCurrencySymbol     | boolean. Default: false   | Requires a currency symbol preceeding the amount.            |
-| currencySymbol            | string. Default: `$`      | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parater in the output. |
-| requireThousandsSeparator | boolean.  Default: false  | Requires a thousands separator in numbers with a thousands place. |
-| thousandsSeparator        | string. Default: `,`      | The separator to require, for example `.`                    |
-| decimalSeparator          | string. Default: `.`      | For numbers with a decimal place, specify the separator, for example `,`. |
-| maxDecimalDigits          | number. Default: 4        | The maximum number of decimal digits to recognize.           |
+| key                       | value                     | description                                                                                                                                                                                                                                                                |
+| ------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)         | `currency`                |                                                                                                                                                                                                                                                                            |
+| requireCurrencySymbol     | boolean. Default: false   | Requires a currency symbol preceeding the amount.                                                                                                                                                                                                                          |
+| currencySymbol            | string. Default: `$`      | The currency symbol to require, for example €. The symbol must precede the amount. This parameter sets the `unit` parater in the output.                                                                                                                                   |
+| requireThousandsSeparator | boolean.  Default: false  | Requires a thousands separator in numbers with a thousands place.                                                                                                                                                                                                          |
+| thousandsSeparator        | string. Default: `,`      | The separator to require, for example `.`                                                                                                                                                                                                                                  |
+| decimalSeparator          | string. Default: `.`      | For numbers with a decimal place, specify the separator, for example `,`.                                                                                                                                                                                                  |
+| maxDecimalDigits          | number. Default: 4        | The maximum number of decimal digits to recognize.                                                                                                                                                                                                                         |
 | maxValue                  | number. Default: infinity | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
-| minValue                  | number. Default: infinity | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
+| minValue                  | number. Default: infinity | The minimum currency amount to recognize. Use this to extract an amount with a known range.                                                                                                                                                                                |
 
-Custom
-====
+# Custom
 
 Defines a custom type using regular expressions. For example, define types for zip codes, time durations, customer IDs, order numbers, etc.
 
@@ -283,23 +272,19 @@ This type outputs strings. For example:
 
 **Parameters**
 
-| key                    | value                    | description                                                  |
-| ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| id (**required**)      | `custom`                 |                                                              |
+| key                    | value                    | description                                                                                                                                                                                                                                                                                                                                                                         |
+| ---------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)      | `custom`                 |                                                                                                                                                                                                                                                                                                                                                                                     |
 | pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first capturing group. To capture more than one group, you can use one field for each group, then concatenate them with the [Concatenate](doc:concatenate) computed field method.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character. |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive. |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive.                                                                                                                                                                                                                                                                                                                 |
 
-
-
-Date
-====
+# Date
 
 You can define this type using concise syntax,  or you can configure options with expanded syntax.
 
-Simple syntax
-----
+## Simple syntax
 
-**Syntax example **
+**Syntax example**
 
 `"type":"date"`
 
@@ -314,7 +299,6 @@ Simple syntax
 ```
 
 **Formats recognized**
-
 
 Sensible recognizes the following date formats by default:
 
@@ -337,6 +321,7 @@ Sensible recognizes the following date formats by default:
 "%Y-%m-%d",
 "%Y%M%D"
 ```
+
 See the following configurable syntax section for definitions of the field descriptors in the preceding list.
 
 The following are examples of date formats that Sensible recognizes by default:
@@ -350,21 +335,19 @@ Jan 9th, 09
 
 ```
 
-
-Configurable syntax
----
+## Configurable syntax
 
 **Syntax example**
 
 To recognize the date format JAN-31-22, and ignore all default formats, you can specify:
 
-````json
+```json
 "type":
   {
     "id": "date",
     "format": "%b-%D-%y"   
   }
-````
+```
 
 **Output example**
 
@@ -378,27 +361,24 @@ To recognize the date format JAN-31-22, and ignore all default formats, you can 
 
 **Parameters**
 
-| key               | value                  | description                                                  |
-| ----------------- | ---------------------- | ------------------------------------------------------------ |
-| id (**required**) | `date`                 | Returns datetime.  Sensible outputs the time as midnight UTC. |
+| key               | value                  | description                                                                                                                                                                     |
+| ----------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `date`                 | Returns datetime.  Sensible outputs the time as midnight UTC.                                                                                                                   |
 | format            | string or string array | See the following table for a list of the field descriptors you can use to define custom formats. The custom formats override the defaults listed in the simple syntax section. |
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 
-| **field descriptor** | **meaning**                                                  | **example**                                             |
-| -------------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
-| `%b`                 | Abbreviated or full month name.                              | Jan, Feb, ..., Dec<br/>January, February, ..., December |
+| **field descriptor** | **meaning**                                                                                                                                                                                                            | **example**                                             |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `%b`                 | Abbreviated or full month name.                                                                                                                                                                                        | Jan, Feb, ..., Dec<br/>January, February, ..., December |
 | `%y`                 | Year without century as a zero-padded decimal number. Values in the range 69–99 refer to years in the twentieth century (1969–1999); values in the range 00–68 refer to years in the twenty-first century (2000–2068). | 00, 01, ..., 99                                         |
-| `%Y`                 | Year with century as a decimal number.                       | 2013, 2019 etc.                                         |
-| `%m`                 | The month number, unpadded or zero-padded                    | 1,...,12<br>01,...,12                                   |
-| `%M`                 | The zero-padded month number (01-12)                         | 01,...,12                                               |
-| `%d`                 | The day number, unpadded or zero-padded.                     | 1,...,31<br>01,...,31                                   |
-| `%D`                 | The zero-padded day number (01-31)                           | 01,...,31                                               |
+| `%Y`                 | Year with century as a decimal number.                                                                                                                                                                                 | 2013, 2019 etc.                                         |
+| `%m`                 | The month number, unpadded or zero-padded                                                                                                                                                                              | 1,...,12<br />01,...,12                                 |
+| `%M`                 | The zero-padded month number (01-12)                                                                                                                                                                                   | 01,...,12                                               |
+| `%d`                 | The day number, unpadded or zero-padded.                                                                                                                                                                               | 1,...,31<br />01,...,31                                 |
+| `%D`                 | The zero-padded day number (01-31)                                                                                                                                                                                     | 01,...,31                                               |
 
-
-
-Distance
-====
+# Distance
 
 Returns miles and kilometers. Recognizes digits followed optionally by kilometers, miles, or their abbreviations. For example: 
 
@@ -422,16 +402,13 @@ Example output:
   }
 ```
 
-Images
-====
+# Images
 
 Use this solely with the [Document Range](https://docs.sensible.so/docs/document-range) method to return image metadata.
 
-Name
-====
+# Name
 
-Simple syntax
-----
+## Simple syntax
 
 **Syntax example**
 
@@ -457,9 +434,9 @@ Doesn't recognize a list of names more than 6 words long. **Doesn't** recognize 
 
 Recognizes names of the formats below, and variant representations of these elements such as abbreviations. 
 
-\- first last
-\- first1 last1 and first2 last2
-\- last, first1 and first2
+\- first last\
+\- first1 last1 and first2 last2\
+\- last, first1 and first2\
 \- first1 and first2 last
 
 For example:
@@ -470,10 +447,9 @@ Richard & Ann Spangenberg
 DuBois, Renee and Lois 
 ```
 
-Configurable syntax
-----
+## Configurable syntax
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -497,23 +473,17 @@ Configurable syntax
 
 **Parameters**
 
-| key               | value                                                        | description                                                  |
-| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `name`                                                       |                                                              |
+| key               | value                                                                 | description                                                                             |
+| ----------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| id (**required**) | `name`                                                                |                                                                                         |
 | capitalization    | `allCaps`, `firstLetter`. Default: no change to source capitalization | Formats the output in all uppercase, or with the first letter of each word capitalized. |
 
-
-
-
-
-
-Number
-====
+# Number
 
 Recognizes digits in USA decimal notation. Recognizes one or more digits, optionally followed either by: 
 
-- commas preceding every three digits, optional digits after period, or by 
-- digits after period
+* commas preceding every three digits, optional digits after period, or by 
+* digits after period
 
 For example:
 
@@ -535,15 +505,11 @@ Example output:
 }
 ```
 
-
-
-Paragraph
-====
+# Paragraph
 
 Use with  [Document Range](https://docs.sensible.so/docs/document-range) solely, to return paragraphs formatted with newline characters (\n), instead of formatted as a single string. Sensible recognizes paragraphs separated by vertical gaps. Sensible doesn't recognize paragraphs indicated solely by indented first lines. 
 
-Percentage
-====
+# Percentage
 
 Returns percent as an absolute value. Recognizes a percent formatted as digits in USA decimal notation (for example, 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
 
@@ -555,8 +521,6 @@ For example:
 1,000.05%
 ```
 
-
-
 Example:
 
 ```json
@@ -567,18 +531,13 @@ Example:
   }
 ```
 
-
-
-
-
-Phone Number
-====
+# Phone Number
 
 Returns phone numbers:
 
-- Recognizes USA 10-digit phone numbers either with or without a country calling code. May be optionally formatted with parentheses, dashes, spaces, plus sign (+), or periods. 
+* Recognizes USA 10-digit phone numbers either with or without a country calling code. May be optionally formatted with parentheses, dashes, spaces, plus sign (+), or periods. 
 
-- Recognizes international phone numbers if prefixed by a country calling code (for example, +91 for India).
+* Recognizes international phone numbers if prefixed by a country calling code (for example, +91 for India).
 
 Examples: 
 
@@ -596,7 +555,6 @@ Examples:
 
 Example output:
 
-
 ```json
 {
     "type": "phoneNumber",
@@ -607,9 +565,7 @@ Example output:
 
 This type does *not* recognize country calling codes formatted with 00, for example, 0091 or 001. 
 
-
-String
-====
+# String
 
 Returns strings.
 
@@ -622,24 +578,22 @@ Example output:
 }
 ```
 
-Table
-====
+# Table
 
 Use with the Table methods:
 
-- [Invoice](doc:invoice)
-- [Fixed Table](doc:fixed-table)
-- [Table](doc:table)
-- [Text Table](doc:text-table)
+* [Invoice](doc:invoice)
+* [Fixed Table](doc:fixed-table)
+* [Table](doc:table)
+* [Text Table](doc:text-table)
 
-Weight
-====
+# Weight
 
 Returns pounds and kilograms. Recognizes digits in USA decimal notation (for example, 1,500.06):
 
-- digits are in the format recognized by the [Number](doc:types#number) type
+* digits are in the format recognized by the [Number](doc:types#number) type
 
-- "pounds", "kilograms", or their abbreviations follow the digits 
+* "pounds", "kilograms", or their abbreviations follow the digits 
 
 For example: 
 
@@ -651,7 +605,6 @@ For example:
 1 pound
 634.83
 ```
-
 
 Example output:
 
