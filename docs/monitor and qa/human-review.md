@@ -16,7 +16,6 @@ Click the **Human review** tab to display the document types that contain extrac
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_2.png) 
 
-
 Click a document type to review the flagged extractions:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/human_review_3.png) 
@@ -25,9 +24,9 @@ View the **Validations** in the left pane to check which fields are failing the 
 
 Click a field's value to:
 
-- view the field's full value for tables, sections, and other complex fields
-- edit the field's value
-- view the field's source location highlighted in the document
+* view the field's full value for tables, sections, and other complex fields
+* edit the field's value
+* view the field's source location highlighted in the document
 
 For example, in the following image, the reviewer corrected the `year` field's value and marked it as reviewed by clicking the checkmark to the right of the field: 
 
