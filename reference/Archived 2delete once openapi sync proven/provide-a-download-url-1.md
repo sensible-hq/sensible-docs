@@ -19,6 +19,6 @@ Take these steps:
 
 1. Run this endpoint.
 
-2. To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the GET documents/{id} endpoint.
+2. To retrieve the extraction or poll its status, use the extraction `id` returned in the response to call the GET documents/\{id} endpoint.
 
 For a step-by-step tutorial on calling this endpoint, see [Try asynchronous extraction from your URL](doc:api-tutorial-async-1).
