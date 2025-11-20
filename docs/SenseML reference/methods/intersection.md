@@ -16,24 +16,21 @@ Extracts a target line at the intersection of a horizontal line defined by an an
 
 For example, the Intersection method is an alternative to the Row method when a table contains empty cells. (A row's tiebreaker, like "second", can return lines from unintended columns if there are empty cells).
 
-[**Parameters**](doc:intersection#parameters)
+[**Parameters**](doc:intersection#parameters)\
 [**Examples**](doc:intersection#examples)
 
-Parameters
-=====
+# Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-
-| key                           | value                        | description                                                  |
-| :---------------------------- | :--------------------------- | :----------------------------------------------------------- |
-| id (**required**)             | `intersection`               |                                                              |
+| key                           | value                        | description                                                                                                                                                                                                                                                                                                          |
+| :---------------------------- | :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)             | `intersection`               |                                                                                                                                                                                                                                                                                                                      |
 | verticalAnchor (**required**) | Anchor object                | An anchor object that defines a vertical line. Sensible extracts the line that's at the intersection of this vertical line, and the horizontal line defined by the field's anchor. Both lines pass through the midpoints of the anchors' boundaries. The Vertical Anchor can be on a different page from the anchor. |
-| offsetX                       | number in inches. default: 0 | Offsets the vertical line defined by the Vertical Anchor parameter to the left or right. |
-| offsetY                       | number in inches. default: 0 | Offsets the horizontal line defined by the anchor up or down. |
+| offsetX                       | number in inches. default: 0 | Offsets the vertical line defined by the Vertical Anchor parameter to the left or right.                                                                                                                                                                                                                             |
+| offsetY                       | number in inches. default: 0 | Offsets the horizontal line defined by the anchor up or down.                                                                                                                                                                                                                                                        |
 
-Examples
-=====
+# Examples
 
 The following example shows using the Intersection method to extract a cell from a table that has empty cells.
 
@@ -61,7 +58,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intersection_2.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/intersection.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
