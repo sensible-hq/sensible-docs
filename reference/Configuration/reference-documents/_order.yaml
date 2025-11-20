@@ -3,3 +3,4 @@
 - get_golden
 - update_golden
 - delete_golden
+- delete_golden_configuration
