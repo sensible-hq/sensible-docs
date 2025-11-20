@@ -40,16 +40,16 @@ Tracing the document's source text, or [context](doc:prompt#notes), for an LLM's
 
 You can view the source text for an LLM's answer highlighted in the document for the Query Group method:
 
-- In the visual editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
+* In the visual editor, click the **Location** button in the output of a query field to view its source text in the document.  For more information about how location highlighting works and its limitations, see [Location highlighting](doc:query-group#notes).
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/location.png)
 
-- In the JSON editor, Sensible displays location highlighting by outline the context with [blue boxes](doc:color). 
+* In the JSON editor, Sensible displays location highlighting by outline the context with [blue boxes](doc:color). 
 
 ### Specify source context
 
 Sometimes, an LLM fails to locate the relevant portion of the document that contains the answers to your prompts.  To troubleshoot targeting the wrong source text, or [context](doc:prompt#notes), in the document:
 
-- For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
+* For the Query Group method, add more prompts to the group that target information in the context, even if you don't care about the answer. For the List and NLP Table methods, add prompts to extract each item in the list or column in the table, respectively. 
 
-- If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced LLM prompt configuration](doc:prompt).
+* If the context occurs consistently in a page range in the document, use the Page Hinting or Page Range parameters to narrow down the context's possible location. For more  information about these parameters, see [Advanced LLM prompt configuration](doc:prompt).
