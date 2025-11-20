@@ -16,26 +16,24 @@ Sensible supports both built-in and extended JsonLogic operators so that you can
 
 ### Documentation
 
-- For a Sensible-specific tutorial, see [The opinionated guide to JsonLogic for transforming document data](https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data).
+* For a Sensible-specific tutorial, see [The opinionated guide to JsonLogic for transforming document data](https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data).
 
-- For information about the base built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
+* For information about the base built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 
--   Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
+* Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
 
-    - Array operations: `"length"`, `"get"`. 
-    - Miscellaneous operations: `"preserve"`, `"keys"`. 
-    - [Higher order operations](https://json-logic.github.io/json-logic-engine/docs/higher): `"every"`, `"eachKey"`
-
-
+  * Array operations: `"length"`, `"get"`. 
+  * Miscellaneous operations: `"preserve"`, `"keys"`. 
+  * [Higher order operations](https://json-logic.github.io/json-logic-engine/docs/higher): `"every"`, `"eachKey"`
 
 ### Syntax tips
 
-- Use dot notation to access properties of an object (by name) or items in an array (by index), for example, `test_table.columns.3.values` to access the 4th column in a table. 
-- Double escape dots in field IDs. For example, `"delivery\\.zip\\.code.value"` to reference `87112` in the field `{"delivery.zip.code":{"value":87112}}`. 
-- Use traversal notation to access data in hierarchies. For example, in a section, use `"../"` to access fields in the parent object.
-- To evaluate the current context, use `"var":""`.
-- The `"var"` operator returns null if you attempt to reference a field that Sensible can't find in the `parsed_document`. 
-- Math that include a null return null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1).
+* Use dot notation to access properties of an object (by name) or items in an array (by index), for example, `test_table.columns.3.values` to access the 4th column in a table. 
+* Double escape dots in field IDs. For example, `"delivery\\.zip\\.code.value"` to reference `87112` in the field `{"delivery.zip.code":{"value":87112}}`. 
+* Use traversal notation to access data in hierarchies. For example, in a section, use `"../"` to access fields in the parent object.
+* To evaluate the current context, use `"var":""`.
+* The `"var"` operator returns null if you attempt to reference a field that Sensible can't find in the `parsed_document`. 
+* Math that include a null return null. For example, `5 + null field = null`.  If you instead want `5 + null field = 5`, then implement logic to replace nulls with zeros. For an example, see [Example 1](doc:custom-computation#example-1).
 
 ### Sensible-specific operations
 
@@ -68,11 +66,11 @@ Use this operation to add or subtract days, months, or years to a date.
 
 Takes as input:
 
-- a date. Can be any date string for which the JavaScript `Date` objects ' `getTime()` function can return a number. For example, can be an ISO 8601-formatted Sensible [date type](doc:types#date), or `February 27, 2024` or `12-31-2022`.
+* a date. Can be any date string for which the JavaScript `Date` objects ' `getTime()` function can return a number. For example, can be an ISO 8601-formatted Sensible [date type](doc:types#date), or `February 27, 2024` or `12-31-2022`.
 
-- a number
+* a number
 
-- a unit (`"days"`, `"months"`, or `"years"`)
+* a unit (`"days"`, `"months"`, or `"years"`)
 
 Returns an ISO 8601-formatted date-time string that's the result of adding the number of units to the date. Use negative numbers to calculate prior dates.
 
@@ -123,8 +121,8 @@ Most commonly used with the JsonLogic `var` operation to test a field's output.
 
 Accepts as input:
 
-- a single value, e.g., `{ "exists": { "var": "some_field" } }`)
-- an array, in which case it checks the first item only, e.g., `{ "exists": [{ "var": "some_field" },...,] }`
+* a single value, e.g., `{ "exists": { "var": "some_field" } }`)
+* an array, in which case it checks the first item only, e.g., `{ "exists": [{ "var": "some_field" },...,] }`
 
 ### Examples
 
@@ -531,13 +529,13 @@ The following example shows extracting fields, then modifying the key and the va
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/map_object.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/map_object.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -631,20 +629,16 @@ This example returns:
 }
 ```
 
-
-
-
-
 ## Merge objects
 
 For an array of objects, returns a single object containing all the fields from each object. 
 
 Edge cases:
 
-- If passed an empty array, it returns an empty object
-- If passed an array containing a value that is `null` or `undefined`, ignores that value but still returns an object based on object values that were passed
-- If passed an array containing a value that is not an object, `null`, or `undefined`, throws an error
-- If passed multiple fields that use the same key, uses the last value that is passed for that key.
+* If passed an empty array, it returns an empty object
+* If passed an array containing a value that is `null` or `undefined`, ignores that value but still returns an object based on object values that were passed
+* If passed an array containing a value that is not an object, `null`, or `undefined`, throws an error
+* If passed multiple fields that use the same key, uses the last value that is passed for that key.
 
 For example, the following simple code:
 
@@ -662,7 +656,7 @@ For example, the following simple code:
 
 returns the output:
 
-``` json
+```json
 {
   "field1": "hello",
   "field2": "world"
@@ -673,12 +667,9 @@ returns the output:
 
 See the [Stateful Map](doc:jsonlogic#stateful-map) operation for a full example.
 
-
-
 ## Object
 
 Returns a JSON object that is an array of key/value pairs. You can nest object operations to build complex custom objects.  This operation is an alternative to the  `"eachKey"`  operation. Use the Object operation when the keys in the object you intend to build can vary depending on other operations:
-
 
 ```json
 {
@@ -695,8 +686,8 @@ Returns a JSON object that is an array of key/value pairs. You can nest object o
 
 Creates a new object that includes all the fields from a source object except those specified. Takes an array of two items:
 
-- an object to get fields from
-- an array of field IDs to omit
+* an object to get fields from
+* an array of field IDs to omit
 
 ```json
 {
@@ -709,8 +700,8 @@ Creates a new object that includes all the fields from a source object except th
 
 Edge cases:
 
-- The Omit Fields operator returns an empty object if the source object is empty, null, or undefined
-- The Omit Fields operator returns the source object if it can't find the specified fields to omit.
+* The Omit Fields operator returns an empty object if the source object is empty, null, or undefined
+* The Omit Fields operator returns the source object if it can't find the specified fields to omit.
 
 ### Examples
 
@@ -811,13 +802,13 @@ The following example shows removing extracted IDs from the [postprocessed](doc:
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/omit_fields.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/omit_fields.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Postprocessor output**
 
@@ -873,14 +864,12 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
 ## Pick fields
 
 Returns the specified fields. Takes an array of two items:
 
-- an object to get fields from
-- an array of field IDs to pick
+* an object to get fields from
+* an array of field IDs to pick
 
 ```json
 {
@@ -893,8 +882,8 @@ Returns the specified fields. Takes an array of two items:
 
 The Pick Fields operator returns an empty object if:
 
-- you pass an empty array as the second argument, or if Sensible can't find the specified field IDs
-- the source object is empty, null, or undefined
+* you pass an empty array as the second argument, or if Sensible can't find the specified field IDs
+* the source object is empty, null, or undefined
 
 ### Examples
 
@@ -967,8 +956,8 @@ Or:
 
 Where `regex` is a JavaScript-flavored regular expression. Double escape special regex characters, since the regex is in a JSON object (for example, `\\s`, not `\s`, to represent a whitespace character). This operation supports:
 
-- regex capturing groups
-- regex flags, such as `i` for case insensitive. 
+* regex capturing groups
+* regex flags, such as `i` for case insensitive. 
 
 ### Examples
 
@@ -1004,8 +993,6 @@ returns:
 ```json
 5.33
 ```
-
-
 
 ## Sort By
 
@@ -1126,9 +1113,9 @@ This operator maps an array and persists a `state` variable across items in the 
 
 Example use cases include:
 
-- Keeping a rolling balance of transactions.
+* Keeping a rolling balance of transactions.
 
-- Mixed headers and items data in a table: persist the headers and apply them to items until the header changes. For example, use the Stateful Map operation to keep track of the header rows (vendors) and data rows (paint names) in the  following table:
+* Mixed headers and items data in a table: persist the headers and apply them to items until the header changes. For example, use the Stateful Map operation to keep track of the header rows (vendors) and data rows (paint names) in the  following table:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/stateful_map_merge_objects.png)
 
@@ -1155,8 +1142,6 @@ Example use cases include:
 }
 
 ```
-
-
 
 ### Examples
 
@@ -1291,15 +1276,13 @@ The following example shows using the Stateful Map and Merge Objects operations 
 }
 ```
 
-
-
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/stateful_map_merge_objects.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/stateful_map_merge_objects.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
