@@ -32,8 +32,8 @@ And send the data to a database. The following image shows how Zapier can send e
 
 When creating a Zapier integration, you can either:
 
-- Run extractions in Sensible and then act on the data with a **Sensible trigger**.
-- Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
+* Run extractions in Sensible and then act on the data with a **Sensible trigger**.
+* Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
 
 ## Sensible trigger
 
