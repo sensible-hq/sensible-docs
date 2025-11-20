@@ -12,25 +12,22 @@ next:
 ---
 Copies the output of a field into each section in a section group, or from a parent section into each section in a nested section group. 
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
+| key                       | value                                 | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| :------------------------ | :------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)         | `copy_to_section`                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| source\_id (**required**) | source field ID in the current config | Copies data from a field that's external to the section group's range to each section in the section group. <br/> The source ID to copy must be in a field array or section that is one level up in the hierarchy relative to the destination section. For example, in a sections group, copy from the base fields array. In a nested sections group, copy from the parent section group's field array.<br/>A more flexible alternative to this method is to use traversal syntax (`../`) with the Custom Computation method. For an example, see [Advanced: Transform sections data](doc:sections-example-copy-to-section). |
 
-| key                      | value                                 | description                                                  |
-| :----------------------- | :------------------------------------ | :----------------------------------------------------------- |
-| id (**required**)        | `copy_to_section`                     |                                                              |
-| source_id (**required**) | source field ID in the current config | Copies data from a field that's external to the section group's range to each section in the section group. <br/> The source ID to copy must be in a field array or section that is one level up in the hierarchy relative to the destination section. For example, in a sections group, copy from the base fields array. In a nested sections group, copy from the parent section group's field array.<br/>A more flexible alternative to this method is to use traversal syntax (`../`) with the Custom Computation method. For an example, see [Advanced: Transform sections data](doc:sections-example-copy-to-section). |
-
-Examples
-====
+# Examples
 
 The following example shows using computed fields to transform sections data. The example:
 
-- Adds a policy number and name to each section using the Copy To Section method. The policy number and name are listed once in the document and are globally applicable to every extracted claim.  The example shows how to transform copied data, in this case by concatenating the copied fields. 
-- Redacts a telephone number. The example uses the Custom Computation method to replace digits in the number, and the Suppress Output method to omit the complete number from the output.
-- For a more flexible alternative to this example,  see [Advanced: Transform sections data](doc:sections-example-copy-to-section).
+* Adds a policy number and name to each section using the Copy To Section method. The policy number and name are listed once in the document and are globally applicable to every extracted claim.  The example shows how to transform copied data, in this case by concatenating the copied fields. 
+* Redacts a telephone number. The example uses the Custom Computation method to replace digits in the number, and the Suppress Output method to omit the complete number from the output.
+* For a more flexible alternative to this example,  see [Advanced: Transform sections data](doc:sections-example-copy-to-section).
 
 **Config**
 
@@ -176,7 +173,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/copy_to_section.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
