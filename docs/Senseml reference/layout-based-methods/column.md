@@ -12,33 +12,30 @@ next:
 ---
 Extracts all lines below or above the anchor line on the current page if:
 
-- The anchor line's left and right boundaries ("x extent") contain the target lines' x extent, or vice versa. 
+* The anchor line's left and right boundaries ("x extent") contain the target lines' x extent, or vice versa. 
 
   Or:
 
-- The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
+* The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
 
-[**Parameters**](doc:column#parameters)
+[**Parameters**](doc:column#parameters)\
 [**Examples**](doc:column#examples)
 
-Parameters
-====
+# Parameters
 
-
-| key               | values                             | description                                                  |
-| :---------------- | :--------------------------------- | :----------------------------------------------------------- |
-| id (**required**) | `column`                           |                                                              |
-| tiebreaker        | tiebreaker                         | For information about this global parameter, see [Method](doc:method#parameters). |
-| includeAnchor     | `true`, `false`. default: false    | Includes the anchor line in the method output                |
+| key               | values                             | description                                                                                                                                   |
+| :---------------- | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `column`                           |                                                                                                                                               |
+| tiebreaker        | tiebreaker                         | For information about this global parameter, see [Method](doc:method#parameters).                                                             |
+| includeAnchor     | `true`, `false`. default: false    | Includes the anchor line in the method output                                                                                                 |
 | position          | `below`, `above`. default: `below` | Matches above or below the anchor line. For example, if you anchor on the bottom line of a column, set this to `above` to extract the column. |
 
-Examples
-====
+# Examples
 
 The following example shows that:
 
-- By default, Sensible returns the entire column as a joined string.
-- Specifying a tiebreaker returns single element in the column.
+* By default, Sensible returns the entire column as a joined string.
+* Specifying a tiebreaker returns single element in the column.
 
 **Config**
 
@@ -66,13 +63,13 @@ The following example shows that:
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/column.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
