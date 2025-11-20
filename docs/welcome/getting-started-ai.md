@@ -14,10 +14,10 @@ next:
 
 See the following list for an overview of how to automate your document processing with Sensible:
 
-- **Learn** to extract data from documents, or use out-of-the-box extraction support
-- [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
-- [**Quality control**](doc:validate-extractions) extracted data
--  [**Monitor**](doc:metrics) and [**review**](doc:human-review)  extracted data in production 
+* **Learn** to extract data from documents, or use out-of-the-box extraction support
+* [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
+* [**Quality control**](doc:validate-extractions) extracted data
+* [**Monitor**](doc:metrics) and [**review**](doc:human-review)  extracted data in production 
 
 This guide gets you started with the first step, extracting data.
 
@@ -27,9 +27,9 @@ Let's get started with extracting document data from an example bank statement. 
 
  In this guide, you'll:
 
-- Extract data from an example document using a natural-language description of your target data, for example, `what's the customer service number?`. 
-- Publish your prompt as part of a "config."
-- Test your config against a second, similar document to ensure it extracts the same target data.
+* Extract data from an example document using a natural-language description of your target data, for example, `what's the customer service number?`. 
+* Publish your prompt as part of a "config."
+* Test your config against a second, similar document to ensure it extracts the same target data.
 
 ## Get an account
 
@@ -41,19 +41,17 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement_2&om=1>. 
+1. After you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction at [https://app.sensible.so/editor/?d=llm\_basics\&c=bank\_statement\&g=bank\_statement\_2\&om=1](https://app.sensible.so/editor/?d=llm_basics\&c=bank_statement\&g=bank_statement_2\&om=1). 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png) 
 
-
-
-## Extract more data 
+## Extract more data
 
 Take the following steps to create prompts to extract more data from the document.
 
-###  Extract facts
+### Extract facts
 
 To extract short, simple facts, author queries.  Group them in a Query Group method if they're clustered within 1-2 pages of each other in the document. For example, append the following code to the array of fields in the left pane to extract two more facts:
 
@@ -80,11 +78,7 @@ To extract short, simple facts, author queries.  Group them in a Query Group met
 
 You should see additional extracted data as a result:
 
-
-
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_1.png)
-
-
 
 ### Extract a table
 
@@ -135,7 +129,7 @@ Now you've published your config to the endpoint `https://api.sensible.so/v0/ext
 
 Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
-1. Navigate to <https://app.sensible.so/editor/?d=llm_basics&c=bank_statement&g=bank_statement&om=1>. Notice that the middle pane now displays a statement for a different customer.
+1. Navigate to [https://app.sensible.so/editor/?d=llm\_basics\&c=bank\_statement\&g=bank\_statement\&om=1](https://app.sensible.so/editor/?d=llm_basics\&c=bank_statement\&g=bank_statement\&om=1). Notice that the middle pane now displays a statement for a different customer.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_2.png)
 
@@ -153,7 +147,6 @@ Sensible recommends grouping similar documents, for example, bank statements, in
 ### Learn more about extraction
 
 For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
-
 
 ### Integrate
 
