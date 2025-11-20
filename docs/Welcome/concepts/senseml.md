@@ -47,10 +47,10 @@ As the preceding image shows, here's the output of the example field:
 
 This example shows the following key concepts:
 
-| key                             | description                                                  |
-| ------------------------------- | ------------------------------------------------------------ |
-| [field](doc:field-query-object) | A query that extracts data in relationship to matched text. Its ID is the key for the extracted data. In this example,  `name_of_output_key`. |
-| **[anchor](doc:anchor)**        | Matched text that helps narrow down a location in the PDF from which to extract data. In this example, `"an anchor is some text to match..."`. |
+| key                             | description                                                                                                                                                                                                     |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [field](doc:field-query-object) | A query that extracts data in relationship to matched text. Its ID is the key for the extracted data. In this example,  `name_of_output_key`.                                                                   |
+| **[anchor](doc:anchor)**        | Matched text that helps narrow down a location in the PDF from which to extract data. In this example, `"an anchor is some text to match..."`.                                                                  |
 | [method](doc:method)            | Defines how to expand out from the anchor and extract data. In this example, the Label method extracts data that's below the anchor (`"position": "below"`). For a list of methods, see [Methods](doc:methods). |
 
  For a more complete SenseML example, see the [SenseML introduction](doc:senseml-reference-introduction).
