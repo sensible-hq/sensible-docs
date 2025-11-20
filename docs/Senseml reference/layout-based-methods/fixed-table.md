@@ -16,36 +16,31 @@ Use the Fixed Table method for tables in the same document type that always have
 
 For alternatives to this method, see [Table methods](doc:table-methods). 
 
-[**Parameters**](doc:fixed-table#parameters)
-[**Examples**](doc:fixed-table#examples)
+[**Parameters**](doc:fixed-table#parameters)\
+[**Examples**](doc:fixed-table#examples)\
 [**Notes**](doc:fixed-table#notes)
 
-
-
-Parameters
-=====
+# Parameters
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
+| key                             | value                                                              | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| :------------------------------ | :----------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)               | `fixedTable`                                                       | When you specify this, you must also specify `"type": "table"` in the field's parameters. See the Stop parameter for details about how Sensible recognizes a table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| columnCount (**required**)      | integer                                                            | The number of columns the tables must have.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| columns (**required**)          | array                                                              | An array of objects with the following parameters: <br/> -`id` (**required**): The ID for the column in the extraction output <br/> - `index` (**required**): The zero-based column index <br/>-`type` : The table cell's type. For more information, see  [Types](doc:types) <br/> -`isRequired` (default: false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
+| stop                            | [Match object](doc:match) or array of Match objects. default: none | (**Recommended**)  Stops table recognition at the matched line. Otherwise, Sensible searches all pages for tables, which can impact performance.<br/>When you specify a stop, Sensible  uses an Amazon Web Service  provider to perform table recognition. When you omit a stop, Sensible uses a Microsoft OCR provider.<br/>When you specify a stop, Sensible supports:<br/>- merged cells in tables. Sensible populates "empty" spanned cells with the spanned value. For an example, see [Merged cell example](doc:fixed-table#example-merged-cells).<br/> - checkboxes in cells. Returns checkbox selection status as `[true]` or `[false]`.                                                 |
+| startOnRow                      | integer. default: 0                                                | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section).                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| stopOnRow                       | integer                                                            | Zero-indexed row number of the last table row to include in the table extraction. For example, specify `"stopOnRow:2"` to return the first 3 rows. <br/>Use negative numbers to specify a stop row that's offset from the last row of the table, where `-1` specifies to include the last row.  For example,  specify `"stopOnRow:-3"` to return all rows except the last 2 rows of the table.                                                                                                                                                                                                                                                                                                   |
+| detectTableStructureOnly        | boolean. default: false                                            | Set this parameter to true to troubleshoot optional character recognition (OCR) in a table. If true, Sensible bypasses the text output by the table recognition OCR provider. Sensible instead recognizes the table's text using the  [OCR engine](doc:ocr-engine) specified by your document type, or by using text embedded in the document file if present. For an example, see [Example: Troubleshoot Table OCR](doc:fixed-table#example-troubleshoot-table-ocr).<br/>If `"detectTableStructureOnly": true` causes incorrect [line sorting](doc:lines#line-sorting), set `annotateSuperscriptAndSubscript": true` to correct the line sorting.<br/>                                          |
+| annotateSuperscriptAndSubscript | boolean. default: false                                            | Set to true only if the Detect Table Structure Only parameter is set to true. When true:<br/>-  Sensible annotates subscript and superscript text in the table with `[^...]` and `[_...]`, respectively. This parameter doesn't support annotating text in multi-line cells.                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
-| key                             | value                                                        | description                                                  |
-| :------------------------------ | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| id (**required**)               | `fixedTable`                                                 | When you specify this, you must also specify `"type": "table"` in the field's parameters. See the Stop parameter for details about how Sensible recognizes a table. |
-| columnCount (**required**)      | integer                                                      | The number of columns the tables must have.                  |
-| columns (**required**)          | array                                                        | An array of objects with the following parameters: <br/> -`id` (**required**): The ID for the column in the extraction output <br/> - `index` (**required**): The zero-based column index <br/>-`type` : The table cell's type. For more information, see  [Types](doc:types) <br/> -`isRequired` (default: false): If true, Sensible omits a row if its cell is empty in this column, or if the contents don't match the value you specify in this column's Type parameter. If false, Sensible returns nulls for empty cells in the row. Note that if you set this parameter to true for one column, Sensible omits the row for *all* columns, even if the row had content under other columns. |
-| stop                            | [Match object](doc:match) or array of Match objects. default: none | (**Recommended**)  Stops table recognition at the matched line. Otherwise, Sensible searches all pages for tables, which can impact performance.<br/>When you specify a stop, Sensible  uses an Amazon Web Service  provider to perform table recognition. When you omit a stop, Sensible uses a Microsoft OCR provider.<br/>When you specify a stop, Sensible supports:<br/>- merged cells in tables. Sensible populates "empty" spanned cells with the spanned value. For an example, see [Merged cell example](doc:fixed-table#example-merged-cells).<br/> - checkboxes in cells. Returns checkbox selection status as `[true]` or `[false]`. |
-| startOnRow                      | integer. default: 0                                          | Zero-indexed row number at which to start table extraction. For example, use this to exclude column headings from the output. As a stricter alternative, set the Is Required parameter on a column and set a type on the column (see example in Examples section). |
-| stopOnRow                       | integer                                                      | Zero-indexed row number of the last table row to include in the table extraction. For example, specify `"stopOnRow:2"` to return the first 3 rows. <br/>Use negative numbers to specify a stop row that's offset from the last row of the table, where `-1` specifies to include the last row.  For example,  specify `"stopOnRow:-3"` to return all rows except the last 2 rows of the table. |
-| detectTableStructureOnly        | boolean. default: false                                      | Set this parameter to true to troubleshoot optional character recognition (OCR) in a table. If true, Sensible bypasses the text output by the table recognition OCR provider. Sensible instead recognizes the table's text using the  [OCR engine](doc:ocr-engine) specified by your document type, or by using text embedded in the document file if present. For an example, see [Example: Troubleshoot Table OCR](doc:fixed-table#example-troubleshoot-table-ocr).<br/>If `"detectTableStructureOnly": true` causes incorrect [line sorting](doc:lines#line-sorting), set `annotateSuperscriptAndSubscript": true` to correct the line sorting.<br/> |
-| annotateSuperscriptAndSubscript | boolean. default: false                                      | Set to true only if the Detect Table Structure Only parameter is set to true. When true:<br/>-  Sensible annotates subscript and superscript text in the table with `[^...]` and `[_...]`, respectively. This parameter doesn't support annotating text in multi-line cells. |
-
-Examples
-=====
+# Examples
 
 The following example shows extracting two columns using the Fixed Table method.
 
-- In order to omit column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col4_rank_last_month` . You can also use `"startOnRow":1` to omit headings.
-- To improve performance, the config specifies a Stop parameter. 
+* In order to omit column headings, the config specifies `"type": "number"` and `"isRequired": true` for the column `col4_rank_last_month` . You can also use `"startOnRow":1` to omit headings.
+* To improve performance, the config specifies a Stop parameter. 
 
 **Config**
 
@@ -82,15 +77,13 @@ The following example shows extracting two columns using the Fixed Table method.
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
-
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/fixed_table.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/fixed_table.pdf) |
-| --------------------------- | ------------------------------------------------------------ |
-
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -181,13 +174,13 @@ The following example shows using the Stop parameter to improve output for merge
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/table_merged_cells.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/fixed_table_merged_cells.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -378,13 +371,13 @@ The following table shows troubleshooting OCR in a table.
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/fixed_table_ocr.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/fixed_table_ocr.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -439,7 +432,6 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Notes
-====
+# Notes
 
 For alternatives to this method, see [Table methods](doc:table-methods).
