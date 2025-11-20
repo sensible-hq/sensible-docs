@@ -16,9 +16,7 @@ A *line* is a rectangular region containing text. Sensible represents a line's b
 
  In other words, Sensible separates lines using any whitespace, not just newlines.
 
-
-Line sorting
-----
+## Line sorting
 
 Sensible sorts lines primarily by their height on the page (their y-axis position) and secondarily by their left-to-right position (their x-axis position).
 
@@ -32,8 +30,7 @@ When text such as handwriting is slightly misaligned vertically, line sorting is
 
 To configure this default sorting behavior, see [the Sort Lines parameter](doc:method).
 
-Line grouping
----
+## Line grouping
 
 **Label method**
 
