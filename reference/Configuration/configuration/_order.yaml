@@ -6,3 +6,4 @@
 - get_configuration_versions
 - get_configuration_by_version
 - publish_configuration_by_version
+- delete_configuration_by_version
