@@ -12,11 +12,10 @@ next:
 ---
 This example shows:
 
-- Finding repeating vertical sections by nesting them in parent sections.
-- Ignoring repeated multiple anchor matches. For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
+* Finding repeating vertical sections by nesting them in parent sections.
+* Ignoring repeated multiple anchor matches. For more information, see [Multiple anchors in section](doc:section-nuances#multiple-anchors-in-section).
 
-Overview
-----
+## Overview
 
 To give a broad overview of using vertical sections for a table grid, see the following image:
 
@@ -87,8 +86,7 @@ car_models:
    
 ```
 
-Details
-----
+## Details
 
 The following elaborates on the preceding brief overview using JSON instead of YML. To illustrate each section's range and for troubleshooting purposes, the config includes a field that outputs the entire contents of each section.
 
@@ -216,13 +214,13 @@ The following elaborates on the preceding brief overview using JSON instead of Y
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_table_grid_1.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_table_grid.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
