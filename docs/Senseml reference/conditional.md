@@ -23,12 +23,12 @@ fieldsOnFail: [] # fields to extract if the boolean is false
 
 ## Parameters
 
-| key                          | value                                     | description                                                  |
-| ---------------------------- | ----------------------------------------- | ------------------------------------------------------------ |
+| key                          | value                                     | description                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id (**required**)            | `conditional`                             | Specifies that this field extracts alternate lists of fields based on a pass/fail condition. You can nest conditions inside conditions to any depth. Fields can [fall back](doc:fallbacks) across conditions at any depth. For example, a `checking_transactions` field can fall back from a nested condition to a `checking_transactions` field in the top-level `fields` object, and vice versa. |
-| condition (**required**)     | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The condition passes if it outputs true and fails if it outputs false. For example, you can test if an extracted field is non-null, and extract alternate sets of fields depending on its presence. |
-| fieldsOnPass  (**required**) | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition passes. |
-| fieldsOnFail                 | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition fails. |
+| condition (**required**)     | [JsonLogic](doc:jsonlogic)                | A logical condition that must output a Boolean. The condition passes if it outputs true and fails if it outputs false. For example, you can test if an extracted field is non-null, and extract alternate sets of fields depending on its presence.                                                                                                                                                |
+| fieldsOnPass  (**required**) | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition passes.                                                                                                                                                                                                                                                                                                                                     |
+| fieldsOnFail                 | array of [fields](doc:field-query-object) | Specifies a list of fields to extract if the condition fails.                                                                                                                                                                                                                                                                                                                                      |
 
 ## Examples
 
@@ -225,18 +225,18 @@ The following example shows using conditional execution to standardize output ac
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example documents used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/conditional_execution.png)
 
 | Example document 1 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/conditional_execution_1.pdf) |
-| ------------------ | ------------------------------------------------------------ |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 | Example document 2 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/conditional_execution_2.pdf) |
-| ------------------ | ------------------------------------------------------------ |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
-**Output1  **
+**Output1**
 
 The output for the Practical Bank statement is the following:
 
@@ -319,7 +319,7 @@ The output for the Practical Bank statement is the following:
 }
 ```
 
-**Output 2  **
+**Output 2**
 
 The output for the Sensible Bank statement is the following:
 
