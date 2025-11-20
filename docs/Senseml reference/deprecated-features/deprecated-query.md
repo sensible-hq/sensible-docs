@@ -24,30 +24,25 @@ Sensible recommends framing each query, or prompt, so that it has a single, shor
 
 **Note** You can configure some the following parameters in both the [NLP](doc:nlp) preprocessor and in a field's method. If you configure both, the field's parameter overrrides the NLP preprocessor's parameter. For more information, see [Advanced LLM prompt configuration](doc:prompt).
 
-Parameters
-=====
+# Parameters
 
-
-
-| key                                 | value        | description                                                  |
-| :---------------------------------- | :----------- | :----------------------------------------------------------- |
-| id (**required**)                   | `query`      | The Anchor parameter is optional for fields that use this method. If you specify an anchor:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns null for the field if the anchor isn't present in the document. |
-| description(**required**)           | string       | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.   |
+| key                                 | value        | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| :---------------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)                   | `query`      | The Anchor parameter is optional for fields that use this method. If you specify an anchor:<br/>- Sensible ignores the anchor if it's present in the document.<br/>- Sensible returns null for the field if the anchor isn't present in the document.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| description(**required**)           | string       | A free-text question about information in the document. For example, `"what's the policy period?"` or `"what's the client's first and last name?"`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | chunkScoringText                    | string       | Configures context's content. For details about context and chunks, see the Notes section.<br/>A representative snippet of text from the part of the document where you expect to find the answer to your prompt. Use this parameter to narrow down the page location of the answer to your prompt. For example, if your prompt has multiple candidate answers, and the correct answer is located near unique or distinctive text that's difficult to incorporate into your question, then specify the distinctive text in this parameter.<br/>If specified, Sensible uses this text to find top-scoring chunks. If unspecified, Sensible uses the prompt to score chunks.<br/>Sensible recommends that the snippet is specific to the target chunk, semantically similar to the chunk, and structurally similar to the chunk. <br/>For example,  if the chunk contains a street address formatted with newlines, then provide a snippet with an example street address that contains newlines, like `123 Main Street\nLondon, England`. If the chunk contains a street address in a free-text paragraph, then provide an unformatted street address in the snippet.<br/>For an example, see Example 3.<br/> |
-| (**Deprecated**) promptIntroduction | string.      | **(Deprecated)**  overwrites the introductory text at the beginning of the [full prompt](https://docs.sensible.so/docs/prompt) that Sensible submits to the LLM for this field. |
-| confidenceSignals                   |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt). |
-| contextDescription                  |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| pageHinting                         |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| chunkCount                          | default: 5   | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| chunkSize                           | default: 0.5 | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| chunkOverlapPercentage              | default: 0.5 | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
-| pageRange                           |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters). |
+| (**Deprecated**) promptIntroduction | string.      | **(Deprecated)**  overwrites the introductory text at the beginning of the [full prompt](https://docs.sensible.so/docs/prompt) that Sensible submits to the LLM for this field.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| confidenceSignals                   |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| contextDescription                  |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| pageHinting                         |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| chunkCount                          | default: 5   | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| chunkSize                           | default: 0.5 | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| chunkOverlapPercentage              | default: 0.5 | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| pageRange                           |              | For information about this parameter, see [Advanced LLM prompt configuration](doc:prompt#parameters).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
-Examples
-====
+# Examples
 
-Example 1
----
+## Example 1
 
 The following example shows using the Query Group method to extract agricultural data from a government report.
 
@@ -94,13 +89,13 @@ The following example shows using the Query Group method to extract agricultural
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_1.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer_crop.pdf) |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -128,11 +123,7 @@ The following image shows the example document used with this example config:
 	}
 ```
 
-
-
-
-Example 2
-----
+## Example 2
 
 The following example shows using the Query Group method to extract information from a lease.
 
@@ -177,13 +168,13 @@ The following example shows using the Query Group method to extract information 
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_2.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/summarizer.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -210,11 +201,7 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
-
-Example 3
-----
+## Example 3
 
 The following example shows using chunk-related parameters to narrow down the page location of an answer in a document.
 
@@ -238,13 +225,13 @@ The following example shows using chunk-related parameters to narrow down the pa
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/question_chunk.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/question_chunk.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -257,15 +244,13 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Notes
-===
+# Notes
 
-How the Query Group method works
----
+## How the Query Group method works
 
 For an overview of how this method works, see the following steps:
 
-- To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
-- Sensible scores each chunk by its similarity to either the `description` or the `chunkScoringText` parameters. Sensible scores each chunk using the openai Embeddings API.
-- Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
-- Sensible creates a full prompt for the LLM that includes the chunks, page-hinting data, and your prompt. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt).
+* To meet the LLM's token limit for input, Sensible splits the document into equal-sized, overlapping chunks.
+* Sensible scores each chunk by its similarity to either the `description` or the `chunkScoringText` parameters. Sensible scores each chunk using the openai Embeddings API.
+* Sensible selects a number of the top-scoring chunks and combines them into "context". The chunks can be non-consecutive in the document. Sensible deduplicates overlapping text in consecutive chunks. If you set chunk-related parameters that cause the context to exceed the LLM's token limit, Sensible automatically reduces the chunk count until the context meets the token limit.
+* Sensible creates a full prompt for the LLM that includes the chunks, page-hinting data, and your prompt. For more information about the full prompt, see [Advanced LLM prompt configuration](doc:prompt).
