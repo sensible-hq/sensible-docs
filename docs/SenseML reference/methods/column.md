@@ -12,32 +12,29 @@ next:
 ---
 Extracts all lines below the anchor line on the current page if:
 
-- The anchor line's left and right boundaries ("x extent") contain the target lines' x extent, or vice versa. 
+* The anchor line's left and right boundaries ("x extent") contain the target lines' x extent, or vice versa. 
 
   Or:
 
-- The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
+* The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
 
-[**Parameters**](doc:column#parameters)
+[**Parameters**](doc:column#parameters)\
 [**Examples**](doc:column#examples)
 
-Parameters
-====
+# Parameters
 
-
-| key               | values                                       | description                                                  |
-| :---------------- | :------------------------------------------- | :----------------------------------------------------------- |
-| id (**required**) | `column`                                     |                                                              |
+| key               | values                                       | description                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| :---------------- | :------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**) | `column`                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | tiebreaker        | `first`, `second`, `third`, `last`, `>`, `<` | Which line in the column is the target. Use the comparisons `>` and `<` to extract maximum and minimum values in the column. Lines are [sorted](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#relational_operators) alphanumerically using unicode values. If you want to compare numeric amounts and ignore non-numbers in the row,  then add a numeric [type](doc:types) such as  `type: currency` as a top-level parameter to the field. |
-| includeAnchor     | `true`, `false`. default: false              | Includes the anchor line in the method output                |
+| includeAnchor     | `true`, `false`. default: false              | Includes the anchor line in the method output                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-Examples
-====
+# Examples
 
 The following example shows that:
 
-- By default, Sensible returns the entire column as a joined string.
-- Specifying a tiebreaker returns single element in the column.
+* By default, Sensible returns the entire column as a joined string.
+* Specifying a tiebreaker returns single element in the column.
 
 **Config**
 
@@ -65,13 +62,13 @@ The following example shows that:
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/column.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
