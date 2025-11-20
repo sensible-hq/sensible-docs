@@ -12,8 +12,6 @@ next:
 ---
 The following example shows using a vertical section group to capture a table that has both column labels and row labels. It also shows using the Column Selection parameter to create sections out of all but the last and first columns. For more information about the Column Selection parameter, see [Section nuances](doc:section-nuances#column-selection).
 
-
-
 **Config**
 
 ```json
@@ -104,7 +102,7 @@ The following image shows the data extracted by this config for the following ex
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_labeled_rows.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_labeled_rows.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
