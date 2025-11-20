@@ -12,15 +12,9 @@ next:
 ---
 # See readme dash v5
 
-
-
-
-
 *You can extract data from email bodies and attachments by emailing them to Sensible.*
 
 *The following image shows an overview for the email extraction workflow:*
-
-
 
 ```
 graph TD;
@@ -32,18 +26,12 @@ graph TD;
     E --> F
 ```
 
-
-
-
-
-
-
 *![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email.png)*
 
 *How to set up email integration: TODO: probably easier with a fictional example and screenshots in Gmail. TODO: should the fictional example include a couple attachments of different doc types?*
 
 1. *Create a document type (link to instructions) for the emails you want to extract from.*
-2. *In the document type, create a dedicated email address for receiving the emails to extract from, i.e.,  `UUID@forwarding.sensible.so`.*
+2. *In the document type, create a dedicated email address for receiving the emails to extract from, i.e.,`UUID@forwarding.sensible.so`.*
 3. *Use filtering rules in your email provider to filter the emails you want to extract from that match the document type you created.    For example, filter emails from a certain domain or those containing specific keywords or specific attachment types.*
 4. *Set up automatic forwarding with your email service provider to send your filtered emails to Sensible.*
 
@@ -51,18 +39,14 @@ graph TD;
 
 *Not all attachments in an email will need to be extracted. To prevent triggering an extraction on irrelevant documents, we should allow users to configure the criteria for documents that need to be extracted. These filters should include:*
 
-- *Classification score slider (ex. if the highest score returned is <x, don’t extract the document)*
-- *File name (ex. only extract files that contain “1040” in the title)*
-- *File types (ex. only extract PDFs)*
-
-
+* *Classification score slider (ex. if the highest score returned is \<x, don’t extract the document)*
+* *File name (ex. only extract files that contain “1040” in the title)*
+* *File types (ex. only extract PDFs)*
 
 ## *Notes*
 
-- *TODO:  "We need to be transparent and clear with the security implications of the data they’re forwarding and how it’s protected" <-- how much of this is on the docs, how much on the UI, how much on just linking to AWS infra docs??*
-- *For email size limitations, see [Supported file formats] TODO --> link + include the info there*
-
-
+* *TODO:  "We need to be transparent and clear with the security implications of the data they’re forwarding and how it’s protected" \<-- how much of this is on the docs, how much on the UI, how much on just linking to AWS infra docs??*
+* *For email size limitations, see[Supported file formats] TODO --> link + include the info there*
 
 ## from dash
 
@@ -70,7 +54,7 @@ graph TD;
 
 TODO:
 
-- how to cross link btwn this and an EMAIL INTEGRATION topic; what's the distinction here? I think the GSG topic need to emphasize webhook implementation; maybe also practical concerns like filtering in your host email, and the integrations topic focuses a little more on how it works...??
+* how to cross link btwn this and an EMAIL INTEGRATION topic; what's the distinction here? I think the GSG topic need to emphasize webhook implementation; maybe also practical concerns like filtering in your host email, and the integrations topic focuses a little more on how it works...??
 
 <br />
 
@@ -79,7 +63,7 @@ POTENTIAL DIAGRAM:
 1. user enables forwarding to a Sensible email processor alias
 2. User configures email forwarding filters from their email client/platform
 3. Filtered email is forward to the alias
-4. Email extracted based on auto-selected configuration in each _document type_
+4. Email extracted based on auto-selected configuration in each *document type*
 
 ## Introduction
 
@@ -104,7 +88,7 @@ The following image shows an overview for the email extraction workflow:
 
 In this tutorial, you'll learn to extract data from a set of similar emails. For this tutorial, we'll use  lease application emails like the following, and you'll learn to extract stuff like:
 
-- TBD LIST DATA POINTS like address, rent price, paystub income, dirvers license..
+* TBD LIST DATA POINTS like address, rent price, paystub income, dirvers license..
 
 ![](https://files.readme.io/c1a738873e5c5c023ef4f4e8230b9b6172aa88dc8cc2f617a6bfafbbbc705723-image.png)
 
@@ -116,9 +100,9 @@ In this tutorial, you'll learn to extract data from a set of similar emails. For
 
 Say you want to parse lease application emails that typically include the following attachments:
 
-- paystub
-- drivers license
-- signed lease
+* paystub
+* drivers license
+* signed lease
 
 There are two big setup steps:
 
@@ -133,9 +117,9 @@ To create extraction support in your Sensible account for the attachments in typ
 
 1. Create document types to handle the attachments:
    1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add extraction support for the following document types to your account: 
-      1. **driver_license** document type
-      2. **pay_stubs** document type  
-         Each document type contains _configs_, or collections of SenseML extraction queries. Configs handle variations in a document type; for example TODO more definition.
+      1. **driver\_license** document type
+      2. **pay\_stubs** document type\
+         Each document type contains *configs*, or collections of SenseML extraction queries. Configs handle variations in a document type; for example TODO more definition.
    2. (Optional) The Sensible prebuilt config library doesn't support rental property lease applications. To support it, take the following steps:
       1. In the Document Types tab, Click New document type named `leases` to create a new document type:
          1. Upload the example document from TODO LINK QUERY GROUP.
@@ -148,7 +132,7 @@ To create extraction support in your Sensible account for the attachments in typ
 <br />
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 Note: this example is a PDF print-out of an email body.  When you need to configure extraction support, it's a one-time setup process to convert or print out the email body to a supported file type (TODO LINK) so you can test your extraction queries on it.
 
@@ -208,8 +192,8 @@ To create a Sensible email alias that will automatically initiate extracting fro
 
 Send a test email to the processor you created. You can download  the example documents for attachments from the following locations:
 
-- GH location
-- GH location 
+* GH location
+* GH location 
 
 <br />
 
