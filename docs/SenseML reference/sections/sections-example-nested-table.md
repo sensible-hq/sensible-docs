@@ -12,13 +12,11 @@ next:
 ---
 The following example:
 
-- Uses the Column Selection parameter in a vertical sections group to treat row labels as anchors in a table.
-- Uses relative column coordinates to find nested tables in each column table. (`"columnsRelativeToAnchor":"true"`).
-- Illustrates each section's range with a field that outputs the entire contents of each section.
+* Uses the Column Selection parameter in a vertical sections group to treat row labels as anchors in a table.
+* Uses relative column coordinates to find nested tables in each column table. (`"columnsRelativeToAnchor":"true"`).
+* Illustrates each section's range with a field that outputs the entire contents of each section.
 
 **Config**
-
-
 
 ```
 {
@@ -118,15 +116,13 @@ The following example:
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_table_in_table.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
-
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
