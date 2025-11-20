@@ -22,14 +22,12 @@ For example, you can extract data in 1040 tax forms and send the data to a datab
 
 You can automatically create records like these using Zapier and Sensible. When creating a Zapier integration, you can either:
 
-- Run extractions in Sensible and then act on the data with a **Sensible trigger**.
-- Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
+* Run extractions in Sensible and then act on the data with a **Sensible trigger**.
+* Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
 
 **Note:** If you want to trigger Sensible extractions of emails, see instead [Getting started with email extractions](doc:getting-started-email).
 
-Sensible trigger
----
-
+## Sensible trigger
 
 Every time you run an extraction using the Sensible [app](https://app.sensible.so/quick-extraction), API, or SDKs, you can automatically send the data to a destination, for example an email or database, using a **Sensible trigger**: 
 
@@ -37,8 +35,7 @@ Every time you run an extraction using the Sensible [app](https://app.sensible.s
 
 For more information, see the [Zapier getting started guide](doc:zapier-getting-started).
 
-Sensible action
----
+## Sensible action
 
 You can bypass the Sensible app, API, or SDKs and instead trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps. Then send the extraction to the destination of your choice with a **Sensible action**.
 
