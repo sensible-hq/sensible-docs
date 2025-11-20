@@ -2,3 +2,4 @@
 - create_document_type
 - get_document_type
 - replace_document_type
+- delete_document_type
