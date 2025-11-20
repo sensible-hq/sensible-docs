@@ -12,14 +12,14 @@ next:
 ---
 Sensible supports extracting multiple documents from a single file (a "portfolio"). For example, for a portfolio PDF file containing two invoices, a 1040 tax document, and a contract, Sensible can segment each document by its page range in the file, and return its extracted data separately. 
 
-Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type for the portfolio file in the previous example, rather than creating a "combined_tax_and_invoice" doc type.
+Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type for the portfolio file in the previous example, rather than creating a "combined\_tax\_and\_invoice" doc type.
 
 To segment the subdocuments in a portfolio file,  you have the following options:
 
-|                     | LLM-based                                                    | Text-based ("fingerprints")                                  |
-| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                     | LLM-based                                                                                                                                                                                           | Text-based ("fingerprints")                                                                                                                   |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. For more information, see [Document type descriptions](doc:descriptions). | Sensible finds user-configured text matches ("fingerprints") to segment documents. For more information, see [fingerprints](doc:fingerprint). |
-| Granularity         | at the document type level                                   | at the config level                                          |
+| Granularity         | at the document type level                                                                                                                                                                          | at the config level                                                                                                                           |
 
 Other tradeoffs between LLM and layout-based methods apply. For more tradeoffs, see [Choosing an extraction approach](doc:author).
 
@@ -29,21 +29,20 @@ To extract from a portfolio, take the following steps:
 
 1. Enable segmentation with one of the following alternatives: 
 
-  -  **LLM mode**: In the document type's **Settings** tab, describe the document type in the **Description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [Document type descriptions](doc:descriptions). 
-  -  **Fingerprint mode**: Specify [fingerprints](doc:fingerprint) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
+* **LLM mode**: In the document type's **Settings** tab, describe the document type in the **Description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [Document type descriptions](doc:descriptions). 
+* **Fingerprint mode**: Specify [fingerprints](doc:fingerprint) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
 
 2. Create an extraction request with one of the following alternatives:
 
-- **Sensible app**: 
-  
-  - On the **Extract** tab, upload the portfolio file.
-  - Click the **Portfolio** button and specify either **fingerprint mode** or **LLM mode**.
-  - Select the document types contained in the portfolio file.
-  -  Click **Extract**. 
-  
-- **API or SDK**:     
+* **Sensible app**: 
 
-  - In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example:
+  * On the **Extract** tab, upload the portfolio file.
+  * Click the **Portfolio** button and specify either **fingerprint mode** or **LLM mode**.
+  * Select the document types contained in the portfolio file.
+  * Click **Extract**. 
+* **API or SDK**:     
+
+  * In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example:
 
     ```json
     curl --location 'https://api.sensible.so/v0/extract_from_url?environment=production&document_name=portfolio_bank_paystub_tax' \
@@ -76,10 +75,10 @@ The following example shows extracting three documents from a portfolio using LL
 
    **Note:** Each out-of-the-box document type comes preconfigured with a description in its **Description** field to enable LLM-based portfolio segmentation. The descriptions are as follows:
 
-   | document type   | Description                                    |
-   | --------------- | ------------------------------------------------------------ |
-   | bank statements | List of all transactions for a bank account over a set period |
-   | pay stubs       | Historic payments to employees                               |
+   | document type   | Description                                                                                                                                |
+   | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+   | bank statements | List of all transactions for a bank account over a set period                                                                              |
+   | pay stubs       | Historic payments to employees                                                                                                             |
    | 1040s           | The standard individual income tax return form for U.S. taxpayers to report their annual income and calculate their federal tax liability. |
 
    For example, the following image shows the description for the `bank_statements` document type:
@@ -89,8 +88,7 @@ The following example shows extracting three documents from a portfolio using LL
 2. Download the following example document:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf) |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 
 4. In the **Extract** tab, upload the example document, select **Portfolio**, select **LLM mode**, and select the document types you just added support for:
 
@@ -102,7 +100,7 @@ The following example shows extracting three documents from a portfolio using LL
 
 You should see results like the following:
 
-#### Pages 1 - 2 | 1040s | 1040_2019
+#### Pages 1 - 2 | 1040s | 1040\_2019
 
 ```json
 {
@@ -141,7 +139,7 @@ You should see results like the following:
     /* etc */
 ```
 
-#### Pages 3 - 7 | bank_statements | wells_fargo_checking
+#### Pages 3 - 7 | bank\_statements | wells\_fargo\_checking
 
 ```json
 {
@@ -168,7 +166,7 @@ You should see results like the following:
 /* etc */
 ```
 
-#### Pages 8 - 8 | pay_stubs | pay_stubs
+#### Pages 8 - 8 | pay\_stubs | pay\_stubs
 
 ```json
 {
@@ -199,23 +197,19 @@ You should see results like the following:
   },
 ```
 
-
-
 ## Fingerprint example
-
 
 The following example shows extracting three one-page documents from a portfolio using fingerprints to segment the documents. The portfolio contains two car insurance quotes and one loss run.
 
 ### Config
 
-
 ***Document type 1***
 
-- **doc type**: "auto_insurance_quotes"
+* **doc type**: "auto\_insurance\_quotes"
 
-- **config name**: "anyco"
+* **config name**: "anyco"
 
-- **config content:**
+* **config content:**
 
 To the config in [Getting started with layout-based extractions](doc:getting-started), append the following fingerprint:
 
@@ -243,11 +237,11 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 
 ***Document type 2***
 
-- **doc type**: "loss_run_reports"
+* **doc type**: "loss\_run\_reports"
 
-- **config name**: "acme"
+* **config name**: "acme"
 
-- **config content:**
+* **config content:**
 
 To the config in the [Example loss run](doc:sections-example-loss-run) topic, append the following fingerprint:
 
@@ -271,12 +265,10 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ap
 
 ### Example document
 
-
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/portfolio.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
 ### Output
-
 
 For the preceding configurations, doc types, and example document portfolio, the following asynchronous request returns a list of document extractions:
 
@@ -289,7 +281,9 @@ curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
 --data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
 "types":["auto_insurance_quotes","loss_run_reports"]}'
 ```
-2. This request returns an extraction ID. Use it to retrieve the extractions by replacing *YOUR_EXTRACTION_ID* with the returned ID in the following example code:
+
+2. This request returns an extraction ID. Use it to retrieve the extractions by replacing *YOUR\_EXTRACTION\_ID* with the returned ID in the following example code:
+
 ```
 curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 --header 'Authorization: Bearer YOUR_API_KEY'
