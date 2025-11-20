@@ -12,31 +12,26 @@ next:
 ---
 Use Sensible's asynchronous endpoints to extract data from documents that are greater than 4.5MB in size or that require over 30 seconds of processing time. You have two options for asynchronous processing:
 
-- Provide your own URLs for your documents. 
+* Provide your own URLs for your documents. 
 
-- Use URLs provided by Sensible for your documents. 
+* Use URLs provided by Sensible for your documents. 
 
 This topic covers using URLs provided by Sensible. This is a good option if you can't create either publicly accessible or pre-signed URLs for your documents.
 
 For either option, you can get the results as soon as they're ready by specifying a [webhook](doc:api-tutorial-webhook).
 
-Extract from a URL Sensible provides
-====
+# Extract from a URL Sensible provides
 
-Prerequisites
-----
+## Prerequisites
 
 See [prerequisites](doc:api-tutorial#prerequisites).
 
-
-Generate the upload URL
-----
-
+## Generate the upload URL
 
 Generate a one-time Sensible URL for a document (this URL expires within minutes): 
 
-  1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
-  1. Copy the following code sample and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
+1. Verify that you published the **anyco** config listed in the prerequisites to the Development environment (in the Sensible app, select the config and click **Publish>Publish to Development**).
+2. Copy the following code sample and replace `YOUR_API_KEY` with your [API key](https://app.sensible.so/account/):
 
 ```json
 curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insurance_quote?environment=development' \
@@ -60,9 +55,7 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/auto_insuran
 }
 ```
 
-Extract the data 
-----
-
+## Extract the data
 
 Use the one-time URL you generated in the previous step to extract data from the document:
 
@@ -79,45 +72,35 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 **Troubleshoot**: Postman can automatically add authorization and content-type headers that cause errors:
 
-- If Postman automatically specifies authorization for the request, then specify **No Auth** in the request's **Auth** tab :
+* If Postman automatically specifies authorization for the request, then specify **No Auth** in the request's **Auth** tab :
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_no_auth.png)
 
-- If Postman automatically specifies content types, then deselect any Content-Type checkboxes in the **Headers** tab.
+* If Postman automatically specifies content types, then deselect any Content-Type checkboxes in the **Headers** tab.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_headers_2.png)
 
 3. If you haven't already, download the following example document, which works with the example `auto_insurance_quote` config you created in the **Prerequisites** section:
 
-| auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
-| --------------------------- | ------------------------------------------------------------ |
+| auto\_insurance\_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
 4. Correct the path to the downloaded document in your request: click the **Body** tab, select **binary**, then click **Select file** and select the document:
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_file.png)
 
-  
-
 5. Click **Send** to send the request. The response is  `200`:
-
-
 
   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_postman_200.png) 
 
-
-
-
-Retrieve extraction
-----
+## Retrieve extraction
 
  To retrieve the document extraction, you have two options:
 
-- Use the `/documents` endpoint. See the following steps.
-- Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
-
+* Use the `/documents` endpoint. See the following steps.
+* Use a webhook. See [Try a webhook](doc:api-tutorial-webhook).
 
 To retrieve the extraction results with the  `/documents` endpoint, take the following steps:
-
 
 1. In a previous step on this page,  you generated a URL and got back a response that included an extraction ID:
 
@@ -126,10 +109,10 @@ To retrieve the extraction results with the  `/documents` endpoint, take the fol
        "id": "14d82783-c12b-4e70-b0ae-ca1ce35a9836"
    }
    ```
-   
+
 2. Copy the document extraction `id` from that response.
 
-3. Copy the following code sample and replace YOUR_EXTRACTION_ID and YOUR_API_KEY:
+3. Copy the following code sample and replace YOUR\_EXTRACTION\_ID and YOUR\_API\_KEY:
 
 ```json
 curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
