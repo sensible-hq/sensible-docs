@@ -70,14 +70,9 @@ flattened_declarations:
       value: 140.8
 ```
 
-
-
-Details
-----
+## Details
 
 The following elaborates on the preceding overview using JSON instead of YML.
-
-
 
 **Config**
 
@@ -248,7 +243,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/copy_from_sections.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/copy_from_sections.pdf) |
-| ---------------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
