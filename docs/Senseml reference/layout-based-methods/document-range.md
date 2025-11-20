@@ -16,30 +16,27 @@ The Document Range method extracts all the text between an upper and a lower bou
 
 Or, use this method to return the coordinates of regions containing images.
 
-[**Parameters**](doc:document-range#parameters)
-[**Examples**](doc:document-range#examples)
+[**Parameters**](doc:document-range#parameters)\
+[**Examples**](doc:document-range#examples)\
 [**Notes**](doc:document-range#notes)
 
-Parameters
-====
+# Parameters
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key               | value                                                        | description                                                  |
-| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `documentRange`                                              | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output. |
-| stop              | [Match object](doc:match) or array of Match objects. default: `none` | Stops extraction at the top boundary of the matched line. The matched line isn't included in the method output. If this parameter and the Num Lines parameter are unspecified, matches to the end of the document. |
-| numLines          | integer.                                                     | Alternative to the Stop parameter. Extracts the specified number of lines succeeding the anchor. |
-| includeAnchor     | boolean. default: `false`                                    | Includes the anchor line in the method output. If true, included in the total line count for the Num Lines parameter. |
-| includeImages     | boolean. default: `false`                                    | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. To extract structured data from images, see the [Query Group](doc:query-group) method and configure the Multimodal Engine parameter. |
-| offsetY           | number in inches.                                            | Specifies the number of inches to offset the start of the document range from the top boundary of the anchor line.<br/>Positive values offset down the page, negative values offset up the page.<br/>If the offset falls below all lines on the page containing the anchor, the offset starts at the top boundary of the first line on the next page that contains lines.<br/> For an example, see the Examples section. |
-| stopOffsetY       | number in inches.                                            | Specifies the number of inches to offset the end of the document range from the top boundary of the stop line.<br/>Positive values offset down the page, negative values offset up the page.<br/>If the offset falls below all lines on the page containing the anchor, the offset starts at the top boundary of the first line on the next page that contains lines. |
+| key               | value                                                                | description                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ----------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `documentRange`                                                      | Optionally set `"type": "paragraph"` in the Field object to include newlines (`\n`) in the output.                                                                                                                                                                                                                                                                                                                                                 |
+| stop              | [Match object](doc:match) or array of Match objects. default: `none` | Stops extraction at the top boundary of the matched line. The matched line isn't included in the method output. If this parameter and the Num Lines parameter are unspecified, matches to the end of the document.                                                                                                                                                                                                                                 |
+| numLines          | integer.                                                             | Alternative to the Stop parameter. Extracts the specified number of lines succeeding the anchor.                                                                                                                                                                                                                                                                                                                                                   |
+| includeAnchor     | boolean. default: `false`                                            | Includes the anchor line in the method output. If true, included in the total line count for the Num Lines parameter.                                                                                                                                                                                                                                                                                                                              |
+| includeImages     | boolean. default: `false`                                            | Returns the zero-indexed page number and coordinates of regions containing images in the document range . **Notes**:<br/>  If you set  `true`,  also set`"type": "images"` in the `field` object (see Examples section for an example). <br/>Returns image region coordinates, not image bytes or text lines. To extract structured data from images, see the [Query Group](doc:query-group) method and configure the Multimodal Engine parameter. |
+| offsetY           | number in inches.                                                    | Specifies the number of inches to offset the start of the document range from the top boundary of the anchor line.<br/>Positive values offset down the page, negative values offset up the page.<br/>If the offset falls below all lines on the page containing the anchor, the offset starts at the top boundary of the first line on the next page that contains lines.<br/> For an example, see the Examples section.                           |
+| stopOffsetY       | number in inches.                                                    | Specifies the number of inches to offset the end of the document range from the top boundary of the stop line.<br/>Positive values offset down the page, negative values offset up the page.<br/>If the offset falls below all lines on the page containing the anchor, the offset starts at the top boundary of the first line on the next page that contains lines.                                                                              |
 
-Examples
-====
+# Examples
 
-Paragraphs and lists
-----
+## Paragraphs and lists
 
 The following example extracts a list of four sworn statements from a W-9 form.
 
@@ -72,7 +69,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_sworn.png)
 
 | Example document | [Download link](https://www.irs.gov/pub/irs-pdf/fw9.pdf) |
-| ----------- | -------------------------------------------------------- |
+| ---------------- | -------------------------------------------------------- |
 
 **Output**
 
@@ -85,8 +82,7 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Images
-----
+## Images
 
 The following example shows extracting two images' coordinates.
 
@@ -113,14 +109,13 @@ The following example shows extracting two images' coordinates.
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/documentrange_icons.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/image_coordinates.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -175,16 +170,14 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Offset Y parameter
-----
-
+## Offset Y parameter
 
 **Config**
 
 The following example shows using an Offset Y parameter to extract content that precedes the anchor. This example also shows:
 
-- using the Document Range as an alternative to the Row method to extract multiline rows. 
-- using the Type Filter parameter to remove unwanted matched lines, in this example, the claims dates.
+* using the Document Range as an alternative to the Row method to extract multiline rows. 
+* using the Type Filter parameter to remove unwanted matched lines, in this example, the claims dates.
 
 ```json
 {
@@ -227,13 +220,13 @@ The following example shows using an Offset Y parameter to extract content that 
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_range_yoffset.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/document_range_yoffset.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -262,11 +255,9 @@ The following image shows the example document used with this example config:
 }
 ```
 
-Notes
-====
+# Notes
 
-Extracting images
-----
+## Extracting images
 
 The Document Range supports extracting non-text images that you can then render.  For example, extract photos of buildings embedded in an inspection report and save them to a backend.  It doesn't support extracting structured data from the images.
 
@@ -274,10 +265,10 @@ The Document Range supports extracting non-text images that you can then render.
 
 To extract images, set `"includeImages":true` for the Document Range method. Sensible returns the image region coordinates rather than the actual encoded bytes of images. If you want to extract the images themselves, you can use a PDF library in your chosen programming language to follow these general steps:
 
-- Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
-- Convert Sensible's coordinates for the image region to pixel per inch (PPI) coordinates. Sensible's region coordinates follow these conventions:
-  - they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
-  - they're in inches (to convert inches to pixels, multiply the inches coordinates by your PPI setting. For example, an x-coordinate of 3.156 inches is ~227 pixels for a PPI setting of 72 (72 PPI * 3.156 inches)).
-  - they're ordered clockwise from top left: (top left), (top right), (bottom right), (bottom left)
-- Extract a partial bitmap defined by the PPI coordinates of the image from the rendered page.
-- Encode the bitmap to bytes in the image format of your choice.
+* Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
+* Convert Sensible's coordinates for the image region to pixel per inch (PPI) coordinates. Sensible's region coordinates follow these conventions:
+  * they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
+  * they're in inches (to convert inches to pixels, multiply the inches coordinates by your PPI setting. For example, an x-coordinate of 3.156 inches is \~227 pixels for a PPI setting of 72 (72 PPI \* 3.156 inches)).
+  * they're ordered clockwise from top left: (top left), (top right), (bottom right), (bottom left)
+* Extract a partial bitmap defined by the PPI coordinates of the image from the rendered page.
+* Encode the bitmap to bytes in the image format of your choice.
