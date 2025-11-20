@@ -36,50 +36,50 @@ The following types are available:
 
 #### **TYPES**
 
-[Address](doc:types#address)
-[Boolean](doc:types#boolean)
-[Currency](doc:types#currency)
-[Date](doc:types#date)
-[Distance](doc:types#distance)
-[Images](doc:types#images)
-[Name](doc:types#name)
-[Number](doc:types#number)
-[Paragraph](doc:types#paragraph)
-[Percentage](doc:types#percentage) 
-[Phone Number](doc:types#phone-number)
-[String](doc:types#string)
-[Table](doc:types#table)
+[Address](doc:types#address)\
+[Boolean](doc:types#boolean)\
+[Currency](doc:types#currency)\
+[Date](doc:types#date)\
+[Distance](doc:types#distance)\
+[Images](doc:types#images)\
+[Name](doc:types#name)\
+[Number](doc:types#number)\
+[Paragraph](doc:types#paragraph)\
+[Percentage](doc:types#percentage)\
+[Phone Number](doc:types#phone-number)\
+[String](doc:types#string)\
+[Table](doc:types#table)\
 [Weight](doc:types#weight)
 
 #### **ADVANCED TYPES**
 
-[Compose](doc:types#compose)
-[Custom](doc:types#custom)
-[Replace](doc:types#replace)
+[Compose](doc:types#compose)\
+[Custom](doc:types#custom)\
+[Replace](doc:types#replace)\
 [Any](doc:types#any)
 
 #### **DEPRECATED TYPES**
 
 [Accounting currency](doc:types#accounting-currency)
 
-Address
-====
+# Address
+
 Returns USA-based addresses.  By default, Sensible recognizes  single- or multi-line addresses isolated from other lines in "block" format. For example, `"type":"address"` recognizes address such as:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/type_address_block.png)
 
 Use the Block Format parameter to recognize addresses embedded in non-address lines, for example, use:
 
-      "type": {
-        "id": "address",
-        "block_format": false
-      } 
+```
+  "type": {
+    "id": "address",
+    "block_format": false
+  } 
+```
 
 to find addresses in paragraphs:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/type_address_paragraph.png)
-
-
 
 **Example output**
 
@@ -90,29 +90,23 @@ to find addresses in paragraphs:
   }
 ```
 
-
-
-
-
 **Formats recognized** 
 
 With either block or in-line address, Sensible recognizes these formats: 
 
-- City, State, Zip, and variant representations of these elements such as abbreviations
-- Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations   
-- PO boxes with a number represented in digits
-- Lists of addresses in the preceding formats
-- Addresses that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and finds the type in the joined text.
-
-
+* City, State, Zip, and variant representations of these elements such as abbreviations
+* Digits, Street, City, State, Zip, and variant representations of these elements such as abbreviations   
+* PO boxes with a number represented in digits
+* Lists of addresses in the preceding formats
+* Addresses that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and finds the type in the joined text.
 
 Sensible is less sensitive to non-address text if you configure `"block_format": false`:
 
-|                                                              | Block | In-line |
-| ------------------------------------------------------------ | ----- | ------- |
-| Newlines optional                                            | yes   | yes     |
+|                                                                                  | Block | In-line |
+| -------------------------------------------------------------------------------- | ----- | ------- |
+| Newlines optional                                                                | yes   | yes     |
 | Trailing or leading non-address text allowed in starting or ending address lines | no    | yes     |
-| Non-address text allowed between address elements            | no    | no      |
+| Non-address text allowed between address elements                                | no    | no      |
 
 For example:
 
@@ -142,9 +136,7 @@ San Francisco, CA, 94110. The billing address is the same.
 
 This type **doesn't** match text  that lacks a zip code, such as `11 Center Street, Amherst, MA`.
 
-
-Boolean
-====
+# Boolean
 
 Returns true for the following case-insensitive strings:
 
@@ -172,14 +164,11 @@ Example output:
 }
 ```
 
-
-Currency
-====
+# Currency
 
 You can define this type using concise syntax, or you can configure options with expanded syntax.
 
-Simple syntax
-----
+## Simple syntax
 
 **Syntax example**
 
@@ -189,7 +178,7 @@ Simple syntax
 
 Returns USA dollars as absolute value. For example,
 
-``` json
+```json
 {
     "source": "3 bil",
     "value": 3000000000,
@@ -206,19 +195,18 @@ To recognize European decimal notation (for example, 1.500,06), see the followin
 
 Recognizes digits with the following formatting:
 
-- dollar sign, optional commas every three digits, optional cents after period
+* dollar sign, optional commas every three digits, optional cents after period
 
-- commas every three digits, optional cents after period
+* commas every three digits, optional cents after period
 
-- no dollar sign, up to six digits without commas as sole line contents. Allow up to nine digits if cents are present.
-
+* no dollar sign, up to six digits without commas as sole line contents. Allow up to nine digits if cents are present.
 
 Recognizes abbreviated and written-out quantities as follows:
 
-- thousand, k
-- million, mil, mm, m
-- billion, bil, b
-- trillion, t
+* thousand, k
+* million, mil, mm, m
+* billion, bil, b
+* trillion, t
 
 For example: 
 
@@ -234,12 +222,11 @@ $5.33
 
 This type **doesn't** match text such as `one million`  or `123456789`.
 
-Configurable syntax
-----
+## Configurable syntax
 
 Use configurable syntax to change the default recognized formats.
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -267,34 +254,32 @@ Use configurable syntax to change the default recognized formats.
 
 **Parameters**
 
-| key                       | value                                                        | description                                                  |
-| ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**)         | `currency`                                                   |                                                              |
-| requireCurrencySymbol     | boolean. Default: false                                      | Requires a currency symbol preceding the amount.             |
-| currencySymbol            | string or object. Default: `$`                               | The text to recognize as a currency symbol, for example "€" or "EURO". The text must precede the amount. This parameter sets the Unit parameter in the output.<br/>To specify multiple currencies to recognize, use this parameter to specify a lookup table. The table maps source text to the Unit parameter.  For example, the following lookup table recognizes currency codes and symbols for dollars and euros, and outputs symbols to the Unit parameter:<br/> `"currencySymbol": {`<br/>`"$": "$"`<br/>`"€": "€"`<br/>`"USD": "$",`<br/>`"EUR": "€",`<br/>`"default": "€"}`<br/>If the source text doesn't include a currency symbol, Sensible uses the default specified in the lookup table. If the lookup table doesn't include a default, Sensible falls back to the $ symbol. |
-| requireThousandsSeparator | boolean.  Default: false                                     | Requires a thousands separator in numbers with a thousands place. |
-| thousandsSeparator        | string. Default: `,`                                         | The separator to require, for example `.`                    |
-| decimalSeparator          | string. Default: `.`                                         | For numbers with a decimal place, specify the separator, for example `,`. |
-| maxDecimalDigits          | number. Default: 4                                           | The maximum number of decimal digits to recognize.           |
-| maxValue                  | number. Default: infinity                                    | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method. |
-| minValue                  | number. Default: infinity                                    | The minimum currency amount to recognize. Use this to extract an amount with a known range. |
-| relaxedWithCents          | Boolean. default: false                                      | Use this parameter when poor-quality scans or photographed documents result in erroneous OCR output for the decimal separator or thousands separator.  <br/> If true, Sensible overrides all other Currency type parameters, outputs USD currency, and recognizes the following number format as a currency:<br/><br/>- any number of digits mixed with `<fuzzySeparator>` characters, followed by<br/>- one `<fuzzySeparator>` character, followed by<br/>- two digits (for the cents)<br/><br/>where a `<fuzzySeparator>` character is any of the following common erroneous OCR outputs for a period or comma: <br/>`.,;: _ `  (period, comma, semicolon, colon, space, underscore)<br/><br/>For example, if you set this parameter to true, then for the erroneous OCR output  `"7.859:36"`, Sensible returns: <br>{"source": "7.859:36",<br/>"type": "currency",<br/>"unit": "$",<br/>"value": 7859.36} |
-| accountingNegative        | `default`, `anyParentheses`, `bothParentheses`, `suffixNegativeSign` Default: `null` | Replaces the deprecated Accounting Currency type. Specifies to recognize accounting sign conventions for negative numbers.<br/>`null` Sensible recognizes negative numbers as described in the preceding **formats recognized** section.<br/>`bothParentheses` -  Sensible assigns a negative value to a number prefixed and suffixed by parentheses.<br/>`anyParentheses` - Sensible assigns a negative value to a number that includes any parentheses as a suffix or prefix. Use this option to handle OCR errors, where an opening or closing parenthesis can be  incorrectly recognized as other characters.<br/>`suffixNegativeSign` - Sensible assigns a negative value to number suffixed by a negative sign.<br/>`default`  Replaces the behavior of the Accounting Currency type for backward compatibility. The equivalent of `bothParentheses` and `suffixNegativeSign`. <br/> |
-| alwaysNegative            | boolean                                                      | If true, Sensible assigns a negative value to a number and ignores sign symbols in the document. For example, use this to capture values in the debit column of an accounting document, where negative signs are omitted. |
-| removeSpaces              | boolean                                                      | Removes whitespace in a line for better currency recognition. For example, changes the line `$  12.45` to `$12.45`. |
-| roundTo                   | number of decimal places to round up to.                     | Rounds up to the specified decimal place. <br/> For example if you specify `"roundTo": 3` then Sensible rounds `0.1234` to `0.123`. <br/>  If you specify `"roundTo": 2`  and `"decimalSeparator": ","` then Sensible rounds `5,249` to `5,25`. |
+| key                       | value                                                                                | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)         | `currency`                                                                           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| requireCurrencySymbol     | boolean. Default: false                                                              | Requires a currency symbol preceding the amount.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| currencySymbol            | string or object. Default: `$`                                                       | The text to recognize as a currency symbol, for example "€" or "EURO". The text must precede the amount. This parameter sets the Unit parameter in the output.<br/>To specify multiple currencies to recognize, use this parameter to specify a lookup table. The table maps source text to the Unit parameter.  For example, the following lookup table recognizes currency codes and symbols for dollars and euros, and outputs symbols to the Unit parameter:<br/> `"currencySymbol": {`<br/>`"$": "$"`<br/>`"€": "€"`<br/>`"USD": "$",`<br/>`"EUR": "€",`<br/>`"default": "€"}`<br/>If the source text doesn't include a currency symbol, Sensible uses the default specified in the lookup table. If the lookup table doesn't include a default, Sensible falls back to the $ symbol.                                                                                                                      |
+| requireThousandsSeparator | boolean.  Default: false                                                             | Requires a thousands separator in numbers with a thousands place.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| thousandsSeparator        | string. Default: `,`                                                                 | The separator to require, for example `.`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| decimalSeparator          | string. Default: `.`                                                                 | For numbers with a decimal place, specify the separator, for example `,`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| maxDecimalDigits          | number. Default: 4                                                                   | The maximum number of decimal digits to recognize.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| maxValue                  | number. Default: infinity                                                            | The maximum currency amount to recognize. Use this to extract an amount with a known range. For example, use it as an alternative to the Tiebreaker parameter, or to extract one currency amount among several returned by a method like the Document Range or Box method.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| minValue                  | number. Default: infinity                                                            | The minimum currency amount to recognize. Use this to extract an amount with a known range.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| relaxedWithCents          | Boolean. default: false                                                              | Use this parameter when poor-quality scans or photographed documents result in erroneous OCR output for the decimal separator or thousands separator.  <br/> If true, Sensible overrides all other Currency type parameters, outputs USD currency, and recognizes the following number format as a currency:<br/><br/>- any number of digits mixed with `<fuzzySeparator>` characters, followed by<br/>- one `<fuzzySeparator>` character, followed by<br/>- two digits (for the cents)<br/><br/>where a `<fuzzySeparator>` character is any of the following common erroneous OCR outputs for a period or comma: <br/>`.,;: _ `  (period, comma, semicolon, colon, space, underscore)<br/><br/>For example, if you set this parameter to true, then for the erroneous OCR output  `"7.859:36"`, Sensible returns: <br />\{"source": "7.859:36",<br/>"type": "currency",<br/>"unit": "$",<br/>"value": 7859.36} |
+| accountingNegative        | `default`, `anyParentheses`, `bothParentheses`, `suffixNegativeSign` Default: `null` | Replaces the deprecated Accounting Currency type. Specifies to recognize accounting sign conventions for negative numbers.<br/>`null` Sensible recognizes negative numbers as described in the preceding **formats recognized** section.<br/>`bothParentheses` -  Sensible assigns a negative value to a number prefixed and suffixed by parentheses.<br/>`anyParentheses` - Sensible assigns a negative value to a number that includes any parentheses as a suffix or prefix. Use this option to handle OCR errors, where an opening or closing parenthesis can be  incorrectly recognized as other characters.<br/>`suffixNegativeSign` - Sensible assigns a negative value to number suffixed by a negative sign.<br/>`default`  Replaces the behavior of the Accounting Currency type for backward compatibility. The equivalent of `bothParentheses` and `suffixNegativeSign`. <br/>                      |
+| alwaysNegative            | boolean                                                                              | If true, Sensible assigns a negative value to a number and ignores sign symbols in the document. For example, use this to capture values in the debit column of an accounting document, where negative signs are omitted.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| removeSpaces              | boolean                                                                              | Removes whitespace in a line for better currency recognition. For example, changes the line `$  12.45` to `$12.45`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| roundTo                   | number of decimal places to round up to.                                             | Rounds up to the specified decimal place. <br/> For example if you specify `"roundTo": 3` then Sensible rounds `0.1234` to `0.123`. <br/>  If you specify `"roundTo": 2`  and `"decimalSeparator": ","` then Sensible rounds `5,249` to `5,25`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
-Date
-====
+# Date
 
 You can define this type using concise syntax,  or you can configure options with expanded syntax.
 
 Sensible matches dates that span multiple lines. To enable this behavior, Sensible joins the lines returned by the method using whitespaces as the separators, and finds the type in the joined text.
 
-Simple syntax
-----
+## Simple syntax
 
-**Syntax example **
+**Syntax example**
 
 `"type":"date"`
 
@@ -311,7 +296,6 @@ Returns an ISO 8601-formatted date-time. For example:
 ```
 
 **Formats recognized**
-
 
 Sensible recognizes the following date formats by default:
 
@@ -347,21 +331,19 @@ June 7th, 2021
 Jan. 9th, 09
 ```
 
-
-Configurable syntax
----
+## Configurable syntax
 
 **Syntax example**
 
 The following example:
 
-````json
+```json
 "type":
   {
     "id": "date",
     "format": ["%b-%d[a-z]{2}-%y$", "%y%M%D", "%b\\\\%d\\\\%Y", "%b\\s*?%Y"]   
   }
-````
+```
 
 Recognizes the following date formats and ignores all default formats:
 
@@ -372,38 +354,26 @@ Recognizes the following date formats and ignores all default formats:
 | `"%b\\\\%d\\\\%Y"`    | JAN\31\2022                            | `"value": "2022-01-31T00:00:00.000Z"`  |
 | `"%b\\s*?%Y"`         | jan 2022                               | `"value": "2022-01-01T00:00:00.000Z"`  |
 
-
-
 **Parameters**
 
-| key               | value                          | description                                                  |
-| ----------------- | ------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `date`                         | Returns datetime.  Sensible outputs the time as midnight UTC. |
+| key               | value                          | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ----------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**) | `date`                         | Returns datetime.  Sensible outputs the time as midnight UTC.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | format            | JS regex or array of JS regexs | Custom date formats override the defaults listed in the simple syntax section.<br/>See the following table for a list of the field descriptors. The field descriptors are concise syntax for regular expressions. You can use Javascript-flavored regular expressions ("regex") with these field descriptors to define custom date formats. Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character).<br/><br/> |
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 
+| **field descriptor** | regex                                                                | **notes**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **example**                                                   |
+| -------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `%b`                 | for each month, case-insensitive pattern like `january` OR  `jan\.?` | Abbreviated month name, with or without periods, or full month name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Jan, Feb, ..., Dec.<br/>January, February, ..., December<br/> |
+| `%y`                 | `[0-9]{2}`                                                           | Two-digit year.<br/>Values in the range 69–99 refer to years in the twentieth century (1969–1999); values in the range 00–68 refer to years in the twenty-first century (2000–2068).<br/>**Tips:** If you want to recognize two-digit years and exclude four-digit years, add an end-of-line regex special character `$` in formats like  `"%m/%d/%y$"`  so that you don't incorrectly match dates like `02/03/1998` as `2019-02-03T00:00:00.000Z`. <br/>If you want to match both two- and four-digit years, you don't need the $ character. Instead you need to specify the four-digit format first, for example, `["%b-%d-%Y","%b-%d-%y"]`.<br/> | 00, 01, ..., 99                                               |
+| `%Y`                 | `[0-9]{4}`                                                           | Four-digit year (year with century as a decimal number).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | 2013, 2019 etc.                                               |
+| `%m`                 | `[0-9]{1,2}`                                                         | The month number, unpadded or zero-padded.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 1,...,12<br />01,...,12                                       |
+| `%M`                 | `[0-9]{2}`                                                           | Two-digit ("zero-padded") month number  (01-12).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | 01,...,12                                                     |
+| `%d`                 | `[0-9]{1,2}`                                                         | The day number, unpadded or zero-padded                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | 1,...,31<br />01,...,31                                       |
+| `%D`                 | `[0-9]{2}`                                                           | Two-digit ("zero-padded") day number (01-31).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 01,...,31                                                     |
 
-
-| **field descriptor** | regex                                                        | **notes**                                                    | **example**                                                  |
-| -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `%b`                 | for each month, case-insensitive pattern like `january` OR  `jan\.?` | Abbreviated month name, with or without periods, or full month name. | Jan, Feb, ..., Dec.<br/>January, February, ..., December<br/> |
-| `%y`                 | `[0-9]{2}`                                                   | Two-digit year.<br/>Values in the range 69–99 refer to years in the twentieth century (1969–1999); values in the range 00–68 refer to years in the twenty-first century (2000–2068).<br/>**Tips:** If you want to recognize two-digit years and exclude four-digit years, add an end-of-line regex special character `$` in formats like  `"%m/%d/%y$"`  so that you don't incorrectly match dates like `02/03/1998` as `2019-02-03T00:00:00.000Z`. <br/>If you want to match both two- and four-digit years, you don't need the $ character. Instead you need to specify the four-digit format first, for example, `["%b-%d-%Y","%b-%d-%y"]`.<br/> | 00, 01, ..., 99                                              |
-| `%Y`                 | `[0-9]{4}`                                                   | Four-digit year (year with century as a decimal number).     | 2013, 2019 etc.                                              |
-| `%m`                 | `[0-9]{1,2}`                                                 | The month number, unpadded or zero-padded.                   | 1,...,12<br>01,...,12                                        |
-| `%M`                 | `[0-9]{2}`                                                   | Two-digit ("zero-padded") month number  (01-12).             | 01,...,12                                                    |
-| `%d`                 | `[0-9]{1,2}`                                                 | The day number, unpadded or zero-padded                      | 1,...,31<br>01,...,31                                        |
-| `%D`                 | `[0-9]{2}`                                                   | Two-digit ("zero-padded") day number (01-31).                | 01,...,31                                                    |
-
-
-
-
-
-
-
-
-Distance
-====
+# Distance
 
 Returns miles and kilometers. Recognizes digits followed optionally by kilometers, miles, or their abbreviations. For example: 
 
@@ -427,16 +397,13 @@ Example output:
   }
 ```
 
-Images
-====
+# Images
 
 Use this solely with the [Document Range](https://docs.sensible.so/docs/document-range) method to return image metadata.
 
-Name
-====
+# Name
 
-Simple syntax
-----
+## Simple syntax
 
 **Syntax example**
 
@@ -462,12 +429,11 @@ Doesn't recognize a list of names more than 6 words long. **Doesn't** recognize 
 
 Recognizes names of the formats below, and variant representations of these elements such as abbreviations. 
 
-- first last
-- first1 last1 and first2 last2
-- last, first1 and first2
-- first1 and first2 last
-- first1 last1, first2 last2,... firstN, lastN
-
+* first last
+* first1 last1 and first2 last2
+* last, first1 and first2
+* first1 and first2 last
+* first1 last1, first2 last2,... firstN, lastN
 
 For example:
 
@@ -478,10 +444,9 @@ DuBois, Renee and Lois
 Argos Fullington, Jax Odenson, Ollie Longstreet
 ```
 
-Configurable syntax
-----
+## Configurable syntax
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -505,19 +470,14 @@ Configurable syntax
 
 **Parameters**
 
-| key               | value                                                        | description                                                  |
-| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**) | `name`                                                       |                                                              |
+| key               | value                                                                 | description                                                                             |
+| ----------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| id (**required**) | `name`                                                                |                                                                                         |
 | capitalization    | `allCaps`, `firstLetter`. Default: no change to source capitalization | Formats the output in all uppercase, or with the first letter of each word capitalized. |
 
+# Number
 
-
-
-Number
-====
-
-Simple syntax
-----
+## Simple syntax
 
 **Syntax example**
 
@@ -525,7 +485,7 @@ Simple syntax
 
 **Output example** 
 
-``` json
+```json
 {
     "source": "123456789",
     "value": 123456789,
@@ -537,8 +497,8 @@ Simple syntax
 
 Recognizes digits in USA decimal notation. Recognizes one or more digits, optionally followed either by: 
 
-- commas preceding every three digits, optional digits after period, or by 
-- digits after period
+* commas preceding every three digits, optional digits after period, or by 
+* digits after period
 
 For example:
 
@@ -550,10 +510,9 @@ For example:
 
 This type does **not** recognize text such as `3.061.534,45`. Configure the Currency type instead. 
 
-Configurable syntax
-----
+## Configurable syntax
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -575,18 +534,16 @@ Configurable syntax
 
 **Parameters**
 
-| key               | value                                    | description                                                  |
-| ----------------- | ---------------------------------------- | ------------------------------------------------------------ |
-| id (**required**) | `number`                                 |                                                              |
+| key               | value                                    | description                                                                                                                         |
+| ----------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**) | `number`                                 |                                                                                                                                     |
 | roundTo           | number of decimal places to round up to. | Rounds up to the specified decimal place. <br/> For example if you specify `"roundTo": 3` then Sensible rounds `0.1234` to `0.123`. |
 
-Paragraph
-====
+# Paragraph
 
 Use with methods that return paragraphs, for example  [Document Range](https://docs.sensible.so/docs/document-range) or [Paragraph](doc:paragraph), to format the extracted text. By default, returns paragraphs formatted with newline characters (\n), instead of formatted as a single string.
 
-Simple syntax
-----
+## Simple syntax
 
 **Syntax example**
 
@@ -594,7 +551,7 @@ Simple syntax
 
 **Output example** 
 
-``` json
+```json
 For any move in date that is after the 15th of the month, Tenant must pay a full month of rent in order to gain possession of the home. The prorated rent amount will be due the second month of lease.\n Every month thereafter, Lessee must pay rent on or before the 1st day of each month with 5 days of grace period. Excludes utility costs.\n
 ```
 
@@ -602,12 +559,11 @@ For any move in date that is after the 15th of the month, Tenant must pay a full
 
 Sensible recognizes paragraphs separated by configurable vertical gaps, or "paragraph breaks." Sensible doesn't use paragraph margins, for indentations, to detect paragraphs.
 
-Configurable syntax
-----
+## Configurable syntax
 
 Use configurable syntax to change the formatting of the extracted text.
 
-**Example syntax **
+**Example syntax**
 
 ```json
 "type":
@@ -636,15 +592,14 @@ When you set`"annotateSuperscriptAndSubscript": true` , Sensible formats the foo
 
 **Parameters**
 
-| key                             | value                   | description                                                  |
-| ------------------------------- | ----------------------- | ------------------------------------------------------------ |
-| id (**required**)               | `paragraph`             |                                                              |
-| annotateSuperscriptAndSubscript | Boolean. default: false | When true:<br/>-  Sensible annotates subscript and superscript text with `[^...]` and `[_...]`, respectively.<br/>- Sensible annotates end-of-page breaks with `[EOP]`. |
+| key                             | value                   | description                                                                                                                                                                                                                            |
+| ------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)               | `paragraph`             |                                                                                                                                                                                                                                        |
+| annotateSuperscriptAndSubscript | Boolean. default: false | When true:<br/>-  Sensible annotates subscript and superscript text with `[^...]` and `[_...]`, respectively.<br/>- Sensible annotates end-of-page breaks with `[EOP]`.                                                                |
 | allNewlines                     | Boolean. default: false | When true, Sensible inserts a newline (`\n`) in the output for every line break in the document text, and two newlines (`\n\n`), for every paragraph break.<br/>When false, Sensible inserts a newline for every paragraph break.<br/> |
-| paragraphBreakThreshold         | default: 0.4            | By default, Sensible detects paragraph breaks when the vertical gap between two lines is larger than 40% of the font height of the output line. Use this parameter to change the percentage. |
+| paragraphBreakThreshold         | default: 0.4            | By default, Sensible detects paragraph breaks when the vertical gap between two lines is larger than 40% of the font height of the output line. Use this parameter to change the percentage.                                           |
 
-Percentage
-====
+# Percentage
 
 Returns percent as an absolute value. Recognizes a percent formatted as digits in USA decimal notation (for example, 1,500.06), followed optionally by a whitespace, followed by a percent sign (%) . 
 
@@ -656,8 +611,6 @@ For example:
 1,000.05%
 ```
 
-
-
 **Example output**
 
 ```json
@@ -668,14 +621,13 @@ For example:
   }
 ```
 
-Phone Number
-====
+# Phone Number
 
 Returns phone numbers:
 
-- Recognizes USA 10-digit phone numbers either with or without a country calling code. May be optionally formatted with parentheses, dashes, spaces, plus sign (+), or periods. 
+* Recognizes USA 10-digit phone numbers either with or without a country calling code. May be optionally formatted with parentheses, dashes, spaces, plus sign (+), or periods. 
 
-- Recognizes international phone numbers if prefixed by a country calling code (for example, +91 for India).
+* Recognizes international phone numbers if prefixed by a country calling code (for example, +91 for India).
 
 Examples: 
 
@@ -693,7 +645,6 @@ Examples:
 
 **Example output**
 
-
 ```json
 {
     "type": "phoneNumber",
@@ -704,10 +655,7 @@ Examples:
 
 This type does *not* recognize country calling codes formatted with 00, for example, 0091 or 001. 
 
-
-
-String
-====
+# String
 
 Default type. Returns strings.
 
@@ -720,19 +668,17 @@ Default type. Returns strings.
 }
 ```
 
-Table
-====
+# Table
 
 Required when you define a [table method](doc:table-methods).
 
-Weight
-====
+# Weight
 
 Returns pounds and kilograms. Recognizes digits in USA decimal notation (for example, 1,500.06):
 
-- digits are in the format recognized by the [Number](doc:types#number) type
+* digits are in the format recognized by the [Number](doc:types#number) type
 
-- "pounds", "kilograms", or their abbreviations follow the digits 
+* "pounds", "kilograms", or their abbreviations follow the digits 
 
 For example: 
 
@@ -756,32 +702,24 @@ For example:
 }
 ```
 
-
-
 # ADVANCED TYPES
 
-
-Compose
-====
+# Compose
 
 Returns a transformed type you define using an array of types. In the array, each successive type in the array takes the previous type's output as its input. For example, use this type:
 
-- As a more syntactically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
-- To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method to transform table cell contents using large language models(LLMs).
-- As an alternative to this type, see the Source ID parameters on the [Query Group](doc:query-group#parameters) method. You can use this parameter to transform extracted data, for example, `format the extracted data in mm-dd-yyy format`.
+* As a more syntactically concise alternative to the [Regex](doc:regex) method or to [Computed Field methods](doc:computed-field-methods). For example, you can write a field to capture a date-typed field, then transform the field's output with the [Split](doc:split) method. Or, see the following example to transform dates using the Compose type.
+* To transform table cell contents. As an alternative, see the [NLP table](doc:nlp-table) method to transform table cell contents using large language models(LLMs).
+* As an alternative to this type, see the Source ID parameters on the [Query Group](doc:query-group#parameters) method. You can use this parameter to transform extracted data, for example, `format the extracted data in mm-dd-yyy format`.
 
-Parameters
----
+## Parameters
 
-| key                  | value                 | description                                                  |
-| -------------------- | --------------------- | ------------------------------------------------------------ |
-| id (**required**)    | `compose`             |                                                              |
+| key                  | value                 | description                                                                                                                                                                                                                                                                                                              |
+| -------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**)    | `compose`             |                                                                                                                                                                                                                                                                                                                          |
 | types (**required**) | array of type objects | Each type in a compose array takes the output of the previous type as its input. <br/>Note that Sensible recommends explicitly configuring a  [tiebreaker](doc:method#parameters)  if you configure this type for a method that can output an array. The tiebreaker applies to the output of the last type in the array. |
 
-
-
-Examples
-----
+## Examples
 
 **Config**
 
@@ -832,13 +770,13 @@ Examples
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/compose_type.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/compose_type.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -898,17 +836,13 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
-
-Custom
-====
+# Custom
 
 Use the Custom type to return all regular-expression pattern matches in source lines. For example, in the source text `available appointment times include 12:45, 14:15, and 16:30` you can use the regular expression `[0-9]{2}:[0-9]{2}` to match `12:45`, `14:15`, and `16:30`.  By default, this type returns the first match (`12:45`).   Take actions on your matches, for example:
 
-- Configure which match to return using the [Tiebreaker](doc:method#parameters) parameter or the first capturing group. 
-- Specify the match as a custom type, using this type's Type parameter. For example, create types for zip codes, time durations, customer IDs, and order numbers.
-- Transform the match using the Compose type. For an example, see the [Compose](doc:types#compose) type.
+* Configure which match to return using the [Tiebreaker](doc:method#parameters) parameter or the first capturing group. 
+* Specify the match as a custom type, using this type's Type parameter. For example, create types for zip codes, time durations, customer IDs, and order numbers.
+* Transform the match using the Compose type. For an example, see the [Compose](doc:types#compose) type.
 
 **Example syntax**
 
@@ -935,15 +869,13 @@ This type outputs strings. For example:
 
 ## Parameters
 
-| key                    | value                    | description                                                  |
-| ---------------------- | ------------------------ | ------------------------------------------------------------ |
-| id (**required**)      | `custom`                 |                                                              |
+| key                    | value                    | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)      | `custom`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | pattern (**required**) | Valid JS regex           | Javascript-flavored regular expression. Returns the first match, or returns the first capturing group if specified. For full support for capturing groups, see the [Replace](doc:types#replace) type. As an alternative to capturing groups, use a [tiebreaker](doc:method), for example, `"tiebreaker": "second"`. See the following section for an example.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex, for example: "i" for case-insensitive. The flag "g" is unsupported. As an alternative, use `"tiebreaker": "join"` to return all matches as one string. |
-| matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple [lines](doc:lines). To enable this behavior, Sensible joins each line returned by the method using a whitespace as the separator, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces. |
-| type                   | String. default: string  | Name for your custom type. For example, `"time_24_hr"` or `YY-MM-date`. |
-
-
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex, for example: "i" for case-insensitive. The flag "g" is unsupported. As an alternative, use `"tiebreaker": "join"` to return all matches as one string.                                                                                                                                                                                                                                                                                                                                                                                             |
+| matchMultipleLines     | Boolean. default: false  | If true, matches regular expressions that span multiple [lines](doc:lines). To enable this behavior, Sensible joins each line returned by the method using a whitespace as the separator, and runs the regular expression on the joined text.<br/>  `^` matches the start of the first line returned by the method, and `$` matches the end of the last line. For example,  `^[0-9 ]+$` matches all the joined text returned by the method, if all the characters are digits or whitespaces.                                                                                    |
+| type                   | String. default: string  | Name for your custom type. For example, `"time_24_hr"` or `YY-MM-date`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ## Examples
 
@@ -977,13 +909,13 @@ The following example shows using a tiebreaker as an alternative to a capturing 
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/custom_type.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/custom_type.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -997,20 +929,18 @@ The following image shows the example document used with this example config:
 }
 ```
 
-
-
 # Replace
 
 Use the Replace type to replace all instances of a regular-expression pattern match in source lines and return the transformed source lines as a string. For example, strip out whitespaces from the source text `$ 5 00 0`   and return  `$5000`.
 
 ## Parameters
 
-| key                        | value                                  | description                                                  |
-| -------------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| id (**required**)          | `replace`                              |                                                              |
+| key                        | value                                  | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| -------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)          | `replace`                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | pattern (**required**)     | Valid JS regex                         | Javascript-flavored regular expression. Replaces all matches. Supports capturing groups. See the following section for an example.<br/>By default, matches regular expressions that span multiple [lines](doc:lines). To enable this behavior, Sensible joins each line returned by the method using a whitespace as the separator, and runs the regular expression on the joined text.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible doesn't validate regular expressions for custom types. |
-| replaceWith (**required**) | string                                 | Specifies the text with which to replace each match. For example, replace every digit in a string (`"pattern:"[0-9]"`) with the character "x" (`"replaceWith":"x"`). For a matched string `a12bc3` this returns `axxbcx`. <br/>Or, specifies to replace capturing groups. For example, `"pattern": "(account)\\s(number)"` and `"replaceWith": "$2, $1"` returns `number, account`. |
-| flags                      | JS-flavored regex flags.  Default: "g" | Flags to apply to the regex. for example: "i" for case-insensitive. Sensible always applies the flag "g" (global). |
+| replaceWith (**required**) | string                                 | Specifies the text with which to replace each match. For example, replace every digit in a string (`"pattern:"[0-9]"`) with the character "x" (`"replaceWith":"x"`). For a matched string `a12bc3` this returns `axxbcx`. <br/>Or, specifies to replace capturing groups. For example, `"pattern": "(account)\\s(number)"` and `"replaceWith": "$2, $1"` returns `number, account`.                                                                                                                                                                                                                       |
+| flags                      | JS-flavored regex flags.  Default: "g" | Flags to apply to the regex. for example: "i" for case-insensitive. Sensible always applies the flag "g" (global).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ## Examples
 
@@ -1106,13 +1036,13 @@ The following example shows how to strip all whitespaces and unwanted characters
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/replace_type.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/replace_type.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -1196,14 +1126,9 @@ Or, if it fails to recognize the total charge as a currency but does recognize i
 }
 ```
 
+# DEPRECATED TYPES
 
-
-DEPRECATED TYPES
-===
-
-
-Accounting Currency
-====
+# Accounting Currency
 
 **Deprecated**. See [Currency](doc:types#currency)
 
@@ -1211,9 +1136,9 @@ Returns US dollar numbers. Supports negative numbers represented either with par
 
 Recognizes digits in USA decimal notation (for example, 1,500.06):
 
-- digits are in the format recognized by the [Number](doc:types#number) type
-- digits are optionally preceded or succeeded by a negative sign (-) 
-- digits are optionally preceded by a USA dollar sign ($) 
+* digits are in the format recognized by the [Number](doc:types#number) type
+* digits are optionally preceded or succeeded by a negative sign (-) 
+* digits are optionally preceded by a USA dollar sign ($) 
 
 Examples: 
 
@@ -1226,7 +1151,6 @@ $527.01-
 ```
 
 **Example output**
-
 
 ```json
  {
