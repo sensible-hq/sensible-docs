@@ -3,6 +3,9 @@ title: "Processors"
 hidden: true
 ---
 
+
+DRAFT concept topic
+
 A *processor* is an API endpoint that you configure for extracting data from a general category of similar documents, for example, `bank_statments` or `tax_documents`.  You configure extraction templates or leverage our out-of-the-box [library](doc:library-quickstart). 
 
  In the endpoint, you configure *templates* that define how to extract data from subcategories of documents in the general processor category. The templates contain queries you write in our document-domain specific query language, [SenseML](doc:senseml-reference-introduction).
