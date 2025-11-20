@@ -12,8 +12,8 @@ next:
 ---
 The following example shows extracting repeated fields from a section group containing a list of claims:
 
-- It captures Sept and Oct claims by specifying  sections that start with "claim number" and  section group range that starts with "September" and ends with "November".
-- From each section, it excludes intervening text that isn't part of a section but that does repeat (`monthly_number_unprocessed_claims`) using a Stop parameter. Instead, it captures this information outside of sections with  `"match:all"`.
+* It captures Sept and Oct claims by specifying  sections that start with "claim number" and  section group range that starts with "September" and ends with "November".
+* From each section, it excludes intervening text that isn't part of a section but that does repeat (`monthly_number_unprocessed_claims`) using a Stop parameter. Instead, it captures this information outside of sections with  `"match:all"`.
 
 **Config**
 
@@ -143,7 +143,7 @@ The following image shows the data extracted by this config for the following ex
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_2.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
