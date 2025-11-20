@@ -12,26 +12,22 @@ next:
 ---
 Try out the most commonly used endpoint, the  [/extract endpoint](https://sensiblehq.readme.io/reference#rate-confirmations). This endpoint accepts a document (PDF or image file) and returns extracted data synchronously. 
 
-Audience
----
+## Audience
 
 If you're new to APIs, use this tutorial to return meaningful document data from an example insurance quote.
 
 To instead run a quick "hello world" API command without prerequisites, check out the [quickstart](doc:quickstart).
 
-Prerequisites
----
+## Prerequisites
 
 See [prerequisites](doc:api-tutorial#prerequisites).
 
-Run the request in Postman
-----
+## Run the request in Postman
 
 To follow along, you'll need:
 
-- A document type and config in the Sensible app. See the [prerequisites](doc:api-tutorial#prerequisites).
-- the sample code:
-
+* A document type and config in the Sensible app. See the [prerequisites](doc:api-tutorial#prerequisites).
+* the sample code:
 
 ```curl
 curl --request POST \
@@ -41,32 +37,16 @@ curl --request POST \
   --data-binary '@/PATH_TO_DOWNLOADED_PDF/auto_insurance_anyco.pdf'
 ```
 
+* the sample PDF:
 
-- the sample PDF:
+| auto\_insurance\_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
-| auto_insurance_anyco | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
-| -------------------- | ------------------------------------------------------------ |
+<HTMLBlock>{`
+<div style="position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;"><iframe src="https://demo.arcade.software/jgr2VsTcHXr3xI9zk25P/" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+`}</HTMLBlock>
 
-
-
-
-
-
-
-
-
-[block:html]
-{
-  "html": "<div style=\"position: relative; padding-bottom: calc(87.19723183391004% + 41px); height: 0;\"><iframe src=\"https://demo.arcade.software/jgr2VsTcHXr3xI9zk25P/\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%;\"></iframe></div>"
-}
-[/block]
-
-
-
-
-View the response
----
-
+## View the response
 
 The response includes a `parsed_document` object that looks something like the following:
 
