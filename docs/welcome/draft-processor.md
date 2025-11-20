@@ -16,17 +16,13 @@ A *processor* is an API endpoint that you configure for extracting data from a g
 
  In the endpoint, you configure *templates* that define how to extract data from subcategories of documents in the general processor category. The templates contain queries you write in our document-domain specific query language, [SenseML](doc:senseml-reference-introduction).
 
- 
-
 ![image-20240607135147766](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20240607135147766.png)
-
-
 
  For example, a `bank_statements` processor might have a template for bank of america statements, a template for wells fargo templates, and template for chase statements. Leverage our layout-based extraction SenseML methods (2do link) for fast and determinstic extractions for highly structured documents in the processor, and include an LLM-based, generalized template you can [fall back](doc:fallbacks#capture-long-tail-documents-with-fallback-configs) to if you have a long-tail of variable documents that you want to include in the processor. Here's an example of 2 different templates:
 
-- **layout-based template**
+* **layout-based template**
 
-- ```json
+* ```json
   {
     "fingerprint": {
       "tests": [
