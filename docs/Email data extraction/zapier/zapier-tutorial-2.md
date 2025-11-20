@@ -20,8 +20,8 @@ This topic describes how to configure an example two-Zap workflow for Zapier. Th
 
 Sensible supports two-step Zapier workflows as follows:
 
-- The first Zap extracts the document and returns a `WAITING` extraction status.
-- The second Zap triggers when the extraction status is `COMPLETE` and takes action on the extraction.
+* The first Zap extracts the document and returns a `WAITING` extraction status.
+* The second Zap triggers when the extraction status is `COMPLETE` and takes action on the extraction.
 
 You can use the example Zaps in this topic as templates. For example, modify this workflow to trigger extractions based on other file actions in Zapier-support apps (for example, a new document uploaded to Google Drive instead of a new email in Gmail). Or, output to different destinations (for example, a database record instead of spreadsheet files in Google Drive).
 
@@ -108,8 +108,8 @@ See the following steps to configure Zap 2.
          4. **Create Excel output**: True. This creates an Excel [spreadsheet](doc:excel-reference) from the extracted document data and stores it at URL.
 
       5. Test:
-         1. Click **Test trigger**.  
-              	1. Select the extraction you triggered in the previous Zap. Verify its status is now `COMPLETE` and that the `parsed_document` object contains extracted data from the example document you emailed in a previous step. For example, `Parsed Document Year Value` is `2021`.
+         1. Click **Test trigger**.\
+             	1\. Select the extraction you triggered in the previous Zap. Verify its status is now `COMPLETE` and that the `parsed_document` object contains extracted data from the example document you emailed in a previous step. For example, `Parsed Document Year Value` is `2021`.
 
 3. For the action, take the following steps:
 
@@ -179,10 +179,10 @@ Congratulations, your integration is now published and running! Take the followi
 
 **General Limitations**
 
-- You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
-- You can extract from single-document files with Zapier. If you want to extract from portfolio files (documents that contain multiple documents, for example, insurance application bundles), use the Sensible app, API, or SDK. 
+* You can configure single-value field output with the Sensible-Zapier integration. For multi-value output such as tables and sections, you can compile document extractions into a spreadsheet or CSV file using Sensible's API. For more information, see [SenseML to Excel reference](doc:excel-reference).
+* You can extract from single-document files with Zapier. If you want to extract from portfolio files (documents that contain multiple documents, for example, insurance application bundles), use the Sensible app, API, or SDK. 
 
 **Sensible action limitations**
 
-- If you select **New file in folder**  event in Google Drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
-- Run an extraction on the file you intend to use for your Zapier sample setup a minute or so before you start configuring Zap 2. Otherwise, Zapier can return an incomplete example extraction.
+* If you select **New file in folder**  event in Google Drive folder as the trigger for the Sensible action, Zapier ignores uploaded files whose create or modified date is older than 4 days. 
+* Run an extraction on the file you intend to use for your Zapier sample setup a minute or so before you start configuring Zap 2. Otherwise, Zapier can return an incomplete example extraction.
