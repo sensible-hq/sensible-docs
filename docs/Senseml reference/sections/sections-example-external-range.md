@@ -14,8 +14,7 @@ The following examples show using text external to sections groups as anchors fo
 
 One example uses a static external range to anchor on a heading that occurs once in the document. Another example uses a dynamic external range to anchor on irregularly repeating headings interleaved with sections.
 
-Example: static
----
+## Example: static
 
 The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections by defining a single, static external range that occurs at the beginning of the document.
 
@@ -164,7 +163,7 @@ The following image shows the data extracted by this config for the following ex
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections_external_range.pdf) |
-| ------------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -235,8 +234,7 @@ The following image shows the data extracted by this config for the following ex
 }
 ```
 
-Example: Dynamic
----
+## Example: Dynamic
 
 The following example shows extracting repeated fields from a section group, when each section lacks anchoring text. To overcome this limitation, the example accesses anchors outside the sections. The sections anchor on external ranges that capture page headings, whose alignment changes for odd and even pages.  To avoid misaligned [Intersection](doc:intersection) methods in each section, the example defines dynamic external ranges relative to each section to capture each page's heading.
 
@@ -364,13 +362,13 @@ In the following screenshot, the green brackets denote sections, where each sect
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_external_range_dynamic.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/sections_external_range_dynamic.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
