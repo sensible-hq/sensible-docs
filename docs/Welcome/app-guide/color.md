@@ -23,15 +23,14 @@ This topic describes the color-coded symbols in the Sensible app that visually r
 | [Pink box](doc:color#pink-box)                   | fingerprint                          |
 | [Purple box](doc:color#purple-box)               | line details                         |
 
-Yellow box
-====
+# Yellow box
 
 ***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
 
 For example, the following image shows:
 
-- an anchor line outlined in yellow ("Here is a good candidate")
-- a line output by the Label method outlined in blue ("And here's the text below")
+* an anchor line outlined in yellow ("Here is a good candidate")
+* a line output by the Label method outlined in blue ("And here's the text below")
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
 
@@ -52,15 +51,14 @@ The query used for the preceding image is:
 }    
 ```
 
-Blue box
-====
+# Blue box
 
 ***Blue boxes*** represent method output. For more information about method, see [Method object](doc:method). 
 
 For example, the following image shows:
 
-- an anchor line outlined in yellow ("Here is a good candidate")
-- a line output by the Label method outlined in blue ("And here's the text below")
+* an anchor line outlined in yellow ("Here is a good candidate")
+* a line output by the Label method outlined in blue ("And here's the text below")
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
 
@@ -81,19 +79,17 @@ The query used for the preceding image is:
 }    
 ```
 
-Green box
-====
+# Green box
 
 ***Green boxes*** represent boxes or regions.
 
-Green point
-====
+# Green point
 
 ***Green points*** represent the following:
 
--  a starting point for recognizing a box or checkbox
+* a starting point for recognizing a box or checkbox
 
-- a starting point for defining the coordinates of a region
+* a starting point for defining the coordinates of a region
 
 Green points can be useful for troubleshooting. For example, in the following image, Sensible can't recognize the box. The green dot provides a visual clue about the problem: the green dot is *on* the box border itself, as specified by (`"position": "left"`).
 
@@ -103,10 +99,7 @@ If you specify to find the box borders by starting from the right edge of the an
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/box_position_right.png)
 
-
-
-Dotted blue box
-===
+# Dotted blue box
 
 ***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
 
@@ -134,14 +127,11 @@ The query used for the preceding image is:
 
 Common parameters resulting in filtering include:
 
-- the field's data type (currency, date, address, etc)
-- the method's stop
-- the method's tiebreaker
+* the field's data type (currency, date, address, etc)
+* the method's stop
+* the method's tiebreaker
 
-
-
-Dotted yellow box
-===
+# Dotted yellow box
 
 ***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. 
 
@@ -167,22 +157,17 @@ Sensible filters out "python" strings that don't meet the Label method's proximi
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
 
-
-
 Common parameters resulting in filtering include:
 
--  the field's data type (currency, date, address, etc)
--  the field's match method (first, last, all)
--  the anchor's start and end
--  the method's id (for example, a Label method filters out all lines that aren't close to other lines)
+* the field's data type (currency, date, address, etc)
+* the field's match method (first, last, all)
+* the anchor's start and end
+* the method's id (for example, a Label method filters out all lines that aren't close to other lines)
 
+# Pink box
 
-
-Pink box
-====
-***Pink boxes*** represent matching fingerprint tests.  
+***Pink boxes*** represent matching fingerprint tests.\
 In the following image, the pink text is a matching fingerprint. 
-
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_fingerprint.png)
 
@@ -206,15 +191,12 @@ fingerprint": {
 
 **Note** The pink highlighting for fingerprint text isn't compatible with preprocessors that change line indices, such as Split Lines and Merge Lines.
 
-Purple box
-====
+# Purple box
 
 If you hover on a line (text surrounded by a gray box), it changes to a ***purple box*** if it has details to display. Click on the line to show:
 
-- underlying extracted text
-- coordinates of the line's boundaries
-- SenseML and extracted output that relies on that text
-
-
+* underlying extracted text
+* coordinates of the line's boundaries
+* SenseML and extracted output that relies on that text
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
