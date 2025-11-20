@@ -12,12 +12,10 @@ next:
 ---
 The following example:
 
-- Uses the Column Selection parameter in a vertical sections group to make sections out of table "slices". For more information about the Column Selection parameter, see [Section nuances](doc:section-nuances#column-selection).
-- Uses relative column coordinates to find nested tables in each column table. (`"columnsRelativeToAnchor":"true"`).
+* Uses the Column Selection parameter in a vertical sections group to make sections out of table "slices". For more information about the Column Selection parameter, see [Section nuances](doc:section-nuances#column-selection).
+* Uses relative column coordinates to find nested tables in each column table. (`"columnsRelativeToAnchor":"true"`).
 
 **Config**
-
-
 
 ```json
 {
@@ -117,15 +115,13 @@ The following example:
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_table_in_table.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
-| ----------- | ------------------------------------------------------------ |
-
-
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
