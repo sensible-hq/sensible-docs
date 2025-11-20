@@ -12,12 +12,11 @@ next:
 ---
 Extracts paragraphs in various layouts, including paragraphs in columns and paragraphs that span pages. 
 
-[**Parameters**](doc:document-range#parameters)
-[**Examples**](doc:document-range#examples)
+[**Parameters**](doc:document-range#parameters)\
+[**Examples**](doc:document-range#examples)\
 [**Notes**](doc:document-range#notes)
 
-Parameters
-====
+# Parameters
 
 **Note:** For the full list of parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
@@ -25,11 +24,7 @@ Parameters
 | ----------------- | ----------- | ----------- |
 | id (**required**) | `paragraph` |             |
 
-
-Examples
-====
-
-
+# Examples
 
 **Config**
 
@@ -67,7 +62,7 @@ Examples
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example PDF used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/paragraph.png)
@@ -75,7 +70,7 @@ The following image shows the example PDF used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/paragraph_1.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/paragraph.pdf) |
-| ----------- | ------------------------------------------------------------ |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -92,8 +87,6 @@ The following image shows the example PDF used with this example config:
 }
 ```
 
-
-Notes
-====
+# Notes
 
 This method uses document layout to detect paragraphs. In contrast, the Document Range method extracts all the text between an upper and a lower bound.
