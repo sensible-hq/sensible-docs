@@ -12,23 +12,21 @@ next:
 ---
 For large spreadsheets with tens of thousands of rows, the Cell Rows field type extracts cells under specified column headings. This method has the following limitations:
 
-- The spreadsheet must have a simple columnar layout, where the first row or rows contains your target column headers. This method extracts cells in each specified column until the end of the sheet. 
-- This method extracts solely from the first tab in multi-tab spreadsheets. 
-- You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types. This method doesn't support PDFs. 
+* The spreadsheet must have a simple columnar layout, where the first row or rows contains your target column headers. This method extracts cells in each specified column until the end of the sheet. 
+* This method extracts solely from the first tab in multi-tab spreadsheets. 
+* You must upload the spreadsheet to Sensible as one of the [supported](doc:file-types) spreadsheet file types. This method doesn't support PDFs. 
 
 The Cell Rows field type is a speedier alternative to general-purpose SenseML methods, which you can use with smaller spreadsheets. 
 
-Parameters
-====
+# Parameters
 
-
-| key                      | value                                                        | description                                                  |
-| ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet. Sensible ignores empty rows and extracts data under the specified Header Row to the end of the worksheet. |
-| type  (**required**)     | `cellRows`                                                   |                                                              |
-| headerRow (**required**) | Anchor object                                                | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects. |
-| headerRowsCount          | integer. default: 1                                          | Specifies the number of consecutive header rows. You can specify a match in the Field object's Header parameter for any header row. |
-| stop                     | [Match object](doc:match) or array of Match objects. default: none | Stops extraction at the end of the row above the matched line. Excludes the row containing the matched line. |
+| key                      | value                                                                                  | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------------------ | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id (**required**)        | string                                                                                 | Specifies an ID for a group of rows to extract in the spreadsheet. Sensible ignores empty rows and extracts data under the specified Header Row to the end of the worksheet.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| type  (**required**)     | `cellRows`                                                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| headerRow (**required**) | Anchor object                                                                          | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects.                                                                                                                                                                                                                                                                                                                                   |
+| headerRowsCount          | integer. default: 1                                                                    | Specifies the number of consecutive header rows. You can specify a match in the Field object's Header parameter for any header row.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| stop                     | [Match object](doc:match) or array of Match objects. default: none                     | Stops extraction at the end of the row above the matched line. Excludes the row containing the matched line.                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/><br/><br/>- fields that use a spreadsheet-specific method, `cell`. The cell method extracts a cell under the specified header for each extracted row. It contains the following parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/><br/>- fields that use [computed fields methods](doc:computed-field-methods).<br/> |
 
 ## Examples
@@ -121,13 +119,13 @@ The following example shows using a Cell Rows field to extract rows from a sprea
 
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/cell_rows.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/cell_rows.xlsx) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
