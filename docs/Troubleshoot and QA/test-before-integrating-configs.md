@@ -15,8 +15,7 @@ Before integrating existing config updates into your application, test the updat
 1. In the Sensible app, click **Publish** and choose **Development** to save your updates to a development environment.
 2. Add the query parameter `?environment=development` to your extraction [API calls](https://docs.sensible.so/reference) to test your updated config.
 
-Environment fallback behavior
-----
+## Environment fallback behavior
 
 When you  specify `?environment=development` in an API endpoint, Sensible falls back to the production version for each configuration if it can't find a development version.
 
@@ -29,14 +28,14 @@ To understand fallback behavior, imagine the document type `test_doc_type` has t
 
 If you specify `?environment=development`, Sensible searches for a best fit across both production and development by comparing:
 
- -  `configA` in development (bad fit)
- -   `configB` in production (OK fit)
+* `configA` in development (bad fit)
+* `configB` in production (OK fit)
 
 And returns output from  `configB`  (OK fit) in production. Notice that even though the API call specifies  the Development environment, the call returns output from a *production* config because of fallback behavior.
 
 If you don't specify an environment, Sensible ignores development versions and compares:
 
-- `configA` in production (best fit)
-- `configB` in production (OK fit)
+* `configA` in production (best fit)
+* `configB` in production (OK fit)
 
 And returns output from `configA` (best fit) in production.
