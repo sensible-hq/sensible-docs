@@ -2,3 +2,4 @@
 - create-document-type
 - get-document-type
 - update-document-type
+- delete-document-type
