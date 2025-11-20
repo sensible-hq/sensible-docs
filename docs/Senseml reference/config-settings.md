@@ -14,5 +14,5 @@ A config is a template that defines how to extract data from a set of similar do
 
 The following pages describe options you can set in configs:
 
-- [Fingerprint](doc:fingerprint)
-- [Verbosity](doc:verbosity)
+* [Fingerprint](doc:fingerprint)
+* [Verbosity](doc:verbosity)
