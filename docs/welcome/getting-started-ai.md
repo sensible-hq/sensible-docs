@@ -14,10 +14,10 @@ next:
 
 See the following list for an overview of how to automate your document processing with Sensible:
 
-- **Learn** to extract data from documents, or use out-of-the-box extraction support
-- [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
-- [**Quality control**](doc:validate-extractions) extracted data
--  [**Monitor**](doc:metrics) and [**review**](doc:human-review)  extracted data in production 
+* **Learn** to extract data from documents, or use out-of-the-box extraction support
+* [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
+* [**Quality control**](doc:validate-extractions) extracted data
+* [**Monitor**](doc:metrics) and [**review**](doc:human-review)  extracted data in production 
 
 This guide gets you started with the first step, extracting data.
 
@@ -27,9 +27,9 @@ Let's get started with extracting document data from an example bank statement. 
 
  In this guide, you'll:
 
-- Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
-- Publish your prompt as part of a "config."
-- Test your config against a second, similar document to ensure it extracts the same target data.
+* Extract data from an example document using a natural-language description of your target data, for example, a checking bank account number. 
+* Publish your prompt as part of a "config."
+* Test your config against a second, similar document to ensure it extracts the same target data.
 
 ## Get an account
 
@@ -41,7 +41,7 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## View an example
 
-1. After you complete Sensible's guided tour as a new user, navigate to a prebuilt example bank extraction at <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement>. 
+1. After you complete Sensible's guided tour as a new user, navigate to a prebuilt example bank extraction at [https://app.sensible.so/editor/instruct/?d=sensible\_instruct\_basics\&c=bank\_statement\&g=bank\_statement](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics\&c=bank_statement\&g=bank_statement). 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
@@ -77,15 +77,15 @@ To test the automatically generated extraction configuration with another docume
 
 So far, you've extracted short, simple facts. Now let's extract more complex data, such as tables and lists. To extract a table, take the following steps:
 
-- Click **Back to fields**.
+* Click **Back to fields**.
 
-- Click **Table**.
+* Click **Table**.
 
-- The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `date`, `description`, and `amount`.
+* The example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, configure the table as shown in the following image. Configure a query for each column in the table, for example, `date`, `description`, and `amount`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_11.png)
 
-- Scroll down the right pane and click **Extract**. Sensible displays the extracted data. 
+* Scroll down the right pane and click **Extract**. Sensible displays the extracted data. 
 
 ## Publish the prompt
 
@@ -101,7 +101,7 @@ Now you've published your config, you can get document data at scale using Sensi
 
 Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
-1. Navigate to <https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics&c=bank_statement&g=bank_statement_2>. Notice that the left pane now displays a statement for a different customer.
+1. Navigate to [https://app.sensible.so/editor/instruct/?d=sensible\_instruct\_basics\&c=bank\_statement\&g=bank\_statement\_2](https://app.sensible.so/editor/instruct/?d=sensible_instruct_basics\&c=bank_statement\&g=bank_statement_2). Notice that the left pane now displays a statement for a different customer.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_8.png)
 
@@ -120,8 +120,7 @@ Sensible recommends grouping similar documents, for example, bank statements, in
 
 ### Learn more about extraction
 
-- For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
-
+* For advanced extraction strategies, see [Choosing an extraction approach](doc:author).
 
 ### Integrate
 
