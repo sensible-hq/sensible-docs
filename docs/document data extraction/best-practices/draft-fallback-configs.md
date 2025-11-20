@@ -22,7 +22,7 @@ For example, say you extract data from automotive repair invoices. You have high
 
 1. To define a layout-based config for each of your top 5 auto shops, take the following steps:
 
-   - Define  [fingerprints](doc:fingerprint) for each auto shop's config. For example, if Andy and Son's is one of your top 5 shops, then include fingerprints for phrases that occur in those invoices:
+   * Define  [fingerprints](doc:fingerprint) for each auto shop's config. For example, if Andy and Son's is one of your top 5 shops, then include fingerprints for phrases that occur in those invoices:
 
    ```json
    {
@@ -37,30 +37,28 @@ For example, say you extract data from automotive repair invoices. You have high
      },
    ```
 
-    - Leverage the consistent formatting in each of the top vendors to extract data. For example, if Andy and Son's always labels the repaired vehicle's VIN number with the text `VIN #:`, then define a field similar to the following:
+   * Leverage the consistent formatting in each of the top vendors to extract data. For example, if Andy and Son's always labels the repaired vehicle's VIN number with the text `VIN #:`, then define a field similar to the following:
 
-      ```json
-      {
-        "fields": [
-          {
-            "id": "vehicle_VIN",
-            "anchor": "VIN #:",
-            "method": {
-              "id": "label",
-              "position": "below"
-            }
-          }
-        ]
-      }
-      ```
-
-      
+     ```json
+     {
+       "fields": [
+         {
+           "id": "vehicle_VIN",
+           "anchor": "VIN #:",
+           "method": {
+             "id": "label",
+             "position": "below"
+           }
+         }
+       ]
+     }
+     ```
 
 2. To define an LLM-based config for the long tail, take the following steps:
 
-   - Don't define fingerprints.
+   * Don't define fingerprints.
 
-   - Define the same field IDs as in previous configs using LLM-based methods. For example:
+   * Define the same field IDs as in previous configs using LLM-based methods. For example:
 
      ```json
      {
