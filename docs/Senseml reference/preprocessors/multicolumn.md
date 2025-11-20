@@ -12,20 +12,18 @@ next:
 ---
 Use this preprocessor for documents containing columns of text. Ensures that Sensible [sort lines](doc:lines#line-sorting) into columns when present, rather than the default behavior of sorting lines left to right across the page.
 
-[**Parameters**](doc:multicolumn#parameters)
-[**Examples**](doc:multicolumn#examples)
+[**Parameters**](doc:multicolumn#parameters)\
+[**Examples**](doc:multicolumn#examples)\
 [**Notes**](doc:multicolumn#notes)
 
-Parameters
-====
+# Parameters
 
-| key                 | value                               | description                                                  |
-| ------------------- | ----------------------------------- | ------------------------------------------------------------ |
-| type (**required**) | `multicolumn`                       | Recognizes multi-column layouts in documents.                |
+| key                 | value                               | description                                                                                                                                                                                                                                                                                                         |
+| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**) | `multicolumn`                       | Recognizes multi-column layouts in documents.                                                                                                                                                                                                                                                                       |
 | minGutterArea       | number in square inches. default: 1 | Configures detecting the gutters between columns. Sensible ignores a gutter between columns with an area less than the specified square number of inches.<br/> To determine the area, Sensible detects whitespace between columns, draws a rectangular gutter in the whitespace, and measures the rectangle's area. |
 
-Examples
-====
+# Examples
 
 The following example shows extracting text from a research paper that contains a 3-column layout, a 2-column layout, and a page with no columns.
 
@@ -151,13 +149,13 @@ The following example shows extracting text from a research paper that contains 
 
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multicolumn.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/multicolumn.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
