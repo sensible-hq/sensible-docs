@@ -51,10 +51,9 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 # Parameters
 
-
-| key                 | value            | description                                                  |
-| :------------------ | :--------------- | :----------------------------------------------------------- |
-| type (**required**) | `jsonLogic`      | Supports JsonLogic                                           |
+| key                 | value            | description                                                                                                                                                                                                                                                                                                                                                       |
+| :------------------ | :--------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**) | `jsonLogic`      | Supports JsonLogic                                                                                                                                                                                                                                                                                                                                                |
 | rule                | JsonLogic object | Define the custom schema using  JsonLogic [operations](doc:jsonlogic).  To create custom objects in the schema, you can use the [eachKey](https://json-logic.github.io/json-logic-engine/docs/higher) operation. Or, if the keys of the object you intend to build can vary depending on the calculation, use Sensible's [object](doc:jsonlogic#object) operator. |
 
 # Examples
@@ -153,13 +152,13 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 }
 ```
 
-**Example document**
+**Example document**\
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessor.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/postprocessor.pdf) |
-| ---------------- | ------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
