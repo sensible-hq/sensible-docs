@@ -12,8 +12,7 @@ next:
 ---
 Adds a key/value pair to an extraction, where the value is a constant that's not necessarily present in the PDF. This lets you include information, such as vendor or form names, that may be lacking from the PDF. For example, imagine a vendor solely issues 6-month policy quotes, so they never state the policy duration in the PDF. Use the Constant method to add `policy_duration_months: 6`. 
 
-Parameters
-====
+# Parameters
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
 
@@ -22,8 +21,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | id (**required**)    | `constant` |                                                          |
 | value (**required**) | string     | The value to return in the field's key/value pair output |
 
-Examples
-====
+# Examples
 
 The following example shows adding a form name and policy duration as constants to a config's output.
 
@@ -68,14 +66,12 @@ The following example shows adding a form name and policy duration as constants 
   }
 ```
 
-
-
 **Example document**
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/constant.png)
 
 | Example PDF | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
-| ------------------------ | ------------------------------------------------------------ |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
