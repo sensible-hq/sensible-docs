@@ -109,6 +109,7 @@ all_changelogs.each_with_index do |changelog, index|
   # v2 API: content is in 'content.body' field instead of 'html'
   # Get the HTML content for processing
   html_content = changelog.dig('content', 'body') || changelog['html'] || ''
+  puts html_content
   
   # Apply each replacement and track changes
   replacements.each do |replacement|
