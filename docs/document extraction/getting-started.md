@@ -48,7 +48,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
    1. Download the following example document, then select it in the dialog for upload:
 
-   | Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+   | Example document | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
    2. For the document type name, enter `auto_insurance_quotes`.
@@ -57,11 +57,11 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
    4. Deselect the **Auto-generate configuration** checkbox.
    5. Click **Start extraction** to create the document type.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_doc_type.png)
 
 2. Sensible displays the query editor for your config and example document.  In this view, you see an empty config pane on the left, the document in the middle, and an empty output pane on the right:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_blank_config.png)
 
 Click the code bracket icon in the right pane to ensure you view the output as JSON.
 
@@ -150,7 +150,7 @@ For this tutorial, you'll extract these fields:
 
 The following image shows this example in the Sensible app:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_after_paste.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_after_paste.png)
 
 You should see the following extracted data in the right pane:
 
@@ -221,7 +221,7 @@ The easiest way to start extracting simple information is to author a natural-la
 
 For example, to extract the bodily injury liability:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_question.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_question.png)
 
 The config uses the [Query Group](doc:query-group) method to query for the  `bodily injury premium`. You can group together other queries if the answers are located within a page or two of each other in the document. For example, in the group, the config also queries for the  `insurer's customer service phone number`.  
 
@@ -272,7 +272,7 @@ Let's look next at several basic layout-based methods.
 ## How it works: Label method
 
 To extract the policy period from the document:\
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_label_right.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_label_right.png)
 
 The config uses the [Label method](doc:label):
 
@@ -307,7 +307,7 @@ You can extract text to the right, left, above, or below a label. For example, h
 
 See those gray boxes around the text in the following image?
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_concept_1.png)
 
 Each gray box shows the boundaries for a "line." Sensible recognizes lines using whitespaces and other factors, so "lines" can occupy the same height on the page.
 
@@ -326,7 +326,7 @@ The Label method can operate in a single line, or on consecutive lines. Here's a
 
 This returns null, because the Label method works for text in the same line or in proximate lines. In this case, the problem is that the gap between the two lines of text is more than 0.2 inches:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_concept_2.png)
 
  Take a look instead at a purpose-built Row method instead to extract text in a table. 
 
@@ -334,7 +334,7 @@ This returns null, because the Label method works for text in the same line or i
 
 To extract the comprehensive premium of $150:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_row.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_row.png)
 
 The config uses the [Row method](doc:row):
 
@@ -382,7 +382,7 @@ In the app, you can visually inspect anchors and methods by looking at their col
 
 To continue the Row method example from the previous section, in the following image the orange box shows that "Comprehensive" is the anchor line:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_concept_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_concept_3.png)
 
 The dotted blue boxes show you that the Row method matches *all* the lines  in the row after the anchor, but then narrows down the actual output to $150 using `"tiebreaker": "second"`. 
 
@@ -390,7 +390,7 @@ The dotted blue boxes show you that the Row method matches *all* the lines  in t
 
 To extract the policy number from this document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_box.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_box.png)
 
 The config uses the [Box method](doc:box):
 
@@ -444,7 +444,7 @@ Before integrating the config with an application and writing [validation tests]
 
 1. Repeat the steps in the previous section to upload a second generic car insurance quote:
 
-   | auto\_insurance\_anyco\_2 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_2.pdf) |
+   | auto\_insurance\_anyco\_2 | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_2.pdf) |
    | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 2. Click the **anyco** config, select the "auto\_insurance\_anyco\_2" document, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
@@ -457,7 +457,7 @@ Before integrating the config with an application and writing [validation tests]
      }
    ```
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_error_1.png)
 
 That seems like sloppy document formatting, but let's work with it. There are several options for capturing the policy period reliably, including:  
 
@@ -524,11 +524,11 @@ Replace the existing `policy_period` field with the following field in the Sensi
 
 This field defines a region in inches relative to the anchor. Since the region overlaps the anchor, specify a Word Filters parameter to remove the anchor text in the output. See the green box representing the region in the editor? This box dynamically resizes as you adjust the region parameters (such as the Height and Start parameters), so you can visually tweak the region till you're satisfied. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_error_3.png)
 
 Let's double check that this region also works with the first document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_error_4.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_error_4.png)
 
 Yes, it works too.
 
@@ -540,7 +540,7 @@ In a production scenario, continue testing documents until you have confidence y
 
 When you're ready to integrate with your application, enable using the config with the Sensible SDKs or API by taking the following steps:
 
-1. Click **Publish configuration**.  The config is still a work in progress, so click **Development**.  Now you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
+1. Click **Publish configuration**.  The config is still a work in progress, so click **Development**.  Now you can use the query parameter `env=development`  to test the integration before you go to production:![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_publish_config.png).
 2. Use the Sensible SDKs or API to integrate with your application.
 
 # Validate extractions in production
@@ -570,7 +570,7 @@ To add these tests:
 }
 ```
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_validation.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_validation.png)
 
 3. Click **Create**.
 4. Repeat the previous steps to create another validation with the following settings:
@@ -591,7 +591,7 @@ To add these tests:
    * the policy number is missing
    * the property damage liability premium is $200 more than the comprehensive premium
 
-| auto\_insurance\_anyco\_3 | [Download link](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
+| auto\_insurance\_anyco\_3 | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 You should receive a response with errors and warnings in the Validations array, as shown in the following API response excerpt:

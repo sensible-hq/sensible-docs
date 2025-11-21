@@ -30,11 +30,11 @@ You can use all of the preceding SenseML features to write a *config* to handle 
 
 For an overview, see the following example of a short config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/senseml_intro.png)
 
 Try out this example in the Sensible app using the following document and config:
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/split.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/split.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:

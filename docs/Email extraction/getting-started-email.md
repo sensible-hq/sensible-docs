@@ -16,7 +16,7 @@ You can automatically extract structured data from email bodies and attachments 
 
 The following image shows an overview of  email extraction:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_overview.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/email_overview.png)
 
 ## Implementation overview
 
@@ -47,7 +47,7 @@ Let's walk through an example of implementing an email processor. In this exampl
 
 The following image shows an example email:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_sample.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/email_sample.png)
 
  You'll create a `residential_lease_applications` email processor to handle emails like this one.
 
@@ -76,7 +76,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
    1. Name the document type `leases`.
    2. Upload the following example document:
 
-   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
+   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/email_lease.pdf) |
    | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
    3. Name the config `sensibleproperties`  for the fictional property management company in this example.
@@ -116,7 +116,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
 
    1. Follow the preceding steps to create a document type named `email_body_lease_applications` with a config named `sensibleproperties`. Upload the following example document:
 
-   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_body_lease.pdf) |
+   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/email_body_lease.pdf) |
    | ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 
       **Note**: This example document is a PDF exported from an email body for testing. In production, Sensible automatically converts email bodies to PDFs.
@@ -161,7 +161,7 @@ Your `residential_lease_applications` email processor uses the document types yo
 1. You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify. For example, it classifies an attached Gusto paystub against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
 2. You specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_processor.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/email_processor.png)
 
 Each document type contains [*configs*](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) queries for extracting document data. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity.
 
@@ -171,7 +171,7 @@ To receive extracted email data, you have the following options:
 
 * By default, view and download the extracted data in the Sensible app on the **Extraction history** tab:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_history_ui.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/email_history_ui.png)
 
 * Implement a webhook as a destination for the extracted data. In a succeeding step, provide Sensible with its URL.
 
@@ -191,9 +191,9 @@ Send a test email with attachments to the processor you created. You can downloa
 
 | document        | link                                                                                                                                          |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Drivers license | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_drivers_license_sample.pdf) |
-| Pay stub        | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_gusto_sample.pdf)           |
-| Lease           | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/email_lease.pdf)                  |
+| Drivers license | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/email_drivers_license_sample.pdf) |
+| Pay stub        | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/email_gusto_sample.pdf)           |
+| Lease           | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/email_lease.pdf)                  |
 
  For the body, use the following text:
 
@@ -220,4 +220,4 @@ You should get back an extraction response for each attachment at the webhook yo
 
 In the Sensible app, click each extraction to view its data. For example, the paystub extraction includes the extracted fields `employer_name: Delta Airlines` and `employee_name: Brenda Sample`:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/email_details_ui.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/email_details_ui.png)

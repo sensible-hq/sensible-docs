@@ -14,7 +14,7 @@ As you scale up and encounter document complexity, you can optimize extraction p
 
 See the following diagram for an overview of when to use layout-based or LLM-based methods: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/document_landscape.png)
 
 Sensible recommends using LLM prompts for free-form, highly variable documents, and layout-based, or "rule-based" queries for structured, less-variable documents. In cases where either strategy works, Sensible recommends layout-based queries for the sake of fast performance and deterministic output. You can mix and match strategies since they're both part of Sensible's query language, *SenseML*. For example, you can [fall back](doc:fallbacks) between layout- and LLM-based queries for the same document. 
 

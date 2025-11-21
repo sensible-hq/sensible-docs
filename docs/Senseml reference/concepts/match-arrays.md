@@ -95,9 +95,9 @@ Use the Reverse parameter when a difficult-to-match target line precedes an easy
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/reverse_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/reverse_1.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/reverse.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/reverse.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
@@ -115,7 +115,7 @@ The following image shows the example document used with this example config:
 
 In a reverse match array, Sensible searches for anchor candidates in sequence, and rules out overlapping match arrays. The following image illustrates this behavior for the example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/reverse_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/reverse_2.png)
 
 ## Nuances: Match arrays versus Anchor start
 
@@ -194,15 +194,15 @@ Here is an ending line.
 
 For **Anchor 1**, Sensible anchors on the last Match array element if it's preceded by the other array elements in order.  `"match":all"` finds two anchors. See the following image for an illustration: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/anchor_2.png)
 
 * For **Anchor 2**, Sensible searches after the first instance of `here is an A line`, and discards anything earlier in the document. `"match":all"` finds four anchors. Notice it doesn't anchor on the first line B (`Here is a B line sneakily inserted before the intro line`) because that instance precedes the start match. See the following image for an illustration:
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/anchor_3.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/anchor_3.png)
 
 Try out this example in the Sensible app using the following document and config:
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/anchor.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/anchor.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
 
 This example uses the following config:

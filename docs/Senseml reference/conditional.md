@@ -228,12 +228,12 @@ The following example shows using conditional execution to standardize output ac
 **Example document**\
 The following image shows the example documents used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/conditional_execution.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/conditional_execution.png)
 
-| Example document 1 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/conditional_execution_1.pdf) |
+| Example document 1 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/conditional_execution_1.pdf) |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
-| Example document 2 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/conditional_execution_2.pdf) |
+| Example document 2 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/conditional_execution_2.pdf) |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output1**

@@ -99,9 +99,9 @@ The following example shows using a vertical section group to capture a table th
 
 The following image shows the data extracted by this config for the following example document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_sections_labeled_rows.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/vertical_sections_labeled_rows.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/vertical_sections_labeled_rows.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/vertical_sections_labeled_rows.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

@@ -29,7 +29,7 @@ To create example extraction configuration, follow the steps in [Out-of-the-box 
 
 1. Generate a destination for the webhook: navigate to [https://webhook.site/](https://webhook.site/) to automatically create a unique test page:
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_1.png)\
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_1.png)\
 **Note:** Use this website [solely for testing](https://webhook.site/terms). In production, make your own destination for the webhook payload.
 
 2. Copy the following code sample, and replace `YOUR_UNIQUE_URL` with your uniquely generated webhook.site URL: 
@@ -44,7 +44,7 @@ curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/1040
 
 3. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_2.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/api_quickstart_webhook_2.png)
 
 4. Click **Send** in Postman.
 

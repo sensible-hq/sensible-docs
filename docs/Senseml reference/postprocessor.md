@@ -45,7 +45,7 @@ The postprocessor offers similar data manipulation to the  [Custom Computation](
 
 Postprocessor output is available in the `postprocessorOutput` object in the API response and in the **postprocessed** tab in the SenseML editor: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_postprocessed_tab.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_postprocessed_tab.png) 
 
 Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
@@ -156,9 +156,9 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/postprocessor.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/postprocessor.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/postprocessor.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/postprocessor.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**

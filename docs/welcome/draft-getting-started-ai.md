@@ -45,7 +45,7 @@ Let's get started with extracting document data from an example bank statement. 
 
    Sensible displays an example document in the left pane, and fields of extracted data in the right pane. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_llm_13.png) 
 
 ## Extract more data
 
@@ -78,7 +78,7 @@ To extract short, simple facts, author queries.  Group them in a Query Group met
 
 You should see additional extracted data as a result:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_llm_1.png)
 
 ### Extract a table
 
@@ -119,7 +119,7 @@ To extract similar data from other bank statements in production,  publish the "
 
  Click **Publish configuration**, click **Production**, then click **Publish to production**:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_instruct_10.png)
 
 Now you've published your config to the endpoint `https://api.sensible.so/v0/extract/llm_basics` document type, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
 
@@ -129,7 +129,7 @@ Let's see if the config containing your prompt works with other bank statements.
 
 1. Navigate to [https://app.sensible.so/editor/?d=llm\_basics\&c=bank\_statement\&g=bank\_statement\&om=1](https://app.sensible.so/editor/?d=llm_basics\&c=bank_statement\&g=bank_statement\&om=1). Notice that the middle pane now displays a statement for a different customer.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_ui_llm_2.png)
 
  Note that the extracted data in the right pane automatically updates to reflect the second example document.
 

@@ -45,7 +45,7 @@ The following global parameters are available to all methods:
 
 In the following example, the handwritten text "Nash" is slightly taller than the text "Steve" with the document type's [OCR engine](doc:ocr-engine) set to Google , so Sensible interprets "Nash" as *preceding* "Steve" (reversing the order interpreted by a human reader) and outputs `"Nash Steve"` as the name:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xmajor_sort_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/xmajor_sort_1.png)
 
 **SOLUTION**
 
@@ -87,14 +87,14 @@ To reliably capture the first and last name in their left-to-right order,  set `
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sort_lines_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/sort_lines_2.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/xmajor_sort.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 To run this example, verify the document type uses Google OCR (click the gear icon for the Document Type and select **Google**): 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
 
 *Output*
 
@@ -139,9 +139,9 @@ The following example shows using the Type Filters parameter to extract delivery
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/types_filter.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/types_filter.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/types_filter.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/types_filter.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -161,7 +161,7 @@ In combination with the Document Range method, the X Range Filter parameter defi
 
 The following image shows using this parameter to extract a "cell" of text:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/xrange_filter.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/xrange_filter.png)
 
 In this example, the X Range Filter parameter is an alternative to:
 
@@ -175,7 +175,7 @@ Alternatives to using the X Range Filter parameter in this example include:
 
 Try out this example in the Sensible app using the following document and config:
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/xrange_filter.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/xrange_filter.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 This example uses the following config:

@@ -22,7 +22,7 @@ To troubleshoot LLM-based methods, you can configure how Sensible locates a prom
 
 4. Locate non-text images as context
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_llm_context.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/mermaid_llm_context.png)
 
 For information about configuring each of these approaches, see the following sections.
 
@@ -30,7 +30,7 @@ For information about configuring each of these approaches, see the following se
 
 By default, Sensible locates context by splitting the document into equally sized chunks, scoring them for relevancy using [embeddings](https://www.sensible.so/blog/embeddings-vs-completions-only-rag), and then returning the top-scoring chunks as context:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/chunk_score.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/chunk_score.png)
 
 The advantage of this approach is that it's fast. The disadvantage is that it can be brittle.
 
@@ -57,7 +57,7 @@ When you configure the Search By Summarization parameter for supported LLM-based
 
 The following image shows how an LLM can outline and summarize a document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/summary_scoring_powerpoint.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/summary_scoring_powerpoint.png)
 
 This strategy often outperforms the default approach to locating context. It's useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents.
 
@@ -76,7 +76,7 @@ bananas     $150k
 
 If you create a Query Group method with the prompt `what is the best-selling snack?`, and specify `snacks_rank` as the context using the Source IDs parameter, then Sensible searches for answers to your question (`corn chips`) only in the extracted `snacks_rank` table rather than in the entire document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/mermaid_chain_prompt.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/mermaid_chain_prompt.png)
 
  Use other fields as context to: 
 
@@ -91,7 +91,7 @@ When you configure the Multimodal Engine parameter for the Query Group method, y
 
 For example, for the following image, you can prompt,  `"are the buildings multistory? return true or false"`.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/multimodal_photo.png)
 
 When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor  and region coordinates, or use the default page chunk scoring approach.  
 
@@ -115,4 +115,4 @@ You can view the source text for an LLM's answer highlighted in the document:
 
 * In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For information about how location highlighting works and its limitations, see [Location highlighting](doc:color#location-highlighting). 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_location.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_location.png)

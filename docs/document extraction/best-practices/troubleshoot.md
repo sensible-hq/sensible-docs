@@ -47,7 +47,7 @@ You can inspect a line to see:
 * dimensions of the line boundaries
 * which fields interact with that line:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_line_details.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_line_details.png)
 
 ## Inspect source text
 
@@ -57,7 +57,7 @@ The Sensible app visually represents SenseML queries in rendered documents using
 
 The SenseML pane has a built-in linter for both JSON and the SenseML model. If you see a warning about  invalid JSON, then hover over the red-underlined JSON to see an error message:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/ui_linter_SenseML.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_linter_SenseML.png)
 
 You can also use the linter to autocomplete parameters.
 

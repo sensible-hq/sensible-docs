@@ -32,20 +32,20 @@ Take the following steps:
 
    Note: If you haven't created your own document type, select `llm_basics / Auto select` . The `llm_basics` document type contains interactive examples for bank statements, resumes, and contracts.  If you specify `Auto select`,  Sensible automatically detects the best-fitting extraction configuration, or "config", for the document you upload.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_instruct_11.png)
 
 3. Click **Upload document** and select your example document or documents. For a list of supported file types, see [Supported file types](doc:file-types). Note that Sensible automatically OCRs documents as needed, except in [advanced cases](doc:ocr-preprocessor).
 
 ​       If you don't have an example document, use the following document with the `llm_basics` document type :
 
-| Example document | [Download link](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
+| Example document | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------ |
 
 3. Click **Run Extraction**.
 
 4. Sensible displays the extracted data as JSON in the right pane. Click **Download excel** to convert the extracted document data to Excel:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quickstart_instruct_12.png)
 
  The following spreadsheet shows output for the example bank statement. The first tab contains fields with single values, for example the start date field. Succeeding tabs contain fields with table output, for example, the accounts list table. 
 
@@ -60,7 +60,7 @@ Take the following steps:
 
 To extract from multiple files in a batch, select and upload multiple files in step 3 in the preceding section:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/quick_extract_bulk.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/quick_extract_bulk.png)
 
 ## Next
 

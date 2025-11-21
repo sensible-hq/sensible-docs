@@ -16,7 +16,7 @@ The following images show the differing behaviors of sections and vertical secti
 
 ## Sections
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_concept_horizontal.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/sections_concept_horizontal.png)
 
 Sensible finds the sections as follows:
 
@@ -32,7 +32,7 @@ Sensible finds the sections as follows:
 
 ## Vertical sections
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_concept_vertical.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/sections_concept_vertical.png)
 
 Sensible:
 
@@ -81,7 +81,7 @@ For example, if you select the "Apple" and "Banana" columns by configuring `"col
 
 3. The Banana section contains the Banana, Nutrition, and Notes columns. For example, you can find the cell containing `105` in the Bananas column using the same `fruit_calories` field as in the preceding step. In other words, you *don't* have to configure `"tiebreaker": "second"`.  
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/vertical_section_column_selection.png)
 
 As steps 2 and 3 in the previous image illustrate, the varying gap sizes between columns in each section mean that you can't use coordinate-based methods such as the Region method for fields in these sections.
 
@@ -105,6 +105,6 @@ For horizontal sections, you can create a section starting at each newline if yo
 
 In this case, Sensible creates sections by splitting text into "rows" at each newline. For more information about the behavior shown in the following image, see the  [Zip sections example](doc:sections-example-zip).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/sections_match_all_anchors.png)
 
 For vertical sections, specifying the regular expression `".+"`   for the Match parameter can be useful for repeating vertical sections that lack good anchor match candidates. In these situations, you must also nest the sections in a parent section group. For more information, see [Table grid example](doc:sections-example-table-grid).

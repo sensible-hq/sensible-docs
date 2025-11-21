@@ -21,7 +21,7 @@ Use Sensible to build document-automation features into your vertical SaaS produ
 
 With Sensible's SenseML language, you can write extraction queries for any type of document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/intro_SDK_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/intro_SDK_3.png)
 
 And get back key facts as JSON:
 
@@ -50,13 +50,13 @@ And get back key facts as JSON:
 
 Sensible is highly configurable. You can extract data in minutes by leveraging large language models (LLMs), or you can get fine-grained control with Sensible's visual, layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, variable legal contracts :
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/document_landscape.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/document_landscape.png)
 
 ## Configurable data extraction
 
 Configure your extractions using *SenseML*, Sensible's document-specific query language. SenseML combines the latest LLM techniques with visual layout-based rules to extract document primitives like rows, tables, checkboxes, sections, and more as JSON. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_senseml.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/platform_senseml.png)
 
 With SenseML, you can:
 
@@ -72,7 +72,7 @@ A [field](doc:field-query-object) is the basic SenseML query unit for extracting
 
 Here's an example of a field that extracts a table:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/senseml_intro_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/senseml_intro_1.png)
 
 For more information about SenseML, see [SenseML reference introduction](doc:senseml-reference-introduction).
 
@@ -80,7 +80,7 @@ For more information about SenseML, see [SenseML reference introduction](doc:sen
 
 See the following image for a high-level overview of Sensible's document data extraction workflow:
 
-[![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/platform_devops.png)](doc:devops-platform)
+[![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/platform_devops.png)](doc:devops-platform)
 
 For more information about this diagram, see [Devops platform](doc:devops-platform).
 
