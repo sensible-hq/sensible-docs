@@ -586,7 +586,7 @@ To add these tests:
 }
 ```
 
-5. To test the validations with a document that's missing information, [try out an API call](doc:api-tutorial-async-1) with the following example document that has these errors:
+5. To test the validations with a document that's missing information, [try out an API call](doc:api-tutorial-async-1) with the following example document. The document contains these errors:
 
    * the policy number is missing
    * the property damage liability premium is $200 more than the comprehensive premium
