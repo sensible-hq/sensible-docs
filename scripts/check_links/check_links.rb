@@ -21,12 +21,12 @@ pipeline = HTML::Pipeline.new [
 # Iterate over files and generate HTML from Markdown
 puts "Converting Markdown files to HTML..."
 Find.find("./") do |path|
-  if File.extname(path) == ".mdx"
+  if File.extname(path) == ".md"
     contents = File.read(path)
     # Only check published files ("hidden: true" are unpublished)
     if not contents.match(/hidden\:\s*true/)
       result = pipeline.call(contents)
-      output_filename = "out/#{path.split("/").pop.sub('.mdx', '.html')}"
+      output_filename = "out/#{path.split("/").pop.sub('.md', '.html')}"
       File.open(output_filename, 'w') { |file| file.write(result[:output].to_s) }
       puts "  Converted: #{File.basename(path)}"
     else
