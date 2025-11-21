@@ -4,10 +4,10 @@ on:
     branches:
       - v0
     paths:
-      - '**.mdx'
+      - '**/*.mdx'
   pull_request:
     paths:
-      - '**.mdx'
+      - '**/*.mdx'
 jobs:
   check-guide-links:
     runs-on: ubuntu-latest
