@@ -14,19 +14,18 @@ CACHE_FILE = '.changelog_cache'
 # #################
 # Get ALL changelogs with pagination
 # #################
-puts "Fetching all changelogs from API..."
+puts "Fetching all changelogs from API v2..."
 
 def fetch_changelog_page(page_num, per_page = 100)
-  url = URI("https://dash.readme.com/api/v1/changelogs?perPage=#{per_page}&page=#{page_num}")
+  url = URI("https://api.readme.com/v2/changelogs?per_page=#{per_page}&page=#{page_num}")
   
   response = Faraday.get(url) do |req|
     req.headers['Content-Type'] = 'application/json'
-    req.headers["Authorization"] = "Basic #{README_API_KEY}"
-    req.headers["x-readme-version"] = "v0"
+    req.headers['Authorization'] = "Bearer #{README_API_KEY}"
   end
 
   if !response.success?
-    abort "The request failed: #{response.status} #{response.reason_phrase}"
+    abort "The request failed: #{response.status} #{response.reason_phrase}\nBody: #{response.body}"
   end
 
   JSON.parse(response.body)
@@ -39,23 +38,28 @@ per_page = 100  # Maximum allowed by README API
 
 loop do
   puts "Fetching page #{page}..."
-  changelogs_page = fetch_changelog_page(page, per_page)
+  response_data = fetch_changelog_page(page, per_page)
+  
+  # v2 returns data wrapped in a 'data' object
+  changelogs_page = response_data['data'] || []
   
   # Break if no more results
   break if changelogs_page.empty?
   
   all_changelogs.concat(changelogs_page)
   puts "  Retrieved #{changelogs_page.length} changelogs from page #{page}"
+  puts "  Total so far: #{all_changelogs.length} of #{response_data['total']}" if response_data['total']
   
-  # Break if we got fewer results than requested (last page)
+  # Break if we got fewer results than requested (last page) or if paging.next is null
   break if changelogs_page.length < per_page
+  break if response_data.dig('paging', 'next').nil?
   
   page += 1
 end
 
 puts "Total changelogs fetched: #{all_changelogs.length}"
 
-# Use all_changelogs instead of response_json for the rest of the script
+# Use all_changelogs for the rest of the script
 response_json = all_changelogs
 
 # Parse response and create content hash
@@ -102,8 +106,9 @@ all_changelogs.each_with_index do |changelog, index|
   changelog_slug = changelog['slug'] || "changelog_#{index}"
   changelog_replacements = []
   
+  # v2 API: content is in 'content.body' field instead of 'html'
   # Get the HTML content for processing
-  html_content = changelog['html'] || ''
+  html_content = changelog.dig('content', 'body') || changelog['html'] || ''
   
   # Apply each replacement and track changes
   replacements.each do |replacement|
@@ -125,6 +130,10 @@ all_changelogs.each_with_index do |changelog, index|
   end
   
   # Update the changelog object with processed HTML content
+  # Store back in the v2 structure
+  all_changelogs[index]['content'] ||= {}
+  all_changelogs[index]['content']['body'] = html_content
+  # Also keep for backwards compatibility
   all_changelogs[index]['html'] = html_content
   
   # Print replacement summary for this changelog
@@ -156,7 +165,9 @@ Dir.mkdir(rel_path)
 # Write changelog HTML files
 for page in response_json do
   file_path = File.join(rel_path + "/" + page['slug'] + ".html")
-  File.open(file_path, 'a+') {|f| f.write(page['html']) }
+  # Use the processed HTML content
+  html_content = page['html'] || page.dig('content', 'body') || ''
+  File.open(file_path, 'a+') {|f| f.write(html_content) }
 end
 
 # List created files
