@@ -13,7 +13,7 @@ next:
 Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null.
 
 * Input: This method has access to the  `parsed_document` object at the extraction's level of [verbosity](doc:verbosity).
-* Output: This method outputs the result of the JsonLogic as a single Sensible field. Where possible, Sensible transforms output to conform to Sensible's schema for a field. For more information, see [Example 3](doc:custom-computation#example-3).
+* Output: This method outputs the result of the JsonLogic as a Sensible field. Where possible, Sensible transforms output to conform to Sensible's schema for a field. For more information, see [Example 3](doc:custom-computation#example-3).
 
 # Parameters
 
