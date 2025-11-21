@@ -17,7 +17,7 @@ See https://github.com/flowcommerce/readme-sync.
 ### Image directory conventions
 In the Images dir: 
 - Save all screenshots to /screenshots
-- If you edit the screenshot with callouts/arrows/etc, then save an unedited version of the image to source/
+- If you edit the screenshot with callouts/arrows/etc and you're worried it might be difficult to replicate the original, then you can save an unedited version of the image to /source
 - the doc build process automatically applies styling such as drop shadows to images in screenshots/ and saves to final/
 
 
