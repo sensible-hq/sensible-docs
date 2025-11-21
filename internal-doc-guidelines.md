@@ -4,7 +4,7 @@
 
 ### Publishing the docs to readme
 
-To publish the markdown docs in this repository to ReadMe.io at https://docs.sensible.so/docs, commit to main. This triggers GitHub Actions that perform actions conditionally, such as syncing the API reference, syncing the guide docs, checking links, and styling images.
+To publish the markdown docs in this repository to ReadMe.io at https://docs.sensible.so/docs, commit to v0. This triggers GitHub Actions that perform actions conditionally, such as checking links, and styling images. Readme takes care of the bidirecitonal sync
 
 
 
