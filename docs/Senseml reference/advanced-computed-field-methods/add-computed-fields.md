@@ -31,11 +31,11 @@ The following example shows how to transform extracted tables so they're consist
 
 In the following example, Insurer A excludes the vehicle VIN and model from their policy limits table. In contrast, Insurer B includes the vehicle VIN, model, and make in their limits table:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_3.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets/main/readme-sync/assets/v0/images/final/add_computed_fields_3.png)
 
 This example uses the Add Computed Fields method to ensure that each table contains the same field IDs (`vin`, `policy_start`, `limits`, `amount`, and `model`):
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets/main/readme-sync/assets/v0/images/final/add_computed_fields_2.png)
 
 To ensure consistency, this example transforms the tables as follows:
 
@@ -215,9 +215,9 @@ To ensure consistency, this example transforms the tables as follows:
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/main/readme-sync/assets/v0/pdfs/add_computed_fields.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets/main/readme-sync/assets/v0/pdfs/add_computed_fields.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
