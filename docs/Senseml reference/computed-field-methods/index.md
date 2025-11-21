@@ -10,7 +10,8 @@ metadata:
 next:
   description: ''
 ---
-Computed Field methods transform the output of one or more [Field objects](doc:field-query-object).  Sensible supports several broad methods for transforming extracted document data:
+
+Computed Field methods transform the output of one or more [Field objects](doc:field-query-object).  Sensible supports several general categories for transforming extracted document data:
 
 * Logic-based computed field methods.
 * LLM-based prompts
