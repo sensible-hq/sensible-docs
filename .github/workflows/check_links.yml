@@ -4,10 +4,10 @@ on:
     branches:
       - v0
     paths:
-      - 'readme-sync/v0/**.mdx'
+      - '**.mdx'
   pull_request:
     paths:
-      - 'readme-sync/v0/**.mdx'
+      - '**.mdx'
 jobs:
   check-guide-links:
     runs-on: ubuntu-latest
