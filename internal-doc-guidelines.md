@@ -31,18 +31,7 @@ You can author the docs in GitHub-flavored Markdown, with the following minor re
 
 - **images** - You can't use relative links,   `[like this syntax](./images/some-image)`. We'll use hyperlinks instead to images stored on the master branch like this: `![](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/images/v0/some_image.png)` . 
 
-- **be careful with heading markup** - ReadMe gets confused if you use a code block snippet that indicates the language IN CONJUNCTION with headings that use hashtags (#). In this instance it erratically interprets #code comments as heading markdown syntax. 
 
-  So avoid headings like this:
-
-  `# Heading 1`
-
-  and only use this style syntax:
-
-```
-Heading 1
-_____
-```
 
 
 
