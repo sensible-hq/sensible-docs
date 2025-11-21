@@ -3,6 +3,8 @@ require 'faraday'
 require 'json'
 require 'fileutils'
 require 'digest'
+require 'html/pipeline'
+require 'find'
 
 # Script to check changelog links with change detection
 # Edit this in https://github.com/sensible-hq/sensible-docs/settings/secrets/actions
@@ -104,21 +106,19 @@ all_changelogs.each_with_index do |changelog, index|
   changelog_slug = changelog['slug'] || "changelog_#{index}"
   changelog_replacements = []
   
-  # v2 API: content is in 'content.body' field instead of 'html'
-  # Get the HTML content for processing
-  html_content = changelog.dig('content', 'body') || changelog['html'] || ''
+  # v2 API: content is in 'content.body' field (MDX/Markdown format)
+  # Get the markdown content for processing
+  markdown_content = changelog.dig('content', 'body') || ''
   
-  #puts html_content
-
   # Apply each replacement and track changes
   replacements.each do |replacement|
     replacement.each do |old_pattern, new_pattern|
       # Count occurrences before replacement
-      before_count = html_content.scan(Regexp.escape(old_pattern)).length
+      before_count = markdown_content.scan(Regexp.escape(old_pattern)).length
       
       if before_count > 0
         # Perform replacement
-        html_content = html_content.gsub(old_pattern, new_pattern)
+        markdown_content = markdown_content.gsub(old_pattern, new_pattern)
         changelog_replacements << {
           pattern: old_pattern,
           replacement: new_pattern,
@@ -129,12 +129,9 @@ all_changelogs.each_with_index do |changelog, index|
     end
   end
   
-  # Update the changelog object with processed HTML content
-  # Store back in the v2 structure
+  # Update the changelog object with processed markdown content
   all_changelogs[index]['content'] ||= {}
-  all_changelogs[index]['content']['body'] = html_content
-  # Also keep for backwards compatibility
-  all_changelogs[index]['html'] = html_content
+  all_changelogs[index]['content']['body'] = markdown_content
   
   # Print replacement summary for this changelog
   if changelog_replacements.any?
@@ -162,20 +159,54 @@ FileUtils.rm_rf(rel_path) if File.exist?(rel_path)
 # Create the directory
 Dir.mkdir(rel_path)
 
-# Write changelog HTML files
+# Write changelog markdown files
 for page in response_json do
-  file_path = File.join(rel_path + "/" + page['slug'] + ".html")
-  # Use the processed HTML content
-  html_content = page['html'] || page.dig('content', 'body') || ''
-  File.open(file_path, 'a+') {|f| f.write(html_content) }
+  file_path = File.join(rel_path + "/" + page['slug'] + ".md")
+  # Use the processed markdown content
+  markdown_content = page.dig('content', 'body') || ''
+  File.open(file_path, 'w') {|f| f.write(markdown_content) }
 end
 
 # List created files
-puts "\nCreated changelog files:"
-Dir.entries(rel_path).each do |file_name|
-  next if file_name == "." || file_name == ".."
+puts "\nCreated changelog markdown files:"
+Dir.entries(rel_path).select { |f| f.end_with?('.md') }.each do |file_name|
   puts "  #{file_name}"
 end
+
+# #################
+# Convert Markdown to HTML for link checking
+# #################
+puts "\nConverting Markdown files to HTML..."
+
+# Create output directory for HTML files
+html_output_dir = "out_changelogs_html"
+Dir.mkdir(html_output_dir) unless File.exist?(html_output_dir)
+
+# Set up HTML pipeline for Markdown conversion
+pipeline = HTML::Pipeline.new [
+  HTML::Pipeline::MarkdownFilter,
+  HTML::Pipeline::TableOfContentsFilter
+], :gfm => true
+
+# Iterate over markdown files and generate HTML
+html_file_count = 0
+Find.find(rel_path) do |path|
+  if File.extname(path) == ".md"
+    contents = File.read(path)
+    # Only check published files ("hidden: true" are unpublished)
+    if not contents.match(/hidden\:\s*true/)
+      result = pipeline.call(contents)
+      output_filename = "#{html_output_dir}/#{File.basename(path).sub('.md', '.html')}"
+      File.open(output_filename, 'w') { |file| file.write(result[:output].to_s) }
+      puts "  Converted: #{File.basename(path)}"
+      html_file_count += 1
+    else
+      puts "  Skipped (hidden): #{File.basename(path)}"
+    end
+  end
+end
+
+puts "Converted #{html_file_count} markdown files to HTML"
 
 # #################
 # Test changelog links
@@ -184,7 +215,7 @@ end
 options = {
   # https://github.com/gjtorikian/html-proofer for options
   :log_level => :info,
-  :ignore_missing_alt => true, # because current version of Readme.io strips them as a bug; if I can't fix, I will ignore until i can upgrade Readme.io to refactored version
+  :ignore_missing_alt => true,
   :url_ignore => [
     "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api",
     "https://platform.openai.com/tokenizer",
@@ -194,7 +225,7 @@ options = {
 }
 
 puts "\nChecking changelog links..."
-HTMLProofer.check_directory("./out_changelogs", options).run
+HTMLProofer.check_directory("./#{html_output_dir}", options).run
 puts "Changelog link checking complete!"
 
 # Update cache with current hash only after successful completion
