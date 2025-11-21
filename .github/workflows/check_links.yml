@@ -2,12 +2,12 @@ name: Guide Link Checking
 on:
   push:
     branches:
-      - main
+      - v0
     paths:
-      - 'readme-sync/v0/**.md'
+      - 'readme-sync/v0/**.mdx'
   pull_request:
     paths:
-      - 'readme-sync/v0/**.md'
+      - 'readme-sync/v0/**.mdx'
 jobs:
   check-guide-links:
     runs-on: ubuntu-latest
