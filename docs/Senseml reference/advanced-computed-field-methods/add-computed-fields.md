@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Enables adding an array of computed fields that transform the extracted table. For example, you can add text to each cell in a row, concatenate columns, add or remove columns, and so forth. This method is similar to adding a [computed fields array to sections](doc:sections-example-copy-to-section).  In detail, this method:
+Enables adding an array of computed fields that transform the extracted table. For example, you can add text to each cell in a row, concatenate columns, and add or remove columns. This method is similar to adding a [computed fields array to sections](doc:sections-example-copy-to-section).  In detail, this method:
 
 * Automatically [zips](doc:zip) the source table. After the zip, each table cell is a field whose ID is the column heading. Note that zipped tables have the same JSON output structure as sections. This enables you to use section-specific computed fields to transform the table, such as  the Copy To Section method.
 * Operates on the fields in the table using the array of computed fields you specify.
@@ -218,7 +218,7 @@ The following image shows the example document used with this example config:
 <Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/add_computed_fields_1.png" />
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/add_computed_fields.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
 
