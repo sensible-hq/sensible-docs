@@ -89,12 +89,10 @@ end
 puts "\nProcessing URL replacements..."
 
 replacements = [
-  { 'href="/docs/' => 'href="https://docs.sensible.so/docs/' },
-  { 'href="/reference/' => 'href="https://docs.sensible.so/reference/' },
-  { 'href="/changelog/' => 'href="https://docs.sensible.so/changelog/' },
-  { "(doc:" => "(https://docs.sensible.so/docs/" },
-  { "(ref:" => "(https://docs.sensible.so/reference/" },
-  { "(changelog:" => "(https://docs.sensible.so/changelog/" }
+  # Markdown link format: [text](doc:slug) or [text](ref:slug)
+  { "](doc:" => "](https://docs.sensible.so/docs/" },
+  { "](ref:" => "](https://docs.sensible.so/reference/" },
+  { "](changelog:" => "](https://docs.sensible.so/changelog/" },
 ]
 
 # Track replacements for each changelog
@@ -109,8 +107,9 @@ all_changelogs.each_with_index do |changelog, index|
   # v2 API: content is in 'content.body' field instead of 'html'
   # Get the HTML content for processing
   html_content = changelog.dig('content', 'body') || changelog['html'] || ''
-  puts html_content
   
+  #puts html_content
+
   # Apply each replacement and track changes
   replacements.each do |replacement|
     replacement.each do |old_pattern, new_pattern|
