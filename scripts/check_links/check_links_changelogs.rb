@@ -201,7 +201,7 @@ Find.find(rel_path) do |path|
       puts "  Converted: #{File.basename(path)}"
       # print file contents
       puts "file contents:"
-      puts File.read(File.basename(path))
+      puts File.read(path)
 
       html_file_count += 1
     else
