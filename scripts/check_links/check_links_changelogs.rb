@@ -114,10 +114,10 @@ all_changelogs.each_with_index do |changelog, index|
   replacements.each do |replacement|
     replacement.each do |old_pattern, new_pattern|
       # Count occurrences before replacement
-      before_count = markdown_content.scan(Regexp.escape(old_pattern)).length
+      before_count = markdown_content.scan(old_pattern).length
       
       if before_count > 0
-        # Perform replacement
+        # Perform replacement (gsub with string argument = literal replacement)
         markdown_content = markdown_content.gsub(old_pattern, new_pattern)
         changelog_replacements << {
           pattern: old_pattern,
@@ -195,7 +195,11 @@ Find.find(rel_path) do |path|
     contents = File.read(path)
     # Only check published files ("hidden: true" are unpublished)
     if not contents.match(/hidden\:\s*true/)
-      result = pipeline.call(contents)
+      # Convert JSX Image components to standard img tags for link checking
+      # <Image src="url" /> -> <img src="url" />
+      contents_for_checking = contents.gsub(/<Image\s+([^>]*?)\/?>/, '<img \1/>')
+      
+      result = pipeline.call(contents_for_checking)
       output_filename = "#{html_output_dir}/#{File.basename(path).sub('.md', '.html')}"
       File.open(output_filename, 'w') { |file| file.write(result[:output].to_s) }
       puts "  Converted: #{File.basename(path)}"
