@@ -254,6 +254,9 @@ end
 # #################
 # Check JSX Image URLs
 # #################
+
+# TODO: ideally replace JSX image syntax w/ markdown syntax for internal consistency
+
 puts "\nChecking JSX Image URLs..."
 jsx_failures = []
 
