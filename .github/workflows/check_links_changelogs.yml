@@ -1,0 +1,22 @@
+name: Changelog Link Checking
+on:
+  push:
+    branches:
+      - v0
+jobs:
+  check-changelog-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Set up Ruby 💎
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+      - name: Install dependencies 🔧
+        run: cd ./scripts/check_links/ && bundle install
+      - name: Check changelog links 🔗
+        run: ruby ./scripts/check_links/check_links_changelogs.rb
+        env:
+          README_API_KEY: ${{ secrets.README_API_KEY }}
