@@ -20,7 +20,7 @@ replacements = [
 
 # Track replacements
 total_replacements = 0
-jsx_image_urls = []  # Collect JSX image URLs separately
+jsx_urls = []  # Collect all URLs from JSX elements
 processed_files = []
 
 # Process each markdown file
@@ -32,9 +32,39 @@ Find.find("./") do |path|
     if not markdown_content.match(/hidden\:\s*true/)
       file_replacements = []
       
-      # Extract JSX Image URLs for separate checking
-      markdown_content.scan(/<Image\s+[^>]*?src="([^"]*)"[^>]*?\/>/).each do |match|
-        jsx_image_urls << { url: match[0], file: File.basename(path) }
+      # Extract URLs from any JSX elements (components starting with capital letters)
+      # This catches both self-closing tags and tags with content
+      
+      # Method 1: Find self-closing JSX tags like <Image src="..." />
+      markdown_content.scan(/<([A-Z]\w*)\s+([^>]*?)\/?>/).each do |match|
+        component_name = match[0]
+        attributes = match[1]
+        
+        # Extract any URL-like attributes (src, href, url, etc.)
+        attributes.scan(/(?:src|href|url)="([^"]*)"/).each do |url_match|
+          jsx_urls << { 
+            url: url_match[0], 
+            file: File.basename(path), 
+            element: component_name,
+            attribute: url_match[0].match(/^(src|href|url)=/i) ? $1 : 'unknown'
+          }
+        end
+      end
+      
+      # Method 2: Find JSX tags with closing tags like <HTMLBlock>...</HTMLBlock>
+      markdown_content.scan(/<([A-Z]\w*)[^>]*?>(.*?)<\/\1>/m).each do |match|
+        component_name = match[0]
+        content = match[1]
+        
+        # Extract URLs from within the content
+        content.scan(/(?:src|href|url)="([^"]*)"/).each do |url_match|
+          jsx_urls << { 
+            url: url_match[0], 
+            file: File.basename(path), 
+            element: component_name,
+            attribute: 'content'
+          }
+        end
       end
       
       # Apply each replacement and track changes
@@ -79,7 +109,13 @@ end
 puts "\n📊 Processing Summary:"
 puts "  Files processed: #{processed_files.length}"
 puts "  Total URL replacements made: #{total_replacements}"
-puts "  JSX Image URLs found: #{jsx_image_urls.length}"
+puts "  JSX URLs found: #{jsx_urls.length}"
+
+# Show breakdown by JSX element type
+jsx_by_element = jsx_urls.group_by { |item| item[:element] }
+jsx_by_element.each do |element, urls|
+  puts "    - #{element}: #{urls.length} URL(s)"
+end
 
 # #################
 # Convert processed Markdown files to HTML
@@ -132,24 +168,24 @@ rescue => e
 end
 
 # #################
-# Check JSX Image URLs
+# Check JSX URLs
 # #################
-puts "\nChecking JSX Image URLs..."
+puts "\nChecking JSX URLs..."
 jsx_failures = []
 
-jsx_image_urls.each do |img|
+jsx_urls.each do |item|
   begin
-    uri = URI.parse(img[:url])
+    uri = URI.parse(item[:url])
     response = Net::HTTP.get_response(uri)
     if response.code.to_i >= 400
-      error_msg = "❌ BROKEN JSX Image in #{img[:file]}: #{img[:url]} (#{response.code})"
+      error_msg = "❌ BROKEN URL in <#{item[:element]}> in #{item[:file]}: #{item[:url]} (#{response.code})"
       puts error_msg
       jsx_failures << error_msg
     else
-      puts "✅ #{img[:url]}"
+      puts "✅ <#{item[:element]}> #{item[:url]}"
     end
   rescue => e
-    error_msg = "❌ ERROR checking #{img[:url]}: #{e.message}"
+    error_msg = "❌ ERROR checking #{item[:url]} from <#{item[:element]}>: #{e.message}"
     puts error_msg
     jsx_failures << error_msg
   end
@@ -172,10 +208,10 @@ else
 end
 
 if jsx_failures.any?
-  puts "❌ JSX Image URLs: FAILED (#{jsx_failures.length} error(s))"
+  puts "❌ JSX URLs: FAILED (#{jsx_failures.length} error(s))"
   has_errors = true
 else
-  puts "✅ JSX Image URLs: PASSED"
+  puts "✅ JSX URLs: PASSED"
 end
 
 if has_errors
