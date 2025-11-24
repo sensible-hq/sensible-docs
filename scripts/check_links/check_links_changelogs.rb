@@ -207,9 +207,9 @@ Find.find(rel_path) do |path|
       output_filename = "#{html_output_dir}/#{File.basename(path).sub('.md', '.html')}"
       File.open(output_filename, 'w') { |file| file.write(result[:output].to_s) }
       puts "  Converted: #{File.basename(path)}"
-     
-      #puts "file contents:"
-      #puts File.read(path)
+      # print file contents
+      puts "file contents:"
+      puts File.read(path)
 
       html_file_count += 1
     else
@@ -237,8 +237,14 @@ options = {
 }
 
 puts "\nChecking changelog links..."
-HTMLProofer.check_directory("./#{html_output_dir}", options).run
-puts "Changelog link checking complete!"
+html_proofer_failed = false
+begin
+  HTMLProofer.check_directory("./#{html_output_dir}", options).run
+  puts "✅ Changelog link checking complete - no errors found!"
+rescue => e
+  puts "❌ HTMLProofer found errors: #{e.message}"
+  html_proofer_failed = true
+end
 
 # #################
 # Check JSX Image URLs
@@ -246,11 +252,9 @@ puts "Changelog link checking complete!"
 puts "\nChecking JSX Image URLs..."
 jsx_failures = []
 
-
 jsx_image_urls.each do |img|
   begin
     uri = URI.parse(img[:url])
-    puts uri
     response = Net::HTTP.get_response(uri)
     if response.code.to_i >= 400
       error_msg = "❌ BROKEN JSX Image in #{img[:changelog]}: #{img[:url]} (#{response.code})"
@@ -266,13 +270,35 @@ jsx_image_urls.each do |img|
   end
 end
 
-if jsx_failures.any?
-  puts "\n❌ JSX Image check failed with #{jsx_failures.length} error(s)"
-  abort "JSX Image URL check failed"
+# #################
+# Final status report
+# #################
+puts "\n" + "="*80
+puts "FINAL STATUS REPORT"
+puts "="*80
+
+has_errors = false
+
+if html_proofer_failed
+  puts "❌ HTMLProofer: FAILED"
+  has_errors = true
 else
-  puts "\n✅ All JSX Image URLs are valid!"
+  puts "✅ HTMLProofer: PASSED"
 end
 
-# Update cache with current hash only after successful completion
-File.write(CACHE_FILE, current_hash)
-puts "Cache updated with hash: #{current_hash}"
+if jsx_failures.any?
+  puts "❌ JSX Image URLs: FAILED (#{jsx_failures.length} error(s))"
+  has_errors = true
+else
+  puts "✅ JSX Image URLs: PASSED"
+end
+
+if has_errors
+  puts "\n❌ Link checking failed - see errors above"
+  abort "Link checking failed"
+else
+  puts "\n✅ All link checks passed!"
+  # Update cache with current hash only after successful completion
+  File.write(CACHE_FILE, current_hash)
+  puts "Cache updated with hash: #{current_hash}"
+end
