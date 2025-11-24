@@ -246,9 +246,11 @@ puts "Changelog link checking complete!"
 puts "\nChecking JSX Image URLs..."
 jsx_failures = []
 
+
 jsx_image_urls.each do |img|
   begin
     uri = URI.parse(img[:url])
+    puts uri
     response = Net::HTTP.get_response(uri)
     if response.code.to_i >= 400
       error_msg = "❌ BROKEN JSX Image in #{img[:changelog]}: #{img[:url]} (#{response.code})"
