@@ -221,7 +221,7 @@ end
 puts "Converted #{html_file_count} markdown files to HTML"
 
 # #################
-# Test changelog links
+# Test the changelog links
 # #################
 
 options = {
