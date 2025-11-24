@@ -135,8 +135,8 @@ all_changelogs.each_with_index do |changelog, index|
   if image_before_count > 0
     markdown_content = markdown_content.gsub(/<Image\s+([^>]*?)\/?>/, '<img \1/>')
     changelog_replacements << {
-      pattern: "<Image ... />",
-      replacement: "<img ... />",
+      pattern: "JSX element: <Image ... />",
+      replacement: "... to HTML element: <img ... />",
       count: image_before_count
     }
     total_replacements += image_before_count
