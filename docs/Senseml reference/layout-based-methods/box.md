@@ -173,11 +173,6 @@ The following image shows the example document used with this example config:
 <Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/box_offset.png" />
 
 
-
-<Image alt="Click to enlarge" border={false} src="/assets/images/final/box_offset.png" />
-
-
-
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/box_offset.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 
