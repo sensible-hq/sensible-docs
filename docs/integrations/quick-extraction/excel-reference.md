@@ -60,7 +60,7 @@ To combine extractions, Sensible uses the same rules described in the following 
 * To avoid manually merging the similarly named columns,  Sensible recommends using the same IDs for corresponding fields across different SenseML configs in a  document type.  For example, if document A outputs fields `car_model` and `car_year`, and document B outputs `car_model` and `manufacture_year`,  Sensible creates a spreadsheet like the following:
 
 <HTMLBlock>{`
-<div><iframe class="spreadsheet" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRkj6u0ukgEr9VpHP19vuzohqtqJYJOOtzYzNGi3ZFJYJQ3hLVBowJDjbTcjeBahZoz9_rULfFO3Hu6/pubhtml?widget=true&amp;headers=false"></iframe></div>
+<div><iframe class="spreadsheet" src="https://1docs.google.com/spreadsheets/d/e/2PACX-1vRkj6u0ukgEr9VpHP19vuzohqtqJYJOOtzYzNGi3ZFJYJQ3hLVBowJDjbTcjeBahZoz9_rULfFO3Hu6/pubhtml?widget=true&amp;headers=false"></iframe></div>
 
 <style>.spreadsheet{width:100%;}</style>
 `}</HTMLBlock>
