@@ -207,9 +207,9 @@ Find.find(rel_path) do |path|
       output_filename = "#{html_output_dir}/#{File.basename(path).sub('.md', '.html')}"
       File.open(output_filename, 'w') { |file| file.write(result[:output].to_s) }
       puts "  Converted: #{File.basename(path)}"
-      # print file contents
-      puts "file contents:"
-      puts File.read(path)
+     
+      #puts "file contents:"
+      #puts File.read(path)
 
       html_file_count += 1
     else
