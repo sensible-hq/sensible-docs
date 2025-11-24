@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-For solutions to the Sensible in-app tutorials, see the following links:
+For solutions to the in-app tutorials, see the following links:
 
 [Part 1: Extract your first data](doc:cheat-1)
 
