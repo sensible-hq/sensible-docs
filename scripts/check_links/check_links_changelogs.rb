@@ -5,6 +5,7 @@ require 'fileutils'
 require 'digest'
 require 'html/pipeline'
 require 'find'
+require 'net/http'
 
 # Script to check changelog links with change detection
 # Edit this in https://github.com/sensible-hq/sensible-docs/settings/secrets/actions
@@ -100,6 +101,7 @@ replacements = [
 # Track replacements for each changelog
 replacement_count = 0
 total_replacements = 0
+jsx_image_urls = []  # Collect JSX image URLs separately
 
 # Process each changelog individually to track replacements
 all_changelogs.each_with_index do |changelog, index|
@@ -114,7 +116,7 @@ all_changelogs.each_with_index do |changelog, index|
   markdown_content.scan(/<Image\s+[^>]*?src="([^"]*)"[^>]*?\/>/).each do |match|
     jsx_image_urls << { url: match[0], changelog: changelog_slug }
   end
-
+  
   # Apply each replacement and track changes
   replacements.each do |replacement|
     replacement.each do |old_pattern, new_pattern|
@@ -133,7 +135,6 @@ all_changelogs.each_with_index do |changelog, index|
       end
     end
   end
-  
   
   # Update the changelog object with processed markdown content
   all_changelogs[index]['content'] ||= {}
@@ -202,11 +203,7 @@ Find.find(rel_path) do |path|
     contents = File.read(path)
     # Only check published files ("hidden: true" are unpublished)
     if not contents.match(/hidden\:\s*true/)
-      # Convert JSX Image components to standard img tags for link checking
-      # <Image src="url" /> -> <img src="url" />
-      contents_for_checking = contents
-      
-      result = pipeline.call(contents_for_checking)
+      result = pipeline.call(contents)
       output_filename = "#{html_output_dir}/#{File.basename(path).sub('.md', '.html')}"
       File.open(output_filename, 'w') { |file| file.write(result[:output].to_s) }
       puts "  Converted: #{File.basename(path)}"
@@ -243,26 +240,36 @@ puts "\nChecking changelog links..."
 HTMLProofer.check_directory("./#{html_output_dir}", options).run
 puts "Changelog link checking complete!"
 
-
-# Then after HTMLProofer runs, check the JSX image URLs:
+# #################
+# Check JSX Image URLs
+# #################
 puts "\nChecking JSX Image URLs..."
+jsx_failures = []
+
 jsx_image_urls.each do |img|
   begin
     uri = URI.parse(img[:url])
     response = Net::HTTP.get_response(uri)
     if response.code.to_i >= 400
-      puts "❌ BROKEN JSX Image in #{img[:changelog]}: #{img[:url]} (#{response.code})"
+      error_msg = "❌ BROKEN JSX Image in #{img[:changelog]}: #{img[:url]} (#{response.code})"
+      puts error_msg
+      jsx_failures << error_msg
     else
       puts "✅ #{img[:url]}"
     end
   rescue => e
-    puts "❌ ERROR checking #{img[:url]}: #{e.message}"
+    error_msg = "❌ ERROR checking #{img[:url]}: #{e.message}"
+    puts error_msg
+    jsx_failures << error_msg
   end
 end
 
-
-
-
+if jsx_failures.any?
+  puts "\n❌ JSX Image check failed with #{jsx_failures.length} error(s)"
+  abort "JSX Image URL check failed"
+else
+  puts "\n✅ All JSX Image URLs are valid!"
+end
 
 # Update cache with current hash only after successful completion
 File.write(CACHE_FILE, current_hash)
