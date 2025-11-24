@@ -2,7 +2,7 @@
 title: Extract data from a document (sync)
 excerpt: >
 
-  **Note:** Use this endpoint when testing. Use the asynchronous extraction
+  **Note:** Use this endpoint for testing. Use the asynchronous extraction
   endpoints when in production.
 
 

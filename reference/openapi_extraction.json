@@ -2386,7 +2386,7 @@
           "document": {
             "type": "string",
             "description": "This parameter is for option 2 for posting PDF bytes. To test it, you can encode a document using an online PDF-to-base64 encoder and paste the resulting bytes into this parameter.\n"
-                }
+          }
         }
       }
     }
