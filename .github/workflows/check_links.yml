@@ -21,5 +21,5 @@ jobs:
           bundler-cache: true
       - name: Install dependencies 🔧
         run: cd ./scripts/check_links/ && bundle install
-      - name: Build HTML from markdown and check guide links 🏗
+      - name: Build HTML from markdown, check guide and reference links 🏗
         run: ruby ./scripts/check_links/check_links.rb
