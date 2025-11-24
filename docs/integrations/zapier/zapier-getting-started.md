@@ -33,7 +33,7 @@ To configure Zapier, you'll use a recent example of a document extraction:
 
 Before you can integrate Sensible with Airtable, you need to set up a destination in Airtable to hold the extracted data Sensible creates. Take the following steps:
 
-1. Sign in or create an [Airtable account](https://airtable.com/).
+1. Sign in or create an Airtable account.
 2. Create a destination Airtable base using the following image as a guide, with **extraction id**, **adjusted gross income**, and **taxpayer name**:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/zapier_7.png)
