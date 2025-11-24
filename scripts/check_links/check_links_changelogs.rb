@@ -110,6 +110,11 @@ all_changelogs.each_with_index do |changelog, index|
   # Get the markdown content for processing
   markdown_content = changelog.dig('content', 'body') || ''
   
+  # Extract JSX Image URLs for separate checking
+  markdown_content.scan(/<Image\s+[^>]*?src="([^"]*)"[^>]*?\/>/).each do |match|
+    jsx_image_urls << { url: match[0], changelog: changelog_slug }
+  end
+
   # Apply each replacement and track changes
   replacements.each do |replacement|
     replacement.each do |old_pattern, new_pattern|
@@ -129,19 +134,6 @@ all_changelogs.each_with_index do |changelog, index|
     end
   end
   
-  # Convert JSX Image components to Markdown image syntax for link checking
-  # <Image ... src="url" ... /> -> ![click to enlarge](url)
-  image_before_count = markdown_content.scan(/<Image\s+/).length
-  if image_before_count > 0
-    markdown_content = markdown_content.gsub(/<Image\s+.*?src="([^"]*)".*?\/?>/, '![click to enlarge](\1)')
-    
-    changelog_replacements << {
-      pattern: " JSX element : <Image ... />",
-      replacement: "parkdown: ![click to enlarge](url)",
-      count: image_before_count
-    }
-    total_replacements += image_before_count
-  end
   
   # Update the changelog object with processed markdown content
   all_changelogs[index]['content'] ||= {}
@@ -160,6 +152,7 @@ end
 puts "\n📊 Replacement Summary:"
 puts "  Changelogs with replacements: #{replacement_count}/#{all_changelogs.length}"
 puts "  Total URL replacements made: #{total_replacements}"
+puts "  JSX Image URLs found: #{jsx_image_urls.length}"
 
 # Update response_json to use the processed changelogs
 response_json = all_changelogs
@@ -249,6 +242,27 @@ options = {
 puts "\nChecking changelog links..."
 HTMLProofer.check_directory("./#{html_output_dir}", options).run
 puts "Changelog link checking complete!"
+
+
+# Then after HTMLProofer runs, check the JSX image URLs:
+puts "\nChecking JSX Image URLs..."
+jsx_image_urls.each do |img|
+  begin
+    uri = URI.parse(img[:url])
+    response = Net::HTTP.get_response(uri)
+    if response.code.to_i >= 400
+      puts "❌ BROKEN JSX Image in #{img[:changelog]}: #{img[:url]} (#{response.code})"
+    else
+      puts "✅ #{img[:url]}"
+    end
+  rescue => e
+    puts "❌ ERROR checking #{img[:url]}: #{e.message}"
+  end
+end
+
+
+
+
 
 # Update cache with current hash only after successful completion
 File.write(CACHE_FILE, current_hash)
