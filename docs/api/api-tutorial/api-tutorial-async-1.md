@@ -35,7 +35,7 @@ To create example extraction configuration, follow the steps in [Out-of-the-box 
 
 ## Extract the data
 
-To try out the [extract\_from\_url](https://docs.sensible.so/reference/extract-from-url) endpoint, let's use an example document hosted in GitHub:
+To try out the [extract\_from\_url](reference:extract-from-url) endpoint, let's use an example document hosted in GitHub:
 
 1. Copy the following code sample and replace `*YOUR_API_KEY*` with your [API key](https://app.sensible.so/account/):
 
