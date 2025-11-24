@@ -129,14 +129,15 @@ all_changelogs.each_with_index do |changelog, index|
     end
   end
   
-  # Convert JSX Image components to standard img tags for link checking
-  # <Image src="url" /> -> <img src="url" />
+  # Convert JSX Image components to Markdown image syntax for link checking
+  # <Image ... src="url" ... /> -> ![click to enlarge](url)
   image_before_count = markdown_content.scan(/<Image\s+/).length
   if image_before_count > 0
-    markdown_content = markdown_content.gsub(/<Image\s+([^>]*?)\/?>/, '<img \1/>')
+    markdown_content = markdown_content.gsub(/<Image\s+[^>]*?src="([^"]*)"[^>]*?\/?>/, '![click to enlarge](\1)')
+    
     changelog_replacements << {
       pattern: "JSX element: <Image ... />",
-      replacement: "... to HTML element: <img ... />",
+      replacement: "to simple MD: ![click to enlarge](url)",
       count: image_before_count
     }
     total_replacements += image_before_count
