@@ -1,9 +1,1 @@
-- list-configurations
-- create-configuration
-- get-configuration
-- update-configuration
-- delete-configuration
-- get-configuration-versions
-- get-configuration-by-version
-- publish-configuration-by-version
-- delete-configuration-by-version
+[]
