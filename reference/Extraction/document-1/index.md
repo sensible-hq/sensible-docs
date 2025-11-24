@@ -1,4 +1,0 @@
----
-title: Document
-hidden: false
----
