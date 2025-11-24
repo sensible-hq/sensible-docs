@@ -207,9 +207,9 @@ Find.find(rel_path) do |path|
       output_filename = "#{html_output_dir}/#{File.basename(path).sub('.md', '.html')}"
       File.open(output_filename, 'w') { |file| file.write(result[:output].to_s) }
       puts "  Converted: #{File.basename(path)}"
-      # print file contents
-      puts "file contents:"
-      puts File.read(path)
+      
+      #puts "file contents:"
+      #puts File.read(path)
 
       html_file_count += 1
     else
@@ -241,8 +241,13 @@ html_proofer_failed = false
 begin
   HTMLProofer.check_directory("./#{html_output_dir}", options).run
   puts "✅ Changelog link checking complete - no errors found!"
+rescue SystemExit => e
+  if e.status != 0
+    puts "❌ HTMLProofer found errors (exit status: #{e.status})"
+    html_proofer_failed = true
+  end
 rescue => e
-  puts "❌ HTMLProofer found errors: #{e.message}"
+  puts "❌ HTMLProofer encountered an error: #{e.message}"
   html_proofer_failed = true
 end
 
