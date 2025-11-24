@@ -21,6 +21,7 @@ replacements = [
 # Track replacements
 total_replacements = 0
 jsx_image_urls = []  # Collect JSX image URLs separately
+htmlblock_urls = []  # Collect HTMLBlock URLs separately
 processed_files = []
 
 # Process each markdown file
@@ -34,7 +35,20 @@ Find.find("./") do |path|
       
       # Extract JSX Image URLs for separate checking
       markdown_content.scan(/<Image\s+[^>]*?src="([^"]*)"[^>]*?\/>/).each do |match|
-        jsx_image_urls << { url: match[0], file: File.basename(path) }
+        jsx_image_urls << { url: match[0], file: File.basename(path), type: 'Image' }
+      end
+      
+      # Extract URLs from HTMLBlock elements
+      # Look for href and src attributes within HTMLBlock tags
+      markdown_content.scan(/<HTMLBlock>(.*?)<\/HTMLBlock>/m).each do |block_content|
+        # Extract href URLs
+        block_content[0].scan(/href="([^"]*)"/).each do |match|
+          htmlblock_urls << { url: match[0], file: File.basename(path), type: 'HTMLBlock href' }
+        end
+        # Extract src URLs
+        block_content[0].scan(/src="([^"]*)"/).each do |match|
+          htmlblock_urls << { url: match[0], file: File.basename(path), type: 'HTMLBlock src' }
+        end
       end
       
       # Apply each replacement and track changes
@@ -80,6 +94,7 @@ puts "\n📊 Processing Summary:"
 puts "  Files processed: #{processed_files.length}"
 puts "  Total URL replacements made: #{total_replacements}"
 puts "  JSX Image URLs found: #{jsx_image_urls.length}"
+puts "  HTMLBlock URLs found: #{htmlblock_urls.length}"
 
 # #################
 # Convert processed Markdown files to HTML
@@ -156,6 +171,30 @@ jsx_image_urls.each do |img|
 end
 
 # #################
+# Check HTMLBlock URLs
+# #################
+puts "\nChecking HTMLBlock URLs..."
+htmlblock_failures = []
+
+htmlblock_urls.each do |link|
+  begin
+    uri = URI.parse(link[:url])
+    response = Net::HTTP.get_response(uri)
+    if response.code.to_i >= 400
+      error_msg = "❌ BROKEN #{link[:type]} in #{link[:file]}: #{link[:url]} (#{response.code})"
+      puts error_msg
+      htmlblock_failures << error_msg
+    else
+      puts "✅ #{link[:url]}"
+    end
+  rescue => e
+    error_msg = "❌ ERROR checking #{link[:url]}: #{e.message}"
+    puts error_msg
+    htmlblock_failures << error_msg
+  end
+end
+
+# #################
 # Final status report
 # #################
 puts "\n" + "="*80
@@ -176,6 +215,13 @@ if jsx_failures.any?
   has_errors = true
 else
   puts "✅ JSX Image URLs: PASSED"
+end
+
+if htmlblock_failures.any?
+  puts "❌ HTMLBlock URLs: FAILED (#{htmlblock_failures.length} error(s))"
+  has_errors = true
+else
+  puts "✅ HTMLBlock URLs: PASSED"
 end
 
 if has_errors
