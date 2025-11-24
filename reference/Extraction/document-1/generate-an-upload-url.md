@@ -1,8 +1,8 @@
 ---
 title: Extract doc at a Sensible URL
 excerpt: >-
-  Extract data asynchronously from a document using the following steps:  1. Use
-  this endpoint to generate a Sensible URL.  2. PUT your document at the
+  Extract data asynchronously from a document by taking the following steps:  1.
+  Use this endpoint to generate a Sensible URL.  2. PUT your document at the
   `upload_url` returned from the previous step. Sensible extracts data from the
   document.  3. To retrieve the extraction, use a webhook, or use the extraction
   `id` returned in the response to poll the GET documents/{id} endpoint.For
