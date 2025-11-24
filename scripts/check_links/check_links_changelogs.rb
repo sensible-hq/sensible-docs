@@ -129,6 +129,19 @@ all_changelogs.each_with_index do |changelog, index|
     end
   end
   
+  # Convert JSX Image components to standard img tags for link checking
+  # <Image src="url" /> -> <img src="url" />
+  image_before_count = markdown_content.scan(/<Image\s+/).length
+  if image_before_count > 0
+    markdown_content = markdown_content.gsub(/<Image\s+([^>]*?)\/?>/, '<img \1/>')
+    changelog_replacements << {
+      pattern: "<Image ... />",
+      replacement: "<img ... />",
+      count: image_before_count
+    }
+    total_replacements += image_before_count
+  end
+  
   # Update the changelog object with processed markdown content
   all_changelogs[index]['content'] ||= {}
   all_changelogs[index]['content']['body'] = markdown_content
@@ -197,7 +210,7 @@ Find.find(rel_path) do |path|
     if not contents.match(/hidden\:\s*true/)
       # Convert JSX Image components to standard img tags for link checking
       # <Image src="url" /> -> <img src="url" />
-      contents_for_checking = contents.gsub(/<Image\s+([^>]*?)\/?>/, '<img \1/>')
+      contents_for_checking = contents
       
       result = pipeline.call(contents_for_checking)
       output_filename = "#{html_output_dir}/#{File.basename(path).sub('.md', '.html')}"
