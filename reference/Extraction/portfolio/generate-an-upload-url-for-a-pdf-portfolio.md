@@ -18,7 +18,7 @@ excerpt: >
 
   from this endpoint's response. For more information about how to PUT the
   document, see the
-  [generate_upload_url/{document_type}](ref:generate-upload-url) endpoint.
+  [generate_upload_url/{document_type}](ref:generate-an-upload-url) endpoint.
 
   3. To retrieve the extraction, use a webhook, or use the extraction `id`
   returned in the  response to poll the GET documents/{id} endpoint.

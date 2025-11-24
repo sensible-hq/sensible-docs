@@ -70,7 +70,7 @@ The following parameters are available to you for the `POST extract/batch` endpo
 ]   
 ```
 
-3. Put each document to its upload URL to request extraction, using the same guidelines as you'd use for the [generate\_upload\_url](ref:generate-upload-url) endpoint.  For example:
+3. Put each document to its upload URL to request extraction, using the same guidelines as you'd use for the [generate\_upload\_url](ref:generate-an-upload-url) endpoint.  For example:
 
 ```json
    curl --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/c024cd1c-5f33-4a82-b2ea-2c807e44988b/6bd67eb5-9e28-4161-9ae1-43015e6b680c/EXTRACTION/0b34ce99-bf15-4e0d-a391-b03e4c830414REDACTED' \

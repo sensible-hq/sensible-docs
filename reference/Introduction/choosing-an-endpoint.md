@@ -38,7 +38,7 @@ To get started, see the following endpoints. Or, see other [integration](doc:int
       </td>
 
       <td style={{ textAlign: "left" }}>
-        * [Extract doc at a Sensible URL](ref:generate-upload-url) <br/>
+        * [Extract doc at a Sensible URL](ref:generate-an-upload-url) <br/>
         * [Extract doc at your URL](ref:extract-from-url)
       </td>
 

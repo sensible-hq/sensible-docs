@@ -2,7 +2,7 @@
 title: Extract doc at a Sensible URL using specified config
 excerpt: >
   This endpoint's behavior is identical to the [Extract doc at a Sensible
-  URL](ref:generate-upload-url) endpoint's behavior, except that Sensible uses
+  URL](ref:generate-an-upload-url) endpoint's behavior, except that Sensible uses
   the specified config to extract data from the document instead of
   automatically choosing the best-scoring extraction in the document type.
 api:
