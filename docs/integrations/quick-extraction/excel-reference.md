@@ -53,7 +53,7 @@ To combine extractions, Sensible uses the same rules described in the following 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/excel_mix.png)
 
-  Where `doc_0` refers to [any\_single\_account\_bank\_statement\_sample.pdf](https://github.com/sensible-hq/sensible-configuration-library/blob/main/templates/Financial%20Services/Bank%20Statements/refdocs/any_single_account_bank_statement_sample.pdf), and `doc_2` refers to the bank statement document in page range 2-6 of [portfolio\_bank\_paystub\_tax.pdf](https://github.com/sensible-hq/sensible-docs-assets-temp/blob/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf).
+  Where `doc_0` refers to [any\_single\_account\_bank\_statement\_sample.pdf](https://github.com/sensible-hq/sensible-configuration-library/blob/main/templates/Financial%20Services/Bank%20Statements/refdocs/any_single_account_bank_statement_sample.pdf), and `doc_2` refers to the bank statement document in page range 2-6 of [portfolio\_bank\_paystub\_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf).
 
 **Tips**
 
@@ -91,7 +91,7 @@ The `fields` sheet lists fields and their values as key-value dictionaries, with
 
 ## Example
 
-Sensible converts the JSON extraction output from the [auto\_insurance\_anyco](https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started with layout-based extractions](doc:getting-started) to the following spreadsheet:
+Sensible converts the JSON extraction output from the [auto\_insurance\_anyco](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started with layout-based extractions](doc:getting-started) to the following spreadsheet:
 
 **Spreadsheet output**
 
@@ -105,7 +105,7 @@ Sensible converts the JSON extraction output from the [auto\_insurance\_anyco](h
 
 The preceding spreadsheet contains data from the following example document:
 
-| Example document | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
 **Example configuration**

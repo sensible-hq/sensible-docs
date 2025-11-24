@@ -29,7 +29,7 @@ To run an API call and return extracted, structured data from a downloaded examp
 3. Copy the following code example into a plain-text application and replace `*YOUR_API_KEY*` with your API key:
 
 ```shell
-curl -L https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf --output 1_extract_your_first_data.pdf && curl --request POST --url "https://api.sensible.so/v0/extract/layout_basics" --header "Authorization: Bearer YOUR_API_KEY" --header "Content-Type: application/pdf" --data-binary "@1_extract_your_first_data.pdf"
+curl -L https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf --output 1_extract_your_first_data.pdf && curl --request POST --url "https://api.sensible.so/v0/extract/layout_basics" --header "Authorization: Bearer YOUR_API_KEY" --header "Content-Type: application/pdf" --data-binary "@1_extract_your_first_data.pdf"
 
 ```
 

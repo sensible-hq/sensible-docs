@@ -48,7 +48,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
    1. Download the following example document, then select it in the dialog for upload:
 
-   | Example document | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
    | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
    2. For the document type name, enter `auto_insurance_quotes`.
@@ -444,7 +444,7 @@ Before integrating the config with an application and writing [validation tests]
 
 1. Repeat the steps in the previous section to upload a second generic car insurance quote:
 
-   | auto\_insurance\_anyco\_2 | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_2.pdf) |
+   | auto\_insurance\_anyco\_2 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_2.pdf) |
    | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 2. Click the **anyco** config, select the "auto\_insurance\_anyco\_2" document, and look at the output. Unlike the first document, the policy period takes up two lines, so Sensible misses the end year (2021):
@@ -591,7 +591,7 @@ To add these tests:
    * the policy number is missing
    * the property damage liability premium is $200 more than the comprehensive premium
 
-| auto\_insurance\_anyco\_3 | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
+| auto\_insurance\_anyco\_3 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_3.pdf) |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 You should receive a response with errors and warnings in the Validations array, as shown in the following API response excerpt:

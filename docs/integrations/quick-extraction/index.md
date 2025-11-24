@@ -38,7 +38,7 @@ Take the following steps:
 
 ​       If you don't have an example document, use the following document with the `llm_basics` document type :
 
-| Example document | [Download link](https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/bank_3.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------ |
 
 3. Click **Run Extraction**.

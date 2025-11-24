@@ -49,7 +49,7 @@ To extract from a portfolio, take the following steps:
     --header 'Content-Type: application/json' \
     --header 'Authorization: ••••••' \
     --data '{
-        "document_url":"https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf",
+        "document_url":"https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf",
         "types": [
               "bank_statements",
               "pay_stubs",
@@ -278,7 +278,7 @@ For the preceding configurations, doc types, and example document portfolio, the
 curl --request POST 'https://api.sensible.so/v0/extract_from_url/' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
---data-raw '{"document_url":"https://github.com/sensible-hq/sensible-docs-assets-temp/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
+--data-raw '{"document_url":"https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
 "types":["auto_insurance_quotes","loss_run_reports"]}'
 ```
 
