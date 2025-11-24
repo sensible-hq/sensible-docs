@@ -257,7 +257,7 @@ end
 
 # TODO: ideally replace JSX image syntax w/ markdown syntax for internal consistency
 
-puts "\nChecking JSX Image URLs..."
+puts "\nChecking JSX Image URLs (<Image ... />..."
 jsx_failures = []
 
 jsx_image_urls.each do |img|
