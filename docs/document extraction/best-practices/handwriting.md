@@ -20,11 +20,11 @@ Sensible provides confidence scores for OCR'd text in the extraction when you co
 
 * **Choosing an OCR engine:** Choose Google OCR. To configure OCR, click the gear icon for the Document Type and select **Google**: 
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/merge_lines_ocr_1.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/merge_lines_ocr_1.png)
 
 * **Defining regions:** Handwriting can occupy an unpredictable region or even overlap other lines. To capture handwriting, Sensible recommends defining a [region](doc:region) with a small height and long width that runs through the middle of the area that can contain the handwriting. The green boxes in the following image show this approach: 
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/handwriting_1.png) 
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/handwriting_1.png) 
 
   For more information about how Sensible determines whether to extract a line that partially overlaps a region, see [Region](doc:region).
 

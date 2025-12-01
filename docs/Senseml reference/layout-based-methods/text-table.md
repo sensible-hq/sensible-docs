@@ -89,9 +89,9 @@ The following example shows extracting two columns from a difficult-to-recognize
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/text_table.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/text_table.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/text_table_2.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/text_table_2.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -196,9 +196,9 @@ This example shows defining two columns with the same coordinates, in order to s
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/text_table_overlap.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/text_table_overlap.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/text_table_overlap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/text_table_overlap.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -293,9 +293,9 @@ The following example shows handling newlines in a cell with varying font sizes 
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/text_table_max_gap.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/text_table_max_gap.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/text_table_max_gap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/text_table_max_gap.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

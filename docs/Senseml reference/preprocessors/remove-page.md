@@ -60,9 +60,9 @@ The following example shows removing all pages with an Appendix A header in orde
 
 **Example document**
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/remove_page.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/remove_page.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/remove_page.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/remove_page.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

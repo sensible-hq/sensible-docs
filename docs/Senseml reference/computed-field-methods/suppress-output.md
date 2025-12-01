@@ -64,9 +64,9 @@ The following example shows suppressing a raw "driver's name" field and outputti
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/suppress_output.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/suppress_output.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/suppress_output.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/suppress_output.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

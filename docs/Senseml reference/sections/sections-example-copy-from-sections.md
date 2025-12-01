@@ -20,7 +20,7 @@ In this example, the config uses paired section groups nested in a parent sectio
 
 3. A child section group captures data such as the coverages and premiums:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/copy_from_sections_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/copy_from_sections_2.png)
 
 If you [zip the child sections together](doc:sections-example-zip), you can output something like the following example output, and then clean it up with the Copy From Sections method. 
 
@@ -240,9 +240,9 @@ The following elaborates on the preceding overview using JSON instead of YML.
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/copy_from_sections.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/copy_from_sections.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/copy_from_sections.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/copy_from_sections.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

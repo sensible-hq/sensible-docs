@@ -12,7 +12,7 @@ next:
 ---
 See the following image for a high-level overview of Sensible's document data extraction workflow:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/platform_devops.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/platform_devops.png)
 
 As the preceding image shows, Sensible's workflow contains the following steps: 
 

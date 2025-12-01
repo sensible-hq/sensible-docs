@@ -37,7 +37,7 @@ For example, the following image shows:
 * an anchor line highlighted with a yellow outline ("Here is a good candidate"). The outline shows the anchor's "bounding box", or the boundaries of the anchor line.
 * a line output by the Label method outlined in blue ("And here's the text below")
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_label_and_method_1.png)
 
 The query used for the preceding image is:
 
@@ -65,7 +65,7 @@ For example, the following image shows:
 * an anchor line outlined in yellow ("Here is a good candidate")
 * a line output by the Label method outlined in blue ("And here's the text below")
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_label_and_method_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_label_and_method_1.png)
 
 The query used for the preceding image is:
 
@@ -98,21 +98,21 @@ The query used for the preceding image is:
 
 Green points can be useful for troubleshooting. For example, in the following image, Sensible can't recognize the box. The green dot provides a visual clue about the problem: the green dot is *on* the box border itself, as specified by (`"position": "left"`).
 
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/box_position_left.png)
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_position_left.png)
 
 If you specify to find the box borders by starting from the right edge of the anchor line's boundaries (`"position": "right"`), the green dot is far enough inside the borders for Sensible to recognize the box:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/box_position_right.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_position_right.png)
 
 ## Green brackets
 
 **Green brackets** represent the start and end of each section in a section group:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_sections.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_sections.png)
 
 Yellow brackets denote sections' external ranges, which is an advanced configuration option.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/sections_external_range_dynamic.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_external_range_dynamic.png)
 
 ## Dotted blue box
 
@@ -120,7 +120,7 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (dotted blue box).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_filtered_method.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_filtered_method.png)
 
 The query used for the preceding image is:
 
@@ -168,10 +168,10 @@ For example, for the following config and example document:
 }
 ```
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/row_column.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_filtered_anchor.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_filtered_anchor.png)
 
 Sensible discards the "python" string since it doesn't meet the Label method's proximity requirements.  In this instance, use the Row method instead to capture the data.
 
@@ -187,7 +187,7 @@ Common parameters resulting in discarded anchors include:
 ***Pink boxes*** represent matching fingerprint tests.\
 In the following image, the pink text is a matching fingerprint. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/ui_fingerprint.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_fingerprint.png)
 
 The query used for the preceding image is:
 
@@ -227,7 +227,7 @@ A selected line shows the following details:
 
 You can select multiple lines to see their combined details.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/changelog_July2021_x-ray_mode.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/changelog_July2021_x-ray_mode.png)
 
 ### Location highlighting
 

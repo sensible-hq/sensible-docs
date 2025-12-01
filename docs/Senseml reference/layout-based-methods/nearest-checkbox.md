@@ -83,7 +83,7 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main//readme-sync/assets/v0/images/final/nearest_checkbox.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/nearest_checkbox.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/nearest_checkbox.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

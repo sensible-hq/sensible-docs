@@ -23,7 +23,7 @@ You can use the example Zaps in this topic as templates. For example, modify thi
 
 Every time you add a new file to a specified Slack channel, Zapier triggers Sensible to start extracting data from it.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/zapier_action_1_slack.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_action_1_slack.png)
 
 ## Zap 2
 
@@ -33,7 +33,7 @@ Every time Sensible completes extracting from a document:
 2. If it is, Zapier triggers Sensible to create a spreadsheet of the extracted data, and uploads the spreadsheet to a folder in Google Drive.
 3. (Optional) Zapier logs that the Zap ran.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/zapier_action_2_slack.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_action_2_slack.png)
 
 Take the following steps to run these Zaps with example data, then modify them for your needs.
 
@@ -138,7 +138,7 @@ See the following steps to configure Zap 2.
 
       2. Navigate to the `1040s_extracted` Google Drive folder you created in a previous step and verify it now contains a spreadsheet with extracted document data, for example:
 
-         ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/zapier_spreadsheet.png) 
+         ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_spreadsheet.png) 
 
 4. (Optional): To log when Zap 1 and Zap 2 run, take the following actions:
 
@@ -171,11 +171,11 @@ Congratulations, your integration is now published and running! Take the followi
 
 4. Wait a few minutes, then verify the extractions show up in your Google Drive folder as spreadsheets:
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/zapier_action_3.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_action_3.png)
 
 5. Verify the extractions show up in your optionally configured logs:
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/zapier_action_4.png)
+   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_action_4.png)
 
 ## Notes
 

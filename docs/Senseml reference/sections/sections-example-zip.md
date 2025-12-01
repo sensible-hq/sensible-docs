@@ -18,7 +18,7 @@ The following example shows zipping multiple tables together by treating each ta
 
 As an overview, this example shows creating a  `zipped_vehicle_description_and_coverages` array, where each  object in the array contains information from the vehicles table and from the limitations table in the following image:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/vertical_sections_zip.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/vertical_sections_zip.png)
 
  It also illustrates the following sections behavior:
 
@@ -196,9 +196,9 @@ As an overview, this example shows creating a  `zipped_vehicle_description_and_c
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/vertical_sections_zip.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/vertical_sections_zip.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/vertical_sections_zip.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/vertical_sections_zip.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

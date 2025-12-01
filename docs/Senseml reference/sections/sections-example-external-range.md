@@ -160,9 +160,9 @@ In the following screenshot, the green brackets denote sections, where each sect
 
 The following image shows the data extracted by this config for the following example document.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/sections_external_range.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_external_range.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/sections_external_range.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/sections_external_range.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -365,9 +365,9 @@ In the following screenshot, the green brackets denote sections, where each sect
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/sections_external_range_dynamic.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_external_range_dynamic.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/sections_external_range_dynamic.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/sections_external_range_dynamic.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**

@@ -14,7 +14,7 @@ Matches all lines to the left or right of the anchor line.
 
  A "row" is lines of text distributed along a horizontal line. By default, each matching line in the "row" must have a top boundary that's within 0.08 inches below or above the anchor's top boundary (total range is 0.16" inches). For example, the following image shows a red line that defines the alignment for the row of text that begins with "Python":
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/row_align.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/row_align.png)
 
 [**Parameters**](doc:row#parameters)\
 [**Examples**](doc:row#examples)\
@@ -89,9 +89,9 @@ The following example shows  extracting data from two consecutive tables using t
 
 The following image shows the data extracted by this config for the following example document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/row.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/row.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/row_column.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/row_column.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

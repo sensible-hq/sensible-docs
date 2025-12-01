@@ -19,7 +19,7 @@ This example shows:
 
 To give a broad overview of using vertical sections for a table grid, see the following image:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/vertical_sections_table_grid.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/vertical_sections_table_grid.png)
 
 In the preceding image, the config uses sections as follows:
 
@@ -217,9 +217,9 @@ The following elaborates on the preceding brief overview using JSON instead of Y
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/vertical_section_table_grid_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/vertical_section_table_grid_1.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/vertical_sections_table_grid.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/vertical_sections_table_grid.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

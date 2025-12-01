@@ -51,9 +51,9 @@ To combine extractions, Sensible uses the same rules described in the following 
 
 * For portfolio extractions, Sensible adds metadata to the `<fields>` sheet, for example, the page range of the document in the portfolio. As an example, for documents `any_single_account_bank_statement_sample.pdf`  and `portfolio_bank_paystub_tax.pdf`, Sensible outputs the following:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/excel_mix.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/excel_mix.png)
 
-  Where `doc_0` refers to [any\_single\_account\_bank\_statement\_sample.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Financial%20Services/Bank%20Statements/refdocs/any_single_account_bank_statement_sample.pdf), and `doc_2` refers to the bank statement document in page range 2-6 of [portfolio\_bank\_paystub\_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/portfolio_bank_paystub_tax.pdf).
+  Where `doc_0` refers to [any\_single\_account\_bank\_statement\_sample.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Financial%20Services/Bank%20Statements/refdocs/any_single_account_bank_statement_sample.pdf), and `doc_2` refers to the bank statement document in page range 2-6 of [portfolio\_bank\_paystub\_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf).
 
 **Tips**
 
@@ -91,7 +91,7 @@ The `fields` sheet lists fields and their values as key-value dictionaries, with
 
 ## Example
 
-Sensible converts the JSON extraction output from the [auto\_insurance\_anyco](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started with layout-based extractions](doc:getting-started) to the following spreadsheet:
+Sensible converts the JSON extraction output from the [auto\_insurance\_anyco](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/auto_insurance_anyco.pdf) example described in the [Getting started with layout-based extractions](doc:getting-started) to the following spreadsheet:
 
 **Spreadsheet output**
 
@@ -105,7 +105,7 @@ Sensible converts the JSON extraction output from the [auto\_insurance\_anyco](h
 
 The preceding spreadsheet contains data from the following example document:
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/auto_insurance_anyco.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
 **Example configuration**
@@ -150,7 +150,7 @@ Each  `<field_id>` sheet lists the output of a single field. Sensible outputs a 
 
 ## Example
 
-Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/fixed_table.pdf) described in the [Fixed Table](doc:fixed-table#examples) method to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/fixed_table.pdf) described in the [Fixed Table](doc:fixed-table#examples) method to the following spreadsheet:
 
 <HTMLBlock>{`
 <div><iframe class="spreadsheet" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRU-wjC2m6F0ACgU1Ry_W1zggeb7-oM_tZZ7XAsadz8m7uzZos1TY7B0XLpGW79_7rgltqpj8eCB262/pubhtml?widget=true&amp;headers=false"></iframe></div>
@@ -164,7 +164,7 @@ The preceding example shows that the `fields` sheet lists the corresponding shee
 
 The preceding spreadsheet contains data from the following example document: 
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/table_dynamic.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/table_dynamic.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 **Example configuration**
@@ -227,7 +227,7 @@ Each  `<field_id>.<index>` sheet lists the output of a single field that contain
 
 ## Example
 
-Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
+Sensible converts the example JSON output from the [example document](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/vertical_section_table_in_table.pdf) described in the [Advanced Sections nested table example](doc:sections-example-nested-table) topic to the following spreadsheet:
 
 <HTMLBlock>{`
 <div><iframe class="spreadsheet" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTVfCgSQir-GkJsYrDv3TBlHcuH11YPt9P3CGXp9gHFnrFoopKEVz0wQ2jPhezpiE1uHip08LqO7lmV/pubhtml?widget=true&amp;headers=false"></iframe></div>
@@ -241,7 +241,7 @@ The preceding example shows that Sensible outputs nested sections in linked, ind
 
 The preceding spreadsheet contains data from the following example document: 
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/vertical_section_table_in_table.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/vertical_section_table_in_table.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Example configuration**

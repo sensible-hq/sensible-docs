@@ -81,7 +81,7 @@ The following image shows the example document used with this example config:
 
 <Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main//readme-sync/assets/v0/images/final/checkbox.png" />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/pdfs/checkbox.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/checkbox.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
