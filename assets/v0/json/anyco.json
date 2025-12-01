@@ -1,0 +1,44 @@
+{
+  "fields": [
+    {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
+    },
+    {
+      "id": "comprehensive_premium",
+      "anchor": "comprehensive",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    },
+    {
+      "id": "property_liability_premium",
+      "anchor": "property",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "tiebreaker": "second"
+      }
+    },
+    {
+      "id": "policy_number",
+      "type": "string",
+      "anchor": {
+        "match":
+          {
+            "text": "policy number",
+            "type": "startsWith"
+          }
+      },
+      "method": {
+        "id": "box"
+      }
+    }
+  ]
+}
