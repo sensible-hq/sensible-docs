@@ -29,6 +29,7 @@ class ChangelogUpdater:
         page = 1
         per_page = 100
         
+        
         while True:
             url = f"{BASE_URL}/changelogs?per_page={per_page}&page={page}"
             response = requests.get(url, headers=self.headers)
