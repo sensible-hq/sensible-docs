@@ -11,7 +11,10 @@ from typing import List, Dict, Tuple
 from collections import defaultdict
 
 # Configuration
+
+# shell: edit in ~/.bashrc, then source ~/.bashrc
 README_API_KEY = os.environ.get('README_API_KEY')
+
 BASE_URL = "https://api.readme.com/v2"
 
 class ChangelogUpdater:
@@ -28,7 +31,6 @@ class ChangelogUpdater:
         all_changelogs = []
         page = 1
         per_page = 100
-        
         
         while True:
             url = f"{BASE_URL}/changelogs?per_page={per_page}&page={page}"
@@ -141,7 +143,7 @@ class ChangelogUpdater:
         return changes
     
     def apply_changes(self, changes: Dict, auto_confirm: bool = False) -> Dict:
-        """Apply changes to changelogs via API with individual confirmation"""
+        """Apply changes to changelogs via API"""
         print("\n" + "=" * 80)
         print("APPLYING CHANGES")
         print("=" * 80 + "\n")
@@ -156,23 +158,6 @@ class ChangelogUpdater:
             
             for change in data['changes']:
                 print(f"  └─ Replace {change['count']}x: '{change['find']}' → '{change['replace']}'")
-            
-            if not auto_confirm:
-                while True:
-                    response = input("\nUpdate this changelog? (y/n/q to quit): ").strip().lower()
-                    if response in ['y', 'n', 'q']:
-                        break
-                    print("Please enter 'y', 'n', or 'q'")
-                
-                if response == 'q':
-                    print("\nQuitting. Remaining changelogs will not be updated.")
-                    skipped.extend(list(changes.keys())[i-1:])
-                    break
-                
-                if response == 'n':
-                    print(f"  ⊘ Skipped")
-                    skipped.append(slug)
-                    continue
             
             changelog = data['changelog']
             modified_content = data['modified']
@@ -276,12 +261,13 @@ class ChangelogUpdater:
             print("No changes to make. Exiting.")
             sys.exit(0)
         
-        if not auto_confirm:
-            response = input("\nProceed with updates? (yes/no): ").strip().lower()
-            if response not in ['yes', 'y']:
-                print("Cancelled. No changes made.")
-                sys.exit(0)
+        # Always ask for confirmation after showing the summary
+        response = input("\nProceed with updates? (yes/no): ").strip().lower()
+        if response not in ['yes', 'y']:
+            print("Cancelled. No changes made.")
+            sys.exit(0)
         
+        # With auto-confirm, apply all changes without individual prompts
         results = self.apply_changes(changes, auto_confirm)
         
         self.print_summary(results)
@@ -298,7 +284,8 @@ def main():
         print("  find_string1\treplace_string1")
         print("  find_string2\treplace_string2")
         print("\nLines starting with # are treated as comments")
-        print("\nWithout --auto-confirm, you'll be asked to confirm each changelog update individually")
+        print("\nWith --auto-confirm: After showing the preview, you'll be asked once to")
+        print("confirm, then all changes will be applied automatically without individual prompts")
         sys.exit(1)
     
     config_file = sys.argv[1]
