@@ -12,10 +12,7 @@ next:
 ---
 DRAFT CONCEPT -- maybe unnecessary
 
-test image styling:
 
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/test1.png)
 
 A _processor_ is an API endpoint that you configure for extracting data from a general category of similar documents, for example, `bank_statments` or `tax_documents`.  You configure extraction templates or leverage our out-of-the-box [library](doc:library-quickstart).
 
