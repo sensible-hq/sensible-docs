@@ -255,8 +255,7 @@ end
 # Check JSX Image URLs
 # #################
 
-# TODO: check ALL JSX elements not just images, a la check_links.rb
-# but careful how you prompt it
+# TODO: ideally replace JSX image syntax w/ markdown syntax for internal consistency
 
 puts "\nChecking JSX Image URLs (<Image ... />..."
 jsx_failures = []
@@ -294,7 +293,6 @@ if html_proofer_failed
 else
   puts "✅ HTMLProofer: PASSED"
 end
-
 
 if jsx_failures.any?
   puts "❌ JSX Image URLs: FAILED (#{jsx_failures.length} error(s))"
