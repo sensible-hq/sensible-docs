@@ -90,7 +90,7 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 3. If you haven't already, download the following example document, which works with the example `1040s` document type you created in the **Prerequisites** section:
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 4. Correct the path to the downloaded document in your request: click the **Body** tab, select **binary**, then click **Select file** and select the document:
