@@ -1,10 +1,10 @@
 name: Style images
 
-# Run workflow for every push to the `main` branch in dir assets
+# Run workflow for every push to the `v0` branch in dir assets
 on:
   push:
     branches:
-      - main
+      - v0
     paths:
       - 'assets/images/screenshots/**'
 
