@@ -68,9 +68,9 @@ The following example shows splitting a field's output to extract a first and la
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/split.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/split.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/split.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/split.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

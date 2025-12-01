@@ -227,9 +227,9 @@ The following example shows  defining custom computed fields.
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/add_computed_fields_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/add_computed_fields_1.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/add_computed_fields.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/add_computed_fields.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
@@ -515,9 +515,9 @@ The following example shows using the Custom Computation method to perform the f
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/blog_custom_computations.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/blog_custom_computations.png) 
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/blog_custom_computations.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/blog_custom_computations.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

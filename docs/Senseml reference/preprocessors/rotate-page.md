@@ -26,7 +26,7 @@ In most cases, Sensible corrects page rotation automatically. If it doesn't, con
 
 The following image shows that without the Rotate page preprocessor, extraction from a rotated document fails. The Region method returns null, because the targeted text isn't in the expected region:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/rotate_page_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/rotate_page_1.png)
 
 To solve this problem, configure a match for text that you want to be horizontal, and Sensible rotates the page:
 
@@ -66,9 +66,9 @@ To solve this problem, configure a match for text that you want to be horizontal
 
 The following images show the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/rotate_page_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/rotate_page_2.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/rotate_page.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/rotate_page.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

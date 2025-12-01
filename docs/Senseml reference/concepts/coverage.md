@@ -39,7 +39,7 @@ Then its coverage is 75% : (18 - 1 - 2) / 20 = 0.75.
 
 To view an individual extraction's coverage, click **Dashboard** and scroll to the **Recent** section:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/dashboard_coverage_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/dashboard_coverage_1.png)
 
 In the preceding screenshot, get a coverage breakdown by viewing the extraction. You can view the extraction by clicking the extraction date in the **Recent extractions** column or downloading the Excel file.
 

@@ -13,7 +13,7 @@ next:
 ---
 Extracts a target line at the intersection of a line defined by an anchor, and a second line defined by a second anchor:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/intersection_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intersection_1.png)
 
 For example, the Intersection method is an alternative to the Row method when a table contains optionally empty cells.  A row's tiebreaker can return lines from unintended columns if cells are unpredictably populated.
 
@@ -64,9 +64,9 @@ The following example shows using the Intersection method to extract a cell from
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/intersection_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intersection_2.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/intersection.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/intersection.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -121,9 +121,9 @@ The following example shows extracting variably positioned lines by relaxing the
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/intersection_percent_overlap.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intersection_percent_overlap.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/intersection_percent_overlap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/intersection_percent_overlap.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -175,9 +175,9 @@ The following example shows using a horizontal anchor to extract multiple cells 
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/intersection_horizontal.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intersection_horizontal.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/intersection_horizontal.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/intersection_horizontal.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

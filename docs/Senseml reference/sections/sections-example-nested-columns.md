@@ -19,7 +19,7 @@ To give a brief overview of using vertical sections for columns, the following i
 1. define a section group
 2. define a nested vertical section  group
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/vertical_sections_col_sect.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/vertical_sections_col_sect.png)
 
 The following config uses abbreviated YML notation to give an overview of the more complex SenseML JSON: 
 
@@ -151,9 +151,9 @@ The following elaborates on the preceding overview using JSON instead of YML.
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/vertical_sections_col_sect_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/vertical_sections_col_sect_1.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/vertical_sections_col_section.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/vertical_sections_col_section.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

@@ -532,9 +532,9 @@ The following example shows extracting fields, then modifying the key and the va
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/map_object.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/map_object.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/map_object.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/map_object.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -805,9 +805,9 @@ The following example shows removing extracted IDs from the [postprocessed](doc:
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/omit_fields.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/omit_fields.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/omit_fields.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/omit_fields.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Postprocessor output**
@@ -1117,7 +1117,7 @@ Example use cases include:
 
 * Mixed headers and items data in a table: persist the headers and apply them to items until the header changes. For example, use the Stateful Map operation to keep track of the header rows (vendors) and data rows (paint names) in the  following table:
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/stateful_map_merge_objects.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/stateful_map_merge_objects.png)
 
 ```json
 {
@@ -1279,9 +1279,9 @@ The following example shows using the Stateful Map and Merge Objects operations 
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/stateful_map_merge_objects.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/stateful_map_merge_objects.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/stateful_map_merge_objects.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/stateful_map_merge_objects.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

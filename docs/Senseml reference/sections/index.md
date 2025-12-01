@@ -14,7 +14,7 @@ Extracts data from a document that contains complex or repeated elements ("secti
 
 The following image shows an example of a document containing "claims" sections, where each section starts with `claim number` and ends below `date of claim`:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/sections_1.png)
 
 For the preceding example, you can configure Sensible to return a `claims` array, where each object in the array contains a `claim_number`, `claim_date`, `claimant_last_name`, and other fields.  For more information, see [Claims loss run example](doc:sections-example-loss-run).
 
@@ -24,13 +24,13 @@ You can define "horizontal" sections (`"direction": "horizontal"`), as shown in 
 
 The following image shows horizontal sections. For more information, see the following Parameters section, and see [Section nuances](doc:section-nuances).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_concept_horizontal.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/sections_concept_horizontal.png)
 
 **Vertical sections:**
 
 The following image shows columnar vertical sections.  For more information, see the following Parameters section, and see [Section nuances](doc:section-nuances).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_concept_vertical.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/sections_concept_vertical.png)
 
 # Parameters
 

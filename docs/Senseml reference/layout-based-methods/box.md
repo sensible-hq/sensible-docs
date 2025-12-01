@@ -60,9 +60,9 @@ The following example shows extracting a dollar amount from a box in a 1099 form
 **Example document**  
 The following image shows the example document used with this example config:
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_1099.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_1099.png" />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/box_1099.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/box_1099.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -102,9 +102,9 @@ The following example shows extracting text from a box with a dark background an
 **Example document**  
 The following image shows the example document used with this example config:
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_dark.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_dark.png" />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/box_dark.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/box_dark.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -170,10 +170,10 @@ The following example shows recognizing boxes relative to other boxes using the 
 
 The following image shows the example document used with this example config:
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_offset.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_offset.png" />
 
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/box_offset.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/box_offset.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -199,7 +199,7 @@ The following image shows the example document used with this example config:
 
 The following image illustrates how Sensible recognizes offset boxes after the first box:
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_offset_2.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_offset_2.png" />
 
 1. Recognize the starting box by searching for the dark borders of the box. The search starts at the green dot defined by the Position parameter. The search expansion is in all directions, not just the cardinal directions shown by the red arrows in the image.
 2. Find a bottom border (`"direction": "below"`) that's shared with the next box. Choose a point ( represented as the second green dot) on the bottom border that's in the middle of the starting box's border and that's just inside the next box's borders.
@@ -241,9 +241,9 @@ The following example shows extracting lines that partly fall inside a box.
 **Example document**  
 The following image shows the example document used with this example config:
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_overlap.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_overlap.png" />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/box_overlap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/box_overlap.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -308,9 +308,9 @@ The following example shows the same document as the Offset Boxes example, but u
 
 The following image shows the example document used with this example config:
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_offset_3.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_offset_3.png" />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/box_offset.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/box_offset.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 
 The red arrows in the preceding image show the offsets in inches from the point defined by the Position parameter. The green dots move as you adjust the inches coordinates, so you can visually tweak your measurements in the Sensible app.
@@ -368,9 +368,9 @@ Example document
 
 The following image shows the example document used with this example config:
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_position_left.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_position_left.png" />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/box_recognition.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/box_recognition.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **SOLUTION**
@@ -400,7 +400,7 @@ Config
 
 Example document
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/box_position_right.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_position_right.png" />
 
 Output
 

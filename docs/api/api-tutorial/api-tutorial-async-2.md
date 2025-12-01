@@ -48,7 +48,7 @@ curl --request POST 'https://api.sensible.so/v0/generate_upload_url/1040s' \
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import the code sample.
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_3.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_3.png)
 
 3. Click **Send**. The response looks something like the following:
 
@@ -76,17 +76,17 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_4.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_4.png)
 
 **Troubleshoot**: Postman can automatically add authorization and content-type headers that cause errors:
 
 * If Postman automatically specifies authorization for the request, then specify **No Auth** in the request's **Auth** tab :
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_no_auth.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_no_auth.png)
 
 * If Postman automatically specifies a content type header, then ensure that the value of the Content-Type header matches that of the `content_type` body parameter in the request in step 1. In this case, it must be `application/pdf`.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_headers_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_headers_2.png)
 
 3. If you haven't already, download the following example document, which works with the example `1040s` document type you created in the **Prerequisites** section:
 
@@ -95,11 +95,11 @@ curl --request PUT 'YOUR_UPLOAD_URL' \
 
 4. Correct the path to the downloaded document in your request: click the **Body** tab, select **binary**, then click **Select file** and select the document:
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_file.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_file.png)
 
 5. Click **Send** to send the request. The response is  `200`:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_200.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_200.png) 
 
 ## Retrieve extraction
 
@@ -129,7 +129,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 3. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_2.png)
 
 4. Click **Send**. The response includes a `parsed_document` object that looks something like the following:
 

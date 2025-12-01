@@ -26,7 +26,7 @@ graph TD;
     E --> F
 ```
 
-*![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/email.png)*
+*![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email.png)*
 
 *How to set up email integration: TODO: probably easier with a fictional example and screenshots in Gmail. TODO: should the fictional example include a couple attachments of different doc types?*
 
@@ -131,7 +131,7 @@ To create extraction support in your Sensible account for the attachments in typ
 
 <br />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/email_lease.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/email_lease.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 Note: this example is a PDF print-out of an email body.  When you need to configure extraction support, it's a one-time setup process to convert or print out the email body to a supported file type (TODO LINK) so you can test your extraction queries on it.

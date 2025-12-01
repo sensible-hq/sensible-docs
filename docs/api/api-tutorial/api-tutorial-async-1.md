@@ -48,7 +48,7 @@ To try out the [extract\_from\_url](ref:extract-from-url) endpoint, let's use an
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_1.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_1.png)
 
 3. Click **Send**, and you should see a response like:
 
@@ -90,7 +90,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 3. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.
 
-  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/api_quickstart_postman_2.png)
+  ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/api_quickstart_postman_2.png)
 
 4. Click **Send**. The response includes a `parsed_document` object that looks something like the following:
 

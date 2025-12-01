@@ -12,7 +12,7 @@ next:
 ---
 This topic describes sending extracted data from example documents into an Airtable database using Sensible's Zapier integration. 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_0.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_0.png)
 
 This Zap:
 
@@ -36,7 +36,7 @@ Before you can integrate Sensible with Airtable, you need to set up a destinatio
 1. Sign in or create an Airtable account.
 2. Create a destination Airtable base using the following image as a guide, with **extraction id**, **adjusted gross income**, and **taxpayer name**:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_7.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_7.png)
 
 The base contains a field (displayed as a column), for each piece of document data to extract.  Zapier adds a record (displayed as a row), for each new document you extract from.
 
@@ -66,11 +66,11 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
       **Note:** that if you select true for this option, you can access the extracted document data [converted](doc:excel-reference) to an Excel file in succeeding Zapier actions. For an example of using this option, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_1.png)
 
 5. Continue to the **Test trigger** section and follow the prompts to test. Verify that the recent document extraction you created in previous steps is selected:
 
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_2.png)
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_2.png)
 
 6. Continue to the **Action** section, search for and select **Airtable**:
    1. For the **Event**, choose **Create records (With Line Item Support)** 
@@ -78,13 +78,13 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
 7. In the **Set up action** section, map Sensible extracted field ids to the corresponding Airtable field names. Zapier displays the data from the recent document extraction as examples. Use the following screenshot to complete the configuration:
 
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_3.png)
+ ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_3.png)
 
 8. (Optional) If you created extra fields in the database, map each one. Note that Zapier only maps non-null values, so be sure your example extraction contains non-null values for all the fields you intend to map.
 
 9. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) as a row in Airtable:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_4.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_4.png)
 
 9. Follow the prompts to publish your Zap. 
 
@@ -100,12 +100,12 @@ Congratulations, your integration is now published and running! Take the followi
 
 4. Verify the extractions show up in Airtable: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_5.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_5.png)
 
 ## (Optional) Scale up
 
 You can extract from more documents automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps.\
-Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/zapier_action.png)
+Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_action.png)
 
 # Notes
 

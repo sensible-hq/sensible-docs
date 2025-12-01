@@ -25,7 +25,7 @@ To view the number of past extractions you've run by document type, click **Dash
 * document types
 * extraction coverage
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/dashboard_count.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/dashboard_count.png)
 
 ## Extraction coverage
 
@@ -38,13 +38,13 @@ In this section, you can filter by:
 
 For example, the following screenshot shows filtering by coverage and document type:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/dashboard_coverage.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/dashboard_coverage.png)
 
 In the preceding screenshot, 0 out of 16 extractions that used the `wells_fargo_savings` configuration in the `bank_statements` document type in the past 7 days scored in the coverage range of 60% -100%.
 
 To view an individual extraction's coverage score, click **Dashboard** and scroll to the **Recent** section:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/dashboard_coverage_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/dashboard_coverage_1.png)
 
 In the preceding screenshot, the `Sept 25, 2023 7:30 PM` extraction has a coverage score of `61.1%`.
 
@@ -52,11 +52,11 @@ In the preceding screenshot, the `Sept 25, 2023 7:30 PM` extraction has a covera
 
 To view which configurations were used for past extractions, click **Dashboard** and scroll to the **Most used** section:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/dashboard_used_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/dashboard_used_1.png)
 
 In the preceding screenshot, the `1040_2018`  configuration was used for 54.7% of extractions in the last 30 days in the `tax_form` document type. If you adjust the filter to include both bank statements and tax forms, you see that it was used for 33% of all extractions across the selected document types:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/dashboard_used_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/dashboard_used_2.png)
 
 In this section, you can filter by:
 

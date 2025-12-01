@@ -929,7 +929,7 @@
         "name": "document_type",
         "required": true,
         "in": "path",
-        "description": "Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request.",
+        "description": "Type of document to extract from. Create your custom type in the Sensible app (for example, `rate_confirmation`, `certificate_of_insurance`, or `home_inspection_report`). To quickly test this endpoint using the `Try It` button in this interactive explorer, use the `senseml_basics` tutorial document type with this [example document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf). As a convenience, Sensible automatically detects the best-fit extraction from among the extraction queries (\"configs\") in the document type. For example, if you create an `auto_insurance_quotes` document type, you can add `carrier 1`, `carrier 2`, and `carrier 3` configs to the document type in the Sensible app. Sensible then automatically classifies each document you upload by its carrier, so you can use the same document type for each carrier without specifying the carrier in the extraction request.",
         "schema": {
           "type": "string"
         },
@@ -2363,7 +2363,7 @@
         "type": "string",
         "format": "url",
         "description": "URL that responds to a GET request with the bytes of the document you want to extract data from. This URL must be either publicly accessible, or presigned with a security token as part of the URL path. To check if the URL meets these criteria, open the URL with a web browser. The browser must either render the document as a full-page view with no other data, or download the document, without prompting for authentication.",
-        "example": "https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/auto_insurance_anyco.pdf"
+        "example": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf"
       },
       "ContentTypeParameter": {
         "type": "string",

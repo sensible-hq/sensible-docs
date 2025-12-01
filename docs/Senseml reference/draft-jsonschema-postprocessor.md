@@ -110,7 +110,7 @@ This postprocessor is a low-code, indeterminate alternative to the JsonLogic pos
 
 Postprocessor output is available in the `postprocessorOutput` object in the API response and in the **postprocessed** tab in the SenseML editor: 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_postprocessed_tab.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png) 
 
 Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
@@ -130,9 +130,9 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/TBD.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/TBD.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/TBD.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/TBD.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

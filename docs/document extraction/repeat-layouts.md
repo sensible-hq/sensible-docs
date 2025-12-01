@@ -14,9 +14,9 @@ To extract complex, repeating data from documents, use layout-based sections to 
 
 The following images show using sections to enable extracting repeating data in a claims loss run and in a complex table.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_highlight_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/sections_highlight_1.png)
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/sections_highlight_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/sections_highlight_2.png)
 
 ## Next
 

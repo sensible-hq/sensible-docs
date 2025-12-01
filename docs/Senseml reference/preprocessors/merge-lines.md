@@ -44,7 +44,7 @@ Use the Merge Lines preprocessor to clean up OCRed handwriting text. This prepro
 
 Without a Merge Line preprocessor, the placeholder handwritten data in an example document is oversplit by Google OCR:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/merge_lines_ocr_2.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/merge_lines_ocr_2.png)
 
 For example, the phrase `Name (First, Middle, Last, Suffix, Trust or Custodian)` isn't one line, but is instead split on words.
 
@@ -83,14 +83,14 @@ Example document
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/merge_lines_ocr.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/merge_lines_ocr.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/merge_lines_ocr.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/merge_lines_ocr.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 To run this example, verify that the document type uses Google OCR (click the gear icon for the Document Type and select **Google**): 
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/merge_lines_ocr_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/merge_lines_ocr_1.png)
 
 OUTPUT
 
@@ -145,9 +145,9 @@ The following example shows using the Y Overlap parameter to correct vertical mi
 
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/merge_lines_yoverlap.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/merge_lines_yoverlap.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/merge_lines_yoverlap.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/merge_lines_yoverlap.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

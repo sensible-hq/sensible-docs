@@ -19,4 +19,4 @@ See the following topics for Sensible SDK guides:
 
 Access SDK or API starter code snippets on the **Integrations** tab for each document type:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/ui_integrations_tab.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_integrations_tab.png)

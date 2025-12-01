@@ -68,9 +68,9 @@ The following example shows adding a form name and policy duration as constants 
 
 **Example document**
 
-<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/constant.png" />
+<Image alt="Click to enlarge" border={false} src="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/constant.png" />
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/auto_insurance_anyco.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

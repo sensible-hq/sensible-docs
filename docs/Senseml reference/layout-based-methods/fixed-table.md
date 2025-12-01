@@ -80,9 +80,9 @@ The following example shows extracting two columns using the Fixed Table method.
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/fixed_table.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fixed_table.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/fixed_table.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/fixed_table.pdf) |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -177,20 +177,20 @@ The following example shows using the Stop parameter to improve output for merge
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/table_merged_cells.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/table_merged_cells.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/fixed_table_merged_cells.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/fixed_table_merged_cells.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
 Without the Stop parameter, Sensible leaves "merged" cells empty:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/table_merged_cells_0.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/table_merged_cells_0.png)
 
 With the Stop parmeter, Sensible populates "merged" cells:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/table_merged_cells_1.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/table_merged_cells_1.png)
 
 The following JSON shows the "populated" output:
 
@@ -374,9 +374,9 @@ The following table shows troubleshooting OCR in a table.
 **Example document**\
 The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/fixed_table_ocr.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fixed_table_ocr.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/fixed_table_ocr.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/fixed_table_ocr.pdf) |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**

@@ -86,9 +86,9 @@ The following example shows extracting two columns from a table that updates mon
 
 **Example document**
 
-The following image shows the example document used with this example config: ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/images/final/table_dynamic.png)
+The following image shows the example document used with this example config: ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/table_dynamic.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-documentation/v0/assets/pdfs/table_dynamic.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/table_dynamic.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 
 **Output**
