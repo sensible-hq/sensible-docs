@@ -28,10 +28,8 @@ You can author the docs in GitHub-flavored Markdown, with the following minor re
 
 
 
+- **no authoring the API ref in dash.readme** -  to keep edits centralized and OpenAPI compliant, edit the openapi spec files in GitHub.
 
-- **no authoring in dash.readme** - the bottom line is: edit in GitHub or use readme's Suggested Edits mechanism! don't make direct edits in dash.readme
-
-  - Why?  If someone doesn't know better, they could edit the docs in dash.readme... but those edits will be overwritten the next time someone runs the readme-sync. There's no mechanism in dash.readme to warn them not to edit.  Likewise, any suggested edits in ReadMe need to be manually merged to the GitHub docs rather than merged using ReadMe's mechanism. 
 
 
 
