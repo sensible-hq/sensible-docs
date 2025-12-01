@@ -8,10 +8,6 @@ To publish the markdown docs in this repository to ReadMe.io at https://docs.sen
 
 
 
-### Directory and markdown filename requirements
-
-See https://github.com/flowcommerce/readme-sync. 
-
 
 
 ### Image directory conventions
