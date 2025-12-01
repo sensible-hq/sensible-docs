@@ -14,7 +14,7 @@ Extracts consecutive lines succeeding the anchor line, for example, paragraphs o
 
 The Document Range method extracts all the text between an upper and a lower bound. To extract text from columns, use this method in combination with the [Multicolumn](doc:multicolumn) preprocessor, or use the [Paragraph](doc:paragraph) method as an alternative.
 
-Or, use this method to return the coordinates of regions containing images.
+You can use this method to return the coordinates of regions containing images.
 
 [**Parameters**](doc:document-range#parameters)\
 [**Examples**](doc:document-range#examples)\
