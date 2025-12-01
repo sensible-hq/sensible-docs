@@ -25,7 +25,7 @@ To configure Zapier, you'll use a recent example of a document extraction:
 
 1. Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to create support for the `1040s` document type.
 
-2. Download an [example](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) 1040 tax form.
+2. Download an [example](https://raw.githubusercontent.com/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) 1040 tax form.
 
 3. In the Sensible app, click the **Extract** tab. Upload the example document, select the `1040s` document type, and run an extraction. 
 
@@ -82,7 +82,7 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
 8. (Optional) If you created extra fields in the database, map each one. Note that Zapier only maps non-null values, so be sure your example extraction contains non-null values for all the fields you intend to map.
 
-9. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) as a row in Airtable:
+9. Follow the prompts to test the action. You should see the extracted data from the [1040 example document](https://raw.githubusercontent.com/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) as a row in Airtable:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs-assets-temp/main/readme-sync/assets/v0/images/final/zapier_4.png)
 
