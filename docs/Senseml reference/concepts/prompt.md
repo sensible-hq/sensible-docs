@@ -63,7 +63,7 @@ This strategy often outperforms the default approach to locating context. It's u
 
 ## Locate context by pipelining prompts
 
-When you specify the Source IDs parameter for supported LLM-based methods, Sensible prompts an LLM to answer questions about other [fields](doc:field-query-object)' extracted data.  In this case, the context is predetermined: it's the output from the other fields.  By pipelining prompts, you can configure agentic workflows to extract document data.
+You can prompt an LLM to answer questions about other [fields](doc:field-query-object)' extracted data. Specify the extracted data using the Source IDs parameter for supported LLM-based methods,   In this case, the context is predetermined: it's the output from the other fields.  By pipelining prompts, you can configure agentic workflows to extract document data.
 
 For example, you use the layout-based [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
 
