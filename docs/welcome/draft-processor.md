@@ -24,6 +24,8 @@ For example, a `bank_statements` processor might have a template for bank of ame
 
 * **layout-based template**
 
+Example: 
+
 * ```json
   {
     "fingerprint": {
