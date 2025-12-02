@@ -1,7 +1,7 @@
 ---
 title: (Deprecated) TFIDF
 excerpt: ''
-deprecated: false
+deprecated: true
 hidden: true
 metadata:
   title: ''

@@ -1,7 +1,7 @@
 ---
 title: (Deprecated) Query
 excerpt: ''
-deprecated: false
+deprecated: true
 hidden: true
 metadata:
   title: ''

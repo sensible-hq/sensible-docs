@@ -1,7 +1,7 @@
 ---
 title: (Deprecated) Bag of words
 excerpt: ''
-deprecated: false
+deprecated: true
 hidden: true
 metadata:
   title: ''

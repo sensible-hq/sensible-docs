@@ -1,7 +1,7 @@
 ---
 title: (Deprecated) Key/Value
 excerpt: ''
-deprecated: false
+deprecated: true
 hidden: true
 metadata:
   title: ''
