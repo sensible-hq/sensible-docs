@@ -101,7 +101,7 @@ replacements = [
 # Track replacements for each changelog
 replacement_count = 0
 total_replacements = 0
-jsx_image_urls = []  # Collect JSX image URLs separately
+jsx_urls = []  # Collect JSX URLs from any tag
 
 # Process each changelog individually to track replacements
 all_changelogs.each_with_index do |changelog, index|
@@ -112,9 +112,28 @@ all_changelogs.each_with_index do |changelog, index|
   # Get the markdown content for processing
   markdown_content = changelog.dig('content', 'body') || ''
   
-  # Extract JSX Image URLs for separate checking
-  markdown_content.scan(/<Image\s+[^>]*?src="([^"]*)"[^>]*?\/>/).each do |match|
-    jsx_image_urls << { url: match[0], changelog: changelog_slug }
+  # Extract URLs from ANY JSX tags (components starting with capital letter)
+  # Match JSX tags: <ComponentName ... /> or <ComponentName ... >
+  jsx_tag_pattern = /<([A-Z][a-zA-Z0-9]*)\s+([^>]*?)(?:\/>|>)/
+  
+  markdown_content.scan(jsx_tag_pattern).each do |match|
+    tag_name = match[0]
+    tag_attributes = match[1]
+    
+    # Extract URL-like attributes (src, href, url, data-url, link, etc.)
+    url_pattern = /(src|href|url|data-url|link)\s*=\s*["']([^"']+)["']/
+    
+    tag_attributes.scan(url_pattern).each do |attr_match|
+      attribute_name = attr_match[0]
+      url_value = attr_match[1]
+      
+      jsx_urls << { 
+        url: url_value, 
+        changelog: changelog_slug,
+        tag: tag_name,
+        attribute: attribute_name
+      }
+    end
   end
   
   # Apply each replacement and track changes
@@ -153,7 +172,7 @@ end
 puts "\n📊 Replacement Summary:"
 puts "  Changelogs with replacements: #{replacement_count}/#{all_changelogs.length}"
 puts "  Total URL replacements made: #{total_replacements}"
-puts "  JSX Image URLs found: #{jsx_image_urls.length}"
+puts "  JSX URLs found: #{jsx_urls.length}"
 
 # Update response_json to use the processed changelogs
 response_json = all_changelogs
@@ -252,28 +271,29 @@ rescue => e
 end
 
 # #################
-# Check JSX Image URLs
+# Check JSX URLs from ANY tags
 # #################
 
-# TODO: check ALL JSX elements not just images, a la check_links.rb
-# but careful how you prompt it
-
-puts "\nChecking JSX Image URLs (<Image ... />..."
+puts "\nChecking JSX URLs from all components..."
 jsx_failures = []
 
-jsx_image_urls.each do |img|
+# Group URLs by tag type for better reporting
+urls_by_tag = jsx_urls.group_by { |item| item[:tag] }
+puts "Found URLs in #{urls_by_tag.keys.length} different JSX tag type(s): #{urls_by_tag.keys.join(', ')}" if urls_by_tag.any?
+
+jsx_urls.each do |item|
   begin
-    uri = URI.parse(img[:url])
+    uri = URI.parse(item[:url])
     response = Net::HTTP.get_response(uri)
     if response.code.to_i >= 400
-      error_msg = "❌ BROKEN JSX Image in #{img[:changelog]}: #{img[:url]} (#{response.code})"
+      error_msg = "❌ BROKEN URL in <#{item[:tag]}> #{item[:attribute]}=\"#{item[:url]}\" (#{item[:changelog]}): HTTP #{response.code}"
       puts error_msg
       jsx_failures << error_msg
     else
-      puts "✅ #{img[:url]}"
+      puts "✅ <#{item[:tag]}> #{item[:attribute]}=\"#{item[:url]}\""
     end
   rescue => e
-    error_msg = "❌ ERROR checking #{img[:url]}: #{e.message}"
+    error_msg = "❌ ERROR checking <#{item[:tag]}> #{item[:attribute]}=\"#{item[:url]}\" in #{item[:changelog]}: #{e.message}"
     puts error_msg
     jsx_failures << error_msg
   end
@@ -297,10 +317,10 @@ end
 
 
 if jsx_failures.any?
-  puts "❌ JSX Image URLs: FAILED (#{jsx_failures.length} error(s))"
+  puts "❌ JSX URLs: FAILED (#{jsx_failures.length} error(s))"
   has_errors = true
 else
-  puts "✅ JSX Image URLs: PASSED"
+  puts "✅ JSX URLs: PASSED (#{jsx_urls.length} URL(s) checked)"
 end
 
 if has_errors
