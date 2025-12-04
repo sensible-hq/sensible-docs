@@ -17,6 +17,8 @@ TEST CHANGE
 
 ## Join
 
+LEFT OFF
+
 [https://dev.sensible.so/editor/?d=frances\_playground\&c=join\_jsonlogic\&g=linearize\_2\_\_1](https://dev.sensible.so/editor/?d=frances_playground\&c=join_jsonlogic\&g=linearize_2__1)\_
 
 // joins two arrays by using a common key\
@@ -50,10 +52,25 @@ For example, the following code groups an array of clothes objects by their appa
 
 ## Slice
 
-[https://dev.sensible.so/editor/?d=frances\_playground\&c=slice\_jsonlogic\&g=linearize\_2\_\_1\_\&v=](https://dev.sensible.so/editor/?d=frances_playground\&c=slice_jsonlogic\&g=linearize_2__1_\&v=)
+Selects elements in an array from `start` up to, but not including, `stop`.  Returns the new array containing the selected elements.
 
+For example, slicing 
+
+```json
+"slice": [
+    [ /* array_to_slice */ ],
+    /* start_slice_index */,
+    /* end_slice_index */
+  ]
 ```
-it("slice", () => {
-    expect(apply({ slice: [[0, 1, 2, 3, 4], 1, -2] })).toEqual([1, 2]);
-  });
+
+Example:
+
+```json
+  "slice": [
+    [0, 1, 2, 3, 4],
+    0,
+    3
+  ]
 ```
+
