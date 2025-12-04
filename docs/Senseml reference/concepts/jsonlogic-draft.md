@@ -17,7 +17,7 @@ Performs a left join on two arrays using a common key, and returns a new array c
 
 ```json
 "join": [
-        /* 1st arg: input array, key to join, optional array name */
+        /* 1st arg */
         [
          [/* input array A */ ],
           { /* key to join arrays by */ }, 
@@ -25,7 +25,7 @@ Performs a left join on two arrays using a common key, and returns a new array c
           defaults to tableA */
           "array_A" 
         ],
-        /* 2nd arg: input array, key to join, optional array name */
+        /* 2nd arg */
         [
           [/* input array B */ ],
           { /* key to join array by */ },
