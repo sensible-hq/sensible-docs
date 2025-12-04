@@ -33,15 +33,29 @@ LEFT OFF
  Groups an array of objects by the specified key and returns computed fields for each group:
 
 ```json
-"join":
-[
- [ /* array_of_objects_to_group */ ],
- "key_to_group_by", 
-[[/* field_to_return */ ], [/* field_to_return */ ] ... ] /* specify each field_to_return with syntax ["key", JsonLogic] */
-]
+"join": [
+        /* 1st arg: input array, key to join, optional array name */
+        [
+         [/* 1st input_array */ ],
+          { /* key to join arrays by */ }, 
+          /* name for this input array. if unprovided, defaults to tableA */
+          "" 
+        ],
+        /* 2nd arg: input array, key to join, optional array name */
+        [
+          [/* 2nd_input_array */ ],
+          { /* key to join array by */ },
+          /* name for this input array. if unprovided, defaults to tableB */
+          ""
+        ],
+         /* 3rd arg: operation to perform on the joined arrays, for example,
+            use eachKey operation to create a new array */
+        {
+        }
+      ]
 ```
 
-For example, the following code TBD/TODO:
+For example, the following code joins a customers and an orders array by the customer ID, then creates a new array using elements from both arrays.
 
 ```json
 {
@@ -52,7 +66,12 @@ For example, the following code TBD/TODO:
     "rule": {
       "join": [
         [
-          /* 1st input array */
+          /* 1st input array 
+             In practice, you often input an
+             array with `{"var":"field_key"}` syntax.
+             This example uses `preserve` to input an
+             array constant
+             as literal JSON rather than JsonLogic*/
           {
             "preserve": [
               {
