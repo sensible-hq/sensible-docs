@@ -13,13 +13,7 @@ next:
 
 ## Join
 
-LEFT OFF
-
-[https://dev.sensible.so/editor/?d=frances\_playground\&c=join\_jsonlogic\&g=linearize\_2\_\_1](https://dev.sensible.so/editor/?d=frances_playground\&c=join_jsonlogic\&g=linearize_2__1)\_
-
-// if for an item of tableA there are multiple corresponding items on tableB, function will get called just once (with an arbitrary itemB)
-
- Joins an array and an by the specified key and returns computed fields for each group:
+Performs a left join on two arrays using a common key, and returns a new array containing elements of both:
 
 ```json
 "join": [
@@ -29,7 +23,7 @@ LEFT OFF
           { /* key to join arrays by */ }, 
           /* name for this input array. if unprovided, 
           defaults to tableA */
-          "" 
+          "array_A" 
         ],
         /* 2nd arg: input array, key to join, optional array name */
         [
@@ -37,18 +31,18 @@ LEFT OFF
           { /* key to join array by */ },
           /* name for this input array. if unprovided, 
           defaults to tableB */
-          ""
+          "array_B"
         ],
-         /* 3rd arg: operation to create a new array using the input arrays, for example,
+         /* 3rd arg: operation to output a new array using the input arrays, for example,
             use eachKey operation.
-            new array is same length as array A
-            if for an item in array A there are multiple corresponding itmes in array B, operation takes an arbitrary corresponding item from array B */
+            output array is same length as array A
+            if an item in array A corresponds to multiple items in array B, operation takes an arbitrary corresponding item from array B */
         {
         }
       ]
 ```
 
-For example, the following code joins a customers and an orders array by the customer ID, then creates a new array using elements from both arrays.
+For example, the following code joins a customers array and an orders array by the customer ID, then creates a new array using elements from both arrays.
 
 ```json
 {
@@ -157,15 +151,9 @@ returns
 ]
 ```
 
-
-
-
-
 ## Slice
 
-Selects elements in an array from `start` up to, but not including, `stop`.  Returns the new array containing the selected elements.
-
-For example, slicing 
+Selects elements in an array from a starting index up to but not including an ending index. Returns the new array containing the selected elements.
 
 ```json
 "slice": [
@@ -175,7 +163,7 @@ For example, slicing
   ]
 ```
 
-Example:
+For example:
 
 ```json
   "slice": [
@@ -183,5 +171,11 @@ Example:
     0,
     3
   ]
+```
+
+returns:
+
+```
+[1,2,3]
 ```
 
