@@ -168,14 +168,19 @@ For example:
 ```json
   "slice": [
     [0, 1, 2, 3, 4],
+    /* slice from 1st element up to 2nd-to-last element */
     0,
-    3
+    -2
   ]
 ```
 
 returns:
 
-```
-[1,2,3]
+```json
+[
+  0,
+  1,
+  2
+]
 ```
 
