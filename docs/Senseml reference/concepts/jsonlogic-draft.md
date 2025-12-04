@@ -33,13 +33,13 @@ Performs a left join on two arrays using a common key, and returns a new array c
           defaults to tableB */
           "array_B"
         ],
-         /* 3rd arg: 
-             operation to output a new array using the input arrays, 
+         /* 3rd arg */
+        {
+            /* operation to output a new array using the input arrays, 
              for example, using eachKey operation.
             output array is same length as array A
             if an item in array A corresponds to multiple items in array B, 
             operation takes an arbitrary corresponding item from array B */
-        {
         }
       ]
 ```
