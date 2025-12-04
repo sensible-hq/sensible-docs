@@ -13,7 +13,7 @@ next:
 
 ## Join
 
-Performs a left join on two arrays using a common key, and returns a new array containing elements of both:
+Performs a left join on two arrays using a common key, and returns a new array containing elements of both.
 
 ```json
 "join": [
