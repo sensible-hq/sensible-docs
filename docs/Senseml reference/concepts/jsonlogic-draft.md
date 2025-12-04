@@ -109,7 +109,7 @@ For example, the following JsonLogic joins a customers array and an orders array
             "order_descrpt": { "var": "orders_array.order_description" },
             "amnt": { "var": "orders_array.amount" },
             "name": {
-              /* if first_name is absent for a customer_id, output "Unknown" */
+              /* if first_name is absent for a customer_id, output "Unknown" instead of default (null) */
               "if": [
                 { "var": "customers_array" },
                 { "var": "customers_array.first_name" },
