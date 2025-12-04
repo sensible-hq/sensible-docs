@@ -168,7 +168,7 @@ For example:
 ```json
   "slice": [
     [0, 1, 2, 3, 4],
-    /* slice from 1st element up to 2nd-to-last element */
+    /* start from 1st element, stop before 2nd-to-last element */
     0,
     -2
   ]
