@@ -17,39 +17,30 @@ LEFT OFF
 
 [https://dev.sensible.so/editor/?d=frances\_playground\&c=join\_jsonlogic\&g=linearize\_2\_\_1](https://dev.sensible.so/editor/?d=frances_playground\&c=join_jsonlogic\&g=linearize_2__1)\_
 
-// joins two arrays by using a common key\
-// args:\
-// - tableA, must resolve to an array\
-// - fnA, takes an item from tableA and returns the joining key\
-// - tableB\
-// - fnB\
-// - fn, takes [itemA, itemB]\
-//\
-// it always return an array of the same length as tableA\
-// if for an item of tableA there is no corresponding item on tableB, fn will get [itemA, null]
-
 // if for an item of tableA there are multiple corresponding items on tableB, fn will get called just once (with an arbitrary itemB)
 
- Groups an array of objects by the specified key and returns computed fields for each group:
+ Joins an array and an by the specified key and returns computed fields for each group:
 
 ```json
 "join": [
         /* 1st arg: input array, key to join, optional array name */
         [
-         [/* 1st input_array */ ],
+         [/* input array A */ ],
           { /* key to join arrays by */ }, 
-          /* name for this input array. if unprovided, defaults to tableA */
+          /* name for this input array. if unprovided, 
+          defaults to tableA */
           "" 
         ],
         /* 2nd arg: input array, key to join, optional array name */
         [
-          [/* 2nd_input_array */ ],
+          [/* input array B */ ],
           { /* key to join array by */ },
-          /* name for this input array. if unprovided, defaults to tableB */
+          /* name for this input array. if unprovided, 
+          defaults to tableB */
           ""
         ],
-         /* 3rd arg: operation to perform on the joined arrays, for example,
-            use eachKey operation to create a new array */
+         /* 3rd arg: operation to create a new array using the input arrays, for example,
+            use eachKey operation. new array is same length as array A */
         {
         }
       ]
