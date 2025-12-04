@@ -33,7 +33,7 @@ LEFT OFF
  Groups an array of objects by the specified key and returns computed fields for each group:
 
 ```json
-"group":
+"join":
 [
  [ /* array_of_objects_to_group */ ],
  "key_to_group_by", 
@@ -41,10 +41,113 @@ LEFT OFF
 ]
 ```
 
-For example, the following code groups an array of clothes objects by their apparel type:
+For example, the following code TBD/TODO:
+
+```json
+{
+  "fields": [],
+
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "join": [
+        [
+          /* 1st input array */
+          {
+            "preserve": [
+              {
+                "order_description": "office chairs",
+                "customer_id": "c1",
+                "amount": 50
+              },
+              {
+                "order_description": "ink cartridges",
+                "customer_id": "c2",
+                "amount": 75
+              },
+              {
+                "order_description": "whiteboards",
+                "customer_id": "c3",
+                "amount": 30
+              },
+              {
+                "order_description": "desks",
+                "customer_id": "c1",
+                "amount": 40
+              }
+            ]
+          },
+          /* key to join arrays by */
+          { "var": "customer_id" },
+          /* name for this input array. if unprovided, defaults to tableA */
+          "orders_array"
+        ],
+        [
+          /* 2nd input array */
+          {
+            "preserve": [
+              { "id": "c1", "first_name": "Sally", "last_name": "Smith" },
+              { "id": "c2", "first_name": "Ahmed", "last_name": "Aamer" }
+            ]
+          },
+          /* key to join array by */
+          { "var": "id" },
+          /* name for this input array. if unprovided, defaults to tableB */
+          "customers_array"
+        ],
+        {
+          /* create a new joined array, where each array element contains parameter values from array 1 and array 2*/
+          "eachKey": {
+            "order_descrpt": { "var": "orders_array.order_description" },
+            "amnt": { "var": "orders_array.amount" },
+            "name": {
+              /* if first_name is absent for a customer_id, output "Unknown" */
+              "if": [
+                { "var": "customers_array" },
+                { "var": "customers_array.first_name" },
+                
+                "Unknown"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
 
 ```
+
+returns
+
+```json
+[
+  {
+    "order_descrpt": "office chairs",
+    "amnt": 50,
+    "name": "Sally"
+  },
+  {
+    "order_descrpt": "ink cartridges",
+    "amnt": 75,
+    "name": "Ahmed"
+  },
+  {
+    "order_descrpt": "whiteboards",
+    "amnt": 30,
+    "name": "Unknown"
+  },
+  {
+    "order_descrpt": "desks",
+    "amnt": 40,
+    "name": "Sally"
+  }
+]
 ```
+
+
+
+
 
 ## Slice
 
