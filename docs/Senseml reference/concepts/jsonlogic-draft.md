@@ -44,7 +44,7 @@ Performs a left join on two arrays using a common key, and returns a new array c
       ]
 ```
 
-For example, the following code joins a customers array and an orders array by the customer ID, then creates a new array using elements from both arrays.
+For example, the following JsonLogic joins a customers array and an orders array by the customer ID, then creates a new array using elements from both arrays.
 
 ```json
 {
