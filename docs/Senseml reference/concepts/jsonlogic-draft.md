@@ -17,7 +17,7 @@ LEFT OFF
 
 [https://dev.sensible.so/editor/?d=frances\_playground\&c=join\_jsonlogic\&g=linearize\_2\_\_1](https://dev.sensible.so/editor/?d=frances_playground\&c=join_jsonlogic\&g=linearize_2__1)\_
 
-// if for an item of tableA there are multiple corresponding items on tableB, fn will get called just once (with an arbitrary itemB)
+// if for an item of tableA there are multiple corresponding items on tableB, function will get called just once (with an arbitrary itemB)
 
  Joins an array and an by the specified key and returns computed fields for each group:
 
@@ -40,7 +40,9 @@ LEFT OFF
           ""
         ],
          /* 3rd arg: operation to create a new array using the input arrays, for example,
-            use eachKey operation. new array is same length as array A */
+            use eachKey operation.
+            new array is same length as array A
+            if for an item in array A there are multiple corresponding itmes in array B, operation takes an arbitrary corresponding item from array B */
         {
         }
       ]
