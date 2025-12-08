@@ -45,7 +45,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Exists](doc:jsonlogic#exists)               | ✅                                       | ✅                                                    | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Group](doc:jsonlogic#group)                 | ✅                                       | ✅                                                    | ✅                                  |
-| JOIN TODO                                    |                                         |                                                      |                                    |
+| [Join](doc:jsonlogic#join)                   | ✅                                       | ✅                                                    | ✅                                  |
 | [Let](doc:jsonlogic#let)                     | ✅                                       | ✅                                                    | ✅                                  |
 | [Log](doc:jsonlogic#log)                     | ✅                                       | ✅                                                    | ✅                                  |
 | [Map Object](doc:jsonlogic#map-object)       | ✅                                       | ✅                                                    | ✅                                  |
@@ -56,7 +56,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Pick Fields](doc:jsonlogic#pick-fields)     | ✅                                       | ✅                                                    | ✅                                  |
 | [Replace](doc:jsonlogic#replace)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Round](doc:jsonlogic#round)                 | ✅                                       | ✅                                                    | ✅                                  |
-| SLICE TODO                                   |                                         |                                                      |                                    |
+| [Slice](doc:jsonlogic#slice)                 | ✅                                       | ✅                                                    | ✅                                  |
 | [Sort By](doc:jsonlogic#sort-by)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                  |
 
