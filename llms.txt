@@ -214,3 +214,83 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Source text traceability](docs/Senseml%20reference/concepts/color.md): Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML
 - [Supported file types](docs/Senseml%20reference/concepts/file-types.md): Supported document file formats
 - [Table methods](docs/Senseml%20reference/concepts/table-methods.md): Comparison of table extraction methods
+
+## API Reference
+
+- [Introduction](reference/Introduction/choosing-an-endpoint.md): API introduction and endpoint overview
+- [Authentication](reference/Introduction/authentication.md): API authentication methods
+
+### Extraction Endpoints
+
+- [Document](reference/Extraction/document-1/index.md): Document extraction endpoints overview
+- [Extract data from a document (sync)](reference/Extraction/document-1/extract-data-from-a-document.md): Synchronous extraction of document data
+- [Extract data from a document using specified config](reference/Extraction/document-1/extract-data-from-a-document-with-config.md): Extract using a specific configuration
+- [Extract doc at your URL](reference/Extraction/document-1/extract-from-url.md): Extract from a URL you provide
+- [Extract doc at a Sensible URL](reference/Extraction/document-1/generate-an-upload-url.md): Upload and extract from document using Sensible-hosted URL
+- [Extract doc at a Sensible URL using specified config](reference/Extraction/document-1/generate-an-upload-url-with-config.md): Upload and extract from document using Sensible-hosted URL with specific config
+- [Extract doc at your URL using config](reference/Extraction/document-1/provide-a-download-url-with-config.md): Extract from document at your URL with specific config
+
+### Portfolio Extraction
+
+- [Portfolio](reference/Extraction/portfolio/index.md): Multi-document portfolio extraction
+- [Extract portfolio at a Sensible URL](reference/Extraction/portfolio/generate-an-upload-url-for-a-pdf-portfolio.md): Upload and extract from portfolio at Sensible URL
+- [Extract portfolio at your URL](reference/Extraction/portfolio/provide-a-download-url-for-a-pdf-portfolio.md): Extract portfolio from your URL
+
+### Retrieve Extractions
+
+- [Retrieve extractions](reference/Extraction/retrieve-extractions/index.md): Retrieve extraction results
+- [Retrieve extraction by ID](reference/Extraction/retrieve-extractions/retrieving-results.md): Get a specific extraction result
+- [List extractions](reference/Extraction/retrieve-extractions/list-extractions.md): List all extractions
+- [Get extraction statistics](reference/Extraction/retrieve-extractions/statistics.md): Get extraction statistics
+
+### Excel/CSV Export
+
+- [Get Excel from documents](reference/Extraction/get-excel-from-documents/index.md): Export extractions to Excel
+- [Get Excel extraction](reference/Extraction/get-excel-from-documents/get-excel-extraction.md): Download extraction as Excel file
+- [Get CSV extraction](reference/Extraction/get-excel-from-documents/get-csv-extraction.md): Download extraction as CSV file
+
+### Review Extractions
+
+- [Review extractions](reference/Extraction/review-extractions/index.md): Human review endpoints
+- [Get token for review link](reference/Extraction/review-extractions/account-auth-tokens.md): Generate review authentication token
+
+### Classification Endpoints
+
+- [Document](reference/Classification/document/index.md): Classify documents by type
+- [Classify document by type](reference/Classification/document/classify-document.md): Async document classification
+- [Classify document by type (sync)](reference/Classification/document/classify-document-sync.md): Synchronous document classification
+
+### Configuration Endpoints
+
+#### Document Type
+
+- [Document type](reference/Configuration/document-type/index.md): Document type management
+- [Create document type](reference/Configuration/document-type/create-document-type.md): Create a new document type
+- [Get document type](reference/Configuration/document-type/get-document-type.md): Retrieve document type details
+- [List document types for this account](reference/Configuration/document-type/list-document-types.md): List all document types
+- [Update document type](reference/Configuration/document-type/update-document-type.md): Update document type settings
+- [Delete document type](reference/Configuration/document-type/delete-document-type.md): Delete a document type
+
+#### Configuration
+
+- [Configuration](reference/Configuration/configuration/index.md): Configuration management
+- [Create configuration in a document type](reference/Configuration/configuration/create-configuration.md): Create new configuration
+- [Get configuration](reference/Configuration/configuration/get-configuration.md): Retrieve configuration details
+- [Get configuration by version](reference/Configuration/configuration/get-configuration-by-version.md): Get specific version
+- [List configurations in a document type](reference/Configuration/configuration/list-configurations.md): List all configurations
+- [List versions for a configuration](reference/Configuration/configuration/get-configuration-versions.md): List configuration versions
+- [Update configuration](reference/Configuration/configuration/update-configuration.md): Update configuration
+- [Publish configuration to an environment](reference/Configuration/configuration/publish-configuration-by-version.md): Publish to production/development
+- [Delete configuration](reference/Configuration/configuration/delete-configuration.md): Delete a configuration
+- [Delete draft or unpublish configuration](reference/Configuration/configuration/delete-configuration-by-version.md): Remove draft or unpublish
+
+#### Reference Document
+
+- [Reference document](reference/Configuration/reference-document/index.md): Reference document management
+- [Create reference document](reference/Configuration/reference-document/create-reference-document.md): Upload reference document
+- [Get reference document metadata](reference/Configuration/reference-document/get-reference-document.md): Get document metadata
+- [List all reference documents in a document type](reference/Configuration/reference-document/list-reference-documents.md): List reference documents
+- [Update metadata for a reference document](reference/Configuration/reference-document/update-reference-document.md): Update document metadata
+- [Extract all text from reference document](reference/Configuration/reference-document/extract-all-text-from-reference-document.md): Extract raw text
+- [Unassociate reference document from configuration](reference/Configuration/reference-document/delete-reference-document-association.md): Remove association
+- [Delete reference document](reference/Configuration/reference-document/delete-reference-document.md): Delete reference document
