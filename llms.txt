@@ -213,7 +213,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [OCR](docs/Senseml%20reference/concepts/ocr.md): Optical character recognition overview
 - [Section nuances](docs/Senseml%20reference/concepts/section-nuances.md): Advanced section configuration
 - [Source text traceability](docs/Senseml%20reference/concepts/color.md): Trace extracted data to source
-- [Supported file types](docs/Senseml%20reference/concepts/file-types.md): Supported document formats
+- [Supported file types](docs/Senseml%20reference/concepts/file-types.md): Supported document file formats
 - [Table methods](docs/Senseml%20reference/concepts/table-methods.md): Comparison of table extraction methods
 
 ### Deprecated Features
