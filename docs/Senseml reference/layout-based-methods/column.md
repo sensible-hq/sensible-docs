@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract columnar data'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Batch upload documents to extract data from'
   robots: index
 next:
   description: ''

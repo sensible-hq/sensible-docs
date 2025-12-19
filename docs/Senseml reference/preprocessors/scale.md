@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Scale document dimensions'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Advanced methods for transforming extracted data'
   robots: index
 next:
   description: ''

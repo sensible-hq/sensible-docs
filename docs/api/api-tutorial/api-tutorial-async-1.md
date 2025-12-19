@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Async extraction with your document URL'
   robots: index
 next:
   description: ''

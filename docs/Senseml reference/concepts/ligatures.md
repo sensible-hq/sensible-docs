@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Handling ligature characters'
   robots: index
 next:
   description: ''

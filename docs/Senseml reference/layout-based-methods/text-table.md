@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract tables based on column coordinates defined in inches'
   robots: index
 next:
   description: ''

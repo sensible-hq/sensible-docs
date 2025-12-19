@@ -5,7 +5,7 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Deprecated SenseML features'
   robots: index
 next:
   description: ''

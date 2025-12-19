@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract repeating document sections'
   robots: index
 next:
   description: ''

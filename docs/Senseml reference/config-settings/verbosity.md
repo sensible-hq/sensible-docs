@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Control extraction output detail'
   robots: index
 next:
   description: ''

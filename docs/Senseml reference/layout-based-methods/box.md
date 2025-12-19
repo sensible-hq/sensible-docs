@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract text from a bordered box'
   robots: index
 next:
   description: ''

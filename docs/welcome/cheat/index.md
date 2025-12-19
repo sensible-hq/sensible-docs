@@ -5,7 +5,7 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Quick reference guides for common extraction tasks'
   robots: index
 next:
   description: ''

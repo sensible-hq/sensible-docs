@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Configure fingerprint-based classification'
   robots: index
 next:
   description: ''

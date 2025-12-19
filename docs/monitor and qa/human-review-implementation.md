@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Implement human review using Sensible webhooks'
   robots: index
 next:
   description: ''

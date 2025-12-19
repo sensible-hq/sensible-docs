@@ -5,7 +5,7 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Handling extraction challenges'
   robots: index
 next:
   description: ''

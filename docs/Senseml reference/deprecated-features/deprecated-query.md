@@ -5,7 +5,7 @@ deprecated: true
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Deprecated query method'
   robots: index
 next:
   description: ''

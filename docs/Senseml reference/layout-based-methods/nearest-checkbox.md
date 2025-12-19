@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Find nearest checkbox to anchor and extract its state'
   robots: index
 next:
   description: ''

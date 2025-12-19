@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Conditionally execute SenseML'
   robots: index
 next:
   description: ''

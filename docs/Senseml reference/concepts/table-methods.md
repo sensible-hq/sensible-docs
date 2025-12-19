@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Comparison of table extraction methods'
   robots: index
 next:
   description: ''

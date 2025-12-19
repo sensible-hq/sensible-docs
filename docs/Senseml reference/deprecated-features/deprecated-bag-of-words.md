@@ -5,7 +5,7 @@ deprecated: true
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Deprecated bag of words method'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract text from a document range defined by upper and lower bounds'
   robots: index
 next:
   description: ''

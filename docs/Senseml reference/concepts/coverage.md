@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Understanding extraction coverage'
   robots: index
 next:
   description: ''

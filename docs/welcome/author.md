@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Guide to choosing between LLM-based and layout-based extraction methods'
   robots: index
 next:
   description: ''

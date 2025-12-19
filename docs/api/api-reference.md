@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Complete API reference documentation'
   robots: index
 next:
   description: ''

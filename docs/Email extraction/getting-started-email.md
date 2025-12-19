@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract structured data from emails and attachments'
   robots: index
 next:
   description: ''

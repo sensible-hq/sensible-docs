@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Configure LLM methods globally'
   robots: index
 next:
   description: ''

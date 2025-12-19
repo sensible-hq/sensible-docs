@@ -5,7 +5,7 @@ deprecated: true
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Deprecated summarizer method'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Checkboxes and regions extraction'
   robots: index
 next:
   description: ''

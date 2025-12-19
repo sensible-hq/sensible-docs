@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Pre-built extraction templates for different document types'
   robots: index
 next:
   description: ''

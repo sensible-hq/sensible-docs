@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'CI/CD integration for configs'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Webhook-based extraction workflow'
   robots: index
 next:
   description: ''

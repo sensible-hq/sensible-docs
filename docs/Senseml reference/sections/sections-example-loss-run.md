@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Sections example: insurance claims extraction'
   robots: index
 next:
   description: ''

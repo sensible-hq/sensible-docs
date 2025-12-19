@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Handle multi-column layouts'
   robots: index
 next:
   description: ''

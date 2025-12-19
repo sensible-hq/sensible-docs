@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Document fingerprinting for classification'
   robots: index
 next:
   description: ''

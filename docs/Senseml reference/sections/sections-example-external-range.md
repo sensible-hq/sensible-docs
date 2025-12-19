@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Sections example: using external anchors'
   robots: index
 next:
   description: ''

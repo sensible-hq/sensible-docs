@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Synchronous extraction API calls'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Quick start guide for the Sensible API'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Overview of the SenseML query language'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Limit extraction to page ranges'
   robots: index
 next:
   description: ''

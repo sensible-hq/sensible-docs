@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Measuring and improving LLM extraction accuracy'
   robots: index
 next:
   description: ''

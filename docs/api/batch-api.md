@@ -5,7 +5,7 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Batch multiple extractions together'
   robots: index
 next:
   description: ''

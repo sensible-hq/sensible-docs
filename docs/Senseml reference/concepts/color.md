@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML'
   robots: index
 next:
   description: ''

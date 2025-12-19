@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract tables with fixed column headings'
   robots: index
 next:
   description: ''

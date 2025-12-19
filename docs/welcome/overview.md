@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Introduction to Sensible and its capabilities for document data extraction'
   robots: index
 next:
   description: ''

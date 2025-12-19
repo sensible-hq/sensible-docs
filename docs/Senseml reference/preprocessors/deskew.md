@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Correct skewed document images'
   robots: index
 next:
   description: ''

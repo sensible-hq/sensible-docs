@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Combine arrays into objects'
   robots: index
 next:
   description: ''

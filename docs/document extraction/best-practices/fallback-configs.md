@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Configuring fallback extraction strategies'
   robots: index
 next:
   description: ''

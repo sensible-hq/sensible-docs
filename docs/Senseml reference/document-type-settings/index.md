@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Configure document type behavior'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Checklist for deploying extractions to production'
   robots: index
 next:
   description: ''

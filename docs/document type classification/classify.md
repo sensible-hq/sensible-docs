@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Automatically classify documents by type, for example, ''bank statment'' or ''driver''s license'
   robots: index
 next:
   description: ''

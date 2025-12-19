@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Guides for Node/TypeScript and Python SDKs'
   robots: index
 next:
   description: ''

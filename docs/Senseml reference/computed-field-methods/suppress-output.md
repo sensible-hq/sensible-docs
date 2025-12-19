@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Exclude fields from output'
   robots: index
 next:
   description: ''

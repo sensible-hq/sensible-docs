@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Data types for extracted fields'
   robots: index
 next:
   description: ''

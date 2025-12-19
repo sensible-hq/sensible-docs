@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Common issues and solutions'
   robots: index
 next:
   description: ''

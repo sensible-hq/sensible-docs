@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Methods that use document layout for document data extraction'
   robots: index
 next:
   description: ''

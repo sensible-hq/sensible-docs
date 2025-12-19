@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Structure of field queries in SenseML'
   robots: index
 next:
   description: ''

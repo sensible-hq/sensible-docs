@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Rotate page orientation, for edge cases when Sensible can''t auto-rotate the page'
   robots: index
 next:
   description: ''

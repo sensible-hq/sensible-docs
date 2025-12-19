@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract from a  rectangular region defined in inch coordinates'
   robots: index
 next:
   description: ''

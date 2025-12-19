@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Async extraction with Sensible-hosted URL'
   robots: index
 next:
   description: ''

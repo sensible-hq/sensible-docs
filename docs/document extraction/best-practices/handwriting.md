@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Best practices for OCR and handwriting extraction'
   robots: index
 next:
   description: ''

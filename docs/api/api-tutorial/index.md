@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Step-by-step API tutorial'
   robots: index
 next:
   description: ''

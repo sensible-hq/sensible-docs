@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'OCR configuration'
   robots: index
 next:
   description: ''

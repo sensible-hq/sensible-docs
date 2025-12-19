@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Introduction to Sensible''s Zapier integration'
   robots: index
 next:
   description: ''

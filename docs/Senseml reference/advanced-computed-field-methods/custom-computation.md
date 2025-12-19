@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Custom JsonLogic computations'
   robots: index
 next:
   description: ''

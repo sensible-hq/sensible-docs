@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Options for integrating Sensible with your application'
   robots: index
 next:
   description: ''

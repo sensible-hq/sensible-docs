@@ -1,4 +1,3 @@
-
 ---
 title: Checkbox
 excerpt: ''
@@ -6,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract checkbox states'
   robots: index
 next:
   description: ''

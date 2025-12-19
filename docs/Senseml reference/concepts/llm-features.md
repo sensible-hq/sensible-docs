@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Overview of LLM capabilities'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: true
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Deprecated page filter'
   robots: index
 next:
   description: ''

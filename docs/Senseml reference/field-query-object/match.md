@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Match patterns for finding text'
   robots: index
 next:
   description: ''

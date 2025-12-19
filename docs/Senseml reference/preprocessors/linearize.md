@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Advanced option for handling block layout and multicolumn layouts, alternative to Multicolumn preprocessor'
   robots: index
 next:
   description: ''

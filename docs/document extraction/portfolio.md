@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract from document portfolios (files containing multiple documents)'
   robots: index
 next:
   description: ''

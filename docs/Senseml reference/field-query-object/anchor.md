@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Define anchors to locate data in documents'
   robots: index
 next:
   description: ''

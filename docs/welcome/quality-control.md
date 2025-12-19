@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Strategies for validating and monitoring extracted data'
   robots: index
 next:
   description: ''

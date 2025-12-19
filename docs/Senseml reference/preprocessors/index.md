@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Transform documents before extraction'
   robots: index
 next:
   description: ''

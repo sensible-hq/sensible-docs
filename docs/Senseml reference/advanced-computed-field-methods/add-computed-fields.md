@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Add computed fields to output'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Tips for improving extraction speed'
   robots: index
 next:
   description: ''

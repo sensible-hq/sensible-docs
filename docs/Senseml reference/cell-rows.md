@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extract from large spreadsheets'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Methods that use large language models for document data extraction'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Pass anchor text through as output'
   robots: index
 next:
   description: ''

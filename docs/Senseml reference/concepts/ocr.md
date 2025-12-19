@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Optical character recognition overview'
   robots: index
 next:
   description: ''

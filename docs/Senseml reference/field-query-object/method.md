@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Extraction methods for retrieving data'
   robots: index
 next:
   description: ''

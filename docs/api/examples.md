@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Example code for common API operations'
   robots: index
 next:
   description: ''

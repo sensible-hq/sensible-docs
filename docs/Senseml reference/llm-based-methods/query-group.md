@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Group related LLM queries to extract facts'
   robots: index
 next:
   description: ''

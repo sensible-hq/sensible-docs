@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Describe document types for classification'
   robots: index
 next:
   description: ''

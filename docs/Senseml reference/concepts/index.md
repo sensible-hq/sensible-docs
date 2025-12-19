@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Core SenseML concepts'
   robots: index
 next:
   description: ''

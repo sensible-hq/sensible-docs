@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Transform extracted data into any arbitrary output schema'
   robots: index
 next:
   description: ''

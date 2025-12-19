@@ -5,7 +5,7 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Hello world extraction example'
   robots: index
 next:
   description: ''

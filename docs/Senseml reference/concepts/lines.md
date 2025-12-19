@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Understanding text lines in PDFs'
   robots: index
 next:
   description: ''

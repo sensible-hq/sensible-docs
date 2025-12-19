@@ -1,4 +1,3 @@
-
 ---
 title: Intersection
 excerpt: ''
@@ -6,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Find text at row/column intersections'
   robots: index
 next:
   description: ''

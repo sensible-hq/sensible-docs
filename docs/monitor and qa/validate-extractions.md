@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Validate extracted data programmatically'
   robots: index
 next:
   description: ''

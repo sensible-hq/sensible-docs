@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Configure LLM prompts'
   robots: index
 next:
   description: ''

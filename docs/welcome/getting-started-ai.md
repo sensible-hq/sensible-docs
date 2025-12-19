@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Learn to extract document data using LLM-based methods'
   robots: index
 next:
   description: ''

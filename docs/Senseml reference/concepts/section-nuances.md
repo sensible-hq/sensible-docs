@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Advanced section configuration'
   robots: index
 next:
   description: ''

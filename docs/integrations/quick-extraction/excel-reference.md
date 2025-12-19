@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Reference for exporting extractions to spreadsheets'
   robots: index
 next:
   description: ''

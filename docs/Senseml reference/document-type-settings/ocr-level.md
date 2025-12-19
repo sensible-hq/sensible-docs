@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Configure OCR processing level'
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: 'Strategies for handling document layout variations'
   robots: index
 next:
   description: ''

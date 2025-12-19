@@ -5,7 +5,7 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: ''
+  description: 'Tables and rows extraction'
   robots: index
 next:
   description: ''
