@@ -71,7 +71,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## API
 
-- [Group extractions by batch ID](docs/api/batch-api.md): Batch multiple extractions together
 - [Code examples](docs/api/examples.md): Example code for common API operations
 - [API reference](docs/api/api-reference.md): Complete API reference documentation
 
@@ -215,16 +214,3 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Source text traceability](docs/Senseml%20reference/concepts/color.md): Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML
 - [Supported file types](docs/Senseml%20reference/concepts/file-types.md): Supported document file formats
 - [Table methods](docs/Senseml%20reference/concepts/table-methods.md): Comparison of table extraction methods
-
-### Deprecated Features
-
-- [Deprecated methods](docs/Senseml%20reference/deprecated-features/index.md): Deprecated SenseML features
-- [(Deprecated) Bag of words](docs/Senseml%20reference/deprecated-features/deprecated-bag-of-words.md): Deprecated bag of words method
-- [(Deprecated) Invoice](docs/Senseml%20reference/deprecated-features/deprecated-invoice.md): Deprecated invoice method
-- [(Deprecated) Key/Value](docs/Senseml%20reference/deprecated-features/deprecated-key-value.md): Deprecated key/value method
-- [(Deprecated) Page filter](docs/Senseml%20reference/deprecated-features/deprecated-page-filter.md): Deprecated page filter
-- [(Deprecated) Query](docs/Senseml%20reference/deprecated-features/deprecated-query.md): Deprecated query method
-- [(Deprecated) Table](docs/Senseml%20reference/deprecated-features/deprecated-table.md): Deprecated table method
-- [(Deprecated) TFIDF](docs/Senseml%20reference/deprecated-features/deprecated-tfidf.md): Deprecated TFIDF method
-- [Summarizer](docs/Senseml%20reference/deprecated-features/deprecated-summarizer.md): Deprecated summarizer method
-- [Topic](docs/Senseml%20reference/deprecated-features/deprecated-topic.md): Deprecated topic method
