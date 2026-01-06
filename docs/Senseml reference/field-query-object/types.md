@@ -321,7 +321,7 @@ Sensible recognizes the following date formats by default:
 
 See the following configurable syntax section for definitions of the field descriptors in the preceding list.
 
-The following are examples of date formats that Sensible recognizes by default:
+The following are examples of date formats that Sensible recognizes:
 
 ```txt
 # English (default)
