@@ -351,6 +351,7 @@ The following example:
 "type":
   {
     "id": "date",
+    # recognizes 4 custom formats, e.g., JAN-31st-22, 800325, JAN\31\2022, or jan 2022
     "format": ["%b-%d[a-z]{2}-%y$", "%y%M%D", "%b\\\\%d\\\\%Y", "%b\\s*?%Y"]   
   }
 ```
