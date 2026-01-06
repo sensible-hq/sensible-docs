@@ -323,12 +323,22 @@ See the following configurable syntax section for definitions of the field descr
 
 The following are examples of date formats that Sensible recognizes by default:
 
-```
+```txt
+# English (default)
 5/17/2018
 november 30, 1955
 Feb 1, 21
 June 7th, 2021
 Jan. 9th, 09
+
+# Spanish
+7 de enero de 2018
+30 de septiembre de 2027
+15 de setiembre de 2026
+
+# Italian
+21 marzo 2021
+30 settembre 2027
 ```
 
 ## Configurable syntax
@@ -356,10 +366,11 @@ Recognizes the following date formats and ignores all default formats:
 
 **Parameters**
 
-| key               | value                          | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ----------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id (**required**) | `date`                         | Returns datetime.  Sensible outputs the time as midnight UTC.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| key               | value                          | description                                                  |
+| ----------------- | ------------------------------ | ------------------------------------------------------------ |
+| id (**required**) | `date`                         | Returns datetime.  Sensible outputs the time as midnight UTC. |
 | format            | JS regex or array of JS regexs | Custom date formats override the defaults listed in the simple syntax section.<br/>See the following table for a list of the field descriptors. The field descriptors are concise syntax for regular expressions. You can use JavaScript-flavored regular expressions ("regex") with these field descriptors to define custom date formats. Double escape special characters since the regex is in a JSON object (for example, `\\s`, not `\s` , to represent a whitespace character).<br/><br/> |
+| language          | enum: `en` (default), <br/>`es`,<br/> `it` | Recognizes dates in the specified language:<br/>`en` - English<br/>`es` - Spanish<br/>`it` - Italian |
 
 The following table lists the field descriptors you can use to define a custom format other than the default formats listed in the simple syntax section.
 
