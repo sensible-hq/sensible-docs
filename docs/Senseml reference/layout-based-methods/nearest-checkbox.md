@@ -33,7 +33,7 @@ Sensible uses one of two data sources, pixels or metadata, to extract selection 
 | position (**required**) | `left`, `right`              | Defines the starting point for searching for the nearest selection mark. Sensible searches outward from this point in all directions.  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `left` specifies starting at the midpoint of the anchor line's left boundary. |
 | offsetX                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. |
 | offsetY                 | number in inches. default: 0 | Searches for a selection mark starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page. |
-| maxYDistance            | number in inches.            | Specifies the maximum number of inches Sensible searches up or down the page from the point defined by the Position parameter.  For example, configure this parameter to restrict the checkbox search in successive rows of tightly spaced checkboxes. |
+| maxYDistance            | number in inches.            | Specifies the maximum number of inches Sensible searches up or down the page from the starting point.  For example, configure this parameter to restrict the checkbox search in successive rows of tightly spaced checkboxes. |
 
 # Examples
 
