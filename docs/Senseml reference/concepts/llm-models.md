@@ -16,9 +16,9 @@ You can configure which LLM models Sensible uses to find answers in [context](do
 
 | configuration                                | LLM Engine parameter:<br/>provider: **openai** | LLM Engine parameter:<br/>provider: **anthropic** | LLM Engine parameter:<br/>provider: **google** |
 | -------------------------------------------- | ---------------------------------------------- | ------------------------------------------------- | ---------------------------------------------- |
-| LLM Engine parameter:<br/> mode: **fast**    | GPT-4o mini                                    | Claude 3.5 Haiku                                  | Gemini 2.5 Flash-Lite                          |
-| LLM Engine parameter:<br/>mode: **thorough** | GPT-4o                                         | Claude 3.7 Sonnet                                 | Gemini 2.5 Flash-Lite                          |
-| LLM Engine parameter:<br/>  mode: **long**   | GPT-4o mini                                    | Claude 3.5 Haiku                                  | Gemini 2.5 Flash-Lite                          |
+| LLM Engine parameter:<br/> mode: **fast**    | GPT-4o mini                                    | Claude 4.5 Haiku                                  | Gemini 2.5 Flash-Lite                          |
+| LLM Engine parameter:<br/>mode: **thorough** | GPT-4o                                         | Claude 4.5 Sonnet                                 | Gemini 2.5 Flash-Lite                          |
+| LLM Engine parameter:<br/>  mode: **long**   | GPT-4o mini                                    | Claude 4.5 Haiku                                  | Gemini 2.5 Flash-Lite                          |
 
 
 
@@ -28,7 +28,7 @@ You can configure which LLM models Sensible uses to find answers in [context](do
 | ------------------------------------- | ----------------------------------------------- | ------------------------------------------------- | ---------------------------------------------- |
 | default                               | GPT-4o mini                                     | Claude 3 Haiku                                    | Gemini 2.5 Flash-Lite                          |
 | Multimodal Engine parameter: **true** | GPT-4o mini                                     | Claude 3 Haiku                                    | Gemini 2.5 Flash-Lite                          |
-| Source Ids parameter is specified     | GPT-4o mini                                     | Claude 3.7 Sonnet                                 | Gemini 2.5 Flash-Lite                          |
+| Source Ids parameter is specified     | GPT-4o mini                                     | Claude 4.5 Sonnet                                 | Gemini 2.5 Flash-Lite                          |
 
 ### NLP Table method
 
