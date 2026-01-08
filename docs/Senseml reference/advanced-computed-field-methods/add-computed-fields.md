@@ -19,11 +19,11 @@ Enables adding an array of computed fields that transform the extracted table. F
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter:
 
-| key                      | value                                                  | description                                                                                                                                                                                                                                                      |
-| :----------------------- | :----------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id (**required**)        | `addComputedFields`                                    |                                                                                                                                                                                                                                                                  |
-| source_id (**required**) | source field ID in the current config                  | The ID of the table you want to transform. To transform fields in a section, add a [computed fields array to sections](doc:sections-example-copy-to-section).                                                                                                    |
-| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields in the new table. The computed fields have access to the source  table's fields. To get access to and transform the output of fields that aren't in the source table, use the [Copy to section](doc:copy-to-section) method. |
+| key                      | value                                                  | description                                                  |
+| :----------------------- | :----------------------------------------------------- | :----------------------------------------------------------- |
+| id (**required**)        | `addComputedFields`                                    |                                                              |
+| source_id (**required**) | source field ID in the current config                  | The ID of the table you want to transform. To transform fields in a section, add a [computed fields array to sections](doc:sections-example-copy-to-section). |
+| fields                   | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields in the new table. The computed fields have access to the source  table's fields.<br/>To get access to and transform the output of fields that aren't in the source table, use the [Copy to section](doc:copy-to-section) method. |
 
 # Examples
 
