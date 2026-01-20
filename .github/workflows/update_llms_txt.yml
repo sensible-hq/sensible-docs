@@ -25,10 +25,10 @@ jobs:
       - name: Get changed markdown files
         id: changed-files
         run: |
-          # Get the PR number from the issue
+          # Get the PR number from the issue, if number is present
           PR_NUMBER=${{ github.event.issue.number }}
           
-          # Fetch PR details to get base and head refs
+          # Fetch PR details to get base and head refs, if present
           gh pr view $PR_NUMBER --json baseRefName,headRefName --jq '{base: .baseRefName, head: .headRefName}' > pr_info.json
           BASE=$(jq -r '.base' pr_info.json)
           HEAD=$(jq -r '.head' pr_info.json)
