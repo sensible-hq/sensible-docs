@@ -2,8 +2,7 @@ name: Claude Smart Docs Update
 on:
   issue_comment:
     types: [created]
-  commit_comment:
-    types: [created]
+  commit_comment: # Note: no 'types' needed here, it triggers on creation by default
 
 jobs:
   claude-smart-update:
@@ -22,16 +21,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 1. Detect changed markdown files automatically
       - name: Get changed markdown files
         id: changed-files
-        uses: tj-actions/changed-files@v45
+        uses: [tj-actions/changed-files](https://github.com)@v45
         with:
           files: |
             **/*.md
 
       - name: Run Claude Code Action
-        uses: anthropics/claude-code-action@v1
+        uses: [anthropics/claude-code-action](https://github.com)@v1
         with:
           prompt: |
             USER REQUEST: "${{ github.event.comment.body }}"
