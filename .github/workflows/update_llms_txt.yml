@@ -2,7 +2,6 @@ name: Claude Smart Docs Update
 on:
   issue_comment:
     types: [created]
-  commit_comment:
 
 jobs:
   claude-smart-update:
