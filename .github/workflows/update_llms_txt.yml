@@ -1,6 +1,8 @@
-name: update LLMs.txt on claude mention
+name: Claude Smart Docs Update
 on:
   issue_comment:
+    types: [created]
+  commit_comment:
     types: [created]
 
 jobs:
@@ -18,9 +20,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Get history to find changes
+          fetch-depth: 0
 
-      # Step 1: Detect exactly which .md files changed in the PR or last commit
+      # 1. Detect changed markdown files automatically
       - name: Get changed markdown files
         id: changed-files
         uses: tj-actions/changed-files@v45
@@ -31,17 +33,16 @@ jobs:
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
         with:
-          # Step 2: Feed specific file names into the prompt for efficiency
           prompt: |
-            The user wants to update 'llms.txt'.
+            USER REQUEST: "${{ github.event.comment.body }}"
             
-            CONTEXT: The following markdown files were recently added, modified, or deleted:
+            AUTOMATIC CONTEXT (Changed MD files):
             ${{ steps.changed-files.outputs.all_changed_files }}
-            
-            TASK:
-            1. Create a new branch 'docs/sync-llms-txt'.
-            2. Update 'llms.txt' to reflect these changes while ensuring the rest of the file remains accurate.
-            3. Use 'gh pr create' to open a PR targeting main.
+
+            INSTRUCTIONS:
+            1. If the USER REQUEST mentions specific files to add/remove from 'llms.txt', prioritize those.
+            2. Otherwise, use the AUTOMATIC CONTEXT list to synchronize 'llms.txt'.
+            3. Create a branch named 'fix/update-llms-txt', commit the changes, and open a PR using 'gh pr create'.
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
