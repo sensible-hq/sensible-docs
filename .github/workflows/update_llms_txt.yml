@@ -13,6 +13,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      id-token: write  # Added for OIDC token
     
     steps:
       - name: Checkout code
@@ -62,6 +63,7 @@ jobs:
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Explicitly pass the token
           prompt: |
             USER REQUEST: "${{ github.event.comment.body }}"
             
@@ -76,4 +78,3 @@ jobs:
             4. Create a branch named 'fix/update-llms-txt', commit the changes, and open a PR using 'gh pr create'.
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
