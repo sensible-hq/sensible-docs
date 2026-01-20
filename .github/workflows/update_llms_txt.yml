@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      id-token: write  # Added for OIDC token
+      id-token: write
     
     steps:
       - name: Checkout code
@@ -63,7 +63,8 @@ jobs:
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Explicitly pass the token
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
             USER REQUEST: "${{ github.event.comment.body }}"
             
@@ -74,7 +75,4 @@ jobs:
             INSTRUCTIONS:
             1. If the USER REQUEST mentions specific files to add/remove from 'llms.txt', prioritize those.
             2. For PR context: Use the CHANGED MD FILES list to synchronize 'llms.txt'.
-            3. For Issue context: Use the USER REQUEST to determine which files to add/remove from 'llms.txt'.
-            4. Create a branch named 'fix/update-llms-txt', commit the changes, and open a PR using 'gh pr create'.
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+            3. For Issue context: U
