@@ -25,10 +25,22 @@ jobs:
           
       - name: Get changed markdown files
         id: changed-files
-        uses: tj-actions/changed-files@v45
-        with:
-          files: |
-            **/*.md
+        run: |
+          # Get the PR number from the issue
+          PR_NUMBER=${{ github.event.issue.number }}
+          
+          # Fetch PR details to get base and head refs
+          gh pr view $PR_NUMBER --json baseRefName,headRefName --jq '{base: .baseRefName, head: .headRefName}' > pr_info.json
+          BASE=$(jq -r '.base' pr_info.json)
+          HEAD=$(jq -r '.head' pr_info.json)
+          
+          # Get changed markdown files
+          git fetch origin $BASE $HEAD
+          CHANGED_FILES=$(git diff --name-only origin/$BASE...origin/$HEAD -- '*.md' | tr '\n' ' ')
+          
+          echo "all_changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
       - name: Run Claude Code Action
         uses: anthropics/claude-code-action@v1
