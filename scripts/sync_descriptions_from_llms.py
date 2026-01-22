@@ -63,6 +63,13 @@ def parse_front_matter(content: str) -> tuple[dict, str, str]:
     return front_matter, front_matter_raw, body
 
 
+def has_metadata_description(front_matter: dict) -> bool:
+    """Check if front matter has metadata.description key."""
+    if not isinstance(front_matter.get("metadata"), dict):
+        return False
+    return "description" in front_matter["metadata"]
+
+
 def update_front_matter(content: str, new_description: str) -> str | None:
     """
     Update metadata.description in the front matter.
@@ -73,17 +80,15 @@ def update_front_matter(content: str, new_description: str) -> str | None:
     if not front_matter:
         return None
 
-    # Ensure metadata dict exists
-    if "metadata" not in front_matter:
-        front_matter["metadata"] = {}
+    if not isinstance(front_matter.get("metadata"), dict):
+        return None
 
-    if not isinstance(front_matter["metadata"], dict):
+    if "description" not in front_matter["metadata"]:
         return None
 
     front_matter["metadata"]["description"] = new_description
 
     # Rebuild the file with updated front matter
-    # Use default_flow_style=False for readable output
     new_front_matter = yaml.dump(
         front_matter,
         default_flow_style=False,
@@ -124,7 +129,8 @@ def main():
     llms_entries = parse_llms_txt(repo_root / "llms.txt")
 
     updated = 0
-    skipped = 0
+    skipped_in_sync = 0
+    skipped_no_key = []
     errors = 0
 
     for rel_path, llms_description in sorted(llms_entries.items()):
@@ -141,19 +147,23 @@ def main():
             continue
 
         front_matter, _, _ = parse_front_matter(content)
-        current_description = ""
-        if front_matter.get("metadata") and isinstance(front_matter["metadata"], dict):
-            current_description = front_matter["metadata"].get("description", "") or ""
+
+        # Skip files without metadata:description key
+        if not has_metadata_description(front_matter):
+            skipped_no_key.append(rel_path)
+            continue
+
+        current_description = front_matter["metadata"].get("description", "") or ""
 
         if current_description == llms_description:
-            skipped += 1
+            skipped_in_sync += 1
             continue
 
         # Update the file
         new_content = update_front_matter(content, llms_description)
 
         if new_content is None:
-            print(f"WARNING: Could not update {rel_path} (invalid front matter)")
+            print(f"WARNING: Could not update {rel_path}")
             errors += 1
             continue
 
@@ -166,13 +176,23 @@ def main():
 
         updated += 1
 
+    # Report files missing metadata:description
+    if skipped_no_key:
+        print()
+        print("=" * 60)
+        print("SKIPPED (missing metadata:description key)")
+        print("=" * 60)
+        for path in skipped_no_key:
+            print(f"  - {path}")
+
     # Summary
     print()
     print("=" * 60)
     print("SUMMARY")
     print("=" * 60)
     print(f"  {'Would update' if args.dry_run else 'Updated'}: {updated}")
-    print(f"  Already in sync: {skipped}")
+    print(f"  Already in sync: {skipped_in_sync}")
+    print(f"  Skipped (no metadata:description): {len(skipped_no_key)}")
     if errors:
         print(f"  Errors: {errors}")
 
