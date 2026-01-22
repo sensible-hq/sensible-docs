@@ -128,7 +128,7 @@ def main():
 
     llms_entries = parse_llms_txt(repo_root / "llms.txt")
 
-    updated = 0
+    updated_files = []
     skipped_in_sync = 0
     skipped_no_key = []
     errors = 0
@@ -167,14 +167,25 @@ def main():
             errors += 1
             continue
 
-        print(f"{'Would update' if args.dry_run else 'Updating'}: {rel_path}")
-        print(f"  From: \"{current_description}\"")
-        print(f"  To:   \"{llms_description}\"")
-
         if not args.dry_run:
             file_path.write_text(new_content, encoding="utf-8")
 
-        updated += 1
+        updated_files.append({
+            "path": rel_path,
+            "from": current_description,
+            "to": llms_description,
+        })
+
+    # Report updates
+    if updated_files:
+        print()
+        print("=" * 60)
+        print("UPDATED" if not args.dry_run else "WOULD UPDATE")
+        print("=" * 60)
+        for item in updated_files:
+            print(f"  - {item['path']}")
+            print(f"      From: \"{item['from']}\"")
+            print(f"      To:   \"{item['to']}\"")
 
     # Report files missing metadata:description
     if skipped_no_key:
@@ -190,7 +201,7 @@ def main():
     print("=" * 60)
     print("SUMMARY")
     print("=" * 60)
-    print(f"  {'Would update' if args.dry_run else 'Updated'}: {updated}")
+    print(f"  {'Would update' if args.dry_run else 'Updated'}: {len(updated_files)}")
     print(f"  Already in sync: {skipped_in_sync}")
     print(f"  Skipped (no metadata:description): {len(skipped_no_key)}")
     if errors:
