@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: API introduction and endpoint overview
   robots: index
 next:
   description: ''

@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Tutorial for SenseML layout-based extraction'
+  description: Tutorial for SenseML layout-based extraction
   robots: index
 next:
   description: ''
