@@ -5,9 +5,9 @@ Compare llms.txt against .md files in the repository.
 Reports:
 - Topics in .md files that are missing from llms.txt
 - Topics in llms.txt that reference deleted or hidden .md files
+- Descriptions in llms.txt that don't match the file's metadata.description
 """
 
-import os
 import re
 import sys
 from pathlib import Path
@@ -26,17 +26,38 @@ def parse_front_matter(content: str) -> dict:
 
     front_matter_text = content[3:end_match.start() + 3]
 
-    # Simple YAML parsing for the fields we care about
-    result = {}
+    # Parse YAML - handle nested metadata block
+    result = {
+        "title": "",
+        "hidden": False,
+        "description": "",
+    }
+
+    in_metadata_block = False
+
     for line in front_matter_text.split("\n"):
-        if ":" in line:
-            key, _, value = line.partition(":")
+        stripped = line.strip()
+
+        # Check for metadata block start
+        if stripped == "metadata:":
+            in_metadata_block = True
+            continue
+
+        # Check if we've exited the metadata block (non-indented line)
+        if in_metadata_block and line and not line.startswith(" ") and not line.startswith("\t"):
+            in_metadata_block = False
+
+        if ":" in stripped:
+            key, _, value = stripped.partition(":")
             key = key.strip()
             value = value.strip().strip("'\"")
+
             if key == "hidden":
                 result["hidden"] = value.lower() == "true"
-            elif key == "title":
+            elif key == "title" and not in_metadata_block:
                 result["title"] = value
+            elif key == "description" and in_metadata_block:
+                result["description"] = value
 
     return result
 
@@ -73,15 +94,16 @@ def get_md_files(repo_root: Path) -> dict[str, dict]:
             md_files[str(relative_path)] = {
                 "title": front_matter.get("title", relative_path.stem),
                 "path": str(relative_path),
+                "description": front_matter.get("description", ""),
             }
 
     return md_files
 
 
-def parse_llms_txt(llms_path: Path) -> set[str]:
+def parse_llms_txt(llms_path: Path) -> dict[str, str]:
     """
-    Extract all .md file references from llms.txt.
-    Returns set of relative paths (URL-decoded).
+    Extract all .md file references and descriptions from llms.txt.
+    Returns dict mapping relative path (URL-decoded) -> description.
     """
     if not llms_path.exists():
         print(f"Error: llms.txt not found at {llms_path}")
@@ -89,27 +111,28 @@ def parse_llms_txt(llms_path: Path) -> set[str]:
 
     content = llms_path.read_text(encoding="utf-8")
 
-    # Match markdown links: [text](path.md) or [text](path.md):
-    # Pattern captures paths ending in .md
-    pattern = r"\[([^\]]+)\]\(([^)]+\.md)\)"
+    # Match markdown links with descriptions: [text](path.md): description
+    # Pattern captures: link text, path, and description
+    pattern = r"\[([^\]]+)\]\(([^)]+\.md)\):\s*(.+?)(?:\n|$)"
     matches = re.findall(pattern, content)
 
-    paths = set()
-    for _, path in matches:
+    paths = {}
+    for _, path, description in matches:
         # URL-decode the path (e.g., %20 -> space)
         decoded_path = unquote(path)
-        paths.add(decoded_path)
+        paths[decoded_path] = description.strip()
 
     return paths
 
 
-def check_llms_txt_accuracy(repo_root: Path) -> tuple[list, list]:
+def check_llms_txt_accuracy(repo_root: Path) -> tuple[list, list, list]:
     """
     Compare llms.txt against actual .md files.
 
     Returns:
         - missing_from_llms: .md files not referenced in llms.txt
         - stale_in_llms: llms.txt references to non-existent/hidden files
+        - description_mismatches: files where llms.txt description != file's metadata.description
     """
     llms_path = repo_root / "llms.txt"
 
@@ -117,10 +140,11 @@ def check_llms_txt_accuracy(repo_root: Path) -> tuple[list, list]:
     md_files = get_md_files(repo_root)
     md_paths = set(md_files.keys())
 
-    # Get all paths referenced in llms.txt
-    llms_paths = parse_llms_txt(llms_path)
+    # Get all paths and descriptions referenced in llms.txt
+    llms_entries = parse_llms_txt(llms_path)
+    llms_paths = set(llms_entries.keys())
 
-    # Find discrepancies
+    # Find missing files
     missing_from_llms = []
     for path in sorted(md_paths - llms_paths):
         info = md_files[path]
@@ -129,6 +153,7 @@ def check_llms_txt_accuracy(repo_root: Path) -> tuple[list, list]:
             "title": info["title"],
         })
 
+    # Find stale references
     stale_in_llms = []
     for path in sorted(llms_paths - md_paths):
         full_path = repo_root / path
@@ -142,22 +167,35 @@ def check_llms_txt_accuracy(repo_root: Path) -> tuple[list, list]:
             "reason": reason,
         })
 
-    return missing_from_llms, stale_in_llms
+    # Find description mismatches (for files that exist in both)
+    description_mismatches = []
+    for path in sorted(md_paths & llms_paths):
+        file_description = md_files[path]["description"]
+        llms_description = llms_entries[path]
+
+        if file_description != llms_description:
+            description_mismatches.append({
+                "path": path,
+                "title": md_files[path]["title"],
+                "file_description": file_description,
+                "llms_description": llms_description,
+            })
+
+    return missing_from_llms, stale_in_llms, description_mismatches
 
 
 def main():
-    # Determine repo root (script location or current directory)
+    # Determine repo root (script location's parent or current directory)
     script_dir = Path(__file__).parent.resolve()
+    repo_root = script_dir.parent
 
-    # Check if llms.txt exists in script directory
-    if (script_dir / "llms.txt").exists():
-        repo_root = script_dir
-    else:
+    # Verify we found the right directory
+    if not (repo_root / "llms.txt").exists():
         repo_root = Path.cwd()
 
     print(f"Checking llms.txt accuracy in: {repo_root}\n")
 
-    missing_from_llms, stale_in_llms = check_llms_txt_accuracy(repo_root)
+    missing_from_llms, stale_in_llms, description_mismatches = check_llms_txt_accuracy(repo_root)
 
     has_issues = False
 
@@ -185,12 +223,27 @@ def main():
             print(f"    Reason: {item['reason']}")
         print()
 
+    # Report description mismatches
+    if description_mismatches:
+        has_issues = True
+        print("=" * 60)
+        print("DESCRIPTION MISMATCHES")
+        print("These files have different descriptions in llms.txt vs front matter:")
+        print("=" * 60)
+        for item in description_mismatches:
+            print(f"  - {item['path']}")
+            print(f"    Title: {item['title']}")
+            print(f"    In file:     \"{item['file_description']}\"")
+            print(f"    In llms.txt: \"{item['llms_description']}\"")
+        print()
+
     # Summary
     print("=" * 60)
     print("SUMMARY")
     print("=" * 60)
-    print(f"  Missing from llms.txt: {len(missing_from_llms)}")
-    print(f"  Stale references:      {len(stale_in_llms)}")
+    print(f"  Missing from llms.txt:    {len(missing_from_llms)}")
+    print(f"  Stale references:         {len(stale_in_llms)}")
+    print(f"  Description mismatches:   {len(description_mismatches)}")
 
     if not has_issues:
         print("\n✓ llms.txt is up to date!")
