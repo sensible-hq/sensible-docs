@@ -12,7 +12,7 @@ next:
 ---
 ## Introduction
 
-If you're trying to convert a document, such as a PDF, into an Excel file, you often find tools that copy the document's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
+If you're trying to convert a document, such as a PDF, into an Excel file, you often encounter tools that copy the document's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells. 
 
 In contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. For a list of document file types that Sensible can extract data from, see [Supported file types](doc:file-types).
 
