@@ -5,7 +5,8 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: Learn how Sensible converts SenseML-extracted data from PDFs and documents
+    into structured Excel spreadsheets and CSV files with meaningful columns.
   robots: index
 next:
   description: ''

@@ -5,4 +5,6 @@ api:
   file: openapi_configuration.json
   operationId: list-configurations
 hidden: false
+metadata:
+  description: 'null'
 ---

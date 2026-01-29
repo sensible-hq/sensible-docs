@@ -5,4 +5,7 @@ api:
   file: openapi_configuration.json
   operationId: create-configuration
 hidden: false
+metadata:
+  description: Create and pass configuration settings as stringified JSON within a
+    document type using the API operation.
 ---
