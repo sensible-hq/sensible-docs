@@ -20,7 +20,7 @@ def parse_front_matter(content: str) -> dict:
         return {}
 
     # Find the closing ---
-    end_match = re.search(r"\n---\s*\n", content[3:])
+    end_match = re.search(r"\n---\s*(\n|$)", content[3:])
     if not end_match:
         return {}
 
@@ -145,10 +145,10 @@ def main():
 
     if not issues:
         print("\n✓ All visible .md files have metadata descriptions!")
-        return 0
     else:
         print(f"\n✗ {len(issues)} file(s) need descriptions added.")
-        return 1
+
+    return 0  # Always return 0; workflow uses JSON output count to decide next steps
 
 
 if __name__ == "__main__":

@@ -9,6 +9,8 @@ import re
 import sys
 from pathlib import Path
 
+import yaml
+
 
 def update_file_with_description(file_path: Path, description: str) -> bool:
     """Update the file's front matter with the new description."""
@@ -17,38 +19,28 @@ def update_file_with_description(file_path: Path, description: str) -> bool:
     if not content.startswith("---"):
         return False
 
-    end_match = re.search(r"\n---\s*\n", content[3:])
+    end_match = re.search(r"\n---\s*(\n|$)", content[3:])
     if not end_match:
         return False
 
-    front_matter = content[3:end_match.start() + 3]
+    front_matter_text = content[3:end_match.start() + 3]
     rest_of_file = content[end_match.end() + 3:]
 
-    # Escape single quotes in description
-    escaped_description = description.replace("'", "''")
+    # Parse YAML front matter
+    try:
+        front_matter = yaml.safe_load(front_matter_text) or {}
+    except yaml.YAMLError:
+        return False
 
-    has_metadata_block = "metadata:" in front_matter
+    # Update metadata.description
+    if "metadata" not in front_matter:
+        front_matter["metadata"] = {}
+    front_matter["metadata"]["description"] = description
 
-    if has_metadata_block:
-        # Check if description line exists in metadata block
-        if re.search(r"(metadata:\s*\n(?:[ \t]+\w+:.*\n)*)([ \t]+description:\s*)['\"]?['\"]?\s*\n", front_matter):
-            front_matter = re.sub(
-                r"(metadata:\s*\n(?:[ \t]+\w+:.*\n)*)([ \t]+description:\s*)['\"]?['\"]?\s*\n",
-                rf"\1\2'{escaped_description}'\n",
-                front_matter
-            )
-        else:
-            # Add description after metadata: line
-            front_matter = re.sub(
-                r"(metadata:\s*\n)",
-                rf"\1  description: '{escaped_description}'\n",
-                front_matter
-            )
-    else:
-        # Add metadata block
-        front_matter = front_matter.rstrip() + f"\nmetadata:\n  description: '{escaped_description}'\n"
+    # Dump back to YAML, preserving reasonable formatting
+    new_front_matter = yaml.dump(front_matter, default_flow_style=False, allow_unicode=True, sort_keys=False)
 
-    new_content = f"---{front_matter}---\n{rest_of_file}"
+    new_content = f"---\n{new_front_matter}---\n{rest_of_file}"
     file_path.write_text(new_content, encoding="utf-8")
     return True
 
