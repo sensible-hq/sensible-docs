@@ -123,7 +123,7 @@ def main():
 
     if args.json:
         print(json.dumps(issues))
-        return 0 if not issues else 1
+        return 0  # Always return 0 in JSON mode; workflow handles the count
 
     print(f"Checking metadata descriptions in: {repo_root}\n")
 
