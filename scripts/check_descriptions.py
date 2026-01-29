@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Check that every .md topic in  dirs "docs" and "reference" has a description 
-in the YAML metadata front matter.
+Check that every .md topic in dirs "docs" and "reference" that has a
+metadata.description key has a non-empty value.
 
-Reports files that are missing the metadata.description field or have it empty.
+Reports files that have the metadata.description field but it's empty.
 Skips files with hidden: true in front matter.
+Skips files without a metadata.description key (intentionally omitted).
 """
 
 import argparse
@@ -13,58 +14,31 @@ import re
 import sys
 from pathlib import Path
 
+import yaml
 
-def parse_front_matter(content: str) -> dict:
+
+def parse_front_matter(content: str) -> dict | None:
     """Extract YAML front matter from markdown content."""
     if not content.startswith("---"):
-        return {}
+        return None
 
     # Find the closing ---
     end_match = re.search(r"\n---\s*(\n|$)", content[3:])
     if not end_match:
-        return {}
+        return None
 
     front_matter_text = content[3:end_match.start() + 3]
 
-    # Parse YAML - handle nested metadata block
-    result = {
-        "title": "",
-        "hidden": False,
-        "metadata_description": "",
-    }
-
-    in_metadata_block = False
-
-    for line in front_matter_text.split("\n"):
-        stripped = line.strip()
-
-        # Check for metadata block start
-        if stripped == "metadata:":
-            in_metadata_block = True
-            continue
-
-        # Check if we've exited the metadata block (non-indented line)
-        if in_metadata_block and line and not line.startswith(" ") and not line.startswith("\t"):
-            in_metadata_block = False
-
-        if ":" in stripped:
-            key, _, value = stripped.partition(":")
-            key = key.strip()
-            value = value.strip().strip("'\"")
-
-            if key == "hidden":
-                result["hidden"] = value.lower() == "true"
-            elif key == "title" and not in_metadata_block:
-                result["title"] = value
-            elif key == "description" and in_metadata_block:
-                result["metadata_description"] = value
-
-    return result
+    try:
+        return yaml.safe_load(front_matter_text) or {}
+    except yaml.YAMLError:
+        return None
 
 
 def check_descriptions(repo_root: Path) -> list[dict]:
     """
-    Find all .md files missing metadata.description.
+    Find all .md files with empty metadata.description.
+    Only targets files that have the description key but with an empty/blank value.
     Returns list of files with issues.
     """
     issues = []
@@ -89,18 +63,29 @@ def check_descriptions(repo_root: Path) -> list[dict]:
                 continue
 
             front_matter = parse_front_matter(content)
+            if front_matter is None:
+                continue
 
             # Skip hidden files
             if front_matter.get("hidden", False):
                 continue
 
-            description = front_matter.get("metadata_description", "")
+            # Skip files without a metadata block
+            metadata = front_matter.get("metadata")
+            if not isinstance(metadata, dict):
+                continue
 
-            if not description:
+            # Skip files without a description key (intentionally omitted)
+            if "description" not in metadata:
+                continue
+
+            # Flag files where description key exists but value is empty or blank
+            description = metadata.get("description")
+            if description is None or (isinstance(description, str) and not description.strip()):
                 issues.append({
                     "path": str(relative_path),
                     "title": front_matter.get("title", "Unknown"),
-                    "reason": "Missing or empty metadata.description",
+                    "reason": "Empty metadata.description",
                 })
 
     return issues

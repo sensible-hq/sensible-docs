@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-Add or update a metadata description in a markdown file's front matter.
+Update an existing metadata.description in a markdown file's front matter.
+
+Only updates files that already have a metadata.description key.
+Will not create the key if it doesn't exist.
 
 Usage: add_description.py <file_path> <description>
 """
@@ -32,9 +35,11 @@ def update_file_with_description(file_path: Path, description: str) -> bool:
     except yaml.YAMLError:
         return False
 
-    # Update metadata.description
-    if "metadata" not in front_matter:
-        front_matter["metadata"] = {}
+    # Only update if metadata.description key already exists
+    metadata = front_matter.get("metadata")
+    if not isinstance(metadata, dict) or "description" not in metadata:
+        return False
+
     front_matter["metadata"]["description"] = description
 
     # Dump back to YAML, preserving reasonable formatting
