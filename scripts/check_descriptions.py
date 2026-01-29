@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-Check that every .md topic has a description in the YAML metadata front matter.
+Check that every .md topic in  dirs "docs" and "reference" has a description 
+in the YAML metadata front matter.
 
 Reports files that are missing the metadata.description field or have it empty.
 Skips files with hidden: true in front matter.
 """
 
+import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -104,6 +107,10 @@ def check_descriptions(repo_root: Path) -> list[dict]:
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Check for missing metadata descriptions in .md files")
+    parser.add_argument("--json", action="store_true", help="Output results as JSON")
+    args = parser.parse_args()
+
     # Determine repo root (script location's parent or current directory)
     script_dir = Path(__file__).parent.resolve()
     repo_root = script_dir.parent
@@ -112,9 +119,13 @@ def main():
     if not (repo_root / "docs").exists():
         repo_root = Path.cwd()
 
-    print(f"Checking metadata descriptions in: {repo_root}\n")
-
     issues = check_descriptions(repo_root)
+
+    if args.json:
+        print(json.dumps(issues))
+        return 0 if not issues else 1
+
+    print(f"Checking metadata descriptions in: {repo_root}\n")
 
     if issues:
         print("=" * 60)
