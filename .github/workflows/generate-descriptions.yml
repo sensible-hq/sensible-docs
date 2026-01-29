@@ -28,6 +28,10 @@ jobs:
       - name: Check for missing descriptions
         id: check
         run: |
+          # Show human-readable output in logs
+          python scripts/check_descriptions.py
+
+          # Capture JSON output for subsequent steps
           MISSING=$(python scripts/check_descriptions.py --json)
           echo "missing=$MISSING" >> "$GITHUB_OUTPUT"
           COUNT=$(echo "$MISSING" | jq length)
