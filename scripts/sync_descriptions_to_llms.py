@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+"""
+Update llms.txt descriptions from .md files' metadata.description.
+
+Uses the YAML front matter as the source of truth and updates
+the corresponding entries in llms.txt.
+"""
+
+import re
+import sys
+from pathlib import Path
+from urllib.parse import quote, unquote
+
+import yaml
+
+
+def parse_front_matter(content: str) -> dict | None:
+    """Parse front matter from markdown content."""
+    if not content.startswith("---"):
+        return None
+
+    match = re.search(r"\n---\s*(\n|$)", content[3:])
+    if not match:
+        return None
+
+    front_matter_raw = content[3:match.start() + 3]
+
+    try:
+        return yaml.safe_load(front_matter_raw) or {}
+    except yaml.YAMLError:
+        return None
+
+
+def get_md_descriptions(repo_root: Path) -> dict[str, str]:
+    """
+    Get all metadata.description values from .md files.
+    Returns dict mapping relative path -> description.
+    """
+    descriptions = {}
+    search_dirs = ["docs", "reference"]
+
+    for search_dir in search_dirs:
+        dir_path = repo_root / search_dir
+        if not dir_path.exists():
+            continue
+
+        for md_path in dir_path.rglob("*.md"):
+            relative_path = str(md_path.relative_to(repo_root))
+
+            try:
+                content = md_path.read_text(encoding="utf-8")
+            except Exception:
+                continue
+
+            front_matter = parse_front_matter(content)
+            if front_matter is None:
+                continue
+
+            metadata = front_matter.get("metadata")
+            if not isinstance(metadata, dict):
+                continue
+
+            if "description" not in metadata:
+                continue
+
+            description = metadata.get("description")
+            if description and isinstance(description, str) and description.strip():
+                descriptions[relative_path] = description.strip()
+
+    return descriptions
+
+
+def update_llms_txt(llms_path: Path, md_descriptions: dict[str, str], dry_run: bool) -> dict:
+    """
+    Update llms.txt with descriptions from .md files.
+    Returns stats about what was updated.
+    """
+    content = llms_path.read_text(encoding="utf-8")
+    original_content = content
+
+    # Match markdown links with descriptions: [text](path.md): description
+    pattern = r"(\[[^\]]+\]\()([^)]+\.md)(\):\s*)(.+?)(\n|$)"
+
+    updates = []
+    already_in_sync = 0
+
+    def replace_description(match):
+        nonlocal already_in_sync
+        prefix = match.group(1)
+        path = match.group(2)
+        mid = match.group(3)
+        current_desc = match.group(4).strip()
+        suffix = match.group(5)
+
+        decoded_path = unquote(path)
+
+        if decoded_path in md_descriptions:
+            new_desc = md_descriptions[decoded_path]
+            if current_desc != new_desc:
+                updates.append({
+                    "path": decoded_path,
+                    "from": current_desc,
+                    "to": new_desc,
+                })
+                return f"{prefix}{path}{mid}{new_desc}{suffix}"
+            else:
+                already_in_sync += 1
+
+        return match.group(0)
+
+    new_content = re.sub(pattern, replace_description, content)
+
+    if not dry_run and new_content != original_content:
+        llms_path.write_text(new_content, encoding="utf-8")
+
+    return {
+        "updates": updates,
+        "in_sync": already_in_sync,
+    }
+
+
+def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Update llms.txt descriptions from .md files' metadata.description"
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be changed without making changes"
+    )
+    args = parser.parse_args()
+
+    # Determine repo root
+    script_dir = Path(__file__).parent.resolve()
+    repo_root = script_dir.parent
+
+    if not (repo_root / "llms.txt").exists():
+        repo_root = Path.cwd()
+
+    llms_path = repo_root / "llms.txt"
+    if not llms_path.exists():
+        print(f"Error: llms.txt not found at {llms_path}")
+        return 1
+
+    print(f"Syncing descriptions to llms.txt in: {repo_root}")
+    if args.dry_run:
+        print("(DRY RUN - no files will be modified)\n")
+    else:
+        print()
+
+    # Get descriptions from .md files
+    md_descriptions = get_md_descriptions(repo_root)
+    print(f"Found {len(md_descriptions)} .md files with metadata.description\n")
+
+    # Update llms.txt
+    result = update_llms_txt(llms_path, md_descriptions, args.dry_run)
+
+    # Report updates
+    if result["updates"]:
+        print("=" * 60)
+        print("UPDATED" if not args.dry_run else "WOULD UPDATE")
+        print("=" * 60)
+        for item in result["updates"]:
+            print(f"  - {item['path']}")
+            print(f"      From: \"{item['from']}\"")
+            print(f"      To:   \"{item['to']}\"")
+
+    # Summary
+    print()
+    print("=" * 60)
+    print("SUMMARY")
+    print("=" * 60)
+    print(f"  {'Would update' if args.dry_run else 'Updated'}: {len(result['updates'])}")
+    print(f"  Already in sync: {result['in_sync']}")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
