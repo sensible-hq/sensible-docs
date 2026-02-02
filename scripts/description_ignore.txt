@@ -2,3 +2,4 @@
 # One file path per line (relative to repo root)
 # Lines starting with # are comments
 
+reference/SenseML/senseml-reference-1.md
