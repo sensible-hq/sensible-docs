@@ -154,6 +154,7 @@ def update_llms_txt(llms_path: Path, md_descriptions: dict[str, str], empty_desc
 
 def main():
     import argparse
+    import json
 
     parser = argparse.ArgumentParser(
         description="Update llms.txt descriptions from .md files' metadata.description"
@@ -163,7 +164,16 @@ def main():
         action="store_true",
         help="Show what would be changed without making changes"
     )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Output results as JSON (implies --dry-run)"
+    )
     args = parser.parse_args()
+
+    # JSON mode implies dry-run
+    if args.json:
+        args.dry_run = True
 
     # Determine repo root
     script_dir = Path(__file__).parent.resolve()
@@ -177,23 +187,34 @@ def main():
         print(f"Error: llms.txt not found at {llms_path}")
         return 1
 
-    print(f"Syncing descriptions to llms.txt in: {repo_root}")
-    if args.dry_run:
-        print("(DRY RUN - no files will be modified)\n")
-    else:
-        print()
+    if not args.json:
+        print(f"Syncing descriptions to llms.txt in: {repo_root}")
+        if args.dry_run:
+            print("(DRY RUN - no files will be modified)\n")
+        else:
+            print()
 
     # Load ignore list
     ignore_list = load_ignore_list(script_dir)
-    if ignore_list:
+    if not args.json and ignore_list:
         print(f"Ignoring {len(ignore_list)} file(s) from description_ignore.txt\n")
 
     # Get descriptions from .md files
     md_descriptions, empty_descriptions = get_md_descriptions(repo_root, ignore_list)
-    print(f"Found {len(md_descriptions)} .md files with metadata.description\n")
+    if not args.json:
+        print(f"Found {len(md_descriptions)} .md files with metadata.description\n")
 
     # Update llms.txt
     result = update_llms_txt(llms_path, md_descriptions, empty_descriptions, args.dry_run)
+
+    # JSON output mode
+    if args.json:
+        print(json.dumps({
+            "updates": result["updates"],
+            "warnings": result["warnings"],
+            "in_sync": result["in_sync"],
+        }))
+        return 0
 
     # Report warnings (llms.txt has description but frontmatter is empty)
     if result["warnings"]:

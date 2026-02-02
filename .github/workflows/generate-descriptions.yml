@@ -3,7 +3,7 @@ name: Generate Missing Descriptions
 on:
   push:
     branches:
-      - v0  # Will update to use default branch detection
+      - $default-branch
     paths:
       - 'docs/**/*.md'
       - 'reference/**/*.md'
