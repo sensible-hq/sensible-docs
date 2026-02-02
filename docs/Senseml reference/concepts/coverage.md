@@ -16,7 +16,7 @@ Extraction coverage measures how fully an extraction captures your target data f
 
 Since coverage success criteria can vary by document type, you can trigger [human review](doc:human-review) based on different coverage ranges for each document type in the Sensible app.
 
-To determine your own coverage criteria, examine your past extractions. For example, if home inspectors typically report about 60 out of your 100 target data points, you can set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you find that drivers licenses typically contain all your target data points, you can set a range of 95%-100% or even 100%-100% to assess extraction success for the `drivers_license` document type.
+To determine your own coverage criteria, examine your past extractions. For example, if home inspectors typically report about 60 out of your 100 target data points, you can set a range of 60%-100% for your `home_inspection_report` document type to assess extraction success. In contrast, if you find that drivers licenses typically contain all your target data points, you can set a range of 95%-100% or even 100%-100% to judge extraction success for the `drivers_license` document type.
 
 ## Coverage formula
 
