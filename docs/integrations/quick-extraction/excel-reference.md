@@ -5,7 +5,8 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: ''
+  description: Learn how SenseML converts PDF and document data into structured Excel
+    spreadsheets and CSV files with meaningful column/row relationships.
   robots: index
 next:
   description: ''
