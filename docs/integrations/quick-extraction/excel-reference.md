@@ -31,7 +31,7 @@ To get a document's data into a spreadsheet, you must first:
 
 * Configure extractions for a document type, either by authoring an extraction configuration using the  Sensible app, or by using Sensible's [open-source configuration library](https://app.sensible.so/library) for common document types.   
 
-* Run an extraction on a target document that's in your configured document type
+* Run an extraction on a target document that's in your configured document type.
 
 # CSV files
 
