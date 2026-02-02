@@ -52,6 +52,7 @@ Take the following steps:
  The following spreadsheet shows output for the example bank statement. The first tab contains fields with single values, for example the start date field. Succeeding tabs contain fields with table output, for example, the accounts list table. 
 
 <HTMLBlock>{`
+
 <div><iframe class="spreadsheet" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTwZYVB1DHgb-RrlCzqAMvnE0yUausiTp4CtEVIVeVVoTLyi8rFBmSyzfiznfPrbmbFnnifXAWZZPx6/pubhtml?widget=true&amp;headers=false"></iframe></div>
 <style>.spreadsheet{width:100%;height:200px}</style>
 `}</HTMLBlock>
@@ -60,7 +61,7 @@ Take the following steps:
 
 ## Extract from multiple files
 
-To extract from multiple files in a batch, select and upload multiple files in step 3 in the preceding section:
+To extract from multiple files in a batch, select and upload multiple files in step 3 from the preceding section:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quick_extract_bulk.png)
 
