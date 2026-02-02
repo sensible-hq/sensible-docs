@@ -3,7 +3,7 @@ name: Sync llms.txt from frontmatter
 on:
   push:
     branches:
-      - $default-branch
+      - v0
     paths:
       - 'docs/**/*.md'
       - 'reference/**/*.md'
