@@ -31,12 +31,15 @@ def parse_front_matter(content: str) -> dict | None:
         return None
 
 
-def get_md_descriptions(repo_root: Path) -> dict[str, str]:
+def get_md_descriptions(repo_root: Path) -> tuple[dict[str, str], set[str]]:
     """
     Get all metadata.description values from .md files.
-    Returns dict mapping relative path -> description.
+    Returns:
+        - dict mapping relative path -> description (for files with non-empty descriptions)
+        - set of relative paths for files with empty/missing descriptions
     """
     descriptions = {}
+    empty_descriptions = set()
     search_dirs = ["docs", "reference"]
 
     for search_dir in search_dirs:
@@ -66,11 +69,13 @@ def get_md_descriptions(repo_root: Path) -> dict[str, str]:
             description = metadata.get("description")
             if description and isinstance(description, str) and description.strip():
                 descriptions[relative_path] = description.strip()
+            else:
+                empty_descriptions.add(relative_path)
 
-    return descriptions
+    return descriptions, empty_descriptions
 
 
-def update_llms_txt(llms_path: Path, md_descriptions: dict[str, str], dry_run: bool) -> dict:
+def update_llms_txt(llms_path: Path, md_descriptions: dict[str, str], empty_descriptions: set[str], dry_run: bool) -> dict:
     """
     Update llms.txt with descriptions from .md files.
     Returns stats about what was updated.
@@ -83,6 +88,7 @@ def update_llms_txt(llms_path: Path, md_descriptions: dict[str, str], dry_run: b
 
     updates = []
     already_in_sync = 0
+    warnings = []
 
     def replace_description(match):
         nonlocal already_in_sync
@@ -93,6 +99,14 @@ def update_llms_txt(llms_path: Path, md_descriptions: dict[str, str], dry_run: b
         suffix = match.group(5)
 
         decoded_path = unquote(path)
+
+        # Check if llms.txt has a description but frontmatter is empty
+        if decoded_path in empty_descriptions and current_desc:
+            warnings.append({
+                "path": decoded_path,
+                "llms_description": current_desc,
+            })
+            return match.group(0)
 
         if decoded_path in md_descriptions:
             new_desc = md_descriptions[decoded_path]
@@ -116,6 +130,7 @@ def update_llms_txt(llms_path: Path, md_descriptions: dict[str, str], dry_run: b
     return {
         "updates": updates,
         "in_sync": already_in_sync,
+        "warnings": warnings,
     }
 
 
@@ -151,11 +166,21 @@ def main():
         print()
 
     # Get descriptions from .md files
-    md_descriptions = get_md_descriptions(repo_root)
+    md_descriptions, empty_descriptions = get_md_descriptions(repo_root)
     print(f"Found {len(md_descriptions)} .md files with metadata.description\n")
 
     # Update llms.txt
-    result = update_llms_txt(llms_path, md_descriptions, args.dry_run)
+    result = update_llms_txt(llms_path, md_descriptions, empty_descriptions, args.dry_run)
+
+    # Report warnings (llms.txt has description but frontmatter is empty)
+    if result["warnings"]:
+        print("=" * 60)
+        print("WARNING: Empty frontmatter but llms.txt has description")
+        print("=" * 60)
+        for item in result["warnings"]:
+            print(f"  - {item['path']}")
+            print(f"      llms.txt: \"{item['llms_description']}\"")
+        print()
 
     # Report updates
     if result["updates"]:
@@ -174,6 +199,8 @@ def main():
     print("=" * 60)
     print(f"  {'Would update' if args.dry_run else 'Updated'}: {len(result['updates'])}")
     print(f"  Already in sync: {result['in_sync']}")
+    if result["warnings"]:
+        print(f"  Warnings: {len(result['warnings'])}")
 
     return 0
 
