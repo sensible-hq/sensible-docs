@@ -115,7 +115,7 @@ def main():
 
     # Determine repo root
     script_dir = Path(__file__).parent.resolve()
-    repo_root = script_dir.parent
+    repo_root = script_dir.parent.parent
 
     if not (repo_root / "llms.txt").exists():
         repo_root = Path.cwd()

@@ -185,9 +185,9 @@ def check_llms_txt_accuracy(repo_root: Path) -> tuple[list, list, list]:
 
 
 def main():
-    # Determine repo root (script location's parent or current directory)
+    # Determine repo root (script location's grandparent or current directory)
     script_dir = Path(__file__).parent.resolve()
-    repo_root = script_dir.parent
+    repo_root = script_dir.parent.parent
 
     # Verify we found the right directory
     if not (repo_root / "llms.txt").exists():

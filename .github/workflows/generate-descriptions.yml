@@ -45,10 +45,10 @@ jobs:
         id: check
         run: |
           # Show human-readable output in logs
-          python scripts/check_descriptions.py
+          python scripts/descriptions/check_descriptions.py
 
           # Capture JSON output for subsequent steps
-          MISSING=$(python scripts/check_descriptions.py --json)
+          MISSING=$(python scripts/descriptions/check_descriptions.py --json)
           echo "missing=$MISSING" >> "$GITHUB_OUTPUT"
           COUNT=$(echo "$MISSING" | jq length)
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
@@ -89,7 +89,7 @@ jobs:
             echo "  Generated: $DESCRIPTION"
 
             # Update the file
-            python scripts/add_description.py "$FILE_PATH" "$DESCRIPTION"
+            python scripts/descriptions/add_description.py "$FILE_PATH" "$DESCRIPTION"
           done
 
       - name: Create Pull Request

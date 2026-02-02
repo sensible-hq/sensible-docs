@@ -96,9 +96,9 @@ def main():
     parser.add_argument("--json", action="store_true", help="Output results as JSON")
     args = parser.parse_args()
 
-    # Determine repo root (script location's parent or current directory)
+    # Determine repo root (script location's grandparent or current directory)
     script_dir = Path(__file__).parent.resolve()
-    repo_root = script_dir.parent
+    repo_root = script_dir.parent.parent
 
     # Verify we found the right directory
     if not (repo_root / "docs").exists():

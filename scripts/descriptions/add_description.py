@@ -4,7 +4,7 @@ Update an existing metadata.description in a markdown file's front matter.
 
 Only updates files that already have a metadata.description key.
 Will not create the key if it doesn't exist.
-Respects ignore list in scripts/description_ignore.txt.
+Respects ignore list in scripts/descriptions/description_ignore.txt.
 
 Usage: add_description.py <file_path> <description>
 """
@@ -83,7 +83,7 @@ def main():
 
     # Normalize path for comparison
     try:
-        repo_root = script_dir.parent
+        repo_root = script_dir.parent.parent
         relative_path = str(file_path.resolve().relative_to(repo_root))
     except ValueError:
         relative_path = str(file_path)
