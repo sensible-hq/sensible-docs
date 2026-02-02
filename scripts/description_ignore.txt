@@ -1,0 +1,4 @@
+# Files to ignore when syncing/generating descriptions
+# One file path per line (relative to repo root)
+# Lines starting with # are comments
+

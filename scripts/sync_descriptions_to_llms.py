@@ -4,6 +4,7 @@ Update llms.txt descriptions from .md files' metadata.description.
 
 Uses the YAML front matter as the source of truth and updates
 the corresponding entries in llms.txt.
+Respects ignore list in scripts/description_ignore.txt.
 """
 
 import re
@@ -12,6 +13,20 @@ from pathlib import Path
 from urllib.parse import quote, unquote
 
 import yaml
+
+
+def load_ignore_list(script_dir: Path) -> set[str]:
+    """Load list of files to ignore from description_ignore.txt."""
+    ignore_file = script_dir / "description_ignore.txt"
+    if not ignore_file.exists():
+        return set()
+
+    ignore_list = set()
+    for line in ignore_file.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            ignore_list.add(line)
+    return ignore_list
 
 
 def parse_front_matter(content: str) -> dict | None:
@@ -31,7 +46,7 @@ def parse_front_matter(content: str) -> dict | None:
         return None
 
 
-def get_md_descriptions(repo_root: Path) -> tuple[dict[str, str], set[str]]:
+def get_md_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[dict[str, str], set[str]]:
     """
     Get all metadata.description values from .md files.
     Returns:
@@ -49,6 +64,9 @@ def get_md_descriptions(repo_root: Path) -> tuple[dict[str, str], set[str]]:
 
         for md_path in dir_path.rglob("*.md"):
             relative_path = str(md_path.relative_to(repo_root))
+
+            if relative_path in ignore_list:
+                continue
 
             try:
                 content = md_path.read_text(encoding="utf-8")
@@ -165,8 +183,13 @@ def main():
     else:
         print()
 
+    # Load ignore list
+    ignore_list = load_ignore_list(script_dir)
+    if ignore_list:
+        print(f"Ignoring {len(ignore_list)} file(s) from description_ignore.txt\n")
+
     # Get descriptions from .md files
-    md_descriptions, empty_descriptions = get_md_descriptions(repo_root)
+    md_descriptions, empty_descriptions = get_md_descriptions(repo_root, ignore_list)
     print(f"Found {len(md_descriptions)} .md files with metadata.description\n")
 
     # Update llms.txt
@@ -175,7 +198,7 @@ def main():
     # Report warnings (llms.txt has description but frontmatter is empty)
     if result["warnings"]:
         print("=" * 60)
-        print("WARNING: Empty frontmatter but llms.txt has description")
+        print("WARNING: Empty frontmatter but llms.txt has description. reconcile.")
         print("=" * 60)
         for item in result["warnings"]:
             print(f"  - {item['path']}")

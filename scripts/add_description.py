@@ -4,6 +4,7 @@ Update an existing metadata.description in a markdown file's front matter.
 
 Only updates files that already have a metadata.description key.
 Will not create the key if it doesn't exist.
+Respects ignore list in scripts/description_ignore.txt.
 
 Usage: add_description.py <file_path> <description>
 """
@@ -13,6 +14,20 @@ import sys
 from pathlib import Path
 
 import yaml
+
+
+def load_ignore_list(script_dir: Path) -> set[str]:
+    """Load list of files to ignore from description_ignore.txt."""
+    ignore_file = script_dir / "description_ignore.txt"
+    if not ignore_file.exists():
+        return set()
+
+    ignore_list = set()
+    for line in ignore_file.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            ignore_list.add(line)
+    return ignore_list
 
 
 def update_file_with_description(file_path: Path, description: str) -> bool:
@@ -61,6 +76,21 @@ def main():
     if not file_path.exists():
         print(f"Error: File not found: {file_path}", file=sys.stderr)
         return 1
+
+    # Check ignore list
+    script_dir = Path(__file__).parent.resolve()
+    ignore_list = load_ignore_list(script_dir)
+
+    # Normalize path for comparison
+    try:
+        repo_root = script_dir.parent
+        relative_path = str(file_path.resolve().relative_to(repo_root))
+    except ValueError:
+        relative_path = str(file_path)
+
+    if relative_path in ignore_list:
+        print(f"Skipped (in ignore list): {file_path}")
+        return 0
 
     if update_file_with_description(file_path, description):
         print(f"Updated: {file_path}")
