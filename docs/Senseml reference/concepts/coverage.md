@@ -20,7 +20,7 @@ To determine your own coverage criteria, examine your past extractions. For exam
 
 ## Coverage formula
 
-Sensible calculates the coverage for each extraction as follows:
+Sensible calculates the coverage for each extraction using the following formula:
 
 `coverage` = (`non-null fields extracted` - `validation penalties` )  ÷  (`total fields extracted`) 
 
