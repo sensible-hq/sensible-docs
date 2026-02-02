@@ -28,7 +28,20 @@ jobs:
       - name: Install dependencies
         run: pip install pyyaml
 
+      - name: Check for existing PR
+        id: existing_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Check if there's already an open PR for adding descriptions
+          EXISTING_PR=$(gh pr list --state open --search "Add missing metadata descriptions" --json number --jq 'length')
+          echo "count=$EXISTING_PR" >> "$GITHUB_OUTPUT"
+          if [ "$EXISTING_PR" -gt 0 ]; then
+            echo "::notice::Skipping - existing PR already open for adding descriptions"
+          fi
+
       - name: Check for missing descriptions
+        if: steps.existing_pr.outputs.count == '0'
         id: check
         run: |
           # Show human-readable output in logs
@@ -41,7 +54,7 @@ jobs:
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
 
       - name: Generate descriptions with Claude
-        if: steps.check.outputs.count != '0'
+        if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.count != '0'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -80,7 +93,7 @@ jobs:
           done
 
       - name: Create Pull Request
-        if: steps.check.outputs.count != '0'
+        if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.count != '0'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
