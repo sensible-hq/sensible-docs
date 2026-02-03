@@ -6,6 +6,7 @@ metadata.description key has a non-empty value.
 Reports files that have the metadata.description field but it's empty.
 Skips files with hidden: true in front matter.
 Skips files without a metadata.description key (intentionally omitted).
+Respects ignore list in scripts/descriptions/description_ignore.txt.
 """
 
 import argparse
@@ -15,6 +16,20 @@ import sys
 from pathlib import Path
 
 import yaml
+
+
+def load_ignore_list(script_dir: Path) -> set[str]:
+    """Load list of files to ignore from description_ignore.txt."""
+    ignore_file = script_dir / "description_ignore.txt"
+    if not ignore_file.exists():
+        return set()
+
+    ignore_list = set()
+    for line in ignore_file.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            ignore_list.add(line)
+    return ignore_list
 
 
 def parse_front_matter(content: str) -> dict | None:
@@ -35,13 +50,14 @@ def parse_front_matter(content: str) -> dict | None:
         return None
 
 
-def check_descriptions(repo_root: Path) -> list[dict]:
+def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dict], list[str]]:
     """
     Find all .md files with empty metadata.description.
     Only targets files that have the description key but with an empty/blank value.
-    Returns list of files with issues.
+    Returns tuple of (list of files with issues, list of ignored file paths).
     """
     issues = []
+    ignored_files = []
     search_dirs = ["docs", "reference"]
 
     for search_dir in search_dirs:
@@ -51,6 +67,11 @@ def check_descriptions(repo_root: Path) -> list[dict]:
 
         for md_path in dir_path.rglob("*.md"):
             relative_path = md_path.relative_to(repo_root)
+
+            # Skip files in ignore list
+            if str(relative_path) in ignore_list:
+                ignored_files.append(str(relative_path))
+                continue
 
             try:
                 content = md_path.read_text(encoding="utf-8")
@@ -88,10 +109,11 @@ def check_descriptions(repo_root: Path) -> list[dict]:
                     "reason": "Empty metadata.description",
                 })
 
-    return issues
+    return issues, ignored_files
 
 
 def main():
+    print ("Running ./scripts/descriptions/check_descriptions.py...")
     parser = argparse.ArgumentParser(description="Check for missing metadata descriptions in .md files")
     parser.add_argument("--json", action="store_true", help="Output results as JSON")
     args = parser.parse_args()
@@ -104,7 +126,10 @@ def main():
     if not (repo_root / "docs").exists():
         repo_root = Path.cwd()
 
-    issues = check_descriptions(repo_root)
+    # Load ignore list
+    ignore_list = load_ignore_list(script_dir)
+
+    issues, ignored_files = check_descriptions(repo_root, ignore_list)
 
     if args.json:
         print(json.dumps(issues))
@@ -122,11 +147,20 @@ def main():
             print(f"    Issue: {item['reason']}")
         print()
 
+    if ignored_files:
+        print("=" * 60)
+        print("FILES SKIPPED (in description_ignore.txt)")
+        print("=" * 60)
+        for path in sorted(ignored_files):
+            print(f"  - {path}")
+        print()
+
     # Summary
     print("=" * 60)
     print("SUMMARY")
     print("=" * 60)
     print(f"  Files missing description: {len(issues)}")
+    print(f"  Files skipped (ignored):   {len(ignored_files)}")
 
     if not issues:
         print("\n✓ All visible .md files have metadata descriptions!")
