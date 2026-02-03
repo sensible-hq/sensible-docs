@@ -4,15 +4,9 @@
 
 This file contains links to the Sensible documentation to help LLMs understand the platform.
 
-## test section, disregard, skip to next section
-
-# duplicate entry
-- [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
-# duplicate entry lacking a description (which check_descriptions should catch)
-
 
 ## Welcome
-
+- [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
 - [Choosing an extraction approach](docs/welcome/author.md): Guide to choosing between LLM-based and layout-based extraction methods
 - [Integrating](docs/welcome/integrate.md): Options for integrating Sensible with your application
 - [Quality control](docs/welcome/quality-control.md): Strategies for validating and monitoring extracted data
