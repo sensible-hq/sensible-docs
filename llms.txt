@@ -12,13 +12,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Integrating](docs/welcome/integrate.md): Options for integrating Sensible with your application
 - [Quality control](docs/welcome/quality-control.md): Strategies for validating and monitoring extracted data
 
-### Cheatsheets
-
-- [Cheatsheets](docs/welcome/cheat/index.md): Quick reference guides for common extraction tasks
-- [Cheatsheet part 1](docs/welcome/cheat/cheat-1.md): Hello world extraction example
-- [Cheatsheet part 2](docs/welcome/cheat/cheat-2.md): Tables and rows extraction
-- [Cheatsheet part 3](docs/welcome/cheat/cheat-3.md): Checkboxes and regions extraction
-- [Cheatsheet part 4](docs/welcome/cheat/cheat-4.md): Handling extraction challenges
 
 ## Integrations
 
