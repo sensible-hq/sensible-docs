@@ -86,20 +86,20 @@ In cases where the configurations correspond to very different documents (so the
 
 | Page | Fingerprint matches which config in which document type? (document type/config + fingerprint type) | Split condition?                     | Action                                                       |
 | ---- | ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------ |
-| 0    | 1040s/1040_2019 (first)                                      | YES: "first" match                   | start new 'current document/current config'                  |
-| 1    | none                                                         | NO                                   | continue 'current document/current config'                   |
-| 2    | paystubs/gusto (first)                                       | YES: "first" match                   | end current doc on prev page<br/>start new 'current document/current config' |
-| 3    | none                                                         | NO                                   | continue 'current document/config'                           |
-| 4    | paystubs/paylocity (every)                                   | YES: new config has been matched     | end current doc on prev. page<br/>start new 'current document/config' |
-| 5    | paystubs/paylocity (every)                                   | NO                                   | continue 'current document/config'                           |
-| 6    | none                                                         | YES: `every` match failed            | end current doc on prev. page. <br/>current documents/configs = null. this page ignored, won't appear in any document range) |
-| 7    | none                                                         | NO                                   | page ignored, won't appear in any document range             |
-| 8    | bank_statements/boa (first)                                  | YES: "first" match                   | start new current document/config                            |
-| 9    | bank_statements/boa (last)                                   | YES: "last" match for current config | end current document/config on this page.<br/>current docs/configs = null |
-| 10   | bank_statements/ TODO show both matching here                |                                      |                                                              |
-| 11   | none                                                         | NO, current doc/config is null       | page ignored, won't appear in any document range             |
-| 12   | none. this is the last page of portfolio                     |                                      | page ignored, won't appear in any document range             |
+| 1    | 1040s/1040_2019 (first)                                      | YES: "first" match                   | start new 'current document/current config'                  |
+| 2    | none                                                         | NO                                   | continue 'current document/current config'                   |
+| 3    | paystubs/gusto (first)                                       | YES: "first" match                   | end current doc on prev page<br/>start new 'current document/current config' |
+| 4    | none                                                         | NO                                   | continue 'current document/config'                           |
+| 5    | paystubs/paylocity (every)                                   | YES: new config has been matched     | end current doc on prev. page<br/>start new 'current document/config' |
+| 6    | paystubs/paylocity (every)                                   | NO                                   | continue 'current document/config'                           |
+| 7    | none                                                         | YES: `every` match failed            | end current doc on prev. page. <br/>current documents/configs = null. this page ignored, won't appear in any document range) |
+| 8    | none                                                         | NO                                   | page ignored, won't appear in any document range             |
+| 9    | bank_statements/boa (first)                                  | YES: "first" match                   | start new current document/config                            |
+| 10   | bank_statements/boa (last)                                   | YES: "last" match for current config | end current document/config on this page.<br/>current docs/configs = null |
+| 11   | bank_statements/ TODO show both matching here                |                                      |                                                              |
+| 12   | none                                                         | NO, current doc/config is null       | page ignored, won't appear in any document range             |
+| 13   | none. this is the last page of portfolio                     |                                      | page ignored, won't appear in any document range             |
 
-![image-20260202170442779](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20260202170442779.png)
+![image-20260202170759080](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20260202170759080.png)
 
 https://claude.ai/chat/8575cee2-0e6c-4497-9c62-c5f978df7bf6 
