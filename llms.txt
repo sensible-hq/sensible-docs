@@ -4,6 +4,11 @@
 
 This file contains links to the Sensible documentation to help LLMs understand the platform.
 
+## test
+- [doesn't exist](docs/document%20extraction/library-quickstart-1.md): Pre-built extraction templates for different document types
+[Cheatsheets hidden](docs/welcome/cheat/index.md): Quick reference guides for common extraction tasks
+
+
 ## Welcome
 
 - [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
