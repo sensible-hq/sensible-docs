@@ -6,13 +6,14 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## test section, disregard, skip to next section
 
-# duplicate entry; - [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
-# duplicate entry lacking a description (which check_descriptions should catch)
+duplicate entry; - [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
+duplicate entry lacking a description (which check_descriptions should catch)
+[doesn't exist](docs/welcome/overview-1-1.md)
 
 
 ## Welcome
 
-- [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
+# missing entry - [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
 - [Getting started](docs/welcome/getting-started-ai.md): Learn to extract document data using LLM-based methods
 - [Choosing an extraction approach](docs/welcome/author.md): Guide to choosing between LLM-based and layout-based extraction methods
 - [Integrating](docs/welcome/integrate.md): Options for integrating Sensible with your application
