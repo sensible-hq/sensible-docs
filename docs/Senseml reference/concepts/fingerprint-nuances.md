@@ -1,10 +1,10 @@
 ---
-title: "Fingerprint nuances"
+title: Fingerprint nuances
 hidden: false
 metadata:
-    description:
+  description: Learn how Sensible splits document portfolios into sub-documents using
+    fingerprint matching conditions and edge cases with practical examples.
 ---
-
 This topic illustrates edge cases when Sensible splits portfolios into sub documents. Consider the following example:
 
 | Page | Fingerprint matches which config in which document type? (document type/config + fingerprint type) | Split condition?                             | Action                                                       |
