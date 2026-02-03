@@ -42,21 +42,26 @@ def load_ignore_list(script_dir: Path) -> set[str]:
     return ignore_list
 
 
-def parse_front_matter(content: str) -> dict | None:
-    """Extract YAML front matter from markdown content."""
+def parse_front_matter(content: str) -> tuple[dict | None, str | None]:
+    """Extract YAML front matter from markdown content.
+
+    Returns tuple of (parsed_dict, error_message).
+    If no frontmatter, returns (None, None).
+    If parse error, returns (None, error_message).
+    """
     if not content.startswith("---"):
-        return None
+        return None, None
 
     end_match = re.search(r"\n---\s*(\n|$)", content[3:])
     if not end_match:
-        return None
+        return None, None
 
     front_matter_text = content[3:end_match.start() + 3]
 
     try:
-        return yaml.safe_load(front_matter_text) or {}
-    except yaml.YAMLError:
-        return None
+        return yaml.safe_load(front_matter_text) or {}, None
+    except yaml.YAMLError as e:
+        return None, str(e)
 
 
 def get_llms_txt_entries(llms_path: Path) -> tuple[set[str], dict[str, list[dict]]]:
@@ -97,12 +102,14 @@ def get_llms_txt_entries(llms_path: Path) -> tuple[set[str], dict[str, list[dict
     return paths, entries_by_path
 
 
-def get_actual_md_files(repo_root: Path, ignore_list: set[str]) -> set[str]:
+def get_actual_md_files(repo_root: Path, ignore_list: set[str]) -> tuple[set[str], list[dict]]:
     """Get all visible .md files in docs/ and reference/ directories.
 
     Skips files that are in the ignore list or have hidden: true in frontmatter.
+    Returns tuple of (set of file paths, list of yaml errors).
     """
     md_files = set()
+    yaml_errors = []
     search_dirs = ["docs", "reference"]
 
     for search_dir in search_dirs:
@@ -122,13 +129,17 @@ def get_actual_md_files(repo_root: Path, ignore_list: set[str]) -> set[str]:
             except Exception:
                 continue
 
-            front_matter = parse_front_matter(content)
+            front_matter, yaml_error = parse_front_matter(content)
+            if yaml_error:
+                yaml_errors.append({"path": relative_path, "error": yaml_error})
+                continue
+
             if front_matter and front_matter.get("hidden", False):
                 continue
 
             md_files.add(relative_path)
 
-    return md_files
+    return md_files, yaml_errors
 
 
 def get_file_info(file_path: Path) -> dict | None:
@@ -138,7 +149,7 @@ def get_file_info(file_path: Path) -> dict | None:
     except Exception:
         return None
 
-    front_matter = parse_front_matter(content)
+    front_matter, _ = parse_front_matter(content)
     if not front_matter:
         return None
 
@@ -155,12 +166,12 @@ def get_file_info(file_path: Path) -> dict | None:
 def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
     """
     Check llms.txt coverage against actual files.
-    Returns dict with missing, orphaned, hidden, ignored, and duplicate files.
+    Returns dict with missing, orphaned, hidden, ignored, duplicate files, and yaml errors.
     """
     llms_path = repo_root / "llms.txt"
 
     llms_paths, entries_by_path = get_llms_txt_entries(llms_path)
-    actual_files = get_actual_md_files(repo_root, ignore_list)
+    actual_files, yaml_errors = get_actual_md_files(repo_root, ignore_list)
 
     # Files that exist but aren't in llms.txt
     missing = sorted(actual_files - llms_paths)
@@ -185,7 +196,7 @@ def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
         # Check if hidden
         try:
             content = file_path.read_text(encoding="utf-8")
-            front_matter = parse_front_matter(content)
+            front_matter, _ = parse_front_matter(content)
             if front_matter and front_matter.get("hidden", False):
                 hidden_in_llms.append(path)
                 continue
@@ -212,6 +223,7 @@ def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
         "hidden_in_llms": hidden_in_llms,
         "ignored_in_llms": ignored_in_llms,
         "duplicates": duplicates,
+        "yaml_errors": yaml_errors,
         "covered": len(llms_paths & actual_files),
         "total_files": len(actual_files),
         "total_entries": sum(len(e) for e in entries_by_path.values()),
@@ -379,7 +391,8 @@ def main():
         len(result["orphaned"]) +
         len(result["hidden_in_llms"]) +
         len(result["ignored_in_llms"]) +
-        len(result["duplicates"])
+        len(result["duplicates"]) +
+        len(result["yaml_errors"])
     )
 
     # Apply fixes if requested
@@ -443,6 +456,15 @@ def main():
             print(f"  - {dup['path']} ({dup['count']} entries)")
         print()
 
+    if result["yaml_errors"]:
+        print("=" * 60)
+        print("YAML ERRORS (invalid frontmatter)")
+        print("=" * 60)
+        for err in result["yaml_errors"]:
+            print(f"  - {err['path']}")
+            print(f"    Error: {err['error']}")
+        print()
+
     # Summary
     print("=" * 60)
     print("SUMMARY")
@@ -454,6 +476,7 @@ def main():
     print(f"  Hidden in llms.txt:  {len(result['hidden_in_llms'])}")
     print(f"  Ignored in llms.txt: {len(result['ignored_in_llms'])}")
     print(f"  Duplicate entries:   {len(result['duplicates'])}")
+    print(f"  YAML errors:         {len(result['yaml_errors'])}")
 
     if total_issues == 0:
         print("\n✓ llms.txt is fully in sync with .md files!")
