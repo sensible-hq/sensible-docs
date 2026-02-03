@@ -32,22 +32,27 @@ def load_ignore_list(script_dir: Path) -> set[str]:
     return ignore_list
 
 
-def parse_front_matter(content: str) -> dict | None:
-    """Extract YAML front matter from markdown content."""
+def parse_front_matter(content: str) -> tuple[dict | None, str | None]:
+    """Extract YAML front matter from markdown content.
+
+    Returns tuple of (parsed_dict, error_message).
+    If no frontmatter, returns (None, None).
+    If parse error, returns (None, error_message).
+    """
     if not content.startswith("---"):
-        return None
+        return None, None
 
     # Find the closing ---
     end_match = re.search(r"\n---\s*(\n|$)", content[3:])
     if not end_match:
-        return None
+        return None, None
 
     front_matter_text = content[3:end_match.start() + 3]
 
     try:
-        return yaml.safe_load(front_matter_text) or {}
-    except yaml.YAMLError:
-        return None
+        return yaml.safe_load(front_matter_text) or {}, None
+    except yaml.YAMLError as e:
+        return None, str(e)
 
 
 def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dict], list[str]]:
@@ -83,7 +88,15 @@ def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dic
                 })
                 continue
 
-            front_matter = parse_front_matter(content)
+            front_matter, yaml_error = parse_front_matter(content)
+            if yaml_error:
+                issues.append({
+                    "path": str(relative_path),
+                    "title": "Unknown",
+                    "reason": f"Invalid YAML frontmatter: {yaml_error}",
+                })
+                continue
+
             if front_matter is None:
                 continue
 
