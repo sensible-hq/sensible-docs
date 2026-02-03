@@ -7,9 +7,11 @@ Reports:
 - Orphaned: Entries in llms.txt pointing to files that don't exist
 - Hidden in llms.txt: Files with hidden: true that shouldn't be listed
 - Ignored in llms.txt: Files in description_ignore.txt that shouldn't be listed
+- Duplicates: Multiple entries for the same file
 
 Use --fix to automatically:
 - Remove orphaned/hidden/ignored entries
+- Remove duplicate entries (keeping the one with longest description)
 - Add missing files to an "Uncategorized" section
 
 Skips files with hidden: true in front matter.
@@ -57,19 +59,42 @@ def parse_front_matter(content: str) -> dict | None:
         return None
 
 
-def get_llms_txt_paths(llms_path: Path) -> set[str]:
-    """Extract all .md file paths from llms.txt."""
-    content = llms_path.read_text(encoding="utf-8")
+def get_llms_txt_entries(llms_path: Path) -> tuple[set[str], dict[str, list[dict]]]:
+    """Extract all .md file paths and entries from llms.txt.
 
-    # Match markdown links: [text](path.md)
-    pattern = r"\[[^\]]+\]\(([^)]+\.md)\)"
+    Returns:
+        - set of unique paths
+        - dict mapping path -> list of entries (for duplicate detection)
+          Each entry has: line_num, title, description, full_line
+    """
+    content = llms_path.read_text(encoding="utf-8")
+    lines = content.split("\n")
+
+    # Match: [title](path.md): description
+    pattern = r"^\-? ?\[([^\]]+)\]\(([^)]+\.md)\):\s*(.*)$"
 
     paths = set()
-    for match in re.finditer(pattern, content):
-        path = unquote(match.group(1))
-        paths.add(path)
+    entries_by_path: dict[str, list[dict]] = {}
 
-    return paths
+    for line_num, line in enumerate(lines):
+        match = re.match(pattern, line)
+        if match:
+            title = match.group(1)
+            path = unquote(match.group(2))
+            description = match.group(3).strip()
+
+            paths.add(path)
+
+            if path not in entries_by_path:
+                entries_by_path[path] = []
+            entries_by_path[path].append({
+                "line_num": line_num,
+                "title": title,
+                "description": description,
+                "full_line": line,
+            })
+
+    return paths, entries_by_path
 
 
 def get_actual_md_files(repo_root: Path, ignore_list: set[str]) -> set[str]:
@@ -130,11 +155,11 @@ def get_file_info(file_path: Path) -> dict | None:
 def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
     """
     Check llms.txt coverage against actual files.
-    Returns dict with missing, orphaned, hidden, and ignored files.
+    Returns dict with missing, orphaned, hidden, ignored, and duplicate files.
     """
     llms_path = repo_root / "llms.txt"
 
-    llms_paths = get_llms_txt_paths(llms_path)
+    llms_paths, entries_by_path = get_llms_txt_entries(llms_path)
     actual_files = get_actual_md_files(repo_root, ignore_list)
 
     # Files that exist but aren't in llms.txt
@@ -170,31 +195,59 @@ def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
         # If we get here, it's truly orphaned (shouldn't happen but just in case)
         orphaned.append(path)
 
+    # Find duplicates (paths with more than one entry)
+    duplicates = []
+    for path, entries in entries_by_path.items():
+        if len(entries) > 1:
+            duplicates.append({
+                "path": path,
+                "count": len(entries),
+                "entries": entries,
+            })
+    duplicates.sort(key=lambda x: x["path"])
+
     return {
         "missing": missing,
         "orphaned": orphaned,
         "hidden_in_llms": hidden_in_llms,
         "ignored_in_llms": ignored_in_llms,
+        "duplicates": duplicates,
         "covered": len(llms_paths & actual_files),
         "total_files": len(actual_files),
-        "total_entries": len(llms_paths),
+        "total_entries": sum(len(e) for e in entries_by_path.values()),
     }
 
 
 def fix_coverage(repo_root: Path, issues: dict) -> dict:
     """
-    Fix llms.txt by removing invalid entries and adding missing files.
+    Fix llms.txt by removing invalid/duplicate entries and adding missing files.
     Returns dict with changes made.
     """
     llms_path = repo_root / "llms.txt"
     content = llms_path.read_text(encoding="utf-8")
 
-    # Collect all paths to remove
+    # Collect all paths to remove entirely
     paths_to_remove = set(
         issues["orphaned"] +
         issues["hidden_in_llms"] +
         issues["ignored_in_llms"]
     )
+
+    # For duplicates, find lines to remove (keep the one with longest description)
+    duplicate_lines_to_remove = set()
+    deduplicated = []
+    for dup in issues.get("duplicates", []):
+        entries = dup["entries"]
+        # Sort by description length descending, keep the first (longest)
+        sorted_entries = sorted(entries, key=lambda e: len(e["description"]), reverse=True)
+        keep = sorted_entries[0]
+        for entry in sorted_entries[1:]:
+            duplicate_lines_to_remove.add(entry["line_num"])
+        deduplicated.append({
+            "path": dup["path"],
+            "kept_description": keep["description"],
+            "removed_count": len(entries) - 1,
+        })
 
     # Remove invalid entries line by line
     lines = content.split("\n")
@@ -204,7 +257,11 @@ def fix_coverage(repo_root: Path, issues: dict) -> dict:
     # Match both "- [text](path.md):" and "[text](path.md):" formats
     link_pattern = r"^-? ?\[[^\]]+\]\(([^)]+\.md)\):.*$"
 
-    for line in lines:
+    for line_num, line in enumerate(lines):
+        # Check if this is a duplicate line to remove
+        if line_num in duplicate_lines_to_remove:
+            continue
+
         match = re.match(link_pattern, line)
         if match:
             path = unquote(match.group(1))
@@ -247,7 +304,7 @@ def fix_coverage(repo_root: Path, issues: dict) -> dict:
     new_content = "\n".join(new_lines)
     llms_path.write_text(new_content, encoding="utf-8")
 
-    return {"removed": removed, "added": added}
+    return {"removed": removed, "added": added, "deduplicated": deduplicated}
 
 
 def main():
@@ -291,7 +348,8 @@ def main():
         len(result["missing"]) +
         len(result["orphaned"]) +
         len(result["hidden_in_llms"]) +
-        len(result["ignored_in_llms"])
+        len(result["ignored_in_llms"]) +
+        len(result["duplicates"])
     )
 
     # Apply fixes if requested
@@ -347,6 +405,14 @@ def main():
             print(f"  - {path}")
         print()
 
+    if result["duplicates"]:
+        print("=" * 60)
+        print("DUPLICATE ENTRIES (keeping longest description)")
+        print("=" * 60)
+        for dup in result["duplicates"]:
+            print(f"  - {dup['path']} ({dup['count']} entries)")
+        print()
+
     # Summary
     print("=" * 60)
     print("SUMMARY")
@@ -357,11 +423,13 @@ def main():
     print(f"  Orphaned entries:    {len(result['orphaned'])}")
     print(f"  Hidden in llms.txt:  {len(result['hidden_in_llms'])}")
     print(f"  Ignored in llms.txt: {len(result['ignored_in_llms'])}")
+    print(f"  Duplicate entries:   {len(result['duplicates'])}")
 
     if total_issues == 0:
         print("\n✓ llms.txt is fully in sync with .md files!")
     elif fix_result:
-        print(f"\n✓ Fixed {len(fix_result['removed'])} removed, {len(fix_result['added'])} added.")
+        dedup_count = len(fix_result.get('deduplicated', []))
+        print(f"\n✓ Fixed: {len(fix_result['removed'])} removed, {len(fix_result['added'])} added, {dedup_count} deduplicated.")
     else:
         print(f"\n✗ {total_issues} issue(s) found. Use --fix to repair.")
 

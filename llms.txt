@@ -8,7 +8,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 # duplicate entry; - [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
 # duplicate entry lacking a description (which check_descriptions should catch)
-- [Overview](docs/welcome/overview.md): 
 
 
 ## Welcome

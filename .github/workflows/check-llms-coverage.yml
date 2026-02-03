@@ -66,13 +66,14 @@ jobs:
           ORPHANED=$(echo "$RESULT" | jq '.orphaned | length')
           HIDDEN=$(echo "$RESULT" | jq '.hidden_in_llms | length')
           IGNORED=$(echo "$RESULT" | jq '.ignored_in_llms | length')
+          DUPLICATES=$(echo "$RESULT" | jq '.duplicates | length')
 
-          TOTAL=$((MISSING + ORPHANED + HIDDEN + IGNORED))
+          TOTAL=$((MISSING + ORPHANED + HIDDEN + IGNORED + DUPLICATES))
           echo "issue_count=$TOTAL" >> "$GITHUB_OUTPUT"
 
           if [ "$TOTAL" -gt 0 ]; then
             echo ""
-            echo "::warning::llms.txt coverage issues found: $MISSING missing, $ORPHANED orphaned, $HIDDEN hidden, $IGNORED ignored"
+            echo "::warning::llms.txt coverage issues: $MISSING missing, $ORPHANED orphaned, $HIDDEN hidden, $IGNORED ignored, $DUPLICATES duplicates"
           fi
 
       - name: Check for existing PR
