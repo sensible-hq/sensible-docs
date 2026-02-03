@@ -6,6 +6,7 @@ on:
       - v0
     paths:
       - '**/*.md'
+      - 'llms.txt'
 
 jobs:
   check-coverage:
@@ -17,19 +18,25 @@ jobs:
         with:
           fetch-depth: 2  # Need previous commit to detect adds/deletes
 
-      - name: Check for added or deleted .md files
+      - name: Check for relevant changes
         id: check_files
         run: |
           # Get list of added (A) or deleted (D) .md files
-          CHANGES=$(git diff --name-status HEAD~1 HEAD -- '*.md' | grep -E '^[AD]' || true)
+          MD_CHANGES=$(git diff --name-status HEAD~1 HEAD -- '*.md' | grep -E '^[AD]' || true)
 
-          if [ -z "$CHANGES" ]; then
-            echo "No .md files added or deleted"
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          else
+          # Check if llms.txt was modified
+          LLMS_CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'llms.txt' || true)
+
+          if [ -n "$MD_CHANGES" ]; then
             echo "Detected added/deleted .md files:"
-            echo "$CHANGES"
+            echo "$MD_CHANGES"
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          elif [ -n "$LLMS_CHANGED" ]; then
+            echo "Detected llms.txt modification"
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No relevant changes (no .md adds/deletes, no llms.txt edits)"
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up Python
