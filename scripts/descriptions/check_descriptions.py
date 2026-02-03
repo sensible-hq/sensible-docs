@@ -113,7 +113,6 @@ def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dic
 
 
 def main():
-    print ("Running ./scripts/descriptions/check_descriptions.py...")
     parser = argparse.ArgumentParser(description="Check for missing metadata descriptions in .md files")
     parser.add_argument("--json", action="store_true", help="Output results as JSON")
     args = parser.parse_args()
@@ -135,6 +134,7 @@ def main():
         print(json.dumps(issues))
         return 0  # Always return 0 in JSON mode; workflow handles the count
 
+    print("Running ./scripts/descriptions/check_descriptions.py...")
     print(f"Checking metadata descriptions in: {repo_root}\n")
 
     if issues:
