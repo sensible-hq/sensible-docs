@@ -277,28 +277,58 @@ def fix_coverage(repo_root: Path, issues: dict) -> dict:
                 continue
         new_lines.append(line)
 
-    # Add missing files
+    # Add missing files - place near siblings or create new section
     added = []
-    if issues["missing"]:
-        # Add Uncategorized section if needed
-        content_str = "\n".join(new_lines)
-        if "## Uncategorized" not in content_str:
-            new_lines.append("")
-            new_lines.append("## Uncategorized")
-            new_lines.append("")
+    link_pattern_for_dir = r"^-? ?\[[^\]]+\]\(([^)]+\.md)\)"
 
-        for path in issues["missing"]:
-            file_path = repo_root / path
-            info = get_file_info(file_path)
-            if info:
-                encoded_path = quote(path, safe="/")
-                entry = f"- [{info['title']}]({encoded_path}): {info['description']}"
-                new_lines.append(entry)
-                added.append({
-                    "path": path,
-                    "title": info["title"],
-                    "description": info["description"],
-                })
+    # Track which new sections we've added (to avoid duplicates)
+    new_sections_added = set()
+
+    for missing_path in issues["missing"]:
+        file_path = repo_root / missing_path
+        info = get_file_info(file_path)
+        if not info:
+            continue
+
+        encoded_path = quote(missing_path, safe="/")
+        entry = f"- [{info['title']}]({encoded_path}): {info['description']}"
+
+        # Get the parent directory of the missing file
+        parent_dir = str(Path(missing_path).parent)
+
+        # Find the last line that has an entry from the same directory
+        last_sibling_idx = None
+        for idx, line in enumerate(new_lines):
+            match = re.match(link_pattern_for_dir, line)
+            if match:
+                existing_path = unquote(match.group(1))
+                existing_parent = str(Path(existing_path).parent)
+                if existing_parent == parent_dir:
+                    last_sibling_idx = idx
+
+        if last_sibling_idx is not None:
+            # Insert after the last sibling
+            new_lines.insert(last_sibling_idx + 1, entry)
+        else:
+            # No siblings - create a new section based on parent directory
+            # Convert path like "docs/welcome/cheat" to heading "Cheat"
+            section_name = Path(parent_dir).name.replace("-", " ").replace("_", " ").title()
+            section_heading = f"## {section_name}"
+
+            # Only add section heading if we haven't already for this dir
+            if parent_dir not in new_sections_added:
+                new_lines.append("")
+                new_lines.append(section_heading)
+                new_lines.append("")
+                new_sections_added.add(parent_dir)
+
+            new_lines.append(entry)
+
+        added.append({
+            "path": missing_path,
+            "title": info["title"],
+            "description": info["description"],
+        })
 
     # Write changes
     new_content = "\n".join(new_lines)
