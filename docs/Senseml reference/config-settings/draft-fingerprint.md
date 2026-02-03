@@ -84,21 +84,22 @@ In cases where the configurations correspond to very different documents (so the
 
 ## Example of heuristics in action
 
-| Page | Fingerprint matches which config in which document type? (document type/config + fingerprint type) | Split condition?                     | Action                                                       |
-| ---- | ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------ |
-| 1    | 1040s/1040_2019 (first)                                      | YES: "first" match                   | start new 'current document/current config'                  |
-| 2    | none                                                         | NO                                   | continue 'current document/current config'                   |
-| 3    | paystubs/gusto (first)                                       | YES: "first" match                   | end current doc on prev page<br/>start new 'current document/current config' |
-| 4    | none                                                         | NO                                   | continue 'current document/config'                           |
-| 5    | paystubs/paylocity (every)                                   | YES: new config has been matched     | end current doc on prev. page<br/>start new 'current document/config' |
-| 6    | paystubs/paylocity (every)                                   | NO                                   | continue 'current document/config'                           |
-| 7    | none                                                         | YES: `every` match failed            | end current doc on prev. page. <br/>current documents/configs = null. this page ignored, won't appear in any document range) |
-| 8    | none                                                         | NO                                   | page ignored, won't appear in any document range             |
-| 9    | bank_statements/boa (first)                                  | YES: "first" match                   | start new current document/config                            |
-| 10   | bank_statements/boa (last)                                   | YES: "last" match for current config | end current document/config on this page.<br/>current docs/configs = null |
-| 11   | bank_statements/ TODO show edge case w/ 2 matching configs here (frm diff. doc types) using EVERY for simplicity? |                                      |                                                              |
-| 12   | none                                                         | NO, current doc/config is null       | page ignored, won't appear in any document range             |
-| 13   | none. this is the last page of portfolio                     |                                      | page ignored, won't appear in any document range             |
+| Page | Fingerprint matches which config in which document type? (document type/config + fingerprint type) | Split condition?                             | Action                                                       |
+| ---- | ------------------------------------------------------------ | -------------------------------------------- | ------------------------------------------------------------ |
+| 1    | 1040s/1040_2019 (first)                                      | YES: "first" match                           | start new 'current document/current config'                  |
+| 2    | none                                                         | NO                                           | continue 'current document/current config'                   |
+| 3    | paystubs/gusto (first)                                       | YES: "first" match                           | end current doc on prev page<br/>start new 'current document/current config' |
+| 4    | none                                                         | NO                                           | continue 'current document/config'                           |
+| 5    | paystubs/paylocity (every)                                   | YES: new config has been matched             | end current doc on prev. page<br/>start new 'current document/config' |
+| 6    | paystubs/paylocity (every)                                   | NO                                           | continue 'current document/config'                           |
+| 7    | none                                                         | YES: `every` match for current config failed | end current doc on prev. page. <br/>current documents/configs = null. this page ignored, won't appear in any document range) |
+| 8    | none                                                         | NO                                           | page ignored, won't appear in any document range             |
+| 9    | bank_statements/boa (first), bank_statments/boa (every)      | YES: "first" match                           | start new current document/config                            |
+| 10   | bank_statements/boa (every)                                  | NO                                           |                                                              |
+| 11   | none                                                         | YES: "every" match for current config failed | end current document/config on this page.<br/>current docs/configs = null |
+| 12   | bank_statements/ TODO show edge case w/ 2 matching configs here (frm diff. doc types) using EVERY for simplicity? |                                              |                                                              |
+| 13   | none                                                         | NO, current doc/config is null               | page ignored, won't appear in any document range             |
+| 14   | none. this is the last page of portfolio                     |                                              | page ignored, won't appear in any document range             |
 
 ![image-20260202170759080](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20260202170759080.png)
 
