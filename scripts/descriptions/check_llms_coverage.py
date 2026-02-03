@@ -5,6 +5,8 @@ Check llms.txt coverage against actual .md files.
 Reports:
 - Missing: .md files that exist but aren't listed in llms.txt
 - Orphaned: Entries in llms.txt pointing to files that don't exist
+- Hidden in llms.txt: Files with hidden: true that shouldn't be listed
+- Ignored in llms.txt: Files in description_ignore.txt that shouldn't be listed
 
 Skips files with hidden: true in front matter.
 Respects ignore list in scripts/descriptions/description_ignore.txt.
@@ -103,7 +105,7 @@ def get_actual_md_files(repo_root: Path, ignore_list: set[str]) -> set[str]:
 def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
     """
     Check llms.txt coverage against actual files.
-    Returns dict with missing and orphaned files.
+    Returns dict with missing, orphaned, hidden, and ignored files.
     """
     llms_path = repo_root / "llms.txt"
 
@@ -113,12 +115,41 @@ def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
     # Files that exist but aren't in llms.txt
     missing = sorted(actual_files - llms_paths)
 
-    # Files in llms.txt that don't exist
-    orphaned = sorted(llms_paths - actual_files)
+    # Check each llms.txt entry that's not in actual_files
+    orphaned = []  # File doesn't exist at all
+    hidden_in_llms = []  # File exists but has hidden: true
+    ignored_in_llms = []  # File exists but is in ignore list
+
+    for path in sorted(llms_paths - actual_files):
+        file_path = repo_root / path
+
+        if not file_path.exists():
+            orphaned.append(path)
+            continue
+
+        # File exists - check why it was excluded
+        if path in ignore_list:
+            ignored_in_llms.append(path)
+            continue
+
+        # Check if hidden
+        try:
+            content = file_path.read_text(encoding="utf-8")
+            front_matter = parse_front_matter(content)
+            if front_matter and front_matter.get("hidden", False):
+                hidden_in_llms.append(path)
+                continue
+        except Exception:
+            pass
+
+        # If we get here, it's truly orphaned (shouldn't happen but just in case)
+        orphaned.append(path)
 
     return {
         "missing": missing,
         "orphaned": orphaned,
+        "hidden_in_llms": hidden_in_llms,
+        "ignored_in_llms": ignored_in_llms,
         "covered": len(llms_paths & actual_files),
         "total_files": len(actual_files),
         "total_entries": len(llms_paths),
@@ -185,6 +216,22 @@ def main():
             print(f"  - {path}")
         print()
 
+    if result["hidden_in_llms"]:
+        print("=" * 60)
+        print("WARNING: Hidden files listed in llms.txt (remove these)")
+        print("=" * 60)
+        for path in result["hidden_in_llms"]:
+            print(f"  - {path}")
+        print()
+
+    if result["ignored_in_llms"]:
+        print("=" * 60)
+        print("WARNING: Ignored files listed in llms.txt (remove these)")
+        print("=" * 60)
+        for path in result["ignored_in_llms"]:
+            print(f"  - {path}")
+        print()
+
     # Summary
     print("=" * 60)
     print("SUMMARY")
@@ -193,12 +240,20 @@ def main():
     print(f"  Covered in llms.txt: {result['covered']}")
     print(f"  Missing entries:     {len(result['missing'])}")
     print(f"  Orphaned entries:    {len(result['orphaned'])}")
+    print(f"  Hidden in llms.txt:  {len(result['hidden_in_llms'])}")
+    print(f"  Ignored in llms.txt: {len(result['ignored_in_llms'])}")
 
-    if not result["missing"] and not result["orphaned"]:
+    total_issues = (
+        len(result["missing"]) +
+        len(result["orphaned"]) +
+        len(result["hidden_in_llms"]) +
+        len(result["ignored_in_llms"])
+    )
+
+    if total_issues == 0:
         print("\n✓ llms.txt is fully in sync with .md files!")
     else:
-        issues = len(result["missing"]) + len(result["orphaned"])
-        print(f"\n✗ {issues} issue(s) found.")
+        print(f"\n✗ {total_issues} issue(s) found.")
 
     return 0
 

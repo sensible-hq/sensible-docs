@@ -52,9 +52,13 @@ jobs:
           RESULT=$(./scripts/descriptions/check_llms_coverage.py --json)
           MISSING=$(echo "$RESULT" | jq '.missing | length')
           ORPHANED=$(echo "$RESULT" | jq '.orphaned | length')
+          HIDDEN=$(echo "$RESULT" | jq '.hidden_in_llms | length')
+          IGNORED=$(echo "$RESULT" | jq '.ignored_in_llms | length')
 
-          if [ "$MISSING" -gt 0 ] || [ "$ORPHANED" -gt 0 ]; then
+          TOTAL=$((MISSING + ORPHANED + HIDDEN + IGNORED))
+
+          if [ "$TOTAL" -gt 0 ]; then
             echo ""
-            echo "::warning::llms.txt coverage issues found: $MISSING missing entries, $ORPHANED orphaned entries"
-            echo "::warning::Please update llms.txt to add new files or remove deleted file entries"
+            echo "::warning::llms.txt coverage issues found: $MISSING missing, $ORPHANED orphaned, $HIDDEN hidden, $IGNORED ignored"
+            echo "::warning::Please update llms.txt to add new files or remove entries that shouldn't be listed"
           fi
