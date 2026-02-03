@@ -5,8 +5,7 @@ on:
     branches:
       - v0
     paths:
-      - 'docs/**/*.md'
-      - 'reference/**/*.md'
+      - '**/*.md'
 
 jobs:
   sync-llms-txt:
