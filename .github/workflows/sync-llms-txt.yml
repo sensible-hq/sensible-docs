@@ -73,7 +73,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Create branch
-          BRANCH_NAME="claude/sync-llms-txt-$(date +%Y%m%d-%H%M%S)"
+          BRANCH_NAME="auto/sync-llms-txt-$(date +%Y%m%d-%H%M%S)"
           git checkout -b "$BRANCH_NAME"
 
           # Commit changes
