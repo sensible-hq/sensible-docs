@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Segment (split) and extract from document portfolio files (files containing multiple documents)'
+  description: 'Segment and extract from document portfolio files (files containing multiple documents)'
   robots: index
 next:
   description: ''
