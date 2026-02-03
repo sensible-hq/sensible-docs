@@ -91,14 +91,10 @@ jobs:
         if: steps.check_files.outputs.has_changes == 'true' && steps.coverage.outputs.issue_count != '0' && steps.existing_pr.outputs.count == '0'
         id: fix
         run: |
-          # Show what will be fixed
-          ./scripts/descriptions/fix_llms_coverage.py --dry-run
+          # Apply fixes and capture JSON output
+          ./scripts/descriptions/check_llms_coverage.py --fix
 
-          # Apply fixes
-          ./scripts/descriptions/fix_llms_coverage.py
-
-          # Capture JSON for PR body
-          RESULT=$(./scripts/descriptions/fix_llms_coverage.py --json)
+          RESULT=$(./scripts/descriptions/check_llms_coverage.py --json)
           echo "result=$RESULT" >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
@@ -128,9 +124,9 @@ jobs:
           # Push and create PR
           git push origin "$BRANCH_NAME"
 
-          # Build PR body
-          REMOVED=$(echo "$FIX_RESULT" | jq -r '.removed[] | "- \(.path) (\(.reason))"')
-          ADDED=$(echo "$FIX_RESULT" | jq -r '.added[] | "- \(.path)"')
+          # Build PR body (fix results are nested under 'fixed')
+          REMOVED=$(echo "$FIX_RESULT" | jq -r '.fixed.removed[] | "- \(.path) (\(.reason))"' 2>/dev/null || echo "None")
+          ADDED=$(echo "$FIX_RESULT" | jq -r '.fixed.added[] | "- \(.path)"' 2>/dev/null || echo "None")
 
           BODY="This PR automatically fixes llms.txt coverage issues.
 

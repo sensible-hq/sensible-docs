@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-Check llms.txt coverage against actual .md files.
+Check and optionally fix llms.txt coverage against actual .md files.
 
 Reports:
 - Missing: .md files that exist but aren't listed in llms.txt
 - Orphaned: Entries in llms.txt pointing to files that don't exist
 - Hidden in llms.txt: Files with hidden: true that shouldn't be listed
 - Ignored in llms.txt: Files in description_ignore.txt that shouldn't be listed
+
+Use --fix to automatically:
+- Remove orphaned/hidden/ignored entries
+- Add missing files to an "Uncategorized" section
 
 Skips files with hidden: true in front matter.
 Respects ignore list in scripts/descriptions/description_ignore.txt.
@@ -17,7 +21,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from urllib.parse import unquote
+from urllib.parse import quote, unquote
 
 import yaml
 
@@ -102,6 +106,27 @@ def get_actual_md_files(repo_root: Path, ignore_list: set[str]) -> set[str]:
     return md_files
 
 
+def get_file_info(file_path: Path) -> dict | None:
+    """Get title and description from a markdown file's frontmatter."""
+    try:
+        content = file_path.read_text(encoding="utf-8")
+    except Exception:
+        return None
+
+    front_matter = parse_front_matter(content)
+    if not front_matter:
+        return None
+
+    title = front_matter.get("title", "")
+    metadata = front_matter.get("metadata", {})
+    description = metadata.get("description", "") if isinstance(metadata, dict) else ""
+
+    return {
+        "title": title or file_path.stem,
+        "description": description or "No description available",
+    }
+
+
 def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
     """
     Check llms.txt coverage against actual files.
@@ -156,6 +181,75 @@ def check_coverage(repo_root: Path, ignore_list: set[str]) -> dict:
     }
 
 
+def fix_coverage(repo_root: Path, issues: dict) -> dict:
+    """
+    Fix llms.txt by removing invalid entries and adding missing files.
+    Returns dict with changes made.
+    """
+    llms_path = repo_root / "llms.txt"
+    content = llms_path.read_text(encoding="utf-8")
+
+    # Collect all paths to remove
+    paths_to_remove = set(
+        issues["orphaned"] +
+        issues["hidden_in_llms"] +
+        issues["ignored_in_llms"]
+    )
+
+    # Remove invalid entries line by line
+    lines = content.split("\n")
+    new_lines = []
+    removed = []
+
+    # Match both "- [text](path.md):" and "[text](path.md):" formats
+    link_pattern = r"^-? ?\[[^\]]+\]\(([^)]+\.md)\):.*$"
+
+    for line in lines:
+        match = re.match(link_pattern, line)
+        if match:
+            path = unquote(match.group(1))
+            if path in paths_to_remove:
+                # Determine reason
+                if path in issues["orphaned"]:
+                    reason = "file doesn't exist"
+                elif path in issues["hidden_in_llms"]:
+                    reason = "hidden: true"
+                else:
+                    reason = "in ignore list"
+                removed.append({"path": path, "reason": reason})
+                continue
+        new_lines.append(line)
+
+    # Add missing files
+    added = []
+    if issues["missing"]:
+        # Add Uncategorized section if needed
+        content_str = "\n".join(new_lines)
+        if "## Uncategorized" not in content_str:
+            new_lines.append("")
+            new_lines.append("## Uncategorized")
+            new_lines.append("")
+
+        for path in issues["missing"]:
+            file_path = repo_root / path
+            info = get_file_info(file_path)
+            if info:
+                encoded_path = quote(path, safe="/")
+                entry = f"- [{info['title']}]({encoded_path}): {info['description']}"
+                new_lines.append(entry)
+                added.append({
+                    "path": path,
+                    "title": info["title"],
+                    "description": info["description"],
+                })
+
+    # Write changes
+    new_content = "\n".join(new_lines)
+    llms_path.write_text(new_content, encoding="utf-8")
+
+    return {"removed": removed, "added": added}
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Check llms.txt coverage against actual .md files"
@@ -164,6 +258,11 @@ def main():
         "--json",
         action="store_true",
         help="Output results as JSON"
+    )
+    parser.add_argument(
+        "--fix",
+        action="store_true",
+        help="Automatically fix issues (remove invalid entries, add missing files)"
     )
     args = parser.parse_args()
 
@@ -188,13 +287,29 @@ def main():
     # Check coverage
     result = check_coverage(repo_root, ignore_list)
 
+    total_issues = (
+        len(result["missing"]) +
+        len(result["orphaned"]) +
+        len(result["hidden_in_llms"]) +
+        len(result["ignored_in_llms"])
+    )
+
+    # Apply fixes if requested
+    fix_result = None
+    if args.fix and total_issues > 0:
+        fix_result = fix_coverage(repo_root, result)
+
     # JSON output mode
     if args.json:
-        print(json.dumps(result))
+        output = result
+        if fix_result:
+            output["fixed"] = fix_result
+        print(json.dumps(output))
         return 0
 
     # Human-readable output
-    print("Checking llms.txt coverage...")
+    action = "Fixing" if args.fix else "Checking"
+    print(f"{action} llms.txt coverage...")
     print(f"Repository: {repo_root}\n")
 
     if ignore_list:
@@ -243,17 +358,12 @@ def main():
     print(f"  Hidden in llms.txt:  {len(result['hidden_in_llms'])}")
     print(f"  Ignored in llms.txt: {len(result['ignored_in_llms'])}")
 
-    total_issues = (
-        len(result["missing"]) +
-        len(result["orphaned"]) +
-        len(result["hidden_in_llms"]) +
-        len(result["ignored_in_llms"])
-    )
-
     if total_issues == 0:
         print("\n✓ llms.txt is fully in sync with .md files!")
+    elif fix_result:
+        print(f"\n✓ Fixed {len(fix_result['removed'])} removed, {len(fix_result['added'])} added.")
     else:
-        print(f"\n✗ {total_issues} issue(s) found.")
+        print(f"\n✗ {total_issues} issue(s) found. Use --fix to repair.")
 
     return 0
 
