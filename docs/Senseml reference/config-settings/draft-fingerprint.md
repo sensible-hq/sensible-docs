@@ -96,7 +96,7 @@ In cases where the configurations correspond to very different documents (so the
 | 8    | none                                                         | NO                                   | page ignored, won't appear in any document range             |
 | 9    | bank_statements/boa (first)                                  | YES: "first" match                   | start new current document/config                            |
 | 10   | bank_statements/boa (last)                                   | YES: "last" match for current config | end current document/config on this page.<br/>current docs/configs = null |
-| 11   | bank_statements/ TODO show both matching here                |                                      |                                                              |
+| 11   | bank_statements/ TODO show edge case w/ 2 matching configs here (frm diff. doc types) using EVERY for simplicity? |                                      |                                                              |
 | 12   | none                                                         | NO, current doc/config is null       | page ignored, won't appear in any document range             |
 | 13   | none. this is the last page of portfolio                     |                                      | page ignored, won't appear in any document range             |
 
