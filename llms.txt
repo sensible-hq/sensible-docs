@@ -294,3 +294,8 @@ duplicate entry lacking a description (which check_descriptions should catch)
 - [Extract all text from reference document](reference/Configuration/reference-document/extract-all-text-from-reference-document.md): Extract raw text
 - [Unassociate reference document from configuration](reference/Configuration/reference-document/delete-reference-document-association.md): Remove association
 - [Delete reference document](reference/Configuration/reference-document/delete-reference-document.md): Delete reference document
+
+
+## Uncategorized
+
+- [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction
