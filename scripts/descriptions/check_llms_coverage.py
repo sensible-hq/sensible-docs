@@ -70,8 +70,8 @@ def get_llms_txt_entries(llms_path: Path) -> tuple[set[str], dict[str, list[dict
     content = llms_path.read_text(encoding="utf-8")
     lines = content.split("\n")
 
-    # Match: [title](path.md): description
-    pattern = r"^\-? ?\[([^\]]+)\]\(([^)]+\.md)\):\s*(.*)$"
+    # Match: [title](path.md) with optional ": description"
+    pattern = r"^\-? ?\[([^\]]+)\]\(([^)]+\.md)\)(?::\s*(.*))?$"
 
     paths = set()
     entries_by_path: dict[str, list[dict]] = {}
@@ -81,7 +81,7 @@ def get_llms_txt_entries(llms_path: Path) -> tuple[set[str], dict[str, list[dict
         if match:
             title = match.group(1)
             path = unquote(match.group(2))
-            description = match.group(3).strip()
+            description = (match.group(3) or "").strip()
 
             paths.add(path)
 
@@ -254,8 +254,8 @@ def fix_coverage(repo_root: Path, issues: dict) -> dict:
     new_lines = []
     removed = []
 
-    # Match both "- [text](path.md):" and "[text](path.md):" formats
-    link_pattern = r"^-? ?\[[^\]]+\]\(([^)]+\.md)\):.*$"
+    # Match entries with or without description: "- [text](path.md): desc" or "[text](path.md)"
+    link_pattern = r"^-? ?\[[^\]]+\]\(([^)]+\.md)\)(?::.*)?$"
 
     for line_num, line in enumerate(lines):
         # Check if this is a duplicate line to remove
