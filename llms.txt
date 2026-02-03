@@ -33,14 +33,14 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ### Quick Extraction
 
-- [Quick extraction](docs/integrations/quick-extraction/index.md): Batch upload documents to extract data from
-- [SenseML to spreadsheet reference](docs/integrations/quick-extraction/excel-reference.md): Reference for exporting extractions to spreadsheets
+- [Quick extraction](docs/integrations/quick-extraction/index.md): Learn how to use Sensible app's Extract tab to upload documents in bulk and download extracted data as Excel files for custom or supported document types.
+- [SenseML to spreadsheet reference](docs/integrations/quick-extraction/excel-reference.md): Learn how SenseML converts PDF and document data into structured spreadsheets with meaningful column/row relationships.
 
 ## Document Extraction
 
 - [Getting started with layout-based extractions](docs/document%20extraction/getting-started.md): Tutorial for SenseML layout-based extraction
 - [Out-of-the-box extractions](docs/document%20extraction/library-quickstart.md): Pre-built extraction templates for different document types
-- [Multi-document extractions](docs/document%20extraction/portfolio.md): Extract from document portfolios (files containing multiple documents)
+- [Multi-document extractions](docs/document%20extraction/portfolio.md): Segment and extract from document portfolio files (files containing multiple documents)
 - [Repeating layouts](docs/document%20extraction/repeat-layouts.md): Handle documents with repeating sections
 
 ### Best Practices
