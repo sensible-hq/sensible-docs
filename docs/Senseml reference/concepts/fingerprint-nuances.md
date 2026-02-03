@@ -2,10 +2,10 @@
 title: "Fingerprint nuances"
 hidden: false
 metadata:
-	description:
+    description:
 ---
 
-To understand edge cases when splitting portfolios into sub documents, consider the following example:
+This topic illustrates edge cases when Sensible splits portfolios into sub documents. Consider the following example:
 
 | Page | Fingerprint matches which config in which document type? (document type/config + fingerprint type) | Split condition?                             | Action                                                       |
 | ---- | ------------------------------------------------------------ | -------------------------------------------- | ------------------------------------------------------------ |
