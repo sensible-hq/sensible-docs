@@ -84,6 +84,10 @@ In cases where the configurations correspond to very different documents (so the
 
 ## Example of heuristics in action
 
+
+
+
+
 | Page | Fingerprint matches which config in which document type? (document type/config + fingerprint type) | Split condition?                             | Action                                                       |
 | ---- | ------------------------------------------------------------ | -------------------------------------------- | ------------------------------------------------------------ |
 | 1    | 1040s/1040_2019 (first)                                      | YES: "first" match                           | start new 'current document/current config'                  |
@@ -97,9 +101,29 @@ In cases where the configurations correspond to very different documents (so the
 | 9    | bank_statements/boa (first), bank_statments/boa (every)      | YES: "first" match                           | start new current document/config                            |
 | 10   | bank_statements/boa (every)                                  | NO                                           |                                                              |
 | 11   | none                                                         | YES: "every" match for current config failed | end current document/config on this page.<br/>current docs/configs = null |
-| 12   | bank_statements/ TODO show edge case w/ 2 matching configs here (frm diff. doc types) using EVERY for simplicity? |                                              |                                                              |
+| 12   | TODO: show edge case here w/ 2 matching configs here (frm diff. doc types)...worth it to show complexity...? |                                              |                                                              |
 | 13   | none                                                         | NO, current doc/config is null               | page ignored, won't appear in any document range             |
 | 14   | none. this is the last page of portfolio                     |                                              | page ignored, won't appear in any document range             |
+
+portfolio document types/configs that are tested against in above example:
+
+1040s
+
+​     1040_2018
+
+​      1040_2019
+
+paystubs
+
+​       gusto
+
+​       Paylocity
+
+​       fallback_llm
+
+bank_statments
+
+​       boa
 
 ![image-20260202170759080](C:\Users\franc\AppData\Roaming\Typora\typora-user-images\image-20260202170759080.png)
 
