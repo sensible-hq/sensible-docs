@@ -2,4 +2,6 @@
 # One file path per line (relative to repo root)
 # Lines starting with # are comments
 
+
+# this empty shell topic is just an immediate URL redirect; it's in the API ref for better discoverability of SenseML
 reference/SenseML/senseml-reference-1.md
