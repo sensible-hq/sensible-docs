@@ -1,0 +1,64 @@
+name: Check llms.txt coverage
+
+on:
+  push:
+    branches:
+      - v0
+    paths:
+      - '**/*.md'
+
+jobs:
+  check-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need previous commit to detect adds/deletes
+
+      - name: Check for added or deleted .md files
+        id: check_files
+        run: |
+          # Get list of added (A) or deleted (D) .md files
+          CHANGES=$(git diff --name-status HEAD~1 HEAD -- '*.md' | grep -E '^[AD]' || true)
+
+          if [ -z "$CHANGES" ]; then
+            echo "No .md files added or deleted"
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Detected added/deleted .md files:"
+            echo "$CHANGES"
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Python
+        if: steps.check_files.outputs.has_changes == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        if: steps.check_files.outputs.has_changes == 'true'
+        run: pip install pyyaml
+
+      - name: Check llms.txt coverage
+        if: steps.check_files.outputs.has_changes == 'true'
+        run: |
+          # Show human-readable output in logs
+          ./scripts/descriptions/check_llms_coverage.py
+
+          # Check for issues
+          RESULT=$(./scripts/descriptions/check_llms_coverage.py --json)
+          MISSING=$(echo "$RESULT" | jq '.missing | length')
+          ORPHANED=$(echo "$RESULT" | jq '.orphaned | length')
+          HIDDEN=$(echo "$RESULT" | jq '.hidden_in_llms | length')
+          IGNORED=$(echo "$RESULT" | jq '.ignored_in_llms | length')
+
+          TOTAL=$((MISSING + ORPHANED + HIDDEN + IGNORED))
+
+          if [ "$TOTAL" -gt 0 ]; then
+            echo ""
+            echo "::warning::llms.txt coverage issues found: $MISSING missing, $ORPHANED orphaned, $HIDDEN hidden, $IGNORED ignored"
+            echo "::warning::Please update llms.txt to add new files or remove entries that shouldn't be listed"
+          fi
