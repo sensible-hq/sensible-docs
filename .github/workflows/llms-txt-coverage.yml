@@ -1,4 +1,4 @@
-name: Check llms.txt coverage
+name: Check llms.txt entries coverage
 
 on:
   push:
@@ -19,29 +19,29 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2  # Need previous commit to detect adds/deletes
+        #with:
+         # fetch-depth: 2  # Need previous commit to detect adds/deletes
 
-      - name: Check for relevant changes
-        id: check_files
-        run: |
-          # Get list of added (A) or deleted (D) .md files
-          MD_CHANGES=$(git diff --name-status HEAD~1 HEAD -- '*.md' | grep -E '^[AD]' || true)
+      # - name: Check for relevant changes
+      #   id: check_files
+      #   run: |
+      #     # Get list of added (A) or deleted (D) .md files
+      #     MD_CHANGES=$(git diff --name-status HEAD~1 HEAD -- '*.md' | grep -E '^[AD]' || true)
 
-          # Check if llms.txt was modified
-          LLMS_CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'llms.txt' || true)
+      #     # Check if llms.txt was modified
+      #     LLMS_CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'llms.txt' || true)
 
-          if [ -n "$MD_CHANGES" ]; then
-            echo "Detected added/deleted .md files:"
-            echo "$MD_CHANGES"
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          elif [ -n "$LLMS_CHANGED" ]; then
-            echo "Detected llms.txt modification"
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "No relevant changes (no .md adds/deletes, no llms.txt edits)"
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          fi
+      #     if [ -n "$MD_CHANGES" ]; then
+      #       echo "Detected added/deleted .md files:"
+      #       echo "$MD_CHANGES"
+      #       echo "has_changes=true" >> "$GITHUB_OUTPUT"
+      #     elif [ -n "$LLMS_CHANGED" ]; then
+      #       echo "Detected llms.txt modification"
+      #       echo "has_changes=true" >> "$GITHUB_OUTPUT"
+      #     else
+      #       echo "No relevant changes (no .md adds/deletes, no llms.txt edits)"
+      #       echo "has_changes=false" >> "$GITHUB_OUTPUT"
+      #     fi
 
       - name: Set up Python
         if: steps.check_files.outputs.has_changes == 'true'

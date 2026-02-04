@@ -1,4 +1,4 @@
-name: Sync llms.txt from frontmatter
+name: Sync llms.txt descriptions from frontmatter
 
 on:
   push:
