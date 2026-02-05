@@ -1,4 +1,4 @@
-name: Sync llms.txt descriptions from frontmatter
+name: Sync llms.txt
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - v0
     paths:
       - '**/*.md'
+      - 'llms.txt'
 
 jobs:
   sync-llms-txt:
@@ -32,35 +33,72 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          EXISTING_PR=$(gh pr list --state open --search "Sync llms.txt descriptions from frontmatter" --json number --jq 'length')
+          EXISTING_PR=$(gh pr list --state open --search "Sync llms.txt" --json number --jq 'length')
           echo "count=$EXISTING_PR" >> "$GITHUB_OUTPUT"
           if [ "$EXISTING_PR" -gt 0 ]; then
             echo "::notice::Skipping - existing PR already open for syncing llms.txt"
           fi
 
-      - name: Check for llms.txt sync needed
+      - name: Check llms.txt coverage
         if: steps.existing_pr.outputs.count == '0'
-        id: check
+        id: coverage
         run: |
-          # Show human-readable output in logs
+          echo "=== Checking llms.txt coverage ==="
+          ./scripts/descriptions/check_llms_coverage.py
+
+          RESULT=$(./scripts/descriptions/check_llms_coverage.py --json)
+          MISSING=$(echo "$RESULT" | jq '.missing | length')
+          ORPHANED=$(echo "$RESULT" | jq '.orphaned | length')
+          HIDDEN=$(echo "$RESULT" | jq '.hidden_in_llms | length')
+          IGNORED=$(echo "$RESULT" | jq '.ignored_in_llms | length')
+          DUPLICATES=$(echo "$RESULT" | jq '.duplicates | length')
+
+          COVERAGE_ISSUES=$((MISSING + ORPHANED + HIDDEN + IGNORED + DUPLICATES))
+          echo "coverage_issues=$COVERAGE_ISSUES" >> "$GITHUB_OUTPUT"
+
+          if [ "$COVERAGE_ISSUES" -gt 0 ]; then
+            echo "::warning::Coverage issues: $MISSING missing, $ORPHANED orphaned, $HIDDEN hidden, $IGNORED ignored, $DUPLICATES duplicates"
+          fi
+
+      - name: Check llms.txt description sync
+        if: steps.existing_pr.outputs.count == '0'
+        id: sync
+        run: |
+          echo ""
+          echo "=== Checking llms.txt description sync ==="
           ./scripts/descriptions/sync_descriptions_to_llms.py --dry-run
 
-          # Capture JSON output for subsequent steps
           RESULT=$(./scripts/descriptions/sync_descriptions_to_llms.py --json)
           echo "result=$RESULT" >> "$GITHUB_OUTPUT"
-          UPDATE_COUNT=$(echo "$RESULT" | jq '.updates | length')
-          echo "update_count=$UPDATE_COUNT" >> "$GITHUB_OUTPUT"
+          SYNC_ISSUES=$(echo "$RESULT" | jq '.updates | length')
+          echo "sync_issues=$SYNC_ISSUES" >> "$GITHUB_OUTPUT"
 
-      - name: Sync llms.txt
-        if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.update_count != '0'
+          if [ "$SYNC_ISSUES" -gt 0 ]; then
+            echo "::warning::Sync issues: $SYNC_ISSUES descriptions out of sync"
+          fi
+
+      - name: Fix llms.txt issues
+        if: steps.existing_pr.outputs.count == '0' && (steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0')
         run: |
-          ./scripts/descriptions/sync_descriptions_to_llms.py
+          echo "=== Fixing llms.txt issues ==="
+
+          # Fix coverage issues first (add missing, remove orphaned/hidden/ignored, dedupe)
+          if [ "${{ steps.coverage.outputs.coverage_issues }}" != "0" ]; then
+            echo "Fixing coverage issues..."
+            ./scripts/descriptions/check_llms_coverage.py --fix
+          fi
+
+          # Then sync descriptions
+          if [ "${{ steps.sync.outputs.sync_issues }}" != "0" ]; then
+            echo "Syncing descriptions..."
+            ./scripts/descriptions/sync_descriptions_to_llms.py
+          fi
 
       - name: Create Pull Request
-        if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.update_count != '0'
+        if: steps.existing_pr.outputs.count == '0' && (steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHECK_RESULT: ${{ steps.check.outputs.result }}
+          SYNC_RESULT: ${{ steps.sync.outputs.result }}
         run: |
           # Check if there are changes
           if git diff --quiet; then
@@ -78,29 +116,37 @@ jobs:
 
           # Commit changes
           git add llms.txt
-          git commit -m "Sync llms.txt descriptions from frontmatter"
+          git commit -m "Sync llms.txt"
 
           # Push and create PR
           git push origin "$BRANCH_NAME"
 
-          # Get list of updated descriptions from the check step
-          UPDATES=$(echo "$CHECK_RESULT" | jq -r '.updates[] | "- \(.path)"')
+          # Build PR body
+          COVERAGE_ISSUES="${{ steps.coverage.outputs.coverage_issues }}"
+          SYNC_ISSUES="${{ steps.sync.outputs.sync_issues }}"
+          UPDATES=$(echo "$SYNC_RESULT" | jq -r '.updates[] | "- \(.path)"' 2>/dev/null || echo "")
 
-          gh pr create \
-            --title "Sync llms.txt descriptions from frontmatter" \
-            --body "This PR syncs llms.txt descriptions with the metadata.description values in the markdown frontmatter.
+          BODY="This PR automatically syncs llms.txt.
 
-          ## Files with updated descriptions
-          $UPDATES
+          ## Summary
+          - Coverage issues fixed: $COVERAGE_ISSUES
+          - Descriptions synced: $SYNC_ISSUES
+
+          ## Updated descriptions
+          ${UPDATES:-None}
 
           ---
-          *Generated by GitHub Actions*" \
+          *Generated by GitHub Actions*"
+
+          gh pr create \
+            --title "Sync llms.txt" \
+            --body "$BODY" \
             --head "$BRANCH_NAME" \
             --base "${{ github.event.repository.default_branch }}"
 
-      - name: Fail if sync was needed
-        if: steps.check.outputs.update_count != '0' && steps.check.outputs.update_count != ''
+      - name: Fail if issues were found
+        if: steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0'
         run: |
-          echo "::error::llms.txt descriptions were out of sync and a PR has been created to fix them."
+          echo "::error::llms.txt issues were found and a PR has been created to fix them."
           echo "Please review and merge the PR."
           exit 1
