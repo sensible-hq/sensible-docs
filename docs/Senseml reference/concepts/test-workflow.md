@@ -1,10 +1,10 @@
 ---
-title: "Test workflow file"
+title: Test workflow file
 hidden: false
 metadata:
-  description:
+  description: Documentation for testing the sync-docs workflow that detects empty
+    descriptions, generates new ones with Claude, and syncs to llms.txt
 ---
-
 This is a test file to verify the sync-docs workflow works correctly.
 
 It should:

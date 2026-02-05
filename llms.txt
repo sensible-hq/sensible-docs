@@ -207,6 +207,8 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Source text traceability](docs/Senseml%20reference/concepts/color.md): Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML
 - [Supported file types](docs/Senseml%20reference/concepts/file-types.md): Supported document file formats
 - [Table methods](docs/Senseml%20reference/concepts/table-methods.md): Comparison of table extraction methods
+- [Fingerprint nuances](docs/Senseml%20reference/concepts/fingerprint-nuances.md): Learn how Sensible splits portfolios into sub-documents using fingerprint matching with detailed edge cases and splitting conditions examples.
+- [Test workflow file](docs/Senseml%20reference/concepts/test-workflow.md): Documentation for testing the sync-docs workflow that detects empty descriptions, generates new ones with Claude, and syncs to llms.txt
 
 ## API Reference
 
