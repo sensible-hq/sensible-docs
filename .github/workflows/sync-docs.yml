@@ -1,4 +1,4 @@
-name: Sync llms.txt
+name: Sync docs and llms.txt
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - 'llms.txt'
 
 jobs:
-  sync-llms-txt:
+  sync-docs:
     runs-on: ubuntu-latest
 
     permissions:
@@ -33,16 +33,78 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          EXISTING_PR=$(gh pr list --state open --search "Sync llms.txt" --json number --jq 'length')
+          EXISTING_PR=$(gh pr list --state open --search "Sync docs and llms.txt" --json number --jq 'length')
           echo "count=$EXISTING_PR" >> "$GITHUB_OUTPUT"
           if [ "$EXISTING_PR" -gt 0 ]; then
-            echo "::notice::Skipping - existing PR already open for syncing llms.txt"
+            echo "::notice::Skipping - existing PR already open"
           fi
+
+      # === PHASE 1: Generate missing descriptions in frontmatter ===
+
+      - name: Check for missing descriptions
+        if: steps.existing_pr.outputs.count == '0'
+        id: descriptions
+        run: |
+          echo "=== Checking for missing descriptions ==="
+          ./scripts/descriptions/check_descriptions.py
+
+          MISSING=$(./scripts/descriptions/check_descriptions.py --json)
+          echo "missing=$MISSING" >> "$GITHUB_OUTPUT"
+          COUNT=$(echo "$MISSING" | jq 'length')
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+
+          if [ "$COUNT" -gt 0 ]; then
+            echo "::warning::Missing descriptions: $COUNT files need descriptions"
+          fi
+
+      - name: Generate descriptions with Claude
+        if: steps.existing_pr.outputs.count == '0' && steps.descriptions.outputs.count != '0'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MISSING_FILES: ${{ steps.descriptions.outputs.missing }}
+        run: |
+          echo "=== Generating descriptions with Claude ==="
+          echo "$MISSING_FILES" | jq -c '.[]' | while read -r item; do
+            FILE_PATH=$(echo "$item" | jq -r '.path')
+            TITLE=$(echo "$item" | jq -r '.title')
+
+            echo "Processing: $FILE_PATH"
+
+            # Read file content (first 4000 chars for context)
+            CONTENT=$(head -c 4000 "$FILE_PATH")
+
+            # Call Claude API
+            RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
+              -H "Content-Type: application/json" \
+              -H "x-api-key: $ANTHROPIC_API_KEY" \
+              -H "anthropic-version: 2023-06-01" \
+              -d "$(jq -n \
+                --arg title "$TITLE" \
+                --arg content "$CONTENT" \
+                '{
+                  model: "claude-sonnet-4-20250514",
+                  max_tokens: 150,
+                  messages: [{
+                    role: "user",
+                    content: "Generate a concise 1-line description (max 160 characters) for this documentation page. The description should summarize what the page is about for SEO purposes. Do NOT include quotes around your response. Just return the plain description text.\n\nTitle: \($title)\n\nContent:\n\($content)"
+                  }]
+                }')")
+
+            DESCRIPTION=$(echo "$RESPONSE" | jq -r '.content[0].text' | tr -d '\n')
+
+            echo "  Generated: $DESCRIPTION"
+
+            # Update the file
+            ./scripts/descriptions/add_description.py "$FILE_PATH" "$DESCRIPTION"
+          done
+
+      # === PHASE 2: Sync llms.txt coverage and descriptions ===
 
       - name: Check llms.txt coverage
         if: steps.existing_pr.outputs.count == '0'
         id: coverage
         run: |
+          echo ""
           echo "=== Checking llms.txt coverage ==="
           ./scripts/descriptions/check_llms_coverage.py
 
@@ -94,14 +156,16 @@ jobs:
             ./scripts/descriptions/sync_descriptions_to_llms.py
           fi
 
+      # === PHASE 3: Create PR if any changes ===
+
       - name: Create Pull Request
-        if: steps.existing_pr.outputs.count == '0' && (steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0')
+        if: steps.existing_pr.outputs.count == '0' && (steps.descriptions.outputs.count != '0' || steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SYNC_RESULT: ${{ steps.sync.outputs.result }}
         run: |
           # Check if there are changes
-          if git diff --quiet; then
+          if git diff --quiet && git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
@@ -111,42 +175,47 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Create branch
-          BRANCH_NAME="auto/sync-llms-txt-$(date +%Y%m%d-%H%M%S)"
+          BRANCH_NAME="auto/sync-docs-$(date +%Y%m%d-%H%M%S)"
           git checkout -b "$BRANCH_NAME"
 
-          # Commit changes
-          git add llms.txt
-          git commit -m "Sync llms.txt"
+          # Stage and commit changes
+          git add -A
+          git commit -m "Sync docs and llms.txt"
 
           # Push and create PR
           git push origin "$BRANCH_NAME"
 
           # Build PR body
+          DESCRIPTIONS_GENERATED="${{ steps.descriptions.outputs.count }}"
           COVERAGE_ISSUES="${{ steps.coverage.outputs.coverage_issues }}"
           SYNC_ISSUES="${{ steps.sync.outputs.sync_issues }}"
-          UPDATES=$(echo "$SYNC_RESULT" | jq -r '.updates[] | "- \(.path)"' 2>/dev/null || echo "")
+          LLMS_UPDATES=$(echo "$SYNC_RESULT" | jq -r '.updates[] | "- \(.path)"' 2>/dev/null || echo "")
 
-          BODY="This PR automatically syncs llms.txt.
+          # Get list of changed files
+          FILES_CHANGED=$(git diff --name-only HEAD~1 | sed 's/^/- /')
+
+          BODY="This PR automatically syncs documentation and llms.txt.
 
           ## Summary
-          - Coverage issues fixed: $COVERAGE_ISSUES
-          - Descriptions synced: $SYNC_ISSUES
+          - Descriptions generated: ${DESCRIPTIONS_GENERATED:-0}
+          - llms.txt coverage issues fixed: ${COVERAGE_ISSUES:-0}
+          - llms.txt descriptions synced: ${SYNC_ISSUES:-0}
 
-          ## Updated descriptions
-          ${UPDATES:-None}
+          ## Files changed
+          $FILES_CHANGED
 
           ---
           *Generated by GitHub Actions*"
 
           gh pr create \
-            --title "Sync llms.txt" \
+            --title "Sync docs and llms.txt" \
             --body "$BODY" \
             --head "$BRANCH_NAME" \
             --base "${{ github.event.repository.default_branch }}"
 
       - name: Fail if issues were found
-        if: steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0'
+        if: steps.descriptions.outputs.count != '0' || steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0'
         run: |
-          echo "::error::llms.txt issues were found and a PR has been created to fix them."
+          echo "::error::Issues were found and a PR has been created to fix them."
           echo "Please review and merge the PR."
           exit 1
