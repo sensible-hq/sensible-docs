@@ -13,4 +13,4 @@ It should:
 3. Add the file to llms.txt
 4. Sync the description to llms.txt
 
-After the workflow runs, this file can be deleted.
+After the workflow runs successfully, this file can be deleted.
