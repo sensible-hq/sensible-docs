@@ -287,3 +287,8 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Extract all text from reference document](reference/Configuration/reference-document/extract-all-text-from-reference-document.md): Extract raw text
 - [Unassociate reference document from configuration](reference/Configuration/reference-document/delete-reference-document-association.md): Remove association
 - [Delete reference document](reference/Configuration/reference-document/delete-reference-document.md): Delete reference document
+
+
+## Mcp Server
+
+- [MCP](reference/MCP%20Server/mcp.md): No description available
