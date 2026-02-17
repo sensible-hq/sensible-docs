@@ -10,9 +10,9 @@ metadata:
 next:
   description: ''
 ---
-Welcome to Sensible! If you have any questions, please reach out by chat or [support@sensible.so](mailto:support@sensible.so) and we'd be happy to help you out. 
+Welcome to Sensible! If you have any questions, please reach out by chat or [support@sensible.so](mailto:support@sensible.so) and we'd be happy to help you out.
 
-To get started, see the following endpoints. Or, see other [integration](doc:integrate)  options.
+To get started, see the following endpoints. Or, see other [integration](doc:integrate)  options including the Sensible [SDKs](doc:sdk-guides) .
 
 <Table align={["left","left","left"]}>
   <thead>
@@ -38,12 +38,12 @@ To get started, see the following endpoints. Or, see other [integration](doc:int
       </td>
 
       <td style={{ textAlign: "left" }}>
-        * [Extract doc at a Sensible URL](ref:generate-an-upload-url) <br/>
+        * [Extract doc at a Sensible URL](ref:generate-an-upload-url) <br />
         * [Extract doc at your URL](ref:extract-from-url)
       </td>
 
       <td style={{ textAlign: "left" }}>
-        Takes a document file, such as a PDF, and returns extracted data asynchronously. Use the asynchronous endpoints in production.  You have two options for asynchronously extracting from your document:<br/> - extract a doc at a URL you provide<br/>- upload and extract the doc at a Sensible URL. <br/>You can then call the [Retrieve extraction](ref:retrieving-results)  endpoint to get the results, or specify a webhook for Sensible to push the results to as soon as they're ready.<br/> 
+        Takes a document file, such as a PDF, and returns extracted data asynchronously. Use the asynchronous endpoints in production.  You have two options for asynchronously extracting from your document:<br /> - extract a doc at a URL you provide<br />- upload and extract the doc at a Sensible URL. <br />You can then call the [Retrieve extraction](ref:retrieving-results)  endpoint to get the results, or specify a webhook for Sensible to push the results to as soon as they're ready.<br />
       </td>
     </tr>
 
@@ -81,7 +81,7 @@ To get started, see the following endpoints. Or, see other [integration](doc:int
       </td>
 
       <td style={{ textAlign: "left" }}>
-        * [Extract portfolio at a Sensible URL](ref:generate-upload-url-portfolio) <br/> - [Extract portfolio at your URL](ref:extract-from-url-portfolio)
+        * [Extract portfolio at a Sensible URL](ref:generate-upload-url-portfolio) <br /> - [Extract portfolio at your URL](ref:extract-from-url-portfolio)
       </td>
 
       <td style={{ textAlign: "left" }}>
