@@ -2,7 +2,7 @@
 title: Remove lines
 excerpt: ''
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   title: ''
   description: 'Remove lines matching a pattern from all pages in a document'
