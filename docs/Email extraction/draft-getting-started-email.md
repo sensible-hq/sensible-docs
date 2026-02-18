@@ -2,7 +2,7 @@
 title: Getting started with email extraction
 excerpt: ''
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   title: ''
   description: 'Extract structured data from emails and attachments'
@@ -182,6 +182,8 @@ In the preceding steps, you configured the necessary prerequisites for an *email
 * the name of the email processor, for example, `residential_lease_applications`.
 * the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`).
 * (optional) the URL of the webhook you implemented.
+
+TODO: updates go here.
 
 After creating the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb.abc_xyz@app.sensible.so`. Forward your lease application emails to this address.
 
