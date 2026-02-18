@@ -84,7 +84,7 @@ The following image shows the first page of the example document. Note the `page
 {
   "all_text": {
     "type": "string",
-    "value": "Academic History ***This is Not an Official Transcript*** Create Date: 06/19/2025 10:47:25 General Information Student: Sandoval, Aaliyha Buenrostro PID: A17738189 Student Level: UN College: Eighth College Major: International Studies-Intl Bus Intended Degree: Bachelor of Arts Cumulative Summary Grade Option UC-Crdts Attm Crdts Pssd UC-GPA Crdts UC-Grade Points UC-GPA Letter 73.00 71.00 69.00 201.20 2.915 P/NP 12.00 16.00 0.00 0.00 0.000 TOTAL 85.00 87.00 69.00 201.20 2.915 ..."
+    "value": "Academic History Fictional Example Transcript Create Date: 06/19/2025 10:47:25 General Information Student: García, Ana López PID: A12345678 Student Level: UN College: Fictional College Major: Computer Science Intended Degree: Bachelor of Arts Cumulative Summary Grade Option UC-Crdts Attm Crdts Pssd UC-GPA Crdts UC-Grade Points UC-GPA Letter 73.00 71.00 69.00 201.20 2.915 P/NP 12.00 16.00 0.00 0.00 0.000 TOTAL 85.00 87.00 69.00 201.20 2.915 ..."
   }
 }
 ```
