@@ -21,9 +21,10 @@ Removes lines that match a configurable pattern. Unlike the [Remove Header](doc:
 
 # Examples
 
-## Remove page number lines
+The following example shows using two `removeLines` preprocessors together to clean up an academic transcript before extraction:
 
-The following example removes lines matching the pattern `page N of N` across all pages.
+- The first preprocessor removes page number lines (`page 1 of 3`, `page 2 of 3`, etc.) using a regex pattern. Without this, page number lines would appear inline in the extracted text.
+- The second preprocessor removes a rotated diagonal watermark ("This is Not an Official Transcript") using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets only lines rotated between 30 and 60 degrees, so horizontal body text is unaffected.
 
 **Config**
 
@@ -31,40 +32,15 @@ The following example removes lines matching the pattern `page N of N` across al
 {
   "preprocessors": [
     {
+      /* remove "page N of N" lines */
       "type": "removeLines",
       "match": {
         "type": "regex",
         "pattern": "^page \\d+ of \\d+$"
       }
-    }
-  ],
-  "fields": [
+    },
     {
-      "id": "all_text",
-      "method": {
-        "id": "documentRange",
-        "includeAnchor": true
-      },
-      "anchor": {
-        "match": {
-          "type": "first"
-        }
-      }
-    }
-  ]
-}
-```
-
-## Remove rotated watermarks
-
-The following example uses the [angleFilter](doc:match#global-parameters) matcher option to remove rotated watermark text (text rotated between 30 and 60 degrees) without matching horizontal body text.
-
-**Config**
-
-```json
-{
-  "preprocessors": [
-    {
+      /* remove rotated watermark text (30–60 degrees) */
       "type": "removeLines",
       "match": {
         "type": "regex",
@@ -90,5 +66,25 @@ The following example uses the [angleFilter](doc:match#global-parameters) matche
       }
     }
   ]
+}
+```
+
+**Example document**
+
+The following image shows the first page of the example document. Note the `page 1 of 3` line at the bottom, which is removed by the first preprocessor.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/remove_lines.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/remove_lines.pdf) |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
+
+**Output**
+
+```json
+{
+  "all_text": {
+    "type": "string",
+    "value": "Academic History ***This is Not an Official Transcript*** Create Date: 06/19/2025 10:47:25 General Information Student: Sandoval, Aaliyha Buenrostro PID: A17738189 Student Level: UN College: Eighth College Major: International Studies-Intl Bus Intended Degree: Bachelor of Arts Cumulative Summary Grade Option UC-Crdts Attm Crdts Pssd UC-GPA Crdts UC-Grade Points UC-GPA Letter 73.00 71.00 69.00 201.20 2.915 P/NP 12.00 16.00 0.00 0.00 0.000 TOTAL 85.00 87.00 69.00 201.20 2.915 ..."
+  }
 }
 ```
