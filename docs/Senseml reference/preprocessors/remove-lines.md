@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Removes lines that match the specified text from all pages in the document. For example, use this preprocessor to remove watermarks. This preprocessor is a layout-independent alternative to the Remove Header and Remove Footer preprocessors.
+Removes lines that match the specified text from all pages in the document. For example, use this preprocessor to remove watermarks. This preprocessor is an alternative to the Remove Header and Remove Footer preprocessors and can remove text that varies in position on the page.
 
 # Parameters
 
