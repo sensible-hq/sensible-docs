@@ -24,7 +24,7 @@ Read the output carefully. Identify:
 
 ## Step 2 — Identify affected docs
 
-The sensible-docs directory structure is under `docs/Senseml reference/`. Key subdirectories:
+The sensible-docs directory structure is under `docs/`. Key subdirectories for the SenseML reference under `docs/senseml/` include:
 - `preprocessors/` — one `.md` per preprocessor, plus `index.md`
 - `field-query-object/` — `match.md`, `anchor.md`, `method.md`, `types.md`
 - `layout-based-methods/` — one `.md` per method
