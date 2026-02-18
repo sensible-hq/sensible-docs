@@ -21,7 +21,10 @@ Removes lines that match a configurable pattern. Unlike the [Remove Header](doc:
 
 # Examples
 
-The following example extracts text from an academic transcript after removing two types of noise: repeating `page N of N` lines, and a diagonal watermark rendered as rotated text. The [angleFilter](doc:match#global-parameters) on the second preprocessor targets only lines rotated between 30 and 60 degrees, leaving horizontal body text untouched.
+The following example shows using two `removeLines` preprocessors together to clean up an academic transcript before extraction:
+
+- The first preprocessor removes page number lines (`page 1 of 3`, `page 2 of 3`, etc.) using a regex pattern. Without this, page number lines would appear inline in the extracted text.
+- The second preprocessor removes a rotated diagonal watermark ("This is Not an Official Transcript") using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets only lines rotated between 30 and 60 degrees, so horizontal body text is unaffected.
 
 **Config**
 
@@ -29,6 +32,7 @@ The following example extracts text from an academic transcript after removing t
 {
   "preprocessors": [
     {
+      /* remove "page N of N" lines */
       "type": "removeLines",
       "match": {
         "type": "regex",
@@ -36,6 +40,7 @@ The following example extracts text from an academic transcript after removing t
       }
     },
     {
+      /* remove rotated watermark text (30–60 degrees) */
       "type": "removeLines",
       "match": {
         "type": "regex",
