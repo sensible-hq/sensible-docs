@@ -17,7 +17,7 @@ Removes lines that match the specified text from all pages in the document. For 
 | key                  | value                                               | description                                                  |
 | -------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
 | type (**required**)  | `removeLines`                                       |                                                              |
-| match (**required**) | [Match](doc:match) object or array of Match objects | Sensible removes all lines that contain the text specified by the Match parameter. |
+| match (**required**) | [Match](doc:match) object or array of Match objects | Sensible removes lines that match the specified text from all pages in the document |
 
 # Examples
 
