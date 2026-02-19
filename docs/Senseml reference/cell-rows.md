@@ -95,26 +95,43 @@ The following example extracts bestselling book data from a spreadsheet. It uses
           }
         },
         {
-          /* strip the footnotes from the sales data
-             by splitting the extracted _sales_raw string 
-             on the start of the first footnote ([)] */
-          "id": "sales",
+          /* get the raw language data*/
+          "id": "_language_raw",
           "method": {
-            "id": "split",
-            "source_id": "_sales_raw",
-            "separator": "[",
-            "index": 0
+            "id": "cell",
+            /* extract the cells under the header that starts with 
+               the text `approximate`  */
+            "header": {
+              "type": "includes",
+              "text": "language"
+            }
+          }
+        },
+        /* map the raw language data to country codes */
+        {
+          "id": "language",
+          "method": {
+            "id": "mapper",
+            "source_id": "_language_raw",
+            "mappings": {
+              "English": "en",
+              "French": "fr",
+              "German": "de"
+            },
+            "default": "mapping doesn't exist"
           }
         },
         {
-          /* the column header says 'in millions', so multiply by 1,000,000
-             to get the actual copy count, and flag blockbuster titles */
+          /* the column header says 'Approximate sales in millions', so multiply by 1,000,000
+             to get the actual sales count, and flag highest-selling titles */
           "method": {
             "id": "customComputationGroup",
             "jsonLogic": {
               "eachKey": {
-                "sales_copies": {"*": [{"var": "_sales_raw.value"}, 1000000]},
-                "over_50_million": {">": [{"var": "_sales_raw.value"}, 50]}
+                "sales_copies": {
+                  "*": [{ "var": "_sales_raw.value" }, 1000000]
+                },
+                "over_50_million": { ">": [{ "var": "_sales_raw.value" }, 50] }
               }
             }
           }
@@ -124,7 +141,7 @@ The following example extracts bestselling book data from a spreadsheet. It uses
           "id": "hide_fields",
           "method": {
             "id": "suppressOutput",
-            "source_ids": ["_sales_raw"]
+            "source_ids": ["_language_raw"]
           }
         }
       ]
@@ -156,8 +173,38 @@ The following image shows the example document used with this example config:
         "value": "1859",
         "type": "string"
       },
-      "sales": {
+      "_sales_raw": {
         "value": "200",
+        "type": "string"
+      },
+      "language": {
+        "value": "en",
+        "type": "string"
+      },
+      "sales_copies": {
+        "value": 200000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "book_title": {
+        "value": "The Little Prince (Le Petit Prince)",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1943",
+        "type": "string"
+      },
+      "_sales_raw": {
+        "value": "200",
+        "type": "string"
+      },
+      "language": {
+        "value": "fr",
         "type": "string"
       },
       "sales_copies": {
@@ -178,8 +225,12 @@ The following image shows the example document used with this example config:
         "value": "1988",
         "type": "string"
       },
-      "sales": {
+      "_sales_raw": {
         "value": "150",
+        "type": "string"
+      },
+      "language": {
+        "value": "mapping doesn't exist",
         "type": "string"
       },
       "sales_copies": {
@@ -191,7 +242,144 @@ The following image shows the example document used with this example config:
         "type": "boolean"
       }
     },
-    "..."
+    {
+      "book_title": {
+        "value": "Between 50 million and 100 million copies",
+        "type": "string"
+      },
+      "first_published": null,
+      "_sales_raw": null,
+      "language": null,
+      "sales_copies": {
+        "value": 0,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "book_title": {
+        "value": "The Lion, the Witch and the Wardrobe",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1950",
+        "type": "string"
+      },
+      "_sales_raw": {
+        "value": "85",
+        "type": "string"
+      },
+      "language": {
+        "value": "en",
+        "type": "string"
+      },
+      "sales_copies": {
+        "value": 85000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "book_title": {
+        "value": "One Hundred Years of Solitude (Cien años de soledad)",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1967",
+        "type": "string"
+      },
+      "_sales_raw": {
+        "value": "50",
+        "type": "string"
+      },
+      "language": {
+        "value": "mapping doesn't exist",
+        "type": "string"
+      },
+      "sales_copies": {
+        "value": 50000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "book_title": {
+        "value": "Lolita",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1955",
+        "type": "string"
+      },
+      "_sales_raw": {
+        "value": "50",
+        "type": "string"
+      },
+      "language": {
+        "value": "en",
+        "type": "string"
+      },
+      "sales_copies": {
+        "value": 50000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "book_title": {
+        "value": "Heidi",
+        "type": "string"
+      },
+      "first_published": {
+        "value": "1880",
+        "type": "string"
+      },
+      "_sales_raw": {
+        "value": "50",
+        "type": "string"
+      },
+      "language": {
+        "value": "de",
+        "type": "string"
+      },
+      "sales_copies": {
+        "value": 50000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "book_title": {
+        "value": "attribution:",
+        "type": "string"
+      },
+      "first_published": null,
+      "_sales_raw": null,
+      "language": null,
+      "sales_copies": {
+        "value": 0,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
+      }
+    }
   ]
 }
 ```
