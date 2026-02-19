@@ -1,37 +1,60 @@
 ---
 name: update-docs-from-pr
 description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR.
-argument-hint: <pr-number>
+argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
 ---
 
 You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo.
 
-The PR number to analyze is: **$ARGUMENTS**
+Parse **$ARGUMENTS** as follows:
+- **First token**: the PR number to analyze
+- **Remaining text** (optional): free-form hints about which doc areas are likely affected, or mentions of related PRs to also read. Use these to guide your search — don't ignore them.
 
-## Step 1 — Fetch the PR
+## Step 1 — Fetch the PR and any related PRs
 
-Run both of these in parallel:
+Run these in parallel:
 ```
-gh pr view $ARGUMENTS --repo sensible-hq/sensible --json title,body,files,commits
-gh pr diff $ARGUMENTS --repo sensible-hq/sensible
+gh pr view <pr-number> --repo sensible-hq/sensible --json title,body,files,commits
+gh pr diff <pr-number> --repo sensible-hq/sensible
 ```
 
-Read the output carefully. Identify:
+Then scan the PR body for references to related PRs (look for phrases like "follow up of", "based on", "see also", or bare `#NNNN` links). Fetch any referenced PRs that add important context:
+```
+gh pr view <related-pr-number> --repo sensible-hq/sensible --json title,body,files
+```
+
+Read all output carefully. Identify:
 - What new features, parameters, or behaviors were added or changed
-- Which parts of the engine are affected (preprocessors, matchers, methods, field types, etc.)
+- Which parts of the engine are affected (preprocessors, matchers, methods, field types, API, email processing, etc.)
 
 ## Step 2 — Identify affected docs
 
-The sensible-docs directory structure is under `docs/`. Key subdirectories for the SenseML reference under `docs/senseml/` include:
+The full `docs/` directory structure is:
+
+**SenseML reference** (`docs/Senseml reference/`):
 - `preprocessors/` — one `.md` per preprocessor, plus `index.md`
 - `field-query-object/` — `match.md`, `anchor.md`, `method.md`, `types.md`
 - `layout-based-methods/` — one `.md` per method
 - `llm-based-methods/`
 - `computed-field-methods/`
 - `advanced-computed-field-methods/`
-- `concepts/`
+- `concepts/` — `file-types.md`, `ocr.md`, `lines.md`, and others
+- `config-settings/`
+- `document-type-settings/`
+- `sections/`
+
+**Other doc areas**:
+- `docs/Email extraction/` — email-specific extraction docs
+- `docs/document extraction/` — general extraction guides and best practices
+- `docs/document type classification/`
+- `docs/api/` — API reference and tutorials
+- `docs/integrations/`
+- `docs/monitor and qa/`
+- `docs/welcome/`
+
+Use the hints from `$ARGUMENTS` and the PR content to determine which areas are relevant. Use Grep to search for existing mentions of changed features/parameters across the docs tree before deciding what to update.
 
 Read the existing files that are relevant to the PR's changes. Understand the writing style, parameter table format, and example structure before making any edits.
 
