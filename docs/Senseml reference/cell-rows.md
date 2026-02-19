@@ -27,9 +27,11 @@ The Cell Rows field type is a speedier alternative to general-purpose SenseML me
 | headerRow (**required**) | Anchor object                                                                          | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects.                                                                                                                                                                                                                                                                                                                                   |
 | headerRowsCount          | integer. default: 1                                                                    | Specifies the number of consecutive header rows. You can specify a match in the Field object's Header parameter for any header row.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | stop                     | [Match object](doc:match) or array of Match objects. default: none                     | Stops extraction at the end of the row above the matched line. Excludes the row containing the matched line.                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/><br/><br/>- fields that use a spreadsheet-specific method, `cell`. The cell method extracts a cell under the specified header for each extracted row. It contains the following parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/><br/>- fields that use [computed fields methods](doc:computed-field-methods).<br/> |
+| fields                   | array of spreadsheet-specific fields, [computed fields](doc:computed-field-methods), or [custom computation group](doc:custom-computation-group) fields | Specifies one or more of the following field types, all of which operate row-by-row:<br/><br/>- **`cell`**: A spreadsheet-specific method that extracts a cell under the specified header for each extracted row. Parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/>- **Computed field methods**: Fields that use [computed field methods](doc:computed-field-methods) such as `split`, `suppressOutput`, or `concatenate`, operating on the already-extracted cell values for the row.<br/><br/>- **`customComputationGroup`**: A [custom computation group](doc:custom-computation-group) field whose JSONLogic expression runs once per row and can add multiple derived fields to each row's output. Within the `jsonLogic` expression, reference extracted cell values by their field `id`, for example `{"var": "column_a.value"}`. For an example, see [Custom computation group in cellRows](#custom-computation-group-in-cellrows). |
 
 ## Examples
+
+### Basic example
 
 The following example shows using a Cell Rows field to extract rows from a spreadsheet.
 
@@ -399,6 +401,149 @@ The following image shows the example document used with this example config:
       },
       "first_published": null,
       "sales": null
+    }
+  ]
+}
+```
+
+### Custom computation group in cellRows
+
+The following example shows using [customComputationGroup](doc:custom-computation-group) inside a `cellRows` field to derive new columns from already-extracted cell values. The `jsonLogic` expression runs once per row, referencing the row's extracted cell values by field `id`. This lets you compute derived values — such as doubling a number or summing two columns — and add them as extra fields in every row of the output.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "sales_data",
+      "type": "cellRows",
+      "headerRow": {
+        "match": [
+          {
+            "type": "startsWith",
+            "text": "product"
+          }
+        ]
+      },
+      "fields": [
+        {
+          "id": "product",
+          "method": {
+            "id": "cell",
+            "header": {
+              "type": "startsWith",
+              "text": "product"
+            }
+          }
+        },
+        {
+          "id": "unit_price",
+          "method": {
+            "id": "cell",
+            "header": {
+              "type": "startsWith",
+              "text": "unit price"
+            }
+          }
+        },
+        {
+          "id": "quantity",
+          "method": {
+            "id": "cell",
+            "header": {
+              "type": "startsWith",
+              "text": "quantity"
+            }
+          }
+        },
+        {
+          /* use customComputationGroup to derive new fields per row */
+          "method": {
+            "id": "customComputationGroup",
+            "jsonLogic": {
+              "eachKey": {
+                /* multiply unit_price by quantity to get line total */
+                "line_total": {
+                  "*": [
+                    {"var": "unit_price.value"},
+                    {"var": "quantity.value"}
+                  ]
+                },
+                /* flag high-value rows */
+                "high_value": {
+                  ">": [
+                    {"var": "unit_price.value"},
+                    100
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example document**
+
+A spreadsheet with the following columns and rows:
+
+| Product | Unit Price | Quantity |
+| ------- | ---------- | -------- |
+| Widget  | 50         | 3        |
+| Gadget  | 150        | 1        |
+
+**Output**
+
+```json
+{
+  "sales_data": [
+    {
+      "product": {
+        "value": "Widget",
+        "type": "string"
+      },
+      "unit_price": {
+        "value": 50,
+        "type": "number"
+      },
+      "quantity": {
+        "value": 3,
+        "type": "number"
+      },
+      "line_total": {
+        "value": 150,
+        "type": "number"
+      },
+      "high_value": {
+        "value": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "product": {
+        "value": "Gadget",
+        "type": "string"
+      },
+      "unit_price": {
+        "value": 150,
+        "type": "number"
+      },
+      "quantity": {
+        "value": 1,
+        "type": "number"
+      },
+      "line_total": {
+        "value": 150,
+        "type": "number"
+      },
+      "high_value": {
+        "value": true,
+        "type": "boolean"
+      }
     }
   ]
 }
