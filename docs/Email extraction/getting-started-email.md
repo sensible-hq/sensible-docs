@@ -160,6 +160,7 @@ Your `residential_lease_applications` email processor uses the document types yo
 
 1. You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify. For example, it classifies an attached Gusto paystub against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
 2. You specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
+3. Optionally, you can configure an attachment spec to use [portfolio extraction](doc:portfolio), where Sensible treats a single attachment as a multi-document file and segments it into multiple document types. For example, an attachment might be a combined PDF containing both a paystub and a lease. A single email can mix portfolio and single-document attachments — the matcher on each spec determines how each attachment is handled. Unlike the direct [extraction API](doc:portfolio), where callers specify per-request whether a document is a portfolio, this behavior is configured at processor setup time. When you contact Sensible to create a processor, indicate which attachment specs should use portfolio extraction.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_processor.png)
 
