@@ -27,13 +27,11 @@ The Cell Rows field type is a speedier alternative to general-purpose SenseML me
 | headerRow (**required**) | Anchor object                                                | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects. |
 | headerRowsCount          | integer. default: 1                                          | Specifies the number of consecutive header rows. You can specify a match in the Field object's Header parameter for any header row. |
 | stop                     | [Match object](doc:match) or array of Match objects. default: none | Stops extraction at the end of the row above the matched line. Excludes the row containing the matched line. |
-| fields                   | array of fields that use any of the following methods:<br/>-  the `cell` method<br/>[computed field-methods](doc:computed-field-methods)<br/>- [custom computation group](doc:custom-computation-group) method | Specifies fields that use one or more of the following methods, all of which operate row-by-row:<br/><br/>- **`cell`**: A spreadsheet-specific method that extracts a cell under the specified header for each extracted row. Parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/>- **Computed field methods**: Fields that use [computed field methods](doc:computed-field-methods), such as `split`, `suppressOutput`, or `customComputation`, operate on the already-extracted cell values for each row. Each field adds a computed field to each row's output.<br/><br/>- **Custom Computation Group method:** Fields that use the [Custom Computation Group](doc:custom-computation-group) method operate on the already-extracted cell values for each row. Each field can add multiple computed fields to each row's output. For an example, see [Custom computation group example](#custom-computation-group-example). |
+| fields                   | array of fields that use any of the following methods:<br/>-  the `cell` method<br/>[computed field-methods](doc:computed-field-methods)<br/>- [custom computation group](doc:custom-computation-group) method | Specifies fields that use one or more of the following methods, all of which operate row-by-row:<br/><br/>- **`cell`**: A spreadsheet-specific method that extracts a cell under the specified header for each extracted row. Parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/>- **Computed field methods**: Fields that use [computed field methods](doc:computed-field-methods), such as `split`, `suppressOutput`, or `customComputation`, operate on the already-extracted cell values for each row. Each field adds a computed field to each row's output.<br/><br/>- **Custom Computation Group method:** Fields that use the [Custom Computation Group](doc:custom-computation-group) method operate on the already-extracted cell values for each row. Each field can add multiple computed fields to each row's output. For an example, see [Example](#example). |
 
-## Examples
+## Example
 
-### Basic example
-
-The following example shows using a Cell Rows field to extract rows from a spreadsheet.
+The following example extracts bestselling book data from a spreadsheet. It uses `customComputationGroup` to convert the raw sales figures (stored in millions in the column header) to actual copy counts and to flag books with over 50 million copies sold.
 
 **Config**
 
@@ -107,6 +105,19 @@ The following example shows using a Cell Rows field to extract rows from a sprea
           }
         },
         {
+          /* the column header says 'in millions', so multiply by 1,000,000
+             to get the actual copy count, and flag blockbuster titles */
+          "method": {
+            "id": "customComputationGroup",
+            "jsonLogic": {
+              "eachKey": {
+                "sales_copies": {"*": [{"var": "_sales_raw.value"}, 1000000]},
+                "over_50_million": {">": [{"var": "_sales_raw.value"}, 50]}
+              }
+            }
+          }
+        },
+        {
           /* for cleaner output, hide the raw sales data */
           "id": "hide_fields",
           "method": {
@@ -144,22 +155,16 @@ The following image shows the example document used with this example config:
         "type": "string"
       },
       "sales": {
-        "value": ">200 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Little Prince (Le Petit Prince)",
+        "value": "200",
         "type": "string"
       },
-      "first_published": {
-        "value": "1943",
-        "type": "string"
+      "sales_copies": {
+        "value": 200000000,
+        "type": "number"
       },
-      "sales": {
-        "value": "200 million",
-        "type": "string"
+      "over_50_million": {
+        "value": true,
+        "type": "boolean"
       }
     },
     {
@@ -172,379 +177,19 @@ The following image shows the example document used with this example config:
         "type": "string"
       },
       "sales": {
-        "value": "150 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Harry Potter and the Philosopher's Stone",
+        "value": "150",
         "type": "string"
       },
-      "first_published": {
-        "value": "1997",
-        "type": "string"
-      },
-      "sales": {
-        "value": "120 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "And Then There Were None",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1939",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Dream of the Red Chamber (紅樓夢)",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1791",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Hobbit",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1937",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Alice's Adventures in Wonderland",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1865",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Between 50 million and 100 million copies",
-        "type": "string"
-      },
-      "first_published": null,
-      "sales": null
-    },
-    {
-      "book_title": {
-        "value": "The Lion, the Witch and the Wardrobe",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1950",
-        "type": "string"
-      },
-      "sales": {
-        "value": "85 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "She: A History of Adventure",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1887",
-        "type": "string"
-      },
-      "sales": {
-        "value": "83 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Da Vinci Code",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "2003",
-        "type": "string"
-      },
-      "sales": {
-        "value": "80 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Harry Potter and the Chamber of Secrets",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1998",
-        "type": "string"
-      },
-      "sales": {
-        "value": "77 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Catcher in the Rye",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1951",
-        "type": "string"
-      },
-      "sales": {
-        "value": "65 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Bridges of Madison County",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1992",
-        "type": "string"
-      },
-      "sales": {
-        "value": "60 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "One Hundred Years of Solitude (Cien años de soledad)",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1967",
-        "type": "string"
-      },
-      "sales": {
-        "value": "50 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Lolita",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1955",
-        "type": "string"
-      },
-      "sales": {
-        "value": "50 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Heidi",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1880",
-        "type": "string"
-      },
-      "sales": {
-        "value": "50 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Common Sense Book of Baby and Child Care",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1946",
-        "type": "string"
-      },
-      "sales": {
-        "value": "50 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "attribution:",
-        "type": "string"
-      },
-      "first_published": null,
-      "sales": null
-    }
-  ]
-}
-```
-
-### Custom computation group example
-
-The following example shows using [customComputationGroup](doc:custom-computation-group) inside a `cellRows` field to derive new columns from already-extracted cell values. The `jsonLogic` expression runs once per row, referencing the row's extracted cell values by field `id`. This lets you compute derived values — such as doubling a number or summing two columns — and add them as extra fields in every row of the output.
-
-**Config**
-
-```json
-{
-  "fields": [
-    {
-      "id": "sales_data",
-      "type": "cellRows",
-      "headerRow": {
-        "match": [
-          {
-            "type": "startsWith",
-            "text": "product"
-          }
-        ]
-      },
-      "fields": [
-        {
-          "id": "product",
-          "method": {
-            "id": "cell",
-            "header": {
-              "type": "startsWith",
-              "text": "product"
-            }
-          }
-        },
-        {
-          "id": "unit_price",
-          "method": {
-            "id": "cell",
-            "header": {
-              "type": "startsWith",
-              "text": "unit price"
-            }
-          }
-        },
-        {
-          "id": "quantity",
-          "method": {
-            "id": "cell",
-            "header": {
-              "type": "startsWith",
-              "text": "quantity"
-            }
-          }
-        },
-        {
-          /* use customComputationGroup to derive new fields per row */
-          "method": {
-            "id": "customComputationGroup",
-            "jsonLogic": {
-              "eachKey": {
-                /* multiply unit_price by quantity to get line total */
-                "line_total": {
-                  "*": [
-                    {"var": "unit_price.value"},
-                    {"var": "quantity.value"}
-                  ]
-                },
-                /* flag high-value rows */
-                "high_value": {
-                  ">": [
-                    {"var": "unit_price.value"},
-                    100
-                  ]
-                }
-              }
-            }
-          }
-        }
-      ]
-    }
-  ]
-}
-```
-
-**Example document**
-
-A spreadsheet with the following columns and rows:
-
-| Product | Unit Price | Quantity |
-| ------- | ---------- | -------- |
-| Widget  | 50         | 3        |
-| Gadget  | 150        | 1        |
-
-**Output**
-
-```json
-{
-  "sales_data": [
-    {
-      "product": {
-        "value": "Widget",
-        "type": "string"
-      },
-      "unit_price": {
-        "value": 50,
+      "sales_copies": {
+        "value": 150000000,
         "type": "number"
       },
-      "quantity": {
-        "value": 3,
-        "type": "number"
-      },
-      "line_total": {
-        "value": 150,
-        "type": "number"
-      },
-      "high_value": {
-        "value": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "product": {
-        "value": "Gadget",
-        "type": "string"
-      },
-      "unit_price": {
-        "value": 150,
-        "type": "number"
-      },
-      "quantity": {
-        "value": 1,
-        "type": "number"
-      },
-      "line_total": {
-        "value": 150,
-        "type": "number"
-      },
-      "high_value": {
+      "over_50_million": {
         "value": true,
         "type": "boolean"
       }
-    }
+    },
+    "..."
   ]
 }
 ```
