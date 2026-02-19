@@ -69,6 +69,14 @@ Revise the doc at **$ARGUMENTS** to match the house style. Read the file first, 
 
 When showing the effect of a preprocessor (i.e., what the document looks like without vs with it), use **PROBLEM** / **SOLUTION** structure rather than just showing the "after" state.
 
+### Framing: scenario-first over mechanism-first
+
+- Lead with what the user experiences or achieves, not with internal structure (specs, matchers, selectors, config keys, etc.).
+- Use concrete scenarios to anchor the reader before introducing the mechanism.
+  - ✅ `an applicant might attach a single combined PDF containing both a paystub and a signed lease`
+  - ❌ `configure an attachment spec to use portfolio extraction`
+- Drop implementation contrasts (e.g. "unlike the direct API…", "unlike the X preprocessor…") unless the distinction is the *primary* thing the reader needs to act on. If needed, put it in a **Note** rather than the main flow.
+
 ### General
 
 - Don't add content that isn't in the draft — this skill revises style, not substance.
