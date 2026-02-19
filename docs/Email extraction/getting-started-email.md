@@ -160,7 +160,16 @@ Your `residential_lease_applications` email processor uses the document types yo
 
 1. You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify. For example, it classifies an attached Gusto paystub against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
 2. You specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
-3. Optionally, Sensible can treat an attachment as a [portfolio](doc:portfolio) — a single file containing multiple documents — and extract each one separately. For example, an applicant might attach a single combined PDF containing both a paystub and a signed lease. You configure this per attachment spec when you set up the processor: for each portfolio spec, you provide a filter (which attachments to route to it, such as all PDFs or the second attachment) and a list of document types for Sensible to segment the portfolio into. A single email can have some attachments handled as portfolios and others as single documents. When you contact Sensible to create a processor, provide the filter criteria and document types for any portfolio specs.
+3. Optionally, Sensible can treat an attachment as a [portfolio](doc:portfolio) — a single file containing multiple documents — and extract each one separately. For example, an applicant might attach a single combined PDF containing both a paystub and a signed lease. You configure this per attachment spec when you set up the processor: for each portfolio spec, you provide a filter (which attachments to route to it) and a list of document types for Sensible to segment the portfolio into. A single email can have some attachments handled as portfolios and others as single documents. When you contact Sensible to create a processor, provide the filter criteria and document types for any portfolio specs.
+
+   Available filter criteria:
+
+   | Filter | Matches |
+   | ------ | ------- |
+   | All attachments | Every attachment in the email. Useful as a catch-all spec. |
+   | File type | Attachments with a specific file type, such as PDF or PNG. |
+   | Position | The attachment at a specific position, such as the first or second attachment. |
+   | Combined | Any attachment matching two or more of the above filters (OR logic). |
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_processor.png)
 
