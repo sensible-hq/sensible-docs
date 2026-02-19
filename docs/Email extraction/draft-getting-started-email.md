@@ -181,11 +181,32 @@ In the preceding steps, you configured the necessary prerequisites for an *email
 
 * the name of the email processor, for example, `residential_lease_applications`.
 * the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`).
-* (optional) the URL of the webhook you implemented.
+* (optional) the URL of the webhook you implemented. You can associate one webhook per environment (see the following section).
 
-TODO: updates go here.
+After creating the email processor, Sensible provides you with the email address for the processor. The address takes the following format:
 
-After creating the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb.abc_xyz@app.sensible.so`. Forward your lease application emails to this address.
+```
+[{environment}.]{ processorAlias | processorId }.{accountAlias}@{stageSubdomain}.sensible.so
+```
+
+For example: `residential_lease_applications.abc_xyz@app.sensible.so`
+
+Forward your lease application emails to this address.
+
+### Environments
+
+You can target a specific [environment](doc:environments) by prepending it to the email address. For example, to use your `dev` environment's document type configurations, send email to:
+
+```
+dev.residential_lease_applications.abc_xyz@app.sensible.so
+```
+
+When you include an environment prefix:
+
+* Sensible uses the document type configurations associated with that environment.
+* Only the webhook configured for that environment receives the extraction results.
+
+If you omit the environment prefix, Sensible defaults to the `production` environment.
 
 ## (Optional) Send a test email
 

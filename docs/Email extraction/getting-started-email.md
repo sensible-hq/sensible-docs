@@ -160,6 +160,7 @@ Your `residential_lease_applications` email processor uses the document types yo
 
 1. You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify. For example, it classifies an attached Gusto paystub against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
 2. You specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
+3. Alternatively, if attachments may contain multiple documents combined in a single file — for example, a PDF with both a paystub and a signed lease — you can configure the processor to use [portfolio extraction](doc:portfolio). Sensible segments each attachment and extracts each document against the configured document types. Portfolio mode applies to all attachments uniformly; you can't configure some attachments as portfolio and others as single-document within the same processor. If you expect a mix — some emails with combined files and others with individual attachments — configure the processor for portfolio mode. Sensible can still segment a single-document file without affecting extraction accuracy, though there may be some additional processing overhead.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_processor.png)
 
@@ -181,9 +182,32 @@ In the preceding steps, you configured the necessary prerequisites for an *email
 
 * the name of the email processor, for example, `residential_lease_applications`.
 * the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`).
-* (optional) the URL of the webhook you implemented.
+* (optional) the URL of the webhook you implemented. You can associate one webhook per environment (see the following section).
 
-After creating the email processor, Sensible provides you with the  email alias for the processor, for example, `87237966-5965-4019-97f2-66436947ccbb.abc_xyz@app.sensible.so`. Forward your lease application emails to this address.
+After creating the email processor, Sensible provides you with the email address for the processor. The address takes the following format:
+
+```
+[{environment}.]{ processorAlias | processorId }.{accountAlias}@{stageSubdomain}.sensible.so
+```
+
+For example: `residential_lease_applications.abc_xyz@app.sensible.so`
+
+Forward your lease application emails to this address.
+
+### Environments
+
+You can target a specific [environment](doc:environments) by prepending it to the email address. For example, to use your `dev` environment's document type configurations, send email to:
+
+```
+dev.residential_lease_applications.abc_xyz@app.sensible.so
+```
+
+When you include an environment prefix:
+
+* Sensible uses the document type configurations associated with that environment.
+* Only the webhook configured for that environment receives the extraction results.
+
+If you omit the environment prefix, Sensible defaults to the `production` environment.
 
 ## (Optional) Send a test email
 
