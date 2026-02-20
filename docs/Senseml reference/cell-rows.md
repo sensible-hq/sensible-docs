@@ -81,8 +81,7 @@ The following example extracts bestselling book data from a spreadsheet. It uses
           }
         },
         {
-          /* get the raw sales data,
-           which includes footnotes, e.g., 50 million[47] */
+          /* get the raw sales data */
           "id": "_sales_raw",
           "method": {
             "id": "cell",
