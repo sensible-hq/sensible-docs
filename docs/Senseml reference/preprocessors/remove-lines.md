@@ -24,7 +24,7 @@ Removes lines that match the specified text from all pages in the document. For 
 The following example shows using two `removeLines` preprocessors to clean up an academic transcript before extraction:
 
 - The first preprocessor removes page number lines (`page 1 of 3`, `page 2 of 3`, etc.) using a regex pattern. Without this, page number lines would appear inline in the extracted text.
-- The second preprocessor removes a rotated diagonal watermark ("This is Not an Official Transcript") using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets only lines rotated between 30 and 60 degrees, so horizontal body text is unaffected.
+- The second preprocessor removes a rotated diagonal watermark ("Not an Official Transcript") using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets lines rotated between 30 and 60 degrees.
 
 **Config**
 
@@ -75,7 +75,7 @@ The following example shows using two `removeLines` preprocessors to clean up an
 
 **Example document**
 
-The following image shows the first page of the example document. Note the `page 1 of 3` line at the bottom, which is removed by the first preprocessor.
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/remove_lines.png)
 
