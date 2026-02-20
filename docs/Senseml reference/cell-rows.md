@@ -98,8 +98,8 @@ The following example extracts bestselling book data from a spreadsheet. It uses
           "id": "_language_raw",
           "method": {
             "id": "cell",
-            /* extract the cells under the header that starts with 
-               the text `approximate`  */
+            /* extract the cells under the header that includes 
+               the text `language`  */
             "header": {
               "type": "includes",
               "text": "language"
@@ -121,22 +121,23 @@ The following example extracts bestselling book data from a spreadsheet. It uses
           }
         },
         {
-          /* the column header says 'Approximate sales in millions', so multiply by 1,000,000
-             to get the actual sales count, and flag highest-selling titles */
+
           "method": {
             "id": "customComputationGroup",
             "jsonLogic": {
               "eachKey": {
+                /* the column header says 'Approximate sales in millions', so multiply by 1,000,000 to get the actual sales count.  */
                 "sales_copies": {
                   "*": [{ "var": "_sales_raw.value" }, 1000000]
                 },
+                /*  flag highest-selling titles */
                 "over_50_million": { ">": [{ "var": "_sales_raw.value" }, 50] }
               }
             }
           }
         },
         {
-          /* for cleaner output, hide the raw sales data */
+          /* for cleaner output, hide the raw data */
           "id": "hide_fields",
           "method": {
             "id": "suppressOutput",
