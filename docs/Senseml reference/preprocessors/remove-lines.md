@@ -88,7 +88,7 @@ The following image shows the example document used with this example config:
 {
   "all_text": {
     "type": "string",
-    "value": "Fictional University 123 Scholar Way, Fictional City, State 00001 Student Information Field Detail Name Jane E. Doe Student ID 900123456 Major Undeclared Semester: Fall 2024 Course Code Course Title Credits Grade ENG 101 Introduction to 3 B Composition PSY 100 General Psychology 3 A MAT 105 College Algebra 3 C"
+    "value": "Fictional University 123 Scholar Way, Fictional City, State 00001 Student Information Field Detail Name Jon E. Doe Student ID 900123456 Major Undeclared Semester: Fall 2024 Course Code Course Title Credits Grade ENG 101 Introduction to 3 B Composition PSY 100 General Psychology 3 A MAT 105 College Algebra 3 C"
   }
 }
 ```
