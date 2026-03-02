@@ -19,7 +19,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key               | value                                      | description                                                  |
 | :---------------- | :----------------------------------------- | :----------------------------------------------------------- |
 | id (**required**) | `getFileMetadata`                          |                                                              |
-| type              | `filename`,<br/>`contentType`, `pageCount` | If you specify `filename`, outputs the document's filename without the file extension. Sensible gets the filename from the Document Name parameter if you extract through the Sensible API or SDKs, or assigns a document name on upload if you use the Sensible app.<br/>If you specify `contentType`, outputs the document's MIME content type, for example, `image/jpeg` or `application/pdf`.<br/>If you specify `pageCount`, outputs the page count of the document. If the file is a [portfolio](doc:portfolio), outputs the page count of the sub-document in the portfolio. |
+| type              | `filename`,<br/>`contentType`, `pageCount` | If you specify `filename`, outputs the document's filename without the file extension. Sensible gets the filename from the Document Name parameter if you extract through the Sensible API or SDKs, or assigns a document name on upload if you use the Sensible app.<br/>If you specify `contentType`, outputs the document's MIME content type, for example, `image/jpeg` or `application/pdf`.<br/>If you specify `pageCount`, outputs the page count of the document. If the document is part of a [portfolio](doc:portfolio) extraction, outputs the page count of the sub-document in the portfolio. |
 
 # Examples
 
