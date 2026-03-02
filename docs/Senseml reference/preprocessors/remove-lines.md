@@ -24,7 +24,7 @@ Removes lines that match the specified text from all pages in the document. For 
 The following example shows using two `removeLines` preprocessors to clean up an academic transcript before extraction:
 
 - The first preprocessor removes page number lines (`page 1 of 3`, `page 2 of 3`, etc.) using a regex pattern. Without this, page number lines would appear inline in the extracted text.
-- The second preprocessor removes a rotated diagonal watermark ("Not an Official Transcript") using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets lines rotated between 30 and 60 degrees.
+- The second preprocessor removes a rotated diagonal watermark using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets lines rotated between 30 and 60 degrees.
 
 **Config**
 
