@@ -10,6 +10,7 @@ metadata:
 next:
   description: ''
 ---
+
 ## Introduction
 
 You can automatically extract structured data from email bodies and attachments by forwarding them to Sensible.
@@ -41,9 +42,14 @@ To implement this workflow, take the following general steps:
 
 Let's walk through an example of implementing an email processor. In this example implementation, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property."  Lease application emails to this property manager typically include the following attachments:
 
-* paystub
 * drivers license
 * signed lease
+* combined PDF file ("portfolio") 
+  * tax statement
+  * bank statement
+  * paystub
+
+TODO called `brenda_sample_gusto_1040_wellsfargo`containing: 
 
 The following image shows an example email:
 
@@ -158,7 +164,10 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
 
 Your `residential_lease_applications` email processor uses the document types you configured in previous steps for classification and extraction: 
 
-1. You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify. For example, it classifies an attached Gusto paystub against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
+1. You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify:
+   1. If you specify that the attachments are [portfolios](doc:portfolio) files (TODO DEFINE), Sensible searches each file for all the document types you specify and can classify each file into multiple document types. If you expect a mix of portfolio and single-file document files, then specify portfolio; Sensible can still segment a single-document file without affecting extraction accuracy, though there may be some additional processing overhead. For example, Sensible classifies the `brenda_sample_gusto_1040_wellsfargo` attachement against TODO list all the doc types and finds that it contains the XYZ doc types.
+   2. If you specify that the attachments are single-file, Sensible classifies each file against each document type, and assigns a signle document type to each file.   For example, it classifies an attached lease agreement against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`.  TODO add the full list of doc types here. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
+
 2. You specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_processor.png)
@@ -173,7 +182,7 @@ To receive extracted email data, you have the following options:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_history_ui.png)
 
-* Implement a webhook as a destination for the extracted data. In a succeeding step, provide Sensible with its URL.
+* Implement a webhook as a destination for the extracted data. In a succeeding step, provide Sensible with its URL. You can specify different webhooks for different environments. See the following sections for more information. TODO ehh reword?
 
 ## Create email processor
 
@@ -181,36 +190,26 @@ In the preceding steps, you configured the necessary prerequisites for an *email
 
 * the name of the email processor, for example, `residential_lease_applications`.
 * the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`).
-* (optional) the URL of the webhook you implemented. You can associate one webhook per environment (see the following section).
+* whether you expect single-document files attached, portfolio TODO link documents attached, or a mix.
+* (optional) the URL of each webhook you implemented.  You can associate one webhook per environment (see the following section). TODO REWROD
 
-After creating the email processor, Sensible provides you with the email address for the processor. The address takes the following format:
-
-```
-[{environment}.]{ processorAlias | processorId }.{accountAlias}@{stageSubdomain}.sensible.so
-```
-
-For example: `residential_lease_applications.abc_xyz@app.sensible.so`
+After creating the email processor, Sensible provides you with the email address for the processor, for example: `residential_lease_applications.abc_xyz@app.sensible.so`
 
 Forward your lease application emails to this address.
 
 ### Environments
 
-You can target a specific [environment](doc:environments) by prepending it to the email address. For example, to use your `dev` environment's document type configurations, send email to:
+TODO: can  I consolidate all this?
 
-```
-dev.residential_lease_applications.abc_xyz@app.sensible.so
-```
-
-When you include an environment prefix:
-
-* Sensible uses the document type configurations associated with that environment.
-* Only the webhook configured for that environment receives the extraction results.
+You can target a specific [environment](doc:environments) by prepending it to the email address. Use environments to test new configs in your document types. You can view the test results at separate webhooks For example, if you're testing a new config for a drivers license attachment, publish the config to dev in the `driver_license` document type, forward the email with a drivers license attachment `dev.residential_lease_applications.abc_xyz@app.sensible.so`, then view the results either in the Sensible app or at an environment-specific webhook you implemented. 
 
 If you omit the environment prefix, Sensible defaults to the `production` environment.
 
 ## (Optional) Send a test email
 
 Send a test email with attachments to the processor you created. You can download example documents from the following locations:
+
+TODO UPDATE THIS TABLE
 
 | document        | link                                                                                                                                          |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
