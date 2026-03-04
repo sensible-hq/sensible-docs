@@ -39,9 +39,9 @@ To implement this workflow, take the following general steps:
   1. When you've completed the preceding steps, contact Sensible to create an *email processor*. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can now start forwarding emails to the processor and receive extracted data.
 
 - **(Optional) Send a test email**
-- 1. TODO describe this
+  1. Download sample documents and send a test email to view an example extraction.
 - **(Optional) Test in dev**
-  1. Test changes to your extraction configs in a dev environment  before going into production.
+  1. Make changes to your extraction configs and test in a dev environment  before going into production.
 
 ## Getting started
 
@@ -165,6 +165,8 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
 }
 ```
 
+Click TODO HOW TO PUBLISH TO PRODUCTION
+
 ### How it works: email processors and document types
 
 Your `residential_lease_applications` email processor uses the document types you configured in previous steps for classification and extraction: 
@@ -204,27 +206,17 @@ After creating the email processor, Sensible provides you with the email address
 
 Forward your lease application emails to this address.
 
-## (Optional) Test in dev/send a test email
-
-### *Environments*
-
-*TODO: can  I consolidate all this?You can target a specific [environment](doc:environments) by prepending it to the email address. Use environments to test new configs in your document types. You can view the test results at separate webhooks For example, if you're testing a new config for a drivers license attachment, publish the config to dev in the `driver_license` document type, forward the email with a drivers license attachment `dev.residential_lease_applications.abc_xyz@app.sensible.so`, then view the results either in the Sensible app or at an environment-specific webhook you implemented.* 
-
-*If you omit the environment prefix, Sensible defaults to the `production` environment.*
-
-
-
-
+## (Optional) send a test email
 
 Send a test email with attachments to the processor you created. You can download example documents from the following locations:
 
-TODO UPDATE THIS TABLE
+TODO TEST LINKS
 
-| document        | link                                                                                                                                          |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Drivers license | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/email_drivers_license_sample.pdf) |
-| Pay stub        | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/email_gusto_sample.pdf)           |
-| Lease           | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/email_lease.pdf)                  |
+| document                                                     | link                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Drivers license                                              | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/email_drivers_license_sample.pdf) |
+| Portfolio file containing bank statement, paystub, and tax statement | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
+| Lease                                                        | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/email_lease.pdf) |
 
  For the body, use the following text:
 
@@ -252,3 +244,53 @@ You should get back an extraction response for each attachment at the webhook yo
 In the Sensible app, click each extraction to view its data. For example, the paystub extraction includes the extracted fields `employer_name: Delta Airlines` and `employee_name: Brenda Sample`:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_details_ui.png)
+
+## (Optional) test in dev
+
+If you make a change to a config, you can test it in dev before going live in production.
+
+For example, say you make the following change in your config for extracting from lease application attachments:
+
+TODO test this code is valid
+
+```json
+{
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "searchBySummarization": "page",
+        "queries": [
+           /* old prompt was 'What is the name of the applicant?' new simplified prompt asks for last and first names separately */
+          {
+            "id": "applicant_first_name",
+
+            "description": "Applicant first name",
+            "type": "string"
+          },
+            {
+            "id": "applicant_last_name",
+
+            "description": "Applicant last name",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+
+
+To test the change in a development environment:
+
+1.  Publish the config to the development environment
+2. Specify the development environment in the forward address by prepending it, for example, `dev.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the* *`production`* *environment.
+
+View the results in the Sensible app, or in the webhook you specified for development environment in a previous step.
+
+
+
+
+
