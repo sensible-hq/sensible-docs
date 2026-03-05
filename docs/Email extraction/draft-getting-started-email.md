@@ -25,7 +25,7 @@ flowchart TD
     C --> D[User gets extracted data via webhook]
 ```
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_overview.png)
+
 
 ## Implementation overview
 
@@ -38,7 +38,7 @@ To implement this workflow, take the following general steps:
   2. Determine email filtering criteria for the set of emails. In a succeeding step,  use the filters to automatically forward these emails to a Sensible email address.
 
 * **Configure data extraction**
-  1. In the Sensible app, define a [document type](doc:document-type-settings) for each email attachment in the lease application emails from which you want to extract data. You can optionally define a document type for the email body. For example, `driverse_licenses`, `paystubs`, `leases`, and `email_body_lease_applications`.
+  1. In the Sensible app, define a [document type](doc:document-type-settings) for each email attachment in the lease application emails from which you want to extract data. You can optionally define a document type for the email body. In this example, the lease application emails include  `driverse_licenses`, `paystubs`, `leases`, `email_body_lease_applications`, and other document types.
 
 * **(Optional) Configure data destination**
   1. By default, view the extracted data in the Sensible app. Optionally you can also define webhooks to receive the extracted data.
@@ -58,12 +58,10 @@ Let's walk through an example of implementing an email processor. In this exampl
 
 * drivers license
 * signed lease
-* combined PDF file ("portfolio")
+* a single PDF file containing multiple documents (a "[portfolio](doc:portfolio)" file):
   * tax statement
   * bank statement
   * paystub
-
-TODO called `brenda_sample_gusto_1040_wellsfargo`containing:
 
 The following image shows an example email:
 
@@ -81,11 +79,14 @@ To configure email data classification and extraction in your Sensible account, 
 
 #### Create out-of-the-box document types
 
-Create document types to [classify](doc:classify) and extract from the paystub, drivers license, and signed lease attachments:
+Create document types to [classify](doc:classify) and extract from the document types attached to the emails:
 
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add extraction support for the following document types to your account:
    1. **driver_license** document type
    2. **pay_stubs** document type
+   3. **bank_statements** document type
+   4.  **pay_stubs** document type
+   5. **1040s** document type
 
 #### (Optional) Create custom document types
 
@@ -174,19 +175,20 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
 }
 ```
 
-Click TODO HOW TO PUBLISH TO PRODUCTION
-
 ### How it works: email processors and document types
 
 Your `residential_lease_applications` email processor uses the document types you configured in previous steps for classification and extraction:
 
-1. You specify multiple document types in the email processor for possible attachments. The email processor [classifies](doc:classify) each attachment against the document types you specify:
-   1. If you specify that the attachments are [portfolios](doc:portfolio) files (TODO DEFINE), Sensible searches each file for all the document types you specify and can classify each file into multiple document types. If you expect a mix of portfolio and single-file document files, then specify portfolio TODO FOR WHAT. Sensible can still segment a single-document file without affecting extraction accuracy, though there may be some additional processing overhead. For example, Sensible classifies the `brenda_sample_gusto_1040_wellsfargo` attachement against TODO list all the doc types and finds that it contains the XYZ doc types.
-   2. If you specify that the attachments are single-file, Sensible classifies each file against each document type, and assigns a signle document type to each file.   For example, it classifies an attached lease agreement against `driver_license`, `pay_stubs`, and `leases` document types and determines that it's a `pay_stub`.  TODO add the full list of doc types here. The email processor then uses the `pay_stubs` document type to extract data from the attachment.
-
+1. The email processor [classifies](doc:classify) each attachment against the document types you specify for the email processor:
+   1. If you specify to process all attachments as [portfolio](doc:portfolio) files, Sensible automatically segments each document by its page range in the file, and classifies each document in each file against all the document types you specify.  
+   
+   2. If you specify to process all attachments as single-file documents, Sensible classifies each file as a single document type. 
+   
+      If you expect a mix of portfolio and single-document files, then specify the process them all as portfolio files. Note this setting can add extra processing time for single-document files.
+   
 2. You specify one document type for the email body, for example, `lease_application_email_bodies`. The email processor extracts data using that document type.
 
-TODO: update diagram for portfolio vs single file
+
 
 <br />
 
@@ -198,9 +200,9 @@ flowchart TD
     C --> D[extract data]
 ```
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_processor.png)
 
-Each document type contains [_configs_](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) queries for extracting document data. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity. You can publish configs to a development environment for testing before publishing them to production.
+
+Each document type contains [_configs_](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) queries for extracting document data. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity. When you edit configs, you can publish them to a development environment for testing before publishing them to production.
 
 ## (Optional) Configure data destination
 
@@ -210,15 +212,15 @@ To receive extracted email data, you have the following options:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_history_ui.png)
 
-* Implement webhooks as destinations for the extracted data. You can specify a webhook for each environment to which you publish your configs.  See the following sections for more information.
+* Implement webhooks as destinations for the extracted data. You can specify a webhook for each environment to which you publish your configs.  See the following sections for more information about environments.
 
 ## Create email processor
 
 In the preceding steps, you configured the necessary prerequisites for an _email processor_ that can handle lease applications. Contact Sensible to create the email processor. Provide the following details:
 
 * the name of the email processor, for example, `residential_lease_applications`.
-* the names of the document types you created in your account (`driver_license`, `pay_stubs`, `leases`, and `email_body_lease_applications`).
-* whether you expect the processor to handle single-document files attachments, portfolio attachments, or both. TODO REWORD
+* the names of the document types you created in your account (`driver_license`, `pay_stubs`, `bank_statements`, `1040s`, `leases`, and `email_body_lease_applications`).
+* indicate whether you expect the attachments to include any multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to  single-document file attachments, so specify `portfolio`.
 * (optional) the URL of each webhook you implemented.
 
 After creating the email processor, Sensible provides you with the email address for the processor, for example: `residential_lease_applications.abc_xyz@app.sensible.so`
@@ -228,8 +230,6 @@ Forward your lease application emails to this address.
 ## (Optional) send a test email
 
 Send a test email with attachments to the processor you created. You can download example documents from the following locations:
-
-TODO TEST LINKS
 
 | document                                                             | link                                                                                                                         |
 | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -266,11 +266,9 @@ In the Sensible app, click each extraction to view its data. For example, the pa
 
 ## (Optional) test in dev
 
-If you make a change to a config, you can test it in dev before going live in production.
+If you make a change to a config, you can test it in a development environment before going live in production.
 
-For example, say you make the following change in your config for extracting from lease application attachments:
-
-TODO test this code is valid
+For example, say you make the following change in your config in the `email_body_lease_applications` document type:
 
 ```json
 {
@@ -280,14 +278,15 @@ TODO test this code is valid
         "id": "queryGroup",
         "searchBySummarization": "page",
         "queries": [
-           /* old prompt was 'What is the name of the applicant?' new simplified prompt asks for last and first names separately */
+          /* old prompt was 'What is the name of the applicant?' 
+          new simplified prompts asks for last and first names separately */
           {
             "id": "applicant_first_name",
 
             "description": "Applicant first name",
             "type": "string"
           },
-            {
+          {
             "id": "applicant_last_name",
 
             "description": "Applicant last name",
@@ -298,11 +297,12 @@ TODO test this code is valid
     }
   ]
 }
+
 ```
 
 To test the change in a development environment:
 
 1. Publish the config to the development environment
-2. Specify the development environment in the forward address by prepending it, for example, `dev.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the* _`production`_ *environment.
+2. Specify the development environment in the forward address by prepending it, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment. TODO question:  I think  `development` string (not `dev`) valid? if not it should be to match our API enums and UI labels.
 
 View the results in the Sensible app, or in the webhook you specified for development environment in a previous step.
