@@ -188,6 +188,16 @@ Your `residential_lease_applications` email processor uses the document types yo
 
 TODO: update diagram for portfolio vs single file
 
+<br />
+
+```mermaid
+flowchart TD
+    A[email processor] -->|classify attachments| B[attachment document types]
+    A --> C[body document type]
+    B --> D[extract data]
+    C --> D[extract data]
+```
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_processor.png)
 
 Each document type contains [_configs_](doc:config-settings), or collections of [SenseML](doc:senseml-reference-introduction) queries for extracting document data. Configs handle variations in a document type. For example, each config in the `pay_stubs` document type handles a different paystub software vendor, such as Gusto, ADP, or Paylocity. You can publish configs to a development environment for testing before publishing them to production.
