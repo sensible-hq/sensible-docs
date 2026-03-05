@@ -303,6 +303,7 @@ For example, say you make the following change in your config in the `email_body
 To test the change in a development environment:
 
 1. Publish the config to the development environment
-2. Specify the development environment in the forward address by prepending it, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment. TODO question:  I think  `development` string (not `dev`) valid? if not it should be to match our API enums and UI labels.
+2. Specify the development environment in the forward address by prepending it, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment. 
+3. **TODO question**:  I think  `development` prepend string (not `dev`) is valid? if not it should be, to match our API enums and UI labels.
 
 View the results in the Sensible app, or in the webhook you specified for development environment in a previous step.
