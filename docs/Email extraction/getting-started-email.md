@@ -222,7 +222,7 @@ In the preceding steps, you configured the necessary prerequisites for an _email
 * indicate whether you expect the attachments to include any multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
 * (optional) the URL of each webhook you implemented.
 
-After creating the email processor, Sensible provides you with the email address for the processor, for example: `residential_lease_applications.abc_xyz@app.sensible.so`
+After creating the email processor, Sensible provides you with the email address for the processor, for example: `residential_lease_applications.abc_xyz@app.sensible.so`.
 
 Forward your lease application emails to this address.
 
@@ -265,7 +265,7 @@ In the Sensible app, click each extraction to view its data. For example, the pa
 
 ## (Optional) test in dev
 
-If you make a change to a config, you can test it in a development environment before going live in production.
+If you make a change to a config, you can test it in the development environment before going live in production.
 
 For example, say you make the following change in your config in the `email_body_lease_applications` document type:
 
@@ -299,7 +299,7 @@ For example, say you make the following change in your config in the `email_body
 
 ```
 
-To test the change in a development environment:
+To test the change in the development environment:
 
 1. Publish the config to the development environment
 2. Specify the development environment in the forward address by prepending it, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment. 
