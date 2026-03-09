@@ -26,7 +26,7 @@ To troubleshoot LLM-based methods, you can configure how Sensible locates a prom
 
 ```mermaid
 flowchart TD
-    Q["what's the largest checking\ntransaction in the bank\nstatement?"]
+    Q["what's the largest checking transaction in the bank statement?"]
 
     Q -->|1 - default| A["locate context using page chunks"]
     Q -->|2 - searchBySummarization| B["locate context using content summaries"]
