@@ -5,12 +5,12 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Configure LLM prompts'
+  description: Configure LLM prompts
   robots: index
 next:
   description: ''
 ---
-To extract data from a document using [LLM-based methods](doc:llm-based-methods), Sensible submits a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called a prompt's *context*.
+To extract data from a document using [LLM-based methods](doc:llm-based-methods), Sensible submits a part of the document to the LLM.  Submitting a part of the document instead of the whole document improves performance and accuracy. This document excerpt is called a prompt's _context_.
 
 To troubleshoot LLM-based methods, you can configure how Sensible locates a prompt's context using one of the following approaches:
 
@@ -22,7 +22,17 @@ To troubleshoot LLM-based methods, you can configure how Sensible locates a prom
 
 4. Locate non-text images as context
 
-   ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/mermaid_llm_context.png)
+<br />
+
+```mermaid
+flowchart TD
+    Q["what's the largest checking\ntransaction in the bank\nstatement?"]
+
+    Q -->|1 - default| A["locate context using page\nchunks"]
+    Q -->|2 - searchBySummarization| B["locate context using\ncontent summaries"]
+    Q -->|3 - source_ids| C["use extracted field as\ncontext"]
+    Q -->|4 - multimodalEngine| D["locate non-text context"]
+```
 
 For information about configuring each of these approaches, see the following sections.
 
@@ -41,8 +51,8 @@ The following steps outline this default approach and provide configuration deta
    * Page Range parameter
    * **Note:** Defaults for these parameters vary by LLM-based method. For example, the default for the Chunk Count parameter is 5 for the [Query Group](doc:query-group#parameters) method and 20 for the [List](doc:list#parameters) method. Each method has a default chunk size, up to one page.
 2. Sensible selects the most relevant chunks and combines them with page-number metadata to create a "context".  Parameters that configure this step include:
-   * LLM Engine parameter 
-3. Sensible creates a *full prompt* for the LLM that includes the context and the descriptive prompts you configure in the method. Sensible sends the full prompt to the LLM.
+   * LLM Engine parameter
+3. Sensible creates a _full prompt_ for the LLM that includes the context and the descriptive prompts you configure in the method. Sensible sends the full prompt to the LLM.
 4. Sensible returns the LLM's response.
 
 The details for this general process vary for each LLM-based method. For more information, see the Notes section for each method's SenseML reference topic, for example, [List](doc:list#notes) method.
@@ -65,7 +75,7 @@ This strategy often outperforms the default approach to locating context. It's u
 
 You can prompt an LLM to answer questions about other [fields](doc:field-query-object)' extracted data. Specify the extracted data using the Source IDs parameter for supported LLM-based methods. In this case, the context is predetermined: it's the output from the other fields.  By pipelining prompts, you can configure agentic workflows to extract document data.
 
-For example, you use the layout-based [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field: 
+For example, you use the layout-based [Text Table](doc:text-table) method to extract the following data into a `snacks_rank`  field:
 
 ```json
 snack       annual regional sales
@@ -78,22 +88,22 @@ If you create a Query Group method with the prompt `what is the best-selling sna
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/mermaid_chain_prompt.png)
 
- Use other fields as context to: 
+Use other fields as context to:
 
 * Narrow down the [context](doc:prompt) for your prompts to a specific part of the document.
 * Reformat or otherwise transform the outputs of other fields. For example, you can use this as an alternative to types such as the  [Compose](doc:types#compose) type with prompts such as `if the context includes a date, return it in mm/dd/yyy format`.
 * Compute or generate new data from the output of other fields. For example, prompt an LLM to sum the output of the wages fields extracted from a tax form.
-* Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array. 
+* Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array.
 
 ## Locate multimodal (non-text) data
 
-When you configure the Multimodal Engine parameter for the Query Group method, you can extract from non-text data, such as photographs, charts, or illustrations. 
+When you configure the Multimodal Engine parameter for the Query Group method, you can extract from non-text data, such as photographs, charts, or illustrations.
 
 For example, for the following image, you can prompt,  `"are the buildings multistory? return true or false"`.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/multimodal_photo.png)
 
-When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor  and region coordinates, or use the default page chunk scoring approach.  
+When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor  and region coordinates, or use the default page chunk scoring approach.
 
 ## Troubleshooting
 
@@ -109,10 +119,10 @@ Sometimes an LLM prompt works for the majority of documents in a document type, 
 
 ### Trace source context
 
-Tracing the document's source text, or *context*, for an LLM's answer can help you determine if the LLM is misinterpreting the correct text, or targeting the wrong text.
+Tracing the document's source text, or _context_, for an LLM's answer can help you determine if the LLM is misinterpreting the correct text, or targeting the wrong text.
 
 You can view the source text for an LLM's answer highlighted in the document:
 
-* In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For information about how location highlighting works and its limitations, see [Location highlighting](doc:color#location-highlighting). 
+* In the visual output pane, click the **Location** icon next to a field to view its source text in the document.  For information about how location highlighting works and its limitations, see [Location highlighting](doc:color#location-highlighting).
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_location.png)
