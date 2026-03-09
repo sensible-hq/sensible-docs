@@ -86,7 +86,14 @@ bananas     $150k
 
 If you create a Query Group method with the prompt `what is the best-selling snack?`, and specify `snacks_rank` as the context using the Source IDs parameter, then Sensible searches for answers to your question (`corn chips`) only in the extracted `snacks_rank` table rather than in the entire document:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/mermaid_chain_prompt.png)
+<br />
+
+```mermaid
+flowchart TD
+    A["Industry sales report PDF"]
+    -->|LLM extracts from doc| B["Table of product sales"]
+    -->|LLM extracts from table| C["Top seller"]
+```
 
 Use other fields as context to:
 
