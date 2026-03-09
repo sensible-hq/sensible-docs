@@ -28,9 +28,9 @@ To troubleshoot LLM-based methods, you can configure how Sensible locates a prom
 flowchart TD
     Q["what's the largest checking\ntransaction in the bank\nstatement?"]
 
-    Q -->|1 - default| A["locate context using page\nchunks"]
-    Q -->|2 - searchBySummarization| B["locate context using\ncontent summaries"]
-    Q -->|3 - source_ids| C["use extracted field as\ncontext"]
+    Q -->|1 - default| A["locate context using page chunks"]
+    Q -->|2 - searchBySummarization| B["locate context using content summaries"]
+    Q -->|3 - source_ids| C["use extracted field as context"]
     Q -->|4 - multimodalEngine| D["locate non-text context"]
 ```
 
