@@ -1,0 +1,22 @@
+[
+  {"query": "can you refresh the style guide? i think some new preprocessors were added recently", "should_trigger": true},
+  {"query": "the .claude/style-guide/ files are missing, can you regenerate them", "should_trigger": true},
+  {"query": "i'm about to write docs for a new LLM-based method we shipped, need to set things up first", "should_trigger": true},
+  {"query": "update the sensible style guide", "should_trigger": true},
+  {"query": "we're documenting about 6 new computed field methods next sprint — can you get the style guide ready", "should_trigger": true},
+  {"query": "the style guide looks outdated, our docs conventions have changed since it was last generated", "should_trigger": true},
+  {"query": "bootstrap the style guide from scratch", "should_trigger": true},
+  {"query": "style-guide-overview.md doesn't have the new parameter table conventions we agreed on, please refresh it", "should_trigger": true},
+  {"query": "before we write the new cell-rows docs, make sure the style guide is current", "should_trigger": true},
+  {"query": "generate the sensible docs style guide", "should_trigger": true},
+  {"query": "update the docs for PR #3456 which adds a new removeLines preprocessor with a minHeight param", "should_trigger": false},
+  {"query": "write new reference docs for the intersection method based on this PR diff", "should_trigger": false},
+  {"query": "does the query-group page follow our docs conventions? can you check it", "should_trigger": false},
+  {"query": "what's the correct format for parameter tables in our docs?", "should_trigger": false},
+  {"query": "can you improve the voice and tone on the label.md page?", "should_trigger": false},
+  {"query": "check if our docs comply with google's style guide", "should_trigger": false},
+  {"query": "add the darknessThreshold parameter to the box method docs", "should_trigger": false},
+  {"query": "create a skill for writing sensible docs from scratch", "should_trigger": false},
+  {"query": "i need to write a style guide for our internal REST API at acme corp", "should_trigger": false},
+  {"query": "the sentence-word-guidance.md file has a typo in the terminology table, fix it", "should_trigger": false}
+]
