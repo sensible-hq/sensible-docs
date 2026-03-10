@@ -10,17 +10,21 @@ Every SenseML reference page follows this section order. Sections marked *(optio
 
 1. **YAML frontmatter** (required)
 2. **Opening paragraph** (required) — 1–3 sentences
-3. **Use-case or tip block** *(optional)* — bullet list of when/why to use this feature, or "Prompt Tips" for LLM methods
+3. **Use-case or tip block** *(optional)* — bullet list of when/why to use this feature, or "Prompt Tips" for LLM methods; or a Limitations subsection
 4. **Jump links** *(optional)* — inline links to `#parameters`, `#examples`, `#notes`
-5. **`# Parameters`** (required) — parameter table(s)
-6. **`# Examples`** (required) — one or more named examples
-7. **`# Notes`** *(optional)* — how-it-works explanations, implementation details
+5. **Parameters section** (required)
+6. **Examples section** (required)
+7. **Notes section** *(optional)*
 
-Use H1 (`#`) for all top-level sections (Parameters, Examples, Notes). Use H2 (`##`) for named subsections within Examples (e.g., `## Example: Extract from images`) and for conceptual groupings within a long Parameters section.
+### Parameters heading level
+
+- Use `# Parameters` (H1) for standalone methods: layout-based methods, LLM-based methods, preprocessors, computed field methods.
+- Use `## Parameters` (H2) for object pages (anchor, match) and for subsections within a multi-table parameters section (e.g., a "Query group parameters" table nested under a top-level `# Parameters`).
+- Use `## Examples` and `# Notes` (H1) for their respective sections.
 
 ### When to add jump links
 
-Add the jump link block when the page has a Notes section or more than two named examples. Omit it for short pages. Format:
+Add the jump link block when the page has a Notes section, or when it has more than two named examples. Omit it for short, simple pages. Format:
 
 ```
 [**Parameters**](doc:page-slug#parameters)\
@@ -28,7 +32,7 @@ Add the jump link block when the page has a Notes section or more than two named
 [**Notes**](doc:page-slug#notes)
 ```
 
-Note the backslash line break (not a blank line) between each link — this renders them as stacked inline links, not a list.
+Note the backslash line break (not a blank line) between each link — this renders them as stacked inline links, not a list. Only include links to sections that actually exist on the page.
 
 ---
 
@@ -57,19 +61,73 @@ next:
 
 ## Voice and tone
 
-**Opening paragraph:** Use imperative third-person present tense. Start with a verb. Examples:
+**Opening paragraph:** Use imperative present tense. Start with a verb. Examples:
 - "Extracts lines or parts of lines proximate to the anchor point."
 - "Extracts data in a rectangular region, defined in inches."
+- "Merges lines distributed along a horizontal axis more aggressively than the built-in line merger."
+- "Maps output from source fields using a case-sensitive lookup table."
 - "Define your own computed field method using JsonLogic."
 - "Ignores pages outside the start page and end page."
 
-Do not start with "The X method..." or "This method...". Lead with what it does.
+Acceptable variations when the imperative form is awkward:
+- "This LLM-based method extracts repeating data..." (list method)
+- "Use the Conditional method to handle document variations..." (conditional method)
 
-**Parameter descriptions:** Mix of second person ("You can use this parameter to...") and third person ("Sensible returns...", "Sensible ignores..."). Use "Sensible" as the subject when describing engine behavior. Use "you" when giving guidance about how to configure something.
+Do not start with "The X method..." as a default. Lead with what it does.
+
+**Parameter descriptions:** Mix of second person ("You can use this parameter to...") and third person ("Sensible returns...", "Sensible ignores..."). Use "Sensible" as the subject when describing engine behavior. Use "you" when giving configuration guidance.
 
 **Examples:** Introduce each example in third person: "The following example shows [doing X]." or "The following example shows using the X parameter to [do Y]."
 
 **Tone:** Terse and precise. No filler. No "please note that" or "it's important to remember". State facts directly.
+
+---
+
+## Parameter table formats
+
+### Standard table (most pages)
+
+Three columns: `key`, `value`, `description`. Left-align all columns.
+
+```markdown
+| key | value | description |
+| :-- | :---- | :---------- |
+```
+
+Note: The `region` page uses `id` as the first column header instead of `key`. This is an inconsistency in the existing docs — use `key` for all new pages.
+
+The `anchor` page uses `values` (plural) as the second column header. Use `value` (singular) for all new pages.
+
+### Four-column table with interactions (complex LLM methods)
+
+For methods with many parameter interactions (e.g., query-group), add an `interactions` column:
+
+```markdown
+| key | value | description | interactions |
+| :-- | :---- | :---------- | :----------- |
+```
+
+Use this sparingly — only when multiple parameters have documented incompatibilities that would clutter individual description cells.
+
+### Section separator rows in parameter tables
+
+For long parameter tables, use bold separator rows to group related parameters visually:
+
+```markdown
+| | | ***CHAIN PROMPTS*** | |
+```
+
+This is an empty row with bold italic text in the description cell, used to label a cluster of related parameters. Use it only for very long tables (8+ rows) where grouping genuinely aids comprehension.
+
+### Referencing global parameters in a row
+
+Rather than duplicating global parameter descriptions, reference them inline:
+
+```markdown
+| tiebreaker | | For information about this global parameter, see [Method](doc:method#parameters). |
+```
+
+Use this pattern when a method's parameter table includes a global param for completeness but the full description lives on the method object page.
 
 ---
 
@@ -87,21 +145,26 @@ Capitalize parameter names as Title Case when referring to them by name in runni
 - "the Text Alignment parameter"
 - "the Stop parameter"
 - "the Multimodal Engine parameter"
+- "the Directly Adjacent Threshold parameter"
 
 This applies even though the JSON key is camelCase (`sortLines`, `textAlignment`).
 
 ### Method and feature names in prose
-Capitalize method names and major feature names: "the Label method", "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor".
+Capitalize method names and major feature names: "the Label method", "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor", "the Merge Lines preprocessor".
 
 ---
 
 ## Image format
+
+The standard authoring format for images is:
 
 ```markdown
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/filename.png)
 ```
 
 Always use `![Click to enlarge]` as the alt text. Images live in `assets/images/final/`. Use the GitHub raw URL on the `v0` branch.
+
+Note: some existing pages use `<Image alt="Click to enlarge" border={false} src="..." />` (JSX syntax). This is a publishing artifact — use the standard markdown `![]()` syntax when authoring.
 
 ---
 
@@ -118,22 +181,11 @@ Place this table immediately after the example document image (or after the `**E
 
 ---
 
-## Cross-references
+## Example section structure
 
-Use `doc:` slugs for links to other docs pages:
-- `[Match object](doc:match)`
-- `[Global parameters for methods](doc:method#global-parameters-for-methods)`
-- `[JsonLogic](doc:jsonlogic)`
+### Standard example
 
-Use `ref:` slugs for API reference links. Use full `https://` URLs only for external sites (MDN, GitHub, etc.).
-
----
-
-## Code blocks in examples
-
-Always use fenced ` ```json ` blocks. Inline comments in JSON configs (using `//` or `/* */`) are acceptable and encouraged for complex configs — they help readers understand non-obvious choices. The Sensible engine accepts relaxed JSON.
-
-Example section structure (use bold subheadings, not headings):
+Use bold subheadings (not headings). The backslash after `**Example document**\` creates a line break so the image follows immediately.
 
 ```markdown
 **Config**
@@ -157,6 +209,53 @@ The following image shows the example document used with this example config:
 ```
 ```
 
-Note: `**Example document**\` uses a backslash line break so the image follows on the next line without a blank line gap.
+### Troubleshooting example (PROBLEM/SOLUTION pattern)
 
-Preprocessor examples sometimes omit the Example document section when the visual isn't necessary to understand the config.
+For examples that demonstrate a fix to a specific issue, use this variant:
+
+```markdown
+**PROBLEM**
+
+[Description of the problem]
+
+**Config**  (or just Config without bold, matching surrounding style)
+
+[config]
+
+**SOLUTION**
+
+[Description of the solution or the fix applied]
+
+**Config**
+
+[corrected config]
+
+**Output**
+
+[output]
+```
+
+This pattern appears in merge-lines and box pages. Use it when the example's purpose is to show before/after contrast for a troubleshooting scenario.
+
+### Multiple examples
+
+Use H2 subheadings: `## Example: Descriptive name` or `## Example 1` / `## Example 2` when names aren't meaningful.
+
+Preprocessor examples often omit the Example document section when the visual isn't necessary to understand the config.
+
+---
+
+## Cross-references
+
+Use `doc:` slugs for links to other docs pages:
+- `[Match object](doc:match)`
+- `[Global parameters for methods](doc:method#global-parameters-for-methods)`
+- `[JsonLogic](doc:jsonlogic)`
+
+Use `ref:` slugs for API reference links. Use full `https://` URLs only for external sites (MDN, GitHub, etc.).
+
+---
+
+## Code blocks in examples
+
+Always use fenced ` ```json ` blocks. Inline comments in JSON configs (using `//` or `/* */`) are acceptable and encouraged for complex configs — they help readers understand non-obvious choices. The Sensible engine accepts relaxed JSON.

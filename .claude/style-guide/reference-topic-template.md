@@ -1,6 +1,6 @@
 # Reference Topic Template
 
-Use this template when creating a new SenseML reference page. Replace all `[PLACEHOLDER]` text. Comments in `<!-- -->` are guidance for you — remove them from the final file.
+Use this template when creating a new SenseML reference page. Replace all `[PLACEHOLDER]` text. Comments in `<!-- -->` are guidance — remove them from the final file.
 
 See `style-guide-overview.md` for formatting conventions and `sentence-word-guidance.md` for how to write parameter descriptions.
 
@@ -22,19 +22,25 @@ next:
   description: ''
 ---
 <!-- Opening sentence: imperative verb, 1–3 sentences. What does this method do?
-     Do NOT start with "The X method" or "This method". Lead with the verb.
-     Examples: "Extracts...", "Ignores...", "Defines...", "Returns..." -->
-[OPENING SENTENCE. What the method extracts or does, in 1–3 sentences.]
+     Lead with the verb. Examples: "Extracts...", "Merges...", "Maps...", "Ignores...", "Define..."
+     Acceptable: "This LLM-based method extracts..." or "Use the Conditional method to..."
+     Do NOT default to "The X method..." -->
+[OPENING SENTENCE.]
 
-<!-- Use-case block (OPTIONAL): Add bullet points if there are meaningful "when to use this vs. X"
-     decisions a user needs to make. Skip for simple methods. -->
+<!-- Use-case block (OPTIONAL): bullet list of when to use this vs. alternatives. -->
 <!-- Example:
 In general, use this method:
 - for faster performance compared to the Box method
 - when the target region's formatting doesn't fit other SenseML methods
 -->
 
-<!-- Jump links (OPTIONAL): Add when the page has a Notes section or many examples. -->
+<!-- Limitations block (OPTIONAL): for LLM-based methods with output limits or constraints. -->
+<!-- Example:
+#### Limitations
+- Sensible can output lists of different maximum lengths depending on how you configure...
+-->
+
+<!-- Jump links (OPTIONAL): add when the page has a Notes section or many examples. -->
 <!-- Example:
 [**Parameters**](doc:[page-slug]#parameters)\
 [**Examples**](doc:[page-slug]#examples)\
@@ -43,34 +49,42 @@ In general, use this method:
 
 # Parameters
 
-<!-- Standard note for methods. Use the layout-based or LLM variant as appropriate. -->
-<!-- For layout-based and computed field methods: -->
+<!-- Standard note for layout-based methods: -->
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
-
-<!-- For preprocessors: -->
-<!-- (no standard note — just go straight to the table) -->
 
 <!-- For computed field methods, use instead: -->
 <!-- The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: -->
 
+<!-- For the NLP preprocessor, use instead: -->
+<!-- The following parameters are available both on the config level and for each individual field through the method's parameters. Setting a parameter at the method level overrides it at the config level. -->
+
+<!-- For other preprocessors and object pages (anchor, match): omit the note. -->
+
 | key | value | description |
 | :-- | :---- | :---------- |
-| id (**required**) | `[methodId]` | [One sentence saying what the method does at the key level, or leave blank if obvious from the opening paragraph.] |
-| [param1] (**required**) | [value type or enum] | [Description. See sentence-word-guidance.md for how to write this.] |
-| [param2] | [value type or enum]. default: `[default]` | [Description.] |
+| id (**required**) | `[methodId]` | [One-sentence description, or leave blank if the opening paragraph covers it.] |
+| [param1] (**required**) | [value type or enum] | [Description. See sentence-word-guidance.md.] |
+| [param2] | [type]. default: `[default]` | [Description.] |
 
 <!--
 Column guidelines:
-- "key" column: param name as it appears in JSON (camelCase). Mark required with (**required**). Mark deprecated with **(Deprecated)**.
-- "value" column: the type ("boolean", "string", "number", "object", "array of objects") or enum values separated by commas. Append ". default: `value`" for optional params with defaults.
-- "description" column: what it does, when to use it, what each enum value means.
-  - For enum values with distinct behaviors, describe each option on its own line or with <br/> breaks.
-  - For params that interact with other params, end with a note: "For more information, see [param X] parameter."
+- "key": param name in camelCase. Mark required with (**required**). Mark deprecated with **(Deprecated)**.
+- "value": type ("boolean", "string", "number", "object", "array of objects", "string array")
+  or enum values separated by commas. Append ". default: `value`" for optional params with defaults.
+- "description": what it does. For enum values with distinct behaviors, describe each option
+  using <br/> line breaks within the cell. For params with documented incompatibilities with
+  other params, add an interactions note at the end of the description.
+
+For preprocessors, the identifying param key is "type" (not "id"):
+| type (**required**) | `mergeLines` | [description] |
+
+To reference a global param without duplicating its full description:
+| tiebreaker | | For information about this global parameter, see [Method](doc:method#parameters). |
 -->
 
 # Examples
 
-<!-- Simple method (one example): -->
+<!-- Simple method (single example): -->
 The following example shows [what this example demonstrates].
 
 **Config**
@@ -109,14 +123,30 @@ The following image shows the example document used with this example config:
 }
 ```
 
-<!-- Multiple examples: Use H2 subheadings with descriptive names.
-     Format: "## Example: [Descriptive name]" or "## Example 1" / "## Example 2" if not easily named.
-     Each example follows the same Config / Example document / Output structure above. -->
+<!-- Multiple examples: use H2 subheadings.
+     Format: "## Example: [Descriptive name]" or "## Example 1" / "## Example 2".
+     Each follows the same Config / Example document / Output structure. -->
 
-<!-- # Notes (OPTIONAL) -->
-<!-- Add a Notes section when the method has non-obvious behavior that doesn't fit in parameter
-     descriptions — e.g., how the algorithm works, performance characteristics, edge cases.
-     Use H2 subheadings within Notes for multiple topics. -->
+<!-- Troubleshooting example (PROBLEM/SOLUTION pattern):
+Use when the example demonstrates a before/after fix.
+
+**PROBLEM**
+
+[What goes wrong without the parameter/setting]
+
+[config showing the problem]
+
+**SOLUTION**
+
+[What to configure to fix it]
+
+[corrected config and output]
+-->
+
+<!-- # Notes (OPTIONAL)
+Add when the method has non-obvious behavior that doesn't fit in parameter descriptions —
+e.g., how the algorithm works, performance characteristics, edge cases, related methods.
+Use H2 subheadings within Notes for multiple topics. -->
 ```
 
 ---
@@ -124,29 +154,44 @@ The following image shows the example document used with this example config:
 ## Method category variations
 
 ### Layout-based method
-- Opening: imperative, describes physical extraction ("Extracts lines...", "Extracts data in a rectangular region...")
-- Always references Global parameters note
-- Example always includes an actual PDF config + output
+- Opening: imperative verb — "Extracts...", "Matches...", "Returns..."
+- Uses the global parameters note
+- Identifying param key is `id` (not `type`)
+- Example always includes config + output; example document section included when a visual helps
+- Notes section is common for performance guidance and related-methods references
 
 ### LLM-based method
-- Opening: describes what kinds of data the method extracts, and may note when to use multimodal or chaining
-- Often includes a "Prompt Tips" subsection before Parameters
-- Parameter table may have multiple sub-tables (one for the field-level params, one for the method object params)
-- Notes section is common, explaining how context-finding works
+- Opening: imperative or "This LLM-based method extracts..." both acceptable
+- Often includes a Limitations subsection before Parameters
+- May include "Prompt Tips" guidance before Parameters
+- Parameter table may have two sub-tables (field-level params + method object params)
+- Complex methods (query-group) use the 4-column `interactions` table and section separator rows
+- Notes section common for how-it-works explanation
 
 ### Computed field method
-- Opening: "Define..." or "Returns..." — describes the computation
-- Uses different note before Parameters ("in the computed field's global Method parameter")
+- Opening: "Define...", "Maps...", "Concatenates...", "Returns..."
+- Uses the computed field global method note (not layout-based note)
+- Identifying param key is `id`
 - Config examples use `"computed_fields": [...]` array, not `"fields": [...]`
-- Commonly references `parsed_document` in descriptions
+- Commonly accesses `parsed_document` in examples
 
 ### Preprocessor
-- Opening: imperative, describes what it does to the document before extraction
-- No "Global parameters" note (preprocessors don't share a global method object)
-- Config examples show the preprocessor in a `"preprocessors": [...]` array
-- Examples often omit the Example document section if the visual isn't helpful
+- Opening: imperative — "Merges...", "Ignores...", "Configures..."
+- No global parameters note
+- Identifying param key is `type` (not `id`), e.g., `"type": "mergeLines"`
+- Config examples use `"preprocessors": [...]` array
+- Examples often use PROBLEM/SOLUTION pattern for troubleshooting scenarios
+- Parameters section uses `# Parameters` (H1)
+
+### Object page (anchor, match)
+- Opening: defines what the object is — "An anchor is a string, Match object, or array of Match objects."
+- Uses `## Parameters` (H2), not H1
+- May use `values` (plural) in the value column header — but prefer `value` (singular) for new pages
+- Includes code examples inline (simple syntax shown before the parameters table)
+- Notes section for advanced usage links
 
 ### Sections
-- Opening: describes what "sections" are and what the method enables
+- Opening: describes what "sections" are as a concept
 - Config examples use `"type": "sections"` on a field with a nested `"fields"` array
 - Often includes diagrams showing horizontal vs. vertical section directions
+- Examples are extensive — links to separate example pages rather than inline examples
