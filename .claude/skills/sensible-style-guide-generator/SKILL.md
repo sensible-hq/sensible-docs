@@ -1,9 +1,9 @@
 ---
 name: sensible-style-guide-generator
-description: Generates or refreshes the Sensible SenseML docs style guide by fetching and analyzing existing reference pages via the sensible-docs MCP server. Use this skill whenever asked to generate, update, or refresh the style guide, or when the style guide files at .claude/style-guide/ are missing or stale. Also invoke before writing a batch of new SenseML reference pages from scratch.
+description: Generates or refreshes the Sensible SenseML docs style guide by reading existing reference pages from the published docs and analyzing their conventions. Use this skill whenever asked to generate, update, or refresh the style guide, or when the style guide files at .claude/style-guide/ are missing or stale. Also invoke before writing a batch of new SenseML reference pages from scratch.
 ---
 
-You are generating or refreshing the local style guide for Sensible SenseML reference documentation. The output files are consumed by LLM agents — particularly the `update-docs-from-pr` skill — when writing new reference pages. Pre-seeded versions already exist at `.claude/style-guide/`; your job is to re-analyze the live docs and update them if conventions have drifted.
+You are generating or refreshing the local style guide for Sensible SenseML reference documentation. The output files are consumed by LLM agents — particularly the `update-docs-from-pr` skill — when writing new reference pages. Pre-seeded versions already exist at `.claude/style-guide/`; your job is to re-analyze the published docs and update them if conventions have drifted.
 
 ## Output location
 
@@ -15,9 +15,11 @@ Write (or overwrite) these three files:
 
 ---
 
-## Step 1: Fetch representative pages
+## Step 1: Find page URLs
 
-Use the `mcp__sensible-docs__fetch` tool to fetch the following pages. Fetch all in parallel.
+Fetch `https://docs.sensible.so/llms.txt`. It lists every doc page as a direct markdown URL in the format `https://docs.sensible.so/docs/[slug].md`.
+
+Find the URLs for these pages:
 
 **Layout-based methods:** label, region, box, row, fixed-table
 **LLM-based methods:** query-group, list, nlp-table
@@ -28,34 +30,40 @@ Use the `mcp__sensible-docs__fetch` tool to fetch the following pages. Fetch all
 
 ---
 
-## Step 2: Analyze for patterns
+## Step 2: Fetch all pages in parallel
 
-Before rewriting the output files, look for these things across the fetched pages:
+Fetch all the `.md` URLs from Step 1 in parallel using WebFetch. Each returns raw markdown — the published source for that reference page.
+
+---
+
+## Step 3: Analyze for patterns
+
+Before rewriting the output files, look for these things across the pages:
 
 **Page structure**
 - What sections appear, in what order? Which are present on every page vs optional?
 - Are `# Parameters` and `# Examples` always H1? Are there H2 variants and, if so, when?
-- Which pages have jump links (the `[**Parameters**](doc:...)` block) after the opening paragraph? Is there a rule — e.g., only pages with a Notes section, or only pages above a certain length?
+- Which pages have jump links (the `[**Parameters**](doc:...)` block) after the opening paragraph?
 - Does the parameter table always use `key`, `value`, `description` as column headers? Note any exceptions.
 
 **Voice and tone**
-- What grammatical form are opening sentences? (Imperative "Extracts...", third-person "The X method extracts...", or both?)
-- When does "you" appear vs "Sensible" as the subject? Is there a pattern by section?
-- Are there passive-voice sentences? Where?
+- What grammatical form are opening sentences?
+- When does "you" appear vs "Sensible" as the subject?
+- Any passive voice? Where?
 
 **Conventions**
-- How are parameter names capitalized in prose (Title Case, lowercase, backticked)?
-- When are JSON values/strings backtick-quoted vs plain in prose?
-- What is the exact wording of the note that precedes parameter tables ("**Note:** For additional parameters...")?
+- How are parameter names capitalized in prose?
+- When are JSON values/strings backtick-quoted vs plain?
+- What is the exact wording of the note that precedes parameter tables?
 - What is the exact format of the example document download table?
 
 **Terminology**
-- What specific nouns are used consistently for: the JSON config, the extracted result, the text Sensible searches for, a document excerpt sent to an LLM?
-- Are any terms used inconsistently across pages? Flag them.
+- What specific nouns are used consistently for key concepts?
+- Are any terms used inconsistently? Flag them.
 
 ---
 
-## Step 3: Rewrite the output files
+## Step 4: Rewrite the output files
 
 Use the pre-seeded content as a baseline. Update or correct anything that has changed, and add patterns you observed that weren't captured. Remove anything that turns out not to be a real convention.
 
