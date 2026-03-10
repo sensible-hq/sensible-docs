@@ -31,7 +31,7 @@ See the following sections for more information:
 
 The following parameters are available to most\* types of Match objects. 
 
-| key           | values                  | description                                                  |
+| key           | value                   | description                                                  |
 | ------------- | ----------------------- | ------------------------------------------------------------ |
 | minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. |
 | maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. |

@@ -14,7 +14,7 @@ Use the following  [methods](doc:method) to extract structured data from documen
 
 ## Layout-based methods
 
-| Method                                       | Image                                                        | Notes                                                        |
+| method                                       | image                                                        | notes                                                        |
 | -------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **[Box](doc:box)**                           | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_1099.png) | Extracts contents from boxes with continuous borders.        |
 | **[Checkbox](doc:checkbox)**                 | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/checkbox.png) | Extracts true/false for the selection status of  checkboxes. |

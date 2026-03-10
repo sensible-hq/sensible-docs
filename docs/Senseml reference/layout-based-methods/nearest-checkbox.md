@@ -27,7 +27,7 @@ Sensible uses one of two data sources, pixels or metadata, to extract selection 
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
-| key                     | values                       | description                                                  |
+| key                     | value                        | description                                                  |
 | ----------------------- | ---------------------------- | ------------------------------------------------------------ |
 | id (**required**)       | `nearestCheckbox`            | Sensible returns true for selected checkboxes and false for unselected checkboxes. |
 | position (**required**) | `left`, `right`              | Defines the starting point for searching for the nearest checkbox. Sensible searches outward from this point in all directions.  `right`  specifies starting at the midpoint of the anchor line's right boundary, and `left` specifies starting at the midpoint of the anchor line's left boundary. |
