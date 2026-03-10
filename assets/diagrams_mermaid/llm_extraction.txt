@@ -1,9 +1,0 @@
-graph TD;
-    style A fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style B fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style C fill:#fafaf8,stroke:#000,stroke-width:1px;
-    style D fill:#fafaf8,stroke:#000,stroke-width:1px;
-
-    A["'What's the largest checking transaction?'"] -->|source_ids| B["Look in an extracted field"]
-    A -->|searchBySummarization| C["locate context using page summaries"]
-    A -->|default| D["Locate context using page chunks"]

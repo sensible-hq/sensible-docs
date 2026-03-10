@@ -20,18 +20,20 @@ The Cell Rows field type is a speedier alternative to general-purpose SenseML me
 
 # Parameters
 
-| key                      | value                                                                                  | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------ | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id (**required**)        | string                                                                                 | Specifies an ID for a group of rows to extract in the spreadsheet. Sensible ignores empty rows and extracts data under the specified Header Row to the end of the worksheet.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| type  (**required**)     | `cellRows`                                                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| headerRow (**required**) | Anchor object                                                                          | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects.                                                                                                                                                                                                                                                                                                                                   |
-| headerRowsCount          | integer. default: 1                                                                    | Specifies the number of consecutive header rows. You can specify a match in the Field object's Header parameter for any header row.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| stop                     | [Match object](doc:match) or array of Match objects. default: none                     | Stops extraction at the end of the row above the matched line. Excludes the row containing the matched line.                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| fields                   | array of [computed fields](doc:computed-field-methods) or  spreadsheet-specific fields | Specifies either:<br/><br/><br/>- fields that use a spreadsheet-specific method, `cell`. The cell method extracts a cell under the specified header for each extracted row. It contains the following parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/><br/>- fields that use [computed fields methods](doc:computed-field-methods).<br/> |
+| key                      | value                                                        | description                                                  |
+| ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| id (**required**)        | string                                                       | Specifies an ID for a group of rows to extract in the spreadsheet. Sensible ignores empty rows and extracts data under the specified Header Row to the end of the worksheet. |
+| type  (**required**)     | `cellRows`                                                   |                                                              |
+| headerRow (**required**) | Anchor object                                                | Specifies the row containing column headers, by matching the specified line or lines in the row. Sensible ignores empty cells in the header row. Contains the following parameters:<br/>-`match`: A [Match](doc:match) object or array of Match objects. |
+| headerRowsCount          | integer. default: 1                                          | Specifies the number of consecutive header rows. You can specify a match in the Field object's Header parameter for any header row. |
+| stop                     | [Match object](doc:match) or array of Match objects. default: none | Stops extraction at the end of the row above the matched line. Excludes the row containing the matched line. |
+| fields                   | array of fields that use any of the following methods:<br/>-  the `cell` method<br/>[computed field-methods](doc:computed-field-methods)<br/>- [custom computation group](doc:custom-computation-group) method | Specifies fields that use one or more of the following methods, all of which operate on each row:<br/><br/>- **`cell`**: A spreadsheet-specific method that extracts a cell under the specified header for each extracted row. Parameters:<br/>`id`: `cell`. Note: The [method](doc:method) object's global parameters aren't available for this method.<br/>`header`:  A [Match](doc:match) object that specifies the column heading under which you want to extract cells. For an example, see the following section.<br/><br/>- **Computed field methods**: Fields that use [computed field methods](doc:computed-field-methods), such as the Split, Suppress Output, or Custom Computation methods, operate on the already-extracted cell values for each row. Each field adds a computed field to each row's output.<br/><br/>- **Custom Computation Group method:** Fields that use the [Custom Computation Group](doc:custom-computation-group) method operate on the already-extracted cell values for each row. Because each field can add multiple computed fields to each row's output, this method offers more concise syntax and faster performance than the Custom Computation method. |
 
-## Examples
 
-The following example shows using a Cell Rows field to extract rows from a spreadsheet.
+
+## Example
+
+The following example extracts bestselling book data from a spreadsheet. It uses the Custom Computation Group method to convert the raw sales figures (stored in millions in the column header) to actual copy counts and to flag books with over 50 million copies sold.
 
 **Config**
 
@@ -79,8 +81,7 @@ The following example shows using a Cell Rows field to extract rows from a sprea
           }
         },
         {
-          /* get the raw sales data,
-           which includes footnotes, e.g., 50 million[47] */
+          /* get the raw sales data */
           "id": "_sales_raw",
           "method": {
             "id": "cell",
@@ -93,23 +94,54 @@ The following example shows using a Cell Rows field to extract rows from a sprea
           }
         },
         {
-          /* strip the footnotes from the sales data
-             by splitting the extracted _sales_raw string 
-             on the start of the first footnote ([)] */
-          "id": "sales",
+          /* get the raw language data*/
+          "id": "_language_raw",
           "method": {
-            "id": "split",
-            "source_id": "_sales_raw",
-            "separator": "[",
-            "index": 0
+            "id": "cell",
+            /* extract the cells under the header that includes 
+               the text `language`  */
+            "header": {
+              "type": "includes",
+              "text": "language"
+            }
+          }
+        },
+        /* map the raw language data to country codes */
+        {
+          "id": "language",
+          "method": {
+            "id": "mapper",
+            "source_id": "_language_raw",
+            "mappings": {
+              "English": "en",
+              "French": "fr",
+              "German": "de"
+            },
+            "default": "mapping doesn't exist"
           }
         },
         {
-          /* for cleaner output, hide the raw sales data */
+
+          "method": {
+            "id": "customComputationGroup",
+            "jsonLogic": {
+              "eachKey": {
+                /* the column header says 'Approximate sales in millions', so multiply by 1,000,000 to get the actual sales count.  */
+                "sales_copies": {
+                  "*": [{ "var": "_sales_raw.value" }, 1000000]
+                },
+                /*  flag highest-selling titles */
+                "over_50_million": { ">": [{ "var": "_sales_raw.value" }, 50] }
+              }
+            }
+          }
+        },
+        {
+          /* for cleaner output, hide the raw data */
           "id": "hide_fields",
           "method": {
             "id": "suppressOutput",
-            "source_ids": ["_sales_raw"]
+            "source_ids": ["_language_raw", "_sales_raw"]
           }
         }
       ]
@@ -119,7 +151,7 @@ The following example shows using a Cell Rows field to extract rows from a sprea
 
 ```
 
-**Example document**\
+**Example document**
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/cell_rows.png)
@@ -141,9 +173,17 @@ The following image shows the example document used with this example config:
         "value": "1859",
         "type": "string"
       },
-      "sales": {
-        "value": ">200 million",
+      "language": {
+        "value": "en",
         "type": "string"
+      },
+      "sales_copies": {
+        "value": 200000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": true,
+        "type": "boolean"
       }
     },
     {
@@ -155,9 +195,17 @@ The following image shows the example document used with this example config:
         "value": "1943",
         "type": "string"
       },
-      "sales": {
-        "value": "200 million",
+      "language": {
+        "value": "fr",
         "type": "string"
+      },
+      "sales_copies": {
+        "value": 200000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": true,
+        "type": "boolean"
       }
     },
     {
@@ -169,79 +217,17 @@ The following image shows the example document used with this example config:
         "value": "1988",
         "type": "string"
       },
-      "sales": {
-        "value": "150 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Harry Potter and the Philosopher's Stone",
+      "language": {
+        "value": "mapping doesn't exist",
         "type": "string"
       },
-      "first_published": {
-        "value": "1997",
-        "type": "string"
+      "sales_copies": {
+        "value": 150000000,
+        "type": "number"
       },
-      "sales": {
-        "value": "120 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "And Then There Were None",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1939",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Dream of the Red Chamber (紅樓夢)",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1791",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Hobbit",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1937",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Alice's Adventures in Wonderland",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1865",
-        "type": "string"
-      },
-      "sales": {
-        "value": "100 million",
-        "type": "string"
+      "over_50_million": {
+        "value": true,
+        "type": "boolean"
       }
     },
     {
@@ -250,7 +236,15 @@ The following image shows the example document used with this example config:
         "type": "string"
       },
       "first_published": null,
-      "sales": null
+      "language": null,
+      "sales_copies": {
+        "value": 0,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
+      }
     },
     {
       "book_title": {
@@ -261,79 +255,17 @@ The following image shows the example document used with this example config:
         "value": "1950",
         "type": "string"
       },
-      "sales": {
-        "value": "85 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "She: A History of Adventure",
+      "language": {
+        "value": "en",
         "type": "string"
       },
-      "first_published": {
-        "value": "1887",
-        "type": "string"
+      "sales_copies": {
+        "value": 85000000,
+        "type": "number"
       },
-      "sales": {
-        "value": "83 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Da Vinci Code",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "2003",
-        "type": "string"
-      },
-      "sales": {
-        "value": "80 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "Harry Potter and the Chamber of Secrets",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1998",
-        "type": "string"
-      },
-      "sales": {
-        "value": "77 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Catcher in the Rye",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1951",
-        "type": "string"
-      },
-      "sales": {
-        "value": "65 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Bridges of Madison County",
-        "type": "string"
-      },
-      "first_published": {
-        "value": "1992",
-        "type": "string"
-      },
-      "sales": {
-        "value": "60 million",
-        "type": "string"
+      "over_50_million": {
+        "value": true,
+        "type": "boolean"
       }
     },
     {
@@ -345,9 +277,17 @@ The following image shows the example document used with this example config:
         "value": "1967",
         "type": "string"
       },
-      "sales": {
-        "value": "50 million",
+      "language": {
+        "value": "mapping doesn't exist",
         "type": "string"
+      },
+      "sales_copies": {
+        "value": 50000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
       }
     },
     {
@@ -359,9 +299,17 @@ The following image shows the example document used with this example config:
         "value": "1955",
         "type": "string"
       },
-      "sales": {
-        "value": "50 million",
+      "language": {
+        "value": "en",
         "type": "string"
+      },
+      "sales_copies": {
+        "value": 50000000,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
       }
     },
     {
@@ -373,23 +321,17 @@ The following image shows the example document used with this example config:
         "value": "1880",
         "type": "string"
       },
-      "sales": {
-        "value": "50 million",
-        "type": "string"
-      }
-    },
-    {
-      "book_title": {
-        "value": "The Common Sense Book of Baby and Child Care",
+      "language": {
+        "value": "de",
         "type": "string"
       },
-      "first_published": {
-        "value": "1946",
-        "type": "string"
+      "sales_copies": {
+        "value": 50000000,
+        "type": "number"
       },
-      "sales": {
-        "value": "50 million",
-        "type": "string"
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
       }
     },
     {
@@ -398,7 +340,15 @@ The following image shows the example document used with this example config:
         "type": "string"
       },
       "first_published": null,
-      "sales": null
+      "language": null,
+      "sales_copies": {
+        "value": 0,
+        "type": "number"
+      },
+      "over_50_million": {
+        "value": false,
+        "type": "boolean"
+      }
     }
   ]
 }

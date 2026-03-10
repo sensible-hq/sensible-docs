@@ -56,6 +56,8 @@ The full `docs/` directory structure is:
 
 Use the hints from `$ARGUMENTS` and the PR content to determine which areas are relevant. Use Grep to search for existing mentions of changed features/parameters across the docs tree before deciding what to update.
 
+Use the hints from `$ARGUMENTS` and the PR content to determine which areas are relevant. Use Grep to search for existing mentions of changed features/parameters across the docs tree before deciding what to update.
+
 Read the existing files that are relevant to the PR's changes.
 
 ## Step 3 — Plan the changes

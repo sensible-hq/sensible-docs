@@ -81,3 +81,7 @@ The following images show the example document used with this example config:
   }
 }
 ```
+
+## Notes
+
+As an alternative to this preprocessor, remove misaligned text that interferes with Sensible's default rotation correction. To remove misaligned text, you can use the [Remove Lines](doc:remove-lines), [Remove Header](doc:remove-header), and [Remove Footer](doc:remove-footer) preprocessors.

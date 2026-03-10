@@ -72,8 +72,8 @@ def get_or_create_doc_type(name: str) -> str:
 def publish_config(doc_type_id: str, config_name: str, config_path: Path) -> None:
     """Create or update a configuration, publishing to production."""
     config_text = config_path.read_text(encoding="utf-8")
-    # Validate JSON
-    json.loads(config_text)
+    # Note: configs may use relaxed JSON (trailing commas, comments) accepted by
+    # the Sensible engine, so we skip strict local validation and let the API validate.
 
     body = {
         "name": config_name,
@@ -98,10 +98,17 @@ def publish_config(doc_type_id: str, config_name: str, config_path: Path) -> Non
 
 def upload_golden(doc_type_id: str, golden_path: Path, config_name: str) -> None:
     """Upload a golden PDF as a reference document associated with a config."""
-    golden_name = golden_path.stem  # filename without .pdf
+    # API requires name with only lowercase letters, numbers, and underscores.
+    # Replace dots and other disallowed chars with underscores so that
+    # e.g. "cells.xlsm" → "cells_xlsm" and "cells.xlsx" → "cells_xlsx".
+    import re
+    golden_name = re.sub(r"[^a-z0-9_]", "_", golden_path.name.lower())
 
     body = {"name": golden_name, "configuration": config_name}
     result = api_request("POST", f"/document_types/{doc_type_id}/goldens", body)
+    if not result or "upload_url" not in result:
+        # Golden may already exist — try regenerating the upload URL via PUT
+        result = api_request("PUT", f"/document_types/{doc_type_id}/goldens/{golden_name}", body)
     if not result or "upload_url" not in result:
         print(f"Error: could not get upload URL for '{golden_name}'", file=sys.stderr)
         sys.exit(1)

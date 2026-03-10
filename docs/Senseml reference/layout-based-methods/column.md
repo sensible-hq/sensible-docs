@@ -23,11 +23,11 @@ Extracts all lines below or above the anchor line on the current page if:
 
 # Parameters
 
-| key               | values                             | description                                                                                                                                   |
-| :---------------- | :--------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| id (**required**) | `column`                           |                                                                                                                                               |
-| tiebreaker        | tiebreaker                         | For information about this global parameter, see [Method](doc:method#parameters).                                                             |
-| includeAnchor     | `true`, `false`. default: false    | Includes the anchor line in the method output                                                                                                 |
+| key               | value                              | description                                                  |
+| :---------------- | :--------------------------------- | :----------------------------------------------------------- |
+| id (**required**) | `column`                           |                                                              |
+| tiebreaker        | tiebreaker                         | For information about this global parameter, see [Method](doc:method#parameters). |
+| includeAnchor     | `true`, `false`. default: false    | Includes the anchor line in the method output                |
 | position          | `below`, `above`. default: `below` | Matches above or below the anchor line. For example, if you anchor on the bottom line of a column, set this to `above` to extract the column. |
 
 # Examples
