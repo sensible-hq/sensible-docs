@@ -1,12 +1,12 @@
 ---
 name: update-docs-from-pr
-description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR.
+description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR. Handles both updating existing pages and creating new pages. If you already know which type of change is needed, use update-existing-doc or create-new-doc directly for a more focused workflow.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
 ---
 
-You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo.
+You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo. This skill handles both updating existing pages and creating new pages — use it when you're not sure which is needed, or when a PR requires both.
 
 Parse **$ARGUMENTS** as follows:
 - **First token**: the PR number to analyze
@@ -64,6 +64,9 @@ Read the existing files that are relevant to the PR's changes.
 - `.claude/style-guide/style-guide-overview.md` — page structure, voice, formatting, cross-reference syntax
 - `.claude/style-guide/reference-topic-template.md` — fillable template for new reference pages
 - `.claude/style-guide/sentence-word-guidance.md` — parameter descriptions, terminology, capitalization
+
+For **updating existing pages**, also read:
+- `.claude/preferences/editorial-preferences.md` — Frances's editorial corrections and preferences
 
 Apply this guidance when writing or editing. For new pages, use the template as your starting structure.
 
