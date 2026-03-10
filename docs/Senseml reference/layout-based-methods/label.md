@@ -12,7 +12,7 @@ next:
 ---
 Extracts lines or parts of lines proximate to the anchor point.
 
-**Note:** Because of its sensitivity to line spacing, this method can be very brittle. Where possible, use alternatives to this method such as the [Row](doc:row) method or the [Region](doc:region) method.
+**Note:** Because of its sensitivity to line spacing, this method can be very brittle. Where possible, use alternatives to this method such as the [Row](doc:row) method, the [Passthrough](doc:passthrough) method, or the [Region](doc:region) method.
 
 [**Parameters**](doc:label#parameters)\
 [**Examples**](doc:label#examples)
