@@ -33,7 +33,7 @@ The Cell Rows field type is a speedier alternative to general-purpose SenseML me
 
 ## Example
 
-The following example extracts bestselling book data from a spreadsheet. It uses `customComputationGroup` to convert the raw sales figures (stored in millions in the column header) to actual copy counts and to flag books with over 50 million copies sold.
+The following example extracts bestselling book data from a spreadsheet. It uses the Custom Computation Group method to convert the raw sales figures (stored in millions in the column header) to actual copy counts and to flag books with over 50 million copies sold.
 
 **Config**
 
@@ -151,7 +151,7 @@ The following example extracts bestselling book data from a spreadsheet. It uses
 
 ```
 
-**Example document**\
+**Example document**
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/cell_rows.png)
