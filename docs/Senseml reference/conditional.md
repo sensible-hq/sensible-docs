@@ -14,7 +14,7 @@ Use the Conditional method to handle [document variations](doc:document-variatio
 
 The following simplified code snippet shows an overview of the Conditional method: 
 
-```json
+```yml
 id: conditional
 condition: JsonLogic # condition about already-extracted fields. must output a boolean 
 fieldsOnPass: [] # fields to extract if the boolean is true

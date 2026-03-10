@@ -5,12 +5,14 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract labeled values'
+  description: 'Extract labeled values. Note this method is brittle, so use alternative methods where possible
   robots: index
 next:
   description: ''
 ---
-Extracts lines or parts of lines proximate to the anchor point. This method is sensitive to line spacing. 
+Extracts lines or parts of lines proximate to the anchor point.
+
+**Note:** Because of its sensitivity to line spacing, this method can be very brittle. Where possible, use alternatives to this method such as the [Row](doc:row) method or the [Region](doc:region) method.
 
 [**Parameters**](doc:label#parameters)\
 [**Examples**](doc:label#examples)
