@@ -56,21 +56,21 @@ The full `docs/` directory structure is:
 
 Use the hints from `$ARGUMENTS` and the PR content to determine which areas are relevant. Use Grep to search for existing mentions of changed features/parameters across the docs tree before deciding what to update.
 
-Read the existing files that are relevant to the PR's changes. Understand the writing style, parameter table format, and example structure before making any edits.
+Read the existing files that are relevant to the PR's changes.
 
 ## Step 3 — Plan the changes
+
+**Load the style guide.** Before writing anything, read these three files:
+- `.claude/style-guide/style-guide-overview.md` — page structure, voice, formatting, cross-reference syntax
+- `.claude/style-guide/reference-topic-template.md` — fillable template for new reference pages
+- `.claude/style-guide/sentence-word-guidance.md` — parameter descriptions, terminology, capitalization
+
+Apply this guidance when writing or editing. For new pages, use the template as your starting structure.
 
 For each doc change needed, determine whether to:
 - **Create** a new `.md` file (for a new preprocessor, method, etc.)
 - **Update** an existing file (for new parameters on an existing feature)
 - **Update `index.md`** for the relevant section (whenever a new page is added)
-
-Follow these conventions from the existing docs:
-- Frontmatter: `title`, `excerpt: ''`, `deprecated: false`, `hidden: false`, `metadata` (title, description, robots), `next: {description: ''}`
-- Parameters are documented in markdown tables with columns: `key`, `value`/`values`, `description`
-- Required parameters are marked **required** in the key column
-- Examples use fenced ```json blocks with `**Config**`, `**Example document**`, `**Output**` subheadings
-- Cross-references use `doc:` links, e.g. `[Match](doc:match)`
 
 ## Step 4 — Create a branch and make the changes
 
