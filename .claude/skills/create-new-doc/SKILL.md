@@ -39,12 +39,15 @@ The full `docs/` structure:
 
 ## Step 3 — Load your guidance
 
-Read all three style guide files before writing:
-- `.claude/style-guide/style-guide-overview.md` — page structure, section order, H1/H2 rules, image format, cross-reference syntax
-- `.claude/style-guide/reference-topic-template.md` — fillable template with category-specific variants (layout-based, LLM-based, computed field, preprocessor, object page)
+Read the shared style files:
+- `.claude/style-guide/style-guide-overview.md` — page structure, voice, formatting, cross-reference syntax
 - `.claude/style-guide/sentence-word-guidance.md` — parameter descriptions, value column formats, terminology
 
-Use the template variant that matches the category of the new feature.
+Then read the template that matches the page type:
+- **SenseML reference page** (new method, preprocessor, field type, etc.): `.claude/style-guide/reference-topic-template.md` — includes category-specific variants (layout-based, LLM-based, computed field, preprocessor, object page)
+- **Integration guide** (new Zapier/SDK/API tutorial): `.claude/style-guide/integration-guide-template.md`
+
+Use the template that matches the type of page you're creating.
 
 ## Step 4 — Write the new page
 
