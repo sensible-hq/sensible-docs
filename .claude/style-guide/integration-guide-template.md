@@ -2,6 +2,8 @@
 
 Use this template when creating a new Sensible integration guide. Replace all `[PLACEHOLDER]` text. Comments in `<!-- -->` are guidance — remove them from the final file.
 
+**File naming and visibility**: New integration guides are created as drafts. Name the file `draft-[slug].md` (e.g., `draft-make-tutorial.md`) and set `hidden: true` in the frontmatter. Remove the `draft-` prefix and change `hidden` to `false` only when the guide is ready to publish.
+
 The shared style conventions (voice, backtick usage, parameter capitalization, cross-reference syntax) are in `style-guide-overview.md` and `sentence-word-guidance.md`. This file covers structure specific to integration guides.
 
 ---
@@ -13,7 +15,7 @@ The shared style conventions (voice, backtick usage, parameter capitalization, c
 title: [Integration Name] tutorial
 excerpt: ''
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   title: ''
   description: '[short phrase, 4–7 words, lowercase except proper nouns]'
@@ -117,33 +119,44 @@ Congratulations, your integration is now published and running! Take the followi
 ## Section-by-section guidance
 
 ### Opening sentence
+
 - Pattern: "This topic describes [doing X] using [integration]."
 - One or two sentences max. State the destination system and the integration platform.
 - Don't start with "In this guide" or "This guide will show you."
 
 ### Prerequisites
-- Use `## Prerequisite: [action phrase]` — one heading per system or major setup task.
+
+- Two valid patterns for prerequisite headings:
+  - `## Prerequisite: [action phrase]` — used in multi-system guides (e.g. advanced Zapier). One heading per system or major setup task.
+  - Descriptive action heading without "Prerequisite:" prefix (e.g. `## Create an example Sensible extraction`, `## Create an empty destination database`) — used in simpler single-flow guides.
 - The action phrase is imperative and specific: "Configure 1040 extractions in Sensible", not "Sensible setup".
 - When a prerequisite requires only a single step (e.g., "Clone this document type"), prose is acceptable. For multi-step setup, use a numbered list.
 
 ### Main steps
+
 - Organize by platform or phase (Zap 1 / Zap 2, Configure Sensible / Configure Salesforce / Configure Zapier).
 - Each section opens with "Take the following steps to [X]:" or "See the following steps to configure [Y]:".
-- Nested structure for UI configuration: Setup → Configure → Test, each as a bold inline label (`1. Setup:`) with sub-numbered items for each field.
+- A prose sentence can precede the opener when context is needed: "Before you can integrate Sensible with [Platform], you need to [reason]. Take the following steps:"
+- **Multi-system guides** (multiple platforms or Zaps to configure): Use the nested Setup → Configure → Test sub-structure, each as a plain inline label (`1. Setup:`) followed by bold UI field/value pairs.
+- **Single-flow guides** (one platform, one Zap): Use a flat numbered list with nested sub-steps inline. No Setup/Configure/Test sub-sections.
 - UI field names are always bold: `**Document type**`, `**Environment**`, `**Account**`.
 
 ### Images
+
 - Place after a configuration block to show the resulting state, not before.
 - Always use `![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/[filename].png)`.
 - No caption text beyond the alt text.
 
 ### Optional test section
+
 - Heading is always `## (Optional) Test your integration`.
 - Opens with "Congratulations, your integration is now published and running!"
 - Numbered steps for downloading examples, triggering the workflow, and verifying output.
+- After the test section, simple guides can include a second optional section `## (Optional) Scale up` describing how to extend the workflow to handle more complex or automated scenarios. This section is brief (2–4 sentences or a short list) and ends with a cross-reference to the advanced guide.
 
 ### Notes
-- `# Notes` — H1, same as SenseML reference pages.
+
+- `# Notes` — H1, same as SenseML reference pages. (Some existing pages incorrectly use `## Notes`; use H1 for new guides.)
 - Bold inline sub-headers for each topic (not `##` or `###`).
 - Bullet list of limitations under each sub-header.
 - Common topics: general limitations on what the integration supports (single-value vs. multi-value output, single-document vs. portfolio), platform-specific quirks (timing, file age restrictions).

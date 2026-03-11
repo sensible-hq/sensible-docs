@@ -1,11 +1,11 @@
 ---
-title: Advanced Zapier tutorial
+title: Integrate with Slack and Google Sheets using Zapier
 excerpt: ''
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Advanced Zapier integration patterns'
+  description: 'integrate Sensible with slack and google drive using Zapier'
   robots: index
 next:
   description: ''
