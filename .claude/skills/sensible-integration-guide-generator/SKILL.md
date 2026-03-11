@@ -13,6 +13,28 @@ Write (or overwrite) this file:
 
 ---
 
+## Step 0: Ask for the example document type
+
+Before doing anything else, ask the user which document type they want to use as the example throughout the integration guide. Read `.claude/style-guide/config-library-supported-document-types.md` and display the full list grouped by category. Wait for their answer before proceeding.
+
+Use the chosen doc type consistently wherever a specific document type appears as an example — for instance, in step instructions, **Document type** field values, and the opening sentence of any guide drafted from this template.
+
+---
+
+## Step 0.5: Fetch sample field names for the chosen doc type
+
+Look up the category for the chosen doc type in `.claude/style-guide/config-library-supported-document-types.md`. Then browse the configurations directory on GitHub:
+
+`https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/[Category]/[Doc Type]/configurations`
+
+Pick one configuration file (any is fine) and fetch its raw content from:
+
+`https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/[Category]/[Doc Type]/configurations/[filename].json`
+
+Extract the field names (the `"id"` values inside the `"fields"` arrays). Keep a working list of 3–6 representative field names to use as concrete examples throughout the guide — for instance, as output field names shown in a Zapier action step or an API response snippet.
+
+---
+
 ## Step 1: Find page URLs
 
 Fetch `https://docs.sensible.so/llms.txt`. It lists every doc page as a direct markdown URL in the format `https://docs.sensible.so/docs/[slug].md`.
