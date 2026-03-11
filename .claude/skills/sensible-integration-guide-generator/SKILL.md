@@ -65,3 +65,8 @@ Before rewriting the output file, look for these things across the pages:
 Use the pre-seeded content as a baseline. Update or correct anything that has changed, and add patterns you observed that weren't captured. Remove anything that turns out not to be a real convention.
 
 Write for an LLM agent reader: direct, rule-based, with real examples quoted from the docs. Structural rules ("Prerequisites use `## Prerequisite: [action]` headings") are more useful than vague descriptions ("there are prerequisites before the main steps").
+
+Make sure the template includes the following file and frontmatter conventions at the top of the document (before the template block):
+- New guides are named `draft-[slug].md` (e.g., `draft-make-tutorial.md`)
+- New guides use `hidden: true` in the frontmatter
+- The `draft-` prefix and `hidden: true` are removed only when the guide is ready to publish
