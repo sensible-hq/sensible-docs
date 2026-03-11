@@ -13,6 +13,14 @@ Write (or overwrite) this file:
 
 ---
 
+## Step 0: Ask for the example document type
+
+Before doing anything else, ask the user which document type they want to use as the example throughout the integration guide. Read `.claude/style-guide/config-library-supported-document-types.md` and display the full list grouped by category. Wait for their answer before proceeding.
+
+Use the chosen doc type consistently wherever a specific document type appears as an example — for instance, in step instructions, **Document type** field values, and the opening sentence of any guide drafted from this template.
+
+---
+
 ## Step 1: Find page URLs
 
 Fetch `https://docs.sensible.so/llms.txt`. It lists every doc page as a direct markdown URL in the format `https://docs.sensible.so/docs/[slug].md`.
