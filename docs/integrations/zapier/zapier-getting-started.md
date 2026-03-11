@@ -1,5 +1,5 @@
 ---
-title: Zapier tutorial- integrate with Airtable
+title: Integrate with Airtable using Zapier
 excerpt: ''
 deprecated: false
 hidden: false
