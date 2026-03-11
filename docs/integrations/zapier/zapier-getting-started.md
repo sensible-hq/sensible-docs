@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Getting started with Sensible and Zapier'
+  description: 'Get started with Zapier by learning to integrate Sensible and Airtable'
   robots: index
 next:
   description: ''
