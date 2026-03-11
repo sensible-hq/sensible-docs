@@ -104,8 +104,10 @@ Congratulations, your integration is now published and running! Take the followi
 
 ## (Optional) Scale up
 
-You can extract from more documents automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google drive, email, or other supported Zapier apps.\
-Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/zapier_action.png)
+You can extract from more documents automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google drive, Salesforce, or other supported Zapier apps.\
+Then send the extraction to the destination of your choice with a Sensible action.  For more information, see [Advanced Zapier tutorial](doc:zapier-tutorial-2).
+
+**Note:**  Sensible offers native support for automatically extract from email attachments. Instead of using Zapier for emails, see [Getting started with email extractions](https://docs.sensible.so/docs/getting-started-email).
 
 # Notes
 

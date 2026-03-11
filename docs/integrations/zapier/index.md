@@ -25,7 +25,7 @@ You can automatically create records like these using Zapier and Sensible. When 
 * Run extractions in Sensible and then act on the data with a **Sensible trigger**.
 * Trigger extractions automatically outside of Sensible, then act on the data with a **Sensible action**.
 
-**Note:** If you want to trigger Sensible extractions of emails, see instead [Getting started with email extractions](doc:getting-started-email).
+**Note:**  Sensible offers native support for automatically extract from email attachments. Instead of using Zapier for emails, see [Getting started with email extractions](https://docs.sensible.so/docs/getting-started-email).
 
 ## Sensible trigger
 
