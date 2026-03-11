@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'integrate Sensible with slack and google drive using Zapier'
+  description: 'integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form example documents'
   robots: index
 next:
   description: ''

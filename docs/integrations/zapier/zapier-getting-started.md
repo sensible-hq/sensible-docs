@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Get started with Zapier by learning to integrate Sensible and Airtable'
+  description: 'Get started with Zapier by learning to integrate Sensible and Airtable for sample 1040 tax forms'
   robots: index
 next:
   description: ''
