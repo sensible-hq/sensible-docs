@@ -6,11 +6,10 @@ This file captures Frances's editorial judgment — corrections made to Claude's
 
 ## Examples
 
-**Use one example that demonstrates the feature, not a basic + advanced pair.**
-When a PR adds a new capability to an existing method, the example should showcase that capability directly. Don't add a "Basic example" first just to warm up — readers can follow a well-structured single example. Two examples side by side create cognitive overhead: readers wonder what's different and why both are needed.
+**Evaluate updating existing examples before authoring new ones**
+When a PR adds a new capability to an existing method, check existing examples to see if the new capacity can be incorporated to create a good combined example. if not, create a new example.
 
-**Truncate output to 2–3 representative rows, then `"..."`.**
-Never show the full output when the document has more than 3–4 rows/items. The reader needs to recognize the pattern, not verify every extracted value. Use `"..."` as a placeholder for omitted rows.
+
 
 **Use realistic, meaningful example data.**
 Pick example data that illustrates *why* the feature is useful. A computation that converts sales figures from millions to copies, or derives a boolean flag, is more instructive than `Widget/Gadget` or generic placeholder rows. The example data should help the reader grasp the use case, not just confirm the config runs.
@@ -22,11 +21,11 @@ Pick example data that illustrates *why* the feature is useful. A computation th
 **Scenario-first, not mechanism-first.**
 Lead with what the user experiences or what Sensible does, then explain how to configure it. The user's mental model starts with their problem, not the implementation.
 
-- **Preferred:** "Sensible can treat an attachment as a portfolio — a single file containing multiple documents — and extract each one separately."
+- **Preferred:** "If your email attachments include single files containing multiple documents (portfolios) Sensible can segment the file and extract each sub-document separately."
 - **Avoid:** "You can configure an attachment spec to use portfolio extraction, where Sensible treats a single attachment as a multi-document file."
 
-**Don't compare to other Sensible APIs unless the user needs to choose between them.**
-Explaining that email portfolio config differs from the direct extraction API creates confusion for readers who haven't encountered the API. Include API comparisons only when the reader is actively choosing between approaches.
+**Compare to other Sensible features if the user can choose between them.**
+Include comparisons only when the reader has an active choice between alternate approaches to the same problem, and indicate examples of when to choose one over the other, or pros and cons.
 
 ---
 
@@ -72,9 +71,3 @@ If new content is 1–3 sentences that extends an existing topic, work it into t
 **Why:** These filter criteria aren't configurable by the user via API — they're communicated to Sensible when setting up a processor. A reference table implies the user controls them directly, which is misleading.
 
 ---
-
-**What Claude did:** Added `### Environments` as a new H3 section with email address format + webhook routing behavior.
-
-**What Frances did:** Kept as-is.
-
-**Why:** This section has enough distinct content (address format, code example, two behavioral rules) to warrant its own heading.
