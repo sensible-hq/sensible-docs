@@ -1,4 +1,4 @@
-name: Sync docs and llms.txt
+name: Sync llms.txt to docs
 
 on:
   push:
