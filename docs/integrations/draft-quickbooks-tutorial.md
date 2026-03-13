@@ -106,6 +106,118 @@ You can extract from more bank statements automatically by building a more compl
 
 **Note:** Sensible offers native support for automatically extracting from email attachments. Instead of using Zapier for emails, see [Getting started with email extractions](https://docs.sensible.so/docs/getting-started-email).
 
+
+
+## (Optional) Automate with Python
+
+As an alternative to Zapier, you can use Sensible's Python SDK and the `python-quickbooks` library to extract bank statements and post journal entries to QuickBooks Online in a single script. This approach gives you full control over the data transformation and is suitable for batch processing or server-side automation.
+
+### Prerequisites
+
+Install the required libraries:
+
+```bash
+pip install sensibleapi python-quickbooks intuit-oauth
+```
+
+Set the following environment variables:
+
+| Variable | Description |
+| --- | --- |
+| `SENSIBLE_API_KEY` | Your Sensible API key, available on your [account page](https://app.sensible.so/account/). |
+| `QBO_CLIENT_ID` | Your QuickBooks app's client ID, available in the [Intuit Developer Portal](https://developer.intuit.com/). |
+| `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. |
+| `QBO_REFRESH_TOKEN` | A valid OAuth 2.0 refresh token for your QuickBooks Online company. |
+| `QBO_REALM_ID` | Your QuickBooks Online company ID (also called Realm ID). |
+| `QBO_BANK_ACCOUNT_ID` | The QuickBooks account ID for the bank account to debit. Find it under **Accounting** > **Chart of Accounts**. |
+| `QBO_EQUITY_ACCOUNT_ID` | The QuickBooks account ID for the offsetting equity account (for example, Opening Balance Equity). |
+
+**Note:** To obtain a refresh token, complete the OAuth 2.0 authorization flow once using the Intuit Developer Portal's OAuth Playground or your app's auth endpoint. The script uses the refresh token to generate access tokens automatically on each run.
+
+### Script
+
+```python
+import os
+from sensibleapi import SensibleSDK
+from intuitlib.client import AuthClient
+from quickbooks import QuickBooks
+from quickbooks.objects.journalentry import JournalEntry, JournalEntryLine, JournalEntryLineDetail
+from quickbooks.objects.base import Ref
+
+# ── Sensible extraction ────────────────────────────────────────────────────────
+
+sensible = SensibleSDK(os.environ["SENSIBLE_API_KEY"])
+
+request = sensible.extract(
+    path="./bank_statement.pdf",   # replace with your file path
+    document_type="bank_statements",
+    environment="production",
+)
+result = sensible.wait_for(request)
+
+parsed = result["parsed_document"]
+
+# Extract the fields we need; .get() returns None if a field wasn't extracted
+end_date         = (parsed.get("end_date")          or {}).get("value")
+customer_name    = (parsed.get("customer_name")     or {}).get("value")
+ending_balance   = (parsed.get("ending_balance")    or {}).get("value")
+beginning_balance = (parsed.get("beginning_balance") or {}).get("value")
+
+if ending_balance is None or beginning_balance is None:
+    raise ValueError("Required balance fields not found in extraction. Check the document or config.")
+
+# ── QuickBooks Online auth ─────────────────────────────────────────────────────
+
+auth_client = AuthClient(
+    client_id=os.environ["QBO_CLIENT_ID"],
+    client_secret=os.environ["QBO_CLIENT_SECRET"],
+    redirect_uri="https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl",
+    environment="production",
+)
+auth_client.refresh(refresh_token=os.environ["QBO_REFRESH_TOKEN"])
+
+qb_client = QuickBooks(
+    auth_client=auth_client,
+    refresh_token=os.environ["QBO_REFRESH_TOKEN"],
+    company_id=os.environ["QBO_REALM_ID"],
+)
+
+# ── Build journal entry ────────────────────────────────────────────────────────
+# Journal entries must balance: total debits == total credits.
+# Here we debit the bank account by the ending balance and credit
+# an equity account by the same amount as a reconciliation entry.
+
+def make_line(amount, posting_type, account_id):
+    detail = JournalEntryLineDetail()
+    detail.PostingType = posting_type
+    account_ref = Ref()
+    account_ref.value = account_id
+    detail.AccountRef = account_ref
+
+    line = JournalEntryLine()
+    line.Amount = abs(float(amount))
+    line.DetailType = "JournalEntryLineDetail"
+    line.JournalEntryLineDetail = detail
+    return line
+
+journal_entry = JournalEntry()
+journal_entry.TxnDate = str(end_date) if end_date else None
+journal_entry.PrivateNote = (
+    f"Bank statement reconciliation — {customer_name}. "
+    f"Beginning balance: {beginning_balance}"
+)
+
+journal_entry.Line.append(
+    make_line(ending_balance, "Debit",  os.environ["QBO_BANK_ACCOUNT_ID"])
+)
+journal_entry.Line.append(
+    make_line(ending_balance, "Credit", os.environ["QBO_EQUITY_ACCOUNT_ID"])
+)
+
+saved = journal_entry.save(qb=qb_client)
+print(f"Journal entry created: ID {saved.Id}, date {saved.TxnDate}")
+```
+
 # Notes
 
 **Limitations**
@@ -118,3 +230,4 @@ You can extract from more bank statements automatically by building a more compl
 * This integration supports QuickBooks Online only. QuickBooks Desktop is not supported via Zapier.
 * Journal entries created via Zapier appear as unreviewed in QuickBooks Online. Review and approve entries in QuickBooks before using them for reconciliation.
 * Zapier ignores uploaded files in Google Drive whose create or modified date is older than 4 days when using **New file in folder** as the Sensible action trigger.
+
