@@ -10,44 +10,37 @@ metadata:
 next:
   description: ''
 ---
-Intelligent document processing (IDP) automates extracting structured data from documents so that business systems can consume and act on it. The core challenge of IDP is document variability. In terms of content, documents range from highly templated tax forms to free-form legal contracts, and no single extraction technique handles both ends of that spectrum well.  In terms of file format, PDFs, emails, spreadsheets, and images present varying OCR and processing speed challenges.
+Intelligent document processing (IDP) automates extracting structured data from documents so that business systems can consume and act on it. The core challenge of IDP is document variability — no single extraction technique handles the full range of documents that real organizations deal with.
 
-Sensible addresses these challenges by combining two complementary extraction strategies in a single query language, [SenseML](doc:senseml-reference-introduction).
-
-## The document landscape
+## The document variability problem
 
 Document content varies along two axes: **structure** (how consistently the layout is arranged) and **variability** (how many format revisions or issuer variations exist).
 
-At one extreme, a standard W-2 form has a predictable, fixed layout. The same fields appear in the same positions across issuers and years. At the other extreme, a legal contract from a new counterparty may be entirely free form, with no fixed layout and no guaranteed field positions.
-
-Most business documents fall somewhere in between:
+At one extreme, a standard W-2 form has a predictable, fixed layout. The same fields appear in the same positions across issuers and years. At the other extreme, a legal contract from a new counterparty may be entirely free form, with no fixed layout and no guaranteed field positions. Most business documents fall somewhere in between:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/document_landscape.png)
 
-File format is a separate axis of variability. PDFs, emails, spreadsheets, and images each require different handling at ingestion — OCR for image-based documents, direct text extraction for PDFs with embedded fonts, and format normalization for spreadsheets and email attachments. For details, see [Supported file types](doc:file-types) and [OCR](doc:ocr).
+File format adds a second dimension. PDFs, emails, spreadsheets, and images each require different handling — OCR for image-based documents, direct text extraction for PDFs with embedded fonts, format normalization for spreadsheets and email attachments. For details, see [Supported file types](doc:file-types) and [OCR](doc:ocr).
 
-## Sensible's hybrid extraction approach
+## Approaches to document extraction
 
-Because no single technique covers the full document landscape, Sensible supports two extraction strategies that you can mix within the same extraction config:
+Traditional rules-based extraction targets data by its fixed position in a document. It's fast and deterministic, but brittle: it breaks when layouts change or vary across issuers. Machine learning and LLM-based approaches handle layout variation automatically, but are non-deterministic and require human review loops to catch errors.
 
-| strategy | best suited for | characteristics |
-| -------- | --------------- | --------------- |
-| [LLM-based methods](doc:llm-based-methods) | Free-form, variable documents — legal contracts, clinical notes, open-ended forms | Describe what to extract in natural language. Handles layout variation automatically. Non-deterministic; suited to workflows with [human review](doc:human-review) or fault tolerance. |
-| [Layout-based methods](doc:layout-based-methods) | Structured, consistently formatted documents — tax forms, insurance declarations, bank statements | Target data by its position relative to anchor text and document layout. Deterministic and fast; suited to automated pipelines requiring predictable output. |
+Neither approach covers the full document landscape on its own. Sensible's answer is a hybrid: use layout-based methods for structured, consistently formatted documents where deterministic output matters, and LLM-based methods for free-form or highly variable documents where flexibility matters. Both are part of the same query language, [SenseML](doc:senseml-reference-introduction), so you can mix them in a single config or chain them as fallbacks. For guidance on choosing between approaches, see [Choosing an extraction approach](doc:author).
 
-When either approach works, Sensible recommends layout-based methods for their speed and deterministic output. When a document type spans both structured and unstructured variants, you can [mix strategies in the same config](doc:author) or use [fallback fields](doc:fallbacks) to chain them.
+## The IDP lifecycle
 
-## The IDP pipeline
+A complete IDP system does more than extract data. Sensible covers the full lifecycle:
 
-Sensible's platform covers the full IDP lifecycle, not just extraction. For a detailed breakdown of each stage, see [Devops platform](doc:devops-platform). At a high level:
+- **Ingest** — Accept documents in any supported format, normalize them into a standardized text representation, and apply OCR where needed.
+- **Classify** — Route each document to the right extraction config automatically, handling both document type (e.g., `bank_statements`) and subtype (e.g., `chase_statements`).
+- **Extract** — Run SenseML queries and return structured JSON. Pre-built configs for common business forms are available in Sensible's open-source [configuration library](doc:library-quickstart).
+- **Validate and monitor** — Catch errors with validation rules, track coverage and accuracy in production, and route low-confidence extractions to human review. Patterns that surface through review — recurring nulls, systematic misreads — indicate where configs need tuning, closing the feedback loop between production accuracy and config development.
 
-1. **Ingest** — You upload documents via API, SDK, bulk UI, or email. Sensible normalizes inputs into a standardized text representation and applies [OCR](doc:ocr) where needed.
-2. **Classify** — Sensible routes documents to a *document type* (a category like `bank_statements`) and automatically classified into a matching *config* (a subtype like `chase_statements`). Sensible uses [fingerprints](doc:fingerprint) and LLM-based classification to select the best config.
-3. **Extract** — SenseML queries run against the document and return structured JSON. Sensible's open-source [configuration library](doc:library-quickstart) provides pre-built configs for common business forms — tax documents, bank statements, insurance declarations, and more — so you can start extracting in minutes without writing SenseML from scratch.
-4. **Validate and monitor** — Write [validation rules](doc:validate-extractions) to catch extraction errors and track [extraction coverage](doc:coverage) and [accuracy](doc:accuracy-measures) in production. Route low-confidence or flagged extractions to [human review](doc:human-review), where a reviewer can correct field-level errors in the Sensible app. Patterns surfaced through review — recurring nulls, systematic misreads — indicate where configs need tuning, closing the feedback loop between production accuracy and config development.
+For a detailed breakdown of each stage, see [Devops platform](doc:devops-platform).
 
 ## Developer-first design
 
 Sensible is built for developers integrating document automation into applications. Extraction configs are JSON — version-controlled, testable, and deployable through Sensible's [CI/CD platform](doc:devops-platform). You interact with Sensible through a [REST API](doc:quickstart) or [Node/Python SDKs](doc:sdk-guides), and configs live alongside your application code.
 
-This design makes it practical to treat document extraction as a first-class software engineering problem: write configs, test against sample documents, review diffs in pull requests, and deploy to production with confidence.
+This makes it practical to treat document extraction as a first-class software engineering problem: write configs, test against sample documents, review diffs in pull requests, and deploy to production with confidence.
