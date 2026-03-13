@@ -24,7 +24,7 @@ jsx_urls = []  # Collect all URLs from JSX elements
 processed_files = []
 
 # Process each markdown file
-Find.find("./") do |path|
+Find.find("./docs", "./reference") do |path|
   if File.extname(path) == ".md"
     markdown_content = File.read(path)
     
