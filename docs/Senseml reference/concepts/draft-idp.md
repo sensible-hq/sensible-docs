@@ -24,6 +24,8 @@ Most business documents fall somewhere in between:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/document_landscape.png)
 
+File format is a separate axis of variability. PDFs, emails, spreadsheets, and images each require different handling at ingestion — OCR for image-based documents, direct text extraction for PDFs with embedded fonts, and format normalization for spreadsheets and email attachments. For details, see [Supported file types](doc:file-types) and [OCR](doc:ocr).
+
 ## Sensible's hybrid extraction approach
 
 Because no single technique covers the full document landscape, Sensible supports two extraction strategies that you can mix within the same extraction config:
@@ -41,8 +43,8 @@ Sensible's platform covers the full IDP lifecycle, not just extraction. For a de
 
 1. **Ingest** — You upload documents via API, SDK, bulk UI, or email. Sensible normalizes inputs into a standardized text representation and applies [OCR](doc:ocr) where needed.
 2. **Classify** — Sensible routes documents to a *document type* (a category like `bank_statements`) and automatically classified into a matching *config* (a subtype like `chase_statements`). Sensible uses [fingerprints](doc:fingerprint) and LLM-based classification to select the best config.
-3. **Extract** — SenseML queries run against the document and return structured JSON. Sensible includes an open-source [configuration library](doc:library-quickstart) with out-of-the-box support for common business forms.
-4. **Validate and monitor** — Write [validation rules](doc:validate-extractions) to catch extraction errors, track [extraction coverage](doc:coverage) and [accuracy](doc:accuracy-measures) in production, and route low-confidence extractions to [human review](doc:human-review).
+3. **Extract** — SenseML queries run against the document and return structured JSON. Sensible's open-source [configuration library](doc:library-quickstart) provides pre-built configs for common business forms — tax documents, bank statements, insurance declarations, and more — so you can start extracting in minutes without writing SenseML from scratch.
+4. **Validate and monitor** — Write [validation rules](doc:validate-extractions) to catch extraction errors and track [extraction coverage](doc:coverage) and [accuracy](doc:accuracy-measures) in production. Route low-confidence or flagged extractions to [human review](doc:human-review), where a reviewer can correct field-level errors in the Sensible app. Patterns surfaced through review — recurring nulls, systematic misreads — indicate where configs need tuning, closing the feedback loop between production accuracy and config development.
 
 ## Developer-first design
 
