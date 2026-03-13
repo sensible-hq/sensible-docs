@@ -10,15 +10,15 @@ metadata:
 next:
   description: ''
 ---
-Intelligent document processing (IDP) automates the extraction of structured data from documents — PDFs, emails, spreadsheets, images, and more — so that downstream systems can consume and act on it. The core challenge of IDP is document variability: real-world documents range from rigidly templated tax forms to free-form legal contracts, and no single extraction technique handles both ends of that spectrum well.
+Intelligent document processing (IDP) automates extracting structured data from documents so that business systems can consume and act on it. The core challenge of IDP is document variability. In terms of content, documents range from highly templated tax forms to free-form legal contracts, and no single extraction technique handles both ends of that spectrum well.  In terms of file format, PDFs, emails, spreadsheets, and images present varying OCR and processing speed challenges.
 
-Sensible addresses this by combining two complementary extraction strategies in a single query language, [SenseML](doc:senseml-reference-introduction).
+Sensible addresses these challenges by combining two complementary extraction strategies in a single query language, [SenseML](doc:senseml-reference-introduction).
 
 ## The document landscape
 
-Documents vary along two axes: **structure** (how consistently the layout is arranged) and **variability** (how many format revisions or issuer variations exist).
+Document content varies along two axes: **structure** (how consistently the layout is arranged) and **variability** (how many format revisions or issuer variations exist).
 
-At one extreme, a standard W-2 form has a predictable, fixed layout — the same fields appear in the same positions across issuers and years. At the other extreme, a legal contract from a new counterparty may be entirely free-form, with no fixed layout and no guaranteed field positions.
+At one extreme, a standard W-2 form has a predictable, fixed layout. The same fields appear in the same positions across issuers and years. At the other extreme, a legal contract from a new counterparty may be entirely free form, with no fixed layout and no guaranteed field positions.
 
 Most business documents fall somewhere in between:
 
@@ -26,7 +26,7 @@ Most business documents fall somewhere in between:
 
 ## Sensible's hybrid extraction approach
 
-Because no single technique covers the full document landscape, Sensible supports two extraction strategies that you can mix within the same config:
+Because no single technique covers the full document landscape, Sensible supports two extraction strategies that you can mix within the same extraction config:
 
 | strategy | best suited for | characteristics |
 | -------- | --------------- | --------------- |
@@ -39,8 +39,8 @@ When either approach works, Sensible recommends layout-based methods for their s
 
 Sensible's platform covers the full IDP lifecycle, not just extraction. For a detailed breakdown of each stage, see [Devops platform](doc:devops-platform). At a high level:
 
-1. **Ingest** — Upload documents via API, SDK, bulk UI, or email. Sensible normalizes inputs into a standardized text representation and applies [OCR](doc:ocr) where needed.
-2. **Classify** — Documents are routed to a *document type* (a category like `bank_statements`) and automatically classified into a matching *config* (a subtype like `chase_statements`). Sensible uses [fingerprints](doc:fingerprint) and LLM-based classification to select the best config.
+1. **Ingest** — You upload documents via API, SDK, bulk UI, or email. Sensible normalizes inputs into a standardized text representation and applies [OCR](doc:ocr) where needed.
+2. **Classify** — Sensible routes documents to a *document type* (a category like `bank_statements`) and automatically classified into a matching *config* (a subtype like `chase_statements`). Sensible uses [fingerprints](doc:fingerprint) and LLM-based classification to select the best config.
 3. **Extract** — SenseML queries run against the document and return structured JSON. Sensible includes an open-source [configuration library](doc:library-quickstart) with out-of-the-box support for common business forms.
 4. **Validate and monitor** — Write [validation rules](doc:validate-extractions) to catch extraction errors, track [extraction coverage](doc:coverage) and [accuracy](doc:accuracy-measures) in production, and route low-confidence extractions to [human review](doc:human-review).
 
