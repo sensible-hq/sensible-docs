@@ -24,9 +24,9 @@ File format adds a second dimension. PDFs, emails, spreadsheets, and images each
 
 ## Approaches to IDP
 
-Today's IDP has a history that started with OCR and rules-based document extraction. In traditional document automation you targeted data by its fixed position in a document. It's fast and deterministic, but brittle. It breaks when layouts change slightly or vary across issuers, and often required human review loops to catch errors.  LLMs handles document layout variation automatically, but are indeterminate.
+Today's IDP has a history that started with OCR and rules-based document extraction. In traditional document automation you targeted data by its fixed position in a document. It was fast and deterministic, but brittle. It broke when layouts changed slightly or varied across issuers, and often required human review loops to catch errors. LLMs handles document layout variation automatically, but are indeterminate.
 
-Neither deterministic nor indeterminate approaches covers the full document landscape. Sensible's answer is a hybrid: use layout-based methods  (boosted with machine learning) for structured, consistently formatted documents where deterministic output matters. Use LLM-based methods for free-form or highly variable documents where flexibility matters. Both are part of the same query language, [SenseML](doc:senseml-reference-introduction), so you can mix them in a single config or chain them as fallbacks. For guidance on choosing between approaches, see [Choosing an extraction approach](doc:author).
+Neither deterministic nor indeterminate approaches covers the full document landscape. Sensible's answer is a hybrid: use layout-based methods, boosted with machine learning, for structured, consistently formatted documents where deterministic output matters. The combination of ML and layout-based rules results in robust deterministic output. Then, use LLM-based methods for free-form or highly variable documents where flexibility matters. Both are part of the same query language, [SenseML](doc:senseml-reference-introduction), so you can mix them in a single config or chain them as fallbacks. For guidance on choosing between approaches, see [Choosing an extraction approach](doc:author).
 
 ## The IDP lifecycle
 
