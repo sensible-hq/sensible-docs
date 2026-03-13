@@ -68,6 +68,20 @@ When a method's table lists a global param for completeness, use this shorthand 
 
 ---
 
+## Sentence construction
+
+**Prefer gerunds over nominalizations.** Use the verb form directly rather than a noun derived from it.
+- Avoid: "automates the extraction of structured data"
+- Prefer: "automates extracting structured data"
+
+**Use explicit subjects in numbered steps.** Don't use imperative or passive voice in numbered-step lists. Use "You" for user actions and "Sensible" for platform behavior.
+- Avoid: "Upload documents via API, SDK, or email."
+- Avoid: "Documents are routed to a document type."
+- Prefer: "You upload documents via API, SDK, or email."
+- Prefer: "Sensible routes documents to a document type."
+
+---
+
 ## Terminology: use these words consistently
 
 | Concept | Use this term | Avoid |
@@ -81,6 +95,8 @@ When a method's table lists a global param for completeness, use this shorthand 
 | A defined extraction unit | "field" | "extraction", "key" |
 | Repeated document structures | "sections" | "repeating groups", "loops" |
 | An extraction that returned nothing | "null" | "empty", "undefined", "no value" |
+| Unstructured/variable documents (adjective before noun) | "free-form documents", "a free-form contract" | "free form documents" |
+| Unstructured/variable documents (predicate adjective) | "the document is free form", "entirely free form" | "entirely free-form" |
 | The Sensible product | "Sensible" (always capitalized) | "sensible", "the tool", "the engine" |
 | The document excerpt Sensible renders visually | "the Sensible app" | "the UI", "the editor" |
 | JSON path into extracted output | "dot notation" (e.g., `claims.columns.3.values`) | "object path", "key path" |

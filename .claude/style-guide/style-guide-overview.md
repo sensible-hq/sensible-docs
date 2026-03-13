@@ -81,6 +81,10 @@ Do not start with "The X method..." as a default. Lead with what it does.
 
 **Tone:** Terse and precise. No filler. No "please note that" or "it's important to remember". State facts directly.
 
+**Em dashes:** Do not use em dashes to join compound clauses. Split them into two sentences instead.
+- Avoid: "a fixed layout — the same fields appear in the same positions across issuers."
+- Prefer: "a fixed layout. The same fields appear in the same positions across issuers."
+
 ---
 
 ## Parameter table formats
