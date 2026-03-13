@@ -22,15 +22,19 @@ At one extreme, a standard W-2 form has a predictable, fixed layout. The same fi
 
 File format adds a second dimension. PDFs, emails, spreadsheets, and images each require different handling — OCR for image-based documents, direct text extraction for PDFs with embedded fonts, format normalization for spreadsheets and email attachments. For details, see [Supported file types](doc:file-types) and [OCR](doc:ocr).
 
-## Approaches to document extraction
+## Approaches to IDP
 
-Traditional rules-based extraction targets data by its fixed position in a document. It's fast and deterministic, but brittle: it breaks when layouts change or vary across issuers. Machine learning and LLM-based approaches handle layout variation automatically, but are non-deterministic and require human review loops to catch errors.
+Today's IDP has a history that started with OCR and rules-based document extraction:
 
-Neither approach covers the full document landscape on its own. Sensible's answer is a hybrid: use layout-based methods for structured, consistently formatted documents where deterministic output matters, and LLM-based methods for free-form or highly variable documents where flexibility matters. Both are part of the same query language, [SenseML](doc:senseml-reference-introduction), so you can mix them in a single config or chain them as fallbacks. For guidance on choosing between approaches, see [Choosing an extraction approach](doc:author).
+- In traditional document automation you targeted data by its fixed position in a document. It's fast and deterministic, but brittle. It breaks when layouts change slightly or vary across issuers, and often required human review loops to catch errors. 
+- When you judiciously apply machine learning to layout-based extractions, you get a less-brittle deterministic method.
+-  LLM-based approaches handle layout variation automatically, but are non-deterministic.
+
+Neither deterministic nor indeterminate approaches covers the full document landscape. Sensible's answer is a hybrid: use layout-based methods  (boosted with machine learning) for structured, consistently formatted documents where deterministic output matters. Use LLM-based methods for free-form or highly variable documents where flexibility matters. Both are part of the same query language, [SenseML](doc:senseml-reference-introduction), so you can mix them in a single config or chain them as fallbacks. For guidance on choosing between approaches, see [Choosing an extraction approach](doc:author).
 
 ## The IDP lifecycle
 
-A complete IDP system does more than extract data. Sensible covers the full lifecycle:
+A complete IDP system does more than extract data. Sensible covers the full lifecycle, and you can choose and configure each step:
 
 - **Ingest** — Accept documents in any supported format, normalize them into a standardized text representation, and apply OCR where needed.
 - **Classify** — Route each document to the right extraction config automatically, handling both document type (e.g., `bank_statements`) and subtype (e.g., `chase_statements`).
@@ -41,6 +45,6 @@ For a detailed breakdown of each stage, see [Devops platform](doc:devops-platfor
 
 ## Developer-first design
 
-Sensible is built for developers integrating document automation into applications. Extraction configs are JSON — version-controlled, testable, and deployable through Sensible's [CI/CD platform](doc:devops-platform). You interact with Sensible through a [REST API](doc:quickstart) or [Node/Python SDKs](doc:sdk-guides), and configs live alongside your application code.
+Sensible is built for developers integrating document automation into applications. Its JSON-based extraction configs are version-controlled, testable, and deployable through Sensible's [CI/CD platform](doc:devops-platform). You interact with Sensible through a [REST API](doc:quickstart) or [Node/Python SDKs](doc:sdk-guides), and configs live alongside your application code.
 
 This makes it practical to treat document extraction as a first-class software engineering problem: write configs, test against sample documents, review diffs in pull requests, and deploy to production with confidence.
