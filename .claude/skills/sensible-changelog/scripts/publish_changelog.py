@@ -8,11 +8,15 @@ Usage:
 Reads the changelog body from stdin, title from argv[1].
 Requires README_API_KEY env var (sources ~/.bashrc if not set).
 
+Automatically avoids slug conflicts: if "march-2026" already exists,
+uses "march-2026-2", "march-2026-3", etc.
+
 Prints the draft URL on success, full error response on failure.
 """
 
 import sys
 import os
+import re
 import base64
 import json
 import subprocess
@@ -24,7 +28,6 @@ def get_api_key():
     key = os.environ.get("README_API_KEY")
     if key:
         return key
-    # Try sourcing ~/.bashrc
     result = subprocess.run(
         ["bash", "-c", "source ~/.bashrc 2>/dev/null && echo $README_API_KEY"],
         capture_output=True, text=True
@@ -34,6 +37,54 @@ def get_api_key():
         print("ERROR: README_API_KEY not set. Set it in ~/.bashrc and re-run.", file=sys.stderr)
         sys.exit(1)
     return key
+
+
+def make_auth_header(api_key):
+    return base64.b64encode(f"{api_key}:".encode()).decode()
+
+
+def title_to_slug(title):
+    """'March 2026' -> 'march-2026'"""
+    slug = title.lower().strip()
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    return slug.strip("-")
+
+
+def fetch_existing_slugs(auth):
+    """Fetch all existing changelog slugs (handles pagination)."""
+    slugs = set()
+    page = 1
+    while True:
+        req = urllib.request.Request(
+            f"https://dash.readme.com/api/v1/changelogs?perPage=100&page={page}",
+            headers={"Authorization": f"Basic {auth}"},
+        )
+        try:
+            with urllib.request.urlopen(req) as resp:
+                entries = json.loads(resp.read())
+                if not entries:
+                    break
+                for entry in entries:
+                    slugs.add(entry["slug"])
+                if len(entries) < 100:
+                    break
+                page += 1
+        except urllib.error.HTTPError as e:
+            print(f"ERROR fetching existing changelogs: {e.code} {e.read().decode()}", file=sys.stderr)
+            sys.exit(1)
+    return slugs
+
+
+def find_available_slug(base_slug, existing_slugs):
+    """Return base_slug if free, otherwise base_slug-2, -3, etc."""
+    if base_slug not in existing_slugs:
+        return base_slug
+    n = 2
+    while True:
+        candidate = f"{base_slug}-{n}"
+        if candidate not in existing_slugs:
+            return candidate
+        n += 1
 
 
 def main():
@@ -49,12 +100,20 @@ def main():
         sys.exit(1)
 
     api_key = get_api_key()
-    auth = base64.b64encode(f"{api_key}:".encode()).decode()
+    auth = make_auth_header(api_key)
+
+    base_slug = title_to_slug(title)
+    existing_slugs = fetch_existing_slugs(auth)
+    slug = find_available_slug(base_slug, existing_slugs)
+
+    if slug != base_slug:
+        print(f"Note: '{base_slug}' already exists — using '{slug}' to avoid conflict.")
 
     payload = json.dumps({
         "title": title,
+        "slug": slug,
         "body": body,
-        "hidden": True
+        "hidden": True,
     }).encode()
 
     req = urllib.request.Request(
@@ -70,8 +129,8 @@ def main():
     try:
         with urllib.request.urlopen(req) as resp:
             result = json.loads(resp.read())
-            slug = result.get("slug", "")
-            print(f"Published (hidden draft): https://dash.readme.com/project/sensible/v2.0/changelog/{slug}")
+            published_slug = result.get("slug", slug)
+            print(f"Published (hidden draft): https://dash.readme.com/project/sensible/v2.0/changelog/{published_slug}")
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
         print(f"ERROR {e.code}: {error_body}", file=sys.stderr)
