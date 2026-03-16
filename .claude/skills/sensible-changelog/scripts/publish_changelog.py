@@ -39,6 +39,11 @@ def get_api_key():
     return key
 
 
+HEADERS = {
+    "User-Agent": "sensible-changelog/1.0",
+}
+
+
 def make_auth_header(api_key):
     return base64.b64encode(f"{api_key}:".encode()).decode()
 
@@ -57,7 +62,7 @@ def fetch_existing_slugs(auth):
     while True:
         req = urllib.request.Request(
             f"https://dash.readme.com/api/v1/changelogs?perPage=100&page={page}",
-            headers={"Authorization": f"Basic {auth}"},
+            headers={**HEADERS, "Authorization": f"Basic {auth}"},
         )
         try:
             with urllib.request.urlopen(req) as resp:
@@ -119,10 +124,7 @@ def main():
     req = urllib.request.Request(
         "https://dash.readme.com/api/v1/changelogs",
         data=payload,
-        headers={
-            "Authorization": f"Basic {auth}",
-            "Content-Type": "application/json",
-        },
+        headers={**HEADERS, "Authorization": f"Basic {auth}", "Content-Type": "application/json"},
         method="POST"
     )
 
