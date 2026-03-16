@@ -99,7 +99,9 @@ The goal is accurate, user-facing language — not copying the doc verbatim or p
 
 ## Step 4: Draft the changelog
 
-Read `/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/changelog-style-guide.md` for the full style reference, voice guidelines, and examples before drafting.
+Read both style files before drafting:
+- `/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/changelog-style-guide.md` — changelog structure, section types, doc link format, examples
+- `/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/writing-rules.md` — cross-cutting prose rules (em dashes, passive voice, explicit subjects, terminology, gerunds)
 
 Key reminders:
 - Intro paragraph: third person ("Sensible released…"), no doc links
