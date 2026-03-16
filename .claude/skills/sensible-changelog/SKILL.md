@@ -26,6 +26,8 @@ The user will paste an unstructured blob. It may contain any mix of:
 
 For pasted doc content: treat it as the user-facing description for the associated feature — note it in the summary as "pasted content" so the user can see it was captured.
 
+**Similarity hints**: If the user says something like "this is similar to a past change" or "find the old wording for X", note which entries need a past-changelog search and carry that forward to Step 3b.
+
 **1b. Fetch PR titles immediately** — run in parallel so the confirmation summary is useful:
 ```bash
 gh pr view <number> --repo <org/repo> --json number,title,mergedAt
@@ -94,6 +96,31 @@ For each changelog entry, use the best available source. Priority order:
 5. **MCP fallback** — `mcp__sensible-docs__search` with the feature name. Least reliable; use only if nothing else is available.
 
 The goal is accurate, user-facing language — not copying the doc verbatim or paraphrasing internal PR descriptions.
+
+---
+
+## Step 3b: Search past changelogs for similar entries
+
+Do this for any entry where:
+- The user explicitly flagged it as similar to a past change, **or**
+- The feature is clearly a repeat pattern (e.g., another LLM model version update, another JsonLogic operator, another preprocessor parameter)
+
+Past changelogs are saved locally at:
+```
+references/changelogs/*.md
+```
+
+Search by grepping for relevant terms:
+```bash
+grep -ril "haiku\|model version\|llm model" \
+  /home/franceselliott/GitHub/sensible-docs/.claude/skills/sensible-changelog/references/changelogs/
+```
+
+Then read the matching file(s) and find the specific section. Use that past entry's wording as a template — same sentence structure, same level of detail, same way of introducing the change. Update the specifics (version names, feature names, parameters) but preserve the established phrasing pattern.
+
+When you do this, note it in the draft with a brief inline comment to yourself (which you'll remove before showing the user), e.g.: `<!-- modeled on january-2026: LLM model version updates -->`. This helps you stay consistent within a single draft when multiple entries draw on past wording.
+
+If no good past match exists, draft from scratch using the style guides.
 
 ---
 
