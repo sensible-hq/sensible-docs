@@ -34,6 +34,7 @@ gh pr diff <pr-number> --repo sensible-hq/sensible
 Read in parallel:
 - `.claude/style-guide/style-guide-overview.md` — frontmatter format, voice, formatting, cross-reference syntax
 - `.claude/style-guide/concept-topic-template.md` — concept page structure, optional elements, file naming
+- `.claude/style-guide/writing-rules.md` — cross-cutting prose rules (em dashes, passive voice, explicit subjects, terminology, gerunds)
 
 ## Step 3 — Write the page
 

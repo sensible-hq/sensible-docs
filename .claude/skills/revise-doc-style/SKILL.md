@@ -6,7 +6,7 @@ disable-model-invocation: true
 allowed-tools: Read, Edit, Write
 ---
 
-Revise the doc at **$ARGUMENTS** to match the house style. Read the file first, then apply the rules below, then write it back. Report what you changed and flag any TODOs or unresolved questions you found (don't remove them — leave them in place for the author).
+Revise the doc at **$ARGUMENTS** to match the house style. Read the file first, then read `.claude/style-guide/writing-rules.md` for cross-cutting prose rules (em dashes, passive voice, explicit subjects, terminology, gerunds). Apply both those rules and the rules below, then write the file back. Report what you changed and flag any TODOs or unresolved questions you found (don't remove them — leave them in place for the author).
 
 ---
 
