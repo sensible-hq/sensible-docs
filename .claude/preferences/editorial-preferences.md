@@ -42,6 +42,22 @@ If new content is 1–3 sentences that extends an existing topic, work it into t
 
 ---
 
+## Changelog entries
+
+**When a change affects both the app UI and the API, lead with the UI.**
+Describe the app experience first, then reference the API as a secondary option: "You can use the same filtering option in the [List extractions](ref:list-extractions) endpoint by passing…". Don't lead with the API parameter.
+
+**Include a screenshot for UI changes.**
+If the change is visible in the Sensible app, include an image. Use JSX `<Image>` format per the changelog style guide. Don't omit images just because you don't have the URL — flag to the user that a screenshot is needed.
+
+**Use the correct tab name: "Extraction history".**
+The tab that lists past extractions is called **Extraction history**, not "Extractions history" or "Extractions tab".
+
+**Focus on new capability, not removed friction.**
+Don't mention that a warning or limitation previously existed. Describe what the user can now do.
+
+---
+
 ## Log
 
 ### 2026-02 — cell-rows: consolidate examples (branch `fe_cellrows_customcomputationgroup_docs`)
