@@ -118,7 +118,9 @@ grep -ril "haiku\|model version\|llm model" \
 
 Then read the matching file(s) and find the specific section. Use that past entry's wording as a template — same sentence structure, same level of detail, same way of introducing the change. Update the specifics (version names, feature names, parameters) but preserve the established phrasing pattern.
 
-When you do this, note it in the draft with a brief inline comment to yourself (which you'll remove before showing the user), e.g.: `<!-- modeled on january-2026: LLM model version updates -->`. This helps you stay consistent within a single draft when multiple entries draw on past wording.
+When you do this:
+- Note it in the draft with a brief inline comment to yourself (which you'll remove before showing the user), e.g.: `<!-- modeled on january-2026: LLM model version updates -->`. This helps you stay consistent within a single draft when multiple entries draw on past wording.
+- Record the source for the review step. The published URL for a past changelog file is: `https://docs.sensible.so/changelog/<slug>` where the slug matches the filename without `.md` (e.g., `august-2023.md` → `https://docs.sensible.so/changelog/august-2023`).
 
 If no good past match exists, draft from scratch using the style guides.
 
@@ -126,9 +128,10 @@ If no good past match exists, draft from scratch using the style guides.
 
 ## Step 4: Draft the changelog
 
-Read both style files before drafting:
+Read all three files before drafting:
 - `/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/changelog-style-guide.md` — changelog structure, section types, doc link format, examples
 - `/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/writing-rules.md` — cross-cutting prose rules (em dashes, passive voice, explicit subjects, terminology, gerunds)
+- `/home/franceselliott/GitHub/sensible-docs/.claude/preferences/editorial-preferences.md` — Frances's editorial corrections and preferences, including changelog-specific rules (UI-first ordering, screenshots, tab names, framing)
 
 Key reminders:
 - Intro paragraph: third person ("Sensible released…"), no doc links
@@ -141,7 +144,14 @@ Key reminders:
 
 ## Step 5: Review with user
 
-Print the full draft. Ask:
+Print the full draft. Then, if any entries were modeled on past changelog entries, print a reference list:
+
+```
+**Based on:**
+- "Filter past extractions" (August 2023): https://docs.sensible.so/changelog/august-2023
+```
+
+Then ask:
 > "Does this look right? Any edits before I publish?"
 
 Incorporate feedback. Do not publish until the user explicitly approves.
