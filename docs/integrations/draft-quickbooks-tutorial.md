@@ -33,9 +33,28 @@ To configure Zapier, you'll use a recent example of a document extraction:
 
 Before you can integrate Sensible with QuickBooks Online, you need a bank account in your Chart of Accounts to post journal entries to. Take the following steps:
 
-1. Sign in or create a [QuickBooks Online](https://quickbooks.intuit.com/) account.
+**Create a QuickBooks Online sandbox company**
 
-2. Navigate to **Accounting** > **Chart of Accounts** and verify that a bank account exists. If not, click **New**, set the **Account Type** to **Bank**, and save.
+If you're using a free Intuit Developer account for testing, you'll need to create a sandbox company before proceeding. Take the following steps:
+
+1. Sign in to [developer.intuit.com](https://developer.intuit.com/) and navigate to your workspace.
+2. On the **Apps** tab, click the **+** button to create a new app.
+3. Name your app (for example, "Sensible Integration Test") and select **QuickBooks Online** as the platform.
+4. Once the app is created, open it.
+5. In the upper-right corner, click **My Hub**, then select **Sandboxes**. A sandbox company is automatically created for your account.
+6. In the **Sandbox companies** list, click the name of your sandbox company to launch it in QuickBooks Online.
+
+------
+
+Would you like me to click **Open** now to launch the sandbox company and continue with the Chart of Accounts step?
+
+1.  and navigate to the **Keys & OAuth** or **Sandbox** tab to find your linked sandbox QuickBooks Online company.
+2. Open the sandbox company — this is your free test environment with sample data pre-loaded.
+
+**Verify or create a bank account**
+
+1. Sign in or open your QuickBooks Online account (or sandbox company).
+2. Navigate to **Accounting > Chart of Accounts** and verify that a bank account exists. If not, click **New**, set the **Account Type** to **Bank**, and save.
 
 ## Configure Zapier
 
