@@ -41,16 +41,7 @@ Use the verb form directly rather than a noun derived from it.
 
 ## Terminology
 
-Use these terms consistently across all content:
-
-| Concept | Use | Avoid |
-|---------|-----|-------|
-| The JSON extraction configuration | "config" or "configuration" | "template", "schema" |
-| The Sensible web interface | "the Sensible app" | "the UI", "the editor", "the dashboard" |
-| The Sensible product | "Sensible" (always capitalized) | "sensible", "the tool", "the engine" |
-| The result Sensible returns | "output", "extracted field" | "result object", "response" |
-| Repeated document structures | "sections" | "repeating groups", "loops" |
-| An extraction that returned nothing | "null" | "empty", "undefined", "no value" |
+See [glossary.md](glossary.md) for the canonical term reference. Apply the universal terms to all content; apply SenseML-specific terms when writing reference pages.
 
 ---
 

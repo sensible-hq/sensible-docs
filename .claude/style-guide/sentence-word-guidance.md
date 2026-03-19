@@ -82,24 +82,9 @@ When a method's table lists a global param for completeness, use this shorthand 
 
 ---
 
-## Terminology: use these words consistently
+## Terminology
 
-| Concept | Use this term | Avoid |
-| ------- | ------------- | ----- |
-| The JSON configuration file | "config" or "configuration" | "template", "schema" (schema has a specific meaning) |
-| The result Sensible returns | "output", "extracted field", "field" | "result object", "response" (that's the API response) |
-| The text Sensible matches to find a location | "anchor", "anchor line", "anchor point" | "reference text", "marker" |
-| The document text sent to an LLM | "context" | "prompt context", "input" |
-| A scored portion of the document for LLM use | "chunk" | "segment", "section" (has a specific SenseML meaning) |
-| The SenseML data output type | "type" (e.g., "currency type", "date type") | "data type", "field type" |
-| A defined extraction unit | "field" | "extraction", "key" |
-| Repeated document structures | "sections" | "repeating groups", "loops" |
-| An extraction that returned nothing | "null" | "empty", "undefined", "no value" |
-| Unstructured/variable documents (adjective before noun) | "free-form documents", "a free-form contract" | "free form documents" |
-| Unstructured/variable documents (predicate adjective) | "the document is free form", "entirely free form" | "entirely free-form" |
-| The Sensible product | "Sensible" (always capitalized) | "sensible", "the tool", "the engine" |
-| The document excerpt Sensible renders visually | "the Sensible app" | "the UI", "the editor" |
-| JSON path into extracted output | "dot notation" (e.g., `claims.columns.3.values`) | "object path", "key path" |
+See [glossary.md](glossary.md) for the canonical term reference. Both the universal terms and the SenseML-specific terms apply to reference pages.
 
 ---
 
