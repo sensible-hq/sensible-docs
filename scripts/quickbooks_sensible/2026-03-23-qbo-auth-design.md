@@ -1,14 +1,14 @@
 # QBO OAuth Auto-Auth Design
 
 **Date:** 2026-03-23
-**Scope:** `scripts/temp/` — sample/educational integration between Sensible and QuickBooks Online
+**Scope:** `scripts/quickbooks_sensible/` — sample/educational integration between Sensible and QuickBooks Online
 **Goal:** Users never manually handle tokens after first-time setup.
 
 ---
 
 ## Context
 
-The existing flow in `scripts/temp/` requires three manual steps on every token rotation:
+The existing flow in `scripts/quickbooks_sensible/` requires three manual steps on every token rotation:
 1. Visit the Intuit OAuth Playground and copy an auth code
 2. Run `qbo_get_tokens.py <code>` and copy tokens from stdout
 3. Set `QBO_REFRESH_TOKEN` and `QBO_REALM_ID` in the environment
@@ -16,8 +16,8 @@ The existing flow in `scripts/temp/` requires three manual steps on every token 
 The new flow reduces this to a one-time browser click on first run. All subsequent runs are fully automatic.
 
 **Out of scope:**
-- `scripts/quickbooks-setup.py` — a separate, older script (sandbox, writes to `.env`, uses OAuth Playground redirect URI). Not part of `scripts/temp/`. Left untouched.
-- `docs/integrations/draft-quickbooks-tutorial.md` — describes a Zapier-based workflow; does not reference any `scripts/temp/` files. Left untouched.
+- `scripts/quickbooks-setup.py` — a separate, older script (sandbox, writes to `.env`, uses OAuth Playground redirect URI). Not part of `scripts/quickbooks_sensible/`. Left untouched.
+- `docs/integrations/draft-quickbooks-tutorial.md` — describes a Zapier-based workflow; does not reference any `scripts/quickbooks_sensible/` files. Left untouched.
 
 ---
 
@@ -25,11 +25,11 @@ The new flow reduces this to a one-time browser click on first run. All subseque
 
 | File | Change |
 |---|---|
-| `scripts/temp/qbo_auth.py` | New — shared auth module |
-| `scripts/temp/quickbooks-setup.py` | New — first-time setup runner |
-| `scripts/temp/import_sensible_to_quickbooks.py` | Updated — replace auth block with `get_qb_client()` |
-| `scripts/temp/qbo_get_tokens.py` | Deleted — confirmed no other files reference it (grep verified) |
-| `scripts/temp/.gitignore` | New — ignore `.qbo_tokens.json` |
+| `scripts/quickbooks_sensible/qbo_auth.py` | New — shared auth module |
+| `scripts/quickbooks_sensible/quickbooks-setup.py` | New — first-time setup runner |
+| `scripts/quickbooks_sensible/import_sensible_to_quickbooks.py` | Updated — replace auth block with `get_qb_client()` |
+| `scripts/quickbooks_sensible/qbo_get_tokens.py` | Deleted — confirmed no other files reference it (grep verified) |
+| `scripts/quickbooks_sensible/.gitignore` | New — ignore `.qbo_tokens.json` |
 
 ---
 
@@ -44,11 +44,11 @@ Add `http://localhost:8080/callback` as an allowed redirect URI in the Intuit de
 The only public interface is `get_qb_client()`. Everything else is internal.
 
 **Environment:**
-Uses `environment="production"` for both `AuthClient` and `QuickBooks` (consistent with the existing `scripts/temp/` scripts).
+Uses `environment="sandbox"` for both `AuthClient` and `QuickBooks` (educational/test integration — change to `"production"` for real use).
 
 **Token storage:**
 
-Default token file path: `Path(__file__).parent / ".qbo_tokens.json"` (i.e., `scripts/temp/.qbo_tokens.json`).
+Default token file path: `Path(__file__).parent / ".qbo_tokens.json"` (i.e., `scripts/quickbooks_sensible/.qbo_tokens.json`).
 
 Override: if the environment variable `QBO_TOKEN_FILE` is set, use `Path(os.environ["QBO_TOKEN_FILE"])` instead. A comment in the code should note: *"For production use, set QBO_TOKEN_FILE=~/.qbo_tokens.json (or any path outside the project directory)."*
 
@@ -138,7 +138,7 @@ print("  ✓ Connected.")
 
 ---
 
-## `scripts/temp/.gitignore`
+## `scripts/quickbooks_sensible/.gitignore`
 
 Create with:
 ```
@@ -149,9 +149,9 @@ Create with:
 
 ## Acceptance Criteria
 
-1. Running `python quickbooks-setup.py` with `QBO_CLIENT_ID` and `QBO_CLIENT_SECRET` set opens a browser, completes the OAuth flow, and creates `scripts/temp/.qbo_tokens.json` with permissions `600`.
+1. Running `python quickbooks-setup.py` with `QBO_CLIENT_ID` and `QBO_CLIENT_SECRET` set opens a browser, completes the OAuth flow, and creates `scripts/quickbooks_sensible/.qbo_tokens.json` with permissions `600`.
 2. Running `python quickbooks-setup.py` a second time (token file already present) refreshes the access token and updates the file without opening a browser.
 3. Running `python import_sensible_to_quickbooks.py` completes the full Sensible → QBO flow without the user setting `QBO_REFRESH_TOKEN` or `QBO_REALM_ID`.
 4. Deleting `.qbo_tokens.json` and re-running either script triggers the browser flow again.
 5. Running with port 8080 occupied prints the port-in-use error and exits with code 1.
-6. Setting `QBO_TOKEN_FILE=/tmp/test_tokens.json` and running `python quickbooks-setup.py` creates the token file at `/tmp/test_tokens.json`, not at `scripts/temp/.qbo_tokens.json`.
+6. Setting `QBO_TOKEN_FILE=/tmp/test_tokens.json` and running `python quickbooks-setup.py` creates the token file at `/tmp/test_tokens.json`, not at `scripts/quickbooks_sensible/.qbo_tokens.json`.
