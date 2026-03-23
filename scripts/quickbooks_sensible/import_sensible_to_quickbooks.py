@@ -3,8 +3,6 @@ import requests
 from pathlib import Path
 
 from sensibleapi import SensibleSDK
-from intuitlib.client import AuthClient
-from quickbooks import QuickBooks
 from quickbooks.objects.account import Account
 from quickbooks.objects.bill import Bill
 from quickbooks.objects.detailline import (
@@ -13,6 +11,7 @@ from quickbooks.objects.detailline import (
 )
 from quickbooks.objects.vendor import Vendor
 from quickbooks.objects.base import Ref
+from qbo_auth import get_qb_client
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 
@@ -120,20 +119,7 @@ if not vendor_name:
 # ── QuickBooks Online auth ─────────────────────────────────────────────────────
 
 print("\n[3/6] Authenticating with QuickBooks Online ...")
-auth_client = AuthClient(
-    client_id=os.environ["QBO_CLIENT_ID"],
-    client_secret=os.environ["QBO_CLIENT_SECRET"],
-    redirect_uri="https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl",
-    environment="production",
-)
-auth_client.refresh(refresh_token=os.environ["QBO_REFRESH_TOKEN"])
-
-qb_client = QuickBooks(
-    auth_client=auth_client,
-    refresh_token=auth_client.refresh_token,
-    company_id=os.environ["QBO_REALM_ID"],
-    minorversion=75,
-)
+qb_client = get_qb_client()
 print("  ✓ Connected.")
 
 # ── Find or create a default expense account ──────────────────────────────────
