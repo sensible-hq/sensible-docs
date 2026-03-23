@@ -101,7 +101,7 @@ def get_qb_client() -> QuickBooks:
         client_id=os.environ["QBO_CLIENT_ID"],
         client_secret=os.environ["QBO_CLIENT_SECRET"],
         redirect_uri=_REDIRECT_URI,
-        environment="production",
+        environment="sandbox",
     )
 
     tokens = _load_tokens(path)
@@ -125,5 +125,5 @@ def get_qb_client() -> QuickBooks:
         refresh_token=auth_client.refresh_token,
         company_id=tokens["realm_id"],
         minorversion=75,
-        environment="production",
+        environment="sandbox",
     )
