@@ -22,13 +22,13 @@ export QBO_CLIENT_SECRET=your_intuit_app_client_secret
 
 ### 3. Add the localhost callback to your Intuit app (one-time)
 
-In the [Intuit Developer Console](https://developer.intuit.com/), open your app and add this redirect URI:
+1. Go to [developer.intuit.com](https://developer.intuit.com/) and sign in.
+2. Click **Dashboard** in the top nav, then select your app. If you don't have one yet, click **+ Create an app**, choose **QuickBooks Online and Payments**, and give it a name.
+3. In your app, go to the **Keys & credentials** tab.
+4. Under **Redirect URIs**, click **Add URI**.
+5. Enter `http://localhost:8080/callback` and click **Save**.
 
-```
-http://localhost:8080/callback
-```
-
-This is required for the browser-based OAuth flow. You only do this once.
+That's it — this redirect URI is what lets the setup script catch the OAuth callback automatically instead of requiring you to copy a code manually.
 
 ---
 
