@@ -113,7 +113,7 @@ def get_qb_client() -> QuickBooks:
             tokens["refresh_token"] = auth_client.refresh_token
             _save_tokens(path, tokens)
         except (AuthClientError, QuickbooksException):
-            print("  ⚠ Saved tokens are invalid or expired. Re-authorizing...")
+            print("  Warning: saved tokens are invalid or expired. Re-authorizing...")
             tokens = {}
 
     if not tokens:
@@ -125,4 +125,5 @@ def get_qb_client() -> QuickBooks:
         refresh_token=auth_client.refresh_token,
         company_id=tokens["realm_id"],
         minorversion=75,
+        environment="production",
     )
