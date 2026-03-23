@@ -16,7 +16,6 @@ import json
 import os
 import socket
 import sys
-import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -72,8 +71,8 @@ def _browser_flow(auth_client: AuthClient) -> dict:
 
     server.socket.settimeout(120)
     auth_url = auth_client.get_authorization_url([Scopes.ACCOUNTING])
-    webbrowser.open(auth_url)
-    print("  Waiting for browser authorization (120s timeout)...")
+    print(f"\n  Open this URL in your browser to authorize:\n\n  {auth_url}\n")
+    print("  Waiting for authorization (120s timeout)...")
 
     try:
         server.handle_request()
