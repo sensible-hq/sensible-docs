@@ -54,7 +54,7 @@ If you're using a free Intuit Developer account for testing:
 2. On the **Apps** tab, click the **+** button to create a new app.
 3. Name your app (for example, "Sensible Integration Test") and verify that **QuickBooks Online** is the platform. 
    1. TODO: .auth scope?  com.intuit.quickbooks.accouting and/or .payment?
-   2. copy the credentials?
+   2. TODO: copy the credentials? YES! you'll need them for auth later; turn this into a real step
 
 4. Click **Open app** to open the app you created.
 5. In the upper-right corner, click **My Hub**, then select **Sandboxes** to access a sandbox company that Quickbooks created by default for your account.
@@ -84,45 +84,320 @@ Set the following environment variables:
 | `SENSIBLE_API_KEY` | Your Sensible API key, available on your [account page](https://app.sensible.so/account/). |
 | `QBO_CLIENT_ID` | Your QuickBooks app's client ID, available in the [Intuit Developer Portal](https://developer.intuit.com/). |
 | `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. |
-| `QBO_REFRESH_TOKEN` | A valid OAuth 2.0 refresh token for your QuickBooks Online company. |
-| `QBO_REALM_ID` | Your QuickBooks Online company ID (also called Realm ID). |
-| `QBO_EXPENSE_ACCOUNT_ID` | The default QuickBooks expense account ID for bill line items. Find it under **Accounting > Chart of Accounts**. |
+| `QBO_REFRESH_TOKEN` | A valid OAuth 2.0 refresh token for your QuickBooks Online company. To obtain this, see following steps. |
+| `QBO_REALM_ID` | Your QuickBooks Online company ID (also called Realm ID). To obtain this, see following steps. TODO: is this really necessary |
 
-**Note:** To obtain a refresh token, complete the OAuth 2.0 authorization flow once using the Intuit Developer Portal's OAuth Playground or your app's auth endpoint. The script uses the refresh token to generate access tokens automatically on each run.
+### One-time oauth2 authorization
+
+To obtain a refresh token and realm ID, complete the OAuth 2.0 authorization flow once:
+
+1. In the Intuit Developer Portal's [OAuth Playground](https://developer.intuit.com/app/developer/playground), select your workspace and app in the dropdowns.
+
+1. Select the `com.intuit.quickbooks.accounting` scope.
+
+1. Click **Get authorization code** and follow the prompts. After you authorize, the playground receives the authorization code automatically via its own redirect URL. TODO: are steps 3 and 4 correct?
+
+1. Click **Get tokens**. The playground displays the authorization code  and realm ID.
+
+1. Exchange the authorization code for access and refresh tokens by running the following python script:
+
+1. 
+
+1. TODO: add steps about saving this to about installing dependencies, saving the script to file, running it in a command line
+
+   ```python
+   """
+   qbo_get_tokens.py
+   
+   Exchange a QuickBooks Online authorization code for access and refresh tokens.
+   This is a one-time setup utility. Run it once to get a refresh token, then use
+   that refresh token in the main integration script.
+   
+   Prerequisites:
+     - A QuickBooks app created at https://developer.intuit.com
+     - The redirect URI https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl
+       registered in your app's Keys & OAuth settings
+     - pip install requests
+   
+   Environment variables:
+     QBO_CLIENT_ID      Your app's client ID (from Keys & OAuth in the Intuit Developer Portal)
+     QBO_CLIENT_SECRET   Your app's client secret
+   
+   Usage:
+     1. Go to https://developer.intuit.com/app/developer/playground
+     2. Select your app, choose scopes (at minimum com.intuit.quickbooks.accounting),
+        and connect to your QuickBooks company or sandbox
+     3. Copy the authorization code
+     4. Run immediately (codes expire within minutes):
+   
+        python qbo_get_tokens.py <authorization_code>
+   
+     5. Copy the refresh_token from the response and set it as your
+        QBO_REFRESH_TOKEN environment variable for the main integration script
+   
+   Notes:
+     - Authorization codes expire within a few minutes. Get a fresh one right
+       before running this script.
+     - Refresh tokens are valid for ~101 days (x_refresh_token_expires_in).
+     - Each time you use a refresh token, the response includes a new one
+       that replaces the old one.
+   """
+   
+   import base64
+   import os
+   import sys
+   import requests
+   
+   if len(sys.argv) != 2:
+       print("Usage: python qbo_get_tokens.py <authorization_code>")
+       sys.exit(1)
+   
+   client_id = os.environ["QBO_CLIENT_ID"]
+   client_secret = os.environ["QBO_CLIENT_SECRET"]
+   auth_code = sys.argv[1]
+   redirect_uri = "https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl"
+   
+   credentials = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
+   
+   resp = requests.post(
+       "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+       headers={
+           "Content-Type": "application/x-www-form-urlencoded",
+           "Accept": "application/json",
+           "Authorization": f"Basic {credentials}",
+       },
+       data={
+           "grant_type": "authorization_code",
+           "code": auth_code,
+           "redirect_uri": redirect_uri,
+       },
+   )
+   
+   print(f"Status: {resp.status_code}")
+   print(resp.json())
+   ```
+
+   Replace `<client_id>`, `<client_secret>`, and `<authorization_code>` with your Quickbook Online values.
+
+   You should see a response like the following:
+
+   ```json
+   {'x_refresh_token_expires_in': 8726400, 'refresh_token': '<REDACTED>', 'access_token': '<REDACTED', 'token_type': 'bearer', 'expires_in': 3600}
+   ```
+
+   
+
+   6. Copy the `refresh_token` from the JSON response and set it as your `QBO_REFRESH_TOKEN` environment variable.
+
+   Refresh tokens are valid for 100 days. The following script uses the refresh token to generate short-lived access tokens automatically on each run. For production use, store the refresh token securely and handle token rotation — each refresh call returns a new refresh token that replaces the previous one.
+
+   ### Script
+
+   TODO: explain this table and update as necessary given the actual JSON payload.
+
+   The `parsed_document` object you're expecting from Sensible's extraction API looks something like this (TODO REWORD)
+
+   ```json
+   {
+       "id": "04d60717-8e11-43d1-8a76-e773954bffb0",
+       "created": "2026-03-23T21:00:42.274Z",
+       "completed": "2026-03-23T21:01:55.999Z",
+       "status": "COMPLETE",
+       "type": "invoices",
+       "document_name": "invoice_sample",
+       "configuration": "llm_invoices_template",
+       "configuration_version": "g2miCFA52OW1ABhCtzoEU17oFPFcFzyz",
+       "environment": "production",
+       "page_count": 1,
+       "parsed_document": {
+           "Vendor name": {
+               "value": "Sample, Inc.",
+               "type": "string",
+               "confidenceSignal": "confident_answer"
+           },
+           "Vendor address": {
+               "value": "PO Box 11111, Charlotte, NC 28233",
+               "type": "string",
+               "confidenceSignal": "confident_answer"
+           },
+           "Customer name": {
+               "value": "Sample Group",
+               "type": "string",
+               "confidenceSignal": "confident_answer"
+           },
+           // abridged response...
+           "line_items": [
+               {
+                   "item_number": {
+                       "value": "A075NN8WT2F 019.75MS",
+                       "type": "string"
+                   },
+                   "item_description": {
+                       "value": "VITRA CHARGED FILAMENT",
+                       "type": "string"
+                   },
+                   "item_boxes": null,
+                   "item_unit_quantity": {
+                       "source": "178,200",
+                       "value": 178200,
+                       "type": "number"
+                   },
+                   "item__uom": {
+                       "value": "Feet",
+                       "type": "string"
+                   },
+                   "item__unit_price": {
+                       "value": "0.194",
+                       "type": "string"
+                   },
+                   "item__box_price": null,
+                   "item_total": {
+                       "value": "34570.80",
+                       "type": "string"
+                   }
+               },
+               {
+                   "item_number": {
+                       "value": "FREIGHTSURCHARGE",
+                       "type": "string"
+                   },
+                   "item_description": {
+                       "value": "Freight Surcharge on A075NN8WT2F 019.75MS",
+                       "type": "string"
+                   },
+                   "item_boxes": null,
+                   "item_unit_quantity": {
+                       "source": "178,200",
+                       "value": 178200,
+                       "type": "number"
+                   },
+                   "item__uom": {
+                       "value": "Each",
+                       "type": "string"
+                   },
+                   "item__unit_price": {
+                       "value": "0.02224",
+                       "type": "string"
+                   },
+                   "item__box_price": null,
+                   "item_total": {
+                       "value": "3963.17",
+                       "type": "string"
+                   }
+               }
+               // abridged resposne
+           ]
+       },
+       "validations": [],
+       "validation_summary": {
+           "fields": 27,
+           "fields_present": 20,
+           "errors": 0,
+           "warnings": 0,
+           "skipped": 0
+       },
+       "classification_summary": [
+           {
+               "configuration": "llm_invoices_template",
+               "score": {
+                   "value": 50,
+                   "fields_present": 50,
+                   "penalties": 0
+               }
+           }
+       ],
+       "errors": [],
+       "download_url": ""<redacted>"",
+       "content_type": "application/pdf",
+       "file_metadata": {
+           "info": {
+               "creator": "Atalasoft, Inc.",
+               "producer": "DotImage PDF Encoder",
+               "creation_date": "2022-03-31T12:03:17.000Z",
+               "modification_date": "2024-08-20T15:02:03.000-07:00"
+           },
+           "metadata": {
+               "xmp:createdate": "2022-03-31T12:03:17Z",
+               "xmp:creatortool": "Atalasoft, Inc.",
+               "xmp:modifydate": "2024-08-20T15:02:03-07:00",
+               "xmp:metadatadate": "2024-08-20T15:02:03-07:00",
+               "pdf:producer": "DotImage PDF Encoder",
+               "xmpmm:documentid": "xmp.d",
+               "xmpmm:instanceid": "uuid:55c99e98-c153-fd43-b002-569b012c7eab",
+               "xmpmm:history": "editedScannedDoc2024-08-20T15:02:03-07:00Page:1",
+               "dc:format": "application/pdf"
+           }
+       },
+       "coverage": 0.7246376811594203,
+       "charged": 1,
+       "version_id": "bV7R07dGkanm.la93_Cb70NuHd1WkWWx"
+   }
+   ```
+
+   
+
+   
+
+   TODO: add intro here
+
+   | QuickBooks Online field  | Sensible field             | Description                                                  |
+   | ------------------------ | -------------------------- | ------------------------------------------------------------ |
+   | **Vendor**               | `vendor_name`              | The vendor who issued the invoice. Select a matching vendor from QBO, or use Zapier's lookup feature to match dynamically. |
+   | **Transaction Date**     | `invoice_date`             | The date on the invoice.                                     |
+   | **Due Date**             | `due_date`                 | The payment due date.                                        |
+   | **Ref No.**              | `invoice_number`           | The vendor's invoice number, for cross-referencing.          |
+   | **Line 1 - Description** | `line_items.0.description` | The description of the first line item.                      |
+   | **Line 1 - Amount**      | `line_items.0.amount`      | The amount for the first line item.                          |
+   | **Line 1 - Account**     | *(select from QBO)*        | The expense account to categorize this line item under (for example, "Office Supplies"). |
+
+   
+
+   ### 
+
+TODO: add steps about saving this to a file, running it in a command line, and the sort of output to expect AND a description of what the script does (downloads an example file, etc) NOTE TO SELF: save this file in docs assets so it never breaks
 
 
 
-TODO: add intro here
-
-| QuickBooks Online field  | Sensible field             | Description                                                  |
-| ------------------------ | -------------------------- | ------------------------------------------------------------ |
-| **Vendor**               | `vendor_name`              | The vendor who issued the invoice. Select a matching vendor from QBO, or use Zapier's lookup feature to match dynamically. |
-| **Transaction Date**     | `invoice_date`             | The date on the invoice.                                     |
-| **Due Date**             | `due_date`                 | The payment due date.                                        |
-| **Ref No.**              | `invoice_number`           | The vendor's invoice number, for cross-referencing.          |
-| **Line 1 - Description** | `line_items.0.description` | The description of the first line item.                      |
-| **Line 1 - Amount**      | `line_items.0.amount`      | The amount for the first line item.                          |
-| **Line 1 - Account**     | *(select from QBO)*        | The expense account to categorize this line item under (for example, "Office Supplies"). |
 
 
 
-### Script
 
 ```python
 import os
+import urllib.request
+from pathlib import Path
+
 from sensibleapi import SensibleSDK
 from intuitlib.client import AuthClient
 from quickbooks import QuickBooks
+from quickbooks.objects.account import Account
 from quickbooks.objects.bill import Bill, BillLine, AccountBasedExpenseLineDetail
 from quickbooks.objects.vendor import Vendor
 from quickbooks.objects.base import Ref
+
+# ── Download sample invoice ────────────────────────────────────────────────────
+
+SAMPLE_PDF_URL = (
+    "https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library"
+    "/main/templates/Utilities%20%26%20Invoices/Invoices/refdocs/llm_invoices_template.pdf"
+)
+
+script_dir = Path(__file__).resolve().parent
+invoice_path = script_dir / "llm_invoices_template.pdf"
+
+if not invoice_path.exists():
+    print(f"Downloading sample invoice to {invoice_path} ...")
+    urllib.request.urlretrieve(SAMPLE_PDF_URL, invoice_path)
+    print("Download complete.")
+else:
+    print(f"Sample invoice already exists at {invoice_path}, skipping download.")
 
 # ── Sensible extraction ────────────────────────────────────────────────────────
 
 sensible = SensibleSDK(os.environ["SENSIBLE_API_KEY"])
 
 request = sensible.extract(
-    path="./vendor_invoice.pdf",   # replace with your file path
+    path=str(invoice_path),
     document_type="invoices",
     environment="production",
 )
@@ -162,6 +437,67 @@ qb_client = QuickBooks(
     company_id=os.environ["QBO_REALM_ID"],
 )
 
+# ── Find or create a default expense account ──────────────────────────────────
+
+# Ordered by likelihood of already existing in a real QBO company.
+# "Uncategorized Expense" and "Ask My Accountant" are seeded by default
+# in many regions, so this usually finds one on the first try.
+PREFERRED_ACCOUNT_NAMES = [
+    "Uncategorized Expense",
+    "Miscellaneous",
+    "Miscellaneous Expense",
+    "Ask My Accountant",
+    "Other Miscellaneous Expense",
+]
+
+# Deliberately ugly and specific — screams "come reclassify me" to a bookkeeper.
+FALLBACK_ACCOUNT_NAME = "Invoice Imports - Needs Review"
+
+
+def get_default_expense_account(qb_client):
+    """
+    Walk the Chart of Accounts looking for a sensible default expense account.
+
+    Strategy:
+      1. Query all Expense-type accounts once (QBO caps at 1 000,
+         well beyond any real CoA).
+      2. Check for preferred names (case-insensitive, in priority order).
+      3. If nothing matches, create a new Expense account called
+         "Invoice Imports - Needs Review" so the bookkeeper knows to reclassify.
+
+    Returns a Ref suitable for AccountBasedExpenseLineDetail.AccountRef.
+    """
+    accounts = Account.filter(AccountType="Expense", qb=qb_client)
+    # QBO treats "Other Expense" as a separate type, so grab those too.
+    accounts += Account.filter(AccountType="Other Expense", qb=qb_client)
+
+    by_name = {a.Name.lower(): a for a in accounts}
+
+    for name in PREFERRED_ACCOUNT_NAMES:
+        match = by_name.get(name.lower())
+        if match:
+            print(f"Using existing expense account: {match.Name!r} (ID {match.Id})")
+            ref = Ref()
+            ref.value = match.Id
+            ref.name = match.Name
+            return ref
+
+    # None of our preferred names exist — create the fallback.
+    new_acct = Account()
+    new_acct.Name = FALLBACK_ACCOUNT_NAME
+    new_acct.AccountType = "Expense"
+    new_acct.AccountSubType = "OtherMiscellaneousServiceCost"
+    new_acct.save(qb=qb_client)
+
+    print(f"Created new expense account: {new_acct.Name!r} (ID {new_acct.Id})")
+    ref = Ref()
+    ref.value = new_acct.Id
+    ref.name = new_acct.Name
+    return ref
+
+
+expense_account_ref = get_default_expense_account(qb_client)
+
 # ── Find or create vendor ──────────────────────────────────────────────────────
 
 vendors = Vendor.filter(DisplayName=vendor_name, qb=qb_client)
@@ -185,15 +521,15 @@ bill.DueDate = str(due_date) if due_date else None
 bill.DocNumber = str(invoice_number) if invoice_number else None
 bill.VendorRef = vendor_ref
 
-expense_account_ref = Ref()
-expense_account_ref.value = os.environ["QBO_EXPENSE_ACCOUNT_ID"]
+# Some versions of python-quickbooks initialize Line as None, not [].
+bill.Line = bill.Line or []
 
-# Line items are always variable-length. Loop through all extracted items.
-# The extraction uses field IDs like "item_description", "item_total", etc.
 if not line_items:
-    # If no line items were extracted, fall back to a single line using the total.
+    # No line items extracted — fall back to a single line using the total.
     line = BillLine()
-    line.Amount = abs(float(total_amount)) if total_amount else 0
+    # NOTE: We preserve the sign here. A negative value likely means a credit
+    # memo or discount, and silently flipping it would create an incorrect bill.
+    line.Amount = float(total_amount) if total_amount else 0
     line.Description = "Invoice total (line items not extracted)"
     line.DetailType = "AccountBasedExpenseLineDetail"
     detail = AccountBasedExpenseLineDetail()
@@ -205,15 +541,17 @@ else:
         detail = AccountBasedExpenseLineDetail()
         detail.AccountRef = expense_account_ref
 
-        # item_total is extracted as a string (e.g. "20475").
-        # Clean commas and parse to float.
+        # item_total comes back as a string (e.g. "34570.80") in this config,
+        # but other configs/fields may return a bare number. Coerce to str
+        # first so .replace() is always safe. Sign is preserved — a negative
+        # value from the extraction is meaningful (credit/discount).
         raw_total = (item.get("item_total") or {}).get("value", "0")
         amount = float(str(raw_total).replace(",", ""))
 
         description = (item.get("item_description") or {}).get("value", "")
 
         line = BillLine()
-        line.Amount = abs(amount)
+        line.Amount = amount
         line.Description = description
         line.DetailType = "AccountBasedExpenseLineDetail"
         line.AccountBasedExpenseLineDetail = detail
