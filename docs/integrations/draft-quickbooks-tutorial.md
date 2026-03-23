@@ -5,131 +5,69 @@ deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: 'extract bank statements into QuickBooks Online'
+  description: 'Extract invoices into QuickBooks Online as bills with Python and Sensible'
   robots: index
 next:
   description: ''
 ---
-This topic describes sending extracted data from bank statements into QuickBooks Online using Sensible's Zapier integration.
+
+This topic describes sending extracted data from vendor invoices into QuickBooks Online using Sensible's Zapier integration.
+
+## Use cases
+
+Vendor invoices often arrive as PDFs emailed by suppliers, downloaded from portals, or scanned from paper. Getting them into your accounting system accurately and quickly is a core accounts payable workflow. Here are a few scenarios where automating this with Sensible and QuickBooks Online is valuable:
+
+- **AP automation for bookkeeping services.** You're a SaaS company that handles bookkeeping for small-business clients. Your clients forward vendor invoices to you as PDF documents, and you extract invoice data from the documents automatically and create bills in QBO.
+
+- **Expense management for growing businesses.** You're a mid-size company receiving dozens of vendor invoices per month across multiple departments. Rather than routing paper invoices through an approval chain and then hand-entering them, you extract the data with Sensible and push it directly into QBO as bills ready for review and payment.
+
+- **Financial ops tooling for vertical SaaS.** You're building a platform for a specific industry (for example, construction, healthcare, or logistics) where your customers receive high volumes of vendor invoices with industry-specific line items. You embed Sensible's extraction into your product and sync bills to your customers' QuickBooks Online accounts via the API.
+
+In this tutorial, you'll set up the first scenario: extracting a vendor invoice with Sensible and creating a bill in QuickBooks Online using Zapier.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_0.png)
 
 This Zap:
 
-1. triggers every time that Sensible extracts from a document of the `bank_statements` document type, and
-2. creates a new journal entry in QuickBooks Online from the extracted data.
+1. triggers every time that Sensible extracts from a document of the `invoices` document type, and
+2. creates a new bill in QuickBooks Online from the extracted data.
 
 ## Create an example Sensible extraction
 
 To configure Zapier, you'll use a recent example of a document extraction:
 
-1. Follow the steps in [Getting started with out-of-the-box extractions](https://docs.sensible.so/docs/library-quickstart) to create support for the `bank_statements` document type.
+1. Follow the steps in [Getting started with out-of-the-box extractions](https://docs.sensible.so/docs/library-quickstart) to create support for the `invoices` document type.
 
-2. Download an [example bank statement](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements/refdocs) from the Sensible library.
+2. Download an [example invoice](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Invoices/refdocs) from the Sensible library.
 
-3. In the Sensible app, click the **Extract** tab. Upload the example document, select the `bank_statements` document type, and run an extraction.
+3. In the Sensible app, click the **Extract** tab. Upload the example document, select the `invoices` document type, and run an extraction.
 
 ## Set up a destination in QuickBooks Online
 
-Before you can integrate Sensible with QuickBooks Online, you need a bank account in your Chart of Accounts to post journal entries to. Take the following steps:
+Before you can integrate Sensible with QuickBooks Online, you need an expense account in your Chart of Accounts to assign bill line items to, and a vendor to associate with the bill.
 
-**Create a QuickBooks Online sandbox company**
+**Access a QuickBooks Online sandbox company**
 
-If you're using a free Intuit Developer account for testing, you'll need to create a sandbox company before proceeding. Take the following steps:
+If you're using a free Intuit Developer account for testing:
 
 1. Sign in to [developer.intuit.com](https://developer.intuit.com/) and navigate to your workspace.
 2. On the **Apps** tab, click the **+** button to create a new app.
-3. Name your app (for example, "Sensible Integration Test") and select **QuickBooks Online** as the platform.
-4. Once the app is created, open it.
-5. In the upper-right corner, click **My Hub**, then select **Sandboxes**. A sandbox company is automatically created for your account.
-6. In the **Sandbox companies** list, click the name of your sandbox company to launch it in QuickBooks Online.
+3. Name your app (for example, "Sensible Integration Test") and verify that **QuickBooks Online** is the platform. 
+   1. TODO: .auth scope?  com.intuit.quickbooks.accouting and/or .payment?
+   2. copy the credentials?
 
-------
+4. Click **Open app** to open the app you created.
+5. In the upper-right corner, click **My Hub**, then select **Sandboxes** to access a sandbox company that Quickbooks created by default for your account.
+6. In the **Sandbox companies** list, click the name of your sandbox company to *launch it in QuickBooks Online|open it*. Sandbox companies come preloaded with sample vendors, accounts, and other data.
 
-Would you like me to click **Open** now to launch the sandbox company and continue with the Chart of Accounts step?
+**Verify your Chart of Accounts and vendors**
 
-1.  and navigate to the **Keys & OAuth** or **Sandbox** tab to find your linked sandbox QuickBooks Online company.
-2. Open the sandbox company — this is your free test environment with sample data pre-loaded.
+1. In the sandbox company, navigate to **Accounting > Chart of Accounts** TODO PROPER STYLE? and verify that an expense account (for example,  "Office Supplies" or "Cost of Goods Sold") exists: In the **ACCOUNT TYPE** filter, verify at least one account of type **Expenses** exists. If not, create a test expense account: click **New account** in the upper right corner. In the dialog, select **Expenses** in the **Account type** dropdown, populate the remaining fields with test data, and click **Save**. 
+3. In the sandbox company, navigate to **Expenses > Vendors** and verify that at least one vendor exists. If not, create a test vendor: click **Create vendor** , complete the dialog with test data, and click **Save**. In production, you'd match extracted vendor names to existing QBO vendors or create new ones automatically.
 
-**Verify or create a bank account**
+## Integrate with Python
 
-1. Sign in or open your QuickBooks Online account (or sandbox company).
-2. Navigate to **Accounting > Chart of Accounts** and verify that a bank account exists. If not, click **New**, set the **Account Type** to **Bank**, and save.
-
-## Configure Zapier
-
-Take the following steps to connect Sensible to QuickBooks Online using Zapier:
-
-1. Sign in or create a [Zapier account](https://zapier.com/).
-
-2. Create a new Zap. For your trigger, search for and select **Sensible**.
-
-3. Take the following steps to connect your Sensible account to Zapier:
-   1. Click to expand the **Trigger** section.
-   2. Click to expand the **Choose account** section, then follow the prompts to connect your Sensible account.
-
-4. In the **Set up trigger** section:
-
-   1. Select the **bank_statements** document type you created in the previous steps.
-
-   2. Select the **Production** environment.
-
-   3. Select the **Complete** status.
-
-   4. Leave the default for the **Create Excel output** option.
-
-      **Note:** If you select true for this option, you can access the extracted document data [converted](https://docs.sensible.so/docs/excel-reference) to an Excel file in succeeding Zapier actions. This is useful for accessing multi-value fields such as `transactions` and `checks`. For an example of using this option, see [Advanced Zapier tutorial](https://docs.sensible.so/docs/zapier-tutorial-2).
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_1.png)
-
-5. Continue to the **Test trigger** section and follow the prompts to test. Verify that the recent document extraction you created in previous steps is selected.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_2.png)
-
-6. Continue to the **Action** section, search for and select **QuickBooks Online**:
-   1. For the **Event**, choose **Create Journal Entry**.
-   2. Follow the prompts to connect your QuickBooks Online account to Zapier.
-
-7. In the **Set up action** section, map Sensible extracted field IDs to the corresponding QuickBooks Online fields. Zapier displays the data from the recent document extraction as examples. Use the following mappings as a guide:
-
-   1. **Transaction Date**: Select `end_date`.
-   2. **Private Note**: Select `customer_name` to record the account holder name.
-   3. **Line 1 Amount**: Select `ending_balance`.
-   4. **Line 1 Account**: Select the bank account from your Chart of Accounts.
-
-   (Optional) To include the beginning balance and statement period, map `beginning_balance` and `start_date` to additional line items or memo fields.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_3.png)
-
-8. Follow the prompts to test the action. You should see a new journal entry in QuickBooks Online containing the bank statement data.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_4.png)
-
-9. Follow the prompts to publish your Zap.
-
-## (Optional) Test your integration
-
-Congratulations, your integration is now published and running! Take the following steps to continue populating QuickBooks Online from example documents:
-
-1. Download additional example bank statements from the Sensible [library](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements/refdocs).
-
-2. Use the Sensible app's **Extract** tab to run extractions for the example documents.
-
-3. Zapier can take up to 15 minutes to pull data from Sensible. To avoid waiting, navigate to the **Zaps** tab in Zapier, right-click the Zap's ellipsis (...) icon and click **Run**.
-
-4. Verify the journal entries appear in QuickBooks Online under **Accounting** > **Chart of Accounts** > **View register** for the bank account you selected.
-
-## (Optional) Scale up
-
-You can extract from more bank statements automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google Drive, email, or other Zapier-supported apps. Then send the extraction to QuickBooks Online or another destination with a Sensible action. For more information, see [Advanced Zapier tutorial](https://docs.sensible.so/docs/zapier-tutorial-2).
-
-**Note:** Sensible offers native support for automatically extracting from email attachments. Instead of using Zapier for emails, see [Getting started with email extractions](https://docs.sensible.so/docs/getting-started-email).
-
-
-
-## (Optional) Automate with Python
-
-As an alternative to Zapier, you can use Sensible's Python SDK and the `python-quickbooks` library to extract bank statements and post journal entries to QuickBooks Online in a single script. This approach gives you full control over the data transformation and is suitable for batch processing or server-side automation.
+You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation — especially for handling variable numbers of line items — and is suitable for batch processing or server-side automation.
 
 ### Prerequisites
 
@@ -148,10 +86,25 @@ Set the following environment variables:
 | `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. |
 | `QBO_REFRESH_TOKEN` | A valid OAuth 2.0 refresh token for your QuickBooks Online company. |
 | `QBO_REALM_ID` | Your QuickBooks Online company ID (also called Realm ID). |
-| `QBO_BANK_ACCOUNT_ID` | The QuickBooks account ID for the bank account to debit. Find it under **Accounting** > **Chart of Accounts**. |
-| `QBO_EQUITY_ACCOUNT_ID` | The QuickBooks account ID for the offsetting equity account (for example, Opening Balance Equity). |
+| `QBO_EXPENSE_ACCOUNT_ID` | The default QuickBooks expense account ID for bill line items. Find it under **Accounting > Chart of Accounts**. |
 
 **Note:** To obtain a refresh token, complete the OAuth 2.0 authorization flow once using the Intuit Developer Portal's OAuth Playground or your app's auth endpoint. The script uses the refresh token to generate access tokens automatically on each run.
+
+
+
+TODO: add intro here
+
+| QuickBooks Online field  | Sensible field             | Description                                                  |
+| ------------------------ | -------------------------- | ------------------------------------------------------------ |
+| **Vendor**               | `vendor_name`              | The vendor who issued the invoice. Select a matching vendor from QBO, or use Zapier's lookup feature to match dynamically. |
+| **Transaction Date**     | `invoice_date`             | The date on the invoice.                                     |
+| **Due Date**             | `due_date`                 | The payment due date.                                        |
+| **Ref No.**              | `invoice_number`           | The vendor's invoice number, for cross-referencing.          |
+| **Line 1 - Description** | `line_items.0.description` | The description of the first line item.                      |
+| **Line 1 - Amount**      | `line_items.0.amount`      | The amount for the first line item.                          |
+| **Line 1 - Account**     | *(select from QBO)*        | The expense account to categorize this line item under (for example, "Office Supplies"). |
+
+
 
 ### Script
 
@@ -160,7 +113,8 @@ import os
 from sensibleapi import SensibleSDK
 from intuitlib.client import AuthClient
 from quickbooks import QuickBooks
-from quickbooks.objects.journalentry import JournalEntry, JournalEntryLine, JournalEntryLineDetail
+from quickbooks.objects.bill import Bill, BillLine, AccountBasedExpenseLineDetail
+from quickbooks.objects.vendor import Vendor
 from quickbooks.objects.base import Ref
 
 # ── Sensible extraction ────────────────────────────────────────────────────────
@@ -168,22 +122,29 @@ from quickbooks.objects.base import Ref
 sensible = SensibleSDK(os.environ["SENSIBLE_API_KEY"])
 
 request = sensible.extract(
-    path="./bank_statement.pdf",   # replace with your file path
-    document_type="bank_statements",
+    path="./vendor_invoice.pdf",   # replace with your file path
+    document_type="invoices",
     environment="production",
 )
 result = sensible.wait_for(request)
 
 parsed = result["parsed_document"]
 
-# Extract the fields we need; .get() returns None if a field wasn't extracted
-end_date         = (parsed.get("end_date")          or {}).get("value")
-customer_name    = (parsed.get("customer_name")     or {}).get("value")
-ending_balance   = (parsed.get("ending_balance")    or {}).get("value")
-beginning_balance = (parsed.get("beginning_balance") or {}).get("value")
+# Extract the fields we need using the actual Sensible field IDs.
+# Field IDs contain spaces and mixed casing — use the exact IDs from your config.
+invoice_date   = (parsed.get("Invoice date")            or {}).get("value")
+due_date       = (parsed.get("Invoice due date")        or {}).get("value")
+invoice_number = (parsed.get("Invoice number")          or {}).get("value")
+vendor_name    = (parsed.get("Vendor name")             or {}).get("value")
+total_amount   = (parsed.get("Total amount of invoice") or {}).get("value")
+line_items     = parsed.get("line_items", [])
 
-if ending_balance is None or beginning_balance is None:
-    raise ValueError("Required balance fields not found in extraction. Check the document or config.")
+# Vendor name may be null for some invoices. Fall back to a placeholder
+# so the bill is still created and can be reassigned during review.
+DEFAULT_VENDOR = "Unmatched - Review Required"
+if not vendor_name:
+    print(f"Warning: Vendor name not found in extraction. Using default: {DEFAULT_VENDOR}")
+    vendor_name = DEFAULT_VENDOR
 
 # ── QuickBooks Online auth ─────────────────────────────────────────────────────
 
@@ -201,52 +162,79 @@ qb_client = QuickBooks(
     company_id=os.environ["QBO_REALM_ID"],
 )
 
-# ── Build journal entry ────────────────────────────────────────────────────────
-# Journal entries must balance: total debits == total credits.
-# Here we debit the bank account by the ending balance and credit
-# an equity account by the same amount as a reconciliation entry.
+# ── Find or create vendor ──────────────────────────────────────────────────────
 
-def make_line(amount, posting_type, account_id):
-    detail = JournalEntryLineDetail()
-    detail.PostingType = posting_type
-    account_ref = Ref()
-    account_ref.value = account_id
-    detail.AccountRef = account_ref
+vendors = Vendor.filter(DisplayName=vendor_name, qb=qb_client)
+if vendors:
+    vendor_ref = Ref()
+    vendor_ref.value = vendors[0].Id
+    vendor_ref.name = vendors[0].DisplayName
+else:
+    new_vendor = Vendor()
+    new_vendor.DisplayName = vendor_name
+    new_vendor.save(qb=qb_client)
+    vendor_ref = Ref()
+    vendor_ref.value = new_vendor.Id
+    vendor_ref.name = new_vendor.DisplayName
 
-    line = JournalEntryLine()
-    line.Amount = abs(float(amount))
-    line.DetailType = "JournalEntryLineDetail"
-    line.JournalEntryLineDetail = detail
-    return line
+# ── Build bill ─────────────────────────────────────────────────────────────────
 
-journal_entry = JournalEntry()
-journal_entry.TxnDate = str(end_date) if end_date else None
-journal_entry.PrivateNote = (
-    f"Bank statement reconciliation — {customer_name}. "
-    f"Beginning balance: {beginning_balance}"
-)
+bill = Bill()
+bill.TxnDate = str(invoice_date) if invoice_date else None
+bill.DueDate = str(due_date) if due_date else None
+bill.DocNumber = str(invoice_number) if invoice_number else None
+bill.VendorRef = vendor_ref
 
-journal_entry.Line.append(
-    make_line(ending_balance, "Debit",  os.environ["QBO_BANK_ACCOUNT_ID"])
-)
-journal_entry.Line.append(
-    make_line(ending_balance, "Credit", os.environ["QBO_EQUITY_ACCOUNT_ID"])
-)
+expense_account_ref = Ref()
+expense_account_ref.value = os.environ["QBO_EXPENSE_ACCOUNT_ID"]
 
-saved = journal_entry.save(qb=qb_client)
-print(f"Journal entry created: ID {saved.Id}, date {saved.TxnDate}")
+# Line items are always variable-length. Loop through all extracted items.
+# The extraction uses field IDs like "item_description", "item_total", etc.
+if not line_items:
+    # If no line items were extracted, fall back to a single line using the total.
+    line = BillLine()
+    line.Amount = abs(float(total_amount)) if total_amount else 0
+    line.Description = "Invoice total (line items not extracted)"
+    line.DetailType = "AccountBasedExpenseLineDetail"
+    detail = AccountBasedExpenseLineDetail()
+    detail.AccountRef = expense_account_ref
+    line.AccountBasedExpenseLineDetail = detail
+    bill.Line.append(line)
+else:
+    for item in line_items:
+        detail = AccountBasedExpenseLineDetail()
+        detail.AccountRef = expense_account_ref
+
+        # item_total is extracted as a string (e.g. "20475").
+        # Clean commas and parse to float.
+        raw_total = (item.get("item_total") or {}).get("value", "0")
+        amount = float(str(raw_total).replace(",", ""))
+
+        description = (item.get("item_description") or {}).get("value", "")
+
+        line = BillLine()
+        line.Amount = abs(amount)
+        line.Description = description
+        line.DetailType = "AccountBasedExpenseLineDetail"
+        line.AccountBasedExpenseLineDetail = detail
+        bill.Line.append(line)
+
+saved = bill.save(qb=qb_client)
+print(f"Bill created: ID {saved.Id}, vendor {vendor_name}, date {saved.TxnDate}")
 ```
+
+## (Optional) Test your integration
+
+1. TODO
+
+## (Optional) Scale up
+
+You can extract from more invoices automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google Drive, email, or other Zapier-supported apps. Then send the extraction to QuickBooks Online or another destination with a Sensible action. For more information, see [Advanced Zapier tutorial](https://docs.sensible.so/docs/zapier-tutorial-2).
+
+**Note:** Sensible offers native support for automatically extracting from email attachments. Since vendor invoices commonly arrive as email attachments, this is a natural fit. Instead of using Zapier for emails, see [Getting started with email extractions](https://docs.sensible.so/docs/getting-started-email).
 
 # Notes
 
-**Limitations**
-
-* You can configure single-value field output with the Sensible-Zapier integration. Bank statements include `transactions` and `checks` fields that output data objects (tables). To handle these in Zapier, enable the **Excel output** option on the Sensible trigger. Then access the extracted tables as rows using Zapier's spreadsheet integrations, for example Google Sheets. For more information, see [SenseML to Excel reference](https://docs.sensible.so/docs/excel-reference).
-* You can extract from single-document files with Zapier. If you want to extract from portfolio files (files that contain multiple documents), use the Sensible API or SDKs.
-
 **QuickBooks Online limitations**
 
-* This integration supports QuickBooks Online only. QuickBooks Desktop is not supported via Zapier.
-* Journal entries created via Zapier appear as unreviewed in QuickBooks Online. Review and approve entries in QuickBooks before using them for reconciliation.
-* Zapier ignores uploaded files in Google Drive whose create or modified date is older than 4 days when using **New file in folder** as the Sensible action trigger.
-
+* For production use, consider adding logic to match extracted vendor names to existing QBO vendors to avoid creating duplicates. The Python script above includes basic vendor matching.
