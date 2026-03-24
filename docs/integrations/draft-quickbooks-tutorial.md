@@ -127,7 +127,7 @@ The script runs six steps:
 
 ### Field mapping
 
-The `parsed_document` object from Sensible's extraction looks something like this:
+The extraction response from Sensible api includes a `parsed_document` object containing the extracted document data:
 
    ```json
    {
@@ -270,7 +270,9 @@ The `parsed_document` object from Sensible's extraction looks something like thi
 
    
 
-   TODO: add intro here
+   TODO: add intro here about mapping that API response to the Quickbook entities.
+
+AND: table is inaccruate, udpate
 
    | QuickBooks Online field  | Sensible field             | Description                                                  |
    | ------------------------ | -------------------------- | ------------------------------------------------------------ |
@@ -283,10 +285,6 @@ The `parsed_document` object from Sensible's extraction looks something like thi
    | **Line 1 - Account**     | *(select from QBO)*        | The expense account to categorize this line item under (for example, "Office Supplies"). |
 
    
-
-
-
-
 
 ### Expected output
 
