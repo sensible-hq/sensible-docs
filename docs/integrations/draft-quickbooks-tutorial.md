@@ -347,8 +347,11 @@ Compare it to the sample invoice to see how the document data was extracted:
 
 TODO... talk about extracting multiple files? webhooks? etc?
 
+talk about production considerations?
+
+* oauth
+* For production use, consider adding logic to match extracted vendor names to existing QBO vendors to avoid creating duplicates. The Python script above includes basic vendor matching.
+
 # Notes
 
-**QuickBooks Online limitations**
-
-* For production use, consider adding logic to match extracted vendor names to existing QBO vendors to avoid creating duplicates. The Python script above includes basic vendor matching.
+<br />
