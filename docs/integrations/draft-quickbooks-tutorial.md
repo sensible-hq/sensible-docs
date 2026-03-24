@@ -351,6 +351,8 @@ talk about production considerations?
 
 * oauth
 * For production use, consider adding logic to match extracted vendor names to existing QBO vendors to avoid creating duplicates. The Python script above includes basic vendor matching.
+* clarify you can import ANY sort of doc into quickbook
+* maybe touch on difference bwn sensible's powerful extraction vs quickbooks less powerful receipt parsing etc?
 
 <br />
 
