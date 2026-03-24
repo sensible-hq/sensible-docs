@@ -4,14 +4,18 @@ excerpt: ''
 deprecated: false
 hidden: true
 metadata:
-  title: ''
+  title: 'Integrate with Quickbooks using Python'
   description: 'Extract invoices into QuickBooks Online as bills with Python and Sensible'
   robots: index
 next:
   description: ''
 ---
 
-This topic describes sending extracted data from vendor invoices into QuickBooks Online using Python.
+This topic describes sending extracted data from vendor invoices into QuickBooks Online using Sensible and Python.
+
+TODO: mermaid diagram here?
+
+TODO: make sure there's disclaimer language around this being a POC/tutorial, don't use scripts in production
 
 ## Use cases
 
@@ -73,7 +77,7 @@ Or browse the GitHub directory directly: [https://github.com/sensible-hq/sensibl
 Install the required libraries:
 
 ```bash
-pip install sensible-sdk python-quickbooks intuitlib requests
+pip install sensible-sdk python-quickbooks intuitlib 
 ```
 
 Set the following environment variables:
@@ -116,7 +120,7 @@ python import_sensible_to_quickbooks.py
 
 ### What the script does
 
-The script runs six steps:
+The script runs six steps: TODO update script has changed
 
 1. Downloads a sample invoice PDF from the Sensible configuration library (skipped if already present)
 2. Extracts invoice data using Sensible's `invoices` document type
