@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ─── Configuration ──────────────────────────────────────────────────────────────
+CONTAINER_NAME="sandboxed-chrome"
+PORT=6901
+SANDBOXED_CHROME_PASSWORD="${SANDBOXED_CHROME_PASSWORD:?Set SANDBOXED_CHROME_PASSWORD env variable before running this script}"
+VOLUME_NAME="sandboxed-chrome-profile"
+
+# ─── Colors ─────────────────────────────────────────────────────────────────────
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+info()  { echo -e "${GREEN}[INFO]${NC} $1"; }
+warn()  { echo -e "${YELLOW}[WARN]${NC} $1"; }
+error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
+
+# ─── Preflight checks ──────────────────────────────────────────────────────────
+command -v docker >/dev/null 2>&1 || error "Docker is not installed. Install it first: https://docs.docker.com/get-docker/"
+
+if ! docker info >/dev/null 2>&1; then
+    error "Docker daemon is not running. Start Docker Desktop or the Docker service."
+fi
+
+# ─── Handle existing container ──────────────────────────────────────────────────
+if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+    if docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+        warn "Container '${CONTAINER_NAME}' is already running."
+        info "Access it at: https://localhost:${PORT}"
+        info "To stop it:   docker stop ${CONTAINER_NAME}"
+        info "To remove it: docker rm ${CONTAINER_NAME}"
+        exit 0
+    else
+        info "Removing stopped container '${CONTAINER_NAME}'..."
+        docker rm "${CONTAINER_NAME}" >/dev/null
+    fi
+fi
+
+# ─── Pull image ────────────────────────────────────────────────────────────────
+IMAGE="kasmweb/chrome:1.16.1"
+info "Pulling ${IMAGE} (this may take a few minutes the first time)..."
+docker pull "${IMAGE}"
+
+# ─── Create persistent volume ──────────────────────────────────────────────────
+if ! docker volume ls --format '{{.Name}}' | grep -q "^${VOLUME_NAME}$"; then
+    info "Creating persistent volume '${VOLUME_NAME}' for Chrome profile..."
+    docker volume create "${VOLUME_NAME}" >/dev/null
+fi
+
+# ─── Run container ──────────────────────────────────────────────────────────────
+info "Starting sandboxed Chrome container..."
+docker run -d \
+    --name "${CONTAINER_NAME}" \
+    --shm-size=2g \
+    -p "${PORT}:6901" \
+    -e VNC_PW="${SANDBOXED_CHROME_PASSWORD}" \
+    -v "${VOLUME_NAME}:/home/kasm-user/.config/chromium" \
+    "${IMAGE}" >/dev/null
+
+# ─── Wait for container to be ready ────────────────────────────────────────────
+info "Waiting for noVNC to start..."
+for i in $(seq 1 30); do
+    if curl -sk "https://localhost:${PORT}" >/dev/null 2>&1; then
+        break
+    fi
+    sleep 1
+done
+
+# ─── Done ───────────────────────────────────────────────────────────────────────
+echo ""
+echo -e "${GREEN}════════════════════════════════════════════════════════════════${NC}"
+echo -e "${GREEN} Sandboxed Chrome is running!${NC}"
+echo -e "${GREEN}════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e " URL:       ${YELLOW}https://localhost:${PORT}${NC}"
+echo -e " Password:  ${YELLOW}${SANDBOXED_CHROME_PASSWORD}${NC}"
+echo ""
+echo -e " ${GREEN}Next steps:${NC}"
+echo -e "  1. Open the URL above in your browser (accept the self-signed cert)"
+echo -e "  2. Log in with the password above"
+echo -e "  3. Inside the sandboxed Chrome, go to the Chrome Web Store"
+echo -e "  4. Search for and install the Claude extension"
+echo -e "  5. The extension persists across restarts (profile is on a volume)"
+echo ""
+echo -e " ${GREEN}Management:${NC}"
+echo -e "  Stop:     docker stop ${CONTAINER_NAME}"
+echo -e "  Start:    docker start ${CONTAINER_NAME}"
+echo -e "  Remove:   docker rm -f ${CONTAINER_NAME}"
+echo -e "  Nuke all: docker rm -f ${CONTAINER_NAME} && docker volume rm ${VOLUME_NAME}"
+echo ""
