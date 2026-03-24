@@ -156,6 +156,28 @@ This applies even though the JSON key is camelCase (`sortLines`, `textAlignment`
 ### Method and feature names in prose
 Capitalize method names and major feature names: "the Label method", "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor", "the Merge Lines preprocessor".
 
+**Never use camelCase with backticks for method or preprocessor names in running prose.** Convert to spaced Title Case instead:
+
+| Wrong | Right |
+| ----- | ----- |
+| the `` `customCompute` `` method | the Custom Compute method |
+| the `` `removeHeaders` `` preprocessor | the Remove Headers preprocessor |
+| the `` `queryGroup` `` method | the Query Group method |
+| the `` `mergeLines` `` preprocessor | the Merge Lines preprocessor |
+
+This applies to parameter names too — see the Parameter name capitalization section above.
+
+### Inline links for method and preprocessor names
+
+Where possible, link method and preprocessor names inline on first mention. Use `doc:` slugs (not `.md` file paths). To find the correct slug for a page, consult [https://docs.sensible.so/llms.txt](https://docs.sensible.so/llms.txt) and use the slug portion of the URL (the part after `docs.sensible.so/`), **without** the `.md` extension.
+
+Examples:
+- `[Custom Compute method](doc:custom-compute)`
+- `[Remove Headers preprocessor](doc:remove-headers)`
+- `[Query Group method](doc:query-group)`
+
+Link on first meaningful mention per page. Do not re-link on every subsequent mention.
+
 ---
 
 ## Image format
