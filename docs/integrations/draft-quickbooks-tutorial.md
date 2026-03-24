@@ -11,7 +11,7 @@ next:
   description: ''
 ---
 
-This topic describes sending extracted data from vendor invoices into QuickBooks Online using Sensible's Zapier integration.
+This topic describes sending extracted data from vendor invoices into QuickBooks Online using Python.
 
 ## Use cases
 
@@ -23,24 +23,12 @@ Vendor invoices often arrive as PDFs emailed by suppliers, downloaded from porta
 
 - **Financial ops tooling for vertical SaaS.** You're building a platform for a specific industry (for example, construction, healthcare, or logistics) where your customers receive high volumes of vendor invoices with industry-specific line items. You embed Sensible's extraction into your product and sync bills to your customers' QuickBooks Online accounts via the API.
 
-In this tutorial, you'll set up the first scenario: extracting a vendor invoice with Sensible and creating a bill in QuickBooks Online using Zapier.
+In this tutorial, you'll set up the first scenario: extracting a vendor invoice with Sensible and creating a bill in QuickBooks Online using Python.
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_0.png)
+These Python scripts:
 
-This Zap:
-
-1. triggers every time that Sensible extracts from a document of the `invoices` document type, and
+1. TODO: figure out how to do that in python! triggers every time that Sensible extracts from a document of the `invoices` document type, and
 2. creates a new bill in QuickBooks Online from the extracted data.
-
-## Create an example Sensible extraction
-
-To configure Zapier, you'll use a recent example of a document extraction:
-
-1. Follow the steps in [Getting started with out-of-the-box extractions](https://docs.sensible.so/docs/library-quickstart) to create support for the `invoices` document type.
-
-2. Download an [example invoice](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Invoices/refdocs) from the Sensible library.
-
-3. In the Sensible app, click the **Extract** tab. Upload the example document, select the `invoices` document type, and run an extraction.
 
 ## Set up a destination in QuickBooks Online
 
@@ -67,18 +55,18 @@ If you're using a free Intuit Developer account for testing:
 
 ## Integrate with Python
 
-You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation — especially for handling variable numbers of line items — and is suitable for batch processing or server-side automation.
+You can use Sensible's Python SDK and the `python-quickbooks` TODO rename library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation — especially for handling variable numbers of line items — and is suitable for batch processing or server-side automation.
 
 ### Get the scripts
 
 Download the scripts from GitHub:
 
 ```bash
-git clone https://github.com/sensible-hq/sensible-docs.git
-cd sensible-docs/scripts/quickbooks_sensible
+git clone https://github.com/sensible-hq/sensible-quickbooks-py.git
+cd sensible-docs/scripts/sensible-quickbooks-py
 ```
 
-Or browse the directory directly: [scripts/quickbooks_sensible](https://github.com/sensible-hq/sensible-docs/tree/v0/scripts/quickbooks_sensible)
+Or browse the GitHub directory directly: [https://github.com/sensible-hq/sensible-quickbooks-py](https://github.com/sensible-hq/sensible-quickbooks-py). TODO: good as LLM alternative?
 
 ### Prerequisites
 
@@ -93,8 +81,8 @@ Set the following environment variables:
 | Variable | Description |
 | --- | --- |
 | `SENSIBLE_API_KEY` | Your Sensible API key, available on your [account page](https://app.sensible.so/account/). |
-| `QBO_CLIENT_ID` | Your QuickBooks app's client ID, available in the [Intuit Developer Portal](https://developer.intuit.com/). |
-| `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. |
+| `QBO_CLIENT_ID` | Your QuickBooks app's client ID, available in the [Intuit Developer Portal](https://developer.intuit.com/). TODO be more specific |
+| `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. TODO same specific advice |
 
 ### One-time setup
 
