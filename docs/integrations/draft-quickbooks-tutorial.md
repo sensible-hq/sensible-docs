@@ -108,6 +108,8 @@ The script prints an authorization URL. Copy it, open it in your browser, and cl
 
 ### Run the integration
 
+TODO: rename script
+
 ```bash
 python import_sensible_to_quickbooks.py
 ```
@@ -119,7 +121,7 @@ The script runs six steps:
 1. Downloads a sample invoice PDF from the Sensible configuration library (skipped if already present)
 2. Extracts invoice data using Sensible's `invoices` document type
 3. Authenticates with QuickBooks Online using your saved tokens (auto-refreshes silently)
-4. Finds an appropriate expense account in your Chart of Accounts, or creates one called "Invoice Imports - Needs Review" if none of the expected accounts exist
+4. Finds an appropriate expense account (TODO: attempts to match, right?) in your Chart of Accounts, or creates one called "Invoice Imports - Needs Review" if none of the expected accounts exist
 5. Finds or creates a vendor matching the extracted vendor name
 6. Creates a bill in QuickBooks with the extracted line items
 
