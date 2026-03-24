@@ -114,6 +114,8 @@ The script prints an authorization URL. Copy it, open it in your browser, and cl
 
 TODO: rename script
 
+TODO: update with `! python` alternative for running interactively in claude code
+
 ```bash
 python import_sensible_to_quickbooks.py
 ```
