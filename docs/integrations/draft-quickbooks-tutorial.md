@@ -294,28 +294,25 @@ AND: table is inaccruate, udpate
 Running the script produces output like the following:
 
 ```
-python import_sensible_to_quickbooks.py
+python invoice_to_quickbooks.py
 
-[1/6] Downloading sample invoice ...
-  ✓ Already exists at /home/franceselliott/GitHub/sensible-docs/scripts/quickbooks_sensible/llm_invoices_template.pdf, skipping download.
-
-[2/6] Extracting invoice with Sensible ...
+[1/5] Extracting invoice with Sensible ...
   ✓ Vendor: (not found)
   ✓ Invoice #: 39
   ✓ Total: 28.215
   ✓ Line items: 4
   ⚠ Vendor name not found. Using default: Unmatched - Review Required
 
-[3/6] Authenticating with QuickBooks Online ...
+[2/5] Authenticating with QuickBooks Online ...
   ✓ Connected.
 
-[4/6] Resolving expense account ...
+[3/5] Resolving expense account ...
   ✓ Using existing account: 'Uncategorized Expense' (ID 31)
 
-[5/6] Resolving vendor ...
-  ✓ Created new vendor: Unmatched - Review Required (ID 58)
+[4/5] Resolving vendor ...
+  ✓ Found existing vendor: Unmatched - Review Required (ID 58)
 
-[6/6] Creating bill in QuickBooks ...
+[5/5] Creating bill in QuickBooks ...
   • Line 1: Leather Leaf — $20,475.00
   • Line 2: Leather Leaf — $4,620.00
   • Line 3: Leather Leaf — $1,200.00
@@ -323,10 +320,11 @@ python import_sensible_to_quickbooks.py
 
 ============================================================
   ✓ Bill created successfully!
-    ID:     145
+    ID:     147
     Vendor: Unmatched - Review Required
     Date:   2023-04-02
     Lines:  4
+    View:   https://app.sandbox.qbo.intuit.com/app/bill?txnId=147
 ```
 
 Follow the link to view the created bill:
