@@ -27,7 +27,7 @@ In this tutorial, you'll set up the first scenario: extracting a vendor invoice 
 
 These Python scripts:
 
-1. TODO: figure out how to do that in python! triggers every time that Sensible extracts from a document of the `invoices` document type, and
+1. TODO: figure out how to do that in python trigger (and/or in email type of sitch/filtering?)! triggers every time that Sensible extracts from a document of the `invoices` document type, and
 2. creates a new bill in QuickBooks Online from the extracted data.
 
 ## Set up a destination in QuickBooks Online
