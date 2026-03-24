@@ -69,12 +69,23 @@ If you're using a free Intuit Developer account for testing:
 
 You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation — especially for handling variable numbers of line items — and is suitable for batch processing or server-side automation.
 
+### Get the scripts
+
+Download the scripts from GitHub:
+
+```bash
+git clone https://github.com/sensible-hq/sensible-docs.git
+cd sensible-docs/scripts/quickbooks_sensible
+```
+
+Or browse the directory directly: [scripts/quickbooks_sensible](https://github.com/sensible-hq/sensible-docs/tree/v0/scripts/quickbooks_sensible)
+
 ### Prerequisites
 
 Install the required libraries:
 
 ```bash
-pip install sensibleapi python-quickbooks intuit-oauth
+pip install sensible-sdk python-quickbooks intuitlib requests
 ```
 
 Set the following environment variables:
@@ -84,118 +95,49 @@ Set the following environment variables:
 | `SENSIBLE_API_KEY` | Your Sensible API key, available on your [account page](https://app.sensible.so/account/). |
 | `QBO_CLIENT_ID` | Your QuickBooks app's client ID, available in the [Intuit Developer Portal](https://developer.intuit.com/). |
 | `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. |
-| `QBO_REFRESH_TOKEN` | A valid OAuth 2.0 refresh token for your QuickBooks Online company. To obtain this, see following steps. |
-| `QBO_REALM_ID` | Your QuickBooks Online company ID (also called Realm ID). To obtain this, see following steps. TODO: is this really necessary |
 
-### One-time oauth2 authorization
+### One-time setup
 
-To obtain a refresh token and realm ID, complete the OAuth 2.0 authorization flow once:
+Before running the integration for the first time, complete two setup steps.
 
-1. In the Intuit Developer Portal's [OAuth Playground](https://developer.intuit.com/app/developer/playground), select your workspace and app in the dropdowns.
+**Add a redirect URI to your Intuit app**
 
-1. Select the `com.intuit.quickbooks.accounting` scope.
+The authorization script uses a local HTTP server to catch the OAuth callback automatically. To enable this:
 
-1. Click **Get authorization code** and follow the prompts. After you authorize, the playground receives the authorization code automatically via its own redirect URL. TODO: are steps 3 and 4 correct?
+1. Go to [developer.intuit.com](https://developer.intuit.com/) and open your app.
+2. Go to the **Settings** tab.
+3. Under **Redirect URIs**, click **Add URI**, enter `http://localhost:8080/callback`, and click **Save**.
 
-1. Click **Get tokens**. The playground displays the authorization code  and realm ID.
+**Authorize the app**
 
-1. Exchange the authorization code for access and refresh tokens by running the following python script:
+Run the setup script once to authorize and save your tokens:
 
-1. 
+```bash
+python quickbooks-setup.py
+```
 
-1. TODO: add steps about saving this to about installing dependencies, saving the script to file, running it in a command line
+The script prints an authorization URL. Copy it, open it in your browser, and click **Connect**. Once you authorize, the script saves your tokens automatically. You won't need to repeat this unless the refresh token expires (after 100 days of inactivity).
 
-   ```python
-   """
-   qbo_get_tokens.py
-   
-   Exchange a QuickBooks Online authorization code for access and refresh tokens.
-   This is a one-time setup utility. Run it once to get a refresh token, then use
-   that refresh token in the main integration script.
-   
-   Prerequisites:
-     - A QuickBooks app created at https://developer.intuit.com
-     - The redirect URI https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl
-       registered in your app's Keys & OAuth settings
-     - pip install requests
-   
-   Environment variables:
-     QBO_CLIENT_ID      Your app's client ID (from Keys & OAuth in the Intuit Developer Portal)
-     QBO_CLIENT_SECRET   Your app's client secret
-   
-   Usage:
-     1. Go to https://developer.intuit.com/app/developer/playground
-     2. Select your app, choose scopes (at minimum com.intuit.quickbooks.accounting),
-        and connect to your QuickBooks company or sandbox
-     3. Copy the authorization code
-     4. Run immediately (codes expire within minutes):
-   
-        python qbo_get_tokens.py <authorization_code>
-   
-     5. Copy the refresh_token from the response and set it as your
-        QBO_REFRESH_TOKEN environment variable for the main integration script
-   
-   Notes:
-     - Authorization codes expire within a few minutes. Get a fresh one right
-       before running this script.
-     - Refresh tokens are valid for ~101 days (x_refresh_token_expires_in).
-     - Each time you use a refresh token, the response includes a new one
-       that replaces the old one.
-   """
-   
-   import base64
-   import os
-   import sys
-   import requests
-   
-   if len(sys.argv) != 2:
-       print("Usage: python qbo_get_tokens.py <authorization_code>")
-       sys.exit(1)
-   
-   client_id = os.environ["QBO_CLIENT_ID"]
-   client_secret = os.environ["QBO_CLIENT_SECRET"]
-   auth_code = sys.argv[1]
-   redirect_uri = "https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl"
-   
-   credentials = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
-   
-   resp = requests.post(
-       "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
-       headers={
-           "Content-Type": "application/x-www-form-urlencoded",
-           "Accept": "application/json",
-           "Authorization": f"Basic {credentials}",
-       },
-       data={
-           "grant_type": "authorization_code",
-           "code": auth_code,
-           "redirect_uri": redirect_uri,
-       },
-   )
-   
-   print(f"Status: {resp.status_code}")
-   print(resp.json())
-   ```
+### Run the integration
 
-   Replace `<client_id>`, `<client_secret>`, and `<authorization_code>` with your Quickbook Online values.
+```bash
+python import_sensible_to_quickbooks.py
+```
 
-   You should see a response like the following:
+### What the script does
 
-   ```json
-   {'x_refresh_token_expires_in': 8726400, 'refresh_token': '<REDACTED>', 'access_token': '<REDACTED', 'token_type': 'bearer', 'expires_in': 3600}
-   ```
+The script runs six steps:
 
-   
+1. Downloads a sample invoice PDF from the Sensible configuration library (skipped if already present)
+2. Extracts invoice data using Sensible's `invoices` document type
+3. Authenticates with QuickBooks Online using your saved tokens (auto-refreshes silently)
+4. Finds an appropriate expense account in your Chart of Accounts, or creates one called "Invoice Imports - Needs Review" if none of the expected accounts exist
+5. Finds or creates a vendor matching the extracted vendor name
+6. Creates a bill in QuickBooks with the extracted line items
 
-   6. Copy the `refresh_token` from the JSON response and set it as your `QBO_REFRESH_TOKEN` environment variable.
+### Field mapping
 
-   Refresh tokens are valid for 100 days. The following script uses the refresh token to generate short-lived access tokens automatically on each run. For production use, store the refresh token securely and handle token rotation — each refresh call returns a new refresh token that replaces the previous one.
-
-   ### Script
-
-   TODO: explain this table and update as necessary given the actual JSON payload.
-
-   The `parsed_document` object you're expecting from Sensible's extraction API looks something like this (TODO REWORD)
+The `parsed_document` object from Sensible's extraction looks something like this:
 
    ```json
    {
@@ -352,214 +294,50 @@ To obtain a refresh token and realm ID, complete the OAuth 2.0 authorization flo
 
    
 
-   ### 
-
-TODO: add steps about saving this to a file, running it in a command line, and the sort of output to expect AND a description of what the script does (downloads an example file, etc) NOTE TO SELF: save this file in docs assets so it never breaks
 
 
 
 
+### Expected output
 
+Running the script produces output like the following:
 
-
-```python
-import os
-import urllib.request
-from pathlib import Path
-
-from sensibleapi import SensibleSDK
-from intuitlib.client import AuthClient
-from quickbooks import QuickBooks
-from quickbooks.objects.account import Account
-from quickbooks.objects.bill import Bill, BillLine, AccountBasedExpenseLineDetail
-from quickbooks.objects.vendor import Vendor
-from quickbooks.objects.base import Ref
-
-# ── Download sample invoice ────────────────────────────────────────────────────
-
-SAMPLE_PDF_URL = (
-    "https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library"
-    "/main/templates/Utilities%20%26%20Invoices/Invoices/refdocs/llm_invoices_template.pdf"
-)
-
-script_dir = Path(__file__).resolve().parent
-invoice_path = script_dir / "llm_invoices_template.pdf"
-
-if not invoice_path.exists():
-    print(f"Downloading sample invoice to {invoice_path} ...")
-    urllib.request.urlretrieve(SAMPLE_PDF_URL, invoice_path)
-    print("Download complete.")
-else:
-    print(f"Sample invoice already exists at {invoice_path}, skipping download.")
-
-# ── Sensible extraction ────────────────────────────────────────────────────────
-
-sensible = SensibleSDK(os.environ["SENSIBLE_API_KEY"])
-
-request = sensible.extract(
-    path=str(invoice_path),
-    document_type="invoices",
-    environment="production",
-)
-result = sensible.wait_for(request)
-
-parsed = result["parsed_document"]
-
-# Extract the fields we need using the actual Sensible field IDs.
-# Field IDs contain spaces and mixed casing — use the exact IDs from your config.
-invoice_date   = (parsed.get("Invoice date")            or {}).get("value")
-due_date       = (parsed.get("Invoice due date")        or {}).get("value")
-invoice_number = (parsed.get("Invoice number")          or {}).get("value")
-vendor_name    = (parsed.get("Vendor name")             or {}).get("value")
-total_amount   = (parsed.get("Total amount of invoice") or {}).get("value")
-line_items     = parsed.get("line_items", [])
-
-# Vendor name may be null for some invoices. Fall back to a placeholder
-# so the bill is still created and can be reassigned during review.
-DEFAULT_VENDOR = "Unmatched - Review Required"
-if not vendor_name:
-    print(f"Warning: Vendor name not found in extraction. Using default: {DEFAULT_VENDOR}")
-    vendor_name = DEFAULT_VENDOR
-
-# ── QuickBooks Online auth ─────────────────────────────────────────────────────
-
-auth_client = AuthClient(
-    client_id=os.environ["QBO_CLIENT_ID"],
-    client_secret=os.environ["QBO_CLIENT_SECRET"],
-    redirect_uri="https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl",
-    environment="production",
-)
-auth_client.refresh(refresh_token=os.environ["QBO_REFRESH_TOKEN"])
-
-qb_client = QuickBooks(
-    auth_client=auth_client,
-    refresh_token=os.environ["QBO_REFRESH_TOKEN"],
-    company_id=os.environ["QBO_REALM_ID"],
-)
-
-# ── Find or create a default expense account ──────────────────────────────────
-
-# Ordered by likelihood of already existing in a real QBO company.
-# "Uncategorized Expense" and "Ask My Accountant" are seeded by default
-# in many regions, so this usually finds one on the first try.
-PREFERRED_ACCOUNT_NAMES = [
-    "Uncategorized Expense",
-    "Miscellaneous",
-    "Miscellaneous Expense",
-    "Ask My Accountant",
-    "Other Miscellaneous Expense",
-]
-
-# Deliberately ugly and specific — screams "come reclassify me" to a bookkeeper.
-FALLBACK_ACCOUNT_NAME = "Invoice Imports - Needs Review"
-
-
-def get_default_expense_account(qb_client):
-    """
-    Walk the Chart of Accounts looking for a sensible default expense account.
-
-    Strategy:
-      1. Query all Expense-type accounts once (QBO caps at 1 000,
-         well beyond any real CoA).
-      2. Check for preferred names (case-insensitive, in priority order).
-      3. If nothing matches, create a new Expense account called
-         "Invoice Imports - Needs Review" so the bookkeeper knows to reclassify.
-
-    Returns a Ref suitable for AccountBasedExpenseLineDetail.AccountRef.
-    """
-    accounts = Account.filter(AccountType="Expense", qb=qb_client)
-    # QBO treats "Other Expense" as a separate type, so grab those too.
-    accounts += Account.filter(AccountType="Other Expense", qb=qb_client)
-
-    by_name = {a.Name.lower(): a for a in accounts}
-
-    for name in PREFERRED_ACCOUNT_NAMES:
-        match = by_name.get(name.lower())
-        if match:
-            print(f"Using existing expense account: {match.Name!r} (ID {match.Id})")
-            ref = Ref()
-            ref.value = match.Id
-            ref.name = match.Name
-            return ref
-
-    # None of our preferred names exist — create the fallback.
-    new_acct = Account()
-    new_acct.Name = FALLBACK_ACCOUNT_NAME
-    new_acct.AccountType = "Expense"
-    new_acct.AccountSubType = "OtherMiscellaneousServiceCost"
-    new_acct.save(qb=qb_client)
-
-    print(f"Created new expense account: {new_acct.Name!r} (ID {new_acct.Id})")
-    ref = Ref()
-    ref.value = new_acct.Id
-    ref.name = new_acct.Name
-    return ref
-
-
-expense_account_ref = get_default_expense_account(qb_client)
-
-# ── Find or create vendor ──────────────────────────────────────────────────────
-
-vendors = Vendor.filter(DisplayName=vendor_name, qb=qb_client)
-if vendors:
-    vendor_ref = Ref()
-    vendor_ref.value = vendors[0].Id
-    vendor_ref.name = vendors[0].DisplayName
-else:
-    new_vendor = Vendor()
-    new_vendor.DisplayName = vendor_name
-    new_vendor.save(qb=qb_client)
-    vendor_ref = Ref()
-    vendor_ref.value = new_vendor.Id
-    vendor_ref.name = new_vendor.DisplayName
-
-# ── Build bill ─────────────────────────────────────────────────────────────────
-
-bill = Bill()
-bill.TxnDate = str(invoice_date) if invoice_date else None
-bill.DueDate = str(due_date) if due_date else None
-bill.DocNumber = str(invoice_number) if invoice_number else None
-bill.VendorRef = vendor_ref
-
-# Some versions of python-quickbooks initialize Line as None, not [].
-bill.Line = bill.Line or []
-
-if not line_items:
-    # No line items extracted — fall back to a single line using the total.
-    line = BillLine()
-    # NOTE: We preserve the sign here. A negative value likely means a credit
-    # memo or discount, and silently flipping it would create an incorrect bill.
-    line.Amount = float(total_amount) if total_amount else 0
-    line.Description = "Invoice total (line items not extracted)"
-    line.DetailType = "AccountBasedExpenseLineDetail"
-    detail = AccountBasedExpenseLineDetail()
-    detail.AccountRef = expense_account_ref
-    line.AccountBasedExpenseLineDetail = detail
-    bill.Line.append(line)
-else:
-    for item in line_items:
-        detail = AccountBasedExpenseLineDetail()
-        detail.AccountRef = expense_account_ref
-
-        # item_total comes back as a string (e.g. "34570.80") in this config,
-        # but other configs/fields may return a bare number. Coerce to str
-        # first so .replace() is always safe. Sign is preserved — a negative
-        # value from the extraction is meaningful (credit/discount).
-        raw_total = (item.get("item_total") or {}).get("value", "0")
-        amount = float(str(raw_total).replace(",", ""))
-
-        description = (item.get("item_description") or {}).get("value", "")
-
-        line = BillLine()
-        line.Amount = amount
-        line.Description = description
-        line.DetailType = "AccountBasedExpenseLineDetail"
-        line.AccountBasedExpenseLineDetail = detail
-        bill.Line.append(line)
-
-saved = bill.save(qb=qb_client)
-print(f"Bill created: ID {saved.Id}, vendor {vendor_name}, date {saved.TxnDate}")
 ```
+python import_sensible_to_quickbooks.py
+
+[1/6] Downloading sample invoice ...
+  ✓ Already exists at /home/franceselliott/GitHub/sensible-docs/scripts/quickbooks_sensible/llm_invoices_template.pdf, skipping download.
+
+[2/6] Extracting invoice with Sensible ...
+  ✓ Vendor: (not found)
+  ✓ Invoice #: 39
+  ✓ Total: 28.215
+  ✓ Line items: 4
+  ⚠ Vendor name not found. Using default: Unmatched - Review Required
+
+[3/6] Authenticating with QuickBooks Online ...
+  ✓ Connected.
+
+[4/6] Resolving expense account ...
+  ✓ Using existing account: 'Uncategorized Expense' (ID 31)
+
+[5/6] Resolving vendor ...
+  ✓ Created new vendor: Unmatched - Review Required (ID 58)
+
+[6/6] Creating bill in QuickBooks ...
+  • Line 1: Leather Leaf — $20,475.00
+  • Line 2: Leather Leaf — $4,620.00
+  • Line 3: Leather Leaf — $1,200.00
+  • Line 4: Leather Leaf — $1,920.00
+
+============================================================
+  ✓ Bill created successfully!
+    ID:     145
+    Vendor: Unmatched - Review Required
+    Date:   2023-04-02
+    Lines:  4
+```
+
 
 ## (Optional) Test your integration
 
