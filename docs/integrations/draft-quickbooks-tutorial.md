@@ -345,9 +345,7 @@ Compare it to the sample invoice to see how the document data was extracted:
 
 ## (Optional) Scale up
 
-You can extract from more invoices automatically by building a more complex Zap so that you can trigger Sensible extractions with file actions in Google Drive, email, or other Zapier-supported apps. Then send the extraction to QuickBooks Online or another destination with a Sensible action. For more information, see [Advanced Zapier tutorial](https://docs.sensible.so/docs/zapier-tutorial-2).
-
-**Note:** Sensible offers native support for automatically extracting from email attachments. Since vendor invoices commonly arrive as email attachments, this is a natural fit. Instead of using Zapier for emails, see [Getting started with email extractions](https://docs.sensible.so/docs/getting-started-email).
+TODO... talk about extracting multiple files? webhooks? etc?
 
 # Notes
 
