@@ -352,6 +352,6 @@ talk about production considerations?
 * oauth
 * For production use, consider adding logic to match extracted vendor names to existing QBO vendors to avoid creating duplicates. The Python script above includes basic vendor matching.
 
-# Notes
+<br />
 
 <br />
