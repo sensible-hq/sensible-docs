@@ -33,6 +33,10 @@ These Python scripts:
 1. TODO: figure out how to do that in python trigger (and/or in email type of sitch/filtering?)! triggers every time that Sensible extracts from a document of the `invoices` document type, and
 2. creates a new bill in QuickBooks Online from the extracted data.
 
+## TODO: add a section on adding support for invoices to your sensible account
+
+there are existing directions for adding document types -- see the library-quickstart.md and repurpose.
+
 ## Set up a destination in QuickBooks Online
 
 Before you can integrate Sensible with QuickBooks Online, you need an expense account in your Chart of Accounts to assign bill line items to, and a vendor to associate with the bill.
@@ -57,12 +61,15 @@ If you're using a free Intuit Developer account for testing:
 
 **Verify your Chart of Accounts and vendors**
 
-1. In the sandbox company, navigate to **Accounting > Chart of Accounts** TODO PROPER STYLE? and verify that an expense account (for example,  "Office Supplies" or "Cost of Goods Sold") exists: In the **ACCOUNT TYPE** filter, verify at least one account of type **Expenses** exists. If not, create a test expense account: click **New account** in the upper right corner. In the dialog, select **Expenses** in the **Account type** dropdown, populate the remaining fields with test data, and click **Save**.
-2. In the sandbox company, navigate to **Expenses > Vendors** and verify that at least one vendor exists. If not, create a test vendor: click **Create vendor** , complete the dialog with test data, and click **Save**. In production, you'd match extracted vendor names to existing QBO vendors or create new ones automatically.
+1. TODO: is this still relevant/necessary? In the sandbox company, navigate to **Accounting > Chart of Accounts** TODO PROPER STYLE ACCORDING TO GOOGLE STYLE GUIDES? and verify that an expense account (for example,  "Office Supplies" or "Cost of Goods Sold") exists: 
+   1. In the **ACCOUNT TYPE** filter, verify at least one account of type **Expenses** exists.
+   2.  If not, create a test expense account: click **New account** in the upper right corner. In the dialog, select **Expenses** in the **Account type** dropdown, populate the remaining fields with test data, and click **Save**.
+
+2. TODO: is this still relevant? maybe not -- does the script create vendors automatically? i think it does? In the sandbox company, navigate to **Expenses > Vendors** and verify that at least one vendor exists. If not, create a test vendor: click **Create vendor** , complete the dialog with test data, and click **Save**. In production, you'd match extracted vendor names to existing QBO vendors or create new ones automatically.
 
 ## Integrate with Python
 
-You can use Sensible's Python SDK and the `python-quickbooks` TODO rename library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation — especially for handling variable numbers of line items — and is suitable for batch processing or server-side automation.
+You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation — especially for handling variable numbers of line items — and is suitable for batch processing or server-side automation.
 
 ### Get the scripts
 
@@ -73,7 +80,9 @@ git clone https://github.com/sensible-hq/sensible-quickbooks-py.git
 cd sensible-docs/scripts/sensible-quickbooks-py
 ```
 
-Or browse the GitHub directory directly: [https://github.com/sensible-hq/sensible-quickbooks-py](https://github.com/sensible-hq/sensible-quickbooks-py). TODO: good as LLM alternative?
+Or browse the GitHub directory directly: [https://github.com/sensible-hq/sensible-quickbooks-py](https://github.com/sensible-hq/sensible-quickbooks-py). 
+
+TODO: why the advice to browse it directly? cut, or is it a good alternative for someone use CLaude code? 
 
 ### Prerequisites
 
@@ -85,11 +94,11 @@ pip install sensible-sdk python-quickbooks intuitlib
 
 Set the following environment variables:
 
-| Variable            | Description                                                                                                                       |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `SENSIBLE_API_KEY`  | Your Sensible API key, available on your [account page](https://app.sensible.so/account/).                                        |
-| `QBO_CLIENT_ID`     | Your QuickBooks app's client ID, available in the [Intuit Developer Portal](https://developer.intuit.com/). TODO be more specific |
-| `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. TODO same specific advice                                                                    |
+| Variable            | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| `SENSIBLE_API_KEY`  | Your Sensible API key, available on your [account page](https://app.sensible.so/account/). |
+| `QBO_CLIENT_ID`     | Your QuickBooks app's client ID, available in the [Intuit Developer Portal](https://developer.intuit.com/). TODO be more specific, how to navigate there? |
+| `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. TODO same specific advice |
 
 ### One-time setup
 
@@ -105,7 +114,7 @@ The authorization script uses a local HTTP server to catch the OAuth callback au
 
 **Authorize the app**
 
-Run the setup script once to authorize and save your tokens:
+Run the setup script in a regular terminal (not in an AI coding tool) once to authorize and save your tokens:
 
 ```bash
 python quickbooks-setup.py
@@ -115,11 +124,9 @@ The script prints an authorization URL. Copy it, open it in your browser, and cl
 
 ### Run the integration
 
-TODO: rename script
+TODO: update script name if necesasry
 
-Todo, make sure   say  to  run  NOT in  lcade  code, nxt do is inaccurTE
-
-TODO: update with `! python` alternative for running interactively in claude code
+Run the setup script in a regular terminal (not in an AI coding tool):
 
 ```bash
 python invoice_to_quickbooks.py
@@ -127,18 +134,19 @@ python invoice_to_quickbooks.py
 
 ### What the script does
 
-The script runs six steps: TODO update script has changed
+The script runs six steps: TODO update steps from the actual current code
 
-1. Downloads a sample invoice PDF from the Sensible configuration library (skipped if already present)
-2. Extracts invoice data using Sensible's `invoices` document type
-3. Authenticates with QuickBooks Online using your saved tokens (auto-refreshes silently)
-4. Finds an appropriate expense account (TODO: attempts to match, right?) in your Chart of Accounts, or creates one called "Invoice Imports - Needs Review" if none of the expected accounts exist
-5. Finds or creates a vendor matching the extracted vendor name
-6. Creates a bill in QuickBooks with the extracted line items
+1. Extracts invoice data using Sensible's `invoices` document type from an example PDF.
+2. Authenticates with QuickBooks Online using your saved tokens (auto-refreshes silently)
+3. Finds an appropriate expense account (TODO: attempts to match, right?) in your Chart of Accounts, or creates one called "Invoice Imports - Needs Review" if none of the expected accounts exist
+4. Finds or creates a vendor matching the extracted vendor name
+5. Creates a bill in QuickBooks with the extracted line items
 
 ### Field mapping
 
 The extraction response from Sensible api includes a `parsed_document` object containing the extracted document data:
+
+TODO: update this to the actual sample_invoice.pdf results (claude probably can't do this for me)
 
 ```json
 {
@@ -295,15 +303,14 @@ AND: table is inaccruate, udpate
 
 Running the script produces output like the following:
 
-```
+```bash
 python invoice_to_quickbooks.py
 
 [1/5] Extracting invoice with Sensible ...
-  ✓ Vendor: (not found)
+  ✓ Vendor: Fictional Horticulture Vendor
   ✓ Invoice #: 39
   ✓ Total: 28.215
   ✓ Line items: 4
-  ⚠ Vendor name not found. Using default: Unmatched - Review Required
 
 [2/5] Authenticating with QuickBooks Online ...
   ✓ Connected.
@@ -312,7 +319,7 @@ python invoice_to_quickbooks.py
   ✓ Using existing account: 'Uncategorized Expense' (ID 31)
 
 [4/5] Resolving vendor ...
-  ✓ Found existing vendor: Unmatched - Review Required (ID 58)
+  ✓ Created new vendor: Fictional Horticulture Vendor (ID 59)
 
 [5/5] Creating bill in QuickBooks ...
   • Line 1: Leather Leaf — $20,475.00
@@ -322,16 +329,17 @@ python invoice_to_quickbooks.py
 
 ============================================================
   ✓ Bill created successfully!
-    ID:     147
-    Vendor: Unmatched - Review Required
+    ID:     149
+    Vendor: Fictional Horticulture Vendor
     Date:   2023-04-02
     Lines:  4
-    View:   https://app.sandbox.qbo.intuit.com/app/bill?txnId=147
+    View:   https://app.sandbox.qbo.intuit.com/app/bill?txnId=149
+============================================================
 ```
 
 Follow the link to view the created bill:
 
-TODO: create screenshot,
+TODO: create screenshot, claude can't help w/ this
 
 ![](https://files.readme.io/59e96373d2797785bffff67932fdb3656cfe1f6d9e14bd781fd707196a6c8aed-image.png)
 
@@ -339,15 +347,13 @@ Compare it to the sample invoice to see how the document data was extracted:
 
 ![](https://files.readme.io/d867b30fbd2180419370474e9d516552131b1718a11a212adfd012f4ac06c863-image.png)
 
-<br />
-
-## (Optional) Test your integration
-
-1. TODO
+TODO: create screenshot, claude code can't help
 
 ## (Optional) Scale up
 
-TODO... talk about extracting multiple files? webhooks? etc?
+TODO... help me brainstrom here
+
+talk about extracting multiple files? webhooks? etc? 
 
 talk about production considerations?
 
