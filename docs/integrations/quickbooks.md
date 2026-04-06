@@ -12,18 +12,18 @@ next:
 ---
 This topic describes sending extracted data from vendor invoices into QuickBooks Online using Sensible and Python.
 
-> **This is a proof-of-concept tutorial.** It is not intended for production use. The OAuth flow, token storage, and credential handling are intentionally simplified for local development. See the inline `PRODUCTION:` comments in `qbo_auth.py` for a summary of what would need to change before deploying this anywhere real.
+> **This is a proof-of-concept tutorial.** It is not intended for production use. The OAuth flow, token storage, and credential handling are intentionally simplified for local development. See the inline `PRODUCTION:` comments in [`qbo_auth.py`](https://github.com/sensible-hq/sensible-quickbooks-py) for a summary of what would need to change before deploying this anywhere real.
 
 ```mermaid
 flowchart LR
-    A[Vendor invoice PDF] --> B["Sensible\n(invoices document type)"]
+    A[Vendor invoice PDF] --> B["Sensible (invoices document type)"]
     B --> C["Python script"]
     C --> D["QuickBooks Online bill"]
 ```
 
 ## Use cases
 
-Vendor invoices often arrive as PDFs emailed by suppliers, downloaded from portals, or scanned from paper. Getting them into your accounting system accurately and quickly is a core accounts payable workflow. Here are a few scenarios where automating this with Sensible and QuickBooks Online is valuable:
+Vendor invoices often arrive as PDFs emailed by suppliers, downloaded from portals, or scanned from paper. Importing them into your accounting system is a core accounts payable workflow. Here are a few scenarios where automating this with Sensible and QuickBooks Online is valuable:
 
 * **AP automation for bookkeeping services.** You're a SaaS company that handles bookkeeping for small-business clients. Your clients forward vendor invoices to you as PDF documents, and you extract invoice data from the documents automatically and create bills in QBO for the clients to pay.
 
@@ -134,7 +134,7 @@ The script runs five steps:
 
 ### Field mapping
 
-The extraction response from Sensible api includes a `parsed_document` object containing the extracted document data:
+The  response from the Sensible API includes a `parsed_document` object containing the extracted document data:
 
 
 
@@ -355,7 +355,7 @@ Follow the link to view the created bill:
 
 
 
-Compare it to the sample invoice to see how Quickbooks imported the document data:
+Compare it to the sample invoice to see how QuickBooks imported the document data:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_invoice.png)
 
