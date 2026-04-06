@@ -111,7 +111,7 @@ To authorize and to save your tokens, run the setup script in a regular terminal
 python quickbooks-setup.py # run this in a bash terminal, not in an AI coding assistant, so you can copy and paste the authorization URL
 ```
 
-The script prints an authorization URL. Copy it, open it in your browser, and follow any instructions. Once you authorize, the script saves your tokens automatically. You won't need to reauthorize unless your refresh token expires  (after a number of days) or unless your tokens are revoked or deleted locally.
+The script prints an authorization URL. Copy it, open it in your browser, and complete any instructions. Once you authorize, the script saves your tokens automatically. You won't need to reauthorize unless your refresh token expires  (after a number of days) or unless your tokens are revoked or deleted locally.
 
 ### Run the integration
 
