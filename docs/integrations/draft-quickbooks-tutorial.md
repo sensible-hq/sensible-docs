@@ -1,5 +1,5 @@
 ---
-title: QuickBooks tutorial
+title: QuickBooks integration
 excerpt: ''
 deprecated: false
 hidden: true
@@ -117,10 +117,12 @@ The script prints an authorization URL. Copy it, open it in your browser, and cl
 
 TODO: rename script
 
+Todo, make sure   say  to  run  NOT in  lcade  code, nxt do is inaccurTE
+
 TODO: update with `! python` alternative for running interactively in claude code
 
 ```bash
-python import_sensible_to_quickbooks.py
+python invoice_to_quickbooks.py
 ```
 
 ### What the script does
