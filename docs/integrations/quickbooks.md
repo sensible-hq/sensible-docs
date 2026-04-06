@@ -357,9 +357,9 @@ Follow the link to view the created bill:
 
 Compare it to the sample invoice to see how Quickbooks imported the document data:
 
-![](https://files.readme.io/d867b30fbd2180419370474e9d516552131b1718a11a212adfd012f4ac06c863-image.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_invoice.png)
 
-TODO: create screenshot, claude code can't help
+
 
 ## (Optional) Scale up
 
@@ -369,7 +369,7 @@ This tutorial processes a single local PDF. Here are a few directions for going 
 
 To extract multiple invoices in one run, loop over a directory of PDFs and call `sensible.extract()` for each file. Add error handling to log failures without stopping the batch.
 
-**Trigger extraction automatically**
+**Trigger extraction automatically by email**
 
 Sensible supports automatic extraction via Zapier or its [email processor](https://docs.sensible.so/docs/getting-started-email): forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
 
