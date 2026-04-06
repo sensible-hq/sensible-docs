@@ -49,36 +49,23 @@ The script uses Sensible's `invoices` document type, which is available in the [
 
 ## Set up a destination in QuickBooks Online
 
-Before you can integrate Sensible with QuickBooks Online, you need an expense account in your Chart of Accounts to assign bill line items to, and a vendor to associate with the bill.
+Before you can run the integration, you need a QuickBooks Online sandbox company to test against. 
 
 **Access a QuickBooks Online sandbox company**
 
 If you're using a free Intuit Developer account for testing:
 
 1. Sign in to [developer.intuit.com](https://developer.intuit.com/) and navigate to your workspace.
-
 2. On the **Apps** tab, click the **+** button to create a new app.
-
 3. Name your app (for example, "Sensible Integration Test"), select **QuickBooks Online and Payments** as the platform, and select **com.intuit.quickbooks.accounting** as the OAuth scope.
-
-4. After creating the app, go to the **Keys & credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
-
-5. Click **Open app** to open the app you created.
-
-6. In the upper-right corner, click **My Hub**, then select **Sandboxes** to access a sandbox company that Quickbooks created by default for your account.
-
-7. In the **Sandbox companies** list, click the name of your sandbox company to open it. Sandbox companies come preloaded with sample vendors, accounts, and other data.
-
-The script automatically resolves both the expense account and vendor at runtime:
-
-- **Expense account**: the script checks for common account names (such as "Uncategorized Expense" or "Miscellaneous") in your Chart of Accounts. If none are found, it creates an account called "Invoice Imports - Needs Review".
-- **Vendor**: the script searches for a vendor matching the extracted vendor name, and creates one if no match is found.
-
-No manual setup of accounts or vendors is required.
+4. Click **Open app** to open the app you created.
+5. Navigate to the **Keys & credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
+6. 
+7. In the upper-right corner, click **My Hub**, then select **Sandboxes** to verify you have access to a sandbox company that Quickbooks created by default for your account. You don't need to configure the vendors or other sample data in the sandbox company; leave the defaults.
 
 ## Integrate with Python
 
-You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation — especially for handling variable numbers of line items — and is suitable for batch processing or server-side automation.
+You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation at the line-item level and is suitable for batch processing or server-side automation.
 
 ### Get the scripts
 
@@ -102,8 +89,8 @@ Set the following environment variables:
 | Variable            | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
 | `SENSIBLE_API_KEY`  | Your Sensible API key, available on your [account page](https://app.sensible.so/account/). |
-| `QBO_CLIENT_ID`     | Your QuickBooks app's client ID. In the [Intuit Developer Portal](https://developer.intuit.com/), open your app and go to **Keys & credentials**. |
-| `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret, on the same **Keys & credentials** tab. |
+| `QBO_CLIENT_ID`     | Your QuickBooks app's client ID. In the [Intuit Developer Portal](https://developer.intuit.com/), open your app and navigate to **Keys and credentials**. |
+| `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. In the [Intuit Developer Portal](https://developer.intuit.com/), open your app and navigate to **Keys and credentials**. |
 
 ### One-time setup
 
@@ -113,16 +100,16 @@ Before running the integration for the first time, complete two setup steps.
 
 The authorization script uses a local HTTP server to catch the OAuth callback automatically. To enable this:
 
-1. Go to [developer.intuit.com](https://developer.intuit.com/) and open your app.
-2. Go to the **Settings** tab.
+1. Navigate to [developer.intuit.com](https://developer.intuit.com/) and open your app.
+2. Navigate to the **Settings** tab.
 3. Under **Redirect URIs**, click **Add URI**, enter `http://localhost:8080/callback`, and click **Save**.
 
 **Authorize the app**
 
-Run the setup script in a regular terminal (not in an AI coding tool) once to authorize and save your tokens:
+To authorize and to save your tokens, run the setup script in a regular terminal (not in an AI coding tool) once :
 
 ```bash
-python quickbooks-setup.py
+python quickbooks-setup.py # run this in a bash terminal, not in an AI coding assistant, so you can copy and paste the authorization URL
 ```
 
 The script prints an authorization URL. Copy it, open it in your browser, and click **Connect**. Once you authorize, the script saves your tokens automatically. You won't need to repeat this unless the refresh token expires (after 100 days of inactivity).
@@ -132,7 +119,7 @@ The script prints an authorization URL. Copy it, open it in your browser, and cl
 Run the integration script in a regular terminal (not in an AI coding tool):
 
 ```bash
-python invoice_to_quickbooks.py
+python invoice_to_quickbooks.py # run this in a bash terminal, not in an AI coding assistant, to view the full output
 ```
 
 ### What the script does
@@ -141,7 +128,7 @@ The script runs five steps:
 
 1. Extracts invoice data using Sensible's `invoices` document type from a local PDF (`invoice_sample.pdf`).
 2. Authenticates with QuickBooks Online using your saved tokens (auto-refreshes silently).
-3. Finds a matching expense account in your Chart of Accounts (checking for common names like "Uncategorized Expense" and "Miscellaneous"), or creates one called "Invoice Imports - Needs Review" if none exist.
+3. Finds a matching expense account in your sandbox company's Chart of Accounts (checking for common names like "Uncategorized Expense" and "Miscellaneous"), or creates one called "Invoice Imports - Needs Review" if none exist.
 4. Finds or creates a vendor matching the extracted vendor name.
 5. Creates a bill in QuickBooks with the extracted line items.
 
@@ -153,99 +140,142 @@ TODO: update this to the actual sample_invoice.pdf results (claude probably can'
 
 ```json
 {
-    "id": "04d60717-8e11-43d1-8a76-e773954bffb0",
-    "created": "2026-03-23T21:00:42.274Z",
-    "completed": "2026-03-23T21:01:55.999Z",
+    "id": "a588d912-02dc-4637-9c79-7f6992ab772b",
+    "created": "2026-04-06T22:19:42.270Z",
+    "completed": "2026-04-06T22:20:57.085Z",
     "status": "COMPLETE",
     "type": "invoices",
     "document_name": "invoice_sample",
     "configuration": "llm_invoices_template",
-    "configuration_version": "g2miCFA52OW1ABhCtzoEU17oFPFcFzyz",
     "environment": "production",
     "page_count": 1,
     "parsed_document": {
         "Vendor name": {
-            "value": "Sample, Inc.",
+            "value": "Fictional Horticulture Vendor",
             "type": "string",
             "confidenceSignal": "confident_answer"
         },
         "Vendor address": {
-            "value": "PO Box 11111, Charlotte, NC 28233",
+            "value": "GUATEMALA, GUATEMALA",
             "type": "string",
             "confidenceSignal": "confident_answer"
         },
-        "Customer name": {
-            "value": "Sample Group",
+        "Customer name": null,
+        "Customer address": null,
+        "Customer ID (primary)": null,
+        "Invoice number": {
+            "value": "39",
             "type": "string",
             "confidenceSignal": "confident_answer"
         },
-        // abridged response...
+        "Invoice date": {
+            "source": "2023-04-02",
+            "value": "2023-04-02T00:00:00.000Z",
+            "type": "date",
+            "confidenceSignal": "confident_answer"
+        },
+        "Invoice due date": null,
+        "Ship Via": null,
+        "Ship Date": null,
+        "PO number": null,
+        "Currency": {
+            "value": "USD",
+            "type": "string",
+            "confidenceSignal": "inferred_answer"
+        },
+        "Terms": null,
+        "Bank_name": null,
+        "Bank account name": null,
+        "Bank routing number": null,
+        "Bank Swift code": null,
+        "Bank account number": null,
+        "Sub-total before taxes": {
+            "source": "28215",
+            "value": 28215,
+            "type": "number",
+            "confidenceSignal": "confident_answer"
+        },
+        "Tax amount": null,
+        "Total amount of invoice": {
+            "source": "28.215",
+            "value": 28.215,
+            "type": "number",
+            "confidenceSignal": "confident_answer"
+        },
         "line_items": [
             {
-                "item_number": {
-                    "value": "A075NN8WT2F 019.75MS",
-                    "type": "string"
-                },
+                "item_number": null,
                 "item_description": {
-                    "value": "VITRA CHARGED FILAMENT",
+                    "value": "Leather Leaf",
                     "type": "string"
                 },
-                "item_boxes": null,
+                "item_boxes": {
+                    "source": "450",
+                    "value": 450,
+                    "type": "number"
+                },
                 "item_unit_quantity": {
-                    "source": "178,200",
-                    "value": 178200,
+                    "source": "35",
+                    "value": 35,
                     "type": "number"
                 },
                 "item__uom": {
-                    "value": "Feet",
+                    "value": "bunches",
                     "type": "string"
                 },
                 "item__unit_price": {
-                    "value": "0.194",
+                    "value": "1,30",
                     "type": "string"
                 },
-                "item__box_price": null,
+                "item__box_price": {
+                    "value": "45,50",
+                    "type": "string"
+                },
                 "item_total": {
-                    "value": "34570.80",
+                    "value": "20475",
                     "type": "string"
                 }
             },
             {
-                "item_number": {
-                    "value": "FREIGHTSURCHARGE",
-                    "type": "string"
-                },
+                "item_number": null,
                 "item_description": {
-                    "value": "Freight Surcharge on A075NN8WT2F 019.75MS",
+                    "value": "Leather Leaf",
                     "type": "string"
                 },
-                "item_boxes": null,
+                "item_boxes": {
+                    "source": "120",
+                    "value": 120,
+                    "type": "number"
+                },
                 "item_unit_quantity": {
-                    "source": "178,200",
-                    "value": 178200,
+                    "source": "35",
+                    "value": 35,
                     "type": "number"
                 },
                 "item__uom": {
-                    "value": "Each",
+                    "value": "bunches",
                     "type": "string"
                 },
                 "item__unit_price": {
-                    "value": "0.02224",
+                    "value": "1,10",
                     "type": "string"
                 },
-                "item__box_price": null,
+                "item__box_price": {
+                    "value": "38,50",
+                    "type": "string"
+                },
                 "item_total": {
-                    "value": "3963.17",
+                    "value": "4620",
                     "type": "string"
                 }
-            }
-            // abridged resposne
+            },
+            
         ]
     },
     "validations": [],
     "validation_summary": {
-        "fields": 27,
-        "fields_present": 20,
+        "fields": 25,
+        "fields_present": 11,
         "errors": 0,
         "warnings": 0,
         "skipped": 0
@@ -254,37 +284,14 @@ TODO: update this to the actual sample_invoice.pdf results (claude probably can'
         {
             "configuration": "llm_invoices_template",
             "score": {
-                "value": 50,
-                "fields_present": 50,
+                "value": 35,
+                "fields_present": 35,
                 "penalties": 0
             }
         }
     ],
     "errors": [],
-    "download_url": ""<redacted>"",
-    "content_type": "application/pdf",
-    "file_metadata": {
-        "info": {
-            "creator": "Atalasoft, Inc.",
-            "producer": "DotImage PDF Encoder",
-            "creation_date": "2022-03-31T12:03:17.000Z",
-            "modification_date": "2024-08-20T15:02:03.000-07:00"
-        },
-        "metadata": {
-            "xmp:createdate": "2022-03-31T12:03:17Z",
-            "xmp:creatortool": "Atalasoft, Inc.",
-            "xmp:modifydate": "2024-08-20T15:02:03-07:00",
-            "xmp:metadatadate": "2024-08-20T15:02:03-07:00",
-            "pdf:producer": "DotImage PDF Encoder",
-            "xmpmm:documentid": "xmp.d",
-            "xmpmm:instanceid": "uuid:55c99e98-c153-fd43-b002-569b012c7eab",
-            "xmpmm:history": "editedScannedDoc2024-08-20T15:02:03-07:00Page:1",
-            "dc:format": "application/pdf"
-        }
-    },
-    "coverage": 0.7246376811594203,
-    "charged": 1,
-    "version_id": "bV7R07dGkanm.la93_Cb70NuHd1WkWWx"
+   {...}, //abridged response 
 }
 ```
 
@@ -364,11 +371,11 @@ To extract multiple invoices in one run, loop over a directory of PDFs and call 
 
 **Trigger extraction automatically**
 
-Sensible supports automatic extraction via its [email processor](https://docs.sensible.so/docs/getting-started-email): forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
+Sensible supports automatic extraction via Zapier or its [email processor](https://docs.sensible.so/docs/getting-started-email): forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
 
 **Extract other document types**
 
-The same pattern works for any document type in the [Sensible configuration library](https://docs.sensible.so/docs/library-quickstart) — purchase orders, receipts, expense reports, and more. Swap the `document_type` parameter in the `extract()` call and update the field mapping to match the new document type's fields.
+The same pattern works for any document type for which you add support to your Sensible account --  purchase orders, receipts, expense reports, and more. Swap the `document_type` parameter in the `extract()` call and update the field mapping to match the new document type's fields.
 
 **Production considerations**
 
@@ -379,6 +386,3 @@ Before deploying this integration in production, review the `PRODUCTION:` commen
 * Switching `environment="sandbox"` to `environment="production"` in both the `AuthClient` and `QuickBooks` constructors
 * Adding per-account token storage if your service connects to multiple QuickBooks Online companies
 
-<br />
-
-<br />
