@@ -16,7 +16,7 @@ This topic describes sending extracted data from vendor invoices into QuickBooks
 
 ```mermaid
 flowchart LR
-    A[Vendor invoice PDF] --> B["Sensible\n(invoices document type)"]
+    A[Vendor invoice PDF] --> B["Sensible (invoices document type)"]
     B --> C["Python script"]
     C --> D["QuickBooks Online bill"]
 ```
