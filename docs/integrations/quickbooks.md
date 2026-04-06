@@ -371,7 +371,7 @@ To extract multiple invoices in one run, loop over a directory of PDFs and call 
 
 **Trigger extraction automatically by email**
 
-Sensible supports automatic extraction via Zapier or its [email processor](https://docs.sensible.so/docs/getting-started-email): forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
+Sensible supports automatic extraction of invoices as you receive them via its [email processor](https://docs.sensible.so/docs/getting-started-email): forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
 
 **Extract other document types**
 
