@@ -12,7 +12,7 @@ next:
 ---
 This topic describes sending extracted data from vendor invoices into QuickBooks Online using Sensible and Python.
 
-> **This is a proof-of-concept tutorial.** It is not intended for production use. The OAuth flow, token storage, and credential handling are intentionally simplified for local development. See the inline `PRODUCTION:` comments in `qbo_auth.py` for a summary of what would need to change before deploying this anywhere real.
+> **This is a proof-of-concept tutorial.** It is not intended for production use. The OAuth flow, token storage, and credential handling are intentionally simplified for local development. See the inline `PRODUCTION:` comments in `qbo_auth.py` in the [sensible-quickbooks-py](https://github.com/sensible-hq/sensible-quickbooks-py) repo for a summary of what would need to change before deploying this anywhere real.
 
 ```mermaid
 flowchart LR
