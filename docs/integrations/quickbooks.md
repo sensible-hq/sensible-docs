@@ -297,19 +297,19 @@ The extraction response from Sensible api includes a `parsed_document` object co
 
 The script reads fields from the `parsed_document` object in the Sensible API response and maps them to QuickBooks Online bill fields:
 
-| QuickBooks Online field       | Sensible field                   | Notes                                                                                                                     |
-| ----------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| **Vendor**                    | `Vendor name`                    | The script searches for an existing QBO vendor with a matching `DisplayName`, or creates a new vendor if none is found.   |
-| **Transaction Date**          | `Invoice date`                   | The date on the invoice.                                                                                                  |
-| **Due Date**                  | `Invoice due date`               | The payment due date, if present on the invoice.                                                                          |
-| **Ref No.**                   | `Invoice number`                 | The vendor's invoice number, for cross-referencing.                                                                       |
-| **Line 1 - Description**      | `line_items[0].item_description` | The description of the first line item.                                                                                   |
-| **Line 1 - Amount**           | `line_items[0].item_total`       | The amount of the first line item.                                                                                        |
-| **Line 2 - Description**      | `line_items[1].item_description` | The description of the second line item.                                                                                  |
-| **Line 2 - Amount**           | `line_items[1].item_total`       | The amount of the second line item.                                                                                       |
-| **Line n - Description**      | `line_items[n].item_description` | The script iterates the full `line_items` array and creates one QBO bill line per entry.                                  |
-| **Line n - Amount**           | `line_items[n].item_total`       |                                                                                                                           |
-| **Line - Account**            | _(resolved automatically)_       | All lines use the same expense account, resolved as described in [What the script does](#what-the-script-does).           |
+| Bill field                                      | Sensible field                   | Notes                                                                                                                     |
+| ----------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `bill.VendorRef`                                | `Vendor name`                    | The script searches for an existing QBO vendor with a matching `DisplayName`, or creates a new vendor if none is found.   |
+| `bill.TxnDate`                                  | `Invoice date`                   | The date on the invoice.                                                                                                  |
+| `bill.DueDate`                                  | `Invoice due date`               | The payment due date, if present on the invoice.                                                                          |
+| `bill.DocNumber`                                | `Invoice number`                 | The vendor's invoice number, for cross-referencing.                                                                       |
+| `line.Description` (line 1)                     | `line_items[0].item_description` | The description of the first line item.                                                                                   |
+| `line.Amount` (line 1)                          | `line_items[0].item_total`       | The amount of the first line item.                                                                                        |
+| `line.Description` (line 2)                     | `line_items[1].item_description` | The description of the second line item.                                                                                  |
+| `line.Amount` (line 2)                          | `line_items[1].item_total`       | The amount of the second line item.                                                                                       |
+| `line.Description` (line n)                     | `line_items[n].item_description` | The script iterates the full `line_items` array and creates one bill line per entry.                                      |
+| `line.Amount` (line n)                          | `line_items[n].item_total`       |                                                                                                                           |
+| `line.AccountBasedExpenseLineDetail.AccountRef` | _(resolved automatically)_       | All lines use the same expense account, resolved as described in [What the script does](#what-the-script-does).           |
 
 ### Expected output
 
