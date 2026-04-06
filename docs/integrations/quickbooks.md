@@ -351,11 +351,11 @@ python invoice_to_quickbooks.py
 
 Follow the link to view the created bill:
 
-TODO: create screenshot, claude can't help w/ this
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_bill.png)
 
-![](https://files.readme.io/59e96373d2797785bffff67932fdb3656cfe1f6d9e14bd781fd707196a6c8aed-image.png)
 
-Compare it to the sample invoice to see how the document data was extracted:
+
+Compare it to the sample invoice to see how Quickbooks imported the document data:
 
 ![](https://files.readme.io/d867b30fbd2180419370474e9d516552131b1718a11a212adfd012f4ac06c863-image.png)
 
