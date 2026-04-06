@@ -58,10 +58,9 @@ If you're using a free Intuit Developer account for testing:
 1. Sign in to [developer.intuit.com](https://developer.intuit.com/) and navigate to your workspace.
 2. On the **Apps** tab, click the **+** button to create a new app.
 3. Name your app (for example, "Sensible Integration Test"), select **QuickBooks Online and Payments** as the platform, and select **com.intuit.quickbooks.accounting** as the OAuth scope.
-4. Click **Open app** to open the app you created.
-5. Navigate to the **Keys & credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
-6. 
-7. In the upper-right corner, click **My Hub**, then select **Sandboxes** to verify you have access to a sandbox company that Quickbooks created by default for your account. You don't need to configure the vendors or other sample data in the sandbox company; leave the defaults.
+4. Click the app you created to open it.
+5. Navigate to the **Keys and credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
+7. In the upper-right corner, click **My Hub**, select **Sandboxes**, then click the default sandbox company to open it and to verify you have access. Quickbooks created this company by default for your account. You don't need to configure the vendors or other sample data in the sandbox company; leave the defaults.
 
 ## Integrate with Python
 
@@ -112,7 +111,7 @@ To authorize and to save your tokens, run the setup script in a regular terminal
 python quickbooks-setup.py # run this in a bash terminal, not in an AI coding assistant, so you can copy and paste the authorization URL
 ```
 
-The script prints an authorization URL. Copy it, open it in your browser, and click **Connect**. Once you authorize, the script saves your tokens automatically. You won't need to reauthorize unless your refresh token expires  (after a number of days) or unless your tokens are revoked or deleted locally.
+The script prints an authorization URL. Copy it and open it in your browser. Once you authorize, the script saves your tokens automatically. You won't need to reauthorize unless your refresh token expires  (after a number of days) or unless your tokens are revoked or deleted locally.
 
 ### Run the integration
 
