@@ -4,7 +4,7 @@ excerpt: ''
 deprecated: false
 hidden: false
 metadata:
-  title: Integrate with Quickbooks using Python
+  title: Integrate with QuickBooks using Python
   description: Extract invoices into QuickBooks Online as bills with Python and Sensible
   robots: index
 next:
@@ -60,7 +60,7 @@ If you're using a free Intuit Developer account for testing:
 3. Name your app (for example, "Sensible Integration Test"), select **QuickBooks Online and Payments** as the platform, and select **com.intuit.quickbooks.accounting** as the OAuth scope.
 4. Click the app you created to open it.
 5. Navigate to the **Keys and credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
-7. In the upper-right corner, click **My Hub**, select **Sandboxes**, then verify that Quickbooks automatically populated your account with a default sandbox company.  In succeeding steps, you'll import vendor invoices as bills for this company. TODO: verify this is true? I saw a imported/created bill, but I didn't see an association btwn it and the sandbox company and the bill wasn't visisble under the sandbox' companys' expenses/bills tab?
+6. In the upper-right corner, click **My Hub**, select **Sandboxes**, and verify that a default sandbox company exists. The script creates bills in this company.
 
 ## Integrate with Python
 
@@ -68,7 +68,7 @@ You can use Sensible's Python SDK and the `python-quickbooks` library to extract
 
 ### Prerequisites
 
-1. In a terminal, use the following commands to download the scripts from GitHub and install prerequisites: TODO: make sure these libs are all actually used in the scripts?
+1. In a terminal, use the following commands to download the scripts from GitHub and install prerequisites:
 
 ```bash
 git clone https://github.com/sensible-hq/sensible-quickbooks-py.git
@@ -76,7 +76,7 @@ cd sensible-quickbooks-py
 pip install sensible-sdk python-quickbooks intuitlib 
 ```
 
-2. Set the following environment variables, for example in a TBD files: TODO and source them TODO and xcheck that they're actually used/referenced; terminology stays the same
+2. Set the following environment variables. To set them for the current terminal session only, run `export VARIABLE=value`. To persist them, add the export commands to your shell profile (e.g. `~/.bashrc` or `~/.zshrc`) and run `source ~/.bashrc` (or `source ~/.zshrc`) to apply them to the current session.
 
 | Variable            | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
@@ -106,7 +106,7 @@ python quickbooks-setup.py # run this in a terminal, not in an AI coding assista
 
 The script prints an authorization URL. Copy it, open it in your browser, and complete any instructions. Once you authorize, the script saves your tokens automatically. You won't need to reauthorize unless your refresh token expires (after a number of days) or unless your tokens are revoked or deleted locally.
 
-### Extract data from a sample invoice and import to Quickbooks
+### Extract data from a sample invoice and import to QuickBooks
 
 Run the integration script in a terminal (not in an AI coding tool):
 
@@ -142,7 +142,7 @@ python invoice_to_quickbooks.py
   • Line 4: Leather Leaf — $1,920.00
 
 ============================================================
-  ✓ Bill created successfully!
+✓ Bill created successfully for your QuickBooks company. Company ID: 9341456650201556
     ID:     149
     Vendor: Fictional Horticulture Vendor
     Date:   2023-04-02
@@ -151,7 +151,7 @@ python invoice_to_quickbooks.py
 ============================================================
 ```
 
-Follow the link in the output  to view the created bill in QuickBooks:
+Follow the link in the output  to view the created bill in QuickBooks. Or, navigate to your sandbox company's expenses and filter bills by the invoice's date to view the bill:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_bill.png)
 
@@ -165,7 +165,7 @@ The script runs five steps:
 
 1. Extracts invoice data using Sensible's `invoices` document type from a local PDF (`invoice_sample.pdf`).
 2. Authenticates with QuickBooks Online using your saved tokens (refreshes automatically and silently).
-3. Finds a matching expense account in your sandbox company's Chart of Accounts. Checks for common names like "Uncategorized Expense" and "Miscellaneous", or creates one called "Invoice Imports - Needs Review" if none exist. Note that you can use Sensible's 
+3. Finds a matching expense account in your sandbox company's Chart of Accounts. Checks for common names like "Uncategorized Expense" and "Miscellaneous", or creates one called "Invoice Imports - Needs Review" if none exist.
 4. Finds or creates a vendor matching the extracted vendor name.
 5. Creates a bill in QuickBooks with the extracted line items.
 
@@ -349,25 +349,21 @@ The script reads fields from the `parsed_document` object in the Sensible API re
 
 ## (Optional) Scale up
 
-This tutorial processes a single local PDF. Here are a few directions *TODO dislike wording* for going further.
+This tutorial processes a single local PDF. Here are a few ways to expand on this tutorial.
 
-**Process a batch of invoices**
+### Process a batch of invoices
 
 To extract multiple invoices in one run, loop over a directory of PDFs and call `sensible.extract()` for each file. Add error handling to log failures without stopping the batch.
 
-**Trigger extraction automatically by email**
+### Trigger extraction automatically by email
 
-Sensible supports automatic extraction of invoices as you receive them via its [email processor](https://docs.sensible.so/docs/getting-started-email): forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
+Sensible supports automatic extraction of invoices as you receive them via its [email processor](https://docs.sensible.so/docs/getting-started-email). Forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the extraction response containing the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
 
-**Extract more information**
+### Extract other document types
 
-TODO AND talk about adding JsonLogic constant method for category for example ... through determinstic logic transfromation or through chaning LLM calls...and maybe something about vaildation too, like check the sums are the same as sum of line itmes w/ some math...
+The same pattern works for any document type for which you add support to your Sensible account, for example, purchase orders, receipts, expense reports, and more. Update the `document_type` parameter in the `extract()` call and update the field mapping to match the new document type's fields.
 
-**Extract other document types**
-
-The same pattern works for any document type for which you add support to your Sensible account --  purchase orders, receipts, expense reports, and more. Swap the `document_type` parameter in the `extract()` call and update the field mapping to match the new document type's fields.
-
-**Production considerations**
+### Production considerations
 
 Before deploying this integration in production, review the `PRODUCTION:` comments throughout `qbo_auth.py`. Key changes include:
 
@@ -375,4 +371,94 @@ Before deploying this integration in production, review the `PRODUCTION:` commen
 * Replacing the browser-based OAuth flow with a proper web redirect flow
 * Switching `environment="sandbox"` to `environment="production"` in both the `AuthClient` and `QuickBooks` constructors
 * Adding per-account token storage if your service connects to multiple QuickBooks Online companies
+
+
+### Extract more information
+
+The `invoices` document type has out-of-the-box support for a standard set of fields. To extract additional data or add quality checks, edit the extraction config in the Sensible app:
+
+1. Click **Document types**, then click **invoices**.
+2. Click the config name (for example, `llm_invoices_template`) to open the editor.
+
+**Add a field with an LLM query**
+
+To extract a field not covered by the default config,  add a new entry to the `fields` array describing what you want the LLM to extract using an [LLM-based method](doc:llm-based-methods). For example, add payment terms:
+
+```json
+{
+  "id": "payment_terms",
+  "method": {
+    "id": "queryGroup",
+    "queries": [
+      {
+        "id": "payment_terms",
+        "description": "Payment terms, for example 'Net 30' or 'Due on receipt'",
+        "type": "string"
+      }
+    ]
+  }
+}
+```
+Note that deterministic [layout-based methods](doc:layout-based-methods) for extracting data are generally inapplicable unless you have high volume from vendors that use a consistent layout.
+
+**Derive a field using logic**
+
+You can transform extracted data with LLMs or with logic. For example, add a field that uses the [`customComputation`](doc:custom-computation) method to categorize expenses. The following example returns `"Supplies"` if any line item description matches a plant-related keyword, and `"Equipment"` otherwise:
+
+```json
+{
+  "id": "expense_category",
+  "method": {
+    "id": "customComputation",
+    "jsonLogic": {
+      "if": [
+        {
+          "some": [
+            { "var": "line_items" },
+            {
+              "match": [
+                { "var": "item_description.value" },
+                "(?i)(plant|flower|leaf|seed|shrub)"
+              ]
+            }
+          ]
+        },
+        "Supplies",
+        "Equipment"
+      ]
+    }
+  }
+}
+```
+
+If you make the preceding change to the config, then update the Python script to read `result["parsed_document"]["expense_category"]["value"]` and use it to set `AccountRef` per line item, instead of using the default catch-all account.
+
+**Validate extracted totals**
+
+Add a [validation](doc:validate-extractions) to flag extractions where the sum of line item amounts doesn't match the invoice total. In the Sensible app, click **Create validation** on the document type and enter:
+
+- **Description**: Line items sum matches invoice total
+- **Severity**: `warning`
+- **Condition** (requires `item_total` to use a numeric type in the config):
+
+```json
+{
+  "==": [
+    {
+      "reduce": [
+        { "var": "line_items" },
+        { "+": [
+          { "var": "accumulator" },
+          { "var": "current.item_total.value" }
+        ]},
+        0
+      ]
+    },
+    { "var": "Total amount of invoice.value" }
+  ]
+}
+```
+
+Failed validations appear in the `validations` array of the Sensible API output. In the script, check `result["validations"]` before creating a bill in QuickBooks to catch and log extraction errors before they create bad records.
+
 
