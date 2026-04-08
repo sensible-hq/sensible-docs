@@ -68,7 +68,7 @@ You can use Sensible's Python SDK and the `python-quickbooks` library to extract
 
 ### Prerequisites
 
-1. In a terminal, use the following commands to download the scripts from GitHub and install prerequisites: TODO: make sure these are all used
+1. In a terminal, use the following commands to download the scripts from GitHub and install prerequisites: TODO: make sure these libs are all actually used in the scripts?
 
 ```bash
 git clone https://github.com/sensible-hq/sensible-quickbooks-py.git
@@ -361,7 +361,7 @@ Sensible supports automatic extraction of invoices as you receive them via its [
 
 **Extract more information**
 
-TODO AND talk about adding constants for category for example ... through determinstic logic transfromation or through chaning LLM calls...and maybe something about vaildation too, like check the sums are the same as sum of line itmes w/ some math...
+TODO AND talk about adding JsonLogic constant method for category for example ... through determinstic logic transfromation or through chaning LLM calls...and maybe something about vaildation too, like check the sums are the same as sum of line itmes w/ some math...
 
 **Extract other document types**
 
