@@ -45,7 +45,7 @@ The script uses Sensible's `invoices` document type, which is available in the [
 1. In the Sensible app, click the **Template library** tab.
 2. Search for **invoices** or browse by use case.
 3. Click the **invoices** document type, then click **Clone to account**. Sensible adds the document type and its extraction configurations to your **Document types** tab.
-4. Test the document type by uploading a sample invoice using the **Extract** tab.
+4. Test the document type by uploading a sample invoice on the **Extract** tab.
 
 ## Set up a destination in QuickBooks Online
 
@@ -60,7 +60,7 @@ If you're using a free Intuit Developer account for testing:
 3. Name your app (for example, "Sensible Integration Test"), select **QuickBooks Online and Payments** as the platform, and select **com.intuit.quickbooks.accounting** as the OAuth scope.
 4. Click the app you created to open it.
 5. Navigate to the **Keys and credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
-6. In the upper-right corner, click **My Hub**, select **Sandboxes**, and verify that a default sandbox company exists. The script creates bills in this company.
+6. In the upper-right corner, click **My Hub**, select **Sandboxes**, and verify that a default sandbox company exists. In succeeding steps, a Python script creates bills in this company.
 
 ## Integrate with Python
 
@@ -155,7 +155,7 @@ Follow the link in the output  to view the created bill in QuickBooks. Or, navig
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_bill.png)
 
-Compare the bill to the sample vendor invoice PDF to see how QuickBooks imported the document data:
+Compare the bill to the sample vendor invoice PDF to learn how QuickBooks imported the document data:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_invoice.png)
 
@@ -380,85 +380,17 @@ The `invoices` document type has out-of-the-box support for a standard set of fi
 1. Click **Document types**, then click **invoices**.
 2. Click the config name (for example, `llm_invoices_template`) to open the editor.
 
-**Add a field with an LLM query**
 
-To extract a field not covered by the default config,  add a new entry to the `fields` array describing what you want the LLM to extract using an [LLM-based method](doc:llm-based-methods). For example, add payment terms:
+To extract a field not covered by the default config, add a new entry to the `fields` array describing what you want the LLM to extract using an [LLM-based method](doc:llm-based-methods). For example, extract payment terms with a prompt like `"Payment terms, for example 'Net 30' or 'Due on receipt'"`.
 
-```json
-{
-  "id": "payment_terms",
-  "method": {
-    "id": "queryGroup",
-    "queries": [
-      {
-        "id": "payment_terms",
-        "description": "Payment terms, for example 'Net 30' or 'Due on receipt'",
-        "type": "string"
-      }
-    ]
-  }
-}
-```
 Note that deterministic [layout-based methods](doc:layout-based-methods) for extracting data are generally inapplicable unless you have high volume from vendors that use a consistent layout.
 
-**Derive a field using logic**
+### Postprocess extracted fields
 
-You can transform extracted data with LLMs or with logic. For example, add a field that uses the [`customComputation`](doc:custom-computation) method to categorize expenses. The following example returns `"Supplies"` if any line item description matches a plant-related keyword, and `"Equipment"` otherwise:
+You can transform extracted data with LLMs or with logic. For example:
+- You want to add expense categories to line items and the source invoice lacks this information. Add a field that uses the [`customComputation`](doc:custom-computation) method to deterministically categorize line-item expenses based on keywords. Or, chain two LLM prompts together using the [Query Method](doc:query-method) to first extract and then categorize line item expenses.
+- You want to validate that the subtotals listed in the invoice actually equal the total amount due. You can create a [validation](doc:validate-extractions) using [JsonLogic](doc:jsonlogic) to flag bad invoices for [human review](doc:human-review). 
 
-```json
-{
-  "id": "expense_category",
-  "method": {
-    "id": "customComputation",
-    "jsonLogic": {
-      "if": [
-        {
-          "some": [
-            { "var": "line_items" },
-            {
-              "match": [
-                { "var": "item_description.value" },
-                "(?i)(plant|flower|leaf|seed|shrub)"
-              ]
-            }
-          ]
-        },
-        "Supplies",
-        "Equipment"
-      ]
-    }
-  }
-}
-```
 
-If you make the preceding change to the config, then update the Python script to read `result["parsed_document"]["expense_category"]["value"]` and use it to set `AccountRef` per line item, instead of using the default catch-all account.
-
-**Validate extracted totals**
-
-Add a [validation](doc:validate-extractions) to flag extractions where the sum of line item amounts doesn't match the invoice total. In the Sensible app, click **Create validation** on the document type and enter:
-
-- **Description**: Line items sum matches invoice total
-- **Severity**: `warning`
-- **Condition** (requires `item_total` to use a numeric type in the config):
-
-```json
-{
-  "==": [
-    {
-      "reduce": [
-        { "var": "line_items" },
-        { "+": [
-          { "var": "accumulator" },
-          { "var": "current.item_total.value" }
-        ]},
-        0
-      ]
-    },
-    { "var": "Total amount of invoice.value" }
-  ]
-}
-```
-
-Failed validations appear in the `validations` array of the Sensible API output. In the script, check `result["validations"]` before creating a bill in QuickBooks to catch and log extraction errors before they create bad records.
 
 
