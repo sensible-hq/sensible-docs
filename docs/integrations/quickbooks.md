@@ -43,25 +43,26 @@ The Python script:
 The script uses Sensible's `invoices` document type, which is available in the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). To add support for invoices:
 
 1. Sign up for a [Sensible account](https://app.sensible.so/register) and complete onboarding steps, then navigate to your [dashboard](https://app.sensible.so/dashboard/) in the Sensible app.
-1. Click the **Template library** tab.
-2. Search for **invoices** or browse by use case.
-3. Click the **invoices** document type, then click **Clone to account**. Sensible adds the document type and its extraction configurations to your **Document types** tab.
-4. Test the document type by uploading a sample invoice on the **Extract** tab.
+2. Click the **Template library** tab.
+3. Search for **invoices** or browse by use case.
+4. Click the **invoices** document type, then click **Clone to account**. Sensible adds the document type and its extraction configurations to your **Document types** tab.
+5. Test the document type by uploading a sample invoice on the **Extract** tab.
 
 ## Set up a destination in QuickBooks Online
 
-Before you can run the integration, you need a QuickBooks Online sandbox company to test against. 
-
-**Access a QuickBooks Online sandbox company**
-
-If you're using a free Intuit Developer account for testing:
+Before you can run the integration, you need to configure a QuickBooks Online app to test against. If you're using a free Intuit Developer account for testing, take the following steps:
 
 1. Sign in to [developer.intuit.com](https://developer.intuit.com/) and navigate to your workspace.
 2. On the **Apps** tab, click the **+** button to create a new app.
-3. Name your app (for example, "Sensible Integration Test"), select **QuickBooks Online and Payments** as the platform, and select **com.intuit.quickbooks.accounting** as the OAuth scope.
-4. Click the app you created to open it.
-5. Navigate to the **Keys and credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
+3. Name your app (for example, "Sensible Integration Test"), select **com.intuit.quickbooks.accounting** as the OAuth scope, and in the dialog, verify the API Product is **QuickBooks Online**.
+4. Click **View credentials** to view and copy the **Client Secret** and **Client ID**. You'll use these as environment variables in a later step. Or, if the dialog is inaccessible:
+    1. Click the app you created to open it.
+    2. Navigate to the **Keys and credentials** tab and copy the **Client ID** and **Client Secret**. 
+5. In your app, add a local redirect to enable authentication in succeeding steps:
+    1. Navigate to the **Settings** tab.
+    2. Under **Redirect URIs**, verify you're in the **Development** tab, click **Add URI**, enter `http://localhost:8080/callback`, and click **Save**
 6. In the upper-right corner, click **My Hub**, select **Sandboxes**, and verify that a default sandbox company exists. In succeeding steps, a Python script creates bills in this company.
+
 
 ## Integrate with Python
 
@@ -77,7 +78,7 @@ cd sensible-quickbooks-py
 pip install sensible-sdk python-quickbooks intuit-oauth
 ```
 
-2. Set the following environment variables. To set them for the current terminal session only, run `export VARIABLE=value`. To persist them, add the export commands to your shell profile (e.g. `~/.bashrc` or `~/.zshrc`) and run `source ~/.bashrc` (or `source ~/.zshrc`) to apply them to the current session.
+1. Set the following environment variables. To set them for the current terminal session only, run `export VARIABLE=value`. To persist them, add the export commands to your shell profile (e.g. `~/.bashrc` or `~/.zshrc`) and run `source ~/.bashrc` (or `source ~/.zshrc`) to apply them to the current session.
 
 | Variable            | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
@@ -87,19 +88,7 @@ pip install sensible-sdk python-quickbooks intuit-oauth
 
 ### One-time authentication
 
-Before running the integration for the first time, complete the following steps.
-
-**Add a redirect URI to your Intuit app**
-
-The authorization script uses a local HTTP server to catch the OAuth callback automatically. To enable this:
-
-1. Navigate to [developer.intuit.com](https://developer.intuit.com/) and open your app.
-2. Navigate to the **Settings** tab.
-3. Under **Redirect URIs**, click **Add URI**, enter `http://localhost:8080/callback`, and click **Save**.
-
-**Authorize the app**
-
-To authorize and to save your tokens, run the setup script in a terminal (not in an AI coding tool):
+Before running the integration for the first time, authorize and to save your QuickBooks tokens. Run the setup script in a terminal (not in an AI coding tool):
 
 ```bash
 python quickbooks-setup.py # run this in a terminal, not in an AI coding assistant, so you can view and copy the printed authorization URL
