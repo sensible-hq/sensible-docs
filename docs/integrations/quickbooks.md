@@ -4,7 +4,7 @@ excerpt: ''
 deprecated: false
 hidden: false
 metadata:
-  title: Integrate with Quickbooks using Python
+  title: Integrate with QuickBooks using Python
   description: Extract invoices into QuickBooks Online as bills with Python and Sensible
   robots: index
 next:
@@ -35,7 +35,7 @@ In this tutorial, you'll set up the first scenario: extracting a vendor invoice 
 
 The Python script:
 
-1. Extracts a vendor invoice PDF using Sensible's `invoices` document type, and
+1. Extracts a sample vendor invoice PDF using Sensible's `invoices` document type, and
 2. Creates a new bill in QuickBooks Online from the extracted data.
 
 ## Add the invoices document type to your Sensible account
@@ -45,7 +45,7 @@ The script uses Sensible's `invoices` document type, which is available in the [
 1. In the Sensible app, click the **Template library** tab.
 2. Search for **invoices** or browse by use case.
 3. Click the **invoices** document type, then click **Clone to account**. Sensible adds the document type and its extraction configurations to your **Document types** tab.
-4. Test the document type by uploading a sample invoice using the **Extract** tab.
+4. Test the document type by uploading a sample invoice on the **Extract** tab.
 
 ## Set up a destination in QuickBooks Online
 
@@ -60,40 +60,33 @@ If you're using a free Intuit Developer account for testing:
 3. Name your app (for example, "Sensible Integration Test"), select **QuickBooks Online and Payments** as the platform, and select **com.intuit.quickbooks.accounting** as the OAuth scope.
 4. Click the app you created to open it.
 5. Navigate to the **Keys and credentials** tab and copy the **Client ID** and **Client Secret**. You'll use these as environment variables in a later step.
-7. In the upper-right corner, click **My Hub**, select **Sandboxes**, then click the default sandbox company to open it and to verify you have access. Quickbooks created this company by default for your account. You don't need to configure the vendors or other sample data in the sandbox company; leave the defaults.
+6. In the upper-right corner, click **My Hub**, select **Sandboxes**, and verify that a default sandbox company exists. In succeeding steps, a Python script creates bills in this company.
 
 ## Integrate with Python
 
-You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script. This approach gives you full control over the data transformation at the line-item level and is suitable for batch processing or server-side automation.
+You can use Sensible's Python SDK and the `python-quickbooks` library to extract invoices and create bills in QuickBooks Online in a single script.
 
-### Get the scripts
+### Prerequisites
 
-Download the scripts from GitHub:
+1. In a terminal, use the following commands to download the scripts from GitHub and install prerequisites:
 
 ```bash
 git clone https://github.com/sensible-hq/sensible-quickbooks-py.git
 cd sensible-quickbooks-py
-```
-
-### Prerequisites
-
-Install the required libraries:
-
-```bash
 pip install sensible-sdk python-quickbooks intuitlib 
 ```
 
-Set the following environment variables:
+2. Set the following environment variables. To set them for the current terminal session only, run `export VARIABLE=value`. To persist them, add the export commands to your shell profile (e.g. `~/.bashrc` or `~/.zshrc`) and run `source ~/.bashrc` (or `source ~/.zshrc`) to apply them to the current session.
 
 | Variable            | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
-| `SENSIBLE_API_KEY`  | Your Sensible API key, available on your [account page](https://app.sensible.so/account/). |
+| `SENSIBLE_API_KEY`  | Your Sensible API key, available on your Sensible [account page](https://app.sensible.so/account/). |
 | `QBO_CLIENT_ID`     | Your QuickBooks app's client ID. In the [Intuit Developer Portal](https://developer.intuit.com/), open your app and navigate to **Keys and credentials**. |
 | `QBO_CLIENT_SECRET` | Your QuickBooks app's client secret. In the [Intuit Developer Portal](https://developer.intuit.com/), open your app and navigate to **Keys and credentials**. |
 
-### One-time setup
+### One-time authentication
 
-Before running the integration for the first time, complete two setup steps.
+Before running the integration for the first time, complete the following steps.
 
 **Add a redirect URI to your Intuit app**
 
@@ -105,37 +98,80 @@ The authorization script uses a local HTTP server to catch the OAuth callback au
 
 **Authorize the app**
 
-To authorize and to save your tokens, run the setup script in a regular terminal (not in an AI coding tool) once :
+To authorize and to save your tokens, run the setup script in a terminal (not in an AI coding tool):
 
 ```bash
-python quickbooks-setup.py # run this in a bash terminal, not in an AI coding assistant, so you can copy and paste the authorization URL
+python quickbooks-setup.py # run this in a terminal, not in an AI coding assistant, so you can view and copy the printed authorization URL
 ```
 
-The script prints an authorization URL. Copy it, open it in your browser, and complete any instructions. Once you authorize, the script saves your tokens automatically. You won't need to reauthorize unless your refresh token expires  (after a number of days) or unless your tokens are revoked or deleted locally.
+The script prints an authorization URL. Copy it, open it in your browser, and complete any instructions. Once you authorize, the script saves your tokens automatically. You won't need to reauthorize unless your refresh token expires (after a number of days) or unless your tokens are revoked or deleted locally.
 
-### Run the integration
+### Extract data from a sample invoice and import to QuickBooks
 
-Run the integration script in a regular terminal (not in an AI coding tool):
+Run the integration script in a terminal (not in an AI coding tool):
 
 ```bash
-python invoice_to_quickbooks.py # run this in a bash terminal, not in an AI coding assistant, to view the full output
+python invoice_to_quickbooks.py # run this in a terminal, not in an AI coding assistant, to view the full output
 ```
+### Expected output
+
+Running the script produces output like the following:
+
+```bash
+python invoice_to_quickbooks.py
+
+[1/5] Extracting invoice with Sensible ...
+  ✓ Vendor: Fictional Horticulture Vendor
+  ✓ Invoice #: 39
+  ✓ Total: 28.215
+  ✓ Line items: 4
+
+[2/5] Authenticating with QuickBooks Online ...
+  ✓ Connected.
+
+[3/5] Resolving expense account ...
+  ✓ Using existing account: 'Uncategorized Expense' (ID 31)
+
+[4/5] Resolving vendor ...
+  ✓ Created new vendor: Fictional Horticulture Vendor (ID 59)
+
+[5/5] Creating bill in QuickBooks ...
+  • Line 1: Leather Leaf — $20,475.00
+  • Line 2: Leather Leaf — $4,620.00
+  • Line 3: Leather Leaf — $1,200.00
+  • Line 4: Leather Leaf — $1,920.00
+
+============================================================
+✓ Bill created successfully for your QuickBooks company. Company ID: 9341456650201556
+    ID:     149
+    Vendor: Fictional Horticulture Vendor
+    Date:   2023-04-02
+    Lines:  4
+    View:   https://app.sandbox.qbo.intuit.com/app/bill?txnId=149
+============================================================
+```
+
+Follow the link in the output  to view the created bill in QuickBooks. Or, navigate to your sandbox company's expenses and filter bills by the invoice's date to view the bill:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_bill.png)
+
+Compare the bill to the sample vendor invoice PDF to learn how QuickBooks imported the document data:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_invoice.png)
 
 ### What the script does
 
 The script runs five steps:
 
 1. Extracts invoice data using Sensible's `invoices` document type from a local PDF (`invoice_sample.pdf`).
-2. Authenticates with QuickBooks Online using your saved tokens (auto-refreshes silently).
-3. Finds a matching expense account in your sandbox company's Chart of Accounts (checking for common names like "Uncategorized Expense" and "Miscellaneous"), or creates one called "Invoice Imports - Needs Review" if none exist.
+2. Authenticates with QuickBooks Online using your saved tokens (refreshes automatically and silently).
+3. Finds a matching expense account in your sandbox company's Chart of Accounts. Checks for common names like "Uncategorized Expense" and "Miscellaneous", or creates one called "Invoice Imports - Needs Review" if none exist.
 4. Finds or creates a vendor matching the extracted vendor name.
 5. Creates a bill in QuickBooks with the extracted line items.
 
 ### Field mapping
 
 The  response from the Sensible API includes a `parsed_document` object containing the extracted document data:
-
-
 
 ```json
 {
@@ -310,73 +346,24 @@ The script reads fields from the `parsed_document` object in the Sensible API re
 | `line.Amount` (line n)                          | `line_items[n].item_total`       |                                                                                                                           |
 | `line.AccountBasedExpenseLineDetail.AccountRef` | _(resolved automatically)_       | All lines use the same expense account, resolved as described in [What the script does](#what-the-script-does).           |
 
-### Expected output
-
-Running the script produces output like the following:
-
-```bash
-python invoice_to_quickbooks.py
-
-[1/5] Extracting invoice with Sensible ...
-  ✓ Vendor: Fictional Horticulture Vendor
-  ✓ Invoice #: 39
-  ✓ Total: 28.215
-  ✓ Line items: 4
-
-[2/5] Authenticating with QuickBooks Online ...
-  ✓ Connected.
-
-[3/5] Resolving expense account ...
-  ✓ Using existing account: 'Uncategorized Expense' (ID 31)
-
-[4/5] Resolving vendor ...
-  ✓ Created new vendor: Fictional Horticulture Vendor (ID 59)
-
-[5/5] Creating bill in QuickBooks ...
-  • Line 1: Leather Leaf — $20,475.00
-  • Line 2: Leather Leaf — $4,620.00
-  • Line 3: Leather Leaf — $1,200.00
-  • Line 4: Leather Leaf — $1,920.00
-
-============================================================
-  ✓ Bill created successfully!
-    ID:     149
-    Vendor: Fictional Horticulture Vendor
-    Date:   2023-04-02
-    Lines:  4
-    View:   https://app.sandbox.qbo.intuit.com/app/bill?txnId=149
-============================================================
-```
-
-Follow the link to view the created bill:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_bill.png)
-
-
-
-Compare it to the sample invoice to see how QuickBooks imported the document data:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickbooks_invoice.png)
-
-
 
 ## (Optional) Scale up
 
-This tutorial processes a single local PDF. Here are a few directions for going further.
+This tutorial processes a single local PDF. Here are a few ways to expand on this tutorial.
 
-**Process a batch of invoices**
+### Process a batch of invoices
 
 To extract multiple invoices in one run, loop over a directory of PDFs and call `sensible.extract()` for each file. Add error handling to log failures without stopping the batch.
 
-**Trigger extraction automatically by email**
+### Trigger extraction automatically by email
 
-Sensible supports automatic extraction of invoices as you receive them via its [email processor](https://docs.sensible.so/docs/getting-started-email): forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
+Sensible supports automatic extraction of invoices as you receive them via its [email processor](https://docs.sensible.so/docs/getting-started-email). Forward invoices to a Sensible-generated address, and Sensible extracts them and POSTs the extraction response containing the `parsed_document` to your webhook endpoint. Replace the `sensible.extract()` call in the script with a webhook handler on your server.
 
-**Extract other document types**
+### Extract other document types
 
-The same pattern works for any document type for which you add support to your Sensible account --  purchase orders, receipts, expense reports, and more. Swap the `document_type` parameter in the `extract()` call and update the field mapping to match the new document type's fields.
+The same pattern works for any document type for which you add support to your Sensible account, for example, purchase orders, receipts, expense reports, and more. Update the `document_type` parameter in the `extract()` call and update the field mapping to match the new document type's fields.
 
-**Production considerations**
+### Production considerations
 
 Before deploying this integration in production, review the `PRODUCTION:` comments throughout `qbo_auth.py`. Key changes include:
 
@@ -384,4 +371,26 @@ Before deploying this integration in production, review the `PRODUCTION:` commen
 * Replacing the browser-based OAuth flow with a proper web redirect flow
 * Switching `environment="sandbox"` to `environment="production"` in both the `AuthClient` and `QuickBooks` constructors
 * Adding per-account token storage if your service connects to multiple QuickBooks Online companies
+
+
+### Extract more information
+
+The `invoices` document type has out-of-the-box support for a standard set of fields. To extract additional data or add quality checks, edit the extraction config in the Sensible app:
+
+1. Click **Document types**, then click **invoices**.
+2. Click the config name (for example, `llm_invoices_template`) to open the editor.
+
+
+To extract a field not covered by the default config, add a new entry to the `fields` array describing what you want the LLM to extract using an [LLM-based method](doc:llm-based-methods). For example, extract payment terms with a prompt like `"Payment terms, for example 'Net 30' or 'Due on receipt'"`.
+
+Note that deterministic [layout-based methods](doc:layout-based-methods) for extracting data are generally inapplicable unless you have high volume from vendors that use a consistent layout.
+
+### Postprocess extracted fields
+
+You can transform extracted data with LLMs or with logic. For example:
+- You want to add expense categories to line items and the source invoice lacks this information. Add a field that uses the [`customComputation`](doc:custom-computation) method to deterministically categorize line-item expenses based on keywords. Or, chain two LLM prompts together using the [Query Method](doc:query-method) to first extract and then categorize line item expenses.
+- You want to validate that the subtotals listed in the invoice actually equal the total amount due. You can create a [validation](doc:validate-extractions) using [JsonLogic](doc:jsonlogic) to flag bad invoices for [human review](doc:human-review). 
+
+
+
 
