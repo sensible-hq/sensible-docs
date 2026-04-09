@@ -40,9 +40,10 @@ The Python script:
 
 ## Add the invoices document type to your Sensible account
 
-The script uses Sensible's `invoices` document type, which is available in the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). To add it to your account:
+The script uses Sensible's `invoices` document type, which is available in the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). To add support for invoices:
 
-1. In the Sensible app, click the **Template library** tab.
+1. Sign up for a [Sensible account](https://app.sensible.so/register) and complete onboarding steps, then navigate to your [dashboard](https://app.sensible.so/dashboard/) in the Sensible app.
+1. Click the **Template library** tab.
 2. Search for **invoices** or browse by use case.
 3. Click the **invoices** document type, then click **Clone to account**. Sensible adds the document type and its extraction configurations to your **Document types** tab.
 4. Test the document type by uploading a sample invoice on the **Extract** tab.
@@ -73,7 +74,7 @@ You can use Sensible's Python SDK and the `python-quickbooks` library to extract
 ```bash
 git clone https://github.com/sensible-hq/sensible-quickbooks-py.git
 cd sensible-quickbooks-py
-pip install sensible-sdk python-quickbooks intuitlib 
+pip install sensible-sdk python-quickbooks intuit-oauth
 ```
 
 2. Set the following environment variables. To set them for the current terminal session only, run `export VARIABLE=value`. To persist them, add the export commands to your shell profile (e.g. `~/.bashrc` or `~/.zshrc`) and run `source ~/.bashrc` (or `source ~/.zshrc`) to apply them to the current session.
