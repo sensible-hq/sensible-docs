@@ -378,7 +378,7 @@ Note that deterministic [layout-based methods](doc:layout-based-methods) for ext
 ### Postprocess extracted fields
 
 You can transform extracted data with LLMs or with logic. For example:
-- You want to add expense categories to line items and the source invoice lacks this information. Add a field that uses the [`customComputation`](doc:custom-computation) method to deterministically categorize line-item expenses based on keywords. Or, chain two LLM prompts together using the [Query Method](doc:query-method) to first extract and then categorize line item expenses.
+- You want to add expense categories to line items and the source invoice lacks this information. Add a field that uses the [`customComputation`](doc:custom-computation) method to deterministically categorize line-item expenses based on keywords. Or, chain two LLM prompts together using the [Query Method](doc:query-group) to first extract and then categorize line item expenses.
 - You want to validate that the subtotals listed in the invoice actually equal the total amount due. You can create a [validation](doc:validate-extractions) using [JsonLogic](doc:jsonlogic) to flag bad invoices for [human review](doc:human-review). 
 
 
