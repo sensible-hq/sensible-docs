@@ -40,12 +40,12 @@ In general, use this method:
 ```json
     {
       "id": "field1", /* user-friendly ID for extracted target data */
-      "anchor": "some text" /* an anchor is text that always occurs in the same position relative to your target text. Without an anchor, Sensible wouldn't know which page to search in for your target text. */,
+      "anchor": "some text" /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
       "method": {
         "id": "region", /* extracts lines contained in a defined rectangular region */
         "start": "below", /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
-        "offsetX": 0.00, /* horizontally shifts the region's top-left corner from the start point by specified number of inches. positive: right, negative: left */
-        "offsetY": 0.00, /* vertically shifts the region's top-left corner from the start point by the specified number of inches. positive: down, negative: up */
+        "offsetX": 0.00, /* horizontally shifts the region's top-left corner from the Start parameter by specified number of inches. positive: right, negative: left */
+        "offsetY": 0.00, /* vertically shifts the region's top-left corner from the Start parameter by the specified number of inches. positive: down, negative: up */
         "width": 0.00, /* width of the region in inches */
         "height": 0.00, /* height of the region in inches */
         "isAbsoluteOffset": false /* default: false. if true, offsets are relative to the top-left of the page, not the Start parameter */
@@ -64,7 +64,7 @@ The following example shows extracting a social security number from a W-9 form 
   "fields": [
     {
       "id": "SSN", /* user-friendly ID for extracted target data */
-      "anchor": { /* an anchor is text that always occurs in the same position relative to your target text. */
+      "anchor": { /* an anchor is text that always occurs in the same position relative to your target data. */
         "match": { /* Match object specifying how to find the anchor line */
           "type": "equals", /* matching line must equal the string exactly */
           "text": "Social security number", /* string to match */
@@ -76,8 +76,8 @@ The following example shows extracting a social security number from a W-9 form 
         "start": "below", /* region's top-left corner starts at midpoint of anchor's bottom boundary */
         "width": 2.15, /* region width in inches */
         "height": 0.25, /* region height in inches */
-        "offsetX": -0.55, /* shifts region's top-left corner to the left from the start point by the specified number of inches (positive: right, negative: left) */
-        "offsetY": 0.1 /* shifts region's top-left corner down from the start point by the specified number of inches (positive: down, negative: up */
+        "offsetX": -0.55, /* shifts region's top-left corner to the left from the Start parameter by the specified number of inches (positive: right, negative: left) */
+        "offsetY": 0.1 /* shifts region's top-left corner down from the Start parameter by the specified number of inches (positive: down, negative: up */
       }
     }
   ]

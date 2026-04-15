@@ -35,7 +35,7 @@ Matches all lines to the left or right of the anchor line.
 ```json
     {
       "id": "field1", /* user-friendly ID for extracted target data */
-      "anchor": "some text"      /* an anchor is text that always occurs in the same position relative to your target text. Without an anchor, Sensible wouldn't know which page to search in for your target text. */,
+      "anchor": "some text"      /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
       "method": {
         "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
         "position": "left", /* target data is to left of data. enums: left | right. default: right */
@@ -61,7 +61,7 @@ The following example shows  extracting data from two consecutive tables using t
   "fields": [
     {
       "id": "number_1_language_on_github", /* user-friendly ID for extracted target data */
-      "anchor": { /* an anchor is text that always occurs in the same position relative to your target text.  */
+      "anchor": { /* an anchor is text that always occurs in the same position relative to your target data.  */
         "match": [ /* array of Match objects. Sensible matches the last element
                       if each element matches a successive line in the document */
           {
