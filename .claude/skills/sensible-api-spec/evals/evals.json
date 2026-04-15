@@ -1,0 +1,23 @@
+{
+  "skill_name": "sensible-api-spec",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to create a new openapi spec for the email processors API. here are the PRs: https://github.com/sensible-hq/sensible/pull/3237 https://github.com/sensible-hq/sensible/pull/3190 https://github.com/sensible-hq/sensible/pull/3242 https://github.com/sensible-hq/sensible/pull/3287",
+      "expected_output": "Fetches all 4 PRs, presents a confirmation summary, categorizes changes (new spec for /processors/email/* routes, update to sensible.json for GET /account new fields), flags the mixed PR, drafts a new openapi_email.json with all 4 CRUD endpoints and correct schemas, creates supporting markdown files and _order.yaml entries, and writes everything after user approval.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "update the API reference from PR 3242 only — https://github.com/sensible-hq/sensible/pull/3242",
+      "expected_output": "Fetches PR 3242, identifies it as the full email processor CRUD implementation, correctly extracts the Zod schemas to define EmailProcessorInput (webhooks, bodySpec, attachmentSpecs discriminated union) and EmailProcessorOutput (same + name), drafts a spec for the 4 endpoints, gets approval, and writes the files.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "there's a new field being added to the extraction response in https://github.com/sensible-hq/sensible/pull/3300 — can you update the spec for that",
+      "expected_output": "Fetches PR 3300, identifies it as an update to an existing endpoint in openapi_extraction.json, locates the correct response schema in the existing spec, adds the new field, presents the diff, and writes the update after approval. Does not create new files.",
+      "files": []
+    }
+  ]
+}
