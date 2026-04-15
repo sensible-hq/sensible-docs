@@ -1,0 +1,42 @@
+{
+  "skill_name": "sensible-quickbooks",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to set up the Sensible + QuickBooks integration from scratch. I've never done any of this before. My Sensible API key is sk-test-abc123. For QuickBooks I've already created the developer app and my Client ID is testClientId99 and Client Secret is testClientSecret99. I've already added the redirect URI in the Intuit portal. Use these credentials and get as far as you can — you can stop when you hit a step that needs a real browser action.",
+      "expected_output": "Agent asks the starting-point check questions (or processes the user's upfront answers), writes a .env file with the three credentials, clones the repo, installs dependencies, then runs quickbooks-setup.py and surfaces the auth URL step as a browser action requiring user input.",
+      "files": [],
+      "expectations": [
+        "Agent writes a .env file containing SENSIBLE_API_KEY, QBO_CLIENT_ID, and QBO_CLIENT_SECRET",
+        "Agent clones the sensible-quickbooks-py repo",
+        "Agent installs the Python dependencies (sensible-sdk, python-quickbooks, intuit-oauth)",
+        "Agent attempts to run quickbooks-setup.py",
+        "Agent identifies the OAuth URL step as requiring browser action and surfaces it to the user rather than trying to handle it programmatically"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Help me with the QuickBooks integration. I already have the invoices doc type in Sensible and I already created the Intuit developer app with the right redirect URI. I have my credentials: SENSIBLE_API_KEY=sk-test-xyz789, QBO_CLIENT_ID=alreadyHaveClientId, QBO_CLIENT_SECRET=alreadyHaveClientSecret. I also already cloned the repo and ran pip install. I just need to do the OAuth step and then run the integration.",
+      "expected_output": "Agent recognizes the user is at Phase 3 (OAuth) and skips all earlier setup. Writes or verifies the .env file, runs quickbooks-setup.py, and surfaces the OAuth URL as a browser step.",
+      "files": [],
+      "expectations": [
+        "Agent does not attempt to re-clone the repo or re-run pip install",
+        "Agent writes or verifies a .env file with the provided credentials",
+        "Agent runs quickbooks-setup.py to begin the OAuth flow",
+        "Agent asks the user to open the authorization URL in a browser rather than trying to automate it"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I'm setting up the Sensible QuickBooks integration. I've done everything including the OAuth step — my tokens are already saved. My credentials are in the environment already: SENSIBLE_API_KEY=sk-test-done, QBO_CLIENT_ID=doneClientId, QBO_CLIENT_SECRET=doneClientSecret. Just run the integration script for me.",
+      "expected_output": "Agent recognizes all phases are complete, skips setup, and runs invoice_to_quickbooks.py. It attempts to parse the output for success/failure indicators and reports the result (even if it fails due to fake credentials).",
+      "files": [],
+      "expectations": [
+        "Agent skips cloning, pip install, and the OAuth phase",
+        "Agent runs invoice_to_quickbooks.py",
+        "Agent parses the script output and reports success or the specific error encountered",
+        "Agent does not ask the user to complete any browser steps"
+      ]
+    }
+  ]
+}
