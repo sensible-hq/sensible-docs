@@ -12,20 +12,33 @@ next:
 ---
 ## File types
 
-Sensible supports the following file types:
+Sensible supports the following file types.
 
-| File format                                                  | Extraction context             |                                             |                                           |                                             |      | Extraction method                                            |                                                          |                                          |
-| ------------------------------------------------------------ | ------------------------------ | ------------------------------------------- | ----------------------------------------- | ------------------------------------------- | ---- | ------------------------------------------------------------ | -------------------------------------------------------- | ---------------------------------------- |
-|                                                              | **Sensible app's Extract tab** | **Single-file extraction with SDKs or API** | **Portfolio extraction with SDKs or API** | **Classification by type with SDKs or API** |      | **Methods that require rendering non-text image pixels<sup>2</sup>** | **NLP Table method,<br/>Fixed Table method<sup>3</sup>** | **Extraction of text that requires OCR** |
-| PDF                                                          | ✅                              | ✅                                           | ✅                                         | ✅                                           |      | ✅                                                            | ✅                                                        | ✅                                        |
-| Microsoft Word<br/> (DOC and DOCX)                           | ✅                              | ✅                                           | ✅                                         | ✅                                           |      | ✅                                                            | ✅                                                        | ✅                                        |
-| Spreadsheet formats<sup>1</sup><br/>(XLSX, XLS, XLSM, and CSV) | ✅                              | ✅                                           | ❌                                         | ✅                                           |      | ❌                                                            | ❌                                                        | ❌                                        |
-| Single-page image formats<sup>1</sup><br/> (JPEG, PNG)       | ✅                              | ✅                                           | ✅                                         | ✅                                           |      | ✅                                                            | ✅                                                        | ✅                                        |
-| Multi-page image formats<sup>1</sup><br/> (TIFF)             | ❌                              | ✅                                           | ❌                                         | ✅                                           |      | ❌                                                            | ❌                                                        | ✅                                        |
-| Email bodies                                                 | ✅                              | ✅                                           | ❌                                         | ✅                                           |      | ✅                                                            | ✅                                                        | ✅                                        |
-| Email attachments                                            | ✅                              | ✅                                           | ✅                                         | ✅                                           |      | ✅                                                            | ✅                                                        | ✅                                        |
+**Extraction context**
 
-1. All [OCR](doc:ocr) settings are inapplicable for Microsoft Excel and CSV. 
+| File format                                                     | Sensible app's Extract tab | Single-file extraction with SDKs or API | Portfolio extraction with SDKs or API | Classification by type with SDKs or API |
+| --------------------------------------------------------------- | -------------------------- | --------------------------------------- | ------------------------------------- | --------------------------------------- |
+| PDF                                                             | ✅                          | ✅                                       | ✅                                     | ✅                                       |
+| Microsoft Word<br/> (DOC and DOCX)                              | ✅                          | ✅                                       | ✅                                     | ✅                                       |
+| Spreadsheet formats<sup>1</sup><br/>(XLSX, XLS, XLSM, and CSV) | ✅                          | ✅                                       | ❌                                     | ✅                                       |
+| Single-page image formats<br/> (JPEG, PNG)                      | ✅                          | ✅                                       | ✅                                     | ✅                                       |
+| Multi-page image formats<br/> (TIFF)                            | ❌                          | ✅                                       | ❌                                     | ✅                                       |
+| Email bodies                                                    | ✅                          | ✅                                       | ❌                                     | ✅                                       |
+| Email attachments                                               | ✅                          | ✅                                       | ✅                                     | ✅                                       |
+
+1. All [OCR](doc:ocr) settings are inapplicable for Microsoft Excel and CSV.
+
+**Extraction method**
+
+| File format                                                     | Methods that require rendering non-text image pixels<sup>2</sup> | NLP Table method,<br/>Fixed Table method<sup>3</sup> | Extraction of text that requires OCR |
+| --------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------ |
+| PDF                                                             | ✅                                                                | ✅                                                    | ✅                                    |
+| Microsoft Word<br/> (DOC and DOCX)                              | ✅                                                                | ✅                                                    | ✅                                    |
+| Spreadsheet formats<sup>1</sup><br/>(XLSX, XLS, XLSM, and CSV) | ❌                                                                | ❌                                                    | ❌                                    |
+| Single-page image formats<br/> (JPEG, PNG)                      | ✅                                                                | ✅                                                    | ✅                                    |
+| Multi-page image formats<br/> (TIFF)                            | ❌                                                                | ❌                                                    | ✅                                    |
+| Email bodies                                                    | ✅                                                                | ✅                                                    | ✅                                    |
+| Email attachments                                               | ✅                                                                | ✅                                                    | ✅                                    |
 
 2. Methods that require rendering an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
 
