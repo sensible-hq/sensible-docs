@@ -21,7 +21,7 @@ Sensible supports the following file types.
 | PDF                                                            | ✅                         | ✅                                      | ✅                                    | ✅                                      |
 | Microsoft Word<br/> (DOC and DOCX)                             | ✅                         | ✅                                      | ✅                                    | ✅                                      |
 | Spreadsheet formats<sup>1</sup><br/>(XLSX, XLS, XLSM, and CSV) | ✅                         | ✅                                      | ❌                                    | ✅                                      |
-| Single-page image formats<br/> (JPEG, PNG)         | ✅                         | ✅                                      | ✅                                    | ✅                                      |
+| Single-page image formats<sup>4</sup><br/> (JPEG, PNG) | ✅                         | ✅                                      | ✅                                    | ✅                                      |
 | Multi-page image formats<br/> (TIFF)               | ❌                         | ✅                                      | ❌                                    | ✅                                      |
 | Email bodies                                                   | ✅                         | ✅                                      | ❌                                    | ✅                                      |
 | Email attachments                                              | ✅                         | ✅                                      | ✅                                    | ✅                                      |
@@ -45,6 +45,8 @@ Sensible supports the following file types.
 2. Methods that render an image include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
 
 3. As alternatives to these Table methods, use the Fixed Table method or the List method.
+
+4. Since JPEG and PNG are single-page formats, portfolio extraction returns one document.
 
 ## File sizes
 
