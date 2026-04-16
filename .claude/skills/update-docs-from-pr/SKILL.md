@@ -54,9 +54,12 @@ The full `docs/` directory structure is:
 - `docs/monitor and qa/`
 - `docs/welcome/`
 
-Use the hints from `$ARGUMENTS` and the PR content to determine which areas are relevant. Use Grep to search for existing mentions of changed features/parameters across the docs tree before deciding what to update.
+**API reference** (`reference/`):
+- OpenAPI JSON spec files (glob `reference/*.json`)
 
-Use the hints from `$ARGUMENTS` and the PR content to determine which areas are relevant. Use Grep to search for existing mentions of changed features/parameters across the docs tree before deciding what to update.
+If the PR touches API request/response shapes (new parameters, new fields, changed types, new endpoints), glob `reference/*.json` to find all spec files, then grep them for affected parameter or field names to determine which need updating.
+
+Use the hints from `$ARGUMENTS` and the PR content to determine which areas are relevant. Use Grep to search for existing mentions of changed features/parameters across both `docs/` and `reference/` before deciding what to update.
 
 Read the existing files that are relevant to the PR's changes.
 
