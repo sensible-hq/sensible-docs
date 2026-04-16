@@ -54,6 +54,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Object](doc:jsonlogic#object)               | ✅                                       | ✅                                                    | ✅                                  |
 | [Omit fields](doc:jsonlogic#omit-fields)     | ✅                                       | ✅                                                    | ✅                                  |
 | [Pick Fields](doc:jsonlogic#pick-fields)     | ✅                                       | ✅                                                    | ✅                                  |
+| [Random](doc:jsonlogic#random)               | ✅                                       | ✅                                                    | ✅                                  |
 | [Replace](doc:jsonlogic#replace)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Round](doc:jsonlogic#round)                 | ✅                                       | ✅                                                    | ✅                                  |
 | [Slice](doc:jsonlogic#slice)                 | ✅                                       | ✅                                                    | ✅                                  |
@@ -1069,6 +1070,47 @@ the rule outputs:
 #### Example 2
 
 For a complete example, see [Custom computation group](doc:custom-computation-group).
+
+## Random
+
+Returns a random float in the range [0, 1). Takes no arguments. Each call returns a new value, so results are non-deterministic across extractions.
+
+```json
+{ "random": [] }
+```
+
+### Example
+
+The following example shows using the Random operator to flag roughly half of extractions for quality review.
+
+```json
+{
+  "fields": [],
+  "computed_fields": [
+    {
+      "id": "flag_for_review",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          /* true ~50% of the time */
+          ">": [{ "random": [] }, 0.5]
+        }
+      }
+    }
+  ]
+}
+```
+
+This returns:
+
+```json
+{
+  "flag_for_review": {
+    "value": true,
+    "type": "boolean"
+  }
+}
+```
 
 ## Replace
 
