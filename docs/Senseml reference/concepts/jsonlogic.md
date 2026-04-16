@@ -1081,27 +1081,27 @@ Returns a random float in the range [0, 1). Takes no arguments. Each call return
 
 ### Example
 
-The following example shows using the Random operator to flag roughly half of extractions for quality review.
+The following example shows using the Random operator to flag roughly half of extractions for [human review](doc:human-review-implementation).
 
 ```json
 {
-  "fields": [],
-  "computed_fields": [
+  "fields": [
     {
-      "id": "flag_for_review",
+      "id": "flag_for_review", /* create a JSON validation to flag extraction with `NEEDS_REVIEW` status when this field is `true`  */
       "method": {
         "id": "customComputation",
         "jsonLogic": {
-          /* true ~50% of the time */
+          /* true about 50% of the time */
           ">": [{ "random": [] }, 0.5]
         }
       }
     }
-  ]
+  ],
+
 }
 ```
 
-This returns:
+This returns `true` or `false`, each about 50% of the time. For example:
 
 ```json
 {
