@@ -35,7 +35,7 @@ In this tutorial, you'll set up the first scenario: extracting a vendor invoice 
 
 The Python script:
 
-1. Extracts a sample vendor invoice PDF using Sensible's `invoices` document type, and
+1. Extracts structured data from a sample vendor invoice PDF using an LLM-powered extraction `invoices` config, and
 2. Creates a new bill in QuickBooks Online from the extracted data.
 
 ## Add the invoices document type to your Sensible account
