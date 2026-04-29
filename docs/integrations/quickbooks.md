@@ -153,7 +153,7 @@ Compare the bill to the sample vendor invoice PDF to learn how QuickBooks import
 
 The script runs five steps:
 
-1. Extracts invoice data using Sensible's `invoices` document type from a local PDF (`invoice_sample.pdf`).
+1. Extracts invoice data using Sensible's LLM-powered `invoices` document type from a local PDF (`invoice_sample.pdf`).
 2. Authenticates with QuickBooks Online using your saved tokens (refreshes automatically and silently).
 3. Finds a matching expense account in your sandbox company's Chart of Accounts. Checks for common names like "Uncategorized Expense" and "Miscellaneous", or creates one called "Invoice Imports - Needs Review" if none exist.
 4. Finds or creates a vendor matching the extracted vendor name.
