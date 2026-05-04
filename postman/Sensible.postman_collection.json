@@ -1461,7 +1461,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"webhooks\": [\r\n    {\r\n      \"url\": \"https://your-webhook-url.example.com\"\r\n    }\r\n  ],\r\n  \"bodySpec\": {\r\n    \"kind\": \"doctype\",\r\n    \"docTypeId\": \"{{DOC_TYPE_ID}}\"\r\n  },\r\n  \"attachmentSpecs\": [\r\n    {\r\n      \"kind\": \"doctype\",\r\n      \"docTypeId\": \"{{DOC_TYPE_ID}}\"\r\n    }\r\n  ]\r\n}",
+              "raw": "{\n  \"webhooks\": [\n    {\n      \"url\": \"https://your-webhook-url.example.com\"\n    },\n    {\n      \"url\": \"https://your-dev-webhook-url.example.com\",\n      \"environment\": \"development\"\n    }\n  ],\n  \"bodySpec\": {\n    \"kind\": \"doctype\",\n    \"docTypeId\": \"{{DOC_TYPE_ID}}\"\n  },\n  \"attachmentSpecs\": [\n    {\n      \"kind\": \"portfolio\",\n      \"docTypeIds\": [\n        \"{{DOC_TYPE_ID}}\"\n      ],\n      \"ocrEngine\": \"microsoft\",\n      \"segmentDocumentsWith\": \"llm\"\n    }\n  ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1497,15 +1497,6 @@
             },
             "method": "DELETE",
             "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
               "raw": "{{BASE_URL}}/processors/email/{{PROCESSOR_NAME}}",
               "host": [
