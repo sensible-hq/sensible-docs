@@ -23,7 +23,7 @@
   "tags": [
     {
       "name": "Email processor",
-      "description": "Create and manage email processors"
+      "description": "Create and manage email processors.\n\nAn email processor defines what Sensible extracts from emails sent to a dedicated Sensible email address. Once you create a processor, send emails to the address to trigger automatic extraction.\n\n**Email address format**\n\n```\n{processor_name}.{account_alias}@{domain}\n```\n\nTo include an environment prefix (for example, to route emails to a non-production webhook):\n\n```\n{environment}.{processor_name}.{account_alias}@{domain}\n```\n\nTo find your `account_alias` values and `domain`, call `GET /account`. The response includes an `aliases` array of active account aliases and a `domain` field (for example, `api.sensible.so`)."
     }
   ],
   "paths": {
@@ -108,7 +108,7 @@
       "put": {
         "operationId": "upsert-email-processor",
         "summary": "Create or update email processor",
-        "description": "Creates an email processor with the given name, or replaces it if one already exists. You define which document types Sensible extracts from the email body and attachments, and which webhooks receive the extraction output.",
+        "description": "Creates an email processor with the given name, or replaces it if one already exists. You define which document types Sensible extracts from the email body and attachments, and which webhooks receive the extraction output.\n\nOnce created, send emails to `{name}.{account_alias}@{domain}` to trigger extraction. To route emails to a specific environment's webhook, prepend an environment prefix: `{environment}.{name}.{account_alias}@{domain}`. Call `GET /account` to retrieve your account aliases and domain.",
         "tags": [
           "Email processor"
         ],
