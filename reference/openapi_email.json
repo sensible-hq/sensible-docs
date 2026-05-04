@@ -108,7 +108,7 @@
       "put": {
         "operationId": "upsert-email-processor",
         "summary": "Create or update email processor",
-        "description": "Creates an email processor with the given name, or replaces it if one already exists. You define which document types Sensible extracts from the email body and attachments, and which webhooks receive the extraction output.\n\nOnce created, send emails to `{name}.{account_alias}@{domain}` to trigger extraction. To route emails to a specific environment's webhook, prepend an environment prefix: `{environment}.{name}.{account_alias}@{domain}`. Call `GET /account` to retrieve your account aliases and domain.",
+        "description": "Creates an email processor with the given name, or replaces it if one already exists. You define which document types Sensible extracts from the email body and attachments, and which webhooks receive the extraction output.\n\nWhen updating an existing processor, you can replace any combination of `webhooks`, `bodySpec`, and `attachmentSpecs`. The processor name is set by the URL path and cannot be changed. To rename a processor, delete it and create a new one under the desired name.\n\nOnce created, send emails to `{name}.{account_alias}@{domain}` to trigger extraction. To route emails to a specific environment's webhook, prepend an environment prefix: `{environment}.{name}.{account_alias}@{domain}`. Call `GET /account` to retrieve your account aliases and domain.",
         "tags": [
           "Email processor"
         ],
