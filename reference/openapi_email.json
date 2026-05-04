@@ -188,12 +188,17 @@
             "$ref": "#/components/schemas/WebhookList"
           },
           "bodySpec": {
-            "$ref": "#/components/schemas/SingleDocTypeSpec"
+            "description": "Extraction spec for the email body. The email body is always treated as a single document type — classification and portfolio specs are not supported for the body. Omit if you only need to extract from attachments.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SingleDocTypeSpec"
+              }
+            ]
           },
           "attachmentSpecs": {
             "type": "array",
             "minItems": 1,
-            "description": "Specs for extracting from email attachments. Each spec defines a document type or classification strategy for one attachment.",
+            "description": "Extraction specs for email attachments. Each spec targets one attachment and supports single document type, classification, or portfolio strategies. Omit if you only need to extract from the email body.",
             "items": {
               "$ref": "#/components/schemas/AttachmentSpec"
             }
@@ -222,7 +227,12 @@
             "$ref": "#/components/schemas/WebhookList"
           },
           "bodySpec": {
-            "$ref": "#/components/schemas/SingleDocTypeSpec"
+            "description": "The extraction spec configured for the email body, if present.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SingleDocTypeSpec"
+              }
+            ]
           },
           "attachmentSpecs": {
             "type": "array",
