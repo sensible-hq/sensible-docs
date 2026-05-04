@@ -156,14 +156,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Processor deleted",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
+            "description": "Processor deleted"
           },
           "400": {
             "$ref": "#/components/responses/400"
@@ -185,58 +178,27 @@
     "schemas": {
       "EmailProcessorInput": {
         "description": "Configuration for an email processor. You must specify at least one of `bodySpec` or `attachmentSpecs`.",
-        "oneOf": [
-          {
-            "description": "Processor that extracts from the email body. You may also specify attachment specs.",
-            "type": "object",
-            "required": [
-              "webhooks",
-              "bodySpec"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "webhooks": {
-                "$ref": "#/components/schemas/WebhookList"
-              },
-              "bodySpec": {
-                "$ref": "#/components/schemas/SingleDocTypeSpec"
-              },
-              "attachmentSpecs": {
-                "type": "array",
-                "minItems": 1,
-                "description": "Specs for extracting from email attachments. Each spec defines a document type or classification strategy for one attachment.",
-                "items": {
-                  "$ref": "#/components/schemas/AttachmentSpec"
-                }
-              }
-            }
+        "type": "object",
+        "required": [
+          "webhooks"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "webhooks": {
+            "$ref": "#/components/schemas/WebhookList"
           },
-          {
-            "description": "Processor that extracts from attachments only. You may also specify a body spec.",
-            "type": "object",
-            "required": [
-              "webhooks",
-              "attachmentSpecs"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "webhooks": {
-                "$ref": "#/components/schemas/WebhookList"
-              },
-              "bodySpec": {
-                "$ref": "#/components/schemas/SingleDocTypeSpec"
-              },
-              "attachmentSpecs": {
-                "type": "array",
-                "minItems": 1,
-                "description": "Specs for extracting from email attachments. Each spec defines a document type or classification strategy for one attachment.",
-                "items": {
-                  "$ref": "#/components/schemas/AttachmentSpec"
-                }
-              }
+          "bodySpec": {
+            "$ref": "#/components/schemas/SingleDocTypeSpec"
+          },
+          "attachmentSpecs": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Specs for extracting from email attachments. Each spec defines a document type or classification strategy for one attachment.",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentSpec"
             }
           }
-        ]
+        }
       },
       "EmailProcessorOutput": {
         "description": "An email processor returned by the API.",
@@ -274,7 +236,7 @@
       "WebhookList": {
         "type": "array",
         "minItems": 1,
-        "description": "Webhooks that receive extraction output. The first element is the production webhook. Additional elements are environment-scoped webhooks that override the production webhook for a specific environment.",
+        "description": "Webhooks that receive extraction output. The first element must be a production `Webhook` (a `url` with no `environment` field). Additional elements must be `EnvironmentWebhook` objects that override the production webhook for a specific environment. The API rejects arrays whose first element is an `EnvironmentWebhook`. Note: OpenAPI 3.0.3 cannot enforce positional constraints in arrays, so schema validators will not catch this ordering violation.",
         "items": {
           "oneOf": [
             {
@@ -415,13 +377,10 @@
           "ocrEngine": {
             "type": "string",
             "enum": [
-              "tika",
-              "ocrmypdf",
-              "amazon-textract",
+              "amazon",
+              "google",
+              "lazarus",
               "microsoft",
-              "microsoft2",
-              "microsoft3",
-              "microsoft4",
               "microsoft5",
               "pdf"
             ],
@@ -429,6 +388,10 @@
           },
           "segmentDocumentsWith": {
             "type": "string",
+            "enum": [
+              "llm",
+              "fingerprints"
+            ],
             "description": "The segmentation method Sensible uses to split the portfolio into sub-documents. For more information, see [portfolio](doc:portfolio)."
           },
           "ocrEveryPage": {
