@@ -155,7 +155,7 @@
           "Email processor"
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Processor deleted"
           },
           "400": {
