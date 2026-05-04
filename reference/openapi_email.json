@@ -185,7 +185,12 @@
         "additionalProperties": false,
         "properties": {
           "webhooks": {
-            "$ref": "#/components/schemas/WebhookList"
+            "description": "Required. Webhooks receive the extraction output for each email processed. Webhooks are required because source email metadata — the sender address, subject line, message ID, and recipient list — is only available in the webhook payload. You can view extraction field values through the Sensible app and API, but you cannot trace an extraction back to its source email without a webhook.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WebhookList"
+              }
+            ]
           },
           "bodySpec": {
             "description": "Extraction spec for the email body. The email body is always treated as a single document type — classification and portfolio specs are not supported for the body. Omit if you only need to extract from attachments.",
