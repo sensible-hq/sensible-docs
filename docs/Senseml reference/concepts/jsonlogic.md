@@ -20,7 +20,7 @@ Sensible supports both built-in and extended JsonLogic operators so that you can
 
 * For information about the base built-in JsonLogic operators, see the [documentation](https://jsonlogic.com/operations.html).
 
-* Sensible supports extended operations available in the Json Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
+* Sensible supports extended operations available in the JSON Logic Engine library.  For more information, see the [documentation](https://json-logic.github.io/json-logic-engine/docs). For example, this engine includes the following extended operations:
 
   * Array operations: `"length"`, `"get"`. 
   * Miscellaneous operations: `"preserve"`, `"keys"`. 

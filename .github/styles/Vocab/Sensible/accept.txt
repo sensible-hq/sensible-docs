@@ -1,5 +1,0 @@
-[cC]onfig
-[Ss]temmer
-[Rr]egex
-[Vv]alidate
-[Aa]pplication

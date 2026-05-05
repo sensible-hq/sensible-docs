@@ -1,0 +1,55 @@
+# General technical terms
+[cC]onfigs?
+[Ss]temmer
+[Rr]egexes?
+[Vv]alidate
+[Aa]pplication
+[Bb]oolean
+[Ee]nums?
+[Rr]eadmes?
+agentic
+syntaxes
+datetime
+unpadded
+superscripted
+paystubs?
+
+# Brands / protocols
+Zapier
+OAuth
+openai
+DevOps
+
+# Acronyms and plurals
+LLMs?
+SDKs?
+PDFs?
+PNGs?
+APIs?
+OCRs?
+OCRed
+OCRing
+
+# SenseML framework terms
+[Pp]ostprocessor[s]?
+[Pp]ostprocessed
+[Pp]reprocessor[s]?
+[Dd]eskews?
+JsonLogic
+
+# Sensible brand
+Sensible's
+[Aa]nyco
+
+# SenseML parameter names (appear in table Name columns)
+currencySymbol
+thousandsSeparator
+decimalSeparator
+maxValue
+minValue
+accountingNegative
+alwaysNegative
+removeSpaces
+roundTo
+allNewlines
+replaceWith
