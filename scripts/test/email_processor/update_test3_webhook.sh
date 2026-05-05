@@ -1,20 +1,24 @@
 #!/bin/bash
 mkdir -p "$(dirname "$0")/outputs"
-OUTFILE="$(dirname "$0")/outputs/update_test3_no_bodyspec_$(date +%Y-%m-%d_%H-%M-%S).json"
+OUTFILE="$(dirname "$0")/outputs/update_test3_webhook_$(date +%Y-%m-%d_%H-%M-%S).json"
 RESPONSE=$(curl -s -w "\n%{http_code}" -X PUT \
   "https://api.sensible.so/v0/processors/email/test3" \
   -H "Authorization: Bearer ${SENSIBLE_API_KEY}" \
   -H "Content-Type: application/json" \
   -d '{
+    "bodySpec": {
+      "kind": "doctype",
+      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+    },
     "attachmentSpecs": [
       {
         "kind": "doctype",
-        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a" 
+        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
       }
     ],
     "webhooks": [
       {
-        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+        "url": "https://webhook.site/1234"
       }
     ]
   }')
