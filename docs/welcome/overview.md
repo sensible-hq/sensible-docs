@@ -76,13 +76,13 @@ Here's an example of a field that extracts a table:
 
 For more information about SenseML, see [SenseML reference introduction](doc:senseml-reference-introduction).
 
-## Devops platform for document data extraction
+## DevOps platform for document data extraction
 
 See the following image for a high-level overview of Sensible's document data extraction workflow:
 
 [![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/platform_devops.png)](doc:devops-platform)
 
-For more information about this diagram, see [Devops platform](doc:devops-platform).
+For more information about this diagram, see [DevOps platform](doc:devops-platform).
 
 ## Learn more
 

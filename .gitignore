@@ -2,3 +2,6 @@
 Thumbs.db
 **/.qbo_tokens.json
 **/__pycache__/
+
+# Vale downloaded styles (managed via vale sync; do not commit)
+.github/styles/Google/
