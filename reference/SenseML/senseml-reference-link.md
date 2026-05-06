@@ -8,7 +8,8 @@ link:
   url: https://sensiblehq.readme.io/docs/senseml-reference-introduction
 metadata:
   title: ''
-  description: ''
+  description: SenseML reference documentation covering the configuration language
+    and methods for extracting structured data from unstructured documents.
   robots: noindex
 next:
   description: ''

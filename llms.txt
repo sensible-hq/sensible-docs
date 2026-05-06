@@ -17,12 +17,14 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 - [SDK guides](docs/integrations/sdk-guides.md): Guides for Node/TypeScript and Python SDKs
 - [API quickstart](docs/integrations/quickstart.md): Quick start guide for the Sensible API
+- [Getting started with email extraction](docs/integrations/getting-started-email.md): Extract structured data from emails and attachments
+- [QuickBooks integration](docs/integrations/quickbooks.md): Extract invoices into QuickBooks Online as bills with Python and Sensible
 
 ### Zapier
 
 - [Zapier overview](docs/integrations/zapier/index.md): Introduction to Sensible's Zapier integration
-- [Zapier tutorial](docs/integrations/zapier/zapier-getting-started.md): Getting started with Sensible and Zapier
-- [Advanced Zapier tutorial](docs/integrations/zapier/zapier-tutorial-2.md): Advanced Zapier integration patterns
+- [Zapier tutorial](docs/integrations/zapier/zapier-getting-started.md): Get started with Zapier by learning to integrate Sensible and Airtable for sample 1040 tax forms
+- [Advanced Zapier tutorial](docs/integrations/zapier/zapier-tutorial-2.md): integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form example documents
 
 ### Quick Extraction
 
@@ -49,7 +51,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## Email Extraction
 
-- [Getting started with email extraction](docs/Email%20extraction/getting-started-email.md): Extract structured data from emails and attachments
 
 ## Monitor and QA
 
@@ -96,7 +97,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Document range](docs/Senseml%20reference/layout-based-methods/document-range.md): Extract text from a document range defined by upper and lower bounds
 - [Fixed table](docs/Senseml%20reference/layout-based-methods/fixed-table.md): Extract tables with fixed column headings
 - [Intersection](docs/Senseml%20reference/layout-based-methods/intersection.md): Find text at row/column intersections
-- [Label](docs/Senseml%20reference/layout-based-methods/label.md): Extract labeled values
+- [Label](docs/Senseml%20reference/layout-based-methods/label.md): Extract labeled values. Note this method is brittle, so use alternative methods where possible
 - [Nearest checkbox](docs/Senseml%20reference/layout-based-methods/nearest-checkbox.md): Find nearest checkbox to anchor and extract its state
 - [Paragraph](docs/Senseml%20reference/layout-based-methods/paragraph.md): Extract paragraph text
 - [Passthrough](docs/Senseml%20reference/layout-based-methods/passthrough.md): Pass anchor text through as output
@@ -130,6 +131,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Rotate page](docs/Senseml%20reference/preprocessors/rotate-page.md): Rotate page orientation, for edge cases when Sensible can't auto-rotate the page
 - [Scale](docs/Senseml%20reference/preprocessors/scale.md): Scale document dimensions
 - [Split lines](docs/Senseml%20reference/preprocessors/split-lines.md): Split merged text lines
+- [Remove lines](docs/Senseml%20reference/preprocessors/remove-lines.md): Remove lines matching a pattern from all pages in a document
 
 ### Computed Field Methods
 
@@ -207,6 +209,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Source text traceability](docs/Senseml%20reference/concepts/color.md): Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML
 - [Supported file types](docs/Senseml%20reference/concepts/file-types.md): Supported document file formats
 - [Table methods](docs/Senseml%20reference/concepts/table-methods.md): Comparison of table extraction methods
+- [Intelligent document processing](docs/Senseml%20reference/concepts/idp.md): Intelligent document processing with Sensible
 
 ## API Reference
 
@@ -292,3 +295,15 @@ This file contains links to the Sensible documentation to help LLMs understand t
 ## Mcp Server
 
 - [MCP](reference/MCP%20Server/mcp.md): No description available
+
+## Llms.Txt
+
+- [llms.txt](docs/llms.txt/llmstxt.md): No description available
+
+## Email Processor
+
+- [Email processor](reference/Email%20processors/email-processor/index.md): No description available
+
+## Senseml
+
+- [SenseML reference](reference/SenseML/senseml-reference-link.md): SenseML reference documentation covering the configuration language and methods for extracting structured data from unstructured documents.
