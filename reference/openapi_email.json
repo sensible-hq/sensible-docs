@@ -23,7 +23,7 @@
   "tags": [
     {
       "name": "Email processor",
-      "description": "Create and manage email processors.\n\nAn email processor defines what Sensible extracts from emails sent to a dedicated Sensible email address. Once you create a processor, send emails to the address to trigger automatic extraction.\n\n**Email address format**\n\nEach processor has two addresses: a production address and a development address.\n\n| Environment | Address format |\n|---|---|\n| Production | `{processor_name}.{account_alias}@{domain}` |\n| Development | `development.{processor_name}.{account_alias}@{domain}` |\n\nThe development address is generated automatically for every processor — you do not need to create it separately. Emails sent to the development address are extracted using document type configurations published to the `development` environment, not production.\n\nTo receive development extraction results at a separate webhook, add an `EnvironmentWebhook` with `\"environment\": \"development\"` as the second element of the `webhooks` array.\n\nTo find your `account_alias` values and `domain`, call `GET /account`. The response includes an `aliases` array of active account aliases and a `domain` field (for example, `api.sensible.so`)."
+      "description": "Create and manage email processors.\n\nAn email processor defines what Sensible extracts from emails sent to a dedicated Sensible email address. Once you create a processor, send emails to the address to trigger automatic extraction.\n\n**Email address format**\n\nEach processor has two addresses: a production address and a development address.\n\n| Environment | Address format |\n|---|---|\n| Production | `{processor_name}.{account_alias}@{domain}` |\n| Development | `development.{processor_name}.{account_alias}@{domain}` |\n\nThe development address is generated automatically for every processor. You do not need to create it separately. Sensible extracts emails sent to the development address using configurations published to the `development` environment, not production.\n\nTo receive development extraction results at a separate webhook, add an `EnvironmentWebhook` with `\"environment\": \"development\"` as the second element of the `webhooks` array.\n\nTo find your `account_alias` values and `domain`, call `GET /account`. The response includes an `aliases` array of active account aliases and a `domain` field (for example, `api.sensible.so`)."
     }
   ],
   "paths": {
@@ -197,7 +197,7 @@
       "put": {
         "operationId": "upsert-email-processor",
         "summary": "Create or update email processor",
-        "description": "Creates an email processor with the given name, or replaces it if one already exists. You define which document types Sensible extracts from the email body and attachments, and which webhooks receive the extraction output.\n\nWhen updating an existing processor, you can replace any combination of `webhooks`, `bodySpec`, and `attachmentSpecs`. The processor name is set by the URL path and cannot be changed. To rename a processor, delete it and create a new one under the desired name.\n\nOnce created, send emails to `{name}.{account_alias}@{domain}` to trigger extraction. To route emails to a specific environment's webhook, prepend an environment prefix: `{environment}.{name}.{account_alias}@{domain}`. Call `GET /account` to retrieve your account aliases and domain.",
+        "description": "Creates an email processor with the specified name, or updates it if one already exists. Specify the document types Sensible extracts from the email body and attachments, and the webhooks that receive extraction results.\n\nWhen updating an existing processor, you can replace any combination of `webhooks`, `bodySpec`, and `attachmentSpecs`. The URL path sets the processor name and you cannot change it after creation. To rename a processor, delete it and create a new one under the desired name.\n\nAfter you create a processor, send emails to `{name}.{account_alias}@{domain}` to trigger extraction. To route emails to the development webhook instead, use the `development.` prefix: `development.{name}.{account_alias}@{domain}`. Call `GET /account` to retrieve your account aliases and domain.",
         "tags": [
           "Email processor"
         ],
@@ -352,7 +352,7 @@
         "additionalProperties": false,
         "properties": {
           "webhooks": {
-            "description": "Required. Webhooks receive the extraction output for each email processed. Webhooks are required because source email metadata — the sender address, subject line, message ID, and recipient list — is only available in the webhook payload. You can view extraction field values through the Sensible app and API, but you cannot trace an extraction back to its source email without a webhook.",
+            "description": "Required. Sensible sends extraction output to these webhooks for each email it processes. Webhooks are required because source email metadata (the sender address, subject line, message ID, and recipient list) is only available in the webhook payload. You can view extracted field values through the Sensible app and API, but you cannot identify the source email for an extraction without a webhook.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/WebhookList"
@@ -360,7 +360,7 @@
             ]
           },
           "bodySpec": {
-            "description": "Extraction spec for the email body. The email body is always treated as a single document type — classification and portfolio specs are not supported for the body. Omit if you only need to extract from attachments.",
+            "description": "Specifies the document type Sensible uses to extract data from the email body. Sensible always treats the email body as a single document type.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/SingleDocTypeSpec"
@@ -370,7 +370,8 @@
           "attachmentSpecs": {
             "type": "array",
             "minItems": 1,
-            "description": "Extraction specs for email attachments. Each spec targets one attachment and supports single document type, classification, or portfolio strategies. Omit if you only need to extract from the email body.",
+            "maxItems": 1,
+            "description": "Specifies how Sensible uses the listed document types to extract data from email attachments. Provide exactly one element. Use `doctype` to extract against a fixed document type, `classification` to let Sensible pick the best-matching type, or `portfolio` to treat each attachment as a multi-document file and classify each sub-document against the listed document types. Omit if you only need to extract from the email body.\n\nTODO verify with eng that the API enforces maxItems 1 and that one spec applies uniformly to all attachments.",
             "items": {
               "$ref": "#/components/schemas/AttachmentSpec"
             }
@@ -399,7 +400,7 @@
             "$ref": "#/components/schemas/WebhookList"
           },
           "bodySpec": {
-            "description": "The extraction spec configured for the email body, if present.",
+            "description": "How Sensible extracts data from the email body, if configured.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/SingleDocTypeSpec"
@@ -408,7 +409,8 @@
           },
           "attachmentSpecs": {
             "type": "array",
-            "description": "The extraction specs configured for email attachments.",
+            "maxItems": 1,
+            "description": "How Sensible extracts data from email attachments, if configured. Contains at most one element.",
             "items": {
               "$ref": "#/components/schemas/AttachmentSpec"
             }
@@ -469,7 +471,7 @@
         }
       },
       "AttachmentSpec": {
-        "description": "Defines how Sensible handles one email attachment. Use `kind` to specify whether Sensible extracts against a single document type, classifies across multiple types, or treats the attachment as a portfolio.",
+        "description": "Defines how Sensible handles email attachments. Use `kind` to specify whether Sensible extracts against a single document type, classifies across multiple types, or treats each attachment as a portfolio.",
         "oneOf": [
           {
             "$ref": "#/components/schemas/SingleDocTypeSpec"
@@ -541,7 +543,7 @@
         }
       },
       "PortfolioSpec": {
-        "description": "Treats the attachment as a portfolio — a single file containing multiple documents — and extracts each sub-document separately.",
+        "description": "Treats each attachment as a [portfolio](doc:portfolio) (a single file containing multiple documents). Sensible automatically segments each document by its page range in the file, and classifies each document in each file against all the document types you specify. If you expect a mix of portfolio and single-document files, specify to process them all as portfolio files. **Note:** This setting can add extra processing time for single-document files.",
         "type": "object",
         "required": [
           "kind",
@@ -576,7 +578,7 @@
               "microsoft5",
               "pdf"
             ],
-            "description": "The OCR engine Sensible uses to process the portfolio. If unspecified, Sensible uses the document type's configured OCR engine."
+            "description": "The OCR engine Sensible uses to process the portfolio. For supported engines and their use cases, see [OCR engine](doc:ocr-engine). If unspecified, Sensible uses the document type's configured OCR engine.\n\nTODO verify with eng: (1) default engine for portfolio extraction, (2) behavior of `pdf` option, (3) do we want to expose `microsoft5` in the public API?"
           },
           "segmentDocumentsWith": {
             "type": "string",
@@ -589,7 +591,7 @@
           },
           "ocrEveryPage": {
             "type": "boolean",
-            "description": "Specifies whether Sensible runs OCR on every page of the portfolio, including pages that contain native text. Defaults to false."
+            "description": "Runs OCR on every page of the portfolio, including pages that contain embedded fonts. Defaults to `false`."
           }
         }
       }
@@ -671,7 +673,7 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "description": "Sensible uses API keys to authenticate requests. Keep your API keys secure and do not share them publicly accessible areas such as GitHub, client-side code, etc. Authentication to the API is performed via Bearer Authentication. Provide your API key as the bearer auth value."
+        "description": "Sensible uses API keys to authenticate requests. Keep your API keys secure and do not share them in publicly accessible areas such as GitHub or client-side code. Authenticate using Bearer Authentication by providing your API key as the bearer token value."
       }
     }
   }
