@@ -23,7 +23,7 @@
   "tags": [
     {
       "name": "Email processor",
-      "description": "Create and manage email processors.\n\nAn email processor defines what Sensible extracts from emails sent to a dedicated Sensible email address. Once you create a processor, send emails to the address to trigger automatic extraction.\n\n**Email address format**\n\n```\n{processor_name}.{account_alias}@{domain}\n```\n\nTo include an environment prefix (for example, to route emails to a non-production webhook):\n\n```\n{environment}.{processor_name}.{account_alias}@{domain}\n```\n\nTo find your `account_alias` values and `domain`, call `GET /account`. The response includes an `aliases` array of active account aliases and a `domain` field (for example, `api.sensible.so`)."
+      "description": "Create and manage email processors.\n\nAn email processor defines what Sensible extracts from emails sent to a dedicated Sensible email address. Once you create a processor, send emails to the address to trigger automatic extraction.\n\n**Email address format**\n\nEach processor has two addresses: a production address and a development address.\n\n| Environment | Address format |\n|---|---|\n| Production | `{processor_name}.{account_alias}@{domain}` |\n| Development | `development.{processor_name}.{account_alias}@{domain}` |\n\nThe development address is generated automatically for every processor — you do not need to create it separately. Emails sent to the development address are extracted using document type configurations published to the `development` environment, not production.\n\nTo receive development extraction results at a separate webhook, add an `EnvironmentWebhook` with `\"environment\": \"development\"` as the second element of the `webhooks` array.\n\nTo find your `account_alias` values and `domain`, call `GET /account`. The response includes an `aliases` array of active account aliases and a `domain` field (for example, `api.sensible.so`)."
     }
   ],
   "paths": {
@@ -45,7 +45,43 @@
                   "items": {
                     "$ref": "#/components/schemas/EmailProcessorOutput"
                   }
-                }
+                },
+                "example": [
+                  {
+                    "name": "test3",
+                    "created": "2026-05-04T22:55:49.368Z",
+                    "attachmentSpecs": [
+                      {
+                        "kind": "doctype",
+                        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      }
+                    ],
+                    "webhooks": [
+                      {
+                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "test4",
+                    "created": "2026-05-04T22:55:44.645Z",
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                    },
+                    "attachmentSpecs": [
+                      {
+                        "kind": "doctype",
+                        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      }
+                    ],
+                    "webhooks": [
+                      {
+                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                      }
+                    ]
+                  }
+                ]
               }
             }
           },
@@ -84,6 +120,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EmailProcessorOutput"
+                },
+                "example": {
+                  "name": "test3",
+                  "created": "2026-05-04T22:55:49.368Z",
+                  "bodySpec": {
+                    "kind": "doctype",
+                    "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                  },
+                  "attachmentSpecs": [
+                    {
+                      "kind": "doctype",
+                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                    }
+                  ],
+                  "webhooks": [
+                    {
+                      "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                    }
+                  ]
                 }
               }
             }
@@ -118,6 +173,62 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/EmailProcessorInput"
+              },
+              "examples": {
+                "bodySpec with attachments": {
+                  "value": {
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                    },
+                    "attachmentSpecs": [
+                      {
+                        "kind": "doctype",
+                        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      }
+                    ],
+                    "webhooks": [
+                      {
+                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                      }
+                    ]
+                  }
+                },
+                "portfolio attachment": {
+                  "value": {
+                    "attachmentSpecs": [
+                      {
+                        "kind": "portfolio",
+                        "docTypeIds": [
+                          "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                        ],
+                        "segmentDocumentsWith": "llm"
+                      }
+                    ],
+                    "webhooks": [
+                      {
+                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                      }
+                    ]
+                  }
+                },
+                "development webhook override": {
+                  "value": {
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                    },
+                    "webhooks": [
+                      {
+                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                      },
+                      {
+                        "url": "https://webhook.site/dev-b9dad6da-5902-43d8-bca9-423347f000f0",
+                        "environment": "development"
+                      }
+                    ]
+                  }
+                }
               }
             }
           }
@@ -129,6 +240,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EmailProcessorOutput"
+                },
+                "example": {
+                  "name": "test3",
+                  "created": "2026-05-04T22:55:49.368Z",
+                  "bodySpec": {
+                    "kind": "doctype",
+                    "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                  },
+                  "attachmentSpecs": [
+                    {
+                      "kind": "doctype",
+                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                    }
+                  ],
+                  "webhooks": [
+                    {
+                      "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                    }
+                  ]
                 }
               }
             }
@@ -274,7 +404,8 @@
           "url": {
             "type": "string",
             "format": "uri",
-            "description": "The URL Sensible posts extraction output to."
+            "description": "The URL Sensible posts extraction output to.",
+            "example": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
           }
         }
       },
@@ -290,11 +421,13 @@
           "url": {
             "type": "string",
             "format": "uri",
-            "description": "The URL Sensible posts extraction output to."
+            "description": "The URL Sensible posts extraction output to.",
+            "example": "https://webhook.site/dev-b9dad6da-5902-43d8-bca9-423347f000f0"
           },
           "environment": {
             "type": "string",
-            "description": "The environment this webhook applies to, for example `\"development\"` or `\"staging\"`."
+            "description": "The environment this webhook applies to, for example `\"development\"` or `\"staging\"`.",
+            "example": "development"
           }
         }
       },
@@ -337,7 +470,8 @@
           },
           "docTypeId": {
             "type": "string",
-            "description": "The ID of the document type Sensible extracts against."
+            "description": "The ID of the document type Sensible extracts against.",
+            "example": "37674511-20cd-49a2-87dc-8e8b070ff43a"
           }
         }
       },
@@ -362,7 +496,10 @@
             "description": "The IDs of the document types Sensible classifies the attachment against.",
             "items": {
               "type": "string"
-            }
+            },
+            "example": [
+              "37674511-20cd-49a2-87dc-8e8b070ff43a"
+            ]
           }
         }
       },
@@ -387,7 +524,10 @@
             "description": "The IDs of the document types Sensible extracts from each sub-document in the portfolio.",
             "items": {
               "type": "string"
-            }
+            },
+            "example": [
+              "37674511-20cd-49a2-87dc-8e8b070ff43a"
+            ]
           },
           "ocrEngine": {
             "type": "string",
@@ -407,7 +547,8 @@
               "llm",
               "fingerprints"
             ],
-            "description": "The segmentation method Sensible uses to split the portfolio into sub-documents. For more information, see [portfolio](doc:portfolio)."
+            "description": "The segmentation method Sensible uses to split the portfolio into sub-documents. For more information, see [portfolio](doc:portfolio).",
+            "example": "llm"
           },
           "ocrEveryPage": {
             "type": "boolean",
