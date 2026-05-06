@@ -48,37 +48,69 @@
                 },
                 "example": [
                   {
-                    "name": "test3",
-                    "created": "2026-05-04T22:55:49.368Z",
-                    "attachmentSpecs": [
-                      {
-                        "kind": "doctype",
-                        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
-                      }
-                    ],
-                    "webhooks": [
-                      {
-                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "test4",
-                    "created": "2026-05-04T22:55:44.645Z",
+                    "name": "rental_applications",
+                    "created": "2026-04-12T14:23:11.000Z",
                     "bodySpec": {
                       "kind": "doctype",
-                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
                     },
                     "attachmentSpecs": [
                       {
-                        "kind": "doctype",
-                        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                        "kind": "classification",
+                        "docTypeIds": [
+                          "2b3c4d5e-6f7a-8901-b2c3-d4e5f6789012",
+                          "3c4d5e6f-7a8b-9012-c3d4-e5f678901234"
+                        ]
                       }
                     ],
                     "webhooks": [
+                      { "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                      { "url": "https://webhook.site/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
+                    ]
+                  },
+                  {
+                    "name": "short_term_loan_docs",
+                    "created": "2026-04-18T09:45:32.000Z",
+                    "attachmentSpecs": [
                       {
-                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                        "kind": "portfolio",
+                        "docTypeIds": [
+                          "4d5e6f7a-8b9c-0123-d4e5-f67890123456",
+                          "5e6f7a8b-9c0d-1234-e5f6-789012345678",
+                          "6f7a8b9c-0d1e-2345-f6a7-890123456789"
+                        ],
+                        "segmentDocumentsWith": "llm"
                       }
+                    ],
+                    "webhooks": [
+                      { "url": "https://webhook.site/b4c5d6e7-f8a9-0123-bcde-456789012345" },
+                      { "url": "https://webhook.site/c6d7e8f9-a0b1-2345-cdef-678901234567", "environment": "development" }
+                    ]
+                  },
+                  {
+                    "name": "vendor_invoices",
+                    "created": "2026-04-25T16:08:57.000Z",
+                    "attachmentSpecs": [
+                      {
+                        "kind": "doctype",
+                        "docTypeId": "7a8b9c0d-1e2f-3456-a7b8-901234567890"
+                      }
+                    ],
+                    "webhooks": [
+                      { "url": "https://webhook.site/d8e9f0a1-b2c3-4567-def0-890123456789" },
+                      { "url": "https://webhook.site/e0f1a2b3-c4d5-6789-ef01-234567890123", "environment": "development" }
+                    ]
+                  },
+                  {
+                    "name": "employee_onboarding",
+                    "created": "2026-05-01T11:30:44.000Z",
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "8b9c0d1e-2f3a-4567-b8c9-012345678901"
+                    },
+                    "webhooks": [
+                      { "url": "https://webhook.site/f2a3b4c5-d6e7-8901-f012-456789012345" },
+                      { "url": "https://webhook.site/a4b5c6d7-e8f9-0123-0123-678901234567", "environment": "development" }
                     ]
                   }
                 ]
@@ -122,22 +154,24 @@
                   "$ref": "#/components/schemas/EmailProcessorOutput"
                 },
                 "example": {
-                  "name": "test3",
-                  "created": "2026-05-04T22:55:49.368Z",
+                  "name": "rental_applications",
+                  "created": "2026-04-12T14:23:11.000Z",
                   "bodySpec": {
                     "kind": "doctype",
-                    "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                    "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
                   },
                   "attachmentSpecs": [
                     {
-                      "kind": "doctype",
-                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      "kind": "classification",
+                      "docTypeIds": [
+                        "2b3c4d5e-6f7a-8901-b2c3-d4e5f6789012",
+                        "3c4d5e6f-7a8b-9012-c3d4-e5f678901234"
+                      ]
                     }
                   ],
                   "webhooks": [
-                    {
-                      "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
-                    }
+                    { "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                    { "url": "https://webhook.site/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
                   ]
                 }
               }
@@ -179,17 +213,17 @@
                   "value": {
                     "bodySpec": {
                       "kind": "doctype",
-                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
                     },
                     "attachmentSpecs": [
                       {
                         "kind": "doctype",
-                        "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                        "docTypeId": "7a8b9c0d-1e2f-3456-a7b8-901234567890"
                       }
                     ],
                     "webhooks": [
                       {
-                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                        "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab"
                       }
                     ]
                   }
@@ -200,14 +234,15 @@
                       {
                         "kind": "portfolio",
                         "docTypeIds": [
-                          "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                          "4d5e6f7a-8b9c-0123-d4e5-f67890123456",
+                          "5e6f7a8b-9c0d-1234-e5f6-789012345678"
                         ],
                         "segmentDocumentsWith": "llm"
                       }
                     ],
                     "webhooks": [
                       {
-                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                        "url": "https://webhook.site/b4c5d6e7-f8a9-0123-bcde-456789012345"
                       }
                     ]
                   }
@@ -216,14 +251,14 @@
                   "value": {
                     "bodySpec": {
                       "kind": "doctype",
-                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      "docTypeId": "8b9c0d1e-2f3a-4567-b8c9-012345678901"
                     },
                     "webhooks": [
                       {
-                        "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+                        "url": "https://webhook.site/f2a3b4c5-d6e7-8901-f012-456789012345"
                       },
                       {
-                        "url": "https://webhook.site/dev-b9dad6da-5902-43d8-bca9-423347f000f0",
+                        "url": "https://webhook.site/a4b5c6d7-e8f9-0123-0123-678901234567",
                         "environment": "development"
                       }
                     ]
@@ -242,22 +277,24 @@
                   "$ref": "#/components/schemas/EmailProcessorOutput"
                 },
                 "example": {
-                  "name": "test3",
-                  "created": "2026-05-04T22:55:49.368Z",
+                  "name": "rental_applications",
+                  "created": "2026-04-12T14:23:11.000Z",
                   "bodySpec": {
                     "kind": "doctype",
-                    "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                    "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
                   },
                   "attachmentSpecs": [
                     {
-                      "kind": "doctype",
-                      "docTypeId": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+                      "kind": "classification",
+                      "docTypeIds": [
+                        "2b3c4d5e-6f7a-8901-b2c3-d4e5f6789012",
+                        "3c4d5e6f-7a8b-9012-c3d4-e5f678901234"
+                      ]
                     }
                   ],
                   "webhooks": [
-                    {
-                      "url": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
-                    }
+                    { "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                    { "url": "https://webhook.site/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
                   ]
                 }
               }
