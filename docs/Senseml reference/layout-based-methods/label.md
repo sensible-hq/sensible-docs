@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract labeled values. Note this method is brittle, so use alternative methods where possible
+  description: 'Extract labeled values. Note this method is brittle, so use alternative methods where possible'
   robots: index
 next:
   description: ''
