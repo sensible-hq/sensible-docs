@@ -267,6 +267,9 @@ Before finalizing any spec, verify each item. Add new items here as they're disc
 - [ ] For each new parameter, search existing specs for a parameter with the same meaning. If one exists, verify the name, type, and allowed values match. If they differ, document the discrepancy and ask for a decision.
 - [ ] Cross-reference shared types (see `api-code-reference.md`) — `OcrEngineType`, `PortfolioSplittingMethod`, webhook shapes — to ensure the spec reflects the actual backend types.
 
+### Error responses
+- [ ] For every endpoint, verify the error codes it actually returns by reading the handler in the backend repo. Do not assume 400/401/404/500 are present — confirm each one. A missing or spurious error code in the spec is misleading to API consumers.
+
 ### Docs gaps
 - [ ] Run `grep -n "ocrEveryPage\|ocr_every_page\|ocrEngine\|ocr_engine" src/api/*/handler.ts` in the backend repo to check whether any request params accepted by the backend are missing from the spec. Document intentional omissions as TODOs.
 - [ ] **x-internal-note audit**: Run `grep -rn "x-internal-note" reference/openapi_*.json` to list all intentionally undocumented params across existing specs. For each, check whether the new endpoint accepts the same param — if it does, apply the same omission decision (hide it, add an `x-internal-note`) rather than accidentally documenting it.

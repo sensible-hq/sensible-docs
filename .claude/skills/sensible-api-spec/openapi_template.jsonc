@@ -349,13 +349,17 @@
     },
 
     "responses": {
-      // Standard error responses — copy verbatim. Only add error codes that this API actually returns.
-      // 400, 401, 500 appear on every endpoint.
-      // 403: use when a specific condition (not just auth) blocks the request.
-      // 404: use on all item routes (get/put/delete by ID or name).
-      // 409: use for create-only endpoints where duplicate name/ID is rejected.
-      // 415: use when the endpoint requires a specific Content-Type.
-      // 429: use when the endpoint is rate-limited.
+      // Error responses: verify against the backend source before including any code.
+      // Do NOT assume an endpoint returns 400/401/404/500 — check the handler.
+      // Common patterns observed across Sensible endpoints, but always confirm:
+      // 400: invalid request body or params
+      // 401: missing or invalid API key
+      // 403: specific condition blocks the request (e.g. missing account alias) — not just auth
+      // 404: resource not found — include on all item routes (get/put/delete by ID or name)
+      // 409: duplicate name/ID on create-only endpoints
+      // 415: wrong Content-Type
+      // 429: rate limited
+      // 500: unexpected server error
       "400": {
         "description": "Bad Request",
         "content": {
