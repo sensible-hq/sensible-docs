@@ -49,7 +49,16 @@
         "summary": "List {resources}",
         // Operation description: full sentence, capital first letter, period. Active voice.
         // Imperative ("Lists all...") or declarative ("Returns all...") both fine.
-        // For multi-step workflows, use a numbered list instead.
+        //
+        // Inline code: use backticks for field names (`webhooks`), paths (`/processors/email`),
+        // and literal values (`development`).
+        //
+        // Doc links: use `doc:slug` format for cross-references to Sensible docs, e.g.
+        // "For more information, see [Multi-document extractions](doc:portfolio)."
+        // Always a standalone sentence at the end of a description — never embedded mid-sentence.
+        //
+        // Multi-step workflows: use a numbered list instead of prose, e.g.
+        // "Extract data from a document in three steps.\n1. Call this endpoint...\n2. PUT the document...\n3. Poll for results..."
         "description": "Lists all active {resources} for this account.",
         "tags": ["{Resource name}"],
         "responses": {
@@ -308,6 +317,17 @@
             "enum": ["variantA"]
           }
         }
+      },
+
+      // Enum values: copy them exactly from the backend source — do not invent or reformat.
+      // The casing is determined by what the code returns, not by style convention.
+      // Status/state enums from the backend are typically ALL CAPS (e.g. WAITING, COMPLETE, FAILED).
+      // Input option enums are typically lowercase (e.g. "llm", "fingerprints", "development").
+      // Always verify against the source (e.g. src/common.ts, handler types) before publishing.
+      "{StatusSchema}": {
+        "type": "string",
+        "enum": ["WAITING", "PROCESSING", "COMPLETE", "FAILED"],
+        "description": "Status of the {resource}:\n- WAITING: {what this means}\n- PROCESSING: {what this means}\n- COMPLETE: {what this means}\n- FAILED: {what this means}"
       }
     },
 
