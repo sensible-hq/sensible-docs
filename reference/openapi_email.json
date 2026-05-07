@@ -466,7 +466,7 @@
           },
           "environment": {
             "type": "string",
-            "description": "The environment this webhook applies to, for example `\"development\"` or `\"staging\"`.",
+            "description": "The environment this webhook applies to. Currently, `\"development\"` is the only supported value.",
             "example": "development"
           }
         }
