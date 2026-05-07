@@ -92,9 +92,13 @@ Ask for any corrections before drafting.
 
 Do this before writing a single line of the spec. Read in parallel.
 
-### 4a. Read an existing spec for JSON format reference
+### 4a. Read the spec template and an existing spec for reference
 
-For CRUD-style endpoint groups, `openapi_configuration.json` is the best model. For extraction-style async patterns, use `openapi_extraction.json`.
+Start with the annotated template:
+```
+/home/franc/GitHub/sensible-docs/.claude/skills/sensible-api-spec/openapi_template.jsonc
+```
+It covers all structural decisions with inline comments. For a real-world example of CRUD-style endpoints, also read `openapi_configuration.json`. For async extraction patterns, read `openapi_extraction.json`.
 
 JSON format patterns to carry forward consistently:
 - **OpenAPI version**: `3.0.3`
