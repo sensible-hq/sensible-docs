@@ -371,7 +371,7 @@
             "type": "array",
             "minItems": 1,
             "maxItems": 1,
-            "description": "Specifies how Sensible uses the listed document types to extract data from email attachments. Provide exactly one element. Use `doctype` to extract data using a single document type, `classification` to let Sensible pick the best-matching type, or `portfolio` to treat each attachment as a multi-document file and classify each document in the portfolio against the listed document types. Omit if you only need to extract from the email body.\n\nTODO verify with eng that the API enforces maxItems 1 and that one spec applies uniformly to all attachments.",
+            "description": "Specifies how Sensible uses the listed document types to extract data from email attachments. Provide exactly one element. Use `doctype` to extract data using a single document type, `classification` to let Sensible pick the best-matching type, or `portfolio` to treat each attachment as a multi-document file and classify each document in the portfolio using the listed document types. Omit if you only need to extract from the email body.\n\nTODO verify with eng that the API enforces maxItems 1 and that one spec applies uniformly to all attachments.",
             "items": {
               "$ref": "#/components/schemas/AttachmentSpec"
             }
@@ -495,7 +495,7 @@
         }
       },
       "SingleDocTypeSpec": {
-        "description": "Extracts against a single document type.",
+        "description": "Extracts data using a single document type.",
         "type": "object",
         "required": [
           "kind",
@@ -534,7 +534,7 @@
           "docTypeIds": {
             "type": "array",
             "minItems": 1,
-            "description": "The IDs of the document types Sensible classifies the attachment against.",
+            "description": "The IDs of the document types Sensible uses to classify the attachment.",
             "items": {
               "type": "string"
             },
@@ -545,7 +545,7 @@
         }
       },
       "PortfolioSpec": {
-        "description": "Treats each attachment as a [portfolio](doc:portfolio) (a single file containing multiple documents). Sensible automatically segments each document by its page range in the file, and classifies each document in each file against all the document types you specify. If you expect a mix of portfolio and single-document files, specify to process them all as portfolio files. **Note:** This setting can add extra processing time for single-document files.",
+        "description": "Treats each attachment as a [portfolio](doc:portfolio) (a single file containing multiple documents). Sensible automatically segments each document by its page range in the file, and classifies each document in each file using all the document types you specify. If you expect a mix of portfolio and single-document files, specify to process them all as portfolio files. **Note:** This setting can add extra processing time for single-document files.",
         "type": "object",
         "x-internal-note": "ocrEngine and ocrEveryPage are accepted by the backend (src/api/processors/email/schemas.ts) but deliberately not documented publicly.",
         "required": [
