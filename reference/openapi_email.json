@@ -64,8 +64,8 @@
                       }
                     ],
                     "webhooks": [
-                      { "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
-                      { "url": "https://webhook.site/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
+                      { "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                      { "url": "https://your-webhook-endpoint.example.com/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
                     ]
                   },
                   {
@@ -83,8 +83,8 @@
                       }
                     ],
                     "webhooks": [
-                      { "url": "https://webhook.site/b4c5d6e7-f8a9-0123-bcde-456789012345" },
-                      { "url": "https://webhook.site/c6d7e8f9-a0b1-2345-cdef-678901234567", "environment": "development" }
+                      { "url": "https://your-webhook-endpoint.example.com/b4c5d6e7-f8a9-0123-bcde-456789012345" },
+                      { "url": "https://your-webhook-endpoint.example.com/c6d7e8f9-a0b1-2345-cdef-678901234567", "environment": "development" }
                     ]
                   },
                   {
@@ -97,8 +97,8 @@
                       }
                     ],
                     "webhooks": [
-                      { "url": "https://webhook.site/d8e9f0a1-b2c3-4567-def0-890123456789" },
-                      { "url": "https://webhook.site/e0f1a2b3-c4d5-6789-ef01-234567890123", "environment": "development" }
+                      { "url": "https://your-webhook-endpoint.example.com/d8e9f0a1-b2c3-4567-def0-890123456789" },
+                      { "url": "https://your-webhook-endpoint.example.com/e0f1a2b3-c4d5-6789-ef01-234567890123", "environment": "development" }
                     ]
                   },
                   {
@@ -109,8 +109,8 @@
                       "docTypeId": "8b9c0d1e-2f3a-4567-b8c9-012345678901"
                     },
                     "webhooks": [
-                      { "url": "https://webhook.site/f2a3b4c5-d6e7-8901-f012-456789012345" },
-                      { "url": "https://webhook.site/a4b5c6d7-e8f9-0123-0123-678901234567", "environment": "development" }
+                      { "url": "https://your-webhook-endpoint.example.com/f2a3b4c5-d6e7-8901-f012-456789012345" },
+                      { "url": "https://your-webhook-endpoint.example.com/a4b5c6d7-e8f9-0123-0123-678901234567", "environment": "development" }
                     ]
                   }
                 ]
@@ -167,8 +167,8 @@
                     }
                   ],
                   "webhooks": [
-                    { "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
-                    { "url": "https://webhook.site/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
+                    { "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                    { "url": "https://your-webhook-endpoint.example.com/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
                   ]
                 }
               }
@@ -220,7 +220,7 @@
                     ],
                     "webhooks": [
                       {
-                        "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab"
+                        "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab"
                       }
                     ]
                   }
@@ -239,7 +239,7 @@
                     ],
                     "webhooks": [
                       {
-                        "url": "https://webhook.site/b4c5d6e7-f8a9-0123-bcde-456789012345"
+                        "url": "https://your-webhook-endpoint.example.com/b4c5d6e7-f8a9-0123-bcde-456789012345"
                       }
                     ]
                   }
@@ -252,10 +252,10 @@
                     },
                     "webhooks": [
                       {
-                        "url": "https://webhook.site/f2a3b4c5-d6e7-8901-f012-456789012345"
+                        "url": "https://your-webhook-endpoint.example.com/f2a3b4c5-d6e7-8901-f012-456789012345"
                       },
                       {
-                        "url": "https://webhook.site/a4b5c6d7-e8f9-0123-0123-678901234567",
+                        "url": "https://your-webhook-endpoint.example.com/a4b5c6d7-e8f9-0123-0123-678901234567",
                         "environment": "development"
                       }
                     ]
@@ -290,8 +290,8 @@
                     }
                   ],
                   "webhooks": [
-                    { "url": "https://webhook.site/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
-                    { "url": "https://webhook.site/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
+                    { "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                    { "url": "https://your-webhook-endpoint.example.com/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
                   ]
                 }
               }
@@ -445,7 +445,7 @@
             "type": "string",
             "format": "uri",
             "description": "The URL Sensible posts extraction output to.",
-            "example": "https://webhook.site/b9dad6da-5902-43d8-bca9-423347f000f0"
+            "example": "https://your-webhook-endpoint.example.com/b9dad6da-5902-43d8-bca9-423347f000f0"
           }
         }
       },
@@ -462,7 +462,7 @@
             "type": "string",
             "format": "uri",
             "description": "The URL Sensible posts extraction output to.",
-            "example": "https://webhook.site/dev-b9dad6da-5902-43d8-bca9-423347f000f0"
+            "example": "https://your-webhook-endpoint.example.com/dev-b9dad6da-5902-43d8-bca9-423347f000f0"
           },
           "environment": {
             "type": "string",
