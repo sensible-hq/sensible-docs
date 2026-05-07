@@ -253,3 +253,27 @@ Look at `reference/Classification/` as the simplest existing example:
 - `reference/Classification/document/index.md` → just title
 
 Mirror this pattern for new sections.
+
+---
+
+## Pre-publish checklist
+
+Before finalizing any spec, verify each item. Add new items here as they're discovered.
+
+### Naming consistency
+- [ ] **Casing convention**: Compare every new field name against existing specs. Sensible's extraction API uses `snake_case` (e.g. `segment_documents_with`, `ocr_engine`). If a new endpoint uses `camelCase` for the same concept, flag it as a potential inconsistency and confirm with eng before publishing. Do not silently document the inconsistency — surface it.
+- [ ] **Enum values**: Compare enum values against `src/common.ts` (`OCR_ENGINE_TYPES`) and `src/engine/types.ts` (`portfolioSplittingMethodSchema`) — do not invent or omit values.
+
+### Semantic consistency
+- [ ] For each new parameter, search existing specs for a parameter with the same meaning. If one exists, verify the name, type, and allowed values match. If they differ, document the discrepancy and ask for a decision.
+- [ ] Cross-reference shared types (see `api-code-reference.md`) — `OcrEngineType`, `PortfolioSplittingMethod`, webhook shapes — to ensure the spec reflects the actual backend types.
+
+### Docs gaps
+- [ ] Run `grep -n "ocrEveryPage\|ocr_every_page\|ocrEngine\|ocr_engine" src/api/*/handler.ts` in the backend repo to check whether any request params accepted by the backend are missing from the spec. Document intentional omissions as TODOs.
+
+### Known open questions (as of 2026-05)
+See `api-code-reference.md` for the full list. Current blockers:
+1. `segmentDocumentsWith` (email API) vs `segment_documents_with` (extraction API) — casing inconsistency, pending eng confirmation
+2. Default OCR engine for portfolio extraction via email API
+3. Whether `microsoft5` and `pdf` should be publicly exposed in `ocrEngine`
+4. Whether `ocr_engine` and `ocr_every_page` on portfolio extraction endpoints should be added to `openapi_extraction.json`
