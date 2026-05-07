@@ -371,7 +371,7 @@
             "type": "array",
             "minItems": 1,
             "maxItems": 1,
-            "description": "Specifies how Sensible uses the listed document types to extract data from email attachments. Provide exactly one element. Use `doctype` to extract data using a fixed document type, `classification` to let Sensible pick the best-matching type, or `portfolio` to treat each attachment as a multi-document file and classify each document in the portfolio against the listed document types. Omit if you only need to extract from the email body.\n\nTODO verify with eng that the API enforces maxItems 1 and that one spec applies uniformly to all attachments.",
+            "description": "Specifies how Sensible uses the listed document types to extract data from email attachments. Provide exactly one element. Use `doctype` to extract data using a single document type, `classification` to let Sensible pick the best-matching type, or `portfolio` to treat each attachment as a multi-document file and classify each document in the portfolio against the listed document types. Omit if you only need to extract from the email body.\n\nTODO verify with eng that the API enforces maxItems 1 and that one spec applies uniformly to all attachments.",
             "items": {
               "$ref": "#/components/schemas/AttachmentSpec"
             }
