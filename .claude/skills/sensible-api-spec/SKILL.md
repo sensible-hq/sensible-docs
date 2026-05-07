@@ -270,6 +270,7 @@ Before finalizing any spec, verify each item. Add new items here as they're disc
 
 ### Docs gaps
 - [ ] Run `grep -n "ocrEveryPage\|ocr_every_page\|ocrEngine\|ocr_engine" src/api/*/handler.ts` in the backend repo to check whether any request params accepted by the backend are missing from the spec. Document intentional omissions as TODOs.
+- [ ] **x-internal-note audit**: Run `grep -rn "x-internal-note" reference/openapi_*.json` to list all intentionally undocumented params across existing specs. For each, check whether the new endpoint accepts the same param — if it does, apply the same omission decision (hide it, add an `x-internal-note`) rather than accidentally documenting it.
 
 ### Known open questions (as of 2026-05)
 See `api-code-reference.md` for the full list. Current blockers:
