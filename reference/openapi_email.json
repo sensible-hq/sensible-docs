@@ -117,9 +117,6 @@
               }
             }
           },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -309,6 +306,9 @@
           "403": {
             "$ref": "#/components/responses/403"
           },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -352,7 +352,7 @@
         "additionalProperties": false,
         "properties": {
           "webhooks": {
-            "description": "Required. Sensible sends extraction output to these webhooks for each email it processes. Webhooks are required because source email metadata (the sender address, subject line, message ID, and recipient list) is only available in the webhook payload. You can view extracted field values through the Sensible app and API, but you cannot identify the source email for an extraction without a webhook.",
+            "description": "Sensible sends extraction output to these webhooks for each email it processes. Webhooks are required because source email metadata (the sender address, subject line, message ID, and recipient list) is only available in the webhook payload. You can view extracted field values through the Sensible app and API, but you cannot identify the source email for an extraction without a webhook.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/WebhookList"
@@ -389,7 +389,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "The processor's unique name within the account."
+            "description": "The processor's unique name within the account"
           },
           "created": {
             "type": "string",
@@ -420,7 +420,8 @@
       "WebhookList": {
         "type": "array",
         "minItems": 1,
-        "description": "Webhooks that receive extraction output. The first element must be a production `Webhook` (a `url` with no `environment` field). Additional elements must be `EnvironmentWebhook` objects that override the production webhook for a specific environment. The API rejects arrays whose first element is an `EnvironmentWebhook`. Note: OpenAPI 3.0.3 cannot enforce positional constraints in arrays, so schema validators will not catch this ordering violation.",
+        "x-internal-note": "OAS 3.0.3 cannot enforce positional constraints in arrays, so schema validators will not catch violations of the first-element-must-be-Webhook rule.",
+        "description": "Webhooks that receive extraction output. The first element must be a production `Webhook` (a `url` with no `environment` field). Additional elements must be `EnvironmentWebhook` objects that override the production webhook for a specific environment. The API rejects arrays whose first element is an `EnvironmentWebhook`.",
         "items": {
           "oneOf": [
             {
@@ -636,6 +637,17 @@
           "text/plain": {
             "schema": {
               "title": "Not Found",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "415": {
+        "description": "Unsupported Media Type",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Unsupported Media Type",
               "type": "string"
             }
           }
