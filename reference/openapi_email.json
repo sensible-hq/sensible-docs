@@ -473,7 +473,7 @@
         }
       },
       "AttachmentSpec": {
-        "description": "Defines how Sensible handles email attachments. Use `kind` to specify whether Sensible extracts against a single document type, classifies across multiple types, or treats each attachment as a portfolio.",
+        "description": "Defines how Sensible handles email attachments. Use `kind` to specify whether Sensible extracts data from attachments using a single document type, classifies across multiple types, or treats each attachment as a portfolio.",
         "oneOf": [
           {
             "$ref": "#/components/schemas/SingleDocTypeSpec"
