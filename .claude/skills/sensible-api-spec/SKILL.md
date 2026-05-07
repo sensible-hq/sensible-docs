@@ -259,6 +259,9 @@ Mirror this pattern for new sections.
 
 Before finalizing any spec, verify each item. Add new items here as they're discovered.
 
+### Text edits
+- [ ] **Grep before committing**: Before committing any text change, grep the whole spec file for all instances of the pattern you're replacing — not just the one you found. A single phrase like "extracts against" can appear in schema descriptions, property descriptions, and examples across the file.
+
 ### Naming consistency
 - [ ] **Casing convention**: Compare every new field name against existing specs. Sensible's extraction API uses `snake_case` (e.g. `segment_documents_with`, `ocr_engine`). If a new endpoint uses `camelCase` for the same concept, flag it as a potential inconsistency and confirm with eng before publishing. Do not silently document the inconsistency — surface it.
 - [ ] **Enum values**: Compare enum values against `src/common.ts` (`OCR_ENGINE_TYPES`) and `src/engine/types.ts` (`portfolioSplittingMethodSchema`) — do not invent or omit values.
