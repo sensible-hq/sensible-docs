@@ -92,37 +92,31 @@ Ask for any corrections before drafting.
 
 Do this before writing a single line of the spec. Read in parallel.
 
-### 4a. Read the spec template and an existing spec for reference
+### 4a. Read the spec template
 
-Start with the annotated template:
+Read the annotated template before writing anything:
 ```
 /home/franc/GitHub/sensible-docs/.claude/skills/sensible-api-spec/openapi_template.jsonc
 ```
-It covers all structural decisions with inline comments. For a real-world example of CRUD-style endpoints, also read `openapi_configuration.json`. For async extraction patterns, read `openapi_extraction.json`.
 
-JSON format patterns to carry forward consistently:
-- **OpenAPI version**: `3.0.3`
-- **Server**: `{"url": "https://api.sensible.so/v0", "description": "Production server (uses live data)"}`
-- **Security**: `bearerAuth` in `components.securitySchemes`, referenced via `security: [{bearerAuth: []}]`
-- **operationId**: kebab-case verb-noun (e.g., `get-email-processor`, `list-email-processors`, `upsert-email-processor`)
-- **Descriptions**: markdown prose, doc links in `doc:slug` format (e.g., `[quickstart](doc:quickstart)`)
-- **`$ref` components**: use for any schema referenced in more than one place
-- **Required fields**: declared in the parent `required: [...]` array, not inline
-- **Discriminated unions**: model with `oneOf` + `discriminator.propertyName`
-- **Error responses**: include at minimum 200, 400, and any endpoint-specific codes (403, 404, 409)
+The template is the primary reference. It covers:
+- All structural decisions (operationId naming, path parameter placement, `$ref` usage, `additionalProperties`, discriminated unions, error code selection, `x-internal-note`)
+- Prose style rules embedded directly in the description fields (sentence case summaries, full sentence vs. noun phrase, trailing period rule, active voice, backtick formatting, `doc:slug` links, multi-step numbered lists, enum casing)
+
+Use it as a skeleton — copy the relevant sections and replace placeholders. For a real-world example of CRUD-style endpoints, also read `openapi_configuration.json`. For async extraction patterns, read `openapi_extraction.json`.
 
 ### 4b. Read the Sensible prose style guides
 
 Read both files before drafting any descriptions or excerpt text:
 
 ```
-/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/writing-rules.md
-/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/glossary.md
+/home/franc/GitHub/sensible-docs/.claude/style-guide/writing-rules.md
+/home/franc/GitHub/sensible-docs/.claude/style-guide/glossary.md
 ```
 
 Also read the parameter description guidance in:
 ```
-/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/sentence-word-guidance.md
+/home/franc/GitHub/sensible-docs/.claude/style-guide/sentence-word-guidance.md
 ```
 Focus on: "Parameter table: how to write each column" and "Sentence construction". The parameter table conventions don't apply literally (this isn't a SenseML page), but the underlying principles — lead with what it does, explicit subjects, gerunds over nominalizations — apply directly to OpenAPI schema property descriptions and endpoint `description` fields.
 
@@ -132,7 +126,9 @@ Focus on: "Parameter table: how to write each column" and "Sentence construction
 
 ### For a new spec file
 
-Write the full OpenAPI 3.0.3 JSON. Structure:
+Start from `openapi_template.jsonc` — copy the relevant sections and replace placeholders. Do not reconstruct the skeleton from scratch. The template's structure and comments are the spec for how to write the spec.
+
+The top-level structure:
 1. `openapi`, `servers`, `info`, `security` — top matter
 2. `tags` — one tag per logical group of endpoints
 3. `paths` — all new routes, each with operations for every supported method
@@ -157,13 +153,12 @@ Locate the relevant path object and schema definitions. Add new fields to the ri
 
 ### Prose quality in descriptions
 
-Every `description` field in the spec and every `excerpt` in a markdown stub is published prose. Apply the style guides:
+Every `description` field in the spec and every `excerpt` in a markdown stub is published prose. The template encodes the API-reference-specific rules (sentence case, full sentence vs. noun phrase, trailing periods, active voice, backtick formatting, `doc:slug` links). The style guides cover Sensible-specific terminology and voice:
 
 - **Terminology** (`glossary.md`): "config" not "template" or "schema"; "output" not "result object"; "Sensible" always capitalized; "the Sensible app" not "the UI"; "null" not "empty"
 - **Subjects** (`writing-rules.md`): "Sensible [does X]" for platform behavior; "You [do Y]" for user actions; no passive constructions that hide the actor
 - **Gerunds** (`writing-rules.md`): "automates extracting" not "automates the extraction of"
 - **Em dashes** (`writing-rules.md`): split compound clauses into two sentences instead
-- **Lead with what it does** (`sentence-word-guidance.md`): start schema property descriptions with a verb or noun phrase — "Specifies the webhook URL", "The name of the processor" — not "This field..." or "Use this to..."
 - **Terse and precise**: no filler ("please note that", "it's important to remember")
 
 The `excerpt` in each markdown stub should be copied from the endpoint's `description` in the spec, not rewritten.
@@ -275,6 +270,9 @@ Before finalizing any spec, verify each item. Add new items here as they're disc
 ### Docs gaps
 - [ ] Run `grep -n "ocrEveryPage\|ocr_every_page\|ocrEngine\|ocr_engine" src/api/*/handler.ts` in the backend repo to check whether any request params accepted by the backend are missing from the spec. Document intentional omissions as TODOs.
 - [ ] **x-internal-note audit**: Run `grep -rn "x-internal-note" reference/openapi_*.json` to list all intentionally undocumented params across existing specs. For each, check whether the new endpoint accepts the same param — if it does, apply the same omission decision (hide it, add an `x-internal-note`) rather than accidentally documenting it.
+
+### Template review
+- [ ] After the spec is finalized, check whether any decisions made during this session (new patterns, edge cases, corrections) should be added to `openapi_template.jsonc`. Update the template before closing out.
 
 ### Known open questions (as of 2026-05)
 See `api-code-reference.md` for the full list. Current blockers:
