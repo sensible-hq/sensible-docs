@@ -23,7 +23,7 @@
   "tags": [
     {
       "name": "Email processor",
-      "description": "Create and manage email processors.\n\nAn email processor defines what Sensible extracts from emails sent to a dedicated Sensible email address. Once you create a processor, send emails to the address to trigger automatic extraction.\n\n**Email address format**\n\nEach processor has two addresses: a production address and a development address.\n\n| Environment | Address format |\n|---|---|\n| Production | `{processor_name}.{account_alias}@{domain}` |\n| Development | `development.{processor_name}.{account_alias}@{domain}` |\n\nThe development address is generated automatically for every processor. You do not need to create it separately. Sensible extracts emails sent to the development address using configurations published to the `development` environment, not production.\n\nTo receive development extraction results at a separate webhook, add an `EnvironmentWebhook` with `\"environment\": \"development\"` as the second element of the `webhooks` array.\n\nTo find your `account_alias` values and `domain`, call `GET /account`. The response includes an `aliases` array of active account aliases and a `domain` field (for example, `api.sensible.so`)."
+      "description": "Create and manage email processors. For a step-by-step guide, see [Getting started with email extraction](doc:getting-started-email).\n\nAn email processor defines how Sensible extracts data from emails sent to a dedicated Sensible email address. Each processor specifies the document types to extract from the email body and attachments, and the webhooks that receive extraction results. When you send an email to the processor's address, Sensible automatically runs extraction and delivers results to your webhooks.\n\n**Email address format**\n\nEach processor has a production address and a development address.\n\n| Environment | Address format |\n|---|---|\n| Production | `{processor_name}.{account_alias}@{domain}` |\n| Development | `development.{processor_name}.{account_alias}@{domain}` |\n\nThe development address is generated automatically for every processor. Sensible extracts emails sent to the development address using configurations published to the `development` environment, not production.\n\nTo receive development extraction results at a separate webhook, add an `EnvironmentWebhook` with `\"environment\": \"development\"` as the second element of the `webhooks` array."
     }
   ],
   "paths": {
@@ -31,7 +31,7 @@
       "get": {
         "operationId": "list-email-processors",
         "summary": "List email processors",
-        "description": "Lists all active email processors for this account.",
+        "description": "Lists all active email processors for this account. An email processor defines how Sensible extracts data from emails sent to a dedicated address. For more information, see [Getting started with email extraction](doc:getting-started-email).",
         "tags": [
           "Email processor"
         ],
@@ -194,7 +194,7 @@
       "put": {
         "operationId": "upsert-email-processor",
         "summary": "Create or update email processor",
-        "description": "Creates an email processor with the specified name, or updates it if one already exists. Specify the document types Sensible extracts from the email body and attachments, and the webhooks that receive extraction results.\n\nWhen updating an existing processor, you can replace any combination of `webhooks`, `bodySpec`, and `attachmentSpecs`. The URL path sets the processor name and you cannot change it after creation. To rename a processor, delete it and create a new one under the desired name.\n\nAfter you create a processor, send emails to `{name}.{account_alias}@{domain}` to trigger extraction. To route emails to the development webhook instead, use the `development.` prefix: `development.{name}.{account_alias}@{domain}`. Call `GET /account` to retrieve your account aliases and domain.",
+        "description": "Creates an email processor with the specified name, or updates it if one already exists. Specify the document types Sensible extracts from the email body and attachments, and the webhooks that receive extraction results.\n\nWhen updating an existing processor, you can replace any combination of `webhooks`, `bodySpec`, and `attachmentSpecs`. The URL path sets the processor name and you cannot change it after creation. To rename a processor, delete it and create a new one under the desired name.\n\nAfter you create a processor, send emails to `{name}.{account_alias}@{domain}` to trigger extraction. To route emails to the development webhook instead, use the `development.` prefix: `development.{name}.{account_alias}@{domain}`. For more information, see [Getting started with email extraction](doc:getting-started-email).",
         "tags": [
           "Email processor"
         ],
