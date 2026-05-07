@@ -466,6 +466,7 @@
           },
           "environment": {
             "type": "string",
+            "enum": ["development"],
             "description": "The environment this webhook applies to. Currently, `\"development\"` is the only supported value.",
             "example": "development"
           }
