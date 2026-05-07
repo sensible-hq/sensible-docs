@@ -434,7 +434,7 @@
         }
       },
       "Webhook": {
-        "description": "The production webhook. Sensible sends extraction output to this URL unless an environment-scoped webhook matches the extraction environment.",
+        "description": "The default webhook. Sensible extracts using configs published to the production [environment](doc:environments) and sends results to this URL. To use development configs and route results to a different URL, add an `EnvironmentWebhook` as an additional element.",
         "type": "object",
         "required": [
           "url"
