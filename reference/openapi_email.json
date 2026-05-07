@@ -563,7 +563,7 @@
           "docTypeIds": {
             "type": "array",
             "minItems": 1,
-            "description": "The IDs of the document types Sensible extracts from each document in the portfolio.",
+            "description": "The IDs of the document types Sensible uses to extract data from each document in the portfolio.",
             "items": {
               "type": "string"
             },
