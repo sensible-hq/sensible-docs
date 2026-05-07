@@ -545,6 +545,7 @@
       "PortfolioSpec": {
         "description": "Treats each attachment as a [portfolio](doc:portfolio) (a single file containing multiple documents). Sensible automatically segments each document by its page range in the file, and classifies each document in each file against all the document types you specify. If you expect a mix of portfolio and single-document files, specify to process them all as portfolio files. **Note:** This setting can add extra processing time for single-document files.",
         "type": "object",
+        "x-internal-note": "ocrEngine and ocrEveryPage are accepted by the backend (src/api/processors/email/schemas.ts) but deliberately not documented publicly.",
         "required": [
           "kind",
           "docTypeIds"
@@ -568,18 +569,6 @@
               "37674511-20cd-49a2-87dc-8e8b070ff43a"
             ]
           },
-          "ocrEngine": {
-            "type": "string",
-            "enum": [
-              "amazon",
-              "google",
-              "lazarus",
-              "microsoft",
-              "microsoft5",
-              "pdf"
-            ],
-            "description": "The OCR engine Sensible uses to process the portfolio. For supported engines and their use cases, see [OCR engine](doc:ocr-engine). If unspecified, Sensible uses the document type's configured OCR engine.\n\nTODO verify with eng: (1) default engine for portfolio extraction, (2) behavior of `pdf` option, (3) do we want to expose `microsoft5` in the public API?"
-          },
           "segmentDocumentsWith": {
             "type": "string",
             "enum": [
@@ -588,10 +577,6 @@
             ],
             "description": "The segmentation method Sensible uses to split the portfolio into sub-documents. For more information, see [portfolio](doc:portfolio).",
             "example": "llm"
-          },
-          "ocrEveryPage": {
-            "type": "boolean",
-            "description": "Runs OCR on every page of the portfolio, including pages that contain embedded fonts. Defaults to `false`."
           }
         }
       }

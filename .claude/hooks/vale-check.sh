@@ -7,6 +7,7 @@ file=$(echo "$input" | python3 -c "import sys,json; d=json.load(sys.stdin); prin
 
 [[ -z "$file" || "$file" != *.md ]] && exit 0
 [[ "$file" == *"/.github/styles/"* ]] && exit 0
+[[ "$file" == *"/.claude/"* ]] && exit 0
 
 out=$(~/.local/bin/vale --no-wrap "$file" 2>&1) || true
 

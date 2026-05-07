@@ -112,6 +112,6 @@ Both portfolio endpoints accept these fields (`extract-from-url/handler.ts:60–
 
 **Open questions for eng** (as of 2026-05):
 1. `segmentDocumentsWith` (camelCase, email API) vs `segment_documents_with` (snake_case, extraction API) — is this intentional?
-2. Default OCR engine for portfolio extraction via the email API — is it Microsoft, or the document type's configured engine?
-3. Should `microsoft5` and `pdf` be exposed publicly in `ocrEngine`?
-4. Does the extraction API's `ocr_engine` request param override the document-type-level OCR setting noted in `ocr-engine.md:26`?
+2. Does the extraction API's `ocr_engine` request param override the document-type-level OCR setting noted in `ocr-engine.md:26`?
+
+**Confirmed** (2026-05-07): `ocrEngine` and `ocrEveryPage` on `PortfolioSpec` (email API) and `ocr_engine`/`ocr_every_page` on extraction portfolio endpoints are deliberately not publicly documented.
