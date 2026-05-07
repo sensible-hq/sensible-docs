@@ -31,7 +31,7 @@
       "get": {
         "operationId": "list-email-processors",
         "summary": "List email processors",
-        "description": "Lists all active email processors for this account. An email processor defines how Sensible extracts data from emails sent to a dedicated address. For more information, see [Getting started with email extraction](doc:getting-started-email).",
+        "description": "Lists all active email processors in your Sensible account. An email processor defines how Sensible extracts data from emails sent to a dedicated address. For more information, see [Getting started with email extraction](doc:getting-started-email).",
         "tags": [
           "Email processor"
         ],
@@ -389,7 +389,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "The processor's unique name within the account"
+            "description": "The processor's unique name in your Sensible account"
           },
           "created": {
             "type": "string",

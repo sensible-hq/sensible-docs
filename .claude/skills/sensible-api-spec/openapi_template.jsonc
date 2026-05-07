@@ -51,8 +51,10 @@
         // Imperative ("Lists all...") or declarative ("Returns all...") both fine.
         // For list and create/upsert operations, include a brief what-is-it sentence and a
         // doc link so users landing on the endpoint know what the resource is.
-        // e.g. "Lists all active {resources} for this account. A {resource} defines [what it does].
+        // e.g. "Lists all active {resources} in your Sensible account. A {resource} defines [what it does].
         // For more information, see [{Guide title}](doc:{slug})."
+        //
+        // Account scope: always "in your Sensible account" — not "for this account" or "within the account".
         //
         // Inline code: use backticks for field names (`webhooks`), paths (`/processors/email`),
         // and literal values (`development`).
@@ -63,14 +65,14 @@
         //
         // Multi-step workflows: use a numbered list instead of prose, e.g.
         // "Extract data from a document in three steps.\n1. Call this endpoint...\n2. PUT the document...\n3. Poll for results..."
-        "description": "Lists all active {resources} for this account. A {resource} defines {what it does}. For more information, see [{Guide title}](doc:{slug}).",
+        "description": "Lists all active {resources} in your Sensible account. A {resource} defines {what it does}. For more information, see [{Guide title}](doc:{slug}).",
         "tags": ["{Resource name}"],
         "responses": {
           "200": {
             // Response description: noun phrase, NO trailing period.
             // Pattern for collections: "List of {resources} for {scope}"
             // Pattern for single items: "The {requested|created|updated} {resource}"
-            "description": "List of {resources} for this account",
+            "description": "List of {resources} in your Sensible account",
             "content": {
               "application/json": {
                 "schema": {
@@ -276,7 +278,7 @@
           "{alwaysPresentField}": {
             "type": "string",
             // Noun phrase, no period — short, obvious fields don't need a full sentence.
-            "description": "The {resource}'s unique name within the account"
+            "description": "The {resource}'s unique name in your Sensible account"
           },
           "{timestampField}": {
             "type": "string",
