@@ -49,6 +49,10 @@
         "summary": "List {resources}",
         // Operation description: full sentence, capital first letter, period. Active voice.
         // Imperative ("Lists all...") or declarative ("Returns all...") both fine.
+        // For list and create/upsert operations, include a brief what-is-it sentence and a
+        // doc link so users landing on the endpoint know what the resource is.
+        // e.g. "Lists all active {resources} for this account. A {resource} defines [what it does].
+        // For more information, see [{Guide title}](doc:{slug})."
         //
         // Inline code: use backticks for field names (`webhooks`), paths (`/processors/email`),
         // and literal values (`development`).
@@ -59,7 +63,7 @@
         //
         // Multi-step workflows: use a numbered list instead of prose, e.g.
         // "Extract data from a document in three steps.\n1. Call this endpoint...\n2. PUT the document...\n3. Poll for results..."
-        "description": "Lists all active {resources} for this account.",
+        "description": "Lists all active {resources} for this account. A {resource} defines {what it does}. For more information, see [{Guide title}](doc:{slug}).",
         "tags": ["{Resource name}"],
         "responses": {
           "200": {
