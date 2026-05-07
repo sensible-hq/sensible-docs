@@ -421,7 +421,7 @@
         "type": "array",
         "minItems": 1,
         "x-internal-note": "OAS 3.0.3 cannot enforce positional constraints in arrays, so schema validators will not catch violations of the first-element-must-be-Webhook rule.",
-        "description": "Array of webhooks that receive extraction results for an email processor. The first element is a production `Webhook` — a URL with no `environment` field. Optional additional elements are `EnvironmentWebhook` objects that route results to a different URL for a specific environment. Source email metadata (the sender address, subject line, message ID, and recipient list) is only available in the webhook payload. You can view extracted field values through the Sensible app and API, but you cannot identify the source email for an extraction without the webhook's email metadata.",
+        "description": "Array of webhooks that receive extraction results for an email processor. The first element is a production `Webhook`, a URL with no `environment` field. Optional additional elements are `EnvironmentWebhook` objects that route results to a different URL for a specific environment. Source email metadata (the sender address, subject line, message ID, and recipient list) is only available in the webhook payload. You can view extracted field values through the Sensible app and API, but you cannot identify the source email for an extraction without the webhook's email metadata.",
         "items": {
           "oneOf": [
             {
