@@ -14,7 +14,8 @@
     // Human-readable title matching the domain, e.g. "Email processors", "Configuration"
     "title": "{Domain name}",
     "version": "0.0.1",
-    "description": "Sensible API for {one-line description of what this spec covers}.",
+    // Full sentence, period. "Sensible API for [what this spec covers]."
+    "description": "Sensible API for managing {resources}.",
     // License is a placeholder — do not change.
     "license": {
       "name": "Sensible API",
@@ -32,7 +33,8 @@
   "tags": [
     {
       "name": "{Resource name}",
-      "description": "{Multi-sentence description of the resource and what you can do with it.}"
+      // Full sentences, period. This is the group intro page in readme.io.
+      "description": "Create and manage {resources}. A {resource} defines {what it represents and what you can do with it}."
     }
   ],
 
@@ -43,12 +45,19 @@
       "get": {
         // operationId: kebab-case verb-noun. Verbs: list, get, create, update, upsert, delete.
         "operationId": "list-{resources}",
+        // Summary: sentence case — capitalize first word and proper nouns only. No trailing period.
         "summary": "List {resources}",
-        "description": "{One sentence. What does this return? Any filtering or pagination to note?}",
+        // Operation description: full sentence, capital first letter, period. Active voice.
+        // Imperative ("Lists all...") or declarative ("Returns all...") both fine.
+        // For multi-step workflows, use a numbered list instead.
+        "description": "Lists all active {resources} for this account.",
         "tags": ["{Resource name}"],
         "responses": {
           "200": {
-            "description": "{What is returned}",
+            // Response description: noun phrase, NO trailing period.
+            // Pattern for collections: "List of {resources} for {scope}"
+            // Pattern for single items: "The {requested|created|updated} {resource}"
+            "description": "List of {resources} for this account",
             "content": {
               "application/json": {
                 "schema": {
@@ -74,7 +83,7 @@
       "post": {
         "operationId": "create-{resource}",
         "summary": "Create {resource}",
-        "description": "{What does this create? Any constraints on the input?}",
+        "description": "Creates a {resource} with the specified name.",
         "tags": ["{Resource name}"],
         "requestBody": {
           // Always true for POST and PUT.
@@ -90,7 +99,7 @@
         },
         "responses": {
           "200": {
-            "description": "{What is returned}",
+            "description": "The created {resource}",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/{ResourceOutput}" }
@@ -119,11 +128,11 @@
       "get": {
         "operationId": "get-{resource}",
         "summary": "Get {resource}",
-        "description": "{One sentence.}",
+        "description": "Retrieves a {resource} by name.",
         "tags": ["{Resource name}"],
         "responses": {
           "200": {
-            "description": "{What is returned}",
+            "description": "The requested {resource}",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/{ResourceOutput}" },
@@ -143,7 +152,7 @@
       "put": {
         "operationId": "upsert-{resource}",
         "summary": "Create or update {resource}",
-        "description": "{What does this create or update? What fields can be replaced on update? What cannot change after creation?}",
+        "description": "Creates a {resource} with the specified name, or updates it if one already exists.",
         "tags": ["{Resource name}"],
         "requestBody": {
           "required": true,
@@ -161,7 +170,7 @@
         },
         "responses": {
           "200": {
-            "description": "{What is returned}",
+            "description": "The created or updated {resource}",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/{ResourceOutput}" },
@@ -179,7 +188,7 @@
       "delete": {
         "operationId": "delete-{resource}",
         "summary": "Delete {resource}",
-        "description": "{One sentence. Is delete idempotent? What side effects does it have?}",
+        "description": "Deletes a {resource}. If no {resource} with the given name exists, Sensible takes no action.",
         "tags": ["{Resource name}"],
         "responses": {
           // DELETE returns 204 — no body. Use the shared $ref, not an inline response.
@@ -200,25 +209,42 @@
       // additionalProperties: false — always, to reject unknown fields.
       // required: [...] — list required fields here, not inline on each property.
       "{ResourceInput}": {
-        "description": "{One sentence describing the input object.}",
+        // Schema object descriptions: full sentence, period.
+        "description": "Configuration for a {resource}.",
         "type": "object",
         "required": ["{requiredField}"],
         "additionalProperties": false,
         "properties": {
           "{requiredField}": {
-            // Lead descriptions with what it does: "Specifies...", "The name of...", "Controls..."
-            // Not "This field..." or "Use this to..."
+            // Property descriptions: two acceptable forms depending on complexity.
+            //
+            // 1. Full sentence (behavioral fields — controls something, has side effects, needs context):
+            //    Active voice. Lead with "Specifies...", "Controls...", or "Sensible [does X] when..."
+            //    End with a period.
+            //    Example: "Specifies the document type Sensible uses to extract data from the email body."
+            //
+            // 2. Noun phrase (simple/obvious fields — IDs, names, timestamps, counts):
+            //    No trailing period.
+            //    Example: "Unique identifier for the {resource}"
+            //
+            // Never start with "This field..." or "Use this to..."
             "type": "string",
-            "description": "{Specifies ...}"
+            "description": "Specifies the {what it controls}."
+          },
+          "{simpleField}": {
+            "type": "string",
+            // Noun phrase, no period.
+            "description": "Unique identifier for the {resource}"
           },
           "{optionalField}": {
             "type": "string",
-            "description": "{Specifies ...}"
+            // For optional fields with a default, state the default explicitly.
+            "description": "Specifies {what it controls}. Defaults to `{default value}`."
           },
           // For a property that is a $ref but also needs its own description, use allOf.
           // Without allOf, you cannot add a description alongside a $ref.
           "{refWithDescription}": {
-            "description": "{Property-level description.}",
+            "description": "Specifies {what it controls}.",
             "allOf": [{ "$ref": "#/components/schemas/{SharedSchema}" }]
           },
           // For a param that exists in the backend but is deliberately not public:
@@ -230,23 +256,26 @@
       // Output schema: what the API returns.
       // No additionalProperties: false — output can evolve without breaking clients.
       "{ResourceOutput}": {
-        "description": "{One sentence describing the output object.}",
+        "description": "A {resource} returned by the API.",
         "type": "object",
         "required": ["{alwaysPresentField}"],
         "properties": {
           "{alwaysPresentField}": {
             "type": "string",
-            "description": "{Specifies ...}"
+            // Noun phrase, no period — short, obvious fields don't need a full sentence.
+            "description": "The {resource}'s unique name within the account"
           },
           "{timestampField}": {
             "type": "string",
             // Use format: date-time for ISO 8601 timestamps.
             "format": "date-time",
-            "description": "The ISO 8601 timestamp when Sensible {created/updated} the {resource}."
+            // Full sentence, period — states what the timestamp represents.
+            "description": "The ISO 8601 timestamp when Sensible created the {resource}."
           },
           "{optionalOutputField}": {
             "type": "string",
-            "description": "{How Sensible ... if configured.}"
+            // Full sentence, period. "if configured" for fields present only when set.
+            "description": "How Sensible {does X}, if configured."
           }
         }
       },
@@ -288,7 +317,9 @@
         "name": "{name}",
         "in": "path",
         "required": true,
-        "description": "{What is this parameter? Any format constraints?}",
+        // Parameter descriptions: full sentences, period.
+        // Always include how to find the value: "Find {resources} using the `/{resources}` endpoint."
+        "description": "The {resource} name. Find {resources} using the `/{resources}` endpoint.",
         "schema": {
           "type": "string",
           // Add a pattern when the API enforces a format (e.g. lowercase + underscores).
