@@ -34,23 +34,6 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 The following example uses `extra_data` to cross-check deductible amounts from a policy management system against a customer's GEICO auto insurance declarations page. The request supplies the system's expected deductibles; the config retrieves them with `extraData` and flags any mismatches using `customComputation`.
 
-**Request**
-
-To run this request, follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `auto_policy_declaration` document type to your account, then add a config to it using the SenseML in the following section.
-
-```bash
-curl --location 'https://api.sensible.so/v0/extract_from_url/auto_policy_declaration' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer YOUR_API_KEY' \
---data '{
-  "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/extra_data.pdf",
-  "extra_data": {
-    "expected_collision_deductible": 500,
-    "expected_comprehensive_deductible": 300
-  }
-}'
-```
-
 **Config**
 
 ```json
@@ -118,6 +101,23 @@ curl --location 'https://api.sensible.so/v0/extract_from_url/auto_policy_declara
     }
   ]
 }
+```
+
+**Request**
+
+Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `auto_policy_declaration` document type to your account, then add a config to it using the preceding SenseML.
+
+```bash
+curl --location 'https://api.sensible.so/v0/extract_from_url/auto_policy_declaration' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer YOUR_API_KEY' \
+--data '{
+  "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/extra_data.pdf",
+  "extra_data": {
+    "expected_collision_deductible": 500,
+    "expected_comprehensive_deductible": 300
+  }
+}'
 ```
 
 **Example document**
