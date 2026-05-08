@@ -209,12 +209,15 @@ To receive extracted email data, you have the following options:
 
 ## Create email processor
 
-In the preceding steps, you configured the necessary prerequisites for an _email processor_ that can handle lease applications. Create the email processor in the **Email processors** tab of the Sensible app, or through the [API](reference:upsert-email-processor) . Provide the following configuration:
+In the preceding steps, you configured the necessary prerequisites for an _email processor_ that can handle lease applications. Create the email processor in the **Email processors** tab of the Sensible app, or through the [API](reference:upsert-email-processor). Provide the following configuration:
 
 * the name of the email processor, for example, `residential_lease_applications`.
-* the names of the document types you created in your account (`driver_license`, `pay_stubs`, `bank_statements`, `1040s`, `leases`, and `email_body_lease_applications`).
+* for the body document type, specify the`email_body_lease_applications` you created in previous steps.
+* for the attachment document types, specify the remaining document types you created in previous steps  (`driver_license`, `pay_stubs`, `bank_statements`, `1040s`, `leases`).
 * indicate whether you expect the attachments to include any multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
-* (optional) the URL of each webhook you implemented.
+* the URL of each webhook you implemented.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_tab.png)
 
 After creating the email processor, find its incoming email address by clicking the processor in the **Email processors** tab in the Sensible app, for example, `residential_lease_applications.abc_xyz@app.sensible.so`. Forward your lease application emails to this address to automatically trigger data extraction. For example,  configure your email filter to forward lease applications received by  `applications@sensibleproperty.com` to `residential_lease_applications.abc_xyz@app.sensible.so`.
 
