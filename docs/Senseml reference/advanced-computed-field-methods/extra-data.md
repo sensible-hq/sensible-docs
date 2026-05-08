@@ -105,7 +105,7 @@ The following example uses `extra_data` to cross-check deductible amounts from a
 
 **Request**
 
-To run this request, create a document type in the Sensible app and add a config to it using the preceding SenseML.
+To run this request, create a document type in the Sensible app and add a config to it using the preceding SenseML, then run the following command in a terminal:
 
 ```bash
 curl --location 'https://api.sensible.so/v0/extract_from_url/your_doc_type' \
