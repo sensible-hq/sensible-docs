@@ -143,3 +143,11 @@ The example document is a GEICO auto insurance declarations page with collision 
   "comprehensive_deductible_matches": { "value": false, "type": "boolean" }
 }
 ```
+
+# Portfolio extractions
+
+When you submit a portfolio extraction with `extra_data`, Sensible passes the same record to every document extracted from the portfolio. Each document's config can access any value in the record using `extraData`. You don't need to pass separate records per document type.
+
+For example, if a portfolio contains an auto insurance declarations page and a loan application, both configs can independently read the same `extra_data` values and produce their own computed fields based on them.
+
+For information about the portfolio endpoints, see [Provide a download URL for a PDF portfolio](ref:provide-a-download-url-for-a-pdf-portfolio) and [Generate an upload URL for a PDF portfolio](ref:generate-an-upload-url-for-a-pdf-portfolio).
