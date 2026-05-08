@@ -1,0 +1,5 @@
+extends: existence
+message: "Avoid 'against' for extraction or classification. Use 'using' instead."
+level: warning
+tokens:
+  - '(?:extract(?:s|ed|ing)?|classif(?:ies|y|ied|ication)?)(?:\s+\S+)+\s+against'
