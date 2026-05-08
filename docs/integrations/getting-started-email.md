@@ -70,7 +70,7 @@ You'll create a `residential_lease_applications` email processor to handle email
 
 ## Determine email filters
 
-1. Determine your filtering criteria for forwarding Sensible Property lease applications. For example, you filter by emails addressed to `applications@sensibleproperty.com`.
+1. Determine your filtering criteria for forwarding Sensible Property lease applications. For example, you filter by emails addressed to `applications@sensibleproperty.com`. In a later step, you'll create the Sensible address to which to forward these email to automatically extract data from them.
 
 ## Configure data classification and extraction
 
@@ -216,7 +216,7 @@ In the preceding steps, you configured the necessary prerequisites for an _email
 * indicate whether you expect the attachments to include any multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
 * (optional) the URL of each webhook you implemented.
 
-After creating the email processor, find its incoming email address by clicking the processor in the **Email processors** tab in the Sensible app.  For example, configure your email filter to forward lease applications received by  `residential_lease_applications.abc_xyz@app.sensible.so`.
+After creating the email processor, find its incoming email address by clicking the processor in the **Email processors** tab in the Sensible app.  For example, configure your email filter to forward lease applications received by  `applications@sensibleproperty.com` to `residential_lease_applications.abc_xyz@app.sensible.so` for automatic extraction.
 
 Forward your lease application emails to this address.
 
