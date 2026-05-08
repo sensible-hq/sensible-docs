@@ -15,6 +15,7 @@ RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
   -d '{
     "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio.pdf",
     "types": ["1040s", "auto_policy_declaration", "bank_statements"],
+    "segment_documents_with": "llm",
     "extra_data": {
       "expected_collision_deductible": 500,
       "expected_comprehensive_deductible": 300
