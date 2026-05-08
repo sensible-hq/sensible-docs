@@ -3,7 +3,7 @@
 # Tests that extra_data is accepted in POST /extract_from_url/{document_type}
 # and echoed in the response. Prints the extraction ID — pass it to
 # retrieve_extraction_extra_data.sh to verify it appears in the full response.
-DOCUMENT_TYPE=${1:-senseml_basics}
+DOCUMENT_TYPE=${1:-auto_policy_declaration}
 mkdir -p "$(dirname "$0")/outputs"
 OUTFILE="$(dirname "$0")/outputs/extract_from_url_extra_data_$(date +%Y-%m-%d_%H-%M-%S).json"
 RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
