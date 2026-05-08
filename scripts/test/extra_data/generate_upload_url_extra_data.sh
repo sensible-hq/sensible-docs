@@ -3,7 +3,7 @@
 # Tests that extra_data is accepted in POST /generate_upload_url/{document_type}.
 # Prints the upload URL and extraction ID — pass the ID to
 # retrieve_extraction_extra_data.sh to verify extra_data echoes in the response.
-DOCUMENT_TYPE=${1:-auto_policy_declaration}
+DOCUMENT_TYPE=${1:?Usage: bash generate_upload_url_extra_data.sh <document_type>}
 mkdir -p "$(dirname "$0")/outputs"
 OUTFILE="$(dirname "$0")/outputs/generate_upload_url_extra_data_$(date +%Y-%m-%d_%H-%M-%S).json"
 RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \

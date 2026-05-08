@@ -105,10 +105,10 @@ The following example uses `extra_data` to cross-check deductible amounts from a
 
 **Request**
 
-Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `auto_policy_declaration` document type to your account, then add a config to it using the preceding SenseML.
+To run this request, create a document type in the Sensible app and add a config to it using the preceding SenseML.
 
 ```bash
-curl --location 'https://api.sensible.so/v0/extract_from_url/auto_policy_declaration' \
+curl --location 'https://api.sensible.so/v0/extract_from_url/your_doc_type' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
 --data '{
