@@ -42,16 +42,16 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 # Examples
 
-The following example uses `extra_data` to compare expected values from an upstream system against values Sensible extracts from the document. The request supplies expected premium and deductible amounts, and the config retrieves them with `extraData` then compares them to the extracted fields.
+The following example uses `extra_data` to cross-check deductible amounts from a policy management system against a customer's GEICO auto insurance declarations page. The request supplies the system's expected deductibles; the config retrieves them with `extraData` and flags any mismatches using `customComputation`.
 
 **Request body**
 
 ```json
 {
-  "document_url": "https://example.com/policy.pdf",
+  "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/extra_data.pdf",
   "extra_data": {
-    "expected_premium": 1250.00,
-    "expected_deductible": 500
+    "expected_collision_deductible": 500,
+    "expected_comprehensive_deductible": 300
   }
 }
 ```
@@ -62,46 +62,62 @@ The following example uses `extra_data` to compare expected values from an upstr
 {
   "fields": [
     {
-      "id": "premium",
-      "anchor": "total premium",
-      "method": { "id": "row" }
+      "id": "collision_deductible",
+      "type": "currency",
+      "anchor": {
+        "match": [
+          { "text": "Coverages", "type": "startsWith" },
+          { "text": "Collision", "type": "startsWith" }
+        ]
+      },
+      "method": {
+        "id": "row",
+        "position": "right",
+        "tiebreaker": "first" /* leftmost value = the Limits and/or Deductibles column */
+      }
     },
     {
-      "id": "deductible",
-      "anchor": "deductible",
-      "method": { "id": "row" }
+      "id": "comprehensive_deductible",
+      "type": "currency",
+      "anchor": {
+        "match": [
+          { "text": "Coverages", "type": "startsWith" },
+          { "text": "Comprehensive", "type": "startsWith" }
+        ]
+      },
+      "method": {
+        "id": "row",
+        "position": "right",
+        "tiebreaker": "first"
+      }
     }
   ],
   "computed_fields": [
     {
-      "id": "expected_premium",
-      "method": {
-        "id": "extraData",
-        "key": "expected_premium" // in extra_data: { "expected_premium": 1250.00, "expected_deductible": 500 }
-      }
+      /* pull expected values from the request's extra_data record */
+      "id": "expected_collision_deductible",
+      "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
     {
-      "id": "expected_deductible",
-      "method": {
-        "id": "extraData",
-        "key": "expected_deductible" // in extra_data: { "expected_premium": 1250.00, "expected_deductible": 500 }
-      }
+      "id": "expected_comprehensive_deductible",
+      "method": { "id": "extraData", "key": "expected_comprehensive_deductible" }
     },
     {
-      "id": "premium_matches",
+      /* true if the document's deductible matches what the upstream system expects */
+      "id": "collision_deductible_matches",
       "method": {
         "id": "customComputation",
         "jsonLogic": {
-          "==": [{ "var": "premium.value" }, { "var": "expected_premium.value" }]
+          "==": [{ "var": "collision_deductible.value" }, { "var": "expected_collision_deductible.value" }]
         }
       }
     },
     {
-      "id": "deductible_matches",
+      "id": "comprehensive_deductible_matches",
       "method": {
         "id": "customComputation",
         "jsonLogic": {
-          "==": [{ "var": "deductible.value" }, { "var": "expected_deductible.value" }]
+          "==": [{ "var": "comprehensive_deductible.value" }, { "var": "expected_comprehensive_deductible.value" }]
         }
       }
     }
@@ -109,17 +125,26 @@ The following example uses `extra_data` to compare expected values from an upstr
 }
 ```
 
+**Example document**
+
+The example document is a GEICO auto insurance declarations page with collision ($500) and comprehensive ($250) deductibles.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/extra_data.pdf) |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
+
 **Output**
+
+`collision_deductible_matches` is `true` because the document ($500) matches the expected value. `comprehensive_deductible_matches` is `false` because the document shows $250, not the expected $300.
 
 ```json
 {
-  "premium": { "value": 1250.00, "type": "number" },
-  "deductible": { "value": 750, "type": "number" },
-  "expected_premium": { "value": 1250.00, "type": "number" },
-  "expected_deductible": { "value": 500, "type": "number" },
-  "premium_matches": { "value": true, "type": "boolean" },
-  "deductible_matches": { "value": false, "type": "boolean" }
+  "collision_deductible": { "value": 500, "type": "currency", "unit": "$", "source": "$500" },
+  "comprehensive_deductible": { "value": 250, "type": "currency", "unit": "$", "source": "$250" },
+  "expected_collision_deductible": { "value": 500, "type": "number" },
+  "expected_comprehensive_deductible": { "value": 300, "type": "number" },
+  "collision_deductible_matches": { "value": true, "type": "boolean" },
+  "comprehensive_deductible_matches": { "value": false, "type": "boolean" }
 }
 ```
-
-<!-- TODO: replace this with a full worked example — real PDF document, screenshot, and actual output showing premium_matches: true and deductible_matches: false so readers can see the comparison in action -->
