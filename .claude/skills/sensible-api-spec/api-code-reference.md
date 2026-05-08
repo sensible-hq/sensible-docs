@@ -4,6 +4,50 @@ Reference for writing or updating `reference/openapi_*.json` specs. All paths ar
 
 ---
 
+## `openapi_email.json` — spec structure reference
+
+**File**: `reference/openapi_email.json`
+
+### Paths
+
+| Method | Path | operationId | Request schema | Response schema |
+|--------|------|-------------|----------------|-----------------|
+| GET | `/processors/email` | `list-email-processors` | — | array of `EmailProcessorOutput` |
+| GET | `/processors/email/{name}` | `get-email-processor` | — | `EmailProcessorOutput` |
+| PUT | `/processors/email/{name}` | `upsert-email-processor` | `EmailProcessorInput` | `EmailProcessorOutput` |
+| DELETE | `/processors/email/{name}` | `delete-email-processor` | — | 204 No Content |
+
+### Schema relationships
+
+```
+EmailProcessorInput
+  webhooks: WebhookList  (array of Webhook | EnvironmentWebhook)
+  bodySpec?: SingleDocTypeSpec
+  attachmentSpecs?: AttachmentSpec[]
+
+EmailProcessorOutput  (same shape as Input, plus name + created)
+  name: string
+  created: string
+  webhooks: WebhookList
+  bodySpec?: SingleDocTypeSpec
+  attachmentSpecs?: AttachmentSpec[]
+
+AttachmentSpec  (oneOf, discriminator: kind)
+  ├── SingleDocTypeSpec   { kind: "doctype",        docTypeId: string }
+  ├── ClassificationSpec  { kind: "classification", docTypeIds: string[] }
+  └── PortfolioSpec       { kind: "portfolio",      docTypeIds: string[], segmentDocumentsWith?: string }
+
+WebhookList  (array)
+  ├── Webhook             { url: string }               — element 0, required
+  └── EnvironmentWebhook  { url: string, environment: string } — elements 1+
+```
+
+**Key constraints not enforceable in OAS 3.0.3:**
+- `webhooks[0]` must be a plain `Webhook`; `webhooks[1+]` must be `EnvironmentWebhook`
+- Either `bodySpec` or `attachmentSpecs` must be present (or both)
+
+---
+
 ## Email processor API
 
 **Routes**: `GET /processors/email`, `GET /processors/email/{name}`, `PUT /processors/email/{name}`, `DELETE /processors/email/{name}`
