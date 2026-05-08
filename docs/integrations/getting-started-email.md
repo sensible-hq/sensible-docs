@@ -216,9 +216,7 @@ In the preceding steps, you configured the necessary prerequisites for an _email
 * indicate whether you expect the attachments to include any multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
 * (optional) the URL of each webhook you implemented.
 
-After creating the email processor, find its incoming email address by clicking the processor in the **Email processors** tab in the Sensible app.  For example, configure your email filter to forward lease applications received by  `applications@sensibleproperty.com` to `residential_lease_applications.abc_xyz@app.sensible.so` for automatic extraction.
-
-Forward your lease application emails to this address.
+After creating the email processor, find its incoming email address by clicking the processor in the **Email processors** tab in the Sensible app, for example, `residential_lease_applications.abc_xyz@app.sensible.so`. Forward your lease application emails to this address to automatically trigger data extraction. For example,  configure your email filter to forward lease applications received by  `applications@sensibleproperty.com` to `residential_lease_applications.abc_xyz@app.sensible.so`.
 
 ## (Optional) send a test email
 
@@ -257,7 +255,7 @@ In the Sensible app, click each extraction to view its data. For example, the pa
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_details_ui.png)
 
-## (Optional) test in dev
+## (Optional) test in development
 
 If you make a change to a config, you can test it in the development environment before going live in production.
 
@@ -296,6 +294,6 @@ For example, say you make the following change in your config in the `email_body
 To test the change in the development environment:
 
 1. Publish the config to the development environment
-2. Add the development environment prefix you specified in a previous step to the forward address, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment.
+2. Add the `development` environment prefix to the forward address, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment.  Through the Sensible app or Sensible API, you can associate a new webhook with this development email address.
 
-View the results in the Sensible app, or in the webhook you specified for the development environment in a previous step.
+Now lease applications that you forward to `development.residential_lease_applications.abc_xyz@app.sensible.so` use the configs you published to development, and push their results to a separate webhook. 
