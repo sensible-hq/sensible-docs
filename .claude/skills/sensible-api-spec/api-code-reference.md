@@ -48,6 +48,117 @@ WebhookList  (array)
 
 ---
 
+## `openapi_extraction.json` — spec structure reference
+
+**File**: `reference/openapi_extraction.json`
+
+### Paths
+
+| Method | Path | operationId | Request schema | Response schema |
+|--------|------|-------------|----------------|-----------------|
+| POST | `/extract/{document_type}` | `extract-data-from-a-document` | multipart body | `ExtractionSingleResponse` |
+| POST | `/extract/{document_type}/{config_name}` | `extract-data-from-a-document-with-config` | multipart body | `ExtractionSingleResponse` |
+| POST | `/extract_from_url/{document_type}` | `extract-from-url` | `ExtractFromUrlRequest` | `ExtractFromUrlResponse` |
+| POST | `/extract_from_url/{document_type}/{config_name}` | `provide-a-download-url-with-config` | `ExtractFromUrlRequest` | `ExtractFromUrlResponse` |
+| POST | `/extract_from_url` | `provide-a-download-url-for-a-pdf-portfolio` | inline (types, document_url, extra_data, …) | `ExtractFromUrlPortfolioResponse` |
+| POST | `/generate_upload_url/{document_type}` | `generate-an-upload-url` | `GenerateUrlRequest` | `UploadResponse` |
+| POST | `/generate_upload_url/{document_type}/{config_name}` | `generate-an-upload-url-with-config` | `GenerateUrlRequest` | `UploadResponse` |
+| POST | `/generate_upload_url` | `generate-an-upload-url-for-a-pdf-portfolio` | inline (types, extra_data, …) | `UploadPortfolioResponse` |
+| GET | `/documents/{id}` | `retrieving-results` | — | oneOf `ExtractionSingleRetrievalResponse` \| `ExtractionPortfolioRetrievalResponse` |
+| GET | `/extractions` | `list-extractions` | — | `ExtractionsResponseFiltered` |
+| GET | `/extractions/statistics` | `statistics` | — | `StatisticsResponse` |
+| GET | `/generate_excel/{ids}` | `get-excel-extraction` | — | binary |
+| GET | `/generate_csv/{ids}` | `get-csv-extraction` | — | binary |
+| POST | `/account/auth_tokens` | `account-auth-tokens` | — | `AuthTokenResponse` |
+
+### Schema relationships
+
+```
+ExtractionSummaryBase                         ← base for GET /extractions list items
+  ├── SingleExtractionSummaryResponse         (allOf + type, configuration, errors, validations)
+  └── MultiExtractionSummaryResponse          (allOf + types, documents[]: MultiExtractionSummaryDocument)
+
+ExtractionsResponseFiltered                   ← GET /extractions response
+  └── extractions[]: anyOf SingleExtractionSummaryResponse | MultiExtractionSummaryResponse
+
+ExtractionSingleResponse                      ← POST /extract (sync) response
+ExtractionSingleRetrievalResponse             ← GET /documents/{id} single (allOf ExtractionSingleResponse, no extra props)
+
+ExtractionPortfolioRetrievalResponse          ← GET /documents/{id} portfolio
+  └── documents[]: DocumentInPortfolio
+
+ExtractFromUrlResponse                        ← POST /extract_from_url/{type} (pending ID + status only)
+ExtractFromUrlPortfolioResponse               ← POST /extract_from_url portfolio (allOf PortfolioBase)
+UploadResponse                                ← POST /generate_upload_url (ID + upload_url)
+UploadPortfolioResponse                       ← POST /generate_upload_url portfolio (allOf PortfolioBase)
+PortfolioBase                                 ← { id, created, status }
+```
+
+**Notable:**
+- `extra_data` is a direct property on `ExtractionSummaryBase`, `ExtractionSingleResponse`, `ExtractionPortfolioRetrievalResponse`, `ExtractFromUrlResponse`, `ExtractFromUrlRequest`, and `GenerateUrlRequest`. No schema inherits it twice.
+- `POST /extract_from_url` and `POST /generate_upload_url` (portfolio variants, no `{document_type}`) define their request body inline rather than as a named schema.
+- `ExtractionSingleRetrievalResponse` is a named alias for `ExtractionSingleResponse` with no added properties.
+
+---
+
+## `openapi_configuration.json` — spec structure reference
+
+**File**: `reference/openapi_configuration.json`
+
+Three nested CRUD resources: **DocumentType → Configuration → Golden** (reference document).
+
+### Paths
+
+| Method | Path | operationId | Request | Response |
+|--------|------|-------------|---------|----------|
+| GET | `/document_types` | `list-document-types` | — | array of `DocumentType` |
+| POST | `/document_types` | `create-document-type` | `PostDocumentType` | `DocumentType` |
+| GET | `/document_types/{type-id}` | `get-document-type` | — | `DocumentType` |
+| PUT | `/document_types/{type-id}` | `update-document-type` | `PutDocumentType` | `DocumentType` |
+| DELETE | `/document_types/{type-id}` | `delete-document-type` | — | 204 |
+| GET | `…/{type-id}/configurations` | `list-configurations` | — | array of `ConfigurationResponse` |
+| POST | `…/{type-id}/configurations` | `create-configuration` | `PostConfiguration` | `ConfigurationResponse` |
+| GET | `…/{type-id}/configurations/{config-name}` | `get-configuration` | — | `ConfigurationResponse` |
+| PUT | `…/{type-id}/configurations/{config-name}` | `update-configuration` | `PutConfiguration` | `ConfigurationResponse` |
+| DELETE | `…/{type-id}/configurations/{config-name}` | `delete-configuration` | — | 204 |
+| GET | `…/{config-name}/versions` | `get-configuration-versions` | — | `ConfigurationVersionsResponse` |
+| GET | `…/{config-name}/{version}` | `get-configuration-by-version` | — | `ConfigurationResponse` |
+| PUT | `…/{config-name}/{version}` | `publish-configuration-by-version` | `PublishConfigurationVersion` | `ConfigurationResponse` |
+| DELETE | `…/{config-name}/{version}` | `delete-configuration-by-version` | — | 204 |
+| GET | `…/{type-id}/goldens` | `list-reference-documents` | — | array of `GoldenResponse` |
+| POST | `…/{type-id}/goldens` | `create-reference-document` | `PostGolden` | `GoldenResponse` |
+| GET | `…/{type-id}/goldens/{document-name}` | `get-reference-document` | — | `GoldenResponse` |
+| PUT | `…/{type-id}/goldens/{document-name}` | `update-reference-document` | `PutGolden` | `GoldenResponse` |
+| DELETE | `…/{type-id}/goldens/{document-name}` | `delete-reference-document` | — | 204 |
+| DELETE | `…/{type-id}/goldens/{document-name}/configuration` | `delete-reference-document-association` | — | 204 |
+| POST | `/extract_text_from_golden/{type-name}` | `extract-all-text-from-reference-document` | `PostGoldenExtraction` | `ResponseStandardText` |
+
+### Schema relationships
+
+```
+DocumentType          { name, id, created, schema: DocumentTypeOutput }
+DocumentTypeOutput    { fingerprint_mode, ocr_engine, prevent_default_merge_lines,
+                        ocr_level, validations, review_triggers }
+
+ConfigurationResponse { name, created, configuration (SenseML as string), version_id, versions[] }
+ConfigurationVersion  { version_id, datetime, environments[], draft }
+
+GoldenResponse        { name, created, configuration, error, upload_url, download_url, thumbnail_url }
+
+PostConfiguration / PutConfiguration
+  configuration: StringifiedConfigurationRequest  (SenseML JSON serialized as a string)
+  publish_as: Environment  ("production" | "development")
+
+ResponseGoldenExtraction  allOf: [Extraction]   ← same shape as a standard extraction response
+```
+
+**Notable:**
+- Configuration bodies are stringified JSON — SenseML is stored and returned as a string, not a parsed object.
+- Goldens can be pinned to a specific config via `configuration` in `PostGolden`/`PutGolden`; the association is removed separately via `DELETE …/configuration`.
+- `ResponseGoldenExtraction` is `allOf: [Extraction]` with no additional properties — a named alias for the retrieval context.
+
+---
+
 ## Email processor API
 
 **Routes**: `GET /processors/email`, `GET /processors/email/{name}`, `PUT /processors/email/{name}`, `DELETE /processors/email/{name}`
