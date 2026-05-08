@@ -14,20 +14,10 @@ Returns a value from the `extra_data` record you supply in an asynchronous extra
 
 For information about attaching `extra_data` to a request, see the [Extract from URL](ref:extract-from-url) and [Generate upload URL](ref:generate-an-upload-url) endpoints.
 
-<!-- TODO: add use cases section. Ideas:
+Common use cases include:
 
-  Chained extraction workflow:
-  - Customer sends a loan application — Sensible extracts name, SSN, DOB
-  - Script adds those three fields into the next API call as extra_data
-  - Customer sends a bank statement — config uses extraData to pull name/DOB/SSN from the request
-    and compares them against what's on the statement to check they match
-
-  Combining with external data sources:
-  - Customer parses an auto insurance document and extracts the VIN number
-  - Customer makes an API call to a VIN lookup service and gets total mileage
-  - Customer sends total mileage back as extra_data with another document
-    and uses extraData + customComputation to verify the mileages match
--->
+- **Cross-document validation**: Extract fields from a first document (for example, name and date of birth from a loan application), then pass them as `extra_data` into the next extraction call. A subsequent config (say, for a bank statement) uses `extraData` to pull those values from the request and compare them against what it extracts from the document.
+- **Incorporating external data**: After extracting a VIN from an auto insurance document, call a third-party lookup service and pass the result (for example, recorded mileage) back as `extra_data` in a follow-up request. The config uses `extraData` with `customComputation` to flag any discrepancy between the lookup value and what the document shows.
 
 # Parameters
 
