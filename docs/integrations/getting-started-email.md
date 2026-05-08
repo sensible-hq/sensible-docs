@@ -43,17 +43,17 @@ To implement this workflow, take the following general steps:
   1. By default, view the extracted data in the Sensible app. Optionally you can also define webhooks to receive the extracted data.
 
 * **Create email processor**
-  1. When you've completed the preceding steps, contact Sensible to create an _email processor_. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can now start forwarding emails to the processor and receive extracted data.
+  1. When you've completed the preceding steps, create an _email processor_ in the Sensible app or with the API, then contact Sensible to activate it. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can then start forwarding emails to the processor and receive extracted data.
 
 * **(Optional) Send a test email**
   1. Download sample documents and send a test email to view an example extraction.
 
-* **(Optional) Test in dev**
-  1. Make changes to your extraction configs and test in a dev environment  before going into production.
+* **(Optional) Test in development**
+  1. Make changes to your extraction configs and test in a development environment before going into production.
 
 ## Getting started
 
-Let's walk through an example of implementing an email processor. In this example implementation, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property."  Lease application emails to this property manager typically include the following attachments:
+The following example walks through implementing an email processor. In this example implementation, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property."  Lease application emails to this property manager typically include the following attachments:
 
 * drivers license
 * signed lease
@@ -81,11 +81,10 @@ To configure email data classification and extraction in your Sensible account, 
 Create document types to [classify](doc:classify) and extract from the email attachments:
 
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add extraction support for the following document types to your account:
-   1. **driver_license** document type
-   2. **pay_stubs** document type
-   3. **bank_statements** document type
-   4.  **pay_stubs** document type
-   5. **1040s** document type
+   1. **`driver_license`** document type
+   2. **`pay_stubs`** document type
+   3. **`bank_statements`** document type
+   4. **`1040s`** document type
 
 #### (Optional) Create custom document types
 
@@ -215,7 +214,7 @@ To receive extracted email data, you have the following options:
 
 ## Create email processor
 
-In the preceding steps, you configured the necessary prerequisites for an _email processor_ that can handle lease applications. Contact Sensible to create the email processor. Provide the following details:
+In the preceding steps, you configured the necessary prerequisites for an _email processor_ that can handle lease applications. Create the email processor in the **Email processors** tab of the Sensible app, or with the API. Provide the following configuration:
 
 * the name of the email processor, for example, `residential_lease_applications`.
 * the names of the document types you created in your account (`driver_license`, `pay_stubs`, `bank_statements`, `1040s`, `leases`, and `email_body_lease_applications`).
@@ -223,7 +222,7 @@ In the preceding steps, you configured the necessary prerequisites for an _email
 * (optional) the environmental prefix you want to use for your development environment, for example `dev` or `development`.
 * (optional) the URL of each webhook you implemented and which environment each corresponds to.
 
-After creating the email processor, Sensible provides you with the email address for the processor, for example: `residential_lease_applications.abc_xyz@app.sensible.so`.
+After creating the email processor, contact Sensible to activate it. Sensible provides you with the email address for the processor, for example: `residential_lease_applications.abc_xyz@app.sensible.so`.
 
 Forward your lease application emails to this address.
 
