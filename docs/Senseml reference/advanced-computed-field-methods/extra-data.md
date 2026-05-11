@@ -39,7 +39,6 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 **Note:** The `extra_data` object has the following constraints:
 - Values must be flat: strings, numbers, booleans, or null. Nested objects and arrays are not supported.
-- The object has a maximum size of 16 KiB.
 
 # Examples
 
