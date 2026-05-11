@@ -133,4 +133,3 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 }
 ```
 
-**Tip:** You can include an `extra_data` object in the request body to carry pipeline context into the extraction. For example, pass expected values from an upstream system so the config can dynamically compare or transform them alongside what it finds in the document. For more information, see [Extra data](doc:extra-data).

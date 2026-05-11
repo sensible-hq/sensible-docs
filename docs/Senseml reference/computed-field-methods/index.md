@@ -13,13 +13,14 @@ next:
 
 Computed Field methods transform the output of one or more [Field objects](doc:field-query-object).  Sensible supports several general categories for transforming extracted document data:
 
-* Logic-based computed field methods.
-* LLM-based prompts
-* Custom logic-based computed field methods 
+* Transform document data with built-in logic
+* Transform document data with LLMs
+* Transform or validate document data with dynamic external context
+* Transform document data with custom logic
 
-## Logic-based computed field methods
+## Transform document data with built-in logic
 
-Common use cases for logic-based computed fields include:
+Transform document data with logic using computed fields. Common use cases for logic-based computed fields include:
 
 * Clean raw output:  You can strip out unwanted data, such as extra characters or strings, using a Computed Field method. Or, you can split or join data from different fields.
 * Standardize output across configs:  If you extract inconsistently formatted data from different vendors or documents, for example "6 month policy period" versus "six mo. policy duration", you can map to a common format. Consistently formatted output helps your application to handle extractions with fewer checks for corner cases.
@@ -36,7 +37,7 @@ The following global parameters are common to all logic-based Computed Field met
 | method (**required**) | object                     | The method describes the Computed Field method used to transform fields. This object's ID parameter specifies the method, for example, [Concatenate](doc:concatenate) or [Zip](doc:zip).                                                                                                                                                                                                                                                                                                         |
 | type                  | string (default: `string`) | Specifies the type of the output value. For more information about types, see [Field query object](doc:field-query-object).                                                                                                                                                                                                                                                                                                                                                                      |
 
-## LLM-based prompts
+## Transform document data with LLMs
 
 You can set the output of other fields as the [context](doc:prompt) for other LLM-based fields' prompts. In other words, prompt an LLM to answer questions about other fields' extracted data. Use other fields as context to:
 
@@ -45,8 +46,18 @@ You can set the output of other fields as the [context](doc:prompt) for other LL
 * Narrow down the [context](doc:prompt) for your prompts to a specific part of the document.
 * Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array.
 
-To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods. The source field IDs can reference document data extracted from the current extraction, or caller-provided data such as data from a previous extraction or from a system of record. To supply caller-provided values, use the [extraData](doc:extra-data) method to create a field from a value in the request's `extra_data` object, then include that field ID in `source_ids`. For example, pass a vehicle description from a policy management system as `extra_data` in order to provide additional context for an LLM, then use the Query Group method with the Source Ids parameter to ask whether it matches the vehicle shown in the document.
+To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods. 
 
-## Custom logic-based computed field methods
+## Transform or validate document data with dynamic external context
+
+Document extraction rarely happens in isolation. Workflows involve multiple documents, upstream systems, and business logic that exists outside any single file. To  For example:
+
+- a mortgage pipeline might need to cross-check a bank statement against figures extracted from a loan application document in the same overall application package. 
+
+- A document LLM agent might need to carry context generated in a previous reasoning step into the next extraction call. 
+
+In such cases, you can provide the external context as an `extra_data` object when you make an extraction call. You can then make that request-time context available in an extraction config so computed fields, including LLM-based methods, can operate on it. For more information, see the [Extra data](doc:extra-data) method.
+
+## Transform document data with custom logic
 
 For advanced computations including custom logic, see [Advanced computed field methods](doc:advanced-computed-field-methods).
