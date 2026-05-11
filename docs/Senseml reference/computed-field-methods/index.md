@@ -45,7 +45,7 @@ You can set the output of other fields as the [context](doc:prompt) for other LL
 * Narrow down the [context](doc:prompt) for your prompts to a specific part of the document.
 * Troubleshoot or simplify complex prompts that aren't performing reliably. Break the prompt into several simpler parts, and chain them together using successive Source ID parameters in the fields array.
 
-To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods.
+To use other fields as context, configure the Source Ids parameter for the [Query Group](doc:query-group) or [List](doc:list#parameters) methods. The source field IDs can reference document data extracted from the current extraction, or caller-provided data such as data from a previous extraction or from a system of record. To supply caller-provided values, use the [extraData](doc:extra-data) method to create a field from a value in the request's `extra_data` record, then include that field ID in `source_ids`. For example, pass a vehicle description from a policy management system as `extra_data` in order to provide additional context for an LLM, then use the Query Group method with the Source Ids parameter to ask whether it matches the vehicle shown in the document.
 
 ## Custom logic-based computed field methods
 
