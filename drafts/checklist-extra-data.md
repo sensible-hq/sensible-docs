@@ -28,7 +28,7 @@
 
 ## Testing
 
-- [ ] **#14** Write bash tests that verify every place the OpenAPI spec claims `extra_data` appears in a request or response body actually does so — i.e. smoke-test that the live API matches the spec for each endpoint that should accept or return `extra_data`. First step: pull the OpenAPI spec and enumerate all `extra_data` occurrences to scope what needs testing.
+- [x] **#14** `scripts/test/extra_data/smoke_test_extra_data.sh` — asserts all 8 spec claims (4 request, 4 response). Run: `SENSIBLE_API_KEY=<key> bash smoke_test_extra_data.sh [document_type]`
 
 ## Known bugs
 
