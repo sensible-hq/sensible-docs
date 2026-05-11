@@ -56,8 +56,8 @@ WebhookList  (array)
 
 | Method | Path | operationId | Request schema | Response schema |
 |--------|------|-------------|----------------|-----------------|
-| POST | `/extract/{document_type}` | `extract-data-from-a-document` | multipart body | `ExtractionSingleResponse` |
-| POST | `/extract/{document_type}/{config_name}` | `extract-data-from-a-document-with-config` | multipart body | `ExtractionSingleResponse` |
+| POST | `/extract/{document_type}` | `extract-data-from-a-document` | multipart body | `ExtractionSyncResponse` |
+| POST | `/extract/{document_type}/{config_name}` | `extract-data-from-a-document-with-config` | multipart body | `ExtractionSyncResponse` |
 | POST | `/extract_from_url/{document_type}` | `extract-from-url` | `ExtractFromUrlRequest` | `ExtractFromUrlResponse` |
 | POST | `/extract_from_url/{document_type}/{config_name}` | `provide-a-download-url-with-config` | `ExtractFromUrlRequest` | `ExtractFromUrlResponse` |
 | POST | `/extract_from_url` | `provide-a-download-url-for-a-pdf-portfolio` | inline (types, document_url, extra_data, …) | `ExtractFromUrlPortfolioResponse` |
@@ -81,8 +81,8 @@ ExtractionSummaryBase                         ← base for GET /extractions list
 ExtractionsResponseFiltered                   ← GET /extractions response
   └── extractions[]: anyOf SingleExtractionSummaryResponse | MultiExtractionSummaryResponse
 
-ExtractionSingleResponse                      ← POST /extract (sync) response
-ExtractionSingleRetrievalResponse             ← GET /documents/{id} single (allOf ExtractionSingleResponse, no extra props)
+ExtractionSyncResponse                      ← POST /extract (sync) response
+ExtractionSingleRetrievalResponse             ← GET /documents/{id} single (allOf ExtractionSyncResponse, no extra props)
 
 ExtractionPortfolioRetrievalResponse          ← GET /documents/{id} portfolio
   └── documents[]: DocumentInPortfolio
@@ -95,9 +95,9 @@ PortfolioBase                                 ← { id, created, status }
 ```
 
 **Notable:**
-- `extra_data` appears in request bodies (`ExtractFromUrlRequest`, `GenerateUrlRequest`, and the inline portfolio request bodies) and in full retrieval responses (`ExtractionSingleResponse`, `ExtractionPortfolioRetrievalResponse`, `ExtractFromUrlResponse`). It is **not** on `ExtractionSummaryBase` — the list endpoint (`GET /extractions`) intentionally omits it. In `entity.ts`, `toExtractionSummaryResponse()` does not populate `extra_data`; only `toExtractionResponse()` does.
+- `extra_data` appears in request bodies (`ExtractFromUrlRequest`, `GenerateUrlRequest`, and the inline portfolio request bodies) and in full retrieval responses (`ExtractionSingleRetrievalResponse`, `ExtractionPortfolioRetrievalResponse`, `ExtractFromUrlResponse`). It is **not** on `ExtractionSyncResponse` (sync endpoint silently drops it) and **not** on `ExtractionSummaryBase` — the list endpoint (`GET /extractions`) intentionally omits it. In `entity.ts`, `toExtractionSummaryResponse()` does not populate `extra_data`; only `toExtractionResponse()` does.
 - `POST /extract_from_url` and `POST /generate_upload_url` (portfolio variants, no `{document_type}`) define their request body inline rather than as a named schema.
-- `ExtractionSingleRetrievalResponse` is a named alias for `ExtractionSingleResponse` with no added properties.
+- `ExtractionSingleRetrievalResponse` is `allOf: [ExtractionSyncResponse]` plus `download_url` and `extra_data` (extra_data only present for async-initiated extractions).
 
 ---
 
