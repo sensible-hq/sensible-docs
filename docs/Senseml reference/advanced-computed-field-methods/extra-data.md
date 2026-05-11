@@ -32,6 +32,10 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 **Note:** if the request omits `extra_data`, if the record doesn't contain `key`, or if the value at `key` is explicitly `null`, Sensible returns null. These cases aren't distinguishable in the output.
 
+**Note:** The `extra_data` record has the following constraints:
+- Values must be flat: strings, numbers, booleans, or null. Nested objects and arrays are not supported.
+- The record has a maximum size of 16 KiB.
+
 # Examples
 
 The following example uses `extra_data` to cross-check values from a policy management system against a GEICO auto insurance declarations page. Numeric values (deductibles) use `customComputation` for exact equality comparison. A vehicle description uses `queryGroup` with `source_ids` for a semantic comparison that handles format differences between systems. For example, `"NISSAN ROGUE 2010"` (policy system) matches `"2010 Nissan Rogue"` (document) even though the strings aren't equal.
