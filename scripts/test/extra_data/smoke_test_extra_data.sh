@@ -200,13 +200,15 @@ echo ""
 # passing extra_data alongside the base64 document and check whether the backend
 # echoes it in ExtractionSingleResponse. If 200 + echoed: backend supports it.
 # If 200 + absent: field is silently dropped. If 4xx: backend rejects it.
-echo "[9] POST /extract/$DOCUMENT_TYPE (sync) — extra_data in JSON body + response"
-DOC_B64=$(curl -sL "$DOC_URL" | base64 -w 0 2>/dev/null || curl -sL "$DOC_URL" | base64)
-RESP=$(curl -s -w "\n%{http_code}" -X POST \
+# The sync endpoint's preferred request form is raw bytes + Content-Type header.
+# There is no JSON envelope to carry extra_data, so we expect it to be absent
+# in the response — confirming the sync endpoint has no mechanism to accept it.
+echo "[9] POST /extract/$DOCUMENT_TYPE (sync) — raw bytes, extra_data absent in response"
+RESP=$(curl -sL "$DOC_URL" | curl -s -w "\n%{http_code}" -X POST \
   "$API_BASE/extract/$DOCUMENT_TYPE" \
   -H "Authorization: Bearer $SENSIBLE_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d "{\"document\":\"$DOC_B64\",\"extra_data\":$EXTRA_DATA}")
+  -H "Content-Type: application/pdf" \
+  --data-binary @-)
 CODE=$(echo "$RESP" | tail -1)
 BODY_9=$(echo "$RESP" | head -n -1)
 assert_http_200 "POST /extract/$DOCUMENT_TYPE (sync)" "$CODE"
@@ -221,9 +223,9 @@ except Exception:
     print('parse-error')
 " 2>/dev/null)
 echo "  extra_data in sync response: $EXTRA_IN_SYNC"
-[ "$EXTRA_IN_SYNC" = "echoed" ] \
-  && pass "POST /extract/$DOCUMENT_TYPE (sync) → extra_data echoed in response" \
-  || echo "  NOTE: extra_data not echoed in sync response (may be expected — sync requests have no extra_data field in their request schema)"
+[ "$EXTRA_IN_SYNC" = "absent" ] \
+  && pass "POST /extract/$DOCUMENT_TYPE (sync) → extra_data correctly absent (no request field to pass it in)" \
+  || fail "POST /extract/$DOCUMENT_TYPE (sync) → unexpected extra_data value: $EXTRA_IN_SYNC"
 echo ""
 
 # ── [10] GET /documents/{id} for generate_upload_url-originated extraction ─
