@@ -70,7 +70,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExtractionSingleResponse"
+                  "$ref": "#/components/schemas/ExtractionSyncResponse"
                 }
               }
             },
@@ -238,7 +238,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExtractionSingleResponse"
+                  "$ref": "#/components/schemas/ExtractionSyncResponse"
                 }
               }
             },
@@ -1184,7 +1184,7 @@
     "schemas": {
       "ExtraDataRecord": {
         "type": "object",
-        "description": "Flat key/value pairs you attach to an asynchronous extraction request, for example `{\"applicant_id\": \"A-123\", \"expected_premium\": 1250.00}`. Use `extra_data` to chain context from a previous extraction or automated process into this one, or to supply expected values you can compare against extracted fields using the `extraData` computed field method. Sensible persists this record and echoes it in responses and webhook deliveries. Values must be strings, numbers, booleans, or null. Sensible rejects nested objects and arrays, and rejects requests where the serialized record exceeds 16 kB. For more information, see [Extra data](doc:extra-data).",
+        "description": "Flat key/value pairs you attach to an asynchronous extraction request (POST /extract_from_url or POST /generate_upload_url). Not supported for sync extractions (POST /extract). For example: `{\"applicant_id\": \"A-123\", \"expected_premium\": 1250.00}`. Use `extra_data` to chain context from a previous extraction or automated process into this one, or to supply expected values you can compare against extracted fields using the `extraData` computed field method. Sensible persists this record and echoes it in responses and webhook deliveries. Values must be strings, numbers, booleans, or null. Sensible rejects nested objects and arrays, and rejects requests where the serialized record exceeds 16 kB. For more information, see [Extra data](doc:extra-data).",
         "additionalProperties": {
           "oneOf": [
             { "type": "string" },
@@ -1364,7 +1364,7 @@
         "example": "DEVELOPMENT",
         "type": "string"
       },
-      "ExtractionSingleResponse": {
+      "ExtractionSyncResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -1561,7 +1561,7 @@
       "ExtractionSingleRetrievalResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ExtractionSingleResponse"
+            "$ref": "#/components/schemas/ExtractionSyncResponse"
           },
           {
             "type": "object",
