@@ -72,12 +72,11 @@ The following example uses `extra_data` to cross-check values from a policy mana
       "method": {
         "id": "row",
         "position": "right",
-        "tiebreaker": "first"
+        "tiebreaker": "first" /* leftmost value = the Limits and/or Deductibles column */
       }
     },
     {
-      /* place extraData in fields (not computed_fields) so source_ids can reference it below */
-      "id": "expected_insured_vehicle",
+      "id": "expected_insured_vehicle", /* in fields (not computed_fields) so source_ids can reference it below */
       "method": { "id": "extraData", "key": "expected_insured_vehicle" }
     },
     {
@@ -94,9 +93,8 @@ The following example uses `extra_data` to cross-check values from a policy mana
     },
     {
       "method": {
-        /* source_ids gives the LLM both values as context for a semantic comparison */
         "id": "queryGroup",
-        "source_ids": ["expected_insured_vehicle", "insured_vehicle"],
+        "source_ids": ["expected_insured_vehicle", "insured_vehicle"], /* gives the LLM both values as context for a semantic comparison */
         "queries": [
           {
             "id": "vehicle_matches",
@@ -109,17 +107,15 @@ The following example uses `extra_data` to cross-check values from a policy mana
   ],
   "computed_fields": [
     {
-      /* pull expected deductibles from the request's extra_data record */
-      "id": "expected_collision_deductible",
+      "id": "expected_collision_deductible", /* pulled from the request's extra_data record */
       "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
     {
-      "id": "expected_comprehensive_deductible",
+      "id": "expected_comprehensive_deductible", /* pulled from the request's extra_data record */
       "method": { "id": "extraData", "key": "expected_comprehensive_deductible" }
     },
     {
-      /* true if the document's deductible matches what the upstream system expects */
-      "id": "collision_deductible_matches",
+      "id": "collision_deductible_matches", /* true if the document's deductible matches what the upstream system expects */
       "method": {
         "id": "customComputation",
         "jsonLogic": {
@@ -128,7 +124,7 @@ The following example uses `extra_data` to cross-check values from a policy mana
       }
     },
     {
-      "id": "comprehensive_deductible_matches",
+      "id": "comprehensive_deductible_matches", /* true if the document's deductible matches what the upstream system expects */
       "method": {
         "id": "customComputation",
         "jsonLogic": {
