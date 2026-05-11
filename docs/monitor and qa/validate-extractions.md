@@ -18,6 +18,8 @@ Quality control the data extractions in a document type by writing validations. 
 
 A validation is a condition for a field or fields written in [JsonLogic](doc:jsonlogic)  that outputs a Boolean and either passes (for `true` output) or fails (for `false` output).  Validations have access to fields' values in the `parsed_document` object. 
 
+**Tip:** Validations work well for static checks against fixed conditions defined in the config. To compare extracted data against values that vary per request, for example, figures from an upstream system or context from a prior pipeline step, you pass those expected values into the API request body. In the config, at extraction time, use the [Extra Data](doc:extra-data) computed field method to dynamically compare or transform your extracted data to the expected data.
+
 ## Create validations
 
 **Sensible app**
