@@ -14,6 +14,10 @@
 #   [7] GET /documents/{id} portfolio → ExtractionPortfolioRetrievalResponse.extra_data
 #   [8] GET /extractions → reachable (extra_data intentionally omitted from list summary shape)
 #
+# Additional coverage:
+#   [9]  POST /extract/{document_type} (sync) — extra_data in JSON body + response
+#   [10] GET /documents/{id} for generate_upload_url-originated extraction
+#
 # Usage: SENSIBLE_API_KEY=<key> bash smoke_test_extra_data.sh [document_type]
 # document_type defaults to "extra_data"
 
@@ -188,6 +192,52 @@ CODE=$(echo "$RESP" | tail -1)
 BODY_8=$(echo "$RESP" | head -n -1)
 assert_http_200 "GET /extractions" "$CODE"
 echo "$BODY_8" > "$OUTDIR/smoke_8_list_extractions_$TIMESTAMP.json"
+echo ""
+
+# ── [9] POST /extract/{document_type} (sync) — extra_data in body + response
+# The sync endpoint's standard request body (SupportedFileTypes) has no extra_data
+# field, but the JSON variant (Base64PDF) may accept additional fields. We try
+# passing extra_data alongside the base64 document and check whether the backend
+# echoes it in ExtractionSingleResponse. If 200 + echoed: backend supports it.
+# If 200 + absent: field is silently dropped. If 4xx: backend rejects it.
+echo "[9] POST /extract/$DOCUMENT_TYPE (sync) — extra_data in JSON body + response"
+DOC_B64=$(curl -sL "$DOC_URL" | base64 -w 0 2>/dev/null || curl -sL "$DOC_URL" | base64)
+RESP=$(curl -s -w "\n%{http_code}" -X POST \
+  "$API_BASE/extract/$DOCUMENT_TYPE" \
+  -H "Authorization: Bearer $SENSIBLE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"document\":\"$DOC_B64\",\"extra_data\":$EXTRA_DATA}")
+CODE=$(echo "$RESP" | tail -1)
+BODY_9=$(echo "$RESP" | head -n -1)
+assert_http_200 "POST /extract/$DOCUMENT_TYPE (sync)" "$CODE"
+echo "$BODY_9" > "$OUTDIR/smoke_9_sync_extract_$TIMESTAMP.json"
+EXTRA_IN_SYNC=$(echo "$BODY_9" | python3 -c "
+import sys, json
+try:
+    d = json.load(sys.stdin)
+    v = d.get('extra_data')
+    print('echoed' if v is not None else 'absent')
+except Exception:
+    print('parse-error')
+" 2>/dev/null)
+echo "  extra_data in sync response: $EXTRA_IN_SYNC"
+[ "$EXTRA_IN_SYNC" = "echoed" ] \
+  && pass "POST /extract/$DOCUMENT_TYPE (sync) → extra_data echoed in response" \
+  || echo "  NOTE: extra_data not echoed in sync response (may be expected — sync requests have no extra_data field in their request schema)"
+echo ""
+
+# ── [10] GET /documents/{id} for generate_upload_url-originated extraction ─
+# Verifies that extra_data submitted in step [2] via generate_upload_url is
+# persisted and returned by GET /documents/{id} once the extraction completes.
+echo "[10] GET /documents/{id} for generate_upload_url extraction (UPLOAD_ID=$UPLOAD_ID)"
+if [ -n "$UPLOAD_ID" ]; then
+  echo "  Polling extraction $UPLOAD_ID ..."
+  BODY_10=$(poll_until_done "$UPLOAD_ID")
+  echo "$BODY_10" > "$OUTDIR/smoke_10_retrieve_upload_$TIMESTAMP.json"
+  assert_has_extra_data "GET /documents/$UPLOAD_ID (generate_upload_url)" "$BODY_10"
+else
+  fail "GET /documents/{id} (generate_upload_url): no extraction ID from step 2"
+fi
 echo ""
 
 # ── Summary ───────────────────────────────────────────────────────────────
