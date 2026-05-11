@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Returns a value from the `extra_data` record you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and other computed fields can read it.
+Returns a value from the `extra_data` object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and other computed fields can read it.
 
 For information about attaching `extra_data` to a request, see the [Extract from URL](ref:extract-from-url) and [Generate upload URL](ref:generate-an-upload-url) endpoints.
 
@@ -28,13 +28,13 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                | value       | description |
 | :----------------- | :---------- | :---------- |
 | id (**required**)  | `extraData` |             |
-| key (**required**) | string      | Key to look up in the request's `extra_data` record. |
+| key (**required**) | string      | Key to look up in the request's `extra_data` object. |
 
-**Note:** if the request omits `extra_data`, if the record doesn't contain `key`, or if the value at `key` is explicitly `null`, Sensible returns null. These cases aren't distinguishable in the output.
+**Note:** if the request omits `extra_data`, if the object doesn't contain `key`, or if the value at `key` is explicitly `null`, Sensible returns null. These cases aren't distinguishable in the output.
 
-**Note:** The `extra_data` record has the following constraints:
+**Note:** The `extra_data` object has the following constraints:
 - Values must be flat: strings, numbers, booleans, or null. Nested objects and arrays are not supported.
-- The record has a maximum size of 16 KiB.
+- The object has a maximum size of 16 KiB.
 
 # Examples
 
@@ -107,11 +107,11 @@ The following example uses `extra_data` to cross-check values from a policy mana
   ],
   "computed_fields": [
     {
-      "id": "expected_collision_deductible", /* pulled from the request's extra_data record */
+      "id": "expected_collision_deductible", /* pulled from the request's extra_data object */
       "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
     {
-      "id": "expected_comprehensive_deductible", /* pulled from the request's extra_data record */
+      "id": "expected_comprehensive_deductible", /* pulled from the request's extra_data object */
       "method": { "id": "extraData", "key": "expected_comprehensive_deductible" }
     },
     {
@@ -183,7 +183,7 @@ The example document is a GEICO auto insurance declarations page with collision 
 
 # Portfolio extractions
 
-When you submit a portfolio extraction with `extra_data`, Sensible passes the same record to every document extracted from the portfolio. Each document's config can access any value in the record using `extraData`. You don't need to pass separate records per document type.
+When you submit a portfolio extraction with `extra_data`, Sensible passes the same object to every document extracted from the portfolio. Each document's config can access any value in the object using `extraData`. You don't need to pass separate objects per document type.
 
 For example, if a portfolio contains an auto insurance declarations page and a loan application, both configs can independently read the same `extra_data` values and produce their own computed fields based on them.
 

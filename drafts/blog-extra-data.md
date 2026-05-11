@@ -14,7 +14,7 @@ Until now, making that work meant extracting data first, then comparing it in ap
 
 ## What is extra data?
 
-`extra_data` is a flat key/value record you attach to an async extraction request:
+`extra_data` is a flat key/value object you attach to an async extraction request:
 
 ```json
 {
@@ -26,7 +26,7 @@ Until now, making that work meant extracting data first, then comparing it in ap
 }
 ```
 
-Sensible passes this caller-provided context into your config at extraction time. Any field in the config can read a value from it using the [`extraData`](https://docs.sensible.so/docs/extra-data) computed field method. The record is echoed back in extraction responses and webhook deliveries, so it travels with the data through your pipeline.
+Sensible passes this caller-provided context into your config at extraction time. Any field in the config can read a value from it using the [`extraData`](https://docs.sensible.so/docs/extra-data) computed field method. The object is echoed back in extraction responses and webhook deliveries, so it travels with the data through your pipeline.
 
 ---
 
@@ -52,7 +52,7 @@ For teams building LLM-powered pipelines, `extra_data` is a natural handoff poin
 
 **Portfolio extractions**
 
-When you submit a portfolio extraction with `extra_data`, Sensible passes the same record to every document extracted from the portfolio. Each document's config can independently access it — no separate records needed per document type.
+When you submit a portfolio extraction with `extra_data`, Sensible passes the same object to every document extracted from the portfolio. Each document's config can independently access it — no separate objects needed per document type.
 
 ![Portfolio extraction flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_portfolio.png)
 
@@ -60,7 +60,7 @@ When you submit a portfolio extraction with `extra_data`, Sensible passes the sa
 
 ## How it works
 
-In your config, [`extraData`](https://docs.sensible.so/docs/extra-data) works as a computed field method. Specify a key to look up in the `extra_data` record, and Sensible returns the value as a computed field. Use that field's output in downstream computed fields — for example, with [`customComputation`](https://docs.sensible.so/docs/custom-computation) and [JsonLogic](https://jsonlogic.com) to compare against extracted values.
+In your config, [`extraData`](https://docs.sensible.so/docs/extra-data) works as a computed field method. Specify a key to look up in the `extra_data` object, and Sensible returns the value as a computed field. Use that field's output in downstream computed fields — for example, with [`customComputation`](https://docs.sensible.so/docs/custom-computation) and [JsonLogic](https://jsonlogic.com) to compare against extracted values.
 
 Here's a concrete example: a config that cross-checks values from a policy management system against a GEICO auto insurance declarations page. It uses two comparison strategies depending on the data type.
 
@@ -182,7 +182,7 @@ Ready to try it? [Sign up for free](https://app.sensible.so/register) or [talk t
 
 **What is extra data in Sensible?**
 
-`extra_data` is a flat key/value record you attach to an async extraction request. Sensible passes it into your SenseML config at extraction time, where you can read individual values using the [`extraData`](https://docs.sensible.so/docs/extra-data) method and use them in computed fields for comparison, validation, or enrichment.
+`extra_data` is a flat key/value object you attach to an async extraction request. Sensible passes it into your SenseML config at extraction time, where you can read individual values using the [`extraData`](https://docs.sensible.so/docs/extra-data) method and use them in computed fields for comparison, validation, or enrichment.
 
 **How do I validate or transform a document field against a value from my system of record?**
 
@@ -190,7 +190,7 @@ Pass the expected value as a key in `extra_data` when you submit the extraction.
 
 **Can I use extra data with portfolio extractions?**
 
-Yes. When you attach `extra_data` to a portfolio extraction request, Sensible passes the same record to every document in the portfolio. Each document type's config can independently read values from it using the [`extraData`](https://docs.sensible.so/docs/extra-data) method.
+Yes. When you attach `extra_data` to a portfolio extraction request, Sensible passes the same object to every document in the portfolio. Each document type's config can independently read values from it using the [`extraData`](https://docs.sensible.so/docs/extra-data) method.
 
 **How does extra data compare to post-processing in application code?**
 
@@ -202,7 +202,7 @@ Yes. `extra_data` is not limited to validation. You can pass any caller-provided
 
 **What SenseML methods can read extra data?**
 
-The [`extraData`](https://docs.sensible.so/docs/extra-data) computed field method reads values from the `extra_data` record by key. The resulting field can then be used as an input to any downstream computed field — including [`customComputation`](https://docs.sensible.so/docs/custom-computation) for rule-based comparisons and [`queryGroup`](https://docs.sensible.so/docs/query-group) with [`source_ids`](https://docs.sensible.so/docs/query-group) for LLM-based semantic comparisons.
+The [`extraData`](https://docs.sensible.so/docs/extra-data) computed field method reads values from the `extra_data` object by key. The resulting field can then be used as an input to any downstream computed field — including [`customComputation`](https://docs.sensible.so/docs/custom-computation) for rule-based comparisons and [`queryGroup`](https://docs.sensible.so/docs/query-group) with [`source_ids`](https://docs.sensible.so/docs/query-group) for LLM-based semantic comparisons.
 
 ---
 
