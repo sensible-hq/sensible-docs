@@ -310,6 +310,200 @@ Response includes `coverage_histogram: number[]` — a 10-bin distribution of co
 - POST /extract is synchronous and returns the full result immediately. POST /extract_from_url and POST /generate_upload_url are async — they return `status: "WAITING"` and fire a webhook on completion.
 - `src/docs/Senseml reference/document-type-settings/ocr-engine.md:26` states portfolio extraction uses Microsoft OCR and ignores document-type OCR settings. This refers to doc-type-level settings; the request-level `ocr_engine` parameter may override it. Verify with eng before documenting.
 
+### Request and response shapes (from source)
+
+#### Shared base
+
+**`ExtractionResponseBase`** (`response-types.ts`) — inherited by all extraction responses:
+```typescript
+type ExtractionResponseBase = {
+  id: string;
+  created: string;
+  completed?: string;
+  status: ExtractionStatus;          // "WAITING" | "PROCESSING" | "COMPLETE" | "FAILED"
+  error?: unknown;
+  validation_summary?: ValidationSummary;
+  page_count?: number;
+  document_name?: string;
+  environment: string;
+  coverage?: number;
+  batchId?: string;
+  charged?: number;
+  version_id?: string;
+  taskId?: string;                   // set when produced by a processor execution
+  extra_data?: ExtraDataRecord;      // present on full responses; absent from summary responses
+};
+```
+
+**`Webhook`** (`response-types.ts`):
+```typescript
+type Webhook = {
+  url?: string;
+  payload?: Record<string, unknown> | string | number | boolean | Array<unknown>;
+};
+```
+
+#### POST /extract/{document_type} — sync
+
+**Request body** (multipart bytes OR JSON):
+```typescript
+// JSON variant:
+type Base64PDF = { document: string; content_type?: DocumentContentType; };
+// Binary variant: raw bytes as request body; content-type header identifies doc type
+```
+
+**Response** — `SingleExtractionResponse` = `ExtractionResponseBase` plus:
+```typescript
+{
+  type: string;
+  configuration?: string;
+  configuration_version?: string;
+  parsed_document?: ParsedDocument;          // Record<string, VerboseFieldValue>
+  validations?: DocumentValidationOutput[];
+  errors: ExtractionError[];
+  classification_summary?: ClassificationSummaryResponse[];
+  file_metadata?: FileMetadata;
+  webhook?: Webhook;
+  download_url?: string;
+  content_type?: DocumentContentType;
+  reviewStatus?: HumanReviewStatus;
+  postprocessorOutput?: unknown;
+  text?: StandardizedText;                   // only when verbosity >= 3
+  parsed_document_with_metadata?: ParsedDocumentWithMetadata; // only when withMetadata=true
+}
+```
+Built by `SingleExtraction.toExtractionResponse(withMetadata)` in `entity.ts`.
+
+#### POST /extract_from_url/{document_type} — async, single doc
+
+**Request body** (`ExtractFromUrlRequest`):
+```typescript
+{
+  document_url: string;              // required
+  content_type?: DocumentContentType;
+  webhook?: Webhook;
+  extra_data?: ExtraDataRecord;
+  ocr_engine?: OcrEngineType;        // not publicly documented
+  ocr_every_page?: boolean;          // not publicly documented
+}
+```
+
+**Response** — same `SingleExtractionResponse` shape, but `parsed_document` is absent (status is `WAITING`). `extra_data` is echoed immediately.
+
+#### POST /extract_from_url — async, portfolio
+
+**Request body**:
+```typescript
+{
+  document_url: string;              // required
+  types: string[];                   // required, minItems: 1
+  content_type?: DocumentContentType;
+  webhook?: Webhook;
+  segment_documents_with?: "llm" | "fingerprints";
+  extra_data?: ExtraDataRecord;
+  ocr_engine?: OcrEngineType;        // not publicly documented
+  ocr_every_page?: boolean;          // not publicly documented
+}
+```
+
+**Response** — `MultiExtractionResponse` = `ExtractionResponseBase` plus:
+```typescript
+{
+  types: string[];
+  segment_documents_with?: PortfolioSplittingMethod;
+  documents?: MultiExtractionDocumentResponse[];  // absent on initial WAITING response
+  errors?: MultiExtractionError[];
+  webhook?: Webhook;
+  download_url?: string;
+  content_type?: DocumentContentType;
+  reviewStatuses?: (HumanReviewStatus | null)[];
+}
+```
+
+#### POST /generate_upload_url/{document_type} — async, single doc
+
+**Request body** (`ExtractionCreationParams`, schema restricts to subset):
+```typescript
+{
+  webhook?: Webhook;
+  content_type?: DocumentContentType;
+  extra_data?: ExtraDataRecord;
+  // ocr_engine, segment_documents_with, ocr_every_page blocked by additionalProperties:false
+}
+```
+
+**Response** — `ExtractionFromUploadUrlResponse` (built by `SingleExtraction.toUploadUrlResponse(url)`):
+```typescript
+{
+  id: string;
+  created: string;
+  status: ExtractionStatus;
+  type?: string;
+  configuration?: string;
+  upload_url: string;
+}
+```
+Note: `extra_data` is NOT echoed here. It is only returned by `GET /documents/{id}` once the extraction completes.
+
+#### POST /generate_upload_url — async, portfolio
+
+**Request body**:
+```typescript
+{
+  types: string[];                   // required, minItems: 1
+  webhook?: Webhook;
+  content_type?: DocumentContentType;
+  segment_documents_with?: "llm" | "fingerprints";
+  extra_data?: ExtraDataRecord;
+  ocr_engine?: OcrEngineType;        // not publicly documented
+  ocr_every_page?: boolean;          // not publicly documented
+}
+```
+
+**Response** — same `ExtractionFromUploadUrlResponse` shape, but `type` and `configuration` are absent (built by `MultiExtraction.toUploadUrlResponse(url)`):
+```typescript
+{ id: string; created: string; status: ExtractionStatus; upload_url: string; }
+```
+
+#### GET /documents/{id}
+
+**Query params:** `{ withMetadata?: "true" }`
+
+**Response** — `SingleExtractionResponse` or `MultiExtractionResponse` (fully hydrated from S3). Key difference from POST responses: `parsed_document`/`documents` are populated, `download_url` is a signed S3 URL, and `extra_data` is present. `withMetadata=true` adds `parsed_document_with_metadata` (single) or per-doc `parsedDocumentWithMetadata` (portfolio).
+
+Built by `extraction.toExtractionResponse(withMetadata)` in `entity.ts`.
+
+#### GET /extractions — list
+
+**Response**:
+```typescript
+type ExtractionsResult = {
+  extractions: (SingleExtractionSummaryResponse | MultiExtractionSummaryResponse)[];
+  continuation_token: string | null;   // base64url { user, created, id }; default page 20
+};
+```
+
+**`SingleExtractionSummaryResponse`** = `ExtractionResponseBase` plus `{ type, configuration, configuration_version, content_type, errors, validations, reviewStatus }`. Built by `toExtractionSummaryResponse()` — does **not** include `extra_data`, `parsed_document`, `download_url`, or `classification_summary`.
+
+**`MultiExtractionSummaryResponse`** = `ExtractionResponseBase` plus `{ types, segment_documents_with, reviewStatuses, documents[] }`. Per-document `output` is stripped to `{ errors, validations }` only.
+
+#### GET /extractions/statistics
+
+**Response**:
+```typescript
+type ExtractionStatsResult = {
+  statistics: {
+    date: string;                // YYYY-MM-DD
+    environment: string;
+    document_type_id: string;   // "UNCLASSIFIED_PORTFOLIO" if doc type no longer exists
+    document_type_name: string;
+    configuration_id: string;
+    configuration_name: string;
+    coverage_histogram: number[]; // 12-bin distribution per date/config row
+  }[];
+};
+```
+
 ---
 
 ## Configuration API
