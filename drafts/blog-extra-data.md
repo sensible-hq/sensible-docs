@@ -4,6 +4,8 @@
 
 ---
 
+![Extra data overview](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_overview.png)
+
 Document extraction rarely happens in isolation. Real workflows involve multiple documents, upstream systems, and business logic that exists outside any single file. An insurance platform might need to verify that the deductible on a declarations page matches what's on record in their policy system. A mortgage pipeline might need to cross-check a bank statement against figures from a loan application. A document AI agent might need to carry context from a previous reasoning step into the next extraction call.
 
 Until now, making that work meant extracting data first, then comparing it in application code. With extra data, you can bring that external context directly into the extraction.
