@@ -32,7 +32,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 # Examples
 
-The following example uses `extra_data` to cross-check deductible amounts from a policy management system against a customer's GEICO auto insurance declarations page. The request supplies the system's expected deductibles; the config retrieves them with `extraData` and flags any mismatches using `customComputation`.
+The following example uses `extra_data` to cross-check values from a policy management system against a GEICO auto insurance declarations page. Numeric values (deductibles) use `customComputation` for exact equality comparison. A vehicle description uses `queryGroup` with `source_ids` for a semantic comparison that handles format differences between systems. For example, `"NISSAN ROGUE 2010"` (policy system) matches `"2010 Nissan Rogue"` (document) even though the strings aren't equal.
 
 **Config**
 
@@ -68,11 +68,42 @@ The following example uses `extra_data` to cross-check deductible amounts from a
         "position": "right",
         "tiebreaker": "first"
       }
+    },
+    {
+      /* place extraData in fields (not computed_fields) so source_ids can reference it below */
+      "id": "expected_insured_vehicle",
+      "method": { "id": "extraData", "key": "expected_insured_vehicle" }
+    },
+    {
+      "method": {
+        "id": "queryGroup",
+        "queries": [
+          {
+            "id": "insured_vehicle",
+            "description": "year, make, and model of the first vehicle listed on the policy",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "method": {
+        /* source_ids gives the LLM both values as context for a semantic comparison */
+        "id": "queryGroup",
+        "source_ids": ["expected_insured_vehicle", "insured_vehicle"],
+        "queries": [
+          {
+            "id": "vehicle_matches",
+            "description": "Do these two vehicle descriptions refer to the same vehicle? Ignore differences in capitalization and word order. Answer true or false.",
+            "type": "boolean"
+          }
+        ]
+      }
     }
   ],
   "computed_fields": [
     {
-      /* pull expected values from the request's extra_data record */
+      /* pull expected deductibles from the request's extra_data record */
       "id": "expected_collision_deductible",
       "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
@@ -115,14 +146,15 @@ curl --location 'https://api.sensible.so/v0/extract_from_url/your_doc_type' \
   "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/extra_data.pdf",
   "extra_data": {
     "expected_collision_deductible": 500,
-    "expected_comprehensive_deductible": 300
+    "expected_comprehensive_deductible": 300,
+    "expected_insured_vehicle": "NISSAN ROGUE 2010"
   }
 }'
 ```
 
 **Example document**
 
-The example document is a GEICO auto insurance declarations page with collision ($500) and comprehensive ($250) deductibles.
+The example document is a GEICO auto insurance declarations page with collision ($500) and comprehensive ($250) deductibles, and a 2010 Nissan Rogue as the first listed vehicle.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data.png)
 
@@ -131,12 +163,15 @@ The example document is a GEICO auto insurance declarations page with collision 
 
 **Output**
 
-`collision_deductible_matches` is `true` because the document ($500) matches the expected value. `comprehensive_deductible_matches` is `false` because the document shows $250, not the expected $300.
+`vehicle_matches` is `true` even though `"NISSAN ROGUE 2010"` (policy system) doesn't equal `"2010 Nissan Rogue"` (document). The LLM recognizes they refer to the same vehicle. `collision_deductible_matches` is `true` because the deductible ($500) matches the expected value. `comprehensive_deductible_matches` is `false` because the document shows $250, not the expected $300.
 
 ```json
 {
   "collision_deductible": { "value": 500, "type": "currency", "unit": "$", "source": "$500" },
   "comprehensive_deductible": { "value": 250, "type": "currency", "unit": "$", "source": "$250" },
+  "expected_insured_vehicle": { "value": "NISSAN ROGUE 2010", "type": "string" },
+  "insured_vehicle": { "value": "2010 Nissan Rogue", "type": "string" },
+  "vehicle_matches": { "value": true, "type": "boolean" },
   "expected_collision_deductible": { "value": 500, "type": "number" },
   "expected_comprehensive_deductible": { "value": 300, "type": "number" },
   "collision_deductible_matches": { "value": true, "type": "boolean" },
