@@ -34,46 +34,25 @@ Sensible passes this caller-provided context into your config at extraction time
 
 Extract fields from a first document — a loan application, say — then pass key values as `extra_data` into a subsequent extraction for that applicant's bank statement. The bank statement config compares the incoming expected values against what it finds in the document, outputting Boolean fields that flag any discrepancies. No application-side comparison logic required.
 
-```mermaid
-flowchart LR
-    A[Document 1\nLoan application] -->|"Extract key fields\n(income, loan amount)"| B["extra_data\n{expected_income: 95000}"]
-    B -->|Pass to extraction| C[Document 2 extraction\nBank statement]
-    C --> D["Validation output\n{income_matches: true}"]
-```
+![Cross-document validation flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_cross_doc.png)
 
 **Incorporating external data**
 
 After extracting a VIN from an auto insurance policy, query a third-party lookup service and pass the result back as `extra_data` in a follow-up extraction. The config uses [`extraData`](https://docs.sensible.so/docs/extra-data) with [`customComputation`](https://docs.sensible.so/docs/custom-computation) to flag discrepancies between the lookup value and what the document shows — bringing external system data directly into the extraction output.
 
-```mermaid
-flowchart LR
-    A[Auto policy\nextraction] -->|VIN extracted| B[External lookup\nThird-party service]
-    B -->|"Lookup result\n(vehicle info)"| C["extra_data\n{expected_vehicle: ...}"]
-    C -->|Pass to follow-up extraction| D["Comparison output\n{vehicle_matches: true}"]
-```
+![Incorporating external data flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_external_data.png)
 
 **Agentic document pipelines**
 
 For teams building LLM-powered pipelines, `extra_data` is a natural handoff point between your agent's reasoning and the extraction step. Pass context from previous steps, retrieved records, or user-supplied parameters into the extraction, and get it back in the output alongside the extracted fields.
 
-```mermaid
-flowchart LR
-    A[Agent reasoning\nPrevious steps] -->|"Context & parameters"| B["extra_data\n{policy_id: ..., tier: ...}"]
-    B -->|"Passed at extraction time"| C[Document extraction]
-    C -->|"Enriched output\n(fields + extra_data echoed)"| D[Next agent step]
-```
+![Agentic pipeline flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_agentic.png)
 
 **Portfolio extractions**
 
 When you submit a portfolio extraction with `extra_data`, Sensible passes the same record to every document extracted from the portfolio. Each document's config can independently access it — no separate records needed per document type.
 
-```mermaid
-flowchart TD
-    A["extra_data\n{applicant_id: A-123}"] -->|Same record| B[Auto policy config]
-    A -->|Same record| C[Bank statement config]
-    A -->|Same record| D[Loan application config]
-    B & C & D --> E[All outputs include extra_data]
-```
+![Portfolio extraction flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_portfolio.png)
 
 ---
 
