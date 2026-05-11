@@ -95,7 +95,7 @@ PortfolioBase                                 ← { id, created, status }
 ```
 
 **Notable:**
-- `extra_data` is a direct property on `ExtractionSummaryBase`, `ExtractionSingleResponse`, `ExtractionPortfolioRetrievalResponse`, `ExtractFromUrlResponse`, `ExtractFromUrlRequest`, and `GenerateUrlRequest`. No schema inherits it twice.
+- `extra_data` appears in request bodies (`ExtractFromUrlRequest`, `GenerateUrlRequest`, and the inline portfolio request bodies) and in full retrieval responses (`ExtractionSingleResponse`, `ExtractionPortfolioRetrievalResponse`, `ExtractFromUrlResponse`). It is **not** on `ExtractionSummaryBase` — the list endpoint (`GET /extractions`) intentionally omits it. In `entity.ts`, `toExtractionSummaryResponse()` does not populate `extra_data`; only `toExtractionResponse()` does.
 - `POST /extract_from_url` and `POST /generate_upload_url` (portfolio variants, no `{document_type}`) define their request body inline rather than as a named schema.
 - `ExtractionSingleRetrievalResponse` is a named alias for `ExtractionSingleResponse` with no added properties.
 
