@@ -314,7 +314,7 @@ Response includes `coverage_histogram: number[]` — a 10-bin distribution of co
 
 #### Shared base
 
-**`ExtractionResponseBase`** (`response-types.ts`) — inherited by all extraction responses:
+**`ExtractionResponseBase`** (`response-types.ts`) — base for `SingleExtractionResponse`, `MultiExtractionResponse`, `SingleExtractionSummaryResponse`, and `MultiExtractionSummaryResponse`:
 ```typescript
 type ExtractionResponseBase = {
   id: string;
