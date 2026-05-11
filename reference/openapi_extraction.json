@@ -396,7 +396,7 @@
           }
         ],
         "requestBody": {
-          "content": {
+          "content": {x
             "application/json": {
               "schema": {
                 "type": "object",
@@ -1525,7 +1525,7 @@
       "SingleExtractionSummaryResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ExtractionResponseBase"
+            "$ref": "#/components/schemas/ExtractionSummaryBase"
           }
         ],
         "properties": {
@@ -1546,7 +1546,7 @@
       "MultiExtractionSummaryResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ExtractionResponseBase"
+            "$ref": "#/components/schemas/ExtractionSummaryBase"
           }
         ],
         "properties": {
@@ -1817,7 +1817,7 @@
           }
         ]
       },
-      "ExtractionResponseBase": {
+      "ExtractionSummaryBase": {
         "type": "object",
         "properties": {
           "id": {
@@ -1854,9 +1854,6 @@
           },
           "reviewStatuses": {
             "$ref": "#/components/schemas/ReviewStatuses"
-          },
-          "extra_data": {
-            "$ref": "#/components/schemas/ExtraDataRecord"
           }
         }
       },
