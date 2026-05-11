@@ -1,6 +1,6 @@
 # Introducing extra data: bring external context into document extraction
 
-**Subtitle:** Pass request-time data into your configs to validate, compare, and enrich extracted output — without post-processing.
+**Subtitle:** Pass request-time pipeline context into your configs to dynamically compare, transform, and enrich extracted output — without post-processing.
 
 ---
 
@@ -24,7 +24,7 @@ Until now, making that work meant extracting data first, then comparing it in ap
 }
 ```
 
-Sensible passes the record into your config at extraction time. Any field in the config can read a value from it using the [`extraData`](https://docs.sensible.so/docs/extra-data) computed field method. The record is echoed back in extraction responses and webhook deliveries, so it travels with the data through your pipeline.
+Sensible passes this caller-provided context into your config at extraction time. Any field in the config can read a value from it using the [`extraData`](https://docs.sensible.so/docs/extra-data) computed field method. The record is echoed back in extraction responses and webhook deliveries, so it travels with the data through your pipeline.
 
 ---
 
@@ -187,7 +187,7 @@ For numeric values (deductibles), `customComputation` handles exact equality. Fo
 
 1. Add an `extra_data` object to your extraction request with the key/value pairs your config needs.
 2. In your config, add computed fields using the [`extraData`](https://docs.sensible.so/docs/extra-data) method to read those values.
-3. Use the computed field output in downstream [`customComputation`](https://docs.sensible.so/docs/custom-computation) fields to validate, compare, or enrich your extraction.
+3. Use the computed field output in downstream fields to dynamically compare, transform, or enrich your extraction — use [`customComputation`](https://docs.sensible.so/docs/custom-computation) for rule-based logic, or [`queryGroup`](https://docs.sensible.so/docs/query-group) with `source_ids` for LLM-based semantic comparisons.
 
 For a full walkthrough with a worked example, see the [extra data documentation](https://docs.sensible.so/docs/extra-data).
 
@@ -203,17 +203,21 @@ Ready to try it? [Sign up for free](https://app.sensible.so/register) or [talk t
 
 `extra_data` is a flat key/value record you attach to an async extraction request. Sensible passes it into your SenseML config at extraction time, where you can read individual values using the [`extraData`](https://docs.sensible.so/docs/extra-data) method and use them in computed fields for comparison, validation, or enrichment.
 
-**How do I validate a document field against a value from my system of record?**
+**How do I validate or transform a document field against a value from my system of record?**
 
-Pass the expected value as a key in `extra_data` when you submit the extraction. In your config, read it with the [`extraData`](https://docs.sensible.so/docs/extra-data) method, then use [`customComputation`](https://docs.sensible.so/docs/custom-computation) with JsonLogic to compare it against the extracted field. The result is a Boolean field in your extraction output — no post-processing required.
+Pass the expected value as a key in `extra_data` when you submit the extraction. In your config, read it with the [`extraData`](https://docs.sensible.so/docs/extra-data) method, then use [`customComputation`](https://docs.sensible.so/docs/custom-computation) with JsonLogic to compare or transform it alongside the extracted field. For validation, the result is a Boolean field in your extraction output. For transformation — for example, computing a total using a caller-supplied rate — use JsonLogic arithmetic operations instead. No post-processing required.
 
 **Can I use extra data with portfolio extractions?**
 
 Yes. When you attach `extra_data` to a portfolio extraction request, Sensible passes the same record to every document in the portfolio. Each document type's config can independently read values from it using the [`extraData`](https://docs.sensible.so/docs/extra-data) method.
 
-**How does extra data compare to validating fields in application code?**
+**How does extra data compare to post-processing in application code?**
 
-Post-processing comparisons in application code run after extraction, on data that's already been returned. `extra_data` moves that logic into the extraction itself — the comparison result ships as part of the extraction output, travels with webhook deliveries, and is visible in the Sensible app alongside other extracted fields. This simplifies pipeline logic and keeps validation closer to the data.
+Post-processing in application code runs after extraction, on data that's already been returned. `extra_data` moves that logic — whether validation, transformation, or enrichment — into the extraction itself. The result ships as part of the extraction output, travels with webhook deliveries, and is visible in the Sensible app alongside other extracted fields. This simplifies pipeline logic and keeps your business logic closer to the data.
+
+**Can I use extra data for data transformation, not just validation?**
+
+Yes. `extra_data` is not limited to validation. You can pass any caller-provided values — a conversion rate, a tax rate, a running total from a prior step — and use [`customComputation`](https://docs.sensible.so/docs/custom-computation) with JsonLogic to derive new fields from them. For example, pass a tax rate from your system of record and multiply it against an extracted subtotal to produce a computed total in the output. The distinction is in how you use the downstream computed field: equality checks for validation, arithmetic or string operations for transformation.
 
 **What SenseML methods can read extra data?**
 
