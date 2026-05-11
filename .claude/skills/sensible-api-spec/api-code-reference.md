@@ -220,37 +220,223 @@ type EmailProcessorOutput = {
 
 ---
 
-## Extraction API — portfolio endpoints
+## Extraction API
 
-**Routes**:
-- `POST /extract_from_url` (and `/extract_from_url/{type}`, `/extract_from_url/{type}/{configuration}`)
-- `POST /generate_upload_url` (and `/{type}`, `/{type}/{configuration}`)
+**Routes**: All routes in `openapi_extraction.json`
 
 | File | Role |
 |------|------|
-| `src/api/extract-from-url/handler.ts` | Route handler for download-then-extract flow |
-| `src/api/generate-upload-url/handler.ts` | Route handler for pre-signed S3 upload URL flow |
-| `src/api/extract/storage.ts` | Shared extraction persistence (`createAsyncExtractionFromParameters`) |
-| `src/api/extract/response-types.ts` | Response type definitions (`ExtractionResponseBase`, `SingleExtractionResponse`, `MultiExtractionResponse`) |
+| `src/api/extract/handler.ts` | POST /extract/{type} and /extract/{type}/{configuration} — synchronous extraction |
+| `src/api/extract/extract.ts` | Core extraction engine invocation |
+| `src/api/extract/storage.ts` | DynamoDB/S3 persistence; `createExtractionQueryStringSchema` (query param source of truth) |
+| `src/api/extract/response-types.ts` | `ExtractionResponseBase`, `SingleExtractionResponse`, `MultiExtractionResponse` |
+| `src/api/extract/entity.ts` | Entity classes; `SingleExtractionSummaryResponse`, `MultiExtractionSummaryResponse`, `ExtractionStatus` |
+| `src/api/extract-from-url/handler.ts` | POST /extract_from_url/* — async URL-based extraction |
+| `src/api/generate-upload-url/handler.ts` | POST /generate_upload_url/* — async pre-signed S3 upload flow |
+| `src/api/extractions/handler.ts` | GET /documents/{id}, GET /extractions, GET /extractions/statistics; `ExtractionsQueryParams`, `ExtractionStatsQueryParams` |
+| `src/api/generate-file/excel/handler.ts` | GET /generate_excel/{ids} |
+| `src/api/generate-file/csv/handler.ts` | GET /generate_csv/{ids} |
+| `src/api/account/auth-token-handlers.ts` | POST /account/auth_tokens |
 
-### Full portfolio request shape (as of 2026-05)
+### Key types
 
-Both portfolio endpoints accept these fields (`extract-from-url/handler.ts:60–68`, `generate-upload-url/handler.ts:55–80`):
+**POST /extract body** (`extract/handler.ts`):
+```typescript
+type Base64PDF = {
+  document: string;           // base64-encoded document
+  content_type?: DocumentContentType;
+};
+```
+
+**Query string (all /extract routes)** (`extract/storage.ts:createExtractionQueryStringSchema`):
+```typescript
+type CreateExtractionQueryStringParams = {
+  environment?: string;
+  document_name?: string;
+};
+```
+`webhook` and `extra_data` travel in the **request body** for /extract_from_url and /generate_upload_url. For POST /extract, they can come from either body or query string.
+
+**POST /extract_from_url portfolio request body** (`extract-from-url/handler.ts`):
 
 | Field | Type | Notes |
 |-------|------|-------|
 | `types` | `string[]` | Required. Doc type names |
+| `document_url` | `string` | Required. URL of document to fetch |
 | `segment_documents_with` | `"llm" \| "fingerprints"` | How to split portfolio into sub-docs |
-| `ocr_engine` | `OcrEngineType` | **Documented in extraction spec**: no. **Exists in backend**: yes |
-| `ocr_every_page` | `boolean` | **Documented in extraction spec**: no. **Exists in backend**: yes |
-| `document_url` | `string` | `extract_from_url` only |
+| `ocr_engine` | `OcrEngineType` | Exists in backend; **not publicly documented** |
+| `ocr_every_page` | `boolean` | Exists in backend; **not publicly documented** |
 | `webhook` | `Webhook` | Optional async callback |
 | `content_type` | `DocumentContentType` | Optional MIME hint |
-| `extra_data` | `ExtraDataRecord` | Optional audit/passthrough data |
+| `extra_data` | `ExtraDataRecord` | Optional passthrough data |
 
-`ocr_engine` and `ocr_every_page` are **docs gaps** in `reference/openapi_extraction.json` — they exist in the backend but are not in the spec. Decision on whether to expose them publicly is pending.
+`ocr_engine` and `ocr_every_page` are the same for the /generate_upload_url portfolio variant. Decision to expose publicly is pending (confirmed 2026-05-07: deliberately not documented).
 
-**Note**: `src/docs/Senseml reference/document-type-settings/ocr-engine.md:26` states portfolio extraction uses Microsoft OCR and ignores OCR settings in document types. This refers to document-type-level settings; the `ocr_engine` request parameter may override this. Verify with eng before documenting.
+**ExtractionStatus** (`src/common.ts:204`):
+```typescript
+type ExtractionStatus = "WAITING" | "FAILED" | "COMPLETE" | "PROCESSING";
+```
+
+**GET /extractions query params** (`extractions/handler.ts:ExtractionsQueryParams`):
+```typescript
+type ExtractionsQueryParams = {
+  start_date?: string;            // ISO 8601
+  end_date?: string;
+  limit?: string;                 // integer ≥ 1, default 20
+  document_type_ids?: string;     // comma-separated UUIDs
+  configuration_ids?: string;     // comma-separated UUIDs
+  environments?: string;          // comma-separated names
+  statuses?: string;              // comma-separated ExtractionStatus values
+  min_coverage?: string;          // 0–1
+  max_coverage?: string;          // 0–1
+  batch_id?: string;              // UUID
+  extraction_id?: string;         // UUID — retrieve a single extraction via the list endpoint
+  review_statuses?: string;       // comma-separated HumanReviewStatus values
+  continuation_token?: string;    // opaque base64url-encoded pagination cursor
+};
+```
+
+**GET /extractions/statistics query params** (`extractions/handler.ts:ExtractionStatsQueryParams`):
+```typescript
+type ExtractionStatsQueryParams = {
+  start_date: string;   // required, ISO 8601
+  end_date: string;     // required, ISO 8601
+  environments?: string;
+};
+```
+Response includes `coverage_histogram: number[]` — a 10-bin distribution of coverage values per date/environment/config row.
+
+**Notable**:
+- POST /extract is synchronous and returns the full result immediately. POST /extract_from_url and POST /generate_upload_url are async — they return `status: "WAITING"` and fire a webhook on completion.
+- `src/docs/Senseml reference/document-type-settings/ocr-engine.md:26` states portfolio extraction uses Microsoft OCR and ignores document-type OCR settings. This refers to doc-type-level settings; the request-level `ocr_engine` parameter may override it. Verify with eng before documenting.
+
+---
+
+## Configuration API
+
+**Routes**: All routes in `openapi_configuration.json`
+
+| File | Role |
+|------|------|
+| `src/api/doc-type/doc-type-handlers.ts` | CRUD for /document_types |
+| `src/api/doc-type/configuration-handlers.ts` | CRUD for configurations + version management; `ConfigResponse`, `ConfigurationVersion`, `PutConfigByVersion` |
+| `src/api/doc-type/golden-handlers.ts` | CRUD for goldens + golden–config association; `PostGolden`, `PutGolden` |
+| `src/api/doc-type/entity.ts` | Entity classes; `GoldenResponse`, `GoldenSummaryResponse`, `GoldenContentType`, `ProcessorType` |
+| `src/api/doc-type/doc-type.ts` | DynamoDB storage for document types; `CreateDocType`, `UpdateDocType` |
+| `src/api/doc-type/configurations.ts` | S3 blob storage for configuration bodies; version tagging and draft management |
+| `src/api/doc-type/goldens.ts` | S3 + DynamoDB for golden files; `toGoldenResponse` |
+| `src/api/extract-from-golden/handler.ts` | POST /extract_text_from_golden/{type} |
+
+### Key types
+
+**Document type** (`doc-type.ts`, `entity.ts`):
+```typescript
+type CreateDocType = {
+  name: string;
+  schema: DoctypeSettings;
+  processor_type?: ProcessorType;   // "email" | "document"
+};
+
+// DoctypeSettings (src/engine/types.ts)
+interface DoctypeSettings {
+  ocr_engine?: OcrEngineType;
+  ocr_level?: OCRLevel;
+  fingerprint_mode?: "strict" | "fallback_to_all";
+  validations?: DocumentValidation[];
+  prevent_default_merge_lines?: boolean;
+  review_triggers?: ReviewTriggers;
+}
+```
+
+**Configuration** (`configuration-handlers.ts`):
+```typescript
+// POST body
+interface PostConfiguration {
+  name: string;
+  configuration: string;       // SenseML JSON serialized as a string
+  content_type?: TextContentType;  // "application/json" | "application/yaml"
+  publish_as?: string;         // publish to this environment immediately
+}
+
+// PUT body — all fields optional; current_draft required if a draft already exists
+interface PutConfiguration {
+  name?: string;
+  configuration?: string;
+  content_type?: TextContentType;
+  publish_as?: string;
+  current_draft?: string;      // expected draft version UUID — optimistic locking
+  note?: string;               // max 512 chars
+}
+
+interface ConfigResponse {
+  name: string;
+  created: string;
+  configuration: string;       // SenseML JSON as a string
+  content_type: TextContentType;
+  version_id: string;          // UUID of current draft version
+  versions: ConfigurationVersion[];
+}
+
+interface ConfigurationVersion {
+  version_id: string;
+  datetime: string;            // ISO 8601
+  environments?: string[];     // e.g. ["production", "staging"]
+  draft: boolean;
+  note?: string;
+  published_by?: string;
+}
+
+// PUT /configurations/{name}/versions/{version}
+interface PutConfigByVersion {
+  publish_as: string;          // environment name
+  note?: string;
+}
+```
+
+**Golden** (`golden-handlers.ts`, `entity.ts`):
+```typescript
+type PostGolden = {
+  name: string;
+  configuration?: string;      // config name to associate
+  content_type?: GoldenContentType;
+};
+
+type PutGolden = {
+  name?: string;
+  configuration?: string;
+};
+
+// Full response (create / get single)
+interface GoldenResponse {
+  id: string;
+  name: string;
+  created: string;
+  configuration?: string;      // associated config name
+  error?: string;
+  upload_url?: string;         // signed S3 URL for uploading the file
+  download_url?: string;       // signed S3 URL for downloading
+  thumbnail_url?: string;
+  converted_url?: string;
+}
+
+// Summary response (list)
+interface GoldenSummaryResponse {
+  id: string;
+  name: string;
+  created: string;
+  present: boolean;            // false until file has been uploaded to S3
+  configuration?: string;
+  error?: string;
+}
+```
+
+**Notable**:
+- `configuration` in POST/PUT configuration is always a string — SenseML JSON is stored and returned serialized, not as a parsed object.
+- `current_draft` in PUT configuration is used for optimistic locking: if a draft exists and `current_draft` is not supplied or doesn't match, the request is rejected with a conflict error.
+- `GoldenResponse` (create/get single) includes `upload_url`/`download_url` (signed S3 URLs); `GoldenSummaryResponse` (list) replaces those with `present: boolean`.
+- Golden `present` is `false` after creation until the file is uploaded via the `upload_url`. A golden can exist as a metadata-only record with `present: false`.
+- DELETE golden association (`DELETE …/goldens/{name}/configuration`) is a separate endpoint from DELETE golden itself.
+- `extract_text_from_golden` lives in `src/api/extract-from-golden/handler.ts`, not the doc-type handlers — it returns `{ text: StandardizedText }`.
 
 ---
 
