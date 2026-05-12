@@ -4,7 +4,7 @@
 [Rr]egexes?
 [Vv]alidate
 [Aa]pplication
-[Bb]oolean
+[Bb]ooleans?
 [Ee]nums?
 [Rr]eadmes?
 agentic
@@ -42,6 +42,7 @@ Sensible's
 [Aa]nyco
 
 # SenseML parameter names (appear in table Name columns)
+source_ids
 currencySymbol
 thousandsSeparator
 decimalSeparator
