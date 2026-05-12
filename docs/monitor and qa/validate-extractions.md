@@ -251,7 +251,7 @@ Validations work well for static checks against fixed conditions. To compare ext
 
 - Pass those expected values into the API request body using the `extra_data` request body parameter.
 
-- In the config, at extraction time, use the Extra Data computed field method to dynamically make the values available to your config. 
+- At extraction time, use the Extra Data computed field method to dynamically make the values available to your config. 
 
 - Then compare or transform your extracted data to the expected data using logic-based or LLM-based [computed field methods](doc:computed-field-methods).
 
