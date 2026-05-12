@@ -45,8 +45,12 @@ For example, the Intersection method is an alternative to the Row method when a 
     "verticalAnchor": "col 3 heading", /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
     "offsetX": 0, /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
     "offsetY": 0, /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
-    "width": 1.2, /* default: 0 (default creates a point of intersection; Sensible extracts any line overlapping the point). if set, creates a rectangular region; only extracts lines contained in the region. for a definition of "contained", see the Region method */
-    "height": 0.4  /* default: 0. define both width and height to extract from a region rather than a point */
+    "width": 0.5, /* default: 0 (creates a point intersection — Sensible extracts any line overlapping the point); here,
+  0.5" wide region to constrain the column match */
+    "height": 0, /* default: 0; set alongside width to define a 2D region rather than a horizontal band */
+    "percentOverlapX": 0, /* default: 0.9 — fraction of width overlap required for a line to be inside the region; 0
+  accepts any overlap */
+    "percentOverlapY": 0  /* default: 0.8 — same as percentOverlapX but for height */
   }
 }
 ```
