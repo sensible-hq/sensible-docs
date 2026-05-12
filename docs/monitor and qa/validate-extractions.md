@@ -247,7 +247,7 @@ The output for this example returns nulls for the `engine` field for the `SV tri
 
 ### Alternative for dynamic validations 
 
-Validations work well for static checks against fixed conditions. To compare extracted data against values that vary per request, for example, figures from an upstream system or context from a prior pipeline step, use the Extra Data method instead:
+Validations work well for static checks on fixed conditions. To compare extracted data with values that vary per request, for example, figures from an upstream system or context from a prior pipeline step, use the Extra Data method instead:
 
 - Pass those expected values into the API request body using the `extra_data` request body parameter.
 

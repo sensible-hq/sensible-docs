@@ -38,7 +38,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 **Note:** if the request omits `extra_data`, if the object doesn't contain `key`, or if the value at `key` is explicitly `null`, Sensible returns null. These cases aren't distinguishable in the output.
 
 **Note:** The `extra_data` object has the following constraints:
-- Values must be flat: strings, numbers, booleans, or null. Nested objects and arrays are not supported.
+- Values must be flat: strings, numbers, booleans, or null. Nested objects and arrays aren't supported.
 
 # Examples
 
