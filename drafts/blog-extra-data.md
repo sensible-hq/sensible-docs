@@ -80,10 +80,29 @@ For numeric values (deductibles), the Custom Computation method handles exact eq
           { "text": "Collision", "type": "startsWith" }
         ]
       },
-      "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+      "method": {
+        "id": "row",
+        "position": "right",
+        "tiebreaker": "first" /* leftmost value = the Limits and/or Deductibles column */
+      }
     },
     {
-      "id": "expected_insured_vehicle",
+      "id": "comprehensive_deductible",
+      "type": "currency",
+      "anchor": {
+        "match": [
+          { "text": "Coverages", "type": "startsWith" },
+          { "text": "Comprehensive", "type": "startsWith" }
+        ]
+      },
+      "method": {
+        "id": "row",
+        "position": "right",
+        "tiebreaker": "first" /* leftmost value = the Limits and/or Deductibles column */
+      }
+    },
+    {
+      "id": "expected_insured_vehicle" /* in fields (not computed_fields) so source_ids can reference it below */,
       "method": { "id": "extraData", "key": "expected_insured_vehicle" }
     },
     {
@@ -101,30 +120,51 @@ For numeric values (deductibles), the Custom Computation method handles exact eq
     {
       "method": {
         "id": "queryGroup",
-        "source_ids": ["expected_insured_vehicle", "insured_vehicle"],
+        "source_ids": [
+          "expected_insured_vehicle",
+          "insured_vehicle"
+        ] /* gives the LLM both values as context for a semantic comparison */,
         "queries": [
           {
             "id": "vehicle_matches",
+             /* expected output is true; vehicle names vary but are semantically the same*/
             "description": "Do these two vehicle descriptions refer to the same vehicle? Ignore differences in capitalization and word order. Answer true or false.",
             "type": "boolean"
           }
         ]
       }
-    }
-  ],
-  "computed_fields": [
+    },
     {
-      "id": "expected_collision_deductible",
+      "id": "expected_collision_deductible" /* pulled from the request's extra_data object, expected value is 500, which matches the actual document data */,
       "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
     {
-      "id": "collision_deductible_matches",
+      "id": "expected_comprehensive_deductible" /* pulled from the request's extra_data object, expected value is 300, which doesn't match the actual document data */,
+      "method": {
+        "id": "extraData",
+        "key": "expected_comprehensive_deductible"
+      }
+    },
+    {
+      "id": "collision_deductible_matches" /* expected output is true; document's deductible matches what the upstream system expects */,
       "method": {
         "id": "customComputation",
         "jsonLogic": {
           "==": [
             { "var": "collision_deductible.value" },
             { "var": "expected_collision_deductible.value" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "comprehensive_deductible_matches" /* expected output is false; document's deductible doesn't match what the upstream system expects */,
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "==": [
+            { "var": "comprehensive_deductible.value" },
+            { "var": "expected_comprehensive_deductible.value" }
           ]
         }
       }
@@ -140,6 +180,7 @@ For numeric values (deductibles), the Custom Computation method handles exact eq
   "document_url": "https://...",
   "extra_data": {
     "expected_collision_deductible": 500,
+    "expected_comprehensive_deductible": 300,
     "expected_insured_vehicle": "NISSAN ROGUE 2010"
   }
 }
@@ -147,16 +188,19 @@ For numeric values (deductibles), the Custom Computation method handles exact eq
 
 **Output**
 
-`vehicle_matches` is `true` even though the strings aren't equal. `collision_deductible_matches` is `true` because the amounts match exactly.
+`vehicle_matches` is `true` even though the strings aren't equal. `collision_deductible_matches` is `true` because the deductible ($500) matches the expected value. `comprehensive_deductible_matches` is `false` because the document shows $250, not the expected $300.
 
 ```json
 {
-  "collision_deductible": { "value": 500, "type": "currency", "unit": "$", "source": "$500" },
+  "collision_deductible": { "source": "$500", "value": 500, "unit": "$", "type": "currency" },
+  "comprehensive_deductible": { "source": "$250", "value": 250, "unit": "$", "type": "currency" },
   "expected_insured_vehicle": { "value": "NISSAN ROGUE 2010", "type": "string" },
-  "insured_vehicle": { "value": "2010 Nissan Rogue", "type": "string" },
-  "vehicle_matches": { "value": true, "type": "boolean" },
+  "insured_vehicle": { "value": "2010 Nissan Rogue", "type": "string", "confidenceSignal": "confident_answer" },
+  "vehicle_matches": { "value": true, "type": "boolean", "confidenceSignal": "not_supported" },
   "expected_collision_deductible": { "value": 500, "type": "number" },
-  "collision_deductible_matches": { "value": true, "type": "boolean" }
+  "expected_comprehensive_deductible": { "value": 300, "type": "number" },
+  "collision_deductible_matches": { "value": true, "type": "boolean" },
+  "comprehensive_deductible_matches": { "value": false, "type": "boolean" }
 }
 ```
 
