@@ -3,4 +3,5 @@
 - copy-to-section
 - custom-computation
 - custom-computation-group
+- extra-data
 - get-file-metadata

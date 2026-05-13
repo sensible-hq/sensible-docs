@@ -18,6 +18,8 @@ Quality control the data extractions in a document type by writing validations. 
 
 A validation is a condition for a field or fields written in [JsonLogic](doc:jsonlogic)  that outputs a Boolean and either passes (for `true` output) or fails (for `false` output).  Validations have access to fields' values in the `parsed_document` object. 
 
+
+
 ## Create validations
 
 **Sensible app**
@@ -207,7 +209,7 @@ For the preceding extraction excerpt, Sensible outputs the following validations
 }
 ```
 
-​&#x9;
+&#x9;
 
 ## Validation 6
 
@@ -238,3 +240,19 @@ The output for this example returns nulls for the `engine` field for the `SV tri
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/validation_scoped.png)
 
  For example, in the first failed validation, the `"car_models",0... "trim_specs, 1"`  indices indicate null output for the `engine` field in the `car_model[0]`   (Nissan) section's  `trim_spec[1]` (SV trim) subsection.  The second instance, `"car_models", 1..."trim_specs", 0` indicates a null `engine` output for the `EX trim` subsection.
+
+
+
+## Notes
+
+### Alternative for dynamic validations 
+
+Validations work well for static checks against fixed conditions. To compare extracted data against values that vary per request, for example, figures from an upstream system or context from a prior pipeline step, use the Extra Data method instead:
+
+- Pass those expected values into the API request body using the `extra_data` request body parameter.
+
+- At extraction time, use the Extra Data computed field method to dynamically make the values available to your config. 
+
+- Then compare or transform your extracted data to the expected data using logic-based or LLM-based [computed field methods](doc:computed-field-methods).
+
+For more information, see the [Extra Data](doc:extra-data) computed field method.
