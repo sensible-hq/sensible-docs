@@ -1330,6 +1330,7 @@
       },
       "ReviewStatuses": {
         "type": "string",
+        "nullable": true,
         "enum": [
           "NEEDS_REVIEW",
           "APPROVED",
