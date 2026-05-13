@@ -40,7 +40,7 @@ Extract fields from a first document — a loan application, say — then pass k
 
 **Incorporate external data**
 
-After extracting a VIN from an auto insurance policy, query a third-party lookup service and pass the result back as `extra_data` in a follow-up extraction to [TODO name the document and the expected value!]  Flag if [what doesn't match? TODO].
+After extracting a VIN from an auto insurance policy, query a third-party lookup service and pass the result — for example, recorded mileage — back as `extra_data` in a follow-up extraction of an odometer disclosure statement. The config uses the Extra Data method with the Custom Computation method to flag any discrepancy between the lookup value and the mileage in the document.
 
 ![Incorporating external data flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_external_data.png)
 
@@ -244,4 +244,3 @@ The Extra Data method reads values from the `extra_data` object by key. The resu
 > - Add a workflow diagram showing the `extra_data` flow (similar to the email extraction post's pipeline diagram)
 > - Coordinate publish timing with the docs page going live (currently hidden)
 > - If the in-app `extra_data` UI is shipping around the same time, add a section covering it
-> - make sure you cross check the config and the output against the actual extra-data.md example ... OR remove it and make it into a paragraph
