@@ -226,7 +226,7 @@ type EmailProcessorOutput = {
 
 | File | Role |
 |------|------|
-| `src/api/extract/handler.ts` | POST /extract/{type} and /extract/{type}/{configuration} — synchronous extraction |
+| `src/api/extract/handler.ts` | POST /extract/{type} and /extract/{type}/{configuration} — synchronous extraction. Calls `createSingleExtraction` without `extraData` or `webhook`; body schema (`Base64PDF`) only accepts `document` + `content_type`. `extra_data` is therefore never set on the entity and is absent from the response even though `toExtractionResponse()` includes the field unconditionally. |
 | `src/api/extract/extract.ts` | Core extraction engine invocation |
 | `src/api/extract/storage.ts` | DynamoDB/S3 persistence; `createExtractionQueryStringSchema` (query param source of truth) |
 | `src/api/extract/response-types.ts` | `ExtractionResponseBase`, `SingleExtractionResponse`, `MultiExtractionResponse` |

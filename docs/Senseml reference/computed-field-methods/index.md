@@ -56,7 +56,7 @@ Document extraction rarely happens in isolation. Workflows involve multiple docu
 
 - A document LLM agent might need to carry context generated in a previous reasoning step into the next extraction call. 
 
-In such cases, you can provide the external context as an `extra_data` object when you make an extraction call. You can then make that request-time context available in an extraction config so computed fields, including LLM-based methods, can operate on it. For more information, see the [Extra data](doc:extra-data) method.
+In such cases, you can provide the external context as an `extra_data` object when you make an extraction call. You can then make that request-time context available in an extraction config so computed fields, including LLM-based methods, can operate on it. For more information, see the [Extra Data](doc:extra-data) method.
 
 ## Transform document data with custom logic
 
