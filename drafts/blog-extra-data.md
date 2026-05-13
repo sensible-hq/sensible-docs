@@ -26,41 +26,31 @@ Until now, making that work meant extracting data first, then comparing it in ap
 }
 ```
 
-Sensible passes this caller-provided context into your config at extraction time. Any field in the config can read a value from it using the [Extra Data](https://docs.sensible.so/docs/extra-data) method. The object is echoed back in extraction responses and webhook deliveries, so it travels with the data through your pipeline.
+Sensible passes this caller-provided context into your config at extraction time. Any field in the config can read a value from it using the [Extra Data](https://docs.sensible.so/docs/extra-data) method. Sensible echoes the object back in extraction responses and webhook deliveries, so it travels with the data through your pipeline.
 
 ---
 
 ## What you can build with it
 
-**Cross-document validation**
+**Validate across document extractions**
 
-Extract fields from a first document — a loan application, say — then pass key values as `extra_data` into a subsequent extraction for that applicant's bank statement. The bank statement config compares the incoming expected values against what it finds in the document, outputting Boolean fields that flag any discrepancies. No application-side comparison logic required.
+Extract fields from a first document — a loan application, say — then pass key values as `extra_data` into a subsequent extraction for that applicant's bank statement. The bank statement config uses the Extra Data method with the [Custom Computation](https://docs.sensible.so/docs/custom-computation) method to flag discrepancies between the incoming expected values, for example, stated income, against what it finds in the document. You get Boolean values or other output comparing the values,  no application-side comparison logic required.
 
 ![Cross-document validation flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_cross_doc.png)
 
-**Incorporating external data**
+**Incorporate external data**
 
-After extracting a VIN from an auto insurance policy, query a third-party lookup service and pass the result back as `extra_data` in a follow-up extraction. The config uses the Extra Data method with the [Custom Computation](https://docs.sensible.so/docs/custom-computation) method to flag discrepancies between the lookup value and what the document shows — bringing external system data directly into the extraction output.
+After extracting a VIN from an auto insurance policy, query a third-party lookup service and pass the result back as `extra_data` in a follow-up extraction to [TODO name the document and the expected value!]  Flag if [what doesn't match? TODO].
 
 ![Incorporating external data flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_external_data.png)
 
-**Agentic document pipelines**
+**Enrich agentic document pipelines**
 
-For teams building LLM-powered pipelines, `extra_data` is a natural handoff point between your agent's reasoning and the extraction step. Pass context from previous steps, retrieved records, or user-supplied parameters into the extraction, and get it back in the output alongside the extracted fields.
-
-![Agentic pipeline flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_agentic.png)
-
-**Portfolio extractions**
-
-When you submit a portfolio extraction with `extra_data`, Sensible passes the same object to every document extracted from the portfolio. Each document's config can independently access it — no separate objects needed per document type.
-
-![Portfolio extraction flow](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data_portfolio.png)
-
----
+For teams building LLM-powered pipelines, `extra_data` is a natural handoff point between your agent's reasoning and the extraction step. Pass context from previous steps, retrieved records, or user-supplied parameters into the extraction, and feed it to LLM-based methods for comparison, transformation, or as additional context.
 
 ## How it works
 
-In your config, the Extra Data method works as a computed field method. Specify a key to look up in the `extra_data` object, and Sensible returns the value as a computed field. Use that field's output in downstream computed fields — for example, with the Custom Computation method and [JsonLogic](https://jsonlogic.com) to compare against extracted values.
+In your config, the Extra Data method works as a computed field method. Specify a key to look up in the `extra_data` object, and Sensible returns the value as a computed field. Use that field's output in downstream computed fields, for example, use [JsonLogic](https://jsonlogic.com) in the Custom Computation method to  compare against extracted values.
 
 Here's a concrete example: a config that cross-checks values from a policy management system against a GEICO auto insurance declarations page. It uses two comparison strategies depending on the data type.
 
@@ -254,3 +244,4 @@ The Extra Data method reads values from the `extra_data` object by key. The resu
 > - Add a workflow diagram showing the `extra_data` flow (similar to the email extraction post's pipeline diagram)
 > - Coordinate publish timing with the docs page going live (currently hidden)
 > - If the in-app `extra_data` UI is shipping around the same time, add a section covering it
+> - make sure you cross check the config and the output against the actual extra-data.md example ... OR remove it and make it into a paragraph
