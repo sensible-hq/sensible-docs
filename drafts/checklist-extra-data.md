@@ -15,7 +15,7 @@
 ## Claude to-do (pre-merge)
 
 - [x] **#16** Vale style check — run Vale on all changed docs files and fix any errors before merging
-- [ ] **#17** Sync blog post example with `extra-data.md` — compare config, request, and output blocks; they may have drifted from the manual edits pulled in
+- [x] **#17** Sync blog post example with `extra-data.md` — compare config, request, and output blocks; they may have drifted from the manual edits pulled in
 
 ## Blocked on Frances
 
