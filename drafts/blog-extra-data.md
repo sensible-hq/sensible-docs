@@ -244,3 +244,4 @@ The Extra Data method reads values from the `extra_data` object by key. The resu
 > - Add a workflow diagram showing the `extra_data` flow (similar to the email extraction post's pipeline diagram)
 > - Coordinate publish timing with the docs page going live (currently hidden)
 > - If the in-app `extra_data` UI is shipping around the same time, add a section covering it
+> - make sure you cross check the config and the output against the actual extra-data.md example ... OR remove it and make it into a paragraph
