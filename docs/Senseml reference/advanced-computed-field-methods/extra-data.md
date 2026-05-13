@@ -1,6 +1,6 @@
 ---
 title: Extra data
-excerpt: ''
+excerpt: 'Returns a value from an extra_data object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config so validations, postprocessors, and computed fields can read it.'
 deprecated: false
 hidden: false
 metadata:
