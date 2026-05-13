@@ -1,23 +1,26 @@
 ---
 title: Extra data
-excerpt: 'Returns a value from an extra_data object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config so validations, postprocessors, and computed fields can read it.'
+excerpt: >-
+  Returns a value from an extra_data object you supply in an asynchronous
+  extraction request. Use this method to bring request-time context into a
+  config so validations, postprocessors, and computed fields can read it.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Access request-supplied extra data in configs'
+  description: Access request-supplied extra data in configs
   robots: index
 next:
   description: ''
 ---
 Returns a value from an `extra_data` object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and computed field methods can read it.
 
-For information about attaching `extra_data` to a request, see the [Extract from URL](ref:extract-from-url) and [Generate upload URL](ref:generate-an-upload-url) endpoints.
+For information about attaching `extra_data` to a request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
 
 Common use cases include:
 
-- **Chain extractions for cross-document validation**: Extract fields from a first document (for example, name and date of birth from a loan application), then pass them as `extra_data` into a subsequent extraction request for the loan applicant's bank statement. The config for the bank statement compares the `extra_data` values to the values in the bank statement and outputs Boolean values to indicate if the applicant's name and date of birth are consistent in both documents. 
-- **Incorporating external data**: After extracting a VIN from an auto insurance document, call a third-party lookup service and pass the result (for example, recorded mileage) back as `extra_data` in a follow-up request. The config uses the Extra Data method with the Custom Computation method to flag any discrepancy between the lookup value and what the document shows.
+* **Chain extractions for cross-document validation**: Extract fields from a first document (for example, name and date of birth from a loan application), then pass them as `extra_data` into a subsequent extraction request for the loan applicant's bank statement. The config for the bank statement compares the `extra_data` values to the values in the bank statement and outputs Boolean values to indicate if the applicant's name and date of birth are consistent in both documents.
+* **Incorporating external data**: After extracting a VIN from an auto insurance document, call a third-party lookup service and pass the result (for example, recorded mileage) back as `extra_data` in a follow-up request. The config uses the Extra Data method with the Custom Computation method to flag any discrepancy between the lookup value and what the document shows.
 
 ```mermaid
 flowchart LR
@@ -30,14 +33,10 @@ flowchart LR
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter:
 
-| key                | value       | description                                                  |
-| :----------------- | :---------- | :----------------------------------------------------------- |
-| id (**required**)  | `extraData` |                                                              |
-| key (**required**) | string      | Key to look up in the request's `extra_data` object.<br/> If the request omits `extra_data`, if the object doesn't contain the specified key, or if the specified key's value is null, Sensible returns null. These cases aren't distinguishable in the output.<br/>The `extra_data` object must be flat: strings, numbers, booleans, or null. Nested objects and arrays aren't supported.<br/>When you submit a [portfolio](doc:portfolio) extraction with `extra_data`, Sensible passes the same object to every document extracted from the portfolio. For example, if a portfolio contains an auto insurance declarations page and a loan application, both configs can independently look up the same `extra_data` keys and produce their own computed fields based on them. |
-
-
-
-
+| key                | value       | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| :----------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)  | `extraData` |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| key (**required**) | string      | Key to look up in the request's `extra_data` object.<br /> If the request omits `extra_data`, if the object doesn't contain the specified key, or if the specified key's value is null, Sensible returns null. These cases aren't distinguishable in the output.<br />The `extra_data` object must be flat: strings, numbers, booleans, or null. Nested objects and arrays aren't supported.<br />When you submit a [portfolio](doc:portfolio) extraction with `extra_data`, Sensible passes the same object to every document extracted from the portfolio. For example, if a portfolio contains an auto insurance declarations page and a loan application, both configs can independently look up the same `extra_data` keys and produce their own computed fields based on them. |
 
 # Examples
 
@@ -180,7 +179,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/extra_data.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/extra_data.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
