@@ -40,7 +40,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 # Examples
 
-The following example uses `extra_data` to cross-check values from a policy management system against a GEICO auto insurance declarations page. Numeric values (deductibles) use the Custom Computation method for exact equality comparison. A vehicle description uses the Query Group method with the Source IDs parameter for a semantic comparison that handles format differences between systems. For example, `"NISSAN ROGUE 2010"` (policy system) matches `"2010 Nissan Rogue"` (document) even though the strings aren't equal.
+The following example uses `extra_data` to cross-check values from a policy management system against a GEICO auto insurance declarations page. Numeric values (deductibles) use the Custom Computation method for exact equality comparison. A vehicle description uses the LLM-based Query Group method with the Source IDs parameter for a semantic comparison that handles format differences between systems. For example, `"NISSAN ROGUE 2010"` (policy system) matches `"2010 Nissan Rogue"` (document) even though the strings aren't equal.
 
 **Config**
 
