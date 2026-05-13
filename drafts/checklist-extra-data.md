@@ -14,7 +14,7 @@
 
 ## Claude to-do (pre-merge)
 
-- [ ] **#16** Vale style check — run Vale on all changed docs files and fix any errors before merging
+- [x] **#16** Vale style check — run Vale on all changed docs files and fix any errors before merging
 - [ ] **#17** Sync blog post example with `extra-data.md` — compare config, request, and output blocks; they may have drifted from the manual edits pulled in
 
 ## Blocked on Frances
@@ -24,8 +24,8 @@
 
 ## Blocked on eng
 
-- [ ] **#10** Clarify and document what happens when an API key is passed in `extra_data` (rejection behavior)
-- [ ] **#18** Verify: do postprocessors actually have access to `extra_data`? (claimed in intro of `extra-data.md` line 13)
+- [x] **#10** Clarify and document what happens when an API key is passed in `extra_data` (rejection behavior) — no rejection; added data retention + no-secrets warning to API spec
+- [x] **#18** Verify: do postprocessors actually have access to `extra_data`? — confirmed, via the Extra Data method
 
 ## Claude to-do
 

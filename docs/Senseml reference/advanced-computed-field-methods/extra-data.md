@@ -2,7 +2,7 @@
 title: Extra data
 excerpt: ''
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   title: ''
   description: 'Access request-supplied extra data in configs'
@@ -33,7 +33,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 | key                | value       | description                                                  |
 | :----------------- | :---------- | :----------------------------------------------------------- |
 | id (**required**)  | `extraData` |                                                              |
-| key (**required**) | string      | Key to look up in the request's `extra_data` object.<br/> If the request omits `extra_data`, if the object doesn't contain the specified key, or if the specified key's value is null, Sensible returns null. These cases aren't distinguishable in the output.<br/>The `extra_data` object must be flat: strings, numbers, booleans, or null. Nested objects and arrays aren't supported.<br/>When you submit a [portfolio](doc:portfolio) extraction with `extra_data`, Sensible passes the same object to every document extracted from the portfolio.  For example, if a portfolio contains an auto insurance declarations page and a loan application, both configs can independently look up the the same `extra_data` keys and produce their own computed fields based on them. |
+| key (**required**) | string      | Key to look up in the request's `extra_data` object.<br/> If the request omits `extra_data`, if the object doesn't contain the specified key, or if the specified key's value is null, Sensible returns null. These cases aren't distinguishable in the output.<br/>The `extra_data` object must be flat: strings, numbers, booleans, or null. Nested objects and arrays aren't supported.<br/>When you submit a [portfolio](doc:portfolio) extraction with `extra_data`, Sensible passes the same object to every document extracted from the portfolio. For example, if a portfolio contains an auto insurance declarations page and a loan application, both configs can independently look up the same `extra_data` keys and produce their own computed fields based on them. |
 
 
 
@@ -231,4 +231,4 @@ The following image shows the example document used with this example config:
     }
 ```
 
-In the preceding output, the `vehicle_matches` field is `true` even though `"NISSAN ROGUE 2010"` (policy system) doesn't equal `"2010 Nissan Rogue"` (document). The LLM recognizes they refer to the same vehicle.  The `collision_deductible_matches` field  is `true` because the deductible ($500) matches the expected value. The `comprehensive_deductible_matches` field is `false` because the document shows $250, not the expected $300.
+In the preceding output, the `vehicle_matches` field is `true` even though `"NISSAN ROGUE 2010"` (policy system) doesn't equal `"2010 Nissan Rogue"` (document). The LLM recognizes they refer to the same vehicle. The `collision_deductible_matches` field  is `true` because the deductible ($500) matches the expected value. The `comprehensive_deductible_matches` field is `false` because the document shows $250, not the expected $300.
