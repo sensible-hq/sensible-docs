@@ -37,7 +37,7 @@
 
 ## Testing (manual)
 
-- [ ] **#19** Run the example config + PDF against prod with the curl script and verify the output matches what's in the docs
+- [x] **#19** Run the example config + PDF against prod with the curl script and verify the output matches what's in the docs
 
 ## Testing
 
