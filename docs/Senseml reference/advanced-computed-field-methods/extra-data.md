@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Returns a value from an `extra_data` object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and other computed fields can read it.
+Returns a value from an `extra_data` object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and computed field methods can read it.
 
 For information about attaching `extra_data` to a request, see the [Extract from URL](ref:extract-from-url) and [Generate upload URL](ref:generate-an-upload-url) endpoints.
 
@@ -79,7 +79,7 @@ The following example uses `extra_data` to cross-check values from a policy mana
       }
     },
     {
-      "id": "expected_insured_vehicle", /* in fields (not computed_fields) so source_ids can reference it below */
+      "id": "expected_insured_vehicle" /* in fields (not computed_fields) so source_ids can reference it below */,
       "method": { "id": "extraData", "key": "expected_insured_vehicle" }
     },
     {
@@ -97,46 +97,58 @@ The following example uses `extra_data` to cross-check values from a policy mana
     {
       "method": {
         "id": "queryGroup",
-        "source_ids": ["expected_insured_vehicle", "insured_vehicle"], /* gives the LLM both values as context for a semantic comparison */
+        "source_ids": [
+          "expected_insured_vehicle",
+          "insured_vehicle"
+        ] /* gives the LLM both values as context for a semantic comparison */,
         "queries": [
           {
             "id": "vehicle_matches",
+             /* expected output is true; vehicle names vary but are semantically the same*/
             "description": "Do these two vehicle descriptions refer to the same vehicle? Ignore differences in capitalization and word order. Answer true or false.",
             "type": "boolean"
           }
         ]
       }
-    }
-  ],
-  "computed_fields": [
+    },
     {
-      "id": "expected_collision_deductible", /* pulled from the request's extra_data object, expected value is 500, which matches the actual document data */
+      "id": "expected_collision_deductible" /* pulled from the request's extra_data object, expected value is 500, which matches the actual document data */,
       "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
     {
-      "id": "expected_comprehensive_deductible", /* pulled from the request's extra_data object, expected value is 300, which doesn't match the actual document data */
-      "method": { "id": "extraData", "key": "expected_comprehensive_deductible" }
+      "id": "expected_comprehensive_deductible" /* pulled from the request's extra_data object, expected value is 300, which doesn't match the actual document data */,
+      "method": {
+        "id": "extraData",
+        "key": "expected_comprehensive_deductible"
+      }
     },
     {
-      "id": "collision_deductible_matches", /* true if the document's deductible matches what the upstream system expects */
+      "id": "collision_deductible_matches" /* expected output is true; document's deductible matches what the upstream system expects */,
       "method": {
         "id": "customComputation",
         "jsonLogic": {
-          "==": [{ "var": "collision_deductible.value" }, { "var": "expected_collision_deductible.value" }]
+          "==": [
+            { "var": "collision_deductible.value" },
+            { "var": "expected_collision_deductible.value" }
+          ]
         }
       }
     },
     {
-      "id": "comprehensive_deductible_matches", /* true if the document's deductible matches what the upstream system expects */
+      "id": "comprehensive_deductible_matches" /* expected output is false; document's deductible doesn't match what the upstream system expects */,
       "method": {
         "id": "customComputation",
         "jsonLogic": {
-          "==": [{ "var": "comprehensive_deductible.value" }, { "var": "expected_comprehensive_deductible.value" }]
+          "==": [
+            { "var": "comprehensive_deductible.value" },
+            { "var": "expected_comprehensive_deductible.value" }
+          ]
         }
       }
     }
   ]
 }
+
 ```
 
 **Request**
@@ -174,36 +186,49 @@ The following image shows the example document used with this example config:
 
 ```json
 {
-  "collision_deductible": {
-    "source": "$500",
-    "value": 500,
-    "unit": "$",
-    "type": "currency"
-  },
-  "comprehensive_deductible": {
-    "source": "$250",
-    "value": 250,
-    "unit": "$",
-    "type": "currency"
-  },
-  "expected_insured_vehicle": null,
-  "insured_vehicle": {
-    "value": "2010 Nissan Rogue",
-    "type": "string",
-    "confidenceSignal": "confident_answer"
-  },
-  "vehicle_matches": null,
-  "expected_collision_deductible": null,
-  "expected_comprehensive_deductible": null,
-  "collision_deductible_matches": {
-    "value": false,
-    "type": "boolean"
-  },
-  "comprehensive_deductible_matches": {
-    "value": false,
-    "type": "boolean"
-  }
-}
+        "collision_deductible": {
+            "source": "$500",
+            "value": 500,
+            "unit": "$",
+            "type": "currency"
+        },
+        "comprehensive_deductible": {
+            "source": "$250",
+            "value": 250,
+            "unit": "$",
+            "type": "currency"
+        },
+        "expected_insured_vehicle": {
+            "value": "NISSAN ROGUE 2010",
+            "type": "string"
+        },
+        "insured_vehicle": {
+            "value": "2010 Nissan Rogue",
+            "type": "string",
+            "confidenceSignal": "confident_answer"
+        },
+        "vehicle_matches": {
+            "value": true,
+            "type": "boolean",
+            "confidenceSignal": "not_supported"
+        },
+        "expected_collision_deductible": {
+            "value": 500,
+            "type": "number"
+        },
+        "expected_comprehensive_deductible": {
+            "value": 300,
+            "type": "number"
+        },
+        "collision_deductible_matches": {
+            "value": true,
+            "type": "boolean"
+        },
+        "comprehensive_deductible_matches": {
+            "value": false,
+            "type": "boolean"
+        }
+    }
 ```
 
 In the preceding output, the `vehicle_matches` field is `true` even though `"NISSAN ROGUE 2010"` (policy system) doesn't equal `"2010 Nissan Rogue"` (document). The LLM recognizes they refer to the same vehicle.  The `collision_deductible_matches` field  is `true` because the deductible ($500) matches the expected value. The `comprehensive_deductible_matches` field is `false` because the document shows $250, not the expected $300.
