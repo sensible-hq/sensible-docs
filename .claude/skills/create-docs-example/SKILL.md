@@ -3,7 +3,7 @@ name: create-docs-example
 description: Given an extractor directory path from the sensible engine repo, create or update a full-fledged documentation example — copying the golden PDF, generating a screenshot, assessing and redacting PII, and writing the example section with JSON5 comments.
 argument-hint: <path/to/extractor/dir> [doc-page-path]
 disable-model-invocation: true
-allowed-tools: Bash(pdftotext:*), Bash(pdftoppm:*), Bash(python3:*), Bash(cp:*), Read, Glob, Edit, Write
+allowed-tools: Bash(pdftotext:*), Bash(pdftoppm:*), Bash(python3:*), Bash(cp:*), Bash(curl:*), Read, Glob, Edit, Write
 ---
 
 You are adding or updating a documentation example in the sensible-docs repo based on an extractor directory from the sensible engine repo.
@@ -100,7 +100,32 @@ View the new screenshot to confirm the redactions look correct.
 
 **If no PII is found:** skip redaction and proceed.
 
-## Step 5 — Write the example section
+## Step 5 — Upload config and get actual extraction output
+
+Upload the config and the (potentially redacted) golden to the Sensible account, then run a live extraction to get the JSON output to use in the example.
+
+```bash
+python3 scripts/upload_pr_extractor.py \
+  --doc-type <doctype> \
+  --config ../sensible/<extractor-dir>/<config>.json \
+  --golden assets/pdfs/<slug>.pdf \
+  --config-name <config_stem>
+```
+
+The script creates the document type if it doesn't exist, publishes the config to production, and uploads the golden as a reference document. It prints a Sensible app URL — open it to visually confirm the extraction looks correct before writing the example.
+
+Then run a live extraction to get the JSON output:
+
+```bash
+curl -s -X POST "https://api.sensible.so/v0/extract/<doctype>" \
+  -H "Authorization: Bearer ${SENSIBLE_API_KEY}" \
+  -H "Content-Type: application/pdf" \
+  --data-binary @assets/pdfs/<slug>.pdf | python3 -m json.tool
+```
+
+Use the `parsed_document` from this response as the **Output** in the example. Strip metadata fields (`classificationSummary`, `coverage`, `errors`, `fileMetadata`, etc.) — show only the extracted field values.
+
+## Step 6 — Write the example section
 
 Update the `# Examples` section of the target doc page. Follow these conventions exactly:
 
@@ -125,7 +150,7 @@ Update the `# Examples` section of the target doc page. Follow these conventions
 
 **Output block:** Use the actual extraction output. If the output value is a long string, truncate it with `...` after ~200 characters. Strip metadata fields (`classificationSummary`, `coverage`, `errors`, `fileMetadata`, etc.) — show only the `parsedDocument` contents. Use the redacted values in the output if you redacted the PDF.
 
-## Step 6 — Commit
+## Step 7 — Commit
 
 Stage only the files you changed:
 

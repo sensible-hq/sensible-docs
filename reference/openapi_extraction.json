@@ -400,6 +400,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/generate-upload-url/handler.ts:67-76) but deliberately not documented publicly.",
                 "properties": {
                   "webhook": {
                     "$ref": "#/components/schemas/Webhook"
@@ -471,6 +472,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/extract-from-url/handler.ts:62-68) but deliberately not documented publicly.",
                 "properties": {
                   "document_url": {
                     "$ref": "#/components/schemas/DocumentUrl"
