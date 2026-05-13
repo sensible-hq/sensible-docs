@@ -110,11 +110,11 @@ The following example uses `extra_data` to cross-check values from a policy mana
   ],
   "computed_fields": [
     {
-      "id": "expected_collision_deductible", /* pulled from the request's extra_data object, expected value is 500 */
+      "id": "expected_collision_deductible", /* pulled from the request's extra_data object, expected value is 500, which matches the actual document data */
       "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
     {
-      "id": "expected_comprehensive_deductible", /* pulled from the request's extra_data object, expected value is 300 */
+      "id": "expected_comprehensive_deductible", /* pulled from the request's extra_data object, expected value is 300, which doesn't match the actual document data */
       "method": { "id": "extraData", "key": "expected_comprehensive_deductible" }
     },
     {
