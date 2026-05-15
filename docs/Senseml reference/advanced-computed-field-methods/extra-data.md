@@ -152,7 +152,7 @@ The following example uses `extra_data` to cross-check values from a policy mana
 
 **Request**
 
-To provide the extra data for the preceding config:
+To provide the extra data for the preceding config, take the following steps:
 
 1. create a document type in the Sensible app using the following example document
 2. add a config to the document type using the preceding SenseML and publish the config to production
