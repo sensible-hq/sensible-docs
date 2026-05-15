@@ -92,12 +92,23 @@ Ask for any corrections before drafting.
 
 Do this before writing a single line of the spec. Read in parallel.
 
-### 4a. Read the spec template
+### 4a. Read the spec template and schema reference
 
 Read the annotated template before writing anything:
 ```
 /home/franc/GitHub/sensible-docs/.claude/skills/sensible-api-spec/openapi_template.jsonc
 ```
+
+Also read the spec structure reference to understand existing schema relationships before drafting any changes:
+```
+/home/franc/GitHub/sensible-docs/.claude/skills/sensible-api-spec/api-code-reference.md
+```
+
+Use the schema relationship trees in `api-code-reference.md` to:
+- Identify which existing schemas a new field or endpoint touches
+- Avoid duplicating schemas that are already shared (e.g. `ExtractionSummaryBase`, `PortfolioBase`)
+- Wire new schemas into the correct inheritance chain rather than creating standalone duplicates
+- Confirm which endpoint response shapes are used by the list endpoint vs the retrieval endpoint vs the async pending response
 
 The template is the primary reference. It covers:
 - All structural decisions (operationId naming, path parameter placement, `$ref` usage, `additionalProperties`, discriminated unions, error code selection, `x-internal-note`)
@@ -227,7 +238,13 @@ hidden: false
 ---
 ```
 
-### 7c. Update `_order.yaml` files
+### 7c. Update `api-code-reference.md`
+
+If the changes add new paths, rename schemas, change the inheritance hierarchy, or add new fields to existing response schemas, update the relevant spec structure section in `api-code-reference.md`. Keep the paths table and schema relationship tree in sync with the actual spec file.
+
+If the change is a minor description edit or a new property on a leaf schema (not a base/shared schema), no update is needed.
+
+### 7d. Update `_order.yaml` files
 
 **New top-level section**: Add the new directory name to `reference/_order.yaml`. Ask the user where in the ordering it should appear before writing.
 
