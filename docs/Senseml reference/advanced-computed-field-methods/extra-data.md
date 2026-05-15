@@ -78,7 +78,7 @@ The following example uses `extra_data` to cross-check values from a policy mana
       }
     },
     {
-      "id": "expected_insured_vehicle" /* in fields (not computed_fields) so source_ids can reference it below */,
+      "id": "expected_insured_vehicle" /* expected vehicle make, model, and year. precedes the `vehicle_matches` LLM query so that following source_ids can reference it  */,
       "method": { "id": "extraData", "key": "expected_insured_vehicle" }
     },
     {
