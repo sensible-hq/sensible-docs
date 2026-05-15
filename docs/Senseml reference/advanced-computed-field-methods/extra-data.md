@@ -24,9 +24,9 @@ Common use cases include:
 
 ```mermaid
 flowchart LR
-    A["External context\n(system of record,\nprior extraction,\nagent reasoning)"] -->|"extra_data"| C["Sensible\nasync extraction"]
+    A["External context (system of record, prior extraction, agent reasoning)"] -->|"extra_data"| C["Sensible async extraction"]
     B["Document"] --> C
-    C --> D["Output\n(extracted fields +\nvalidated / transformed\nfields + extra_data echoed)"]
+    C --> D["Output (extracted fields + validated / transformed fields + extra_data echoed)"]
 ```
 
 # Parameters
