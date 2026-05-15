@@ -20,7 +20,7 @@ For information about attaching `extra_data` to a request, see the asynchronous 
 Common use cases include:
 
 * **Chain extractions for cross-document validation**: Extract fields from a first document (for example, name and date of birth from a loan application), then pass them as `extra_data` into a subsequent extraction request for the loan applicant's bank statement. The config for the bank statement compares the `extra_data` values to the values in the bank statement and outputs Boolean values to indicate if the applicant's name and date of birth are consistent in both documents.
-* **Incorporating external data**: After extracting a VIN from an auto insurance document, call a third-party lookup service and pass the result (for example, recorded mileage) back as `extra_data` in a follow-up request. The config uses the Extra Data method with the Custom Computation method to flag any discrepancy between the lookup value and what the document shows.
+* **Incorporate external data**: After extracting a VIN from an auto insurance document, call a third-party lookup service and pass the result (for example, recorded mileage) back as `extra_data` in a follow-up request. The config uses the Extra Data method with the Custom Computation method to flag any discrepancy between the lookup value and what the document shows.
 
 ```mermaid
 flowchart LR
