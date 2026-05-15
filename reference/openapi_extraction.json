@@ -2364,13 +2364,13 @@
       "DocumentTypeNames": {
         "type": "array",
         "description": "Specifies the document types contained in the PDF portfolio.",
-        "items": {
-          "type": "string",
-          "example": [
+        "example": [
             "tax_returns",
             "bank_statements",
             "credit_reports"
-          ]
+          ],
+        "items": {
+          "type": "string"
         }
       },
       "SegmentDocumentsWith": {
