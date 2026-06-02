@@ -35,7 +35,7 @@ In this tutorial, you'll set up the first scenario: extracting a vendor invoice 
 
 The Python script:
 
-1. Extracts a sample vendor invoice PDF using Sensible's `invoices` document type, and
+1. Extracts structured data from a sample vendor invoice PDF using an LLM-powered extraction `invoices` config, and
 2. Creates a new bill in QuickBooks Online from the extracted data.
 
 ## Add the invoices document type to your Sensible account
@@ -153,7 +153,7 @@ Compare the bill to the sample vendor invoice PDF to learn how QuickBooks import
 
 The script runs five steps:
 
-1. Extracts invoice data using Sensible's `invoices` document type from a local PDF (`invoice_sample.pdf`).
+1. Extracts invoice data using Sensible's LLM-powered `invoices` document type from a local PDF (`invoice_sample.pdf`).
 2. Authenticates with QuickBooks Online using your saved tokens (refreshes automatically and silently).
 3. Finds a matching expense account in your sandbox company's Chart of Accounts. Checks for common names like "Uncategorized Expense" and "Miscellaneous", or creates one called "Invoice Imports - Needs Review" if none exist.
 4. Finds or creates a vendor matching the extracted vendor name.

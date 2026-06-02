@@ -1,0 +1,445 @@
+{
+  // Always 3.0.3 — do not change.
+  "openapi": "3.0.3",
+
+  // Always this server and description — do not change.
+  "servers": [
+    {
+      "url": "https://api.sensible.so/v0",
+      "description": "Production server (uses live data)"
+    }
+  ],
+
+  "info": {
+    // Human-readable title matching the domain, e.g. "Email processors", "Configuration"
+    "title": "{Domain name}",
+    "version": "0.0.1",
+    // Full sentence, period. "Sensible API for [what this spec covers]."
+    "description": "Sensible API for managing {resources}.",
+    // License is a placeholder — do not change.
+    "license": {
+      "name": "Sensible API",
+      "url": "https://www.TBD.org/licenses/LICENSE-2.0.html"
+    }
+  },
+
+  // Global security — applies to every operation. Always bearer auth. Do not override per-operation.
+  "security": [
+    { "bearerAuth": [] }
+  ],
+
+  // One tag per logical grouping of endpoints. Put the detailed description here, not on
+  // individual operations — readme.io renders the tag description as the group intro.
+  "tags": [
+    {
+      "name": "{Resource name}",
+      // Full sentences, period. This is the group intro page in readme.io.
+      "description": "Create and manage {resources}. A {resource} defines {what it represents and what you can do with it}."
+    }
+  ],
+
+  "paths": {
+
+    // Collection route: list + create
+    "/{resources}": {
+      "get": {
+        // operationId: kebab-case verb-noun. Verbs: list, get, create, update, upsert, delete.
+        "operationId": "list-{resources}",
+        // Summary: sentence case — capitalize first word and proper nouns only. No trailing period.
+        "summary": "List {resources}",
+        // Operation description: full sentence, capital first letter, period. Active voice.
+        // Imperative ("Lists all...") or declarative ("Returns all...") both fine.
+        // For list and create/upsert operations, include a brief what-is-it sentence and a
+        // doc link so users landing on the endpoint know what the resource is.
+        // e.g. "Lists all active {resources} in your Sensible account. A {resource} defines [what it does].
+        // For more information, see [{Guide title}](doc:{slug})."
+        //
+        // Account scope: always "in your Sensible account" — not "for this account" or "within the account".
+        //
+        // Inline code: use backticks for field names (`webhooks`), paths (`/processors/email`),
+        // and literal values (`development`).
+        //
+        // Doc links: use `doc:slug` format for cross-references to Sensible docs, e.g.
+        // "For more information, see [Multi-document extractions](doc:portfolio)."
+        // Always a standalone sentence at the end of a description — never embedded mid-sentence.
+        //
+        // Multi-step workflows: use a numbered list instead of prose, e.g.
+        // "Extract data from a document in three steps.\n1. Call this endpoint...\n2. PUT the document...\n3. Poll for results..."
+        "description": "Lists all active {resources} in your Sensible account. A {resource} defines {what it does}. For more information, see [{Guide title}](doc:{slug}).",
+        "tags": ["{Resource name}"],
+        "responses": {
+          "200": {
+            // Response description: noun phrase, NO trailing period.
+            // Pattern for collections: "List of {resources} for {scope}"
+            // Pattern for single items: "The {requested|created|updated} {resource}"
+            "description": "List of {resources} in your Sensible account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/{ResourceOutput}" }
+                },
+                // Inline example on the response when the list shape is the clearest demo.
+                // For complex request bodies, use "examples" (plural) on the requestBody instead.
+                "example": []
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" },
+          // Add 403 only when there is a specific condition that returns it (e.g. missing account alias).
+          // Add 415 when the endpoint requires Content-Type: application/json.
+          "500": { "$ref": "#/components/responses/500" }
+        }
+      },
+
+      // Use POST for create-only (server assigns the ID).
+      // Use PUT on /{resources}/{name} for upsert (client supplies the name). See below.
+      "post": {
+        "operationId": "create-{resource}",
+        "summary": "Create {resource}",
+        "description": "Creates a {resource} with the specified name.",
+        "tags": ["{Resource name}"],
+        "requestBody": {
+          // Always true for POST and PUT.
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/{ResourceInput}" },
+              // Use "example" (singular, inline) for a single representative value.
+              // Use "examples" (plural, named map) when showing multiple distinct cases.
+              "example": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created {resource}",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/{ResourceOutput}" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" },
+          "409": {
+            // Use 409 for create-only endpoints where the resource already exists.
+            // Omit for upsert (PUT) endpoints.
+            "$ref": "#/components/responses/409"
+          },
+          "500": { "$ref": "#/components/responses/500" }
+        }
+      }
+    },
+
+    // Item route: get + upsert + delete by name/ID
+    "/{resources}/{name}": {
+      // Shared parameters go here, not on each operation — avoids repetition.
+      "parameters": [
+        { "$ref": "#/components/parameters/{resourceName}" }
+      ],
+
+      "get": {
+        "operationId": "get-{resource}",
+        "summary": "Get {resource}",
+        "description": "Retrieves a {resource} by name.",
+        "tags": ["{Resource name}"],
+        "responses": {
+          "200": {
+            "description": "The requested {resource}",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/{ResourceOutput}" },
+                "example": {}
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" },
+          // Include 404 on all item routes (get, put, delete).
+          "404": { "$ref": "#/components/responses/404" },
+          "500": { "$ref": "#/components/responses/500" }
+        }
+      },
+
+      // PUT = upsert (create-or-update). Client owns the name; no 409.
+      "put": {
+        "operationId": "upsert-{resource}",
+        "summary": "Create or update {resource}",
+        "description": "Creates a {resource} with the specified name, or updates it if one already exists.",
+        "tags": ["{Resource name}"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/{ResourceInput}" },
+              // Use named "examples" for upsert when create and update cases differ meaningfully.
+              "examples": {
+                "{scenario label}": {
+                  "value": {}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created or updated {resource}",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/{ResourceOutput}" },
+                "example": {}
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" },
+          "404": { "$ref": "#/components/responses/404" },
+          "500": { "$ref": "#/components/responses/500" }
+        }
+      },
+
+      "delete": {
+        "operationId": "delete-{resource}",
+        "summary": "Delete {resource}",
+        "description": "Deletes a {resource}. If no {resource} with the given name exists, Sensible takes no action.",
+        "tags": ["{Resource name}"],
+        "responses": {
+          // DELETE returns 204 — no body. Use the shared $ref, not an inline response.
+          "204": { "description": "{Resource} deleted" },
+          "400": { "$ref": "#/components/responses/400" },
+          "401": { "$ref": "#/components/responses/401" },
+          "404": { "$ref": "#/components/responses/404" },
+          "500": { "$ref": "#/components/responses/500" }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+
+      // Input schema: what the client sends in the request body.
+      // additionalProperties: false — always, to reject unknown fields.
+      // required: [...] — list required fields here, not inline on each property.
+      "{ResourceInput}": {
+        // Schema object descriptions: full sentence, period.
+        "description": "Configuration for a {resource}.",
+        "type": "object",
+        "required": ["{requiredField}"],
+        "additionalProperties": false,
+        "properties": {
+          "{requiredField}": {
+            // Property descriptions: two acceptable forms depending on complexity.
+            //
+            // 1. Full sentence (behavioral fields — controls something, has side effects, needs context):
+            //    Active voice. Lead with "Specifies...", "Controls...", or "Sensible [does X] when..."
+            //    End with a period.
+            //    Example: "Specifies the document type Sensible uses to extract data from the email body."
+            //
+            // 2. Noun phrase (simple/obvious fields — IDs, names, timestamps, counts):
+            //    No trailing period.
+            //    Example: "Unique identifier for the {resource}"
+            //
+            // Never start with "This field..." or "Use this to..."
+            "type": "string",
+            "description": "Specifies the {what it controls}."
+          },
+          "{simpleField}": {
+            "type": "string",
+            // Noun phrase, no period.
+            "description": "Unique identifier for the {resource}"
+          },
+          "{optionalField}": {
+            "type": "string",
+            // For optional fields with a default, state the default explicitly.
+            "description": "Specifies {what it controls}. Defaults to `{default value}`."
+          },
+          // For a property that is a $ref but also needs its own description, use allOf.
+          // Without allOf, you cannot add a description alongside a $ref.
+          "{refWithDescription}": {
+            "description": "Specifies {what it controls}.",
+            "allOf": [{ "$ref": "#/components/schemas/{SharedSchema}" }]
+          },
+          // For a param that exists in the backend but is deliberately not public:
+          // remove the property entirely and add x-internal-note on the parent schema instead.
+          // "x-internal-note": "{fieldName} is accepted by the backend (file:lines) but deliberately not documented publicly."
+        }
+      },
+
+      // Output schema: what the API returns.
+      // No additionalProperties: false — output can evolve without breaking clients.
+      "{ResourceOutput}": {
+        "description": "A {resource} returned by the API.",
+        "type": "object",
+        "required": ["{alwaysPresentField}"],
+        "properties": {
+          "{alwaysPresentField}": {
+            "type": "string",
+            // Noun phrase, no period — short, obvious fields don't need a full sentence.
+            "description": "The {resource}'s unique name in your Sensible account"
+          },
+          "{timestampField}": {
+            "type": "string",
+            // Use format: date-time for ISO 8601 timestamps.
+            "format": "date-time",
+            // Full sentence, period — states what the timestamp represents.
+            "description": "The ISO 8601 timestamp when Sensible created the {resource}."
+          },
+          "{optionalOutputField}": {
+            "type": "string",
+            // Full sentence, period. "if configured" for fields present only when set.
+            "description": "How Sensible {does X}, if configured."
+          }
+        }
+      },
+
+      // Discriminated union: use oneOf + discriminator when a field can be one of several shapes.
+      // The discriminator.propertyName must appear in every variant's required array.
+      "{UnionSchema}": {
+        "description": "{What this union represents.}",
+        "oneOf": [
+          { "$ref": "#/components/schemas/{VariantA}" },
+          { "$ref": "#/components/schemas/{VariantB}" }
+        ],
+        "discriminator": {
+          "propertyName": "kind",
+          "mapping": {
+            "variantA": "#/components/schemas/{VariantA}",
+            "variantB": "#/components/schemas/{VariantB}"
+          }
+        }
+      },
+
+      "{VariantA}": {
+        "description": "{What this variant does.}",
+        "type": "object",
+        "required": ["kind"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["variantA"]
+          }
+        }
+      },
+
+      // Enum values: copy them exactly from the backend source — do not invent or reformat.
+      // The casing is determined by what the code returns, not by style convention.
+      // Status/state enums from the backend are typically ALL CAPS (e.g. WAITING, COMPLETE, FAILED).
+      // Input option enums are typically lowercase (e.g. "llm", "fingerprints", "development").
+      // Always verify against the source (e.g. src/common.ts, handler types) before publishing.
+      "{StatusSchema}": {
+        "type": "string",
+        "enum": ["WAITING", "PROCESSING", "COMPLETE", "FAILED"],
+        "description": "Status of the {resource}:\n- WAITING: {what this means}\n- PROCESSING: {what this means}\n- COMPLETE: {what this means}\n- FAILED: {what this means}"
+      }
+    },
+
+    "parameters": {
+      // Path parameter definition. Reuse via $ref on the path object, not on each operation.
+      "{resourceName}": {
+        "name": "{name}",
+        "in": "path",
+        "required": true,
+        // Parameter descriptions: full sentences, period.
+        // Always include how to find the value: "Find {resources} using the `/{resources}` endpoint."
+        "description": "The {resource} name. Find {resources} using the `/{resources}` endpoint.",
+        "schema": {
+          "type": "string",
+          // Add a pattern when the API enforces a format (e.g. lowercase + underscores).
+          "pattern": "^[a-z0-9_]+$"
+        }
+      }
+    },
+
+    "responses": {
+      // Error responses: verify against the backend source before including any code.
+      // Do NOT assume an endpoint returns 400/401/404/500 — check the handler.
+      // Common patterns observed across Sensible endpoints, but always confirm:
+      // 400: invalid request body or params
+      // 401: missing or invalid API key
+      // 403: specific condition blocks the request (e.g. missing account alias) — not just auth
+      // 404: resource not found — include on all item routes (get/put/delete by ID or name)
+      // 409: duplicate name/ID on create-only endpoints
+      // 415: wrong Content-Type
+      // 429: rate limited
+      // 500: unexpected server error
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Bad Request",
+              "type": "string",
+              // Use a realistic example that reflects an actual error message from the backend.
+              "example": "{Example error message for this resource}"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Not authorized",
+        "content": {
+          "text/plain": {
+            "schema": { "title": "Unauthorized", "type": "string", "example": "Unauthorized" }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "text/plain": {
+            "schema": { "title": "Forbidden", "type": "string", "example": "{Example 403 message}" }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "text/plain": {
+            "schema": { "title": "Not Found", "type": "string" }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflict",
+        "content": {
+          "text/plain": {
+            "schema": { "title": "Conflict", "type": "string", "example": "{Example 409 message}" }
+          }
+        }
+      },
+      "415": {
+        "description": "Unsupported Media Type",
+        "content": {
+          "text/plain": {
+            "schema": { "title": "Unsupported Media Type", "type": "string" }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Sensible encountered an unknown error",
+              "type": "string",
+              "example": "Sensible encountered an unknown error"
+            }
+          }
+        }
+      }
+    },
+
+    "securitySchemes": {
+      // Do not change this block — it is identical across all specs.
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Sensible uses API keys to authenticate requests. Keep your API keys secure and do not share them in publicly accessible areas such as GitHub or client-side code. Authenticate using Bearer Authentication by providing your API key as the bearer token value."
+      }
+    }
+  }
+}

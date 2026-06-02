@@ -1,5 +1,5 @@
 ---
-title: Devops platform
+title: DevOps platform
 excerpt: ''
 deprecated: false
 hidden: false

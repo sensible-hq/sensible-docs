@@ -142,9 +142,15 @@ Key reminders:
 
 ---
 
-## Step 5: Review with user
+## Step 5: Style check, then review with user
 
-Print the full draft. Then, if any entries were modeled on past changelog entries, print a reference list:
+Before presenting the draft, check it for style issues. Use the vale MCP server's `check_text` tool on the full draft content:
+- Fix any **errors** and **warnings** before showing the draft to the user
+- Use your judgment on suggestions — many Google style suggestions (e.g., spell out acronyms) won't apply to a changelog
+
+Then run the Sensible terminology checker: scan the draft against `.claude/style-guide/glossary.md` for violations in the "Avoid" column. Fix any found.
+
+After fixing, print the full draft. If any entries were modeled on past changelog entries, print a reference list:
 
 ```
 **Based on:**

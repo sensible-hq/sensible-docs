@@ -1,0 +1,1594 @@
+{
+  "info": {
+    "_postman_id": "45339059-3fec-4c31-a891-9a12a3e1c22b",
+    "name": "Sensible",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "16839934",
+    "_collection_link": "https://go.postman.co/collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "EXTRACTION",
+      "item": [
+        {
+          "name": "Document",
+          "item": [
+            {
+              "name": "Extract data from document",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {}
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "file",
+                  "file": {
+                    "src": "aEKqpnIMk/1_extract_your_first_data.pdf"
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/extract/{{DOCUMENT_TYPE}}?environment=production",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "extract",
+                    "{{DOCUMENT_TYPE}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Extract doc at Sensible URL",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/generate_upload_url/{{DOCUMENT_TYPE}}?environment=production",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "generate_upload_url",
+                    "{{DOCUMENT_TYPE}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Extract doc at your URL",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"document_url\":\"{{DOCUMENT_URL}}\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/extract_from_url/{{DOCUMENT_TYPE}}?environment=production",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "extract_from_url",
+                    "{{DOCUMENT_TYPE}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Portfolio",
+          "item": [
+            {
+              "name": "Extract portfolio at Sensible URL",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"types\": [\r\n          \"{{DOCUMENT_TYPE}}\"\r\n     ]}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/generate_upload_url?environment=production",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "generate_upload_url"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Extract portfolio at your URL",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"document_url\":\"{{PORTFOLIO_URL}}\",\r\n    \"types\": [\r\n          \"{{DOCUMENT_TYPE}}\"\r\n     ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/extract_from_url?environment=production",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "extract_from_url"
+                  ],
+                  "query": [
+                    {
+                      "key": "environment",
+                      "value": "production"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Retrieve extraction",
+          "item": [
+            {
+              "name": "Retrieve extraction",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/documents/{{EXTRACTION_ID}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "documents",
+                    "{{EXTRACTION_ID}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "List extractions",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/extractions",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "extractions"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z",
+                      "disabled": true
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-30T00:00:00.000Z",
+                      "disabled": true
+                    },
+                    {
+                      "key": "configuration_ids",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "document_type_ids",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "environments",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "statuses",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "continuation_token",
+                      "value": "eyJpZCI6IjRiNTg1Mjc4LWUwOWMtNGJiOS04ODJiLThmYjFhZTA3ZGU3ZiIsInVzZXIiOiJjMDI0Y2QxYy01ZMMzLTRhODItYjJlYS0yYzgwN2U0NDk4OGIiLCJjcmVhdGVkIjoiMjAyNC0wNS0wMVQyMjo11Do1NS43MzMaIn1",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get extraction statistics",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/extractions/statistics?start_date=2020-10-10T00:00:00.000Z&end_date=2023-12-30T00:00:00.000Z",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "extractions",
+                    "statistics"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "2020-10-10T00:00:00.000Z"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2023-12-30T00:00:00.000Z"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get Excel from PDFs",
+          "item": [
+            {
+              "name": "Get Excel extraction",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/generate_excel/{{EXTRACTION_ID}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "generate_excel",
+                    "{{EXTRACTION_ID}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get CSV extraction",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/generate_csv/{{EXTRACTION_ID}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "generate_csv",
+                    "{{EXTRACTION_ID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Review extractions",
+          "item": [
+            {
+              "name": "Get auth token for review",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"grants\": [\r\n        {\r\n            \"route\": \"/documents/{id}\",\r\n            \"method\": \"GET\",\r\n            \"path\": {\r\n                \"id\": {{EXTRACTION_ID}}\r\n            }\r\n        },\r\n        {\r\n            \"route\": \"/extractions/{id}\",\r\n            \"method\": \"PUT\",\r\n            \"path\": {\r\n                \"id\": {{EXTRACTION_ID}}\r\n            }\r\n        }\r\n    ],\r\n    \"expires\": \"2025-01-15T22:14:35.720Z\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/account/auth_tokens",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "account",
+                    "auth_tokens"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CONFIGURATION",
+      "item": [
+        {
+          "name": "Document type",
+          "item": [
+            {
+              "name": "List document types",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get document type",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create document type",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n     \"schema\": {\r\n          \"ocr_engine\": \"microsoft\",\r\n          \"fingerprint_mode\": \"fallback_to_all\"\r\n     },\r\n     \"name\": \"{{DOCUMENT_TYPE}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update document type",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n     \"schema\": {\r\n          \"ocr_engine\": \"google\"\r\n     }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete document type",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Configuration",
+          "item": [
+            {
+              "name": "List configurations",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}/configurations",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}",
+                    "configurations"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get configuration",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}/configurations/{{CONFIG_NAME}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}",
+                    "configurations",
+                    "{{CONFIG_NAME}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create configuration",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n     \"name\": \"{{CONFIG_NAME}}\",\r\n     \"publish_as\": \"development\",\r\n     \"configuration\": \"{ \\t\\\"fingerprint\\\": { \\t\\t\\\"tests\\\": [ \\t\\t\\t\\\"anyco\\\", \\t\\t\\t\\\"quoted coverage changes\\\" \\t\\t] \\t}, \\t\\\"preprocessors\\\": [{ \\t\\t\\\"type\\\": \\\"pageRange\\\", \\t\\t\\\"startPage\\\": 0, \\t\\t\\\"endPage\\\": 2 \\t}], \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}/configurations",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}",
+                    "configurations"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update configuration",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n     \"name\": \"{{CONFIG_NAME}}\",\r\n     \"current_draft\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n     \"configuration\": \"{ \\t\\\"fields\\\": [{ \\t\\t\\\"id\\\": \\\"_driver_name_raw\\\", \\t\\t\\\"anchor\\\": \\\"name of driver\\\", \\t\\t\\\"method\\\": { \\t\\t\\t\\\"id\\\": \\\"label\\\", \\t\\t\\t\\\"position\\\": \\\"below\\\" \\t\\t} \\t}], \\t\\\"computed_fields\\\": [{ \\t\\t\\t\\\"id\\\": \\\"driver_name_last\\\", \\t\\t\\t\\\"method\\\": { \\t\\t\\t\\t\\\"id\\\": \\\"split\\\", \\t\\t\\t\\t\\\"source_id\\\": \\\"_driver_name_raw\\\", \\t\\t\\t\\t\\\"separator\\\": \\\", \\\", \\t\\t\\t\\t\\\"index\\\": 1 \\t\\t\\t} \\t\\t}  \\t] }\\n\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}/configurations",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}",
+                    "configurations"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete configuration",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{API_KEY}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/document_types/{{DOC_TYPE_ID}}/configurations/{{CONFIG_NAME}}",
+                  "host": [
+                    "{{BASE_URL}}"
+                  ],
+                  "path": [
+                    "document_types",
+                    "{{DOC_TYPE_ID}}",
+                    "configurations",
+                    "{{CONFIG_NAME}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "See API reference for more config endpoints",
+          "item": []
+        }
+      ]
+    },
+    {
+      "name": "CLASSIFICATION",
+      "item": [
+        {
+          "name": "Classify document by type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "image/jpeg"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "file",
+              "file": {}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/classify/async?document_types=doc_type1, doc_type2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classify",
+                "async"
+              ],
+              "query": [
+                {
+                  "key": "document_types",
+                  "value": "doc_type1, doc_type2"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "The document type and reference documents in the Sensible account that are most similar to this document.\n",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"document_type\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"score\": \"<number>\"\n  },\n  \"reference_documents\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"classification_summary\": [\n    {\n      \"id\": \"<string>\",\n      \"score\": \"<number>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"score\": \"<number>\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            }
+          ]
+        },
+        {
+          "name": "Classify document by type (sync)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/pdf"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "file",
+              "file": {}
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/classify?document_types=doc_type1, doc_type2",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "classify"
+              ],
+              "query": [
+                {
+                  "key": "document_types",
+                  "value": "doc_type1, doc_type2"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "The document type and reference documents in the Sensible account that are most similar to this document.\n",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"document_type\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"score\": \"<number>\"\n  },\n  \"reference_documents\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"classification_summary\": [\n    {\n      \"id\": \"<string>\",\n      \"score\": \"<number>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"score\": \"<number>\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            },
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "image/jpeg"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "cookie": [],
+              "body": "<string>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "EMAIL PROCESSORS",
+      "item": [
+        {
+          "name": "List email processors",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/processors/email",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "processors",
+                "email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get email processor",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/processors/email/{{PROCESSOR_NAME}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "processors",
+                "email",
+                "{{PROCESSOR_NAME}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create or update email processor",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhooks\": [\n    {\n      \"url\": \"https://your-webhook-url.example.com\"\n    },\n    {\n      \"url\": \"https://your-dev-webhook-url.example.com\",\n      \"environment\": \"development\"\n    }\n  ],\n  \"bodySpec\": {\n    \"kind\": \"doctype\",\n    \"docTypeId\": \"{{DOC_TYPE_ID}}\"\n  },\n  \"attachmentSpecs\": [\n    {\n      \"kind\": \"portfolio\",\n      \"docTypeIds\": [\n        \"{{DOC_TYPE_ID}}\"\n      ],\n      \"ocrEngine\": \"microsoft\",\n      \"segmentDocumentsWith\": \"llm\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/processors/email/{{PROCESSOR_NAME}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "processors",
+                "email",
+                "{{PROCESSOR_NAME}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete email processor",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{API_KEY}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/processors/email/{{PROCESSOR_NAME}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "processors",
+                "email",
+                "{{PROCESSOR_NAME}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{API_KEY}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "https://api.sensible.so/v0",
+      "type": "string"
+    },
+    {
+      "key": "API_KEY",
+      "value": "FILL_IN_YOUR_API_KEY",
+      "type": "string"
+    },
+    {
+      "key": "DOCUMENT_TYPE",
+      "value": "senseml_basics",
+      "type": "string"
+    },
+    {
+      "key": "PORTFOLIO_URL",
+      "value": "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/portfolio.pdf",
+      "type": "string"
+    },
+    {
+      "key": "DOCUMENT_URL",
+      "value": "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/1_extract_your_first_data.pdf",
+      "type": "string"
+    },
+    {
+      "key": "EXTRACTION_ID",
+      "value": "\"EXTRACTION_ID\"",
+      "type": "string"
+    },
+    {
+      "key": "DOC_TYPE_ID",
+      "value": "RETURNED_BY_GET_DOC_TYPES_ENDPOINT",
+      "type": "string"
+    },
+    {
+      "key": "CONFIG_NAME",
+      "value": "1_extract_your_first_data",
+      "type": "string"
+    },
+    {
+      "key": "PROCESSOR_NAME",
+      "value": "my_processor",
+      "type": "string"
+    }
+  ]
+}

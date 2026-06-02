@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Validate extracted data programmatically'
+  description: Validate extracted data programmatically
   robots: index
 next:
   description: ''
@@ -16,7 +16,7 @@ Quality control the data extractions in a document type by writing validations. 
 * If Sensible extracted a field from OCR'd text,  test the confidence score for the field's anchor and value as a measure of the quality of the text images. For example, test that text in a scanned document isn't blurry or illegible.
 * Use validation output to automatically flag extractions for [review](doc:human-review) in the Sensible app. For example, flag a document extraction for [human review](doc:human-review) if 4 out of 5  validations fail.
 
-A validation is a condition for a field or fields written in [JsonLogic](doc:jsonlogic)  that outputs a Boolean and either passes (for `true` output) or fails (for `false` output).  Validations have access to fields' values in the `parsed_document` object. 
+A validation is a condition for a field or fields written in [JsonLogic](doc:jsonlogic)  that outputs a Boolean and either passes (for `true` output) or fails (for `false` output).  Validations have access to fields' values in the `parsed_document` object.
 
 ## Create validations
 
@@ -33,21 +33,21 @@ To create validations in the Sensible app:
 
 A validation has the following parameters:
 
-| id                         | value                              | notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| -------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| description (**required**) | string                             | A description of the test                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| severity (**required**)    | `error`, `warning`, `skipped`      | The severity of the failing test.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| prerequisite fields        | array                              | Use this parameter to generate `skipped` error messages when optional extracted fields are null. For example, if a missing broker's email address doesn't greatly affect the quality of your extraction, then write a condition to verify `broker.email` is properly formatted, but specify \[\`"broker\\\\.email"\`]  in this parameter to skip the verification if the email is null. For an example, see Validation 3 in the Examples section.                                                                                                                      |
-| condition (**required**)   | JsonLogic object                   | Tests an extracted field or fields with a condition that evaluates to true or false. Write the condition using Boolean, logic, numeric, array, string, and other [JsonLogic operations](doc:jsonlogic).                                                                                                                                                                                                                                                                                                                                                                |
-| scope                      | array of section or subsection IDs | To create a validation for a field contained in [sections](doc:sections), specify the field's parent section ID in this parameter. For example, `["section_1"]`. <br/>To validate a field in nested sections, specify the scope in descending order. For example, to validate `field_a` in  `child_section_2`  that has parent `parent_section_1`, specify  `["parent_section_1", "child_section_2"]`  in this parameter. Sensible applies the validation to each instance of `field_a` in each instance of `child_section_2`.<br/>For an example, see  Validations 6. |
+| id                         | value                              | notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| -------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| description (**required**) | string                             | A description of the test                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| severity (**required**)    | `error`, `warning`, `skipped`      | The severity of the failing test.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| prerequisite fields        | array                              | Use this parameter to generate `skipped` error messages when optional extracted fields are null. For example, if a missing broker's email address doesn't greatly affect the quality of your extraction, then write a condition to verify `broker.email` is properly formatted, but specify [`"broker\\.email"`]  in this parameter to skip the verification if the email is null. For an example, see Validation 3 in the Examples section.                                                                                                                             |
+| condition (**required**)   | JsonLogic object                   | Tests an extracted field or fields with a condition that evaluates to true or false. Write the condition using Boolean, logic, numeric, array, string, and other [JsonLogic operations](doc:jsonlogic).                                                                                                                                                                                                                                                                                                                                                                  |
+| scope                      | array of section or subsection IDs | To create a validation for a field contained in [sections](doc:sections), specify the field's parent section ID in this parameter. For example, `["section_1"]`. <br />To validate a field in nested sections, specify the scope in descending order. For example, to validate `field_a` in  `child_section_2`  that has parent `parent_section_1`, specify  `["parent_section_1", "child_section_2"]`  in this parameter. Sensible applies the validation to each instance of `field_a` in each instance of `child_section_2`.<br />For an example, see  Validations 6. |
 
 # Examples
 
-Say that you have a document type for scanned sales quotes, called "sales\_quotes", with configs for
+Say that you have a document type for scanned sales quotes, called "sales_quotes", with configs for
 
-* company\_A
-* company\_B
-* company\_C
+* company_A
+* company_B
+* company_C
 
 You test sales quote extractions from all the companies with the following validations:
 
@@ -119,10 +119,10 @@ You test sales quote extractions from all the companies with the following valid
 
 ## Validation 4
 
-* **Description**:  Broker's email is in string\@string format
+* **Description**:  Broker's email is in string@string format
 * **Severity**: warning
 * **Prerequisite fields**: `["broker\\.email"]`
-* **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`   
+* **Condition**: `{"match":[{"var":"broker\\.email.value"},"^\\S+\\@\\S+$"]}`
 
 **Notes**:  If `broker.email` isn't null, then uses a Sensible operation (`match`) to test that the email matches a regular expression. If `broker.email` is null, skips this condition.
 
@@ -149,7 +149,7 @@ Notes:   Tests that the `zip_code` is a 5-digit number if the `country`  field e
 
 ## Validations output
 
-For example output of the preceding conditions, see the following extraction excerpt and validation output: 
+For example output of the preceding conditions, see the following extraction excerpt and validation output:
 
 **Extraction excerpt**
 
@@ -207,7 +207,7 @@ For the preceding extraction excerpt, Sensible outputs the following validations
 }
 ```
 
-​&#x9;
+	
 
 ## Validation 6
 
@@ -216,16 +216,16 @@ The following example shows how to validate a field in sections.
 * **Description**:  engine spec exists.
 * **Severity**: warning
 * **Condition**: `{"exists":[{"var":"engine"}]}`
-* **Scope** `["car_models","trim_specs"]` 
+* **Scope** `["car_models","trim_specs"]`
 
 **Config**
 
-The following example uses the config from [Table grid example](doc:sections-example-table-grid). 
+The following example uses the config from [Table grid example](doc:sections-example-table-grid).
 
 **Example document**
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/vertical_section_table_grid_fail_scoped_validations.pdf) |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -233,8 +233,22 @@ The output for this example returns nulls for the `engine` field for the `SV tri
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/validation_scoped_1.png)
 
- The two nulls trigger two validation warnings. Each warning reports the location of the null output:
+The two nulls trigger two validation warnings. Each warning reports the location of the null output:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/validation_scoped.png)
 
- For example, in the first failed validation, the `"car_models",0... "trim_specs, 1"`  indices indicate null output for the `engine` field in the `car_model[0]`   (Nissan) section's  `trim_spec[1]` (SV trim) subsection.  The second instance, `"car_models", 1..."trim_specs", 0` indicates a null `engine` output for the `EX trim` subsection.
+For example, in the first failed validation, the `"car_models",0... "trim_specs, 1"`  indices indicate null output for the `engine` field in the `car_model[0]`   (Nissan) section's  `trim_spec[1]` (SV trim) subsection.  The second instance, `"car_models", 1..."trim_specs", 0` indicates a null `engine` output for the `EX trim` subsection.
+
+## Notes
+
+### Alternative for dynamic validations
+
+Use validations for static checks against fixed conditions. To compare extracted data against values that vary per request, for example, figures from an upstream system or context from a prior pipeline step, use the Extra Data method as an alternative:
+
+* Pass the expected values into the API request body using the `extra_data` request body parameter.
+
+* At extraction time, use the Extra Data computed field method to dynamically make the values available to your config.
+
+* Then compare or transform your extracted data to the expected data using logic-based or LLM-based [computed field methods](doc:computed-field-methods).
+
+For more information, see the [Extra Data](doc:extra-data) computed field method.

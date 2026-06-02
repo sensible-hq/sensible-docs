@@ -119,7 +119,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 | key                   | value        | description                                                                                                                                                                     |
 | :-------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | type (**required**)   | `jsonSchema` | Specify the target [JSON schema](https://json-schema.org/learn) into which to transform the existing extracted JSON data TDODO word better                                      |
-| schema (**required**) | Json  object | Define a custom JSON schema for the LLM to transform your existing extracted data.  TODOs -- update w guidance abt what might happen when raw data fails the json schema specs. |
+| schema (**required**) | JSON object | Define a custom JSON schema for the LLM to transform your existing extracted data.  TODOs -- update w guidance abt what might happen when raw data fails the json schema specs. |
 
 # Examples
 

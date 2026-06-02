@@ -19,8 +19,8 @@
     "/document_types": {
       "get": {
         "operationId": "list-document-types",
-        "summary": "List document types for this account",
-        "description": "List all document types for this account.",
+        "summary": "List document types",
+        "description": "Lists all document types in your Sensible account.",
         "tags": [
           "Document type"
         ],

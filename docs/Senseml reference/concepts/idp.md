@@ -37,7 +37,7 @@ A complete IDP system does more than extract data. Sensible covers the full life
 - **Extract** — Run SenseML queries and return structured JSON. Pre-built configs for common business forms are available in Sensible's open-source [configuration library](doc:library-quickstart).
 - **Validate and monitor** — Catch errors with both deterministic and LLM-based validation rules, track extraction coverage and accuracy in production, and route low-confidence extractions to human review. Patterns that surface through review — recurring nulls, systematic misreads — indicate where configs need tuning, closing the feedback loop between production accuracy and config development.
 
-For a detailed breakdown of each stage, see [Devops platform](doc:devops-platform).
+For a detailed breakdown of each stage, see [DevOps platform](doc:devops-platform).
 
 ## Developer-first design
 

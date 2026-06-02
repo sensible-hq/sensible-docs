@@ -1,0 +1,678 @@
+{
+  "openapi": "3.0.3",
+  "servers": [
+    {
+      "url": "https://api.sensible.so/v0",
+      "description": "Production server (uses live data)"
+    }
+  ],
+  "info": {
+    "title": "Email processors",
+    "version": "0.0.1",
+    "description": "Sensible API for managing email processors.",
+    "license": {
+      "name": "Sensible API",
+      "url": "https://www.TBD.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Email processor",
+      "description": "Create and manage email processors. For a step-by-step guide, see [Getting started with email extraction](doc:getting-started-email).\n\nAn email processor defines how Sensible extracts data from emails sent to a dedicated Sensible email address. Each processor specifies the document types to extract from the email body and attachments, and the webhooks that receive extraction results. When you send an email to the processor's address, Sensible automatically runs extraction and delivers results to your webhooks.\n\n**Email address format**\n\nEach processor has a production address and a development address.\n\n| Environment | Address format |\n|---|---|\n| Production | `{processor_name}.{account_alias}@{domain}` |\n| Development | `development.{processor_name}.{account_alias}@{domain}` |\n\nFind a processor's email addresses by clicking the processor in the **Email processors** tab of the Sensible app.\n\nThe development address is generated automatically for every processor. Sensible extracts emails sent to the development address using configurations published to the `development` environment, not production.\n\nTo receive development extraction results at a separate webhook, add an `EnvironmentWebhook` with `\"environment\": \"development\"` as the second element of the `webhooks` array."
+    }
+  ],
+  "paths": {
+    "/processors/email": {
+      "get": {
+        "operationId": "list-email-processors",
+        "summary": "List email processors",
+        "description": "Lists all active email processors in your Sensible account. An email processor defines how Sensible extracts data from emails sent to a dedicated address. For more information, see [Getting started with email extraction](doc:getting-started-email).",
+        "tags": [
+          "Email processor"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of active email processors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EmailProcessorOutput"
+                  }
+                },
+                "example": [
+                  {
+                    "name": "rental_applications",
+                    "created": "2026-04-12T14:23:11.000Z",
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
+                    },
+                    "attachmentSpecs": [
+                      {
+                        "kind": "classification",
+                        "docTypeIds": [
+                          "2b3c4d5e-6f7a-8901-b2c3-d4e5f6789012",
+                          "3c4d5e6f-7a8b-9012-c3d4-e5f678901234"
+                        ]
+                      }
+                    ],
+                    "webhooks": [
+                      { "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                      { "url": "https://your-webhook-endpoint.example.com/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
+                    ]
+                  },
+                  {
+                    "name": "short_term_loan_docs",
+                    "created": "2026-04-18T09:45:32.000Z",
+                    "attachmentSpecs": [
+                      {
+                        "kind": "portfolio",
+                        "docTypeIds": [
+                          "4d5e6f7a-8b9c-0123-d4e5-f67890123456",
+                          "5e6f7a8b-9c0d-1234-e5f6-789012345678",
+                          "6f7a8b9c-0d1e-2345-f6a7-890123456789"
+                        ],
+                        "segmentDocumentsWith": "llm"
+                      }
+                    ],
+                    "webhooks": [
+                      { "url": "https://your-webhook-endpoint.example.com/b4c5d6e7-f8a9-0123-bcde-456789012345" },
+                      { "url": "https://your-webhook-endpoint.example.com/c6d7e8f9-a0b1-2345-cdef-678901234567", "environment": "development" }
+                    ]
+                  },
+                  {
+                    "name": "vendor_invoices",
+                    "created": "2026-04-25T16:08:57.000Z",
+                    "attachmentSpecs": [
+                      {
+                        "kind": "doctype",
+                        "docTypeId": "7a8b9c0d-1e2f-3456-a7b8-901234567890"
+                      }
+                    ],
+                    "webhooks": [
+                      { "url": "https://your-webhook-endpoint.example.com/d8e9f0a1-b2c3-4567-def0-890123456789" },
+                      { "url": "https://your-webhook-endpoint.example.com/e0f1a2b3-c4d5-6789-ef01-234567890123", "environment": "development" }
+                    ]
+                  },
+                  {
+                    "name": "employee_onboarding",
+                    "created": "2026-05-01T11:30:44.000Z",
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "8b9c0d1e-2f3a-4567-b8c9-012345678901"
+                    },
+                    "webhooks": [
+                      { "url": "https://your-webhook-endpoint.example.com/f2a3b4c5-d6e7-8901-f012-456789012345" },
+                      { "url": "https://your-webhook-endpoint.example.com/a4b5c6d7-e8f9-0123-0123-678901234567", "environment": "development" }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/processors/email/{name}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/processorName"
+        }
+      ],
+      "get": {
+        "operationId": "get-email-processor",
+        "summary": "Get email processor",
+        "description": "Retrieves an email processor by name.",
+        "tags": [
+          "Email processor"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested email processor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailProcessorOutput"
+                },
+                "example": {
+                  "name": "rental_applications",
+                  "created": "2026-04-12T14:23:11.000Z",
+                  "bodySpec": {
+                    "kind": "doctype",
+                    "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
+                  },
+                  "attachmentSpecs": [
+                    {
+                      "kind": "classification",
+                      "docTypeIds": [
+                        "2b3c4d5e-6f7a-8901-b2c3-d4e5f6789012",
+                        "3c4d5e6f-7a8b-9012-c3d4-e5f678901234"
+                      ]
+                    }
+                  ],
+                  "webhooks": [
+                    { "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                    { "url": "https://your-webhook-endpoint.example.com/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "put": {
+        "operationId": "upsert-email-processor",
+        "summary": "Create or update email processor",
+        "description": "Creates an email processor with the specified name, or updates it if one already exists. Specify the document types Sensible extracts from the email body and attachments, and the webhooks that receive extraction results.\n\nWhen updating an existing processor, you can replace any combination of `webhooks`, `bodySpec`, and `attachmentSpecs`. The URL path sets the processor name and you cannot change it after creation. To rename a processor, delete it and create a new one under the desired name.\n\nAfter you create a processor, send emails to the processor's email address to trigger extraction. Find a processor's email addresses by clicking the processor in the **Email processors** tab of the Sensible app. To route emails to the [development-environment](doc:environments) webhook instead, use the `development.` prefix on the processor's email address: `development.{email_address}`. For more information, see [Getting started with email extraction](doc:getting-started-email).",
+        "tags": [
+          "Email processor"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailProcessorInput"
+              },
+              "examples": {
+                "bodySpec with attachments": {
+                  "value": {
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
+                    },
+                    "attachmentSpecs": [
+                      {
+                        "kind": "doctype",
+                        "docTypeId": "7a8b9c0d-1e2f-3456-a7b8-901234567890"
+                      }
+                    ],
+                    "webhooks": [
+                      {
+                        "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab"
+                      }
+                    ]
+                  }
+                },
+                "portfolio attachment": {
+                  "value": {
+                    "attachmentSpecs": [
+                      {
+                        "kind": "portfolio",
+                        "docTypeIds": [
+                          "4d5e6f7a-8b9c-0123-d4e5-f67890123456",
+                          "5e6f7a8b-9c0d-1234-e5f6-789012345678"
+                        ],
+                        "segmentDocumentsWith": "llm"
+                      }
+                    ],
+                    "webhooks": [
+                      {
+                        "url": "https://your-webhook-endpoint.example.com/b4c5d6e7-f8a9-0123-bcde-456789012345"
+                      }
+                    ]
+                  }
+                },
+                "development webhook override": {
+                  "value": {
+                    "bodySpec": {
+                      "kind": "doctype",
+                      "docTypeId": "8b9c0d1e-2f3a-4567-b8c9-012345678901"
+                    },
+                    "webhooks": [
+                      {
+                        "url": "https://your-webhook-endpoint.example.com/f2a3b4c5-d6e7-8901-f012-456789012345"
+                      },
+                      {
+                        "url": "https://your-webhook-endpoint.example.com/a4b5c6d7-e8f9-0123-0123-678901234567",
+                        "environment": "development"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created or updated email processor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailProcessorOutput"
+                },
+                "example": {
+                  "name": "rental_applications",
+                  "created": "2026-04-12T14:23:11.000Z",
+                  "bodySpec": {
+                    "kind": "doctype",
+                    "docTypeId": "1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890"
+                  },
+                  "attachmentSpecs": [
+                    {
+                      "kind": "classification",
+                      "docTypeIds": [
+                        "2b3c4d5e-6f7a-8901-b2c3-d4e5f6789012",
+                        "3c4d5e6f-7a8b-9012-c3d4-e5f678901234"
+                      ]
+                    }
+                  ],
+                  "webhooks": [
+                    { "url": "https://your-webhook-endpoint.example.com/f3a2b1c4-d5e6-7890-abcd-1234567890ab" },
+                    { "url": "https://your-webhook-endpoint.example.com/a1b2c3d4-e5f6-7890-1234-abcdef567890", "environment": "development" }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete-email-processor",
+        "summary": "Delete email processor",
+        "description": "Deletes an email processor. If no processor with the given name exists, Sensible takes no action.",
+        "tags": [
+          "Email processor"
+        ],
+        "responses": {
+          "204": {
+            "description": "Processor deleted"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EmailProcessorInput": {
+        "description": "Configuration for an email processor. You must specify at least one of `bodySpec` or `attachmentSpecs`.",
+        "type": "object",
+        "required": [
+          "webhooks"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "webhooks": {
+            "description": "Sensible sends extraction output to these webhooks for each email it processes. Webhooks are required because source email metadata (the sender address, subject line, message ID, and recipient list) is only available in the webhook payload. You can view extracted field values through the Sensible app and API, but you cannot identify the source email for an extraction without the webhook's email metadata.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WebhookList"
+              }
+            ]
+          },
+          "bodySpec": {
+            "description": "Specifies the document type Sensible uses to extract data from the email body. Sensible always treats the email body as a single document type.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SingleDocTypeSpec"
+              }
+            ]
+          },
+          "attachmentSpecs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "description": "Specifies how Sensible uses the listed document types to extract data from email attachments. Provide exactly one element. Use `doctype` to extract data using a single document type, `classification` to let Sensible pick the best-matching type, or `portfolio` to treat each attachment as a multi-document file and classify each document in the portfolio using the listed document types. Omit if you only need to extract from the email body.",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentSpec"
+            }
+          }
+        }
+      },
+      "EmailProcessorOutput": {
+        "description": "An email processor returned by the API.",
+        "type": "object",
+        "required": [
+          "name",
+          "created",
+          "webhooks"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The processor's unique name in your Sensible account"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The ISO 8601 timestamp when Sensible created the processor."
+          },
+          "webhooks": {
+            "$ref": "#/components/schemas/WebhookList"
+          },
+          "bodySpec": {
+            "description": "How Sensible extracts data from the email body, if configured.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SingleDocTypeSpec"
+              }
+            ]
+          },
+          "attachmentSpecs": {
+            "type": "array",
+            "maxItems": 1,
+            "description": "How Sensible extracts data from email attachments, if configured. Contains at most one element.",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentSpec"
+            }
+          }
+        }
+      },
+      "WebhookList": {
+        "type": "array",
+        "minItems": 1,
+        "x-internal-note": "OAS 3.0.3 cannot enforce positional constraints in arrays, so schema validators will not catch violations of the first-element-must-be-Webhook rule.",
+        "description": "Array of webhooks that receive extraction results for an email processor. The first element is a production `Webhook`, a URL with no `environment` field. Optional additional elements are `EnvironmentWebhook` objects that route results to a different URL for a specific environment. Source email metadata (the sender address, subject line, message ID, and recipient list) is only available in the webhook payload. You can view extracted field values through the Sensible app and API, but you cannot identify the source email for an extraction without the webhook's email metadata.",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/Webhook"
+            },
+            {
+              "$ref": "#/components/schemas/EnvironmentWebhook"
+            }
+          ]
+        }
+      },
+      "Webhook": {
+        "description": "The default webhook. Sensible extracts using configs published to the production [environment](doc:environments) and sends results to this URL. To use development configs and route results to a different URL, add an `EnvironmentWebhook` as an additional element.",
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL Sensible posts extraction output to.",
+            "example": "https://your-webhook-endpoint.example.com/b9dad6da-5902-43d8-bca9-423347f000f0"
+          }
+        }
+      },
+      "EnvironmentWebhook": {
+        "description": "An environment-scoped webhook. Sensible sends extraction output to this URL when the extraction environment matches `environment`.",
+        "type": "object",
+        "required": [
+          "url",
+          "environment"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL Sensible posts extraction output to.",
+            "example": "https://your-webhook-endpoint.example.com/dev-b9dad6da-5902-43d8-bca9-423347f000f0"
+          },
+          "environment": {
+            "type": "string",
+            "enum": ["development"],
+            "description": "The environment this webhook applies to. Currently, `\"development\"` is the only supported value.",
+            "example": "development"
+          }
+        }
+      },
+      "AttachmentSpec": {
+        "description": "Defines how Sensible handles email attachments. Use `kind` to specify whether Sensible extracts data from attachments using a single document type, classifies across multiple types, or treats each attachment as a portfolio.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SingleDocTypeSpec"
+          },
+          {
+            "$ref": "#/components/schemas/ClassificationSpec"
+          },
+          {
+            "$ref": "#/components/schemas/PortfolioSpec"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "kind",
+          "mapping": {
+            "doctype": "#/components/schemas/SingleDocTypeSpec",
+            "classification": "#/components/schemas/ClassificationSpec",
+            "portfolio": "#/components/schemas/PortfolioSpec"
+          }
+        }
+      },
+      "SingleDocTypeSpec": {
+        "description": "Extracts data using a single document type.",
+        "type": "object",
+        "required": [
+          "kind",
+          "docTypeId"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "doctype"
+            ]
+          },
+          "docTypeId": {
+            "type": "string",
+            "description": "The ID of the document type Sensible uses to extract data.",
+            "example": "37674511-20cd-49a2-87dc-8e8b070ff43a"
+          }
+        }
+      },
+      "ClassificationSpec": {
+        "description": "Classifies the attachment across multiple document types before extracting.",
+        "type": "object",
+        "required": [
+          "kind",
+          "docTypeIds"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "classification"
+            ]
+          },
+          "docTypeIds": {
+            "type": "array",
+            "minItems": 1,
+            "description": "The IDs of the document types Sensible uses to classify each attachment.",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "37674511-20cd-49a2-87dc-8e8b070ff43a"
+            ]
+          }
+        }
+      },
+      "PortfolioSpec": {
+        "description": "Treats each attachment as a [portfolio](doc:portfolio) (a single file containing multiple documents). Sensible automatically segments each document by its page range in the file, and classifies each document in each file using all the document types you specify. If you expect a mix of portfolio and single-document files, specify to process them all as portfolio files. **Note:** This setting can add extra processing time for single-document files.",
+        "type": "object",
+        "x-internal-note": "ocrEngine and ocrEveryPage are accepted by the backend (src/api/processors/email/schemas.ts) but deliberately not documented publicly.",
+        "required": [
+          "kind",
+          "docTypeIds"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "portfolio"
+            ]
+          },
+          "docTypeIds": {
+            "type": "array",
+            "minItems": 1,
+            "description": "The IDs of the document types Sensible uses to extract data from each document in the portfolio.",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "37674511-20cd-49a2-87dc-8e8b070ff43a"
+            ]
+          },
+          "segmentDocumentsWith": {
+            "type": "string",
+            "enum": [
+              "llm",
+              "fingerprints"
+            ],
+            "description": "The segmentation method Sensible uses to split the portfolio into documents. For more information, see [portfolio](doc:portfolio).",
+            "example": "llm"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "processorName": {
+        "name": "name",
+        "in": "path",
+        "required": true,
+        "description": "The processor name. Must consist of lowercase letters, numbers, and underscores.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Bad Request",
+              "type": "string",
+              "example": "Invalid processor name. Must consist of lowercase letters, numbers, and underscores."
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Not authorized",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Unauthorized",
+              "type": "string",
+              "example": "Unauthorized"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Forbidden",
+              "type": "string",
+              "example": "This endpoint requires at least one active account alias."
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Not Found",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "415": {
+        "description": "Unsupported Media Type",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Unsupported Media Type",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Sensible encountered an unknown error",
+              "type": "string",
+              "example": "Sensible encountered an unknown error"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Sensible uses API keys to authenticate requests. Keep your API keys secure and do not share them in publicly accessible areas such as GitHub or client-side code. Authenticate using Bearer Authentication by providing your API key as the bearer token value."
+      }
+    }
+  }
+}

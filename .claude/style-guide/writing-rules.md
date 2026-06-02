@@ -24,7 +24,16 @@ Avoid passive constructions that obscure the actor:
 - Avoid: "when Anthropic is configured as the provider"
 - Prefer: "when you configure Anthropic as the provider"
 - Avoid: "documents are classified against the specified types"
-- Prefer: "Sensible classifies documents against the specified types"
+- Prefer: "Sensible classifies documents using the specified types"
+
+---
+
+## Extraction and classification phrasing
+
+Do not use "against" to describe extraction or classification. Use "using" instead.
+
+- Avoid: "extracts against a document type", "classifies the document against the specified types"
+- Prefer: "extracts data using a document type", "classifies the document using the specified types"
 
 ---
 

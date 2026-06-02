@@ -70,7 +70,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExtractionSingleResponse"
+                  "$ref": "#/components/schemas/ExtractionSyncResponse"
                 }
               }
             },
@@ -238,7 +238,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExtractionSingleResponse"
+                  "$ref": "#/components/schemas/ExtractionSyncResponse"
                 }
               }
             },
@@ -400,6 +400,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/generate-upload-url/handler.ts:67-76) but deliberately not documented publicly.",
                 "properties": {
                   "webhook": {
                     "$ref": "#/components/schemas/Webhook"
@@ -409,6 +410,9 @@
                   },
                   "segment_documents_with": {
                     "$ref": "#/components/schemas/SegmentDocumentsWith"
+                  },
+                  "extra_data": {
+                    "$ref": "#/components/schemas/ExtraDataRecord"
                   }
                 },
                 "required": [
@@ -468,6 +472,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/extract-from-url/handler.ts:62-68) but deliberately not documented publicly.",
                 "properties": {
                   "document_url": {
                     "$ref": "#/components/schemas/DocumentUrl"
@@ -480,6 +485,9 @@
                   },
                   "webhook": {
                     "$ref": "#/components/schemas/Webhook"
+                  },
+                  "extra_data": {
+                    "$ref": "#/components/schemas/ExtraDataRecord"
                   }
                 },
                 "required": [
@@ -1176,6 +1184,24 @@
       }
     },
     "schemas": {
+      "ExtraDataRecord": {
+        "type": "object",
+        "description": "Extra data in the form of flat key/value pairs you attach to an asynchronous extraction endpoint request, for example, `{\"applicant_id\": \"A-123\", \"expected_premium\": 1250.00}`. Use this parameter to bring request-time context into a config's output so validations, postprocessors, and computed field methods can read it. For example, use it to validate extraction data against a dynamic external record. Has the following constraints: \n- Doesn't support synchronous extractions \n- Doesn't support nested objects and arrays \n- Values must be strings, numbers, booleans, or null \n- Extra data has a maximum size of 16 kB \n- Extra data isn't subject to custom data retention policies. Don't include sensitive information in it. \n\n Sensible persists the extra data and echoes it in responses and webhook deliveries. When you submit a [portfolio](doc:portfolio) extraction with extra data, Sensible passes the same object to every document extracted from the portfolio. For more information, see the [Extra Data](doc:extra-data) method.",
+        "additionalProperties": {
+          "oneOf": [
+            { "type": "string", "nullable": true },
+            { "type": "number" },
+            { "type": "boolean" }
+          ]
+        },
+        "example": {
+          "applicant_id": "A-123",
+          "tenant": "acme",
+          "premium_member": true,
+          "year": 2025,
+          "prior_decision": null
+        }
+      },
       "AuthTokenResponse": {
         "type": "object",
         "description": "Contains the extraction ID and authorization token you can use to compose the \"magic link\" for the reviewer.",
@@ -1304,11 +1330,11 @@
       },
       "ReviewStatuses": {
         "type": "string",
+        "nullable": true,
         "enum": [
           "NEEDS_REVIEW",
           "APPROVED",
           null,
-          "APPROVED",
           "REJECTED"
         ],
         "example": "NEEDS_REVIEW",
@@ -1339,7 +1365,7 @@
         "example": "DEVELOPMENT",
         "type": "string"
       },
-      "ExtractionSingleResponse": {
+      "ExtractionSyncResponse": {
         "type": "object",
         "properties": {
           "id": {
@@ -1497,7 +1523,7 @@
       "SingleExtractionSummaryResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ExtractionResponseBase"
+            "$ref": "#/components/schemas/ExtractionSummaryBase"
           }
         ],
         "properties": {
@@ -1518,7 +1544,7 @@
       "MultiExtractionSummaryResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ExtractionResponseBase"
+            "$ref": "#/components/schemas/ExtractionSummaryBase"
           }
         ],
         "properties": {
@@ -1536,13 +1562,16 @@
       "ExtractionSingleRetrievalResponse": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ExtractionSingleResponse"
+            "$ref": "#/components/schemas/ExtractionSyncResponse"
           },
           {
             "type": "object",
             "properties": {
               "download_url": {
                 "$ref": "#/components/schemas/DownloadUrlDocument"
+              },
+              "extra_data": {
+                "$ref": "#/components/schemas/ExtraDataRecord"
               }
             }
           }
@@ -1592,6 +1621,9 @@
           },
           "reviewStatuses": {
             "$ref": "#/components/schemas/ReviewStatuses"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
           },
           "documents": {
             "type": "array",
@@ -1724,6 +1756,9 @@
           },
           "content_type": {
             "$ref": "#/components/schemas/ContentTypeResponse"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
           }
         }
       },
@@ -1783,7 +1818,7 @@
           }
         ]
       },
-      "ExtractionResponseBase": {
+      "ExtractionSummaryBase": {
         "type": "object",
         "properties": {
           "id": {
@@ -1906,6 +1941,9 @@
           },
           "content_type": {
             "$ref": "#/components/schemas/ContentTypeParameter"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
           }
         }
       },
@@ -1920,6 +1958,9 @@
           },
           "content_type": {
             "$ref": "#/components/schemas/ContentTypeParameter"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
           }
         },
         "required": [
@@ -2322,14 +2363,14 @@
       },
       "DocumentTypeNames": {
         "type": "array",
-        "description": "Specifies the document types contained in the portfolio.",
-        "items": {
-          "type": "string",
-          "example": [
+        "description": "Specifies the document types contained in the PDF portfolio.",
+        "example": [
             "tax_returns",
             "bank_statements",
             "credit_reports"
-          ]
+          ],
+        "items": {
+          "type": "string"
         }
       },
       "SegmentDocumentsWith": {
