@@ -12,7 +12,7 @@ metadata:
 next:
   description: ''
 ---
-Use Sensible to "classify" documents in the following ways:
+Sensible "classifies" documents in the following meanings of the word:
 
 1. Classify a document by its similarity to high-level document types you define in your Sensible account. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. You can classify a document by type without extracting document data using the Sensible API's [Classify](reference:classify-document)  endpoint.
 
