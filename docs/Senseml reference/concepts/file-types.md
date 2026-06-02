@@ -46,7 +46,7 @@ Sensible supports the following file types.
 
 3. As alternatives to these Table methods, use the Fixed Table method or the List method.
 
-4. Most JPEG or PNG files are single-document files. For the edge case where a JPEG or PNG is a portfolio file, Sensible extracts from the first document it identifies in the portfolio.
+4. Most JPEG or PNG files are single-document files. For the edge case in which a JPEG or PNG is a portfolio file, Sensible extracts from the first document it identifies in the portfolio.
 
 ## File sizes
 
