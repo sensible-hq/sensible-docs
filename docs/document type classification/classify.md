@@ -14,19 +14,21 @@ next:
 ---
 Sensible "classifies" documents in the following senses:
 
-1. Classify a document by its similarity to high-level document types you define in your Sensible account. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. You can classify a document by type without extracting document data using the Sensible API's [Classify](reference:classify-document)  endpoint.
+1. When you extract data from a single document , you "classify" the document by specifying its high-level document type, for example `1040s` or `pay_stubs`. Sensible then automatically classifies the document by its subtype, or "config", in the document type, for example, the `1040s_2018` version or the `1040_20`  version of a `1040s` document. For more information, see [DevOps platform](doc:devops-platform).
 
-2. Classify a document by its low-level subtype during a single-document extraction workflow. By default, Sensible performs this step automatically for all extraction workflows.  For example, classify a document as a `1040_2018` or `1040_2019` subtype (or "config"). For more information, see [DevOps platform](doc:devops-platform).
-
-3. Classify each document by its high-level type during a multi-document extraction workflow.  Sensible performs this step automatically. For example:
-   1. Classify, or "segment", each document in a multi-document file (a "portfolio").  For example, for a `loan_application_bundle.pdf` document containing  a  `pay_stubs`  document, a `1040` document, and a `bank_statements`  document, you can classify, or segment, each document by its page range in the file, and return its extracted data separately. For more information, see [Multi-document extractions](doc:portfolio).
+2. When you extract data from multiple documents in a single request, you specify a list of possible document types, and Sensible "classifies" both high-level document types and subtypes automatically. For example:
+   1. Classify, or "segment", each document in a multi-document file (a "portfolio").  For example, for a `loan_application_bundle.pdf` document containing  a  `pay_stubs`  document, a `1040` document, and a `bank_statements`  document, you can classify, or segment, each document by its page range in the file, and return its extracted data separately.  You can configure LLM- or fingerprint-based segmentation. For more information, see [Multi-document extractions](doc:portfolio).
    2. Classify each attached document in an email by document type, then return each document's extracted data separately. For more information, see [Getting started with email extraction](doc:getting-started-email)
+
+3. Classify a document by its low-level subtype during a single-document extraction workflow. By default, Sensible performs this step automatically for all extraction workflows.  For example, classify a document as a `1040_2018` or `1040_2019` subtype (or "config"). 
+
+4. Independent of extraction workflows, you can use the Sensible API to classify a document by its similarity to high-level document types you define in your Sensible account. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. For more information, see the Sensible API's [Classify](reference:classify-document)  endpoint.
 
 <br />
 
 ## Classifying by document type
 
-This topic covers classifying a document by its high-level type.
+This topic covers classifying a document by its high-level type using the Sensible API independent from extraction workflows.
 
 Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types in your account:
 
