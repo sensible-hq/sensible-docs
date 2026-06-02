@@ -24,7 +24,7 @@ Sensible "classifies" documents in the following senses:
 
 ## Classification endpoints
 
-This topic covers classifying a document by its high-level type using the Sensible API independent from extraction workflows.
+This topic covers classifying a document by its high-level type using the Sensible API, independent from extraction workflows.
 
 Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types in your account:
 
