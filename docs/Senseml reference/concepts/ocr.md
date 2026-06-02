@@ -20,7 +20,7 @@ For advanced cases, you can configure how Sensible OCRs documents using the foll
 | [OCR preprocessor](doc:ocr-preprocessor) | configs          | Use this option to OCR specified pages or page ranges in a document.                                     |
 | [OCR Engine](doc:ocr-engine) parameter   | document types   | Use this option to choose your OCR provider, for example, Amazon, Google, or Microsoft.                  |
 
-For an overview of how Sensible handles OCR for different supported [file type](doc:file-types), see the following steps:
+For an overview of how Sensible handles OCR for supported [file type](doc:file-types), see the following steps:
 
 1. Sensible converts several file types to PDFs. 
 
