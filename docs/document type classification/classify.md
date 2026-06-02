@@ -30,19 +30,19 @@ Sensible "classifies" documents in the following senses:
       A --> C["2 · Multi-doc request"]
       A --> D["3 · Classify-only API"]
 
-      B --> B1["You specify document type\n(e.g. 1040s)"]
-      B1 --> B2["Sensible auto-classifies subtype / config\n(e.g. 1040s_2018)"]
+      B --> B1["You specify document type (e.g. 1040s)"]
+      B1 --> B2["Sensible auto-classifies subtype / config (e.g. 1040s_2018)"]
       B2 --> B3[Extract data]
 
       C --> C1["You specify list of possible document types"]
-      C1 --> C2["2a · Portfolio\n(multi-doc PDF)"]
+      C1 --> C2["2a · Portfolio (multi-doc PDF)"]
       C1 --> C3["2b · Email attachments"]
-      C2 --> C2a["Sensible segments each doc by page range,\nauto-classifies type + subtype,\nreturns each doc's data
+      C2 --> C2a["Sensible segments each doc by page range,auto-classifies type + subtype,returns each doc's data
   separately"]
-      C3 --> C3a["Sensible classifies each attachment\nby type + subtype,\nreturns each doc's data separately"]
+      C3 --> C3a["Sensible classifies each attachment by type + subtype, returns each doc's data separately"]
 
-      D --> D1["No extraction — classify only\nSensible scores doc similarity\nagainst your defined types"]
-      D1 --> D2["Returns document type\n(e.g. 1040s or pay_stubs)"]
+      D --> D1["No extraction. Sensible scores doc similarity against your defined types"]
+      D1 --> D2["Returns document type (e.g. 1040s or pay_stubs)"]
 ```
 
 The following sections cover using the Sensible API to classify a document by its high-level type.
