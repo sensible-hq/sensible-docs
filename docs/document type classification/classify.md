@@ -26,7 +26,7 @@ Sensible "classifies" documents in the following senses:
 
 ```mermaid
  flowchart TD
-      A([Sensible classification]) --> B["1 · Single-doc extraction"]
+      A([Classification]) --> B["1 · Single-doc extraction"]
       A --> C["2 · Multi-doc request"]
       A --> D["3 · Classify-only API"]
 
