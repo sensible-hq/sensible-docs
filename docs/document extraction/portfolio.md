@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Sensible supports extracting multiple documents from a single file (a "portfolio"). For example, for a portfolio PDF file containing two invoices, a 1040 tax document, and a contract, Sensible can segment each document by its page range in the file, and return its extracted data separately. 
+Sensible supports extracting multiple documents from a single file (a "portfolio"). For example, for a portfolio file containing two invoices, a 1040 tax document, and a contract, Sensible can segment each document by its page range in the file, and return its extracted data separately. For a list of supported portfolio file types, see [Supported file types](doc:file-types).
 
 Sensible recommends extracting each document in a portfolio using its own document type, so you can write [validations](doc:validate-extractions)  for each type. For example, use an "income tax" doc type and an "invoice" doc type for the portfolio file in the previous example, rather than creating a "combined\_tax\_and\_invoice" doc type.
 
