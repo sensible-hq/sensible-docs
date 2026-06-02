@@ -37,9 +37,8 @@ Sensible "classifies" documents in the following senses:
       C --> C1["You specify list of possible document types"]
       C1 --> C2["2a · Portfolio (multi-doc PDF)"]
       C1 --> C3["2b · Email attachments"]
-      C2 --> C2a["Sensible segments each doc by page range,auto-classifies type + subtype,returns each doc's data
-  separately"]
-      C3 --> C3a["Sensible classifies each attachment by type + subtype, returns each doc's data separately"]
+      C2 --> C2a["Sensible segments each doc by page range, classifies type + subtype,returns each doc's data"]
+      C3 --> C3a["Sensible classifies each attachment by type + subtype, returns each doc's data"]
 
       D --> D1["No extraction. Sensible scores doc similarity against your defined types"]
       D1 --> D2["Returns document type (e.g. 1040s or pay_stubs)"]
