@@ -1,6 +1,6 @@
 ---
-title: Supported file types
-excerpt: ''
+title: draft Supported file types
+excerpt: internal reference of testing process
 deprecated: false
 hidden: true
 metadata:
