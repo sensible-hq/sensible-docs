@@ -41,8 +41,8 @@ To optionally improve classification results, describe each document type in you
 
 ## Use cases for classification endpoints
 
-Use cases for the Classify endpoints include:
+Use cases for the Classify endpoints include the following examples:
 
 * Prior to an extraction workflow: Determine which documents to extract prior to calling a Sensible extraction endpoint.
 
-* Independent from an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
+* Independent from an extraction workflow: Determine where to route each document or to label each document in a system of record.
