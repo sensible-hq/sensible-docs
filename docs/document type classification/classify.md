@@ -24,9 +24,7 @@ Sensible "classifies" documents in the following senses:
 
 4. Independent of extraction workflows, you can use the Sensible API to classify a document by its similarity to high-level document types you define in your Sensible account. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. For more information, see the Sensible API's [Classify](reference:classify-document)  endpoint.
 
-<br />
-
-## Classifying by document type
+## Classification endoints
 
 This topic covers classifying a document by its high-level type using the Sensible API independent from extraction workflows.
 
