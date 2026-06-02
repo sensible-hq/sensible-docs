@@ -36,10 +36,10 @@ Sensible classifies a document by comparing it to the types you define in your a
 
 Sensible uses a document type's name and its description for LLM-based classification:
 
+* Sensible can classify documents into your document types even if the document type is empty (lacks a config or reference document). For example, if you lack a  `citibank` config or reference document in your `bank_statements` type, Sensible can still classify a  `2023-1-1_citbank_statement_jon_doe.pdf` document as a bank statement.
 * If Sensible doesn't find an existing document type to which to match your document in your account, it returns an error.
-* Sensible can classify documents into your document types even if the document type lacks a config or reference document. For example, if you lack a  `citibank` config or reference document in your `bank_statements` type, Sensible can still classify a  `2023-1-1_citbank_statement_jon_doe.pdf` document as a bank statement.
 
-To improve classification results, describe each document type in your account in its **Settings** tab. For examples of descriptions, see [Document type descriptions](doc:descriptions).  By default, Sensible classifies a document using all the types you define in your account. You can optionally define a subset of document types for classifying a document.
+To optionally improve classification results, describe each document type in your account in its **Settings** tab. For examples of descriptions, see [Document type descriptions](doc:descriptions).  By default, Sensible classifies a document using all the types you define in your account. You can optionally define a subset of document types for classifying a document.
 
 ## Use cases for classification endpoints
 
