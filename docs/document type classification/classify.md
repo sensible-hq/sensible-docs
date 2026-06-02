@@ -41,8 +41,8 @@ To optionally improve classification results, describe each document type in you
 
 ## Use cases for classification endpoints
 
-You can use Sensible's API to classify documents for your use cases, for example:
+Use cases for the Classify endpoints include:
 
-* Prior to an extraction workflow. Determine which documents to extract prior to calling a Sensible extraction endpoint.
+* Prior to an extraction workflow: Determine which documents to extract prior to calling a Sensible extraction endpoint.
 
 * Independent from an extraction workflow. For example, determine where to route each document or to label each document in a system of record.
