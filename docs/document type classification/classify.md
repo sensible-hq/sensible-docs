@@ -44,9 +44,9 @@ Sensible "classifies" documents in the following senses:
       D1 --> D2["Returns document type (e.g. 1040s or pay_stubs)"]
 ```
 
-The following sections cover using the Sensible API to classify a document by its high-level type.
+The following sections cover using the Sensible API's Classify endpoints to return a document's high-level type.
 
-## Classification endpoints
+## Classify endpoints
 
 Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types in your account:
 
