@@ -14,11 +14,14 @@ next:
 ---
 Use Sensible to "classify" documents in the following ways:
 
-1. Classify a document by its similarity to high-level document types you define in your Sensible account. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. You can classify a document by type without extracting document data using the Sensible API's [Classify](reference:classify-document)  endpoint.  When you extract data from a single document, you manually specify the document type. When you extract data from multiple documents bundled together, you specify multiple possible document types, and Sensible automatically classifies documents by those specified type in the following circumstances: TODO: this list coudl be hard to maintain ... and could use a mermaid diagram for all of them maybe...
-   1.  attached documents in an email by type 
-   2.  Classify, or "segment", a document in a multi-document file (a "portfolio").  For example, for a `loan_application_bundle.pdf` document containing  a  `pay_stubs`  document, a `1040` document, and a `bank_statements`  document, you can segment each document by its page range in the file, and return its extracted data separately.
+1. Classify a document by its similarity to high-level document types you define in your Sensible account. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. You can classify a document by type without extracting document data using the Sensible API's [Classify](reference:classify-document)  endpoint.  
 
-2. Classify a document by its subtype during the extraction workflow. By default, Sensible performs this step automatically.  For example, classify a document as a `1040_2018` or `1040_2019` subtype (or "config"). For more information, see [DevOps platform](doc:devops-platform).
+2. Classify a document by its subtype during a single-document extraction workflow. By default, Sensible performs this step automatically.  For example, classify a document as a `1040_2018` or `1040_2019` subtype (or "config"). For more information, see [DevOps platform](doc:devops-platform).
+
+3. Classify a document by its high-level type during a multi-document extraction workflow.  Sensible performs this step automatically. For example, TODO rework
+   1. When you extract data from a single document, you manually specify the document type. When you extract data from multiple documents bundled together, you specify multiple possible document types, and Sensible automatically classifies documents by those specified type in the following circumstances: TODO: this list coudl be hard to maintain ... and could use a mermaid diagram for all of them maybe...
+      1. attached documents in an email by type
+      2. Classify, or "segment", a document in a multi-document file (a "portfolio").  For example, for a `loan_application_bundle.pdf` document containing  a  `pay_stubs`  document, a `1040` document, and a `bank_statements`  document, you can segment each document by its page range in the file, and return its extracted data separately.
 
 <br />
 
