@@ -20,7 +20,7 @@ Sensible "classifies" documents in the following senses:
    1. Sensible classifies, or "segments", each document in a multi-document file, or "portfolio".  For example, for a `loan_application_bundle.pdf` document containing  a  `pay_stubs`  document, a `1040` document, and a `bank_statements`  document, you can segment, each document by its page range in the file, and return its extracted data separately.  You can configure LLM- or fingerprint-based segmentation. For more information, see [Multi-document extractions](doc:portfolio).
    2. Classify each attached document in an email by document type, then return each document's extracted data separately. For more information, see [Getting started with email extraction](doc:getting-started-email).
 
-3. You can use the Sensible API to classify a document by its similarity to high-level document types you define in your Sensible account, without making an extraction request. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. For more information, see the Sensible API's [Classify](reference:classify-document)  endpoint.
+3. You can use the Sensible API to classify a document by its similarity to high-level document types you define in your Sensible account, without making an extraction request. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. For more information, see the Sensible API's [Classify](reference:classify-document)  endpoints.
 
 <br />
 
