@@ -20,6 +20,8 @@ Use Sensible to "classify" documents in the following ways:
 
 3. Classify, or "segment", a document in a multi-document file (a "portfolio").  For example, for a `loan_application_bundle.pdf` document containing  a  `pay_stubs`  document, a `1040` document, and a `bank_statements`  document, you can segment each document by its page range in the file, and return its extracted data separately.
 
+4.  Classify email attachments.
+
 ## Classifying by document type
 
 This topic covers classifying a document by its high-level type.
