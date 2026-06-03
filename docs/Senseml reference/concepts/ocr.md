@@ -20,13 +20,13 @@ For advanced cases, you can configure how Sensible OCRs documents using the foll
 | [OCR preprocessor](doc:ocr-preprocessor) | configs          | Use this option to OCR specified pages or page ranges in a document.                                     |
 | [OCR Engine](doc:ocr-engine) parameter   | document types   | Use this option to choose your OCR provider, for example, Amazon, Google, or Microsoft.                  |
 
-For an overview of how Sensible handles OCR for supported [file type](doc:file-types), see the following steps:
+For an overview of how Sensible handles OCR for supported file types, see the following steps:
 
-1. Sensible converts several file types to PDFs. 
+1. Sensible converts several file types to PDFs. For more information, see supported [file types](doc:file-types#file-conversions).
 
 2. For some file types that contain embedded text (for example, digital PDFs), Sensible extracts the text directly. If it completes this step, it skips the following steps.
 
-3. Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:
+3. For file types that lack embedded text, Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:
 
    * If the file type is an image (for example, PNG), Sensible runs OCR for the whole document, as specified by the document type's OCR Engine parameter.
 
