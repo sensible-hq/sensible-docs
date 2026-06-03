@@ -57,7 +57,7 @@ Sensible supports the following file sizes:
 | Portfolio extraction            | n/a                                               | 6 GB                              |
 | Classification                  | 4.5 MB                                            | 4.5 MB                            |
 
-## Notes
+## File conversions
 
 * **Word documents**: Sensible converts the document to PDF before processing it.
 * **Email bodies**: Sensible converts the body to PDF before processing it.
