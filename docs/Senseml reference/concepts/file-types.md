@@ -43,7 +43,7 @@ For more information, see the following tables.
 | TIFF                       | ❌                                                    | ❌                                                   | ✅                                   |
 
 
-1. Most JPEG or PNG files are single-document files, so if you make a [portfolio](doc:portfolio) extraction request, Sensible returns a single-document extraction. For the edge case in which a JPEG or PNG is a portfolio file, Sensible returns a single-document extraction from the first document it identifies in the portfolio.
+1. If you're processing portfolios and expect a mix of image- and non-image files, then you can process single-page image files as portfolios. Sensible returns the first document it identifies in the image file.
 2. Methods that render non-text image pixels include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
 3. As alternatives to these Table methods, use the Fixed Table method or the List method.
 

@@ -212,9 +212,9 @@ To receive extracted email data, you have the following options:
 In the preceding steps, you configured the necessary prerequisites for an _email processor_ that can handle lease applications. Create the email processor in the **Email processors** tab of the Sensible app, or through the [API](reference:upsert-email-processor). Provide the following configuration:
 
 * the name of the email processor, for example, `residential_lease_applications`.
-* for the body document type, specify the`email_body_lease_applications` you created in previous steps.
+* for the body document type, specify the `email_body_lease_applications` you created in previous steps.
 * for the attachment document types, specify the remaining document types you created in previous steps  (`driver_license`, `pay_stubs`, `bank_statements`, `1040s`, `leases`).
-* indicate whether you expect the attachments to include any multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
+* indicate whether you expect the attachments to include multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
 * the URL of each webhook you implemented.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_tab.png)
