@@ -298,7 +298,33 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/400"
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "title": "Bad Request",
+                  "type": "string",
+                  "example": "Invalid processor name. Must consist of lowercase letters, numbers, and underscores."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["message", "errors"],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This request contains errors"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "example": ["doc type '37674511-20cd-49a2-87dc-8e8b070ff43a' not found"]
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -541,6 +567,11 @@
             "example": [
               "37674511-20cd-49a2-87dc-8e8b070ff43a"
             ]
+          },
+          "fallback": {
+            "type": "string",
+            "description": "Optional. The document type ID Sensible uses to extract the attachment when classification matches none of the types in `docTypeIds`. If omitted, an unclassifiable attachment fails with \"no match found for document\".",
+            "example": "37674511-20cd-49a2-87dc-8e8b070ff43a"
           }
         }
       },
