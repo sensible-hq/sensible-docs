@@ -544,6 +544,7 @@
       },
       "ClassificationSpec": {
         "description": "Classifies the attachment across multiple document types before extracting.",
+        "x-internal-note": "The API also accepts an optional `fallback` (string, doc type ID). Sensible uses it to extract the attachment when classification matches none of the types in `docTypeIds`; without it, an unclassifiable attachment fails with \"no match found for document\". Not documented publicly because it is not exposed in the frontend UI.",
         "type": "object",
         "required": [
           "kind",
@@ -567,12 +568,6 @@
             "example": [
               "37674511-20cd-49a2-87dc-8e8b070ff43a"
             ]
-          },
-          "fallback": {
-            "x-internal-note": "fallback is available in the API but not in the frontend UI",
-            "type": "string",
-            "description": "Optional. The document type ID Sensible uses to extract the attachment when classification matches none of the types in `docTypeIds`. If omitted, an unclassifiable attachment fails with \"no match found for document\".",
-            "example": "37674511-20cd-49a2-87dc-8e8b070ff43a"
           }
         }
       },
