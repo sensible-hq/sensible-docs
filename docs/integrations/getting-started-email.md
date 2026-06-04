@@ -16,7 +16,7 @@ You can automatically extract structured data from email bodies and attachments 
 
 The following image shows an overview of  email extraction:
 
-<br />
+
 
 ```mermaid
 flowchart TD
@@ -30,24 +30,25 @@ flowchart TD
 To implement this workflow, take the following general steps:
 
 * **Determine email filters**
-  1. Determine a set of similar emails from which you want to extract data. For example, you're in PropTech and you want to extract data from residential lease applications.
+  - Determine a set of similar emails from which you want to extract data. For example, you're in PropTech and you want to extract data from residential lease applications.
 
-  2. Determine email filtering criteria for the set of emails. In a succeeding step,  use the filters to automatically forward these emails to a Sensible email address.
+  - Determine email filtering criteria for the set of emails. In a succeeding step,  use the filters to automatically forward these emails to a Sensible email address.
 
 * **Configure data extraction**
-  1. In the Sensible app, define a [document type](doc:document-type-settings) for each email attachment in the lease application emails from which you want to extract data. You can optionally define a document type for the email body. In this example, the lease application emails include  `driverse_licenses`, `paystubs`, `leases`, `email_body_lease_applications`, and other document types.
+  - In the Sensible app, define a [document type](doc:document-type-settings) for each email attachment in the lease application emails from which you want to extract data. You can optionally define a document type for the email body. In this example, the lease application emails include  `driverse_licenses`, `paystubs`, `leases`, `email_body_lease_applications`, and other document types.
 
 * **(Optional) Configure data destination**
-  1. Define webhooks to receive the extracted data. You can also view the extracted data in the Sensible app, but you can trace the email source only through the webhook.
-
+  
+  - Define webhooks to receive the extracted data. You can also view the extracted data in the Sensible app, but you can trace the email source only through the webhook.
+  
 * **Create email processor**
-  1. When you've completed the preceding steps, create an _email processor_ in the Sensible app on the **Email processors** tab or with the API, then contact Sensible to activate it. An email processor contains the specified document types, webhook URLs, and forwarding email aliases. You can then start forwarding emails to the processor and receive extracted data.
+  - When you've completed the preceding steps, create an _email processor_ in the Sensible app on the **Email processors** tab or with the API. An email processor contains document types, webhook URLs, and forwarding email aliases. You can then start forwarding emails to the processor and receive extracted data.
 
 * **(Optional) Send a test email**
-  1. Download sample documents and send a test email to view an example extraction.
+  - Download sample documents and send a test email to view an example extraction.
 
 * **(Optional) Test in development**
-  1. Make changes to your extraction configs and test in a development environment before going into production.
+  - Make changes to your extraction configs and test in a development environment before going into production.
 
 See the following sections for a detailed example of implementing the preceding general steps.
 
@@ -66,11 +67,11 @@ The following image shows an example email:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_sample.png)
 
-You'll create a `residential_lease_applications` email processor to handle emails like this one.
+In the following steps, you'll create a `residential_lease_applications` email processor to handle emails like this one.
 
 ## Determine email filters
 
-1. Determine your filtering criteria for forwarding Sensible Property lease applications. For example, you filter by emails addressed to `applications@sensibleproperty.com`. In a later step, you'll create the Sensible address to which to forward these email to automatically extract data from them.
+Determine your filtering criteria for forwarding Sensible Property lease applications. For example, you filter by emails addressed to `rental_applications@sensibleproperty.com`. In a later step, you'll create the Sensible address to which to forward these emails.
 
 ## Configure data classification and extraction
 
@@ -131,7 +132,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
       }
       ```
 
-      <br />
+      
 
 2. (Optional) Create a document type for **lease application email bodies**:
 
@@ -177,7 +178,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
 
 ### How it works: email processors and document types
 
-Your `residential_lease_applications` email processor uses the document types you configured in previous steps for classification and extraction:
+An email processor uses document types for classification and extraction:
 
 1. The email processor [classifies](doc:classify) each attachment against the document types you specify for the email processor:
    1. If you specify to process all attachments as [portfolio](doc:portfolio) files, Sensible automatically segments each document by its page range in the file, and classifies each document in each file against all the document types you specify.
@@ -209,7 +210,7 @@ To receive extracted email data, you have the following options:
 
 ## Create email processor
 
-In the preceding steps, you configured the necessary prerequisites for an _email processor_ that can handle lease applications. Create the email processor in the **Email processors** tab of the Sensible app, or through the [API](reference:upsert-email-processor). Provide the following configuration:
+In the preceding steps, you configured the necessary prerequisites for an email processor that can extract data from lease applications. Create the email processor in the **Email processors** tab of the Sensible app, or through the [API](reference:upsert-email-processor). Provide the following configuration:
 
 * the name of the email processor, for example, `residential_lease_applications`.
 * for the body document type, specify the `email_body_lease_applications` you created in previous steps.
@@ -219,11 +220,13 @@ In the preceding steps, you configured the necessary prerequisites for an _email
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_tab.png)
 
-After creating the email processor, find its incoming email address by clicking the processor in the **Email processors** tab in the Sensible app, for example, `residential_lease_applications.abc_xyz@app.sensible.so`. Forward your lease application emails to this address to automatically trigger data extraction. For example,  configure your email filter to forward lease applications received by  `applications@sensibleproperty.com` to `residential_lease_applications.abc_xyz@app.sensible.so`.
+After creating the email processor, find its incoming email address(es) by clicking the processor in the **Email processors** tab in the Sensible app, for example, `residential_lease_applications.abc_xyz@app.sensible.so`. 
+
+Forward your lease application emails to this address to automatically trigger data extraction. For example,  configure your email filter to forward lease applications received by  `rental_applications@sensibleproperty.com` to `residential_lease_applications.abc_xyz@app.sensible.so`.
 
 ## (Optional) send a test email
 
-Send a test email with attachments to the processor you created. You can download example documents from the following locations:
+Send a test email with attachments to the email processor you created in preceding steps. You can download example documents from the following locations:
 
 | document                                                             | link                                                                                                                         |
 | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -296,7 +299,7 @@ For example, say you make the following change in your config in the `email_body
 
 To test the change in the development environment:
 
-1. Publish the config to the development environment
+1. Publish the config to the development environment.
 2. Add the `development` environment prefix to the forward address, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment.  Through the Sensible app or Sensible API, you can associate a new webhook with this development email address.
 
 Now lease applications that you forward to `development.residential_lease_applications.abc_xyz@app.sensible.so` use the configs you published to development, and push their results to a separate webhook. 
