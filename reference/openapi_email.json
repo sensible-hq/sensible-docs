@@ -298,7 +298,33 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/400"
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "title": "Bad Request",
+                  "type": "string",
+                  "example": "Invalid processor name. Must consist of lowercase letters, numbers, and underscores."
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["message", "errors"],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This request contains errors"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "example": ["doc type '37674511-20cd-49a2-87dc-8e8b070ff43a' not found"]
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -518,6 +544,7 @@
       },
       "ClassificationSpec": {
         "description": "Classifies the attachment across multiple document types before extracting.",
+        "x-internal-note": "The API also accepts an optional `fallback` (string, doc type ID). Sensible uses it to extract the attachment when classification matches none of the types in `docTypeIds`; without it, an unclassifiable attachment fails with \"no match found for document\". Not documented publicly because it is not exposed in the frontend UI.",
         "type": "object",
         "required": [
           "kind",
