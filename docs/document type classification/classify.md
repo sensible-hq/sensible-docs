@@ -6,7 +6,7 @@ hidden: false
 metadata:
   title: ''
   description: >-
-    Automatically classify documents by type, for example, 'bank statment' or
+    Automatically classify documents by type, for example, 'bank statement' or
     'driver's license
   robots: index
 next:
@@ -14,41 +14,39 @@ next:
 ---
 Sensible "classifies" documents in the following senses:
 
-1. When you extract data from a single document, you classify the document by specifying one of the high-level document types you defined in your account, for example `1040s` or `pay_stubs`. Sensible then automatically classifies the document by its subtype, or "config", in the document type, for example, the `1040s_2018` version or the `1040_20`  version of a `1040s` document. For more information, see [DevOps platform](doc:devops-platform).
-
-2. When you extract data from multiple documents in a single request, you specify a list of possible document types, and Sensible classifies both high-level document types and subtypes automatically. For example:
+1. You can use the Sensible API to classify a document by its similarity to high-level document types you define in your Sensible account, without making an extraction request. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. For more information, see the following  sections.
+2. When you extract data from a single document, you classify the document by specifying one of the high-level document types you defined in your account, for example `1040s` or `pay_stubs`. Sensible then automatically classifies the document by its subtype, or "config", in the document type, for example, the `1040s_2018` version or the `1040_20`  version of a `1040s` document. For more information, see [DevOps platform](doc:devops-platform).
+3. When you extract data from multiple documents in a single request, you specify a list of possible document types, and Sensible classifies both high-level document types and subtypes automatically. For example:
    1. Sensible classifies, or "segments", each document in a multi-document file, or "portfolio".  For example, for a `loan_application_bundle.pdf` document containing a  `pay_stubs`  document, a `1040` document, and a `bank_statements`  document, you can segment each document by its page range in the file, and return its extracted data separately.  You can configure LLM- or fingerprint-based segmentation. For more information, see [Multi-document extractions](doc:portfolio).
    2. Classify each attached document in an email by document type, then return each document's extracted data separately. For more information, see [Getting started with email extraction](doc:getting-started-email).
 
-3. You can use the Sensible API to classify a document by its similarity to high-level document types you define in your Sensible account, without making an extraction request. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. For more information, see the Sensible API's [Classify](reference:classify-document)  endpoints.
 
-<br />
 
 ```mermaid
- flowchart TD
-      A([Classification]) --> B["1 · Single-doc extraction"]
-      A --> C["2 · Multi-doc request"]
-      A --> D["3 · Classify-only API"]
+  flowchart TD
+        A([Classification]) --> D["Classify-only API"]
+        A --> B["Single-doc extraction"]
+        A --> C["Multi-doc request"]
 
-      B --> B1["You specify document type (e.g. 1040s)"]
-      B1 --> B2["Sensible auto-classifies subtype / config (e.g. 1040s_2018)"]
-      B2 --> B3[Extract data]
+        D --> D1["No extraction. Sensible scores doc similarity against your defined types"]
+        D1 --> D2["Returns document type (e.g. 1040s or pay_stubs)"]
 
-      C --> C1["You specify list of possible document types"]
-      C1 --> C2["2a · Portfolio (multi-doc PDF)"]
-      C1 --> C3["2b · Email attachments"]
-      C2 --> C2a["Sensible segments each doc by page range, classifies type + subtype,returns each doc's data"]
-      C3 --> C3a["Sensible classifies each attachment by type + subtype, returns each doc's data"]
+        B --> B1["You specify document type (e.g. 1040s)"]
+        B1 --> B2["Sensible auto-classifies subtype / config (e.g. 1040s_2018)"]
+        B2 --> B3[Extract data]
 
-      D --> D1["No extraction. Sensible scores doc similarity against your defined types"]
-      D1 --> D2["Returns document type (e.g. 1040s or pay_stubs)"]
+        C --> C1["You specify list of possible document types"]
+        C1 --> C2["Portfolio (multi-doc file)"]
+        C1 --> C3["Email attachments"]
+        C2 --> C2a["Sensible segments each doc by page range, classifies type + subtype,returns each doc's data"]
+        C3 --> C3a["Sensible classifies each attachment by type + subtype, returns each doc's data"]
 ```
 
 The following sections cover using the Sensible API's Classify endpoints to return a document's high-level type.
 
 ## Classify endpoints
 
-Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types in your account:
+When you call Sensible's [Classify](reference:classify-document)  API endpoints, Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types in your account:
 
 * a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements) type
 
