@@ -536,6 +536,8 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
 
 **Example document**
 
+The following image shows the example document used with this example config:
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/split_lines_range.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/split_lines_range.pdf) |
