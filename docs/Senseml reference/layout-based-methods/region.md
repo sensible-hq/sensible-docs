@@ -44,11 +44,11 @@ In general, use this method:
       "method": {
         "id": "region", /* extracts lines contained in a defined rectangular region */
         "start": "below", /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
-        "offsetX": 0.00, /* horizontally shifts the region's top-left corner from the Start parameter by specified number of inches. positive: right, negative: left */
-        "offsetY": 0.00, /* vertically shifts the region's top-left corner from the Start parameter by the specified number of inches. positive: down, negative: up */
+        "offsetX": 0.00, /* horizontally shifts the region's top-left corner specifed in the Start parameter by specified number of inches. positive: right, negative: left */
+        "offsetY": 0.00, /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
         "width": 0.00, /* width of the region in inches */
         "height": 0.00, /* height of the region in inches */
-        "isAbsoluteOffset": false /* default: false. if true, offsets are relative to the top-left of the page, not the Start parameter */
+        "isAbsoluteOffset": false /* default: false. if true, offsets are relative to the top-left of the page, not to the Start parameter */
       }
     }
 ```

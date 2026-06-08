@@ -99,8 +99,8 @@ See the following table for details about the Range object parameters:
           "text": "date of claim"
         },
         "requireStop": false, /* default: false. if true, sections end at the stop match, even if an anchor match precedes the stop match. Configure this to avoid prematurely ending each section if multiple anchor matches occur in a section */
-        "offsetY": 0.0, /* default: 0. shift each section's top boundary in inches from anchor match. positive: down, negative: up */
-        "stopOffsetY": 0.0, /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
+        "offsetY": 0, /* default: 0. shift each section's top boundary in inches from anchor match. positive: down, negative: up */
+        "stopOffsetY": 0, /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
         "tolerance": 0.08, /* default: 0.08. gap between sections' boundaries in inches; adjust for unusual font sizes */
         "externalRange": { /* advanced. horizontal sections only. makes text outside the section group accessible as anchors for Intersection method fields */
           "anchor": "claim contents", /* text marking the start of the external range */
@@ -108,7 +108,7 @@ See the following table for details about the Range object parameters:
           "anchorIsAbsolute": true /* default: false. true: one static external range. false: dynamic external ranges relative to each section */
         }
       },
-      "fields": [ /* fields to extract from each section */
+      "fields": [ /* array of fields to extract from each section. can include computed fields */
         {
           "id": "claim_number",
           "anchor": "claim number:",
@@ -118,7 +118,6 @@ See the following table for details about the Range object parameters:
           }
         }
       ],
-      "computed_fields": [], /* optional. computed fields with access to each section's extracted fields */
       "sections": [] /* optional. nested sections for complex repeating elements inside each section */
     }
   ]

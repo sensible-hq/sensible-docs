@@ -38,9 +38,9 @@ Matches all lines to the left or right of the anchor line.
       "anchor": "some text"      /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
       "method": {
         "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
-        "position": "left", /* target data is to left of data. enums: left | right. default: right */
+        "position": "right", /* default: right. target data is to left or right of data. enums: left | right. */
         "tiebreaker":  "second" /*  extract the line in the second non-empty cell to the left of the anchor. default: returns all cells. for more information about this global method, see Method topic */
-        "tolerance": 0.1 /* number in inches. default: 0.08. Configure for unusual font sizes. By default, each matching line in the "row" must have a top boundary that's within 0.08 inches below or above the anchor's top boundary (total range is 0.16" inches).  */
+        "tolerance": 0.1 /* default: 0.08. number in inches. Configure for unusual font sizes. By default, each matching line in the "row" must have a top boundary that's within 0.08 inches below or above the anchor's top boundary (total range is 0.16" inches).  */
       }
     }
 
