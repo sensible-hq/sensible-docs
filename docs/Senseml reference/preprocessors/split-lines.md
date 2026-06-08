@@ -120,8 +120,8 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
        merging length labels (10 in, 10.5 in, etc) into one line, causing 
        the Nearest Checkbox method to fail.
        However, if you apply the Split Lines preprocessor to the entire document,
-       Sensible oversplits other sections. Avoid this by targeting only the overmerged sections 
-       using the Range parameter
+       Sensible oversplits other sections. Avoid this by targeting only the overmerged 
+       sections using the Range parameter
        (to observe oversplitting, sub "match": ""
        for the "range" param in each Split Lines preprocessor */
 
