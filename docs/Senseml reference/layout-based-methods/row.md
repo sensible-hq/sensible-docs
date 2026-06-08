@@ -30,6 +30,23 @@ Matches all lines to the left or right of the anchor line.
 | tiebreaker        | For information about this global parameter, see [Method](doc:method#parameters). | For information about this global parameter, see [Method](doc:method#parameters).                                                                                                                                                                                                                                                                                                                                                                                   |
 | tolerance         | number in inches. default: 0.08                                                   | Configure this for unusual font sizes. By default, each matching line in the "row" must have a top boundary that's within 0.08 inches below or above the anchor's top boundary (total range is 0.16" inches). The default tolerance of 0.08 works well for font sizes around 12 pts (\~0.17 inches).  Configure this default when the font size of the row is unusual.  For example, if your font size is a tiny 1.44 pt (0.02 inches), set this parameter to 0.01. |
 
+## Syntax example
+
+```json
+    {
+      "id": "field1", /* user-friendly ID for extracted target data */
+      "anchor": "some text"      /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
+      "method": {
+        "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
+        "position": "left", /* target data is to left of data. enums: left | right. default: right */
+        "tiebreaker":  "second" /*  extract the line in the second non-empty cell to the left of the anchor. default: returns all cells. for more information about this global method, see Method topic */
+        "tolerance": 0.1 /* number in inches. default: 0.08. Configure for unusual font sizes. By default, each matching line in the "row" must have a top boundary that's within 0.08 inches below or above the anchor's top boundary (total range is 0.16" inches).  */
+      }
+    }
+
+```
+
+
 # Examples
 
 The following example shows  extracting data from two consecutive tables using the Row method:
@@ -43,42 +60,43 @@ The following example shows  extracting data from two consecutive tables using t
 {
   "fields": [
     {
-      "id": "number_1_language_on_github",
-      "anchor": {
-        "match": [
+      "id": "number_1_language_on_github", /* user-friendly ID for extracted target data */
+      "anchor": { /* an anchor is text that always occurs in the same position relative to your target data.  */
+        "match": [ /* array of Match objects. Sensible matches the last element
+                      if each element matches a successive line in the document */
           {
-            "text": "most popular on github",
-            "type": "includes"
+            "text": "most popular on github", /* string to match */
+            "type": "includes" /* match anywhere in line. */
           },
           {
-            "text": "first",
-            "type": "startsWith"
+            "text": "first", /* string to match */
+            "type": "startsWith" /* line must start with the match */
           }
         ]
       },
       "method": {
-        "id": "row",
-        "position": "left",
+        "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
+        "position": "left", /* target data is to left of anchor. */
       }
     },
     {
-      "id": "python_change_in_TIBOE_rating",
-      "type": "percentage",
-      "anchor": {
-        "match": [
+      "id": "python_change_in_TIBOE_rating", /* user-friendly ID for extracted target data */
+      "type": "percentage", /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "anchor": { /* an anchor is text that always occurs in the same position relative  */
+        "match": [ /* array of Match objects. Sensible matches the last element if each element matches a successive line in the document */
           {
-            "text": "popular in search engines",
-            "type": "includes"
+            "text": "popular in search engines", /* string to match */
+            "type": "includes" /* match anywhere in line. */
           },
           {
-            "text": "Python",
-            "type": "startsWith"
+            "text": "Python", /* string to match */
+            "type": "startsWith" /* line must start with the match */
           }
         ]
       },
       "method": {
-        "id": "row",
-        "tiebreaker": 1
+        "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
+        "tiebreaker": 1 /* extract the line in the first non-empty cell to the right of the anchor. */
       }
     }
   ]

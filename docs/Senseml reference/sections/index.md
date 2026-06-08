@@ -66,6 +66,104 @@ See the following table for details about the Range object parameters:
 | minColumnGap          | number in inches. default: 0                                                                                                                                                                                                                                    | not supported                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Configures column recognition by specifying the smallest allowed width of the gutters separating the columns. For an example, see [Table grid example](doc:sections-example-table-grid). Use when text in a column contains large whitespace gaps that cause Sensible to mistakenly split one column into two. To avoid this split, set a minimum gap that's larger than the gaps inside the column. The default (0) specifies that zero-width vertical lines define the column boundaries.                                                                                                               |
 | lineFilters           | Match object, or array of Match objects                                                                                                                                                                                                                         | not supported                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Use to ignore lines that span columns and break column recognition. For example, if the lines occur mid-column, use this parameter rather than a Stop parameter to exclude the lines. Sensible excludes the lines both from the output and from the SenseML search scope.<br/>You don't need to configure this parameter if you specify a Stop parameter. For more information, see [Section nuances](doc:section-nuances#vertical-sections).                                                                                                                                                             |
 
+## Syntax examples
+
+**Horizontal sections:**
+
+```json
+{
+  "fields": [
+    {
+      "id": "claims_sections", /* ID for the extracted array of sections */
+      "type": "sections", /* extracts repeating sections; returns each section as an object */
+      "display": true, /* default: true. show section start/end brackets in Sensible app for troubleshooting */
+      "requiredFields": ["claim_number"], /* optional. field IDs that must be non-null for Sensible to return a section */
+      "range": {
+        "direction": "horizontal", /* default: horizontal. enums: horizontal | vertical */
+        "anchor": { /* required. defines which lines start each section. optionally defines which lines stop each section. optionally scopes the section group */
+          "start": { /* optional. ignore document content before this line */
+            "text": "September",
+            "type": "startsWith"
+          },
+          "match": { /* required. repeated text marking the start of each section */
+            "type": "includes",
+            "text": "claim number"
+          },
+          "end": { /* optional. stop looking for sections after this line */
+            "text": "November",
+            "type": "startsWith"
+          }
+        },
+        "stop": { /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
+          "type": "includes",
+          "text": "date of claim"
+        },
+        "requireStop": false, /* default: false. if true, sections end at the stop match, even if an anchor match precedes the stop match. Configure this to avoid prematurely ending each section if multiple anchor matches occur in a section */
+        "offsetY": 0.0, /* default: 0. shift each section's top boundary in inches from anchor match. positive: down, negative: up */
+        "stopOffsetY": 0.0, /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
+        "tolerance": 0.08, /* default: 0.08. gap between sections' boundaries in inches; adjust for unusual font sizes */
+        "externalRange": { /* advanced. horizontal sections only. makes text outside the section group accessible as anchors for Intersection method fields */
+          "anchor": "claim contents", /* text marking the start of the external range */
+          "stop": "unprocessed claims", /* text marking the end of the external range */
+          "anchorIsAbsolute": true /* default: false. true: one static external range. false: dynamic external ranges relative to each section */
+        }
+      },
+      "fields": [ /* fields to extract from each section */
+        {
+          "id": "claim_number",
+          "anchor": "claim number:",
+          "method": {
+            "id": "label",
+            "position": "right"
+          }
+        }
+      ],
+      "computed_fields": [], /* optional. computed fields with access to each section's extracted fields */
+      "sections": [] /* optional. nested sections for complex repeating elements inside each section */
+    }
+  ]
+}
+```
+
+**Vertical sections:**
+
+```json
+{
+  "fields": [
+    {
+      "id": "nutrition_table", /* ID for the extracted array of sections */
+      "type": "sections", /* extracts repeating sections; returns each section as an object */
+      "range": {
+        "direction": "vertical", /* extracts columnar sections scanning left-to-right */
+        "anchor": { /* required. match specifies the horizontal line defining all columns' shared top boundary */
+          "match": {
+            "text": "Nutrition",
+            "type": "equals"
+          }
+        },
+        "stop": "protein", /* optional. text of the horizontal line defining all columns' shared bottom boundary */
+        "offsetY": -0.3, /* default: 0. shift the columns' shared top boundary in inches from anchor match. positive: down, negative: up */
+        "stopOffsetY": 0.0, /* default: 0. shift the columns' shared bottom boundary in inches from stop line. positive: down, negative: up */
+        "columnSelection": [[1, -2]], /* default: all columns. specifies which columns are sections; unselected columns are appended to each section */
+        "minColumnGap": 0, /* default: 0. minimum column gap in inches; increase if whitespace inside a column is mistaken for a column boundary */
+        "ignoredColumns": [0], /* optional. remove these column indices from output and from the SenseML search scope */
+        "lineFilters": { /* optional. ignore lines spanning multiple columns that would break column recognition */
+          "type": "includes",
+          "text": "subtotal"
+        }
+      },
+      "fields": [ /* fields to extract from each vertical section */
+        {
+          "id": "fruit_name",
+          "anchor": { "match": { "text": "nutrition", "type": "equals" } },
+          "method": { "id": "row", "tiebreaker": "first" }
+        }
+      ]
+    }
+  ]
+}
+```
+
 # Examples
 
 See the following topics: 

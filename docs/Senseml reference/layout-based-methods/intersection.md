@@ -34,6 +34,27 @@ For example, the Intersection method is an alternative to the Row method when a 
 | percentOverlapX                                           | number. default: 0.9         | If you use the Width or Height parameters to extract lines contained in a region, then you can configure the strictness of the criteria by which a region "contains" a line using this parameter. <br/>By default, Sensible determines that a region contains a line if their widths overlap by more than 90%  of the smaller of the two's width. Loosen the criteria if a line can partly fall outside a region. For example,  if you set this parameter to 0.5, then Sensible determines that a region contains a line if their widths overlap by more than 50%  of the smaller of the two's width.  Note the line must also meet the Percent Overlap Y parameter's criteria. |
 | percentOverlapY                                           | number. default: 0.8         | Configures strictness in the same manner as the Percent Overlap X parameter, but applies to height instead of width.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
+## Syntax example
+
+```json
+{
+  "id": "col_3_row_2_cell", /* user-friendly ID for extracted target data */
+  "anchor": "row 2 label", /* defines the horizontal axis of the intersection (the row) */
+  "method": {
+    "id": "intersection",
+    "verticalAnchor": "col 3 heading", /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+    "offsetX": 0, /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
+    "offsetY": 0, /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
+    "width": 0.5, /* default: 0 (creates a point intersection — Sensible extracts any line overlapping the point); here,
+  0.5" wide region to constrain the column match */
+    "height": 0, /* default: 0; set alongside width to define a 2D region rather than a horizontal band */
+    "percentOverlapX": 0, /* default: 0.9 — fraction of width overlap required for a line to be inside the region; 0
+  accepts any overlap */
+    "percentOverlapY": 0  /* default: 0.8 — same as percentOverlapX but for height */
+  }
+}
+```
+
 # Examples
 
 ### Example 1: Empty cells in tables

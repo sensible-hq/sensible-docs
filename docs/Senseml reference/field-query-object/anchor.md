@@ -71,15 +71,16 @@ Here's an example of an Anchor object that uses all these parameters:
   "fields": [
     {
       "id": "simple_label",
-      "anchor": {
-        "start": "My section heading. Start matching at the start of this line",
-        "end": "My footer text. Stop matching before it",
-        "includeEnd": true,
-        "match": 
+      "anchor": { /* required for layout methods. for LLM methods, acts as an optional run/skip check */
+        "start": "My section heading. Start matching at the start of this line", /* optional. ignore everything before this line */
+        "end": "My footer text. Stop matching before it", /* optional. stop searching at this line */
+        "includeEnd": true, /* default: false. if true, include the end line in the match search */
+        "match": /* locates the anchor line. accepts a single Match object or an array of Match objects */
           [
             {
-              "type": "includes",
+              "type": "includes", /* equals | startsWith | endsWith | includes | regex | first | any | all | not */
               "text": "Only finds anchor if you match this string in a line that is between the start and end lines",
+              "isCaseSensitive": false, /* default: false */
             },
           ]      
       },
