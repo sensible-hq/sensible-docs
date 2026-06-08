@@ -106,8 +106,8 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
 ```json
 {
   "preprocessors": [
-    // override the default OCR settings and ensure specific OCR engine for consistent
-    // line splitting behavior
+    /* override the default OCR settings and ensure specific OCR engine for consistent
+       line splitting behavior */
     {
       "type": "ocr",
       "matchAll": true,
@@ -115,19 +115,19 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       "engine": "amazon"
     },
 
-    // if you apply splitLines with minSpaces:1 to the entire document,
-    // Sensible oversplits many sections
-    // (to observe this oversplitting, sub "match": ""
-    // for the "range" param in each Split Lines preprocessor,
-    // then observe lines rendered on the PDF in the Sensible app)
-    // so use ranges to split lines only in the target sections
+    /* if you apply splitLines with minSpaces:1 to the entire document,
+       Sensible oversplits many sections
+       (to observe this oversplitting, sub "match": ""
+       for the "range" param in each Split Lines preprocessor,
+       then observe lines rendered on the PDF in the Sensible app)
+       so use ranges to split lines only in the target sections */
 
     {
-      // target the "Cover Length" section,
-      // starting before "Cover Length" and ending after "Cover Circumference"
-      // without this split lines, Sensible merges length labels (10 in, 10.5 in, etc)
-      // into one line, so the Nearest Checkbox method fails
-      // (to observe this overmerging, remove all Split Lines preprocessors)
+      /* target the "Cover Length" section,
+         starting before "Cover Length" and ending after "Cover Circumference"
+         without this split lines, Sensible merges length labels (10 in, 10.5 in, etc)
+         into one line, so the Nearest Checkbox method fails
+         (to observe this overmerging, remove all Split Lines preprocessors) */
       "type": "splitLines",
       "minSpaces": 1,
       "range": { /* scope of the preprocessor: Sensible splits lines only within each document range */
@@ -163,7 +163,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
   ],
   "fields": [
     {
-      // extract the selected checkbox value for cover length
+      /* extract the selected checkbox value for cover length */
       "id": "_length_sections", /* ID for the extracted array of sections */
       "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
       "range": {
@@ -180,7 +180,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
         "stopOffsetY": -0.1 /* shifts each section's bottom boundary 0.1 inches up from the stop line */
       },
       "fields": [ /* fields to extract from each section */
-        // uncomment to double check split line representation
+        /* uncomment to double check split line representation */
         /*
         {
           "id": "_contents",
@@ -189,7 +189,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "includeAnchor": true
           }
         }, */
-        // abbreviated; in production, start at 10 inches
+        /* abbreviated; in production, start at 10 inches */
         {
           "id": "13in",
           "anchor": {
@@ -290,8 +290,8 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "match": "one"
           }
         },
-        // clean up output: remove all "inch" boolean values and only
-        // output the selected checkbox
+        /* clean up output: remove all "inch" boolean values and only
+           output the selected checkbox */
         {
           "id": "clean",
           "method": {
@@ -304,7 +304,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       ]
     },
     {
-      // extract the selected checkbox value for cover circumference
+      /* extract the selected checkbox value for cover circumference */
       "id": "_circumference_sections", /* ID for the extracted array of sections */
       "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
       "range": {
@@ -321,7 +321,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
         "stopOffsetY": -0.2 /* shifts each section's bottom boundary 0.2 inches up from the stop line */
       },
       "fields": [ /* fields to extract from each section */
-        // uncomment to double check split line representation
+        /* uncomment to double check split line representation */
         /*
         {
           "id": "_contents",
@@ -331,7 +331,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
           }
         }, */
 
-        // abbreviated; in production, start at 11.5 inches
+        /* abbreviated; in production, start at 11.5 inches */
         {
           "id": "15.5in",
           "anchor": {
@@ -402,13 +402,13 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "offsetY": -0.25
           }
         },
-        // abbreviated; in production, continue up to 20in
+        /* abbreviated; in production, continue up to 20in */
         {
           "id": "COVER_CIRCUMFERENCE",
           "method": {
             "id": "pickValues",
             "source_ids": [
-              // abbreviated; in production, start at 11.5 inches and end at 20in
+              /* abbreviated; in production, start at 11.5 inches and end at 20in */
               "15.5in",
               "16in",
               "16.5in",
@@ -418,8 +418,8 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "match": "one"
           }
         },
-        // clean up output: remove all "inch" boolean values and only
-        // output the selected checkbox
+        /* clean up output: remove all "inch" boolean values and only
+           output the selected checkbox */
         {
           "id": "clean",
           "method": {
@@ -432,7 +432,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       ]
     },
     {
-      // extract the selected checkbox value for LEFT/RIGHT side
+      /* extract the selected checkbox value for LEFT/RIGHT side */
       "id": "_side_sections", /* ID for the extracted array of sections */
       "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
       "range": {
@@ -449,7 +449,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
         "stopOffsetY": -0.2 /* shifts each section's bottom boundary 0.2 inches up from the stop line */
       },
       "fields": [ /* fields to extract from each section */
-        // uncomment to double check split line representation
+        /* uncomment to double check split line representation */
         /*
         {
           "id": "contents",
@@ -493,8 +493,8 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "match": "one"
           }
         },
-        // clean up output: remove all "_side" boolean values and only
-        // output the selected checkbox
+        /* clean up output: remove all "_side" boolean values and only
+           output the selected checkbox */
         {
           "id": "clean",
           "method": {
@@ -506,7 +506,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
         }
       ]
     },
-    // zip the sections so each order form's data is grouped together
+    /* zip the sections so each order form's data is grouped together */
     {
       "id": "order_selections",
       "method": {
@@ -518,8 +518,8 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
         ]
       }
     },
-    // clean the output:
-    // remove the source sections fields and only output the zipped sections
+    /* clean the output:
+       remove the source sections fields and only output the zipped sections */
     {
       "id": "clean",
       "method": {
