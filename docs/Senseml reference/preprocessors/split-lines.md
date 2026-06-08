@@ -107,7 +107,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
 {
   "preprocessors": [
     /* override the default OCR settings and ensure specific OCR engine for consistent
-       line splitting behavior */
+       line-splitting behavior for the scanned order forms */
     {
       "type": "ocr",
       "matchAll": true,
@@ -115,29 +115,35 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       "engine": "amazon"
     },
 
-    /* if you apply splitLines with minSpaces:1 to the entire document,
-       Sensible oversplits many sections
-       (to observe this oversplitting, sub "match": ""
-       for the "range" param in each Split Lines preprocessor,
-       then observe lines rendered on the PDF in the Sensible app)
-       so use ranges to split lines only in the target sections */
+    /* in the COVER LENGTH and COVER CIRCUMFERENCE sections,
+       use the Split Lines preprocessor to correct the OCR engine's default behavior of 
+       merging length labels (10 in, 10.5 in, etc) into one line, causing 
+       the Nearest Checkbox method to fail.
+       However, if you apply the Split Lines preprocessor to the entire document,
+       Sensible oversplits other sections. Avoid this by targeting only the overmerged sections 
+       using the Range parameter
+       (to observe oversplitting, sub "match": ""
+       for the "range" param in each Split Lines preprocessor */
 
     {
-      /* target the "Cover Length" section,
-         starting before "Cover Length" and ending after "Cover Circumference"
-         without this split lines, Sensible merges length labels (10 in, 10.5 in, etc)
-         into one line, so the Nearest Checkbox method fails
-         (to observe this overmerging, remove all Split Lines preprocessors) */
+      /* split lines in the COVER LENGTH section,
+         starting before COVER LENGTH and ending after COVER CIRCUMFERENCE */
       "type": "splitLines",
+      /* the number of consecutive whitespace characters at or above which to split lines;
+         use a low number to split closely spaced lines */
       "minSpaces": 1,
-      "range": { /* scope of the preprocessor: Sensible splits lines only within each document range */
-        "anchor": { /* required. Sensible starts each range before each match */
-          "match": { /* text marking the start of the range */
+      "range": {
+        /* scope of the preprocessor: Sensible splits lines only within each document range */
+        "anchor": {
+          /* required. Sensible starts each range before each match */
+          "match": {
+            /* text marking the start of the range */
             "type": "includes",
             "text": "cover length"
           }
         },
-        "stop": { /* optional. text marking the end of each range */
+        "stop": {
+          /* optional. text marking the end of each range */
           "type": "includes",
           "text": "cover circumference"
         }
@@ -145,16 +151,18 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
     },
 
     {
+      /* split lines in the COVER CIRCUMFERENCE section,
+         starting before COVER CIRCUMFERENCE and ending after COVER SHAPE */
       "type": "splitLines",
       "minSpaces": 1,
-      "range": { /* scope of the preprocessor: Sensible splits lines only within each document range */
-        "anchor": { /* required. Sensible starts each range before each match */
-          "match": { /* text marking the start of the range */
+      "range": {
+        "anchor": {
+          "match": {
             "type": "includes",
             "text": "cover circumference"
           }
         },
-        "stop": { /* optional. text marking the end of each range */
+        "stop": {
           "type": "includes",
           "text": "cover shape"
         }
@@ -164,22 +172,26 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
   "fields": [
     {
       /* extract the selected checkbox value for cover length */
-      "id": "_length_sections", /* ID for the extracted array of sections */
-      "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
+      "id": "_length_sections" /* ID for the extracted array of sections */,
+      "type": "sections" /* extracts repeating document ranges; returns each range as an object in an array */,
       "range": {
-        "anchor": { /* required. defines which lines start each section */
-          "match": { /* required. repeated text marking the start of each section */
+        "anchor": {
+          /* required. defines which lines start each section */
+          "match": {
+            /* required. repeated text marking the start of each section */
             "text": "length",
             "type": "includes"
           }
         },
-        "stop": { /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
+        "stop": {
+          /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
           "text": "circumference",
           "type": "includes"
         },
         "stopOffsetY": -0.1 /* shifts each section's bottom boundary 0.1 inches up from the stop line */
       },
-      "fields": [ /* fields to extract from each section */
+      /* fields to extract from each section */
+      "fields": [
         /* uncomment to double check split line representation */
         /*
         {
@@ -190,6 +202,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
           }
         }, */
         /* abbreviated; in production, start at 10 inches */
+        /* each 'inch' field returns true/false to represent checkbox's selection status */
         {
           "id": "13in",
           "anchor": {
@@ -274,7 +287,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "offsetY": -0.25
           }
         },
-
+       /* output only the cover length whose value is true (representing a selected checkbox) */
         {
           "id": "COVER_LENGTH",
           "method": {
@@ -290,8 +303,7 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "match": "one"
           }
         },
-        /* clean up output: remove all "inch" boolean values and only
-           output the selected checkbox */
+        /* clean up output: remove allthe source "inch" boolean values, which are input for the Pick Values method */
         {
           "id": "clean",
           "method": {
@@ -305,22 +317,26 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
     },
     {
       /* extract the selected checkbox value for cover circumference */
-      "id": "_circumference_sections", /* ID for the extracted array of sections */
-      "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
+      "id": "_circumference_sections" /* ID for the extracted array of sections */,
+      "type": "sections" /* extracts repeating document ranges; returns each range as an object in an array */,
       "range": {
-        "anchor": { /* required. defines which lines start each section */
-          "match": { /* required. repeated text marking the start of each section */
+        "anchor": {
+          /* required. defines which lines start each section */
+          "match": {
+            /* required. repeated text marking the start of each section */
             "text": "circumference",
             "type": "includes"
           }
         },
-        "stop": { /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
+        "stop": {
+          /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
           "text": "cover shape",
           "type": "includes"
         },
         "stopOffsetY": -0.2 /* shifts each section's bottom boundary 0.2 inches up from the stop line */
       },
-      "fields": [ /* fields to extract from each section */
+      "fields": [
+        /* fields to extract from each section */
         /* uncomment to double check split line representation */
         /*
         {
@@ -418,8 +434,6 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
             "match": "one"
           }
         },
-        /* clean up output: remove all "inch" boolean values and only
-           output the selected checkbox */
         {
           "id": "clean",
           "method": {
@@ -433,22 +447,26 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
     },
     {
       /* extract the selected checkbox value for LEFT/RIGHT side */
-      "id": "_side_sections", /* ID for the extracted array of sections */
-      "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
+      "id": "_side_sections" /* ID for the extracted array of sections */,
+      "type": "sections" /* extracts repeating document ranges; returns each range as an object in an array */,
       "range": {
-        "anchor": { /* required. defines which lines start each section */
-          "match": { /* required. repeated text marking the start of each section */
+        "anchor": {
+          /* required. defines which lines start each section */
+          "match": {
+            /* required. repeated text marking the start of each section */
             "text": "cover shape",
             "type": "includes"
           }
         },
-        "stop": { /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
+        "stop": {
+          /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
           "text": "main color",
           "type": "includes"
         },
         "stopOffsetY": -0.2 /* shifts each section's bottom boundary 0.2 inches up from the stop line */
       },
-      "fields": [ /* fields to extract from each section */
+      "fields": [
+        /* fields to extract from each section */
         /* uncomment to double check split line representation */
         /*
         {
@@ -538,7 +556,15 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
 
 The following image shows the example document used with this example config:
 
+page 1:
+
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/split_lines_range.png)
+
+page 2:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/split_lines_range_p2.png)
+
+
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/split_lines_range.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------ |
