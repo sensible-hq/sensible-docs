@@ -105,37 +105,433 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
 
 ```json
 {
-  "zip": [
+  "preprocessors": [
+    // override the default OCR settings and ensure specific OCR engine for consistent
+    // line splitting behavior
     {
-      "length": {
-        "value": "15in",
-        "type": "string"
-      },
-      "circumference": {
-        "value": "17.5in",
-        "type": "string"
-      },
-      "side": {
-        "value": "right_side",
-        "type": "string"
+      "type": "ocr",
+      "matchAll": true,
+      "match": "",
+      "engine": "amazon"
+    },
+
+    // if you apply splitLines with minSpaces:1 to the entire document,
+    // Sensible oversplits many sections
+    // (to observe this oversplitting, sub "match": ""
+    // for the "range" param in each Split Lines preprocessor,
+    // then observe lines rendered on the PDF in the Sensible app)
+    // so use ranges to split lines only in the target sections
+
+    {
+      // target the "Cover Length" section,
+      // starting before "Cover Length" and ending after "Cover Circumference"
+      // without this split lines, Sensible merges length labels (10 in, 10.5 in, etc)
+      // into one line, so the Nearest Checkbox method fails
+      // (to observe this overmerging, remove all Split Lines preprocessors)
+      "type": "splitLines",
+      "minSpaces": 1,
+      "range": {
+        "anchor": {
+          "match": {
+            "type": "includes",
+            "text": "cover length"
+          }
+        },
+        "stop": {
+          "type": "includes",
+          "text": "cover circumference"
+        }
       }
     },
+
     {
-      "length": {
-        "value": "13.5in",
-        "type": "string"
+      "type": "splitLines",
+      "minSpaces": 1,
+      "range": {
+        "anchor": {
+          "match": {
+            "type": "includes",
+            "text": "cover circumference"
+          }
+        },
+        "stop": {
+          "type": "includes",
+          "text": "cover shape"
+        }
+      }
+    }
+  ],
+  "fields": [
+    {
+      // extract the selected checkbox value for cover length
+      "id": "_length_sections",
+      "type": "sections",
+      "range": {
+        "anchor": {
+          "match": {
+            "text": "length",
+            "type": "includes"
+          }
+        },
+        "stop": {
+          "text": "circumference",
+          "type": "includes"
+        },
+        "stopOffsetY": -0.1
       },
-      "circumference": {
-        "value": "16in",
-        "type": "string"
+      "fields": [
+        // uncomment to double check split line representation
+        /*
+        {
+          "id": "_contents",
+          "method": {
+            "id": "documentRange",
+            "includeAnchor": true
+          }
+        }, */
+        // abbreviated; in production, start at 10 inches
+        {
+          "id": "13in",
+          "anchor": {
+            "match": {
+              "text": "13in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "13.5in",
+          "anchor": {
+            "match": {
+              "text": "13.5in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "14in",
+          "anchor": {
+            "match": {
+              "text": "14in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "14.5in",
+          "anchor": {
+            "match": {
+              "text": "14.5in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "15in",
+          "anchor": {
+            "match": {
+              "text": "15in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "15.5in",
+          "anchor": {
+            "match": {
+              "text": "15.5in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+
+        {
+          "id": "COVER_LENGTH",
+          "method": {
+            "id": "pickValues",
+            "source_ids": [
+              "13in",
+              "13.5in",
+              "14in",
+              "14.5in",
+              "15in",
+              "15.5in"
+            ],
+            "match": "one"
+          }
+        },
+        // clean up output: remove all "inch" boolean values and only
+        // output the selected checkbox
+        {
+          "id": "clean",
+          "method": {
+            "id": "suppressOutput",
+            "source_ids": {
+              "pattern": "^.*in$"
+            }
+          }
+        }
+      ]
+    },
+    {
+      // extract the selected checkbox value for cover circumference
+      "id": "_circumference_sections",
+      "type": "sections",
+      "range": {
+        "anchor": {
+          "match": {
+            "text": "circumference",
+            "type": "includes"
+          }
+        },
+        "stop": {
+          "text": "cover shape",
+          "type": "includes"
+        },
+        "stopOffsetY": -0.2
       },
-      "side": {
-        "value": "left_side",
-        "type": "string"
+      "fields": [
+        // uncomment to double check split line representation
+        /*
+        {
+          "id": "_contents",
+          "method": {
+            "id": "documentRange",
+            "includeAnchor": true
+          }
+        }, */
+
+        // abbreviated; in production, start at 11.5 inches
+        {
+          "id": "15.5in",
+          "anchor": {
+            "match": {
+              "text": "15.5in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "16in",
+          "anchor": {
+            "match": {
+              "text": "16in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "16.5in",
+          "anchor": {
+            "match": {
+              "text": "16.5in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "17in",
+          "anchor": {
+            "match": {
+              "text": "17in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        {
+          "id": "17.5in",
+          "anchor": {
+            "match": {
+              "text": "17.5in",
+              "type": "equals"
+            }
+          },
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left",
+            "offsetY": -0.25
+          }
+        },
+        // abbreviated; in production, continue up to 20in
+        {
+          "id": "COVER_CIRCUMFERENCE",
+          "method": {
+            "id": "pickValues",
+            "source_ids": [
+              // abbreviated; in production, start at 11.5 inches and end at 20in
+              "15.5in",
+              "16in",
+              "16.5in",
+              "17in",
+              "17.5in"
+            ],
+            "match": "one"
+          }
+        },
+        // clean up output: remove all "inch" boolean values and only
+        // output the selected checkbox
+        {
+          "id": "clean",
+          "method": {
+            "id": "suppressOutput",
+            "source_ids": {
+              "pattern": "^.*in$"
+            }
+          }
+        }
+      ]
+    },
+    {
+      // extract the selected checkbox value for LEFT/RIGHT side
+      "id": "_side_sections",
+      "type": "sections",
+      "range": {
+        "anchor": {
+          "match": {
+            "text": "cover shape",
+            "type": "includes"
+          }
+        },
+        "stop": {
+          "text": "main color",
+          "type": "includes"
+        },
+        "stopOffsetY": -0.2
+      },
+      "fields": [
+        // uncomment to double check split line representation
+        /*
+        {
+          "id": "contents",
+          "method": {
+            "id": "documentRange",
+            "sortLines": "readingOrderLeftToRight",
+            "includeAnchor": true
+          }
+        }, */
+        {
+          "id": "left_side",
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left"
+          },
+          "anchor": {
+            "match": {
+              "text": "left",
+              "type": "equals"
+            }
+          }
+        },
+        {
+          "id": "right_side",
+          "method": {
+            "id": "nearestCheckbox",
+            "position": "left"
+          },
+          "anchor": {
+            "match": {
+              "text": "right",
+              "type": "equals"
+            }
+          }
+        },
+        {
+          "id": "LEFT_RIGHT",
+          "method": {
+            "id": "pickValues",
+            "source_ids": ["left_side", "right_side"],
+            "match": "one"
+          }
+        },
+        // clean up output: remove all "_side" boolean values and only
+        // output the selected checkbox
+        {
+          "id": "clean",
+          "method": {
+            "id": "suppressOutput",
+            "source_ids": {
+              "pattern": "^.*_side$"
+            }
+          }
+        }
+      ]
+    },
+    // zip the sections so each order form's data is grouped together
+    {
+      "id": "order_selections",
+      "method": {
+        "id": "zip",
+        "source_ids": [
+          "_length_sections",
+          "_circumference_sections",
+          "_side_sections"
+        ]
+      }
+    },
+    // clean the output:
+    // remove the source sections fields and only output the zipped sections
+    {
+      "id": "clean",
+      "method": {
+        "id": "suppressOutput",
+        "source_ids": {
+          "pattern": "^_.*$"
+        }
       }
     }
   ]
 }
+
 ```
 
 **Example document**
@@ -149,43 +545,31 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
 
 ```json
 {
-  "length_sections": [
+  "order_selections": [
     {
-      "length": {
+      "COVER_LENGTH": {
         "value": "15in",
         "type": "string"
-      }
-    },
-    {
-      "length": {
-        "value": "13.5in",
-        "type": "string"
-      }
-    }
-  ],
-  "circumference_sections": [
-    {
-      "circumference": {
+      },
+      "COVER_CIRCUMFERENCE": {
         "value": "17.5in",
         "type": "string"
-      }
-    },
-    {
-      "circumference": {
-        "value": "16in",
-        "type": "string"
-      }
-    }
-  ],
-  "side_sections": [
-    {
-      "side": {
+      },
+      "LEFT_RIGHT": {
         "value": "right_side",
         "type": "string"
       }
     },
     {
-      "side": {
+      "COVER_LENGTH": {
+        "value": "13.5in",
+        "type": "string"
+      },
+      "COVER_CIRCUMFERENCE": {
+        "value": "16in",
+        "type": "string"
+      },
+      "LEFT_RIGHT": {
         "value": "left_side",
         "type": "string"
       }
