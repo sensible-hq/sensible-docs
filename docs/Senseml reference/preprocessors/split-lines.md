@@ -130,14 +130,14 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       // (to observe this overmerging, remove all Split Lines preprocessors)
       "type": "splitLines",
       "minSpaces": 1,
-      "range": {
-        "anchor": {
-          "match": {
+      "range": { /* scope of the preprocessor: Sensible splits lines only within each document range */
+        "anchor": { /* required. Sensible starts each range before each match */
+          "match": { /* text marking the start of the range */
             "type": "includes",
             "text": "cover length"
           }
         },
-        "stop": {
+        "stop": { /* optional. text marking the end of each range */
           "type": "includes",
           "text": "cover circumference"
         }
@@ -147,14 +147,14 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
     {
       "type": "splitLines",
       "minSpaces": 1,
-      "range": {
-        "anchor": {
-          "match": {
+      "range": { /* scope of the preprocessor: Sensible splits lines only within each document range */
+        "anchor": { /* required. Sensible starts each range before each match */
+          "match": { /* text marking the start of the range */
             "type": "includes",
             "text": "cover circumference"
           }
         },
-        "stop": {
+        "stop": { /* optional. text marking the end of each range */
           "type": "includes",
           "text": "cover shape"
         }
@@ -164,22 +164,22 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
   "fields": [
     {
       // extract the selected checkbox value for cover length
-      "id": "_length_sections",
-      "type": "sections",
+      "id": "_length_sections", /* ID for the extracted array of sections */
+      "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
       "range": {
-        "anchor": {
-          "match": {
+        "anchor": { /* required. defines which lines start each section */
+          "match": { /* required. repeated text marking the start of each section */
             "text": "length",
             "type": "includes"
           }
         },
-        "stop": {
+        "stop": { /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
           "text": "circumference",
           "type": "includes"
         },
-        "stopOffsetY": -0.1
+        "stopOffsetY": -0.1 /* shifts each section's bottom boundary 0.1 inches up from the stop line */
       },
-      "fields": [
+      "fields": [ /* fields to extract from each section */
         // uncomment to double check split line representation
         /*
         {
@@ -305,22 +305,22 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
     },
     {
       // extract the selected checkbox value for cover circumference
-      "id": "_circumference_sections",
-      "type": "sections",
+      "id": "_circumference_sections", /* ID for the extracted array of sections */
+      "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
       "range": {
-        "anchor": {
-          "match": {
+        "anchor": { /* required. defines which lines start each section */
+          "match": { /* required. repeated text marking the start of each section */
             "text": "circumference",
             "type": "includes"
           }
         },
-        "stop": {
+        "stop": { /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
           "text": "cover shape",
           "type": "includes"
         },
-        "stopOffsetY": -0.2
+        "stopOffsetY": -0.2 /* shifts each section's bottom boundary 0.2 inches up from the stop line */
       },
-      "fields": [
+      "fields": [ /* fields to extract from each section */
         // uncomment to double check split line representation
         /*
         {
@@ -433,22 +433,22 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
     },
     {
       // extract the selected checkbox value for LEFT/RIGHT side
-      "id": "_side_sections",
-      "type": "sections",
+      "id": "_side_sections", /* ID for the extracted array of sections */
+      "type": "sections", /* extracts repeating document ranges; returns each range as an object in an array */
       "range": {
-        "anchor": {
-          "match": {
+        "anchor": { /* required. defines which lines start each section */
+          "match": { /* required. repeated text marking the start of each section */
             "text": "cover shape",
             "type": "includes"
           }
         },
-        "stop": {
+        "stop": { /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
           "text": "main color",
           "type": "includes"
         },
-        "stopOffsetY": -0.2
+        "stopOffsetY": -0.2 /* shifts each section's bottom boundary 0.2 inches up from the stop line */
       },
-      "fields": [
+      "fields": [ /* fields to extract from each section */
         // uncomment to double check split line representation
         /*
         {
