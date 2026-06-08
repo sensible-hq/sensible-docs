@@ -93,7 +93,7 @@ Without the Split Lines preprocessor, the OCR preprocessor merges the lines too 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/split_lines_range_1.png)
 
-However, if you apply Split Lines preprocessor to the entire document, Sensible splits lines too aggressively, so that individual words are split into letters:
+However, if you apply Split Lines preprocessor to the entire document, Sensible over-splits words into letters in other sections:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/split_lines_range_2.png)
 
