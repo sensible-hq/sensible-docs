@@ -104,16 +104,9 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
 **Config**
 
 ```json
+    /*  Ensure the document type's OCR Engine parameter is set to Amazon for this example */  
 {
   "preprocessors": [
-    /* override the default OCR settings and ensure specific OCR engine for consistent
-       line-splitting behavior for the scanned order forms */
-    {
-      "type": "ocr",
-      "matchAll": true,
-      "match": "",
-      "engine": "amazon"
-    },
 
     /* in the COVER LENGTH and COVER CIRCUMFERENCE sections,
        use the Split Lines preprocessor to correct the OCR engine's default behavior of 
@@ -192,15 +185,6 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       },
       /* fields to extract from each section */
       "fields": [
-        /* uncomment to double check split line representation */
-        /*
-        {
-          "id": "_contents",
-          "method": {
-            "id": "documentRange",
-            "includeAnchor": true
-          }
-        }, */
         /* abbreviated; in production, start at 10 inches */
         /* each 'inch' field returns true/false to represent checkbox's selection status */
         {
@@ -337,16 +321,6 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       },
       "fields": [
         /* fields to extract from each section */
-        /* uncomment to double check split line representation */
-        /*
-        {
-          "id": "_contents",
-          "method": {
-            "id": "documentRange",
-            "includeAnchor": true
-          }
-        }, */
-
         /* abbreviated; in production, start at 11.5 inches */
         {
           "id": "15.5in",
@@ -467,16 +441,6 @@ Two Split Line preprocessors use the Range parameter to specify only the Length 
       },
       "fields": [
         /* fields to extract from each section */
-        /* uncomment to double check split line representation */
-        /*
-        {
-          "id": "contents",
-          "method": {
-            "id": "documentRange",
-            "sortLines": "readingOrderLeftToRight",
-            "includeAnchor": true
-          }
-        }, */
         {
           "id": "left_side",
           "method": {
