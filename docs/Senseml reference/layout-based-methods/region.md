@@ -37,8 +37,11 @@ In general, use this method:
 
 ## Syntax example
 
+The following example shows the preceding parameters documented with in-line comments.
+
 ```json
-    {
+/* Sensible uses JSON5 to support in-line comments*/    
+{
       "id": "field1", /* user-friendly ID for extracted target data */
       "anchor": "some text" /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
       "method": {
