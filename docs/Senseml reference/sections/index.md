@@ -68,9 +68,12 @@ See the following table for details about the Range object parameters:
 
 ## Syntax examples
 
+The following examples show the preceding parameters documented with in-line comments.
+
 **Horizontal sections:**
 
 ```json
+/* Sensible uses JSON5 to support in-line comments*/    
 {
   "fields": [
     {
@@ -127,6 +130,7 @@ See the following table for details about the Range object parameters:
 **Vertical sections:**
 
 ```json
+/* Sensible uses JSON5 to support in-line comments*/    
 {
   "fields": [
     {

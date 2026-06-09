@@ -36,7 +36,10 @@ For example, the Intersection method is an alternative to the Row method when a 
 
 ## Syntax example
 
+The following example shows the preceding parameters documented with in-line comments.
+
 ```json
+/* Sensible uses JSON5 to support in-line comments*/    
 {
   "id": "col_3_row_2_cell", /* user-friendly ID for extracted target data */
   "anchor": "row 2 label", /* defines the horizontal axis of the intersection (the row) */
