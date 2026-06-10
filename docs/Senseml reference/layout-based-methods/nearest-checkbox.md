@@ -18,7 +18,7 @@ Sensible uses one of two data sources, pixels or metadata, to extract selection 
 
 * If the document is a PDF that contains checkbox metadata, or "form data", then Sensible preferentially uses the metadata to extract selection status.  
 
-* If there's no metadata, Sensible falls back to Azure Form Recognizer’s checkbox detection. This detection uses OCR and machine learning and captures a wide range of checkbox formats.
+* If there's no metadata, Sensible falls back to OCR and machine learning to capture a wide range of checkbox formats.
 
 [**Parameters**](doc:nearest-checkbox#parameters)\
 [**Examples**](doc:nearest-checkbox#examples)
