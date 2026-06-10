@@ -16,7 +16,7 @@ Use this method as an alterative to the Checkbox method. The advantage of the Ne
 
 Sensible uses one of two data sources, pixels or metadata, to extract selection status:
 
-* If the document is a PDF that contains checkbox metadata, then Sensible preferentially uses the metadata to extract selection status.  
+* If the document is a PDF that contains checkbox metadata, or "form data", then Sensible preferentially uses the metadata to extract selection status.  
 
 * If there's no metadata, Sensible falls back to Azure Form Recognizer’s checkbox detection. This detection uses OCR and machine learning and captures a wide range of checkbox formats.
 
@@ -34,6 +34,7 @@ Sensible uses one of two data sources, pixels or metadata, to extract selection 
 | offsetX                 | number in inches. default: 0 | Searches for a checkbox starting at a point offset from the point defined by the Position parameter. Positive values offset to the right, negative values offset to the left. |
 | offsetY                 | number in inches. default: 0 | Searches for a checkbox starting at a point offset from the point defined by the Position parameter. Positive values offset down the page, negative values offset up the page. |
 | maxYDistance            | number in inches.            | Specifies the maximum number of inches Sensible searches up or down the page from the starting point.  For example, configure this parameter to restrict the checkbox search in successive rows of tightly spaced checkboxes. |
+| ignoreFormData          | boolean. default: false      | Set this option to true to troubleshoot situations in which Sensible fails to recognize a checkbox because of a document's inaccurate form data. For example, a PDF editor can run partially successful form recognition on a scanned document and embed incomplete form data in the PDF.  When true, this option bypasses Sensible's default use of checkbox metadata and falls back to pixel recognition. |
 
 # Examples
 
