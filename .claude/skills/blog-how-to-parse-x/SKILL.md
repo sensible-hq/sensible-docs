@@ -1,13 +1,30 @@
 ---
 name: blog-how-to-parse-x
-description: Generates a "how to extract data from X" blog post draft for Sensible. Takes a document type as input, fetches the prebuilt SenseML config from the open-source library to get real field names and queries, and drafts the full post using the house template. Invoke whenever the user wants to write or draft a "how to parse/extract X" blog post.
-argument-hint: <document type> [e.g. "pay stubs", "W-2s", "commission statements"]
+description: Generates a "how to extract data from X" blog post draft for Sensible. Takes a document type as input and either fetches the matching prebuilt config from the open-source library, or accepts an explicit config file/URL and optional PDF path via --config and --pdf flags. Invoke whenever the user wants to write or draft a "how to parse/extract X" blog post.
+argument-hint: <document type> [--config <path-or-url>] [--pdf <path>]
 allowed-tools: Bash, Read, Write, WebFetch
 ---
 
 Generate a "how to extract data from [document type]" blog post draft.
 
-Parse **$ARGUMENTS** as the document type to write about.
+## Parse arguments
+
+**$ARGUMENTS** supports two input modes:
+
+**Mode A — document type only** (skill fetches config from the open-source library):
+```
+pay stubs
+"commission statements"
+```
+
+**Mode B — explicit config and/or PDF** (skip library lookup):
+```
+pay stubs --config /path/to/config.json
+pay stubs --config https://raw.githubusercontent.com/.../config.json
+pay stubs --config /path/to/config.json --pdf /path/to/example.pdf
+```
+
+Parse the document type from everything before `--config` or `--pdf`. If `--config` is provided, skip Steps 2–3 and use it directly. If `--pdf` is provided, note the path for use in Step 4 when writing the example document section.
 
 ## Step 1 — Read style guidance
 
@@ -16,6 +33,8 @@ Read these files in parallel before writing anything:
 - `.claude/style-guide/json5-comments-reference.md` — canonical inline comments for every SenseML parameter
 
 ## Step 2 — Look up the document type in the config library
+
+_Skip this step if `--config` was provided._
 
 Fetch the config library index to find the matching category and document type:
 
@@ -26,6 +45,8 @@ https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/mai
 Find the entry for the requested document type. Note the category and the exact folder name used in the library.
 
 ## Step 3 — Fetch a prebuilt config
+
+_Skip this step if `--config` was provided._
 
 Browse the configurations directory for the matched document type:
 
@@ -38,6 +59,8 @@ Pick one configuration file and fetch its raw content:
 ```
 https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/[Category]/[Doc Type]/configurations/[filename].json
 ```
+
+**If `--config` was provided**, read or fetch it now instead of the above.
 
 From the config, extract:
 - 2–4 representative field names and their methods (to use as the post's extraction examples)
