@@ -1,0 +1,33 @@
+{
+  "skill_name": "sensible-docs-checker",
+  "evals": [
+    {
+      "id": 1,
+      "name": "changelog-with-violations",
+      "prompt": "Check this changelog excerpt for terminology issues:\n\n---\n## New feature: Email extraction\n\nSensible added support for automated extraction from email documents. The result object includes all extracted fields from the email body and any attachments. To configure extraction, upload your email template to the Sensible app. You can view extraction results in the UI and download them as a CSV.\n\nFor each email attachment, Sensible classifies it against the document schema and routes it to the appropriate document type.\n---",
+      "expected_output": "Should flag: 'result object' (use 'output' or 'extracted field'), 'template' (use 'config' or 'configuration'), 'the UI' (use 'the Sensible app'), 'schema' (use 'config' or 'configuration'). Should NOT flag 'the Sensible app' when it appears correctly. Should offer to fix.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "senseml-reference-with-violations",
+      "prompt": "Check this SenseML reference page excerpt for terminology issues:\n\n---\nExtracts data proximate to the reference text on the page. Sensible uses the marker to locate the target field and returns a segment of the surrounding text as context for the LLM. If the anchor isn't found, Sensible returns an empty value.\n\nThe data type for this field defaults to `string`. Use the `source_ids` parameter to pass input to the LLM from other extractions.\n---",
+      "expected_output": "Should flag: 'reference text' (use 'anchor'), 'marker' (use 'anchor'), 'segment' (use 'chunk'), 'empty value' (use 'null'), 'data type' (use 'type'). Should NOT flag 'anchor' when used correctly. Should NOT flag content inside backticks (`source_ids`). Should offer to fix.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "clean-doc-no-violations",
+      "prompt": "Check this doc excerpt for terminology issues:\n\n---\nThe Label method extracts the value to the right of or below the anchor line. Sensible returns null if the anchor isn't present in the document. Configure the method by setting the `id` parameter to `label` in your config.\n\nUse the Sensible app to upload a document and preview the output. For repeated structures in a document, use sections rather than running the same query group multiple times.\n---",
+      "expected_output": "Should find no violations. Should confirm 'No terminology violations found.' without false positives on correct usage of 'anchor', 'config', 'the Sensible app', 'output', 'null', 'sections'.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "violations-inside-code-blocks-ignored",
+      "prompt": "Check this doc for terminology issues:\n\n---\nSpecifies the output format for the extraction.\n\n```json\n{\n  \"id\": \"label\",\n  \"template\": \"my_config\",\n  \"result_object\": { \"type\": \"string\" }\n}\n```\n\nThe method returns null if no match is found.\n---",
+      "expected_output": "Should find no violations. 'template' and 'result_object' appear only inside a fenced code block and must be ignored. 'null' is used correctly in prose.",
+      "files": []
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 ---
-name: sensible-api-spec
+name: api-spec
 description: Creates or updates OpenAPI JSON spec files in the /reference directory of sensible-docs, based on backend PRs from sensible-hq/sensible. Use this skill whenever the user provides PR numbers or GitHub URLs from the backend repo and wants to document new API endpoints, update existing endpoint schemas, or add new fields to an existing API reference. Also triggers when the user mentions "new API", "update the spec", "API reference from PRs", "write a spec for [feature]", or provides a list of PRs and asks to document them. This skill handles the end-to-end workflow: reading PRs, extracting API surface changes from diffs and Zod/TypeScript schemas, drafting OpenAPI 3.0.3 JSON, creating supporting markdown files, and updating _order.yaml navigation files.
 ---
 
@@ -96,12 +96,12 @@ Do this before writing a single line of the spec. Read in parallel.
 
 Read the annotated template before writing anything:
 ```
-/home/franc/GitHub/sensible-docs/.claude/skills/sensible-api-spec/openapi_template.jsonc
+/home/franc/GitHub/sensible-docs/.claude/skills/api-spec/openapi_template.jsonc
 ```
 
 Also read the spec structure reference to understand existing schema relationships before drafting any changes:
 ```
-/home/franc/GitHub/sensible-docs/.claude/skills/sensible-api-spec/api-code-reference.md
+/home/franc/GitHub/sensible-docs/.claude/skills/api-spec/api-code-reference.md
 ```
 
 Use the schema relationship trees in `api-code-reference.md` to:
@@ -257,6 +257,88 @@ Read `reference/_order.yaml` before editing to see current ordering:
 ```bash
 cat /home/franceselliott/GitHub/sensible-docs/reference/_order.yaml
 ```
+
+---
+
+## Step 8: Generate test scripts from the spec
+
+After writing the spec, generate one curl script per endpoint. Save to `scripts/test/{domain}/` (e.g., `scripts/test/email_processor/`).
+
+**Template**: copy from `references/curl_script_template.sh` in this skill directory. All scripts must follow this template exactly — it contains the HTTP status code capture, JSON pretty-print with raw fallback, and timestamped output file pattern.
+
+**Naming**: convert `operationId` from kebab-case to snake_case for the filename (e.g., `get-email-processor` → `get_email_processor.sh`).
+
+**Adapting the template per method**:
+
+| Method | Path params | Request body | Notes |
+|--------|-------------|--------------|-------|
+| GET (list) | none | none | Remove `-H "Content-Type"` and `-d` lines |
+| GET (single) | optional arg: `NAME=${1:-default}` | none | Remove `-H "Content-Type"` and `-d` lines |
+| PUT / POST | optional or required arg | include `-d` block with full example body | Use realistic placeholder values from the spec's examples or known test data |
+| DELETE | required arg: `NAME=${1:?Usage: ...}` | none | Remove `-H "Content-Type"` and `-d` lines; response body will be empty on 204 |
+
+After writing all scripts, confirm with the user:
+```
+Scripts written to scripts/test/{domain}/:
+  - list_{domain}.sh
+  - get_{name}.sh
+  - upsert_{name}.sh
+  - delete_{name}.sh
+
+Run them to generate output before Step 9.
+```
+
+---
+
+## Step 8b: Compare against backend tests before writing edge case scripts
+
+Before writing error-case or edge-case scripts, check what the backend test suite already covers so curl scripts extend coverage rather than duplicate it. Run:
+
+```bash
+gh pr diff <number> --repo sensible-hq/sensible | grep -E "test|spec|describe|it\(" | head -60
+```
+
+Or search the backend repo for test files related to the new endpoints:
+
+```bash
+gh api repos/sensible-hq/sensible/git/trees/main?recursive=1 \
+  | python3 -c "import json,sys; [print(f['path']) for f in json.load(sys.stdin)['tree'] if 'test' in f['path'] and 'email' in f['path']]"
+```
+
+**What backend unit/integration tests typically cover (skip these in curl scripts):**
+- Schema validation errors: missing required fields, invalid enum values, wrong types, empty arrays where minItems > 0
+- These are caught at the Zod/schema layer before any route logic runs
+
+**What curl scripts should add (not covered by backend tests):**
+- End-to-end happy paths for every valid input variation (each `kind` variant, optional fields present vs omitted, multiple webhooks)
+- Ordering and positional constraints the schema cannot enforce (e.g., `EnvironmentWebhook` must not be first in the webhooks array — validators pass, only the API catches it)
+- 404 behavior for GET/DELETE on nonexistent resources — backend service may be a no-op; route-level behavior needs verification
+- Any behavior the spec explicitly flags as "schema validators will not catch this"
+
+**Script naming convention for error/edge cases:**
+- `upsert_{variant}.sh` — valid body variation (expect 200/201)
+- `error_{scenario}.sh` — intentionally invalid input (expect 4xx); include a comment stating the expected HTTP code and why
+
+---
+
+## Step 9: Update spec examples from real API output
+
+Once the user has run the scripts and output files exist in `scripts/test/{domain}/outputs/`, read the most recent output file for each GET/LIST endpoint and use the real response data to populate `example` values in the spec.
+
+**What to update**:
+- Response schema `example` fields for 200 responses
+- Request body `example` fields for PUT/POST operations, if the GET output reveals realistic field values (e.g., real IDs, real processor names)
+
+**What not to update**:
+- Any `example` that already contains a real-looking value (non-placeholder)
+- Error response examples (400, 404, etc.) — keep these as minimal illustrative examples
+
+**Process**:
+1. Read output files: `scripts/test/{domain}/outputs/list_*.json` and `get_*.json` (most recent timestamp)
+2. Identify fields in the response that map to schema properties
+3. Update `example` values in `components/schemas` in the spec JSON
+4. Show a diff summary of what changed before writing: "Updating X example fields in Y schemas"
+5. Write the updated spec
 
 ---
 

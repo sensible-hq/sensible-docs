@@ -1,5 +1,5 @@
 ---
-name: sensible-style-guide-generator
+name: style-guide-generator-senseml
 description: Generates or refreshes the Sensible SenseML docs style guide by reading existing reference pages from the published docs and analyzing their conventions. Use this skill whenever asked to generate, update, or refresh the style guide, or when the style guide files at .claude/style-guide/ are missing or stale. Also invoke before writing a batch of new SenseML reference pages from scratch.
 ---
 

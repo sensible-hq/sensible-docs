@@ -1,10 +1,19 @@
 # Template: How to extract data from [DOCUMENT TYPE] with [LLMs and] Sensible
 
+Variables used throughout this template:
+- `[doc type]` — singular, lowercase (e.g., "bank statement", "rent roll", "closing disclosure")
+- `[doc types]` — plural (e.g., "bank statements", "rent rolls")
+- `[doc type variant]` — specific variant used in the post (e.g., "Chase bank statements", "Medicaid EOBs")
+- `[industry]` — industry name (e.g., "proptech", "healthcare")
+- `[supported variants]` — list of supported variants (e.g., "Medicaid, Tricare, and Cigna EOBs")
+- `[field]` — a specific extracted field name (e.g., "date issued", "loan type")
+- `[fields]` — bullet list of fields extracted in the post
+
 ---
 
 ## TITLE
 
-`How to extract data from [document type (plural)] with [LLMs and] Sensible`
+`How to extract data from [doc types] with [LLMs and] Sensible`
 
 Include "with LLMs and Sensible" only for variable-layout documents (resumes, rent rolls). For structured/semi-structured documents, use "with Sensible."
 
@@ -13,109 +22,142 @@ Include "with LLMs and Sensible" only for variable-layout documents (resumes, re
 ## INTRO (2–3 paragraphs, no heading)
 
 **Paragraph 1 — Industry context and pain point:**
-Describe what the document is, what industry uses it, and what downstream workflows depend on the data. Give 2–3 concrete examples of what companies build with this data (e.g., analytics, automation, risk assessment). Establish that the data is hard to get because it only exists as PDFs.
 
-Pattern:
-> "If you're building software in [industry], chances are you've come across the [document type]. [Document type] [describes what it contains]. [Companies in this space] need this data to [build X, Y, Z]. However, they often lack access to [document type] in any format other than PDFs, which makes data extraction a potentially difficult problem."
+Variant A — "If you're building" opener (closing disclosures, EOBs):
+> "If you're building software [in / for] [industry], chances are that you've come across the [doc type]. [1–2 sentences describing what it contains and why companies need the data.]"
+
+Examples:
+- *"If you're building software in proptech, chances are that you'll have come across the closing disclosure. A closing disclosure contains the final details about the home buyer's mortgage – things like loan terms, projected monthly payments, and the closing cost."*
+- *"If you're building software for healthcare providers, chances are that you've come across the explanation of benefits (EOB) document."*
+
+Variant B — direct industry description (bank statements, rent rolls, resumes):
+> "[Describe who uses the document and for what. 1–2 sentences on what downstream workflows depend on the data.]"
+
+Examples:
+- *"Companies that build lending and mortgage solutions in proptech often need to automate a solution to parse information in bank statements. By extracting and analyzing financial data from bank statements, these companies can more accurately assess an individual's or business's financial health and risk profile to make better lending and mortgage decisions."* (bank statements)
+- *"In the real estate industry, rent rolls are key documents used for valuing properties and for evaluating their commercial health. For example, high rents, low vacancy, and long tenure indicate good health; low rents, high vacancy, and short tenure indicate poor health. Companies in the prop tech space need this sort of data to build solutions such as automated rent collection and billing, rent trend analytics, and property ROI analytics."* (rent rolls)
+- *"Many companies face challenges when automating hiring and recruitment. Aggregating and analyzing candidate data can improve hiring, but is often a taxing manual process."* (resumes)
+
+All posts end paragraph 1 (or lead into paragraph 2) with this near-verbatim line:
+> "However, they often lack access to [doc types] in any format other than PDFs, which makes data extraction a potentially difficult problem."
+
+Closing disclosures uses a different version spread across two sentences:
+> "The information found in a [doc type] isn't always easily accessible. [Doc type] data isn't usually available through an API."
 
 **Paragraph 2 — Introduce Sensible:**
-Introduce Sensible and SenseML. Mention the open-source config library. List the access methods (API, SDK, app, Zapier).
 
-Boilerplate to adapt:
-> "Enter Sensible. With Sensible you can easily extract key information out of [document type] PDFs using [**SenseML**](link), Sensible's query language for extracting data from documents. We've written a library of [**open-source SenseML configurations**](link), so you don't need to write queries from scratch for common documents. From there, your [document] data is accessible via [API](link), Sensible's UI, or 5,000 other software integrations thanks to [Zapier](link)."
+This paragraph is highly consistent. Use this verbatim, adapting bracketed parts:
+
+> "[Fortunately, ]With Sensible you can easily extract key information out of [doc type] PDFs using SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your [doc type] data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier."
+
+"Fortunately, " prefix used in closing disclosures only.
+
+Examples:
+- *"Fortunately, with Sensible you can easily extract key information out of closing disclosure PDFs using SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your closing disclosure data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier."* (closing disclosures)
+- *"With Sensible you can easily extract key information out of EOB PDFs using SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your EOB data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier."* (EOBs)
+
+For LLM-based posts (resumes, rent rolls), add this sentence after the SenseML intro sentence:
+> "SenseML uses a combination of layout-based rules and LLM prompts to extract from the full spectrum of free-form to structured documents."
+
+Example (rent rolls):
+- *"Enter Sensible, which offers intelligent document automation. With Sensible you can easily extract key information out of documents using SenseML, Sensible's query language. SenseML uses a combination of layout-based rules and LLM prompts to extract from the full spectrum of free-form to structured documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, the document data is accessible via Sensible's API, SDK, app, or 5,000 other software integrations thanks to Zapier."*
 
 **Paragraph 3 (optional) — Additional context:**
-Use if the document type needs more background (e.g., explaining what an EOB is, or why closing disclosures matter for the mortgage market).
+Use if the document type needs more background (e.g., explaining what an EOB is, or why closing disclosures matter). Skip for straightforward document types.
 
 ---
 
-## ## What we'll cover
+## What we'll cover
 
-1–2 sentences. Name the document type variant being used (e.g., "Chase bank statements", "Medicaid EOBs"). State what SenseML methods will be demonstrated and that readers will be able to extract whatever they want using the docs or prebuilt configs.
+Use this sentence verbatim, adapting bracketed parts:
 
-Pattern:
-> "This blog post briefly walks you through configuring extractions for **[document type]**. By the end, you'll know [a few / a couple of] methods for extracting document data using our query language, and you'll be on your way to extracting any data you choose using our **documentation** or our prebuilt open-source **configurations**[, which currently support X, Y, and Z]."
+> "This blog post briefly walks you through configuring extractions for [doc type variant]. By the end, you'll know [a few / a couple of] [SenseML methods / methods for extracting document data using our query language], and you'll be on your way to extracting any data you choose using our documentation or our prebuilt open-source [doc type] configurations[, which currently support [supported variants]]."
+
+- Use "a few" when covering 3+ extraction methods; "a couple of" when covering 2.
+- Append the "which currently support" clause when the config library supports multiple named variants.
+
+Examples:
+- *"This blog post briefly walks you through configuring extractions for closing disclosures. By the end, you'll know a couple of SenseML methods and you'll be on your way to extracting any data you choose using our documentation or our prebuilt open-source closing disclosure configurations."*
+- *"This blog post briefly walks you through configuring extractions for Medicaid EOBs. By the end, you'll know a couple of SenseML methods and you'll be on your way to extracting any data you choose using our documentation or our prebuilt open-source EOB configurations, which currently support Medicaid, Tricare, and Cigna EOBs."*
+- *"This blog post briefly walks you through configuring extractions for rent rolls. By the end, you'll know a few methods for extracting document data using our query language, and you'll be on your way to extracting any data you choose using our documentation or our prebuilt open-source configurations."*
 
 ---
 
-## ## Write document extraction queries with SenseML
+## Write document extraction queries with SenseML
 
 **Paragraph 1 — Example document:**
-One sentence introducing the example PDF.
 
-Pattern:
-> "Let's walk through extracting specific pieces of data from a [document type]. Here's an example of a [document type] PDF with redacted [or dummy] data:"
+> "Let's walk through extracting specific pieces of data from [a / an] [doc type]. Here's an example of a [doc type] PDF with redacted [or dummy] data:"
+
+Examples:
+- *"Let's walk through extracting specific pieces of data from a bank statement. Here's an example of a bank statement PDF with redacted or dummy data:"*
+- *"Let's walk through extracting specific pieces of data from a mortgage closing disclosure. Here's an example of a closing disclosure PDF with redacted data:"*
+- *"Let's walk through extracting specific pieces of data from an explanation of benefits. Here's an example of an EOB PDF with redacted or dummy data:"*
 
 `[Image: example document screenshot]`
 
 **Paragraph 2 — Prerequisites:**
-Sign-up steps as a bullet list.
 
-Pattern A (when importing directly to the app is available):
-> "To follow along, you can sign up for a Sensible account, then **download an example PDF** and upload it to the Sensible app, or import the PDF and prebuilt open-source configurations directly to the **Sensible app**."
+Pattern A — direct import link available:
+> "To follow along, you can sign up for a Sensible account, then download an example PDF [for a [doc type variant]] and upload it to the Sensible app, or import the PDF and prebuilt open-source [doc type] configurations directly to the Sensible app."
 
-Pattern B (when linking to out-of-the-box extractions):
+Pattern B — link to out-of-the-box extractions (used for resumes, rent rolls):
 > - Sign up for a **Sensible account**
-> - Add prebuilt extraction support for [document type] to your Sensible account. To add support, follow the steps in **Out-of-the-box extractions** and select [document type].
+> - Add prebuilt extraction support for [doc types] to your Sensible account. To add support, follow the steps in **Out-of-the-box extractions** and select [doc types].
 
 **Paragraph 3 — Scope:**
-Note that the prebuilt config is comprehensive but this post keeps it simple. List what will be extracted as a bullet list (2–4 items).
 
-Pattern:
-> "Our **configurations for [document type]** are comprehensive. To keep the example in this post simple, let's [just] extract [the]:"
-> - [Field 1]
-> - [Field 2]
-> - [Field 3]
+> "To keep the example in this post simple, let's extract just the:"
+> - [field 1]
+> - [field 2]
+> - [field 3]
 
 ---
 
-## ## Extract [field or feature name]
+## Extract [field] (repeat 2–4 times)
 
-Repeat this section 2–4 times, one per field or extraction technique demonstrated.
+**Step 1 — Screenshot intro:**
 
-**Step 1 — Screenshot + overview sentence:**
+> "See the following screenshot for an overview of how to extract [the] [field]:"
 
-Pattern:
-> "See the following screenshot for an overview of how to extract [the field]:"
->
-> `[Image: screenshot]` _(caption: "Extract [field name] (left pane: query. middle pane: document. right pane: output)")_
->
-> "The [query/queries] in the left pane in the preceding image [one sentence describing what the query does — what it finds and how]. The PDF is displayed in the middle pane, and the extracted [data] [is/are] in the right pane."
+`[Image: screenshot]` _(caption: "Extract [field] (left pane: query. middle pane: document. right pane: output)")_
 
-**Step 2 — Try-it-yourself prompt:**
+**Step 2 — Post-screenshot description:**
 
-Pattern:
-> "To try this out yourself, paste the following [query / queries / field], or "field[s]" into the left pane of the Sensible app [in the `fields` array]:"
+> "The [query / queries] in the left pane in the preceding image [one sentence describing what the query does — what it finds and how]. The PDF is displayed in the middle pane, and the extracted [data] [is / are] in the right pane."
 
-**Step 3 — SenseML code block:**
+**Step 3 — Try-it-yourself prompt:**
 
-JSON5 (supports `/* comments */`). Comments explain the "why", not the "what." Show a complete runnable snippet — reader should be able to paste and go. Include a full `{ "fields": [...] }` wrapper unless demonstrating an incremental addition to a config already established earlier in the post.
+> "To try this out yourself, paste the following [query / queries], or "[field / fields]" into the left pane of the Sensible app."
 
-**Step 4 — Output:**
+**Step 4 — SenseML code block:**
 
-Pattern:
-> "You'll get this output:" or "You'll get back the following output:"
+JSON5 (supports `/* comments */`). Comments explain the "why", not the "what." Show a complete runnable snippet — include a full `{ "fields": [...] }` wrapper. Reader should be able to paste and go.
 
-JSON output block. Truncate long outputs with `/* JSON output abbreviated */` or `[...]`. Always show at least one complete object so the reader knows the shape.
+**Step 5 — Output:**
 
-**Step 5 (optional) — Explanatory sentence:**
-If the output needs context (e.g., explaining `confidenceSignal`, noting that the List method can take several minutes with `"llmEngine": "thorough"`, or pointing to where to see full output in the UI), add 1–2 sentences after the output block.
+> "You'll get this output:"
+
+JSON output block. Truncate long outputs with `/* JSON output abbreviated */` or `[...]`. Always show at least one complete object so the reader knows the output shape.
+
+**Step 6 (optional) — Explanatory sentence:**
+Add 1–2 sentences if the output needs context (e.g., explaining `confidenceSignal`, noting that List with `"llmEngine": "thorough"` takes longer).
 
 ---
 
-## [OPTIONAL] ## Transform extracted data [: description]
+## [OPTIONAL] Transform extracted data [: description]
 
-Include when extracted data needs reshaping — e.g., zipping column arrays into row objects using `computed_fields` with the `zip` method, or validating values with `customComputation`.
+Include when extracted data needs reshaping (e.g., zipping column arrays into row objects with `zip`, validating values with `customComputation`).
 
 - 1 sentence explaining the default output format and why transformation is useful.
 - Optional screenshot.
-- Try-it-yourself prompt.
+- Try-it-yourself prompt (same pattern as above).
 - Code block showing the computed field(s).
 - Output block.
 
 ---
 
-## [OPTIONAL] ## Test the extraction template with a second document
+## [OPTIONAL] Test the extraction template with a second document
 
 Include when a second example document is available to show config portability.
 
@@ -129,23 +171,27 @@ Include screenshot showing updated output.
 
 ---
 
-## ## Extract more [document type] data
+## Extract more [doc type] data
 
-Point readers to the prebuilt config for more comprehensive extraction. Include a screenshot showing full extraction coverage (all blue/green-outlined lines = extracted fields).
+> "We've covered how to extract a few pieces of data from [a / an] [doc type]. Our prebuilt config extracts much more information. Check it out! In the following screenshot, every [blue / blue-or-green]-outlined line is a piece of extracted data:"
 
-Pattern:
-> "We've covered how to extract a few pieces of data from [document type]. Our prebuilt config extracts much more information. Check it out! In the following screenshot, every blue[-or green]-outlined line is a piece of extracted data:"
->
-> `[Image: full extraction screenshot]`
+Examples:
+- *"We've covered how to extract a few pieces of data from a closing disclosure. Our prebuilt config extracts much more information. Check it out! In the following screenshot, every blue-outlined line is a piece of extracted data."*
+- *"We've covered how to extract a few pieces of data from an explanation of benefits (EOB). Our prebuilt config extracts much more information."*
+
+`[Image: full extraction screenshot]`
 
 ---
 
-## ## Start extracting [from your documents]
+## Start extracting [from your documents]
 
-CTA closing section. Congratulate the reader. Mention the free account tier — **verify current doc count before publishing** (has changed across posts: 100/month, 150/month). Link to account signup, open-source library, and docs.
+Most posts use this version:
+> "Stop relying on manual data entry. With Sensible, claim back valuable time, your ops team will thank you, and you can deliver a superior user experience. It's a win-win."
 
-Pattern:
-> "Congratulations, you've learned some key methods for extracting structured data from [document type] documents. There's more extraction power for you to uncover. **Sign up for a free account** **(X docs a month, no credit card required),** check out our prebuilt **[document type] config in our open-source library**, and peruse our **docs** to start extracting data from your own documents."
+Older version (EOB post):
+> "Congratulations, you've learned some key methods for extracting structured data from [doc type] documents. There's more extraction power for you to uncover. Sign up for a free account ([X] docs a month, no credit card required), check out our prebuilt [doc type] config in our open-source library, and peruse our docs to start extracting data from your own documents."
+
+**Verify current doc count before publishing** — this has changed across posts (100/month, 150/month).
 
 ---
 
@@ -154,7 +200,7 @@ Pattern:
 **Tone:** Practical, tutorial-style. Direct second person ("you", "let's"). Not salesy.
 
 **Formatting:**
-- Bold key Sensible terms and product names on first mention per post: **SenseML**, **Sensible Instruct**, **Switch to SenseML**, etc.
+- Bold key Sensible terms and product names on first mention per post: **SenseML**, **Sensible Instruct**, etc.
 - Bold UI actions: **Create configuration**, **Switch to SenseML**, **Publish configuration**, **Add file**, **Show full output**.
 
 **Screenshots:**

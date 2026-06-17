@@ -1,5 +1,5 @@
 ---
-name: sensible-integration-guide-generator
+name: integration-guide-generator
 description: Generates or refreshes the Sensible integration guide template by reading existing integration guide pages from the published docs and analyzing their conventions. Use this skill whenever asked to generate, update, or refresh the integration guide template, or when .claude/style-guide/integration-guide-template.md is missing or stale. Also invoke before writing a new integration guide from scratch.
 ---
 

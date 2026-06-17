@@ -1,5 +1,5 @@
 ---
-name: sensible-changelog
+name: changelog
 description: Generates and publishes a monthly Sensible product changelog. Invoke whenever the user wants to write, draft, or publish a monthly changelog, or mentions writing up a release summary given a list of PRs. The user will provide PR numbers (from the frontend or backend GitHub repo, or both) and optionally a list of doc topic URLs. The skill structures the input, fetches PR context, drafts the changelog in Sensible's house style, gets user approval, then publishes as a hidden draft to readme.com.
 ---
 
@@ -139,6 +139,7 @@ Key reminders:
 - Section bodies: second person, 2–5 sentences, prose over bullets
 - Doc links: `[text](doc:slug)` format
 - Lead with the most significant features
+- **Parameter names in prose**: use Title Case, not camelCase backticks — "the Ignore Form Data parameter", "the Range parameter", not `` `ignoreFormData` `` or `` `range` ``
 
 ---
 
