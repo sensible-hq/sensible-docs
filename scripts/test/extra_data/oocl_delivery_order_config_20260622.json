@@ -1,0 +1,178 @@
+{
+    "fingerprint": {
+      "tests": [
+        {
+          "type": "startsWith",
+          "text": "delivery order"
+        },
+        {
+          "type": "equals",
+          "text": "CONSIGNEE",
+          "isCaseSensitive": true
+        },
+        {
+          "type": "endsWith",
+          "text": "VOYAGE",
+          "isCaseSensitive": true
+        },
+        {
+          "type": "includes",
+          "text": "PIECE COUNT",
+          "isCaseSensitive": true
+        }
+      ]
+    },
+    "fields": [
+      {
+        "id": "vessel",
+        "anchor": {
+          "match": { "type": "equals", "text": "vessel / voyage" }
+        },
+        "method": {
+          "id": "label",
+          "position": "below"
+        }
+      },
+      {
+        "id": "vessel_call_sign",
+        "anchor": {
+          "match": { "type": "equals", "text": "vessel call sign" }
+        },
+        "method": { "id": "label", "position": "below" }
+      },
+      {
+        "id": "port_of_loading",
+        "anchor": {
+          "match": { "type": "equals", "text": "port of loading" }
+        },
+        "method": { "id": "label", "position": "below" }
+      },
+      {
+        "id": "departure",
+        "type": "date",
+        "anchor": {
+          "match": { "type": "equals", "text": "departure" }
+        },
+        "method": { "id": "label", "position": "below" }
+      },
+      {
+        "id": "port_of_discharge",
+        "anchor": {
+          "match": { "type": "equals", "text": "port of discharge" }
+        },
+        "method": { "id": "label", "position": "below" }
+      },
+      {
+        "id": "place_of_delivery",
+        "anchor": {
+          "match": { "type": "equals", "text": "place of delivery" }
+        },
+        "method": { "id": "label", "position": "below" }
+      },
+      {
+        "id": "estimated_cargo_arrival",
+        "type": "date",
+        "anchor": {
+          "match": { "type": "equals", "text": "estimated cargo arrival date" }
+        },
+        "method": { "id": "label", "position": "below" }
+      },
+      {
+        "id": "goods",
+        "type": "sections",
+        "range": {
+          "externalRange": {
+            "anchor": { "type": "equals", "text": "description of goods" },
+            "stop": { "type": "equals", "text": "description of goods" },
+            "offsetY": -0.05,
+            "stopOffsetY": 0.05,
+            "anchorIsAbsolute": true
+          },
+          "anchor": {
+            "match": {
+              "type": "all",
+              "matches": [
+                {
+                  "type": "not",
+                  "match": { "type": "equals", "text": "total:" }
+                },
+                { "type": "regex", "pattern": "\\d+\\s?(kg|g)", "flags": "ig" }
+              ]
+            },
+            "end": { "type": "equals", "text": "piece count" }
+          },
+          "stop": { "type": "equals", "text": "piece count" },
+          "stopOffsetY": -0.1
+        },
+        "fields": [
+          {
+            "id": "marks",
+            "anchor": { "match": { "type": "equals", "text": "marks" } },
+            "method": {
+              "id": "intersection",
+              "horizontalAnchor": {
+                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+              },
+              "width": 1,
+              "offsetX": -0.1
+            }
+          },
+          {
+            "id": "package",
+            "anchor": { "match": { "type": "equals", "text": "package" } },
+            "method": {
+              "id": "intersection",
+              "horizontalAnchor": {
+                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+              },
+              "width": 1,
+              "offsetX": -0.1,
+              "percentOverlapX": 0.5
+            }
+          },
+          {
+            "id": "description_of_goods",
+            "anchor": {
+              "match": { "type": "equals", "text": "description of goods" }
+            },
+            "method": {
+              "id": "intersection",
+              "horizontalAnchor": {
+                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+              },
+              "width": 2,
+              "height": 2,
+              "offsetY": 0.8,
+              "wordFilters": ["description of goods"]
+            }
+          },
+          {
+            "id": "weight",
+            "type": "weight",
+            "anchor": { "match": { "type": "equals", "text": "weight" } },
+            "method": {
+              "id": "intersection",
+              "horizontalAnchor": {
+                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+              },
+              "width": 1,
+              "offsetX": -0.2,
+              "percentOverlapX": 0.5
+            }
+          },
+          {
+            "id": "measurement",
+            "anchor": { "match": { "type": "equals", "text": "measurement" } },
+            "method": {
+              "id": "intersection",
+              "horizontalAnchor": {
+                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+              },
+              "width": 0.8,
+              "offsetX": -0.1
+            }
+          }
+        ]
+      }
+    ]
+  }
