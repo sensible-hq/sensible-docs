@@ -78,7 +78,12 @@ Produce a full field inventory before selecting examples. Structure it in two pa
 > |---|---|---|---|
 > | `sub_field_id` | type | method + key params | one-line note |
 
-After the inventory, select 2–4 fields to demonstrate and state explicit reasoning for each choice — e.g. method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them.
+After the inventory, propose 2–4 fields to demonstrate and state explicit reasoning for each choice — e.g. method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them.
+
+**Pause here and present the inventory + proposed fields to the user for approval before continuing.** Ask:
+> "Does this field selection look right? Any you'd swap in or out before I proceed?"
+
+Do not move to Step 4 until the user confirms or adjusts the selection.
 
 Also note:
 - Whether the config uses LLM-based methods (`queryGroup`, `list`, `nlpTable`) — determines whether the title includes "with LLMs and Sensible" or just "with Sensible"
