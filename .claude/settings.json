@@ -1,27 +1,5 @@
 {
   "permissions": {
     "additionalDirectories": ["/home/franc/GitHub/sensible-docs-extra-data"]
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /home/franc/GitHub/sensible-docs/.claude/hooks/vale-check.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash /home/franc/GitHub/sensible-docs/.claude/hooks/vale-check.sh"
-          }
-        ]
-      }
-    ]
   }
 }
