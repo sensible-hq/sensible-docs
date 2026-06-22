@@ -20,6 +20,16 @@ Running record of skill failures, near-misses, and friction points. Each entry h
 
 ---
 
+## 2026-06-22 — Field summary flattened sections into top-level fields
+
+**What happened:** The first field inventory table listed all fields at the same level — `goods.description_of_goods`, `goods.weight`, etc. appeared as rows alongside `departure` and `port_of_discharge`. The fact that `goods` is a `sections` field (a repeating structure containing sub-fields) was not visible.
+
+**Root cause:** The summary format didn't account for the structural difference between top-level fields and section sub-fields.
+
+**Fix needed in skill (Step 3):** Split the inventory into two blocks — "Top-level fields" and one block per sections field (e.g., "`goods` — sections field"). Sub-fields belong under their parent sections block, not in the main table.
+
+---
+
 ## 2026-06-22 — Only one goods section returned (couldn't show two objects)
 
 **What happened:** The template rule says "at least two objects per array field." The example document had only one cargo line item, so the goods array had one object. The rule couldn't be satisfied.

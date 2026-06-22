@@ -62,10 +62,28 @@ https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/mai
 
 **If `--config` was provided**, read or fetch it now instead of the above.
 
-From the config, extract:
-- 2–4 representative field names and their methods (to use as the post's extraction examples)
+Produce a full field inventory before selecting examples. Structure it in two parts:
+
+**Top-level fields** (a table of all fields at the root of `"fields": []`):
+
+| Field | Type | Method | Notes |
+|---|---|---|---|
+| `field_id` | type | method + key params | one-line note on demo value |
+
+**One block per `sections` field** (do not merge sections sub-fields into the top-level table):
+
+> **`[sections_field_id]` — sections field** (one sentence describing what it repeats over):
+>
+> | Sub-field | Type | Method | Notes |
+> |---|---|---|---|
+> | `sub_field_id` | type | method + key params | one-line note |
+
+After the inventory, select 2–4 fields to demonstrate and state explicit reasoning for each choice — e.g. method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them.
+
+Also note:
 - Whether the config uses LLM-based methods (`queryGroup`, `list`, `nlpTable`) — determines whether the title includes "with LLMs and Sensible" or just "with Sensible"
 - The specific vendor/variant used, if any (e.g., "ADP pay stubs")
+- Whether a `fingerprint` is present — if so, it must appear in the "Putting it all together" code block
 
 ## Step 4 — Upload config and run live extraction
 
