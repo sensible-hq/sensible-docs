@@ -1,178 +1,184 @@
+/* Sensible uses JSON5 to support in-line comments*/
 {
-    "fingerprint": {
-      "tests": [
-        {
-          "type": "startsWith",
-          "text": "delivery order"
-        },
-        {
-          "type": "equals",
-          "text": "CONSIGNEE",
-          "isCaseSensitive": true
-        },
-        {
-          "type": "endsWith",
-          "text": "VOYAGE",
-          "isCaseSensitive": true
-        },
-        {
-          "type": "includes",
-          "text": "PIECE COUNT",
-          "isCaseSensitive": true
-        }
-      ]
-    },
-    "fields": [
+  "fingerprint": {       /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+    "tests": [           /* array of match tests; by default all tests must pass for the config to run */
       {
-        "id": "vessel",
-        "anchor": {
-          "match": { "type": "equals", "text": "vessel / voyage" }
-        },
-        "method": {
-          "id": "label",
-          "position": "below"
-        }
+        "type": "startsWith", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "delivery order" /* string to match */
       },
       {
-        "id": "vessel_call_sign",
-        "anchor": {
-          "match": { "type": "equals", "text": "vessel call sign" }
-        },
-        "method": { "id": "label", "position": "below" }
+        "type": "equals", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "CONSIGNEE", /* string to match */
+        "isCaseSensitive": true /* default: false */
       },
       {
-        "id": "port_of_loading",
-        "anchor": {
-          "match": { "type": "equals", "text": "port of loading" }
-        },
-        "method": { "id": "label", "position": "below" }
+        "type": "endsWith", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "VOYAGE", /* string to match */
+        "isCaseSensitive": true /* default: false */
       },
       {
-        "id": "departure",
-        "type": "date",
-        "anchor": {
-          "match": { "type": "equals", "text": "departure" }
-        },
-        "method": { "id": "label", "position": "below" }
-      },
-      {
-        "id": "port_of_discharge",
-        "anchor": {
-          "match": { "type": "equals", "text": "port of discharge" }
-        },
-        "method": { "id": "label", "position": "below" }
-      },
-      {
-        "id": "place_of_delivery",
-        "anchor": {
-          "match": { "type": "equals", "text": "place of delivery" }
-        },
-        "method": { "id": "label", "position": "below" }
-      },
-      {
-        "id": "estimated_cargo_arrival",
-        "type": "date",
-        "anchor": {
-          "match": { "type": "equals", "text": "estimated cargo arrival date" }
-        },
-        "method": { "id": "label", "position": "below" }
-      },
-      {
-        "id": "goods",
-        "type": "sections",
-        "range": {
-          "externalRange": {
-            "anchor": { "type": "equals", "text": "description of goods" },
-            "stop": { "type": "equals", "text": "description of goods" },
-            "offsetY": -0.05,
-            "stopOffsetY": 0.05,
-            "anchorIsAbsolute": true
-          },
-          "anchor": {
-            "match": {
-              "type": "all",
-              "matches": [
-                {
-                  "type": "not",
-                  "match": { "type": "equals", "text": "total:" }
-                },
-                { "type": "regex", "pattern": "\\d+\\s?(kg|g)", "flags": "ig" }
-              ]
-            },
-            "end": { "type": "equals", "text": "piece count" }
-          },
-          "stop": { "type": "equals", "text": "piece count" },
-          "stopOffsetY": -0.1
-        },
-        "fields": [
-          {
-            "id": "marks",
-            "anchor": { "match": { "type": "equals", "text": "marks" } },
-            "method": {
-              "id": "intersection",
-              "horizontalAnchor": {
-                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
-              },
-              "width": 1,
-              "offsetX": -0.1
-            }
-          },
-          {
-            "id": "package",
-            "anchor": { "match": { "type": "equals", "text": "package" } },
-            "method": {
-              "id": "intersection",
-              "horizontalAnchor": {
-                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
-              },
-              "width": 1,
-              "offsetX": -0.1,
-              "percentOverlapX": 0.5
-            }
-          },
-          {
-            "id": "description_of_goods",
-            "anchor": {
-              "match": { "type": "equals", "text": "description of goods" }
-            },
-            "method": {
-              "id": "intersection",
-              "horizontalAnchor": {
-                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
-              },
-              "width": 2,
-              "height": 2,
-              "offsetY": 0.8,
-              "wordFilters": ["description of goods"]
-            }
-          },
-          {
-            "id": "weight",
-            "type": "weight",
-            "anchor": { "match": { "type": "equals", "text": "weight" } },
-            "method": {
-              "id": "intersection",
-              "horizontalAnchor": {
-                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
-              },
-              "width": 1,
-              "offsetX": -0.2,
-              "percentOverlapX": 0.5
-            }
-          },
-          {
-            "id": "measurement",
-            "anchor": { "match": { "type": "equals", "text": "measurement" } },
-            "method": {
-              "id": "intersection",
-              "horizontalAnchor": {
-                "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
-              },
-              "width": 0.8,
-              "offsetX": -0.1
-            }
-          }
-        ]
+        "type": "includes", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "PIECE COUNT", /* string to match */
+        "isCaseSensitive": true /* default: false */
       }
     ]
-  }
+  },
+  "fields": [
+    {
+      "id": "vessel",           /* user-friendly ID for extracted target data */
+      "anchor": {               /* an anchor is text that always occurs in the same position relative to your target data. */
+        "match": { "type": "equals", "text": "vessel / voyage" } /* matching line must equal the string exactly */
+      },
+      "method": {
+        "id": "label",          /* extracts the line directly adjacent to the anchor */
+        "position": "below"     /* target data is below the anchor */
+      }
+    },
+    {
+      "id": "vessel_call_sign", /* user-friendly ID for extracted target data */
+      "anchor": {
+        "match": { "type": "equals", "text": "vessel call sign" }
+      },
+      "method": { "id": "label", "position": "below" }
+    },
+    {
+      "id": "port_of_loading",  /* user-friendly ID for extracted target data */
+      "anchor": {
+        "match": { "type": "equals", "text": "port of loading" }
+      },
+      "method": { "id": "label", "position": "below" }
+    },
+    {
+      "id": "departure",        /* user-friendly ID for extracted target data */
+      "type": "date",           /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "anchor": {               /* an anchor is text that always occurs in the same position relative to your target data. */
+        "match": {              /* locates the anchor line. accepts a single Match object or an array of Match objects */
+          "type": "equals",     /* matching line must equal the string exactly */
+          "text": "departure"   /* string to match */
+        }
+      },
+      "method": { "id": "label", "position": "below" }
+    },
+    {
+      "id": "port_of_discharge", /* user-friendly ID for extracted target data */
+      "anchor": {
+        "match": { "type": "equals", "text": "port of discharge" }
+      },
+      "method": { "id": "label", "position": "below" }
+    },
+    {
+      "id": "place_of_delivery", /* user-friendly ID for extracted target data */
+      "anchor": {
+        "match": { "type": "equals", "text": "place of delivery" }
+      },
+      "method": { "id": "label", "position": "below" }
+    },
+    {
+      "id": "estimated_cargo_arrival", /* user-friendly ID for extracted target data */
+      "type": "date",           /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "anchor": {
+        "match": { "type": "equals", "text": "estimated cargo arrival date" }
+      },
+      "method": { "id": "label", "position": "below" }
+    },
+    {
+      "id": "goods",             /* ID for the extracted array of sections */
+      "type": "sections",       /* extracts repeating sections; returns each section as an object */
+      "range": {
+        "externalRange": {      /* scopes the section group to the goods table only */
+          "anchor": { "type": "equals", "text": "description of goods" },
+          "stop": { "type": "equals", "text": "description of goods" },
+          "offsetY": -0.05,     /* shift the scope's top boundary up slightly */
+          "stopOffsetY": 0.05,  /* shift the scope's bottom boundary down slightly */
+          "anchorIsAbsolute": true /* offsets are relative to the page top-left, not the anchor */
+        },
+        "anchor": {             /* required. defines which lines start each section */
+          "match": {            /* required. repeated text marking the start of each section */
+            "type": "all",      /* all sub-matches must pass */
+            "matches": [
+              {
+                "type": "not",
+                "match": { "type": "equals", "text": "total:" } /* exclude the totals row */
+              },
+              { "type": "regex", "pattern": "\\d+\\s?(kg|g)", "flags": "ig" } /* match lines containing a weight value */
+            ]
+          },
+          "end": { "type": "equals", "text": "piece count" } /* optional. stop looking for sections after this line */
+        },
+        "stop": { "type": "equals", "text": "piece count" }, /* optional. text marking each section's bottom boundary */
+        "stopOffsetY": -0.1     /* shift each section's bottom boundary up slightly */
+      },
+      "fields": [               /* array of fields to extract from each section */
+        {
+          "id": "marks",        /* user-friendly ID for extracted target data */
+          "anchor": {           /* an anchor is text that always occurs in the same position relative to your target data. */
+            "match": { "type": "equals", "text": "marks" }
+          },
+          "method": {
+            "id": "intersection",
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" } /* defines the horizontal axis (row): the weight value line */
+            },
+            "width": 1,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region */
+            "offsetX": -0.1     /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
+          }
+        },
+        {
+          "id": "package",      /* user-friendly ID for extracted target data */
+          "anchor": { "match": { "type": "equals", "text": "package" } },
+          "method": {
+            "id": "intersection",
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
+            "width": 1,
+            "offsetX": -0.1,
+            "percentOverlapX": 0.5 /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+          }
+        },
+        {
+          "id": "description_of_goods", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": { "type": "equals", "text": "description of goods" }
+          },
+          "method": {
+            "id": "intersection",
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
+            "width": 2,
+            "height": 2,        /* default: 0. same as width, but for height of the intersection region */
+            "offsetY": 0.8,     /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
+            "wordFilters": ["description of goods"] /* exclude the column header text from the extracted value */
+          }
+        },
+        {
+          "id": "weight",       /* user-friendly ID for extracted target data */
+          "type": "weight",     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+          "anchor": { "match": { "type": "equals", "text": "weight" } },
+          "method": {
+            "id": "intersection",
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
+            "width": 1,
+            "offsetX": -0.2,
+            "percentOverlapX": 0.5
+          }
+        },
+        {
+          "id": "measurement",  /* user-friendly ID for extracted target data */
+          "anchor": { "match": { "type": "equals", "text": "measurement" } },
+          "method": {
+            "id": "intersection",
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
+            "width": 0.8,
+            "offsetX": -0.1
+          }
+        }
+      ]
+    }
+  ]
+}

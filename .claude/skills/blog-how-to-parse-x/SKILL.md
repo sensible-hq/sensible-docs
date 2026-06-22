@@ -140,6 +140,15 @@ json5-commenter drafts/blog-[doc-type-slug].md
 
 This adds canonical inline comments to every SenseML code block using `.claude/style-guide/json5-comments-reference.md` as the source. Do not skip this step.
 
+## Step 6.5 — Sync combined config file from draft
+
+The draft is the single source of truth for SenseML configs. After json5-commenter completes, extract the enriched "Putting it all together" code block and overwrite the combined post config file so both are identical:
+
+1. Find the fenced ` ```json5 ` block immediately following "Here's the complete SenseML config combining everything we've covered:" in the draft.
+2. Write the block content (without the fences) to the combined post config path used in Step 4.
+
+This ensures one enrichment pass covers everything — never enrich the draft and the config file separately.
+
 ## Step 7 — Present to user
 
 Print the path to the saved draft and a short summary:

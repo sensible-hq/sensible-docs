@@ -1,24 +1,46 @@
+/* Sensible uses JSON5 to support in-line comments*/
 {
-  "fingerprint": {
-    "tests": [
-      { "type": "startsWith", "text": "delivery order" },
-      { "type": "equals", "text": "CONSIGNEE", "isCaseSensitive": true },
-      { "type": "endsWith", "text": "VOYAGE", "isCaseSensitive": true },
-      { "type": "includes", "text": "PIECE COUNT", "isCaseSensitive": true }
+  "fingerprint": {       /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+    "tests": [           /* array of match tests; by default all tests must pass for the config to run */
+      {
+        "type": "startsWith", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "delivery order" /* string to match */
+      },
+      {
+        "type": "equals", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "CONSIGNEE", /* string to match */
+        "isCaseSensitive": true /* default: false */
+      },
+      {
+        "type": "endsWith", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "VOYAGE", /* string to match */
+        "isCaseSensitive": true /* default: false */
+      },
+      {
+        "type": "includes", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "PIECE COUNT", /* string to match */
+        "isCaseSensitive": true /* default: false */
+      }
     ]
   },
   "fields": [
     {
-      "id": "departure",
-      "type": "date",
-      "anchor": {
-        "match": { "type": "equals", "text": "departure" }
+      "id": "departure",        /* user-friendly ID for extracted target data */
+      "type": "date",           /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "anchor": {               /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
+        "match": {              /* locates the anchor line. accepts a single Match object or an array of Match objects */
+          "type": "equals",     /* matching line must equal the string exactly */
+          "text": "departure"   /* string to match */
+        }
       },
-      "method": { "id": "label", "position": "below" }
+      "method": {
+        "id": "label",          /* extracts the line directly adjacent to the anchor */
+        "position": "below"     /* target data is below the anchor */
+      }
     },
     {
-      "id": "goods",
-      "type": "sections",
+      "id": "goods",             /* ID for the extracted array of sections */
+      "type": "sections",       /* extracts repeating sections; returns each section as an object */
       "range": {
         "externalRange": {
           "anchor": { "type": "equals", "text": "description of goods" },
@@ -27,71 +49,86 @@
           "stopOffsetY": 0.05,
           "anchorIsAbsolute": true
         },
-        "anchor": {
-          "match": {
-            "type": "all",
+        "anchor": {             /* required. defines which lines start each section */
+          "match": {            /* required. repeated text marking the start of each section */
+            "type": "all",      /* all sub-matches must pass */
             "matches": [
-              { "type": "not", "match": { "type": "equals", "text": "total:" } },
+              {
+                "type": "not",
+                "match": { "type": "equals", "text": "total:" }
+              },
               { "type": "regex", "pattern": "\\d+\\s?(kg|g)", "flags": "ig" }
             ]
           },
           "end": { "type": "equals", "text": "piece count" }
         },
-        "stop": { "type": "equals", "text": "piece count" },
+        "stop": { "type": "equals", "text": "piece count" }, /* optional. text marking each section's bottom boundary */
         "stopOffsetY": -0.1
       },
-      "fields": [
+      "fields": [               /* array of fields to extract from each section */
         {
           "id": "marks",
           "anchor": { "match": { "type": "equals", "text": "marks" } },
           "method": {
             "id": "intersection",
-            "horizontalAnchor": { "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" } },
-            "width": 1,
-            "offsetX": -0.1
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" } /* defines the horizontal axis (row): the weight value line */
+            },
+            "width": 1,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region */
+            "offsetX": -0.1     /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
           }
         },
         {
-          "id": "package",
+          "id": "package",      /* user-friendly ID for extracted target data */
           "anchor": { "match": { "type": "equals", "text": "package" } },
           "method": {
             "id": "intersection",
-            "horizontalAnchor": { "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" } },
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
             "width": 1,
             "offsetX": -0.1,
-            "percentOverlapX": 0.5
+            "percentOverlapX": 0.5 /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
           }
         },
         {
-          "id": "description_of_goods",
-          "anchor": { "match": { "type": "equals", "text": "description of goods" } },
+          "id": "description_of_goods", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": { "type": "equals", "text": "description of goods" }
+          },
           "method": {
             "id": "intersection",
-            "horizontalAnchor": { "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" } },
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
             "width": 2,
-            "height": 2,
-            "offsetY": 0.8,
+            "height": 2,        /* default: 0. same as width, but for height of the intersection region */
+            "offsetY": 0.8,     /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
             "wordFilters": ["description of goods"]
           }
         },
         {
-          "id": "weight",
-          "type": "weight",
+          "id": "weight",       /* user-friendly ID for extracted target data */
+          "type": "weight",     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
           "anchor": { "match": { "type": "equals", "text": "weight" } },
           "method": {
             "id": "intersection",
-            "horizontalAnchor": { "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" } },
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
             "width": 1,
             "offsetX": -0.2,
             "percentOverlapX": 0.5
           }
         },
         {
-          "id": "measurement",
+          "id": "measurement",  /* user-friendly ID for extracted target data */
           "anchor": { "match": { "type": "equals", "text": "measurement" } },
           "method": {
             "id": "intersection",
-            "horizontalAnchor": { "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" } },
+            "horizontalAnchor": {
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
             "width": 0.8,
             "offsetX": -0.1
           }

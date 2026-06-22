@@ -30,6 +30,16 @@ Running record of skill failures, near-misses, and friction points. Each entry h
 
 ---
 
+## 2026-06-22 — Config files saved as plain JSON, stripping inline comments
+
+**What happened:** The skill saved SenseML configs to disk as plain JSON — no inline comments. The blog post draft's code blocks were enriched by json5-commenter separately. Two divergent artifacts, no single source of truth.
+
+**Root cause:** The skill had no step to sync the enriched draft back to the config files. Enrichment ran on the draft only; the config files were written from the raw input and never updated.
+
+**Fix in skill (Step 6.5):** After json5-commenter enriches the draft, extract the "Putting it all together" code block and overwrite the combined post config file. The draft is the source of truth — one enrichment pass covers both.
+
+---
+
 ## 2026-06-22 — Second config upload errors on golden re-upload
 
 **What happened:** Running `upload_pr_extractor.py` a second time on the same document type (to publish the trimmed "Putting it all together" config) failed with `HTTP 400: the name is already in use` on the golden upload step. The script exited with an error, obscuring the fact that the config itself was published successfully and the app URL was still valid.
