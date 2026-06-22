@@ -83,6 +83,23 @@ Examples:
 
 ---
 
+## Prerequisites
+
+Newer posts (delivery orders, cyber insurance quotes) use a standardized step-by-step prerequisites section instead of an inline sentence. Use this format:
+
+> "To extract from this document, take the following steps: Sign up for a **Sensible account**. After completing onboarding, click the **Document types** tab and click **Create new document type**. In the dialog, upload the example document below. Leave all defaults as-is except ensure "Auto-generate configuration" is disabled, then click **Create**. [Download [doc type variant] sample]. Name the document type `[doc_type_slug]`."
+
+Older posts (bank statements, closing disclosures, EOBs) use an inline sentence instead — see examples below. Either is acceptable, but the step-by-step format is the current standard.
+
+Older Pattern A — direct import link (inline):
+> "To follow along, you can sign up for a Sensible account, then download an example PDF [for a [doc type variant]] and upload it to the Sensible app, or import the PDF and prebuilt open-source [doc type] configurations directly to the Sensible app."
+
+Older Pattern B — out-of-the-box extractions (inline, used for resumes, rent rolls):
+> - Sign up for a **Sensible account**
+> - Add prebuilt extraction support for [doc types] to your Sensible account. To add support, follow the steps in **Out-of-the-box extractions** and select [doc types].
+
+---
+
 ## Write document extraction queries with SenseML
 
 **Paragraph 1 — Example document:**
@@ -96,21 +113,29 @@ Examples:
 
 `[Image: example document screenshot]`
 
-**Paragraph 2 — Prerequisites:**
-
-Pattern A — direct import link available:
-> "To follow along, you can sign up for a Sensible account, then download an example PDF [for a [doc type variant]] and upload it to the Sensible app, or import the PDF and prebuilt open-source [doc type] configurations directly to the Sensible app."
-
-Pattern B — link to out-of-the-box extractions (used for resumes, rent rolls):
-> - Sign up for a **Sensible account**
-> - Add prebuilt extraction support for [doc types] to your Sensible account. To add support, follow the steps in **Out-of-the-box extractions** and select [doc types].
-
-**Paragraph 3 — Scope:**
+**Paragraph 2 — Scope:**
 
 > "To keep the example in this post simple, let's extract just the:"
 > - [field 1]
 > - [field 2]
 > - [field 3]
+
+---
+
+## [CONDITIONAL] Identify and classify incoming [doc types]
+
+Include this section when the config has a `fingerprint`. Place it as the first extraction section, before the individual field sections.
+
+Opening sentence pattern — adapt the count to match the number of tests:
+> "[N] text conditions uniquely identify the [doc type variant] format; all must pass before field extraction runs."
+
+Example (delivery orders, 4 tests):
+> *"Four text conditions uniquely identify the OOCL delivery order format; all must pass before field extraction runs."*
+
+Follow the opening sentence with the fingerprint code block (JSON5 with inline comments), then 1–2 sentences explaining what fingerprinting does:
+> "Sensible uses these tests to route each incoming document to the correct config automatically. If a document fails any test, Sensible skips this config and tries the next one — useful when a document type has multiple carrier- or vendor-specific layouts."
+
+`[Image: screenshot showing fingerprint tests in Sensible app]`
 
 ---
 
@@ -200,12 +225,53 @@ Examples:
 
 ---
 
+## [OPTIONAL] When to use a layout-specific config vs. a generalized config
+
+Include when the config is carrier- or vendor-specific and the reader may be wondering whether to build their own vs. use an LLM-based generalized approach.
+
+Pattern:
+> "A layout-specific config is the right choice when [a carrier / vendor / issuer] appears regularly in your [pipeline / workflow] and the [document] format is consistent across [submissions / instances]. [Explain the tradeoff: layout-specific = no LLM calls, consistent output, one-time build cost. Generalized LLM = handles any variant, less setup, more variability.] Sensible's fingerprint method routes each incoming document to the right config automatically, based on [carrier / vendor]-identifying text in the document."
+
+Example (cyber insurance quotes):
+> *"A layout-specific config is the right choice when a carrier appears regularly in your submission pipeline and the quote format is consistent across submissions. The Beazley config above anchors to Beazley's specific label text… No LLM calls, no prompt maintenance, consistent output on every Beazley document that enters the pipeline. For carriers that appear less frequently or whose format you haven't templated yet, a generalized LLM config handles extraction on day one… Both run through the same API endpoint, and Sensible's fingerprint method routes each document to the right config automatically."*
+
+---
+
+## Connect Sensible to your workflow
+
+Newer posts replace the old "Start extracting" CTA with this integration methods section.
+
+Opening sentence pattern:
+> "Once your SenseML config is set up, there are several ways to integrate [doc type] extraction into your application or process."
+
+Then list the integration options (use the current names — verify before publishing):
+- **Python SDK** — wraps the extraction API; install with pip
+- **MCP server** — connects document extraction to AI coding tools like Claude
+- **API (synchronous and asynchronous)** — synchronous returns data inline; asynchronous accepts a webhook, recommended for high-volume workflows
+- **Zapier** — no-code integration; routes extracted data into Google Sheets, Airtable, Slack, etc.
+
+---
+
+## FAQ
+
+Newer posts end with a Q&A section. Cover 4–6 questions relevant to the document type. Standard questions that appear across posts:
+
+- What fields can be extracted from a [doc type]? (list the core fields)
+- How accurate is automated [doc type] extraction? (deterministic = highly accurate; note confidence signals)
+- How does Sensible handle [doc types] from multiple [carriers / vendors / issuers]? (fingerprinting + generalized LLM fallback)
+- Can Sensible extract from [doc types] bundled with other documents? (portfolio method)
+- How long does it take to set up [doc type] extraction? (reference prebuilt config if available; layout-specific typically under an hour)
+
+---
+
 ## Start extracting [from your documents]
 
-Most posts use this version:
+_Older posts only. Newer posts use "Connect Sensible to your workflow" + "FAQ" instead._
+
+Most older posts use this version:
 > "Stop relying on manual data entry. With Sensible, claim back valuable time, your ops team will thank you, and you can deliver a superior user experience. It's a win-win."
 
-Older version (EOB post):
+Oldest version (EOB post):
 > "Congratulations, you've learned some key methods for extracting structured data from [doc type] documents. There's more extraction power for you to uncover. Sign up for a free account ([X] docs a month, no credit card required), check out our prebuilt [doc type] config in our open-source library, and peruse our docs to start extracting data from your own documents."
 
 **Verify current doc count before publishing** — this has changed across posts (100/month, 150/month).

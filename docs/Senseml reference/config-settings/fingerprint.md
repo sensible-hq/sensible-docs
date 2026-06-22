@@ -36,13 +36,14 @@ A fingerprint consists of an array of tests, where each test is a string, a Matc
 
 The following fingerprint tests a vendor-specific config "anyco\_life\_insurance\_quote" in a document type "life insurance quotes". This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases. 
 
-```
+```json5
+/* Sensible uses JSON5 to support in-line comments*/
 {
-  "fingerprint": {
-    "tests": [
+  "fingerprint": {     /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+    "tests": [         /* array of match tests; by default all tests must pass for the config to run */
       {
-        "type": "startsWith",
-        "text": "anyco"
+        "type": "startsWith", /* match types: startsWith | endsWith | includes | equals | regex */
+        "text": "anyco"       /* string to match */
       },
       "info@anyco.com",
       "life insurance quote"

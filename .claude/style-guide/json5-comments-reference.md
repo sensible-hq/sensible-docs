@@ -12,6 +12,22 @@ Add this line as a block comment before the opening `{` of every example:
 
 ---
 
+## Fingerprint
+
+```json5
+"fingerprint": {       /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+  "tests": [           /* array of match tests; by default all tests must pass for the config to run */
+    {
+      "type": "startsWith", /* match types: startsWith | endsWith | includes | equals | regex */
+      "text": "anyco",      /* string to match */
+      "isCaseSensitive": true /* default: false */
+    }
+  ]
+}
+```
+
+---
+
 ## Field-level (applies to every field in every example)
 
 ```json5
