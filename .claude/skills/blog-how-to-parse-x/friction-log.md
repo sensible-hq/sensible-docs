@@ -30,6 +30,16 @@ Running record of skill failures, near-misses, and friction points. Each entry h
 
 ---
 
+## 2026-06-22 — Second config upload errors on golden re-upload
+
+**What happened:** Running `upload_pr_extractor.py` a second time on the same document type (to publish the trimmed "Putting it all together" config) failed with `HTTP 400: the name is already in use` on the golden upload step. The script exited with an error, obscuring the fact that the config itself was published successfully and the app URL was still valid.
+
+**Root cause:** `upload_golden` treats both POST and PUT failure as fatal (`sys.exit(1)`). But when the same PDF is uploaded a second time for a different config, the golden name collision is expected and harmless — the file is already on the server and fully usable.
+
+**Fix in script (`upload_pr_extractor.py`):** When both POST and PUT fail on the golden upload, print a warning and return instead of exiting. The golden already exists; the app URL at the end is still correct.
+
+---
+
 ## 2026-06-22 — Only one goods section returned (couldn't show two objects)
 
 **What happened:** The template rule says "at least two objects per array field." The example document had only one cargo line item, so the goods array had one object. The rule couldn't be satisfied.
