@@ -138,7 +138,7 @@ JSON5 (supports `/* comments */`). Comments explain the "why", not the "what." S
 
 > "You'll get this output:"
 
-JSON output block. Truncate long outputs with `/* JSON output abbreviated */` or `[...]`. Always show at least one complete object so the reader knows the output shape.
+JSON output block. For array fields, show at least two objects if the document has them — individual objects can be abbreviated if long. Truncate remaining items with `/* JSON output abbreviated */`. If the document genuinely has only one repeating item, show it and add a sentence noting the config handles multiple.
 
 **Step 6 (optional) — Explanatory sentence:**
 Add 1–2 sentences if the output needs context (e.g., explaining `confidenceSignal`, noting that List with `"llmEngine": "thorough"` takes longer).
@@ -168,6 +168,23 @@ Steps:
 4. Note that the extracted data in the right pane updates to reflect the new document.
 
 Include screenshot showing updated output.
+
+---
+
+## Putting it all together
+
+_New section — not present in older published posts. Include in all new posts._
+
+Show a single combined code block containing all fields demonstrated in the post (plus the fingerprint object if the config has one), followed by the full extraction output for that combined config. This gives readers a complete, copy-pasteable starting point and gives the blog writer an easy way to verify the post end-to-end.
+
+**Intro sentence:**
+> "Here's the complete SenseML config combining everything we've covered:"
+
+**Code block:** One `json5` block with all fields from the individual sections plus `fingerprint` at the top if present. Include the same inline comments as the individual examples.
+
+**Output block:** Real output from running the combined code block itself — not the original source config, which extracts more fields than are shown in the post. Paste the combined block into the Sensible app (or run it via `curl`) and use that response. For array fields, show at least two objects — individual objects can be abbreviated if long — then truncate remaining items with `/* JSON output abbreviated */`.
+
+**App link:** Print the Sensible app URL to the terminal (from `upload_pr_extractor.py` output) for the writer to verify — do NOT embed it in the draft.
 
 ---
 

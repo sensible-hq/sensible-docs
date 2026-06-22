@@ -67,19 +67,47 @@ From the config, extract:
 - Whether the config uses LLM-based methods (`queryGroup`, `list`, `nlpTable`) — determines whether the title includes "with LLMs and Sensible" or just "with Sensible"
 - The specific vendor/variant used, if any (e.g., "ADP pay stubs")
 
-## Step 4 — Draft the blog post
+## Step 4 — Upload config and run live extraction
+
+**Do this before writing any output block.** Never invent or infer output — all output blocks must come from real API responses.
+
+If a `--pdf` was provided:
+
+```bash
+python3 scripts/upload_pr_extractor.py \
+  --doc-type [doc-type-slug] \
+  --config [config-path] \
+  --golden [pdf-path] \
+  --config-name [config-stem]
+```
+
+Then run a live extraction against the golden PDF:
+
+```bash
+curl -s -X POST "https://api.sensible.so/v0/extract/[doc-type-slug]?configuration_name=[config-stem]" \
+  -H "Authorization: Bearer ${SENSIBLE_API_KEY}" \
+  -H "Content-Type: application/pdf" \
+  --data-binary @"[pdf-path]" | python3 -m json.tool
+```
+
+Save the full `parsed_document` response — you will use it verbatim in Step 5. Print the Sensible app URL from `upload_pr_extractor.py` output to the terminal for the writer to verify (do NOT embed it in the draft).
+
+If no `--pdf` was provided, leave output blocks as `[OUTPUT: run extraction to get real values]` placeholders and note this in the Step 6 summary.
+
+## Step 5 — Draft the blog post
 
 Write the full draft following `.claude/style-guide/blog-post-template.md` exactly. Use:
 - Real field names and SenseML queries from the fetched config (Step 3), not invented examples
 - Verbatim boilerplate sentences from the template, with `[variables]` filled in
 - `[IMAGE: description]` markers as placeholders for screenshots — do not omit these
+- Real output values from the Step 4 extraction — never invented
 
 Save the draft to:
 ```
 drafts/blog-[doc-type-slug].md
 ```
 
-## Step 5 — Enrich JSON5 comments
+## Step 6 — Enrich JSON5 comments
 
 After saving the draft, invoke the `json5-commenter` skill on it:
 
@@ -89,10 +117,11 @@ json5-commenter drafts/blog-[doc-type-slug].md
 
 This adds canonical inline comments to every SenseML code block using `.claude/style-guide/json5-comments-reference.md` as the source. Do not skip this step.
 
-## Step 6 — Present to user
+## Step 7 — Present to user
 
 Print the path to the saved draft and a short summary:
 - Document type and variant used
 - Fields demonstrated
 - Which SenseML methods appear in the post
+- Sensible app URL for the writer to verify the extraction
 - Any config fields you flagged as unclear or that may need screenshot attention

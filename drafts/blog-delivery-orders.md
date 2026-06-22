@@ -358,8 +358,6 @@ You'll get this output:
 }
 ```
 
-[Open in Sensible app](https://app.sensible.so/editor/?d=delivery_orders&c=blog_post_fields&g=oocl-delivery-order-sample%20(1))
-
 ---
 
 ## Extract more delivery order data
