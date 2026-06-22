@@ -61,8 +61,8 @@ You'll get this output:
 ```json
 {
   "departure": {
-    "source": "15 MAR 2024",
-    "value": "2024-03-15T00:00:00.000Z",
+    "source": "Mar 14 2023",
+    "value": "2023-03-14T00:00:00.000Z",
     "type": "date"
   }
 }
@@ -103,7 +103,10 @@ You'll get this output:
 
 ```json
 {
-  "port_of_discharge": "LOS ANGELES, CA"
+  "port_of_discharge": {
+    "type": "string",
+    "value": "Rotterdam"
+  }
 }
 ```
 
@@ -198,25 +201,166 @@ You'll get this output:
 {
   "goods": [
     {
-      "description_of_goods": "ELECTRONICS - LCD MONITORS",
+      "description_of_goods": {
+        "type": "string",
+        "value": "MESH BAGS FREIGHT PREPAID"
+      },
       "weight": {
-        "source": "2450 KG",
-        "value": 2450,
-        "unit": "kg"
-      }
-    },
-    {
-      "description_of_goods": "COMPUTER ACCESSORIES - KEYBOARDS & MICE",
-      "weight": {
-        "source": "380 KG",
-        "value": 380,
-        "unit": "kg"
+        "source": "16200 KG",
+        "value": 16200,
+        "unit": "kilograms",
+        "type": "weight"
       }
     }
-    /* JSON output abbreviated */
   ]
 }
 ```
+
+## Putting it all together
+
+Here's the complete SenseML config combining everything we've covered:
+
+```json5
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fingerprint": {               /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+    "tests": [
+      { "type": "startsWith", "text": "delivery order" },
+      { "type": "equals",     "text": "CONSIGNEE", "isCaseSensitive": true }, /* isCaseSensitive: true — CONSIGNEE always appears in all-caps on this form */
+      { "type": "endsWith",   "text": "VOYAGE",    "isCaseSensitive": true },
+      { "type": "includes",   "text": "PIECE COUNT","isCaseSensitive": true }
+    ]
+  },
+  "fields": [
+    {
+      "id": "departure",           /* user-friendly ID for extracted target data */
+      "type": "date",              /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "anchor": {                  /* an anchor is text that always occurs in the same position relative to your target data. */
+        "match": {               /* locates the anchor line. accepts a single Match object or an array of Match objects */
+          "type": "equals",        /* matching line must equal the string exactly */
+          "text": "departure"      /* string to match */
+        }
+      },
+      "method": {
+        "id": "label",             /* target data is labeled by nearby text in the document */
+        "position": "below"        /* target data appears below the anchor label */
+      }
+    },
+    {
+      "id": "port_of_discharge",   /* user-friendly ID for extracted target data */
+      "anchor": {                  /* an anchor is text that always occurs in the same position relative to your target data. */
+        "match": {               /* locates the anchor line. accepts a single Match object or an array of Match objects */
+          "type": "equals",        /* matching line must equal the string exactly */
+          "text": "port of discharge" /* string to match */
+        }
+      },
+      "method": {
+        "id": "label",             /* target data is labeled by nearby text in the document */
+        "position": "below"        /* target data appears below the anchor label */
+      }
+    },
+    {
+      "id": "goods",               /* user-friendly ID for extracted target data */
+      "type": "sections",          /* extracts repeating sections; returns each section as an object */
+      "range": {
+        "anchor": {              /* an anchor is text that always occurs in the same position relative to your target data. */
+          "match": {             /* locates the anchor line. accepts a single Match object or an array of Match objects */
+            "type": "all",         /* all matches must be true for the anchor to match */
+            "matches": [
+              {
+                "type": "not",     /* equals | startsWith | endsWith | includes | regex | first | any | all | not */
+                "match": { "type": "equals", "text": "total:" }
+              },
+              {
+                "type": "regex",   /* match anywhere in line */
+                "pattern": "\\d+\\s?(kg|g)",
+                "flags": "ig"
+              }
+            ]
+          },
+          "end": {               /* optional. stop looking for sections after this line */
+            "type": "equals",      /* matching line must equal the string exactly */
+            "text": "piece count"  /* string to match */
+          }
+        },
+        "stop": {                /* optional. text marking each section's bottom boundary; if omitted, each section ends where the next starts */
+          "type": "equals",        /* matching line must equal the string exactly */
+          "text": "piece count"    /* optional. text marking each section's bottom boundary */
+        },
+        "stopOffsetY": -0.1        /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
+      },
+      "fields": [                  /* array of fields to extract from each section */
+        {
+          "id": "description_of_goods", /* user-friendly ID for extracted target data */
+          "anchor": {              /* an anchor is text that always occurs in the same position relative to your target data. */
+            "match": { "type": "equals", "text": "description of goods" } /* locates the anchor line. accepts a single Match object or an array of Match objects */
+          },
+          "method": {
+            "id": "intersection",
+            "horizontalAnchor": {  /* defines the horizontal axis (the row). Sensible finds the line matching this pattern and uses its vertical position to form the intersection point */
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
+            "width": 2,            /* default: 0. non-zero creates a horizontal-line region for extraction */
+            "height": 2,           /* default: 0. same as width, but for height of the intersection region */
+            "offsetY": 0.8,        /* default: 0. offset the horizontal line down (positive) in inches */
+            "wordFilters": ["description of goods"] /* omit these strings from extracted output */
+          }
+        },
+        {
+          "id": "weight",          /* user-friendly ID for extracted target data */
+          "type": "weight",        /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+          "anchor": {              /* an anchor is text that always occurs in the same position relative to your target data. */
+            "match": { "type": "equals", "text": "weight" } /* locates the anchor line. accepts a single Match object or an array of Match objects */
+          },
+          "method": {
+            "id": "intersection",
+            "horizontalAnchor": {  /* defines the horizontal axis (the row) */
+              "match": { "type": "regex", "pattern": "\\d+\\s?(kg|g)" }
+            },
+            "width": 1,            /* default: 0. non-zero creates a horizontal-line region for extraction */
+            "offsetX": -0.2,       /* default: 0. offset the vertical line left (negative) in inches */
+            "percentOverlapX": 0.5 /* default: 0.9. fraction of width overlap required for a line to be "inside" the region */
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+You'll get this output:
+
+```json
+{
+  "departure": {
+    "source": "Mar 14 2023",
+    "value": "2023-03-14T00:00:00.000Z",
+    "type": "date"
+  },
+  "port_of_discharge": {
+    "type": "string",
+    "value": "Rotterdam"
+  },
+  "goods": [
+    {
+      "description_of_goods": {
+        "type": "string",
+        "value": "MESH BAGS FREIGHT PREPAID"
+      },
+      "weight": {
+        "source": "16200 KG",
+        "value": 16200,
+        "unit": "kilograms",
+        "type": "weight"
+      }
+    }
+  ]
+}
+```
+
+[Open in Sensible app](https://app.sensible.so/editor/?d=delivery_orders&c=blog_post_fields&g=oocl-delivery-order-sample%20(1))
+
+---
 
 ## Extract more delivery order data
 
