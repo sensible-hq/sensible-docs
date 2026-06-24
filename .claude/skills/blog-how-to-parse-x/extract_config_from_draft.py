@@ -7,6 +7,8 @@ strips the surrounding fenced code block, and writes the raw config text.
 
 Usage:
     python .claude/skills/blog-how-to-parse-x/extract_config_from_draft.py <draft.md> <output.json>
+
+Tests: .claude/skills/blog-how-to-parse-x/tests/test_extract_config.py
 """
 
 import re

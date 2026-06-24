@@ -170,6 +170,21 @@ Add 1–2 sentences if the output needs context (e.g., explaining `confidenceSig
 
 ---
 
+## [CONDITIONAL] Nested sections: H3 subheadings + flattening
+
+Include this pattern when a `sections` field contains nested sub-sections (sections within sections). The commission statements post uses this for a three-level hierarchy (broker → policy → transaction).
+
+**H3 structure:** Add one H3 per nesting level under the parent H2. Name each H3 after the data entity it represents (e.g., "Broker", "Policy", "Transactions"). Each H3 follows the same pattern as a regular extraction section: describe what the section anchors on, show the SenseML for that level's `sections` field, and explain the stop condition.
+
+**"Flattening the nested sections" H3:** Add this final H3 when the config uses `copy_to_section`, `copy_from_sections`, or `customComputation` with path traversal (`../../`) to collapse nested output into a flat top-level array. Explain what each method does in plain language — e.g.:
+- `copy_to_section` — stamps a parent-level value (e.g., policy subtotal) onto each child row
+- `copy_from_sections` — consolidates arrays from nested sections into one top-level output
+- `customComputation` with `../../_field` — climbs section levels to retrieve an ancestor value
+
+Intermediate nested fields suppressed from final output (prefixed with `_`) should be noted but not shown in the output block.
+
+---
+
 ## [OPTIONAL] Transform extracted data [: description]
 
 Include when extracted data needs reshaping (e.g., zipping column arrays into row objects with `zip`, validating values with `customComputation`).

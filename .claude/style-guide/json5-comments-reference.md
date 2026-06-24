@@ -1,6 +1,6 @@
 # JSON5 Inline Comment Reference
 
-Canonical inline comments for SenseML code examples. Source: docs/Senseml reference/ (PR #587).
+Canonical inline comments for SenseML code examples. Source: docs/Senseml reference/ (PR #587; match.md and intersection.md for regex/boolean match params and horizontalAnchor/wordFilters).
 
 When writing or enriching a JSON5 code block, copy the comment for every parameter present in the block — not just the non-obvious ones. Comments go on the same line as the parameter, in `/* */` style.
 
@@ -67,7 +67,18 @@ Match object comments:
 "type": "includes",        /* match anywhere in line. */
 "type": "startsWith",      /* line must start with the match */
 "type": "equals",          /* matching line must equal the string exactly */
+"type": "regex",           /* match using a regular expression */
+"pattern": "\\d+",         /* JavaScript-flavored regex. Double-escape special characters, e.g. \\s not \s. Doesn't support capturing groups */
+"flags": "ig",             /* flags to apply to the regex, e.g. "i" for case-insensitive */
 "isCaseSensitive": true    /* match is case-sensitive */
+```
+
+Compound match types:
+```json5
+"type": "all",             /* boolean "and": finds a line that meets all of the sub-match conditions */
+"type": "any",             /* boolean "or": finds a line that meets any of the sub-match conditions */
+"type": "not",             /* boolean "not": finds a line that doesn't meet the sub-match condition */
+"matches": [               /* array of sub-match objects; use with type "any" or "all". Supports nesting */
 ```
 
 Array of match objects:
@@ -114,12 +125,16 @@ Array of match objects:
 "method": {
   "id": "intersection",
   "verticalAnchor": "col heading",  /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+  "horizontalAnchor": {     /* defines the horizontal axis (the row). use verticalAnchor instead to swap which anchor defines which axis */
+    "match": { "type": "regex", "pattern": "\\d+" }
+  },
   "offsetX": 0,             /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
   "offsetY": 0,             /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
   "width": 0,               /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
   "height": 0,              /* default: 0. same as width, but for height of the intersection region. */
   "percentOverlapX": 0.9,   /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
-  "percentOverlapY": 0.8    /* default: 0.8. same as percentOverlapX, but for height */
+  "percentOverlapY": 0.8,   /* default: 0.8. same as percentOverlapX, but for height */
+  "wordFilters": ["header text"] /* filters out the specified strings from the method output */
 }
 ```
 
