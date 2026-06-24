@@ -125,6 +125,15 @@ Write the full draft following `.claude/style-guide/blog-post-template.md` exact
 - `[IMAGE: description]` markers as placeholders for screenshots — do not omit these
 - Real output values from the Step 4 extraction — never invented
 
+In the "Putting it all together" section, wrap the `json5` code block with extraction markers:
+
+```
+<!-- CONFIG:START -->
+```json5
+...
+```<!-- CONFIG:END -->
+```
+
 Save the draft to:
 ```
 drafts/blog-[doc-type-slug].md
@@ -144,8 +153,9 @@ This adds canonical inline comments to every SenseML code block using `.claude/s
 
 The draft is the single source of truth for SenseML configs. After json5-commenter completes, extract the enriched "Putting it all together" code block and overwrite the combined post config file so both are identical:
 
-1. Find the fenced ` ```json5 ` block immediately following "Here's the complete SenseML config combining everything we've covered:" in the draft.
-2. Write the block content (without the fences) to the combined post config path used in Step 4.
+1. Find the content between `<!-- CONFIG:START -->` and `<!-- CONFIG:END -->` in the draft.
+2. Strip the surrounding fences (` ```json5 ` / ` ``` `) to get the raw config text.
+3. Write that text to the combined post config path used in Step 4.
 
 This ensures one enrichment pass covers everything — never enrich the draft and the config file separately.
 

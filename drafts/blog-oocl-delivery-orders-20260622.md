@@ -261,6 +261,7 @@ The sections method returns an array of objects — one per cargo row. The sampl
 
 Here's the complete SenseML config combining everything we've covered:
 
+<!-- CONFIG:START -->
 ```json5
 /* Sensible uses JSON5 to support in-line comments*/
 {
@@ -402,6 +403,7 @@ Here's the complete SenseML config combining everything we've covered:
   ]
 }
 ```
+<!-- CONFIG:END -->
 
 You'll get this output:
 

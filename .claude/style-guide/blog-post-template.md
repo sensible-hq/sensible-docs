@@ -205,7 +205,14 @@ Show a single combined code block containing all fields demonstrated in the post
 **Intro sentence:**
 > "Here's the complete SenseML config combining everything we've covered:"
 
-**Code block:** One `json5` block with all fields from the individual sections plus `fingerprint` at the top if present. Include the same inline comments as the individual examples.
+**Code block:** One `json5` block with all fields from the individual sections plus `fingerprint` at the top if present. Include the same inline comments as the individual examples. Wrap the code block with extraction markers so the config file can be synced from the draft:
+
+```
+<!-- CONFIG:START -->
+```json5
+...
+```<!-- CONFIG:END -->
+```
 
 **Output block:** Real output from running the combined code block itself — not the original source config, which extracts more fields than are shown in the post. Paste the combined block into the Sensible app (or run it via `curl`) and use that response. For array fields, show at least two objects — individual objects can be abbreviated if long — then truncate remaining items with `/* JSON output abbreviated */`.
 
