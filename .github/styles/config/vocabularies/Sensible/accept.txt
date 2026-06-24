@@ -54,3 +54,11 @@ removeSpaces
 roundTo
 allNewlines
 replaceWith
+[Mm]ultimodal
+multimodalEngine
+[Mm]ulticolumn
+llmEngine
+confidenceSignals
+pageRange
+chunkCount
+unconfigured
