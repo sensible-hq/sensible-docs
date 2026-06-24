@@ -179,12 +179,11 @@ The following example shows using a horizontal anchor to extract multiple cells 
   "fields": [
     {
       "id": "max_limit_options",
-      "anchor": "option",
-      /* create an intersection for each instance of "option" */  
-      "match": "all",
+      "anchor": "option", /* defines the vertical axis of the intersection (the column) */
+      "match": "all", /* enables extracting multiple cells from a row */
       "method": {
         "id": "intersection",
-        "horizontalAnchor": "maximum",
+        "horizontalAnchor": "maximum", /* defines the horizontal axis (the row) */
         "width": 1.5,
         "height": 0.5
       }
