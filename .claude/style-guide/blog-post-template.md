@@ -153,11 +153,11 @@ Follow the opening sentence with the fingerprint code block (JSON5 with inline c
 
 **Step 3 — Try-it-yourself prompt:**
 
-> "To try this out yourself, paste the following [query / queries], or "[field / fields]" into the left pane of the Sensible app."
+> "To try this out yourself, paste the following [query / queries] into the left pane of the Sensible app."
 
 **Step 4 — SenseML code block:**
 
-JSON5 (supports `/* comments */`). Comments explain the "why", not the "what." Show a complete runnable snippet — include a full `{ "fields": [...] }` wrapper. Reader should be able to paste and go.
+Use ` ```json ` (always `json`, never `json5`). Include the `/* Sensible uses JSON5 to support in-line comments*/` header as the first line of the **first two code blocks only** — omit it from all subsequent blocks. Comments (` /* */ `) explain the "why", not the "what." Show a complete runnable snippet — include a full `{ "fields": [...] }` wrapper. Reader should be able to paste and go.
 
 **Step 5 — Output:**
 
@@ -220,11 +220,11 @@ Show a single combined code block containing all fields demonstrated in the post
 **Intro sentence:**
 > "Here's the complete SenseML config combining everything we've covered:"
 
-**Code block:** One `json5` block with all fields from the individual sections plus `fingerprint` at the top if present. Include the same inline comments as the individual examples. Wrap the code block with extraction markers so the config file can be synced from the draft:
+**Code block:** One `json` block with all fields from the individual sections plus `fingerprint` at the top if present. Include the same inline comments as the individual examples. No `/* Sensible uses JSON5 to support in-line comments*/` header (this block is past the first two). Wrap the code block with extraction markers so the config file can be synced from the draft:
 
 ```
 <!-- CONFIG:START -->
-```json5
+```json
 ...
 ```<!-- CONFIG:END -->
 ```

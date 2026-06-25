@@ -50,6 +50,47 @@ Running record of skill failures, near-misses, and friction points. Each entry h
 
 ---
 
+## 2026-06-24 — Wrong Sensible app URL printed (full config, not combined)
+
+**What happened:** The URL printed after Step 4 points to the original full config extraction. The writer needs the URL for the trimmed "Putting it all together" config — the one that actually matches what's in the post.
+
+**Root cause:** SKILL.md has no step to upload the combined config after Step 6.5 and get its URL. The combined config is extracted to a file but never pushed to Sensible, so there's no app link for it.
+
+**Fix needed in skill (Step 6.5):** After extracting the combined config from the draft, run `upload_and_extract.py` on it with a distinct config name (e.g., `[doc-type-slug]_blog`), save the output, and print that URL to the user as the verifiable app link for the post.
+
+---
+
+## 2026-06-24 — Sensible app URL not surfaced to user after extraction
+
+**What happened:** `upload_and_extract.py` printed the Sensible app URL at the end of its output. Claude read it in the tool result but never relayed it to the user — the URL was silently consumed and the skill moved on to drafting.
+
+**Root cause:** SKILL.md says "Print the Sensible app URL the script emits to the terminal for the writer to verify (do NOT embed it in the draft)" but gives no explicit checkpoint. Claude can process the tool result and continue to the next step without producing any user-facing output.
+
+**Fix needed in skill (Step 4):** Add an explicit mandatory stop immediately after the script call: parse the URL from the script output and output it to the user in a response before continuing. Phrase it as a blocking checkpoint — "output the URL to the user, then proceed to Step 5."
+
+---
+
+## 2026-06-25 — Notion page missing all code blocks after HTML comments
+
+**What happened:** Draft v2 of the Form 1004 blog post was pushed to Notion with `<!-- CONFIG:START -->` and `<!-- CONFIG:END -->` HTML comment markers in the content. Notion's markdown parser doesn't support HTML comments — it silently dropped all content after the first `<!-- ... -->` tag, which meant every code block in the bottom half of the page (the "Putting it all together" section and everything after it) was missing.
+
+**Root cause:** The draft markdown uses HTML comments as extraction markers for `extract_config_from_draft.py`. These are never visible to a reader of the `.md` file (rendered as nothing in most markdown tools), but Notion's parser treats them as invalid syntax and truncates the page there.
+
+**Fix needed in skill (Step 8):** Before passing draft content to any Notion tool, preprocess the content to strip all `<!-- ... -->` HTML comments — these are build-tool markers, not reader-visible content:
+
+```bash
+python3 -c "
+import re
+content = open('drafts/blog-[doc-type-slug].md').read()
+content = re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL)
+print(content)
+" > /tmp/[doc-type-slug]_notion_content.txt
+```
+
+Then pass `/tmp/[doc-type-slug]_notion_content.txt` as the page content, not the raw draft.
+
+---
+
 ## 2026-06-22 — Only one goods section returned (couldn't show two objects)
 
 **What happened:** The template rule says "at least two objects per array field." The example document had only one cargo line item, so the goods array had one object. The rule couldn't be satisfied.

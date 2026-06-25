@@ -11,3 +11,4 @@
 - [x] Write `test_blog_output.py`: extracts the "Putting it all together" code block from a draft, runs it via the Sensible API against the golden PDF, and diffs the result against the output block in the draft — prints a log of matches/mismatches for review before publishing (layout-based configs are deterministic; flag LLM-based fields separately)
 - [x] Add a "Putting it all together" section (template + delivery orders draft done)
 - [x] Cross-check individual output blocks against combined output (Step 6.6 in SKILL.md)
+- [ ] Code examples may be over-commented: provide guidance on omitting repetitious comments (e.g. don't repeat the same comment for `"type": "startsWith"` on every anchor in the same block)
