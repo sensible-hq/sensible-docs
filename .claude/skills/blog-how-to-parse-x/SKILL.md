@@ -80,15 +80,25 @@ Produce a full field inventory before selecting examples. Structure it in two pa
 
 After the inventory, propose 2–4 fields to demonstrate and state explicit reasoning for each choice — e.g. method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them.
 
-**Pause here and present the inventory + proposed fields to the user for approval before continuing.** Ask:
-> "Does this field selection look right? Any you'd swap in or out before I proceed?"
+**Pause here and present the following to the user for approval before continuing:**
 
-Do not move to Step 4 until the user confirms or adjusts the selection.
+1. The field inventory and proposed fields (as above).
 
-Also note:
-- Whether the config uses LLM-based methods (`queryGroup`, `list`, `nlpTable`) — determines whether the title includes "with LLMs and Sensible" or just "with Sensible"
-- The specific vendor/variant used, if any (e.g., "ADP pay stubs")
-- Whether a `fingerprint` is present — if so, it must appear in the "Putting it all together" code block
+2. **Intro framing variant** — state which variant applies and show the evidence:
+   - List any LLM methods present (`queryGroup`, `list`, `nlpTable`), or confirm none if the config is fully deterministic.
+   - State the implied variant: A (deterministic-primary), B (LLM-primary), or C (hybrid).
+   - Give a one-sentence summary of what the framing paragraph will say.
+
+3. **Title form** — "with LLMs and Sensible" or "with Sensible", and why.
+
+4. **Vendor/variant** — the specific variant used, if any (e.g., "Sun Life commission statements").
+
+5. **Fingerprint** — present or absent; if present, it will appear in "Putting it all together".
+
+Ask:
+> "Does this field selection look right? And for the intro framing: I'm planning **Variant [X]** — [one-sentence summary]. Does that match what you had in mind? Any adjustments before I proceed?"
+
+Do not move to Step 4 until the user confirms or adjusts both the field selection and the intro framing.
 
 ## Step 4 — Upload config and run live extraction
 

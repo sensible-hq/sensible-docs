@@ -334,13 +334,3 @@ class TestHeaders:
         assert h["Notion-Version"] == ptn.NOTION_VERSION
 
 
-# ── Integration (skipped by default) ──────────────────────────────────────────
-
-@pytest.mark.integration
-class TestIntegration:
-    """Live Notion API tests — only run with: pytest -m integration"""
-
-    def test_real_publish(self, tmp_path):
-        if not os.environ.get("NOTION_API_KEY"):
-            pytest.skip("NOTION_API_KEY not set")
-        pytest.skip("No fixture parent page registered for integration test yet")
