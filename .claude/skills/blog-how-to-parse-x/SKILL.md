@@ -129,6 +129,8 @@ Write the full draft following `.claude/style-guide/blog-post-template.md` exact
 - `[IMAGE: description]` markers as placeholders for screenshots — do not omit these
 - Real output values from the Step 4 extraction — never invented
 
+**Code block length:** Individual field code blocks must not exceed 75 lines (not counting the "Putting it all together" block). For sections fields with many sub-fields, choose 1–2 of the most illustrative ones. For deeply nested sections (3+ levels), limit to 1 sub-field — the structural wrapper alone consumes ~40 lines before any fields are added.
+
 **If the config has a `fingerprint`:** include the `## [CONDITIONAL] Identify and classify incoming [doc types]` section from the template. Place it before the first field extraction section. The fingerprint must also appear in the "Putting it all together" code block.
 
 In the "Putting it all together" section, wrap the `json5` code block with extraction markers:
@@ -212,6 +214,23 @@ Read the "Code examples: inline comments" section of `.claude/style-guide/senten
 **6.7e — Glossary:**
 
 Read `.claude/style-guide/glossary.md`. Fix any term in the prose (not in code blocks) that appears in the "Avoid" column.
+
+**6.7f — Code block length:**
+
+Run this check. Any individual field code block over 75 lines must be trimmed before proceeding:
+
+```bash
+python3 -c "
+import re
+content = open('drafts/blog-[doc-type-slug].md').read()
+content = re.sub(r'## Putting it all together.*?(?=\n## |\Z)', '', content, flags=re.DOTALL)
+tick3 = chr(96) * 3
+blocks = re.findall(tick3 + r'(?:json|json5)\n(.*?)\n' + tick3, content, re.DOTALL)
+for i, b in enumerate(blocks, 1):
+    n = b.count('\n') + 1
+    print(f'Block {i}: {n} lines' + ('  *** OVER LIMIT' if n > 75 else ''))
+"
+```
 
 Only proceed to Step 7 once all checks are clean.
 

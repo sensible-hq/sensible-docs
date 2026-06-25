@@ -14,11 +14,17 @@ RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
     "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/extra_data.pdf",
     "extra_data": {
       "expected_collision_deductible": 500,
-      "expected_comprehensive_deductible": 300
+      "expected_comprehensive_deductible": 300,
+      "expected_insured_vehicle": "NISSAN ROGUE 2010"
     }
   }')
 HTTP_CODE=$(echo "$RESPONSE" | tail -1)
 BODY=$(echo "$RESPONSE" | head -n -1)
+echo "Extra data sent:"
+echo '  expected_collision_deductible: 500'
+echo '  expected_comprehensive_deductible: 300'
+echo '  expected_insured_vehicle: "NISSAN ROGUE 2010"'
+echo ""
 echo "HTTP $HTTP_CODE"
 OUTPUT=$(echo "$BODY" | python3 -m json.tool 2>/dev/null || echo "$BODY")
 echo "$OUTPUT" | tee "$OUTFILE"

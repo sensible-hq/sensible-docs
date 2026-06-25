@@ -1,0 +1,446 @@
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fingerprint": {       /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+    "tests": [
+      {
+        "page": "every",
+        "match": [
+          [
+            {
+              "text": "residential appraisal report", /* string to match */
+              "type": "includes"                     /* match anywhere in line. */
+            },
+            {
+              "text": "Form 1004", /* string to match */
+              "type": "includes"   /* match anywhere in line. */
+            }
+          ]
+        ]
+      }
+    ]
+  },
+  "fields": [
+    {
+      "id": "file #",          /* user-friendly ID for extracted target data */
+      "anchor": {
+        "match": {
+          "text": "file #",    /* string to match */
+          "type": "startsWith" /* line must start with the match */
+        }
+      },
+      "method": {
+        "id": "region",          /* extracts lines contained in a defined rectangular region */
+        "start": "left",         /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
+        "offsetX": -0.05,        /* horizontally shifts the region's top-left corner specified in the Start parameter by specified number of inches. positive: right, negative: left */
+        "offsetY": -0.1,         /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
+        "width": 1.3,            /* width of the region in inches */
+        "height": 0.17,          /* height of the region in inches */
+        "wordFilters": ["file #"] /* filters out the specified strings from the method output */
+      }
+    },
+    {
+      "id": "subject",       /* user-friendly ID for extracted target data */
+      "type": "sections",    /* extracts repeating sections; returns each section as an object */
+      "range": {
+        "anchor": {
+          "match": {
+            "text": "property address", /* string to match */
+            "type": "startsWith"        /* line must start with the match */
+          }
+        },
+        "stop": {
+          "text": "did not analyze the contract", /* string to match */
+          "type": "includes"                      /* match anywhere in line. */
+        }
+      },
+      "fields": [            /* array of fields to extract from each section. can include computed fields */
+        {
+          "id": "fee simple", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": {
+              "text": "Fee Simple", /* string to match */
+              "type": "startsWith"  /* line must start with the match */
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" }
+        },
+        {
+          "id": "leasehold", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": {
+              "text": "Leasehold", /* string to match */
+              "type": "startsWith" /* line must start with the match */
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" }
+        },
+        {
+          "id": "other", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": {
+              "text": "other",     /* string to match */
+              "type": "startsWith" /* line must start with the match */
+            },
+            "end": {
+              "text": "assignment type", /* optional. stop searching at this line */
+              "type": "startsWith" /* line must start with the match */
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" }
+        },
+        {
+          "id": "property_rights_appraised", /* user-friendly ID for extracted target data */
+          "method": {
+            "id": "pickValues",
+            "match": "one",                                    /* use the first occurrence of the anchor */
+            "source_ids": ["fee simple", "leasehold", "other"] /* IDs of the checkbox fields to evaluate */
+          }
+        }
+      ]
+    },
+    {
+      "id": "sales_comparison",   /* user-friendly ID for extracted target data */
+      "type": "sections",         /* extracts repeating sections; returns each section as an object */
+      "range": {
+        "anchor": {
+          "match": {
+            "text": "comparable properties currently", /* string to match */
+            "type": "includes",                       /* match anywhere in line. */
+            "editDistance": 2
+          }
+        },
+        "stop": [
+          {
+            "pattern": "COST APPROACH TO VALUE", /* JavaScript-flavored regex. Double-escape special characters, e.g. \\s not \s. Doesn't support capturing groups */
+            "type": "regex",
+            "reverse": true
+          }
+        ]
+      },
+      "fields": [                 /* array of fields to extract from each section. can include computed fields */
+        {
+          "id": "comparable_sale_1", /* user-friendly ID for extracted target data */
+          "type": "sections",     /* extracts repeating sections; returns each section as an object */
+          "range": {
+            "anchor": {
+              "match": {
+                "text": "FEATURE",        /* string to match */
+                "type": "equals",         /* matching line must equal the string exactly */
+                "isCaseSensitive": true   /* match is case-sensitive */
+              },
+              "end": {
+                "text": "did not research the sale", /* optional. stop searching at this line */
+                "type": "includes"                   /* match anywhere in line. */
+              }
+            },
+            "stop": {
+              "text": "did not research the sale", /* string to match */
+              "type": "includes"                   /* match anywhere in line. */
+            },
+            "stopOffsetY": -0.1  /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
+          },
+          "fields": [            /* array of fields to extract from each section. can include computed fields */
+            {
+              "id": "address",   /* user-friendly ID for extracted target data */
+              "anchor": {
+                "match": {
+                  "text": "address",   /* string to match */
+                  "type": "startsWith" /* line must start with the match */
+                }
+              },
+              "method": {
+                "id": "intersection",
+                "verticalAnchor": {              /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+                  "match": {
+                    "type": "any",               /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "matches": [
+                      { "text": "sale no. 1", "type": "endsWith" },
+                      { "text": "sale # 1",   "type": "endsWith" }
+                    ]
+                  }
+                },
+                "offsetY": -0.1,       /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
+                "width": 1.87,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
+                "height": 0.3,         /* default: 0. same as width, but for height of the intersection region. */
+                "percentOverlapX": 0,  /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapY": 0,  /* default: 0.8. same as percentOverlapX, but for height */
+                "wordFilters": ["Address"] /* filters out the specified strings from the method output */
+              }
+            },
+            {
+              "id": "sale_price",   /* user-friendly ID for extracted target data */
+              "type": "number",     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+              "anchor": {
+                "match": {
+                  "text": "sale price", /* string to match */
+                  "type": "equals"      /* matching line must equal the string exactly */
+                }
+              },
+              "method": {
+                "id": "intersection",
+                "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+                  "match": {
+                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "matches": [
+                      { "text": "sale no. 1", "type": "endsWith" },
+                      { "text": "sale # 1",   "type": "endsWith" }
+                    ]
+                  }
+                },
+                "width": 0.6,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
+                "offsetX": 0.6,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
+              }
+            },
+            {
+              "id": "gross_living_area_description", /* user-friendly ID for extracted target data */
+              "type": "number",                      /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+              "anchor": {
+                "match": {
+                  "text": "gross living area", /* string to match */
+                  "type": "startsWith"         /* line must start with the match */
+                }
+              },
+              "method": {
+                "id": "intersection",
+                "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+                  "match": {
+                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "matches": [
+                      { "text": "sale no. 1", "type": "endsWith" },
+                      { "text": "sale # 1",   "type": "endsWith" }
+                    ]
+                  }
+                },
+                "offsetX": -0.4,      /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
+                "width": 0.8,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
+              }
+            },
+            {
+              "id": "gross_living_area_adjustment", /* user-friendly ID for extracted target data */
+              "type": "number",                     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+              "anchor": {
+                "match": {
+                  "text": "gross living area", /* string to match */
+                  "type": "startsWith"         /* line must start with the match */
+                }
+              },
+              "method": {
+                "id": "intersection",
+                "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+                  "match": {
+                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "matches": [
+                      { "text": "sale no. 1", "type": "endsWith" },
+                      { "text": "sale # 1",   "type": "endsWith" }
+                    ]
+                  }
+                },
+                "offsetX": 0.6,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
+                "width": 0.65,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
+              }
+            },
+            {
+              "id": "net_adjustment_sign", /* user-friendly ID for extracted target data */
+              "method": {
+                "id": "pickValues",
+                "match": "one",                         /* use the first occurrence of the anchor */
+                "source_ids": ["positive", "negative"]  /* IDs of the checkbox fields to evaluate */
+              }
+            },
+            {
+              "id": "net_adjustment",  /* user-friendly ID for extracted target data */
+              "type": "number",        /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+              "anchor": {
+                "match": {
+                  "text": "net adjustment", /* string to match */
+                  "type": "startsWith"      /* line must start with the match */
+                }
+              },
+              "method": {
+                "id": "intersection",
+                "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+                  "match": {
+                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "matches": [
+                      { "text": "sale no. 1", "type": "endsWith" },
+                      { "text": "sale # 1",   "type": "endsWith" }
+                    ]
+                  }
+                },
+                "offsetX": 0.5,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
+                "width": 0.75,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
+              }
+            },
+            {
+              "id": "gross_adjusted_sale_price_amount", /* user-friendly ID for extracted target data */
+              "type": "number",                         /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+              "anchor": {
+                "match": {
+                  "text": "of comparables", /* string to match */
+                  "type": "startsWith"      /* line must start with the match */
+                }
+              },
+              "method": {
+                "id": "intersection",
+                "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
+                  "match": {
+                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "matches": [
+                      { "text": "sale no. 1", "type": "endsWith" },
+                      { "text": "sale # 1",   "type": "endsWith" }
+                    ]
+                  }
+                },
+                "offsetX": 0.5,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
+                "width": 0.75,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reconciliation",  /* user-friendly ID for extracted target data */
+      "type": "sections",      /* extracts repeating sections; returns each section as an object */
+      "range": {
+        "anchor": {
+          "match": {
+            "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+            "matches": [
+              { "text": "indicated value by:", "type": "startsWith" },
+              { "text": "indicated valueby:",  "type": "startsWith" }
+            ]
+          }
+        },
+        "stop": {
+          "text": "form 1004", /* string to match */
+          "type": "includes"   /* match anywhere in line. */
+        },
+        "stopOffsetY": -0.15   /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
+      },
+      "fields": [              /* array of fields to extract from each section. can include computed fields */
+        {
+          "id": "final_reconciled_value",  /* user-friendly ID for extracted target data */
+          "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+          "anchor": {
+            "match": {
+              "text": "The market value", /* string to match */
+              "type": "includes"          /* match anywhere in line. */
+            }
+          },
+          "method": {
+            "id": "region",        /* extracts lines contained in a defined rectangular region */
+            "start": "left",       /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
+            "offsetX": -0.05,      /* horizontally shifts the region's top-left corner specified in the Start parameter by specified number of inches. positive: right, negative: left */
+            "offsetY": -0.1,       /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
+            "width": 7.7,          /* width of the region in inches */
+            "height": 0.17,        /* height of the region in inches */
+            "wordFilters": [       /* filters out the specified strings from the method output */
+              "The market value of the subject property as of",
+              "$"
+            ]
+          }
+        },
+        {
+          "id": "final_reconciled_value", /* user-friendly ID for extracted target data */
+          "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+          "anchor": {
+            "match": {
+              "text": "as of",  /* string to match */
+              "type": "includes" /* match anywhere in line. */
+            }
+          },
+          "method": {
+            "id": "row",             /* target data to extract is distributed on same horizontal line as anchor */
+            "position": "left",      /* default: right. target data is to left or right of anchor. enums: left | right. */
+            "tiebreaker": "last",    /* extract the line in the second non-empty cell to the left of the anchor. default: returns all cells. */
+            "includeAnchor": true,
+            "typeFilters": ["date"]
+          }
+        },
+        {
+          "id": "final_reconciled_value", /* user-friendly ID for extracted target data */
+          "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+          "anchor": {
+            "match": {
+              "text": "as of",    /* string to match */
+              "type": "startsWith" /* line must start with the match */
+            }
+          },
+          "method": {
+            "id": "region",        /* extracts lines contained in a defined rectangular region */
+            "start": "left",       /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
+            "offsetX": -1.4,       /* horizontally shifts the region's top-left corner specified in the Start parameter by specified number of inches. positive: right, negative: left */
+            "offsetY": -0.1,       /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
+            "width": 3,            /* width of the region in inches */
+            "height": 0.17         /* height of the region in inches */
+          }
+        },
+        {
+          "id": "as is.appraisal_condition", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": {
+              "text": "as is",   /* string to match */
+              "type": "includes" /* match anywhere in line. */
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" }
+        },
+        {
+          "id": "subject to completion.appraisal_condition", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": {
+              "text": "subject to completion", /* string to match */
+              "type": "startsWith"             /* line must start with the match */
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" }
+        },
+        {
+          "id": "subject to repairs.appraisal_condition", /* user-friendly ID for extracted target data */
+          "anchor": {
+            "match": {
+              "text": "repairs or alterations", /* string to match */
+              "type": "includes"                /* match anywhere in line. */
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" }
+        },
+        {
+          "id": "subject to inspection.appraisal_condition", /* user-friendly ID for extracted target data */
+          "match": "last",                     /* use the last occurrence of the anchor */
+          "anchor": {
+            "match": {
+              "text": "subject to", /* string to match */
+              "type": "includes"    /* match anywhere in line. */
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" }
+        },
+        {
+          "id": "appraisal_condition", /* user-friendly ID for extracted target data */
+          "method": {
+            "id": "pickValues",
+            "match": "one",       /* use the first occurrence of the anchor */
+            "source_ids": [
+              "as is.appraisal_condition",
+              "subject to completion.appraisal_condition",
+              "subject to repairs.appraisal_condition",
+              "subject to inspection.appraisal_condition"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
