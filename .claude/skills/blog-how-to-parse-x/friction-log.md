@@ -91,6 +91,16 @@ Then pass `/tmp/[doc-type-slug]_notion_content.txt` as the page content, not the
 
 ---
 
+## 2026-06-25 — Notion doesn't syntax-highlight very long code blocks
+
+**What happened:** Draft v3 was published via `notion-create-pages`. All 11 code blocks have the correct `json` language tag (visible on hover in the Notion UI). However, the two longest blocks — comparable sale data (~216 lines, ~10k chars) and "Putting it all together" (~446 lines, ~20k chars) — show no syntax highlighting. Shorter blocks with identical content patterns (fingerprint, file number, property rights, final appraised value) are highlighted correctly.
+
+**Root cause:** Notion has a character-length limit for syntax highlighting, somewhere between ~5,000 and ~10,000 characters. Above that threshold the language label is stored correctly but the highlighter bails out and renders the block unstyled. This is a Notion-side limitation — not fixable from our tooling.
+
+**Impact:** Cosmetic only. The code content is complete and correct; it just displays without color in Notion.
+
+---
+
 ## 2026-06-22 — Only one goods section returned (couldn't show two objects)
 
 **What happened:** The template rule says "at least two objects per array field." The example document had only one cargo line item, so the goods array had one object. The rule couldn't be satisfied.

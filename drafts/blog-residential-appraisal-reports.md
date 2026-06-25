@@ -277,7 +277,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 "id": "intersection",
                 "verticalAnchor": {              /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",               /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",               /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -287,7 +287,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 "offsetY": -0.1,       /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
                 "width": 1.87,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
                 "height": 0.3,         /* default: 0. same as width, but for height of the intersection region. */
-                "percentOverlapX": 0,  /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0,  /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0,  /* default: 0.8. same as percentOverlapX, but for height */
                 "wordFilters": ["Address"] /* filters out the specified strings from the method output */
               }
@@ -305,7 +305,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -314,7 +314,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 },
                 "width": 0.6,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
                 "offsetX": 0.6,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -331,7 +331,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -340,7 +340,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 },
                 "offsetX": -0.4,      /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.8,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -357,7 +357,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -366,7 +366,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 },
                 "offsetX": 0.6,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.65,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -391,7 +391,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -400,7 +400,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 },
                 "offsetX": 0.5,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.75,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -417,7 +417,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -426,7 +426,7 @@ To try this out yourself, paste the following queries into the left pane of the 
                 },
                 "offsetX": 0.5,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.75,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             }
@@ -507,7 +507,7 @@ To try this out yourself, paste the following queries into the left pane of the 
       "range": {
         "anchor": {
           "match": {
-            "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+            "type": "any",     /* boolean or: any sub-match condition must pass */
             "matches": [
               { "text": "indicated value by:", "type": "startsWith" },
               { "text": "indicated valueby:",  "type": "startsWith" }
@@ -823,7 +823,7 @@ Here's the complete SenseML config combining everything we've covered:
                 "id": "intersection",
                 "verticalAnchor": {              /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",               /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",               /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -833,7 +833,7 @@ Here's the complete SenseML config combining everything we've covered:
                 "offsetY": -0.1,       /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
                 "width": 1.87,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
                 "height": 0.3,         /* default: 0. same as width, but for height of the intersection region. */
-                "percentOverlapX": 0,  /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0,  /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0,  /* default: 0.8. same as percentOverlapX, but for height */
                 "wordFilters": ["Address"] /* filters out the specified strings from the method output */
               }
@@ -851,7 +851,7 @@ Here's the complete SenseML config combining everything we've covered:
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -860,7 +860,7 @@ Here's the complete SenseML config combining everything we've covered:
                 },
                 "width": 0.6,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
                 "offsetX": 0.6,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -877,7 +877,7 @@ Here's the complete SenseML config combining everything we've covered:
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -886,7 +886,7 @@ Here's the complete SenseML config combining everything we've covered:
                 },
                 "offsetX": -0.4,      /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.8,         /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -903,7 +903,7 @@ Here's the complete SenseML config combining everything we've covered:
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -912,7 +912,7 @@ Here's the complete SenseML config combining everything we've covered:
                 },
                 "offsetX": 0.6,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.65,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -937,7 +937,7 @@ Here's the complete SenseML config combining everything we've covered:
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -946,7 +946,7 @@ Here's the complete SenseML config combining everything we've covered:
                 },
                 "offsetX": 0.5,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.75,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             },
@@ -963,7 +963,7 @@ Here's the complete SenseML config combining everything we've covered:
                 "id": "intersection",
                 "verticalAnchor": {    /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
                   "match": {
-                    "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+                    "type": "any",     /* boolean or: any sub-match condition must pass */
                     "matches": [
                       { "text": "sale no. 1", "type": "endsWith" },
                       { "text": "sale # 1",   "type": "endsWith" }
@@ -972,7 +972,7 @@ Here's the complete SenseML config combining everything we've covered:
                 },
                 "offsetX": 0.5,       /* default: 0. offset the vertical line left (negative) or right (positive) in inches */
                 "width": 0.75,        /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
-                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+                "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
                 "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
               }
             }
@@ -986,7 +986,7 @@ Here's the complete SenseML config combining everything we've covered:
       "range": {
         "anchor": {
           "match": {
-            "type": "any",     /* boolean "or": finds a line that meets any of the sub-match conditions */
+            "type": "any",     /* boolean or: any sub-match condition must pass */
             "matches": [
               { "text": "indicated value by:", "type": "startsWith" },
               { "text": "indicated valueby:",  "type": "startsWith" }
