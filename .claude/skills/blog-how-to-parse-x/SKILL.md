@@ -218,22 +218,21 @@ Print the path to the saved draft and a short summary:
 
 Push the draft to the Sensible Content Tracker so the blog writer can review and track it.
 
-**8-pre — Preprocess the draft content before passing it to Notion:**
-
-Notion's markdown parser does not support HTML comments — they cause silent rendering failures where all content after the first `<!-- ... -->` tag is dropped. Run this before every publish:
+**Preferred path:** If `NOTION_API_KEY` is available (a Notion internal integration token), use `publish_to_notion.py` — it parses markdown into proper Notion block types and is fully deterministic:
 
 ```bash
-python3 -c "
-import re
-content = open('drafts/blog-[doc-type-slug].md').read()
-content = re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL)
-print(content)
-" > /tmp/[doc-type-slug]_notion_content.txt
+python3 .claude/skills/blog-how-to-parse-x/publish_to_notion.py \
+  --draft drafts/blog-[doc-type-slug].md \
+  --parent-id [main-page-id]
 ```
 
-Use the output of this file — not the raw draft — as the `content` / `new_str` argument in all Notion tool calls below.
+**Fallback path (no API key):** Use the MCP tools with the verbatim-passthrough protocol described below.
 
-Each version is a **child page** under the main Content Tracker entry. The main page has a minimal body; all draft content lives in child pages. Child pages appear newest-first — to achieve this, the main page body starts with a reverse-chronological list of links; child pages themselves are ordered by creation (which Notion can't reorder via API, so the link list in the body is the authoritative ordering).
+---
+
+### MCP fallback protocol
+
+The only reason MCP publishes have gone wrong is Claude rewriting draft content from memory instead of reading it from disk. The protocol below prevents that.
 
 **8a — Search for an existing Content Tracker entry:**
 
@@ -241,46 +240,50 @@ Use `notion-search` with the blog post title, scoped to the Content Tracker data
 - `query`: the blog post title
 - `data_source_url`: `collection://31bc7dd4-9788-8031-9dd4-000b769e5374`
 
-**8b — If no page exists (first publish):**
+**8b — If no main page exists (first publish):**
 
-1. Create the main Content Tracker entry with `notion-create-pages`:
-   - `parent`: `{ "type": "data_source_id", "data_source_id": "31bc7dd4-9788-8031-9dd4-000b769e5374" }`
-   - `properties`:
-     - `Content`: blog post title
-     - `Category`: `Document Type Blog Posts`
-     - `Status`: `In progress`
-   - `content`:
-     ```
-     Draft versions are in child pages below.
-     ```
-   - Save the returned page ID as `[main-page-id]`.
+Create the main Content Tracker entry with `notion-create-pages`:
+- `parent`: `{ "type": "data_source_id", "data_source_id": "31bc7dd4-9788-8031-9dd4-000b769e5374" }`
+- `properties`:
+  - `Content`: blog post title
+  - `Category`: `Document Type Blog Posts`
+  - `Status`: `In progress`
+- `content`: `Draft versions are in child pages below.`
 
-2. Create the first child page under the main entry with `notion-create-pages`:
-   - `parent`: `{ "type": "page_id", "page_id": "[main-page-id]" }`
-   - `title`: `Draft v1 — [YYYY-MM-DD]`
-   - `content`: full draft content verbatim from `drafts/blog-[doc-type-slug].md`
+Save the returned page ID as `[main-page-id]`.
 
-**8c — If a page already exists (revision):**
+**8c — Preprocess the draft:**
 
-1. Fetch the existing main page to determine the current version number. Child page titles follow the pattern `Draft vN — YYYY-MM-DD` — count them or find the highest N:
+Strip HTML comments — they silently truncate all Notion page content after the first `<!--` tag:
 
 ```bash
-notion-fetch [main-page-id]
-# Look for child page titles matching "Draft vN" — the highest N is the current version
+python3 -c "
+import re
+content = open('drafts/blog-[doc-type-slug].md').read()
+print(re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL))
+" > /tmp/[doc-type-slug]_notion.md
 ```
 
-2. Create a new child page with `notion-create-pages`:
-   - `parent`: `{ "type": "page_id", "page_id": "[main-page-id]" }`
-   - `title`: `Draft v[N+1] — [YYYY-MM-DD]`
-   - `content`: full draft content verbatim from `drafts/blog-[doc-type-slug].md`
+**8d — Read the preprocessed file:**
 
-Note: Notion displays child pages in creation order (oldest first) in the sidebar. The writer can manually drag child pages to reorder them in the Notion UI — no API reordering is available.
+Use the Read tool on `/tmp/[doc-type-slug]_notion.md`. Do this immediately before the Notion tool call — do NOT use draft content from memory or from earlier in context.
+
+**8e — Create the child page:**
+
+Use `notion-create-pages` with the content read verbatim from the file in 8d:
+- `parent`: `{ "type": "page_id", "page_id": "[main-page-id]" }`
+- `title`: `Draft v[N] — [YYYY-MM-DD]` (determine N by fetching children of `[main-page-id]` and finding the highest existing version)
+- `content`: **the exact text returned by Read in step 8d — do not paraphrase, summarize, or reconstruct any part of it**
+
+The Notion markdown parser treats fenced code blocks as literal — `/* */` inline comments inside ` ```json ` blocks are preserved as-is without any special handling.
 
 After publishing, print the new child page URL so the writer can review it.
 
+Note: Notion displays child pages oldest-first in the sidebar. The writer can manually drag child pages to reorder them in the Notion UI.
+
 ## Maintaining this skill
 
-If you modify any script in this directory (`upload_and_extract.py`, `extract_config_from_draft.py`, `test_blog_output.py`), run the test suite before committing:
+If you modify any script in this directory (`upload_and_extract.py`, `extract_config_from_draft.py`, `test_blog_output.py`, `publish_to_notion.py`), run the test suite before committing:
 
 ```bash
 python3 -m pytest .claude/skills/blog-how-to-parse-x/tests/ -v
