@@ -38,29 +38,45 @@ Examples:
 - *"In the real estate industry, rent rolls are key documents used for valuing properties and for evaluating their commercial health. For example, high rents, low vacancy, and long tenure indicate good health; low rents, high vacancy, and short tenure indicate poor health. Companies in the prop tech space need this sort of data to build solutions such as automated rent collection and billing, rent trend analytics, and property ROI analytics."* (rent rolls)
 - *"Many companies face challenges when automating hiring and recruitment. Aggregating and analyzing candidate data can improve hiring, but is often a taxing manual process."* (resumes)
 
-All posts end paragraph 1 (or lead into paragraph 2) with this near-verbatim line:
+Newer posts (commission statements, delivery orders, cyber insurance quotes, dec pages) end paragraph 1 with the format variability characterization — the specific structural detail that motivates which extraction approach Sensible uses. Older posts use this near-verbatim closing line instead:
 > "However, they often lack access to [doc types] in any format other than PDFs, which makes data extraction a potentially difficult problem."
 
-Closing disclosures uses a different version spread across two sentences:
+Closing disclosures uses a different version:
 > "The information found in a [doc type] isn't always easily accessible. [Doc type] data isn't usually available through an API."
 
-**Paragraph 2 — Introduce Sensible:**
+**Paragraph 2 — Introduce Sensible + LLM vs. deterministic framing (always required):**
 
-This paragraph is highly consistent. Use this verbatim, adapting bracketed parts:
+This paragraph is required in every post regardless of which methods the config uses. It introduces Sensible and explains which extraction approach fits this document type, why the document structure makes it well-suited to that approach, and what the complementary method handles. The paragraph opens with "Sensible handles this through [X]" — where "this" refers directly to the variability or volume challenge named in paragraph 1.
 
-> "[Fortunately, ]With Sensible you can easily extract key information out of [doc type] PDFs using SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your [doc type] data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier."
+The "[Doc types] are well suited to this approach" clause is mandatory in every variant. It must cite a specific structural property of this document type — fixed column positions, consistent label text, stable table structure, or degree of cross-issuer layout variability. Do not write "well suited" without the concrete justification.
 
-"Fortunately, " prefix used in closing disclosures only.
+All variants end with "Both run through the same API" or equivalent.
+
+**Variant A — Deterministic-primary** (post showcases a carrier- or vendor-specific layout config):
+
+Pattern:
+> "Sensible handles this through [carrier / vendor]-specific layout configs. [Doc types] are well suited to this approach: [specific structural reason — e.g., fixed column positions, consistent label text across all [carrier] documents]. For [carriers / vendors] without a dedicated config yet, a generalized LLM config handles the same fields without per-[carrier / vendor] configuration. Both run through the same API."
 
 Examples:
-- *"Fortunately, with Sensible you can easily extract key information out of closing disclosure PDFs using SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your closing disclosure data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier."* (closing disclosures)
-- *"With Sensible you can easily extract key information out of EOB PDFs using SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your EOB data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier."* (EOBs)
+- *"This post uses Sun Life's commission statement as a worked example. Every carrier has its own layout — column ordering, label conventions, subtotal placement — so the right approach is a per-carrier deterministic config: fixed column positions and consistent label text mean the same config extracts reliably every month. For the long tail of smaller carriers, a generalized LLM config handles the same fields without per-carrier work. Both run through the same API."* (commission statements)
+- *"Sensible handles this through carrier-specific layout configs. Cyber quotes are well suited to this approach: the structured Coverage Schedule tables and endorsement grids provide reliable anchor points that deterministic methods extract precisely, with no LLM calls and no prompt maintenance overhead on high-volume carriers. Each carrier gets its own config anchored to its label text and document structure, returning a normalized output schema across all carriers. For carriers without a layout config yet, a generalized LLM config handles extraction on day one without per-carrier configuration, covering the long tail of carriers that appear at low volume or in one-off submissions."* (cyber insurance quotes)
 
-For LLM-based posts (resumes, rent rolls), add this sentence after the SenseML intro sentence:
-> "SenseML uses a combination of layout-based rules and LLM prompts to extract from the full spectrum of free-form to structured documents."
+**Variant B — LLM-primary** (post showcases a generalized LLM config):
 
-Example (rent rolls):
-- *"Enter Sensible, which offers intelligent document automation. With Sensible you can easily extract key information out of documents using SenseML, Sensible's query language. SenseML uses a combination of layout-based rules and LLM prompts to extract from the full spectrum of free-form to structured documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, the document data is accessible via Sensible's API, SDK, app, or 5,000 other software integrations thanks to Zapier."*
+Pattern:
+> "Sensible handles this with a generalized LLM config. [Doc types] are well suited to this approach: [specific reason why cross-issuer variability makes per-issuer templating impractical]. For [carriers / vendors] appearing at high volume, a [carrier / vendor]-specific layout config delivers deterministic precision — no LLM calls, no prompt maintenance overhead. Both run through the same API."
+
+Example:
+- *"Sensible handles this with a two-tier approach. A generalized LLM-powered template covers the long tail of vendor formats out of the box: no per-vendor configuration required, ready to extract on day one. For vendors whose invoices are high-volume or consistently underperforming on the generalized template, a layout-specific template can be built in 15 to 45 minutes depending on field count and document complexity. Both approaches run through the same API. You get breadth from the generalized template and precision where the volume justifies it."* (invoices)
+
+**Variant C — Hybrid** (post showcases both a generalized LLM config and a deterministic layout config):
+
+Pattern:
+> "Sensible handles this through two complementary configs. [Doc types] are well suited to this hybrid approach: [explain why long-tail variability requires LLM while high-volume formats reward a dedicated layout config]. A generalized LLM config covers any [carrier / vendor] on day one — no per-format configuration required. A [carrier / vendor]-specific layout config handles high-volume formats deterministically — no LLM calls, consistent output. Both run through the same API."
+
+Examples:
+- *"Sensible handles this through two complementary configs. Dec pages are well suited to this hybrid approach: carrier variability across the long tail requires LLM reasoning to handle without per-carrier configuration, while high-volume carriers like GEICO have fixed, predictable field positions that deterministic methods extract precisely. A generalized LLM config uses the Query Group and List methods to extract key fields from any carrier's dec page without prior templates, covering your full carrier mix on day one. A carrier-specific layout config uses deterministic methods (Region and Row) for carriers appearing at high volume, reducing per-document LLM cost and eliminating prompt latency on fields with fixed positions. Both route through the same API endpoint, and Sensible validates each extracted field against its declared type before returning output."* (insurance declaration pages)
+- *"Sensible addresses this dual challenge through two complementary approaches. The platform employs a generalized LLM template requiring no per-carrier configuration that works immediately upon implementation. For high-volume carriers with standardized layouts, Sensible can build deterministic templates in under an hour, delivering speed and precision across consistent document sets."* (delivery orders)
 
 **Paragraph 3 (optional) — Additional context:**
 Use if the document type needs more background (e.g., explaining what an EOB is, or why closing disclosures matter). Skip for straightforward document types.
@@ -153,11 +169,11 @@ Follow the opening sentence with the fingerprint code block (JSON5 with inline c
 
 **Step 3 — Try-it-yourself prompt:**
 
-> "To try this out yourself, paste the following [query / queries], or "[field / fields]" into the left pane of the Sensible app."
+> "To try this out yourself, paste the following [query / queries] into the left pane of the Sensible app."
 
 **Step 4 — SenseML code block:**
 
-JSON5 (supports `/* comments */`). Comments explain the "why", not the "what." Show a complete runnable snippet — include a full `{ "fields": [...] }` wrapper. Reader should be able to paste and go.
+Use ` ```json ` (always `json`, never `json5`). Include the `/* Sensible uses JSON5 to support in-line comments*/` header as the first line of the **first two code blocks only** — omit it from all subsequent blocks. Comments (` /* */ `) explain the "why", not the "what." Show a complete runnable snippet — include a full `{ "fields": [...] }` wrapper. Reader should be able to paste and go.
 
 **Step 5 — Output:**
 
@@ -220,11 +236,11 @@ Show a single combined code block containing all fields demonstrated in the post
 **Intro sentence:**
 > "Here's the complete SenseML config combining everything we've covered:"
 
-**Code block:** One `json5` block with all fields from the individual sections plus `fingerprint` at the top if present. Include the same inline comments as the individual examples. Wrap the code block with extraction markers so the config file can be synced from the draft:
+**Code block:** One `json` block with all fields from the individual sections plus `fingerprint` at the top if present. Include the same inline comments as the individual examples. No `/* Sensible uses JSON5 to support in-line comments*/` header (this block is past the first two). Wrap the code block with extraction markers so the config file can be synced from the draft:
 
 ```
 <!-- CONFIG:START -->
-```json5
+```json
 ...
 ```<!-- CONFIG:END -->
 ```

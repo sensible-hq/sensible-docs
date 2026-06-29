@@ -75,10 +75,10 @@ Match object comments:
 
 Compound match types:
 ```json5
-"type": "all",             /* boolean "and": finds a line that meets all of the sub-match conditions */
-"type": "any",             /* boolean "or": finds a line that meets any of the sub-match conditions */
-"type": "not",             /* boolean "not": finds a line that doesn't meet the sub-match condition */
-"matches": [               /* array of sub-match objects; use with type "any" or "all". Supports nesting */
+"type": "all",             /* boolean and: all sub-match conditions must pass */
+"type": "any",             /* boolean or: any sub-match condition must pass */
+"type": "not",             /* boolean not: finds a line that doesn't meet the sub-match condition */
+"matches": [               /* array of sub-match objects; use with type any or all. Supports nesting */
 ```
 
 Array of match objects:
@@ -132,7 +132,7 @@ Array of match objects:
   "offsetY": 0,             /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
   "width": 0,               /* default: 0. zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
   "height": 0,              /* default: 0. same as width, but for height of the intersection region. */
-  "percentOverlapX": 0.9,   /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
+  "percentOverlapX": 0.9,   /* default: 0.9. fraction of width overlap required for a line to be inside the region defined by Width or Height parameters; 0 accepts any overlap */
   "percentOverlapY": 0.8,   /* default: 0.8. same as percentOverlapX, but for height */
   "wordFilters": ["header text"] /* filters out the specified strings from the method output */
 }
@@ -148,8 +148,8 @@ Array of match objects:
   "position": "right",      /* starting point for searching outward in all directions until Sensible recognizes a box. point is relative to anchor boundaries. default: center of anchor line's bounding box. enums: right | left | below | above */
   "offsetX": 0,             /* default: 0. shifts box search starting point horizontally from Position parameter. positive: right, negative: left */
   "offsetY": 0,             /* default: 0. shifts box search starting point vertically from Position parameter. positive: down, negative: up */
-  "percentOverlapX": 0.9,   /* default: 0.9. minimum fractional width overlap for a line to be "contained" in the box */
-  "percentOverlapY": 0.8,   /* default: 0.8. minimum fractional height overlap for a line to be "contained" in the box */
+  "percentOverlapX": 0.9,   /* default: 0.9. minimum fractional width overlap for a line to be contained in the box */
+  "percentOverlapY": 0.8,   /* default: 0.8. minimum fractional height overlap for a line to be contained in the box */
   "offsetBoxes": {          /* default: none. recognize a box offset from the starting box by a number of contiguous boxes sharing borders */
     "direction": "right",   /* direction in which to search for the offset box. enums: above | below | right | left */
     "number": 1             /* number of boxes to offset by */

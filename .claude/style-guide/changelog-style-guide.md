@@ -86,15 +86,16 @@ Use exactly these strings (casing matters):
 
 ## Doc links
 
-readme short-link format — not full URLs:
+Use readme short-link format — not full URLs. The prefix depends on which directory the file lives in, and the slug is the filename minus `.md`:
 
-```
-[link text](doc:slug)
-```
+- Pages in `docs/` → `[link text](doc:slug)`
+- Pages in `reference/` → `[link text](reference:slug)`
 
-Derive the slug from the URL's last path segment:
-- `https://docs.sensible.so/docs/remove-lines` → `(doc:remove-lines)`
-- `https://docs.sensible.so/docs/query-group` → `(doc:query-group)`
+Examples:
+- `docs/Senseml reference/preprocessors/remove-lines.md` → `[Remove Lines](doc:remove-lines)`
+- `docs/Senseml reference/methods/query-group.md` → `[Query Group](doc:query-group)`
+- `reference/Extraction/document-1/extract-data-from-a-document.md` → `[Extract document](reference:extract-data-from-a-document)`
+- `reference/Classification/document/classify-document.md` → `[Classify document](reference:classify-document)`
 
 For `#` anchors, append them: `(doc:match#global-parameters)`
 

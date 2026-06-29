@@ -42,6 +42,14 @@ Sensible's
 [Aa]nyco
 
 # SenseML parameter names (appear in table Name columns)
+[Mm]ultimodal
+[Mm]ultimodalEngine
+[Mm]ulticolumn
+llmEngine
+confidenceSignals
+pageRange
+chunkCount
+unconfigured
 source_ids
 currencySymbol
 thousandsSeparator
