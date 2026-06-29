@@ -78,11 +78,53 @@ Produce a full field inventory before selecting examples. Structure it in two pa
 > |---|---|---|---|
 > | `sub_field_id` | type | method + key params | one-line note |
 
-After the inventory, propose 2–4 fields to demonstrate and state explicit reasoning for each choice — e.g. method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them.
+After the inventory, propose 2–4 fields to demonstrate and state explicit reasoning for each choice — e.g. method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them. Do not propose any field that is a sections field whose sub-fields are also sections fields (nested sections) — the structural wrapper cost makes them too long and complex to explain in a blog post.
+
+For each proposed field, show this display. Estimate the line count from the config: count the lines in the field definition (`{` through closing `}`), then add 3 for the outer `{"fields": [...]}` wrapper.
+
+For a **flat field**:
+> **\`field_id\`** — Method — N lines ✓
+
+For a **sections field** (append a sub-field table, include every sub-field):
+> **\`field_id\`** — Sections — N lines ✓
+>
+> | Sub-field | Method |
+> |---|---|
+> | \`sub_field_id\` | Method |
+
+Flag any field over 75 lines in bold: **N lines ⚠️ OVER LIMIT**
+
+**Example output:**
+
+**`file #`** — Region — 22 lines ✓
+
+**`subject`** — Sections — 73 lines ✓
+
+| Sub-field | Method |
+|---|---|
+| `fee simple` | Checkbox |
+| `leasehold` | Checkbox |
+| `other` | Checkbox |
+| `property_rights_appraised` | PickValues |
+
+**`reconciliation`** — Sections — **137 lines ⚠️ OVER LIMIT**
+
+| Sub-field | Method |
+|---|---|
+| `final_reconciled_value` (anchor 1: "The market value") | Region |
+| `final_reconciled_value` (anchor 2: "as of" includes) | Row |
+| `final_reconciled_value` (anchor 3: "as of" startsWith) | Region |
+| `as is.appraisal_condition` | Checkbox |
+| `subject to completion.appraisal_condition` | Checkbox |
+| `subject to repairs.appraisal_condition` | Checkbox |
+| `subject to inspection.appraisal_condition` | Checkbox |
+| `appraisal_condition` | PickValues |
+
+The user must approve both the field selection and the line counts before proceeding. If any field is over 75 lines, propose a trim (e.g. drop fallback anchors, drop intermediate checkbox fields, show only the PickValues result).
 
 **Pause here and present the following to the user for approval before continuing:**
 
-1. The field inventory and proposed fields (as above).
+1. The field inventory, proposed fields with sub-field detail, and line counts (as above).
 
 2. **Intro framing variant** — state which variant applies and show the evidence:
    - List any LLM methods present (`queryGroup`, `list`, `nlpTable`), or confirm none if the config is fully deterministic.

@@ -1,10 +1,10 @@
 # How to extract data from residential appraisal reports (Form 1004) with Sensible
 
-If you're building software for mortgage lending or real estate finance, chances are you've encountered the residential appraisal report, also known as Form 1004. A Form 1004 is the standard Fannie Mae and Freddie Mac appraisal form for single-family properties. It captures the subject property's characteristics, a neighborhood analysis, up to nine comparable sales, and the appraiser's final value opinion. Lenders need this data to underwrite loans, manage risk, and meet investor delivery requirements. Because Form 1004 is a government-standardized form, its field positions and label text are consistent across all lenders and appraisers.
+If you're building software for mortgage lending or real estate finance, chances are you've encountered the residential appraisal report, also known as Form 1004. A Form 1004 is the standard Fannie Mae and Freddie Mac appraisal form for single-family properties. It captures the subject property's characteristics, a neighborhood analysis, up to nine comparable sales, and the appraiser's final value opinion. Lenders need this data to underwrite loans, manage risk, and meet investor delivery requirements.  However, they often lack access to appraisal reports in any format other than PDFs, which makes extracting data a potentially difficult problem.
 
-Sensible handles this data extraction through a layout-specific config. Form 1004 reports are well suited to this approach: the form's field positions and label text are fixed by Fannie Mae and Freddie Mac specifications, giving reliable anchor points that deterministic methods extract precisely — no LLM calls, no prompt maintenance overhead. For non-standardized appraisal formats such as narrative appraisals or state-specific hybrid forms, a generalized LLM config handles extraction on day one without per-format configuration. Both run through the same API.
+With Sensible you can easily extract key information out of residential appraisal report PDFs using SenseML, Sensible's hybrid deterministic and LLM-based query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your residential appraisal report data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier.
 
-With Sensible you can easily extract key information out of residential appraisal report PDFs using SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML configurations, so you don't need to write queries from scratch for common documents. From there, your residential appraisal report data is accessible via API, Sensible's UI, or 5,000 other software integrations thanks to Zapier.
+In this post, you'll learn to extract appraisal report data using deterministic methods. Because Form 1004 is a government-standardized form, its field positions and label text are consistent across all lenders and appraisers. Therefore, Sensible handles this data extraction through a layout-specific config. Form 1004 reports are well suited to this approach: the form's field positions and label text are fixed by Fannie Mae and Freddie Mac specifications, giving reliable anchor points that deterministic methods extract precisely — no LLM calls, no prompt maintenance overhead. For non-standardized appraisal formats such as narrative appraisals or state-specific hybrid forms, a generalized LLM config handles extraction on day one without per-format configuration. Both run through the same API.
 
 ## What we'll cover
 
@@ -24,7 +24,7 @@ To keep the example in this post simple, let's extract just the:
 
 - File number
 - Property rights appraised (fee simple, leasehold, or other)
-- Final appraised value and appraisal condition
+- Final appraised value
 
 ## Identify and classify incoming residential appraisal reports
 
@@ -44,8 +44,8 @@ One fingerprint test uniquely identifies the Form 1004 format. Two text conditio
               "type": "includes"                     /* match anywhere in line. */
             },
             {
-              "text": "Form 1004",                   /* string to match */
-              "type": "includes"                     /* match anywhere in line. */
+              "text": "Form 1004",
+              "type": "includes"
             }
           ]
         ]
@@ -114,6 +114,8 @@ See the following screenshot for an overview of how to extract the property righ
 
 The queries in the left pane in the preceding image work in two steps. First, three Checkbox method fields detect which of the three options ("Fee Simple," "Leasehold," or "Other") is checked on the form. Then a Pick Values field reads those boolean results and returns the label of the checked option as a string. The PDF is displayed in the middle pane, and the extracted data is in the right pane.
 
+The outer `subject` field uses the Sections method to scope the checkbox queries to a specific region of the document. The Sections method can extract repeating data — like line items in a table — but it's also useful for scoping queries to a single, well-defined region of a complex document. Form 1004 reuses identical checkbox labels ("Fee Simple," "Leasehold," "other") in multiple places, so the `range` parameter narrows extraction to the area between "property address" and "did not analyze the contract," where the property rights checkboxes appear.
+
 To try this out yourself, paste the following queries into the left pane of the Sensible app.
 
 ```json
@@ -121,7 +123,7 @@ To try this out yourself, paste the following queries into the left pane of the 
   "fields": [
     {
       "id": "subject",       /* user-friendly ID for extracted target data */
-      "type": "sections",    /* extracts repeating sections; returns each section as an object */
+      "type": "sections",    /* scopes child fields to a defined region of the document; returns each section as an object */
       "range": {
         "anchor": {
           "match": {
@@ -130,17 +132,30 @@ To try this out yourself, paste the following queries into the left pane of the 
           }
         },
         "stop": {
-          "text": "did not analyze the contract", /* string to match */
+          "text": "did not analyze the contract",
           "type": "includes"                      /* match anywhere in line. */
         }
       },
       "fields": [            /* array of fields to extract from each section. can include computed fields */
         {
-          "id": "fee simple", /* user-friendly ID for extracted target data */
+          "id": "fee simple",
           "anchor": {
             "match": {
-              "text": "Fee Simple", /* string to match */
-              "type": "startsWith"  /* line must start with the match */
+              "text": "Fee Simple",
+              "type": "startsWith"
+            }
+          },
+          "method": {
+            "id": "checkbox",          /* returns true if checked, false if unchecked */
+            "position": "left"         /* direction to search for checkbox from anchor. enums: left | right */
+          }
+        },
+        {
+          "id": "leasehold",
+          "anchor": {
+            "match": {
+              "text": "Leasehold",
+              "type": "startsWith"
             }
           },
           "method": {
@@ -149,28 +164,15 @@ To try this out yourself, paste the following queries into the left pane of the 
           }
         },
         {
-          "id": "leasehold", /* user-friendly ID for extracted target data */
+          "id": "other",
           "anchor": {
             "match": {
-              "text": "Leasehold", /* string to match */
-              "type": "startsWith" /* line must start with the match */
-            }
-          },
-          "method": {
-            "id": "checkbox",
-            "position": "left"
-          }
-        },
-        {
-          "id": "other", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "other",      /* string to match */
-              "type": "startsWith"  /* line must start with the match */
+              "text": "other",
+              "type": "startsWith"
             },
             "end": {
               "text": "assignment type", /* optional. stop searching at this line */
-              "type": "startsWith" /* line must start with the match */
+              "type": "startsWith"
             }
           },
           "method": {
@@ -179,11 +181,11 @@ To try this out yourself, paste the following queries into the left pane of the 
           }
         },
         {
-          "id": "property_rights_appraised", /* user-friendly ID for extracted target data */
+          "id": "property_rights_appraised",
           "method": {
             "id": "pickValues",
-            "match": "one",                              /* use the first occurrence of the anchor */
-            "source_ids": ["fee simple", "leasehold", "other"] /* IDs of the checkbox fields to evaluate */
+            "match": "one",                              /* default: all. one: for mutually exclusive groups; returns null if none or more than one matches */
+            "source_ids": ["fee simple", "leasehold", "other"] /* IDs of the fields to evaluate */
           }
         }
       ]
@@ -215,7 +217,7 @@ See the following screenshot for an overview of how to extract the final apprais
 
 [IMAGE: Screenshot showing the final_reconciled_value field extraction (left pane: query. middle pane: document. right pane: output)]
 
-The queries in the left pane in the preceding image define three fallback anchors for `final_reconciled_value`. Form 1004 variants differ in how the appraised value sentence is worded. The config tries "The market value" first, then "as of" with the Row method, then "as of" with the Region method. Sensible returns the first non-null result. The PDF is displayed in the middle pane, and the extracted data is in the right pane.
+The query in the left pane in the preceding image extracts `final_reconciled_value` by anchoring on "The market value" and reading the number to its right using the Region method. The PDF is displayed in the middle pane, and the extracted data is in the right pane.
 
 To try this out yourself, paste the following queries into the left pane of the Sensible app.
 
@@ -224,7 +226,7 @@ To try this out yourself, paste the following queries into the left pane of the 
   "fields": [
     {
       "id": "reconciliation",  /* user-friendly ID for extracted target data */
-      "type": "sections",      /* extracts repeating sections; returns each section as an object */
+      "type": "sections",      /* scopes child fields to a defined region of the document; returns each section as an object */
       "range": {
         "anchor": {
           "match": {
@@ -243,12 +245,12 @@ To try this out yourself, paste the following queries into the left pane of the 
       },
       "fields": [              /* array of fields to extract from each section. can include computed fields */
         {
-          "id": "final_reconciled_value",  /* user-friendly ID for extracted target data */
+          "id": "final_reconciled_value",
           "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
           "anchor": {
             "match": {
-              "text": "The market value", /* string to match */
-              "type": "includes"          /* match anywhere in line. */
+              "text": "The market value",
+              "type": "includes"
             }
           },
           "method": {
@@ -261,95 +263,6 @@ To try this out yourself, paste the following queries into the left pane of the 
             "wordFilters": [               /* filters out the specified strings from the method output */
               "The market value of the subject property as of",
               "$"
-            ]
-          }
-        },
-        {
-          "id": "final_reconciled_value", /* user-friendly ID for extracted target data */
-          "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
-          "anchor": {
-            "match": {
-              "text": "as of",  /* string to match */
-              "type": "includes" /* match anywhere in line. */
-            }
-          },
-          "method": {
-            "id": "row",                        /* target data to extract is distributed on same horizontal line as anchor */
-            "position": "left",                 /* default: right. target data is to left or right of anchor. enums: left | right. */
-            "tiebreaker": "last",               /* extract the line in the second non-empty cell to the left of the anchor. default: returns all cells. */
-            "includeAnchor": true,
-            "typeFilters": ["date"]
-          }
-        },
-        {
-          "id": "final_reconciled_value", /* user-friendly ID for extracted target data */
-          "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
-          "anchor": {
-            "match": {
-              "text": "as of",    /* string to match */
-              "type": "startsWith" /* line must start with the match */
-            }
-          },
-          "method": {
-            "id": "region",        /* extracts lines contained in a defined rectangular region */
-            "start": "left",       /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
-            "offsetX": -1.4,       /* horizontally shifts the region's top-left corner specified in the Start parameter by specified number of inches. positive: right, negative: left */
-            "offsetY": -0.1,       /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
-            "width": 3,            /* width of the region in inches */
-            "height": 0.17         /* height of the region in inches */
-          }
-        },
-        {
-          "id": "as is.appraisal_condition", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "as is",   /* string to match */
-              "type": "includes" /* match anywhere in line. */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "subject to completion.appraisal_condition", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "subject to completion", /* string to match */
-              "type": "startsWith"             /* line must start with the match */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "subject to repairs.appraisal_condition", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "repairs or alterations", /* string to match */
-              "type": "includes"                /* match anywhere in line. */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "subject to inspection.appraisal_condition", /* user-friendly ID for extracted target data */
-          "match": "last",                     /* use the last occurrence of the anchor */
-          "anchor": {
-            "match": {
-              "text": "subject to", /* string to match */
-              "type": "includes"    /* match anywhere in line. */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "appraisal_condition", /* user-friendly ID for extracted target data */
-          "method": {
-            "id": "pickValues",
-            "match": "one",       /* use the first occurrence of the anchor */
-            "source_ids": [
-              "as is.appraisal_condition",
-              "subject to completion.appraisal_condition",
-              "subject to repairs.appraisal_condition",
-              "subject to inspection.appraisal_condition"
             ]
           }
         }
@@ -365,25 +278,13 @@ You'll get this output:
 {
   "reconciliation": [
     {
-      "final_reconciled_value": {
-        "source": "825,000",
-        "value": 825000,
-        "type": "number"
-      },
-      "as is.appraisal_condition": { "type": "boolean", "value": true },
-      "subject to completion.appraisal_condition": { "type": "boolean", "value": false },
-      "subject to repairs.appraisal_condition": { "type": "boolean", "value": false },
-      "subject to inspection.appraisal_condition": { "type": "boolean", "value": false },
-      "appraisal_condition": {
-        "value": "as is",
-        "type": "string"
-      }
+      "final_reconciled_value": { "source": "825,000", "value": 825000, "type": "number" }
     }
   ]
 }
 ```
 
-The three `final_reconciled_value` fields with the same ID act as fallbacks: Sensible returns the value from the first field that resolves to a non-null result and ignores the rest. This makes the config robust across Form 1004 variants that phrase the appraised value sentence differently.
+The full config adds fallback anchors for Form 1004 variants where the appraised value sentence is worded differently — Sensible returns the first non-null result across all anchors.
 
 ## Putting it all together
 
@@ -403,8 +304,8 @@ Here's the complete SenseML config combining everything we've covered:
               "type": "includes"                     /* match anywhere in line. */
             },
             {
-              "text": "Form 1004", /* string to match */
-              "type": "includes"   /* match anywhere in line. */
+              "text": "Form 1004",
+              "type": "includes"
             }
           ]
         ]
@@ -416,7 +317,7 @@ Here's the complete SenseML config combining everything we've covered:
       "id": "file #",          /* user-friendly ID for extracted target data */
       "anchor": {
         "match": {
-          "text": "file #",    /* string to match */
+          "text": "file #",
           "type": "startsWith" /* line must start with the match */
         }
       },
@@ -431,68 +332,68 @@ Here's the complete SenseML config combining everything we've covered:
       }
     },
     {
-      "id": "subject",       /* user-friendly ID for extracted target data */
-      "type": "sections",    /* extracts repeating sections; returns each section as an object */
+      "id": "subject",
+      "type": "sections",    /* scopes child fields to a defined region of the document; returns each section as an object */
       "range": {
         "anchor": {
           "match": {
-            "text": "property address", /* string to match */
-            "type": "startsWith"        /* line must start with the match */
+            "text": "property address",
+            "type": "startsWith"
           }
         },
         "stop": {
-          "text": "did not analyze the contract", /* string to match */
-          "type": "includes"                      /* match anywhere in line. */
+          "text": "did not analyze the contract",
+          "type": "includes"
         }
       },
       "fields": [            /* array of fields to extract from each section. can include computed fields */
         {
-          "id": "fee simple", /* user-friendly ID for extracted target data */
+          "id": "fee simple",
           "anchor": {
             "match": {
-              "text": "Fee Simple", /* string to match */
-              "type": "startsWith"  /* line must start with the match */
+              "text": "Fee Simple",
+              "type": "startsWith"
+            }
+          },
+          "method": { "id": "checkbox", "position": "left" } /* returns true if checked, false if unchecked. position enums: left | right */
+        },
+        {
+          "id": "leasehold",
+          "anchor": {
+            "match": {
+              "text": "Leasehold",
+              "type": "startsWith"
             }
           },
           "method": { "id": "checkbox", "position": "left" }
         },
         {
-          "id": "leasehold", /* user-friendly ID for extracted target data */
+          "id": "other",
           "anchor": {
             "match": {
-              "text": "Leasehold", /* string to match */
-              "type": "startsWith" /* line must start with the match */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "other", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "other",     /* string to match */
-              "type": "startsWith" /* line must start with the match */
+              "text": "other",
+              "type": "startsWith"
             },
             "end": {
               "text": "assignment type", /* optional. stop searching at this line */
-              "type": "startsWith" /* line must start with the match */
+              "type": "startsWith"
             }
           },
           "method": { "id": "checkbox", "position": "left" }
         },
         {
-          "id": "property_rights_appraised", /* user-friendly ID for extracted target data */
+          "id": "property_rights_appraised",
           "method": {
             "id": "pickValues",
-            "match": "one",                                    /* use the first occurrence of the anchor */
-            "source_ids": ["fee simple", "leasehold", "other"] /* IDs of the checkbox fields to evaluate */
+            "match": "one",                                    /* default: all. one: for mutually exclusive groups; returns null if none or more than one matches */
+            "source_ids": ["fee simple", "leasehold", "other"] /* IDs of the fields to evaluate */
           }
         }
       ]
     },
     {
-      "id": "reconciliation",  /* user-friendly ID for extracted target data */
-      "type": "sections",      /* extracts repeating sections; returns each section as an object */
+      "id": "reconciliation",
+      "type": "sections",
       "range": {
         "anchor": {
           "match": {
@@ -504,120 +405,31 @@ Here's the complete SenseML config combining everything we've covered:
           }
         },
         "stop": {
-          "text": "form 1004", /* string to match */
-          "type": "includes"   /* match anywhere in line. */
+          "text": "form 1004",
+          "type": "includes"
         },
         "stopOffsetY": -0.15   /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
       },
-      "fields": [              /* array of fields to extract from each section. can include computed fields */
+      "fields": [
         {
-          "id": "final_reconciled_value",  /* user-friendly ID for extracted target data */
+          "id": "final_reconciled_value",
           "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
           "anchor": {
             "match": {
-              "text": "The market value", /* string to match */
-              "type": "includes"          /* match anywhere in line. */
+              "text": "The market value",
+              "type": "includes"
             }
           },
           "method": {
-            "id": "region",        /* extracts lines contained in a defined rectangular region */
-            "start": "left",       /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
-            "offsetX": -0.05,      /* horizontally shifts the region's top-left corner specified in the Start parameter by specified number of inches. positive: right, negative: left */
-            "offsetY": -0.1,       /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
-            "width": 7.7,          /* width of the region in inches */
-            "height": 0.17,        /* height of the region in inches */
-            "wordFilters": [       /* filters out the specified strings from the method output */
+            "id": "region",
+            "start": "left",
+            "offsetX": -0.05,
+            "offsetY": -0.1,
+            "width": 7.7,
+            "height": 0.17,
+            "wordFilters": [
               "The market value of the subject property as of",
               "$"
-            ]
-          }
-        },
-        {
-          "id": "final_reconciled_value", /* user-friendly ID for extracted target data */
-          "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
-          "anchor": {
-            "match": {
-              "text": "as of",  /* string to match */
-              "type": "includes" /* match anywhere in line. */
-            }
-          },
-          "method": {
-            "id": "row",             /* target data to extract is distributed on same horizontal line as anchor */
-            "position": "left",      /* default: right. target data is to left or right of anchor. enums: left | right. */
-            "tiebreaker": "last",    /* extract the line in the second non-empty cell to the left of the anchor. default: returns all cells. */
-            "includeAnchor": true,
-            "typeFilters": ["date"]
-          }
-        },
-        {
-          "id": "final_reconciled_value", /* user-friendly ID for extracted target data */
-          "type": "number",                /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
-          "anchor": {
-            "match": {
-              "text": "as of",    /* string to match */
-              "type": "startsWith" /* line must start with the match */
-            }
-          },
-          "method": {
-            "id": "region",        /* extracts lines contained in a defined rectangular region */
-            "start": "left",       /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
-            "offsetX": -1.4,       /* horizontally shifts the region's top-left corner specified in the Start parameter by specified number of inches. positive: right, negative: left */
-            "offsetY": -0.1,       /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
-            "width": 3,            /* width of the region in inches */
-            "height": 0.17         /* height of the region in inches */
-          }
-        },
-        {
-          "id": "as is.appraisal_condition", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "as is",   /* string to match */
-              "type": "includes" /* match anywhere in line. */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "subject to completion.appraisal_condition", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "subject to completion", /* string to match */
-              "type": "startsWith"             /* line must start with the match */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "subject to repairs.appraisal_condition", /* user-friendly ID for extracted target data */
-          "anchor": {
-            "match": {
-              "text": "repairs or alterations", /* string to match */
-              "type": "includes"                /* match anywhere in line. */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "subject to inspection.appraisal_condition", /* user-friendly ID for extracted target data */
-          "match": "last",                     /* use the last occurrence of the anchor */
-          "anchor": {
-            "match": {
-              "text": "subject to", /* string to match */
-              "type": "includes"    /* match anywhere in line. */
-            }
-          },
-          "method": { "id": "checkbox", "position": "left" }
-        },
-        {
-          "id": "appraisal_condition", /* user-friendly ID for extracted target data */
-          "method": {
-            "id": "pickValues",
-            "match": "one",       /* use the first occurrence of the anchor */
-            "source_ids": [
-              "as is.appraisal_condition",
-              "subject to completion.appraisal_condition",
-              "subject to repairs.appraisal_condition",
-              "subject to inspection.appraisal_condition"
             ]
           }
         }
@@ -646,12 +458,7 @@ You'll get this output:
   ],
   "reconciliation": [
     {
-      "final_reconciled_value": { "source": "825,000", "value": 825000, "type": "number" },
-      "as is.appraisal_condition": { "type": "boolean", "value": true },
-      "subject to completion.appraisal_condition": { "type": "boolean", "value": false },
-      "subject to repairs.appraisal_condition": { "type": "boolean", "value": false },
-      "subject to inspection.appraisal_condition": { "type": "boolean", "value": false },
-      "appraisal_condition": { "value": "as is", "type": "string" }
+      "final_reconciled_value": { "source": "825,000", "value": 825000, "type": "number" }
     }
   ]
 }

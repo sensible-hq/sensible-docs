@@ -200,6 +200,38 @@ Array of match objects:
 }
 ```
 
+---
+
+## Checkbox method
+
+```json5
+"method": {
+  "id": "checkbox",             /* returns true if the checkbox is selected, false if unselected */
+  "position": "left",           /* direction to search for the checkbox from the anchor. enums: left | right */
+  "offsetX": 0,                 /* default: 0. horizontal offset in inches from the anchor; use to point inside a large or borderless checkbox */
+  "offsetY": 0,                 /* default: 0. vertical offset in inches from the anchor */
+  "width": 0,                   /* for large or borderless checkboxes: width in inches of the selection mark region */
+  "height": 0,                  /* for large or borderless checkboxes: height in inches of the selection mark region */
+  "darknessThreshold": 0.9,     /* default: auto. brightness below which a pixel is considered selected; white is 1.0. configure for dark or scanned backgrounds */
+  "ignoreFormData": false        /* default: false. set to true to bypass PDF form metadata and use pixel recognition instead */
+}
+```
+
+---
+
+## Pick Values method
+
+```json5
+"method": {
+  "id": "pickValues",                    /* selects values from a group of fields; commonly used to return the label of the selected option from a checkbox or radio button group */
+  "source_ids": ["field_a", "field_b"],  /* IDs of the fields to evaluate */
+  "match": "all",                        /* default: all. enums: one | all. one: for mutually exclusive groups (e.g. radio buttons); returns null if none or more than one field matches. all: returns every field that matches the value */
+  "value": true                          /* default: true. value to match; true selects checked checkboxes */
+}
+```
+
+---
+
 Vertical sections additional parameters:
 ```json5
 "direction": "vertical",        /* extracts columnar sections scanning left-to-right */
