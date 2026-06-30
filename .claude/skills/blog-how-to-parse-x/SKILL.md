@@ -224,6 +224,24 @@ python3 .claude/skills/blog-how-to-parse-x/upload_and_extract.py \
 
 **Mandatory checkpoint:** Parse the "View in Sensible app:" URL from the script's stdout and output it to the user in a response before proceeding. This is the URL the writer uses to verify the post's config — it must point to the combined blog config, not the original full config.
 
+After the checkpoint, write a meta file alongside the draft:
+
+```bash
+# drafts/blog-[doc-type-slug]-meta.json
+{
+  "doc_type": "[doc-type-slug]",
+  "draft": "drafts/blog-[doc-type-slug].md",
+  "combined_config": "[combined-post-config-path]",
+  "pdf": "[pdf-path]",
+  "sensible_app": {
+    "doc_type_configs": "https://app.sensible.so/document-types/detail/?d=[doc-type-slug]&t=configurations",
+    "blog_config_extraction": "[View in Sensible app URL from script stdout]"
+  }
+}
+```
+
+This lets future sessions recover the PDF path and app URLs without re-running the upload.
+
 ## Step 6.6 — Cross-check individual output blocks
 
 The "Putting it all together" output block is the source of truth — it comes from a real extraction of the full combined config. Go back through each individual field section in the draft and verify that every output value matches the corresponding field in the "Putting it all together" output. Update any individual block that disagrees.

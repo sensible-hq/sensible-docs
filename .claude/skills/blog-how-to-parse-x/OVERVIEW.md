@@ -15,7 +15,7 @@ Generates a "how to extract data from [document type]" blog post for Sensible. T
 | 4 | Upload config + PDF via `upload_and_extract.py`, save real output | Deterministic |
 | 5 | Write full draft using real field names and real output values | **Judgment** |
 | 6 | Run `json5-commenter` skill to enrich all code blocks | Deterministic |
-| 6.5 | Extract combined config from draft via `extract_config_from_draft.py`, re-upload | Deterministic |
+| 6.5 | Extract combined config from draft via `extract_config_from_draft.py`, re-upload, write `drafts/blog-[slug]-meta.json` with PDF path, config path, and app URLs | Deterministic |
 | 6.6 | Cross-check individual output blocks against combined extraction | Deterministic |
 | 6.7 | Vale, writing rules, naming conventions, code comment style, glossary, line count check | Mostly deterministic |
 | 7 | Print summary to user | Deterministic |
