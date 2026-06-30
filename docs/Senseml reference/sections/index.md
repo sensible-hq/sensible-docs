@@ -189,9 +189,9 @@ See the following topics:
 
 # Notes
 
-* You can use sections for non-repeating data. Use cases for non-repeating data include:
-  *  Organize extracted data into hierarchical object schemas. For example, an appraisal document contains a single `Reconciliation` heading with non-repeating data. You create a section for the heading so that you can nest its extracted data in a reconciliation object, for example, `reconciliation.final_value` and `reconciliation.as_is.appraisal_condition`. 
-  *  Increase extraction accuracy for complex documents.  Complex documents can contain data in one area (for example, repeated text) that interferes with your queries in another area of the document. You can use sections to isolate different areas of the document from each other, so that you can author simpler, more robust queries in each area.
 * For details about vertical sections, see [Section nuances](doc:section-nuances#vertical-sections).
 * See the [Copy To Section](doc:copy-to-section) computed field method to add globally applicable document information to sections. 
 * See the [Zip](doc:zip) computed field for information about zipping sections together.
+* You can use sections for non-repeating data. Use cases for non-repeating data include:
+  *  Organize extracted data into hierarchical object schemas. For example, an appraisal document contains a single `Reconciliation` heading with non-repeating data. You create a section for the heading so that you can nest its extracted data in a reconciliation object, for example, `reconciliation.final_value` and `reconciliation.as_is.appraisal_condition`. 
+  *  Increase extraction accuracy for complex documents.  Complex documents can contain data in one area (for example, repeated text) that interferes with your queries in another area of the document. You can use sections to isolate different areas of the document from each other, so that you can author simpler, more robust queries in each area.
