@@ -4,6 +4,17 @@ This file captures Frances's editorial judgment — corrections made to Claude's
 
 ---
 
+## Parameter descriptions
+
+**Copy existing wording precisely when a parameter is already documented elsewhere.**
+When a parameter appears in another SenseML method's docs and the underlying implementation is the same, copy the description verbatim. Only drop clauses that are structurally specific to the other method's context (e.g., a conditional "If you use the Width or Height parameters..." that doesn't apply). Do not paraphrase, tighten, or rewrite.
+
+*Why:* Rewriting introduces subtle differences that require correction. The wording is already right — use it.
+
+*Example:* `percentOverlapX` / `percentOverlapY` already documented in `intersection.md` with confirmed shared implementation (`getLinesInRegion` in `method-helpers.ts`). Required two interruptions to get Claude to stop paraphrasing. (2026-06, branch `region`)
+
+---
+
 ## Examples
 
 **Evaluate updating existing examples before authoring new ones**
