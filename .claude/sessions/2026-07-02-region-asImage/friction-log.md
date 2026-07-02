@@ -12,7 +12,15 @@
 
 ---
 
-### 2. Vale style check failed
+### 2. Organized session artifact by commit instead of by end state
+
+**What happened:** `frances-edits.md` was initially written commit-by-commit (4 sections, one per commit). User corrected: when commits are iterative stages toward one end goal, the artifact should reflect the final diff, organized by file — not the path taken to get there.
+
+**Rule:** Session edit artifacts should use the consolidated diff between the baseline and the final state. Organize by file, not by commit. Only use commits as the unit of analysis if they represent meaningfully distinct decisions (e.g., different features, separate reviewers). Intermediate commits that are just stages of one authoring session are noise.
+
+---
+
+### 3. Vale style check failed
 
 **What happened:** Vale MCP server (`mcp__vale__check_file`) was not available as a callable tool (not in deferred tool list). Fallback to CLI `vale` also failed:
 
