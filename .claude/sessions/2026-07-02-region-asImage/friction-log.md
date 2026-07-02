@@ -1,6 +1,4 @@
-# update-docs-from-pr friction log
-
-## Run: PR #3351 + #3375 (region: asImage, percentOverlapX/Y)
+# Friction log — region: asImage + percentOverlapX/Y (PR #3351, #3375)
 
 ### 1. Loose paraphrasing instead of verbatim copy
 
@@ -26,3 +24,11 @@ style 'Google' does not exist on StylesPath
 **Result:** Step 5 (style check) was not completed. Files were not checked before committing.
 
 **Root cause:** Vale is not configured correctly in this environment — `StylesPath` does not contain the Google style. Needs investigation.
+
+---
+
+### 3. Artifact location: memory vs. repo
+
+**What happened:** Friction log and checklist were initially written to the memory system (`~/.claude/projects/.../memory/`). User redirected to commit them to the repo instead.
+
+**Rule:** Session artifacts (friction, checklists, open questions) belong in the repo under `.claude/sessions/<date-topic>/`, not in the memory system. Memory is for cross-project, persistent preferences and user context.
