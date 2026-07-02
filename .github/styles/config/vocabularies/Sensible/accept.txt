@@ -42,6 +42,11 @@ Sensible's
 [Aa]nyco
 
 # SenseML parameter names (appear in table Name columns)
+asImage
+percentOverlapX
+percentOverlapY
+includeImages
+isAbsoluteOffset
 [Mm]ultimodal
 [Mm]ultimodalEngine
 [Mm]ulticolumn
