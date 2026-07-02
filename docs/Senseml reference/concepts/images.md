@@ -1,6 +1,6 @@
 
 
-```
+---
 title: Image processing
 excerpt: ''
 deprecated: false
@@ -11,7 +11,7 @@ metadata:
   robots: index
 next:
   description: ''
-```
+---
 
 You have the following options for processing non-text images in documents:
 
