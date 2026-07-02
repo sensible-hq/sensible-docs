@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Extracts data in a rectangular region, defined in inches. The region extracts lines contained inside the region (for the definition of "contained", see the Parameters section). 
+Extracts data in a rectangular region, defined in inches. The region extracts lines contained inside the region (for the definition of "contained," see the Parameters section). 
 
 In general, use this method:
 
@@ -27,13 +27,16 @@ In general, use this method:
 
 | key                    | value                             | description                                                  |
 | ---------------------- | --------------------------------- | ------------------------------------------------------------ |
-| id (**required**)      | `region`                          | Extracts lines contained in the region, where "contained" means:<br/>  - condition 1: the region and the line's widths overlap by more than 90% of the smaller of the two's width.<br/> AND<br/> - condition 2: the region and the line's heights overlap by more than 80% of the smaller of the two's height. |
+| id (**required**)      | `region`                          | Extracts lines contained in the region, where "contained" by default means:<br/>  - condition 1: the region and the line's widths overlap by more than 90% of the smaller of the two's width.<br/> AND<br/> - condition 2: the region and the line's heights overlap by more than 80% of the smaller of the two's height.<br/>Configure these thresholds with the Percent Overlap X and Percent Overlap Y parameters. |
 | start (**required**)   | `above`, `below`, `left`, `right` | Defines the initial coordinates of the region's top-left corner (its "start point") relative to the anchor line's boundaries. For example,  `right`  specifies that the corner is at the midpoint of the anchor line's right boundary, and `below` specifies that the corner is at the midpoint of the anchor line's bottom boundary. |
 | offsetX (**required**) | number                            | Horizontally shifts the region's top-left corner from the point defined in the Start parameter by the specified number of inches. Positive values offset to the right, negative values offset to the left.<br/>You can visually determine this number in the Sensible app by changing the number and watching the green region box resize, or by clicking a point in the document in the Sensible app, then dragging to display inch dimensions. |
 | offsetY (**required**) | number                            | Vertically shifts the region's top-left corner from the point defined in the Start parameter by the specified number of inches. Positive values offset down the page, negative values offset up the page.<br/>You can visually determine this number in the Sensible app by changing the number and watching the green region box resize, or by clicking a point in the document in the Sensible app, then dragging to display inch dimensions. |
 | width (**required**)   | number                            | The width in inches of the region. <br/>You can visually determine this number in the Sensible app by changing the number and watching the green region box resize, or by clicking a point in the document in the Sensible app, then dragging to display inch dimensions. |
 | height (**required**)  | number                            | The height in inches of the region. <br/>You can visually determine this number in the Sensible app by changing the number and watching the green region box resize, or by clicking a point in the document in the Sensible app, then dragging to display inch dimensions. |
 | isAbsoluteOffset       | boolean. default: `false`         | Makes the offsets relative to the 0,0 origin at the top left of the page rather than to the point defined in the Start parameter. |
+| asImage                | boolean. default: `false`         | When true, Sensible returns the region as a PNG data URI, for example, `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABMgAAABaCAYAAA....` Sensible also returns the image's [coordinates](doc:images#notes). Use this option to capture visual content instead of extracting text. For example, use this option when your documents contain complex charts, from which neither LLM-based nor layout-based methods can reliably extract structured data. Extract the chart as an image and render it for a human to interpret. <br>For alternatives to this parameter, see [Image processing](doc:images). |
+| percentOverlapX        | number. default: `0.9`            | Configures the strictness of the criteria by which a region "contains" a line. By default, Sensible determines that a region contains a line if their widths overlap by more than 90% of the smaller of the two's width. Loosen the criteria if a line can partly fall outside a region. For example, if you set this parameter to 0.5, then Sensible determines that a region contains a line if their widths overlap by more than 50% of the smaller of the two's width. Note the line must also meet the Percent Overlap Y parameter's criteria. |
+| percentOverlapY        | number. default: `0.8`            | Configures strictness in the same manner as the Percent Overlap X parameter, but applies to height instead of width. |
 
 ## Syntax example
 
@@ -51,7 +54,10 @@ The following example shows the preceding parameters documented with in-line com
         "offsetY": 0.00, /* vertically shifts the region's top-left corner specified in the Start parameter by the specified number of inches. positive: down, negative: up */
         "width": 0.00, /* width of the region in inches */
         "height": 0.00, /* height of the region in inches */
-        "isAbsoluteOffset": false /* default: false. if true, offsets are relative to the top-left of the page, not to the Start parameter */
+        "isAbsoluteOffset": false, /* default: false. if true, offsets are relative to the top-left of the page, not to the Start parameter */
+        "asImage": false, /* default: false. if true, returns the region rendered as a data:image/png;base64,... string instead of extracting text */
+        "percentOverlapX": 0.9, /* default: 0.9. fraction of width overlap required for a line to be inside the region; 0 accepts any overlap */
+        "percentOverlapY": 0.8 /* default: 0.8. same as percentOverlapX, but for height */
       }
     }
 ```
