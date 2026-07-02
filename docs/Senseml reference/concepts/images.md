@@ -1,7 +1,7 @@
 
 
 ```
-title: Extracting from images
+title: Image processing
 excerpt: ''
 deprecated: false
 hidden: false
@@ -13,9 +13,23 @@ next:
   description: ''
 ```
 
-
 You have the following options for processing non-text images in documents:
 
-- To use an LLM to extract structured data from an image, use the [Query Group](doc:query-group) method with the Multimodal Engine parameter configured. For example, extract facts about a photo of a building, such as whether it's multistory-story or single-story.
-- To extract an image from a known region as an encoded string, use the [Region](doc:region) method's As Image parameter. For example, extract a complex chart image that neither LLM-based nor layout-based method can reliably extract from, render it for an end-user to review.
-- To search for a non-text image in a range, use the [Document Range](doc:document-range) method. This option returns images' coordinates, which you can then use to render the image yourself.  For example, search for unlabeled photos of houses in a real estate document, and extract their coordinates.
+| Use case                                                     | Method                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Use an LLM to extract structured data from an image. For example, extract facts about a photo of a building, such as its color and whether it's multistory-story or single-story. | use the [Query Group](doc:query-group) method with the Multimodal Engine parameter configured |
+| Extract an image from a known region as an encoded string. For example, your documents contain complex charts,  from which neither LLM-based nor layout-based methods can reliably extract structured data. Extract the chart as an image and show it to an end-user to review. | use the [Region](doc:region) method with the As Image parameter configured |
+| Search for non-labeled, non-text images in a range. For example, search for unlabeled photos of houses in a real estate document, and extract the images' coordinates. This option returns images' coordinates, which you can then use to render the images yourself. | use the [Document Range](doc:document-range) method with the Include Images parameter configured |
+
+## Notes
+
+- Sensible's rectangular coordinates for images follow these conventions:
+
+  * they're in reference to a 0.0 origin at the *top left* corner of the page (not the bottom left origin, as is for example the convention with the popular PDF.js library)
+
+  * they're in inches (to convert inches to pixels, multiply the inches coordinates by your PPI setting. For example, an x-coordinate of 3.156 inches is \~227 pixels for a PPI setting of 72 (72 PPI \* 3.156 inches)).
+
+  * they're ordered clockwise from top left: (top left), (top right), (bottom right), (bottom left)
+
+- This topic is about processing non-text images. For information about processing text images, see [OCR](doc:ocr).
+
