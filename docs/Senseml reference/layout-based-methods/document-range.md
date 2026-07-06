@@ -262,6 +262,6 @@ The following image shows the example document used with this example config:
 When you use the Document Range's Include Images parameter to search for images in a range, the Document Range returns the coordinates of regions containing images, rather than the encoded bytes of images. If you want to extract the images themselves, use a PDF library in your chosen programming language to follow these general steps:
 
 * Render the page containing the image to a bitmap. Page numbers are zero-indexed in the Sensible output.
-* Convert Sensible's [coordinates](doc:image#coordinate-conventions) for the image region to pixel per inch (PPI) coordinates. 
+* Convert Sensible's [coordinates](doc:images#notes) for the image region to pixel per inch (PPI) coordinates. 
 * Extract a partial bitmap defined by the PPI coordinates of the image from the rendered page.
 * Encode the bitmap to bytes in the image format of your choice.
