@@ -1,0 +1,1790 @@
+{
+  "id": "<omitted>",
+  "created": "<omitted>",
+  "completed": "<omitted>",
+  "status": "COMPLETE",
+  "types": [
+    "bank_statements",
+    "1040s",
+    "pay_stubs"
+  ],
+  "segment_documents_with": "fingerprints",
+  "environment": "production",
+  "documents": [
+    {
+      "documentType": "1040s",
+      "configuration": "1040_2020",
+      "startPage": 0,
+      "endPage": 1,
+      "output": {
+        "parsedDocument": {
+          "year": {
+            "type": "string",
+            "value": "2020"
+          },
+          "filing_status.single": {
+            "type": "boolean",
+            "value": false
+          },
+          "filing_status.married_filing_jointly": {
+            "type": "boolean",
+            "value": true
+          },
+          "filing_status.married_filing_separately": {
+            "type": "boolean",
+            "value": false
+          },
+          "filing_status.head_of_household": {
+            "type": "boolean",
+            "value": false
+          },
+          "filing_status.qualifying_widow": {
+            "type": "boolean",
+            "value": false
+          },
+          "name": {
+            "type": "string",
+            "value": "Kevin Finnerty"
+          },
+          "ssn": {
+            "type": "string",
+            "value": "091-30-1116"
+          },
+          "spouse_name": {
+            "type": "string",
+            "value": "Carmella Finnerty"
+          },
+          "spouse_ssn": {
+            "type": "string",
+            "value": "772-98-1129"
+          },
+          "home_street_address": {
+            "type": "string",
+            "value": "4880 Combe Street"
+          },
+          "home_apartment_number": null,
+          "home_city_state_zipcode": {
+            "type": "string",
+            "value": "Newark, New Jersey 99033"
+          },
+          "wages_salaries_tips": {
+            "source": "502,213",
+            "value": 502213,
+            "type": "number"
+          },
+          "tax_exempt_interest": null,
+          "taxable_interest": {
+            "source": "2,049",
+            "value": 2049,
+            "type": "number"
+          },
+          "qualified_dividends": {
+            "source": "25",
+            "value": 25,
+            "type": "number"
+          },
+          "ordinary_dividends": {
+            "source": "69",
+            "value": 69,
+            "type": "number"
+          },
+          "ira_distributions": null,
+          "ira_distributions_taxable_amount": null,
+          "pensions_and_annuities": null,
+          "pensions_and_annuities_taxable_amount": null,
+          "social_security_benefits": null,
+          "social_security_benefits_taxable_amount": null,
+          "capital_gain_or_loss": null,
+          "other_income": {
+            "source": "0",
+            "value": 0,
+            "type": "number"
+          },
+          "total_income": {
+            "source": "504,331",
+            "value": 504331,
+            "type": "number"
+          },
+          "adjustments_to_income": null,
+          "adjusted_gross_income": {
+            "source": "504,331",
+            "value": 504331,
+            "type": "number"
+          },
+          "standard_deduction": {
+            "source": "24,800",
+            "value": 24800,
+            "type": "number"
+          },
+          "qualified_business_deduction": null,
+          "taxable_income": {
+            "source": "479,531",
+            "value": 479531,
+            "type": "number"
+          },
+          "tax": {
+            "source": "117,421",
+            "value": 117421,
+            "type": "number"
+          },
+          "child_tax_credit": null,
+          "other_tax_including_self_employment": {
+            "source": "0",
+            "value": 0,
+            "type": "number"
+          },
+          "total_tax": {
+            "source": "32",
+            "value": 32,
+            "type": "number"
+          },
+          "federal_income_tax_withheld": null,
+          "earned_income_credit": null,
+          "additional_child_tax_credit": null,
+          "american_opportunity_credit": null,
+          "total_other_payments": null,
+          "total_payments": {
+            "source": "500",
+            "value": 500,
+            "type": "number"
+          },
+          "overpaid_amount": {
+            "source": "468",
+            "value": 468,
+            "type": "number"
+          },
+          "overpaid_refund_amount": {
+            "source": "0",
+            "value": 0,
+            "type": "number"
+          },
+          "routing_number": {
+            "type": "string",
+            "value": "X X X X X X X X X"
+          },
+          "account_type.checking": {
+            "type": "boolean",
+            "value": false
+          },
+          "account_type.savings": {
+            "type": "boolean",
+            "value": false
+          },
+          "account_number": {
+            "type": "string",
+            "value": "X X X X X X X X X X X X X X X X X"
+          },
+          "amount_you_owe": null,
+          "estimated_tax_penalty": null,
+          "signed": {
+            "type": "boolean",
+            "value": false
+          },
+          "signed_date": null,
+          "spouse_signed": {
+            "type": "boolean",
+            "value": false
+          },
+          "spouse_signed_date": null
+        },
+        "configuration": "1040_2020",
+        "validations": [],
+        "coverage": 0.6111111111111112,
+        "fileMetadata": {
+          "info": {
+            "modification_date": "2023-11-27T12:43:54.000-07:00"
+          }
+        },
+        "errors": [],
+        "needsReview": false,
+        "classificationSummary": [
+          {
+            "configuration": "1040_2020",
+            "score": {
+              "score": 33,
+              "coverage": 0.6111111111111112,
+              "fieldsPresent": 33,
+              "penalties": 0
+            }
+          }
+        ],
+        "validation_summary": {
+          "fields": 54,
+          "fields_present": 33,
+          "errors": 0,
+          "warnings": 0,
+          "skipped": 0
+        }
+      },
+      "configuration_version": "Q7NmAil9QwEH2mq87DPt6sT3_bcnv9t."
+    },
+    {
+      "documentType": "bank_statements",
+      "configuration": "wells_fargo_checking",
+      "startPage": 2,
+      "endPage": 6,
+      "output": {
+        "parsedDocument": {
+          "start_date": {
+            "source": "07/14/2021",
+            "value": "2021-07-14T00:00:00.000Z",
+            "type": "date"
+          },
+          "end_date": {
+            "source": "08/11/2021",
+            "value": "2021-08-11T00:00:00.000Z",
+            "type": "date"
+          },
+          "customer_name": {
+            "type": "string",
+            "value": "DOMINIC BOGDAN"
+          },
+          "customer_address": {
+            "value": "111 LAKES RD\nSAN DEGO CA 11111",
+            "type": "address"
+          },
+          "account_summary_table": null,
+          "accounts": [
+            {
+              "account_type": {
+                "type": "string",
+                "value": "Essential Checking"
+              },
+              "account_number": null,
+              "beginning_balance": {
+                "source": "3,082.80",
+                "value": 3082.8,
+                "unit": "$",
+                "type": "currency"
+              },
+              "deposits": {
+                "source": "24,163.03",
+                "value": 24163.03,
+                "unit": "$",
+                "type": "currency"
+              },
+              "withdrawals": {
+                "source": "26,557.01",
+                "value": 26557.01,
+                "unit": "$",
+                "type": "currency"
+              },
+              "end_balance": {
+                "source": "688.82",
+                "value": 688.82,
+                "unit": "$",
+                "type": "currency"
+              },
+              "deposits_table": [
+                {
+                  "date": {
+                    "value": "7/15",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "167.00",
+                    "value": 167,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "3,764.53",
+                    "value": 3764.53,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/23",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "7,189.15",
+                    "value": 7189.15,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/23",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "123.45",
+                    "value": 123.45,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/27",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "s",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "4,961.00",
+                    "value": 4961,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/29",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "2.69",
+                    "value": 2.69,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/30",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "3,772.62",
+                    "value": 3772.62,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "1,300.00",
+                    "value": 1300,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/4",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "75.00",
+                    "value": 75,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/5",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "194.36",
+                    "value": 194.36,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/6",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "2,613.23",
+                    "value": 2613.23,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                }
+              ],
+              "withdrawals_table": [
+                {
+                  "date": {
+                    "value": "7/14",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "10.00",
+                    "value": 10,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/14",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "11.77",
+                    "value": 11.77,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/15",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "n",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "3.45",
+                    "value": 3.45,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/15",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "co",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "70.66",
+                    "value": 70.66,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/15",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "44.24",
+                    "value": 44.24,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/15",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "101.93",
+                    "value": 101.93,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/15",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "1,400.00",
+                    "value": 1400,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "14.99",
+                    "value": 14.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "11.88",
+                    "value": 11.88,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "58.26",
+                    "value": 58.26,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "5.00",
+                    "value": 5,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "1,300.00",
+                    "value": 1300,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "8.80",
+                    "value": 8.8,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/16",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "167.00",
+                    "value": 167,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "2.99",
+                    "value": 2.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "212.83",
+                    "value": 212.83,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "39.99",
+                    "value": 39.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "198.59",
+                    "value": 198.59,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "295.82",
+                    "value": 295.82,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "4.00",
+                    "value": 4,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "55.84",
+                    "value": 55.84,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "10.00",
+                    "value": 10,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "65.00",
+                    "value": 65,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "35.26",
+                    "value": 35.26,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "k",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "1,300.00",
+                    "value": 1300,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "149.11",
+                    "value": 149.11,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "150.00",
+                    "value": 150,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/19",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "250.00",
+                    "value": 250,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/20",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "8.86",
+                    "value": 8.86,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/20",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "A",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "19.88",
+                    "value": 19.88,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/20",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "Check",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "399.14",
+                    "value": 399.14,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/21",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "29.18",
+                    "value": 29.18,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/22",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "e",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "36.00",
+                    "value": 36,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/22",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "33.48",
+                    "value": 33.48,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/22",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "17.02",
+                    "value": 17.02,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/23",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "8.00",
+                    "value": 8,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": {
+                    "value": "8",
+                    "type": "string"
+                  },
+                  "amount": {
+                    "source": "195.28",
+                    "value": 195.28,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "93.98",
+                    "value": 93.98,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "18.44",
+                    "value": 18.44,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "113.68",
+                    "value": 113.68,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "219.93",
+                    "value": 219.93,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "10.00",
+                    "value": 10,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "250.00",
+                    "value": 250,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "400.00",
+                    "value": 400,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/26",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "2,500.00",
+                    "value": 2500,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/27",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "45.85",
+                    "value": 45.85,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/27",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "600.00",
+                    "value": 600,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/27",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "3,123.43",
+                    "value": 3123.43,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/28",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "11.99",
+                    "value": 11.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/30",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "54.99",
+                    "value": 54.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "7/30",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "10.89",
+                    "value": 10.89,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "98.09",
+                    "value": 98.09,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "18.99",
+                    "value": 18.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "82.12",
+                    "value": 82.12,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "56.40",
+                    "value": 56.4,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "255.25",
+                    "value": 255.25,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "102.20",
+                    "value": 102.2,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "145.37",
+                    "value": 145.37,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "10.00",
+                    "value": 10,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "53.56",
+                    "value": 53.56,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "35.00",
+                    "value": 35,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "2.18",
+                    "value": 2.18,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "11.06",
+                    "value": 11.06,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "800.00",
+                    "value": 800,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "215.62",
+                    "value": 215.62,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "250.00",
+                    "value": 250,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/2",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "1,500.00",
+                    "value": 1500,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/3",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "15.99",
+                    "value": 15.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/5",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "7.99",
+                    "value": 7.99,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/5",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "250.00",
+                    "value": 250,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/5",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "20.00",
+                    "value": 20,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/6",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "3.00",
+                    "value": 3,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/6",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "83.00",
+                    "value": 83,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/6",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "4,961.98",
+                    "value": 4961.98,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "176.66",
+                    "value": 176.66,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "146.82",
+                    "value": 146.82,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "13.87",
+                    "value": 13.87,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "88.00",
+                    "value": 88,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "25.96",
+                    "value": 25.96,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "16.86",
+                    "value": 16.86,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "35.53",
+                    "value": 35.53,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "42.19",
+                    "value": 42.19,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "7.00",
+                    "value": 7,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "74.19",
+                    "value": 74.19,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "150.00",
+                    "value": 150,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "810.00",
+                    "value": 810,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/9",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "1,300.00",
+                    "value": 1300,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/10",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "161.45",
+                    "value": 161.45,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/10",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "100.00",
+                    "value": 100,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/10",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "250.00",
+                    "value": 250,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                },
+                {
+                  "date": {
+                    "value": "8/11",
+                    "type": "string"
+                  },
+                  "description": null,
+                  "amount": {
+                    "source": "3.25",
+                    "value": 3.25,
+                    "unit": "$",
+                    "type": "currency"
+                  }
+                }
+              ],
+              "transaction_table": null
+            }
+          ]
+        },
+        "configuration": "wells_fargo_checking",
+        "validations": [],
+        "coverage": 0.6949685534591195,
+        "fileMetadata": {
+          "info": {
+            "modification_date": "2023-11-27T12:43:54.000-07:00"
+          }
+        },
+        "errors": [],
+        "needsReview": false,
+        "classificationSummary": [
+          {
+            "configuration": "wells_fargo_checking",
+            "score": {
+              "score": 221,
+              "coverage": 0.6949685534591195,
+              "fieldsPresent": 221,
+              "penalties": 0
+            }
+          }
+        ],
+        "validation_summary": {
+          "fields": 6,
+          "fields_present": 5,
+          "errors": 0,
+          "warnings": 0,
+          "skipped": 0
+        }
+      },
+      "configuration_version": "33tIY2r7JulSXFFdP_vpIGWfgI32fXx3"
+    },
+    {
+      "documentType": "pay_stubs",
+      "configuration": "gusto",
+      "startPage": 7,
+      "endPage": 7,
+      "output": {
+        "parsedDocument": {
+          "employer_name": {
+            "type": "string",
+            "value": "Delta Airlines"
+          },
+          "employee_name": {
+            "type": "string",
+            "value": "Clyde Drexler"
+          },
+          "employee_address": {
+            "value": "1123 Drive street\nAtlanta, GA, 88434",
+            "type": "address"
+          },
+          "pay_date": null,
+          "pay_period_start_date": null,
+          "pay_period_end_date": null,
+          "net_pay": {
+            "source": "$2,076.28",
+            "value": 2076.28,
+            "unit": "$",
+            "type": "currency"
+          },
+          "hours.regular": {
+            "source": "40.0",
+            "value": 40,
+            "type": "number"
+          },
+          "hours.sick": null,
+          "hours.paid_time_off": null,
+          "hours.vacation": null,
+          "pay_this_period.regular": {
+            "source": "$2,980.77",
+            "value": 2980.77,
+            "unit": "$",
+            "type": "currency"
+          },
+          "pay_this_period.sick": null,
+          "pay_this_period.paid_time_off": null,
+          "pay_this_period.vacation": null,
+          "pay_this_period.gross": {
+            "source": "$2,980.77",
+            "value": 2980.77,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.regular": {
+            "source": "$17,288.47",
+            "value": 17288.47,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.sick": null,
+          "ytd.paid_time_off": null,
+          "ytd.vacation": {
+            "source": "$596.15",
+            "value": 596.15,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.gross": {
+            "source": "$51,476.45",
+            "value": 51476.45,
+            "unit": "$",
+            "type": "currency"
+          }
+        },
+        "configuration": "gusto",
+        "validations": [],
+        "coverage": 0.47619047619047616,
+        "fileMetadata": {
+          "info": {
+            "modification_date": "2023-11-27T12:43:54.000-07:00"
+          }
+        },
+        "errors": [],
+        "needsReview": false,
+        "classificationSummary": [
+          {
+            "configuration": "gusto",
+            "score": {
+              "score": 10,
+              "coverage": 0.47619047619047616,
+              "fieldsPresent": 10,
+              "penalties": 0
+            }
+          }
+        ],
+        "validation_summary": {
+          "fields": 21,
+          "fields_present": 10,
+          "errors": 0,
+          "warnings": 0,
+          "skipped": 0
+        }
+      },
+      "configuration_version": "DKqJS_qIPlyRd4oMc9fnn..0AZgvW9pd"
+    }
+  ],
+  "page_count": 8,
+  "validation_summary": {
+    "fields": 81,
+    "fields_present": 48,
+    "errors": 0,
+    "warnings": 0,
+    "skipped": 0
+  },
+  "download_url": "<omitted>",
+  "content_type": "application/pdf",
+  "coverage": 0.5940900469202356,
+  "charged": "<omitted>",
+  "actor": "api_key: in ubuntu, probook 645",
+  "version_id": "<omitted>",
+  "reviewStatuses": [
+    null,
+    null,
+    null
+  ]
+}

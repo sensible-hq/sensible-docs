@@ -1,0 +1,200 @@
+{
+  "extractions": [
+    {
+      "id": "<omitted>",
+      "created": "<omitted>",
+      "completed": "<omitted>",
+      "status": "COMPLETE",
+      "types": [
+        "bank_statements",
+        "1040s",
+        "pay_stubs"
+      ],
+      "segment_documents_with": "llm",
+      "environment": "production",
+      "documents": [
+        {
+          "output": {
+            "errors": [],
+            "validations": []
+          },
+          "startPage": 0,
+          "endPage": 1,
+          "documentType": "1040s",
+          "configuration": "1040_2019"
+        },
+        {
+          "output": {
+            "errors": [],
+            "validations": []
+          },
+          "startPage": 2,
+          "endPage": 6,
+          "documentType": "bank_statements",
+          "configuration": "wells_fargo_checking"
+        },
+        {
+          "output": {
+            "errors": [],
+            "validations": []
+          },
+          "startPage": 7,
+          "endPage": 7,
+          "documentType": "pay_stubs",
+          "configuration": "gusto"
+        }
+      ],
+      "page_count": 8,
+      "validation_summary": {
+        "fields": 81,
+        "fields_present": 55,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
+      },
+      "coverage": 0.6372999234634454,
+      "charged": "<omitted>",
+      "actor": "api_key: in ubuntu, probook 645",
+      "reviewStatuses": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "<omitted>",
+      "created": "<omitted>",
+      "completed": "<omitted>",
+      "status": "COMPLETE",
+      "types": [
+        "bank_statements",
+        "1040s",
+        "pay_stubs"
+      ],
+      "segment_documents_with": "fingerprints",
+      "environment": "production",
+      "documents": [
+        {
+          "output": {
+            "errors": [],
+            "validations": []
+          },
+          "startPage": 0,
+          "endPage": 1,
+          "documentType": "1040s",
+          "configuration": "1040_2020"
+        },
+        {
+          "output": {
+            "errors": [],
+            "validations": []
+          },
+          "startPage": 2,
+          "endPage": 6,
+          "documentType": "bank_statements",
+          "configuration": "wells_fargo_checking"
+        },
+        {
+          "output": {
+            "errors": [],
+            "validations": []
+          },
+          "startPage": 7,
+          "endPage": 7,
+          "documentType": "pay_stubs",
+          "configuration": "gusto"
+        }
+      ],
+      "page_count": 8,
+      "validation_summary": {
+        "fields": 81,
+        "fields_present": 48,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
+      },
+      "coverage": 0.5940900469202356,
+      "charged": "<omitted>",
+      "actor": "api_key: in ubuntu, probook 645",
+      "reviewStatuses": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "<omitted>",
+      "created": "<omitted>",
+      "completed": "<omitted>",
+      "status": "COMPLETE",
+      "type": "w2s",
+      "configuration": "w2",
+      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+      "content_type": "application/pdf",
+      "environment": "production",
+      "page_count": 1,
+      "validation_summary": {
+        "fields": 12,
+        "errors": 0,
+        "fields_present": 6,
+        "warnings": 0,
+        "skipped": 0
+      },
+      "errors": [],
+      "validations": [],
+      "coverage": 0.5,
+      "charged": "<omitted>",
+      "actor": "api_key: in ubuntu, probook 645"
+    },
+    {
+      "id": "<omitted>",
+      "created": "<omitted>",
+      "completed": "<omitted>",
+      "status": "COMPLETE",
+      "type": "w2s",
+      "configuration": "w2",
+      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+      "content_type": "application/pdf",
+      "environment": "production",
+      "page_count": 1,
+      "validation_summary": {
+        "fields": 12,
+        "errors": 0,
+        "fields_present": 6,
+        "warnings": 0,
+        "skipped": 0
+      },
+      "errors": [],
+      "validations": [],
+      "coverage": 0.5,
+      "charged": "<omitted>",
+      "actor": "api_key: in ubuntu, probook 645"
+    },
+    {
+      "id": "<omitted>",
+      "created": "<omitted>",
+      "completed": "<omitted>",
+      "status": "COMPLETE",
+      "type": "w2s",
+      "configuration": "w2",
+      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+      "content_type": "application/pdf",
+      "environment": "development",
+      "page_count": 1,
+      "validation_summary": {
+        "fields": 12,
+        "errors": 0,
+        "fields_present": 6,
+        "warnings": 0,
+        "skipped": 0
+      },
+      "errors": [],
+      "validations": [],
+      "coverage": 0.5,
+      "charged": "<omitted>",
+      "actor": "api_key: in ubuntu, probook 645"
+    }
+  ],
+  "continuation_token": "<omitted>",
+  "last_evaluated_creation_date": "<omitted>"
+}
