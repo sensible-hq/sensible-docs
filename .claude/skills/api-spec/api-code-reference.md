@@ -332,6 +332,7 @@ type ExtractionResponseBase = {
   version_id?: string;
   taskId?: string;                   // set when produced by a processor execution
   extra_data?: ExtraDataRecord;      // present on full responses; absent from summary responses
+  actor?: string;                    // best-effort label for the initiating user/credential; omitted for system-initiated extractions
 };
 ```
 
