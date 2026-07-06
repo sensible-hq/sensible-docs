@@ -5,3 +5,6 @@ Thumbs.db
 
 # Vale downloaded styles (managed via vale sync; do not commit)
 .github/styles/Google/
+
+# Probe script run outputs (raw API responses; not for version control)
+scripts/test/probe_endpoints/outputs/
