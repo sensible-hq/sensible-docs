@@ -1627,6 +1627,9 @@
           "charged": {
             "$ref": "#/components/schemas/Charged"
           },
+          "actor": {
+            "$ref": "#/components/schemas/Actor"
+          },
           "reviewStatuses": {
             "$ref": "#/components/schemas/ReviewStatuses"
           },
@@ -1765,6 +1768,9 @@
           "content_type": {
             "$ref": "#/components/schemas/ContentTypeResponse"
           },
+          "actor": {
+            "$ref": "#/components/schemas/Actor"
+          },
           "extra_data": {
             "$ref": "#/components/schemas/ExtraDataRecord"
           }
@@ -1860,6 +1866,9 @@
           },
           "charged": {
             "$ref": "#/components/schemas/Charged"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/Actor"
           },
           "reviewStatuses": {
             "$ref": "#/components/schemas/ReviewStatuses"
