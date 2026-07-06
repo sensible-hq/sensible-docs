@@ -16,7 +16,7 @@ You have the following options for processing non-text images in documents:
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Extract structured data from an image with an LLM.           | Extract facts about a photo of a building, such as its color and whether it's multistory-story or single-story. | Use the [Query Group](doc:query-group) method with the Multimodal Engine parameter configured. |
 | Extract an image from a known region as an encoded string.   | Your documents contain complex charts, from which neither LLM-based nor layout-based methods can reliably extract structured data. Extract the chart as an image and render it for a human to interpret. | Use the [Region](doc:region) method with the As Image parameter configured. |
-| Search for non-labeled, non-text images in a range. This option returns images' coordinates, which you can then use to render the images. | Search for unlabeled photos of buildings in a real estate document. | Use the [Document Range](doc:document-range) method with the Include Images parameter configured. |
+| Search for non-labeled, non-text images in a range. This option returns coordinates of regions containing images, which you can then use to render the images. | Search for unlabeled photos of buildings in a real estate document. | Use the [Document Range](doc:document-range) method with the Include Images parameter configured. |
 
 Note that this topic is about processing non-text images. For information about processing text images, see [OCR](doc:ocr).
 

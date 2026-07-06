@@ -84,7 +84,7 @@ The following image shows the example document used with this example config:
 
 ## Images
 
-The following example shows extracting two images' coordinates.
+The following example shows extracting the coordinates of two regions containing images.
 
 **Config**
 
@@ -257,7 +257,7 @@ The following image shows the example document used with this example config:
 
 # Notes
 
-## Extracting images from Document Range coordinates
+## Extracting images from coordinates
 
 When you use the Document Range's Include Images parameter to search for images in a range, the Document Range returns the coordinates of regions containing images, rather than the encoded bytes of images. If you want to extract the images themselves, use a PDF library in your chosen programming language to follow these general steps:
 

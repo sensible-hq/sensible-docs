@@ -110,7 +110,7 @@ For example, for the following image, you can prompt,  `"are the buildings multi
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/multimodal_photo.png)
 
-When you extract multimodal data, Sensible sends an image of the relevant document region as  context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor  and region coordinates, or use the default page chunk scoring approach.
+When you extract multimodal data, Sensible sends an image of the relevant document region as context to the LLM. Using the Region parameter, you can configure to locate the context using a manually specified anchor and region coordinates, or use the default page chunk scoring approach.
 
 ## Troubleshooting
 
