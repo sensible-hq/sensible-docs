@@ -5,7 +5,7 @@ description: Creates or updates OpenAPI JSON spec files in the /reference direct
 
 # Sensible API Spec Skill
 
-**Docs repo**: `sensible-hq/sensible-docs` (local: `/home/franceselliott/GitHub/sensible-docs`)  
+**Docs repo**: `sensible-hq/sensible-docs` (local: `/home/franc/GitHub/sensible-docs`)  
 **Backend repo**: `sensible-hq/sensible`  
 **Spec files**: `reference/openapi_*.json`  
 **New spec naming**: `reference/openapi_{domain}.json` (e.g., `openapi_email.json`)
@@ -35,26 +35,39 @@ Wait for confirmation before continuing.
 
 ---
 
-## Step 2: Fetch full PR context
+## Step 2: Determine which endpoints are affected
 
-For each confirmed PR, fetch body and diff in parallel:
+### 2a. Run the probe script against the live API
+
+The probe script is the authoritative source for which endpoints are affected. It hits every extraction endpoint, compares responses to saved snapshots, and reports exactly which fields changed:
+
+```bash
+cd /home/franc/GitHub/sensible-docs-actor && python3 scripts/test/probe_endpoints/probe_extraction_endpoints.py
+```
+
+Read the diff output carefully. It tells you:
+- Which endpoint response schemas have new or changed fields
+- Whether both the async-initial response and the retrieve response are affected
+- The actual field values (useful for writing `example` entries in the spec)
+
+If the diff output is empty, the live API hasn't changed — either the PR isn't deployed yet, or the change is request-side only (new parameter, not a response field).
+
+### 2b. Read the PR diff for request-side changes and descriptions
+
+The probe script only observes response shapes. For request body changes (new parameters, new query params, new enum values) and to understand the semantics well enough to write good descriptions, also fetch and read the PR:
 
 ```bash
 gh pr view <number> --repo sensible-hq/sensible --json title,body,mergedAt,labels
 gh pr diff <number> --repo sensible-hq/sensible
 ```
 
-From body and diff, extract:
-- New route paths and HTTP methods (look for `.addRoute(`, handler files, router config)
-- Request body schemas (look for `schemas.ts`, Zod schema definitions, `z.object(`, `z.union(`, `z.discriminatedUnion(`)
-- Response shapes (look for `mappers.ts`, response type exports, integration test response body assertions)
+From the diff, extract:
+- New request body parameters (look for `schemas.ts`, Zod schema definitions, `z.object(`, `z.union(`)
 - New path/query/header parameters
 - New error codes and the conditions that trigger them
-- Changes to existing endpoints — new fields in request or response
+- The intent behind the change — use this to write accurate `description` fields
 
-**The diff is the ground truth.** PR bodies explain intent; diffs show what actually shipped. When they conflict, trust the diff.
-
-**Skip**: import reordering, test helper utilities, CI config, internal refactors that don't change any route or schema.
+**When probe output and PR diff conflict, trust the probe output** — it reflects what the API actually returns, not what the code intended.
 
 ---
 
@@ -255,7 +268,7 @@ If the change is a minor description edit or a new property on a leaf schema (no
 Read `reference/_order.yaml` before editing to see current ordering:
 
 ```bash
-cat /home/franceselliott/GitHub/sensible-docs/reference/_order.yaml
+cat /home/franc/GitHub/sensible-docs/reference/_order.yaml
 ```
 
 ---
@@ -321,7 +334,19 @@ gh api repos/sensible-hq/sensible/git/trees/main?recursive=1 \
 
 ---
 
-## Step 9: Update spec examples from real API output
+## Step 9: Refresh probe snapshots
+
+After writing the spec, refresh the probe snapshots so the next run compares from the new baseline:
+
+```bash
+cd /home/franc/GitHub/sensible-docs-actor && python3 scripts/test/probe_endpoints/probe_extraction_endpoints.py --update
+```
+
+This is a required step — if you skip it, the next run will re-report the same diffs as new changes.
+
+---
+
+## Step 10: Update spec examples from real API output
 
 Once the user has run the scripts and output files exist in `scripts/test/{domain}/outputs/`, read the most recent output file for each GET/LIST endpoint and use the real response data to populate `example` values in the spec.
 

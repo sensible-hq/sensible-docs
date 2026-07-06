@@ -1,0 +1,10 @@
+{
+  "id": "08bd63fe-aa6c-4969-8b42-3687534b41ac",
+  "created": "2026-07-06T20:12:35.933Z",
+  "status": "WAITING",
+  "type": "w2s",
+  "environment": "production",
+  "errors": [],
+  "content_type": "application/pdf",
+  "actor": "api_key: in ubuntu, probook 645"
+}
