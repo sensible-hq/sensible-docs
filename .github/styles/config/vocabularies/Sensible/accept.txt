@@ -41,11 +41,17 @@ JsonLogic
 Sensible's
 [Aa]nyco
 
+# SenseML parameter display names
+Num
+
 # SenseML parameter names (appear in table Name columns)
 asImage
 percentOverlapX
 percentOverlapY
 includeImages
+includeAnchor
+numLines
+[Mm]ultiline
 isAbsoluteOffset
 [Mm]ultimodal
 [Mm]ultimodalEngine

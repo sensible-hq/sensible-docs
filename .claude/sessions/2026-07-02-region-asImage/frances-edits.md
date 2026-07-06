@@ -98,3 +98,29 @@ To:
 **Scanned-doc limitation added to `includeImages`** — either always true and previously undocumented, or noticed while reviewing `includeImages` in the context of the broader image processing topic.
 
 **`query-group.md` table reformat** — triggered by opening the file to add the `[Image processing]` cross-ref; the very wide column widths were inconsistent with other tables and were normalized while editing.
+
+---
+
+## Follow-up edits (post-review)
+
+Commit: `e511e4993` (2026-07-02)
+
+### Reviewer feedback (Horacio Peña)
+
+Three issues raised:
+
+1. **"image coordinates" → "region coordinates"**: "image" is overloaded. Both `multimodalEngine` and `asImage` render a region as an image — the source content (text, chart, raster image, PDF drawing primitives) doesn't matter. `includeImages` is different: it detects embedded raster images specifically. Using "image coordinates" for both conflates the mechanism with the output. "Region coordinates" is accurate for both.
+
+2. **`includeImages` scope**: `includeImages` only detects embedded raster images in a PDF. It won't work on scanned documents (returns the full page), and it won't detect anything rendered via PDF drawing primitives (e.g., charts drawn in PDF). The original description implied broader coverage than it has.
+
+3. **PDF.js reference**: PDF.js is not widely known to Sensible's users. The original note used it to explain the non-standard (0,0) top-left origin. Horacio's preferred framing: (0,0) at bottom-left is the PDF/cartesian standard (bigger values go higher, makes sense for charts); (0,0) at top-left is the HTML/image-rendering standard (bigger values mean "later in reading order"), which is why Sensible uses it. Also: this convention applies to all Sensible coordinates (e.g., text bounding boxes), not just image/region coordinates.
+
+### Changes made
+
+**`images.md` table row (Document Range / `includeImages`)** — from:
+> "search for unlabeled photos of houses in a real estate document, and extract the images' coordinates. This option returns images' coordinates, which you can then use to render the images yourself."
+
+To:
+> "search for unlabeled photos of houses in a real estate document. This option returns images' coordinates, which you can then use to render the images."
+
+Removed the redundant "and extract the images' coordinates" (the next sentence already says that) and "yourself" (no meaningful distinction).
