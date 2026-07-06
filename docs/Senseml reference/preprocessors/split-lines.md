@@ -25,7 +25,7 @@ Splits lines distributed along a horizontal axis. This preprocessor is most usef
 
 #### Limitations
 
-When you configure the Split Lines preprocessor, the Sensible app's [line](doc:line) rendering is approximate and can be inaccurate. To accurately view a line's raw text, [select](doc:color#purple-box) the line.
+When you configure the Split Lines preprocessor, the Sensible app's [line](doc:lines) rendering is approximate and can be inaccurate. To accurately view a line's raw text, [select](doc:color#purple-box) the line.
 
 # Examples
 
