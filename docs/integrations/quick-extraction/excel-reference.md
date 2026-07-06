@@ -54,7 +54,7 @@ To combine extractions, Sensible uses the same rules described in the following 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/excel_mix.png)
 
-  Where `doc_0` refers to [any\_single\_account\_bank\_statement\_sample.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Financial%20Services/Bank%20Statements/refdocs/any_single_account_bank_statement_sample.pdf), and `doc_2` refers to the bank statement document in page range 2-6 of [portfolio\_bank\_paystub\_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf).
+  Where `doc_0` refers to [any\_single\_account\_bank\_statement\_sample.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/any_single_account_bank_statement_sample.pdf), and `doc_2` refers to the bank statement document in page range 2-6 of [portfolio\_bank\_paystub\_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf).
 
 **Tips**
 
