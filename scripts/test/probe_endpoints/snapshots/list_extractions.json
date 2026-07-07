@@ -11,6 +11,7 @@
         "api_skill_pay_stubs"
       ],
       "segment_documents_with": "llm",
+      "document_name": "portfolio_bank_paystub_tax.pdf",
       "environment": "production",
       "documents": [
         {
@@ -72,6 +73,7 @@
         "api_skill_pay_stubs"
       ],
       "segment_documents_with": "fingerprints",
+      "document_name": "portfolio_bank_paystub_tax.pdf",
       "environment": "production",
       "documents": [
         {
@@ -117,6 +119,7 @@
       "completed": "<omitted>",
       "status": "COMPLETE",
       "type": "api_skill_w2s",
+      "document_name": "postprocessor.pdf",
       "configuration": "w2",
       "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
       "content_type": "application/pdf",
@@ -142,6 +145,7 @@
       "completed": "<omitted>",
       "status": "COMPLETE",
       "type": "api_skill_w2s",
+      "document_name": "postprocessor.pdf",
       "configuration": "w2",
       "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
       "content_type": "application/pdf",
@@ -167,6 +171,7 @@
       "completed": "<omitted>",
       "status": "COMPLETE",
       "type": "api_skill_w2s",
+      "document_name": "postprocessor.pdf",
       "configuration": "w2",
       "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
       "content_type": "application/pdf",

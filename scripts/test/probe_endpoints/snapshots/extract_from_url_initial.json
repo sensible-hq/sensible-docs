@@ -3,6 +3,7 @@
   "created": "<omitted>",
   "status": "WAITING",
   "type": "api_skill_w2s",
+  "document_name": "postprocessor.pdf",
   "environment": "production",
   "errors": [],
   "content_type": "application/pdf",

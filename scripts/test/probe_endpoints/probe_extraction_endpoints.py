@@ -176,7 +176,7 @@ def run_extract_sync():
     """POST /extract/{document_type}  — synchronous single-doc extraction."""
     print("\n[1/7] POST /extract/{document_type}  (sync)")
     doc_bytes = SINGLE_DOC_LOCAL.read_bytes()
-    http, body = api("POST", f"/extract/{SINGLE_DOC_TYPE}?environment=development",
+    http, body = api("POST", f"/extract/{SINGLE_DOC_TYPE}?environment=development&document_name=postprocessor.pdf",
                      body=doc_bytes, content_type="application/pdf")
     print(f"    HTTP {http}")
     save_raw("extract_sync", body)
@@ -195,7 +195,7 @@ def run_extract_sync_retrieve(sync_id: str):
 def run_generate_upload_url():
     """POST /generate_upload_url/{document_type}  — async upload flow."""
     print("\n[3/7] POST /generate_upload_url/{document_type}  (async — upload)")
-    http, initial = api("POST", f"/generate_upload_url/{SINGLE_DOC_TYPE}",
+    http, initial = api("POST", f"/generate_upload_url/{SINGLE_DOC_TYPE}?document_name=postprocessor.pdf",
                         body={"content_type": "application/pdf", "extra_data": {"probe": True}})
     print(f"    HTTP {http}")
     save_raw("generate_upload_url_initial", initial)
@@ -215,7 +215,7 @@ def run_generate_upload_url():
 def run_extract_from_url():
     """POST /extract_from_url/{document_type}  — async extract-from-URL flow."""
     print("\n[4/7] POST /extract_from_url/{document_type}  (async — from URL)")
-    http, initial = api("POST", f"/extract_from_url/{SINGLE_DOC_TYPE}",
+    http, initial = api("POST", f"/extract_from_url/{SINGLE_DOC_TYPE}?document_name=postprocessor.pdf",
                         body={"document_url": SINGLE_DOC_URL, "content_type": "application/pdf", "extra_data": {"probe": True}})
     print(f"    HTTP {http}")
     save_raw("extract_from_url_initial", initial)
@@ -232,7 +232,7 @@ def run_extract_from_url():
 def run_generate_upload_url_portfolio():
     """POST /generate_upload_url  — async portfolio upload flow."""
     print("\n[5/7] POST /generate_upload_url  (async portfolio — upload)")
-    http, initial = api("POST", "/generate_upload_url",
+    http, initial = api("POST", "/generate_upload_url?document_name=portfolio_bank_paystub_tax.pdf",
                         body={"types": PORTFOLIO_TYPES, "content_type": "application/pdf", "extra_data": {"probe": True}})
     print(f"    HTTP {http}")
     save_raw("generate_upload_url_portfolio_initial", initial)
@@ -252,7 +252,7 @@ def run_generate_upload_url_portfolio():
 def run_extract_from_url_portfolio():
     """POST /extract_from_url  — async portfolio extract-from-URL flow."""
     print("\n[6/7] POST /extract_from_url  (async portfolio — from URL)")
-    http, initial = api("POST", "/extract_from_url",
+    http, initial = api("POST", "/extract_from_url?document_name=portfolio_bank_paystub_tax.pdf",
                         body={
                             "document_url": PORTFOLIO_DOC_URL,
                             "types": PORTFOLIO_TYPES,

@@ -4,6 +4,7 @@
   "completed": "<omitted>",
   "status": "COMPLETE",
   "type": "api_skill_w2s",
+  "document_name": "postprocessor.pdf",
   "configuration": "w2",
   "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
   "environment": "production",

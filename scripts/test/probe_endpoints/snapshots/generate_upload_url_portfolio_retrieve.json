@@ -10,6 +10,7 @@
   ],
   "segment_documents_with": "fingerprints",
   "environment": "production",
+  "document_name": "portfolio_bank_paystub_tax.pdf",
   "documents": [
     {
       "documentType": "1040s",
