@@ -6,7 +6,7 @@
   "types": [
     "bank_statements",
     "1040s",
-    "pay_stubs"
+    "api_skill_pay_stubs"
   ],
   "segment_documents_with": "fingerprints",
   "environment": "production",
@@ -222,7 +222,7 @@
       "documentType": "bank_statements",
       "configuration": "wells_fargo_checking",
       "startPage": 2,
-      "endPage": 6,
+      "endPage": 7,
       "output": {
         "parsedDocument": {
           "start_date": {
@@ -1663,128 +1663,27 @@
         }
       },
       "configuration_version": "33tIY2r7JulSXFFdP_vpIGWfgI32fXx3"
-    },
-    {
-      "documentType": "pay_stubs",
-      "configuration": "gusto",
-      "startPage": 7,
-      "endPage": 7,
-      "output": {
-        "parsedDocument": {
-          "employer_name": {
-            "type": "string",
-            "value": "Delta Airlines"
-          },
-          "employee_name": {
-            "type": "string",
-            "value": "Clyde Drexler"
-          },
-          "employee_address": {
-            "value": "1123 Drive street\nAtlanta, GA, 88434",
-            "type": "address"
-          },
-          "pay_date": null,
-          "pay_period_start_date": null,
-          "pay_period_end_date": null,
-          "net_pay": {
-            "source": "$2,076.28",
-            "value": 2076.28,
-            "unit": "$",
-            "type": "currency"
-          },
-          "hours.regular": {
-            "source": "40.0",
-            "value": 40,
-            "type": "number"
-          },
-          "hours.sick": null,
-          "hours.paid_time_off": null,
-          "hours.vacation": null,
-          "pay_this_period.regular": {
-            "source": "$2,980.77",
-            "value": 2980.77,
-            "unit": "$",
-            "type": "currency"
-          },
-          "pay_this_period.sick": null,
-          "pay_this_period.paid_time_off": null,
-          "pay_this_period.vacation": null,
-          "pay_this_period.gross": {
-            "source": "$2,980.77",
-            "value": 2980.77,
-            "unit": "$",
-            "type": "currency"
-          },
-          "ytd.regular": {
-            "source": "$17,288.47",
-            "value": 17288.47,
-            "unit": "$",
-            "type": "currency"
-          },
-          "ytd.sick": null,
-          "ytd.paid_time_off": null,
-          "ytd.vacation": {
-            "source": "$596.15",
-            "value": 596.15,
-            "unit": "$",
-            "type": "currency"
-          },
-          "ytd.gross": {
-            "source": "$51,476.45",
-            "value": 51476.45,
-            "unit": "$",
-            "type": "currency"
-          }
-        },
-        "configuration": "gusto",
-        "validations": [],
-        "coverage": 0.47619047619047616,
-        "fileMetadata": {
-          "info": {
-            "modification_date": "2023-11-27T12:43:54.000-07:00"
-          }
-        },
-        "errors": [],
-        "needsReview": false,
-        "classificationSummary": [
-          {
-            "configuration": "gusto",
-            "score": {
-              "score": 10,
-              "coverage": 0.47619047619047616,
-              "fieldsPresent": 10,
-              "penalties": 0
-            }
-          }
-        ],
-        "validation_summary": {
-          "fields": 21,
-          "fields_present": 10,
-          "errors": 0,
-          "warnings": 0,
-          "skipped": 0
-        }
-      },
-      "configuration_version": "DKqJS_qIPlyRd4oMc9fnn..0AZgvW9pd"
     }
   ],
   "page_count": 8,
   "validation_summary": {
-    "fields": 81,
-    "fields_present": 48,
+    "fields": 60,
+    "fields_present": 38,
     "errors": 0,
     "warnings": 0,
     "skipped": 0
   },
   "download_url": "<omitted>",
   "content_type": "application/pdf",
-  "coverage": 0.5940900469202356,
+  "coverage": 0.6530398322851153,
   "charged": "<omitted>",
   "actor": "api_key: in ubuntu, probook 645",
   "version_id": "<omitted>",
   "reviewStatuses": [
     null,
-    null,
     null
-  ]
+  ],
+  "extra_data": {
+    "probe": true
+  }
 }

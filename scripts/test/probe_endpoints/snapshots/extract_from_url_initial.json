@@ -2,9 +2,12 @@
   "id": "<omitted>",
   "created": "<omitted>",
   "status": "WAITING",
-  "type": "w2s",
+  "type": "api_skill_w2s",
   "environment": "production",
   "errors": [],
   "content_type": "application/pdf",
-  "actor": "api_key: in ubuntu, probook 645"
+  "actor": "api_key: in ubuntu, probook 645",
+  "extra_data": {
+    "probe": true
+  }
 }

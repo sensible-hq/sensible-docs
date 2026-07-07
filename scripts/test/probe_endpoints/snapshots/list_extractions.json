@@ -8,7 +8,7 @@
       "types": [
         "bank_statements",
         "1040s",
-        "pay_stubs"
+        "api_skill_pay_stubs"
       ],
       "segment_documents_with": "llm",
       "environment": "production",
@@ -40,25 +40,25 @@
           },
           "startPage": 7,
           "endPage": 7,
-          "documentType": "pay_stubs",
-          "configuration": "gusto"
+          "documentType": "api_skill_pay_stubs",
+          "configuration": "pay_stubs"
         }
       ],
       "page_count": 8,
       "validation_summary": {
-        "fields": 81,
-        "fields_present": 55,
+        "fields": 62,
+        "fields_present": 47,
         "errors": 0,
         "warnings": 0,
         "skipped": 0
       },
-      "coverage": 0.6372999234634454,
+      "coverage": 0.8119030980666201,
       "charged": "<omitted>",
       "actor": "api_key: in ubuntu, probook 645",
       "reviewStatuses": [
         null,
         null,
-        null
+        "NEEDS_REVIEW"
       ]
     },
     {
@@ -69,7 +69,7 @@
       "types": [
         "bank_statements",
         "1040s",
-        "pay_stubs"
+        "api_skill_pay_stubs"
       ],
       "segment_documents_with": "fingerprints",
       "environment": "production",
@@ -90,34 +90,23 @@
             "validations": []
           },
           "startPage": 2,
-          "endPage": 6,
+          "endPage": 7,
           "documentType": "bank_statements",
           "configuration": "wells_fargo_checking"
-        },
-        {
-          "output": {
-            "errors": [],
-            "validations": []
-          },
-          "startPage": 7,
-          "endPage": 7,
-          "documentType": "pay_stubs",
-          "configuration": "gusto"
         }
       ],
       "page_count": 8,
       "validation_summary": {
-        "fields": 81,
-        "fields_present": 48,
+        "fields": 60,
+        "fields_present": 38,
         "errors": 0,
         "warnings": 0,
         "skipped": 0
       },
-      "coverage": 0.5940900469202356,
+      "coverage": 0.6530398322851153,
       "charged": "<omitted>",
       "actor": "api_key: in ubuntu, probook 645",
       "reviewStatuses": [
-        null,
         null,
         null
       ]
@@ -127,16 +116,16 @@
       "created": "<omitted>",
       "completed": "<omitted>",
       "status": "COMPLETE",
-      "type": "w2s",
+      "type": "api_skill_w2s",
       "configuration": "w2",
-      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+      "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
       "content_type": "application/pdf",
       "environment": "production",
       "page_count": 1,
       "validation_summary": {
-        "fields": 12,
+        "fields": 2,
         "errors": 0,
-        "fields_present": 6,
+        "fields_present": 1,
         "warnings": 0,
         "skipped": 0
       },
@@ -144,23 +133,24 @@
       "validations": [],
       "coverage": 0.5,
       "charged": "<omitted>",
-      "actor": "api_key: in ubuntu, probook 645"
+      "actor": "api_key: in ubuntu, probook 645",
+      "reviewStatus": "NEEDS_REVIEW"
     },
     {
       "id": "<omitted>",
       "created": "<omitted>",
       "completed": "<omitted>",
       "status": "COMPLETE",
-      "type": "w2s",
+      "type": "api_skill_w2s",
       "configuration": "w2",
-      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+      "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
       "content_type": "application/pdf",
       "environment": "production",
       "page_count": 1,
       "validation_summary": {
-        "fields": 12,
+        "fields": 2,
         "errors": 0,
-        "fields_present": 6,
+        "fields_present": 1,
         "warnings": 0,
         "skipped": 0
       },
@@ -168,23 +158,24 @@
       "validations": [],
       "coverage": 0.5,
       "charged": "<omitted>",
-      "actor": "api_key: in ubuntu, probook 645"
+      "actor": "api_key: in ubuntu, probook 645",
+      "reviewStatus": "NEEDS_REVIEW"
     },
     {
       "id": "<omitted>",
       "created": "<omitted>",
       "completed": "<omitted>",
       "status": "COMPLETE",
-      "type": "w2s",
+      "type": "api_skill_w2s",
       "configuration": "w2",
-      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+      "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
       "content_type": "application/pdf",
       "environment": "development",
       "page_count": 1,
       "validation_summary": {
-        "fields": 12,
+        "fields": 2,
         "errors": 0,
-        "fields_present": 6,
+        "fields_present": 1,
         "warnings": 0,
         "skipped": 0
       },
@@ -192,7 +183,8 @@
       "validations": [],
       "coverage": 0.5,
       "charged": "<omitted>",
-      "actor": "api_key: in ubuntu, probook 645"
+      "actor": "api_key: in ubuntu, probook 645",
+      "reviewStatus": "NEEDS_REVIEW"
     }
   ],
   "continuation_token": "<omitted>",

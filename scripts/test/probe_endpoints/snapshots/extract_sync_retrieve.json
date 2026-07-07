@@ -3,9 +3,9 @@
   "created": "<omitted>",
   "completed": "<omitted>",
   "status": "COMPLETE",
-  "type": "w2s",
+  "type": "api_skill_w2s",
   "configuration": "w2",
-  "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+  "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
   "environment": "development",
   "page_count": 1,
   "parsed_document": {
@@ -13,47 +13,12 @@
       "type": "string",
       "value": "2024"
     },
-    "employer_name": null,
-    "employer_address": null,
-    "ein": null,
-    "ssn": null,
-    "employee_name": null,
-    "employee_address": null,
-    "wages_tips_other_comp": {
-      "source": "69780.46",
-      "value": 69780.46,
-      "unit": "$",
-      "type": "currency"
-    },
-    "social_security_wages": {
-      "source": "77447.24",
-      "value": 77447.24,
-      "unit": "$",
-      "type": "currency"
-    },
-    "social_security_tax_withheld": {
-      "source": "4801.81",
-      "value": 4801.81,
-      "unit": "$",
-      "type": "currency"
-    },
-    "medicare_wages_and_tips": {
-      "source": "22474.24",
-      "value": 22474.24,
-      "unit": "$",
-      "type": "currency"
-    },
-    "medicare_tax_withheld": {
-      "source": "1122.94",
-      "value": 1122.94,
-      "unit": "$",
-      "type": "currency"
-    }
+    "employer_name": null
   },
   "validations": [],
   "validation_summary": {
-    "fields": 12,
-    "fields_present": 6,
+    "fields": 2,
+    "fields_present": 1,
     "errors": 0,
     "warnings": 0,
     "skipped": 0
@@ -64,8 +29,8 @@
       "fingerprints": 2,
       "fingerprints_present": 4,
       "score": {
-        "value": 6,
-        "fields_present": 6,
+        "value": 1,
+        "fields_present": 1,
         "penalties": 0
       }
     }
@@ -83,5 +48,9 @@
   "coverage": 0.5,
   "charged": "<omitted>",
   "actor": "api_key: in ubuntu, probook 645",
-  "version_id": "<omitted>"
+  "version_id": "<omitted>",
+  "reviewStatus": "NEEDS_REVIEW",
+  "postprocessorOutput": {
+    "tax_summary": "hi extra data"
+  }
 }

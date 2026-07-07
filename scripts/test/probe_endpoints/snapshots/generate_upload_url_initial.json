@@ -2,6 +2,6 @@
   "id": "<omitted>",
   "created": "<omitted>",
   "status": "WAITING",
-  "type": "w2s",
+  "type": "api_skill_w2s",
   "upload_url": "<omitted>"
 }
