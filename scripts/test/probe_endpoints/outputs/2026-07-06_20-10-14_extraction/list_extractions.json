@@ -1,14 +1,14 @@
 {
   "extractions": [
     {
-      "id": "<omitted>",
-      "created": "<omitted>",
-      "completed": "<omitted>",
+      "id": "24887424-278a-4f92-9310-900b8c827956",
+      "created": "2026-07-06T20:10:50.173Z",
+      "completed": "2026-07-06T20:11:07.626Z",
       "status": "COMPLETE",
       "types": [
         "bank_statements",
         "1040s",
-        "api_skill_pay_stubs"
+        "pay_stubs"
       ],
       "segment_documents_with": "llm",
       "environment": "production",
@@ -40,36 +40,36 @@
           },
           "startPage": 7,
           "endPage": 7,
-          "documentType": "api_skill_pay_stubs",
-          "configuration": "pay_stubs"
+          "documentType": "pay_stubs",
+          "configuration": "gusto"
         }
       ],
       "page_count": 8,
       "validation_summary": {
-        "fields": 62,
-        "fields_present": 47,
+        "fields": 81,
+        "fields_present": 55,
         "errors": 0,
         "warnings": 0,
         "skipped": 0
       },
-      "coverage": 0.8119030980666201,
-      "charged": "<omitted>",
+      "coverage": 0.6372999234634454,
+      "charged": 3,
       "actor": "api_key: in ubuntu, probook 645",
       "reviewStatuses": [
         null,
         null,
-        "NEEDS_REVIEW"
+        null
       ]
     },
     {
-      "id": "<omitted>",
-      "created": "<omitted>",
-      "completed": "<omitted>",
+      "id": "c4260a02-b797-47c0-8204-e2143dcc528f",
+      "created": "2026-07-06T20:10:31.410Z",
+      "completed": "2026-07-06T20:10:46.575Z",
       "status": "COMPLETE",
       "types": [
         "bank_statements",
         "1040s",
-        "api_skill_pay_stubs"
+        "pay_stubs"
       ],
       "segment_documents_with": "fingerprints",
       "environment": "production",
@@ -90,103 +90,111 @@
             "validations": []
           },
           "startPage": 2,
-          "endPage": 7,
+          "endPage": 6,
           "documentType": "bank_statements",
           "configuration": "wells_fargo_checking"
+        },
+        {
+          "output": {
+            "errors": [],
+            "validations": []
+          },
+          "startPage": 7,
+          "endPage": 7,
+          "documentType": "pay_stubs",
+          "configuration": "gusto"
         }
       ],
       "page_count": 8,
       "validation_summary": {
-        "fields": 60,
-        "fields_present": 38,
+        "fields": 81,
+        "fields_present": 48,
         "errors": 0,
         "warnings": 0,
         "skipped": 0
       },
-      "coverage": 0.6530398322851153,
-      "charged": "<omitted>",
+      "coverage": 0.5940900469202356,
+      "charged": 3,
       "actor": "api_key: in ubuntu, probook 645",
       "reviewStatuses": [
+        null,
         null,
         null
       ]
     },
     {
-      "id": "<omitted>",
-      "created": "<omitted>",
-      "completed": "<omitted>",
+      "id": "f2b61a71-4d0e-486b-964b-092f7be55207",
+      "created": "2026-07-06T20:10:24.600Z",
+      "completed": "2026-07-06T20:10:26.888Z",
       "status": "COMPLETE",
-      "type": "api_skill_w2s",
+      "type": "w2s",
       "configuration": "w2",
-      "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
+      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
       "content_type": "application/pdf",
       "environment": "production",
       "page_count": 1,
       "validation_summary": {
-        "fields": 2,
+        "fields": 12,
         "errors": 0,
-        "fields_present": 1,
+        "fields_present": 6,
         "warnings": 0,
         "skipped": 0
       },
       "errors": [],
       "validations": [],
       "coverage": 0.5,
-      "charged": "<omitted>",
-      "actor": "api_key: in ubuntu, probook 645",
-      "reviewStatus": "NEEDS_REVIEW"
+      "charged": 1,
+      "actor": "api_key: in ubuntu, probook 645"
     },
     {
-      "id": "<omitted>",
-      "created": "<omitted>",
-      "completed": "<omitted>",
+      "id": "7ad6eb3c-5115-4b1a-95f1-bfe9b687e0a5",
+      "created": "2026-07-06T20:10:17.772Z",
+      "completed": "2026-07-06T20:10:20.020Z",
       "status": "COMPLETE",
-      "type": "api_skill_w2s",
+      "type": "w2s",
       "configuration": "w2",
-      "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
+      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
       "content_type": "application/pdf",
       "environment": "production",
       "page_count": 1,
       "validation_summary": {
-        "fields": 2,
+        "fields": 12,
         "errors": 0,
-        "fields_present": 1,
+        "fields_present": 6,
         "warnings": 0,
         "skipped": 0
       },
       "errors": [],
       "validations": [],
       "coverage": 0.5,
-      "charged": "<omitted>",
-      "actor": "api_key: in ubuntu, probook 645",
-      "reviewStatus": "NEEDS_REVIEW"
+      "charged": 1,
+      "actor": "api_key: in ubuntu, probook 645"
     },
     {
-      "id": "<omitted>",
-      "created": "<omitted>",
-      "completed": "<omitted>",
+      "id": "4db11180-b632-42de-8b85-5c183b2d3e36",
+      "created": "2026-07-06T20:10:16.381Z",
+      "completed": "2026-07-06T20:10:17.235Z",
       "status": "COMPLETE",
-      "type": "api_skill_w2s",
+      "type": "w2s",
       "configuration": "w2",
-      "configuration_version": "ViBYYENfsXgb8iqo5y6hW.Lgb1uy.kZF",
+      "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
       "content_type": "application/pdf",
       "environment": "development",
       "page_count": 1,
       "validation_summary": {
-        "fields": 2,
+        "fields": 12,
         "errors": 0,
-        "fields_present": 1,
+        "fields_present": 6,
         "warnings": 0,
         "skipped": 0
       },
       "errors": [],
       "validations": [],
       "coverage": 0.5,
-      "charged": "<omitted>",
-      "actor": "api_key: in ubuntu, probook 645",
-      "reviewStatus": "NEEDS_REVIEW"
+      "charged": 1,
+      "actor": "api_key: in ubuntu, probook 645"
     }
   ],
-  "continuation_token": "<omitted>",
-  "last_evaluated_creation_date": "<omitted>"
+  "continuation_token": "eyJpZCI6IjRkYjExMTgwLWI2MzItNDJkZS04Yjg1LTVjMTgzYjJkM2UzNiIsInVzZXIiOiIzMmNmYTBmMC03YTViLTRmZDEtYTc5Yy0wOWY0YTdmY2VhYjkiLCJjcmVhdGVkIjoiMjAyNi0wNy0wNlQyMDoxMDoxNi4zODFaIn0",
+  "last_evaluated_creation_date": "2026-07-06T20:10:16.381Z"
 }

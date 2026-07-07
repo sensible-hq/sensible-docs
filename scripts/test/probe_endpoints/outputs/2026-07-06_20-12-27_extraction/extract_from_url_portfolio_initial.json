@@ -1,17 +1,14 @@
 {
-  "id": "<omitted>",
-  "created": "<omitted>",
+  "id": "7c31cf63-cb32-4cad-b3a6-efd692282912",
+  "created": "2026-07-06T20:13:01.248Z",
   "status": "WAITING",
   "types": [
     "bank_statements",
     "1040s",
-    "api_skill_pay_stubs"
+    "pay_stubs"
   ],
   "segment_documents_with": "llm",
   "environment": "production",
   "content_type": "application/pdf",
-  "actor": "api_key: in ubuntu, probook 645",
-  "extra_data": {
-    "probe": true
-  }
+  "actor": "api_key: in ubuntu, probook 645"
 }

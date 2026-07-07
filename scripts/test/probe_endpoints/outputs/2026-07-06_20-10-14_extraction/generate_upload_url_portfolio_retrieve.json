@@ -1,12 +1,12 @@
 {
-  "id": "<omitted>",
-  "created": "<omitted>",
-  "completed": "<omitted>",
+  "id": "c4260a02-b797-47c0-8204-e2143dcc528f",
+  "created": "2026-07-06T20:10:31.410Z",
+  "completed": "2026-07-06T20:10:46.575Z",
   "status": "COMPLETE",
   "types": [
     "bank_statements",
     "1040s",
-    "api_skill_pay_stubs"
+    "pay_stubs"
   ],
   "segment_documents_with": "fingerprints",
   "environment": "production",
@@ -222,7 +222,7 @@
       "documentType": "bank_statements",
       "configuration": "wells_fargo_checking",
       "startPage": 2,
-      "endPage": 7,
+      "endPage": 6,
       "output": {
         "parsedDocument": {
           "start_date": {
@@ -1663,27 +1663,128 @@
         }
       },
       "configuration_version": "33tIY2r7JulSXFFdP_vpIGWfgI32fXx3"
+    },
+    {
+      "documentType": "pay_stubs",
+      "configuration": "gusto",
+      "startPage": 7,
+      "endPage": 7,
+      "output": {
+        "parsedDocument": {
+          "employer_name": {
+            "type": "string",
+            "value": "Delta Airlines"
+          },
+          "employee_name": {
+            "type": "string",
+            "value": "Clyde Drexler"
+          },
+          "employee_address": {
+            "value": "1123 Drive street\nAtlanta, GA, 88434",
+            "type": "address"
+          },
+          "pay_date": null,
+          "pay_period_start_date": null,
+          "pay_period_end_date": null,
+          "net_pay": {
+            "source": "$2,076.28",
+            "value": 2076.28,
+            "unit": "$",
+            "type": "currency"
+          },
+          "hours.regular": {
+            "source": "40.0",
+            "value": 40,
+            "type": "number"
+          },
+          "hours.sick": null,
+          "hours.paid_time_off": null,
+          "hours.vacation": null,
+          "pay_this_period.regular": {
+            "source": "$2,980.77",
+            "value": 2980.77,
+            "unit": "$",
+            "type": "currency"
+          },
+          "pay_this_period.sick": null,
+          "pay_this_period.paid_time_off": null,
+          "pay_this_period.vacation": null,
+          "pay_this_period.gross": {
+            "source": "$2,980.77",
+            "value": 2980.77,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.regular": {
+            "source": "$17,288.47",
+            "value": 17288.47,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.sick": null,
+          "ytd.paid_time_off": null,
+          "ytd.vacation": {
+            "source": "$596.15",
+            "value": 596.15,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.gross": {
+            "source": "$51,476.45",
+            "value": 51476.45,
+            "unit": "$",
+            "type": "currency"
+          }
+        },
+        "configuration": "gusto",
+        "validations": [],
+        "coverage": 0.47619047619047616,
+        "fileMetadata": {
+          "info": {
+            "modification_date": "2023-11-27T12:43:54.000-07:00"
+          }
+        },
+        "errors": [],
+        "needsReview": false,
+        "classificationSummary": [
+          {
+            "configuration": "gusto",
+            "score": {
+              "score": 10,
+              "coverage": 0.47619047619047616,
+              "fieldsPresent": 10,
+              "penalties": 0
+            }
+          }
+        ],
+        "validation_summary": {
+          "fields": 21,
+          "fields_present": 10,
+          "errors": 0,
+          "warnings": 0,
+          "skipped": 0
+        }
+      },
+      "configuration_version": "DKqJS_qIPlyRd4oMc9fnn..0AZgvW9pd"
     }
   ],
   "page_count": 8,
   "validation_summary": {
-    "fields": 60,
-    "fields_present": 38,
+    "fields": 81,
+    "fields_present": 48,
     "errors": 0,
     "warnings": 0,
     "skipped": 0
   },
-  "download_url": "<omitted>",
+  "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/32cfa0f0-7a5b-4fd1-a79c-09f4a7fceab9/MULTIDOC_EXTRACTION/c4260a02-b797-47c0-8204-e2143dcc528f.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAR355P7ASTDRAWGWW%2F20260706%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260706T201049Z&X-Amz-Expires=900&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCICIN9VpcWQ%2Bn23wIevLTl7XH%2F6lO065TWLfkFLXXayxxAiBzKJqGJqSRcKzUWwgVaWEQD6v4Nd%2FBkAoxz%2FH6tYRl1SqoBAhdEAIaDDEyODcwOTU1NjI2MSIM215%2FjRDxCtH9osoMKoUELX%2FGvHH15P05be3%2F2onmMhxW4deWDDYuq4Hu1Uyz1WKfV4FB5t1DUI9donsPfoOdKD4mWbGJ20W6ZVloTh6bq2Wn8EXjUr1c2MVnN%2BBQUS2v3CV4%2BSjxqU62c%2BTQRxMTdB163j2TqU%2Fd%2BBP0IyJQzHHFaoaWoKQIukDFssmSnRSdbXcBoHKqGenI9%2BUeQskJEpAmVKcShhAzovc9L5z0K7QcZGhlfrX%2FY88Oh65wniOqFrO%2FZCeGXsWt79fAQs73tzOLH4ErgX3JIZOATHVbq9FAU6YwxMoSxgACyp2FD1bMXcPBpBft48c7TJb3w3%2FP3GRzqvBOEC2H5HmI%2B9HAGl5fdo%2FRMYewA75BDP97qoh1yhRKMEKMt7MJE70vicjGhyBI%2BCkezVmH%2Fre80GZRb5aFFguR%2Bgy8EzsadOf%2BdyHrwcfxQHoLBZLd3NoGRjhHPueZ2mG4a1tiONk6%2FMzAheMnSQSZbEfM0dNmA2ZAJuUfv6WxrUYr8SuvPDBMcz9pSMrJLaMD2wxSdh7R%2FccujD4yzEB5wYgTd1OYWPC4uwGdnCPJ81vxJtwa64aP9UdvwErnXcFNMDsXJy8ISuQlx42lsftbhhrAoTJTd8ditn7mhEvw576%2FInOhWAnv4fIoocvuEThCRM45U%2Ba7hUyQ08xyvOj6atvUDedByvJM6%2Bm248wt3zDujbDSBjqjAVgCgJhvdtiQk6QGbMaEmZgGLQWFjVpnfyiu3r2%2FLI5ksnslRSd76mhF8sXJbFWe%2Bqs3hAlnsLapcJIJsXrqkL%2BrO%2B%2BTrGC%2FpJZQPpnoJVJcgR56cFIKSr6lmDoDVH98YWC0NT7iin6yS12b4t0ui08ET9LeFruciZYQq3xZGz46WKHRnT%2BX7RojYeuxIj0i%2BTXBPesMyhub48ZK0rkWCxmNGtM%3D&X-Amz-Signature=d7ac47dbc3998e99ef85bcf1ca42426bbea47493eea43cb83031a74a80eb6cec&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
   "content_type": "application/pdf",
-  "coverage": 0.6530398322851153,
-  "charged": "<omitted>",
+  "coverage": 0.5940900469202356,
+  "charged": 3,
   "actor": "api_key: in ubuntu, probook 645",
-  "version_id": "<omitted>",
+  "version_id": "885QKSxSYVOrBHFJbQ_9yasSfjZ0gPg6",
   "reviewStatuses": [
     null,
+    null,
     null
-  ],
-  "extra_data": {
-    "probe": true
-  }
+  ]
 }

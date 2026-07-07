@@ -1,19 +1,19 @@
 {
-  "id": "<omitted>",
-  "created": "<omitted>",
-  "completed": "<omitted>",
+  "id": "85518981-f44f-4ee2-b8a5-a8fabb4e40be",
+  "created": "2026-07-06T20:20:17.104Z",
+  "completed": "2026-07-06T20:20:35.272Z",
   "status": "COMPLETE",
   "types": [
     "bank_statements",
     "1040s",
-    "api_skill_pay_stubs"
+    "pay_stubs"
   ],
-  "segment_documents_with": "fingerprints",
+  "segment_documents_with": "llm",
   "environment": "production",
   "documents": [
     {
       "documentType": "1040s",
-      "configuration": "1040_2020",
+      "configuration": "1040_2019",
       "startPage": 0,
       "endPage": 1,
       "output": {
@@ -94,7 +94,11 @@
           "pensions_and_annuities_taxable_amount": null,
           "social_security_benefits": null,
           "social_security_benefits_taxable_amount": null,
-          "capital_gain_or_loss": null,
+          "capital_gain_or_loss": {
+            "source": "7",
+            "value": 7,
+            "type": "number"
+          },
           "other_income": {
             "source": "0",
             "value": 0,
@@ -116,18 +120,22 @@
             "value": 24800,
             "type": "number"
           },
-          "qualified_business_deduction": null,
+          "qualified_business_deduction": {
+            "source": "13",
+            "value": 13,
+            "type": "number"
+          },
           "taxable_income": {
             "source": "479,531",
             "value": 479531,
             "type": "number"
           },
-          "tax": {
-            "source": "117,421",
-            "value": 117421,
+          "tax": null,
+          "child_tax_credit": {
+            "source": "19",
+            "value": 19,
             "type": "number"
           },
-          "child_tax_credit": null,
           "other_tax_including_self_employment": {
             "source": "0",
             "value": 0,
@@ -139,10 +147,26 @@
             "type": "number"
           },
           "federal_income_tax_withheld": null,
-          "earned_income_credit": null,
-          "additional_child_tax_credit": null,
-          "american_opportunity_credit": null,
-          "total_other_payments": null,
+          "earned_income_credit": {
+            "source": "27",
+            "value": 27,
+            "type": "number"
+          },
+          "additional_child_tax_credit": {
+            "source": "28",
+            "value": 28,
+            "type": "number"
+          },
+          "american_opportunity_credit": {
+            "source": "29",
+            "value": 29,
+            "type": "number"
+          },
+          "total_other_payments": {
+            "source": "32",
+            "value": 32,
+            "type": "number"
+          },
           "total_payments": {
             "source": "500",
             "value": 500,
@@ -175,7 +199,11 @@
             "value": "X X X X X X X X X X X X X X X X X"
           },
           "amount_you_owe": null,
-          "estimated_tax_penalty": null,
+          "estimated_tax_penalty": {
+            "source": "38",
+            "value": 38,
+            "type": "number"
+          },
           "signed": {
             "type": "boolean",
             "value": false
@@ -187,9 +215,9 @@
           },
           "spouse_signed_date": null
         },
-        "configuration": "1040_2020",
+        "configuration": "1040_2019",
         "validations": [],
-        "coverage": 0.6111111111111112,
+        "coverage": 0.7407407407407407,
         "fileMetadata": {
           "info": {
             "modification_date": "2023-11-27T12:43:54.000-07:00"
@@ -199,7 +227,52 @@
         "needsReview": false,
         "classificationSummary": [
           {
+            "configuration": "1040_2018",
+            "score": {
+              "score": 33,
+              "coverage": 0.6111111111111112,
+              "fieldsPresent": 33,
+              "penalties": 0
+            }
+          },
+          {
+            "configuration": "1040_2019",
+            "score": {
+              "score": 40,
+              "coverage": 0.7407407407407407,
+              "fieldsPresent": 40,
+              "penalties": 0
+            }
+          },
+          {
             "configuration": "1040_2020",
+            "score": {
+              "score": 33,
+              "coverage": 0.6111111111111112,
+              "fieldsPresent": 33,
+              "penalties": 0
+            }
+          },
+          {
+            "configuration": "1040_2021",
+            "score": {
+              "score": 34,
+              "coverage": 0.6296296296296297,
+              "fieldsPresent": 34,
+              "penalties": 0
+            }
+          },
+          {
+            "configuration": "1040_2022",
+            "score": {
+              "score": 31,
+              "coverage": 0.4025974025974026,
+              "fieldsPresent": 31,
+              "penalties": 0
+            }
+          },
+          {
+            "configuration": "senior_1040_2020",
             "score": {
               "score": 33,
               "coverage": 0.6111111111111112,
@@ -210,19 +283,19 @@
         ],
         "validation_summary": {
           "fields": 54,
-          "fields_present": 33,
+          "fields_present": 40,
           "errors": 0,
           "warnings": 0,
           "skipped": 0
         }
       },
-      "configuration_version": "Q7NmAil9QwEH2mq87DPt6sT3_bcnv9t."
+      "configuration_version": "8lBh72BSt_meneApKwXr.BgmLFMUWqiC"
     },
     {
       "documentType": "bank_statements",
       "configuration": "wells_fargo_checking",
       "startPage": 2,
-      "endPage": 7,
+      "endPage": 6,
       "output": {
         "parsedDocument": {
           "start_date": {
@@ -1652,6 +1725,24 @@
               "fieldsPresent": 221,
               "penalties": 0
             }
+          },
+          {
+            "configuration": "wells_fargo_combined_statement_of_accounts",
+            "score": {
+              "score": 4,
+              "coverage": 0.6666666666666666,
+              "fieldsPresent": 4,
+              "penalties": 0
+            }
+          },
+          {
+            "configuration": "wells_fargo_savings",
+            "score": {
+              "score": 221,
+              "coverage": 0.6949685534591195,
+              "fieldsPresent": 221,
+              "penalties": 0
+            }
           }
         ],
         "validation_summary": {
@@ -1663,27 +1754,137 @@
         }
       },
       "configuration_version": "33tIY2r7JulSXFFdP_vpIGWfgI32fXx3"
+    },
+    {
+      "documentType": "pay_stubs",
+      "configuration": "gusto",
+      "startPage": 7,
+      "endPage": 7,
+      "output": {
+        "parsedDocument": {
+          "employer_name": {
+            "type": "string",
+            "value": "Delta Airlines"
+          },
+          "employee_name": {
+            "type": "string",
+            "value": "Clyde Drexler"
+          },
+          "employee_address": {
+            "value": "1123 Drive street\nAtlanta, GA, 88434",
+            "type": "address"
+          },
+          "pay_date": null,
+          "pay_period_start_date": null,
+          "pay_period_end_date": null,
+          "net_pay": {
+            "source": "$2,076.28",
+            "value": 2076.28,
+            "unit": "$",
+            "type": "currency"
+          },
+          "hours.regular": {
+            "source": "40.0",
+            "value": 40,
+            "type": "number"
+          },
+          "hours.sick": null,
+          "hours.paid_time_off": null,
+          "hours.vacation": null,
+          "pay_this_period.regular": {
+            "source": "$2,980.77",
+            "value": 2980.77,
+            "unit": "$",
+            "type": "currency"
+          },
+          "pay_this_period.sick": null,
+          "pay_this_period.paid_time_off": null,
+          "pay_this_period.vacation": null,
+          "pay_this_period.gross": {
+            "source": "$2,980.77",
+            "value": 2980.77,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.regular": {
+            "source": "$17,288.47",
+            "value": 17288.47,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.sick": null,
+          "ytd.paid_time_off": null,
+          "ytd.vacation": {
+            "source": "$596.15",
+            "value": 596.15,
+            "unit": "$",
+            "type": "currency"
+          },
+          "ytd.gross": {
+            "source": "$51,476.45",
+            "value": 51476.45,
+            "unit": "$",
+            "type": "currency"
+          }
+        },
+        "configuration": "gusto",
+        "validations": [],
+        "coverage": 0.47619047619047616,
+        "fileMetadata": {
+          "info": {
+            "modification_date": "2023-11-27T12:43:54.000-07:00"
+          }
+        },
+        "errors": [],
+        "needsReview": false,
+        "classificationSummary": [
+          {
+            "configuration": "adp",
+            "score": {
+              "score": 4,
+              "coverage": 0.2,
+              "fieldsPresent": 4,
+              "penalties": 0
+            }
+          },
+          {
+            "configuration": "gusto",
+            "score": {
+              "score": 10,
+              "coverage": 0.47619047619047616,
+              "fieldsPresent": 10,
+              "penalties": 0
+            }
+          }
+        ],
+        "validation_summary": {
+          "fields": 21,
+          "fields_present": 10,
+          "errors": 0,
+          "warnings": 0,
+          "skipped": 0
+        }
+      },
+      "configuration_version": "DKqJS_qIPlyRd4oMc9fnn..0AZgvW9pd"
     }
   ],
   "page_count": 8,
   "validation_summary": {
-    "fields": 60,
-    "fields_present": 38,
+    "fields": 81,
+    "fields_present": 55,
     "errors": 0,
     "warnings": 0,
     "skipped": 0
   },
-  "download_url": "<omitted>",
+  "download_url": "https://sensible-so-document-type-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/32cfa0f0-7a5b-4fd1-a79c-09f4a7fceab9/MULTIDOC_EXTRACTION/85518981-f44f-4ee2-b8a5-a8fabb4e40be.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAR355P7ASYS5G6IMD%2F20260706%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260706T202040Z&X-Amz-Expires=900&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCH8DSiWmIP4%2FIjr0tEP4xK2jy1LgVau1Wj1gZzND6WpwIgUrBthUZqAWHFuZXjL3XqXtFEvuNmMA54eKOlpl%2FbmogqqAQIXRACGgwxMjg3MDk1NTYyNjEiDPYOJxDQJpDqWUds6iqFBEo8Zg8QTNSr14aGPYoHC1PtHkzktHaaMbOzbYkh%2B%2FeEAvcFQT66Th9eBSh2rmP81cStF9ASjYQQEiv2J971n2My6euuxdST8ZaAHmGRkTgzntGM5D9swsghGLwTkU0VWsti4YGgkr4PXWWDMVOdcg8js1f3%2BBeYX8hsSH4F8iqyd%2FxKb0ZnawsHIzUVe%2FscF2kiWCK0DsgRIc2AB2drfqA9vQq4twwEQ%2B2J9OA4p7ZUtizOkhZpPIXv35ip9EuYy35wHvbRFoyV9btqaZf40714hKtof0vgupWzMEQV%2Fkk%2BXOfSuXyelrQcrPxsgSQ05oQ0TXqyH54CMC5sRj0glQvSsnLk%2BjaUp1LM5NqPDCXa2uw5pk9dqyz9XCDzU4%2F3jot5ovVB7RHogaYgblSbDZAkDpNOq%2BcBZBmpnxeyCbXuhFcr6fM50JgwdfoMSTK59o7IMjIibhTfsGmhJ4NYXPcvFhY3oyGveUdkkeSM2xL6XfWZZtjesseYKFQhlJqjO0iG9xR%2BJyN4fDbG9goBCq8XXBRXTLRt1wbwDWXKY3TAkU1HQ%2FQIv0JX8jNz8b9azKCfsuIQ1Yx1VrClY1FYX%2BpOxyrTu%2BSCIS4oikp2U%2FddVZsWEp0zuT%2F3yNtBMsTvlxNaUQG3%2BfPuJCxj%2B4E6bK8gPMWa78pr9nWyUw2BL7x5IN0pvKkwuY6w0gY6ogFZNBI489eAO92SLh%2FK8Ksy6BmLqu3zJA7MYXONCZsk7KZJQ6ov2XhW7rNkazkaAeOH5JQI35hOdOYA0V53nZywe7PGjXnJRIrxY%2BNZL00CPXv8IahGKPa9E86RHV4AHkK6leLBbG4c7Usv3X9R68oSQnZYHxyd0HmZ0RndpfABWgtfZpQAdKpqwASY%2F%2Bp3r8gV0907fkiDYN5WcFsu5P095qU%3D&X-Amz-Signature=13eac5eb63f9ce5a1bd292c06b5e0bf210356d70775d50b821d52232ceda2d35&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
   "content_type": "application/pdf",
-  "coverage": 0.6530398322851153,
-  "charged": "<omitted>",
+  "coverage": 0.6372999234634454,
+  "charged": 3,
   "actor": "api_key: in ubuntu, probook 645",
-  "version_id": "<omitted>",
+  "version_id": "cnXgHmBV1sEHOQPM7.oFan3w_EDibi.2",
   "reviewStatuses": [
     null,
+    null,
     null
-  ],
-  "extra_data": {
-    "probe": true
-  }
+  ]
 }

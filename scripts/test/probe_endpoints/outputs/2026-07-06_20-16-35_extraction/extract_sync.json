@@ -1,0 +1,86 @@
+{
+  "id": "3e7c4f12-da6f-4677-bf46-8d39b9d3adaa",
+  "created": "2026-07-06T20:16:36.380Z",
+  "completed": "2026-07-06T20:16:37.068Z",
+  "status": "COMPLETE",
+  "type": "w2s",
+  "configuration": "w2",
+  "configuration_version": "UY6IXwU90T3drv0QI7Vf88KWK5MQYDvb",
+  "environment": "development",
+  "page_count": 1,
+  "parsed_document": {
+    "year": {
+      "type": "string",
+      "value": "2024"
+    },
+    "employer_name": null,
+    "employer_address": null,
+    "ein": null,
+    "ssn": null,
+    "employee_name": null,
+    "employee_address": null,
+    "wages_tips_other_comp": {
+      "source": "69780.46",
+      "value": 69780.46,
+      "unit": "$",
+      "type": "currency"
+    },
+    "social_security_wages": {
+      "source": "77447.24",
+      "value": 77447.24,
+      "unit": "$",
+      "type": "currency"
+    },
+    "social_security_tax_withheld": {
+      "source": "4801.81",
+      "value": 4801.81,
+      "unit": "$",
+      "type": "currency"
+    },
+    "medicare_wages_and_tips": {
+      "source": "22474.24",
+      "value": 22474.24,
+      "unit": "$",
+      "type": "currency"
+    },
+    "medicare_tax_withheld": {
+      "source": "1122.94",
+      "value": 1122.94,
+      "unit": "$",
+      "type": "currency"
+    }
+  },
+  "validations": [],
+  "validation_summary": {
+    "fields": 12,
+    "fields_present": 6,
+    "errors": 0,
+    "warnings": 0,
+    "skipped": 0
+  },
+  "classification_summary": [
+    {
+      "configuration": "w2",
+      "fingerprints": 2,
+      "fingerprints_present": 4,
+      "score": {
+        "value": 6,
+        "fields_present": 6,
+        "penalties": 0
+      }
+    }
+  ],
+  "errors": [],
+  "content_type": "application/pdf",
+  "file_metadata": {
+    "info": {
+      "creator": "PDFium",
+      "producer": "PDFium",
+      "creation_date": "2024-09-18T10:42:35.000"
+    }
+  },
+  "coverage": 0.5,
+  "charged": 1,
+  "actor": "api_key: in ubuntu, probook 645",
+  "version_id": "4b4tvN9w2pUZObcinI1x0Z3.w.I0jKfJ"
+}
