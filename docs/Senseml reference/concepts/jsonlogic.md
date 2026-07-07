@@ -60,6 +60,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Slice](doc:jsonlogic#slice)                 | ✅                                       | ✅                                                    | ✅                                  |
 | [Sort By](doc:jsonlogic#sort-by)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                  |
+| [Today](doc:jsonlogic#today)                 | ✅                                       | ✅                                                    | ✅                                  |
 
 See the following sections for more information.
 
@@ -1600,5 +1601,50 @@ The following image shows the example document used with this example config:
       }
     }
   ]
+}
+```
+
+## Today
+
+Returns the current UTC date as a `YYYY-MM-DD` string. Takes no arguments. The returned date changes each day, so results can vary across extractions. Combine this operator with the [Date Shift](doc:jsonlogic#date-shift) operator to compute dates relative to today without specifying a fixed date.
+
+```json
+{ "today": [] }
+```
+
+### Example
+
+The following example shows using the Today operator with the Date Shift operator to compute a contract expiration date 1 year from the date of extraction.
+
+```json
+{
+  "fields": [],
+  "computed_fields": [
+    {
+      "id": "contract_expiration_date",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          /* compute contract expiration: 1 year from today's date */
+          "date_shift": [
+            { "today": [] },
+            1,
+            "years"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+For an extraction run on July 7, 2026, this returns:
+
+```json
+{
+  "contract_expiration_date": {
+    "value": "2027-07-07T00:00:00.000Z",
+    "type": "string"
+  }
 }
 ```
