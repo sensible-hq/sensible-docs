@@ -1,0 +1,10 @@
+{
+  "id": "<omitted>",
+  "created": "<omitted>",
+  "status": "WAITING",
+  "type": "w2s",
+  "environment": "production",
+  "errors": [],
+  "content_type": "application/pdf",
+  "actor": "api_key: in ubuntu, probook 645"
+}
