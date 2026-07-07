@@ -1372,6 +1372,7 @@
       },
       "ExtractionSyncResponse": {
         "type": "object",
+        "x-internal-note": "version_id is returned by the backend but deliberately not documented publicly.",
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ExtractionId"
