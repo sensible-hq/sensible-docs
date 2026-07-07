@@ -1618,19 +1618,14 @@ The following example shows using the Today operator with the Date Shift operato
 
 ```json
 {
-  "fields": [],
-  "computed_fields": [
+  "fields": [
     {
       "id": "contract_expiration_date",
       "method": {
         "id": "customComputation",
         "jsonLogic": {
           /* compute contract expiration: 1 year from today's date */
-          "date_shift": [
-            { "today": [] },
-            1,
-            "years"
-          ]
+          "date_shift": [{ "today": [] }, 1, "years"]
         }
       }
     }
