@@ -32,10 +32,10 @@ import urllib.error
 API_BASE = "https://api.sensible.so/v0"
 ASSET_BASE = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs"
 
-SINGLE_DOC_TYPE = "w2s"
+SINGLE_DOC_TYPE = "api_skill_w2s"
 SINGLE_DOC_URL = f"{ASSET_BASE}/postprocessor.pdf"
 
-PORTFOLIO_TYPES = ["bank_statements", "pay_stubs", "1040s"]
+PORTFOLIO_TYPES = ["bank_statements", "api_skill_pay_stubs", "1040s"]
 PORTFOLIO_DOC_URL = f"{ASSET_BASE}/portfolio_bank_paystub_tax.pdf"
 
 POLL_INTERVAL = 5    # seconds between status checks
@@ -196,7 +196,7 @@ def run_generate_upload_url():
     """POST /generate_upload_url/{document_type}  — async upload flow."""
     print("\n[3/7] POST /generate_upload_url/{document_type}  (async — upload)")
     http, initial = api("POST", f"/generate_upload_url/{SINGLE_DOC_TYPE}",
-                        body={"content_type": "application/pdf"})
+                        body={"content_type": "application/pdf", "extra_data": {"probe": True}})
     print(f"    HTTP {http}")
     save_raw("generate_upload_url_initial", initial)
 
@@ -216,7 +216,7 @@ def run_extract_from_url():
     """POST /extract_from_url/{document_type}  — async extract-from-URL flow."""
     print("\n[4/7] POST /extract_from_url/{document_type}  (async — from URL)")
     http, initial = api("POST", f"/extract_from_url/{SINGLE_DOC_TYPE}",
-                        body={"document_url": SINGLE_DOC_URL, "content_type": "application/pdf"})
+                        body={"document_url": SINGLE_DOC_URL, "content_type": "application/pdf", "extra_data": {"probe": True}})
     print(f"    HTTP {http}")
     save_raw("extract_from_url_initial", initial)
 
@@ -233,7 +233,7 @@ def run_generate_upload_url_portfolio():
     """POST /generate_upload_url  — async portfolio upload flow."""
     print("\n[5/7] POST /generate_upload_url  (async portfolio — upload)")
     http, initial = api("POST", "/generate_upload_url",
-                        body={"types": PORTFOLIO_TYPES, "content_type": "application/pdf"})
+                        body={"types": PORTFOLIO_TYPES, "content_type": "application/pdf", "extra_data": {"probe": True}})
     print(f"    HTTP {http}")
     save_raw("generate_upload_url_portfolio_initial", initial)
 
@@ -258,6 +258,7 @@ def run_extract_from_url_portfolio():
                             "types": PORTFOLIO_TYPES,
                             "content_type": "application/pdf",
                             "segment_documents_with": "llm",
+                            "extra_data": {"probe": True},
                         })
     print(f"    HTTP {http}")
     save_raw("extract_from_url_portfolio_initial", initial)
