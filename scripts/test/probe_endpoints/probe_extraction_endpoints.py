@@ -174,7 +174,7 @@ def write_diff_summary():
 
 def run_extract_sync():
     """POST /extract/{document_type}  — synchronous single-doc extraction."""
-    print("\n[1/6] POST /extract/{document_type}  (sync)")
+    print("\n[1/7] POST /extract/{document_type}  (sync)")
     doc_bytes = SINGLE_DOC_LOCAL.read_bytes()
     http, body = api("POST", f"/extract/{SINGLE_DOC_TYPE}?environment=development",
                      body=doc_bytes, content_type="application/pdf")
@@ -183,9 +183,18 @@ def run_extract_sync():
     return {"extract_sync": body}
 
 
+def run_extract_sync_retrieve(sync_id: str):
+    """GET /documents/{id}  — retrieve the extraction produced by the sync endpoint."""
+    print("\n[2/7] GET /documents/{id}  (retrieve sync extraction by ID)")
+    _, body = api("GET", f"/documents/{sync_id}")
+    print(f"    status={body.get('status')}")
+    save_raw("extract_sync_retrieve", body)
+    return {"extract_sync_retrieve": body}
+
+
 def run_generate_upload_url():
     """POST /generate_upload_url/{document_type}  — async upload flow."""
-    print("\n[2/6] POST /generate_upload_url/{document_type}  (async — upload)")
+    print("\n[3/7] POST /generate_upload_url/{document_type}  (async — upload)")
     http, initial = api("POST", f"/generate_upload_url/{SINGLE_DOC_TYPE}",
                         body={"content_type": "application/pdf"})
     print(f"    HTTP {http}")
@@ -205,7 +214,7 @@ def run_generate_upload_url():
 
 def run_extract_from_url():
     """POST /extract_from_url/{document_type}  — async extract-from-URL flow."""
-    print("\n[3/6] POST /extract_from_url/{document_type}  (async — from URL)")
+    print("\n[4/7] POST /extract_from_url/{document_type}  (async — from URL)")
     http, initial = api("POST", f"/extract_from_url/{SINGLE_DOC_TYPE}",
                         body={"document_url": SINGLE_DOC_URL, "content_type": "application/pdf"})
     print(f"    HTTP {http}")
@@ -222,7 +231,7 @@ def run_extract_from_url():
 
 def run_generate_upload_url_portfolio():
     """POST /generate_upload_url  — async portfolio upload flow."""
-    print("\n[4/6] POST /generate_upload_url  (async portfolio — upload)")
+    print("\n[5/7] POST /generate_upload_url  (async portfolio — upload)")
     http, initial = api("POST", "/generate_upload_url",
                         body={"types": PORTFOLIO_TYPES, "content_type": "application/pdf"})
     print(f"    HTTP {http}")
@@ -242,7 +251,7 @@ def run_generate_upload_url_portfolio():
 
 def run_extract_from_url_portfolio():
     """POST /extract_from_url  — async portfolio extract-from-URL flow."""
-    print("\n[5/6] POST /extract_from_url  (async portfolio — from URL)")
+    print("\n[6/7] POST /extract_from_url  (async portfolio — from URL)")
     http, initial = api("POST", "/extract_from_url",
                         body={
                             "document_url": PORTFOLIO_DOC_URL,
@@ -264,7 +273,7 @@ def run_extract_from_url_portfolio():
 
 def run_list_extractions():
     """GET /extractions  — list recent extractions (first page, limit 5)."""
-    print("\n[6/6] GET /extractions  (list, limit=5)")
+    print("\n[7/7] GET /extractions  (list, limit=5)")
     http, body = api("GET", "/extractions?limit=5")
     print(f"    HTTP {http}")
     save_raw("list_extractions", body)
@@ -289,7 +298,9 @@ def main():
     print(f"    run dir: {RUN_DIR.relative_to(REPO_ROOT)}")
 
     results: dict = {}
-    results.update(run_extract_sync())
+    sync_result = run_extract_sync()
+    results.update(sync_result)
+    results.update(run_extract_sync_retrieve(sync_result["extract_sync"]["id"]))
     results.update(run_generate_upload_url())
     results.update(run_extract_from_url())
     results.update(run_generate_upload_url_portfolio())

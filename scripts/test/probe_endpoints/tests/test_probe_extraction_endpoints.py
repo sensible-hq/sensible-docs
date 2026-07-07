@@ -238,6 +238,28 @@ class TestSaveRaw:
         assert run_dir.exists()
 
 
+# ── run_extract_sync_retrieve() ───────────────────────────────────────────────
+
+class TestRunExtractSyncRetrieve:
+    SYNC_ID = "sync-id-123"
+    BODY = {"id": "sync-id-123", "status": "COMPLETE", "actor": "api_key: foo"}
+
+    def test_calls_get_documents_with_sync_id(self, patched_api_key, patched_run_dir):
+        mock_resp = make_mock_response(self.BODY)
+        with patch("probe_extraction_endpoints.urllib.request.urlopen", return_value=mock_resp) as m:
+            result = probe.run_extract_sync_retrieve(self.SYNC_ID)
+        req = m.call_args[0][0]
+        assert "/documents/sync-id-123" in req.full_url
+        assert result == {"extract_sync_retrieve": self.BODY}
+
+    def test_saves_raw_output(self, patched_api_key, patched_run_dir):
+        mock_resp = make_mock_response(self.BODY)
+        with patch("probe_extraction_endpoints.urllib.request.urlopen", return_value=mock_resp):
+            probe.run_extract_sync_retrieve(self.SYNC_ID)
+        saved = json.loads((patched_run_dir / "extract_sync_retrieve.json").read_text())
+        assert saved["status"] == "COMPLETE"
+
+
 # ── main() ────────────────────────────────────────────────────────────────────
 
 class TestMain:
@@ -251,7 +273,7 @@ class TestMain:
         monkeypatch.setenv("SENSIBLE_API_KEY", "test-key")
         monkeypatch.setattr(probe, "OUTPUT_DIR", tmp_path)
 
-        complete_body = {"status": "COMPLETE", "actor": "api_key: foo", "parsed_document": {}}
+        complete_body = {"id": "fake-sync-id", "status": "COMPLETE", "actor": "api_key: foo", "parsed_document": {}}
         initial_body = {"id": "fake-id", "status": "WAITING", "upload_url": "https://s3.example.com/upload"}
         portfolio_initial = {"id": "fake-portfolio-id", "status": "WAITING", "upload_url": "https://s3.example.com/p"}
         list_body = {"extractions": []}
