@@ -1325,7 +1325,7 @@
       },
       "Actor": {
         "type": "string",
-        "description": "Best-effort label identifying the user or credential that initiated the extraction. For extractions you initiate in the Sensible app, this is your account's email address. For extractions you initiate by using your API key, this is `api_key: <key name>` if the key has a name, or `api_key` if unnamed. For extractions you initiate in the Sensible app while logged in with legacy credentials, this is `legacy: <account>`. Sensible omits this field for extractions you initiate with email processors.",
+        "description": "Best-effort label identifying the user or credential that initiated the extraction. For extractions you initiate in the Sensible app, the value is your account's email address. For extractions you initiate by using your API key, the value is `"api_key: <key name>"` if the key has a name, or `"api_key"` if unnamed. For extractions you initiate in the Sensible app while logged in with legacy credentials, the value is `"legacy: <account>"`. Sensible omits this field for extractions you initiate with email processors.",
         "example": "api_key: my production key"
       },
       "PostprocessorOutput": {
