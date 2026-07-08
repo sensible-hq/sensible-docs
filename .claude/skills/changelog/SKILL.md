@@ -13,6 +13,12 @@ description: Generates and publishes a monthly Sensible product changelog. Invok
 
 ---
 
+## Subskill: Fetch new release PRs
+
+Before drafting a changelog, run the fetch subskill to pull any new release notes from Slack, annotate them, and queue them in the readme.io draft. See **`fetch-release-prs.md`** for the full flow. This is also callable on its own whenever the user wants to sync the latest PRs without drafting a changelog.
+
+---
+
 ## Step 1: Parse input, fetch PR titles, confirm with user
 
 The user will paste an unstructured blob. It may contain any mix of:
@@ -145,11 +151,7 @@ Key reminders:
 
 ## Step 5: Style check, then review with user
 
-Before presenting the draft, check it for style issues. Use the vale MCP server's `check_text` tool on the full draft content:
-- Fix any **errors** and **warnings** before showing the draft to the user
-- Use your judgment on suggestions — many Google style suggestions (e.g., spell out acronyms) won't apply to a changelog
-
-Then run the Sensible terminology checker: scan the draft against `.claude/style-guide/glossary.md` for violations in the "Avoid" column. Fix any found.
+Run the **`docs-checker`** skill on the full draft before showing it to the user. Find it at `.claude/skills/docs-checker/SKILL.md` in this repo. Fix all errors and warnings it returns. Use judgment on suggestions — Google style rules (e.g., spell out acronyms) often don't apply to changelogs.
 
 After fixing, print the full draft. If any entries were modeled on past changelog entries, print a reference list:
 
