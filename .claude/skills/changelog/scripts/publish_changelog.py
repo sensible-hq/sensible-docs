@@ -152,11 +152,17 @@ def main():
     auth = make_auth_header(api_key)
     base_slug = title_to_slug(title)
 
+    update_mode = "--update" in sys.argv
+
     if append_mode:
         existing = fetch_changelog(base_slug, auth)
         existing_body = existing.get("body", "").rstrip()
         updated_body = existing_body + "\n\n" + new_content
         update_changelog(base_slug, title, updated_body, auth)
+        return
+
+    if update_mode:
+        update_changelog(base_slug, title, new_content, auth)
         return
 
     existing_slugs = fetch_existing_slugs(auth)

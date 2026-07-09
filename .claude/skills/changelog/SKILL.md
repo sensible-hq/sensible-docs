@@ -65,93 +65,110 @@ Wait for confirmation before continuing.
 
 ## Step 2: Fetch full PR context
 
-For each confirmed PR, fetch the full body:
+Fetch all confirmed PR bodies in parallel — this is the only batched step:
 ```bash
 gh pr view <number> --repo <org/repo> --json title,body,mergedAt,labels
 ```
 
-From the body, extract:
+From each body, extract:
 - What changed (the "what")
 - Why it matters or how users use it (the "so what")
 - Any linked doc pages or feature names
 
 Ignore boilerplate (checklists, "how to test", internal notes). Focus on user-facing description.
 
-**Non-user-facing PRs**: If a PR is clearly infra-only, a refactor, a test change, or has no user-visible effect, skip it from the changelog. Note it in the summary you showed in Step 1 (under "Skipping") so the user knows it was considered and excluded intentionally.
+**Non-user-facing PRs**: If a PR is clearly infra-only, a refactor, a test change, or has no user-visible effect, skip it. Note it under "Skipping" in the Step 1 summary.
 
 ---
 
-## Step 3: Source feature descriptions
+## Steps 3–4: Per-entry loop (do not batch)
 
-For each changelog entry, use the best available source. Priority order:
+**Complete all sub-steps for one PR before starting the next.** Batching these steps is the most common source of skipped research and missing doc links.
 
-1. **Pasted doc content** — if the user pasted doc text directly, use it as-is. It's already user-facing.
-2. **Docs PR** — fetch the PR body and diff for the most accurate user-facing description:
+Read these three files once before starting the loop — they apply to every entry:
+- `/home/franc/GitHub/sensible-docs/.claude/style-guide/changelog-style-guide.md`
+- `/home/franc/GitHub/sensible-docs/.claude/style-guide/writing-rules.md`
+- `/home/franc/GitHub/sensible-docs/.claude/preferences/editorial-preferences.md`
+
+---
+
+### 3a. Source the description
+
+Use the best available source in priority order:
+
+1. **Pasted doc content** — if the user pasted doc text directly, use it as-is.
+2. **Docs PR** — fetch body and diff:
    ```bash
    gh pr view <number> --repo sensible-hq/sensible-docs --json title,body,files
    gh pr diff <number> --repo sensible-hq/sensible-docs
    ```
-   The diff shows exactly what was added to the docs — use the added lines (`+`) as the primary source.
-3. **Doc URL → local file** — derive the path from the slug directly:
+   Use added lines (`+`) as the primary source.
+3. **Doc URL → local file** — derive the path from the slug:
    ```
    https://docs.sensible.so/docs/remove-lines → slug = "remove-lines"
-   Check: /home/franceselliott/GitHub/sensible-docs/docs/remove-lines.md
-          /home/franceselliott/GitHub/sensible-docs/reference/remove-lines.md
+   Check: /home/franc/GitHub/sensible-docs/docs/remove-lines.md
+          /home/franc/GitHub/sensible-docs/reference/remove-lines.md
    ```
 4. **Code PR body** — use the user-facing description from the backend/frontend PR.
-5. **MCP fallback** — `mcp__sensible-docs__search` with the feature name. Least reliable; use only if nothing else is available.
-
-The goal is accurate, user-facing language — not copying the doc verbatim or paraphrasing internal PR descriptions.
+5. **MCP fallback** — `mcp__sensible-docs__search` with the feature name. Least reliable.
 
 ---
 
-## Step 3b: Search past changelogs for similar entries
+### 3b. Search past changelogs for similar entries
 
-Do this for any entry where:
-- The user explicitly flagged it as similar to a past change, **or**
-- The feature is clearly a repeat pattern (e.g., another LLM model version update, another JsonLogic operator, another preprocessor parameter)
+Do this if:
+- The user flagged it as similar to a past change, **or**
+- The feature is a repeat pattern (another LLM model update, another JsonLogic operator, another preprocessor parameter, another method configurability improvement)
 
-Past changelogs are saved locally at:
-```
-references/changelogs/*.md
-```
-
-Search by grepping for relevant terms:
 ```bash
-grep -ril "haiku\|model version\|llm model" \
-  /home/franceselliott/GitHub/sensible-docs/.claude/skills/sensible-changelog/references/changelogs/
+grep -ril "<relevant terms>" \
+  /home/franc/GitHub/sensible-docs/.claude/skills/changelog/references/changelogs/
 ```
 
-Then read the matching file(s) and find the specific section. Use that past entry's wording as a template — same sentence structure, same level of detail, same way of introducing the change. Update the specifics (version names, feature names, parameters) but preserve the established phrasing pattern.
+Read the matching section. Model the new entry on the same sentence structure, level of detail, and phrasing — update only the specifics. Record the source for the review step (`https://docs.sensible.so/changelog/<slug>`).
 
-When you do this:
-- Note it in the draft with a brief inline comment to yourself (which you'll remove before showing the user), e.g.: `<!-- modeled on january-2026: LLM model version updates -->`. This helps you stay consistent within a single draft when multiple entries draw on past wording.
-- Record the source for the review step. The published URL for a past changelog file is: `https://docs.sensible.so/changelog/<slug>` where the slug matches the filename without `.md` (e.g., `august-2023.md` → `https://docs.sensible.so/changelog/august-2023`).
-
-If no good past match exists, draft from scratch using the style guides.
+If no past match exists, draft from scratch.
 
 ---
 
-## Step 4: Draft the changelog
+### 3c. Draft the entry
 
-Read all three files before drafting:
-- `/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/changelog-style-guide.md` — changelog structure, section types, doc link format, examples
-- `/home/franceselliott/GitHub/sensible-docs/.claude/style-guide/writing-rules.md` — cross-cutting prose rules (em dashes, passive voice, explicit subjects, terminology, gerunds)
-- `/home/franceselliott/GitHub/sensible-docs/.claude/preferences/editorial-preferences.md` — Frances's editorial corrections and preferences, including changelog-specific rules (UI-first ordering, screenshots, tab names, framing)
+Use the **entry template** in `.claude/skills/changelog/structural-check.md`. Draft directly into the template so the doc link slot and heading format are present from the start.
 
 Key reminders:
-- Intro paragraph: third person ("Sensible released…"), no doc links
-- Section headings: `## New feature:`, `## Improvement:`, `## UX improvement:`, `## UX improvements:`, `## Deprecation:` — use exactly these strings
-- Section bodies: second person, 2–5 sentences, prose over bullets
-- Doc links: `[text](doc:slug)` format
-- Lead with the most significant features
-- **Parameter names in prose**: use Title Case, not camelCase backticks — "the Ignore Form Data parameter", "the Range parameter", not `` `ignoreFormData` `` or `` `range` ``
+- Heading: `## New feature:`, `## Improvement:`, `## UX improvement:`, `## UX improvements:`, `## Deprecation:`
+- Body: second person, 2–5 sentences, prose over bullets
+- Doc link: `[text](doc:slug)` — every entry needs one; use `<!-- DOC LINK NEEDED -->` if no public page exists
+- Parameter names: Title Case in prose — "the Ignore Form Data parameter", not `` `ignoreFormData` ``
+
+---
+
+### 3d. Per-entry checklist (fill out before moving to the next PR)
+
+```
+PR #NNNN — [title]
+  [ ] Source: [which source was used and why]
+  [ ] Past changelog: [searched / not applicable — if applicable: modeled on <month-year>]
+  [ ] Entry drafted using template
+  [ ] Heading type confirmed: [New feature / Improvement / UX improvement / Deprecation]
+  [ ] Doc link: [slug used / DOC LINK NEEDED comment added]
+```
+
+Do not move to the next PR until all five boxes are filled.
+
+---
+
+### After the loop: assemble and order
+
+Once all entries are drafted, assemble them in order: New features first, then Improvements, then UX improvements, then Deprecations. Within each group, lead with the most significant. Write the intro paragraph last (third person, no doc links).
 
 ---
 
 ## Step 5: Style check, then review with user
 
-Run the **`docs-checker`** skill on the full draft before showing it to the user. Find it at `.claude/skills/docs-checker/SKILL.md` in this repo. Fix all errors and warnings it returns. Use judgment on suggestions — Google style rules (e.g., spell out acronyms) often don't apply to changelogs.
+Run the **`docs-checker`** skill (`.claude/skills/docs-checker/SKILL.md`) on the full draft. Fix all errors and warnings it returns. Use judgment on suggestions — Google style rules often don't apply to changelogs.
+
+Then run the **`structural-check`** subskill (`.claude/skills/changelog/structural-check.md`) to verify doc links and image format.
 
 After fixing, print the full draft. If any entries were modeled on past changelog entries, print a reference list:
 
@@ -176,7 +193,26 @@ cat > /tmp/changelog_body.txt << 'CHANGELOG_EOF'
 <paste full body here>
 CHANGELOG_EOF
 
-python /home/franceselliott/.claude/skills/sensible-changelog/scripts/publish_changelog.py "March 2026" < /tmp/changelog_body.txt
+python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/publish_changelog.py "March 2026" < /tmp/changelog_body.txt
 ```
 
-The script handles auth, the POST request, and prints the draft URL on success or the full error on failure.
+Flags:
+- (no flag) — create new draft (auto-avoids slug conflicts)
+- `--update` — replace the entire body of an existing draft
+- `--append` — append content to an existing draft
+
+The script handles auth, the POST/PUT request, and prints the draft URL on success or the full error on failure.
+
+### Updating a single section without touching the rest
+
+Use `scripts/update_section.py` when Frances has already edited the draft and you need to rewrite one section only:
+
+```bash
+cat << 'EOF' | python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/update_section.py july-2026 "## Improvement: Advanced configurability"
+## Improvement: Advanced configurability for the Region method
+
+For the [Region](doc:region) method, you can now relax the criteria ...
+EOF
+```
+
+The script matches the first heading that starts with the given prefix, replaces from that heading to the next `##` heading, and PUTs the full body back. All other sections are left exactly as they are.

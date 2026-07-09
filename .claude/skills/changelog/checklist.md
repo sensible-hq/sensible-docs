@@ -117,6 +117,12 @@ changelog_history:
 
 ---
 
+## Future improvements
+
+- **Per-entry link verification**: In the per-entry drafting loop, add a deterministic check for each `doc:slug` and `reference:slug` — flag broken links and suggest corrections before the entry is considered done. Check existing GH actions in the repo before implementing.
+
+---
+
 ## Publishing flow (when drafting the monthly changelog)
 
 1. Read the cursor — note `last_changelog_through` and `saved_for_later`
