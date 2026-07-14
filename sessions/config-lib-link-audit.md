@@ -7,6 +7,13 @@
 
 ---
 
+## !! Do first
+
+- [ ] **Verify with Horacio: will the old GitHub repo links (`github.com/sensible-hq/sensible-configuration-library`) change?** Nothing else in this checklist can be completed without this answer.
+- [ ] **Follow up with Matt on how to handle Webflow assets** — see [Slack thread](https://sensiblehq.slack.com/archives/C03EQ0AHHP0/p1784062509706119)
+
+---
+
 ## Open questions before starting
 
 - [ ] What is the new destination URL for the config library?
