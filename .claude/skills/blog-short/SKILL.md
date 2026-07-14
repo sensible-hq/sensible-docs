@@ -74,7 +74,9 @@ Write the full post following `.claude/skills/blog-short/blog-short-template.md`
 - Verbatim boilerplate sentence patterns from the template, with `[variables]` filled in
 - Third person or second person — pick one and stay consistent throughout
 
-**No code blocks. No screenshot placeholders. No SenseML.**
+**No SenseML config blocks. No screenshot placeholders.**
+
+A JSON output block showing the extraction result is allowed and encouraged — include one in "The Solution" section following the template pattern. It should be representative (grounded in the document type's known field structure) rather than invented. Do not require a live extraction for this.
 
 Target: 400–600 words. Every sentence earns its place.
 

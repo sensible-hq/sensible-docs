@@ -79,10 +79,50 @@ Example (Sections):
 
 **Paragraph 2 — Map the feature to the document:**
 
-> "For [doc types], [describe how the feature is applied — what serves as section boundaries, what fields are extracted within each section, what the output looks like]."
+> "For [doc types], [describe how the feature is applied — what serves as section boundaries, what fields are extracted within each section]. The output [describe the shape — a structured list, a table, nested objects]."
 
 Example (loss runs):
 > *"For loss runs, each claim becomes a section starting with 'CWC'-prefixed claim numbers and ending below 'Total.' Sensible's methods extract specific fields: injury dates, descriptions, payout amounts, and more. The output appears as a structured list where each element represents an individual claim with accompanying data."*
+
+**Output block (optional but encouraged):**
+
+Include a representative JSON block showing the extraction result. This illustrates the output shape without requiring the reader to run the config themselves. Place it immediately after paragraph 2. Use `json` fencing.
+
+The block should show:
+- At least 2 complete objects so the reader understands the repeating structure
+- Truncate remaining items with `{ "..." }` or `/* ... */`
+- Field names, types, and value formats matching how Sensible actually returns data
+
+Example (loss runs):
+```json
+{
+  "claim_details": [
+    {
+      "claim_number": { "type": "string", "value": "CWC1---" },
+      "claim_type": { "type": "string", "value": "Indemnity" },
+      "claim_date": {
+        "source": "05/15/2019",
+        "value": "2019-05-15T00:00:00.000Z",
+        "type": "date"
+      },
+      "loss_description": { "value": "Strain or injury by", "type": "string" }
+    },
+    {
+      "claim_number": { "type": "string", "value": "CWC1---" },
+      "claim_type": { "type": "string", "value": "Medical" },
+      "claim_date": {
+        "source": "05/28/2019",
+        "value": "2019-05-28T00:00:00.000Z",
+        "type": "date"
+      },
+      "loss_description": { "value": "Striking against or stepping on", "type": "string" }
+    },
+    { "..." }
+  ]
+}
+```
+
+The output block does NOT need to come from a live extraction — it should be a representative example grounded in the document type's known field structure. Do not invent field names; base them on the prebuilt config or documented field list for this document type.
 
 **Paragraph 3 (optional) — Additional capability or output shape:**
 
@@ -124,7 +164,7 @@ Avoid: salesy superlatives, vague closing lines like "the future of document AI 
 **Tone:** Informative but editorial. Third-person or second-person both work; pick one and stay consistent. Not tutorial ("let's walk through…") — save that register for the longer how-to posts.
 
 **What to omit entirely:**
-- SenseML code blocks (those belong in the `blog-how-to-parse-x` skill)
+- SenseML config blocks (those belong in the `blog-how-to-parse-x` skill) — JSON output blocks showing extraction results are fine
 - Screenshot placeholders
 - "What we'll cover" lead-in
 - Prerequisites section
