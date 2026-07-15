@@ -1,0 +1,215 @@
+<h2>Introduction<strong>‍</strong></h2><p>Cyber insurance quotes are carrier-issued pricing proposals summarizing what coverage a carrier will offer and at what price: aggregate limits per coverage category, per-incident retentions, sublimits for specific risk types, total premium, and commission. Brokers and MGAs receive competing quotes from multiple carriers for every submission, and the comparison work (matching limits, retentions, and sublimits across different carrier formats) is a manual bottleneck at volume.</p><p>‍</p><p>The extraction challenge compounds in two ways:<br>‍</p><ol><li><strong>Carrier format variability.</strong> Beazley structures its cyber quote differently from Coalition, Chubb, or AXA XL, and a config built for one carrier's label conventions breaks on another.<strong>‍</strong></li><li><strong>Document density.</strong> Cyber quote PDFs are often multi-page documents where the actual quote data sits in the first few pages, followed by carrier services guides and endorsement documentation. Extracting only the relevant fields requires anchoring precisely to the right sections.</li></ol><p><br>Sensible handles this through carrier-specific layout configs. Cyber quotes are well suited to this approach: the structured Coverage Schedule tables and endorsement grids provide reliable anchor points that deterministic methods extract precisely, with no LLM calls and no prompt maintenance overhead on high-volume carriers. Each carrier gets its own config anchored to its label text and document structure, returning a normalized output schema across all carriers. For carriers without a layout config yet, a generalized LLM config handles extraction on day one without per-carrier configuration, covering the long tail of carriers that appear at low volume or in one-off submissions.<br>‍</p><p>This post walks through a Beazley cyber quote using a deterministic layout config. The same approach applies to cyber quotes from any carrier, and to other commercial lines documents (GL quotes, umbrella quotes, E&amp;O quotes) that share the same structural characteristics.<br>‍<br>‍</p><h2>Prerequisites<strong>‍</strong></h2><p>To extract from this document, take the following steps:<br>‍</p><ul><li>Sign up for a <a href="https://app.sensible.so/register/">Sensible account<br></a></li><li>After completing onboarding, click the <strong>Document types</strong> tab and click <strong>Create new document type</strong>. In the dialog</li><li>Name the document type <code>cyber_insurance_quotes</code>‍</li><li>Upload the<a href="https://cdn.prod.website-files.com/6033da353ede9143c0c56ff8/6a57e6c26607f5fc29f2c883_beazley-cyber-quote-sample.pdf" target="_blank"> example document</a>.</li><li>Leave all defaults as-is except ensure "Auto-generate configuration" is disabled</li><li>Click <strong>Create</strong> to create the document type and enter the SenseML editor.</li></ul><p>‍</p><h2>Anchor on coverage schedule section headers<strong>‍</strong></h2><p>Beazley's cyber quote opens with a multi-section Coverage Schedule. Each section header is a reliable anchor: the text is fixed, it appears on every Beazley cyber quote, and the values immediately follow in a consistent position.<br>‍</p><figure class="w-richtext-figure-type-image w-richtext-align-fullwidth" style="max-width:1080px" data-rt-type="image" data-rt-align="fullwidth" data-rt-max-width="1080px"><div><img alt="" src="https://cdn.prod.website-files.com/604df93ff02e1e1810361031/69cd7ccdde461699f3428d32_Screenshot%202025-07-27%20at%205.24.48%E2%80%AFPM.png" width="auto" height="auto" loading="lazy"></div></figure><p>Here are the queries we'll use:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "id": "aggregate_limit",
+  "anchor": { "match": { "type": "equals", "text": "Cyber and Data Breach" } },
+  "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+},
+{
+  "id": "retention",
+  "anchor": { "match": { "type": "equals", "text": "Retention" } },
+  "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+},
+{
+  "id": "premium",
+  "anchor": { "match": { "type": "equals", "text": "Annual Premium" } },
+  "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+}
+</code></pre></div><p>‍</p><p>Extracted values:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "aggregate_limit": { "value": "$1,000,000", "type": "string" },
+  "retention":       { "value": "$10,000",    "type": "string" },
+  "premium":         { "value": "$4,217",     "type": "string" }
+}
+</code></pre></div><p>‍</p><p>The <a href="https://docs.sensible.so/docs/row">Row</a> method reads values to the right of each anchor. <code>tiebreaker: "first"</code> picks the nearest match when the anchor text appears more than once. These three fields — limit, retention, and premium — appear on every cyber quote regardless of carrier. They are the starting point for any cyber quote config.<br>‍<br>‍</p><h2>Extract sublimits from the coverage table<strong>‍</strong></h2><p>Below the opening schedule, Beazley lists sublimits for individual coverage components in a two-column table: coverage name on the left, limit on the right.<br><br></p><figure class="w-richtext-figure-type-image w-richtext-align-fullwidth" style="max-width:1080px" data-rt-type="image" data-rt-align="fullwidth" data-rt-max-width="1080px"><div><img alt="" src="https://cdn.prod.website-files.com/604df93ff02e1e1810361031/69cd7ccd6ce1e0f64e14c8d2_Screenshot%202025-07-27%20at%205.24.53%E2%80%AFPM.png" width="auto" height="auto" loading="lazy"></div></figure><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "id": "sublimits",
+  "type": "table",
+  "anchor": { "match": { "type": "equals", "text": "Coverage" } },
+  "method": {
+    "id": "fixedTable",
+    "columnCount": 2,
+    "columns": [
+      { "id": "coverage",     "minX": 0,   "maxX": 3.5 },
+      { "id": "limit",        "minX": 3.5, "maxX": 8.5 }
+    ],
+    "stop": { "type": "equals", "text": "Endorsements" }
+  }
+}
+</code></pre></div><p>‍</p><p>Extracted values:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "sublimits": {
+    "columns": [
+      { "id": "coverage" },
+      { "id": "limit" }
+    ],
+    "rows": [
+      { "coverage": { "value": "Cyber and Data Breach",                "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "First Party Data Recovery",            "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Business Interruption",                "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Dependent Business Interruption",      "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Cyber Extortion",                      "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Data Breach Liability",                "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Multimedia Liability",                 "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Network Security Liability",           "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "PCI DSS Assessment",                   "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Regulatory Proceedings",              "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Technology Errors and Omissions",      "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } }
+    ]
+  }
+}
+</code></pre></div><p>‍</p><p><a href="https://docs.sensible.so/docs/fixed-table">FixedTable</a> defines column boundaries by horizontal coordinate, stopping at the "Endorsements" header. Each row in the table returns a structured object with coverage name and limit. This handles variable row counts without per-row field definitions.<br>‍<br>‍</p><h2>Extract endorsements<strong>‍</strong></h2><p>Beazley cyber quotes list active endorsements as a bulleted block following the coverage table. The Sections method extracts each endorsement as a structured item.<br><br></p><figure class="w-richtext-figure-type-image w-richtext-align-fullwidth" style="max-width:1080px" data-rt-type="image" data-rt-align="fullwidth" data-rt-max-width="1080px"><div><img alt="" src="https://cdn.prod.website-files.com/604df93ff02e1e1810361031/69cd7ccdd57e8fa6afc1ffc3_Screenshot%202025-07-27%20at%205.24.59%E2%80%AFPM.png" width="auto" height="auto" loading="lazy"></div></figure><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "id": "endorsements",
+  "type": "sections",
+  "range": {
+    "anchor": { "match": { "type": "equals", "text": "Endorsements" } },
+    "stop":   { "match": { "type": "equals", "text": "Beazley Services" } }
+  },
+  "fields": [
+    {
+      "id": "endorsement_name",
+      "anchor": { "match": { "type": "startsWith", "text": "•" } },
+      "method": { "id": "documentRange", "includeAnchor": true }
+    }
+  ]
+}
+</code></pre></div><p>‍</p><p>Extracted values:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "endorsements": [
+    { "endorsement_name": { "value": "• Beazley Breach Response Services",     "type": "string" } },
+    { "endorsement_name": { "value": "• Breach Coach® and Legal Services",       "type": "string" } },
+    { "endorsement_name": { "value": "• Computer Fraud and Funds Transfer Loss", "type": "string" } },
+    { "endorsement_name": { "value": "• Social Engineering",                      "type": "string" } },
+    { "endorsement_name": { "value": "• Telecommunications Fraud",               "type": "string" } }
+  ]
+}
+</code></pre></div><p>‍</p><p>Each bullet line is a section anchor. The <a href="https://docs.sensible.so/docs/document-range">DocumentRange</a> method captures the full endorsement name including the bullet character. The stop anchor prevents the extraction from running into the Beazley Services section that follows.<br>‍<br>‍</p><h2>Normalize currency output<strong>‍</strong></h2><p>Premium and limit values come back as strings ("$4,217"). To get a numeric value, add <code>type: "currency"</code> to the field. Sensible parses the string and returns a typed currency object:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "id": "premium",
+  "type": "currency",
+  "anchor": { "match": { "type": "equals", "text": "Annual Premium" } },
+  "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+}
+</code></pre></div><p>‍</p><p>Extracted values:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "premium": {
+    "source": "$4,217",
+    "value":  4217,
+    "unit":   "$",
+    "type":   "currency"
+  }
+}
+</code></pre></div><p>‍</p><p>The typed output is downstream-ready: no string parsing, no regex, no post-processing step in your application code.<br>‍<br>‍</p><h2>Add a fingerprint to protect against misrouting<strong>‍</strong></h2><p>Fingerprints prevent a config from running on the wrong document. For Beazley cyber quotes, two unique strings identify the format:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "fingerprint": {
+    "tests": [
+      { "type": "includes", "text": "Beazley" },
+      { "type": "includes", "text": "Cyber and Data Breach" }
+    ]
+  }
+}
+</code></pre></div><p>‍</p><p>If either string is absent, the config skips and the document falls to the next config in the document type — typically a generalized LLM fallback for the carrier long tail.<br>‍<br>‍</p><h2>Putting it all together<strong>‍</strong></h2><p>The full Beazley cyber quote config combines fingerprint, coverage schedule fields, sublimits table, and endorsements list in a single SenseML document:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "fingerprint": {
+    "tests": [
+      { "type": "includes", "text": "Beazley" },
+      { "type": "includes", "text": "Cyber and Data Breach" }
+    ]
+  },
+  "fields": [
+    {
+      "id": "aggregate_limit",
+      "anchor": { "match": { "type": "equals", "text": "Cyber and Data Breach" } },
+      "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+    },
+    {
+      "id": "retention",
+      "anchor": { "match": { "type": "equals", "text": "Retention" } },
+      "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+    },
+    {
+      "id": "premium",
+      "type": "currency",
+      "anchor": { "match": { "type": "equals", "text": "Annual Premium" } },
+      "method": { "id": "row", "position": "right", "tiebreaker": "first" }
+    },
+    {
+      "id": "sublimits",
+      "type": "table",
+      "anchor": { "match": { "type": "equals", "text": "Coverage" } },
+      "method": {
+        "id": "fixedTable",
+        "columnCount": 2,
+        "columns": [
+          { "id": "coverage", "minX": 0,   "maxX": 3.5 },
+          { "id": "limit",    "minX": 3.5, "maxX": 8.5 }
+        ],
+        "stop": { "type": "equals", "text": "Endorsements" }
+      }
+    },
+    {
+      "id": "endorsements",
+      "type": "sections",
+      "range": {
+        "anchor": { "match": { "type": "equals", "text": "Endorsements" } },
+        "stop":   { "match": { "type": "equals", "text": "Beazley Services" } }
+      },
+      "fields": [
+        {
+          "id": "endorsement_name",
+          "anchor": { "match": { "type": "startsWith", "text": "•" } },
+          "method": { "id": "documentRange", "includeAnchor": true }
+        }
+      ]
+    }
+  ]
+}
+</code></pre></div><p>‍</p><p>Combined extracted output:</p><div data-rt-embed-type='true'><pre><code class='json'>
+{
+  "aggregate_limit": { "value": "$1,000,000", "type": "string" },
+  "retention":       { "value": "$10,000",    "type": "string" },
+  "premium": {
+    "source": "$4,217",
+    "value":  4217,
+    "unit":   "$",
+    "type":   "currency"
+  },
+  "sublimits": {
+    "columns": [ { "id": "coverage" }, { "id": "limit" } ],
+    "rows": [
+      { "coverage": { "value": "Cyber and Data Breach",           "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "First Party Data Recovery",       "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Business Interruption",           "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Dependent Business Interruption", "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Cyber Extortion",                 "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Data Breach Liability",           "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Multimedia Liability",            "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Network Security Liability",      "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "PCI DSS Assessment",              "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Regulatory Proceedings",         "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } },
+      { "coverage": { "value": "Technology Errors and Omissions", "type": "string" }, "limit": { "value": "$1,000,000", "type": "string" } }
+    ]
+  },
+  "endorsements": [
+    { "endorsement_name": { "value": "• Beazley Breach Response Services",     "type": "string" } },
+    { "endorsement_name": { "value": "• Breach Coach® and Legal Services",       "type": "string" } },
+    { "endorsement_name": { "value": "• Computer Fraud and Funds Transfer Loss", "type": "string" } },
+    { "endorsement_name": { "value": "• Social Engineering",                      "type": "string" } },
+    { "endorsement_name": { "value": "• Telecommunications Fraud",               "type": "string" } }
+  ]
+}
+</code></pre></div><p>‍</p><h2>Extract more fields<strong>‍</strong></h2><p>The config above covers the core fields present on every Beazley cyber quote. A production config would also extract policy form number, carrier name, waiting period, and other data.<br>‍</p><p>There is no prebuilt cyber insurance quote config in Sensible's <a href="https://www.sensible.so/configuration-library">open-source configuration library</a> yet. The Beazley config shown in this post is a working starting point to build from directly, or to adapt for other commercial lines documents that share the same structural characteristics (GL quotes, umbrella quotes, E&amp;O quotes).<br>‍</p><p>To build additional fields from scratch, the <a href="https://docs.sensible.so/docs/senseml-reference-introduction">SenseML reference</a> covers every extraction method. To hand off configuration and ongoing maintenance, <a href="https://www.sensible.so/managed-services">managed services</a> handles carrier-specific config work end to end.<br>‍<br>‍</p><h2>Connect to your workflow</h2><p>Once your SenseML config returns normalized cyber quote data, there are several ways to route that output into your application or process.</p><p>‍</p><p><strong>API</strong></p><p>Call the Sensible REST API directly. The synchronous endpoint returns extracted data inline; the asynchronous endpoint posts to a webhook when extraction completes. See the <a href="https://docs.sensible.so/reference">API reference</a>.<br>‍</p><p><strong>Python SDK</strong></p><p>The <a href="https://github.com/sensible-hq/sensible-api-py">Sensible Python SDK</a> wraps the REST API for Python applications:</p><div data-rt-embed-type='true'><pre><code class='json'>
+pip install sensibleapi
+</code></pre></div><div data-rt-embed-type='true'><pre><code class='json'>
+import json
+from sensibleapi import SensibleSDK
+
+sensible = SensibleSDK("YOUR_API_KEY")
+request  = sensible.extract(
+    path="./cyber_quote.pdf",
+    document_type="cyber_insurance_quotes",
+    environment="production"
+)
+results = sensible.wait_for(request)
+print(json.dumps(results, indent=2))
+</code></pre></div><p>‍</p><p><strong>MCP server</strong></p><p>Sensible's MCP server connects document extraction to AI coding tools like Claude. See the <a href="https://docs.sensible.so/docs/mcp">MCP docs</a>.<br>‍</p><p><strong>Zapier</strong></p><p>Sensible's Zapier connector routes extracted data into Google Sheets, Airtable, Slack, or any connected app. See the <a href="https://docs.sensible.so/docs/zapier">Zapier docs</a>.<br>‍<br>‍</p><h2>Frequently asked questions</h2><p>‍</p><p><strong>What fields can be extracted from a cyber insurance quote?</strong></p><p>Core fields include aggregate limit, per-incident retention, total premium, sublimits by coverage category, and active endorsements. A complete config also pulls policy effective dates, carrier name, form number, and waiting period for business interruption coverage.<br>‍</p><p><strong>How accurate is automated cyber insurance quote extraction?</strong></p><p>Deterministic extraction on a carrier-specific layout config is highly accurate: each field anchors to fixed label text, and output is traceable to source coordinates. Carrier-specific configs outperform general-purpose LLM extraction on structured Coverage Schedule tables and endorsement lists, where label positions are consistent across document versions.<br>‍</p><p><strong>Can Sensible handle cyber quotes from multiple carriers?</strong></p><p>Yes. Each carrier gets its own layout config. A generalized LLM config covers low-volume carriers on day one without per-carrier configuration. Fingerprinting routes each document to the right config automatically; no changes to your integration code when you add a new carrier config.<br>‍</p><p><strong>How does Sensible handle multi-page cyber quote documents?</strong></p><p>The fingerprint and field anchors operate across the full document. Fields anchored to section headers in the Coverage Schedule extract correctly regardless of page count; the stop anchor on the endorsements extraction prevents runoff into subsequent sections.<br>‍</p><p><strong>Can Sensible extract from cyber quotes bundled with other documents?</strong></p><p>The <a href="https://docs.sensible.so/docs/portfolio">portfolio</a> method segments multi-document PDFs before extraction runs. Carrier services guides, specimen forms, and endorsement documentation bundled with the quote are separated out; extraction runs only on the quote pages.<br>‍</p>
