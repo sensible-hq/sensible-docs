@@ -129,7 +129,7 @@ See the following steps to configure Scenario 2.
 
 Congratulations, your integration is now live! Take the following steps to continue populating a spreadsheet from example documents:
 
-1. Download example 1040 documents from the Sensible [library](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s/refdocs).
+1. Download [another example 1040 document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2022_sample.pdf) to test your integration.
 
 2. For each document, send a POST request to the Scenario 1 webhook URL with the document's publicly accessible URL in the `document_url` field.
 

@@ -92,7 +92,7 @@ Take the following steps to connect Sensible to Airtable using Zapier:
 
 Congratulations, your integration is now published and running! Take the following steps to continue building a database from example documents:
 
-1. Download example 1040 documents from the Sensible [library](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s/refdocs).
+1. Download [another example 1040 document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2022_sample.pdf) to test your integration.
 
 2. Use the Sensible app's **Extract** tab to run extractions for the example documents.
 
