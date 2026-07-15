@@ -14,11 +14,22 @@
 
 ---
 
+## Link treatment taxonomy
+
+Before editing any link, classify it into one of three treatments:
+
+| Treatment | When to apply | New destination |
+|-----------|--------------|-----------------|
+| **A — App flow** | Tutorials and prerequisites where the user is actively cloning a doc type into their account | `app.sensible.so` links (mostly as-is) |
+| **B — Asset internalization** | Raw GitHub file links (`raw.githubusercontent.com`) that users download — PDFs, etc. | Copy asset to `sensible-docs/assets/pdfs/`, update link to new GitHub raw URL |
+| **C — Discovery page** | "Learn more about the config library" context — general references not tied to an in-app action | `https://www.sensible.so/configuration-library` |
+
+Note: `www.sensible.so/configuration-library` lets users browse and interact with supported doc types in a SenseML sandbox, but does **not** clone the doc type to their account. Use treatment A (not C) anywhere the user needs to actually add a doc type.
+
+---
+
 ## Open questions before starting
 
-- [ ] What is the new destination URL for the config library?
-- [ ] Is the GitHub repo (`github.com/sensible-hq/sensible-configuration-library`) moving, being renamed, or just supplemented with a new landing page?
-- [ ] Are raw `githubusercontent.com` PDF links in scope (used as sample document downloads in tutorials), or only the repo/library links?
 - [ ] Does the `app.sensible.so/library` in-app URL change?
 - [ ] Do `doc:library-quickstart` internal cross-reference slugs change (i.e., is the ReadMe page moving)?
 - [ ] Are old historical changelog entries (e.g., October 2022) in scope, or only current/future content?
@@ -29,7 +40,7 @@
 
 Search: `sensible-configuration-library` (exact string, from your 602-file scan).
 
-### GitHub repo root links
+### GitHub repo root links → Treatment C
 
 | File | Link |
 |------|------|
@@ -41,7 +52,9 @@ Search: `sensible-configuration-library` (exact string, from your 602-file scan)
 - [ ] `docs/integrations/quickbooks.md`
 - [ ] `docs/welcome/author.md`
 
-### Deep links into specific GitHub template folders
+### Deep links into specific GitHub template folders → Treatment A, B, or C depending on context
+
+Review each link in context to assign treatment before editing.
 
 | File | Link target |
 |------|-------------|
