@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-If you want to extract from any of the following document types, you can get started in minutes using the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). The library provides out-of-the-box support for common business forms:
+If you want to extract from any of the following document types, you can get started in minutes using the [Sensible configuration library](https://www.sensible.so/configuration-library). The library provides out-of-the-box support for common business forms:
 
 * auto policy declaration pages
 * balance sheet

@@ -43,7 +43,7 @@ Follow the steps in [Getting started with out-of-the-box extractions](doc:librar
 
 ## Prerequisite: Configure accounts
 
-1. Create a test Slack channel. Name it `1040s_uploads`. Upload an [example 1040 document](https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf) to the channel.
+1. Create a test Slack channel. Name it `1040s_uploads`. Upload an [example 1040 document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2021_sample.pdf) to the channel.
 2. Create an empty Google Drive folder as a destination for the spreadsheets of extracted data. Name it `1040s_extracted`.
 3. (Optional) In the `1040s_extracted` folder, create a spreadsheet named `Zapier-Sensible Extractions Logs` to log each time the Zaps run. Create columns to record information about each extraction, for example, `Extraction ID` , `Extraction Date` , and `Extraction link`.
 
@@ -163,7 +163,7 @@ See the following steps to configure Zap 2.
 
 Congratulations, your integration is now published and running! Take the following steps to continue populating a Google folder from example documents:
 
-1. Download example 1040 documents from the Sensible [library](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s/refdocs).
+1. Download [another example 1040 document](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2022_sample.pdf) to test your integration.
 
 2. Upload them to the Slack channel you created.
 

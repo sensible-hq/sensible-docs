@@ -40,7 +40,7 @@ The Python script:
 
 ## Add the invoices document type to your Sensible account
 
-The script uses Sensible's `invoices` document type, which is available in the [Sensible configuration library](https://github.com/sensible-hq/sensible-configuration-library). To add support for invoices:
+The script uses Sensible's `invoices` document type, which is available in the [Sensible configuration library](doc:library-quickstart). To add support for invoices:
 
 1. Sign up for a [Sensible account](https://app.sensible.so/register) and complete onboarding steps, then navigate to your [dashboard](https://app.sensible.so/dashboard/) in the Sensible app.
 2. Click the **Template library** tab.

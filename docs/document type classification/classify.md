@@ -46,11 +46,11 @@ The following sections cover using the Sensible API's Classify endpoints to retu
 
 ## Classify endpoints
 
-When you call Sensible's [Classify](reference:classify-document)  API endpoints, Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types in your account:
+When you call Sensible's [Classify](reference:classify-document)  API endpoints, Sensible classifies a document by comparing it to the types you define in your account. For example, you can classify 1040 forms and bank statements if you define the following types (supported by the [Sensible configuration library](doc:library-quickstart)) in your account:
 
-* a [bank statements](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements) type
+* a bank statements type
 
-* a [1040s](https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms/1040s) type
+* a 1040s type
 
 Sensible uses a document type's name and its description for LLM-based classification:
 
