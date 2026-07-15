@@ -38,7 +38,7 @@ To create example extraction configuration, follow the steps in [Out-of-the-box 
 curl --location --request POST 'https://api.sensible.so/v0/extract_from_url/1040s' \
 --header 'Authorization: Bearer YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
---data-raw '{"document_url":"https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf",
+--data-raw '{"document_url":"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2021_sample.pdf",
 "webhook": {"url":"YOUR_WEBHOOK_URL","payload":"some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc"}}'
 ```
 

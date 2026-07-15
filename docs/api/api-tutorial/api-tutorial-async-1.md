@@ -43,7 +43,7 @@ To try out the [extract\_from\_url](ref:extract-from-url) endpoint, let's use an
    curl --request POST 'https://api.sensible.so/v0/extract_from_url/1040s' \
    --header 'Authorization: Bearer YOUR_API_KEY' \
    --header 'Content-Type: application/json' \
-   --data-raw '{"document_url":"https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf"}'
+   --data-raw '{"document_url":"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2021_sample.pdf"}'
    ```
 
 2. In your Postman workspace, click **Import**, select **Raw text**, paste the code sample, and follow the prompts to import to code sample.

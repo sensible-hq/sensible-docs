@@ -79,7 +79,7 @@ See the following steps to configure Scenario 1.
       2. To test, send a POST request to the Scenario 1 webhook URL with the following JSON body:
          ```json
          {
-           "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-configuration-library/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf"
+           "document_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2021_sample.pdf"
          }
          ```
       3. Verify that Make received the request and that the HTTP module returned a `200` status with a `WAITING` extraction status in the response body.
