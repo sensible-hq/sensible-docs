@@ -4,7 +4,10 @@
     "local_path": "sensible-docs/assets/pdfs/rate_confirmation_ch_robinson.pdf",
     "upload_url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/rate_confirmation_ch_robinson.pdf",
     "original_links": [
-      "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/rate_confirmation_ch_robinson.pdf"
+      {
+        "url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/rate_confirmation_ch_robinson.pdf",
+        "anchor_text": "Download example PDF"
+      }
     ],
     "posts": ["extracting-data-from-rate-confirmations"],
     "webflow_url": ""
@@ -14,7 +17,10 @@
     "local_path": "sensible-configuration-library/templates/Financial Services/Bank Statements/refdocs/chase_consolidated_balance_summary_sample.pdf",
     "upload_url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Financial%20Services/Bank%20Statements/refdocs/chase_consolidated_balance_summary_sample.pdf",
     "original_links": [
-      "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements"
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements",
+        "anchor_text": "download an example PDF for a Chase statement"
+      }
     ],
     "posts": ["how-to-extract-data-from-bank-statements-with-sensible"],
     "webflow_url": ""
@@ -24,7 +30,10 @@
     "local_path": "sensible-configuration-library/templates/Real Estate/Closing Disclosures/refdocs/closing_disclosure_sample.pdf",
     "upload_url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Real%20Estate/Closing%20Disclosures/refdocs/closing_disclosure_sample.pdf",
     "original_links": [
-      "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Real%20Estate"
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Real%20Estate",
+        "anchor_text": "download an example PDF"
+      }
     ],
     "posts": ["how-to-extract-data-from-closing-disclosures"],
     "webflow_url": ""
@@ -34,7 +43,10 @@
     "local_path": "sensible-configuration-library/templates/Healthcare/EOBs/refdocs/medicaid_sample.pdf",
     "upload_url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Healthcare/EOBs/refdocs/medicaid_sample.pdf",
     "original_links": [
-      "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare"
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare",
+        "anchor_text": "download an example PDF"
+      }
     ],
     "posts": ["how-to-extract-data-from-explanation-of-benefits-documents"],
     "webflow_url": ""
@@ -44,8 +56,14 @@
     "local_path": "sensible-configuration-library/templates/Tax Forms/1040s/refdocs/1040_2021_sample.pdf",
     "upload_url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2021_sample.pdf",
     "original_links": [
-      "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms",
-      "https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf"
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms",
+        "anchor_text": "2021 1040 example document"
+      },
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf",
+        "anchor_text": "1040 example document"
+      }
     ],
     "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
     "webflow_url": ""
@@ -55,7 +73,10 @@
     "local_path": "sensible-configuration-library/templates/Tax Forms/1040s/refdocs/1040_2018_sample.pdf",
     "upload_url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2018_sample.pdf",
     "original_links": [
-      "https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018"
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018",
+        "anchor_text": "2018 1040 example document"
+      }
     ],
     "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
     "webflow_url": ""
@@ -65,7 +86,10 @@
     "local_path": "sensible-configuration-library/templates/Tax Forms/1040s/refdocs/1040_2019_sample.pdf",
     "upload_url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2019_sample.pdf",
     "original_links": [
-      "https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019"
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019",
+        "anchor_text": "2019 1040 example document"
+      }
     ],
     "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
     "webflow_url": ""
@@ -75,7 +99,10 @@
     "local_path": "sensible-configuration-library/templates/Tax Forms/1040s/refdocs/1040_2020_sample.pdf",
     "upload_url": "https://github.com/sensible-hq/sensible-configuration-library/raw/main/templates/Tax%20Forms/1040s/refdocs/1040_2020_sample.pdf",
     "original_links": [
-      "https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020"
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020",
+        "anchor_text": "2020 1040 example document"
+      }
     ],
     "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
     "webflow_url": ""
