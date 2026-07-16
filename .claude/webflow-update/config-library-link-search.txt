@@ -1,157 +1,157 @@
 --- document-extraction-nodejs ---
-/p><p id="">Check out our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements"><strong id="">bank statement config in our open-source library</strong></a>, check out our <a
+d and typed document data at your fingertips as JSON or Excel data.&nbsp;&nbsp;</p><p id="">Check out our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements"><strong id="">bank statement config in our open-source library</strong></a>, check out our <a id="" href="https://docs.sensible.so/docs"><strong id="">docs</strong></a>, and <a id="" href="https://app.sensible.so/
 
 --- extracting-data-from-rate-confirmations ---
-confirmation configurations in our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/rate_confirmations">open-source library</a>.</p><p id="">‍</p><h2 id="">Write document extraction queries with
+="" href="https://docs.sensible.so/docs">documentation </a>or our prebuilt rate confirmation configurations in our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/rate_confirmations">open-source library</a>.</p><p id="">‍</p><h2 id="">Write document extraction queries with SenseML</h2><p id="">Let's walk through extracting specific pieces of data from a top global transportation company, CH
 
 --- extracting-data-from-rate-confirmations ---
-&nbsp;</p><p id="">Our open-source <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/rate_confirmations">rate confirmation config </a>extracts pretty much everything from this PDF, but for the ex
+ts/pdfs/rate_confirmation_ch_robinson.pdf">Download example PDF</a></p><p id="">&nbsp;</p><p id="">Our open-source <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/rate_confirmations">rate confirmation config </a>extracts pretty much everything from this PDF, but for the example in this post, let's keep it simple. We'll extract just the:</p><ul id=""><li id="">Load ID and total rate</li><li 
 
 --- extracting-data-from-rate-confirmations ---
-buted config uses approach A with a<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/blob/d1a76a3e848d6d2ebe85a0b21c9ce4f4555dedf4/rate_confirmations/ch_robinson.json#L532"> "matchAll"</a> parameter. In th
+ining receiver data.</p><p id="">In our open-source library, our customer-contributed config uses approach A with a<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/blob/d1a76a3e848d6d2ebe85a0b21c9ce4f4555dedf4/rate_confirmations/ch_robinson.json#L532"> "matchAll"</a> parameter. In this post, we'll instead illustrate approach B by treating each receiver as a repeating section. The following image shows
 
 --- extracting-data-from-rate-confirmations ---
-to uncover. Check out our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/rate_confirmations">rate confirmation config in our open-source library</a>, check out our <a id="" href="http
+ed data from rate confirmation documents. There's more extraction power for you to uncover. Check out our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/rate_confirmations">rate confirmation config in our open-source library</a>, check out our <a id="" href="https://docs.sensible.so/docs"><strong id="">docs</strong></a>, and <a id="" href="https://app.sensible.so/register/"><stron
 
 --- guide-to-using-gpt-3-with-python ---
-acts structured information from a <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements/bank_of_america">fictional bank statement for Bank of America</a>, retrieved from <a id="" hre
+ips.</p><h4 id="">Extracting Structured Data</h4><p id="">The final example extracts structured information from a <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements/bank_of_america">fictional bank statement for Bank of America</a>, retrieved from <a id="" href="https://github.com/sensible-hq/sensible-configuration-library">Sensible's configuration library repository</a>.</p><d
 
 --- how-to-extract-data-from-bank-statements-with-sensible ---
-uments. We’ve written a library of <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id="">open-source SenseML configurations</strong></a>, so you don’t need to write queries from scratch for com
+="">SenseML</strong></a>, Sensible’s query language for extracting data from documents. We’ve written a library of <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id="">open-source SenseML configurations</strong></a>, so you don’t need to write queries from scratch for common documents. From there, your bank data is accessible via API, Sensible’s UI, or 5,000 other software integrations tha
 
 --- how-to-extract-data-from-bank-statements-with-sensible ---
-can sign up for a Sensible account, then <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements"><strong id="">download an example PDF for a Chase statement 
+n id="">Chase bank statement</figcaption></figure><p id="">To follow along, you can sign up for a Sensible account, then <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements"><strong id="">download an example PDF for a Chase statement </strong></a>and upload it to the Sensible app, or import the PDF and prebuilt open-source configurations directly to th
 
 --- how-to-extract-data-from-bank-statements-with-sensible ---
- app</strong></a>.</p><p id="">Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/">configurations for bank statement <strong id="">extractions</strong></a> are comprehensive. To keep the example in thi
+ly to the<a id="" href="https://app.sensible.so/library"><strong id=""> Sensible app</strong></a>.</p><p id="">Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/">configurations for bank statement <strong id="">extractions</strong></a> are comprehensive. To keep the example in this post simple, let's extract just the:</p><ul id=""><li id="">Date range of statement</li><li id="">Electronic withdrawa
 
 --- how-to-extract-data-from-bank-statements-with-sensible ---
-d), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id=""> bank statement config in our open-source library</strong></a>, and peruse our<a id="" href="https://doc
+ree account</strong></a><strong id=""> (100 docs a month, no credit card required), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id=""> bank statement config in our open-source library</strong></a>, and peruse our<a id="" href="https://docs.sensible.so/docs"><strong id=""> docs</strong></a> to start extracting data from your own documents.</p>
 
 --- how-to-extract-data-from-closing-disclosures ---
-uments. We’ve written a library of <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/">open-source SenseML configurations</a>, so you don’t need to write queries from scratch for common documents. From the
+ntroduction">SenseML</a>, Sensible’s query language for extracting data from documents. We’ve written a library of <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/">open-source SenseML configurations</a>, so you don’t need to write queries from scratch for common documents. From there, your closing disclosure data is accessible via API, Sensible’s UI, or 5,000 other software integrations thanks to Za
 
 --- how-to-extract-data-from-closing-disclosures ---
-on</a> or our prebuilt open-source <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/">closing disclosure configurations</a>.</p><h2 id="">Write document extraction queries with SenseML</h2><p id
+a you choose using our<a id="" href="https://docs.sensible.so/docs"> documentation</a> or our prebuilt open-source <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/">closing disclosure configurations</a>.</p><h2 id="">Write document extraction queries with SenseML</h2><p id="">Let's walk through extracting specific pieces of data from a mortgage closing disclosure. Here's an example of a clo
 
 --- how-to-extract-data-from-closing-disclosures ---
- can signup for a Sensible account, then <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Real%20Estate">download an example PDF </a>and upload it to the Sensible app, or import the PDF and 
+">Mortgage closing disclosure</figcaption></figure><p id="">To follow along, you can signup for a Sensible account, then <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Real%20Estate">download an example PDF </a>and upload it to the Sensible app, or import the PDF and prebuilt open-source closing disclosure configurations directly to the<a id="" href="https://app.sensible.so/library">&n
 
 --- how-to-extract-data-from-closing-disclosures ---
-nfiguration for closing disclosure <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/real_estate/closing_disclosure">extractions</a> is comprehensive for this PDF, but for the example in this pos
+ref="https://app.sensible.so/library">&nbsp;Sensible app</a>.</p><p id="">Our configuration for closing disclosure <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/real_estate/closing_disclosure">extractions</a> is comprehensive for this PDF, but for the example in this post, let's keep it simple. We'll extract just the:</p><ul id=""><li id="">Date issued</li><li id="">Loan type</li><li id="
 
 --- how-to-extract-data-from-closing-disclosures ---
-d), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/real_estate/closing_disclosure"> closing disclosure config in our open-source library</a>, and peruse our<a id
+ree account</strong></a><strong id=""> (150 docs a month, no credit card required), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/real_estate/closing_disclosure"> closing disclosure config in our open-source library</a>, and peruse our<a id="" href="https://docs.sensible.so/docs"> <strong id="">docs</strong></a> to start extracting data from your own documen
 
 --- how-to-extract-data-from-cms-1500-forms-with-sensible ---
- extractions.</p><p id=""> <br>Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare/CMS%201500">configurations for bank statement extractions</a> are comprehensive. To keep 
+id="" href="https://docs.sensible.so/docs/library-quickstart">Out-of-the-box</a> extractions.</p><p id=""> <br>Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare/CMS%201500">configurations for bank statement extractions</a> are comprehensive. To keep the example in this post simple, let's extract just the:<br>‍</p><ul id=""><li id="">carrier name</li><li id="">patient 
 
 --- how-to-extract-data-from-cms-1500-forms-with-sensible ---
-s of data from CMS-1500 forms. Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">prebuilt configuration</a> extracts much more information, including insurance details, 
+>Extract more data</h3><p id=""><br>We've covered how to extract a few key pieces of data from CMS-1500 forms. Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">prebuilt configuration</a> extracts much more information, including insurance details, diagnosis codes, referring provider information, and billing provider details. That full extraction coverage enables use
 
 --- how-to-extract-data-from-employment-verification-forms-with-sensible ---
-written a library of open-source SenseML <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates">configurations</a>, so you don't need to write queries from scratch for common documents. From ther
+ng SenseML, Sensible's query language for extracting data from documents. We've written a library of open-source SenseML <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates">configurations</a>, so you don't need to write queries from scratch for common documents. From there, your extracted employment verification data is accessible via API, Sensible's UI, or thousands of other software inte
 
 --- how-to-extract-data-from-employment-verification-forms-with-sensible ---
-e-box extractions</a> tutorial.</p><p>Our<a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Employment%20Verification"> configurations for employment verification extracti
+g the <a href="https://docs.sensible.so/docs/library-quickstart">&nbsp;Out-of-the-box extractions</a> tutorial.</p><p>Our<a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Employment%20Verification"> configurations for employment verification extractions</a> are comprehensive. To keep the example in this post simple, let's extract solely the following:<br>‍</p><ul><li>
 
 --- how-to-extract-data-from-employment-verification-forms-with-sensible ---
-loyment verification forms. Our prebuilt <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services">configurations </a>extract much more information, including multi-year income 
+ data<br>‍</h2><p>We've covered how to extract a few key pieces of data from employment verification forms. Our prebuilt <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services">configurations </a>extract much more information, including multi-year income histories, bonus and overtime details, hire dates, and reference numbers. That full extraction coverage enables use case
 
 --- how-to-extract-data-from-explanation-of-benefits-documents ---
-uments. We’ve written a library of <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id="">open-source SenseML configurations</strong></a>, so you don’t need to write queries from scratch for com
+="">SenseML</strong></a>, Sensible’s query language for extracting data from documents. We’ve written a library of <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id="">open-source SenseML configurations</strong></a>, so you don’t need to write queries from scratch for common documents. From there, your EOB data is accessible via API, Sensible’s UI, or 5,000 other software integrations than
 
 --- how-to-extract-data-from-explanation-of-benefits-documents ---
-can sign up for a Sensible account, then <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare"><strong id="">download an example PDF </strong></a>and upload it to the Sensible app, or
+caid explanation of benefits</figcaption></figure><p id="">To follow along, you can sign up for a Sensible account, then <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare"><strong id="">download an example PDF </strong></a>and upload it to the Sensible app, or import the PDF and prebuilt open-source configurations directly to the<a id="" href="https://app.sensible.so/library"><
 
 --- how-to-extract-data-from-explanation-of-benefits-documents ---
- app</strong></a>.</p><p id="">Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/eobs">configurations for explanation of benefit <strong id="">extractions</strong></a> are comprehensive. To k
+ly to the<a id="" href="https://app.sensible.so/library"><strong id=""> Sensible app</strong></a>.</p><p id="">Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/eobs">configurations for explanation of benefit <strong id="">extractions</strong></a> are comprehensive. To keep the example in this post simple, let's extract just the:</p><ul id=""><li id="">Remittance date</li><li id="">Total 
 
 --- how-to-extract-data-from-explanation-of-benefits-documents ---
-d), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/eobs"><strong id=""> EOB config in our open-source library</strong></a>, and peruse our<a id="" href="https://
+ree account</strong></a><strong id=""> (150 docs a month, no credit card required), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/eobs"><strong id=""> EOB config in our open-source library</strong></a>, and peruse our<a id="" href="https://docs.sensible.so/docs"><strong id=""> docs</strong></a> to start extracting data from your own documents.</p>
 
 --- how-to-extract-data-from-insurance-declaration-pages-with-sensible ---
-, renters, pet, and commercial policies: <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Policy%20Declaration%20Pages">Policy Declaration Pages config library</a>. To build custom
+ configuration library includes prebuilt declaration page configs for auto, home, renters, pet, and commercial policies: <a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Policy%20Declaration%20Pages">Policy Declaration Pages config library</a>. To build custom fields beyond the prebuilt configs, the <a href="https://docs.sensible.so/docs/senseml-reference-introduction">SenseML 
 
 --- how-to-extract-data-from-rent-rolls-with-llms-and-sensible ---
- rent rolls.</li></ul><p id="">Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/proptech"><strong id="">configurations for rent rolls</strong></a> are comprehensive. To keep the example in t
+cs/library-quickstart"><strong id="">Out-of-the-box extractions</strong></a> for rent rolls.</li></ul><p id="">Our <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/proptech"><strong id="">configurations for rent rolls</strong></a> are comprehensive. To keep the example in this post simple, let's just extract:</p><ul id=""><li id="">Total units, total rent, and % occupied</li><li id="">Apartm
 
 --- how-to-extract-data-from-rent-rolls-with-llms-and-sensible ---
-eck out our prebuilt configs in our<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id=""> open-source library</strong></a>, and peruse our<a id="" href="https://docs.sensible.so/docs"><strong i
+for an account</strong></a><strong id=""> (no credit card required), </strong>check out our prebuilt configs in our<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id=""> open-source library</strong></a>, and peruse our<a id="" href="https://docs.sensible.so/docs"><strong id=""> docs</strong></a> to start extracting data from your own documents.</p>
 
 --- how-to-extract-data-from-resumes-with-llms-and-sensible ---
-nd select resumes.</li></ul><p id="">Our <a href="https://github.com/sensible-hq/sensible-configuration-library/">configurations for resumes</a> are comprehensive. To keep the example in this post simple, let's extract just the:</p>
+tps://docs.sensible.so/docs/library-quickstart">Out-of-the-box extractions</a> and select resumes.</li></ul><p id="">Our <a href="https://github.com/sensible-hq/sensible-configuration-library/">configurations for resumes</a> are comprehensive. To keep the example in this post simple, let's extract just the:</p><ul id=""><li id="">Candidate’s name</li><li id="">Candidate’s experiences</li></ul><h2 id="">Configure the LLM preproce
 
 --- how-to-extract-data-from-resumes-with-llms-and-sensible ---
-rebuilt config extracts more data. <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/resume">Check it out</a>, use the Sensible app to modify existing queries or add your own extraction queries, 
+h2><p id="">This tutorial extracts just a few pieces of data from resumes. Our prebuilt config extracts more data. <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/resume">Check it out</a>, use the Sensible app to modify existing queries or add your own extraction queries, and then publish your config so you can extract data from resumes in volume. </p><h2 id="">Start extracting from your do
 
 --- how-to-extract-data-from-resumes-with-llms-and-sensible ---
-d), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id=""> configs in our open-source library</strong></a>, and peruse our<a id="" href="https://docs.sensible.so/
+id="">Sign up for an account</strong></a><strong id=""> ( no credit card required), </strong>check out our prebuilt<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/"><strong id=""> configs in our open-source library</strong></a>, and peruse our<a id="" href="https://docs.sensible.so/docs"><strong id=""> docs</strong></a> to start extracting data from your own documents.</p><p id="">‍</p>
 
 --- how-to-use-gpt-4-to-parse-free-text-documents ---
-</h2><p id="">Explore our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/"><strong id="">open-source library</strong></a> for extracting from common business documents, check out our 
+https://docs.sensible.so/docs/methods">methods</a>.</p><h2 id="">Try it for free</h2><p id="">Explore our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/"><strong id="">open-source library</strong></a> for extracting from common business documents, check out our <a id="" href="https://docs.sensible.so/docs"><strong id="">docs</strong></a>, and <a id="" href="https://app.sensible.s
 
 --- introducing-email-data-extraction ---
-ments:<br>‍</p><ul id=""><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Identification/Driver%20License">driver's licenses</a>&nbsp;</li><li id=""><a id="" href="https://gi
+the-box</a> support&nbsp; to get you started immediately with the following documents:<br>‍</p><ul id=""><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Identification/Driver%20License">driver's licenses</a>&nbsp;</li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Human%20Resources/Pay%20Stubs">pay stubs</a></li
 
 --- introducing-email-data-extraction ---
-s licenses</a>&nbsp;</li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Human%20Resources/Pay%20Stubs">pay stubs</a></li></ul><p id="">‍</p><h3 id="">Insurance: Claims Docu
+nfiguration-library/tree/main/templates/Identification/Driver%20License">driver's licenses</a>&nbsp;</li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Human%20Resources/Pay%20Stubs">pay stubs</a></li></ul><p id="">‍</p><h3 id="">Insurance: Claims Document Processing<br>‍</h3><p id="">Insurance companies receive many claim submissions via email with supporting documenta
 
 --- introducing-email-data-extraction ---
-ul id=""><li id="">insurance policy<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Policy%20Declaration%20Pages"> declaration pages</a></li><li id=""><a id="" href="https://
+ort&nbsp; to get you started immediately with the following documents:<br>‍</p><ul id=""><li id="">insurance policy<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Policy%20Declaration%20Pages"> declaration pages</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Loss%20Runs">loss runs</a></li><li i
 
 --- introducing-email-data-extraction ---
-eclaration pages</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Loss%20Runs">loss runs</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sen
+iguration-library/tree/main/templates/Insurance/Policy%20Declaration%20Pages"> declaration pages</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Loss%20Runs">loss runs</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/ACORD%20Forms">ACORD forms</a><a id="" href="https://github.co
 
 --- introducing-email-data-extraction ---
-0Runs">loss runs</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/ACORD%20Forms">ACORD forms</a><a id="" href="https://github.com/sensible-hq/sensible-confi
+/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Loss%20Runs">loss runs</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/ACORD%20Forms">ACORD forms</a><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensi
 
 --- introducing-email-data-extraction ---
-ance/ACORD%20Forms">ACORD forms</a><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration
+/github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/ACORD%20Forms">ACORD forms</a><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">healthcare forms<br>‍</a></li></ul><h3 id="">Financial Services: Loan Documenta
 
 --- introducing-email-data-extraction ---
-es/Healthcare">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">healthcare forms<br>‍</a></li></ul><h3 id="">Financial Services: Loan Documentation<br>‍
+"https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare">healthcare forms<br>‍</a></li></ul><h3 id="">Financial Services: Loan Documentation<br>‍</h3><p id="">Banks and lending institutions can automate processing emailed loan applications. Sensible can handle:<br>
 
 --- introducing-email-data-extraction ---
-ments:<br>‍</p><ul id=""><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms">tax forms</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-conf
+the-box</a> support&nbsp; to get you started immediately with the following documents:<br>‍</p><ul id=""><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms">tax forms</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements">bank statements</a></li><li id=""><a id=""
 
 --- introducing-email-data-extraction ---
-Forms">tax forms</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements">bank statements</a></li><li id=""><a id="" href="https://git
+github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms">tax forms</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Bank%20Statements">bank statements</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verifications%20of%20Employm
 
 --- introducing-email-data-extraction ---
->bank statements</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verifications%20of%20Employment">verification&nbsp;of employment</a> forms (VOE
+onfiguration-library/tree/main/templates/Financial%20Services/Bank%20Statements">bank statements</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verifications%20of%20Employment">verification&nbsp;of employment</a> forms (VOEs)<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/
 
 --- introducing-email-data-extraction ---
-nbsp;of employment</a> forms (VOEs)<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verification%20of%20Assets">‍</a></li><li id=""><a id="" href="https://github.c
+in/templates/Financial%20Services/Verifications%20of%20Employment">verification&nbsp;of employment</a> forms (VOEs)<a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verification%20of%20Assets">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verification%20of%20Assets">verif
 
 --- introducing-email-data-extraction ---
-20of%20Assets">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verification%20of%20Assets">verifications of assets forms</a> (VOAs)</li></ul><
+ble-configuration-library/tree/main/templates/Financial%20Services/Verification%20of%20Assets">‍</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verification%20of%20Assets">verifications of assets forms</a> (VOAs)</li></ul><h4 id=""><br>How It Works: Email Processors and Document Types<br>‍</h4><p id="">Behind the scenes, Sensible's email ext
 
 --- low-code-pdf-to-database-with-zapier-and-sensible ---
-cel-quickstart">Quickstart</a> and <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/">config library.</a></li></ul><p id="">‍</p><h2 id=""><strong id="">Configure Zapier</strong></h2><p id="">Take the fol
+e. For more information, see our <a id="" href="https://docs.sensible.so/docs/excel-quickstart">Quickstart</a> and <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/">config library.</a></li></ul><p id="">‍</p><h2 id=""><strong id="">Configure Zapier</strong></h2><p id="">Take the following steps to connect Sensible to Airtable using Zapier:</p><p id="">1. Sign in or create a <a id="" href="https://zap
 
 --- low-code-pdf-to-database-with-zapier-and-sensible ---
-le 1040 document:</p><ul id=""><li id=""><a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms">2021 1040 example document </a></li></ul><p id="">‍</p><p id="">5. Wait a few minutes f
+">quick extraction tab</a>, upload and run an extraction for the following example 1040 document:</p><ul id=""><li id=""><a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Tax%20Forms">2021 1040 example document </a></li></ul><p id="">‍</p><p id="">5. Wait a few minutes for Zapier to poll and receive the extraction. Then, In the <strong id="">Set up trigger</strong> section, select the <st
 
 --- low-code-pdf-to-database-with-zapier-and-sensible ---
-ld see the extracted data from the <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf">1040 example document</a> as a record in your database. For example, 
+each one.</p><p id="">10. Follow the Zapier prompts to test the action. You should see the extracted data from the <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/raw/main/tax_forms/1040/2021/1040_2021_sample.pdf">1040 example document</a> as a record in your database. For example, in Airtable:</p><figure id="" class="w-richtext-figure-type-image w-richtext-align-center" data-rt-type="image" data-rt-
 
 --- low-code-pdf-to-database-with-zapier-and-sensible ---
- documents:</p><ul id=""><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018">2018 1040 example document</a></li><li id=""><a id="" href="https://github.com/sensible-h
+ab</a>.</p><p id="">2. Upload and run extractions for the following example 1040 documents:</p><ul id=""><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018">2018 1040 example document</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019">2019 1040 example document</a></li><li id=""><a id="" hr
 
 --- low-code-pdf-to-database-with-zapier-and-sensible ---
-example document</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019">2019 1040 example document</a></li><li id=""><a id="" href="https://github.com/sensible-h
+ible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2018">2018 1040 example document</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019">2019 1040 example document</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020">2020 1040 example document</a></li></ul><p id="">3. Veri
 
 --- low-code-pdf-to-database-with-zapier-and-sensible ---
-example document</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020">2020 1040 example document</a></li></ul><p id="">3. Verify the extractions show up in you
+ible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2019">2019 1040 example document</a></li><li id=""><a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/tax_forms/1040/2020">2020 1040 example document</a></li></ul><p id="">3. Verify the extractions show up in your destination database. For example, in Airtable, your results might look like something like this:</p><figure id="" cla
 
 --- opinionated-guide-to-jsonlogic-for-transforming-document-data ---
-;</p><p id="">Explore our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/"><strong id="">open-source library</strong></a> for extracting from common business documents, check out our 
+e power of JsonLogic for transforming your extracted document data schemas.&nbsp;</p><p id="">Explore our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/"><strong id="">open-source library</strong></a> for extracting from common business documents, check out our <a id="" href="https://docs.sensible.so/docs"><strong id="">docs</strong></a>, and <a id="" href="https://app.sensible.s
 
 --- paystubs-long-tail ---
- our prebuilt extraction templates in our<a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates"> open-source library</a>, and peruse our<a href="https://docs.sensible.so/docs/overview"> docs</a> 
+ href="https://app.sensible.so/register/"> sign up</a> for an account, check out our prebuilt extraction templates in our<a href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates"> open-source library</a>, and peruse our<a href="https://docs.sensible.so/docs/overview"> docs</a> to start extracting data from your own documents.</p>
 
 --- transform-your-extracted-document-data-with-custom-logic ---
-;</p><p id="">Explore our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/"><strong id="">open-source library</strong></a> for extracting from common business documents, check out our 
+e power of JsonLogic for transforming your extracted document data schemas.&nbsp;</p><p id="">Explore our prebuilt <a id="" href="https://github.com/sensible-hq/sensible-configuration-library/tree/main/"><strong id="">open-source library</strong></a> for extracting from common business documents, check out our <a id="" href="https://docs.sensible.so/docs"><strong id="">docs</strong></a>, and <a id="" href="https://app.sensible.s
 
 Total: 52 occurrences in 17 posts
