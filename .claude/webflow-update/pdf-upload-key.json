@@ -194,5 +194,221 @@
         "target_blank": true
       }
     ]
+  },
+  {
+    "description": "Generic config library link — extracting-data-from-rate-confirmations",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/rate_confirmations",
+        "anchor_text": "open-source library"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "extracting-data-from-rate-confirmations",
+        "url": "https://www.sensible.so/blog/extracting-data-from-rate-confirmations"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — how-to-extract-data-from-bank-statements-with-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/",
+        "anchor_text": "open-source SenseML configurations"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-bank-statements-with-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-bank-statements-with-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — how-to-extract-data-from-closing-disclosures",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/",
+        "anchor_text": "open-source SenseML configurations"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-closing-disclosures",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-closing-disclosures"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — how-to-extract-data-from-employment-verification-forms-with-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates",
+        "anchor_text": "configurations"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-employment-verification-forms-with-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-employment-verification-forms-with-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — how-to-extract-data-from-explanation-of-benefits-documents",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/",
+        "anchor_text": "open-source SenseML configurations"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-explanation-of-benefits-documents",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-explanation-of-benefits-documents"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — how-to-use-gpt-4-to-parse-free-text-documents",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/",
+        "anchor_text": "open-source library"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-use-gpt-4-to-parse-free-text-documents",
+        "url": "https://www.sensible.so/blog/how-to-use-gpt-4-to-parse-free-text-documents"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — low-code-pdf-to-database-with-zapier-and-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/",
+        "anchor_text": "config library."
+      }
+    ],
+    "posts": [
+      {
+        "slug": "low-code-pdf-to-database-with-zapier-and-sensible",
+        "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — paystubs-long-tail",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates",
+        "anchor_text": "open-source library"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "paystubs-long-tail",
+        "url": "https://www.sensible.so/blog/paystubs-long-tail"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Generic config library link — transform-your-extracted-document-data-with-custom-logic",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/",
+        "anchor_text": "open-source library"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "transform-your-extracted-document-data-with-custom-logic",
+        "url": "https://www.sensible.so/blog/transform-your-extracted-document-data-with-custom-logic"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
   }
 ]
