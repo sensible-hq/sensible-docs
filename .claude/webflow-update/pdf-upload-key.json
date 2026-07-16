@@ -892,6 +892,30 @@
     ]
   },
   {
+    "description": "Generic config library link — opinionated-guide-to-jsonlogic-for-transforming-document-data",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/",
+        "anchor_text": "open-source library"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "opinionated-guide-to-jsonlogic-for-transforming-document-data",
+        "url": "https://www.sensible.so/blog/opinionated-guide-to-jsonlogic-for-transforming-document-data"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library",
+        "target_blank": false
+      }
+    ]
+  },
+  {
     "description": "Verification of assets config link (invisible anchor) — introducing-email-data-extraction",
     "local_path": null,
     "upload_url": null,
