@@ -410,5 +410,509 @@
         "target_blank": false
       }
     ]
+  },
+  {
+    "description": "Bank statement config library link — document-extraction-nodejs",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements",
+        "anchor_text": "bank statement config in our open-source library"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "document-extraction-nodejs",
+        "url": "https://www.sensible.so/blog/document-extraction-nodejs"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#bank-statements",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Rate confirmations JSON line link (matchAll anchor) — extracting-data-from-rate-confirmations",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/blob/d1a76a3e848d6d2ebe85a0b21c9ce4f4555dedf4/rate_confirmations/ch_robinson.json#L532",
+        "anchor_text": "\"matchAll\""
+      }
+    ],
+    "posts": [
+      {
+        "slug": "extracting-data-from-rate-confirmations",
+        "url": "https://www.sensible.so/blog/extracting-data-from-rate-confirmations"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#rate-confirmations",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Bank of America bank statement config link — guide-to-using-gpt-3-with-python",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/bank_statements/bank_of_america",
+        "anchor_text": "fictional bank statement for Bank of America"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "guide-to-using-gpt-3-with-python",
+        "url": "https://www.sensible.so/blog/guide-to-using-gpt-3-with-python"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#bank-statements",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Closing disclosure config link ('closing disclosure configurations') — how-to-extract-data-from-closing-disclosures",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/",
+        "anchor_text": "closing disclosure configurations"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-closing-disclosures",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-closing-disclosures"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#closing-disclosures",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Closing disclosure config link ('extractions') — how-to-extract-data-from-closing-disclosures",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/real_estate/closing_disclosure",
+        "anchor_text": "extractions"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-closing-disclosures",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-closing-disclosures"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#closing-disclosures",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "CMS-1500 config library link — how-to-extract-data-from-cms-1500-forms-with-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Healthcare/CMS%201500",
+        "anchor_text": "configurations for bank statement extractions"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-cms-1500-forms-with-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-cms-1500-forms-with-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#cms-1500",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Employment verification config link (specific subdir) — how-to-extract-data-from-employment-verification-forms-with-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Employment%20Verification",
+        "anchor_text": "configurations for employment verification extractions"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-employment-verification-forms-with-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-employment-verification-forms-with-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#employment-verification",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Employment verification config link (Financial Services dir) — how-to-extract-data-from-employment-verification-forms-with-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services",
+        "anchor_text": "configurations for employment verification extractions"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-employment-verification-forms-with-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-employment-verification-forms-with-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#employment-verification",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "EOB config library link — how-to-extract-data-from-explanation-of-benefits-documents",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/eobs",
+        "anchor_text": "configurations for explanation of benefit extractions"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-explanation-of-benefits-documents",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-explanation-of-benefits-documents"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#eobs",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Policy declaration pages config library link — how-to-extract-data-from-insurance-declaration-pages-with-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Policy%20Declaration%20Pages",
+        "anchor_text": "Policy Declaration Pages config library"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-insurance-declaration-pages-with-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-insurance-declaration-pages-with-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#policy-declaration-pages",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Rent rolls config link (proptech dir) — how-to-extract-data-from-rent-rolls-with-llms-and-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/proptech",
+        "anchor_text": "configurations for rent rolls"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-rent-rolls-with-llms-and-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-rent-rolls-with-llms-and-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#rent-rolls",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Rent rolls config link (root) — how-to-extract-data-from-rent-rolls-with-llms-and-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/",
+        "anchor_text": "configurations for rent rolls"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-rent-rolls-with-llms-and-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-rent-rolls-with-llms-and-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#rent-rolls",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Resumes config link (root) — how-to-extract-data-from-resumes-with-llms-and-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/",
+        "anchor_text": "configurations for resumes"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-resumes-with-llms-and-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-resumes-with-llms-and-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#resumes",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Resumes config link ('Check it out') — how-to-extract-data-from-resumes-with-llms-and-sensible",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/resume",
+        "anchor_text": "Check it out"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-resumes-with-llms-and-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-resumes-with-llms-and-sensible"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#resumes",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Driver's licenses config link — introducing-email-data-extraction",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Identification/Driver%20License",
+        "anchor_text": "driver's licenses"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "introducing-email-data-extraction",
+        "url": "https://www.sensible.so/blog/introducing-email-data-extraction"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#drivers-license",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Pay stubs config link — introducing-email-data-extraction",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Human%20Resources/Pay%20Stubs",
+        "anchor_text": "pay stubs"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "introducing-email-data-extraction",
+        "url": "https://www.sensible.so/blog/introducing-email-data-extraction"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#pay-stubs",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Declaration pages config link — introducing-email-data-extraction",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Policy%20Declaration%20Pages",
+        "anchor_text": "declaration pages"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "introducing-email-data-extraction",
+        "url": "https://www.sensible.so/blog/introducing-email-data-extraction"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#policy-declaration-pages",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Loss runs config link — introducing-email-data-extraction",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/Loss%20Runs",
+        "anchor_text": "loss runs"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "introducing-email-data-extraction",
+        "url": "https://www.sensible.so/blog/introducing-email-data-extraction"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#loss-runs",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "ACORD forms config link — introducing-email-data-extraction",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Insurance/ACORD%20Forms",
+        "anchor_text": "ACORD forms"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "introducing-email-data-extraction",
+        "url": "https://www.sensible.so/blog/introducing-email-data-extraction"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#acord-forms",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Verification of employment config link — introducing-email-data-extraction",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verifications%20of%20Employment",
+        "anchor_text": "verification of employment"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "introducing-email-data-extraction",
+        "url": "https://www.sensible.so/blog/introducing-email-data-extraction"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#verification-of-employment",
+        "target_blank": false
+      }
+    ]
+  },
+  {
+    "description": "Verification of assets config link (invisible anchor) — introducing-email-data-extraction",
+    "local_path": null,
+    "upload_url": null,
+    "original_links": [
+      {
+        "url": "https://github.com/sensible-hq/sensible-configuration-library/tree/main/templates/Financial%20Services/Verification%20of%20Assets",
+        "anchor_text": "‍"
+      }
+    ],
+    "posts": [
+      {
+        "slug": "introducing-email-data-extraction",
+        "url": "https://www.sensible.so/blog/introducing-email-data-extraction"
+      }
+    ],
+    "webflow_url": null,
+    "new_links": [
+      {
+        "url": "https://www.sensible.so/configuration-library#verification-of-assets",
+        "target_blank": false
+      }
+    ]
   }
 ]
