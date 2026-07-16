@@ -9,8 +9,13 @@
         "anchor_text": "Download example PDF"
       }
     ],
-    "posts": [{"slug": "extracting-data-from-rate-confirmations", "url": "https://www.sensible.so/blog/extracting-data-from-rate-confirmations"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "extracting-data-from-rate-confirmations",
+        "url": "https://www.sensible.so/blog/extracting-data-from-rate-confirmations"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc96078_rate_confirmation_ch_robinson.pdf"
   },
   {
     "description": "Chase bank statement",
@@ -22,8 +27,13 @@
         "anchor_text": "download an example PDF for a Chase statement"
       }
     ],
-    "posts": [{"slug": "how-to-extract-data-from-bank-statements-with-sensible", "url": "https://www.sensible.so/blog/how-to-extract-data-from-bank-statements-with-sensible"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-bank-statements-with-sensible",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-bank-statements-with-sensible"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226610509a40eaf0395_chase_consolidated_balance_summary_sample.pdf"
   },
   {
     "description": "Mortgage closing disclosure",
@@ -35,8 +45,13 @@
         "anchor_text": "download an example PDF"
       }
     ],
-    "posts": [{"slug": "how-to-extract-data-from-closing-disclosures", "url": "https://www.sensible.so/blog/how-to-extract-data-from-closing-disclosures"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-closing-disclosures",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-closing-disclosures"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc960cd_closing_disclosure_sample.pdf"
   },
   {
     "description": "Medicaid explanation of benefits (EOB)",
@@ -48,8 +63,13 @@
         "anchor_text": "download an example PDF"
       }
     ],
-    "posts": [{"slug": "how-to-extract-data-from-explanation-of-benefits-documents", "url": "https://www.sensible.so/blog/how-to-extract-data-from-explanation-of-benefits-documents"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "how-to-extract-data-from-explanation-of-benefits-documents",
+        "url": "https://www.sensible.so/blog/how-to-extract-data-from-explanation-of-benefits-documents"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227ca608d32e5ccaba7_medicaid_sample.pdf"
   },
   {
     "description": "1040 tax form 2021",
@@ -65,8 +85,13 @@
         "anchor_text": "1040 example document"
       }
     ],
-    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "low-code-pdf-to-database-with-zapier-and-sensible",
+        "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74508_1040_2021_sample.pdf"
   },
   {
     "description": "1040 tax form 2018",
@@ -78,8 +103,13 @@
         "anchor_text": "2018 1040 example document"
       }
     ],
-    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "low-code-pdf-to-database-with-zapier-and-sensible",
+        "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74530_1040_2018_sample.pdf"
   },
   {
     "description": "1040 tax form 2019",
@@ -91,8 +121,13 @@
         "anchor_text": "2019 1040 example document"
       }
     ],
-    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "low-code-pdf-to-database-with-zapier-and-sensible",
+        "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74550_1040_2019_sample.pdf"
   },
   {
     "description": "1040 tax form 2020",
@@ -104,7 +139,12 @@
         "anchor_text": "2020 1040 example document"
       }
     ],
-    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
-    "webflow_url": ""
+    "posts": [
+      {
+        "slug": "low-code-pdf-to-database-with-zapier-and-sensible",
+        "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
+      }
+    ],
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594228d3fd962ad4bd4869_1040_2020_sample.pdf"
   }
 ]
