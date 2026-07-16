@@ -15,7 +15,13 @@
         "url": "https://www.sensible.so/blog/extracting-data-from-rate-confirmations"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc96078_rate_confirmation_ch_robinson.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc96078_rate_confirmation_ch_robinson.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc96078_rate_confirmation_ch_robinson.pdf",
+        "target_blank": true
+      }
+    ]
   },
   {
     "description": "Chase bank statement",
@@ -33,7 +39,13 @@
         "url": "https://www.sensible.so/blog/how-to-extract-data-from-bank-statements-with-sensible"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226610509a40eaf0395_chase_consolidated_balance_summary_sample.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226610509a40eaf0395_chase_consolidated_balance_summary_sample.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226610509a40eaf0395_chase_consolidated_balance_summary_sample.pdf",
+        "target_blank": true
+      }
+    ]
   },
   {
     "description": "Mortgage closing disclosure",
@@ -51,7 +63,13 @@
         "url": "https://www.sensible.so/blog/how-to-extract-data-from-closing-disclosures"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc960cd_closing_disclosure_sample.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc960cd_closing_disclosure_sample.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594226ef825b09edc960cd_closing_disclosure_sample.pdf",
+        "target_blank": true
+      }
+    ]
   },
   {
     "description": "Medicaid explanation of benefits (EOB)",
@@ -69,7 +87,13 @@
         "url": "https://www.sensible.so/blog/how-to-extract-data-from-explanation-of-benefits-documents"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227ca608d32e5ccaba7_medicaid_sample.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227ca608d32e5ccaba7_medicaid_sample.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227ca608d32e5ccaba7_medicaid_sample.pdf",
+        "target_blank": true
+      }
+    ]
   },
   {
     "description": "1040 tax form 2021",
@@ -91,7 +115,13 @@
         "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74508_1040_2021_sample.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74508_1040_2021_sample.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74508_1040_2021_sample.pdf",
+        "target_blank": true
+      }
+    ]
   },
   {
     "description": "1040 tax form 2018",
@@ -109,7 +139,13 @@
         "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74530_1040_2018_sample.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74530_1040_2018_sample.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74530_1040_2018_sample.pdf",
+        "target_blank": true
+      }
+    ]
   },
   {
     "description": "1040 tax form 2019",
@@ -127,7 +163,13 @@
         "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74550_1040_2019_sample.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74550_1040_2019_sample.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594227229aca44fdf74550_1040_2019_sample.pdf",
+        "target_blank": true
+      }
+    ]
   },
   {
     "description": "1040 tax form 2020",
@@ -145,6 +187,12 @@
         "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"
       }
     ],
-    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594228d3fd962ad4bd4869_1040_2020_sample.pdf"
+    "webflow_url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594228d3fd962ad4bd4869_1040_2020_sample.pdf",
+    "new_links": [
+      {
+        "url": "https://cdn.prod.website-files.com/69d90e4abf8f50428ec28825/6a594228d3fd962ad4bd4869_1040_2020_sample.pdf",
+        "target_blank": true
+      }
+    ]
   }
 ]
