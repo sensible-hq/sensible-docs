@@ -9,7 +9,7 @@
         "anchor_text": "Download example PDF"
       }
     ],
-    "posts": ["extracting-data-from-rate-confirmations"],
+    "posts": [{"slug": "extracting-data-from-rate-confirmations", "url": "https://www.sensible.so/blog/extracting-data-from-rate-confirmations"}],
     "webflow_url": ""
   },
   {
@@ -22,7 +22,7 @@
         "anchor_text": "download an example PDF for a Chase statement"
       }
     ],
-    "posts": ["how-to-extract-data-from-bank-statements-with-sensible"],
+    "posts": [{"slug": "how-to-extract-data-from-bank-statements-with-sensible", "url": "https://www.sensible.so/blog/how-to-extract-data-from-bank-statements-with-sensible"}],
     "webflow_url": ""
   },
   {
@@ -35,7 +35,7 @@
         "anchor_text": "download an example PDF"
       }
     ],
-    "posts": ["how-to-extract-data-from-closing-disclosures"],
+    "posts": [{"slug": "how-to-extract-data-from-closing-disclosures", "url": "https://www.sensible.so/blog/how-to-extract-data-from-closing-disclosures"}],
     "webflow_url": ""
   },
   {
@@ -48,7 +48,7 @@
         "anchor_text": "download an example PDF"
       }
     ],
-    "posts": ["how-to-extract-data-from-explanation-of-benefits-documents"],
+    "posts": [{"slug": "how-to-extract-data-from-explanation-of-benefits-documents", "url": "https://www.sensible.so/blog/how-to-extract-data-from-explanation-of-benefits-documents"}],
     "webflow_url": ""
   },
   {
@@ -65,7 +65,7 @@
         "anchor_text": "1040 example document"
       }
     ],
-    "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
+    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
     "webflow_url": ""
   },
   {
@@ -78,7 +78,7 @@
         "anchor_text": "2018 1040 example document"
       }
     ],
-    "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
+    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
     "webflow_url": ""
   },
   {
@@ -91,7 +91,7 @@
         "anchor_text": "2019 1040 example document"
       }
     ],
-    "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
+    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
     "webflow_url": ""
   },
   {
@@ -104,7 +104,7 @@
         "anchor_text": "2020 1040 example document"
       }
     ],
-    "posts": ["low-code-pdf-to-database-with-zapier-and-sensible"],
+    "posts": [{"slug": "low-code-pdf-to-database-with-zapier-and-sensible", "url": "https://www.sensible.so/blog/low-code-pdf-to-database-with-zapier-and-sensible"}],
     "webflow_url": ""
   }
 ]
