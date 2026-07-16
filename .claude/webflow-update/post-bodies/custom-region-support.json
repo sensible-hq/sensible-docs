@@ -1,0 +1,7 @@
+{
+  "id": "69d90e4abf8f50428ec28ebf",
+  "slug": "custom-region-support",
+  "name": "Custom region support",
+  "lastPublished": "2026-06-04T19:47:19.088Z",
+  "post-body": "<p>Today we are pleased to announce custom region support for our Enterprise customers. Businesses outside the US with data residency requirements, and businesses that would like to minimize latency to Sensible's API, will now be able to select their preferred AWS region.&nbsp;</p><p>This support joins our custom retention policies and SLAs, as well as our comprehensive onboarding services and SOC 2 Type II compliance, in providing our enterprise customers with the most flexible, secure, and reliable platform for turning documents into useful data.</p><p>We've been live in production for over a month in the UK with our pilot customer for this service and are now excited to launch region support more broadly. If you are an existing or prospective enterprise customer that is interested in this service, just <a href=\"mailto:support@sensible.so?subject=Custom%20Region%20Availability\">reach out </a>to our customer success team and let us know which AWS region you'd like to reside in.</p>"
+}
