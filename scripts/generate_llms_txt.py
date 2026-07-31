@@ -32,6 +32,10 @@ HEADER = """\
 > Sensible is a developer-first platform for extracting structured data from documents, including PDFs, emails, spreadsheets, and images. Use Sensible to build document-automation features into your vertical SaaS products.
 
 This file contains links to the Sensible documentation to help LLMs understand the platform.
+
+## Instructions for AI Agents
+
+- For clean Markdown of any page, append `.md` to the page URL
 """
 
 # docs/_order.yaml lists a "llms.txt" category that is the source file for
@@ -192,6 +196,47 @@ def generate(repo_root: Path) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def check_order(order_path: Path, repo_root: Path) -> list[str]:
+    """Recursively validate an _order.yaml file, returning a list of issue strings."""
+    issues = []
+    parent_dir = order_path.parent
+    for slug in read_order(order_path):
+        resolved = resolve_slug(slug, parent_dir)
+        if resolved is None:
+            issues.append(f"{order_path.relative_to(repo_root)}: '{slug}' does not resolve to a file or directory")
+        elif resolved.is_dir():
+            issues.extend(check_order(resolved / "_order.yaml", repo_root))
+    return issues
+
+
+def check(repo_root: Path) -> list[str]:
+    """Validate all _order.yaml files and return a list of issue strings.
+
+    Catches two failure modes:
+    1. A top-level category slug points to a directory that doesn't exist —
+       the whole section silently vanishes from llms.txt (e.g. 'Email extraction'
+       after the directory was moved or renamed).
+    2. A slug within any _order.yaml doesn't resolve to a file or directory —
+       the page silently drops out of llms.txt without any error.
+    """
+    issues = []
+
+    for root_dir, order_path, skip in [
+        (repo_root / "docs",      repo_root / "docs" / "_order.yaml",      DOCS_SKIP),
+        (repo_root / "reference", repo_root / "reference" / "_order.yaml", REFERENCE_SKIP),
+    ]:
+        for slug in read_order(order_path):
+            if slug in skip:
+                continue
+            cat_dir = root_dir / slug
+            if not cat_dir.is_dir():
+                issues.append(f"{order_path.relative_to(repo_root)}: '{slug}' does not resolve to a directory")
+            else:
+                issues.extend(check_order(cat_dir / "_order.yaml", repo_root))
+
+    return issues
+
+
 def find_repo_root() -> Path:
     candidate = Path(__file__).resolve().parent.parent
     if (candidate / "docs").is_dir() and (candidate / "reference").is_dir():
@@ -209,9 +254,25 @@ def main():
         action="store_true",
         help="Print generated content without writing to disk",
     )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Validate _order.yaml files and exit nonzero if any slugs don't resolve",
+    )
     args = parser.parse_args()
 
     repo_root = find_repo_root()
+
+    if args.check:
+        issues = check(repo_root)
+        if issues:
+            print(f"Found {len(issues)} unresolved slug(s):")
+            for issue in issues:
+                print(f"  {issue}")
+            return 1
+        print("All _order.yaml slugs resolve correctly")
+        return 0
+
     content = generate(repo_root)
 
     if args.dry_run:

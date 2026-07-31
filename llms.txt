@@ -4,6 +4,10 @@
 
 This file contains links to the Sensible documentation to help LLMs understand the platform.
 
+## Instructions for AI Agents
+
+- For clean Markdown of any page, append `.md` to the page URL
+
 ## welcome
 
 - [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities for document data extraction

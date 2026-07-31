@@ -100,6 +100,12 @@ jobs:
 
       # === PHASE 2: Regenerate llms.txt from _order.yaml ===
 
+      - name: Validate _order.yaml slugs
+        if: steps.existing_pr.outputs.count == '0'
+        run: |
+          echo "=== Checking _order.yaml for stale slugs ==="
+          python scripts/generate_llms_txt.py --check || true
+
       - name: Generate llms.txt
         if: steps.existing_pr.outputs.count == '0'
         id: generate
