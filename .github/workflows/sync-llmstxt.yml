@@ -122,6 +122,12 @@ jobs:
             echo "::notice::llms.txt was updated"
           fi
 
+      - name: Check llms.txt links
+        if: steps.existing_pr.outputs.count == '0'
+        run: |
+          echo "=== Checking llms.txt links ==="
+          python scripts/llms_txt/check_links.py
+
       # === PHASE 3: Create PR if any changes ===
 
       - name: Create Pull Request
