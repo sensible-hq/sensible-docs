@@ -105,7 +105,7 @@ jobs:
         if: steps.existing_pr.outputs.count == '0'
         run: |
           echo "=== Checking _order.yaml for stale slugs ==="
-          python scripts/generate_llms_txt.py --check || true
+          python scripts/llms_txt/generate.py --check || true
 
       - name: Generate llms.txt
         if: steps.existing_pr.outputs.count == '0'
@@ -113,7 +113,7 @@ jobs:
         run: |
           echo ""
           echo "=== Generating llms.txt from _order.yaml ==="
-          python scripts/generate_llms_txt.py
+          python scripts/llms_txt/generate.py
 
           if git diff --quiet llms.txt; then
             echo "changed=false" >> "$GITHUB_OUTPUT"

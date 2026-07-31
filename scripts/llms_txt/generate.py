@@ -202,8 +202,7 @@ def generate(repo_root: Path) -> str:
         lines.append("")
 
     # reference/ is a separate ReadMe UI from docs/ — it has its own navigation
-    # and doesn't share a table of contents with docs/. Users move between the
-    # two via top-level breadcrumbs, not the sidebar. Link to the OpenAPI specs
+    # and doesn't share a table of contents with docs/. Link to the OpenAPI specs
     # directly rather than individual pages so LLMs get machine-readable definitions.
     spec_lines = collect_openapi_specs(repo_root)
     if spec_lines:
@@ -258,7 +257,8 @@ def check(repo_root: Path) -> list[str]:
 
 
 def find_repo_root() -> Path:
-    candidate = Path(__file__).resolve().parent.parent
+    # scripts/llms_txt/generate.py → scripts/llms_txt/ → scripts/ → repo root
+    candidate = Path(__file__).resolve().parent.parent.parent
     if (candidate / "docs").is_dir() and (candidate / "reference").is_dir():
         return candidate
     cwd = Path.cwd()

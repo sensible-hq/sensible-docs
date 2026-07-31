@@ -1,0 +1,24 @@
+# Sensible
+
+> Sensible is a developer-first platform for extracting structured data from documents, including PDFs, emails, spreadsheets, and images. Use Sensible to build document-automation features into your vertical SaaS products.
+
+This file contains links to the Sensible documentation to help LLMs understand the platform.
+
+## Instructions for AI Agents
+
+- For clean Markdown of any page, append `.md` to the page URL
+
+## welcome
+
+- [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities.
+
+## senseml reference
+
+- [SenseML Methods](docs/Senseml%20reference/methods/index.md): Overview of all SenseML extraction methods.
+- [Anchor](docs/Senseml%20reference/methods/anchor.md): Use anchors to locate data relative to a nearby landmark.
+
+## api reference
+
+The Sensible API is described by the following OpenAPI specifications:
+
+- [Extraction](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_extraction.json): OpenAPI specification
