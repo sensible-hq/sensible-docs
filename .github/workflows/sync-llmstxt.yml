@@ -6,7 +6,7 @@ on:
       - v0
     paths:
       - '**/*.md'
-      - 'llms.txt'
+      - '**/_order.yaml'
 
 jobs:
   sync-docs:
@@ -98,71 +98,29 @@ jobs:
             ./scripts/descriptions/add_description.py "$FILE_PATH" "$DESCRIPTION"
           done
 
-      # === PHASE 2: Sync llms.txt coverage and descriptions ===
+      # === PHASE 2: Regenerate llms.txt from _order.yaml ===
 
-      - name: Check llms.txt coverage
+      - name: Generate llms.txt
         if: steps.existing_pr.outputs.count == '0'
-        id: coverage
+        id: generate
         run: |
           echo ""
-          echo "=== Checking llms.txt coverage ==="
-          ./scripts/descriptions/check_llms_coverage.py
+          echo "=== Generating llms.txt from _order.yaml ==="
+          python scripts/generate_llms_txt.py
 
-          RESULT=$(./scripts/descriptions/check_llms_coverage.py --json)
-          MISSING=$(echo "$RESULT" | jq '.missing | length')
-          ORPHANED=$(echo "$RESULT" | jq '.orphaned | length')
-          HIDDEN=$(echo "$RESULT" | jq '.hidden_in_llms | length')
-          IGNORED=$(echo "$RESULT" | jq '.ignored_in_llms | length')
-          DUPLICATES=$(echo "$RESULT" | jq '.duplicates | length')
-
-          COVERAGE_ISSUES=$((MISSING + ORPHANED + HIDDEN + IGNORED + DUPLICATES))
-          echo "coverage_issues=$COVERAGE_ISSUES" >> "$GITHUB_OUTPUT"
-
-          if [ "$COVERAGE_ISSUES" -gt 0 ]; then
-            echo "::warning::Coverage issues: $MISSING missing, $ORPHANED orphaned, $HIDDEN hidden, $IGNORED ignored, $DUPLICATES duplicates"
-          fi
-
-      - name: Check llms.txt description sync
-        if: steps.existing_pr.outputs.count == '0'
-        id: sync
-        run: |
-          echo ""
-          echo "=== Checking llms.txt description sync ==="
-          ./scripts/descriptions/sync_descriptions_to_llms.py --dry-run
-
-          RESULT=$(./scripts/descriptions/sync_descriptions_to_llms.py --json)
-          echo "result=$RESULT" >> "$GITHUB_OUTPUT"
-          SYNC_ISSUES=$(echo "$RESULT" | jq '.updates | length')
-          echo "sync_issues=$SYNC_ISSUES" >> "$GITHUB_OUTPUT"
-
-          if [ "$SYNC_ISSUES" -gt 0 ]; then
-            echo "::warning::Sync issues: $SYNC_ISSUES descriptions out of sync"
-          fi
-
-      - name: Fix llms.txt issues
-        if: steps.existing_pr.outputs.count == '0' && (steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0')
-        run: |
-          echo "=== Fixing llms.txt issues ==="
-
-          # Fix coverage issues first (add missing, remove orphaned/hidden/ignored, dedupe)
-          if [ "${{ steps.coverage.outputs.coverage_issues }}" != "0" ]; then
-            echo "Fixing coverage issues..."
-            ./scripts/descriptions/check_llms_coverage.py --fix
-          fi
-
-          # Then sync descriptions
-          if [ "${{ steps.sync.outputs.sync_issues }}" != "0" ]; then
-            echo "Syncing descriptions..."
-            ./scripts/descriptions/sync_descriptions_to_llms.py
+          if git diff --quiet llms.txt; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::llms.txt was updated"
           fi
 
       # === PHASE 3: Create PR if any changes ===
 
       - name: Create Pull Request
-        if: steps.existing_pr.outputs.count == '0' && (steps.descriptions.outputs.count != '0' || steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0')
+        if: steps.existing_pr.outputs.count == '0' && (steps.descriptions.outputs.count != '0' || steps.generate.outputs.changed == 'true')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SYNC_RESULT: ${{ steps.sync.outputs.result }}
         run: |
           # Check if there are changes
           if git diff --quiet && git diff --cached --quiet; then
@@ -185,21 +143,14 @@ jobs:
           # Push and create PR
           git push origin "$BRANCH_NAME"
 
-          # Build PR body
-          DESCRIPTIONS_GENERATED="${{ steps.descriptions.outputs.count }}"
-          COVERAGE_ISSUES="${{ steps.coverage.outputs.coverage_issues }}"
-          SYNC_ISSUES="${{ steps.sync.outputs.sync_issues }}"
-          LLMS_UPDATES=$(echo "$SYNC_RESULT" | jq -r '.updates[] | "- \(.path)"' 2>/dev/null || echo "")
-
           # Get list of changed files
           FILES_CHANGED=$(git diff --name-only HEAD~1 | sed 's/^/- /')
 
           BODY="This PR automatically syncs documentation and llms.txt.
 
           ## Summary
-          - Descriptions generated: ${DESCRIPTIONS_GENERATED:-0}
-          - llms.txt coverage issues fixed: ${COVERAGE_ISSUES:-0}
-          - llms.txt descriptions synced: ${SYNC_ISSUES:-0}
+          - Descriptions generated: ${{ steps.descriptions.outputs.count }}
+          - llms.txt regenerated: ${{ steps.generate.outputs.changed }}
 
           ## Files changed
           $FILES_CHANGED
@@ -214,7 +165,7 @@ jobs:
             --base "${{ github.event.repository.default_branch }}"
 
       - name: Fail if issues were found
-        if: steps.descriptions.outputs.count != '0' || steps.coverage.outputs.coverage_issues != '0' || steps.sync.outputs.sync_issues != '0'
+        if: steps.descriptions.outputs.count != '0' || steps.generate.outputs.changed == 'true'
         run: |
           echo "::error::Issues were found and a PR has been created to fix them."
           echo "Please review and merge the PR."
