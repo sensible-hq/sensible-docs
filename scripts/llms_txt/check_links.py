@@ -26,7 +26,8 @@ def find_repo_root() -> Path:
 
 
 def extract_urls(content: str) -> list[str]:
-    return re.findall(r"https?://[^\s)>\"']+", content)
+    # dict.fromkeys deduplicates while preserving order
+    return list(dict.fromkeys(re.findall(r"https?://[^\s)>\"']+", content)))
 
 
 def check_url(url: str) -> tuple[str, int | None, str | None]:
@@ -55,7 +56,7 @@ def main() -> int:
     failures = []
     # Low concurrency to avoid triggering rate limits on the docs CDN
     with ThreadPoolExecutor(max_workers=3) as executor:
-        futures = {executor.submit(check_url, url): url for url in urls}
+        futures = {executor.submit(check_url, url) for url in urls}
         for future in as_completed(futures):
             url, status, error = future.result()
             if error:
