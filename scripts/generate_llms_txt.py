@@ -16,6 +16,7 @@ import argparse
 import re
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 import yaml
 
@@ -48,33 +49,31 @@ def parse_front_matter(content: str) -> dict:
         return {}
 
 
-def url_encode_path(rel_path: str) -> str:
-    return rel_path.replace(" ", "%20")
-
-
 def get_page_info(md_path: Path, repo_root: Path) -> dict | None:
-    """Read a .md file and return page info, or None if the page is hidden."""
+    """Return page info for a .md file, or None if the page is hidden."""
     try:
         content = md_path.read_text(encoding="utf-8")
     except Exception:
         return None
     fm = parse_front_matter(content)
+    # hidden: true means the page is excluded from ReadMe.com's published nav;
+    # we mirror that exclusion in llms.txt so LLMs don't get sent to unpublished pages
     if fm.get("hidden") is True:
         return None
-    rel_path = str(md_path.relative_to(repo_root))
+    rel_path = quote(str(md_path.relative_to(repo_root)), safe="/")
     title = fm.get("title") or md_path.stem.replace("-", " ").title()
     description = (fm.get("metadata") or {}).get("description") or ""
     return {"path": rel_path, "title": title, "description": description}
 
 
 def format_entry(path: str, title: str, description: str) -> str:
-    encoded = url_encode_path(path)
     if description:
-        return f"- [{title}]({encoded}): {description}"
-    return f"- [{title}]({encoded})"
+        return f"- [{title}]({path}): {description}"
+    return f"- [{title}]({path})"
 
 
 def read_order(order_path: Path) -> list[str]:
+    # Returns [] on any read/parse error so callers can treat missing files as empty
     try:
         slugs = yaml.safe_load(order_path.read_text(encoding="utf-8")) or []
         return [s for s in slugs if isinstance(s, str)]
@@ -83,7 +82,7 @@ def read_order(order_path: Path) -> list[str]:
 
 
 def resolve_slug(slug: str, parent_dir: Path) -> Path | None:
-    """Resolve a slug to a .md file or subdirectory."""
+    """Resolve a slug to a .md file or subdirectory, in that priority order."""
     if slug == "index":
         f = parent_dir / "index.md"
         return f if f.exists() else None
@@ -100,57 +99,55 @@ def collect_entries(order_path: Path, repo_root: Path) -> list[str]:
     """Recursively collect all visible page entries from an _order.yaml tree, flat."""
     lines = []
     parent_dir = order_path.parent
-
     for slug in read_order(order_path):
         resolved = resolve_slug(slug, parent_dir)
         if resolved is None:
             continue
         if resolved.is_dir():
-            sub_order = resolved / "_order.yaml"
-            if sub_order.exists():
-                lines.extend(collect_entries(sub_order, repo_root))
+            # read_order silently returns [] for a missing _order.yaml, so no exists() check needed
+            lines.extend(collect_entries(resolved / "_order.yaml", repo_root))
         else:
             info = get_page_info(resolved, repo_root)
             if info:
                 lines.append(format_entry(**info))
-
     return lines
+
+
+def collect_categories(
+    root_dir: Path, order_path: Path, skip: set[str], repo_root: Path
+) -> list[tuple[str, list[str]]]:
+    """Return [(category_name, entry_lines), ...] for each non-empty category under root_dir."""
+    result = []
+    for slug in read_order(order_path):
+        if slug in skip:
+            continue
+        cat_dir = root_dir / slug
+        if not cat_dir.is_dir():
+            continue
+        # read_order handles missing _order.yaml gracefully, so no exists() check needed
+        entries = collect_entries(cat_dir / "_order.yaml", repo_root)
+        if entries:
+            result.append((cat_dir.name, entries))
+    return result
 
 
 def generate(repo_root: Path) -> str:
     lines = [HEADER]
 
-    # docs/ section: each top-level category → ## heading with flat entries
-    docs_order = repo_root / "docs" / "_order.yaml"
-    for slug in read_order(docs_order):
-        if slug in DOCS_SKIP:
-            continue
-        cat_dir = repo_root / "docs" / slug
-        if not cat_dir.is_dir():
-            continue
-        cat_order = cat_dir / "_order.yaml"
-        if not cat_order.exists():
-            continue
-        entries = collect_entries(cat_order, repo_root)
-        if entries:
-            lines.append(f"## {cat_dir.name.lower()}")
-            lines.append("")
-            lines.extend(entries)
-            lines.append("")
+    # docs/: each category gets its own ## heading
+    for name, entries in collect_categories(
+        repo_root / "docs", repo_root / "docs" / "_order.yaml", DOCS_SKIP, repo_root
+    ):
+        lines.append(f"## {name.lower()}")
+        lines.append("")
+        lines.extend(entries)
+        lines.append("")
 
-    # reference/ section: single ## heading, flat entries from all categories
-    ref_order = repo_root / "reference" / "_order.yaml"
-    ref_entries = []
-    for slug in read_order(ref_order):
-        if slug in REFERENCE_SKIP:
-            continue
-        cat_dir = repo_root / "reference" / slug
-        if not cat_dir.is_dir():
-            continue
-        cat_order = cat_dir / "_order.yaml"
-        if cat_order.exists():
-            ref_entries.extend(collect_entries(cat_order, repo_root))
-
+    # reference/: all categories collapsed under a single ## heading
+    ref_categories = collect_categories(
+        repo_root / "reference", repo_root / "reference" / "_order.yaml", REFERENCE_SKIP, repo_root
+    )
+    ref_entries = [entry for _, entries in ref_categories for entry in entries]
     if ref_entries:
         lines.append("## api reference")
         lines.append("")
