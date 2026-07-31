@@ -14,11 +14,12 @@ what ReadMe surfaces in search results and SEO meta tags.
 
 Structure:
   - docs/_order.yaml top-level categories  → ## sections
-  - reference/_order.yaml categories        → ## api reference > flat entries
+  - reference/openapi_*.json spec files     → ## api reference > spec links
   - all pages within a category are flat bullet list entries (no subheadings)
 """
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -50,6 +51,12 @@ DOCS_SKIP = {"llms.txt"}
 #   auto-committed by ReadMe's GitHub sync when the page was created in the UI,
 #   and the slug was placed in the root _order.yaml instead of here
 REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
+
+# ReadMe doesn't expose a public (unauthenticated) download URL for uploaded
+# specs — the reference UI itself links to these raw GitHub URLs. Specs are
+# discovered dynamically by globbing reference/openapi_*.json so new specs
+# are picked up automatically without touching this file.
+OPENAPI_BASE_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference"
 
 
 def parse_front_matter(content: str) -> dict:
@@ -166,6 +173,20 @@ def collect_categories(
     return result
 
 
+def collect_openapi_specs(repo_root: Path) -> list[str]:
+    """Return llms.txt entries for each openapi_*.json file in reference/, sorted by name."""
+    lines = []
+    for spec_path in sorted((repo_root / "reference").glob("openapi_*.json")):
+        try:
+            spec = json.loads(spec_path.read_text(encoding="utf-8"))
+            title = spec.get("info", {}).get("title") or spec_path.stem
+        except Exception:
+            title = spec_path.stem
+        url = f"{OPENAPI_BASE_URL}/{spec_path.name}"
+        lines.append(f"- [{title}]({url}): OpenAPI specification")
+    return lines
+
+
 def generate(repo_root: Path) -> str:
     lines = [HEADER]
 
@@ -182,16 +203,15 @@ def generate(repo_root: Path) -> str:
 
     # reference/ is a separate ReadMe UI from docs/ — it has its own navigation
     # and doesn't share a table of contents with docs/. Users move between the
-    # two via top-level breadcrumbs, not the sidebar. We collapse all reference
-    # categories under one ## heading to reflect that separation.
-    ref_categories = collect_categories(
-        repo_root / "reference", repo_root / "reference" / "_order.yaml", REFERENCE_SKIP, repo_root
-    )
-    ref_entries = [entry for _, entries in ref_categories for entry in entries]
-    if ref_entries:
+    # two via top-level breadcrumbs, not the sidebar. Link to the OpenAPI specs
+    # directly rather than individual pages so LLMs get machine-readable definitions.
+    spec_lines = collect_openapi_specs(repo_root)
+    if spec_lines:
         lines.append("## api reference")
         lines.append("")
-        lines.extend(ref_entries)
+        lines.append("The Sensible API is described by the following OpenAPI specifications:")
+        lines.append("")
+        lines.extend(spec_lines)
 
     return "\n".join(lines).rstrip() + "\n"
 
