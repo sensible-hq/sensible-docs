@@ -63,6 +63,16 @@ class TestGetPageInfo:
     def test_returns_none_for_unreadable_file(self, tmp_path):
         assert generate.get_page_info(tmp_path / "nonexistent.md") is None
 
+    def test_index_md_uses_parent_dir_name_as_slug(self, tmp_path):
+        # index.md URL must use the parent directory name, not "index",
+        # because ReadMe gives category landing pages the category's slug.
+        subdir = tmp_path / "methods"
+        subdir.mkdir()
+        p = subdir / "index.md"
+        p.write_text("---\ntitle: Methods Overview\n---\n")
+        info = generate.get_page_info(p)
+        assert info["path"] == "https://docs.sensible.so/docs/methods.md"
+
     def test_path_uses_stem_only_not_directory(self, tmp_path):
         # ReadMe URLs are slug-only — the category directory is not part of the URL
         subdir = tmp_path / "Senseml reference" / "concepts"
@@ -239,6 +249,10 @@ class TestGenerate:
         # reference/_order.yaml includes ReadMeConfig — should be skipped (REFERENCE_SKIP)
         output = generate.generate(FIXTURES)
         assert "ReadMeConfig" not in output
+
+    def test_three_levels_of_recursion(self):
+        # methods/ → concepts/ → sections.md is three levels deep under the category
+        assert "Sections" in generate.generate(FIXTURES)
 
     def test_api_reference_section_links_to_specs(self):
         output = generate.generate(FIXTURES)

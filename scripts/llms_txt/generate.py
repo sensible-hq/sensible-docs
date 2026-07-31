@@ -85,7 +85,11 @@ def get_page_info(md_path: Path) -> dict | None:
         return None
     # ReadMe published URLs use only the slug (filename stem) — no category path.
     # e.g. docs/Senseml reference/concepts/sections.md → /docs/sections.md
-    url = f"{DOCS_BASE_URL}/{md_path.stem}.md"
+    # index.md is the implicit landing page for its parent category; ReadMe gives
+    # it the parent directory's slug, not "index".
+    stem = md_path.parent.name if md_path.stem == "index" else md_path.stem
+    slug = stem.lower().replace(" ", "-")
+    url = f"{DOCS_BASE_URL}/{slug}.md"
     # Fall back to a title derived from the filename if the page has no title
     # frontmatter, which can happen for stub or auto-generated pages.
     title = fm.get("title") or md_path.stem.replace("-", " ").title()

@@ -14,8 +14,9 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## senseml reference
 
-- [SenseML Methods](https://docs.sensible.so/docs/index.md): Overview of all SenseML extraction methods.
+- [SenseML Methods](https://docs.sensible.so/docs/methods.md): Overview of all SenseML extraction methods.
 - [Anchor](https://docs.sensible.so/docs/anchor.md): Use anchors to locate data relative to a nearby landmark.
+- [Sections](https://docs.sensible.so/docs/sections.md): Use sections to extract data from repeating document layouts.
 
 ## api reference
 
