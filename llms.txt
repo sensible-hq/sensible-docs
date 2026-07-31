@@ -15,15 +15,9 @@ This file contains links to the Sensible documentation to help LLMs understand t
 ## integrations
 
 - [SDK guides](docs/integrations/sdk-guides.md): Guides for Node/TypeScript and Python SDKs
-
-### zapier
-
 - [Integrate with Airtable using Zapier](docs/integrations/zapier/zapier-getting-started.md): Get started with Zapier by learning to integrate Sensible and Airtable for sample 1040 tax forms
 - [Integrate with Slack and Google Sheets using Zapier](docs/integrations/zapier/zapier-tutorial-2.md): integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form example documents
 - [API quickstart](docs/integrations/quickstart.md): Quick start guide for the Sensible API
-
-### quick extraction
-
 - [SenseML to spreadsheet reference](docs/integrations/quick-extraction/excel-reference.md): Learn how SenseML converts PDF and document data into structured spreadsheets with meaningful column/row relationships.
 
 ## document extraction
@@ -32,9 +26,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Out-of-the-box extractions](docs/document%20extraction/library-quickstart.md): Pre-built extraction templates for different document types
 - [Multi-document extractions](docs/document%20extraction/portfolio.md): Segment and extract from document portfolio files (files containing multiple documents)
 - [Repeating layouts](docs/document%20extraction/repeat-layouts.md): Handle documents with repeating sections
-
-### best practices
-
 - [Extracting handwriting and OCR text](docs/document%20extraction/best-practices/handwriting.md): Best practices for OCR and handwriting extraction
 - [Fallback LLM configs](docs/document%20extraction/best-practices/fallback-configs.md): Configuring fallback extraction strategies
 - [Go-live checklist](docs/document%20extraction/best-practices/go-live.md): Checklist for deploying extractions to production
@@ -56,9 +47,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## api
 
-
-### api tutorial
-
 - [Try synchronous extraction](docs/api/api-tutorial/api-tutorial-sync.md): Synchronous extraction API calls
 - [Try asynchronous extraction from your URL](docs/api/api-tutorial/api-tutorial-async-1.md): Async extraction with your document URL
 - [Try asynchronous extraction from a Sensible URL](docs/api/api-tutorial/api-tutorial-async-2.md): Async extraction with Sensible-hosted URL
@@ -69,16 +57,10 @@ This file contains links to the Sensible documentation to help LLMs understand t
 ## senseml reference
 
 - [SenseML reference introduction](docs/Senseml%20reference/senseml-reference-introduction.md): Overview of the SenseML query language
-
-### field query object
-
 - [Anchor object](docs/Senseml%20reference/field-query-object/anchor.md): Define anchors to locate data in documents
 - [Match object](docs/Senseml%20reference/field-query-object/match.md): Match patterns for finding text
 - [Method object](docs/Senseml%20reference/field-query-object/method.md): Extraction methods for retrieving data
 - [Types](docs/Senseml%20reference/field-query-object/types.md): Data types for extracted fields
-
-### layout based methods
-
 - [Box](docs/Senseml%20reference/layout-based-methods/box.md): Extract text from a bordered box
 - [Checkbox](docs/Senseml%20reference/layout-based-methods/checkbox.md): Extract checkbox states
 - [Column](docs/Senseml%20reference/layout-based-methods/column.md): Extract columnar data
@@ -94,15 +76,9 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Row](docs/Senseml%20reference/layout-based-methods/row.md): Extract row data
 - [Signature](docs/Senseml%20reference/layout-based-methods/signature.md): Detect signatures
 - [Text Table](docs/Senseml%20reference/layout-based-methods/text-table.md): Extract tables based on column coordinates defined in inches
-
-### llm based methods
-
 - [List](docs/Senseml%20reference/llm-based-methods/list.md): Extract lists using LLMs
 - [NLP table](docs/Senseml%20reference/llm-based-methods/nlp-table.md): Extract tables using natural language
 - [Query group](docs/Senseml%20reference/llm-based-methods/query-group.md): Group related LLM queries to extract facts
-
-### preprocessors
-
 - [Deskew](docs/Senseml%20reference/preprocessors/deskew.md): Correct skewed document images
 - [Ligature](docs/Senseml%20reference/preprocessors/ligature.md): Handle ligature characters
 - [Linearize](docs/Senseml%20reference/preprocessors/linearize.md): Advanced option for handling block layout and multicolumn layouts, alternative to Multicolumn preprocessor
@@ -117,9 +93,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Rotate page](docs/Senseml%20reference/preprocessors/rotate-page.md): Rotate page orientation, for edge cases when Sensible can't auto-rotate the page
 - [Scale](docs/Senseml%20reference/preprocessors/scale.md): Scale document dimensions
 - [Split lines](docs/Senseml%20reference/preprocessors/split-lines.md): Split merged text lines
-
-### computed field methods
-
 - [Concatenate](docs/Senseml%20reference/computed-field-methods/concatenate.md): Join field values
 - [Constant](docs/Senseml%20reference/computed-field-methods/constant.md): Add constant values
 - [Mapper](docs/Senseml%20reference/computed-field-methods/mapper.md): Map values to new values
@@ -127,9 +100,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Split](docs/Senseml%20reference/computed-field-methods/split.md): Split field values
 - [Suppress output](docs/Senseml%20reference/computed-field-methods/suppress-output.md): Exclude fields from output
 - [Zip](docs/Senseml%20reference/computed-field-methods/zip.md): Combine arrays into objects
-
-### sections
-
 - [Claims loss run example](docs/Senseml%20reference/sections/sections-example-loss-run.md): Sections example: insurance claims extraction
 - [Labeled rows example](docs/Senseml%20reference/sections/sections-example-labeled-rows.md): Sections example: labeled row extraction
 - [Advanced: nested columns example](docs/Senseml%20reference/sections/sections-example-nested-columns.md): Sections example: nested column extraction
@@ -141,21 +111,12 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Advanced: External anchors for sections](docs/Senseml%20reference/sections/sections-example-external-range.md): Sections example: using external anchors
 - [Conditional execution](docs/Senseml%20reference/conditional.md): Conditionally execute SenseML
 - [Spreadsheet extraction](docs/Senseml%20reference/cell-rows.md): Extract from large spreadsheets
-
-### config settings
-
 - [Fingerprint](docs/Senseml%20reference/config-settings/fingerprint.md): Document fingerprinting for classification
 - [Verbosity](docs/Senseml%20reference/config-settings/verbosity.md): Control extraction output detail
-
-### document type settings
-
 - [Document type descriptions](docs/Senseml%20reference/document-type-settings/descriptions.md): Describe document types for classification
 - [Fingerprint mode](docs/Senseml%20reference/document-type-settings/fingerprint-mode.md): Configure fingerprint-based classification
 - [OCR engine](docs/Senseml%20reference/document-type-settings/ocr-engine.md): Select OCR engine
 - [OCR level](docs/Senseml%20reference/document-type-settings/ocr-level.md): Configure OCR processing level
-
-### advanced computed field methods
-
 - [Add computed fields](docs/Senseml%20reference/advanced-computed-field-methods/add-computed-fields.md): Add computed fields to output
 - [Copy from sections](docs/Senseml%20reference/advanced-computed-field-methods/copy-from-sections.md): Copy data from sections
 - [Copy to section](docs/Senseml%20reference/advanced-computed-field-methods/copy-to-section.md): Copy data to sections
@@ -164,9 +125,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Extra data](docs/Senseml%20reference/advanced-computed-field-methods/extra-data.md): Access request-supplied extra data in configs
 - [Get file metadata](docs/Senseml%20reference/advanced-computed-field-methods/get-file-metadata.md): Extract file metadata
 - [Postprocessor](docs/Senseml%20reference/postprocessor.md): Transform extracted data into any arbitrary output schema
-
-### concepts
-
 - [Accuracy measures](docs/Senseml%20reference/concepts/accuracy-measures.md): Understanding extraction accuracy metrics
 - [Advanced LLM prompt configuration](docs/Senseml%20reference/concepts/prompt.md): Configure LLM prompts
 - [Anchor variables](docs/Senseml%20reference/concepts/anchor-nuances.md): Advanced anchor configuration
@@ -189,64 +147,29 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## api reference
 
-### introduction
-
 - [Introduction](reference/Introduction/choosing-an-endpoint.md): API introduction and endpoint overview
 - [Authentication](reference/Introduction/authentication.md): API authentication methods
-
-### extraction
-
-
-#### document 1
-
 - [Extract data from a document (sync)](reference/Extraction/document-1/extract-data-from-a-document.md)
 - [Extract doc at a Sensible URL](reference/Extraction/document-1/generate-an-upload-url.md)
 - [Extract doc at your URL](reference/Extraction/document-1/extract-from-url.md)
 - [Extract data from a document using specified config](reference/Extraction/document-1/extract-data-from-a-document-with-config.md)
 - [Extract doc at a Sensible URL using specified config](reference/Extraction/document-1/generate-an-upload-url-with-config.md)
 - [Extract doc at your URL using config](reference/Extraction/document-1/provide-a-download-url-with-config.md)
-
-#### portfolio
-
 - [Extract portfolio at a Sensible URL](reference/Extraction/portfolio/generate-an-upload-url-for-a-pdf-portfolio.md)
 - [Extract portfolio at your URL](reference/Extraction/portfolio/provide-a-download-url-for-a-pdf-portfolio.md)
-
-#### retrieve extractions
-
 - [Retrieve extraction by ID](reference/Extraction/retrieve-extractions/retrieving-results.md)
 - [List extractions](reference/Extraction/retrieve-extractions/list-extractions.md)
 - [Get extraction statistics](reference/Extraction/retrieve-extractions/statistics.md)
-
-#### get excel from documents
-
 - [Get Excel extraction](reference/Extraction/get-excel-from-documents/get-excel-extraction.md)
 - [Get CSV extraction](reference/Extraction/get-excel-from-documents/get-csv-extraction.md)
-
-#### review extractions
-
 - [Get token for review link](reference/Extraction/review-extractions/account-auth-tokens.md)
-
-### classification
-
-
-#### document
-
 - [Classify document by type](reference/Classification/document/classify-document.md)
 - [Classify document by type (sync)](reference/Classification/document/classify-document-sync.md)
-
-### configuration
-
-
-#### document type
-
 - [List document types for this account](reference/Configuration/document-type/list-document-types.md)
 - [Create document type](reference/Configuration/document-type/create-document-type.md)
 - [Get document type](reference/Configuration/document-type/get-document-type.md)
 - [Update document type](reference/Configuration/document-type/update-document-type.md)
 - [Delete document type](reference/Configuration/document-type/delete-document-type.md)
-
-#### configuration
-
 - [List configurations in a document type](reference/Configuration/configuration/list-configurations.md)
 - [Create configuration in a document type](reference/Configuration/configuration/create-configuration.md)
 - [Get configuration](reference/Configuration/configuration/get-configuration.md)
@@ -256,9 +179,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Get configuration by version](reference/Configuration/configuration/get-configuration-by-version.md)
 - [Publish configuration to an environment](reference/Configuration/configuration/publish-configuration-by-version.md)
 - [Delete draft or unpublish configuration](reference/Configuration/configuration/delete-configuration-by-version.md)
-
-#### reference document
-
 - [List all reference documents in a document type](reference/Configuration/reference-document/list-reference-documents.md)
 - [Create reference document](reference/Configuration/reference-document/create-reference-document.md)
 - [Get reference document metadata](reference/Configuration/reference-document/get-reference-document.md)
@@ -266,12 +186,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Delete reference document](reference/Configuration/reference-document/delete-reference-document.md)
 - [Unassociate reference document from configuration](reference/Configuration/reference-document/delete-reference-document-association.md)
 - [Extract all text from reference document](reference/Configuration/reference-document/extract-all-text-from-reference-document.md)
-
-### email processors
-
-
-#### email processor
-
 - [List Email Processors](reference/Email%20processors/email-processor/list-email-processors.md)
 - [Get Email Processor](reference/Email%20processors/email-processor/get-email-processor.md)
 - [Upsert Email Processor](reference/Email%20processors/email-processor/upsert-email-processor.md)

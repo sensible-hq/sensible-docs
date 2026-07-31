@@ -8,9 +8,8 @@ Descriptions are read from `metadata.description` in frontmatter.
 
 Structure:
   - docs/_order.yaml top-level categories  → ## sections
-  - reference/_order.yaml categories        → ## API Reference > ### subsections
-  - subdirectory slugs within any section  → next heading level
-  - leaf .md slugs                         → bullet list entries
+  - reference/_order.yaml categories        → ## api reference > flat entries
+  - all pages within a category are flat bullet list entries (no subheadings)
 """
 
 import argparse
@@ -47,11 +46,6 @@ def parse_front_matter(content: str) -> dict:
         return yaml.safe_load(content[3 : end.start() + 3]) or {}
     except yaml.YAMLError:
         return {}
-
-
-def format_title(name: str) -> str:
-    """Convert a directory/slug name to a lowercase section title."""
-    return name.replace("-", " ").lower()
 
 
 def url_encode_path(rel_path: str) -> str:
@@ -102,43 +96,19 @@ def resolve_slug(slug: str, parent_dir: Path) -> Path | None:
     return None
 
 
-def generate_entries(
-    order_path: Path,
-    repo_root: Path,
-    heading_level: int,
-    skip: set[str] | None = None,
-) -> list[str]:
-    """
-    Recursively process an _order.yaml and return llms.txt lines.
-
-    Collects child lines before emitting a section heading so sections with
-    no visible pages are suppressed entirely.
-    heading_level is the Markdown heading depth for subdirectory sections.
-    """
+def collect_entries(order_path: Path, repo_root: Path) -> list[str]:
+    """Recursively collect all visible page entries from an _order.yaml tree, flat."""
     lines = []
-    skip = skip or set()
     parent_dir = order_path.parent
 
     for slug in read_order(order_path):
-        if slug in skip:
-            continue
-
         resolved = resolve_slug(slug, parent_dir)
         if resolved is None:
             continue
-
         if resolved.is_dir():
             sub_order = resolved / "_order.yaml"
-            sub_lines = (
-                generate_entries(sub_order, repo_root, heading_level + 1)
-                if sub_order.exists()
-                else []
-            )
-            if sub_lines:
-                lines.append("")
-                lines.append("#" * heading_level + " " + format_title(resolved.name))
-                lines.append("")
-                lines.extend(sub_lines)
+            if sub_order.exists():
+                lines.extend(collect_entries(sub_order, repo_root))
         else:
             info = get_page_info(resolved, repo_root)
             if info:
@@ -150,7 +120,7 @@ def generate_entries(
 def generate(repo_root: Path) -> str:
     lines = [HEADER]
 
-    # docs/ section: each top-level category → ## heading
+    # docs/ section: each top-level category → ## heading with flat entries
     docs_order = repo_root / "docs" / "_order.yaml"
     for slug in read_order(docs_order):
         if slug in DOCS_SKIP:
@@ -159,16 +129,18 @@ def generate(repo_root: Path) -> str:
         if not cat_dir.is_dir():
             continue
         cat_order = cat_dir / "_order.yaml"
-        cat_lines = generate_entries(cat_order, repo_root, heading_level=3) if cat_order.exists() else []
-        if cat_lines:
-            lines.append(f"## {format_title(cat_dir.name)}")
+        if not cat_order.exists():
+            continue
+        entries = collect_entries(cat_order, repo_root)
+        if entries:
+            lines.append(f"## {cat_dir.name.lower()}")
             lines.append("")
-            lines.extend(cat_lines)
+            lines.extend(entries)
             lines.append("")
 
-    # reference/ section: single ## heading, categories as ###
+    # reference/ section: single ## heading, flat entries from all categories
     ref_order = repo_root / "reference" / "_order.yaml"
-    ref_lines = []
+    ref_entries = []
     for slug in read_order(ref_order):
         if slug in REFERENCE_SKIP:
             continue
@@ -176,17 +148,13 @@ def generate(repo_root: Path) -> str:
         if not cat_dir.is_dir():
             continue
         cat_order = cat_dir / "_order.yaml"
-        cat_lines = generate_entries(cat_order, repo_root, heading_level=4) if cat_order.exists() else []
-        if cat_lines:
-            ref_lines.append(f"### {format_title(cat_dir.name)}")
-            ref_lines.append("")
-            ref_lines.extend(cat_lines)
-            ref_lines.append("")
+        if cat_order.exists():
+            ref_entries.extend(collect_entries(cat_order, repo_root))
 
-    if ref_lines:
+    if ref_entries:
         lines.append("## api reference")
         lines.append("")
-        lines.extend(ref_lines)
+        lines.extend(ref_entries)
 
     return "\n".join(lines).rstrip() + "\n"
 
