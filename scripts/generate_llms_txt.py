@@ -31,8 +31,10 @@ This file contains links to the Sensible documentation to help LLMs understand t
 # Top-level slugs in docs/_order.yaml to skip
 DOCS_SKIP = {"llms.txt"}
 
-# Top-level slugs in reference/_order.yaml to skip (ReadMe.com config, not docs)
-REFERENCE_SKIP = {"ReadMeConfig"}
+# Top-level slugs in reference/_order.yaml to skip.
+# ReadMeConfig is a platform config folder, not docs.
+# SenseML and MCP Server are ReadMe.com linking artifacts with no real content.
+REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
 
 
 def parse_front_matter(content: str) -> dict:
