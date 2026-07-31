@@ -39,37 +39,38 @@ class TestGetPageInfo:
     def test_returns_none_for_hidden_page(self, tmp_path):
         p = tmp_path / "page.md"
         p.write_text("---\ntitle: Draft\nhidden: true\n---\n")
-        assert generate.get_page_info(p, tmp_path) is None
+        assert generate.get_page_info(p) is None
 
     def test_returns_info_for_visible_page(self, tmp_path):
         p = tmp_path / "page.md"
         p.write_text("---\ntitle: My Page\nmetadata:\n  description: A desc\n---\n")
-        info = generate.get_page_info(p, tmp_path)
+        info = generate.get_page_info(p)
         assert info["title"] == "My Page"
         assert info["description"] == "A desc"
-        assert info["path"] == "page.md"
+        assert info["path"] == "https://docs.sensible.so/docs/page.md"
 
     def test_falls_back_to_filename_title(self, tmp_path):
         p = tmp_path / "my-page.md"
         p.write_text("---\n---\n")
-        info = generate.get_page_info(p, tmp_path)
+        info = generate.get_page_info(p)
         assert info["title"] == "My Page"
 
     def test_empty_description_when_missing(self, tmp_path):
         p = tmp_path / "page.md"
         p.write_text("---\ntitle: No Desc\n---\n")
-        assert generate.get_page_info(p, tmp_path)["description"] == ""
+        assert generate.get_page_info(p)["description"] == ""
 
     def test_returns_none_for_unreadable_file(self, tmp_path):
-        assert generate.get_page_info(tmp_path / "nonexistent.md", tmp_path) is None
+        assert generate.get_page_info(tmp_path / "nonexistent.md") is None
 
-    def test_url_encodes_spaces_in_path(self, tmp_path):
-        subdir = tmp_path / "Senseml reference"
-        subdir.mkdir()
-        p = subdir / "page.md"
-        p.write_text("---\ntitle: Page\n---\n")
-        info = generate.get_page_info(p, tmp_path)
-        assert "%20" in info["path"]
+    def test_path_uses_stem_only_not_directory(self, tmp_path):
+        # ReadMe URLs are slug-only — the category directory is not part of the URL
+        subdir = tmp_path / "Senseml reference" / "concepts"
+        subdir.mkdir(parents=True)
+        p = subdir / "sections.md"
+        p.write_text("---\ntitle: Sections\n---\n")
+        info = generate.get_page_info(p)
+        assert info["path"] == "https://docs.sensible.so/docs/sections.md"
 
 
 # ── read_order() ──────────────────────────────────────────────────────────────

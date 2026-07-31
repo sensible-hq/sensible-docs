@@ -23,7 +23,6 @@ import json
 import re
 import sys
 from pathlib import Path
-from urllib.parse import quote
 
 import yaml
 
@@ -57,6 +56,7 @@ REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
 # discovered dynamically by globbing reference/openapi_*.json so new specs
 # are picked up automatically without touching this file.
 OPENAPI_BASE_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference"
+DOCS_BASE_URL = "https://docs.sensible.so/docs"
 
 
 def parse_front_matter(content: str) -> dict:
@@ -71,7 +71,7 @@ def parse_front_matter(content: str) -> dict:
         return {}
 
 
-def get_page_info(md_path: Path, repo_root: Path) -> dict | None:
+def get_page_info(md_path: Path) -> dict | None:
     """Return page info for a .md file, or None if the page should be excluded."""
     try:
         content = md_path.read_text(encoding="utf-8")
@@ -83,14 +83,16 @@ def get_page_info(md_path: Path, repo_root: Path) -> dict | None:
     # that here so LLMs aren't pointed at unpublished or intentionally obscured content.
     if fm.get("hidden") is True:
         return None
-    rel_path = quote(str(md_path.relative_to(repo_root)), safe="/")
+    # ReadMe published URLs use only the slug (filename stem) — no category path.
+    # e.g. docs/Senseml reference/concepts/sections.md → /docs/sections.md
+    url = f"{DOCS_BASE_URL}/{md_path.stem}.md"
     # Fall back to a title derived from the filename if the page has no title
     # frontmatter, which can happen for stub or auto-generated pages.
     title = fm.get("title") or md_path.stem.replace("-", " ").title()
     # metadata.description is the ReadMe field that also drives SEO meta tags
     # and search result snippets, so it's the right description to surface here.
     description = (fm.get("metadata") or {}).get("description") or ""
-    return {"path": rel_path, "title": title, "description": description}
+    return {"path": url, "title": title, "description": description}
 
 
 def format_entry(path: str, title: str, description: str) -> str:
@@ -131,7 +133,7 @@ def resolve_slug(slug: str, parent_dir: Path) -> Path | None:
     return None
 
 
-def collect_entries(order_path: Path, repo_root: Path) -> list[str]:
+def collect_entries(order_path: Path) -> list[str]:
     """Recursively collect all visible page entries from an _order.yaml tree, flat."""
     lines = []
     parent_dir = order_path.parent
@@ -144,19 +146,19 @@ def collect_entries(order_path: Path, repo_root: Path) -> list[str]:
             # it's never listed in _order.yaml, but it exists and is published.
             # Include it first so the overview page leads the section's entries.
             index_md = resolved / "index.md"
-            info = get_page_info(index_md, repo_root)
+            info = get_page_info(index_md)
             if info:
                 lines.append(format_entry(**info))
-            lines.extend(collect_entries(resolved / "_order.yaml", repo_root))
+            lines.extend(collect_entries(resolved / "_order.yaml"))
         else:
-            info = get_page_info(resolved, repo_root)
+            info = get_page_info(resolved)
             if info:
                 lines.append(format_entry(**info))
     return lines
 
 
 def collect_categories(
-    root_dir: Path, order_path: Path, skip: set[str], repo_root: Path
+    root_dir: Path, order_path: Path, skip: set[str]
 ) -> list[tuple[str, list[str]]]:
     """Return [(category_name, entry_lines), ...] for each non-empty category under root_dir."""
     result = []
@@ -166,7 +168,7 @@ def collect_categories(
         cat_dir = root_dir / slug
         if not cat_dir.is_dir():
             continue
-        entries = collect_entries(cat_dir / "_order.yaml", repo_root)
+        entries = collect_entries(cat_dir / "_order.yaml")
         if entries:
             result.append((cat_dir.name, entries))
     return result
@@ -193,7 +195,7 @@ def generate(repo_root: Path) -> str:
     # Each top-level category gets its own ## heading so the broad topic areas
     # (integrations, document extraction, etc.) are clear.
     for name, entries in collect_categories(
-        repo_root / "docs", repo_root / "docs" / "_order.yaml", DOCS_SKIP, repo_root
+        repo_root / "docs", repo_root / "docs" / "_order.yaml", DOCS_SKIP
     ):
         lines.append(f"## {name.lower()}")
         lines.append("")

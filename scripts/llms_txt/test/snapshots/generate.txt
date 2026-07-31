@@ -10,12 +10,12 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## welcome
 
-- [Overview](docs/welcome/overview.md): Introduction to Sensible and its capabilities.
+- [Overview](https://docs.sensible.so/docs/overview.md): Introduction to Sensible and its capabilities.
 
 ## senseml reference
 
-- [SenseML Methods](docs/Senseml%20reference/methods/index.md): Overview of all SenseML extraction methods.
-- [Anchor](docs/Senseml%20reference/methods/anchor.md): Use anchors to locate data relative to a nearby landmark.
+- [SenseML Methods](https://docs.sensible.so/docs/index.md): Overview of all SenseML extraction methods.
+- [Anchor](https://docs.sensible.so/docs/anchor.md): Use anchors to locate data relative to a nearby landmark.
 
 ## api reference
 
