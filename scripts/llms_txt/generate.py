@@ -144,10 +144,9 @@ def collect_entries(order_path: Path, repo_root: Path) -> list[str]:
             # it's never listed in _order.yaml, but it exists and is published.
             # Include it first so the overview page leads the section's entries.
             index_md = resolved / "index.md"
-            if index_md.exists():
-                info = get_page_info(index_md, repo_root)
-                if info:
-                    lines.append(format_entry(**info))
+            info = get_page_info(index_md, repo_root)
+            if info:
+                lines.append(format_entry(**info))
             lines.extend(collect_entries(resolved / "_order.yaml", repo_root))
         else:
             info = get_page_info(resolved, repo_root)
