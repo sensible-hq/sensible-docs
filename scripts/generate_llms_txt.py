@@ -2,9 +2,15 @@
 """
 Generate llms.txt from _order.yaml files in docs/ and reference/.
 
-_order.yaml files are the source of truth for page inventory and order.
-Files with `hidden: true` in frontmatter are excluded.
-Descriptions are read from `metadata.description` in frontmatter.
+This repo is a ReadMe.com-managed docs site. ReadMe uses _order.yaml files
+in each directory to control sidebar navigation order. Those same files are
+used here as the source of truth for what goes in llms.txt and in what order,
+so the two stay in sync without a separate manifest.
+
+Files with `hidden: true` in frontmatter are excluded — ReadMe hides those
+pages from its published nav, so they shouldn't appear in llms.txt either.
+Descriptions come from `metadata.description` in frontmatter, which is also
+what ReadMe surfaces in search results and SEO meta tags.
 
 Structure:
   - docs/_order.yaml top-level categories  → ## sections
@@ -28,12 +34,17 @@ HEADER = """\
 This file contains links to the Sensible documentation to help LLMs understand the platform.
 """
 
-# Top-level slugs in docs/_order.yaml to skip
+# docs/_order.yaml lists a "llms.txt" category that is the source file for
+# this script's output — skip it to avoid a self-referential entry.
 DOCS_SKIP = {"llms.txt"}
 
-# Top-level slugs in reference/_order.yaml to skip.
-# ReadMeConfig is a platform config folder, not docs.
-# SenseML and MCP Server are ReadMe.com linking artifacts with no real content.
+# reference/_order.yaml contains several categories that aren't real API docs:
+# - ReadMeConfig: a platform config folder ReadMe uses internally, not a doc page
+# - SenseML: a redirect stub ReadMe uses to link its sidebar to the SenseML
+#   reference in docs/; the actual SenseML content lives under docs/Senseml reference/
+# - MCP Server: the _order.yaml for this category is empty because it was
+#   auto-committed by ReadMe's GitHub sync when the page was created in the UI,
+#   and the slug was placed in the root _order.yaml instead of here
 REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
 
 
@@ -50,18 +61,23 @@ def parse_front_matter(content: str) -> dict:
 
 
 def get_page_info(md_path: Path, repo_root: Path) -> dict | None:
-    """Return page info for a .md file, or None if the page is hidden."""
+    """Return page info for a .md file, or None if the page should be excluded."""
     try:
         content = md_path.read_text(encoding="utf-8")
     except Exception:
         return None
     fm = parse_front_matter(content)
-    # hidden: true means the page is excluded from ReadMe.com's published nav;
-    # we mirror that exclusion in llms.txt so LLMs don't get sent to unpublished pages
+    # ReadMe sets hidden: true on draft pages and pages intentionally omitted
+    # from the published nav (e.g. cheat sheets, deprecated methods). Mirror
+    # that here so LLMs aren't pointed at unpublished or intentionally obscured content.
     if fm.get("hidden") is True:
         return None
     rel_path = quote(str(md_path.relative_to(repo_root)), safe="/")
+    # Fall back to a title derived from the filename if the page has no title
+    # frontmatter, which can happen for stub or auto-generated pages.
     title = fm.get("title") or md_path.stem.replace("-", " ").title()
+    # metadata.description is the ReadMe field that also drives SEO meta tags
+    # and search result snippets, so it's the right description to surface here.
     description = (fm.get("metadata") or {}).get("description") or ""
     return {"path": rel_path, "title": title, "description": description}
 
@@ -73,7 +89,8 @@ def format_entry(path: str, title: str, description: str) -> str:
 
 
 def read_order(order_path: Path) -> list[str]:
-    # Returns [] on any read/parse error so callers can treat missing files as empty
+    # Silently returns [] for missing or malformed files so callers don't need
+    # to check existence — stale slugs in _order.yaml just resolve to nothing.
     try:
         slugs = yaml.safe_load(order_path.read_text(encoding="utf-8")) or []
         return [s for s in slugs if isinstance(s, str)]
@@ -82,13 +99,21 @@ def read_order(order_path: Path) -> list[str]:
 
 
 def resolve_slug(slug: str, parent_dir: Path) -> Path | None:
-    """Resolve a slug to a .md file or subdirectory, in that priority order."""
+    """Resolve a ReadMe slug to a .md file or subdirectory.
+
+    ReadMe slugs are bare filenames without the .md extension, or directory
+    names for nested category groups. The special slug "index" maps to the
+    index.md landing page of a directory. We check .md first, then directory —
+    this mirrors ReadMe's own resolution order.
+    """
     if slug == "index":
         f = parent_dir / "index.md"
         return f if f.exists() else None
     md = parent_dir / f"{slug}.md"
     if md.exists():
         return md
+    # A slug that resolves to a directory is a nested category with its own
+    # _order.yaml. ReadMe renders these as collapsible groups in the sidebar.
     d = parent_dir / slug
     if d.is_dir():
         return d
@@ -104,7 +129,6 @@ def collect_entries(order_path: Path, repo_root: Path) -> list[str]:
         if resolved is None:
             continue
         if resolved.is_dir():
-            # read_order silently returns [] for a missing _order.yaml, so no exists() check needed
             lines.extend(collect_entries(resolved / "_order.yaml", repo_root))
         else:
             info = get_page_info(resolved, repo_root)
@@ -124,7 +148,6 @@ def collect_categories(
         cat_dir = root_dir / slug
         if not cat_dir.is_dir():
             continue
-        # read_order handles missing _order.yaml gracefully, so no exists() check needed
         entries = collect_entries(cat_dir / "_order.yaml", repo_root)
         if entries:
             result.append((cat_dir.name, entries))
@@ -134,7 +157,9 @@ def collect_categories(
 def generate(repo_root: Path) -> str:
     lines = [HEADER]
 
-    # docs/: each category gets its own ## heading
+    # docs/ contains conceptual guides, tutorials, and the SenseML reference.
+    # Each top-level category gets its own ## heading so the broad topic areas
+    # (integrations, document extraction, etc.) are clear.
     for name, entries in collect_categories(
         repo_root / "docs", repo_root / "docs" / "_order.yaml", DOCS_SKIP, repo_root
     ):
@@ -143,7 +168,10 @@ def generate(repo_root: Path) -> str:
         lines.extend(entries)
         lines.append("")
 
-    # reference/: all categories collapsed under a single ## heading
+    # reference/ is a separate ReadMe UI from docs/ — it has its own navigation
+    # and doesn't share a table of contents with docs/. Users move between the
+    # two via top-level breadcrumbs, not the sidebar. We collapse all reference
+    # categories under one ## heading to reflect that separation.
     ref_categories = collect_categories(
         repo_root / "reference", repo_root / "reference" / "_order.yaml", REFERENCE_SKIP, repo_root
     )
