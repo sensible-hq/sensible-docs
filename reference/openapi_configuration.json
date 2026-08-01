@@ -938,7 +938,7 @@
         "in": "path",
         "description": "User-friendly name for a document type",
         "schema": {
-          "$ref": "#/components/schemas/DocumentTypeName"
+          "$ref": "#/components/schemas/Name"
         }
       },
       "configurationName": {
@@ -993,25 +993,11 @@
       },
       "Name": {
         "type": "string",
-        "pattern": "^[a-z0-9_]*$",
+        "pattern": "^[a-z0-9_]+$",
         "minLength": 3,
         "maxLength": 128,
-        "description": "User-friendly name"
-      },
-      "DocumentTypeName": {
-        "description": "Unique user-friendly name for a document type",
-        "example": "auto_insurance_quotes_all_carriers",
-        "type": "string"
-      },
-      "ConfigurationName": {
-        "description": "Unique user-friendly name for a configuration",
-        "example": "anyco_auto_insurance_quote",
-        "type": "string"
-      },
-      "DocumentName": {
-        "description": "Unique user-friendly name for a document",
-        "example": "best_scan_form_num_1234",
-        "type": "string"
+        "description": "User-friendly name",
+        "example": "auto_insurance_quotes_all_carriers"
       },
       "Date": {
         "type": "string",
@@ -1022,7 +1008,7 @@
         "type": "object",
         "properties": {
           "name": {
-            "$ref": "#/components/schemas/DocumentTypeName"
+            "$ref": "#/components/schemas/Name"
           },
           "id": {
             "$ref": "#/components/schemas/UniqueId"
@@ -1063,7 +1049,7 @@
         "type": "object",
         "properties": {
           "name": {
-            "$ref": "#/components/schemas/DocumentTypeName"
+            "$ref": "#/components/schemas/Name"
           },
           "schema": {
             "$ref": "#/components/schemas/DocumentTypeOutput"
@@ -1182,13 +1168,13 @@
             "$ref": "#/components/schemas/UniqueId"
           },
           "name": {
-            "$ref": "#/components/schemas/DocumentName"
+            "$ref": "#/components/schemas/Name"
           },
           "created": {
             "$ref": "#/components/schemas/Date"
           },
           "configuration": {
-            "$ref": "#/components/schemas/AssociatedConfigurationName"
+            "$ref": "#/components/schemas/Name"
           },
           "error": {
             "type": "string",
@@ -1223,10 +1209,10 @@
         "description": "Upload url for putting the document",
         "properties": {
           "name": {
-            "$ref": "#/components/schemas/DocumentName"
+            "$ref": "#/components/schemas/Name"
           },
           "configuration": {
-            "$ref": "#/components/schemas/AssociatedConfigurationName"
+            "$ref": "#/components/schemas/Name"
           },
           "content_type": {
             "type": "string",
@@ -1255,21 +1241,13 @@
         "type": "object",
         "properties": {
           "name": {
-            "$ref": "#/components/schemas/DocumentName"
+            "$ref": "#/components/schemas/Name"
           },
           "configuration": {
-            "$ref": "#/components/schemas/AssociatedConfigurationName"
+            "$ref": "#/components/schemas/Name"
           }
         },
         "additionalProperties": false
-      },
-      "AssociatedConfigurationName": {
-        "type": "string",
-        "pattern": "^[a-z0-9_]*$",
-        "minLength": 3,
-        "maxLength": 128,
-        "description": "User-friendly name of the configuration to associate to the reference document",
-        "example": "anyco_auto_insurance_quote"
       },
       "GetAllConfigurations": {
         "type": "array",
@@ -1277,7 +1255,7 @@
           "type": "object",
           "properties": {
             "name": {
-              "$ref": "#/components/schemas/ConfigurationName"
+              "$ref": "#/components/schemas/Name"
             },
             "created": {
               "$ref": "#/components/schemas/Date"
@@ -1346,7 +1324,7 @@
         "type": "object",
         "properties": {
           "name": {
-            "$ref": "#/components/schemas/ConfigurationName"
+            "$ref": "#/components/schemas/Name"
           },
           "configuration": {
             "$ref": "#/components/schemas/StringifiedConfigurationRequest",
@@ -1398,7 +1376,7 @@
         "type": "object",
         "properties": {
           "name": {
-            "$ref": "#/components/schemas/ConfigurationName"
+            "$ref": "#/components/schemas/Name"
           },
           "created": {
             "$ref": "#/components/schemas/Date"
