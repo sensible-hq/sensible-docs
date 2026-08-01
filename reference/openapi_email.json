@@ -626,15 +626,7 @@
             ]
           },
           "docTypeIds": {
-            "type": "array",
-            "minItems": 1,
-            "description": "The IDs of the document types Sensible uses to classify each attachment.",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "37674511-20cd-49a2-87dc-8e8b070ff43a"
-            ]
+            "$ref": "#/components/schemas/DocTypeIds"
           }
         }
       },
@@ -655,15 +647,7 @@
             ]
           },
           "docTypeIds": {
-            "type": "array",
-            "minItems": 1,
-            "description": "The IDs of the document types Sensible uses to extract data from each document in the portfolio.",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "37674511-20cd-49a2-87dc-8e8b070ff43a"
-            ]
+            "$ref": "#/components/schemas/DocTypeIds"
           },
           "segmentDocumentsWith": {
             "type": "string",
@@ -675,6 +659,17 @@
             "example": "llm"
           }
         }
+      },
+      "DocTypeIds": {
+        "type": "array",
+        "minItems": 1,
+        "description": "The IDs of the document types Sensible uses to classify each document.",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "37674511-20cd-49a2-87dc-8e8b070ff43a"
+        ]
       }
     },
     "parameters": {
