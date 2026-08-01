@@ -401,28 +401,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/generate-upload-url/handler.ts:72-75,85-87) but deliberately not documented publicly.",
-                "properties": {
-                  "webhook": {
-                    "$ref": "#/components/schemas/Webhook"
-                  },
-                  "types": {
-                    "$ref": "#/components/schemas/DocumentTypeNames"
-                  },
-                  "content_type": {
-                    "$ref": "#/components/schemas/ContentTypeParameter"
-                  },
-                  "segment_documents_with": {
-                    "$ref": "#/components/schemas/SegmentDocumentsWith"
-                  },
-                  "extra_data": {
-                    "$ref": "#/components/schemas/ExtraDataRecord"
-                  }
-                },
-                "required": [
-                  "types"
-                ]
+                "$ref": "#/components/schemas/GenerateUrlPortfolioRequest"
               }
             }
           }
@@ -476,32 +455,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/extract-from-url/handler.ts:92-95,100-102) but deliberately not documented publicly.",
-                "properties": {
-                  "document_url": {
-                    "$ref": "#/components/schemas/DocumentUrl"
-                  },
-                  "types": {
-                    "$ref": "#/components/schemas/DocumentTypeNames"
-                  },
-                  "content_type": {
-                    "$ref": "#/components/schemas/ContentTypeParameter"
-                  },
-                  "segment_documents_with": {
-                    "$ref": "#/components/schemas/SegmentDocumentsWith"
-                  },
-                  "webhook": {
-                    "$ref": "#/components/schemas/Webhook"
-                  },
-                  "extra_data": {
-                    "$ref": "#/components/schemas/ExtraDataRecord"
-                  }
-                },
-                "required": [
-                  "types",
-                  "document_url"
-                ]
+                "$ref": "#/components/schemas/ExtractFromUrlPortfolioRequest"
               }
             }
           }
@@ -2101,6 +2055,58 @@
             }
           }
         }
+      },
+      "GenerateUrlPortfolioRequest": {
+        "type": "object",
+        "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/generate-upload-url/handler.ts:72-75,85-87) but deliberately not documented publicly.",
+        "properties": {
+          "webhook": {
+            "$ref": "#/components/schemas/Webhook"
+          },
+          "types": {
+            "$ref": "#/components/schemas/DocumentTypeNames"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ContentTypeParameter"
+          },
+          "segment_documents_with": {
+            "$ref": "#/components/schemas/SegmentDocumentsWith"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
+          }
+        },
+        "required": [
+          "types"
+        ]
+      },
+      "ExtractFromUrlPortfolioRequest": {
+        "type": "object",
+        "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/extract-from-url/handler.ts:92-95,100-102) but deliberately not documented publicly.",
+        "properties": {
+          "document_url": {
+            "$ref": "#/components/schemas/DocumentUrl"
+          },
+          "types": {
+            "$ref": "#/components/schemas/DocumentTypeNames"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ContentTypeParameter"
+          },
+          "segment_documents_with": {
+            "$ref": "#/components/schemas/SegmentDocumentsWith"
+          },
+          "webhook": {
+            "$ref": "#/components/schemas/Webhook"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
+          }
+        },
+        "required": [
+          "types",
+          "document_url"
+        ]
       },
       "GenerateUrlRequest": {
         "type": "object",
