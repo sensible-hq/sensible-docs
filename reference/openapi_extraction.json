@@ -2185,7 +2185,7 @@
         "type": "string"
       },
       "DocumentTypeId": {
-        "description": "Unique user-friendly name for a document type",
+        "description": "Unique ID for the document type.",
         "type": "string",
         "format": "uuid",
         "example": "11c82772-a12c-1e71-c0a1-1f1ce35bc7"
