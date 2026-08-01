@@ -887,11 +887,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResponseStandardText"
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "$ref": "#/components/schemas/ResponseStandardText"
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ],
+                  "additionalProperties": false
                 }
               }
             },
-            "description": "All the text in the document"
+            "description": "All the text in the document, wrapped in a `text` property"
           },
           "400": {
             "$ref": "#/components/responses/400"
@@ -1023,6 +1032,9 @@
           },
           "schema": {
             "$ref": "#/components/schemas/DocumentTypeOutput"
+          },
+          "processor_type": {
+            "$ref": "#/components/schemas/ProcessorType"
           }
         },
         "required": [
@@ -1049,6 +1061,9 @@
             },
             "schema": {
               "$ref": "#/components/schemas/DocumentTypeOutput"
+            },
+            "processor_type": {
+              "$ref": "#/components/schemas/ProcessorType"
             }
           },
           "required": [
@@ -1058,6 +1073,14 @@
           "additionalProperties": false
         }
       },
+      "ProcessorType": {
+        "type": "string",
+        "enum": [
+          "document",
+          "email"
+        ],
+        "description": "The kind of processor this document type belongs to."
+      },
       "PostDocumentType": {
         "type": "object",
         "properties": {
@@ -1066,6 +1089,9 @@
           },
           "schema": {
             "$ref": "#/components/schemas/DocumentTypeOutput"
+          },
+          "processor_type": {
+            "$ref": "#/components/schemas/ProcessorType"
           }
         },
         "required": [
@@ -1118,11 +1144,38 @@
             "type": "array"
           },
           "review_triggers": {
-            "description": "Array of criteria for flagging an extraction for [human review](doc:human-review). Criteria include `coverage_threshold`, `validation_warnings_threshold`, and `validation_errors_threshold`. If the review criteria includes specific validations, this parameter contains `\"selected_validations\": true` and each selected validation includes a `\"review_trigger\":true` parameter.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "description": "Criteria for flagging an extraction for [human review](doc:human-review). If the review criteria includes specific validations, this parameter contains `\"selected_validations\": true` and each selected validation includes a `\"review_trigger\":true` parameter.",
+            "type": "object",
+            "properties": {
+              "coverage_threshold": {
+                "type": "number",
+                "description": "Inclusive upper bound (0-1) on coverage score. Extractions scoring below this value are flagged for review."
+              },
+              "validation_errors_threshold": {
+                "type": "integer",
+                "description": "Inclusive lower bound on the number of validation errors that flags an extraction for review."
+              },
+              "validation_warnings_threshold": {
+                "type": "integer",
+                "description": "Inclusive lower bound on the number of validation warnings that flags an extraction for review."
+              },
+              "selected_validations": {
+                "type": "boolean",
+                "enum": [
+                  true
+                ],
+                "description": "Present and `true` when specific validations are configured to trigger review; those validations each carry their own `review_trigger: true` property."
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": {
+            "type": "string",
+            "description": "User-friendly description of the document type."
+          },
+          "prevent_file_metadata": {
+            "type": "boolean",
+            "description": "Prevents Sensible from reading and returning PDF file metadata (for example, author, creation date) alongside extraction results."
           }
         }
       },
@@ -1147,6 +1200,9 @@
       "GoldenResponse": {
         "type": "object",
         "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UniqueId"
+          },
           "name": {
             "$ref": "#/components/schemas/DocumentName"
           },
@@ -1171,9 +1227,14 @@
           "thumbnail_url": {
             "type": "string",
             "description": "If present, the URL to GET to retrieve a thumbnail image of the first page of the reference document"
+          },
+          "converted_url": {
+            "type": "string",
+            "description": "If present, the URL to GET the PDF Sensible converted this reference document to (present only when the uploaded document wasn't already a PDF)"
           }
         },
         "required": [
+          "id",
           "name",
           "created"
         ],
@@ -1188,6 +1249,23 @@
           },
           "configuration": {
             "$ref": "#/components/schemas/AssociatedConfigurationName"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "application/pdf",
+              "image/jpeg",
+              "image/png",
+              "image/tiff",
+              "application/msword",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              "application/vnd.ms-excel",
+              "application/vnd.ms-excel.sheet.macroenabled.12",
+              "text/csv",
+              "application/json"
+            ],
+            "description": "Content type of the document you'll upload to `upload_url`."
           }
         },
         "required": [
@@ -1231,6 +1309,9 @@
               "items": {
                 "$ref": "#/components/schemas/ConfigurationVersion"
               }
+            },
+            "editor": {
+              "$ref": "#/components/schemas/ConfigurationEditor"
             }
           },
           "required": [
@@ -1266,6 +1347,14 @@
             "type": "boolean",
             "example": false,
             "description": "The version list returned by this endpoint contains a single draft version ID that's used to manage the editor state in the Sensible app. This draft version ID is never published to the development or production environments."
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional user-supplied note describing this version."
+          },
+          "published_by": {
+            "type": "string",
+            "description": "Display name of whoever published this version: the user's full name (or first name, if that's all that's available), or the account name if the request wasn't tied to an individual user."
           }
         },
         "required": [
@@ -1287,6 +1376,9 @@
           },
           "publish_as": {
             "$ref": "#/components/schemas/Environment"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ConfigurationContentType"
           }
         },
         "required": [
@@ -1298,6 +1390,20 @@
       "StringifiedConfigurationRequest": {
         "type": "string",
         "description": "JSON-stringified configuration.\nIf you test this endpoint using the **Try It** button in this interactive API explorer,\nthe explorer stringifies the JSON for you when you paste the configuration into this parameter.\nTo support publishing drafts, this API doesn’t reject requests with configuration errors.\nTo validate, compare your configuration to the latest version of the configuration schema, published at https://schema.sensible.so/configuration.schema.json.\n"
+      },
+      "ConfigurationContentType": {
+        "type": "string",
+        "enum": [
+          "application/json",
+          "application/yaml",
+          "text/csv",
+          "text/plain"
+        ],
+        "description": "Content type of the stringified `configuration`. Defaults to `application/json`."
+      },
+      "ConfigurationEditor": {
+        "type": "number",
+        "description": "Identifies which Sensible app editor to associate with this configuration."
       },
       "Environment": {
         "type": "string",
@@ -1332,6 +1438,12 @@
             "items": {
               "$ref": "#/components/schemas/ConfigurationVersion"
             }
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ConfigurationContentType"
+          },
+          "editor": {
+            "$ref": "#/components/schemas/ConfigurationEditor"
           }
         },
         "required": [
@@ -1339,7 +1451,8 @@
           "created",
           "configuration",
           "version_id",
-          "versions"
+          "versions",
+          "content_type"
         ],
         "additionalProperties": false
       },
@@ -1359,6 +1472,16 @@
           "current_draft": {
             "type": "string",
             "description": "Version ID of the current draft of the configuration, if the current draft exists and is being replaced. if the configuration is currently in draft and this parameter is not supplied or does not match, the operation fails"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ConfigurationContentType"
+          },
+          "editor": {
+            "$ref": "#/components/schemas/ConfigurationEditor"
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional note describing this version of the configuration."
           }
         },
         "additionalProperties": false
@@ -1405,99 +1528,10 @@
               "fields": []
             }
           }
-        }
-      },
-      "ResponseGoldenExtraction": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Extraction"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "parsed_document_with_metadata": {
-                "type": "object",
-                "description": "the verbose extraction output, including information about line coordinates."
-              },
-              "errors": {
-                "type": "array",
-                "description": "extraction errors. See an extraction endpoint's response schema for more information."
-              },
-              "text": {
-                "$ref": "#/components/schemas/ResponseStandardText",
-                "description": "All the text in the document. To return this, set `\"verbosity\": 3\"` in the specified configuration"
-              },
-              "fingerprints": {
-                "type": "object",
-                "description": "the page and line indexes for the fingerprints found"
-              }
-            }
-          }
+        },
+        "required": [
+          "golden"
         ]
-      },
-      "Extraction": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ExtractionId"
-          },
-          "created": {
-            "$ref": "#/components/schemas/ExtractionCreated"
-          },
-          "type": {
-            "$ref": "#/components/schemas/ExtractionType"
-          },
-          "configuration": {
-            "type": "string",
-            "description": "Name of the config (SenseML query) used to extract the structured data. Sensible chooses the best config in the document type that fits the submitted document automatically.",
-            "example": "anyco_rate_confirmation"
-          },
-          "status": {
-            "$ref": "#/components/schemas/ExtractionStatus"
-          },
-          "parsed_document": {
-            "$ref": "#/components/schemas/ParsedDocument"
-          },
-          "validations": {
-            "$ref": "#/components/schemas/Validations"
-          },
-          "validations_summary": {
-            "$ref": "#/components/schemas/ValidationsSummary"
-          },
-          "classification_summary": {
-            "$ref": "#/components/schemas/ClassificationSummary"
-          }
-        }
-      },
-      "ParsedDocument": {
-        "description": "Data extracted from the document, structured as an array of fields",
-        "type": "object",
-        "example": {
-          "weight": {
-            "source": "0.0lbs",
-            "value": 0,
-            "unit": "pounds",
-            "type": "weight"
-          },
-          "distance": {
-            "source": "193mi",
-            "value": 193,
-            "unit": "miles",
-            "type": "distance"
-          },
-          "load_number": {
-            "type": "string",
-            "value": "Wk91242"
-          },
-          "carrier_email": null,
-          "price": {
-            "source": "$695.00",
-            "value": 695,
-            "unit": "$",
-            "type": "currency"
-          },
-          "pickup_date": null
-        }
       },
       "ResponseStandardText": {
         "description": "all the text in the document, standardized as an array of pages with lines and their metadata, including positioning",
@@ -1629,6 +1663,9 @@
           "scope": {
             "type": "array",
             "description": "If the field to validate is in sections, the list of parent sections.",
+            "items": {
+              "type": "string"
+            },
             "example": [
               "parent_section",
               "child_section"
@@ -1639,168 +1676,11 @@
           "description",
           "condition"
         ]
-      },
-      "Validations": {
-        "description": "Which extracted fields failed validation rules you write in the Sensible app",
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Validation"
-        },
-        "example": [
-          {
-            "description": "Load weight should be over 1 ton",
-            "severity": "warning"
-          },
-          {
-            "description": "Carrier email must be in format string@string",
-            "severity": "skipped",
-            "message": "Missing prerequisites - carrier_email"
-          }
-        ]
-      },
-      "ValidationsSummary": {
-        "type": "object",
-        "description": "Summary of the extracted fields that failed validation rules you write in the Sensible app.",
-        "properties": {
-          "fields": {
-            "type": "integer",
-            "description": "Number of fields specified in the SenseML config to extract from the document",
-            "example": 6
-          },
-          "fields_present": {
-            "type": "integer",
-            "description": "Actual number of non-null fields extracted from the document",
-            "example": 4
-          },
-          "errors": {
-            "type": "number",
-            "description": "Number of errors in the extraction",
-            "example": 0
-          },
-          "warnings": {
-            "type": "number",
-            "description": "Number of warnings in the extraction",
-            "example": 1
-          },
-          "skipped": {
-            "type": "integer",
-            "description": "Number of fields skipped in the extraction because a prerequisite field was null",
-            "example": 1
-          }
-        }
-      },
-      "ExtractionId": {
-        "type": "string",
-        "format": "uuid",
-        "description": "Unique ID for the extraction, used to retrieve the extraction",
-        "example": "246a6f60-0e5b-11eb-b720-295a6fba723e"
-      },
-      "ExtractionCreated": {
-        "type": "string",
-        "format": "date",
-        "description": "Date the extraction was created"
-      },
-      "ExtractionType": {
-        "type": "string",
-        "description": "User-friendly name of the document type",
-        "example": "rate_confirmation"
-      },
-      "ExtractionStatus": {
-        "type": "string",
-        "description": "Extraction status (WAITING, COMPLETE, FAILED)",
-        "enum": [
-          "WAITING",
-          "COMPLETE",
-          "FAILED"
-        ],
-        "example": "COMPLETE"
-      },
-      "ClassificationSummary": {
-        "type": "array",
-        "description": "Metadata about how Sensible chose the config to use for this extraction. Sensible compares all configs in the document type, then chooses the best extraction using fingerprints, scores, or a combination of the two. (When two extractions tie by score and fingerprints, Sensible chooses the first configuration in alphabetic order). For more details, see [fingerprints](https://docs.sensible.so/docs/fingerprint#notes)",
-        "items": {
-          "$ref": "#/components/schemas/Classification"
-        },
-        "example": [
-          {
-            "configuration": "anyco_rate_confirmation",
-            "fingerprints": 2,
-            "fingerprints_present": 2,
-            "score": {
-              "value": 3,
-              "fields_present": 4,
-              "penalities": 0.5
-            }
-          },
-          {
-            "configuration": "acme_co",
-            "fingerprints": 2,
-            "fingerprints_present": 2,
-            "score": {
-              "value": 0,
-              "fields_present": 2,
-              "penalities": 1.5
-            }
-          }
-        ]
-      },
-      "Classification": {
-        "type": "object",
-        "properties": {
-          "configuration": {
-            "type": "string",
-            "example": "anyco",
-            "description": "The config tested for fingerprints"
-          },
-          "fingerprint_present": {
-            "type": "integer",
-            "example": 1,
-            "description": "The number of this config's fingerprints that Sensible found in the document."
-          },
-          "fingerprints": {
-            "type": "integer",
-            "example": 1,
-            "description": "The number of fingerprints defined in this config."
-          },
-          "score": {
-            "$ref": "#/components/schemas/Score"
-          }
-        }
-      },
-      "Score": {
-        "type": "object",
-        "description": "The score for the extraction, used to help choose the best extraction.",
-        "properties": {
-          "value": {
-            "type": "number",
-            "example": 17,
-            "description": "The score total is fields_present minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score."
-          },
-          "fields_present": {
-            "type": "integer",
-            "example": 17,
-            "description": "Number of non-null fields Sensible extracted from the document using this config"
-          },
-          "penalties": {
-            "type": "number",
-            "example": 1.5,
-            "description": "Errors are 1 penality point and warnings are 0.5 points. See the validations_summary for a breakdown."
-          }
-        }
       }
     },
     "responses": {
       "204": {
-        "description": "No content",
-        "content": {
-          "text/plain": {
-            "schema": {
-              "title": "No Content",
-              "type": "string",
-              "example": "No Content"
-            }
-          }
-        }
+        "description": "No content. The response has an empty body and no `Content-Type` header."
       },
       "400": {
         "description": "Bad Request",
