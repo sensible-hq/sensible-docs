@@ -206,69 +206,52 @@
         "content": {
           "application/pdf": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/jpeg": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/png": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/tiff": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/msword": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "text/csv": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/vnd.ms-excel": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/vnd.ms-excel.sheet.macroenabled.12": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           }
         }
@@ -345,6 +328,11 @@
           "reference_documents": [],
           "classification_summary": []
         }
+      },
+      "BinaryDocument": {
+        "type": "string",
+        "format": "binary",
+        "description": "non-encoded document bytes as the entire request body"
       }
     }
   }
