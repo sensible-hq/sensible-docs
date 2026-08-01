@@ -1048,29 +1048,7 @@
       "GetAllDocumentTypes": {
         "type": "array",
         "items": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "$ref": "#/components/schemas/DocumentTypeName"
-            },
-            "id": {
-              "$ref": "#/components/schemas/UniqueId"
-            },
-            "created": {
-              "$ref": "#/components/schemas/Date"
-            },
-            "schema": {
-              "$ref": "#/components/schemas/DocumentTypeOutput"
-            },
-            "processor_type": {
-              "$ref": "#/components/schemas/ProcessorType"
-            }
-          },
-          "required": [
-            "name",
-            "id"
-          ],
-          "additionalProperties": false
+          "$ref": "#/components/schemas/DocumentType"
         }
       },
       "ProcessorType": {
