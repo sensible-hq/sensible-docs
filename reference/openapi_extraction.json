@@ -1125,11 +1125,11 @@
       "environments": {
         "name": "environments",
         "in": "query",
-        "description": "Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions.",
+        "description": "Comma-delimited list of environments (production, development) by which to filter the retrieved extractions.",
         "schema": {
           "type": "string"
         },
-        "example": "PRODUCTION,DEVELOPMENT"
+        "example": "production,development"
       }
     },
     "securitySchemes": {
@@ -1418,8 +1418,12 @@
       },
       "EnvironmentResponse": {
         "description": "Name of the environment to which the configuration used by this extraction was published.",
-        "example": "DEVELOPMENT",
-        "type": "string"
+        "example": "production",
+        "type": "string",
+        "enum": [
+          "production",
+          "development"
+        ]
       },
       "ExtractionSyncResponse": {
         "type": "object",
