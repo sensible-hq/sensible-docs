@@ -25,16 +25,17 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 ### Extraction spec
 
 **New schemas — review as a group:**
-- [ ] `AuthorizationGrant` — "Authorizes the token to call one specific route/method combination..."  
-  `AuthorizationGrant.properties.path` — "Values for the route's path parameters, keyed by parameter name."
-- [ ] `AuthTokenUsage.properties.ip` — "IP address of the caller..."  
-  `AuthTokenUsage.properties.used` — "The date-time this token was used."
-- [ ] `ScorePortfolio` + its 4 properties (`coverage`, `fieldsPresent`, `penalties`, `score`)
-- [ ] `Grants` — "At least one grant is required -- a token with no grants can't authorize anything."
+- [x] `AuthorizationGrant` — accepted as-is
+- [x] `AuthorizationGrant.properties.path` — updated: explains key/value structure and gives concrete example
+- [x] `AuthTokenUsage.properties.ip` + `.used` — accepted as-is
+- [x] `ScorePortfolio` — updated: first sentence matches `Score`; added "Unlike single-document Score, includes coverage"; added x-internal-note on camelCase vs snake_case inconsistency
+- [x] `ScorePortfolio.properties.score` — updated: added "In the absence of fingerprints..." sentence from `Score.value`
+- [x] `ScorePortfolio.properties.coverage`, `.fieldsPresent`, `.penalties` — accepted as-is
+- [x] `Grants` — updated: simplified to "At least one grant is required for an authorization token."
 
 **New fields on existing schemas:**
-- [ ] `AuthTokenResponse.properties.created_by` — "Email of the user who created this token..."
-- [ ] `AuthTokenResponse.properties.revoked` — "The date-time this token was revoked, if it has been."
+- [x] `AuthTokenResponse.properties.created_by` — accepted as-is
+- [x] `AuthTokenResponse.properties.revoked` — accepted as-is
 - [ ] `ExtractionSingleRetrievalResponse` — new schema-level description explaining async-only fields
 - [ ] `ExtractionErrorMessage` — description of the top-level `error` field for FAILED extractions
 - [ ] `ExtractionUploaded` + `ExtractionProcessingStarted` — lifecycle timestamp descriptions
