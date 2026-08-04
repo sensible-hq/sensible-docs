@@ -1068,6 +1068,7 @@
       "DocumentTypeOutput": {
         "type": "object",
         "additionalProperties": false,
+        "x-internal-note": "prevent_file_metadata is returned by the backend but omitted here -- not documenting for now, not a lot of demand for it and not really productized at the moment.",
         "properties": {
           "fingerprint_mode": {
             "enum": [
@@ -1138,10 +1139,6 @@
             "type": "string",
             "description": "User-friendly description of the document type."
           },
-          "prevent_file_metadata": {
-            "type": "boolean",
-            "description": "Prevents Sensible from reading and returning PDF file metadata (for example, author, creation date) alongside extraction results."
-          }
         }
       },
       "PutDocumentType": {
