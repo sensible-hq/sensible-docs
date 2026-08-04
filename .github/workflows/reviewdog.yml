@@ -3,9 +3,7 @@
 name: reviewdog
 
 on:
-  push:
-    branches:
-      - v0
+  workflow_dispatch:
 
 jobs:
   vale:
