@@ -997,7 +997,8 @@
         "minLength": 3,
         "maxLength": 128,
         "description": "User-friendly name",
-        "example": "auto_insurance_quotes_all_carriers"
+        "example": "insurance_quote",
+        "x-internal-note": "Single shared schema covers config names, document type names, and golden names. You can achieve context-specific examples for the purpose of the API docs ('auto_insurance_quotes_all_carriers', 'anyco_carrier', 'insurance_quote_john_doe' for doc type, config, and document, for example) using allOf wrappers at each usage site, but we're not bothering right now, given codegen is a primary consumer and a single neutral example is sufficient."
       },
       "Date": {
         "type": "string",
