@@ -95,9 +95,16 @@ PortfolioBase                                 ← { id, created, status }
 ```
 
 **Notable:**
-- `extra_data` appears in request bodies (`ExtractFromUrlRequest`, `GenerateUrlRequest`, and the inline portfolio request bodies) and in full retrieval responses (`ExtractionSingleResponse`, `ExtractionPortfolioRetrievalResponse`, `ExtractFromUrlResponse`). It is **not** on `ExtractionSummaryBase` — the list endpoint (`GET /extractions`) intentionally omits it. In `entity.ts`, `toExtractionSummaryResponse()` does not populate `extra_data`; only `toExtractionResponse()` does.
+- `extra_data` appears in request bodies and in full retrieval responses (`ExtractionSingleResponse`, `ExtractionPortfolioRetrievalResponse`, `ExtractFromUrlResponse`). It is **not** on `ExtractionSummaryBase` — the list endpoint (`GET /extractions`) intentionally omits it. In `entity.ts`, `toExtractionSummaryResponse()` does not populate `extra_data`; only `toExtractionResponse()` does.
 - `POST /extract_from_url` and `POST /generate_upload_url` (portfolio variants, no `{document_type}`) define their request body inline rather than as a named schema.
 - `ExtractionSingleRetrievalResponse` is a named alias for `ExtractionSingleResponse` with no added properties.
+- `reviewStatus` (singular) is on single-doc responses only; `reviewStatuses` (plural array) is on portfolio responses only. Do not share between the two.
+- `Webhook.payload` is `anyOf string/number/boolean/array/object` — not a plain string. Source: `src/api/extract/response-types.ts:20-28`.
+- Pagination (GET /extractions): `continuation_token` is the real mechanism (base64url cursor); `last_evaluated_creation_date` is deprecated but still returned. Both must be in the schema. Source: `src/api/extractions/handler.ts` (`ExtractionsResult`).
+- Portfolio `DocumentInPortfolio.output` uses **camelCase** (`parsedDocument`, `fileMetadata`) — not snake_case.
+- `AuthTokenUsage` is an array, not a string. Fields `created_by` and `revoked` are present on auth token responses. Source: `src/api/account/auth-token.ts:34-59,77`.
+- `actor` field: auth_token-initiated extractions are not a real code path — omit that case from public docs.
+- `batchId`, `version_id`, `taskId` on `ExtractionResponseBase`: returned by backend but not publicly documented.
 
 ---
 
@@ -136,26 +143,49 @@ Three nested CRUD resources: **DocumentType → Configuration → Golden** (refe
 ### Schema relationships
 
 ```
-DocumentType          { name, id, created, schema: DocumentTypeOutput }
+DocumentType          { name, id, created, schema: DocumentTypeOutput, processor_type? }
 DocumentTypeOutput    { fingerprint_mode, ocr_engine, prevent_default_merge_lines,
-                        ocr_level, validations, review_triggers }
+                        ocr_level, validations, review_triggers, description }
+                      ← prevent_file_metadata returned by backend but not publicly documented
 
-ConfigurationResponse { name, created, configuration (SenseML as string), version_id, versions[] }
-ConfigurationVersion  { version_id, datetime, environments[], draft }
+ConfigurationResponse { name, created, configuration (SenseML as string), content_type (required),
+                        version_id (not publicly documented), versions[], editor? }
+ConfigurationVersion  { version_id (not publicly documented), datetime, environments[], draft, note?, published_by? }
+  published_by: display name (full name / first name / account name) — NOT an email address
+  Source: getPublishedByName() in src/api/doc-type/configurations.ts
 
-GoldenResponse        { name, created, configuration, error, upload_url, download_url, thumbnail_url }
+ConfigurationEditor   numeric bitmask: 1=JSON config+JSON output, 2=JSON config+UI output,
+                      5=visual config+JSON output, 6=visual config+UI output
+                      Semantics: "preferred editor" for the frontend — src/api/doc-type/entity.ts:418
+                      Validation: src/api/validation/index.ts:1481-1494
 
-PostConfiguration / PutConfiguration
-  configuration: StringifiedConfigurationRequest  (SenseML JSON serialized as a string)
-  publish_as: Environment  ("production" | "development")
+GoldenResponse        { id (required), name, created, configuration?, error?,
+                        upload_url?, download_url?, thumbnail_url?, converted_url? }
+GoldenSummaryResponse { id, name, created, present (false until uploaded), configuration?, error? }
 
-ResponseGoldenExtraction  allOf: [Extraction]   ← same shape as a standard extraction response
+PostConfiguration     { name, configuration, content_type?, publish_as? }
+                      ← editor NOT accepted on POST (only PUT)
+PutConfiguration      { name?, configuration?, content_type?, publish_as?,
+                        current_draft?, note? (max 512 chars), editor? }
+
+Name (shared schema)  pattern: ^[a-z0-9_]+$, minLength: 3, maxLength: 128
+                      Source: nameRegex in src/api/validation/index.ts
+
+review_triggers       object (NOT string[]):
+                      { coverage_threshold?, validation_errors_threshold?,
+                        validation_warnings_threshold?, selected_validations? }
+                      Source: src/engine/types.ts:1895-1908
 ```
 
 **Notable:**
 - Configuration bodies are stringified JSON — SenseML is stored and returned as a string, not a parsed object.
+- `content_type` is required on `ConfigurationResponse` (confirmed live).
+- `editor` is PUT-only — `postConfigurationSchema` has no `editor` property; `putConfigurationSchema` does.
+- `current_draft` is optimistic locking: if a draft exists and `current_draft` is not supplied or doesn't match, the request is rejected.
+- `DELETE /{config-name}/{version}` has dual behavior: delete by draft `version_id` removes the draft; delete by environment name unpublishes the tag but keeps version history.
+- `/extract_text_from_golden` returns `{ text: { pages: [...] } }` — not a bare pages array. Source: `src/api/extract-from-golden/handler.ts`.
 - Goldens can be pinned to a specific config via `configuration` in `PostGolden`/`PutGolden`; the association is removed separately via `DELETE …/configuration`.
-- `ResponseGoldenExtraction` is `allOf: [Extraction]` with no additional properties — a named alias for the retrieval context.
+- `GoldenResponse` (create/get single) includes `upload_url`/`download_url`; `GoldenSummaryResponse` (list) replaces those with `present: boolean`.
 
 ---
 
