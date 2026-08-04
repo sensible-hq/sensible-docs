@@ -1376,8 +1376,9 @@
       },
       "Actor": {
         "type": "string",
-        "description": "Best-effort label identifying the user or credential that initiated the extraction. For extractions you initiate in the Sensible app, the value is your account's email address. For extractions you initiate by using your API key, the value is `'api_key: <key name>'` if the key has a name, or `'api_key'` if unnamed. For extractions initiated with a reviewer auth token (see [Get token for review link](ref:account-auth-tokens)), the value is `'auth_token: <creator>'` if the token records who created it, or `'auth_token'` if not. For extractions you initiate in the Sensible app while logged in with legacy credentials, the value is `'legacy: <account>'`. Sensible omits this field for extractions you initiate with email processors.",
-        "example": "api_key: my production key"
+        "description": "Best-effort label identifying the user or credential that initiated the extraction. For extractions you initiate in the Sensible app, the value is your account's email address. For extractions you initiate by using your API key, the value is `'api_key: <key name>'` if the key has a name, or `'api_key'` if unnamed. For extractions you initiate in the Sensible app while logged in with legacy credentials, the value is `'legacy: <account>'`. Sensible omits this field for extractions you initiate with email processors.",
+        "example": "api_key: my production key",
+        "x-internal-note": "auth_token-initiated extractions are not a real code path; omitting the 'auth_token: <creator>' case from the public description deliberately."
       },
       "PostprocessorOutput": {
         "type": "object",
