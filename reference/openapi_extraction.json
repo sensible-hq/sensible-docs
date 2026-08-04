@@ -2578,7 +2578,7 @@
       "ConvertedUrlDocument": {
         "type": "string",
         "format": "url",
-        "description": "Signed URL to download a PDF rendering of this document, for previewing documents whose original file isn't a PDF. Present for every document content type except application/pdf and image/tiff -- Word documents are converted, spreadsheets (xlsx, xls, xlsm, csv) and JSON documents are rendered, and PNG/JPEG images are embedded into a PDF.",
+        "description": "Signed URL to download a PDF rendering of this document, for previewing documents whose original file isn't a PDF. Present for every document content type except application/pdf and image/tiff.",
         "example": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e-converted.pdf?AWSAccessKeyId=REDACTED"
       },
       "ExtractionStatus": {
