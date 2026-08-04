@@ -1329,7 +1329,7 @@
       },
       "Grants": {
         "type": "array",
-        "description": "At least one grant is required -- a token with no grants can't authorize anything.",
+        "description": "At least one grant is required for an authorization token.",
         "minItems": 1,
         "items": {
           "$ref": "#/components/schemas/AuthorizationGrant"
@@ -1358,7 +1358,7 @@
             "additionalProperties": {
               "type": "string"
             },
-            "description": "Values for the route's path parameters, keyed by parameter name.",
+            "description": "Path parameter values that scope this grant to a specific resource. Keys are path parameter names from the route; values are the allowed IDs. For example, for route `/documents/{id}`, set `path` to `{\"id\": \"<extraction-id>\"}` to restrict the token to that specific extraction.",
             "example": {
               "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
             }
@@ -2265,12 +2265,13 @@
       },
       "ScorePortfolio": {
         "type": "object",
-        "description": "The score for this document's classification within the portfolio, used to help choose the best config for it. Unlike the single-document extraction Score schema, this exposes the engine's internal field names and includes coverage directly.",
+        "description": "The score for the extraction, used to help choose the best extraction. Unlike the single-document extraction Score, includes a coverage field.",
+        "x-internal-note": "Field names use camelCase (score, fieldsPresent) rather than the snake_case of the single-document Score schema (value, fields_present) — this reflects the engine's internal naming.",
         "properties": {
           "score": {
             "type": "number",
             "example": 31,
-            "description": "The score total is fieldsPresent minus penalty points. Equivalent to Score.value for single-document extractions."
+            "description": "The score total is fieldsPresent minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score. Equivalent to Score.value for single-document extractions."
           },
           "coverage": {
             "type": "number",
