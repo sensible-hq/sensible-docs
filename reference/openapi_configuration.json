@@ -1357,7 +1357,7 @@
       },
       "ConfigurationEditor": {
         "type": "number",
-        "description": "Identifies which Sensible app editor to associate with this configuration."
+        "description": "Numeric code indicating the display mode associated with this configuration in the Sensible app. Indicates whether the SenseML editor displays the configuration as JSON or visually, and whether it displays extraction results as JSON or visually."
       },
       "Environment": {
         "type": "string",
