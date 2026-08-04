@@ -46,7 +46,7 @@
     "/extract/{document_type}": {
       "post": {
         "operationId": "extract-data-from-a-document",
-        "x-internal-note": "TODO: update for sensible-hq/sensible PR 3349",
+        "x-internal-note": "Accounts with requireMalwareScan return 400 'This account requires uploaded documents to be malware-scanned; use generate_upload_url or extract_from_url instead of the synchronous extract endpoint' for this endpoint, since the sync flow can't route the document through malware scanning (src/api/extract/handler.ts, MALWARE_SCAN_REQUIRED_RESPONSE in src/api/common.ts:388-392).",
         "summary": "Extract data from a document (sync)",
         "description": "\n**Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints when in production.\n\nExtract data from a local document synchronously.\n\nTo explore this endpoint, use this interactive API reference, or use one of the following options:\n\n- For a quick \"hello world\" response to this endpoint, see the [API quickstart](doc:quickstart)\n- For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).\n- Run this endpoint in the Sensible Postman collection.\n  [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)\n\nThere are two options for posting the document bytes.\n  1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n     See the following for supported file formats.\n  2. Base64 encode the document bytes, specify them in a body \"document\" field, and specify application/json for the `Content-Type` header.\n\nFor a list of  supported document file types, see [Supported file types](doc:file-types).\n",
         "parameters": [
@@ -212,6 +212,7 @@
     "/extract/{document_type}/{config_name}": {
       "post": {
         "operationId": "extract-data-from-a-document-with-config",
+        "x-internal-note": "Same malware-scan restriction as extract-data-from-a-document -- see that operation's x-internal-note.",
         "summary": "Extract data from a document using specified config",
         "description": "This endpoint's behavior identical to the [Extract data from a document](ref:extract-data-from-a-document) endpoint's behavior, except that Sensible uses the specified config to extract data from the document instead of automatically choosing the best-scoring extraction in the document type.\n",
         "parameters": [
@@ -400,25 +401,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/generate-upload-url/handler.ts:67-76) but deliberately not documented publicly.",
-                "properties": {
-                  "webhook": {
-                    "$ref": "#/components/schemas/Webhook"
-                  },
-                  "types": {
-                    "$ref": "#/components/schemas/DocumentTypeNames"
-                  },
-                  "segment_documents_with": {
-                    "$ref": "#/components/schemas/SegmentDocumentsWith"
-                  },
-                  "extra_data": {
-                    "$ref": "#/components/schemas/ExtraDataRecord"
-                  }
-                },
-                "required": [
-                  "types"
-                ]
+                "$ref": "#/components/schemas/GenerateUrlPortfolioRequest"
               }
             }
           }
@@ -472,29 +455,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/extract-from-url/handler.ts:62-68) but deliberately not documented publicly.",
-                "properties": {
-                  "document_url": {
-                    "$ref": "#/components/schemas/DocumentUrl"
-                  },
-                  "types": {
-                    "$ref": "#/components/schemas/DocumentTypeNames"
-                  },
-                  "segment_documents_with": {
-                    "$ref": "#/components/schemas/SegmentDocumentsWith"
-                  },
-                  "webhook": {
-                    "$ref": "#/components/schemas/Webhook"
-                  },
-                  "extra_data": {
-                    "$ref": "#/components/schemas/ExtraDataRecord"
-                  }
-                },
-                "required": [
-                  "types",
-                  "document_url"
-                ]
+                "$ref": "#/components/schemas/ExtractFromUrlPortfolioRequest"
               }
             }
           }
@@ -710,12 +671,10 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "type": "object",
                   "properties": {
                     "url": {
-                      "type": "string",
-                      "format": "url",
-                      "description": "The download URL for the Excel file",
-                      "example": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.xlsx?REDACTED"
+                      "$ref": "#/components/schemas/GeneratedFileUrl"
                     }
                   }
                 }
@@ -756,12 +715,10 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "type": "object",
                   "properties": {
                     "url": {
-                      "type": "string",
-                      "format": "url",
-                      "description": "The download URL for the CSV file",
-                      "example": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.csv?REDACTED"
+                      "$ref": "#/components/schemas/GeneratedFileUrl"
                     }
                   }
                 }
@@ -854,13 +811,72 @@
   "components": {
     "responses": {
       "400": {
-        "description": "Bad Request",
+        "description": "Bad Request. Sensible returns either a plain-text error message or a structured JSON error, depending on what caused the failure -- see the two content types below.",
         "content": {
           "text/plain": {
             "schema": {
               "title": "Bad Request",
               "type": "string",
-              "example": "Either a specific set of messages about fields in the request, or error messages like the following examples - Not available to logged in users To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Specified configuration/version does not exist Specified configuration/version is not valid Must provide the Content-Type header when request body is present Content-Type must be application/json Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} Document is not present The start date must be before the end date"
+              "example": "Either a specific set of messages about fields in the request, or error messages like the following examples - To use the asynchronous flow you must have persistence enabled Specified document type does not exist Specified document type ${named type} does not exist No published configurations found for environment ${environment} Specified golden does not exist Must provide the Content-Type header Missing request body or body.document Could not determine the content type of the document Could not determine the content type of the document. Please check that the document was correctly encoded as Base64 This PDF is invalid. If you submitted this PDF using Base64 encoding, please check that the encoding is correct This PDF is password protected. Please resubmit with password protection disabled This PDF is empty This PDF exceeds the maximum dimensions for OCR of 17 x 17 inches This PDF exceeds the maximum size for OCR of 50MB No fingerprints match for this PDF and fingerprint_mode is set to strict Content type of ${found} does not match declared type of ${expected} The start date must be before the end date"
+            }
+          },
+          "application/json": {
+            "schema": {
+              "title": "Bad Request (structured)",
+              "type": "object",
+              "description": "Returned instead of plain text when the request fails path, query, or body validation (for example, a malformed id, an out-of-range limit, or an invalid field in a JSON body), and for the extract_from_url document-fetch failure. The shape of `context` varies by cause: for validation failures, it echoes the offending path and/or query values; for the extract_from_url failure, it's the extraction's current state.",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Human-readable summary of the error."
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Present when the request failed path, query, or body validation -- one message per failing field, in the form '<location>/<field> <reason>'."
+                },
+                "context": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "description": "Additional context about the failure. See the parent description for how this varies by cause."
+                }
+              },
+              "required": [
+                "message"
+              ]
+            },
+            "examples": {
+              "validationFailure": {
+                "summary": "A path parameter failed validation",
+                "value": {
+                  "message": "This request contains errors",
+                  "context": {
+                    "path": "/documents/{id}"
+                  },
+                  "errors": [
+                    "path/id should be valid version 4 UUID"
+                  ]
+                }
+              },
+              "documentFetchFailure": {
+                "summary": "extract_from_url could not download the document",
+                "value": {
+                  "message": "Transferring the file failed with 'Response code 404 (Not Found)'",
+                  "context": {
+                    "id": "e75dd6ee-ef8f-4960-8be2-ba22f8c398e3",
+                    "created": "2026-07-17T14:39:49.084Z",
+                    "completed": "2026-07-17T14:39:49.330Z",
+                    "status": "FAILED",
+                    "type": "1040s",
+                    "environment": "production",
+                    "errors": [],
+                    "error": "Response code 404:\n404: Not Found",
+                    "actor": "legacy: Sensible"
+                  }
+                }
+              }
             }
           }
         }
@@ -1109,11 +1125,11 @@
       "environments": {
         "name": "environments",
         "in": "query",
-        "description": "Comma-delimited list of environments (PRODUCTION, DEVELOPMENT) by which to filter the retrieved extractions.",
+        "description": "Comma-delimited list of environments (production, development) by which to filter the retrieved extractions.",
         "schema": {
           "type": "string"
         },
-        "example": "PRODUCTION,DEVELOPMENT"
+        "example": "production,development"
       }
     },
     "securitySchemes": {
@@ -1130,55 +1146,57 @@
         "content": {
           "application/pdf": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/jpeg": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/png": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/tiff": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/msword": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
+          },
+          "application/vnd.ms-excel": {
+            "schema": {
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
+          },
+          "application/vnd.ms-excel.sheet.macroenabled.12": {
+            "schema": {
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "text/csv": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
+          },
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/encodedPdf"
             }
           }
         }
@@ -1256,75 +1274,100 @@
           "grants": {
             "$ref": "#/components/schemas/Grants"
           },
-          "usage": {
+          "created_by": {
             "type": "string",
-            "description": "array",
+            "description": "Email of the user who created this token, if created via a logged-in Sensible app session. Absent for tokens created with an API key.",
+            "example": "reviewer@example.com"
+          },
+          "revoked": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date-time this token was revoked, if it has been."
+          },
+          "usage": {
+            "type": "array",
+            "description": "Record of each time this token has been used.",
+            "items": {
+              "$ref": "#/components/schemas/AuthTokenUsage"
+            },
             "example": []
+          }
+        }
+      },
+      "AuthTokenUsage": {
+        "type": "object",
+        "properties": {
+          "used": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date-time this token was used."
+          },
+          "ip": {
+            "type": "string",
+            "description": "IP address of the caller that used this token."
+          },
+          "endpoint": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "example": "/documents/{id}"
+              },
+              "method": {
+                "type": "string",
+                "enum": [
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "DELETE"
+                ],
+                "example": "GET"
+              }
+            }
           }
         }
       },
       "Grants": {
         "type": "array",
+        "description": "At least one grant is required -- a token with no grants can't authorize anything.",
+        "minItems": 1,
         "items": {
-          "allOf": [
-            {
-              "$ref": "#/components/schemas/GetGrant"
-            },
-            {
-              "$ref": "#/components/schemas/PutGrant"
-            }
-          ]
+          "$ref": "#/components/schemas/AuthorizationGrant"
         }
       },
-      "PutGrant": {
+      "AuthorizationGrant": {
         "type": "object",
+        "description": "Authorizes the token to call one specific route/method combination. For the human review workflow, typically GET /documents/{id} (to view the extraction) and PUT /extractions/{id} (to submit review edits).",
         "properties": {
           "route": {
             "type": "string",
-            "description": "/extractions/{id}",
-            "example": "/extractions/{id}"
-          },
-          "method": {
-            "type": "string",
-            "description": "PUT",
-            "example": "PUT"
-          },
-          "path": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "ID of the extraction",
-                "example": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
-              }
-            }
-          }
-        }
-      },
-      "GetGrant": {
-        "type": "object",
-        "properties": {
-          "route": {
-            "type": "string",
-            "description": "/documents/{id}",
             "example": "/documents/{id}"
           },
           "method": {
             "type": "string",
-            "description": "GET",
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "DELETE"
+            ],
             "example": "GET"
           },
           "path": {
             "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "ID of the extraction",
-                "example": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
-              }
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Values for the route's path parameters, keyed by parameter name.",
+            "example": {
+              "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
             }
           }
-        }
+        },
+        "required": [
+          "route",
+          "method"
+        ]
       },
       "Charged": {
         "type": "integer",
@@ -1334,7 +1377,8 @@
       "Actor": {
         "type": "string",
         "description": "Best-effort label identifying the user or credential that initiated the extraction. For extractions you initiate in the Sensible app, the value is your account's email address. For extractions you initiate by using your API key, the value is `'api_key: <key name>'` if the key has a name, or `'api_key'` if unnamed. For extractions you initiate in the Sensible app while logged in with legacy credentials, the value is `'legacy: <account>'`. Sensible omits this field for extractions you initiate with email processors.",
-        "example": "api_key: my production key"
+        "example": "api_key: my production key",
+        "x-internal-note": "auth_token-initiated extractions are not a real code path; omitting the 'auth_token: <creator>' case from the public description deliberately."
       },
       "PostprocessorOutput": {
         "type": "object",
@@ -1375,12 +1419,16 @@
       },
       "EnvironmentResponse": {
         "description": "Name of the environment to which the configuration used by this extraction was published.",
-        "example": "DEVELOPMENT",
-        "type": "string"
+        "example": "production",
+        "type": "string",
+        "enum": [
+          "production",
+          "development"
+        ]
       },
       "ExtractionSyncResponse": {
         "type": "object",
-        "x-internal-note": "version_id is returned by the backend but deliberately not documented publicly.",
+        "x-internal-note": "version_id is returned by the backend but deliberately not documented publicly. batchId may also be returned, but is not a standard field on every extraction -- the backend only sets it for extractions created through the separate, undocumented /extract/batch/* API (src/api/extract/batch.ts), so it's absent for anything created through the endpoints in this spec.",
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ExtractionId"
@@ -1488,6 +1536,9 @@
           "document_type_name": {
             "$ref": "#/components/schemas/DocumentTypeName"
           },
+          "environment": {
+            "$ref": "#/components/schemas/EnvironmentResponse"
+          },
           "coverage_histogram": {
             "description": "Array of numbers that describe the number of extractions that fell into each coverage bucket for the `date` for this config.\nThe buckets are as follows:\n\n- [0, 10)\n- [10, 20)\n- [20, 30)\n- [30, 40)\n- [40, 50)\n- [50, 60)\n- [60, 70)\n- [70, 80)\n- [80, 90)\n- [90, 95)\n- [95, 100)\n- [100]\n\n`[` denotes inclusive and `)` denotes exclusive.\nFor example, when this endpoint returns `\"coverage_histogram\":[7,5,3,3,2,1,1,4,7,9,13,15]` , the first and last items in the array show that on specified date for the specified config, 7 extractions scored in the lowest bucket of 0-10%, and 15 scored in the highest bucket of 100%.\n For more information about extraction coverage scores, see [Monitoring extraction metrics](doc:metrics).\n From the payload returned by this endpoint, you can calculate other metrics, for example:\n  - total number of extractions in a time period\n  - doc type and config usage\n",
             "type": "array",
@@ -1529,6 +1580,16 @@
               ]
             }
           },
+          "continuation_token": {
+            "type": "string",
+            "nullable": true,
+            "description": "Opaque token for retrieving the next page of results. Pass it as the `continuation_token` query parameter in the next request. Null on the last page."
+          },
+          "last_evaluated_creation_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The `created` date-time of the last extraction in this page of results."
+          },
           "cutoff_date": {
             "type": "string",
             "format": "date-time",
@@ -1550,6 +1611,15 @@
           "configuration": {
             "$ref": "#/components/schemas/ConfigurationName"
           },
+          "configuration_version": {
+            "$ref": "#/components/schemas/ConfigurationVersion"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ContentTypeResponse"
+          },
+          "reviewStatus": {
+            "$ref": "#/components/schemas/ReviewStatus"
+          },
           "errors": {
             "$ref": "#/components/schemas/Errors"
           },
@@ -1568,6 +1638,12 @@
           "types": {
             "$ref": "#/components/schemas/DocumentTypeNames"
           },
+          "segment_documents_with": {
+            "$ref": "#/components/schemas/SegmentDocumentsWith"
+          },
+          "reviewStatuses": {
+            "$ref": "#/components/schemas/ReviewStatuses"
+          },
           "documents": {
             "type": "array",
             "items": {
@@ -1577,6 +1653,7 @@
         }
       },
       "ExtractionSingleRetrievalResponse": {
+        "description": "The fields in this response beyond those in the synchronous extraction response reflect state that only exists once Sensible has processed the extraction asynchronously and/or you retrieve it: for example, `uploaded` and `processing_started` are stamped during the WAITING-to-PROCESSING transition, and `download_url`/`converted_url` are signed at the time you call this endpoint. Extractions created through the synchronous `/extract/{document_type}` endpoint skip those transitions, so these fields are absent from that endpoint's own response but populate normally once you retrieve the same extraction here.\n",
         "allOf": [
           {
             "$ref": "#/components/schemas/ExtractionSyncResponse"
@@ -1584,8 +1661,23 @@
           {
             "type": "object",
             "properties": {
+              "uploaded": {
+                "$ref": "#/components/schemas/ExtractionUploaded"
+              },
+              "processing_started": {
+                "$ref": "#/components/schemas/ExtractionProcessingStarted"
+              },
+              "webhook": {
+                "$ref": "#/components/schemas/Webhook"
+              },
+              "error": {
+                "$ref": "#/components/schemas/ExtractionErrorMessage"
+              },
               "download_url": {
                 "$ref": "#/components/schemas/DownloadUrlDocument"
+              },
+              "converted_url": {
+                "$ref": "#/components/schemas/ConvertedUrlDocument"
               },
               "extra_data": {
                 "$ref": "#/components/schemas/ExtraDataRecord"
@@ -1596,6 +1688,7 @@
       },
       "ExtractionPortfolioRetrievalResponse": {
         "type": "object",
+        "x-internal-note": "batchId may be returned by the backend but is not a standard field on every extraction -- it's deliberately not documented publicly. The backend only sets it for extractions created through the separate, undocumented /extract/batch/* API (src/api/extract/batch.ts), so it's absent for anything created through the endpoints in this spec.",
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ExtractionId"
@@ -1603,14 +1696,29 @@
           "created": {
             "$ref": "#/components/schemas/ExtractionCreated"
           },
+          "uploaded": {
+            "$ref": "#/components/schemas/ExtractionUploaded"
+          },
+          "processing_started": {
+            "$ref": "#/components/schemas/ExtractionProcessingStarted"
+          },
           "completed": {
             "$ref": "#/components/schemas/ExtractionCompleted"
           },
           "status": {
             "$ref": "#/components/schemas/ExtractionStatus"
           },
+          "error": {
+            "$ref": "#/components/schemas/ExtractionErrorMessage"
+          },
           "types": {
             "$ref": "#/components/schemas/DocumentTypeNames"
+          },
+          "segment_documents_with": {
+            "$ref": "#/components/schemas/SegmentDocumentsWith"
+          },
+          "webhook": {
+            "$ref": "#/components/schemas/Webhook"
           },
           "environment": {
             "$ref": "#/components/schemas/EnvironmentResponse"
@@ -1626,6 +1734,9 @@
           },
           "download_url": {
             "$ref": "#/components/schemas/DownloadUrlDocument"
+          },
+          "converted_url": {
+            "$ref": "#/components/schemas/ConvertedUrlDocument"
           },
           "content_type": {
             "$ref": "#/components/schemas/ContentTypeResponse"
@@ -1677,8 +1788,9 @@
           },
           "output": {
             "type": "object",
+            "description": "Unlike the top-level single-document extraction response, the fields in this object use the engine's internal camelCase naming (parsedDocument, fileMetadata) rather than the public snake_case convention used elsewhere in this API.",
             "properties": {
-              "parsed_document": {
+              "parsedDocument": {
                 "$ref": "#/components/schemas/ParsedDocument"
               },
               "configuration": {
@@ -1690,11 +1802,15 @@
               "coverage": {
                 "$ref": "#/components/schemas/Coverage"
               },
-              "file_metadata": {
+              "fileMetadata": {
                 "$ref": "#/components/schemas/FileMetadata"
               },
               "errors": {
                 "$ref": "#/components/schemas/Errors"
+              },
+              "needsReview": {
+                "type": "boolean",
+                "description": "Whether this specific document in the portfolio needs human review. Redundant with this document's entry in the top-level reviewStatuses array (true here corresponds to NEEDS_REVIEW there)."
               },
               "classificationSummary": {
                 "$ref": "#/components/schemas/ClassificationSummaryPortfolio"
@@ -1785,6 +1901,18 @@
           }
         }
       },
+      "GeneratedFileUrl": {
+        "type": "string",
+        "format": "url",
+        "description": "The download URL for the generated file. The link expires after 15 minutes.",
+        "example": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.xlsx?REDACTED"
+      },
+      "UploadUrl": {
+        "type": "string",
+        "format": "url",
+        "description": "URL at which to PUT the document bytes for extraction. for example, curl -T ./sample.pdf \"YOUR_UPLOAD_URL\"",
+        "example": "https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED"
+      },
       "UploadResponse": {
         "type": "object",
         "properties": {
@@ -1801,10 +1929,7 @@
             "$ref": "#/components/schemas/ExtractionStatus"
           },
           "upload_url": {
-            "type": "string",
-            "format": "url",
-            "description": "URL at which to PUT the document bytes for extraction. for example, curl -T ./sample.pdf \"YOUR_UPLOAD_URL\"",
-            "example": "https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED"
+            "$ref": "#/components/schemas/UploadUrl"
           }
         }
       },
@@ -1850,15 +1975,13 @@
             "$ref": "#/components/schemas/ExtractionStatus"
           },
           "upload_url": {
-            "type": "string",
-            "format": "url",
-            "description": "URL at which to PUT the document bytes for extraction. for example, curl -T ./sample.pdf \"YOUR_UPLOAD_URL\"",
-            "example": "https://sensible-so-utility-bucket-prod-us-west-2.s3.us-west-2.amazonaws.com/EXTRACTION_UPLOAD/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/14d82783-c12b-4e70-b0ae-ca1ce35a9836.pdf?AWSAccessKeyId=REDACTED&Expires=1623861476&Signature=REDACTED&x-amz-security-token=REDACTED"
+            "$ref": "#/components/schemas/UploadUrl"
           }
         }
       },
       "ExtractionSummaryBase": {
         "type": "object",
+        "x-internal-note": "batchId may be returned by the backend but is not a standard field on every extraction -- it's deliberately not documented publicly. The backend only sets it for extractions created through the separate, undocumented /extract/batch/* API (src/api/extract/batch.ts), so it's absent for anything created through the endpoints in this spec.",
         "properties": {
           "id": {
             "$ref": "#/components/schemas/ExtractionId"
@@ -1866,11 +1989,20 @@
           "created": {
             "$ref": "#/components/schemas/ExtractionCreated"
           },
+          "uploaded": {
+            "$ref": "#/components/schemas/ExtractionUploaded"
+          },
+          "processing_started": {
+            "$ref": "#/components/schemas/ExtractionProcessingStarted"
+          },
           "completed": {
             "$ref": "#/components/schemas/ExtractionCompleted"
           },
           "status": {
             "$ref": "#/components/schemas/ExtractionStatus"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ExtractionErrorMessage"
           },
           "validation_summary": {
             "$ref": "#/components/schemas/ValidationsSummary"
@@ -1894,38 +2026,6 @@
           },
           "actor": {
             "$ref": "#/components/schemas/Actor"
-          },
-          "reviewStatuses": {
-            "$ref": "#/components/schemas/ReviewStatuses"
-          }
-        }
-      },
-      "ExtractionContentPortfolio": {
-        "type": "object",
-        "properties": {
-          "configuration": {
-            "$ref": "#/components/schemas/ConfigurationName"
-          },
-          "parsed_document": {
-            "$ref": "#/components/schemas/ParsedDocument"
-          },
-          "validations": {
-            "$ref": "#/components/schemas/Validations"
-          },
-          "file_metadata": {
-            "$ref": "#/components/schemas/FileMetadata"
-          },
-          "validation_summary": {
-            "$ref": "#/components/schemas/ValidationsSummary"
-          },
-          "errors": {
-            "$ref": "#/components/schemas/Errors"
-          },
-          "classificationSummary": {
-            "$ref": "#/components/schemas/ClassificationSummaryPortfolio"
-          },
-          "postprocessorOutput": {
-            "$ref": "#/components/schemas/PostprocessorOutput"
           }
         }
       },
@@ -1960,6 +2060,58 @@
             }
           }
         }
+      },
+      "GenerateUrlPortfolioRequest": {
+        "type": "object",
+        "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/generate-upload-url/handler.ts:72-75,85-87) but deliberately not documented publicly.",
+        "properties": {
+          "webhook": {
+            "$ref": "#/components/schemas/Webhook"
+          },
+          "types": {
+            "$ref": "#/components/schemas/DocumentTypeNames"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ContentTypeParameter"
+          },
+          "segment_documents_with": {
+            "$ref": "#/components/schemas/SegmentDocumentsWith"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
+          }
+        },
+        "required": [
+          "types"
+        ]
+      },
+      "ExtractFromUrlPortfolioRequest": {
+        "type": "object",
+        "x-internal-note": "ocr_engine and ocr_every_page are accepted by the backend (src/api/extract-from-url/handler.ts:92-95,100-102) but deliberately not documented publicly.",
+        "properties": {
+          "document_url": {
+            "$ref": "#/components/schemas/DocumentUrl"
+          },
+          "types": {
+            "$ref": "#/components/schemas/DocumentTypeNames"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ContentTypeParameter"
+          },
+          "segment_documents_with": {
+            "$ref": "#/components/schemas/SegmentDocumentsWith"
+          },
+          "webhook": {
+            "$ref": "#/components/schemas/Webhook"
+          },
+          "extra_data": {
+            "$ref": "#/components/schemas/ExtraDataRecord"
+          }
+        },
+        "required": [
+          "types",
+          "document_url"
+        ]
       },
       "GenerateUrlRequest": {
         "type": "object",
@@ -2038,7 +2190,7 @@
         "type": "string"
       },
       "DocumentTypeId": {
-        "description": "Unique user-friendly name for a document type",
+        "description": "Unique ID for the document type.",
         "type": "string",
         "format": "uuid",
         "example": "11c82772-a12c-1e71-c0a1-1f1ce35bc7"
@@ -2057,7 +2209,7 @@
             "score": {
               "value": 3,
               "fields_present": 4,
-              "penalities": 0.5
+              "penalties": 0.5
             }
           },
           {
@@ -2067,7 +2219,7 @@
             "score": {
               "value": 0,
               "fields_present": 2,
-              "penalities": 1.5
+              "penalties": 1.5
             }
           }
         ]
@@ -2082,17 +2234,19 @@
           {
             "configuration": "config_for_x_company",
             "score": {
-              "value": 3,
-              "fields_present": 4,
-              "penalities": 0.5
+              "score": 3,
+              "coverage": 0.75,
+              "fieldsPresent": 4,
+              "penalties": 0.5
             }
           },
           {
             "configuration": "acme_co",
             "score": {
-              "value": 0,
-              "fields_present": 2,
-              "penalities": 1.5
+              "score": 0,
+              "coverage": 0.5,
+              "fieldsPresent": 2,
+              "penalties": 1.5
             }
           }
         ]
@@ -2104,7 +2258,33 @@
             "$ref": "#/components/schemas/ConfigurationName"
           },
           "score": {
-            "$ref": "#/components/schemas/Score"
+            "$ref": "#/components/schemas/ScorePortfolio"
+          }
+        }
+      },
+      "ScorePortfolio": {
+        "type": "object",
+        "description": "The score for this document's classification within the portfolio, used to help choose the best config for it. Unlike the single-document extraction Score schema, this exposes the engine's internal field names and includes coverage directly.",
+        "properties": {
+          "score": {
+            "type": "number",
+            "example": 31,
+            "description": "The score total is fieldsPresent minus penalty points. Equivalent to Score.value for single-document extractions."
+          },
+          "coverage": {
+            "type": "number",
+            "example": 0.5740740740740741,
+            "description": "The coverage score for this document, calculated the same way as the top-level Coverage schema."
+          },
+          "fieldsPresent": {
+            "type": "integer",
+            "example": 31,
+            "description": "Number of non-null fields Sensible extracted from this document using this config. Equivalent to Score.fields_present for single-document extractions."
+          },
+          "penalties": {
+            "type": "number",
+            "example": 0,
+            "description": "Errors are 1 penalty point and warnings are 0.5 points. See the validation_summary for a breakdown."
           }
         }
       },
@@ -2378,6 +2558,29 @@
         "example": "2022-10-31T16:27:53.741Z",
         "description": "Date and time Sensible set the extraction's status to COMPLETED"
       },
+      "ExtractionUploaded": {
+        "type": "string",
+        "format": "date-time",
+        "example": "2022-10-31T16:27:53.601Z",
+        "description": "Date and time Sensible received and stored the document, just before setting the extraction's status to PROCESSING."
+      },
+      "ExtractionProcessingStarted": {
+        "type": "string",
+        "format": "date-time",
+        "example": "2022-10-31T16:27:53.615Z",
+        "description": "Date and time Sensible set the extraction's status to PROCESSING and began extracting data from the document."
+      },
+      "ExtractionErrorMessage": {
+        "type": "string",
+        "example": "Transferring the file failed with 'Response code 404:\\nNot Found'",
+        "description": "If `status` is `FAILED`, the message describing why the extraction failed. Absent otherwise. This describes a failure of the extraction as a whole; for errors about individual extracted fields, see `errors`."
+      },
+      "ConvertedUrlDocument": {
+        "type": "string",
+        "format": "url",
+        "description": "Signed URL to download a PDF rendering of this document, for previewing documents whose original file isn't a PDF. Present for every document content type except application/pdf and image/tiff -- Word documents are converted, spreadsheets (xlsx, xls, xlsm, csv) and JSON documents are rendered, and PNG/JPEG images are embedded into a PDF.",
+        "example": "https://sensible-so-document-type-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/sensible/fc3484c5-3f35-4129-bb29-0ad1291ee9f8/EXTRACTION/246a6f60-0e5b-11eb-b720-295a6fba723e-converted.pdf?AWSAccessKeyId=REDACTED"
+      },
       "ExtractionStatus": {
         "type": "string",
         "description": "Status of the extraction:\n- WAITING: Sensible created an initial empty extraction and is waiting for the document.\n- PROCESSING: Sensible received the document and is extracting data.\n- FAILED: The extraction failed.\n- COMPLETE: The extraction is complete.\n",
@@ -2422,7 +2625,25 @@
             "example": "https://example.com/example_webhook_url"
           },
           "payload": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "array",
+                "items": {}
+              },
+              {
+                "type": "object",
+                "additionalProperties": true
+              }
+            ],
             "description": "Information additional to the API response, for example a UUID for verification. Can be any of the following types - [string, number, boolean, array, object].",
             "example": "info extra to the default extraction payload"
           }
@@ -2442,9 +2663,19 @@
           "image/png",
           "image/tiff",
           "application/msword",
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv"
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "application/vnd.ms-excel",
+          "application/vnd.ms-excel.sheet.macroenabled.12",
+          "text/csv",
+          "application/json"
         ],
         "description": "Content type of the document being presented for extraction. Required for the CSV file type."
+      },
+      "BinaryDocument": {
+        "type": "string",
+        "format": "binary",
+        "description": "non-encoded document bytes as the entire request body"
       },
       "encodedPdf": {
         "type": "object",
@@ -2454,7 +2685,10 @@
         "properties": {
           "document": {
             "type": "string",
-            "description": "This parameter is for option 2 for posting PDF bytes. To test it, you can encode a document using an online PDF-to-base64 encoder and paste the resulting bytes into this parameter.\n"
+            "description": "This parameter is for option 2 for posting document bytes: Base64 encode the bytes of any supported document type (not just PDF), and paste the resulting string into this parameter. To test it, you can use an online file-to-base64 encoder.\n"
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/ContentTypeParameter"
           }
         }
       }

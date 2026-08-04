@@ -161,7 +161,7 @@
         "content": {
           "text/plain": {
             "schema": {
-              "title": "Unsupported Media Type",
+              "title": "Too Many Requests",
               "type": "string",
               "example": "One of the following error messages - Attempt limit exceeded, please retry after some time. Free accounts are limited to 150 API calls per month. Please upgrade your account to make additional calls. Pro accounts are limited to 5,000 API calls per month. Please upgrade your account to make additional calls."
             }
@@ -187,12 +187,9 @@
         "in": "query",
         "description": "Comma-delimited list of document types Sensible uses to classify the document.  If you don't specify this, Sensible uses all the document types you define in your account.",
         "schema": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "string"
         },
-        "example": "1040s, pay_stubs, bank_statements"
+        "example": "1040s,pay_stubs,bank_statements"
       }
     },
     "securitySchemes": {
@@ -209,55 +206,52 @@
         "content": {
           "application/pdf": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/jpeg": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/png": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "image/tiff": {
             "schema": {
-              "type": "string",
-              "format": "binary"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "application/msword": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
-            }
-          },
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
-            "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           },
           "text/csv": {
             "schema": {
-              "type": "string",
-              "format": "binary",
-              "description": "non-encoded document bytes as the entire request body"
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
+          },
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+            "schema": {
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
+          },
+          "application/vnd.ms-excel": {
+            "schema": {
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
+          },
+          "application/vnd.ms-excel.sheet.macroenabled.12": {
+            "schema": {
+              "$ref": "#/components/schemas/BinaryDocument"
             }
           }
         }
@@ -309,13 +303,19 @@
             }
           },
           "reference_documents": {
-            "type": "object",
-            "description": "Deprecated. Empty array. Scoring for embeddings-based classification, replaced by LLM-based classification.",
-            "additionalProperties": true
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "description": "Deprecated. Empty array. Scoring for embeddings-based classification, replaced by LLM-based classification."
           },
           "classification_summary": {
-            "type": "object",
-            "additionalProperties": true,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            },
             "description": "Deprecated. Empty array. Scoring for embeddings-based classification, replaced by LLM-based classification. \n"
           }
         },
@@ -328,6 +328,11 @@
           "reference_documents": [],
           "classification_summary": []
         }
+      },
+      "BinaryDocument": {
+        "type": "string",
+        "format": "binary",
+        "description": "non-encoded document bytes as the entire request body"
       }
     }
   }
