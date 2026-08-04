@@ -1019,11 +1019,9 @@
           },
           "schema": {
             "$ref": "#/components/schemas/DocumentTypeOutput"
-          },
-          "processor_type": {
-            "$ref": "#/components/schemas/ProcessorType"
           }
         },
+        "x-internal-note": "processor_type is accepted on POST and returned on GET but has no functional effect — it is never read by any backend logic to gate behavior or filter operations. Added during early email processor development, never productized. Omitting from the public spec for now (same treatment as prevent_file_metadata).",
         "required": [
           "name",
           "id",
@@ -1038,14 +1036,6 @@
           "$ref": "#/components/schemas/DocumentType"
         }
       },
-      "ProcessorType": {
-        "type": "string",
-        "enum": [
-          "document",
-          "email"
-        ],
-        "description": "The kind of processor this document type belongs to."
-      },
       "PostDocumentType": {
         "type": "object",
         "properties": {
@@ -1054,9 +1044,6 @@
           },
           "schema": {
             "$ref": "#/components/schemas/DocumentTypeOutput"
-          },
-          "processor_type": {
-            "$ref": "#/components/schemas/ProcessorType"
           }
         },
         "required": [
