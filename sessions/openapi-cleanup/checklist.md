@@ -1,6 +1,6 @@
 # openapi-cleanup session
 
-PR: (TBD)
+PR: https://github.com/sensible-hq/sensible-docs/pull/656
 Branch: `openapi-cleanup` | Worktree: `~/GitHub/sensible-docs-openapi-cleanup`
 
 ## Done
@@ -57,7 +57,7 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 **New schemas/fields:**
 - [ ] `ConfigurationContentType` — "Content type of the stringified `configuration`. Defaults to `application/json`."
 - [ ] `ConfigurationVersion.properties.note` — "Optional user-supplied note describing this version."
-- [ ] `ConfigurationVersion.properties.published_by` — "Display name of whoever published this version..." (long; check accuracy)
+- [x] `ConfigurationVersion.properties.published_by` — accepted as-is
 - [ ] `PutConfiguration.properties.note` — "Optional note describing this version of the configuration."
 - [ ] `GoldenResponse.properties.converted_url` — "If present, the URL to GET the PDF Sensible converted this reference document to..."
 - [ ] `PostGolden.properties.content_type` — "Content type of the document you'll upload to `upload_url`."
