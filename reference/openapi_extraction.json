@@ -1788,7 +1788,8 @@
           },
           "output": {
             "type": "object",
-            "description": "Unlike the top-level single-document extraction response, the fields in this object use the engine's internal camelCase naming (parsedDocument, fileMetadata) rather than the public snake_case convention used elsewhere in this API.",
+            "description": "Extraction result for this document within the portfolio, containing the parsed data, validation results, errors, and metadata.",
+            "x-internal-note": "Fields in this object use camelCase (parsedDocument, fileMetadata) rather than the snake_case convention used elsewhere in the public API -- this reflects the engine's internal naming.",
             "properties": {
               "parsedDocument": {
                 "$ref": "#/components/schemas/ParsedDocument"
