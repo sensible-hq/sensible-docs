@@ -36,7 +36,8 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 **New fields on existing schemas:**
 - [x] `AuthTokenResponse.properties.created_by` — accepted as-is
 - [x] `AuthTokenResponse.properties.revoked` — accepted as-is
-- [ ] `ExtractionSingleRetrievalResponse` — new schema-level description explaining async-only fields
+- [x] `ExtractionSingleRetrievalResponse` — short user-facing description ("Extracted document data from a single-document extraction."); mechanism detail moved to x-internal-note; sync endpoint updated with note pointing to GET /documents/{id}
+- [x] `ExtractionPortfolioRetrievalResponse` — added short user-facing description ("Extracted data from a multiple-document extraction.")
 - [ ] `ExtractionErrorMessage` — description of the top-level `error` field for FAILED extractions
 - [ ] `ExtractionUploaded` + `ExtractionProcessingStarted` — lifecycle timestamp descriptions
 - [ ] `DocumentInPortfolio.properties.output.properties.needsReview` — "Whether this specific document in the portfolio needs human review..."
