@@ -71,6 +71,10 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 
 **Skipping** (done): `ConfigurationEditor`, `ProcessorType`
 
+### After all description reviews complete
+
+- [ ] Write friction log entries documenting what changed vs Devon's original PR: what was accepted as-is, what was reworded and why, what was omitted with x-internal-notes. Commit to v0.
+
 ### Classification spec
 
 - [ ] `BinaryDocument` — same schema as in extraction; "non-encoded document bytes as the entire request body" (brief, likely fine)
