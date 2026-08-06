@@ -79,15 +79,15 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 
 ### Classification spec
 
-- [ ] `BinaryDocument` — same schema as in extraction; "non-encoded document bytes as the entire request body" (brief, likely fine)
+- [x] `BinaryDocument` — accepted as-is
 
 ### Email spec
 
 **New descriptions:**
-- [ ] `DocTypeIds` — "The IDs of the document types Sensible uses to classify each document."
-- [ ] Shared 400 `application/json` shape: `.schema`, `.properties.context/errors/message`
-- [ ] PUT-specific 400 `application/json` shape: `.schema`, `.properties.context/errors/message`
+- [x] `DocTypeIds` — accepted as-is
+- [x] Shared 400 `application/json` shape: `.schema`, `.properties.context/errors/message` — accepted as-is
+- [x] PUT-specific 400 `application/json` shape: `.schema`, `.properties.context/errors/message` — accepted as-is
 
 **Changed descriptions:**
-- [ ] `components.responses.400` — now describes the path-validation-specific plain-text response
-- [ ] `paths./processors/email/{name}.put.responses.400` — now explains the two content types
+- [x] `components.responses.400` — accepted as-is
+- [x] `paths./processors/email/{name}.put.responses.400` — updated: em dash → period, added "For more information"
