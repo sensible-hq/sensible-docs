@@ -41,31 +41,31 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 - [x] `ExtractionErrorMessage` — accepted as-is
 - [x] `ExtractionUploaded` + `ExtractionProcessingStarted` — accepted; changed "just before" to "prior to" in ExtractionUploaded
 - [x] `DocumentInPortfolio.properties.output.properties.needsReview` — accepted as-is
-- [ ] `ExtractionsResponseFiltered.properties.continuation_token` — pagination token description
-- [ ] `ExtractionsResponseFiltered.properties.last_evaluated_creation_date` — pagination field description
-- [ ] `components.responses.400.content.application/json.schema` + `.properties.message/errors/context` — new JSON error shape on the shared 400
+- [x] `ExtractionsResponseFiltered.properties.continuation_token` — accepted as-is
+- [x] `ExtractionsResponseFiltered.properties.last_evaluated_creation_date` — reworded for clarity
+- [x] `components.responses.400.content.application/json.schema` + `.properties.message/errors/context` — accepted as-is
 
 **Changed descriptions:**
-- [ ] `AuthTokenResponse.properties.usage` — OLD: `"array"` → NEW: `"Record of each time this token has been used."` (was literally just the word "array")
-- [ ] `encodedPdf.properties.document` — expanded from PDF-only to all supported document types
-- [ ] `components.parameters.environments` — casing change: `PRODUCTION/DEVELOPMENT` → `production/development` (probably fine, just confirm it matches the enum values)
-- [ ] `components.responses.400` — now describes both plain-text and JSON shapes
+- [x] `AuthTokenResponse.properties.usage` — accepted as-is
+- [x] `encodedPdf.properties.document` — accepted as-is
+- [x] `components.parameters.environments` — casing confirmed correct; accepted as-is
+- [x] `components.responses.400` — updated: replaced em dash with period, added "For more information"
 
 **Skipping** (clearly correct fixes, no judgment call needed): `DocumentTypeId` ("user-friendly name" → "Unique ID"), `BinaryDocument`, `UploadUrl`, `GeneratedFileUrl`, `ConvertedUrlDocument` (done), `DocumentInPortfolio.output` (done)
 
 ### Configuration spec
 
 **New schemas/fields:**
-- [ ] `ConfigurationContentType` — "Content type of the stringified `configuration`. Defaults to `application/json`."
-- [ ] `ConfigurationVersion.properties.note` — "Optional user-supplied note describing this version."
+- [x] `ConfigurationContentType` — accepted as-is
+- [x] `ConfigurationVersion.properties.note` — accepted as-is
 - [x] `ConfigurationVersion.properties.published_by` — accepted as-is
-- [ ] `PutConfiguration.properties.note` — "Optional note describing this version of the configuration."
-- [ ] `GoldenResponse.properties.converted_url` — "If present, the URL to GET the PDF Sensible converted this reference document to..."
-- [ ] `PostGolden.properties.content_type` — "Content type of the document you'll upload to `upload_url`."
-- [ ] `DocumentTypeOutput.properties.review_triggers` properties (4): `coverage_threshold`, `validation_errors_threshold`, `validation_warnings_threshold`, `selected_validations`
+- [x] `PutConfiguration.properties.note` — accepted as-is
+- [x] `GoldenResponse.properties.converted_url` — accepted as-is
+- [x] `PostGolden.properties.content_type` — accepted as-is
+- [x] `DocumentTypeOutput.properties.review_triggers` properties (4) — updated: "on" → "for"; `selected_validations` clarified to "when the user configures specific validations to trigger review"
 
 **Changed descriptions:**
-- [ ] `DocumentTypeOutput.properties.review_triggers` (schema-level) — changed from describing a `string[]` to the real object shape
+- [x] `DocumentTypeOutput.properties.review_triggers` (schema-level) — updated: "includes a parameter" → "contains a property"
 - [ ] `paths./extract_text_from_golden/{type-name}.post.responses.200` — now mentions the `text` property wrapper
 - [ ] `components.responses.204` — now says "empty body and no `Content-Type` header"
 
