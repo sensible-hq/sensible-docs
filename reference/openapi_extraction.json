@@ -811,7 +811,7 @@
   "components": {
     "responses": {
       "400": {
-        "description": "Bad Request. Sensible returns either a plain-text error message or a structured JSON error, depending on what caused the failure -- see the two content types below.",
+        "description": "Bad Request. Sensible returns either a plain-text error message or a structured JSON error, depending on what caused the failure. For more information, see the two content types below.",
         "content": {
           "text/plain": {
             "schema": {
@@ -1588,7 +1588,7 @@
           "last_evaluated_creation_date": {
             "type": "string",
             "format": "date-time",
-            "description": "The `created` date-time of the last extraction in this page of results."
+            "description": "The creation date of the last extraction on this page of results (find this value in an extraction's `created` parameter)."
           },
           "cutoff_date": {
             "type": "string",
@@ -2566,7 +2566,7 @@
         "type": "string",
         "format": "date-time",
         "example": "2022-10-31T16:27:53.601Z",
-        "description": "Date and time Sensible received and stored the document, just before setting the extraction's status to PROCESSING."
+        "description": "Date and time Sensible received and stored the document, prior to setting the extraction's status to PROCESSING."
       },
       "ExtractionProcessingStarted": {
         "type": "string",

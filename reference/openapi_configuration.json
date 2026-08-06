@@ -1097,27 +1097,27 @@
             "type": "array"
           },
           "review_triggers": {
-            "description": "Criteria for flagging an extraction for [human review](doc:human-review). If the review criteria includes specific validations, this parameter contains `\"selected_validations\": true` and each selected validation includes a `\"review_trigger\":true` parameter.",
+            "description": "Criteria for flagging an extraction for [human review](doc:human-review). If the review criteria includes specific validations, this parameter contains `\"selected_validations\": true` and each selected validation object contains a `review_trigger: true` property.",
             "type": "object",
             "properties": {
               "coverage_threshold": {
                 "type": "number",
-                "description": "Inclusive upper bound (0-1) on coverage score. Extractions scoring below this value are flagged for review."
+                "description": "Inclusive upper bound (0-1) for coverage score. Extractions scoring below this value are flagged for review."
               },
               "validation_errors_threshold": {
                 "type": "integer",
-                "description": "Inclusive lower bound on the number of validation errors that flags an extraction for review."
+                "description": "Inclusive lower bound for the number of validation errors that flags an extraction for review."
               },
               "validation_warnings_threshold": {
                 "type": "integer",
-                "description": "Inclusive lower bound on the number of validation warnings that flags an extraction for review."
+                "description": "Inclusive lower bound for the number of validation warnings that flags an extraction for review."
               },
               "selected_validations": {
                 "type": "boolean",
                 "enum": [
                   true
                 ],
-                "description": "Present and `true` when specific validations are configured to trigger review; those validations each carry their own `review_trigger: true` property."
+                "description": "Present and `true` when the user configures specific validations to trigger review; those validations each carry their own `review_trigger: true` property."
               }
             },
             "additionalProperties": false
