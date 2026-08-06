@@ -65,9 +65,11 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 - [x] `DocumentTypeOutput.properties.review_triggers` properties (4) — updated: "on" → "for"; `selected_validations` clarified to "when the user configures specific validations to trigger review"
 
 **Changed descriptions:**
-- [x] `DocumentTypeOutput.properties.review_triggers` (schema-level) — updated: "includes a parameter" → "contains a property"
-- [ ] `paths./extract_text_from_golden/{type-name}.post.responses.200` — now mentions the `text` property wrapper
-- [ ] `components.responses.204` — now says "empty body and no `Content-Type` header"
+- [x] `DocumentTypeOutput.properties.review_triggers` (schema-level) — updated: fixed `review_trigger` → `needs_review`; inline code style
+- [x] `DocumentTypeOutput.properties.review_triggers.selected_validations` — updated: fixed `review_trigger` → `needs_review`; tightened wording
+- [x] `Validation` — added missing `needs_review` boolean field (confirmed live via POST /document_types)
+- [x] `paths./extract_text_from_golden/{type-name}.post.responses.200` — accepted as-is
+- [x] `components.responses.204` — accepted as-is
 
 **Skipping** (done): `ConfigurationEditor`, `ProcessorType`
 
