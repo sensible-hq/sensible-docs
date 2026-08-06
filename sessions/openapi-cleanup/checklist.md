@@ -38,9 +38,9 @@ Only descriptions where the text itself is genuinely new or changed (not just fi
 - [x] `AuthTokenResponse.properties.revoked` — accepted as-is
 - [x] `ExtractionSingleRetrievalResponse` — short user-facing description ("Extracted document data from a single-document extraction."); mechanism detail moved to x-internal-note; sync endpoint updated with note pointing to GET /documents/{id}
 - [x] `ExtractionPortfolioRetrievalResponse` — added short user-facing description ("Extracted data from a multiple-document extraction.")
-- [ ] `ExtractionErrorMessage` — description of the top-level `error` field for FAILED extractions
-- [ ] `ExtractionUploaded` + `ExtractionProcessingStarted` — lifecycle timestamp descriptions
-- [ ] `DocumentInPortfolio.properties.output.properties.needsReview` — "Whether this specific document in the portfolio needs human review..."
+- [x] `ExtractionErrorMessage` — accepted as-is
+- [x] `ExtractionUploaded` + `ExtractionProcessingStarted` — accepted; changed "just before" to "prior to" in ExtractionUploaded
+- [x] `DocumentInPortfolio.properties.output.properties.needsReview` — accepted as-is
 - [ ] `ExtractionsResponseFiltered.properties.continuation_token` — pagination token description
 - [ ] `ExtractionsResponseFiltered.properties.last_evaluated_creation_date` — pagination field description
 - [ ] `components.responses.400.content.application/json.schema` + `.properties.message/errors/context` — new JSON error shape on the shared 400
