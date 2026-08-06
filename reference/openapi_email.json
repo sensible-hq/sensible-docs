@@ -328,7 +328,7 @@
             }
           },
           "400": {
-            "description": "Bad Request. Sensible returns either a plain-text error message or a structured JSON error, depending on what caused the failure -- see the two content types below.",
+            "description": "Bad Request. Sensible returns either a plain-text error message or a structured JSON error, depending on what caused the failure. For more information, see the two content types below.",
             "content": {
               "text/plain": {
                 "schema": {

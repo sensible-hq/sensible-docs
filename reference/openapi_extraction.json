@@ -48,7 +48,7 @@
         "operationId": "extract-data-from-a-document",
         "x-internal-note": "Accounts with requireMalwareScan return 400 'This account requires uploaded documents to be malware-scanned; use generate_upload_url or extract_from_url instead of the synchronous extract endpoint' for this endpoint, since the sync flow can't route the document through malware scanning (src/api/extract/handler.ts, MALWARE_SCAN_REQUIRED_RESPONSE in src/api/common.ts:388-392).",
         "summary": "Extract data from a document (sync)",
-        "description": "\n**Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints when in production.\n\nExtract data from a local document synchronously.\n\nTo explore this endpoint, use this interactive API reference, or use one of the following options:\n\n- For a quick \"hello world\" response to this endpoint, see the [API quickstart](doc:quickstart)\n- For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).\n- Run this endpoint in the Sensible Postman collection.\n  [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)\n\nThere are two options for posting the document bytes.\n  1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n     See the following for supported file formats.\n  2. Base64 encode the document bytes, specify them in a body \"document\" field, and specify application/json for the `Content-Type` header.\n\nFor a list of  supported document file types, see [Supported file types](doc:file-types).\n",
+        "description": "\n**Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints when in production.\n\nExtract data from a local document synchronously.\n\nTo explore this endpoint, use this interactive API reference, or use one of the following options:\n\n- For a quick \"hello world\" response to this endpoint, see the [API quickstart](doc:quickstart)\n- For a step-by-step tutorial about calling this endpoint, see [Try synchronous extraction](doc:api-tutorial-sync).\n- Run this endpoint in the Sensible Postman collection.\n  [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/16839934-45339059-3fec-4c31-a891-9a12a3e1c22b?action=collection%2Ffork&collection-url=entityId%3D16839934-45339059-3fec-4c31-a891-9a12a3e1c22b%26entityType%3Dcollection%26workspaceId%3Ddbde09dc-b7dd-487d-a68f-20d32b008f90)\n\nThere are two options for posting the document bytes.\n  1. (often preferred) specify the non-encoded document bytes as the entire request body,and specify the `Content-Type` header, for example,\"application/pdf\" or \"image/jpeg\".\n     See the following for supported file formats.\n  2. Base64 encode the document bytes, specify them in a body \"document\" field, and specify application/json for the `Content-Type` header.\n\nFor a list of  supported document file types, see [Supported file types](doc:file-types).\n\nTo get additional information about an extraction initiated with this endpoint, including signed download URLs and the error message for failed extractions, retrieve it via [GET /documents/{id}](ref:retrieving-results).\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/document_type"
@@ -811,7 +811,7 @@
   "components": {
     "responses": {
       "400": {
-        "description": "Bad Request. Sensible returns either a plain-text error message or a structured JSON error, depending on what caused the failure -- see the two content types below.",
+        "description": "Bad Request. Sensible returns either a plain-text error message or a structured JSON error, depending on what caused the failure. For more information, see the two content types below.",
         "content": {
           "text/plain": {
             "schema": {
@@ -1329,7 +1329,7 @@
       },
       "Grants": {
         "type": "array",
-        "description": "At least one grant is required -- a token with no grants can't authorize anything.",
+        "description": "At least one grant is required for an authorization token.",
         "minItems": 1,
         "items": {
           "$ref": "#/components/schemas/AuthorizationGrant"
@@ -1358,7 +1358,7 @@
             "additionalProperties": {
               "type": "string"
             },
-            "description": "Values for the route's path parameters, keyed by parameter name.",
+            "description": "Path parameter values that scope this grant to a specific resource. Keys are path parameter names from the route; values are the allowed IDs. For example, for route `/documents/{id}`, set `path` to `{\"id\": \"<extraction-id>\"}` to restrict the token to that specific extraction.",
             "example": {
               "id": "b84bd1c8-113e-4e1e-8462-379f0dde2abf"
             }
@@ -1588,7 +1588,7 @@
           "last_evaluated_creation_date": {
             "type": "string",
             "format": "date-time",
-            "description": "The `created` date-time of the last extraction in this page of results."
+            "description": "The creation date of the last extraction on this page of results (find this value in an extraction's `created` parameter)."
           },
           "cutoff_date": {
             "type": "string",
@@ -1653,7 +1653,8 @@
         }
       },
       "ExtractionSingleRetrievalResponse": {
-        "description": "The fields in this response beyond those in the synchronous extraction response reflect state that only exists once Sensible has processed the extraction asynchronously and/or you retrieve it: for example, `uploaded` and `processing_started` are stamped during the WAITING-to-PROCESSING transition, and `download_url`/`converted_url` are signed at the time you call this endpoint. Extractions created through the synchronous `/extract/{document_type}` endpoint skip those transitions, so these fields are absent from that endpoint's own response but populate normally once you retrieve the same extraction here.\n",
+        "description": "Extracted document data from a single-document extraction.",
+        "x-internal-note": "Extends ExtractionSyncResponse with fields populated during async processing: lifecycle timestamps (uploaded, processing_started), signed download URLs (download_url, converted_url), and the top-level error message for failed extractions (error).",
         "allOf": [
           {
             "$ref": "#/components/schemas/ExtractionSyncResponse"
@@ -1688,6 +1689,7 @@
       },
       "ExtractionPortfolioRetrievalResponse": {
         "type": "object",
+        "description": "Extracted data from a multiple-document extraction.",
         "x-internal-note": "batchId may be returned by the backend but is not a standard field on every extraction -- it's deliberately not documented publicly. The backend only sets it for extractions created through the separate, undocumented /extract/batch/* API (src/api/extract/batch.ts), so it's absent for anything created through the endpoints in this spec.",
         "properties": {
           "id": {
@@ -1788,7 +1790,8 @@
           },
           "output": {
             "type": "object",
-            "description": "Unlike the top-level single-document extraction response, the fields in this object use the engine's internal camelCase naming (parsedDocument, fileMetadata) rather than the public snake_case convention used elsewhere in this API.",
+            "description": "Extraction result for this document within the portfolio, containing the parsed data, validation results, errors, and metadata.",
+            "x-internal-note": "Fields in this object use camelCase (parsedDocument, fileMetadata) rather than the snake_case convention used elsewhere in the public API -- this reflects the engine's internal naming.",
             "properties": {
               "parsedDocument": {
                 "$ref": "#/components/schemas/ParsedDocument"
@@ -2264,12 +2267,13 @@
       },
       "ScorePortfolio": {
         "type": "object",
-        "description": "The score for this document's classification within the portfolio, used to help choose the best config for it. Unlike the single-document extraction Score schema, this exposes the engine's internal field names and includes coverage directly.",
+        "description": "The score for the extraction, used to help choose the best extraction. Unlike the single-document extraction Score, includes a coverage field.",
+        "x-internal-note": "Field names use camelCase (score, fieldsPresent) rather than the snake_case of the single-document Score schema (value, fields_present) — this reflects the engine's internal naming.",
         "properties": {
           "score": {
             "type": "number",
             "example": 31,
-            "description": "The score total is fieldsPresent minus penalty points. Equivalent to Score.value for single-document extractions."
+            "description": "The score total is fieldsPresent minus penalty points. In the absence of fingerprints, Sensible returns the extraction in the document type with the highest score. Equivalent to Score.value for single-document extractions."
           },
           "coverage": {
             "type": "number",
@@ -2562,7 +2566,7 @@
         "type": "string",
         "format": "date-time",
         "example": "2022-10-31T16:27:53.601Z",
-        "description": "Date and time Sensible received and stored the document, just before setting the extraction's status to PROCESSING."
+        "description": "Date and time Sensible received and stored the document, prior to setting the extraction's status to PROCESSING."
       },
       "ExtractionProcessingStarted": {
         "type": "string",
