@@ -1097,7 +1097,7 @@
             "type": "array"
           },
           "review_triggers": {
-            "description": "Criteria for flagging an extraction for [human review](doc:human-review). If the review criteria includes specific validations, this parameter contains `\"selected_validations\": true` and each selected validation object contains a `review_trigger: true` property.",
+            "description": "Criteria for flagging an extraction for [human review](doc:human-review). If the review criteria includes specific validations, this parameter contains `selected_validations` set to `true`. Set `needs_review` to `true` on individual validations in the `validations` array to select them.",
             "type": "object",
             "properties": {
               "coverage_threshold": {
@@ -1117,7 +1117,7 @@
                 "enum": [
                   true
                 ],
-                "description": "Present and `true` when the user configures specific validations to trigger review; those validations each carry their own `review_trigger: true` property."
+                "description": "Present and `true` when the user configured specific validations to trigger review by setting `needs_review` to `true` on those validations."
               }
             },
             "additionalProperties": false
@@ -1613,6 +1613,10 @@
               "parent_section",
               "child_section"
             ]
+          },
+          "needs_review": {
+            "type": "boolean",
+            "description": "When true, this validation's failure triggers human review for the extraction."
           }
         },
         "required": [
