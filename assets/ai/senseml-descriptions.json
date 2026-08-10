@@ -1,1 +1,3 @@
-TODO
+{
+  "box": "Extracts all the text inside a bordered box on your document. Point it at any text inside or near the box as an anchor, and Sensible finds and reads the box automatically."
+}
