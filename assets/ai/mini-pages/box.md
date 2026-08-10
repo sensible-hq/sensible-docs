@@ -5,11 +5,10 @@ Extracts every line of text found inside a bordered rectangle on your document. 
 **Syntax**
 ```json
 {
-  "id": "rents_income",        /* name for the value you're extracting — e.g. rental income from a 1099 tax form */
-  "anchor": "rents",           /* a word printed on the form near the target box — e.g. the label "Rents" */
+  "id": "rents_income",
+  "anchor": "rents",           /* matches "Rents" printed inside the box on the 1099 — locates the box */
   "method": {
-    "id": "box",               /* tells Sensible to grab everything printed inside that bordered box */
-    "position": "right"        /* start looking for the box border to the right of the anchor text */
+    "id": "box"                /* grabs everything else in that box — e.g. "4,200.00" from the Rents field on a 1099-MISC (the anchor itself is excluded) */
   }
 }
 ```
