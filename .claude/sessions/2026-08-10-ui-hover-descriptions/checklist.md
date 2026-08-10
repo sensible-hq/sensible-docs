@@ -111,3 +111,6 @@ EXAMPLE FROM FIELD: <paste a real or representative config snippet if available>
 - Jerry-rigged usage patterns should inform the hover text (describe what it's actually used for, not just the official intent)
 - If a parameter behaves differently depending on context (e.g., belongs to method vs. object), note this in the mini-page but keep hover text universal
 - Sales-safe = avoid implementation details that raise concerns (performance, limits, known gaps)
+
+## Open questions
+- **JSON key structure for parameter hover text**: should method parameters be nested (e.g. `{ "box": { "position": "..." } }`) or flat (e.g. `"box.position": "..."`) in `senseml-descriptions.json`? Decide before writing box parameter descriptions (position, offsetX, offsetY, percentOverlapX, percentOverlapY, offsetBoxes, darknessThreshold, includeAnchor).
