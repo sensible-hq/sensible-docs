@@ -1,5 +1,5 @@
 ---
-title: llmstxt
+title: draft-llmstxt
 deprecated: false
 hidden: true
 metadata:
