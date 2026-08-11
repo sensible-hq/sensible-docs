@@ -10,11 +10,11 @@
     "darknessThreshold": "Sets how dark a pixel must be for Sensible to treat it as a box border. Lower the default (0.9) for boxes with dark or scanned backgrounds.",
     "includeAnchor": "When true, includes the anchor text itself in the output if it falls inside the box borders. By default the anchor is excluded.",
     /* global param described in box context */
-    "sortLines": "When misaligned text (like handwriting) gets extracts in the incorrect order, correct it by forcing Sensible to read it left to right. Recommended.",
-    /* global param described in box context; TODO double check example accuracy */
+    "sortLines": "When misaligned text (like handwriting) gets extracted in the incorrect order, correct it by forcing Sensible to read it left to right. Recommended.",
+    /* global param described in box context */
     "tiebreaker": "When a box contains multiple lines, specifies which one to return. For example, `first` for the top left line, `last` for the bottom right, or join to combine them all into a single string.",
     /* global param described in box context */
-    "xRangeFilter": "Limits extraction to a column-like slice of the box defined by a starting vertical edge and width in inches. For example, use when the box contains multiple columns and you only want one. As alternatives use TODO"
+    "xRangeFilter": "Limits extraction to a column-like slice of the box defined by a starting vertical edge and width in inches. For example, use when the box contains multiple columns and you only want one. As an alternative, use the Multicolumn preprocessor."
   },
   "checkbox": "Extracts whether a checkbox is checked or unchecked. Specify a word printed to the left or right of it, and Sensible searches in that direction to find the checkbox.",
   "nearestCheckbox": "Extracts whether a checkbox is checked or unchecked. Specify a word or phrase printed anywhere near the checkbox, and Sensible finds the closest one automatically.",

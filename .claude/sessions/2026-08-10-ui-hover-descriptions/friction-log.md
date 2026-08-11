@@ -93,3 +93,42 @@
 - `id` comment removed — the field name is self-explanatory
 
 **Rule:** Syntax example comments should tell a story: name the document type, the field being extracted, and a plausible value. Avoid params that don't add teaching value. The `id` field rarely needs a comment.
+
+---
+
+### 7. "box-search starting point" — hyphenate, don't drop the modifier
+
+**What happened:** Friction point #5 logged "box search starting point" → "starting point" as a simplification. User's subsequent edit reversed this: "starting point" → "box-search starting point" (hyphenated). The modifier is meaningful — it disambiguates from other kinds of starting points in the description.
+
+**Correction:** "starting point" → "box-search starting point"
+
+**Rule:** The right fix for a dense compound noun is to hyphenate it, not strip the modifier. Don't over-simplify to the point of losing precision.
+
+---
+
+### 8. Problem-first framing for actionable params
+
+**What happened:** `sortLines` was drafted solution-first: "Corrects the reading order of lines whose vertical positions are slightly misaligned…" User rewrote it problem-first: "When misaligned text (like handwriting) gets extracted in the incorrect order, correct it by forcing Sensible to read it left to right."
+
+**My draft:** "Corrects the reading order of lines whose vertical positions are slightly misaligned — for example, handwritten text in a box that Sensible would otherwise sort incorrectly."
+**User's final:** "When misaligned text (like handwriting) gets extracted in the incorrect order, correct it by forcing Sensible to read it left to right. Recommended."
+
+**Rule:** For params that fix a specific problem, lead with the problem scenario ("When X happens…"), then the fix. Ending with "Recommended." is appropriate when the param should be the user's default instinct.
+
+---
+
+### 9. Actionable failure condition over vague consequence
+
+**What happened:** percentOverlapX/Y ended with "if lines near the box edge are being cut off." User changed to "if lines overlapping box borders aren't getting extracted."
+
+**Rule:** Describe the failure condition in terms of the extraction outcome ("aren't getting extracted"), not a visual metaphor ("being cut off"). More precise and action-oriented.
+
+---
+
+### 10. ⚠️ Factual error — typo introduced in user's sortLines edit
+
+**What happened:** User's rewrite of `sortLines` contained a grammatical error: "gets extracts" instead of "gets extracted." Caught and fixed in the same commit.
+
+**Corrected:** "gets extracts" → "gets extracted"
+
+**Note:** This is flagged as a factual/accuracy error rather than a style preference. When incorporating user edits, check for typos before committing.
