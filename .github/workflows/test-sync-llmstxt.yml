@@ -99,15 +99,16 @@ jobs:
           if [ "$MODE" = "update" ]; then
             git push origin HEAD:refs/heads/$PR_BRANCH --force
             CURRENT_BODY=$(gh pr view "$PR_NUMBER" --json body --jq '.body')
-            gh pr edit "$PR_NUMBER" --body "$CURRENT_BODY
-$NEW_ROW"
+            NEW_BODY=$(printf '%s\n%s' "$CURRENT_BODY" "$NEW_ROW")
+            gh pr edit "$PR_NUMBER" --body "$NEW_BODY"
             echo "::notice::Updated PR #$PR_NUMBER"
           else
             BRANCH_NAME="auto/sync-docs-$(date +%Y%m%d-%H%M%S)"
             git push origin HEAD:refs/heads/$BRANCH_NAME
+            BODY=$(printf 'This PR automatically syncs llms.txt and llmstxt-1.md.\n\n## Trigger history\n\n| Auto commit | Trigger commit |\n|---|---|\n%s' "$NEW_ROW")
             gh pr create \
               --title "Sync docs and llms.txt" \
-              --body "$(printf 'This PR automatically syncs llms.txt and llmstxt-1.md.\n\n## Trigger history\n\n| Auto commit | Trigger commit |\n|---|---|\n%s' "$NEW_ROW")" \
+              --body "$BODY" \
               --head "$BRANCH_NAME" \
               --base "llms-order-yaml"
           fi
