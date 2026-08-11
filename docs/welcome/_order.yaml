@@ -1,4 +1,4 @@
-# test-1c: no-change push (descriptions phase removed)
+# test-2: new page + slug → entry appears
 - test-new-page
 - draft-processor
 - cheat
