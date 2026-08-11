@@ -1,5 +1,4 @@
-# test-2: new page + slug → entry appears
-- test-new-page
+# test-3: slug removed, .md left — entry should disappear
 - draft-processor
 - cheat
 - overview
