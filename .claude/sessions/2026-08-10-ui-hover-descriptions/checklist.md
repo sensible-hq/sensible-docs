@@ -37,7 +37,8 @@ Output: `senseml-descriptions.json` (hover text) + `senseml-descriptions/*.md` (
 - [ ] For each target: write brief expanded description (3–5 sentences)
 - [ ] Write plausible syntax example (real-looking values, not `foo`/`bar`)
 - [ ] Add inline comments to syntax example explaining each part
-- [ ] Save to `senseml-descriptions/<name>.md`
+- [ ] End each mini-page with `[Full docs](https://docs.sensible.so/docs/<slug>)` — get slugs from https://docs.sensible.so/llms.txt (strip the `.md` extension from listed URLs)
+- [ ] Save to `assets/ai/mini-pages/<name>.md`
 
 ### Phase 4 — Review
 - [ ] Run docs-checker on any prose
