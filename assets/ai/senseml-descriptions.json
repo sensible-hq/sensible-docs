@@ -2,20 +2,21 @@
   "box": {
     "description": "Extracts all the text inside a bordered box in your document. Specify a word or phrase that's printed in or near the box, and Sensible finds the box automatically.",
     "position": "Adjusts where Sensible starts searching for the box border, relative to the anchor text. Use this if the default starting point lands on the border itself and Sensible can't recognize the box.",
-    "offsetX": "Shifts the starting point left or right by a distance in inches. Use when the anchor is outside the box and you need to move it inside the border.",
-    "offsetY": "Shifts the starting point up or down by a distance in inches. Use when the anchor is outside the box and you need to move it inside the border.",
-    "percentOverlapX": "Controls how much of a line's width must fall inside the box for Sensible to include it. Lower the default (0.9) if lines near the box edge are being cut off.",
-    "percentOverlapY": "Controls how much of a line's height must fall inside the box for Sensible to include it. Lower the default (0.8) if lines near the box edge are being cut off.",
-    "offsetBoxes": "Navigates from the anchor's box to a neighboring box by counting shared borders in a given direction. Use for tables or grids where each cell has its own bordered box.",
+    "offsetX": "Shifts the box-search starting point left or right by inches. Use when the anchor is outside the box and you need to move it inside the border.",
+    "offsetY": "Shifts the box-search starting point up or down by inches. Use when the anchor is outside the box and you need to move it inside the border.",
+    "percentOverlapX": "Controls how much of a line's width must fall inside the box for Sensible to extract it. Lower the default (0.9) if lines overlapping box borders aren't getting extracted.",
+    "percentOverlapY": "Controls how much of a line's height must fall inside the box for Sensible to extract it. Lower the default (0.8) if lines overlapping box borders aren't getting extracted.",
+    "offsetBoxes": "Navigates from the anchor's box to a neighboring box by counting shared borders in a given direction. Use for tables or grids where each cell shares its borders with its neighbors, as a workaround when not all boxes have anchoring text.",
     "darknessThreshold": "Sets how dark a pixel must be for Sensible to treat it as a box border. Lower the default (0.9) for boxes with dark or scanned backgrounds.",
-    "includeAnchor": "When true, includes the anchor text itself in the output if it falls inside the box borders. Default is false — the anchor is excluded."
+    "includeAnchor": "When true, includes the anchor text itself in the output if it falls inside the box borders. By default the anchor is excluded.",
+    /* global param described in box context */
+    "sortLines": "When misaligned text (like handwriting) gets extracts in the incorrect order, correct it by forcing Sensible to read it left to right. Recommended.",
+    /* global param described in box context; TODO double check example accuracy */
+    "tiebreaker": "When a box contains multiple lines, specifies which one to return. For example, `first` for the top left line, `last` for the bottom right, or join to combine them all into a single string.",
+    /* global param described in box context */
+    "xRangeFilter": "Limits extraction to a column-like slice of the box defined by a starting vertical edge and width in inches. For example, use when the box contains multiple columns and you only want one. As alternatives use TODO"
   },
   "checkbox": "Extracts whether a checkbox is checked or unchecked. Specify a word printed to the left or right of it, and Sensible searches in that direction to find the checkbox.",
   "nearestCheckbox": "Extracts whether a checkbox is checked or unchecked. Specify a word or phrase printed anywhere near the checkbox, and Sensible finds the closest one automatically.",
-  /* described in box context */
-  "sortLines": "Corrects the reading order of lines whose vertical positions are slightly misaligned — for example, handwritten text in a box that Sensible would otherwise sort incorrectly.",
-  /* described in box context */
-  "tiebreaker": "When a box contains multiple lines, specifies which one to return — for example, first for the top line, last for the bottom, or join to combine them all into a single string.",
-  /* described in box context */
-  "xRangeFilter": "Limits extraction to a horizontal slice of the box defined by a starting edge and width in inches. Use when the box contains multiple columns and you only want one."
+  
 }
