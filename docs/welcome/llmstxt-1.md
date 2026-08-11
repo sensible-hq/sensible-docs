@@ -4,7 +4,8 @@ deprecated: false
 hidden: true
 metadata:
   robots: index
----# Sensible
+---
+# Sensible
 
 > Sensible is a developer-first platform for extracting structured data from documents, including PDFs, emails, spreadsheets, and images. Use Sensible to build document-automation features into your vertical SaaS products.
 
