@@ -1,4 +1,4 @@
-# test-1b: no-change push (dedup cleared)
+# test-1c: no-change push (descriptions phase removed)
 - draft-processor
 - cheat
 - overview
