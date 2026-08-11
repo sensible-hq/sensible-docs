@@ -58,8 +58,7 @@ REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
 OPENAPI_BASE_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference"
 DOCS_BASE_URL = "https://docs.sensible.so/docs"
 
-# Temporary test target: the permanent llmstxt.md path will live in a hidden
-# docs category once ReadMe redirect is set up.
+# TODO: move to a permanent path in a hidden docs category once ReadMe redirect is set up.
 LLMSTXT_MD_PATH = Path("docs/welcome/llmstxt-1.md")
 
 
@@ -73,6 +72,32 @@ def parse_front_matter(content: str) -> dict:
         return yaml.safe_load(content[3 : end.start() + 3]) or {}
     except yaml.YAMLError:
         return {}
+
+
+def _frontmatter_block(raw: str) -> str:
+    """Return the raw frontmatter block (both --- delimiters) from file content.
+
+    Raises ValueError if the opening --- exists but the closing one is missing,
+    so callers don't silently overwrite frontmatter with a blank placeholder.
+    """
+    if not raw.startswith("---"):
+        return "---\n---\n"
+    m = re.search(r"\n---\s*(\n|$)", raw[3:])
+    if not m:
+        raise ValueError("Malformed frontmatter: missing closing ---")
+    return raw[: 3 + m.end()]
+
+
+def write_if_changed(path: Path, content: str) -> bool:
+    """Write content to path only if it differs from what's there. Returns True if changed."""
+    try:
+        existing = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        existing = ""
+    if content == existing:
+        return False
+    path.write_text(content, encoding="utf-8")
+    return True
 
 
 def get_page_info(md_path: Path) -> dict | None:
@@ -266,18 +291,13 @@ def check(repo_root: Path) -> list[str]:
 
 
 def write_llmstxt_md(repo_root: Path, content: str) -> bool:
-    """Write llms.txt content into the hidden ReadMe MD page, preserving its frontmatter.
+    """Preserves the existing ReadMe frontmatter (hidden: true, title, etc.) and writes if changed.
 
-    Returns True if the file changed, False if it was already up to date.
+    Raises if LLMSTXT_MD_PATH is missing — the file must exist in the repo.
     """
     md_path = repo_root / LLMSTXT_MD_PATH
-    raw = md_path.read_text(encoding="utf-8") if md_path.exists() else ""
-    if raw.startswith("---"):
-        m = re.search(r"\n---\s*(\n|$)", raw[3:])
-        frontmatter_block = raw[: 3 + m.end()] if m else "---\n---\n"
-    else:
-        frontmatter_block = "---\n---\n"
-    new_content = frontmatter_block + content
+    raw = md_path.read_text(encoding="utf-8")
+    new_content = _frontmatter_block(raw) + content
     if new_content == raw:
         return False
     md_path.write_text(new_content, encoding="utf-8")
@@ -328,9 +348,7 @@ def main():
         return 0
 
     llms_path = repo_root / "llms.txt"
-    existing = llms_path.read_text(encoding="utf-8") if llms_path.exists() else ""
-    if content != existing:
-        llms_path.write_text(content, encoding="utf-8")
+    if write_if_changed(llms_path, content):
         print(f"Generated llms.txt ({len(content.splitlines())} lines)")
     else:
         print("llms.txt is already up to date")
