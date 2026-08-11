@@ -112,6 +112,14 @@ EXAMPLE FROM FIELD: <paste a real or representative config snippet if available>
 - If a parameter behaves differently depending on context (e.g., belongs to method vs. object), note this in the mini-page but keep hover text universal
 - Sales-safe = avoid implementation details that raise concerns (performance, limits, known gaps)
 
+## If continuing beyond PoC
+- [ ] **Build templates** — derive a mini-page template and a hover text template from the box and intersection work done so far; use as the canonical starting point for all future methods
+- [ ] **Build a skill** for writing and maintaining these descriptions, covering:
+  - Generating hover text and mini-pages from a doc page using the templates
+  - Tracking related params (e.g. `percentOverlapX`/`percentOverlapY`, `offsetX`/`offsetY`) so that when one description changes, the skill flags related ones for review
+  - Single-source strategies for repeated descriptions (e.g. `#refs` or shared snippets) to avoid drift between methods that share params
+- [ ] **Hook the skill into existing style infrastructure** — wire up the style guides and checks already used by writing skills in this repo (docs-checker, style-guide-generator-senseml, etc.) so hover text and mini-pages go through the same quality gates as the published docs
+
 ## Open questions
 - **JSON key structure for parameter hover text**: should method parameters be nested (e.g. `{ "box": { "position": "..." } }`) or flat (e.g. `"box.position": "..."`) in `senseml-descriptions.json`? Decide before writing box parameter descriptions (position, offsetX, offsetY, percentOverlapX, percentOverlapY, offsetBoxes, darknessThreshold, includeAnchor).
 - **Global params per method**: for each method, include hover text for the global parameters in `field-query-object/method.md` in addition to the method-specific ones. PoC scope is limited to sortLines, tiebreaker, xRangeFilter — remaining global params are out of scope for now.
