@@ -9,7 +9,7 @@
     "offsetBoxes": "Navigates from the anchor's box to a neighboring box by counting shared borders in a given direction. Use for tables or grids where each cell shares its borders with its neighbors, as a workaround when not all boxes have anchoring text.",
     "darknessThreshold": "Sets how dark a pixel must be for Sensible to treat it as a box border. Lower the default (0.9) for boxes with dark or scanned backgrounds.",
     "includeAnchor": "When true, includes the anchor text itself in the output if it falls inside the box borders. By default the anchor is excluded.",
-    /* global param described in box context */
+    /* internal note: global param described in box context - TODO: decide if we want to use this approach or be more generic for global params */
     "sortLines": "When misaligned text (like handwriting) gets extracted in the incorrect order, correct it by forcing Sensible to read it left to right. Recommended.",
     /* global param described in box context */
     "tiebreaker": "When a box contains multiple lines, specifies which one to return. For example, `first` for the top left line, `last` for the bottom right, or join to combine them all into a single string.",
