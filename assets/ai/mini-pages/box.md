@@ -6,9 +6,11 @@ Extracts every line of text found inside a bordered rectangle on your document. 
 ```json
 {
   "id": "rents_income",
-  "anchor": "rents",           /* matches "Rents" printed inside a box on a 1099 form, to locates the box */
+  "anchor": "rents",           /* matches "Rents" printed inside a box on a 1099-MISC, locates the box */
+  "type": "currency",          /* formats raw text "4,200.00" into a structured value: { "value": 4200, "unit": "$" } */
   "method": {
-    "id": "box"                /* extracts everything else in that box, e.g., "4,200.00" (the anchor itself is excluded) */
+    "id": "box",               /* extracts everything else in that box (the anchor itself is excluded) */
+    "wordFilters": ["corrected"] /* ignores lines containing "corrected" — e.g. a CORRECTED stamp on an amended 1099 */
   }
 }
 ```

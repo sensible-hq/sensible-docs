@@ -114,4 +114,4 @@ EXAMPLE FROM FIELD: <paste a real or representative config snippet if available>
 
 ## Open questions
 - **JSON key structure for parameter hover text**: should method parameters be nested (e.g. `{ "box": { "position": "..." } }`) or flat (e.g. `"box.position": "..."`) in `senseml-descriptions.json`? Decide before writing box parameter descriptions (position, offsetX, offsetY, percentOverlapX, percentOverlapY, offsetBoxes, darknessThreshold, includeAnchor).
-- **Global params per method**: for each method, include hover text for the global parameters in `field-query-object/method.md` in addition to the method-specific ones. Confirm which global params are in scope (sortLines, tiebreaker, xRangeFilter are already listed above — are there others?).
+- **Global params per method**: for each method, include hover text for the global parameters in `field-query-object/method.md` in addition to the method-specific ones. PoC scope is limited to sortLines, tiebreaker, xRangeFilter — remaining global params are out of scope for now.
