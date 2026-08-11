@@ -17,20 +17,20 @@
     "xRangeFilter": "Limits extraction to a column-like slice of the box defined by a starting vertical edge and width in inches. For example, use when the box contains multiple columns and you only want one. As an alternative, use the Multicolumn preprocessor."
   },
   "intersection": {
-    "description": "Extracts the value at the point where a row and a column cross — like looking up a cell in a spreadsheet by naming both its row and column. More reliable than the Row method for tables with empty cells, and works in any grid-like layout.",
-    "verticalAnchor": "Identifies the column by specifying a heading that appears at the top of it. Sensible draws a vertical line through this text and extracts whatever sits where it meets the field anchor's row.",
-    "horizontalAnchor": "Identifies the row by specifying a label that appears alongside it. Use instead of verticalAnchor when the field anchor is a column heading — typically combined with match: all to extract multiple cells across a row in one field.",
-    "offsetX": "Shifts the vertical axis left or right by inches. Use when the target value is slightly offset from the column heading's center.",
-    "offsetY": "Shifts the horizontal axis up or down by inches. Use when the target value is slightly offset from the row label's center.",
-    "width": "Sets the width of the capture region at the intersection point, in inches. Without this, Sensible extracts anything touching the exact crossing point; a non-zero value captures a wider horizontal slice.",
-    "height": "Sets the height of the capture region at the intersection point, in inches. Without this, Sensible extracts anything touching the exact crossing point; a non-zero value captures a taller vertical slice.",
+    "description": "Extracts the value at the point where a row and a column cross, like looking up a cell in a spreadsheet by naming both its row and column. More reliable than the Row method for tables with empty cells, and works in any grid-like layout.",
+    "verticalAnchor": "Identifies the column by specifying its heading. Sensible draws a vertical line through this text and extracts whatever sits where it meets the field anchor's row.",
+    "horizontalAnchor": "Identifies the row by specifying its label. Use instead of verticalAnchor when the field anchor is a column heading, typically combined with `\"match\": \"all\"` to extract multiple cells across a row in one field.",
+    "offsetX": "Use when the target data is slightly offset from the column heading's center. Shifts the vertical axis line left or right by inches.",
+    "offsetY": "Use when the target data is slightly offset from the row label's center. Shifts the horizontal axis up or down by inches.",
+    "width": "Sets the width of the capture region at the intersection point, in inches. Without this, Sensible extracts any text touching the exact intersection point; a non-zero value captures a wider horizontal slice.",
+    "height": "Sets the height of the capture region at the intersection point, in inches. Without this, Sensible extracts any text touching the exact intersection point; a non-zero value captures a taller vertical slice.",
     "percentOverlapX": "Controls how much of a line's width must fall inside the capture region for Sensible to extract it. Lower the default (0.9) if lines overlapping the region's borders aren't getting extracted.",
     "percentOverlapY": "Controls how much of a line's height must fall inside the capture region for Sensible to extract it. Lower the default (0.8) if lines overlapping the region's borders aren't getting extracted.",
     /* global param described in intersection context */
     "sortLines": "When misaligned text gets extracted in the incorrect order, correct it by forcing Sensible to read it left to right. Recommended.",
     /* global param described in intersection context */
-    "tiebreaker": "When the intersection region contains multiple lines, specifies which one to return — for example, first for the top left line, last for the bottom right, or join to combine them all into a single string.",
-    /* global param described in intersection context */
+    "tiebreaker": "When the intersection region contains multiple lines, specifies which one to return. For example, first for the top left line, last for the bottom right, or join to combine them all into a single string.",
+    /* global param described in intersection context -- note seems UNLIKELY it would ever be used for this method TODO look at actual CSE use */
     "xRangeFilter": "Limits extraction to a column-like slice of the intersection region defined by a starting vertical edge and width in inches. Use when the region contains multiple columns and you only want one."
   },
   "checkbox": "Extracts whether a checkbox is checked or unchecked. Specify a word printed to the left or right of it, and Sensible searches in that direction to find the checkbox.",
