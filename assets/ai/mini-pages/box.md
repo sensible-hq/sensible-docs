@@ -14,3 +14,5 @@ Extracts every line of text found inside a bordered rectangle on your document. 
   }
 }
 ```
+
+[Full docs](https://docs.sensible.so/docs/box)

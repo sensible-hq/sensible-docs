@@ -16,3 +16,5 @@ Finds and extracts the value at the point where a row and a column cross in a ta
   }
 }
 ```
+
+[Full docs](https://docs.sensible.so/docs/intersection)
