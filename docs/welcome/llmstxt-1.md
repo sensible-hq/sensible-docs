@@ -4,4 +4,176 @@ deprecated: false
 hidden: true
 metadata:
   robots: index
----
+---# Sensible
+
+> Sensible is a developer-first platform for extracting structured data from documents, including PDFs, emails, spreadsheets, and images. Use Sensible to build document-automation features into your vertical SaaS products.
+
+This file contains links to the Sensible documentation to help LLMs understand the platform.
+
+## Instructions for AI Agents
+
+- For clean Markdown of any page, append `.md` to the page URL
+
+## welcome
+
+- [Overview](https://docs.sensible.so/docs/overview.md): Introduction to Sensible and its capabilities for document data extraction
+- [Getting started](https://docs.sensible.so/docs/getting-started-ai.md): Learn to extract document data using LLM-based methods
+- [Integrating](https://docs.sensible.so/docs/integrate.md): Options for integrating Sensible with your application
+- [Quality control](https://docs.sensible.so/docs/quality-control.md): Strategies for validating and monitoring extracted data
+- [Choosing an extraction approach](https://docs.sensible.so/docs/author.md): Guide to choosing between LLM-based and layout-based extraction methods
+
+## integrations
+
+- [SDK guides](https://docs.sensible.so/docs/sdk-guides.md): Guides for Node/TypeScript and Python SDKs
+- [Zapier overview](https://docs.sensible.so/docs/zapier.md): Introduction to Sensible's Zapier integration
+- [Integrate with Airtable using Zapier](https://docs.sensible.so/docs/zapier-getting-started.md): Get started with Zapier by learning to integrate Sensible and Airtable for sample 1040 tax forms
+- [Integrate with Slack and Google Sheets using Zapier](https://docs.sensible.so/docs/zapier-tutorial-2.md): integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form example documents
+- [API quickstart](https://docs.sensible.so/docs/quickstart.md): Quick start guide for the Sensible API
+- [Quick extraction](https://docs.sensible.so/docs/quick-extraction.md): Learn how to use Sensible app's Extract tab to upload documents in bulk and download extracted data as Excel files for custom or supported document types.
+- [SenseML to spreadsheet reference](https://docs.sensible.so/docs/excel-reference.md): Learn how SenseML converts PDF and document data into structured spreadsheets with meaningful column/row relationships.
+
+## document extraction
+
+- [Getting started with layout-based extractions](https://docs.sensible.so/docs/getting-started.md): Tutorial for SenseML layout-based extraction
+- [Out-of-the-box extractions](https://docs.sensible.so/docs/library-quickstart.md): Pre-built extraction templates for different document types
+- [Multi-document extractions](https://docs.sensible.so/docs/portfolio.md): Segment and extract from document portfolio files (files containing multiple documents)
+- [Repeating layouts](https://docs.sensible.so/docs/repeat-layouts.md): Handle documents with repeating sections
+- [Best practices](https://docs.sensible.so/docs/best-practices.md): Guidelines for production-quality extractions
+- [Extracting handwriting and OCR text](https://docs.sensible.so/docs/handwriting.md): Best practices for OCR and handwriting extraction
+- [Fallback LLM configs](https://docs.sensible.so/docs/fallback-configs.md): Configuring fallback extraction strategies
+- [Go-live checklist](https://docs.sensible.so/docs/go-live.md): Checklist for deploying extractions to production
+- [Handling document variations](https://docs.sensible.so/docs/document-variations.md): Strategies for handling document layout variations
+- [Optimizing extraction performance](https://docs.sensible.so/docs/performance.md): Tips for improving extraction speed
+- [Qualifying LLM accuracy](https://docs.sensible.so/docs/confidence.md): Measuring and improving LLM extraction accuracy
+- [Troubleshooting](https://docs.sensible.so/docs/troubleshoot.md): Common issues and solutions
+
+## monitor and qa
+
+- [Monitoring extraction metrics](https://docs.sensible.so/docs/metrics.md): Track extraction performance and accuracy
+- [Validating extractions](https://docs.sensible.so/docs/validate-extractions.md): Validate extracted data programmatically
+- [Human review](https://docs.sensible.so/docs/human-review.md): Set up human review workflows
+- [Human review implementation](https://docs.sensible.so/docs/human-review-implementation.md): Implement human review using Sensible webhooks
+
+## document type classification
+
+- [Classifying documents by type](https://docs.sensible.so/docs/classify.md): Automatically classify documents by type, for example, 'bank statement' or 'driver's license
+
+## api
+
+- [API tutorial](https://docs.sensible.so/docs/api-tutorial.md): Step-by-step API tutorial
+- [Try synchronous extraction](https://docs.sensible.so/docs/api-tutorial-sync.md): Synchronous extraction API calls
+- [Try asynchronous extraction from your URL](https://docs.sensible.so/docs/api-tutorial-async-1.md): Async extraction with your document URL
+- [Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2.md): Async extraction with Sensible-hosted URL
+- [Try a webhook](https://docs.sensible.so/docs/api-tutorial-webhook.md): Webhook-based extraction workflow
+- [Code examples](https://docs.sensible.so/docs/examples.md): Example code for common API operations
+- [API reference](https://docs.sensible.so/docs/api-reference.md): Complete API reference documentation
+
+## senseml reference
+
+- [SenseML reference introduction](https://docs.sensible.so/docs/senseml-reference-introduction.md): Overview of the SenseML query language
+- [Field query object](https://docs.sensible.so/docs/field-query-object.md): Structure of field queries in SenseML
+- [Anchor object](https://docs.sensible.so/docs/anchor.md): Define anchors to locate data in documents
+- [Match object](https://docs.sensible.so/docs/match.md): Match patterns for finding text
+- [Method object](https://docs.sensible.so/docs/method.md): Extraction methods for retrieving data
+- [Types](https://docs.sensible.so/docs/types.md): Data types for extracted fields
+- [Layout-based methods](https://docs.sensible.so/docs/layout-based-methods.md): Methods that use document layout for document data extraction
+- [Box](https://docs.sensible.so/docs/box.md): Extract text from a bordered box
+- [Checkbox](https://docs.sensible.so/docs/checkbox.md): Extract checkbox states
+- [Column](https://docs.sensible.so/docs/column.md): Extract columnar data
+- [Document range](https://docs.sensible.so/docs/document-range.md): Extract text from a document range defined by upper and lower bounds
+- [Fixed table](https://docs.sensible.so/docs/fixed-table.md): Extract tables with fixed column headings
+- [Intersection](https://docs.sensible.so/docs/intersection.md): Find text at row/column intersections
+- [Label](https://docs.sensible.so/docs/label.md): Extract labeled values. Note this method is brittle, so use alternative methods where possible
+- [Nearest checkbox](https://docs.sensible.so/docs/nearest-checkbox.md): Find nearest checkbox to anchor and extract its state
+- [Paragraph](https://docs.sensible.so/docs/paragraph.md): Extract paragraph text
+- [Passthrough](https://docs.sensible.so/docs/passthrough.md): Pass anchor text through as output
+- [Regex](https://docs.sensible.so/docs/regex.md): Extract using regular expressions
+- [Region](https://docs.sensible.so/docs/region.md): Extract from a  rectangular region defined in inch coordinates
+- [Row](https://docs.sensible.so/docs/row.md): Extract row data
+- [Signature](https://docs.sensible.so/docs/signature.md): Detect signatures
+- [Text Table](https://docs.sensible.so/docs/text-table.md): Extract tables based on column coordinates defined in inches
+- [LLM-based methods](https://docs.sensible.so/docs/llm-based-methods.md): Methods that use large language models for document data extraction
+- [List](https://docs.sensible.so/docs/list.md): Extract lists using LLMs
+- [NLP table](https://docs.sensible.so/docs/nlp-table.md): Extract tables using natural language
+- [Query group](https://docs.sensible.so/docs/query-group.md): Group related LLM queries to extract facts
+- [Preprocessors](https://docs.sensible.so/docs/preprocessors.md): Transform documents before extraction
+- [Deskew](https://docs.sensible.so/docs/deskew.md): Correct skewed document images
+- [Ligature](https://docs.sensible.so/docs/ligature.md): Handle ligature characters
+- [Linearize](https://docs.sensible.so/docs/linearize.md): Advanced option for handling block layout and multicolumn layouts, alternative to Multicolumn preprocessor
+- [Merge lines](https://docs.sensible.so/docs/merge-lines.md): Merge split text lines
+- [Multicolumn](https://docs.sensible.so/docs/multicolumn.md): Handle multi-column layouts
+- [NLP](https://docs.sensible.so/docs/nlp.md): Configure LLM methods globally
+- [OCR preprocessor](https://docs.sensible.so/docs/ocr-preprocessor.md): OCR configuration
+- [Page range](https://docs.sensible.so/docs/page-range.md): Limit extraction to page ranges
+- [Remove footer](https://docs.sensible.so/docs/remove-footer.md): Remove page footers
+- [Remove header](https://docs.sensible.so/docs/remove-header.md): Remove page headers
+- [Remove page](https://docs.sensible.so/docs/remove-page.md): Remove specific pages
+- [Rotate page](https://docs.sensible.so/docs/rotate-page.md): Rotate page orientation, for edge cases when Sensible can't auto-rotate the page
+- [Scale](https://docs.sensible.so/docs/scale.md): Scale document dimensions
+- [Split lines](https://docs.sensible.so/docs/split-lines.md): Split merged text lines
+- [Computed field methods](https://docs.sensible.so/docs/computed-field-methods.md): Transform extracted data
+- [Concatenate](https://docs.sensible.so/docs/concatenate.md): Join field values
+- [Constant](https://docs.sensible.so/docs/constant.md): Add constant values
+- [Mapper](https://docs.sensible.so/docs/mapper.md): Map values to new values
+- [Pick values](https://docs.sensible.so/docs/pick-values.md): Select values from arrays
+- [Split](https://docs.sensible.so/docs/split.md): Split field values
+- [Suppress output](https://docs.sensible.so/docs/suppress-output.md): Exclude fields from output
+- [Zip](https://docs.sensible.so/docs/zip.md): Combine arrays into objects
+- [Sections](https://docs.sensible.so/docs/sections.md): Extract repeating document sections
+- [Claims loss run example](https://docs.sensible.so/docs/sections-example-loss-run.md): Sections example: insurance claims extraction
+- [Labeled rows example](https://docs.sensible.so/docs/sections-example-labeled-rows.md): Sections example: labeled row extraction
+- [Advanced: nested columns example](https://docs.sensible.so/docs/sections-example-nested-columns.md): Sections example: nested column extraction
+- [Advanced: nested table example](https://docs.sensible.so/docs/sections-example-nested-table.md): Sections example: nested table extraction
+- [Advanced: Table grid example](https://docs.sensible.so/docs/sections-example-table-grid.md): Sections example: table grid extraction
+- [Advanced: Zip sections](https://docs.sensible.so/docs/sections-example-zip.md): Sections example: combining sections
+- [Advanced: Zip and flatten nested sections](https://docs.sensible.so/docs/sections-example-copy-from-sections.md): Sections example: flattening nested data
+- [Advanced: Transform sections data](https://docs.sensible.so/docs/sections-example-copy-to-section.md): Sections example: transforming section data
+- [Advanced: External anchors for sections](https://docs.sensible.so/docs/sections-example-external-range.md): Sections example: using external anchors
+- [Conditional execution](https://docs.sensible.so/docs/conditional.md): Conditionally execute SenseML
+- [Spreadsheet extraction](https://docs.sensible.so/docs/cell-rows.md): Extract from large spreadsheets
+- [Config settings](https://docs.sensible.so/docs/config-settings.md): SenseML configuration options
+- [Fingerprint](https://docs.sensible.so/docs/fingerprint.md): Document fingerprinting for classification
+- [Verbosity](https://docs.sensible.so/docs/verbosity.md): Control extraction output detail
+- [Document type settings](https://docs.sensible.so/docs/document-type-settings.md): Configure document type behavior
+- [Document type descriptions](https://docs.sensible.so/docs/descriptions.md): Describe document types for classification
+- [Fingerprint mode](https://docs.sensible.so/docs/fingerprint-mode.md): Configure fingerprint-based classification
+- [OCR engine](https://docs.sensible.so/docs/ocr-engine.md): Select OCR engine
+- [OCR level](https://docs.sensible.so/docs/ocr-level.md): Configure OCR processing level
+- [Advanced computed field methods](https://docs.sensible.so/docs/advanced-computed-field-methods.md): Advanced methods for transforming extracted data
+- [Add computed fields](https://docs.sensible.so/docs/add-computed-fields.md): Add computed fields to output
+- [Copy from sections](https://docs.sensible.so/docs/copy-from-sections.md): Copy data from sections
+- [Copy to section](https://docs.sensible.so/docs/copy-to-section.md): Copy data to sections
+- [Custom computation](https://docs.sensible.so/docs/custom-computation.md): Custom JsonLogic computations
+- [Custom computation group](https://docs.sensible.so/docs/custom-computation-group.md): Group custom computations
+- [Extra data](https://docs.sensible.so/docs/extra-data.md): Access request-supplied extra data in configs
+- [Get file metadata](https://docs.sensible.so/docs/get-file-metadata.md): Extract file metadata
+- [Postprocessor](https://docs.sensible.so/docs/postprocessor.md): Transform extracted data into any arbitrary output schema
+- [Concepts](https://docs.sensible.so/docs/concepts.md): Core SenseML concepts
+- [Accuracy measures](https://docs.sensible.so/docs/accuracy-measures.md): Understanding extraction accuracy metrics
+- [Advanced LLM prompt configuration](https://docs.sensible.so/docs/prompt.md): Configure LLM prompts
+- [Anchor variables](https://docs.sensible.so/docs/anchor-nuances.md): Advanced anchor configuration
+- [DevOps platform](https://docs.sensible.so/docs/devops-platform.md): CI/CD integration for configs
+- [Environments](https://docs.sensible.so/docs/environments.md): Development and production environments
+- [Extraction coverage](https://docs.sensible.so/docs/coverage.md): Understanding extraction coverage
+- [Fallback fields](https://docs.sensible.so/docs/fallbacks.md): Configure fallback extraction
+- [Field extraction order](https://docs.sensible.so/docs/field-order.md): Control field extraction order
+- [JsonLogic extensions](https://docs.sensible.so/docs/jsonlogic.md): Custom JsonLogic operations
+- [Ligatures](https://docs.sensible.so/docs/ligatures.md): Handling ligature characters
+- [Lines](https://docs.sensible.so/docs/lines.md): Understanding text lines in PDFs
+- [LLM features overview](https://docs.sensible.so/docs/llm-features.md): Overview of LLM capabilities
+- [LLM models](https://docs.sensible.so/docs/llm-models.md): Available LLM models
+- [Match arrays](https://docs.sensible.so/docs/match-arrays.md): Working with match arrays
+- [OCR](https://docs.sensible.so/docs/ocr.md): Optical character recognition overview
+- [Section nuances](https://docs.sensible.so/docs/section-nuances.md): Advanced section configuration
+- [Source text traceability](https://docs.sensible.so/docs/color.md): Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML
+- [Supported file types](https://docs.sensible.so/docs/file-types.md): Supported document file formats
+- [Table methods](https://docs.sensible.so/docs/table-methods.md): Comparison of table extraction methods
+
+## api reference
+
+The Sensible API is described by the following OpenAPI specifications:
+
+- [Classification](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_classification.json): OpenAPI specification
+- [Configuration](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_configuration.json): OpenAPI specification
+- [Email processors](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_email.json): OpenAPI specification
+- [Extraction](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_extraction.json): OpenAPI specification
