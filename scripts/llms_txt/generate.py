@@ -58,6 +58,10 @@ REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
 OPENAPI_BASE_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference"
 DOCS_BASE_URL = "https://docs.sensible.so/docs"
 
+# Temporary test target: the permanent llmstxt.md path will live in a hidden
+# docs category once ReadMe redirect is set up.
+LLMSTXT_MD_PATH = Path("docs/welcome/llmstxt-1.md")
+
 
 def parse_front_matter(content: str) -> dict:
     if not content.startswith("---"):
@@ -261,6 +265,25 @@ def check(repo_root: Path) -> list[str]:
     return issues
 
 
+def write_llmstxt_md(repo_root: Path, content: str) -> bool:
+    """Write llms.txt content into the hidden ReadMe MD page, preserving its frontmatter.
+
+    Returns True if the file changed, False if it was already up to date.
+    """
+    md_path = repo_root / LLMSTXT_MD_PATH
+    raw = md_path.read_text(encoding="utf-8") if md_path.exists() else ""
+    if raw.startswith("---"):
+        m = re.search(r"\n---\s*(\n|$)", raw[3:])
+        frontmatter_block = raw[: 3 + m.end()] if m else "---\n---\n"
+    else:
+        frontmatter_block = "---\n---\n"
+    new_content = frontmatter_block + content
+    if new_content == raw:
+        return False
+    md_path.write_text(new_content, encoding="utf-8")
+    return True
+
+
 def find_repo_root() -> Path:
     # scripts/llms_txt/generate.py → scripts/llms_txt/ → scripts/ → repo root
     candidate = Path(__file__).resolve().parent.parent.parent
@@ -306,12 +329,17 @@ def main():
 
     llms_path = repo_root / "llms.txt"
     existing = llms_path.read_text(encoding="utf-8") if llms_path.exists() else ""
-    if content == existing:
+    if content != existing:
+        llms_path.write_text(content, encoding="utf-8")
+        print(f"Generated llms.txt ({len(content.splitlines())} lines)")
+    else:
         print("llms.txt is already up to date")
-        return 0
 
-    llms_path.write_text(content, encoding="utf-8")
-    print(f"Generated llms.txt ({len(content.splitlines())} lines)")
+    if write_llmstxt_md(repo_root, content):
+        print(f"Updated {LLMSTXT_MD_PATH}")
+    else:
+        print(f"{LLMSTXT_MD_PATH} is already up to date")
+
     return 0
 
 
