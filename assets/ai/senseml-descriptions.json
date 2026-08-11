@@ -1,5 +1,5 @@
 {
   "box": "Extracts all the text inside a bordered box in your document. Specify a word or phrase that's printed in or near the box, and Sensible finds and reads the box automatically.",
-  "checkbox": "Reads whether a checkbox is checked or unchecked. Specify a word printed to the left or right of it as a locator, and Sensible searches in that direction to find and read the checkbox.",
-  "nearestCheckbox": "Reads whether a checkbox is checked or unchecked. Tell it a word or phrase printed anywhere near the checkbox, and Sensible finds the closest one automatically — no need to specify a direction."
+  "checkbox": "Reads whether a checkbox is checked or unchecked. Specify a word printed to the left or right of it, and Sensible searches in that direction to find and read the checkbox.",
+  "nearestCheckbox": "Reads whether a checkbox is checked or unchecked. Specify a word or phrase printed anywhere near the checkbox, and Sensible finds the closest one automatically."
 }
