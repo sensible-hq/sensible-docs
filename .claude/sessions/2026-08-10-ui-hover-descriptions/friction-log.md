@@ -125,7 +125,31 @@
 
 ---
 
-### 10. ⚠️ Factual error — typo introduced in user's sortLines edit
+### 10. Problem-first applies to offset params too, not just toggle params
+
+**What happened:** `offsetX`/`offsetY` for intersection were drafted solution-first ("Shifts the vertical axis left or right by inches. Use when…"). User reversed the order: problem-first ("Use when the target data is slightly offset… Shifts the vertical axis…").
+
+**My draft:** "Shifts the vertical axis left or right by inches. Use when the target value is slightly offset from the column heading's center."
+**User's final:** "Use when the target data is slightly offset from the column heading's center. Shifts the vertical axis line left or right by inches."
+
+**Additional correction:** "target value" → "target data"
+
+**Rule:** Problem-first framing (rule #8) applies broadly — not just to enable/disable params like `sortLines`. Any param that's used to fix a specific scenario should lead with that scenario.
+
+---
+
+### 11. Use possessives over verbose relative clauses
+
+**What happened:** `verticalAnchor` and `horizontalAnchor` were drafted with relative clauses: "a heading that appears at the top of it", "a label that appears alongside it." User trimmed to possessives: "its heading", "its label."
+
+**My draft:** "Identifies the column by specifying a heading that appears at the top of it."
+**User's final:** "Identifies the column by specifying its heading."
+
+**Rule:** Prefer possessives ("its heading") over relative clauses ("a heading that appears at the top of it") — shorter and less patronizing.
+
+---
+
+### 12. ⚠️ Factual error — typo introduced in user's sortLines edit
 
 **What happened:** User's rewrite of `sortLines` contained a grammatical error: "gets extracts" instead of "gets extracted." Caught and fixed in the same commit.
 
