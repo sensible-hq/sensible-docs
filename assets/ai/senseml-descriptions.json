@@ -18,8 +18,8 @@
   },
   "intersection": {
     "description": "Extracts the value at the point where a row and a column cross — like looking up a cell in a spreadsheet by naming both its row and column. More reliable than the Row method for tables with empty cells, and works in any grid-like layout.",
-    "verticalAnchor": "The line of text that defines the column — Sensible draws a vertical line through it and finds where it crosses the field anchor's horizontal line. Use this in the common case where the field anchor is the row label.",
-    "horizontalAnchor": "The line of text that defines the row — use instead of verticalAnchor when the field anchor is the column heading rather than the row label.",
+    "verticalAnchor": "Identifies the column by specifying a heading that appears at the top of it. Sensible draws a vertical line through this text and extracts whatever sits where it meets the field anchor's row.",
+    "horizontalAnchor": "Identifies the row by specifying a label that appears alongside it. Use instead of verticalAnchor when the field anchor is a column heading — typically combined with match: all to extract multiple cells across a row in one field.",
     "offsetX": "Shifts the vertical axis left or right by inches. Use when the target value is slightly offset from the column heading's center.",
     "offsetY": "Shifts the horizontal axis up or down by inches. Use when the target value is slightly offset from the row label's center.",
     "width": "Sets the width of the capture region at the intersection point, in inches. Without this, Sensible extracts anything touching the exact crossing point; a non-zero value captures a wider horizontal slice.",
