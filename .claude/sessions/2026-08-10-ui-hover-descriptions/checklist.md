@@ -1,5 +1,7 @@
 # Session: SenseML UI Hover Descriptions
 Date: 2026-08-10
+Claude Code session name: ui-docs-matt
+Claude Code session ID: 6efe2e70-0983-43c4-a3c1-37a51984b3f2
 
 ## Goal
 Generate two levels of UI-friendly descriptions for SenseML methods and parameters:
