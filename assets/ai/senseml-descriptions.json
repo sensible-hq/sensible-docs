@@ -16,7 +16,7 @@
     /* global param described in box context */
     "xRangeFilter": "Limits extraction to a column-like slice of the box defined by a starting vertical edge and width in inches. For example, use when the box contains multiple columns and you only want one. As an alternative, use the Multicolumn preprocessor."
   },
-  "intersection": "Extracts the value at the point where a row and a column cross — like looking up a cell in a spreadsheet by naming both its row and column. More reliable than the Row method when a table has unpredictably empty cells.",
+  "intersection": "Extracts the value at the point where a row and a column cross — like looking up a cell in a spreadsheet by naming both its row and column. More reliable than the Row method for tables with empty cells, and works in any grid-like layout.",
   "checkbox": "Extracts whether a checkbox is checked or unchecked. Specify a word printed to the left or right of it, and Sensible searches in that direction to find the checkbox.",
   "nearestCheckbox": "Extracts whether a checkbox is checked or unchecked. Specify a word or phrase printed anywhere near the checkbox, and Sensible finds the closest one automatically.",
   
