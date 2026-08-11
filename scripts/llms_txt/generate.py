@@ -85,7 +85,10 @@ def _frontmatter_block(raw: str) -> str:
     m = re.search(r"\n---\s*(\n|$)", raw[3:])
     if not m:
         raise ValueError("Malformed frontmatter: missing closing ---")
-    return raw[: 3 + m.end()]
+    # Ensure the block always ends with \n so the body doesn't get jammed
+    # against the closing --- when the source file has no trailing newline.
+    block = raw[: 3 + m.end()]
+    return block if block.endswith("\n") else block + "\n"
 
 
 def write_if_changed(path: Path, content: str) -> bool:
