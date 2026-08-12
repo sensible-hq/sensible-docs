@@ -17,7 +17,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 ## welcome
 
-- [Test New Page](https://docs.sensible.so/docs/test-new-page.md)
+- [Test New Page](https://docs.sensible.so/docs/test-new-page.md): Updated description to verify that description changes propagate to llms.txt.
 - [Overview](https://docs.sensible.so/docs/overview.md): Introduction to Sensible and its capabilities for document data extraction
 - [Getting started](https://docs.sensible.so/docs/getting-started-ai.md): Learn to extract document data using LLM-based methods
 - [Integrating](https://docs.sensible.so/docs/integrate.md): Options for integrating Sensible with your application
