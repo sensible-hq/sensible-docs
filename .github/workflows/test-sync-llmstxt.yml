@@ -1,9 +1,13 @@
-name: Sync llms.txt to docs
+name: "[TEST] Sync llms.txt to docs"
 
+# Branch-scoped copy of sync-llmstxt.yml for integration testing.
+# Triggers on the llms-order-yaml branch so test runs don't affect
+# production (v0) and PRs target this branch, not v0.
+# Descriptions phase is disabled — tests focus on llms.txt generation only.
 on:
   push:
     branches:
-      - v0
+      - llms-order-yaml
     paths:
       - '**/_order.yaml'
       - 'reference/*.json'
@@ -44,65 +48,7 @@ jobs:
             echo "mode=create" >> "$GITHUB_OUTPUT"
           fi
 
-      # === PHASE 1: Generate missing descriptions in frontmatter ===
-
-      - name: Check for missing descriptions
-        id: descriptions
-        run: |
-          echo "=== Checking for missing descriptions ==="
-          ./scripts/descriptions/check_descriptions.py
-
-          MISSING=$(./scripts/descriptions/check_descriptions.py --json)
-          echo "missing=$MISSING" >> "$GITHUB_OUTPUT"
-          COUNT=$(echo "$MISSING" | jq 'length')
-          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-
-          if [ "$COUNT" -gt 0 ]; then
-            echo "::warning::Missing descriptions: $COUNT files need descriptions"
-          fi
-
-      - name: Generate descriptions with Claude
-        if: steps.descriptions.outputs.count != '0'
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          MISSING_FILES: ${{ steps.descriptions.outputs.missing }}
-        run: |
-          echo "=== Generating descriptions with Claude ==="
-          echo "$MISSING_FILES" | jq -c '.[]' | while read -r item; do
-            FILE_PATH=$(echo "$item" | jq -r '.path')
-            TITLE=$(echo "$item" | jq -r '.title')
-
-            echo "Processing: $FILE_PATH"
-
-            # Read file content (first 4000 chars for context)
-            CONTENT=$(head -c 4000 "$FILE_PATH")
-
-            # Call Claude API
-            RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
-              -H "Content-Type: application/json" \
-              -H "x-api-key: $ANTHROPIC_API_KEY" \
-              -H "anthropic-version: 2023-06-01" \
-              -d "$(jq -n \
-                --arg title "$TITLE" \
-                --arg content "$CONTENT" \
-                '{
-                  model: "claude-sonnet-4-20250514",
-                  max_tokens: 150,
-                  messages: [{
-                    role: "user",
-                    content: "Generate a concise 1-line description (max 160 characters) for this documentation page. The description should summarize what the page is about for SEO purposes. Do NOT include quotes around your response. Just return the plain description text.\n\nTitle: \($title)\n\nContent:\n\($content)"
-                  }]
-                }')")
-
-            DESCRIPTION=$(echo "$RESPONSE" | jq -r '.content[0].text' | tr -d '\n')
-
-            echo "  Generated: $DESCRIPTION"
-
-            # Update the file
-            ./scripts/descriptions/add_description.py "$FILE_PATH" "$DESCRIPTION"
-          done
-
-      # === PHASE 2: Regenerate llms.txt from _order.yaml ===
+      # === Regenerate llms.txt from _order.yaml ===
 
       - name: Validate _order.yaml slugs
         run: |
@@ -112,7 +58,6 @@ jobs:
       - name: Generate llms.txt
         id: generate
         run: |
-          echo ""
           echo "=== Generating llms.txt from _order.yaml ==="
           python scripts/llms_txt/generate.py
 
@@ -123,15 +68,12 @@ jobs:
             echo "::notice::llms.txt was updated"
           fi
 
-      - name: Check llms.txt links
-        run: |
-          echo "=== Checking llms.txt links ==="
-          python scripts/llms_txt/check_links.py
+      # Link checker intentionally omitted — test pages don't exist in production.
 
-      # === PHASE 3: Create or update PR if any changes ===
+      # === Create or update PR if llms.txt changed ===
 
       - name: Create or update PR
-        if: steps.descriptions.outputs.count != '0' || steps.generate.outputs.changed == 'true'
+        if: steps.generate.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TRIGGER_SHA: ${{ github.sha }}
@@ -163,17 +105,16 @@ jobs:
           else
             BRANCH_NAME="auto/sync-docs-$(date +%Y%m%d-%H%M%S)"
             git push origin HEAD:refs/heads/$BRANCH_NAME
-            BODY=$(printf 'This PR automatically syncs documentation and llms.txt.\n\n## Trigger history\n\n| Auto commit | Trigger commit |\n|---|---|\n%s' "$NEW_ROW")
+            BODY=$(printf 'This PR automatically syncs llms.txt and llmstxt-1.md.\n\n## Trigger history\n\n| Auto commit | Trigger commit |\n|---|---|\n%s' "$NEW_ROW")
             gh pr create \
               --title "Sync docs and llms.txt" \
               --body "$BODY" \
               --head "$BRANCH_NAME" \
-              --base "${{ github.event.repository.default_branch }}"
+              --base "llms-order-yaml"
           fi
 
-      - name: Fail if issues were found
-        if: steps.descriptions.outputs.count != '0' || steps.generate.outputs.changed == 'true'
+      - name: Fail if llms.txt changed
+        if: steps.generate.outputs.changed == 'true'
         run: |
-          echo "::error::Issues were found and a PR has been created or updated."
-          echo "Please review and merge the PR."
+          echo "::error::llms.txt changed — a PR has been created or updated."
           exit 1
