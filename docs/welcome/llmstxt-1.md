@@ -179,3 +179,4 @@ The Sensible API is described by the following OpenAPI specifications:
 - [Configuration](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_configuration.json): OpenAPI specification
 - [Email processors](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_email.json): OpenAPI specification
 - [Extraction](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_extraction.json): OpenAPI specification
+- [Test Spec](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_test.json): OpenAPI specification
