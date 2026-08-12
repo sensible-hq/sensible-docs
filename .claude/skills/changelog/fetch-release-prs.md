@@ -15,7 +15,7 @@ Print:
 ```
 Cursor state:
   Last fetch:              <last_fetched>
-  Last message:            <last_message_date> (ts: <last_message_ts>)
+  Last message:            <latest_message_date_cursor> (ts: <last_message_ts>)
   Last changelog through:  <last_changelog_through>
   History:                 <N> changelogs archived
 ```
@@ -27,13 +27,13 @@ Ask: "Does this look right, or do you want to adjust the start point before I fe
 ## Step 2 — Fetch new release notes from #engineering
 
 Call `mcp__claude_ai_Slack__slack_search_public_and_private` with:
-- `query`: `release notes in:engineering after:<last_message_date>`
+- `query`: `release notes in:engineering after:<latest_message_date_cursor>`
 - `sort`: `timestamp`
 - `sort_dir`: `asc`
 - `include_bots`: `true`
 - `limit`: 20
 
-If 0 results: tell the user nothing is new since `<last_message_date>` and stop.
+If 0 results: tell the user nothing is new since `<latest_message_date_cursor>` and stop.
 
 Print each result with its date and bullet items so the user can see what came in before annotating.
 
@@ -55,9 +55,18 @@ Do not reorder items or change any other formatting.
 
 Determine the title from the current month: `prs-<month>-<year>` (e.g., `prs-july-2026`).
 
-Format the body:
+Format the body with a dispositions summary at the top, followed by the annotated release notes:
+
 ```
-## Release notes fetched <YYYY-MM-DD> (cursor was <last_message_date>)
+## Disposition summary (fetched <YYYY-MM-DD>)
+
+**document** (N): #XXXX (brief label), #XXXX (brief label)
+**investigate** (N): #XXXX (brief label), #XXXX (brief label)
+**skip** (N): #XXXX, #XXXX, ...
+
+---
+
+## Release notes fetched <YYYY-MM-DD> (cursor was <latest_message_date_cursor>)
 
 ### <date>
 - item <!-- comment -->
@@ -79,7 +88,7 @@ Print the hidden draft URL on success.
 Update `release-notes-cursor.yaml`:
 - `last_fetched`: today's date
 - `last_message_ts`: `message_ts` of the most recent message fetched
-- `last_message_date`: human-readable date of that message
+- `latest_message_date_cursor`: human-readable date of that message
 
 Do NOT touch `last_changelog_through` or `saved_for_later` — those are only updated during publishing (see `checklist.md`).
 
@@ -91,7 +100,7 @@ Print:
 ```
 ✓ Fetched <N> release note batch(es) (<date range>)
 ✓ Draft: https://docs.sensible.so/update/changelog/prs-<month>-<year>
-✓ Cursor updated to <last_message_date> (ts: <last_message_ts>)
+✓ Cursor updated to <latest_message_date_cursor> (ts: <last_message_ts>)
 
-Next fetch will start after: <last_message_date>
+Next fetch will start after: <latest_message_date_cursor>
 ```

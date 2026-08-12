@@ -13,7 +13,7 @@ Read `.claude/skills/changelog/release-notes-cursor.yaml`. If it doesn't exist, 
 Print to the user:
 ```
 Last fetch:              <last_fetched>
-Last message:            <last_message_date> (ts: <last_message_ts>)
+Last message:            <latest_message_date_cursor> (ts: <last_message_ts>)
 Last changelog through:  <last_changelog_through>
 History:                 <N> changelogs archived
 ```
@@ -70,7 +70,7 @@ Print the hidden draft URL so Frances can review it in the readme.io dash.
 Update `.claude/skills/changelog/release-notes-cursor.yaml` with:
 - `last_fetched`: today's date
 - `last_message_ts`: the `message_ts` of the most recent release notes message fetched
-- `last_message_date`: human-readable date of that message (for sanity checking)
+- `latest_message_date_cursor`: human-readable date of that message (for sanity checking)
 
 Do NOT update `last_changelog_through` — that's only updated when a changelog is actually published (see Publishing flow below).
 
@@ -82,9 +82,9 @@ Print:
 ```
 ✓ Fetched <N> release note batches (<date range>)
 ✓ Appended to prs: https://docs.sensible.so/update/changelog/prs-<month>-<year>
-✓ Cursor updated to <last_message_date> (ts: <last_message_ts>)
+✓ Cursor updated to <latest_message_date_cursor> (ts: <last_message_ts>)
 
-Next time, fetch will start after: <last_message_date>
+Next time, fetch will start after: <latest_message_date_cursor>
 ```
 
 ---
@@ -104,7 +104,7 @@ Location: `.claude/skills/changelog/release-notes-cursor.yaml`
 
 last_fetched: "2026-07-08"
 last_message_ts: "1782909583.512839"
-last_message_date: "2026-07-01"
+latest_message_date_cursor: "2026-07-01"
 last_changelog_through: "2026-06-11"
 
 changelog_history:

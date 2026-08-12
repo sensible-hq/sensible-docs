@@ -1,15 +1,16 @@
 # Tracks state for the release notes → changelog workflow.
 # last_message_ts: Slack message_ts of the most recent #engineering
 #   release notes post fetched. Next fetch starts after this.
+# latest_message_date_cursor: human-readable date of last_message_ts (for sanity checking).
 # last_changelog_through: date through which items have been PUBLISHED
 #   in a changelog. May lag behind last_fetched if items are pending review.
 # changelog_history: append-only archive — one entry per published changelog,
 #   recording which release note date range it covered.
 
-last_fetched: "2026-07-08"
-last_message_ts: "1782909583.512839"   # July 1, 2026 hotfix
-last_message_date: "2026-07-01"
-last_changelog_through: "2026-06-11"   # date of last published changelog
+last_fetched: "2026-08-12"
+last_message_ts: "1786462900.667889"   # August 11, 2026
+latest_message_date_cursor: "2026-08-11"
+last_changelog_through: "2026-07-01"   # date of last published changelog
 
 changelog_history:
   # Append a new entry each time a changelog is published.
@@ -22,3 +23,8 @@ changelog_history:
     release_notes_through: "2026-06-09"
     published: "2026-06-11"
     url: "https://docs.sensible.so/changelog/june-2026"
+  - changelog: "july-2026"
+    release_notes_from: "2026-06-16"
+    release_notes_through: "2026-07-01"
+    published: "2026-07-08"
+    url: "https://docs.sensible.so/changelog/july-2026"
