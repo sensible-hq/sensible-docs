@@ -17,6 +17,10 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Quality control](https://docs.sensible.so/docs/quality-control.md): Strategies for validating and monitoring extracted data
 - [Choosing an extraction approach](https://docs.sensible.so/docs/author.md): Guide to choosing between LLM-based and layout-based extraction methods
 
+## test-category
+
+- [Test Category Page](https://docs.sensible.so/docs/test-cat-page.md): A test page for category section testing.
+
 ## integrations
 
 - [SDK guides](https://docs.sensible.so/docs/sdk-guides.md): Guides for Node/TypeScript and Python SDKs
