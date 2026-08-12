@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Use this preprocessor for documents containing columns of text. Ensures that Sensible [sort lines](doc:lines#line-sorting) into columns when present, rather than the default behavior of sorting lines left to right across the page.
+Use this preprocessor for documents containing columns of text. Ensures that Sensible [sort lines](doc:lines#line-sorting) into columns when present, rather than the default behavior of sorting lines left to right across the page's entire width.
 
 [**Parameters**](doc:multicolumn#parameters)\
 [**Examples**](doc:multicolumn#examples)\
