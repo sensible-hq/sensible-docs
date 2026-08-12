@@ -1,5 +1,6 @@
 ---
 title: Test Category Page
+hidden: true
 metadata:
   description: A test page for category section testing.
 ---
