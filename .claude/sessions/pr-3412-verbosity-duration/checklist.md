@@ -18,6 +18,15 @@
 
 ---
 
+## API spec
+
+- [ ] Update `reference/openapi_extraction.json` — `ParsedDocument` schema
+  - The description lists what verbosity returns but doesn't mention `durationMs`. Add it (e.g. "- for LLM-extracted fields at verbosity levels 2 and 4, per-field LLM call duration in milliseconds (`durationMs`)").
+  - The example shows verbosity-1 output. Optionally add a field with `durationMs` to illustrate level 2 output.
+  - There is no verbosity enum in the spec to update — verbosity is config-side only.
+
+---
+
 ## Testing
 
 - [ ] **Review uploaded extractor in Sensible app:** https://app.sensible.so/editor/?d=blood_labs&c=all
