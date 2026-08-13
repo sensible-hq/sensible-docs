@@ -1,11 +1,11 @@
 ---
 title: Split
-excerpt: ''
+excerpt: Split field values
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Split field values'
+  description: Split field values
   robots: index
 next:
   description: ''

@@ -4,10 +4,11 @@ excerpt: >-
   View a full-featured llms.txt at
   https://docs.sensible.so/update/docs/llms-txt.md (preferred). For a minimalist
   view, see https://docs.sensible.so/llms.txt.
-deprecated: false
-description: View a full-featured llms.txt at
+description: >-
+  View a full-featured llms.txt at
   https://docs.sensible.so/update/docs/llms-txt.md (preferred). For a minimalist
   view, see https://docs.sensible.so/llms.txt.
+deprecated: false
 hidden: false
 metadata:
   robots: index
@@ -16,7 +17,9 @@ View a full-featured llms.txt at [https://docs.sensible.so/update/docs/llms-txt.
 
 # Sensible
 
-> Sensible is a developer-first platform for extracting structured data from documents, including PDFs, emails, spreadsheets, and images. Use Sensible to build document-automation features into your vertical SaaS products.
+Sensible is a developer-first platform for extracting structured data from documents, including PDFs, emails, spreadsheets, and images. Use Sensible to build document-automation features into your vertical SaaS products.
+
+<br />
 
 This file contains links to the Sensible documentation to help LLMs understand the platform.
 

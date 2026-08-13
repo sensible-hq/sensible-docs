@@ -306,19 +306,19 @@ class TestWriteLlmstxtMd:
             generate.write_llmstxt_md(tmp_path, "## links\n")
 
     def test_preserves_prefix_and_replaces_links(self, tmp_path):
-        original = "---\ntitle: llms.txt\n---\nIntro text.\n\n<!-- generated -->\n## old links\n"
+        original = "---\ntitle: llms.txt\n---\nIntro text.\n\n{/* generated */}\n\n## old links\n"
         self._make_md(tmp_path, original)
         generate.write_llmstxt_md(tmp_path, "## new links\n")
         result = (tmp_path / generate.LLMSTXT_MD_PATH).read_text()
-        assert result.startswith("---\ntitle: llms.txt\n---\nIntro text.\n\n<!-- generated -->\n")
+        assert result.startswith("---\ntitle: llms.txt\n---\nIntro text.\n\n{/* generated */}\n\n")
         assert "## new links" in result
         assert "## old links" not in result
 
     def test_returns_false_when_unchanged(self, tmp_path):
         links = "## welcome\n"
-        self._make_md(tmp_path, f"---\ntitle: t\n---\n<!-- generated -->\n{links}")
+        self._make_md(tmp_path, "---\ntitle: t\n---\n{/* generated */}\n\n" + links)
         assert generate.write_llmstxt_md(tmp_path, links) is False
 
     def test_returns_true_when_changed(self, tmp_path):
-        self._make_md(tmp_path, "---\ntitle: t\n---\n<!-- generated -->\nold\n")
+        self._make_md(tmp_path, "---\ntitle: t\n---\n{/* generated */}\n\nold\n")
         assert generate.write_llmstxt_md(tmp_path, "new\n") is True
