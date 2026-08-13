@@ -102,7 +102,22 @@ jobs:
             ./scripts/descriptions/add_description.py "$FILE_PATH" "$DESCRIPTION"
           done
 
-      # === PHASE 2: Regenerate llms.txt from _order.yaml ===
+      # === PHASE 2: Sync excerpt from metadata.description ===
+
+      - name: Sync excerpt from metadata.description
+        id: excerpt_sync
+        run: |
+          echo "=== Syncing excerpt from metadata.description ==="
+          python scripts/descriptions/sync_excerpt.py
+
+          if git diff --quiet docs/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::excerpt synced for one or more pages"
+          fi
+
+      # === PHASE 3: Regenerate llms.txt from _order.yaml ===
 
       - name: Validate _order.yaml slugs
         run: |
@@ -128,10 +143,10 @@ jobs:
           echo "=== Checking llms.txt links ==="
           python scripts/llms_txt/check_links.py
 
-      # === PHASE 3: Create or update PR if any changes ===
+      # === PHASE 4: Create or update PR if any changes ===
 
       - name: Create or update PR
-        if: steps.descriptions.outputs.count != '0' || steps.generate.outputs.changed == 'true'
+        if: steps.descriptions.outputs.count != '0' || steps.excerpt_sync.outputs.changed == 'true' || steps.generate.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TRIGGER_SHA: ${{ github.sha }}
@@ -172,7 +187,7 @@ jobs:
           fi
 
       - name: Fail if issues were found
-        if: steps.descriptions.outputs.count != '0' || steps.generate.outputs.changed == 'true'
+        if: steps.descriptions.outputs.count != '0' || steps.excerpt_sync.outputs.changed == 'true' || steps.generate.outputs.changed == 'true'
         run: |
           echo "::error::Issues were found and a PR has been created or updated."
           echo "Please review and merge the PR."
