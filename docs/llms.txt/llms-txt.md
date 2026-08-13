@@ -9,7 +9,7 @@ description: >-
   https://docs.sensible.so/update/docs/llms-txt.md (preferred). For a minimalist
   view, see https://docs.sensible.so/llms.txt.
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   robots: index
 ---
