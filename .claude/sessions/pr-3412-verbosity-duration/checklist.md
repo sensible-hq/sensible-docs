@@ -20,6 +20,9 @@
 
 ## Testing
 
+- [ ] **Review uploaded extractor in Sensible app:** https://app.sensible.so/editor/?d=blood_labs&c=all
+  - Doc type `blood_labs`, config `all` (verbosity 2), goldens: Juana + Manuel
+  - Verify `durationMs` appears on query-group fields and on the list field in the extraction output
 - [ ] Add test script to `scripts/test/` for verbosity 2 and 4
   - Create verbose configs: upload a SenseML config with `"verbosity": 2` and one with `"verbosity": 4` for an existing doc type (e.g., a query-group + list invoice config)
   - The upload step uses the [Create configuration](https://docs.sensible.so/reference/create-configuration) endpoint or the Sensible app
