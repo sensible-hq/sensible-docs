@@ -59,7 +59,6 @@ OPENAPI_BASE_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/
 DOCS_BASE_URL = "https://docs.sensible.so/docs"
 
 
-
 def parse_front_matter(content: str) -> dict:
     if not content.startswith("---"):
         return {}
@@ -273,7 +272,6 @@ def check(repo_root: Path) -> list[str]:
                 issues.extend(check_order(cat_dir / "_order.yaml", repo_root))
 
     return issues
-
 
 
 def find_repo_root() -> Path:
