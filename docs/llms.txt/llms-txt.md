@@ -1,12 +1,15 @@
 ---
 title: llms.txt
-excerpt: View the llms.txt for this docs site at https://docs.sensible.so/llms.txt.
+excerpt: >-
+  View a full-featured llms.txt at
+  https://docs.sensible.so/update/docs/llms-txt.md (preferred). For a minimalist
+  view, see https://docs.sensible.so/llms.txt.
 deprecated: false
 hidden: false
 metadata:
   robots: index
 ---
-View the llms.txt for this docs site at [https://docs.sensible.so/llms.txt](https://docs.sensible.so/llms.txt).
+View a full-featured llms.txt at [https://docs.sensible.so/update/docs/llms-txt.md](https://docs.sensible.so/update/docs/llms-txt.md) (preferred). For a minimalist view, see [https://docs.sensible.so/llms.txt](https://docs.sensible.so/llms.txt).
 
 # Sensible
 
@@ -18,7 +21,8 @@ This file contains links to the Sensible documentation to help LLMs understand t
 
 - For clean Markdown of any page, append `.md` to the page URL
 
-<!-- generated -->
+{/* generated */}
+
 ## welcome
 
 - [Overview](https://docs.sensible.so/docs/overview.md): Introduction to Sensible and its capabilities for document data extraction
