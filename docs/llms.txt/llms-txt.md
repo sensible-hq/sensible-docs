@@ -5,6 +5,9 @@ excerpt: >-
   https://docs.sensible.so/update/docs/llms-txt.md (preferred). For a minimalist
   view, see https://docs.sensible.so/llms.txt.
 deprecated: false
+description: View a full-featured llms.txt at
+  https://docs.sensible.so/update/docs/llms-txt.md (preferred). For a minimalist
+  view, see https://docs.sensible.so/llms.txt.
 hidden: false
 metadata:
   robots: index
