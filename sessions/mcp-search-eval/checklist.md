@@ -1,11 +1,16 @@
 # MCP Search Eval — Checklist
 
+**Session:** mcp-search-eval  
+**Session ID:** fd57d974-a931-40a3-a3c6-74d13cf283af  
+**Worktree:** `~/GitHub/sensible-docs-mcp-search-eval` (branch `mcp-search-eval`)  
+**PR:** https://github.com/sensible-hq/sensible-docs/pull/680
+
 Goal: evaluate the `mcp__sensible-docs` search tool's ability to surface relevant docs for a range of questions, and turn this into a formal, recurring eval.
 
 ## Phase 1 — Manual baseline run
 
-- [ ] Confirm MCP tools are accessible in subagent context (run 1 test agent)
-- [ ] Set up results directory structure (`results/raw/`, `results/answers/`)
+- [x] Confirm MCP tools are accessible in subagent context (run 1 test agent)
+- [x] Set up results directory structure (`results/raw/`, `results/answers/`)
 - [ ] Spawn 30 parallel subagents (1 per question) to search + fetch + save artifacts
 - [ ] Review raw outputs and answer quality
 
