@@ -1654,7 +1654,7 @@
       },
       "ExtractionSingleRetrievalResponse": {
         "description": "Extracted document data from a single-document extraction.",
-        "x-internal-note": "Extends ExtractionSyncResponse with fields populated during async processing: lifecycle timestamps (uploaded, processing_started), signed download URLs (download_url, converted_url), and the top-level error message for failed extractions (error).",
+        "x-internal-note": "Extends ExtractionSyncResponse with fields populated during async processing: lifecycle timestamps (for example, uploaded, processing_started), signed download URLs (download_url, converted_url), and the top-level error message for failed extractions (error).",
         "allOf": [
           {
             "$ref": "#/components/schemas/ExtractionSyncResponse"
