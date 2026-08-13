@@ -1,6 +1,6 @@
 ---
 title: Optimizing extraction performance
-excerpt: ''
+excerpt: Tips for improving extraction speed
 deprecated: false
 hidden: false
 metadata:

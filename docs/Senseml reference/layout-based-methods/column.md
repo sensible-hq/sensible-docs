@@ -1,6 +1,6 @@
 ---
 title: Column
-excerpt: ''
+excerpt: Extract columnar data
 deprecated: false
 hidden: false
 metadata:

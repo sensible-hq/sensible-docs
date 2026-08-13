@@ -1,6 +1,6 @@
 ---
 title: SenseML reference introduction
-excerpt: ''
+excerpt: Overview of the SenseML query language
 deprecated: false
 hidden: false
 metadata:

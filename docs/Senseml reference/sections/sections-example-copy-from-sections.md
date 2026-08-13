@@ -1,6 +1,6 @@
 ---
 title: 'Advanced: Zip and flatten nested sections'
-excerpt: ''
+excerpt: 'Sections example: flattening nested data'
 deprecated: false
 hidden: false
 metadata:

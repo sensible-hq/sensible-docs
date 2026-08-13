@@ -1,6 +1,6 @@
 ---
 title: SDK guides
-excerpt: ''
+excerpt: Guides for Node/TypeScript and Python SDKs
 deprecated: false
 hidden: false
 metadata:

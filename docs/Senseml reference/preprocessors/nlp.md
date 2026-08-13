@@ -1,6 +1,6 @@
 ---
 title: NLP
-excerpt: ''
+excerpt: Configure LLM methods globally
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Labeled rows example
-excerpt: ''
+excerpt: 'Sections example: labeled row extraction'
 deprecated: false
 hidden: false
 metadata:

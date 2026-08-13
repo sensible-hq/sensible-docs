@@ -1,6 +1,6 @@
 ---
 title: DevOps platform
-excerpt: ''
+excerpt: CI/CD integration for configs
 deprecated: false
 hidden: false
 metadata:

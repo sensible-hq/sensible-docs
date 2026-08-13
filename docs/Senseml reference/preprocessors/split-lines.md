@@ -1,6 +1,6 @@
 ---
 title: Split lines
-excerpt: ''
+excerpt: Split merged text lines
 deprecated: false
 hidden: false
 metadata:

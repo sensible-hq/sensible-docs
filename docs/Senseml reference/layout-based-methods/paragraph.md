@@ -1,6 +1,6 @@
 ---
 title: Paragraph
-excerpt: ''
+excerpt: Extract paragraph text
 deprecated: false
 hidden: false
 metadata:

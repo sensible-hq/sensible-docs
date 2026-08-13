@@ -1,6 +1,6 @@
 ---
 title: Advanced computed field methods
-excerpt: ''
+excerpt: Advanced methods for transforming extracted data
 deprecated: false
 hidden: false
 metadata:

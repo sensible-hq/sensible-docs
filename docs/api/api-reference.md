@@ -1,6 +1,6 @@
 ---
 title: API reference
-excerpt: ''
+excerpt: Complete API reference documentation
 deprecated: false
 hidden: false
 metadata:

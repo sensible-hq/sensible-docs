@@ -1,6 +1,6 @@
 ---
 title: Extracting handwriting and OCR text
-excerpt: ''
+excerpt: Best practices for OCR and handwriting extraction
 deprecated: false
 hidden: false
 metadata:

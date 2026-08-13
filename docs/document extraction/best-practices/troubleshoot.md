@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-excerpt: ''
+excerpt: Common issues and solutions
 deprecated: false
 hidden: false
 metadata:

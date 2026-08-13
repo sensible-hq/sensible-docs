@@ -1,6 +1,6 @@
 ---
 title: Fallback fields
-excerpt: ''
+excerpt: Configure fallback extraction
 deprecated: false
 hidden: false
 metadata:

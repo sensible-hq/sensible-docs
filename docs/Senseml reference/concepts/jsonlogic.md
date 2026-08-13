@@ -1,6 +1,6 @@
 ---
 title: JsonLogic extensions
-excerpt: ''
+excerpt: Custom JsonLogic operations
 deprecated: false
 hidden: false
 metadata:

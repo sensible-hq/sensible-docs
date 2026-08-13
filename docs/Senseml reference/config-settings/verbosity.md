@@ -1,6 +1,6 @@
 ---
 title: Verbosity
-excerpt: ''
+excerpt: Control extraction output detail
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Types
-excerpt: ''
+excerpt: Data types for extracted fields
 deprecated: false
 hidden: false
 metadata:

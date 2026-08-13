@@ -1,6 +1,6 @@
 ---
 title: (Deprecated) Query
-excerpt: ''
+excerpt: Deprecated query method
 deprecated: true
 hidden: true
 metadata:

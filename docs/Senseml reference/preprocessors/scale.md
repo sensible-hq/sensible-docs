@@ -1,6 +1,6 @@
 ---
 title: Scale
-excerpt: ''
+excerpt: Scale document dimensions
 deprecated: false
 hidden: false
 metadata:

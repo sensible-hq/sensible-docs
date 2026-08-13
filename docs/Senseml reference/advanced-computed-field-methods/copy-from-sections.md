@@ -1,6 +1,6 @@
 ---
 title: Copy from sections
-excerpt: ''
+excerpt: Copy data from sections
 deprecated: false
 hidden: false
 metadata:

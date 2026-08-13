@@ -1,6 +1,6 @@
 ---
 title: 'Advanced: nested columns example'
-excerpt: ''
+excerpt: 'Sections example: nested column extraction'
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Match object
-excerpt: ''
+excerpt: Match patterns for finding text
 deprecated: false
 hidden: false
 metadata:

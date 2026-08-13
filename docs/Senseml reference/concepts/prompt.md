@@ -1,6 +1,6 @@
 ---
 title: Advanced LLM prompt configuration
-excerpt: ''
+excerpt: Configure LLM prompts
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Field query object
-excerpt: ''
+excerpt: Structure of field queries in SenseML
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Remove lines
-excerpt: ''
+excerpt: Remove lines matching a pattern from all pages in a document
 deprecated: false
 hidden: false
 metadata:

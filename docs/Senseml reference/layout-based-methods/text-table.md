@@ -1,6 +1,6 @@
 ---
 title: Text Table
-excerpt: ''
+excerpt: Extract tables based on column coordinates defined in inches
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Conditional execution
-excerpt: ''
+excerpt: Conditionally execute SenseML
 deprecated: false
 hidden: false
 metadata:

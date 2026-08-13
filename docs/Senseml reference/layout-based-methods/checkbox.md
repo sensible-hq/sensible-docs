@@ -1,6 +1,6 @@
 ---
 title: Checkbox
-excerpt: ''
+excerpt: Extract checkbox states
 deprecated: false
 hidden: false
 metadata:

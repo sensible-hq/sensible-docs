@@ -1,6 +1,6 @@
 ---
 title: Choosing an extraction approach
-excerpt: ''
+excerpt: Guide to choosing between LLM-based and layout-based extraction methods
 deprecated: false
 hidden: false
 metadata:

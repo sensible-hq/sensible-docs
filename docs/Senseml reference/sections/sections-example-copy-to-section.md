@@ -1,6 +1,6 @@
 ---
 title: 'Advanced: Transform sections data'
-excerpt: ''
+excerpt: 'Sections example: transforming section data'
 deprecated: false
 hidden: false
 metadata:

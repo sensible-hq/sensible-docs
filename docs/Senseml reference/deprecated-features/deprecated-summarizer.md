@@ -1,6 +1,6 @@
 ---
 title: Summarizer
-excerpt: ''
+excerpt: Deprecated summarizer method
 deprecated: true
 hidden: true
 metadata:

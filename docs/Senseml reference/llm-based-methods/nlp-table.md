@@ -1,6 +1,6 @@
 ---
 title: NLP table
-excerpt: ''
+excerpt: Extract tables using natural language
 deprecated: false
 hidden: false
 metadata:

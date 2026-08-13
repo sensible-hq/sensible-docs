@@ -1,6 +1,6 @@
 ---
 title: Box
-excerpt: ''
+excerpt: Extract text from a bordered box
 deprecated: false
 hidden: false
 metadata:

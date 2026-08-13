@@ -1,6 +1,6 @@
 ---
 title: Signature
-excerpt: ''
+excerpt: Detect signatures
 deprecated: false
 hidden: false
 metadata:

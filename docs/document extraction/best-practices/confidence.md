@@ -1,6 +1,6 @@
 ---
 title: Qualifying LLM accuracy
-excerpt: ''
+excerpt: Measuring and improving LLM extraction accuracy
 deprecated: false
 hidden: false
 metadata:

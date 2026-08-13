@@ -1,6 +1,6 @@
 ---
 title: Monitoring extraction metrics
-excerpt: ''
+excerpt: Track extraction performance and accuracy
 deprecated: false
 hidden: false
 metadata:

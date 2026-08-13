@@ -1,6 +1,6 @@
 ---
 title: Concepts
-excerpt: ''
+excerpt: Core SenseML concepts
 deprecated: false
 hidden: false
 metadata:

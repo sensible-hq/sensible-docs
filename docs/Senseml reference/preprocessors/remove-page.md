@@ -1,6 +1,6 @@
 ---
 title: Remove page
-excerpt: ''
+excerpt: Remove specific pages
 deprecated: false
 hidden: false
 metadata:

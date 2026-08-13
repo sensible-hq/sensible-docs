@@ -1,6 +1,6 @@
 ---
 title: OCR level
-excerpt: ''
+excerpt: Configure OCR processing level
 deprecated: false
 hidden: false
 metadata:

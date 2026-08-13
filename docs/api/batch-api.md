@@ -1,6 +1,6 @@
 ---
 title: Group extractions by batch ID
-excerpt: ''
+excerpt: Batch multiple extractions together
 deprecated: false
 hidden: true
 metadata:

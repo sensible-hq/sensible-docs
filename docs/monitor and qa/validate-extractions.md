@@ -1,6 +1,6 @@
 ---
 title: Validating extractions
-excerpt: ''
+excerpt: Validate extracted data programmatically
 deprecated: false
 hidden: false
 metadata:

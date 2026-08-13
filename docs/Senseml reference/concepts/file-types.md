@@ -1,6 +1,6 @@
 ---
 title: Supported file types
-excerpt: ''
+excerpt: Supported document file formats
 deprecated: false
 hidden: false
 metadata:

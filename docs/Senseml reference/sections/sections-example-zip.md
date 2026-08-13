@@ -1,6 +1,6 @@
 ---
 title: 'Advanced: Zip sections'
-excerpt: ''
+excerpt: 'Sections example: combining sections'
 deprecated: false
 hidden: false
 metadata:

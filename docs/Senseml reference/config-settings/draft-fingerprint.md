@@ -1,6 +1,6 @@
 ---
 title: Fingerprint
-excerpt: ''
+excerpt: Document fingerprinting for classification
 deprecated: false
 hidden: true
 metadata:

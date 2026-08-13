@@ -1,6 +1,6 @@
 ---
 title: Zapier overview
-excerpt: ''
+excerpt: Introduction to Sensible's Zapier integration
 deprecated: false
 hidden: false
 metadata:

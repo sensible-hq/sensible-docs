@@ -1,6 +1,6 @@
 ---
 title: OCR preprocessor
-excerpt: ''
+excerpt: OCR configuration
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Multi-document extractions
-excerpt: ''
+excerpt: Segment and extract from document portfolio files (files containing multiple documents)
 deprecated: false
 hidden: false
 metadata:

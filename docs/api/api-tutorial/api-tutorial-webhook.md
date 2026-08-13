@@ -1,6 +1,6 @@
 ---
 title: Try a webhook
-excerpt: ''
+excerpt: Webhook-based extraction workflow
 deprecated: false
 hidden: false
 metadata:

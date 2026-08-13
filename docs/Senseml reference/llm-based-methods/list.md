@@ -1,6 +1,6 @@
 ---
 title: List
-excerpt: ''
+excerpt: Extract lists using LLMs
 deprecated: false
 hidden: false
 metadata:

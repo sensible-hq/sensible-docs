@@ -1,6 +1,6 @@
 ---
 title: Merge lines
-excerpt: ''
+excerpt: Merge split text lines
 deprecated: false
 hidden: false
 metadata:

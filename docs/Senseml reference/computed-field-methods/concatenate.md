@@ -1,6 +1,6 @@
 ---
 title: Concatenate
-excerpt: ''
+excerpt: Join field values
 deprecated: false
 hidden: false
 metadata:

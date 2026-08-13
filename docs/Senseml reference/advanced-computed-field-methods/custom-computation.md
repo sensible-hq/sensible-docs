@@ -1,6 +1,6 @@
 ---
 title: Custom computation
-excerpt: ''
+excerpt: Custom JsonLogic computations
 deprecated: false
 hidden: false
 metadata:

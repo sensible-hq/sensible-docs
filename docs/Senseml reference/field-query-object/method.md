@@ -1,6 +1,6 @@
 ---
 title: Method object
-excerpt: ''
+excerpt: Extraction methods for retrieving data
 deprecated: false
 hidden: false
 metadata:

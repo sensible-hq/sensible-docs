@@ -1,6 +1,6 @@
 ---
 title: Deskew
-excerpt: ''
+excerpt: Correct skewed document images
 deprecated: false
 hidden: false
 metadata:

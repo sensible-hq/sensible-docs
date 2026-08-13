@@ -1,6 +1,6 @@
 ---
 title: Cheatsheets
-excerpt: ''
+excerpt: Quick reference guides for common extraction tasks
 deprecated: false
 hidden: true
 metadata:

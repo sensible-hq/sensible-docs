@@ -1,6 +1,6 @@
 ---
 title: Document type descriptions
-excerpt: ''
+excerpt: Describe document types for classification
 deprecated: false
 hidden: false
 metadata:

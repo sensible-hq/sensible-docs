@@ -1,6 +1,6 @@
 ---
 title: Postprocessor
-excerpt: ''
+excerpt: Transform extracted data into any arbitrary output schema
 deprecated: false
 hidden: false
 metadata:

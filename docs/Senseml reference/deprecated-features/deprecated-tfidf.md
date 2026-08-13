@@ -1,6 +1,6 @@
 ---
 title: (Deprecated) TFIDF
-excerpt: ''
+excerpt: Deprecated TFIDF method
 deprecated: true
 hidden: true
 metadata:

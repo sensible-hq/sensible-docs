@@ -1,6 +1,6 @@
 ---
 title: Remove footer
-excerpt: ''
+excerpt: Remove page footers
 deprecated: false
 hidden: false
 metadata:

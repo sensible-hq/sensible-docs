@@ -1,6 +1,6 @@
 ---
 title: Human review
-excerpt: ''
+excerpt: Set up human review workflows
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: LLM features overview
-excerpt: ''
+excerpt: Overview of LLM capabilities
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Rotate page
-excerpt: ''
+excerpt: Rotate page orientation, for edge cases when Sensible can't auto-rotate the page
 deprecated: false
 hidden: false
 metadata:

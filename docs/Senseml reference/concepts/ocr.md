@@ -1,6 +1,6 @@
 ---
 title: OCR
-excerpt: ''
+excerpt: Optical character recognition overview
 deprecated: false
 hidden: false
 metadata:

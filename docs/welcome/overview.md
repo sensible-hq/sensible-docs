@@ -1,6 +1,6 @@
 ---
 title: Overview
-excerpt: ''
+excerpt: Introduction to Sensible and its capabilities for document data extraction
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Getting started with email extraction
-excerpt: ''
+excerpt: Extract structured data from emails and attachments
 deprecated: false
 hidden: false
 metadata:

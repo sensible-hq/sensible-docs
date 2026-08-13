@@ -1,6 +1,6 @@
 ---
 title: Cheatsheet part 1
-excerpt: ''
+excerpt: Hello world extraction example
 deprecated: false
 hidden: true
 metadata:

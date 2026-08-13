@@ -1,6 +1,6 @@
 ---
 title: OCR engine
-excerpt: ''
+excerpt: Select OCR engine
 deprecated: false
 hidden: false
 metadata:

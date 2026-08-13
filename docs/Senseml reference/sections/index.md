@@ -1,6 +1,6 @@
 ---
 title: Sections
-excerpt: ''
+excerpt: Extract repeating document sections
 deprecated: false
 hidden: false
 metadata:

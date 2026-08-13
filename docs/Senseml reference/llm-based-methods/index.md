@@ -1,6 +1,6 @@
 ---
 title: LLM-based methods
-excerpt: ''
+excerpt: Methods that use large language models for document data extraction
 deprecated: false
 hidden: false
 metadata:

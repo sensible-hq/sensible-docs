@@ -1,6 +1,6 @@
 ---
 title: Regex
-excerpt: ''
+excerpt: Extract using regular expressions
 deprecated: false
 hidden: false
 metadata:

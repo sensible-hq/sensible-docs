@@ -1,6 +1,6 @@
 ---
 title: Section nuances
-excerpt: ''
+excerpt: Advanced section configuration
 deprecated: false
 hidden: false
 metadata:

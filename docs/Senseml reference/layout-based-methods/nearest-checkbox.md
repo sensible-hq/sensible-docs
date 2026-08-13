@@ -1,6 +1,6 @@
 ---
 title: Nearest checkbox
-excerpt: ''
+excerpt: Find nearest checkbox to anchor and extract its state
 deprecated: false
 hidden: false
 metadata:

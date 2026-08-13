@@ -1,6 +1,6 @@
 ---
 title: Code examples
-excerpt: ''
+excerpt: Example code for common API operations
 deprecated: false
 hidden: false
 metadata:

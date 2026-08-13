@@ -1,6 +1,6 @@
 ---
 title: Cheatsheet part 3
-excerpt: ''
+excerpt: Checkboxes and regions extraction
 deprecated: false
 hidden: true
 metadata:

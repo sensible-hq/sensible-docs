@@ -1,6 +1,7 @@
 ---
 title: Integrate with Slack and Google Sheets using Zapier
-excerpt: ''
+excerpt: integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form
+  example documents
 deprecated: false
 hidden: false
 metadata:

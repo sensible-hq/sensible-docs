@@ -1,6 +1,6 @@
 ---
 title: Intersection
-excerpt: ''
+excerpt: Find text at row/column intersections
 deprecated: false
 hidden: false
 metadata:

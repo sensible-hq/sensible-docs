@@ -1,6 +1,6 @@
 ---
 title: Query group
-excerpt: ''
+excerpt: Group related LLM queries to extract facts
 deprecated: false
 hidden: false
 metadata:

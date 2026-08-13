@@ -1,6 +1,6 @@
 ---
 title: Environments
-excerpt: ''
+excerpt: Development and production environments
 deprecated: false
 hidden: false
 metadata:
