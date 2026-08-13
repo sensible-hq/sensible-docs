@@ -1,6 +1,6 @@
 ---
 title: (Deprecated) Key/Value
-excerpt: ''
+excerpt: Deprecated key/value method
 deprecated: true
 hidden: true
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Fallback LLM configs
-excerpt: ''
+excerpt: Configuring fallback extraction strategies
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Computed field methods
-excerpt: ''
+excerpt: Transform extracted data
 deprecated: false
 hidden: false
 metadata:

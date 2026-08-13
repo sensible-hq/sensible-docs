@@ -1,6 +1,6 @@
 ---
 title: Constant
-excerpt: ''
+excerpt: Add constant values
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Ligatures
-excerpt: ''
+excerpt: Handling ligature characters
 deprecated: false
 hidden: false
 metadata:

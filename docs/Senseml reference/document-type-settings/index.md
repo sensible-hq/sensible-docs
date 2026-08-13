@@ -1,6 +1,6 @@
 ---
 title: Document type settings
-excerpt: ''
+excerpt: Configure document type behavior
 deprecated: false
 hidden: false
 metadata:

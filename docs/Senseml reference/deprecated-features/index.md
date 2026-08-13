@@ -1,6 +1,6 @@
 ---
 title: Deprecated methods
-excerpt: ''
+excerpt: Deprecated SenseML features
 deprecated: false
 hidden: true
 metadata:

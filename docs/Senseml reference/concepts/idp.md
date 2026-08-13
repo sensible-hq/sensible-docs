@@ -1,6 +1,6 @@
 ---
 title: Intelligent document processing
-excerpt: ''
+excerpt: Intelligent document processing with Sensible
 deprecated: false
 hidden: false
 metadata:

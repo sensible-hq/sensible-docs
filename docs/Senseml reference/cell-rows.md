@@ -1,6 +1,6 @@
 ---
 title: Spreadsheet extraction
-excerpt: ''
+excerpt: Extract from large spreadsheets
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Extraction coverage
-excerpt: ''
+excerpt: Understanding extraction coverage
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Repeating layouts
-excerpt: ''
+excerpt: Handle documents with repeating sections
 deprecated: false
 hidden: false
 metadata:

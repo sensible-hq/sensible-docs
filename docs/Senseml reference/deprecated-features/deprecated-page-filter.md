@@ -1,6 +1,6 @@
 ---
 title: (Deprecated) Page filter
-excerpt: ''
+excerpt: Deprecated page filter
 deprecated: true
 hidden: true
 metadata:

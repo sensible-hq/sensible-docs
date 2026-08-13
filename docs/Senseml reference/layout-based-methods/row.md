@@ -1,6 +1,6 @@
 ---
 title: Row
-excerpt: ''
+excerpt: Extract row data
 deprecated: false
 hidden: false
 metadata:

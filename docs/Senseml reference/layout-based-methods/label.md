@@ -1,6 +1,7 @@
 ---
 title: Label
-excerpt: ''
+excerpt: Extract labeled values. Note this method is brittle, so use alternative methods
+  where possible
 deprecated: false
 hidden: false
 metadata:

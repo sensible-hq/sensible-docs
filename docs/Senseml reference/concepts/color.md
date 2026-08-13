@@ -1,6 +1,7 @@
 ---
 title: Source text traceability
-excerpt: ''
+excerpt: Trace extracted data to source and use color highlights in example PDFs to more
+  easily author SenseML
 deprecated: false
 hidden: false
 metadata:

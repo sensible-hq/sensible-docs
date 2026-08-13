@@ -1,6 +1,6 @@
 ---
 title: (Deprecated) Bag of words
-excerpt: ''
+excerpt: Deprecated bag of words method
 deprecated: true
 hidden: true
 metadata:

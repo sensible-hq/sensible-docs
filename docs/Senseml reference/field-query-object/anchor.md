@@ -1,6 +1,6 @@
 ---
 title: Anchor object
-excerpt: ''
+excerpt: Define anchors to locate data in documents
 deprecated: false
 hidden: false
 metadata:

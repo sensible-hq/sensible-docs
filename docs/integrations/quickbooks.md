@@ -1,6 +1,6 @@
 ---
 title: QuickBooks integration
-excerpt: ''
+excerpt: Extract invoices into QuickBooks Online as bills with Python and Sensible
 deprecated: false
 hidden: false
 metadata:

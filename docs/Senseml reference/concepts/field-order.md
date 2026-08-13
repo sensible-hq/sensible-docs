@@ -1,6 +1,6 @@
 ---
 title: Field extraction order
-excerpt: ''
+excerpt: Control field extraction order
 deprecated: false
 hidden: false
 metadata:

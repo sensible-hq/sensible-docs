@@ -1,6 +1,6 @@
 ---
 title: Best practices
-excerpt: ''
+excerpt: Guidelines for production-quality extractions
 deprecated: false
 hidden: false
 metadata:

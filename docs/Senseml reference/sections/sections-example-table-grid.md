@@ -1,6 +1,6 @@
 ---
 title: 'Advanced: Table grid example'
-excerpt: ''
+excerpt: 'Sections example: table grid extraction'
 deprecated: false
 hidden: false
 metadata:

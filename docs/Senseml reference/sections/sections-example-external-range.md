@@ -1,6 +1,6 @@
 ---
 title: 'Advanced: External anchors for sections'
-excerpt: ''
+excerpt: 'Sections example: using external anchors'
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Try synchronous extraction
-excerpt: ''
+excerpt: Synchronous extraction API calls
 deprecated: false
 hidden: false
 metadata:

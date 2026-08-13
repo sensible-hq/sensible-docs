@@ -1,6 +1,7 @@
 ---
 title: Integrate with Airtable using Zapier
-excerpt: ''
+excerpt: Get started with Zapier by learning to integrate Sensible and Airtable for sample
+  1040 tax forms
 deprecated: false
 hidden: false
 metadata:

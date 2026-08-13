@@ -1,6 +1,6 @@
 ---
 title: Page range
-excerpt: ''
+excerpt: Limit extraction to page ranges
 deprecated: false
 hidden: false
 metadata:

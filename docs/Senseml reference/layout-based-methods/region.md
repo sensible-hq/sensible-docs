@@ -1,6 +1,6 @@
 ---
 title: Region
-excerpt: ''
+excerpt: Extract from a  rectangular region defined in inch coordinates
 deprecated: false
 hidden: false
 metadata:

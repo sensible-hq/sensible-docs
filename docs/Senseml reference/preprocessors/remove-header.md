@@ -1,6 +1,6 @@
 ---
 title: Remove header
-excerpt: ''
+excerpt: Remove page headers
 deprecated: false
 hidden: false
 metadata:

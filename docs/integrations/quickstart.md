@@ -1,6 +1,6 @@
 ---
 title: API quickstart
-excerpt: ''
+excerpt: Quick start guide for the Sensible API
 deprecated: false
 hidden: false
 metadata:

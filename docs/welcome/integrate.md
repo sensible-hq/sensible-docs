@@ -1,6 +1,6 @@
 ---
 title: Integrating
-excerpt: ''
+excerpt: Options for integrating Sensible with your application
 deprecated: false
 hidden: false
 metadata:

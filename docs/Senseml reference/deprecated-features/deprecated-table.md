@@ -1,6 +1,6 @@
 ---
 title: (Deprecated) Table
-excerpt: ''
+excerpt: Deprecated table method
 deprecated: true
 hidden: true
 metadata:

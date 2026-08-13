@@ -1,6 +1,7 @@
 ---
 title: Linearize
-excerpt: ''
+excerpt: Advanced option for handling block layout and multicolumn layouts, alternative
+  to Multicolumn preprocessor
 deprecated: false
 hidden: false
 metadata:

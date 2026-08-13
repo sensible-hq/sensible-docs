@@ -1,6 +1,6 @@
 ---
 title: Getting started
-excerpt: ''
+excerpt: Learn to extract document data using LLM-based methods
 deprecated: false
 hidden: false
 metadata:

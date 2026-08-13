@@ -1,6 +1,6 @@
 ---
 title: API tutorial
-excerpt: ''
+excerpt: Step-by-step API tutorial
 deprecated: false
 hidden: false
 metadata:

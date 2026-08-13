@@ -1,6 +1,6 @@
 ---
 title: Multicolumn
-excerpt: ''
+excerpt: Handle multi-column layouts
 deprecated: false
 hidden: false
 metadata:

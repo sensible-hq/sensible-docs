@@ -1,6 +1,7 @@
 ---
 title: Classifying documents by type
-excerpt: ''
+excerpt: Automatically classify documents by type, for example, 'bank statement' or 'driver's
+  license
 deprecated: false
 hidden: false
 metadata:

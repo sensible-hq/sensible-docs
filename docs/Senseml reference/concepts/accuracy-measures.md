@@ -1,6 +1,6 @@
 ---
 title: Accuracy measures
-excerpt: ''
+excerpt: Understanding extraction accuracy metrics
 deprecated: false
 hidden: false
 metadata:

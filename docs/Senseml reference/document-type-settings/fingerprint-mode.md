@@ -1,6 +1,6 @@
 ---
 title: Fingerprint mode
-excerpt: ''
+excerpt: Configure fingerprint-based classification
 deprecated: false
 hidden: false
 metadata:

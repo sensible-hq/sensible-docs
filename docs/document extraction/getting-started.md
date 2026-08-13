@@ -1,6 +1,6 @@
 ---
 title: Getting started with layout-based extractions
-excerpt: ''
+excerpt: Tutorial for SenseML layout-based extraction
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Layout-based methods
-excerpt: ''
+excerpt: Methods that use document layout for document data extraction
 deprecated: false
 hidden: false
 metadata:

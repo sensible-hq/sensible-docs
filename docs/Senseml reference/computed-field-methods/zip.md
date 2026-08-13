@@ -1,6 +1,6 @@
 ---
 title: Zip
-excerpt: ''
+excerpt: Combine arrays into objects
 deprecated: false
 hidden: false
 metadata:

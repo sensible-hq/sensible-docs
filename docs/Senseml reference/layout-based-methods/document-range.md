@@ -1,6 +1,6 @@
 ---
 title: Document range
-excerpt: ''
+excerpt: Extract text from a document range defined by upper and lower bounds
 deprecated: false
 hidden: false
 metadata:

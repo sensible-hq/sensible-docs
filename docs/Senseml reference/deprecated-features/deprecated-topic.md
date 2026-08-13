@@ -1,6 +1,6 @@
 ---
 title: Topic
-excerpt: ''
+excerpt: Deprecated topic method
 deprecated: true
 hidden: true
 metadata:

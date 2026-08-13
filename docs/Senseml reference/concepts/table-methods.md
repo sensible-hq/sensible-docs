@@ -1,6 +1,6 @@
 ---
 title: Table methods
-excerpt: ''
+excerpt: Comparison of table extraction methods
 deprecated: false
 hidden: false
 metadata:

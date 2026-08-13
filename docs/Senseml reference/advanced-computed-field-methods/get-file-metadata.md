@@ -1,6 +1,6 @@
 ---
 title: Get file metadata
-excerpt: ''
+excerpt: Extract file metadata
 deprecated: false
 hidden: false
 metadata:

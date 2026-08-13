@@ -1,6 +1,6 @@
 ---
 title: Preprocessors
-excerpt: ''
+excerpt: Transform documents before extraction
 deprecated: false
 hidden: false
 metadata:

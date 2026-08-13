@@ -1,6 +1,6 @@
 ---
 title: Config settings
-excerpt: ''
+excerpt: SenseML configuration options
 deprecated: false
 hidden: false
 metadata:

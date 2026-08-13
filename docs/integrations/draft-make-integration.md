@@ -1,6 +1,6 @@
 ---
 title: Make tutorial
-excerpt: ''
+excerpt: extract documents and route data with Make
 deprecated: false
 hidden: true
 metadata:

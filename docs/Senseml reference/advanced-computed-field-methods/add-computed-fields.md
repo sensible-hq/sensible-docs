@@ -1,6 +1,6 @@
 ---
 title: Add computed fields
-excerpt: ''
+excerpt: Add computed fields to output
 deprecated: false
 hidden: false
 metadata:

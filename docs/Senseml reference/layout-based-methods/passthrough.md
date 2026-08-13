@@ -1,6 +1,6 @@
 ---
 title: Passthrough
-excerpt: ''
+excerpt: Pass anchor text through as output
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Handling document variations
-excerpt: ''
+excerpt: Strategies for handling document layout variations
 deprecated: false
 hidden: false
 metadata:

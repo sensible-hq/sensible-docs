@@ -1,6 +1,6 @@
 ---
 title: Try asynchronous extraction from a Sensible URL
-excerpt: ''
+excerpt: Async extraction with Sensible-hosted URL
 deprecated: false
 hidden: false
 metadata:

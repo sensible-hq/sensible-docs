@@ -1,6 +1,6 @@
 ---
 title: Image processing
-excerpt: ''
+excerpt: Extract non-text images and image data from documents
 deprecated: false
 hidden: false
 metadata:

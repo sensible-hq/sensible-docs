@@ -1,6 +1,6 @@
 ---
 title: LLM models
-excerpt: ''
+excerpt: Available LLM models
 deprecated: false
 hidden: false
 metadata:

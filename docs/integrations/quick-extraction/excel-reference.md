@@ -1,6 +1,7 @@
 ---
 title: SenseML to spreadsheet reference
-excerpt: ''
+excerpt: Learn how SenseML converts PDF and document data into structured spreadsheets with
+  meaningful column/row relationships.
 deprecated: false
 hidden: false
 metadata:

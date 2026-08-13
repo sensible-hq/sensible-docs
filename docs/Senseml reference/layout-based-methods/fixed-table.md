@@ -1,6 +1,6 @@
 ---
 title: Fixed table
-excerpt: ''
+excerpt: Extract tables with fixed column headings
 deprecated: false
 hidden: false
 metadata:

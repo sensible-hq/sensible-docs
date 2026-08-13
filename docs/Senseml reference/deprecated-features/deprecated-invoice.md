@@ -1,6 +1,6 @@
 ---
 title: (Deprecated) Invoice
-excerpt: ''
+excerpt: Deprecated invoice method
 deprecated: true
 hidden: true
 metadata:

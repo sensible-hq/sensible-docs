@@ -1,6 +1,6 @@
 ---
 title: Custom computation group
-excerpt: ''
+excerpt: Group custom computations
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Lines
-excerpt: ''
+excerpt: Understanding text lines in PDFs
 deprecated: false
 hidden: false
 metadata:

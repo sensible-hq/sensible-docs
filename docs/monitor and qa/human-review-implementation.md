@@ -1,6 +1,6 @@
 ---
 title: Human review implementation
-excerpt: ''
+excerpt: Implement human review using Sensible webhooks
 deprecated: false
 hidden: false
 metadata:

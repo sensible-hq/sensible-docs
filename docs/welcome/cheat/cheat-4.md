@@ -1,6 +1,6 @@
 ---
 title: Cheatsheet part 4
-excerpt: ''
+excerpt: Handling extraction challenges
 deprecated: false
 hidden: true
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Anchor variables
-excerpt: ''
+excerpt: Advanced anchor configuration
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Out-of-the-box extractions
-excerpt: ''
+excerpt: Pre-built extraction templates for different document types
 deprecated: false
 hidden: false
 metadata:

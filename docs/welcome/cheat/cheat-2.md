@@ -1,6 +1,6 @@
 ---
 title: Cheatsheet part 2
-excerpt: ''
+excerpt: Tables and rows extraction
 deprecated: false
 hidden: true
 metadata:

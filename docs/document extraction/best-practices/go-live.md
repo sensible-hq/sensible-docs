@@ -1,6 +1,6 @@
 ---
 title: Go-live checklist
-excerpt: ''
+excerpt: Checklist for deploying extractions to production
 deprecated: false
 hidden: false
 metadata:

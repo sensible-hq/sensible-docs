@@ -1,6 +1,6 @@
 ---
 title: 'Advanced: nested table example'
-excerpt: ''
+excerpt: 'Sections example: nested table extraction'
 deprecated: false
 hidden: false
 metadata:

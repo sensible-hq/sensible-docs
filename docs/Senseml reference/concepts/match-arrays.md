@@ -1,6 +1,6 @@
 ---
 title: Match arrays
-excerpt: ''
+excerpt: Working with match arrays
 deprecated: false
 hidden: false
 metadata:

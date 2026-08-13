@@ -1,6 +1,6 @@
 ---
 title: Suppress output
-excerpt: ''
+excerpt: Exclude fields from output
 deprecated: false
 hidden: false
 metadata:

@@ -1,6 +1,6 @@
 ---
 title: Quality control
-excerpt: ''
+excerpt: Strategies for validating and monitoring extracted data
 deprecated: false
 hidden: false
 metadata:

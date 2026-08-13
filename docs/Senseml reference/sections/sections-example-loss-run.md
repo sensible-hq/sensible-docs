@@ -1,6 +1,6 @@
 ---
 title: Claims loss run example
-excerpt: ''
+excerpt: 'Sections example: insurance claims extraction'
 deprecated: false
 hidden: false
 metadata:

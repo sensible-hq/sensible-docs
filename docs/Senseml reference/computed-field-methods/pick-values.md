@@ -1,6 +1,6 @@
 ---
 title: Pick values
-excerpt: ''
+excerpt: Select values from arrays
 deprecated: false
 hidden: false
 metadata:
