@@ -62,7 +62,7 @@ LLMSTXT_MD_PATH = Path("docs/llms.txt/llms-txt.md")
 
 # Marks the boundary between manually-editable intro and generated links in llms-txt.md.
 # Everything above this line is preserved across regenerations; everything below is replaced.
-SENTINEL = "<!-- generated -->"
+SENTINEL = "{/* generated */}"
 
 
 def parse_front_matter(content: str) -> dict:
@@ -300,7 +300,7 @@ def write_llmstxt_md(repo_root: Path, links: str) -> bool:
     prefix, _ = raw.split(SENTINEL, 1)
     if not prefix.endswith("\n"):
         prefix += "\n"
-    new_content = prefix + SENTINEL + "\n" + links
+    new_content = prefix + SENTINEL + "\n\n" + links
     if new_content == raw:
         return False
     md_path.write_text(new_content, encoding="utf-8")
