@@ -58,12 +58,6 @@ REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
 OPENAPI_BASE_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference"
 DOCS_BASE_URL = "https://docs.sensible.so/docs"
 
-LLMSTXT_MD_PATH = Path("docs/llms.txt/llms-txt.md")
-
-# Marks the boundary between manually-editable intro and generated links in llms-txt.md.
-# Everything above this line is preserved across regenerations; everything below is replaced.
-SENTINEL = "{/* generated */}"
-
 
 def parse_front_matter(content: str) -> dict:
     if not content.startswith("---"):
@@ -211,13 +205,12 @@ def collect_openapi_specs(repo_root: Path) -> list[str]:
     return lines
 
 
-def generate_links(repo_root: Path) -> str:
-    """Generate just the category and API reference sections, without the header.
+def generate(repo_root: Path) -> str:
+    lines = [HEADER]
 
-    Used for llms-txt.md, where the intro is manually edited above the sentinel.
-    """
-    lines = []
-
+    # docs/ contains conceptual guides, tutorials, and the SenseML reference.
+    # Each top-level category gets its own ## heading so the broad topic areas
+    # (integrations, document extraction, etc.) are clear.
     for name, entries in collect_categories(
         repo_root / "docs", repo_root / "docs" / "_order.yaml", DOCS_SKIP
     ):
@@ -226,6 +219,9 @@ def generate_links(repo_root: Path) -> str:
         lines.extend(entries)
         lines.append("")
 
+    # reference/ is a separate ReadMe UI from docs/ — it has its own navigation
+    # and doesn't share a table of contents with docs/. Link to the OpenAPI specs
+    # directly rather than individual pages so LLMs get machine-readable definitions.
     spec_lines = collect_openapi_specs(repo_root)
     if spec_lines:
         lines.append("## api reference")
@@ -235,11 +231,6 @@ def generate_links(repo_root: Path) -> str:
         lines.extend(spec_lines)
 
     return "\n".join(lines).rstrip() + "\n"
-
-
-def generate(repo_root: Path) -> str:
-    # HEADER ends with \n; the extra \n here produces the blank line before the first section.
-    return HEADER + "\n" + generate_links(repo_root)
 
 
 def check_order(order_path: Path, repo_root: Path) -> list[str]:
@@ -283,30 +274,6 @@ def check(repo_root: Path) -> list[str]:
     return issues
 
 
-def write_llmstxt_md(repo_root: Path, links: str) -> bool:
-    """Preserves everything above SENTINEL and replaces what follows with links.
-
-    Raises if LLMSTXT_MD_PATH is missing or the sentinel line is absent — the
-    file must contain '<!-- generated -->' on its own line to mark where the
-    manually-editable intro ends and the generated content begins.
-    """
-    md_path = repo_root / LLMSTXT_MD_PATH
-    raw = md_path.read_text(encoding="utf-8")
-    if SENTINEL not in raw:
-        raise ValueError(
-            f"{LLMSTXT_MD_PATH} is missing the '{SENTINEL}' sentinel.\n"
-            "Add it on its own line where generated content should begin."
-        )
-    prefix, _ = raw.split(SENTINEL, 1)
-    if not prefix.endswith("\n"):
-        prefix += "\n"
-    new_content = prefix + SENTINEL + "\n\n" + links
-    if new_content == raw:
-        return False
-    md_path.write_text(new_content, encoding="utf-8")
-    return True
-
-
 def find_repo_root() -> Path:
     # scripts/llms_txt/generate.py → scripts/llms_txt/ → scripts/ → repo root
     candidate = Path(__file__).resolve().parent.parent.parent
@@ -344,8 +311,7 @@ def main():
         print("All _order.yaml slugs resolve correctly")
         return 0
 
-    links = generate_links(repo_root)
-    content = HEADER + "\n" + links
+    content = generate(repo_root)
 
     if args.dry_run:
         print(content, end="")
@@ -356,11 +322,6 @@ def main():
         print(f"Generated llms.txt ({len(content.splitlines())} lines)")
     else:
         print("llms.txt is already up to date")
-
-    if write_llmstxt_md(repo_root, links):
-        print(f"Updated {LLMSTXT_MD_PATH}")
-    else:
-        print(f"{LLMSTXT_MD_PATH} is already up to date")
 
     return 0
 
