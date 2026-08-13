@@ -105,7 +105,7 @@ jobs:
           else
             BRANCH_NAME="auto/sync-docs-$(date +%Y%m%d-%H%M%S)"
             git push origin HEAD:refs/heads/$BRANCH_NAME
-            BODY=$(printf 'This PR automatically syncs llms.txt and llmstxt-1.md.\n\n## Trigger history\n\n| Auto commit | Trigger commit |\n|---|---|\n%s' "$NEW_ROW")
+            BODY=$(printf 'This PR automatically syncs llms.txt and llms-txt.md.\n\n## Trigger history\n\n| Auto commit | Trigger commit |\n|---|---|\n%s' "$NEW_ROW")
             gh pr create \
               --title "Sync docs and llms.txt" \
               --body "$BODY" \

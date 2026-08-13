@@ -1,0 +1,15 @@
+## welcome
+
+- [Overview](https://docs.sensible.so/docs/overview.md): Introduction to Sensible and its capabilities.
+
+## senseml reference
+
+- [SenseML Methods](https://docs.sensible.so/docs/methods.md): Overview of all SenseML extraction methods.
+- [Anchor](https://docs.sensible.so/docs/anchor.md): Use anchors to locate data relative to a nearby landmark.
+- [Sections](https://docs.sensible.so/docs/sections.md): Use sections to extract data from repeating document layouts.
+
+## api reference
+
+The Sensible API is described by the following OpenAPI specifications:
+
+- [Extraction](https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference/openapi_extraction.json): OpenAPI specification

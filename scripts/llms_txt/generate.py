@@ -58,8 +58,11 @@ REFERENCE_SKIP = {"ReadMeConfig", "SenseML", "MCP Server"}
 OPENAPI_BASE_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/refs/heads/v0/reference"
 DOCS_BASE_URL = "https://docs.sensible.so/docs"
 
-# TODO: move to a permanent path in a hidden docs category once ReadMe redirect is set up.
-LLMSTXT_MD_PATH = Path("docs/welcome/llmstxt-1.md")
+LLMSTXT_MD_PATH = Path("docs/llms.txt/llms-txt.md")
+
+# Marks the boundary between manually-editable intro and generated links in llms-txt.md.
+# Everything above this line is preserved across regenerations; everything below is replaced.
+SENTINEL = "<!-- generated -->"
 
 
 def parse_front_matter(content: str) -> dict:
@@ -73,22 +76,6 @@ def parse_front_matter(content: str) -> dict:
     except yaml.YAMLError:
         return {}
 
-
-def _frontmatter_block(raw: str) -> str:
-    """Return the raw frontmatter block (both --- delimiters) from file content.
-
-    Raises ValueError if the opening --- exists but the closing one is missing,
-    so callers don't silently overwrite frontmatter with a blank placeholder.
-    """
-    if not raw.startswith("---"):
-        return "---\n---\n"
-    m = re.search(r"\n---\s*(\n|$)", raw[3:])
-    if not m:
-        raise ValueError("Malformed frontmatter: missing closing ---")
-    # Ensure the block always ends with \n so the body doesn't get jammed
-    # against the closing --- when the source file has no trailing newline.
-    block = raw[: 3 + m.end()]
-    return block if block.endswith("\n") else block + "\n"
 
 
 def write_if_changed(path: Path, content: str) -> bool:
@@ -224,12 +211,13 @@ def collect_openapi_specs(repo_root: Path) -> list[str]:
     return lines
 
 
-def generate(repo_root: Path) -> str:
-    lines = [HEADER]
+def generate_links(repo_root: Path) -> str:
+    """Generate just the category and API reference sections, without the header.
 
-    # docs/ contains conceptual guides, tutorials, and the SenseML reference.
-    # Each top-level category gets its own ## heading so the broad topic areas
-    # (integrations, document extraction, etc.) are clear.
+    Used for llms-txt.md, where the intro is manually edited above the sentinel.
+    """
+    lines = []
+
     for name, entries in collect_categories(
         repo_root / "docs", repo_root / "docs" / "_order.yaml", DOCS_SKIP
     ):
@@ -238,9 +226,6 @@ def generate(repo_root: Path) -> str:
         lines.extend(entries)
         lines.append("")
 
-    # reference/ is a separate ReadMe UI from docs/ — it has its own navigation
-    # and doesn't share a table of contents with docs/. Link to the OpenAPI specs
-    # directly rather than individual pages so LLMs get machine-readable definitions.
     spec_lines = collect_openapi_specs(repo_root)
     if spec_lines:
         lines.append("## api reference")
@@ -250,6 +235,11 @@ def generate(repo_root: Path) -> str:
         lines.extend(spec_lines)
 
     return "\n".join(lines).rstrip() + "\n"
+
+
+def generate(repo_root: Path) -> str:
+    # HEADER ends with \n; the extra \n here produces the blank line before the first section.
+    return HEADER + "\n" + generate_links(repo_root)
 
 
 def check_order(order_path: Path, repo_root: Path) -> list[str]:
@@ -293,14 +283,24 @@ def check(repo_root: Path) -> list[str]:
     return issues
 
 
-def write_llmstxt_md(repo_root: Path, content: str) -> bool:
-    """Preserves the existing ReadMe frontmatter (hidden: true, title, etc.) and writes if changed.
+def write_llmstxt_md(repo_root: Path, links: str) -> bool:
+    """Preserves everything above SENTINEL and replaces what follows with links.
 
-    Raises if LLMSTXT_MD_PATH is missing — the file must exist in the repo.
+    Raises if LLMSTXT_MD_PATH is missing or the sentinel line is absent — the
+    file must contain '<!-- generated -->' on its own line to mark where the
+    manually-editable intro ends and the generated content begins.
     """
     md_path = repo_root / LLMSTXT_MD_PATH
     raw = md_path.read_text(encoding="utf-8")
-    new_content = _frontmatter_block(raw) + content
+    if SENTINEL not in raw:
+        raise ValueError(
+            f"{LLMSTXT_MD_PATH} is missing the '{SENTINEL}' sentinel.\n"
+            "Add it on its own line where generated content should begin."
+        )
+    prefix, _ = raw.split(SENTINEL, 1)
+    if not prefix.endswith("\n"):
+        prefix += "\n"
+    new_content = prefix + SENTINEL + "\n" + links
     if new_content == raw:
         return False
     md_path.write_text(new_content, encoding="utf-8")
@@ -344,7 +344,8 @@ def main():
         print("All _order.yaml slugs resolve correctly")
         return 0
 
-    content = generate(repo_root)
+    links = generate_links(repo_root)
+    content = HEADER + "\n" + links
 
     if args.dry_run:
         print(content, end="")
@@ -356,7 +357,7 @@ def main():
     else:
         print("llms.txt is already up to date")
 
-    if write_llmstxt_md(repo_root, content):
+    if write_llmstxt_md(repo_root, links):
         print(f"Updated {LLMSTXT_MD_PATH}")
     else:
         print(f"{LLMSTXT_MD_PATH} is already up to date")

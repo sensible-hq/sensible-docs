@@ -259,3 +259,66 @@ class TestGenerate:
         assert "## api reference" in output
         assert "openapi_extraction.json" in output
         assert "OpenAPI specification" in output
+
+
+# ── generate_links() — snapshot ───────────────────────────────────────────────
+
+class TestGenerateLinks:
+    SNAPSHOT = SNAPSHOTS / "generate_links.txt"
+
+    def test_matches_snapshot(self):
+        output = generate.generate_links(FIXTURES)
+        if not self.SNAPSHOT.exists():
+            self.SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
+            self.SNAPSHOT.write_text(output)
+            pytest.skip("Snapshot created — run again to verify")
+        assert output == self.SNAPSHOT.read_text(), (
+            "generate_links() output changed. If intentional, delete snapshots/generate_links.txt and re-run."
+        )
+
+    def test_does_not_contain_header(self):
+        output = generate.generate_links(FIXTURES)
+        assert "# Sensible" not in output
+        assert "Instructions for AI Agents" not in output
+
+    def test_generate_equals_header_plus_links(self):
+        links = generate.generate_links(FIXTURES)
+        assert generate.generate(FIXTURES) == generate.HEADER + "\n" + links
+
+
+# ── write_llmstxt_md() ────────────────────────────────────────────────────────
+
+class TestWriteLlmstxtMd:
+    def _make_md(self, tmp_path: Path, content: str) -> Path:
+        md_path = tmp_path / generate.LLMSTXT_MD_PATH
+        md_path.parent.mkdir(parents=True, exist_ok=True)
+        md_path.write_text(content)
+        return md_path
+
+    def test_raises_when_sentinel_missing(self, tmp_path):
+        self._make_md(tmp_path, "---\ntitle: test\n---\nno sentinel here\n")
+        with pytest.raises(ValueError, match="sentinel"):
+            generate.write_llmstxt_md(tmp_path, "## links\n")
+
+    def test_error_message_names_the_file(self, tmp_path):
+        self._make_md(tmp_path, "---\ntitle: test\n---\n")
+        with pytest.raises(ValueError, match=str(generate.LLMSTXT_MD_PATH)):
+            generate.write_llmstxt_md(tmp_path, "## links\n")
+
+    def test_preserves_prefix_and_replaces_links(self, tmp_path):
+        original = "---\ntitle: llms.txt\n---\nIntro text.\n\n<!-- generated -->\n## old links\n"
+        self._make_md(tmp_path, original)
+        generate.write_llmstxt_md(tmp_path, "## new links\n")
+        result = (tmp_path / generate.LLMSTXT_MD_PATH).read_text()
+        assert result.startswith("---\ntitle: llms.txt\n---\nIntro text.\n\n<!-- generated -->\n")
+        assert "## new links" in result
+        assert "## old links" not in result
+
+    def test_returns_false_when_unchanged(self, tmp_path):
+        links = "## welcome\n"
+        self._make_md(tmp_path, f"---\ntitle: t\n---\n<!-- generated -->\n{links}")
+        assert generate.write_llmstxt_md(tmp_path, links) is False
+
+    def test_returns_true_when_changed(self, tmp_path):
+        self._make_md(tmp_path, "---\ntitle: t\n---\n<!-- generated -->\nold\n")
+        assert generate.write_llmstxt_md(tmp_path, "new\n") is True
