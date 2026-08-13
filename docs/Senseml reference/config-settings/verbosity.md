@@ -14,17 +14,17 @@ Configures the verbosity of the extraction.
 
 # Parameters
 
-<!-- TODO: (1) add example output showing `duration` on a query-group field and a list field (confirm exact output shape with eng); (2) investigate verbosity level 5 — seen in PR 3412 tests, unclear if it's a supported level or internal only -->
-
 | Possible Values | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `0`             | default                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `1`             | Adds a `lines` array to each field's output describing the field's source text in the document. Each line includes information about its position in the document, for example,   `page`, and `boundingPoly` metadata.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `2`             | Everything in level `1`, plus a `duration` property on each LLM-extracted field reporting the total time in milliseconds that Sensible spent on LLM calls for that field. Useful for profiling which fields drive extraction latency.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `3`             | - In addition to the  `lines` array: <br/>- Sensible returns `points` and `regions`  arrays as siblings to the `lines` array<br/>- If Sensible extracted a field from OCR'd text, then Sensible adds the following confidence scores to the output: <br/>1. In the field's standardized text metadata, Sensible provides an OCR `confidence` score for each element in the `lines` array. The score is the average score of the "tokens", or words, in the line.<br/>2. In the field output, Sensible outputs OCR  `anchorConfidence` and `valueConfidence` values, which are the averages of their source lines' confidence scores.<br/><br/>Sensible's OCR engines output confidence scores between 0 and 1. For more information about using OCR confidence scores, see [Validate extractions](doc:validate-extractions).<br/><br/> If the verbose output causes the extraction response to exceed 6MB, as can be the case with large documents, then Sensible returns a `413` error. |
-| `4`             | Everything in level `3`, plus the `duration` property described in level `2`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `2`             | Everything in level `1`, plus a `durationMs` property on each LLM-extracted field reporting the total time in milliseconds that Sensible spent on LLM calls for that field. Useful for profiling which fields drive extraction latency.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `3`             | - In addition to the  `lines` array: <br/>- Sensible returns `points` and `regions`  arrays as siblings to the `lines` array<br/>- If Sensible extracted a field from OCR'd text, then Sensible adds the following confidence scores to the output: <br/>1. In the field's standardized text metadata, Sensible provides an OCR `confidence` score for each element in the `lines` array. The score is the average score of the "tokens," or words, in the line.<br/>2. In the field output, Sensible outputs OCR  `anchorConfidence` and `valueConfidence` values, which are the averages of their source lines' confidence scores.<br/><br/>Sensible's OCR engines output confidence scores between 0 and 1. For more information about using OCR confidence scores, see [Validate extractions](doc:validate-extractions).<br/><br/> If the verbose output causes the extraction response to exceed 6 MB, as can be the case with large documents, then Sensible returns a `413` error. |
+| `4`             | Everything in level `3`, plus the `durationMs` property described in level `2`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 # Examples
+
+## Verbosity level 1
 
 If you add `"verbosity": 1,`  as a sibling to the fields array in the [Fixed Table](doc:fixed-table#examples) example, you get the following output:
 
@@ -270,6 +270,211 @@ If you add `"verbosity": 1,`  as a sibling to the fields array in the [Fixed Tab
         }
       ]
     }
+  }
+}
+```
+
+## Verbosity level 2
+
+The following example shows verbosity level 2 output for a configuration that uses a `queryGroup` method and a `list` method to extract fields from an invoice. Sensible adds `durationMs` to each LLM-extracted field, reporting the total time in milliseconds spent on LLM calls for that field. Layout-based fields don't include `durationMs`.
+
+**Notes on `durationMs` placement:**
+
+- **Query group:** All fields in the same query group share one LLM batch call, so they report the same `durationMs` value. The property appears as a sibling of `value`, `type`, and `lines` on each field.
+- **List:** The property appears at the top level of the list output object, alongside `columns`.
+
+```json
+{
+  "invoice_date": {
+    "confidenceSignal": "confident_answer",
+    "durationMs": 843,
+    "lines": [
+      {
+        "boundingPolygon": [
+          {
+            "x": 0.493,
+            "y": 1.213
+          },
+          {
+            "x": 2.094,
+            "y": 1.213
+          },
+          {
+            "x": 2.094,
+            "y": 1.393
+          },
+          {
+            "x": 0.493,
+            "y": 1.393
+          }
+        ],
+        "page": 0,
+        "text": "Invoice Date: 03/15/2024"
+      }
+    ],
+    "type": "date",
+    "value": "2024-03-15T00:00:00.000Z"
+  },
+  "vendor_name": {
+    "confidenceSignal": "confident_answer",
+    "durationMs": 843,
+    "lines": [
+      {
+        "boundingPolygon": [
+          {
+            "x": 0.493,
+            "y": 0.802
+          },
+          {
+            "x": 2.581,
+            "y": 0.802
+          },
+          {
+            "x": 2.581,
+            "y": 0.982
+          },
+          {
+            "x": 0.493,
+            "y": 0.982
+          }
+        ],
+        "page": 0,
+        "text": "Acme Supply Co."
+      }
+    ],
+    "type": "string",
+    "value": "Acme Supply Co."
+  },
+  "line_items": {
+    "columns": [
+      {
+        "id": "description",
+        "values": [
+          {
+            "lines": [
+              {
+                "boundingPolygon": [
+                  {
+                    "x": 0.493,
+                    "y": 3.101
+                  },
+                  {
+                    "x": 3.214,
+                    "y": 3.101
+                  },
+                  {
+                    "x": 3.214,
+                    "y": 3.281
+                  },
+                  {
+                    "x": 0.493,
+                    "y": 3.281
+                  }
+                ],
+                "page": 0,
+                "text": "Office supplies"
+              }
+            ],
+            "type": "string",
+            "value": "Office supplies"
+          },
+          {
+            "lines": [
+              {
+                "boundingPolygon": [
+                  {
+                    "x": 0.493,
+                    "y": 3.461
+                  },
+                  {
+                    "x": 3.214,
+                    "y": 3.461
+                  },
+                  {
+                    "x": 3.214,
+                    "y": 3.641
+                  },
+                  {
+                    "x": 0.493,
+                    "y": 3.641
+                  }
+                ],
+                "page": 0,
+                "text": "Printer cartridges"
+              }
+            ],
+            "type": "string",
+            "value": "Printer cartridges"
+          }
+        ]
+      },
+      {
+        "id": "amount",
+        "values": [
+          {
+            "lines": [
+              {
+                "boundingPolygon": [
+                  {
+                    "x": 6.382,
+                    "y": 3.101
+                  },
+                  {
+                    "x": 7.511,
+                    "y": 3.101
+                  },
+                  {
+                    "x": 7.511,
+                    "y": 3.281
+                  },
+                  {
+                    "x": 6.382,
+                    "y": 3.281
+                  }
+                ],
+                "page": 0,
+                "text": "$45.00"
+              }
+            ],
+            "source": "$45.00",
+            "type": "currency",
+            "unit": "$",
+            "value": 45
+          },
+          {
+            "lines": [
+              {
+                "boundingPolygon": [
+                  {
+                    "x": 6.382,
+                    "y": 3.461
+                  },
+                  {
+                    "x": 7.511,
+                    "y": 3.461
+                  },
+                  {
+                    "x": 7.511,
+                    "y": 3.641
+                  },
+                  {
+                    "x": 6.382,
+                    "y": 3.641
+                  }
+                ],
+                "page": 0,
+                "text": "$125.00"
+              }
+            ],
+            "source": "$125.00",
+            "type": "currency",
+            "unit": "$",
+            "value": 125
+          }
+        ]
+      }
+    ],
+    "durationMs": 2341
   }
 }
 ```
