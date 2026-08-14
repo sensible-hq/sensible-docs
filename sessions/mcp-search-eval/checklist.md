@@ -32,3 +32,11 @@ Goal: evaluate the `mcp__sensible-docs` search tool's ability to surface relevan
   - Both
 - [ ] Decide what to alert on: score regression below threshold, new questions that get zero results, etc.
 - [ ] Store run history so scores can be trended over time
+
+## Phase 4 — Eval framework validation
+
+- [ ] Designate a small set of "golden" questions (e.g., b01, plus 2-3 expert ones) with known-good expected doc IDs and expected answer content — these serve as fixtures for the eval pipeline itself
+- [ ] Write a smoke test: given a golden question, assert that (a) the expected doc ID appears in search results and (b) the fetched content contains expected key strings
+- [ ] Add a meta-eval step to the run script: before scoring all 30 questions, run the golden fixtures and fail fast if any fixture breaks — this catches regressions in the MCP tool, the agent prompt, or the file-writing logic before wasting 30 agent runs
+- [ ] Version the question list and ground truth separately from the run artifacts so changes to questions/rubric are auditable (i.e., a score drop could be from a worse MCP or from a harder question set)
+- [ ] Document the intended change process: if you update the eval (new questions, new rubric, new scoring), re-run the golden fixtures first to confirm the framework is still valid before comparing scores across runs
