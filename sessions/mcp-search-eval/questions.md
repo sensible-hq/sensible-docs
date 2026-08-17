@@ -22,12 +22,17 @@ Testing the `mcp__sensible-docs` search tool's ability to find and surface relev
 
 ## Expert / niche / corner case questions
 
+### To score (ground truth set)
+
 1. How does Sensible OCR behave on a mixed PDF where some pages are digitally generated and others are scanned — do preprocessors apply uniformly?
 2. What happens when a section's anchor match text appears multiple times *within* a single section — does `requireStop` fully resolve this, or are there edge cases?
+6. Can computed fields reference other computed fields, and if so, is there a declared evaluation order or does it depend on array position?
+
+### To score later
+
 3. Can you mix fingerprint-based and LLM-based segmentation within a single portfolio extraction, or is it one mode for the whole request?
 4. How does the `tiebreaker` comparison operator (`>`, `<`) interact with a `currency` type field — does it compare numeric values or raw source strings?
 5. When a JsonLogic postprocessor transforms the output schema, do validations run on the pre- or post-transform `parsed_document`?
-6. Can computed fields reference other computed fields, and if so, is there a declared evaluation order or does it depend on array position?
 7. How does `xRangeFilter` interact with multi-column layouts processed by the `multicolumn` preprocessor — do the x-coordinates refer to pre- or post-reflow positions?
 8. What's the behavioral difference between `lineFilters` on a vertical section range vs `wordFilters` on the method object — is there a case where one works and the other fails?
 9. How does `angleFilter` in `removeLines` interact with different OCR engines (e.g., Google vs default) — is angle metadata available for all engines?

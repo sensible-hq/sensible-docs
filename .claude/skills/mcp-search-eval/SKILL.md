@@ -24,7 +24,9 @@ What makes it not a real eval:
 
 ### Path to a real eval
 
-**Full fix (15-question human baseline):** User reads the 15 expert answer files (`e01`–`e15`) and assigns their own 1–5 scores. Those become ground truth. Future runs compare against human labels, not Claude's self-assessment. The delta between user scores and Claude's 2026-08-14 scores shows how well-calibrated the LLM-as-judge is — important to know before trusting it to score reruns automatically. Beginner questions (b01–b15) can stay LLM-scored since they all hit 4–5 and the signal is in the expert set.
+**Full fix (human-scored ground truth):** User reads a designated set of expert answer files and assigns their own 1–5 scores. Those become ground truth. Future runs compare against human labels, not Claude's self-assessment. The delta between user scores and Claude's 2026-08-14 scores shows how well-calibrated the LLM-as-judge is — important to know before trusting it to score reruns automatically. Beginner questions (b01–b15) can stay LLM-scored since they all hit 4–5 and the signal is in the expert set.
+
+The current ground truth set is **e01, e02, e06** (see `questions.md`). The remaining expert questions (e03–e05, e07–e15) are designated "to score later."
 
 **Lighter fix (Phase 4):** Designate 4–5 questions with known-good expected doc IDs and assert those IDs appear in results. Enough to catch retrieval regressions without scoring 15 questions. Until this exists, reruns compare vibes, not metrics.
 
@@ -154,4 +156,4 @@ Before re-running, the minimum viable hardening step is golden fixtures:
 3. Add a meta-eval step to the run script: run golden fixtures first, fail fast if any break — catches regressions in the MCP tool, agent prompt, or file-writing logic before wasting 30 agent runs
 4. Version the question list and ground truth separately from run artifacts so changes to questions/rubric are auditable
 
-**Longer term:** User scores the 15 expert answer files (`e01`–`e15`) as domain expert → those become human-labeled ground truth → future runs can be compared meaningfully. Gap between those scores and Claude's 2026-08-14 scores shows how well-calibrated the LLM-as-judge is.
+**Longer term:** User scores e01, e02, e06 as domain expert → those become human-labeled ground truth for the initial set → expand to remaining expert questions over time. Gap between user scores and Claude's 2026-08-14 scores shows how well-calibrated the LLM-as-judge is.
