@@ -5,24 +5,24 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Quick start guide for the Sensible API'
+  description: Quick start guide for the Sensible API
   robots: index
 next:
   description: ''
 ---
 # Introduction
 
-In this quickstart, use an example SenseML configuration and example document to get a quick "hello world" API response. 
+In this quickstart, use an example SenseML configuration and example document to get a quick "hello world" API response.
 
-* To get started with extracting from your custom documents, see [Getting Started](doc:getting-started-ai).
+- To get started with extracting from your custom documents, see [Getting Started](doc:getting-started-ai).
 
 # Extract example document data
 
-To run an API call and return extracted, structured data from a downloaded example document: 
+To run an API call and return extracted, structured data from a downloaded example document:
 
 1. Get an account at [sensible.so](https://app.sensible.so/register).
 
-   **NOTE** In the Sensible app, don't rename the example doc type (**layout\_basics**) or delete the **1\_extract\_your\_first\_data** config, or this example fails. 
+   **NOTE** In the Sensible app, don't rename the example doc type (**layout_basics**) or delete the **1_extract_your_first_data** config, or this example fails.
 
 2. Copy your API key from your [account page](https://app.sensible.so/account/).
 
@@ -33,17 +33,53 @@ curl -L https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pd
 
 ```
 
-3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`layout_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object: 
+3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`layout_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object:
 
 ```json
 {
-   "parsed_document":{
-      "your_first_extracted_field":{
-         "type":"string",
-         "value":"Welcome to your first document"
-      }
-   }
-}
+       "id": "ef23d619-9955-473e-b00f-df18377c222b",
+       "created": "2026-08-17T22:38:37.862Z",
+       "completed": "2026-08-17T22:38:38.055Z",
+       "status": "COMPLETE",
+       "type": "layout_basics",
+       "configuration": "hello_world",
+       "configuration_version": "ErBhdAGhknW_EBuOa1j0ZaxTpgyK_rfw",
+       "environment": "production",
+       "page_count": 1,
+       "parsed_document": {
+         "your_first_extracted_field": {
+           "type": "string",
+           "value": "Welcome to your first document"
+         }
+       },
+       "validations": [],
+       "validation_summary": {
+         "fields": 1,
+         "fields_present": 1,
+         "errors": 0,
+         "warnings": 0,
+         "skipped": 0
+       },
+       "classification_summary": [
+         {
+           "configuration": "hello_world",
+           "score": {
+             "value": 1,
+             "fields_present": 1,
+             "penalties": 0
+           }
+         }
+       ],
+       "errors": [],
+       "content_type": "application/pdf",
+       "file_metadata": {
+         "info": {}
+       },
+       "coverage": 1,
+       "charged": 1,
+       "actor": "api_key: in ubuntu, probook 645",
+       "version_id": "haTpXTezsD4Fh7zY.WtZPfjP33T8KydB"
+     }
 ```
 
 # (Optional) See how it works in the Sensible app
@@ -56,10 +92,10 @@ To see this example in the Sensible app:
 
 3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran:
 
-![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quick_1.png) 
+![q](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quick_1.png)
 
 # Next
 
-* See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples)
-* If you're new to APIs, see [API tutorials](doc:api-tutorial)
-* To get started with authoring extraction configurations, or configs, for your custom documents, see [Getting Started](doc:getting-started-ai).
+- See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples)
+- If you're new to APIs, see [API tutorials](doc:api-tutorial)
+- To get started with authoring extraction configurations, or configs, for your custom documents, see [Getting Started](doc:getting-started-ai).
