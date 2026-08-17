@@ -11,15 +11,19 @@ Goal: evaluate the `mcp__sensible-docs` search tool's ability to surface relevan
 
 - [x] Confirm MCP tools are accessible in subagent context (run 1 test agent)
 - [x] Set up results directory structure (`results/raw/`, `results/answers/`)
-- [ ] Spawn 30 parallel subagents (1 per question) to search + fetch + save artifacts
-- [ ] Review raw outputs and answer quality
+- [x] Spawn subagents (1 per question) to search + fetch + save artifacts — all 30 questions complete
+- [x] Compile results into `results/results-table.md` with scores and comments
+- [x] Fix doc links for entries where agents saved fetched pages under non-standard JSON keys (e05–e08, e11)
+- [ ] Review raw outputs and answer quality (human scoring — see below)
 
-## Phase 2 — Formalize as evals
+## Phase 2 — Eval framing and ground truth
 
-- [ ] Define a scoring rubric for search quality (e.g., did the right doc appear in results? was the answer complete? did it hallucinate anything not in the fetched docs?)
-- [ ] Write an evaluator agent/script that takes each `results/answers/q{N}.md` and scores it against the rubric
-- [ ] Decide on eval format: JSONL (standard LLM eval format) with `{question, expected_topics, search_results, answer, scores}`
-- [ ] Write expected answers / ground truth for each question (or at minimum, expected doc IDs that should appear in results)
+- [x] Define scoring rubric (1–5 scale, in results table and SKILL.md)
+- [x] Rewrite SKILL.md to accurately describe what this is: a retrieval audit with LLM-as-judge scoring, not a true eval
+- [x] Designate ground truth question set: e01, e02, e06 (in `questions.md`); remaining expert questions deferred to "score later"
+- [x] Add `Human score` and `Human notes` columns to results table
+- [ ] User scores e01, e02, e06 answer files and fills in Human score/notes columns
+- [ ] Decide on eval format: JSONL with `{question, expected_topics, search_results, answer, scores}`
 - [ ] Store ground truth in `sessions/mcp-search-eval/ground-truth.json`
 
 ## Phase 3 — Recurring runs + reporting
