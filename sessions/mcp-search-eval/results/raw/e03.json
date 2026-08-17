@@ -1,0 +1,48 @@
+{
+  "question_id": "e03",
+  "question": "Can you mix fingerprint-based and LLM-based segmentation within a single portfolio extraction, or is it one mode for the whole request?",
+  "searches": [
+    {
+      "query": "portfolio extraction fingerprint segmentation",
+      "results": [
+        {"id": "sensiblehq/portfolio", "title": "Multi-document extractions", "url": "https://docs.sensible.so/docs/portfolio"},
+        {"id": "sensiblehq/fingerprint", "title": "Fingerprint", "url": "https://docs.sensible.so/docs/fingerprint"},
+        {"id": "sensiblehq/fingerprint-mode", "title": "Fingerprint mode", "url": "https://docs.sensible.so/docs/fingerprint-mode"}
+      ]
+    },
+    {
+      "query": "LLM-based segmentation portfolio document type",
+      "results": [
+        {"id": "sensiblehq/portfolio", "title": "Multi-document extractions", "url": "https://docs.sensible.so/docs/portfolio"},
+        {"id": "sensiblehq/llm-features", "title": "LLM features overview", "url": "https://docs.sensible.so/docs/llm-features"},
+        {"id": "sensiblehq/descriptions", "title": "Document type descriptions", "url": "https://docs.sensible.so/docs/descriptions"}
+      ]
+    }
+  ],
+  "fetched": [
+    {
+      "id": "sensiblehq/portfolio",
+      "title": "Multi-document extractions",
+      "url": "https://docs.sensible.so/docs/portfolio",
+      "content": "Segment and extract from document portfolio files (files containing multiple documents)\n\nSensible supports extracting multiple documents from a single file (a \"portfolio\"). For example, for a portfolio file containing two invoices, a 1040 tax document, and a contract, Sensible can segment each document by its page range in the file, and return its extracted data separately.\n\nSensible recommends extracting each document in a portfolio using its own document type, so you can write validations for each type. For example, use an \"income tax\" doc type and an \"invoice\" doc type for the portfolio file in the previous example, rather than creating a \"combined_tax_and_invoice\" doc type.\n\nTo segment the subdocuments in a portfolio file, you have the following options:\n\n| | LLM-based | Text-based (\"fingerprints\") |\n|---|---|---|\n| Segmentation method | Sensible prompts an LLM to segment the documents based on user-provided descriptions of the documents and their contents. | Sensible finds user-configured text matches (\"fingerprints\") to segment documents. |\n| Granularity | at the document type level | at the config level |\n\n\nExtracting from a portfolio:\n\n1. Enable segmentation with one of the following alternatives:\n  - LLM mode: In the document type's Settings tab, describe the document type in the Description field.\n  - Fingerprint mode: Specify fingerprints in each config relevant to the portfolio file.\n\n2. Create an extraction request with one of the following alternatives:\n  - Sensible app: Click the Portfolio button and specify either fingerprint mode or LLM mode.\n  - API or SDK: In a portfolio extraction API endpoint, specify the segmentation method and doc types, for example: \"segment_documents_with\": \"llm\"\n\nThe extraction response includes document extractions and their page ranges in the portfolio."
+    },
+    {
+      "id": "sensiblehq/fingerprint",
+      "title": "Fingerprint",
+      "url": "https://docs.sensible.so/docs/fingerprint",
+      "content": "Document fingerprinting for classification. Fingerprints test for matching text in a document to determine: 1. the document's subtype, or 'config', for standalone files; 2. a document's page range in multi-document, or 'portfolio', files. Use LLMs as an alternative to fingerprints to segment portfolios."
+    },
+    {
+      "id": "sensiblehq/fingerprint-mode",
+      "title": "Fingerprint mode",
+      "url": "https://docs.sensible.so/docs/fingerprint-mode",
+      "content": "Configure fingerprint-based classification. The Fingerprint Mode configuration option applies to standalone files (scenario 1), not portfolio files (scenario 2). Sensible ignores the document type's Fingerprint Mode setting for portfolio files."
+    },
+    {
+      "id": "sensiblehq/descriptions",
+      "title": "Document type descriptions",
+      "url": "https://docs.sensible.so/docs/descriptions",
+      "content": "Describe a document type in its Settings tab to: Enable segmenting documents' page ranges from a portfolio file using LLMs. Improve classifying a document into an existing document type in your account."
+    }
+  ]
+}

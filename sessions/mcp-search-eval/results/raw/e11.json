@@ -1,0 +1,37 @@
+{
+  "question_id": "e11",
+  "question": "Can dynamic external ranges in sections search backwards (preceding each section start) and if so, how does `reverse: true` on the anchor interact with `anchorIsAbsolute`?",
+  "search_queries": [
+    "dynamic external ranges sections reverse anchor",
+    "sections anchorIsAbsolute reverse true preceding search backwards"
+  ],
+  "search_results": [
+    {
+      "query": "dynamic external ranges sections reverse anchor",
+      "results": [
+        {"id": "sensiblehq/sections", "title": "Sections", "url": "https://docs.sensible.so/docs/sections"},
+        {"id": "sensiblehq/sections-example-external-range", "title": "Advanced: External anchors for sections", "url": "https://docs.sensible.so/docs/sections-example-external-range"}
+      ]
+    },
+    {
+      "query": "sections anchorIsAbsolute reverse true preceding search backwards",
+      "results": [
+        {"id": "sensiblehq/sections", "title": "Sections", "url": "https://docs.sensible.so/docs/sections"}
+      ]
+    }
+  ],
+  "fetched_docs": [
+    {
+      "id": "sensiblehq/sections",
+      "title": "Sections",
+      "url": "https://docs.sensible.so/docs/sections",
+      "relevant_excerpt": "anchorIsAbsolute: (default: false). If false, Sensible creates dynamic external ranges, each relative to a section start. For example, configure dynamic external ranges if you want to anchor each section's fields on variably positioned page headings. For more information, see Dynamic external range example. Sensible starts searching for dynamic external ranges in the lines succeeding the start of each section. To search for dynamic external ranges that precede each section, use `\"reverse\":\"true\"` on the external range's anchor. If the Anchor Is Absolute option is set to true, Sensible creates one static external range in the document, searching from the start of the document."
+    },
+    {
+      "id": "sensiblehq/sections-example-external-range",
+      "title": "Advanced: External anchors for sections",
+      "url": "https://docs.sensible.so/docs/sections-example-external-range",
+      "relevant_excerpt": "anchorIsAbsolute: false, anchor: [ { type: 'includes', text: 'Claim contents', reverse: true } ] — Sensible searches for a dynamic external range, beginning from the start of each section. Since the external ranges precede each section, use reverse:true to search preceding lines for the closest occurrence of 'Claim contents'."
+    }
+  ]
+}

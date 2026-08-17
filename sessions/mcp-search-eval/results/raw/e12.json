@@ -1,0 +1,98 @@
+{
+  "question": "Does `requiredFields` on sections interact with extraction coverage scoring — i.e., do omitted sections count as missing fields?",
+  "searches": [
+    {
+      "query": "requiredFields sections",
+      "results": [
+        {
+          "id": "ref:sensiblehq/reference-document",
+          "title": "Reference document",
+          "url": "https://docs.sensible.so/reference/reference-document"
+        }
+      ]
+    },
+    {
+      "query": "extraction coverage scoring missing fields",
+      "results": [
+        {
+          "id": "sensiblehq/coverage",
+          "title": "Extraction coverage",
+          "url": "https://docs.sensible.so/docs/coverage"
+        },
+        {
+          "id": "sensiblehq/accuracy-measures",
+          "title": "Accuracy measures",
+          "url": "https://docs.sensible.so/docs/accuracy-measures"
+        }
+      ]
+    },
+    {
+      "query": "requiredFields sections omit",
+      "results": [
+        {
+          "id": "ref:sensiblehq/reference-document",
+          "title": "Reference document",
+          "url": "https://docs.sensible.so/reference/reference-document"
+        }
+      ]
+    },
+    {
+      "query": "sections configuration parameters reference",
+      "results": [
+        {
+          "id": "sensiblehq/sections",
+          "title": "Sections",
+          "url": "https://docs.sensible.so/docs/sections"
+        },
+        {
+          "id": "ref:sensiblehq/configuration",
+          "title": "Configuration",
+          "url": "https://docs.sensible.so/reference/configuration"
+        },
+        {
+          "id": "sensiblehq/config-settings",
+          "title": "Config settings",
+          "url": "https://docs.sensible.so/docs/config-settings"
+        }
+      ]
+    }
+  ],
+  "fetched": [
+    {
+      "id": "ref:sensiblehq/reference-document",
+      "title": "Reference document",
+      "url": "https://docs.sensible.so/reference/reference-document",
+      "content": "(no output returned)"
+    },
+    {
+      "id": "sensiblehq/coverage",
+      "title": "Extraction coverage",
+      "url": "https://docs.sensible.so/docs/coverage",
+      "content": "Understanding extraction coverage\n\nExtraction coverage measures how fully an extraction captures your target data from the document. For example, a coverage score of 70% for an extraction with no validation errors means that 30% of output fields are null. A low percentage can indicate a poor-quality extraction. Or, it can indicate that your documents contain sparse data.\n\nCoverage formula:\ncoverage = (non-null fields extracted - validation penalties) / total fields extracted\n\nWhere:\n- validation penalties = sum of validation errors and warnings. Errors are 1 penalty point and warnings are 0.5 points.\n\nNotes:\n- Sensible excludes fields listed in the Suppress Output method when calculating the coverage.\n- Sensible includes fields output in sections when calculating the coverage.\n- The overall coverage for a portfolio document is the weighted average of all subdocument coverages."
+    },
+    {
+      "id": "sensiblehq/accuracy-measures",
+      "title": "Accuracy measures",
+      "url": "https://docs.sensible.so/docs/accuracy-measures",
+      "content": "You can measure accuracy via logical validations, OCR confidence scores, confidence signals, and extraction coverage. Coverage is a score measuring how fully an extraction captured all the data in the document — a percentage comparing non-null, validated fields to total fields returned by a config."
+    },
+    {
+      "id": "sensiblehq/sections",
+      "title": "Sections",
+      "url": "https://docs.sensible.so/docs/sections",
+      "content_excerpt": "requiredFields parameter: Array of field IDs that must be non-null for Sensible to return a section. In the Claims loss run example, add the following code to the sections to omit claims that lack a phone number: `\"requiredFields\": [\"phone_number\"],`. With the preceding code, Sensible omits claim number `9876543211` from the example output.\n\nNo mention of coverage interaction with requiredFields found in this doc."
+    },
+    {
+      "id": "ref:sensiblehq/configuration",
+      "title": "Configuration",
+      "url": "https://docs.sensible.so/reference/configuration",
+      "content": "(no output returned)"
+    },
+    {
+      "id": "sensiblehq/config-settings",
+      "title": "Config settings",
+      "url": "https://docs.sensible.so/docs/config-settings",
+      "content": "A config is a template that defines how to extract data from a set of similar documents. The following pages describe options you can set in configs: Fingerprint, Verbosity."
+    }
+  ]
+}
