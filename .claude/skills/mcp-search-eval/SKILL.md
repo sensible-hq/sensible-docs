@@ -106,7 +106,7 @@ After all agents complete, update `results/results-table.md` with one row per qu
 - **Search queries:** verbatim from `search_queries` in raw JSON
 - **Docs returned:** linked titles + URLs verbatim from `fetched_pages` in raw JSON (or equivalent key). Never infer or construct URLs — only use what the MCP returned.
 - **Answer:** synthesized from fetched content; 1–2 sentences max
-- **Score:** 1–5 (5 = right docs + complete answer; 1 = wrong/no docs, unanswerable)
+- **Score:** pass / fail (pass = right docs + question answerable; note if fail is docs gap vs. retrieval failure)
 - **Comments:** why it passed or failed; note if failure is a docs gap vs. retrieval failure
 
 Include averages by category (beginner / expert) and a summary of failing questions at the bottom.
@@ -121,15 +121,12 @@ git -C ~/GitHub/sensible-docs-mcp-search-eval push
 
 ## Scoring rubric
 
-| Score | Meaning |
-|---|---|
-| 5 | Right doc(s) on first query, answer fully supported by fetched content, no gaps |
-| 4 | Right docs found but required multiple query variants, or answer requires inference across pages |
-| 3 | Partially answered — core question addressed but documented edge cases missing |
-| 2 | Docs retrieved but answer is not in them — docs gap, not retrieval failure |
-| 1 | Wrong docs returned, or no results, or answer hallucinated beyond fetched content |
+**pass** = right docs surfaced + question answerable from fetched content  
+**fail** = wrong/no docs returned, or answer not in fetched content (docs gap or retrieval failure)
 
-**These scores are LLM-assigned.** Treat them as directional, not authoritative. Human review of the expert answer files is required to make them ground truth.
+Note in comments whether a failure is a **docs gap** (answer doesn't exist) or a **retrieval failure** (answer exists but MCP didn't find it). These require different fixes.
+
+**LLM pass/fail** is assigned by Claude (LLM-as-judge) — treat as directional. **Human pass/fail** is assigned by domain expert and is ground truth. On the 2026-08-14 baseline run, LLM and human agreed on all 8 explicitly scored expert questions.
 
 ## Baseline results (run 2026-08-14, LLM-as-judge scores)
 
