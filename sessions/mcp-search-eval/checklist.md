@@ -28,13 +28,13 @@ Goal: evaluate the `mcp__sensible-docs` search tool's ability to surface relevan
 
 ## Phase 3 — Recurring runs + reporting
 
-- [ ] Write a script (`scripts/run-mcp-eval.sh` or similar) that runs the full eval pipeline end to end
-- [ ] Set up a cron job or scheduled trigger to run it periodically (weekly? on doc deploys?)
-- [ ] Set up result delivery — options:
-  - Slack: post summary + score delta to a channel via webhook
-  - Email: send a report to frances@sensible.so
-  - Both
-- [ ] Decide what to alert on: score regression below threshold, new questions that get zero results, etc.
+- [x] Write eval runner script (`run_eval.py`) — runs 18 questions via `claude -p`, compares against ground-truth.json, writes report
+- [x] Add `--send-email` flag to `run_eval.py` (smtplib, env var config)
+- [x] Write `run_eval.sh` wrapper — first-Tuesday-of-month guard + calls `run_eval.py --send-email`
+- [ ] **Activate cron job on WSL2:**
+  - Add `EVAL_SMTP_*` env vars to `~/.profile`
+  - Add crontab entry: `TZ=America/Denver` + `15 12 * * 2 /home/franc/GitHub/sensible-docs/.claude/skills/mcp-search-eval/scripts/run_eval.sh >> /tmp/mcp-eval.log 2>&1`
+  - Ensure cron daemon starts on boot (WSL2 doesn't auto-start cron)
 - [ ] Store run history so scores can be trended over time
 
 ## Phase 4 — Eval framework validation
