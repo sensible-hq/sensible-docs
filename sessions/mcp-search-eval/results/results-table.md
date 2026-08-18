@@ -75,18 +75,31 @@
 | Expert (e01–e15) | 3.3 / 5 | 7/15 | 8/15 |
 | **Overall** | **4.0 / 5** | **22/30** | **8/30** |
 
-*Scores above are LLM-assigned. Human scores pending for e01, e02, e06.*
+### LLM-as-judge calibration (human scores vs LLM scores, expert questions)
 
-### Failing expert questions (score ≤ 2) — docs gaps, not retrieval failures
+| # | LLM score | Human score | Delta | Note |
+|---|---|---|---|---|
+| e01 | 5/5 | 5/5 | 0 | |
+| e02 | 3/5 | 3/5 | 0 | |
+| e03 | 4/5 | 5/5 | +1 | LLM underscored — answer IS in docs explicitly |
+| e04 | 5/5 | 5/5 | 0 | |
+| e05 | 2/5 | 3/5 | +1 | LLM underscored — structural separation is meaningful signal |
+| e06 | 3/5 | 3/5 | 0 | |
+| e07 | 2/5 | 2/5 | 0 | Edge case, not worth documenting |
+| e11 | 5/5 | 5/5 | 0 | |
 
-| # | Question | Gap |
+**Result:** LLM matched human on 6/8 scored questions; underscored by 1 on the other 2. No overclaiming. Reasonably well-calibrated for this use case.
+
+### Docs gaps vs retrieval failures (human review)
+
+| # | Question | Human verdict |
 |---|---|---|
-| e05 | Validation order relative to JsonLogic postprocessor | Pipeline ordering not documented |
-| e07 | `xRangeFilter` coordinate frame with `multicolumn` | Docs present as alternatives; combined use never addressed |
-| e09 | `angleFilter` availability across OCR engines | Per-engine angle metadata availability not documented |
-| e10 | Fingerprint score tiebreaker for equal scores | Equal-score behavior not documented |
-| e12 | `requiredFields` effect on coverage scoring | Interaction never explicitly stated |
-| e15 | Portfolio mid-page failure mode at runtime | Limitation noted; runtime behavior not described |
+| e05 | Validation order relative to JsonLogic postprocessor | Docs gap — pipeline ordering not documented |
+| e07 | `xRangeFilter` coordinate frame with `multicolumn` | Docs gap — edge case, not worth documenting |
+| e09 | `angleFilter` availability across OCR engines | Docs gap — not worth clarifying |
+| e10 | Fingerprint score tiebreaker for equal scores | **Retrieval failure** — tiebreaker IS documented (alphanumeric by config name); MCP failed to surface it |
+| e12 | `requiredFields` effect on coverage scoring | Docs gap — not worth clarifying |
+| e15 | Portfolio mid-page failure mode at runtime | Docs gap — not worth clarifying |
 
 ### Pattern
-Beginner questions score nearly perfectly — the MCP finds the right page on the first query for direct, well-scoped questions. Expert failures are not retrieval failures; the MCP found relevant pages. The answers simply don't exist in the docs. These 6 are a free gap analysis for the documentation.
+Beginner questions score nearly perfectly — the MCP finds the right page on the first query for direct, well-scoped questions. Most expert failures are docs gaps, not retrieval failures. Exception: e10 is a true retrieval failure — the answer exists but wasn't found. The LLM-as-judge is sufficiently calibrated for automated scoring of future runs.
