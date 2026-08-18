@@ -8,11 +8,20 @@ against ground-truth.json, and reports pass/fail flips from the baseline.
 Usage (must be run from the sensible-docs repo root):
     python .claude/skills/mcp-search-eval/scripts/run_eval.py
     python .claude/skills/mcp-search-eval/scripts/run_eval.py --compare-only --results-dir <path>
+    python .claude/skills/mcp-search-eval/scripts/run_eval.py --send-email
 
 Requirements:
     - claude CLI in PATH
     - mcp__sensible-docs configured in .claude/settings.json (auto-loaded from repo root)
     - sessions/mcp-search-eval/ground-truth.json present
+
+Email (--send-email):
+    Set these env vars:
+        EVAL_SMTP_HOST     SMTP server (e.g. smtp.gmail.com)
+        EVAL_SMTP_PORT     SMTP port (e.g. 587)
+        EVAL_SMTP_USER     Sender address
+        EVAL_SMTP_PASS     App password or SMTP password
+        EVAL_EMAIL_TO      Recipient (default: frances@sensible.so)
 
 Output:
     - Per-question JSON saved to RESULTS_DIR/YYYY-MM-DD/raw/<id>.json
@@ -22,11 +31,15 @@ Output:
 
 import argparse
 import json
+import os
 import re
+import smtplib
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
@@ -233,6 +246,26 @@ def write_report(findings: list, run_date: str, report_path: Path) -> str:
     return report
 
 
+def send_email(report: str, run_date: str) -> None:
+    host = os.environ["EVAL_SMTP_HOST"]
+    port = int(os.environ["EVAL_SMTP_PORT"])
+    user = os.environ["EVAL_SMTP_USER"]
+    password = os.environ["EVAL_SMTP_PASS"]
+    to_addr = os.environ.get("EVAL_EMAIL_TO", "frances@sensible.so")
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = f"MCP Search Eval — {run_date}"
+    msg["From"] = user
+    msg["To"] = to_addr
+    msg.attach(MIMEText(report, "plain"))
+
+    with smtplib.SMTP(host, port) as smtp:
+        smtp.starttls()
+        smtp.login(user, password)
+        smtp.sendmail(user, to_addr, msg.as_string())
+    print(f"Email sent to {to_addr}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Run the MCP search eval")
     parser.add_argument(
@@ -242,6 +275,10 @@ def main():
     parser.add_argument(
         "--results-dir", type=Path, default=None,
         help="Directory containing raw/<id>.json files (defaults to dated dir under DEFAULT_RESULTS_DIR)"
+    )
+    parser.add_argument(
+        "--send-email", action="store_true",
+        help="Email the report after the run (requires EVAL_SMTP_* env vars)"
     )
     args = parser.parse_args()
 
@@ -274,6 +311,9 @@ def main():
     print(report)
     print()
     print(f"Report: {report_path}")
+
+    if args.send_email:
+        send_email(report, run_date)
 
 
 if __name__ == "__main__":
