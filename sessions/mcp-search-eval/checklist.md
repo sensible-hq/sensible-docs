@@ -37,6 +37,14 @@ Goal: evaluate the `mcp__sensible-docs` search tool's ability to surface relevan
   - Ensure cron daemon starts on boot (WSL2 doesn't auto-start cron)
 - [ ] Store run history so scores can be trended over time
 
+## Phase 3.5 — LLM contamination
+
+The LLM pass/fail verdict emitted by eval agents is contaminated by training knowledge (Claude has been trained on Sensible's public docs) and repo context (CLAUDE.md loads because agents run from the repo root). A different account or empty dir doesn't fix training contamination.
+
+- [ ] **Treat `missing_anchors` as the primary regression signal**, not LLM pass/fail — `missing_anchors` is a mechanical check on returned doc IDs, contamination-proof
+- [ ] Change `cwd` in `run_eval.py` from `REPO_ROOT` to a temp dir, and pass MCP settings explicitly — eliminates repo context (CLAUDE.md) contamination
+- [ ] Update SKILL.md to document this limitation and the `missing_anchors`-first interpretation
+
 ## Phase 4 — Eval framework validation
 
 - [ ] Designate a small set of "golden" questions (e.g., b01, plus 2-3 expert ones) with known-good expected doc IDs and expected answer content — these serve as fixtures for the eval pipeline itself
