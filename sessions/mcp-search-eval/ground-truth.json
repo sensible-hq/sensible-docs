@@ -1,0 +1,128 @@
+[
+  {
+    "id": "b01",
+    "question": "What file types can I upload?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/file-types"],
+    "notes": "Single authoritative page. If this stops appearing, something is badly wrong with retrieval."
+  },
+  {
+    "id": "b02",
+    "question": "Do I need to write code to use this?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/getting-started-ai", "sensiblehq/integrate"],
+    "notes": "Flip to fail if both pages stop appearing. New no-code docs added over time would be an improvement signal."
+  },
+  {
+    "id": "b03",
+    "question": "How do I pull out a specific field from a PDF?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/field-query-object"],
+    "notes": "Core concept page. Should always appear first."
+  },
+  {
+    "id": "b04",
+    "question": "What's the difference between the LLM and layout-based approaches, and when should I use each?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/author"],
+    "notes": "Canonical comparison page. If this stops appearing, the most useful page for this question is missing."
+  },
+  {
+    "id": "b05",
+    "question": "Can Sensible handle scanned documents or photos of documents?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/ocr", "sensiblehq/handwriting"],
+    "notes": "Both pages cover distinct cases (OCR config vs. handwriting). Both should appear."
+  },
+  {
+    "id": "b06",
+    "question": "What does the output actually look like?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/quickstart"],
+    "notes": "Currently passes via quickstart, but the API reference has the most complete output schema. A future improvement would be the API reference appearing in results."
+  },
+  {
+    "id": "b07",
+    "question": "How do I handle documents from the same category that look slightly different from each other?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/fingerprint", "sensiblehq/fingerprint-mode"],
+    "notes": "Both fingerprint pages are core to answering this. Either appearing alone is insufficient."
+  },
+  {
+    "id": "b08",
+    "question": "Can it extract tables?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/table-methods"],
+    "notes": "Overview page should always appear. NLP table and text table pages are bonus but not required for pass."
+  },
+  {
+    "id": "b09",
+    "question": "Can it detect whether a checkbox is checked?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/checkbox", "sensiblehq/nearest-checkbox"],
+    "notes": "Both methods are distinct and both pages should appear. Missing either is a retrieval gap."
+  },
+  {
+    "id": "b10",
+    "question": "What happens if a field isn't present in a document?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/fallbacks"],
+    "notes": "Fallbacks page is the most directly relevant. Field query object is a useful supplement."
+  },
+  {
+    "id": "b11",
+    "question": "How do I get extracted data into Excel or a database?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/excel-reference", "sensiblehq/integrate"],
+    "notes": "Both pages cover distinct paths (direct export vs. integrations). Both should appear."
+  },
+  {
+    "id": "b12",
+    "question": "Is there a way to try it without setting up API calls?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/quick-extraction", "sensiblehq/library-quickstart"],
+    "notes": "Required 6 query variants on the baseline run. Improvement signal: these pages appearing on the first query."
+  },
+  {
+    "id": "b13",
+    "question": "Are there prebuilt extractors I can use off the shelf?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/library-quickstart"],
+    "notes": "Direct hit on baseline. Should always appear on first query."
+  },
+  {
+    "id": "b14",
+    "question": "How do I handle a single PDF that contains multiple different documents?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/portfolio"],
+    "notes": "Single authoritative page. If this stops appearing the question is unanswerable."
+  },
+  {
+    "id": "b15",
+    "question": "How do I know if my extraction is accurate?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/accuracy-measures"],
+    "notes": "Single authoritative page. Should always appear on first query."
+  },
+  {
+    "id": "e01",
+    "question": "How does Sensible OCR behave on a mixed PDF where some pages are digitally generated and others are scanned — do preprocessors apply uniformly?",
+    "human_pass": true,
+    "anchor_doc_ids": ["sensiblehq/ocr-preprocessor"],
+    "notes": "The OCR preprocessor page is the key page that makes this question answerable. If it disappears from results, the answer becomes generic and the question effectively fails."
+  },
+  {
+    "id": "e02",
+    "question": "What happens when a section's anchor match text appears multiple times within a single section — does requireStop fully resolve this, or are there edge cases?",
+    "human_pass": false,
+    "anchor_doc_ids": ["sensiblehq/sections", "sensiblehq/section-nuances"],
+    "notes": "Currently fails — docs cover the main case but not edge cases (repeated stop text, vertical section equivalent). Flip to pass would indicate docs were improved. Both pages should appear regardless."
+  },
+  {
+    "id": "e06",
+    "question": "Can computed fields reference other computed fields, and if so, is there a declared evaluation order or does it depend on array position?",
+    "human_pass": false,
+    "anchor_doc_ids": ["sensiblehq/add-computed-fields", "sensiblehq/field-order"],
+    "notes": "Currently fails — ordering mechanics are documented but computed-to-computed references are not explicitly stated. Flip to pass would indicate the docs gap was filled."
+  }
+]
