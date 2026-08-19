@@ -45,6 +45,7 @@ The LLM pass/fail verdict emitted by eval agents is contaminated by training kno
 - [ ] Change `cwd` in `run_eval.py` from `REPO_ROOT` to a temp dir, and pass MCP settings explicitly — eliminates repo context (CLAUDE.md) contamination
 - [ ] Update SKILL.md to document this limitation and the `missing_anchors`-first interpretation
 - [ ] Try the 15 beginner questions (b01–b15) in the docs site chatbot UI — compare which docs it surfaces and whether answers differ from the MCP eval results
+- [ ] Add LLM-generated relevance scoring of returned doc links — for each question, have the agent rate each fetched page for relevance (e.g. directly answers / partially relevant / off-topic) independent of whether the overall question passes; this gives finer signal than pass/fail on retrieval quality
 
 ## Phase 4 — Eval framework validation
 
