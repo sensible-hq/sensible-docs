@@ -35,13 +35,11 @@ For more information, see the following tables.
 
 **SenseML extraction method**
 
-| File format                                                    | Methods that render non-text pixels<sup>2</sup> | NLP Table method,<br/>Fixed Table method<sup>3</sup> | Extraction of text that requires OCR |
-| -------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------- | ------------------------------------ |
-| PDF                                                            | ✅                                                    | ✅                                                   | ✅                                   |
-| Microsoft Word                             | ✅                                                    | ✅                                                   | ✅                                   |
-| Spreadsheet formats | ❌                                                    | ❌                                                   | ❌                                   |
-| JPEG, PNG            | ✅                                                    | ✅                                                   | ✅                                   |
-| TIFF                       | ❌                                                    | ❌                                                   | ✅                                   |
+| | PDF | Microsoft Word | Spreadsheet formats | JPEG, PNG | TIFF |
+  | --- | --- | --- | --- | --- | --- |
+  | **Methods that render non-text pixels<sup>2</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
+  | **NLP Table method,<br/>Fixed Table method<sup>3</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
+  | **Extraction of text that requires OCR** | ✅ | ✅ | ❌ | ✅ | ✅ |
 
 
 1. If you're processing portfolios and expect a mix of image- and non-image files, then you can process single-page image files as portfolios. Sensible returns the first document it identifies in the image file.
