@@ -23,12 +23,12 @@ jobs:
 
       - name: Check Python SDK README
         run: |
-          python scripts/sdk_sync/sync_readme.py \
+          python scripts/sdk_check/check_readme.py \
             https://raw.githubusercontent.com/sensible-hq/sensible-api-py/main/README.md \
             docs/integrations/sdk-guides/python-sdk-quickstart.md
 
       - name: Check Node SDK README
         run: |
-          python scripts/sdk_sync/sync_readme.py \
+          python scripts/sdk_check/check_readme.py \
             https://raw.githubusercontent.com/sensible-hq/sensible-api-js/main/README.md \
             docs/integrations/sdk-guides/node-sdk-quickstart.md
