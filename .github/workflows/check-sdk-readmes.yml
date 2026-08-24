@@ -1,4 +1,4 @@
-name: Sync SDK READMEs
+name: Check SDK READMEs
 
 on:
   push:
@@ -12,6 +12,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,14 +25,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Check Python SDK README
-        run: |
-          python scripts/sdk_check/check_readme.py \
-            https://raw.githubusercontent.com/sensible-hq/sensible-api-py/main/README.md \
-            docs/integrations/sdk-guides/python-sdk-quickstart.md
-
-      - name: Check Node SDK README
-        run: |
-          python scripts/sdk_check/check_readme.py \
-            https://raw.githubusercontent.com/sensible-hq/sensible-api-js/main/README.md \
-            docs/integrations/sdk-guides/node-sdk-quickstart.md
+      - name: Check SDK READMEs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/sdk_check/check_readme.py
