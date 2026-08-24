@@ -1,0 +1,53 @@
+name: Sync SDK READMEs
+
+on:
+  push:
+    branches:
+      - v0
+    paths:
+      - 'docs/integrations/sdk-guides/python-sdk-quickstart.md'
+      - 'docs/integrations/sdk-guides/node-sdk-quickstart.md'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Sync Python SDK README
+        id: sync_py
+        env:
+          GH_TOKEN: ${{ secrets.SDK_SYNC_TOKEN }}
+        run: |
+          python scripts/sdk_sync/sync_readme.py \
+            sensible-hq/sensible-api-py \
+            docs/integrations/sdk-guides/python-sdk-quickstart.md
+
+      - name: Sync Node SDK README
+        id: sync_js
+        env:
+          GH_TOKEN: ${{ secrets.SDK_SYNC_TOKEN }}
+        run: |
+          python scripts/sdk_sync/sync_readme.py \
+            sensible-hq/sensible-api-js \
+            docs/integrations/sdk-guides/node-sdk-quickstart.md
+
+      - name: Fail if PRs are open
+        if: always()
+        run: |
+          PY="${{ steps.sync_py.outputs.pr_opened }}"
+          JS="${{ steps.sync_js.outputs.pr_opened }}"
+          if [ "$PY" = "true" ] || [ "$JS" = "true" ]; then
+            echo "::error::SDK README PRs must be merged before this check passes."
+            [ "$PY" = "true" ] && echo "  Python SDK: ${{ steps.sync_py.outputs.pr_url }}"
+            [ "$JS" = "true" ] && echo "  Node SDK:   ${{ steps.sync_js.outputs.pr_url }}"
+            exit 1
+          fi
