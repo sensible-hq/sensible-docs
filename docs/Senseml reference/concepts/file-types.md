@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Supported document file formats'
+  description: Supported document file formats
   robots: index
 next:
   description: ''
@@ -24,13 +24,14 @@ For more information, see the following tables.
 
 **Operation context**
 
-| File format                                                    | Sensible app's Extract tab | Single-file extraction with SDKs or API | Portfolio extraction | Email bodies | Email attachments | Classification by type with SDKs or API |
-| -------------------------------------------------------------- | -------------------------- | --------------------------------------- | ------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| PDF                                                            | ✅                         | ✅                                      | ✅                                    | ✅                                   | ✅                                   | ✅                                      |
-| Microsoft Word                             | ✅                         | ✅                                      | ✅                                    | ✅                                   | ✅                                   | ✅                                      |
-| Spreadsheet formats | ✅                         | ✅                                      | ❌                                    | ✅                                   | ✅                                   | ✅                                      |
-| JPEG, PNG            | ✅                         | ✅                                      | ✅<sup>1</sup>                                   | ✅                                   | ✅                                   | ✅                                      |
-| TIFF                       | ❌                         | ✅                                      | ❌                                    | n/a                             | ✅                                   | ✅                                      |
+| | PDF | Microsoft Word | Spreadsheet formats | JPEG, PNG | TIFF |
+  | --- | --- | --- | --- | --- | --- |
+  | **Sensible app's Extract tab** | ✅ | ✅ | ✅ | ✅ | ❌ |
+  | **Single-file extraction with SDKs or API** | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | **Portfolio extraction** | ✅ | ✅ | ❌ | ✅<sup>1</sup> | ❌ |
+  | **Email bodies** | ✅ | ✅ | ✅ | ✅ | n/a |
+  | **Email attachments** | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | **Classification by type with SDKs or API** | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 **SenseML extraction method**
 
