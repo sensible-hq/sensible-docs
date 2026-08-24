@@ -8,7 +8,7 @@ link:
   url: https://sensiblehq.readme.io/docs/senseml-reference-introduction
 metadata:
   title: ''
-  description: ''
+  description: 'null'
   robots: noindex
 next:
   description: ''
