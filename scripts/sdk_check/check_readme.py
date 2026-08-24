@@ -20,7 +20,7 @@ from datetime import date
 SYNC_MARKER = "<!-- SENSIBLE-DOCS-SYNC-START -->"
 PR_BRANCH = "auto/sdk-readme-sync-needed"
 PR_TITLE = "SDK READMEs need updating"
-PENDING_FILE = "scripts/sdk_check/sync-pending.md"
+PENDING_FILE = "scripts/sdk_check/sdk-docs-sync-pending.md"
 
 SDKS = [
     {
