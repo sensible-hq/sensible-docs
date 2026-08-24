@@ -5,8 +5,7 @@ on:
     branches:
       - v0
     paths:
-      - 'docs/integrations/sdk-guides/python-sdk-quickstart.md'
-      - 'docs/integrations/sdk-guides/node-sdk-quickstart.md'
+      - 'docs/integrations/sdk-guides/**'
   workflow_dispatch:
 
 jobs:
@@ -22,32 +21,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Sync Python SDK README
-        id: sync_py
-        env:
-          GH_TOKEN: ${{ secrets.SDK_SYNC_TOKEN }}
+      - name: Check Python SDK README
         run: |
           python scripts/sdk_sync/sync_readme.py \
-            sensible-hq/sensible-api-py \
+            https://raw.githubusercontent.com/sensible-hq/sensible-api-py/main/README.md \
             docs/integrations/sdk-guides/python-sdk-quickstart.md
 
-      - name: Sync Node SDK README
-        id: sync_js
-        env:
-          GH_TOKEN: ${{ secrets.SDK_SYNC_TOKEN }}
+      - name: Check Node SDK README
         run: |
           python scripts/sdk_sync/sync_readme.py \
-            sensible-hq/sensible-api-js \
+            https://raw.githubusercontent.com/sensible-hq/sensible-api-js/main/README.md \
             docs/integrations/sdk-guides/node-sdk-quickstart.md
-
-      - name: Fail if PRs are open
-        if: always()
-        run: |
-          PY="${{ steps.sync_py.outputs.pr_opened }}"
-          JS="${{ steps.sync_js.outputs.pr_opened }}"
-          if [ "$PY" = "true" ] || [ "$JS" = "true" ]; then
-            echo "::error::SDK README PRs must be merged before this check passes."
-            [ "$PY" = "true" ] && echo "  Python SDK: ${{ steps.sync_py.outputs.pr_url }}"
-            [ "$JS" = "true" ] && echo "  Node SDK:   ${{ steps.sync_js.outputs.pr_url }}"
-            exit 1
-          fi

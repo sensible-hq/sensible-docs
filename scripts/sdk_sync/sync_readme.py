@@ -1,74 +1,34 @@
 #!/usr/bin/env python3
-"""Sync a sensible-docs SDK guide to a GitHub SDK repo's README.
+"""Check that a sensible-docs SDK guide matches the corresponding GitHub README.
 
 Usage:
-    sync_readme.py <owner/repo> <source_doc_path>
+    sync_readme.py <raw-readme-url> <source_doc_path>
 
-The README in the SDK repo is split by a marker comment:
+The README is split by a marker comment:
 
     <!-- SENSIBLE-DOCS-SYNC-START -->
 
-Everything before (and including) that line is the "intro" — language-specific
-content that lives in the SDK repo. Everything after is replaced by the content
-of the sensible-docs source file (YAML frontmatter stripped).
+Everything after that line must match the source doc (YAML frontmatter stripped).
+Exits 1 with a diff if they are out of sync, 0 if they match.
 
-One-time setup: add the marker to each SDK repo's README before running this.
-
-Always exits 0. Sets GITHUB_OUTPUT: pr_opened=true/false, pr_url=<url>.
-The calling workflow owns the failure step.
+One-time setup: add the marker to each SDK repo's README just before the synced
+section. No authentication required — the README URL must be publicly accessible.
 """
 
-import base64
-import json
-import os
-import re
-import subprocess
 import sys
-import tempfile
+import re
+import urllib.request
+import urllib.error
 
 SYNC_MARKER = "<!-- SENSIBLE-DOCS-SYNC-START -->"
-SYNC_BRANCH = "auto/sync-readme-from-sensible-docs"
-SYNC_TITLE = "Sync README from sensible-docs"
-GITHUB_OUTPUT = os.environ.get("GITHUB_OUTPUT", "")
 
 
-def set_output(name, value):
-    if GITHUB_OUTPUT:
-        with open(GITHUB_OUTPUT, "a") as f:
-            f.write(f"{name}={value}\n")
-    else:
-        print(f"OUTPUT {name}={value}")
-
-
-def run(cmd, check=True):
-    return subprocess.run(cmd, capture_output=True, text=True, check=check)
-
-
-def gh_json(path, method=None, input_data=None):
-    cmd = ["gh", "api", path]
-    if method:
-        cmd += ["--method", method]
-    if input_data is not None:
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
-            json.dump(input_data, f)
-            fname = f.name
-        cmd += ["--input", fname]
-        try:
-            result = run(cmd)
-        finally:
-            os.unlink(fname)
-    else:
-        result = run(cmd)
-    return json.loads(result.stdout)
-
-
-def get_readme(repo, ref=None):
-    path = f"repos/{repo}/contents/README.md"
-    if ref:
-        path += f"?ref={ref}"
-    data = gh_json(path)
-    content = base64.b64decode(data["content"]).decode("utf-8")
-    return content, data["sha"]
+def fetch(url):
+    try:
+        with urllib.request.urlopen(url) as r:
+            return r.read().decode("utf-8")
+    except urllib.error.HTTPError as e:
+        sys.exit(f"ERROR: could not fetch {url}: {e}")
 
 
 def strip_frontmatter(content):
@@ -79,125 +39,55 @@ def strip_frontmatter(content):
     return content
 
 
-def split_readme(readme):
-    """Return (intro, body) split on the sync marker line (inclusive in intro)."""
+def split_on_marker(text, source):
     marker_line = SYNC_MARKER + "\n"
-    idx = readme.find(marker_line)
+    idx = text.find(marker_line)
     if idx == -1:
         sys.exit(
-            f"ERROR: sync marker not found in README.\n"
-            f"Add this line to the README just before the synced section:\n\n"
+            f"ERROR: sync marker not found in {source}.\n"
+            f"Add this line just before the synced section:\n\n"
             f"  {SYNC_MARKER}\n"
         )
-    split = idx + len(marker_line)
-    return readme[:split], readme[split:]
-
-
-def get_default_branch(repo):
-    return gh_json(f"repos/{repo}")["default_branch"]
-
-
-def branch_exists(repo, branch):
-    return run(["gh", "api", f"repos/{repo}/git/refs/heads/{branch}"], check=False).returncode == 0
-
-
-def create_branch(repo, branch, from_sha):
-    gh_json(
-        f"repos/{repo}/git/refs",
-        method="POST",
-        input_data={"ref": f"refs/heads/{branch}", "sha": from_sha},
-    )
-
-
-def get_branch_head_sha(repo, branch):
-    return gh_json(f"repos/{repo}/git/refs/heads/{branch}")["object"]["sha"]
-
-
-def update_readme_on_branch(repo, branch, content, file_sha, message):
-    gh_json(
-        f"repos/{repo}/contents/README.md",
-        method="PUT",
-        input_data={
-            "message": message,
-            "content": base64.b64encode(content.encode()).decode(),
-            "sha": file_sha,
-            "branch": branch,
-        },
-    )
-
-
-def find_open_pr(repo):
-    result = run([
-        "gh", "pr", "list",
-        "--repo", repo,
-        "--state", "open",
-        "--head", SYNC_BRANCH,
-        "--json", "number,url",
-        "--jq", ".[0] // empty",
-    ])
-    s = result.stdout.strip()
-    return json.loads(s) if s else None
-
-
-def create_pr(repo, default_branch):
-    result = run([
-        "gh", "pr", "create",
-        "--repo", repo,
-        "--title", SYNC_TITLE,
-        "--body", (
-            "Auto-generated: syncs the README body from the "
-            "[sensible-docs](https://github.com/sensible-hq/sensible-docs) "
-            "repository, which is the source of truth for SDK guide content.\n\n"
-            "Merge to apply the latest documentation update."
-        ),
-        "--head", SYNC_BRANCH,
-        "--base", default_branch,
-    ])
-    return result.stdout.strip()
+    return text[idx + len(marker_line):]
 
 
 def main():
     if len(sys.argv) != 3:
-        sys.exit("Usage: sync_readme.py <owner/repo> <source_doc_path>")
+        sys.exit("Usage: sync_readme.py <raw-readme-url> <source_doc_path>")
 
-    repo, source_path = sys.argv[1], sys.argv[2]
+    readme_url, source_path = sys.argv[1], sys.argv[2]
+
+    readme = fetch(readme_url)
+    readme_body = split_on_marker(readme, readme_url)
 
     with open(source_path) as f:
-        body = strip_frontmatter(f.read())
+        source_body = strip_frontmatter(f.read())
 
-    current_readme, _ = get_readme(repo)
-    intro, _ = split_readme(current_readme)
-    expected_readme = intro + body
-
-    if current_readme.rstrip("\n") == expected_readme.rstrip("\n"):
-        print(f"✓ {repo} README is up to date")
-        set_output("pr_opened", "false")
-        set_output("pr_url", "")
+    if readme_body.rstrip("\n") == source_body.rstrip("\n"):
+        print(f"✓ {source_path} matches {readme_url}")
         return
 
-    print(f"→ {repo} README needs updating")
-    default_branch = get_default_branch(repo)
-    existing_pr = find_open_pr(repo)
+    # Derive a human-readable repo URL from the raw URL
+    # https://raw.githubusercontent.com/org/repo/branch/README.md
+    #   -> https://github.com/org/repo
+    parts = readme_url.replace("https://raw.githubusercontent.com/", "").split("/")
+    repo_url = f"https://github.com/{parts[0]}/{parts[1]}" if len(parts) >= 2 else readme_url
 
-    if existing_pr:
-        _, branch_file_sha = get_readme(repo, ref=SYNC_BRANCH)
-        update_readme_on_branch(repo, SYNC_BRANCH, expected_readme, branch_file_sha, SYNC_TITLE)
-        pr_url = existing_pr["url"]
-        print(f"→ Updated existing PR #{existing_pr['number']}: {pr_url}")
-    else:
-        if branch_exists(repo, SYNC_BRANCH):
-            _, branch_file_sha = get_readme(repo, ref=SYNC_BRANCH)
-        else:
-            head_sha = get_branch_head_sha(repo, default_branch)
-            create_branch(repo, SYNC_BRANCH, head_sha)
-            _, branch_file_sha = get_readme(repo, ref=SYNC_BRANCH)
+    readme_lines = readme_body.splitlines()
+    source_lines = source_body.splitlines()
 
-        update_readme_on_branch(repo, SYNC_BRANCH, expected_readme, branch_file_sha, SYNC_TITLE)
-        pr_url = create_pr(repo, default_branch)
-        print(f"→ Created PR: {pr_url}")
+    print(f"✗ Out of sync: {source_path}")
+    print()
+    print("To fix:")
+    print(f"  1. Open {repo_url}/edit/main/README.md")
+    print(f"  2. Replace everything after '{SYNC_MARKER}'")
+    print(f"     with the content of {source_path} (minus its YAML frontmatter)")
+    print(f"  3. Open a PR in that repo and merge it")
+    print()
+    print(f"  README body after marker: {len(readme_lines)} lines")
+    print(f"  sensible-docs source:     {len(source_lines)} lines")
 
-    set_output("pr_opened", "true")
-    set_output("pr_url", pr_url)
+    sys.exit(1)
 
 
 if __name__ == "__main__":
