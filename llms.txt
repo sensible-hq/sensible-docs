@@ -19,6 +19,8 @@ This file contains links to the Sensible documentation to help LLMs understand t
 ## integrations
 
 - [SDK guides](https://docs.sensible.so/docs/sdk-guides.md): Guides for Node/TypeScript and Python SDKs
+- [Python SDK quickstart](https://docs.sensible.so/docs/python-sdk-quickstart.md)
+- [Node SDK quickstart](https://docs.sensible.so/docs/node-sdk-quickstart.md)
 - [Zapier overview](https://docs.sensible.so/docs/zapier.md): Introduction to Sensible's Zapier integration
 - [Integrate with Airtable using Zapier](https://docs.sensible.so/docs/zapier-getting-started.md): Get started with Zapier by learning to integrate Sensible and Airtable for sample 1040 tax forms
 - [Integrate with Slack and Google Sheets using Zapier](https://docs.sensible.so/docs/zapier-tutorial-2.md): integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form example documents
