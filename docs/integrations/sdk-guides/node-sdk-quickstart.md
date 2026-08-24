@@ -52,7 +52,7 @@ To initialize the SDK, paste the following code into your `index.mjs` file and r
 const sensible = new SensibleSDK(YOUR_API_KEY);
 ```
 
-**Note:** Secure your API key in production, for example as a GitHub secret or environment variable.
+**Note:** Secure your API key in production, for example, as a GitHub secret.
 
 ## Quickstart
 
