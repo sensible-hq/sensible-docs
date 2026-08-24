@@ -1,13 +1,13 @@
-"""Tests for scripts/sdk_check/check_readme.py"""
+"""Tests for scripts/sdk_check/check_sdk_readme.py"""
 
 import sys
 from unittest.mock import patch, MagicMock
 
 import pytest
 
-import check_readme
+import check_sdk_readme
 
-MARKER = check_readme.SYNC_MARKER
+MARKER = check_sdk_readme.SYNC_MARKER
 MARKER_LINE = MARKER + "\n"
 
 # ── strip_frontmatter() ───────────────────────────────────────────────────────
@@ -15,15 +15,15 @@ MARKER_LINE = MARKER + "\n"
 class TestStripFrontmatter:
     def test_strips_yaml_block(self):
         content = "---\ntitle: Foo\n---\nBody text"
-        assert check_readme.strip_frontmatter(content) == "Body text"
+        assert check_sdk_readme.strip_frontmatter(content) == "Body text"
 
     def test_strips_leading_newlines_after_frontmatter(self):
         content = "---\ntitle: Foo\n---\n\n\nBody text"
-        assert check_readme.strip_frontmatter(content) == "Body text"
+        assert check_sdk_readme.strip_frontmatter(content) == "Body text"
 
     def test_no_frontmatter_returns_unchanged(self):
         content = "# Title\n\nBody text"
-        assert check_readme.strip_frontmatter(content) == "# Title\n\nBody text"
+        assert check_sdk_readme.strip_frontmatter(content) == "# Title\n\nBody text"
 
 
 
@@ -32,19 +32,19 @@ class TestStripFrontmatter:
 class TestSplitOnMarker:
     def test_returns_content_after_marker(self):
         text = f"intro\n{MARKER_LINE}body content\n"
-        assert check_readme.split_on_marker(text, "test") == "body content\n"
+        assert check_sdk_readme.split_on_marker(text, "test") == "body content\n"
 
     def test_marker_at_start(self):
         text = f"{MARKER_LINE}body"
-        assert check_readme.split_on_marker(text, "test") == "body"
+        assert check_sdk_readme.split_on_marker(text, "test") == "body"
 
     def test_empty_body_after_marker(self):
         text = f"intro\n{MARKER_LINE}"
-        assert check_readme.split_on_marker(text, "test") == ""
+        assert check_sdk_readme.split_on_marker(text, "test") == ""
 
     def test_missing_marker_exits(self):
         with pytest.raises(SystemExit):
-            check_readme.split_on_marker("no marker here", "test-source")
+            check_sdk_readme.split_on_marker("no marker here", "test-source")
 
 
 # ── build_issue_body() ────────────────────────────────────────────────────────
@@ -62,17 +62,17 @@ class TestBuildIssueBody:
 
     def test_contains_edit_url(self, tmp_path):
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "## SDK overview\nbody\n")
-        body = check_readme.build_issue_body([sdk])
+        body = check_sdk_readme.build_issue_body([sdk])
         assert sdk["edit_url"] in body
 
     def test_contains_sdk_body_content(self, tmp_path):
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "## SDK overview\nbody content here\n")
-        body = check_readme.build_issue_body([sdk])
+        body = check_sdk_readme.build_issue_body([sdk])
         assert "body content here" in body
 
     def test_contains_marker_instruction(self, tmp_path):
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "body\n")
-        body = check_readme.build_issue_body([sdk])
+        body = check_sdk_readme.build_issue_body([sdk])
         assert MARKER in body
 
     def test_multiple_sdks_both_appear(self, tmp_path):
@@ -80,7 +80,7 @@ class TestBuildIssueBody:
             self._make_sdk(tmp_path, "sensible-api-py", "python body\n"),
             self._make_sdk(tmp_path, "sensible-api-js", "node body\n"),
         ]
-        body = check_readme.build_issue_body(sdks)
+        body = check_sdk_readme.build_issue_body(sdks)
         assert "sensible-api-py" in body
         assert "sensible-api-js" in body
         assert "python body" in body
@@ -88,7 +88,7 @@ class TestBuildIssueBody:
 
     def test_strips_frontmatter_from_source(self, tmp_path):
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "real body\n")
-        body = check_readme.build_issue_body([sdk])
+        body = check_sdk_readme.build_issue_body([sdk])
         assert "title:" not in body
 
 
@@ -109,12 +109,12 @@ class TestMain:
         js_path = self._make_source(tmp_path, "js", body)
 
         sdks = [
-            {**check_readme.SDKS[0], "source_path": py_path},
-            {**check_readme.SDKS[1], "source_path": js_path},
+            {**check_sdk_readme.SDKS[0], "source_path": py_path},
+            {**check_sdk_readme.SDKS[1], "source_path": js_path},
         ]
-        with patch("check_readme.SDKS", sdks), \
-             patch("check_readme.fetch", side_effect=[self._readme(body), self._readme(body)]):
-            check_readme.main()  # should not raise
+        with patch("check_sdk_readme.SDKS", sdks), \
+             patch("check_sdk_readme.fetch", side_effect=[self._readme(body), self._readme(body)]):
+            check_sdk_readme.main()  # should not raise
 
     def test_fails_when_out_of_sync(self, tmp_path):
         source_body = "## SDK overview\nnew content\n"
@@ -123,14 +123,14 @@ class TestMain:
         js_path = self._make_source(tmp_path, "js", source_body)
 
         sdks = [
-            {**check_readme.SDKS[0], "source_path": py_path},
-            {**check_readme.SDKS[1], "source_path": js_path},
+            {**check_sdk_readme.SDKS[0], "source_path": py_path},
+            {**check_sdk_readme.SDKS[1], "source_path": js_path},
         ]
-        with patch("check_readme.SDKS", sdks), \
-             patch("check_readme.fetch", return_value=self._readme(readme_body)), \
-             patch("check_readme.open_or_update_issue", return_value="https://github.com/issues/1"):
+        with patch("check_sdk_readme.SDKS", sdks), \
+             patch("check_sdk_readme.fetch", return_value=self._readme(readme_body)), \
+             patch("check_sdk_readme.open_or_update_issue", return_value="https://github.com/issues/1"):
             with pytest.raises(SystemExit) as exc:
-                check_readme.main()
+                check_sdk_readme.main()
             assert exc.value.code == 1
 
     def test_only_drifted_sdks_reported(self, tmp_path):
@@ -140,15 +140,15 @@ class TestMain:
         js_path = self._make_source(tmp_path, "js", new_body)
 
         sdks = [
-            {**check_readme.SDKS[0], "source_path": py_path},
-            {**check_readme.SDKS[1], "source_path": js_path},
+            {**check_sdk_readme.SDKS[0], "source_path": py_path},
+            {**check_sdk_readme.SDKS[1], "source_path": js_path},
         ]
         captured = []
-        with patch("check_readme.SDKS", sdks), \
-             patch("check_readme.fetch", side_effect=[self._readme(body), self._readme(body)]), \
-             patch("check_readme.open_or_update_issue", side_effect=lambda sdks: captured.extend(sdks) or "url"):
+        with patch("check_sdk_readme.SDKS", sdks), \
+             patch("check_sdk_readme.fetch", side_effect=[self._readme(body), self._readme(body)]), \
+             patch("check_sdk_readme.open_or_update_issue", side_effect=lambda sdks: captured.extend(sdks) or "url"):
             with pytest.raises(SystemExit):
-                check_readme.main()
+                check_sdk_readme.main()
 
         assert len(captured) == 1
-        assert captured[0]["name"] == check_readme.SDKS[1]["name"]
+        assert captured[0]["name"] == check_sdk_readme.SDKS[1]["name"]

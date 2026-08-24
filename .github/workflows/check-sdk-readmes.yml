@@ -27,4 +27,4 @@ jobs:
       - name: Check SDK READMEs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/sdk_check/check_readme.py
+        run: python scripts/sdk_check/check_sdk_readme.py
