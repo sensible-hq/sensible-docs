@@ -5,17 +5,17 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Guides for Node/TypeScript and Python SDKs'
+  description: Guides for Node/TypeScript and Python SDKs
   robots: index
 next:
   description: ''
 ---
 See the following topics for Sensible SDK guides:
 
-| Language        | Quickstart                                                                     | Guides                                                                 |
-| --------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| Node/Typescript | [Node quickstart](https://github.com/sensible-hq/sensible-api-js#quickstart)   | [Node readme](https://github.com/sensible-hq/sensible-api-js#readme)   |
-| Python          | [Python quickstart](https://github.com/sensible-hq/sensible-api-py#quickstart) | [Python readme](https://github.com/sensible-hq/sensible-api-py#readme) |
+| Language        | Quickstart                                     | Guides                                                                 |
+| --------------- | ---------------------------------------------- | ---------------------------------------------------------------------- |
+| Node/Typescript | [Node quickstart](doc:node-sdk-quickstart)     | [Node readme](https://github.com/sensible-hq/sensible-api-js#readme)   |
+| Python          | [Python quickstart](doc:python-sdk-quickstart) | [Python readme](https://github.com/sensible-hq/sensible-api-py#readme) |
 
 Access SDK or API starter code snippets on the **Integrations** tab for each document type:
 
