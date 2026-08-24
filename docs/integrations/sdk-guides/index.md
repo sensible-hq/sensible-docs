@@ -12,10 +12,10 @@ next:
 ---
 See the following topics for Sensible SDK guides:
 
-| Language        | Quickstart                                     | Guides                                                                 |
-| --------------- | ---------------------------------------------- | ---------------------------------------------------------------------- |
-| Node/Typescript | [Node quickstart](doc:node-sdk-quickstart)     | [Node readme](https://github.com/sensible-hq/sensible-api-js#readme)   |
-| Python          | [Python quickstart](doc:python-sdk-quickstart) | [Python readme](https://github.com/sensible-hq/sensible-api-py#readme) |
+| Language        | Quickstart                                     | Guides                                                                        |
+| --------------- | ---------------------------------------------- | ----------------------------------------------------------------------------- |
+| Node/Typescript | [Node SDK quickstart](doc:node-sdk-quickstart) | [Node SDK reference](doc:node-sdk-quickstart#usage-extract-document-data)     |
+| Python          | [Python quickstart](doc:python-sdk-quickstart) | [Python SDK reference](doc:python-sdk-quickstart#usage-extract-document-data) |
 
 Access SDK or API starter code snippets on the **Integrations** tab for each document type:
 
