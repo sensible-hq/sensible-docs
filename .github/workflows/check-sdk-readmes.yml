@@ -1,0 +1,34 @@
+name: Sync SDK READMEs
+
+on:
+  push:
+    branches:
+      - v0
+    paths:
+      - 'docs/integrations/sdk-guides/**'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check Python SDK README
+        run: |
+          python scripts/sdk_check/check_readme.py \
+            https://raw.githubusercontent.com/sensible-hq/sensible-api-py/main/README.md \
+            docs/integrations/sdk-guides/python-sdk-quickstart.md
+
+      - name: Check Node SDK README
+        run: |
+          python scripts/sdk_check/check_readme.py \
+            https://raw.githubusercontent.com/sensible-hq/sensible-api-js/main/README.md \
+            docs/integrations/sdk-guides/node-sdk-quickstart.md
