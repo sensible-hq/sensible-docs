@@ -1,4 +1,4 @@
-name: Sync SDK READMEs
+name: Check SDK READMEs
 
 on:
   push:
