@@ -59,7 +59,11 @@ def normalize(text):
                 normalized.append(c)
             line = "| " + " | ".join(normalized) + " |"
         lines.append(line)
-    return "\n".join(lines)
+    text = "\n".join(lines)
+    text = re.sub(r"(?<!\*)\*([^*\n]+)\*(?!\*)", r"_\1_", text)  # *italic* → _italic_
+    text = text.replace("\\&", "&")
+    text = text.replace("<br/>", "<br />")
+    return text
 
 
 def strip_frontmatter(content):
@@ -100,8 +104,8 @@ def find_open_issue():
 
 def make_diff(readme_body, source_body, sdk_name, source_path):
     diff = difflib.unified_diff(
-        readme_body.splitlines(keepends=True),
-        source_body.splitlines(keepends=True),
+        normalize(readme_body).splitlines(keepends=True),
+        normalize(source_body).splitlines(keepends=True),
         fromfile=f"{sdk_name}/README.md (current)",
         tofile=f"{source_path} (sensible-docs)",
         n=2,
@@ -110,25 +114,34 @@ def make_diff(readme_body, source_body, sdk_name, source_path):
 
 
 def build_issue_body(drifted_sdks):
-    lines = [f"Checked: {date.today()}\n"]
+    lines = [
+        f"Checked: {date.today()}\n",
+        "\nClose this issue after updating the SDK READMEs.\n",
+        "\n## Instructions\n",
+    ]
 
     for sdk in drifted_sdks:
-        with open(sdk["source_path"]) as f:
-            source_body = strip_frontmatter(f.read())
-        readme_body = sdk["readme_body"]
-
-        diff = make_diff(readme_body, source_body, sdk["name"], sdk["source_path"])
         source_raw_url = (
             "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/"
             + sdk["source_path"]
         )
         lines += [
-            f"\n## {sdk['name']}\n",
+            f"\n### {sdk['name']}\n",
             f"\n[Edit README]({sdk['edit_url']})\n",
             f"\nReplace everything after `{SYNC_MARKER}` with the contents of: {source_raw_url}\n",
+        ]
+
+    lines.append("\n## Diffs\n")
+
+    for sdk in drifted_sdks:
+        with open(sdk["source_path"]) as f:
+            source_body = strip_frontmatter(f.read())
+        diff = make_diff(sdk["readme_body"], source_body, sdk["name"], sdk["source_path"])
+        lines += [
+            f"\n### {sdk['name']}\n",
             f"\n````diff\n{diff}````\n",
         ]
-    lines.append("\nClose this issue after updating the SDK READMEs.\n")
+
     return "".join(lines)
 
 

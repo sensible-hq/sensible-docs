@@ -43,6 +43,15 @@ class TestNormalize:
         short_sep = "| --- | --- |"
         assert check_sdk_readme.normalize(long_sep) == check_sdk_readme.normalize(short_sep)
 
+    def test_normalizes_asterisk_italic_to_underscore(self):
+        assert check_sdk_readme.normalize("or *document type*, in") == "or _document type_, in"
+
+    def test_normalizes_escaped_ampersand(self):
+        assert check_sdk_readme.normalize("url?a=1\\&b=2") == "url?a=1&b=2"
+
+    def test_normalizes_self_closing_br(self):
+        assert check_sdk_readme.normalize("line<br/>next") == "line<br />next"
+
     def test_preserves_non_table_content(self):
         assert check_sdk_readme.normalize("hello\nworld") == "hello\nworld"
 
@@ -112,22 +121,36 @@ class TestBuildIssueBody:
         body = check_sdk_readme.build_issue_body([sdk])
         assert "title:" not in body
 
-    def test_instructions_shown_before_diff(self, tmp_path):
+    def test_instructions_section_before_diffs_section(self, tmp_path):
         sdk = self._make_sdk(
             tmp_path, "sensible-api-py",
             source_body="## SDK overview\nnew line\n",
             readme_body="## SDK overview\nold line\n",
         )
         body = check_sdk_readme.build_issue_body([sdk])
-        url_pos = body.find("raw.githubusercontent.com")
-        diff_pos = body.find("````diff")
-        assert url_pos != -1 and diff_pos != -1
-        assert url_pos < diff_pos
+        assert body.index("## Instructions") < body.index("## Diffs")
+
+    def test_close_instruction_at_top(self, tmp_path):
+        sdk = self._make_sdk(tmp_path, "sensible-api-py", "body\n")
+        body = check_sdk_readme.build_issue_body([sdk])
+        close_pos = body.find("Close this issue")
+        instructions_pos = body.find("## Instructions")
+        assert close_pos < instructions_pos
 
     def test_uses_quadruple_backtick_fence(self, tmp_path):
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "body\n")
         body = check_sdk_readme.build_issue_body([sdk])
         assert "````diff" in body
+
+    def test_multiple_sdks_instructions_all_before_diffs(self, tmp_path):
+        sdks = [
+            self._make_sdk(tmp_path, "sensible-api-py", "python body\n"),
+            self._make_sdk(tmp_path, "sensible-api-js", "node body\n"),
+        ]
+        body = check_sdk_readme.build_issue_body(sdks)
+        assert body.index("## Instructions") < body.index("## Diffs")
+        assert body.count("raw.githubusercontent.com") == 2
+        assert body.count("````diff") == 2
 
 
 # ── main() ────────────────────────────────────────────────────────────────────
