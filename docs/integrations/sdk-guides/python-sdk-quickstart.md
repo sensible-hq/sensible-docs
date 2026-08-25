@@ -5,6 +5,8 @@ hidden: false
 metadata:
   robots: index
 ---
+## SDK overview
+
 This open-source Sensible SDK offers convenient access to the [Sensible API](https://docs.sensible.so/reference/choosing-an-endpoint). Use this SDK to:
 
 - [Extract](#usage-extract-document-data): Extract structured data from your custom documents. Configure the extractions for a set of similar documents, or _document type_, in the Sensible app or Sensible API, then run extractions for documents of the type with this SDK.

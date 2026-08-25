@@ -50,14 +50,15 @@ class TestSplitOnMarker:
 # ── build_issue_body() ────────────────────────────────────────────────────────
 
 class TestBuildIssueBody:
-    def _make_sdk(self, tmp_path, name, body):
+    def _make_sdk(self, tmp_path, name, source_body, readme_body=None):
         source = tmp_path / f"{name}.md"
-        source.write_text(f"---\ntitle: {name}\n---\n{body}")
+        source.write_text(f"---\ntitle: {name}\n---\n{source_body}")
         return {
             "name": name,
             "readme_url": f"https://raw.githubusercontent.com/sensible-hq/{name}/main/README.md",
             "source_path": str(source),
             "edit_url": f"https://github.com/sensible-hq/{name}/edit/main/README.md",
+            "readme_body": readme_body if readme_body is not None else source_body,
         }
 
     def test_contains_edit_url(self, tmp_path):
@@ -90,6 +91,18 @@ class TestBuildIssueBody:
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "real body\n")
         body = check_sdk_readme.build_issue_body([sdk])
         assert "title:" not in body
+
+    def test_diff_shown_before_copy_paste(self, tmp_path):
+        sdk = self._make_sdk(
+            tmp_path, "sensible-api-py",
+            source_body="## SDK overview\nnew line\n",
+            readme_body="## SDK overview\nold line\n",
+        )
+        body = check_sdk_readme.build_issue_body([sdk])
+        diff_pos = body.find("```diff")
+        paste_pos = body.find("````markdown")
+        assert diff_pos != -1 and paste_pos != -1
+        assert diff_pos < paste_pos
 
 
 # ── main() ────────────────────────────────────────────────────────────────────

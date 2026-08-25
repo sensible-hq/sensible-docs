@@ -9,6 +9,7 @@ Requires GH_TOKEN with issues: write on this repo
 (the default GITHUB_TOKEN in GitHub Actions is sufficient).
 """
 
+import difflib
 import json
 import re
 import subprocess
@@ -80,23 +81,36 @@ def find_open_issue():
     return json.loads(s) if s else None
 
 
+def make_diff(readme_body, source_body, sdk_name, source_path):
+    diff = difflib.unified_diff(
+        readme_body.splitlines(keepends=True),
+        source_body.splitlines(keepends=True),
+        fromfile=f"{sdk_name}/README.md (current)",
+        tofile=f"{source_path} (sensible-docs)",
+        n=2,
+    )
+    return "".join(diff)
+
+
 def build_issue_body(drifted_sdks):
-    lines = [
-        f"Checked: {date.today()}\n",
-        f"\nFor each SDK below, open the edit link and replace everything after "
-        f"`{SYNC_MARKER}` with the content shown, then close this issue.\n",
-    ]
+    lines = [f"Checked: {date.today()}\n"]
+
     for sdk in drifted_sdks:
         with open(sdk["source_path"]) as f:
-            body = strip_frontmatter(f.read()).rstrip("\n")
+            source_body = strip_frontmatter(f.read())
+        readme_body = sdk["readme_body"]
+
+        diff = make_diff(readme_body, source_body, sdk["name"], sdk["source_path"])
         lines += [
             f"\n## {sdk['name']}\n",
+            f"\n```diff\n{diff}```\n",
             f"\nEdit: {sdk['edit_url']}\n",
             f"\nReplace everything after `{SYNC_MARKER}` with:\n",
             "\n````markdown\n",
-            body,
+            source_body.rstrip("\n"),
             "\n````\n",
         ]
+    lines.append("\nClose this issue after updating the SDK READMEs.\n")
     return "".join(lines)
 
 
@@ -138,7 +152,7 @@ def main():
             print(f"✓ {sdk['name']} README is up to date")
         else:
             print(f"✗ {sdk['name']} README is out of sync")
-            drifted.append(sdk)
+            drifted.append({**sdk, "readme_body": readme_body})
 
     if not drifted:
         return
