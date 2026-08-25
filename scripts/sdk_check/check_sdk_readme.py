@@ -45,6 +45,23 @@ def fetch(url):
         sys.exit(f"ERROR: could not fetch {url}: {e}")
 
 
+def normalize(text):
+    lines = []
+    for line in text.splitlines():
+        line = line.rstrip()
+        if line.startswith("|") and line.endswith("|"):
+            cells = line.split("|")
+            normalized = []
+            for c in cells[1:-1]:
+                c = c.strip()
+                if re.match(r"^-+$", c):
+                    c = "---"
+                normalized.append(c)
+            line = "| " + " | ".join(normalized) + " |"
+        lines.append(line)
+    return "\n".join(lines)
+
+
 def strip_frontmatter(content):
     if content.startswith("---"):
         m = re.match(r"^---\n.*?\n---\n?", content, re.DOTALL)
@@ -148,7 +165,7 @@ def main():
         with open(sdk["source_path"]) as f:
             source_body = strip_frontmatter(f.read())
 
-        if readme_body.rstrip("\n") == source_body.rstrip("\n"):
+        if normalize(readme_body) == normalize(source_body):
             print(f"✓ {sdk['name']} README is up to date")
         else:
             print(f"✗ {sdk['name']} README is out of sync")

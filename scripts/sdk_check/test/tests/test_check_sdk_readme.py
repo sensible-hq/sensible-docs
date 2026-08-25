@@ -27,6 +27,26 @@ class TestStripFrontmatter:
 
 
 
+# ── normalize() ───────────────────────────────────────────────────────────────
+
+class TestNormalize:
+    def test_strips_trailing_line_spaces(self):
+        assert check_sdk_readme.normalize("line   \nother\n") == "line\nother"
+
+    def test_normalizes_table_cell_padding(self):
+        padded = "| key               | value                          |"
+        compact = "| key | value |"
+        assert check_sdk_readme.normalize(padded) == check_sdk_readme.normalize(compact)
+
+    def test_normalizes_separator_row_dash_length(self):
+        long_sep = "| ----------------- | ---------------------------------------------------------- |"
+        short_sep = "| --- | --- |"
+        assert check_sdk_readme.normalize(long_sep) == check_sdk_readme.normalize(short_sep)
+
+    def test_preserves_non_table_content(self):
+        assert check_sdk_readme.normalize("hello\nworld") == "hello\nworld"
+
+
 # ── split_on_marker() ─────────────────────────────────────────────────────────
 
 class TestSplitOnMarker:
@@ -145,6 +165,20 @@ class TestMain:
             with pytest.raises(SystemExit) as exc:
                 check_sdk_readme.main()
             assert exc.value.code == 1
+
+    def test_table_padding_ignored(self, tmp_path):
+        source_body = "| key               | value                          |\n| ----------------- | ------------------------------ |\n"
+        readme_body = "| key | value |\n| --- | --- |\n"
+        py_path = self._make_source(tmp_path, "py", source_body)
+        js_path = self._make_source(tmp_path, "js", source_body)
+
+        sdks = [
+            {**check_sdk_readme.SDKS[0], "source_path": py_path},
+            {**check_sdk_readme.SDKS[1], "source_path": js_path},
+        ]
+        with patch("check_sdk_readme.SDKS", sdks), \
+             patch("check_sdk_readme.fetch", side_effect=[self._readme(readme_body), self._readme(readme_body)]):
+            check_sdk_readme.main()  # should not raise
 
     def test_only_drifted_sdks_reported(self, tmp_path):
         body = "## SDK overview\nbody\n"
