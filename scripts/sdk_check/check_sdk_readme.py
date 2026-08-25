@@ -9,11 +9,12 @@ Requires GH_TOKEN with issues: write on this repo
 (the default GITHUB_TOKEN in GitHub Actions is sufficient).
 """
 
-import difflib
 import json
+import os
 import re
 import subprocess
 import sys
+import tempfile
 import urllib.request
 import urllib.error
 from datetime import date
@@ -103,14 +104,25 @@ def find_open_issue():
 
 
 def make_diff(readme_body, source_body, sdk_name, source_path):
-    diff = difflib.unified_diff(
-        normalize(readme_body).splitlines(keepends=True),
-        normalize(source_body).splitlines(keepends=True),
-        fromfile=f"{sdk_name}/README.md (current)",
-        tofile=f"{source_path} (sensible-docs)",
-        n=2,
-    )
-    return "".join(diff)
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f1, \
+         tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as f2:
+        f1.write(normalize(readme_body))
+        f2.write(normalize(source_body))
+        f1_path, f2_path = f1.name, f2.name
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--no-index", "-U2", "-w", f1_path, f2_path],
+            capture_output=True, text=True,
+        )
+        diff = result.stdout
+        diff = re.sub(r"^diff --git .*\n", "", diff, flags=re.MULTILINE)
+        diff = re.sub(r"^index .*\n", "", diff, flags=re.MULTILINE)
+        diff = diff.replace(f1_path, f"{sdk_name}/README.md (current)")
+        diff = diff.replace(f2_path, f"{source_path} (sensible-docs)")
+        return diff
+    finally:
+        os.unlink(f1_path)
+        os.unlink(f2_path)
 
 
 def build_issue_body(drifted_sdks):

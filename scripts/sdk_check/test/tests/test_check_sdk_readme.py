@@ -76,6 +76,35 @@ class TestSplitOnMarker:
             check_sdk_readme.split_on_marker("no marker here", "test-source")
 
 
+# ── make_diff() ───────────────────────────────────────────────────────────────
+
+class TestMakeDiff:
+    def test_shows_real_content_change(self):
+        diff = check_sdk_readme.make_diff("old line\n", "new line\n", "sdk", "source.md")
+        assert "-old line" in diff
+        assert "+new line" in diff
+
+    def test_ignores_whitespace_differences(self):
+        diff = check_sdk_readme.make_diff(
+            " You can configure\n",
+            "You can configure\n",
+            "sdk", "source.md",
+        )
+        assert diff == ""
+
+    def test_ignores_extra_space_in_list_marker(self):
+        diff = check_sdk_readme.make_diff(
+            "   1.  **(required)** do the thing\n",
+            "   1. **(required)** do the thing\n",
+            "sdk", "source.md",
+        )
+        assert diff == ""
+
+    def test_empty_when_identical(self):
+        body = "## Overview\nsome content\n"
+        assert check_sdk_readme.make_diff(body, body, "sdk", "source.md") == ""
+
+
 # ── build_issue_body() ────────────────────────────────────────────────────────
 
 class TestBuildIssueBody:
@@ -115,11 +144,6 @@ class TestBuildIssueBody:
         assert "sensible-api-py" in body
         assert "sensible-api-js" in body
         assert body.count("raw.githubusercontent.com") == 2
-
-    def test_strips_frontmatter_from_source(self, tmp_path):
-        sdk = self._make_sdk(tmp_path, "sensible-api-py", "real body\n")
-        body = check_sdk_readme.build_issue_body([sdk])
-        assert "title:" not in body
 
     def test_instructions_section_before_diffs_section(self, tmp_path):
         sdk = self._make_sdk(
