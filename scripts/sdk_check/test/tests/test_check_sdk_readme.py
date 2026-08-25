@@ -86,15 +86,16 @@ class TestBuildIssueBody:
         body = check_sdk_readme.build_issue_body([sdk])
         assert sdk["edit_url"] in body
 
-    def test_contains_sdk_body_content(self, tmp_path):
-        sdk = self._make_sdk(tmp_path, "sensible-api-py", "## SDK overview\nbody content here\n")
+    def test_contains_source_raw_url(self, tmp_path):
+        sdk = self._make_sdk(tmp_path, "sensible-api-py", "## SDK overview\nbody\n")
         body = check_sdk_readme.build_issue_body([sdk])
-        assert "body content here" in body
+        assert "raw.githubusercontent.com/sensible-hq/sensible-docs" in body
 
-    def test_contains_marker_instruction(self, tmp_path):
+    def test_contains_marker_instruction_and_raw_url(self, tmp_path):
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "body\n")
         body = check_sdk_readme.build_issue_body([sdk])
         assert MARKER in body
+        assert "raw.githubusercontent.com" in body
 
     def test_multiple_sdks_both_appear(self, tmp_path):
         sdks = [
@@ -104,15 +105,14 @@ class TestBuildIssueBody:
         body = check_sdk_readme.build_issue_body(sdks)
         assert "sensible-api-py" in body
         assert "sensible-api-js" in body
-        assert "python body" in body
-        assert "node body" in body
+        assert body.count("raw.githubusercontent.com") == 2
 
     def test_strips_frontmatter_from_source(self, tmp_path):
         sdk = self._make_sdk(tmp_path, "sensible-api-py", "real body\n")
         body = check_sdk_readme.build_issue_body([sdk])
         assert "title:" not in body
 
-    def test_diff_shown_before_copy_paste(self, tmp_path):
+    def test_diff_shown_before_raw_url(self, tmp_path):
         sdk = self._make_sdk(
             tmp_path, "sensible-api-py",
             source_body="## SDK overview\nnew line\n",
@@ -120,9 +120,9 @@ class TestBuildIssueBody:
         )
         body = check_sdk_readme.build_issue_body([sdk])
         diff_pos = body.find("```diff")
-        paste_pos = body.find("````markdown")
-        assert diff_pos != -1 and paste_pos != -1
-        assert diff_pos < paste_pos
+        url_pos = body.find("raw.githubusercontent.com")
+        assert diff_pos != -1 and url_pos != -1
+        assert diff_pos < url_pos
 
 
 # ── main() ────────────────────────────────────────────────────────────────────

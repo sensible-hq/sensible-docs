@@ -118,14 +118,15 @@ def build_issue_body(drifted_sdks):
         readme_body = sdk["readme_body"]
 
         diff = make_diff(readme_body, source_body, sdk["name"], sdk["source_path"])
+        source_raw_url = (
+            "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/"
+            + sdk["source_path"]
+        )
         lines += [
             f"\n## {sdk['name']}\n",
             f"\n```diff\n{diff}```\n",
-            f"\nEdit: {sdk['edit_url']}\n",
-            f"\nReplace everything after `{SYNC_MARKER}` with:\n",
-            "\n````markdown\n",
-            source_body.rstrip("\n"),
-            "\n````\n",
+            f"\n[Edit README]({sdk['edit_url']})\n",
+            f"\nReplace everything after `{SYNC_MARKER}` with the contents of: {source_raw_url}\n",
         ]
     lines.append("\nClose this issue after updating the SDK READMEs.\n")
     return "".join(lines)
