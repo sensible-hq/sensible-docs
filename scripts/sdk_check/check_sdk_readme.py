@@ -124,9 +124,9 @@ def build_issue_body(drifted_sdks):
         )
         lines += [
             f"\n## {sdk['name']}\n",
-            f"\n```diff\n{diff}```\n",
             f"\n[Edit README]({sdk['edit_url']})\n",
             f"\nReplace everything after `{SYNC_MARKER}` with the contents of: {source_raw_url}\n",
+            f"\n````diff\n{diff}````\n",
         ]
     lines.append("\nClose this issue after updating the SDK READMEs.\n")
     return "".join(lines)

@@ -112,17 +112,22 @@ class TestBuildIssueBody:
         body = check_sdk_readme.build_issue_body([sdk])
         assert "title:" not in body
 
-    def test_diff_shown_before_raw_url(self, tmp_path):
+    def test_instructions_shown_before_diff(self, tmp_path):
         sdk = self._make_sdk(
             tmp_path, "sensible-api-py",
             source_body="## SDK overview\nnew line\n",
             readme_body="## SDK overview\nold line\n",
         )
         body = check_sdk_readme.build_issue_body([sdk])
-        diff_pos = body.find("```diff")
         url_pos = body.find("raw.githubusercontent.com")
-        assert diff_pos != -1 and url_pos != -1
-        assert diff_pos < url_pos
+        diff_pos = body.find("````diff")
+        assert url_pos != -1 and diff_pos != -1
+        assert url_pos < diff_pos
+
+    def test_uses_quadruple_backtick_fence(self, tmp_path):
+        sdk = self._make_sdk(tmp_path, "sensible-api-py", "body\n")
+        body = check_sdk_readme.build_issue_body([sdk])
+        assert "````diff" in body
 
 
 # ── main() ────────────────────────────────────────────────────────────────────
