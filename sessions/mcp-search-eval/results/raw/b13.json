@@ -1,0 +1,36 @@
+{
+  "question": "Are there prebuilt extractors I can use off the shelf?",
+  "search_queries": [
+    "prebuilt extractors off the shelf",
+    "ready to use document extraction templates library"
+  ],
+  "search_results": [
+    {
+      "query": "prebuilt extractors off the shelf",
+      "results": [
+        {"id": "sensiblehq/library-quickstart", "title": "Out-of-the-box extractions", "url": "https://docs.sensible.so/docs/library-quickstart"},
+        {"id": "sensiblehq/overview", "title": "Overview", "url": "https://docs.sensible.so/docs/overview"}
+      ]
+    },
+    {
+      "query": "ready to use document extraction templates library",
+      "results": [
+        {"id": "sensiblehq/library-quickstart", "title": "Out-of-the-box extractions", "url": "https://docs.sensible.so/docs/library-quickstart"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/library-quickstart",
+      "title": "Out-of-the-box extractions",
+      "url": "https://docs.sensible.so/docs/library-quickstart",
+      "content": "Pre-built extraction templates for different document types\n\nIf you want to extract from any of the following document types, you can get started in minutes using the Sensible configuration library. The library provides out-of-the-box support for common business forms:\n\n* auto policy declaration pages\n* balance sheet\n* bank statements\n* closing disclosure\n* credit card statements\n* drivers license\n* explanation of benefit\n* health insurance claims\n* home policy declaration pages\n* loss runs\n* pay stubs\n* pet policy declaration pages\n* resumes\n* tax forms\n* verifications of employment\n* rent rolls\n* offering memorandums\n* ....and more\n\nTo add supported document types to your Sensible account:\n\n1. Click the **Template library** tab, and browse for your document type. Click **Use case** to view document types by industry.\n2. Click the document type you want to extract from. Sensible displays the specific forms it supports in the document type.\n3. Click **Clone to account**. Sensible displays the cloned document type and its form-specific configs in the **Document types** tab.\n4. Test the document type by uploading your sample documents, for example, using the Extract tab."
+    },
+    {
+      "id": "sensiblehq/overview",
+      "title": "Overview",
+      "url": "https://docs.sensible.so/docs/overview",
+      "content": "Introduction to Sensible and its capabilities for document data extraction\n\nWelcome! Sensible is a developer-first platform for extracting structured data from documents, for example:\n\n* business forms in PDF format\n* email bodies and attachments\n* spreadsheets\n* PNGs and JPEGS of documents\n\nUse Sensible to build document-automation features into your vertical SaaS products.\n\nWith Sensible's SenseML language, you can write extraction queries for any type of document...\n\n[Overview content covers SenseML, layout-based and LLM-based extraction methods, the DevOps platform, and references to getting started with out-of-the-box supported document types.]"
+    }
+  ]
+}

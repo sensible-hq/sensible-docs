@@ -1,0 +1,80 @@
+{
+  "question": "How do I get extracted data into Excel or a database?",
+  "search_queries": [
+    "export extracted data Excel spreadsheet",
+    "integrate extracted data database webhook API"
+  ],
+  "search_results": [
+    {
+      "query": "export extracted data Excel spreadsheet",
+      "results": [
+        {
+          "id": "sensiblehq/excel-reference",
+          "title": "SenseML to spreadsheet reference",
+          "url": "https://docs.sensible.so/docs/excel-reference"
+        }
+      ]
+    },
+    {
+      "query": "integrate extracted data database webhook API",
+      "results": [
+        {
+          "id": "sensiblehq/api-tutorial-webhook",
+          "title": "Try a webhook",
+          "url": "https://docs.sensible.so/docs/api-tutorial-webhook"
+        },
+        {
+          "id": "sensiblehq/integrate",
+          "title": "Integrating",
+          "url": "https://docs.sensible.so/docs/integrate"
+        },
+        {
+          "id": "ref:sensiblehq/choosing-an-endpoint",
+          "title": "Introduction",
+          "url": "https://docs.sensible.so/reference/choosing-an-endpoint"
+        },
+        {
+          "id": "ref:sensiblehq/authentication",
+          "title": "Authentication",
+          "url": "https://docs.sensible.so/reference/authentication"
+        },
+        {
+          "id": "ref:sensiblehq/configuration",
+          "title": "Configuration",
+          "url": "https://docs.sensible.so/reference/configuration"
+        },
+        {
+          "id": "sensiblehq/zapier-getting-started",
+          "title": "Integrate with Airtable using Zapier",
+          "url": "https://docs.sensible.so/docs/zapier-getting-started"
+        }
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/excel-reference",
+      "title": "SenseML to spreadsheet reference",
+      "url": "https://docs.sensible.so/docs/excel-reference",
+      "content": "Learn how SenseML converts PDF and document data into structured spreadsheets with meaningful column/row relationships.\n\n## Introduction\n\nIf you're trying to convert a document, such as a PDF, into an Excel file, you often encounter tools that copy the document's visual layout into a spreadsheet, with no meaningful relationship between the extracted text and the underlying cells.\n\nIn contrast, Sensible converts document tables, checkboxes, paragraphs, and even complex repeating section layouts into meaningfully labeled column/row pairs and linked sheets. For information about document file types that Sensible can extract data from, see Supported file types.\n\nThis topic describes the rules Sensible uses to:\n* convert data extracted from one document, such as a PDF, into an Excel spreadsheet or CSV file.\n* combine data extracted from multiple documents into one spreadsheet\n\nSensible extracts the data as JSON using a SenseML configuration, then applies the rules to create spreadsheet data such as tables, labeled columns, and linked sheets.\n\n## Prerequisites\n\nTo get a document's data into a spreadsheet, you must first:\n* Configure extractions for a document type, either by authoring an extraction configuration using the Sensible app, or by using Sensible's configuration library for common document types.\n* Run an extraction on a target document that's in your configured document type.\n\n# CSV files\nTo generate CSV files, Sensible uses the same rules described in the following sections, except that Sensible uses blank rows instead of tabbed sheets to separate extraction content.\n\n# Multi-document spreadsheet\nSensible combines multiple document extractions into one spreadsheet when:\n* You extract from a portfolio document.\n* You input multiple extractions to the Generate Excel method or endpoint, or select multiple documents and click Download Excel in the Sensible app. Note you can combine portfolio and single-document extractions.\n\nTo combine extractions, Sensible uses the same rules described in the following single-document spreadsheet rules. Sensible uses the following additional rules:\n* For all sheets other than the fields sheet, Sensible creates a new sheet for each document, and prefixes each sheet name with a zero-indexed document number, for example doc_0 or doc_1.\n* For the fields sheet, Sensible appends data for each document in a new row. For each field ID, Sensible appends data under the same column if it finds a matching field ID from another extraction in your call to the Generate Excel method or endpoint, or under a new column if it doesn't find a matching field ID.\n\n# Single-document spreadsheet\n\nOverview: Sensible transforms JSON data extracted from a single document to a spreadsheet using the following rules:\n* the fields sheet lists each piece of document data that can be represented as a single-cell value.\n* <field_id> sheets hold more complex pieces of document data, e.g. extracted tables.\n* <field_id>.<index> sheets hold complex repeating document data, e.g. extracted claims loss runs.\n\n# fields sheet\nThe fields sheet lists fields and their values as key-value dictionaries, with the field ID as the column heading and value as the row. Sensible outputs a field to this sheet if the field:\n* outputs a single value (Box, Label, Row, Region methods).\n* outputs a predictably short array of values that can easily be stringified in a single cell (e.g. Name type).\n\n# <field_id> sheets\nEach <field_id> sheet lists the output of a single field that outputs multiple values, e.g. table methods or fields with match:all.\n\n# <field_id>.<index> sheets\nEach <field_id>.<index> sheet lists the output of a single field that contains complex repeating data, e.g. Sections output."
+    },
+    {
+      "id": "sensiblehq/integrate",
+      "title": "Integrating",
+      "url": "https://docs.sensible.so/docs/integrate",
+      "content": "Options for integrating Sensible with your application\n\nPut your extracted document data to work with integrations. Sensible offers the following integration options for automating extractions:\n\n| method | getting started | description |\n|---|---|---|\n| SDKs | SDK guides | Extract and classify documents. |\n| email | Getting started with email extraction | Extract and classify email bodies and attachments by forwarding them to a Sensible email alias. |\n| API | API quickstart | Extract and classify documents and manage extraction configuration. |\n| Quick extraction | Quick extraction | Drag and drop documents to extract data from documents in the Sensible app. Upload files in bulk, and download extracted data as JSON or Excel files. |\n| Zapier | Zapier tutorial | Transform data in PDFs and other document file types into emails, databases, Google sheets, and other Zapier-supported destinations. |\n| MCP server | MCP | Use Sensible's MCP server to speed integration using AI-powered code editors such as Claude Code or Cursor. |"
+    },
+    {
+      "id": "sensiblehq/api-tutorial-webhook",
+      "title": "Try a webhook",
+      "url": "https://docs.sensible.so/docs/api-tutorial-webhook",
+      "content": "Webhook-based extraction workflow\n\nFor asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook. A webhook allows you to receive the extraction as a push when its status changes, rather than polling the /documents/{id} API endpoint for extraction status. For example, if you set a webhook, you get a push when the extraction status changes to COMPLETE or when the review status changes to APPROVED.\n\nFor this tutorial, let's try a webhook in combination with the /extract_from_url endpoint.\n\n## Prerequisites\n* An API key (from app.sensible.so/account).\n* Postman desktop app, or a command line with cURL installed.\n\n## Configure the extraction\nTo create example extraction configuration, follow the steps in Out-of-the-box extractions to add support for the 1040s document type to your account.\n\n## Configure the webhook\n1. Generate a destination for the webhook: navigate to https://webhook.site/ to automatically create a unique test page.\n2. Copy the following code sample, and replace YOUR_UNIQUE_URL with your uniquely generated webhook.site URL:\n\ncurl --location --request POST 'https://api.sensible.so/v0/extract_from_url/1040s' \\\n--header 'Authorization: Bearer YOUR_API_KEY' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\"document_url\":\"https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1040_2021_sample.pdf\",\n\"webhook\": {\"url\":\"YOUR_WEBHOOK_URL\",\"payload\":\"some info you want to include in addition to the default payload, which includes extraction id, type, and parsed doc\"}}'\n\n## Check the webhook response\nVisit your unique URL at webhook.site to verify there's a response at the URL that includes parsed_document and webhook objects."
+    },
+    {
+      "id": "sensiblehq/zapier-getting-started",
+      "title": "Integrate with Airtable using Zapier",
+      "url": "https://docs.sensible.so/docs/zapier-getting-started",
+      "content": "Get started with Zapier by learning to integrate Sensible and Airtable for sample 1040 tax forms\n\nThis topic describes sending extracted data from example documents into an Airtable database using Sensible's Zapier integration.\n\nThis Zap:\n1. triggers every time that Sensible extracts from a document of the specified document type\n2. creates a new record in a database from the extracted data.\n\n## Steps summary\n1. Create an example Sensible extraction (using the 1040s document type).\n2. Create an empty destination database in Airtable.\n3. Configure Zapier to connect Sensible to Airtable, mapping Sensible field IDs to Airtable field names.\n4. Publish the Zap.\n5. (Optional) Test by uploading more documents and verifying they appear in Airtable.\n\n## Notes / Limitations\n* You can configure single-value field output with the Sensible-Zapier integration. To handle fields that output data objects (tables, sections), convert the Sensible extraction to Excel by checking the Excel output option on the Sensible trigger, then access extracted tables as rows in the sheet using Zapier's spreadsheet integrations (e.g. Google Sheets).\n* You can extract from single-document files with Zapier. For portfolio files (multiple documents), use the Sensible API or SDKs.\n* Zapier can transform data in PDFs into emails, databases, Google Sheets, and other Zapier-supported destinations."
+    }
+  ]
+}

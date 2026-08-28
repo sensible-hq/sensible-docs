@@ -1,0 +1,52 @@
+{
+  "question": "What are the performance/cost tradeoffs between `searchBySummarization: 'page'` vs other summarization strategies in `queryGroup`?",
+  "searches": [
+    {
+      "query": "searchBySummarization page performance cost queryGroup",
+      "results": [
+        {"id": "sensiblehq/query-group", "title": "Query group", "url": "https://docs.sensible.so/docs/query-group"},
+        {"id": "ref:sensiblehq/choosing-an-endpoint", "title": "Introduction", "url": "https://docs.sensible.so/reference/choosing-an-endpoint"}
+      ]
+    },
+    {
+      "query": "queryGroup summarization strategies tradeoffs",
+      "results": [
+        {"id": "sensiblehq/query-group", "title": "Query group", "url": "https://docs.sensible.so/docs/query-group"}
+      ]
+    },
+    {
+      "query": "advanced LLM prompt configuration summarize document context",
+      "results": [
+        {"id": "sensiblehq/prompt", "title": "Advanced LLM prompt configuration", "url": "https://docs.sensible.so/docs/prompt"},
+        {"id": "sensiblehq/llm-features", "title": "LLM features overview", "url": "https://docs.sensible.so/docs/llm-features"}
+      ]
+    }
+  ],
+  "fetched": [
+    {
+      "id": "sensiblehq/query-group",
+      "url": "https://docs.sensible.so/docs/query-group",
+      "searchBySummarization_parameter": {
+        "key": "searchBySummarization",
+        "value": "boolean, or `outline`, or `page` (equivalent to `true`). default: `false`",
+        "description": "(Recommended) Configure this to search for context using summaries of document chunks. If you set `page`, each page is a chunk. If you set `outline`, an LLM outlines the document, and each segment of the outline is a chunk. This parameter is compatible with documents up to 1,280 pages long.",
+        "interactions": "If you configure this parameter for a document 5 pages or under in length, Sensible submits the entire document as context, bypassing summarization. If you configure this parameter for a document over 5 pages long, then Sensible sets the Chunk Count parameter to 5 and ignores any configured value."
+      }
+    },
+    {
+      "id": "sensiblehq/prompt",
+      "url": "https://docs.sensible.so/docs/prompt",
+      "default_approach": {
+        "name": "Locate context with embeddings scores",
+        "description": "Splits document into equally sized chunks, scores them for relevancy using embeddings, returns top-scoring chunks as context.",
+        "advantage": "Fast",
+        "disadvantage": "Can be brittle"
+      },
+      "searchBySummarization_approach": {
+        "name": "(Recommended) Locate context by summarizing document",
+        "description": "Uses LLM-generated summaries (completion-only RAG strategy). Step 1: LLM summarizes chunks of the document — if `page`, each page is a chunk; if `outline`, an LLM generates a table of contents and each segment of the outline is a chunk. Step 2: A second LLM identifies the most relevant chunks based on the summaries, then uses their text as the context.",
+        "note": "Often outperforms the default approach. Useful for long documents in which multiple mentions of the same concept make finding relevant context difficult, for example, long legal documents."
+      }
+    }
+  ]
+}

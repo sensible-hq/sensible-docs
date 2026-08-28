@@ -1,0 +1,60 @@
+{
+  "question": "Do I need to write code to use this?",
+  "search_queries": [
+    "do I need to write code to use Sensible",
+    "no-code extraction UI interface getting started"
+  ],
+  "search_results": [
+    {
+      "query": "do I need to write code to use Sensible",
+      "results": [
+        {"id": "ref:sensiblehq/choosing-an-endpoint", "title": "Introduction", "url": "https://docs.sensible.so/reference/choosing-an-endpoint"},
+        {"id": "sensiblehq/examples", "title": "Code examples", "url": "https://docs.sensible.so/docs/examples"}
+      ]
+    },
+    {
+      "query": "no-code extraction UI interface getting started",
+      "results": [
+        {"id": "sensiblehq/getting-started-ai", "title": "Getting started", "url": "https://docs.sensible.so/docs/getting-started-ai"},
+        {"id": "sensiblehq/overview", "title": "Overview", "url": "https://docs.sensible.so/docs/overview"}
+      ]
+    },
+    {
+      "query": "integrate API SDK bulk upload no-code options",
+      "results": [
+        {"id": "sensiblehq/integrate", "title": "Integrating", "url": "https://docs.sensible.so/docs/integrate"},
+        {"id": "sensiblehq/sdk-guides", "title": "SDK guides", "url": "https://docs.sensible.so/docs/sdk-guides"},
+        {"id": "sensiblehq/api-reference", "title": "API reference", "url": "https://docs.sensible.so/docs/api-reference"},
+        {"id": "ref:sensiblehq/choosing-an-endpoint", "title": "Introduction", "url": "https://docs.sensible.so/reference/choosing-an-endpoint"},
+        {"id": "ref:sensiblehq/authentication", "title": "Authentication", "url": "https://docs.sensible.so/reference/authentication"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/getting-started-ai",
+      "title": "Getting started",
+      "url": "https://docs.sensible.so/docs/getting-started-ai",
+      "content": "Learn to extract document data using LLM-based methods\n\n## Introduction\n\nSee the following list for an overview of how to automate your document processing with Sensible:\n\n* **Learn** to extract data from documents, or use out-of-the-box extraction support\n* [**Integrate**](https://docs.sensible.so/docs/integrate) using Sensible's API, SDKs, quick-extract UI, or other tools\n* [**Quality control**](https://docs.sensible.so/docs/validate-extractions) extracted data\n* [**Monitor**](https://docs.sensible.so/docs/metrics) and [**review**](https://docs.sensible.so/docs/human-review)  extracted data in production\n\nThis guide gets you started with the first step, extracting data.\n\n## Learn to extract data\n\nLet's get started with extracting document data from an example bank statement. We'll author a prompt for a large language model (LLM) to extract data in a matter of minutes.\n\nIn this guide, you'll:\n\n* Extract data from an example document using a natural-language description of your target data, for example, `what's the customer service number?`.\n* Publish your prompt as part of a \"config.\"\n* Test your config against a second, similar document to ensure it extracts the same target data.\n\n## Get an account\n\n1. Get an account at [sensible.so](https://app.sensible.so/register). If you don't have an account, you can still read along to get a rough idea of how things work.\n2. Log into the [Sensible app](https://app.sensible.so/signin/).\n3. As a new user, you complete onboarding steps.\n\n## View an example\n\nAfter you complete Sensible's onboarding steps as a new user, navigate to a prebuilt example bank extraction. Sensible displays an example document in the left pane, and fields of extracted data in the right pane.\n\n## Extract more data\n\nTake the following steps to create prompts to extract more data from the document.\n\n### Extract facts\n\nTo extract short, simple facts, author queries. Group them in a Query Group method if they're clustered within 1-2 pages of each other in the document.\n\n### Extract a table\n\nThe example already extracts the transaction history for the checking account. To extract the transaction history for the savings account, copy the checking transactions field in the left pane, then modify it to extract your target data.\n\n## Publish the prompt\n\nTo extract similar data from other bank statements in production, publish the \"config\" containing your prompt. Click **Publish configuration**, click **Production**, then click **Publish to production**.\n\nNow you've published your config to the endpoint, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations.\n\n## Next\n\n### Integrate\n\nGet extracted document data out of Sensible and put it to work in Excel files, databases, and other destinations. See [Integrating](https://docs.sensible.so/docs/integrate)."
+    },
+    {
+      "id": "sensiblehq/overview",
+      "title": "Overview",
+      "url": "https://docs.sensible.so/docs/overview",
+      "content": "Introduction to Sensible and its capabilities for document data extraction\n\nWelcome! Sensible is a developer-first platform for extracting structured data from documents, for example:\n\n* business forms in PDF format\n* email bodies and attachments\n* spreadsheets\n* PNGs and JPEGS of documents\n\nUse Sensible to build document-automation features into your vertical SaaS products.\n\nWith Sensible's SenseML language, you can write extraction queries for any type of document and get back key facts as JSON.\n\nSensible is highly configurable. You can extract data in minutes by leveraging large language models (LLMs), or you can get fine-grained control with Sensible's visual, layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, variable legal contracts.\n\n## Learn more\n\nTo use the Sensible platform, you'll:\n\n* Learn to extract data, or use out-of-the-box supported document types.\n* [**Integrate**](https://docs.sensible.so/docs/integrate) using Sensible's API, SDKs, quick-extract UI, or other tools\n* [**Validate**](https://docs.sensible.so/docs/validate-extractions) extracted data\n* [**Monitor**](https://docs.sensible.so/docs/metrics) extraction metrics in production\n* [**Review**](https://docs.sensible.so/docs/human-review) and correct extracted data at the field level using the review UI"
+    },
+    {
+      "id": "ref:sensiblehq/choosing-an-endpoint",
+      "title": "Introduction",
+      "url": "https://docs.sensible.so/reference/choosing-an-endpoint",
+      "content": "Welcome to Sensible! To get started, see the following endpoints for extracting structured data from documents. Or, see other integration options including the Sensible SDKs.\n\nEndpoints available:\n- Document extraction (asynchronous): Extract doc at a Sensible URL or Extract doc at your URL\n- Document extraction (synchronous): Extract data from a document\n- Get Excel from PDFs: Get well-structured Excel files converted from PDF documents\n- Portfolio extraction (asynchronous): Extract portfolio at a Sensible URL or Extract portfolio at your URL\n- Document type classification: Classify document by type"
+    },
+    {
+      "id": "sensiblehq/integrate",
+      "title": "Integrating",
+      "url": "https://docs.sensible.so/docs/integrate",
+      "content": "Options for integrating Sensible with your application\n\nPut your extracted document data to work with integrations. Sensible offers the following integration options for automating extractions:\n\n| method | getting started | description |\n| --- | --- | --- |\n| SDKs | SDK guides | Extract and classify documents. |\n| email | Getting started with email extraction | Extract and classify email bodies and attachments by forwarding them to a Sensible email alias. |\n| API | API quickstart | Extract and classify documents and manage extraction configuration. |\n| Quick extraction | Quick extraction | Drag and drop documents to extract data from documents in the Sensible app. Upload files in bulk, and download extracted data as JSON or Excel files. |\n| Zapier | Zapier tutorial | Transform data in PDFs and other document file types into emails, databases, Google sheets, and other Zapier-supported destinations. |\n| MCP server | MCP | Use Sensible's MCP server to speed integration using AI-powered code editors such as Claude Code or Cursor. |"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "question_id": "e13",
+  "question": "Can preprocessors be conditionally applied based on document content, or do they always run unconditionally?",
+  "queries": [
+    "preprocessors conditional document content",
+    "preprocessor configuration options apply"
+  ],
+  "search_results": [
+    {
+      "query": "preprocessors conditional document content",
+      "results": [
+        {"id": "sensiblehq/preprocessors", "title": "Preprocessors", "url": "https://docs.sensible.so/docs/preprocessors"},
+        {"id": "sensiblehq/document-variations", "title": "Handling document variations", "url": "https://docs.sensible.so/docs/document-variations"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    },
+    {
+      "query": "preprocessor configuration options apply",
+      "results": [
+        {"id": "sensiblehq/preprocessors", "title": "Preprocessors", "url": "https://docs.sensible.so/docs/preprocessors"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"},
+        {"id": "sensiblehq/deskew", "title": "Deskew", "url": "https://docs.sensible.so/docs/deskew"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/preprocessors",
+      "title": "Preprocessors",
+      "url": "https://docs.sensible.so/docs/preprocessors",
+      "content": "Overview table listing all preprocessors (Deskew, Ligature, Linearize, Merge Lines, Multicolumn, NLP, OCR, Page Range, Remove Header, Remove Footer, Remove Lines, Remove Page, Rotate page, Scale, Split Lines). States that preprocessors execute in the order you define them in an array."
+    },
+    {
+      "id": "sensiblehq/document-variations",
+      "title": "Handling document variations",
+      "url": "https://docs.sensible.so/docs/document-variations",
+      "content": "Covers conditional execution strategies for handling document variations: configs (config-level), conditional execution (subset of fields), fallback fields (single field). No mention of conditional preprocessor execution."
+    },
+    {
+      "id": "sensiblehq/deskew",
+      "title": "Deskew",
+      "url": "https://docs.sensible.so/docs/deskew",
+      "content": "Parameters: type (required), fixedPoints (required), matchAll (boolean, default false), start. The matchAll parameter deskews all pages containing the specified Fixed Point lines. No general conditional-execution parameter."
+    },
+    {
+      "id": "sensiblehq/ocr-preprocessor",
+      "title": "OCR preprocessor",
+      "url": "https://docs.sensible.so/docs/ocr-preprocessor",
+      "content": "Parameters: type (required), match (required unless pageLinesLimit specified), matchAll (boolean), pageLinesLimit (integer), pageOffset (number), engine. The match parameter causes Sensible to run the OCR preprocessor solely on the page containing the matched text. pageLinesLimit runs OCR on pages with that number of embedded lines or fewer. These are page-scoping parameters, not full conditional skip logic."
+    },
+    {
+      "id": "sensiblehq/remove-page",
+      "title": "Remove Page",
+      "url": "https://docs.sensible.so/docs/remove-page",
+      "content": "Parameters: type (required), match (required), matchAll (boolean), pageOffset (number). Removes pages that contain the matched text. The match parameter is a content-based condition that determines which pages are removed."
+    },
+    {
+      "id": "sensiblehq/remove-lines",
+      "title": "Remove Lines",
+      "url": "https://docs.sensible.so/docs/remove-lines",
+      "content": "Parameters: type (required), match (required). Removes lines matching the specified text from all pages in the document. Match is required — the preprocessor always runs but only removes lines that match the pattern."
+    }
+  ]
+}

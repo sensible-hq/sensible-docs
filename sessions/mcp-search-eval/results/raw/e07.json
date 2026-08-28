@@ -1,0 +1,52 @@
+{
+  "question": "How does `xRangeFilter` interact with multi-column layouts processed by the `multicolumn` preprocessor — do the x-coordinates refer to pre- or post-reflow positions?",
+  "searches": [
+    {
+      "query": "xRangeFilter x-coordinate filter",
+      "results": [
+        {"id": "sensiblehq/sections", "title": "Sections", "url": "https://docs.sensible.so/docs/sections"},
+        {"id": "sensiblehq/method", "title": "Method object", "url": "https://docs.sensible.so/docs/method"}
+      ]
+    },
+    {
+      "query": "multicolumn preprocessor reflow columns",
+      "results": [
+        {"id": "sensiblehq/multicolumn", "title": "Multicolumn", "url": "https://docs.sensible.so/docs/multicolumn"}
+      ]
+    },
+    {
+      "query": "xRangeFilter multicolumn preprocessor coordinates interaction",
+      "results": [
+        {"id": "sensiblehq/multicolumn", "title": "Multicolumn", "url": "https://docs.sensible.so/docs/multicolumn"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"},
+        {"id": "sensiblehq/method", "title": "Method object", "url": "https://docs.sensible.so/docs/method"},
+        {"id": "sensiblehq/split-lines", "title": "Split lines", "url": "https://docs.sensible.so/docs/split-lines"}
+      ]
+    },
+    {
+      "query": "line sorting columns x-coordinate position reflow",
+      "results": [
+        {"id": "sensiblehq/linearize", "title": "Linearize", "url": "https://docs.sensible.so/docs/linearize"},
+        {"id": "sensiblehq/lines", "title": "Lines", "url": "https://docs.sensible.so/docs/lines"}
+      ]
+    }
+  ],
+  "fetched_docs": {
+    "sensiblehq/method": {
+      "url": "https://docs.sensible.so/docs/method",
+      "xRangeFilter_excerpt": "Defines left and right boundaries in which to capture lines. For example, in combination with the Document Range method, the X Range Filter parameter defines a 'column' that's bounded at the top and bottom by text matches. This column excludes any lines that partially fall outside the defined rectangular region. Contains the following parameters: start - right, left - Defines the starting point of the 'column' at either the right or left boundary of the anchor line. offsetX - Adjusts the horizontal position of the starting point defined by the Start parameter. width - The width of the page region to capture, in inches. As an alternative to this parameter, use the Multicolumn preprocessor."
+    },
+    "sensiblehq/multicolumn": {
+      "url": "https://docs.sensible.so/docs/multicolumn",
+      "content": "Use this preprocessor for documents containing columns of text. Ensures that Sensible sort lines into columns when present, rather than the default behavior of sorting lines left to right across the page's entire width. Parameters: type (required): multicolumn. minGutterArea: number in square inches, default 1. Configures detecting the gutters between columns. Notes: For an advanced alternative to this preprocessor, see the Linearize preprocessor."
+    },
+    "sensiblehq/linearize": {
+      "url": "https://docs.sensible.so/docs/linearize",
+      "content": "Breaks pages into an array of coordinate-based blocks, before sorting lines. Blocks use minX, maxX, minY, maxY coordinates in inches from the page edges. Any lines that fall partially or completely outside a block are excluded from the preprocessor and are unavailable for SenseML queries."
+    },
+    "sensiblehq/lines": {
+      "url": "https://docs.sensible.so/docs/lines",
+      "content": "Sensible sorts lines primarily by their height on the page (their y-axis position) and secondarily by their left-to-right position (their x-axis position). A line is a rectangular region containing text."
+    }
+  }
+}

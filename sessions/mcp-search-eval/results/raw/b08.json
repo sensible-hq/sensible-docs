@@ -1,0 +1,44 @@
+{
+  "question": "Can it extract tables?",
+  "search_queries": [
+    "extract tables from documents",
+    "table extraction method"
+  ],
+  "search_results": [
+    {
+      "query": "extract tables from documents",
+      "results": [
+        {"id": "sensiblehq/nlp-table", "title": "NLP table", "url": "https://docs.sensible.so/docs/nlp-table"},
+        {"id": "ref:sensiblehq/choosing-an-endpoint", "title": "Introduction", "url": "https://docs.sensible.so/reference/choosing-an-endpoint"}
+      ]
+    },
+    {
+      "query": "table extraction method",
+      "results": [
+        {"id": "sensiblehq/table-methods", "title": "Table methods", "url": "https://docs.sensible.so/docs/table-methods"},
+        {"id": "sensiblehq/nlp-table", "title": "NLP table", "url": "https://docs.sensible.so/docs/nlp-table"},
+        {"id": "sensiblehq/text-table", "title": "Text Table", "url": "https://docs.sensible.so/docs/text-table"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/table-methods",
+      "title": "Table methods",
+      "url": "https://docs.sensible.so/docs/table-methods",
+      "content": "Comparison of table extraction methods\n\nYou can choose from among the following options for extracting tables:\n\n### Overview of table methods\n\n| method      | based on                     | description                                                | comments                                                   |\n| ----------- | ---------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |\n| NLP Table   | large language models (LLM)s | Extracts a table based on your prompt to an LLM.           | Low code, doesn't require an anchor. Slowest table method. |\n| Fixed Table | layout                       | Extracts tables with a fixed number and layout of columns. | Faster than NLP Table method.                              |\n| Text Table  | layout                       | Extracts tables based on column coordinates in inches.     | Fastest table method.                                      |\n\n### Features supported\n\n| method      | multiple pages | merged cells | variable column formatting | checkboxes in cells | Tables-in tables, labeled rows, and other complex formatting |\n| ----------- | -------------- | ------------ | -------------------------- | ------------------- | ------------------------------------------------------------ |\n| Fixed Table | Yes            | Yes          | No                         | Yes                 | No (use Sections)                                            |\n| Text Table  | Yes            | No           | No                         | No                  | No (use Sections)                                            |\n| NLP Table   | Yes            | Indeterminate| Yes                        | Indeterminate       | Indeterminate (use Sections)                                 |\n\n### Notes\n\n1. For multi-page tables, the Text Table and Fixed Table methods omit any rows that precede repeated column headings after the first page.\n2. The Table method is deprecated. To duplicate this method's function, use the NLP Table method and set the Rewrite Table parameter to false.\n3. For large spreadsheets that contain tens of thousands of rows, use Cell Rows as an alternative to table or section methods."
+    },
+    {
+      "id": "sensiblehq/nlp-table",
+      "title": "NLP table",
+      "url": "https://docs.sensible.so/docs/nlp-table",
+      "content": "Extract tables using natural language\n\nExtracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages. This method is suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements, or to other complex table layouts.\n\nKey parameters include:\n- id: nlpTable\n- description: overall description of table contents\n- columns (required): array of column objects, each with id, description, optional type and isRequired\n- rewriteTable (default true): allows LLM to restructure the table based on prompts\n- pageSpanThreshold: configure multi-page table recognition\n- detectTableStructureOnly: bypass table recognition OCR provider\n- llmEngine: configure LLM model (openai, anthropic, google)\n- pageRange: limit page range for table search\n- chunkCount: number of top-scoring document chunks to use as context\n\nThe method works by: scoring document chunks against your descriptions, extracting tables from likely pages, scoring each table, and submitting the best-matching table to an LLM for restructuring."
+    },
+    {
+      "id": "sensiblehq/text-table",
+      "title": "Text Table",
+      "url": "https://docs.sensible.so/docs/text-table",
+      "content": "Extract tables based on column coordinates defined in inches\n\nMatches tables based on column coordinates in inches and returns their collated column contents. Anchor on the table title, or use a negative Offset Y parameter to enable anchoring on a column heading.\n\nAdvantages:\n- Faster than other table methods (no table recognition)\n- Can extract unusually formatted tables that other table methods can't recognize\n\nDisadvantage: more limited than other table methods, relies on line alignment\n\nKey parameters:\n- id: textTable\n- columns (required): array with id, minX, maxX (in inches), optional type and isRequired\n- offsetY: vertical offset from anchor line\n- stop: match object or inches to stop table recognition\n- startOnRow: zero-indexed row to start extraction\n- stopOnRow: zero-indexed row to end extraction\n- columnsRelativeToAnchor: make column coordinates relative to anchor line\n- detectMultipleLinesPerRow: detect multi-line cells"
+    }
+  ]
+}
