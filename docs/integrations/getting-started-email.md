@@ -333,7 +333,7 @@ If you specify a webhook, you should get back an extraction response at the webh
         }
       ],
       "errors": [],
-      "download_url": REDACTED",
+      "download_url": "REDACTED",
       "content_type": "application/pdf",
       "file_metadata": {
         "info": {
