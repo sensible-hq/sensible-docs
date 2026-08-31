@@ -92,8 +92,9 @@ def check_excerpts(repo_root: Path, ignore_list: set[str]) -> tuple[list[dict], 
 
             excerpt = front_matter.get("excerpt", None)
 
+            # excerpt and metadata.description are not valid fields in reference/ files.
             # For docs/: flag missing key entirely, as well as empty values.
-            # For reference/: treat missing key as intentionally omitted.
+            # For reference/: skip files without the key.
             if excerpt is None:
                 if search_dir == "docs":
                     issues.append({
