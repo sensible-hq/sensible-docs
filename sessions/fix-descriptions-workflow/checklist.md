@@ -16,3 +16,10 @@ PR: https://github.com/sensible-hq/sensible-docs/pull/695
 - [x] Commit and push to `fix/descriptions-workflow`
 - [x] Open PR #695
 - [x] Write this checklist and commit to PR
+
+## Test plan
+
+- [x] `check_descriptions.py` flags a `docs/` file missing `metadata.description` key
+- [x] `check_descriptions.py` silently skips a `reference/` file missing `metadata.description` key
+- [x] `add_description.py` inserts `metadata.description` when the key is absent
+- [ ] Workflow triggers on push to v0 with a changed `.md` file and creates a PR (verify after merge)
