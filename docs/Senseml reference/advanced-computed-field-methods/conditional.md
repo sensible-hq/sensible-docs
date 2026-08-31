@@ -5,14 +5,14 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Conditionally execute SenseML'
+  description: Conditionally execute SenseML
   robots: index
 next:
   description: ''
 ---
-Extract alternate sets of fields, depending on whether a [JsonLogic](doc:jsonlogic) condition passes or fails. Use conditional execution to handle [document variations](doc:document-variations) in a document type. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent with conditional field execution. 
+Use conditional field execution to handle [document variations](doc:document-variations) in a document type. You can determine which alternate sets of fields to execute by writing a [JsonLogic](doc:jsonlogic) condition that passes or fails.  For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent with a condition that tests which affiliate bank you're currently extracting from.
 
-The following simplified code snippet shows an overview of conditional execution: 
+The following simplified code snippet shows an overview of conditional execution:
 
 ```yml
 id: conditional
@@ -225,16 +225,15 @@ The following example shows using conditional execution to standardize output ac
 }
 ```
 
-**Example document**\
-The following image shows the example documents used with this example config:
+**Example document**<br />The following image shows the example documents used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/conditional_execution.png)
 
 | Example document 1 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/conditional_execution_1.pdf) |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 
 | Example document 2 | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/conditional_execution_2.pdf) |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 
 **Output1**
 
