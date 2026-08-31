@@ -16,7 +16,7 @@ You can automatically extract structured data from email bodies and attachments 
 
 The following image shows an overview of  email extraction:
 
-
+<br />
 
 ```mermaid
 flowchart TD
@@ -29,25 +29,25 @@ flowchart TD
 
 To implement this workflow, take the following general steps:
 
-* **Determine email filters**
+- **Determine email filters**
   - Determine a set of similar emails from which you want to extract data. For example, you're in PropTech and you want to extract data from residential lease applications.
 
   - Determine email filtering criteria for the set of emails. In a succeeding step,  use the filters to automatically forward these emails to a Sensible email address.
 
-* **Configure data extraction**
+- **Configure data extraction**
   - In the Sensible app, define a [document type](doc:document-type-settings) for each email attachment in the lease application emails from which you want to extract data. You can optionally define a document type for the email body. In this example, the lease application emails include  `driverse_licenses`, `paystubs`, `leases`, `email_body_lease_applications`, and other document types.
 
-* **(Optional) Configure data destination**
-  
+- **(Optional) Configure data destination**
+
   - Define webhooks to receive the extracted data. You can also view the extracted data in the Sensible app, but you can trace the email source only through the webhook.
-  
-* **Create email processor**
+
+- **Create email processor**
   - When you've completed the preceding steps, create an _email processor_ in the Sensible app on the **Email processors** tab or with the API. An email processor contains document types, webhook URLs, and forwarding email aliases. You can then start forwarding emails to the processor and receive extracted data.
 
-* **(Optional) Send a test email**
+- **(Optional) Send a test email**
   - Download sample documents and send a test email to view an example extraction.
 
-* **(Optional) Test in development**
+- **(Optional) Test in development**
   - Make changes to your extraction configs and test in a development environment before going into production.
 
 See the following sections for a detailed example of implementing the preceding general steps.
@@ -56,12 +56,12 @@ See the following sections for a detailed example of implementing the preceding 
 
 The following example walks through implementing an email processor. In this example implementation, you're in PropTech and you want to extract data from lease applications addressed to the property manager "Sensible Property."  Lease application emails to this property manager typically include the following attachments:
 
-* drivers license
-* signed lease
-* a single PDF file containing multiple documents (a "[portfolio](doc:portfolio)" file):
-  * tax statement
-  * bank statement
-  * paystub
+- drivers license
+- signed lease
+- a single PDF file containing multiple documents (a "[portfolio](doc:portfolio)" file):
+  - tax statement
+  - bank statement
+  - paystub
 
 The following image shows an example email:
 
@@ -82,10 +82,10 @@ To configure email data classification and extraction in your Sensible account, 
 Create document types to [classify](doc:classify) and extract from the email attachments:
 
 1. Follow the steps in [Out-of-the-box extractions](doc:library-quickstart) to add extraction support for the following document types to your account:
-   1. **`driver_license`** document type
-   2. **`pay_stubs`** document type
-   3. **`bank_statements`** document type
-   4. **`1040s`** document type
+   1. `driver_license` document type
+   2. `pay_stubs` document type
+   3. `bank_statements` document type
+   4. `1040s` document type
 
 #### (Optional) Create custom document types
 
@@ -100,6 +100,7 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
    | ---------------- | ----------------------------------------------------------------------------------------------------------- |
 
    3. Name the config `sensibleproperties`  for the fictional property management company in this example.
+
    4. After you create the document type, edit the config you created. Paste the following code into the left pane:
 
       ```json
@@ -131,8 +132,6 @@ Sensible doesn't provide out-of-the-box extraction support for leases. To create
         ]
       }
       ```
-
-      
 
 2. (Optional) Create a document type for **lease application email bodies**:
 
@@ -202,25 +201,25 @@ Each document type contains [_configs_](doc:config-settings), or collections of 
 
 To receive extracted email data, you have the following options:
 
-* By default, view and download the extracted data in the Sensible app on the **Extraction history** tab. You can't trace the email source in this view, but you can see the extracted data:
+- By default, view and download the extracted data in the Sensible app on the **Extraction history** tab. You can't trace the email source in this view, but you can see the extracted data:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_history_ui.png)
 
-* Implement webhooks as destinations for the extracted data, so you can trace the email source for each extraction. You can specify a webhook for each environment to which you publish your configs.  See the following sections for more information about environments.
+- Implement webhooks as destinations for the extracted data, so you can trace the email source for each extraction. You can specify a webhook for each environment to which you publish your configs.  See the following sections for more information about environments.
 
 ## Create email processor
 
 In the preceding steps, you configured the necessary prerequisites for an email processor that can extract data from lease applications. Create the email processor in the **Email processors** tab of the Sensible app, or through the [API](reference:upsert-email-processor). Provide the following configuration:
 
-* the name of the email processor, for example, `residential_lease_applications`.
-* for the body document type, specify the `email_body_lease_applications` you created in previous steps.
-* for the attachment document types, specify the remaining document types you created in previous steps  (`driver_license`, `pay_stubs`, `bank_statements`, `1040s`, `leases`).
-* indicate whether you expect the attachments to include multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
-* the URL of each webhook you implemented.
+- the name of the email processor, for example, `residential_lease_applications`.
+- for the body document type, specify the `email_body_lease_applications` you created in previous steps.
+- for the attachment document types, specify the remaining document types you created in previous steps  (`driver_license`, `pay_stubs`, `bank_statements`, `1040s`, `leases`).
+- indicate whether you expect the attachments to include multi-document portfolio attachments. In this example, you expect portfolio file attachments in addition to single-document file attachments, so specify `portfolio`.
+- the URL of each webhook you implemented.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_tab.png)
 
-After creating the email processor, find its incoming email address(es) by clicking the processor in the **Email processors** tab in the Sensible app, for example, `residential_lease_applications.abc_xyz@app.sensible.so`. 
+After creating the email processor, find its incoming email address(es) by clicking the processor in the **Email processors** tab in the Sensible app, for example, `residential_lease_applications.abc_xyz@app.sensible.so`.
 
 Forward your lease application emails to this address to automatically trigger data extraction. For example,  configure your email filter to forward lease applications received by  `rental_applications@sensibleproperty.com` to `residential_lease_applications.abc_xyz@app.sensible.so`.
 
@@ -242,24 +241,202 @@ For the body, use the following text:
 >
 > Please find attached:
 >
-> * Signed lease agreement
-> * Proof of income (recent pay stub)
-> * Copy of my ID (driver’s license)
+> - Signed lease agreement
+> - Proof of income (recent pay stub)
+> - Copy of my ID (driver’s license)
 >
 > Please let me know if you need any additional information or if there are any next steps in the approval process.
 >
 > Thank you for your time and consideration. I look forward to your response.
 >
-> Best regards,  
-> Brenda Sample  
-> (505) 123 4567  
-> [brenda.sample@gmail.com](mailto:brenda.sample@gmail.com)
+> Best regards,<br />Brenda Sample<br />(505) 123 4567<br />[brenda.sample@gmail.com](mailto:brenda.sample@gmail.com)
 
 You should get back an extraction response for each attachment at the webhook you specified.
 
 In the Sensible app, click each extraction to view its data. For example, the paystub extraction includes the extracted fields `employer_name: Delta Airlines` and `employee_name: Brenda Sample`:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/email_details_ui.png)
+
+<br />
+
+If you specify a webhook, you should get back an extraction response at the webhook URL similar to the following:
+
+```json
+{
+  "id": "PROCESSOR_EXECUTION#v1#EMAIL#ac6f766b-853d-465a-8dac-012331373aa8/6",
+  "started": "2026-08-31T16:15:53.708Z",
+  "status": "COMPLETE",
+  "extractions": [
+    {
+      "id": "c98fb0d2-f54f-43d3-8ff8-1be665a6a70a",
+      "created": "2026-08-31T16:16:01.608Z",
+      "processing_started": "2026-08-31T16:16:01.675Z",
+      "completed": "2026-08-31T16:16:03.995Z",
+      "status": "COMPLETE",
+      "type": "pay_stubs",
+      "document_name": "brenda_sample_gusto_sample.pdf",
+      "configuration": "gusto",
+      "configuration_version": "Xkjl.ooiPrrjJupUV.iCSgOT2xrgBucZ",
+      "environment": "production",
+      "page_count": 1,
+      "parsed_document": {
+        "employer_name": {
+          "type": "string",
+          "value": "Delta Airlines"
+        },
+        "employee_name": {
+          "type": "string",
+          "value": "Brenda Sample"
+        },
+        "employee_address": {
+          "value": "1123 Drive street\nHelena, Mt 59601",
+          "type": "address"
+        },
+        /* abbreviated response */
+        
+      },
+      "validations": [],
+      "validation_summary": {
+        "fields": 21,
+        "fields_present": 13,
+        "errors": 0,
+        "warnings": 0,
+        "skipped": 0
+      },
+      "classification_summary": [
+        {
+          "configuration": "adp",
+          "fingerprints": 2,
+          "fingerprints_present": 1,
+          "score": {
+            "value": 4,
+            "fields_present": 4,
+            "penalties": 0
+          }
+        },
+        {
+          "configuration": "gusto",
+          "fingerprints": 2,
+          "fingerprints_present": 2,
+          "score": {
+            "value": 13,
+            "fields_present": 13,
+            "penalties": 0
+          }
+        },
+        {
+          "configuration": "pay_stubs"
+        },
+        {
+          "configuration": "paylocity",
+          "fingerprints": 1
+        }
+      ],
+      "errors": [],
+      "download_url": REDACTED",
+      "content_type": "application/pdf",
+      "file_metadata": {
+        "info": {
+          "creator": "PDFsharp 1.50.4000-netstandard (https://github.com/ststeiger/PdfSharpCore)",
+          "producer": "PDFsharp 1.50.4000-netstandard (https://github.com/ststeiger/PdfSharpCore)",
+          "creation_date": "2022-02-16T16:35:00.000+00:00",
+          "modification_date": "2025-04-01T15:33:34.000-07:00"
+        }
+      },
+      "coverage": 0.6190476190476191,
+      "charged": 1,
+      "version_id": "6ONOvtTsHWJwOa1DIrHoeICPLYgV7Vrv",
+      "taskId": "attachment-2.pdf-spec-1"
+    },
+    {
+      "id": "f9222dbf-099e-4ad0-935d-03e832b97acd",
+      "created": "2026-08-31T16:16:01.653Z",
+      "processing_started": "2026-08-31T16:16:01.712Z",
+      "completed": "2026-08-31T16:16:04.059Z",
+      "status": "COMPLETE",
+      "type": "leases",
+      "document_name": "brenda_sample_lease_email_processor.pdf",
+      "configuration": "sensibleprop",
+      "configuration_version": "_HW_P5WaH_TgLHansGriNABybeLv_Mg_",
+      "environment": "production",
+      "page_count": 2,
+      "parsed_document": {
+        "monthly_rents_dollars": {
+          "source": "895.00",
+          "value": 895,
+          "unit": "$",
+          "type": "currency",
+          "confidenceSignal": "confident_answer"
+        }
+      },
+      "validations": [],
+      /* abbreviated response */
+      "taskId": "attachment-1.pdf-spec-1"
+    },
+    {
+      "id": "8c773e89-76bb-4ab5-adda-fa9f39166126",
+      "created": "2026-08-31T16:15:59.625Z",
+      "processing_started": "2026-08-31T16:15:59.679Z",
+      "completed": "2026-08-31T16:16:32.119Z",
+      "status": "COMPLETE",
+      "type": "driver_license",
+      "document_name": "email-body.pdf",
+      "configuration": "drivers_license",
+      "configuration_version": "Eh7UJfdYtRsY9Fk1871.ZiKsgH7DkyDt",
+      "environment": "production",
+      "page_count": 1,
+      "parsed_document": {
+        "state": null,
+        "license_number": null,
+        "expiry_date": null,
+        "first_name": {
+          "value": "Brenda",
+          "type": "string",
+          "confidenceSignal": "confident_answer"
+        },
+        "last_name": {
+          "value": "Sample",
+          "type": "string",
+          "confidenceSignal": "confident_answer"
+        },
+        "address": {
+          "value": "123 Sample St unit #3",
+          "type": "string",
+          "confidenceSignal": "confident_answer"
+        },
+        /* abbreviated response */
+      },
+      /* abbreviated response */
+      "taskId": "body"
+    }
+  ],
+  "emailMetadata": {
+    "messageId": "<CAAtQ+QdySs_c4+mw2J43x+gqUbOk-sAuG8ZOaDkKm9QcyMtyqA@mail.gmail.com>",
+    "from": [
+      {
+        "name": "Frances Elliott",
+        "address": "frances@sensible.so"
+      }
+    ],
+    "recipients": [],
+    "subject": "Fwd: Application for Rental Lease - Brenda Sample",
+    "attachments": [
+      {
+        "location": "attachment-1.pdf",
+        "contentType": "application/pdf",
+        "originalFilename": "brenda_sample_lease_email_processor.pdf"
+      },
+      {
+        "location": "attachment-2.pdf",
+        "contentType": "application/pdf",
+        "originalFilename": "brenda_sample_gusto_sample.pdf"
+      }
+    ]
+  }
+}
+```
+
+<br />
 
 ## (Optional) test in development
 
@@ -302,4 +479,4 @@ To test the change in the development environment:
 1. Publish the config to the development environment.
 2. Add the `development` environment prefix to the forward address, for example, `development.residential_lease_applications.abc_xyz@app.sensible.so`.   If you omit the environment prefix, Sensible defaults to the `production`  environment.  Through the Sensible app or Sensible API, you can associate a new webhook with this development email address.
 
-Now lease applications that you forward to `development.residential_lease_applications.abc_xyz@app.sensible.so` use the configs you published to development, and push their results to a separate webhook. 
+Now lease applications that you forward to `development.residential_lease_applications.abc_xyz@app.sensible.so` use the configs you published to development, and push their results to a separate webhook.
