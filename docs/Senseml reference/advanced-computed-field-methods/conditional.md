@@ -10,9 +10,9 @@ metadata:
 next:
   description: ''
 ---
-Use the Conditional method to handle [document variations](doc:document-variations) in a document type. This method extracts alternate sets of fields, depending on whether a [JsonLogic](doc:jsonlogic) condition passes or fails. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent  with conditional field execution. 
+Extract alternate sets of fields, depending on whether a [JsonLogic](doc:jsonlogic) condition passes or fails. Use conditional execution to handle [document variations](doc:document-variations) in a document type. For example, you want to extract data from two affiliate banks' statements. The statements' layouts are so similar that you can reuse 90 percent of your SenseML queries to handle both. Rather than authoring two separate configs, you can handle the remaining 10 percent with conditional field execution. 
 
-The following simplified code snippet shows an overview of the Conditional method: 
+The following simplified code snippet shows an overview of conditional execution: 
 
 ```yml
 id: conditional

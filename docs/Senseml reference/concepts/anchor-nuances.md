@@ -56,7 +56,7 @@ You can reuse anchors by defining them and then referring to them as variables. 
     },
 ```
 
-You can define named anchors in a [Conditional](doc:conditional) method and refer to them in subsequent fields:
+You can define named anchors in conditional extraction and refer to them in subsequent fields:
 
 ```json
 {
@@ -101,3 +101,5 @@ You can define named anchors in a [Conditional](doc:conditional) method and refe
   ]
 }
 ```
+
+For more information, see [Conditional execution](doc:conditional).
