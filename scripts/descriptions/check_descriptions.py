@@ -57,8 +57,13 @@ def parse_front_matter(content: str) -> tuple[dict | None, str | None]:
 
 def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dict], list[str]]:
     """
-    Find all .md files with empty metadata.description.
-    Only targets files that have the description key but with an empty/blank value.
+    Find all .md files with missing or empty metadata.description.
+
+    For docs/: flags files missing the metadata.description key entirely, as well as
+    files where the key exists but the value is empty/blank.
+    For reference/: only flags files where the key exists but the value is empty/blank
+    (missing key is treated as intentionally omitted).
+
     Returns tuple of (list of files with issues, list of ignored file paths).
     """
     issues = []
@@ -109,8 +114,15 @@ def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dic
             if not isinstance(metadata, dict):
                 continue
 
-            # Skip files without a description key (intentionally omitted)
+            # For docs/: flag files missing the description key entirely.
+            # For reference/: treat missing key as intentionally omitted.
             if "description" not in metadata:
+                if search_dir == "docs":
+                    issues.append({
+                        "path": str(relative_path),
+                        "title": front_matter.get("title", "Unknown"),
+                        "reason": "Missing metadata.description key",
+                    })
                 continue
 
             # Flag files where description key exists but value is empty or blank

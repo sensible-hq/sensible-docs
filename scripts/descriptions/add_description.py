@@ -50,9 +50,9 @@ def update_file_with_description(file_path: Path, description: str) -> bool:
     except yaml.YAMLError:
         return False
 
-    # Only update if metadata.description key already exists
+    # Insert or update metadata.description
     metadata = front_matter.get("metadata")
-    if not isinstance(metadata, dict) or "description" not in metadata:
+    if not isinstance(metadata, dict):
         return False
 
     front_matter["metadata"]["description"] = description

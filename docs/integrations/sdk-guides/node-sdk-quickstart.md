@@ -1,9 +1,14 @@
 ---
 title: Node SDK quickstart
+excerpt: Quickstart guide for the Sensible Node.js SDK for extracting and classifying documents
 deprecated: false
 hidden: false
 metadata:
+  title: ''
+  description: Quickstart guide for the Sensible Node.js SDK for extracting and classifying documents
   robots: index
+next:
+  description: ''
 ---
 ## SDK overview
 

@@ -1,9 +1,14 @@
 ---
 title: Python SDK quickstart
+excerpt: Quickstart guide for the Sensible Python SDK for extracting and classifying documents
 deprecated: false
 hidden: false
 metadata:
+  title: ''
+  description: Quickstart guide for the Sensible Python SDK for extracting and classifying documents
   robots: index
+next:
+  description: ''
 ---
 ## SDK overview
 
