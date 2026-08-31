@@ -259,7 +259,7 @@ In the Sensible app, click each extraction to view its data. For example, the pa
 
 <br />
 
-If you specify a webhook, you should get back an extraction response at the webhook URL similar to the following:
+If you specify a webhook, you should get back an extraction response at the webhook URL similar to the following, where the `parsed_document` objects contain extracted document data and the `emailMetadata` object contains information about the source email:
 
 ```json
 {
