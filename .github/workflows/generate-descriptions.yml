@@ -32,27 +32,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Check if there's already an open PR for adding descriptions
-          EXISTING_PR=$(gh pr list --state open --search "Add missing metadata descriptions" --json number --jq 'length')
+          EXISTING_PR=$(gh pr list --state open --search "Add missing excerpts" --json number --jq 'length')
           echo "count=$EXISTING_PR" >> "$GITHUB_OUTPUT"
           if [ "$EXISTING_PR" -gt 0 ]; then
-            echo "::notice::Skipping - existing PR already open for adding descriptions"
+            echo "::notice::Skipping - existing PR already open for adding excerpts"
           fi
 
-      - name: Check for missing descriptions
+      - name: Check for missing excerpts
         if: steps.existing_pr.outputs.count == '0'
         id: check
         run: |
-          # Show human-readable output in logs
-          python scripts/descriptions/check_descriptions.py
+          python scripts/descriptions/check_excerpt.py
 
-          # Capture JSON output for subsequent steps
-          MISSING=$(python scripts/descriptions/check_descriptions.py --json)
+          MISSING=$(python scripts/descriptions/check_excerpt.py --json)
           echo "missing=$MISSING" >> "$GITHUB_OUTPUT"
           COUNT=$(echo "$MISSING" | jq length)
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
 
-      - name: Generate descriptions with Claude
+      - name: Generate excerpts with Claude
         if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.count != '0'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -63,10 +60,8 @@ jobs:
 
             echo "Processing: $FILE_PATH"
 
-            # Read file content (first 4000 chars for context)
             CONTENT=$(head -c 4000 "$FILE_PATH")
 
-            # Call Claude API
             RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
               -H "Content-Type: application/json" \
               -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -76,58 +71,60 @@ jobs:
                 --arg content "$CONTENT" \
                 '{
                   model: "claude-sonnet-4-6",
-                  max_tokens: 150,
+                  max_tokens: 160,
                   messages: [{
                     role: "user",
-                    content: "Generate a concise 1-line description (max 160 characters) for this documentation page. The description should summarize what the page is about for SEO purposes. Do NOT include quotes around your response. Just return the plain description text.\n\nTitle: \($title)\n\nContent:\n\($content)"
+                    content: "Generate a concise 1-line excerpt (max 160 characters) for this documentation page. The excerpt should summarize what the page is about for SEO purposes. Do NOT include quotes around your response. Just return the plain text.\n\nTitle: \($title)\n\nContent:\n\($content)"
                   }]
                 }')")
 
-            DESCRIPTION=$(echo "$RESPONSE" | jq -r '.content[0].text' | tr -d '\n')
+            EXCERPT=$(echo "$RESPONSE" | jq -r '.content[0].text' | tr -d '\n')
 
-            echo "  Generated: $DESCRIPTION"
+            echo "  Generated: $EXCERPT"
 
-            # Update the file
-            python scripts/descriptions/add_description.py "$FILE_PATH" "$DESCRIPTION"
+            python scripts/descriptions/add_excerpt.py "$FILE_PATH" "$EXCERPT"
           done
 
-      - name: Sync excerpts from descriptions
-        if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.count != '0'
-        run: python scripts/descriptions/sync_excerpt.py
+      - name: Sync metadata.description from excerpts
+        if: steps.existing_pr.outputs.count == '0'
+        id: sync
+        run: |
+          python scripts/descriptions/sync_description.py
+          if git diff --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Create Pull Request
-        if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.count != '0'
+        if: steps.existing_pr.outputs.count == '0' && (steps.check.outputs.count != '0' || steps.sync.outputs.has_changes == 'true')
+        id: pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Check if there are changes
           if git diff --quiet; then
             echo "No changes to commit"
             exit 0
           fi
 
-          # Configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Create branch
-          BRANCH_NAME="claude/add-descriptions-$(date +%Y%m%d-%H%M%S)"
+          BRANCH_NAME="claude/add-excerpts-$(date +%Y%m%d-%H%M%S)"
           git checkout -b "$BRANCH_NAME"
 
-          # Commit changes
           git add -A
-          git commit -m "Add missing metadata descriptions"
+          git commit -m "Add missing excerpts and sync metadata.description"
 
-          # Push and create PR
           git push origin "$BRANCH_NAME"
 
           FILES_CHANGED=$(git diff --name-only HEAD~1 | sed 's/^/- /')
 
           gh pr create \
-            --title "Add missing metadata descriptions" \
-            --body "This PR adds missing metadata descriptions to documentation files.
+            --title "Add missing excerpts" \
+            --body "This PR adds missing excerpts to documentation files and syncs \`metadata.description\` to match.
 
-          Descriptions were automatically generated by Claude based on the content of each file.
+          Excerpts were automatically generated by Claude based on the content of each file. \`excerpt\` is the source of truth — \`metadata.description\` is derived from it.
 
           ## Files updated
           $FILES_CHANGED
@@ -137,9 +134,9 @@ jobs:
             --head "$BRANCH_NAME" \
             --base ${{ github.event.repository.default_branch }}
 
-      - name: Fail if descriptions were missing
-        if: steps.check.outputs.count != '0' && steps.check.outputs.count != ''
+      - name: Fail if changes were needed
+        if: steps.check.outputs.count != '0' || steps.sync.outputs.has_changes == 'true'
         run: |
-          echo "::error::Missing metadata descriptions were found and a PR has been created to add them."
+          echo "::error::Missing or out-of-sync excerpts were found and a PR has been created to fix them."
           echo "Please review and merge the PR."
           exit 1
