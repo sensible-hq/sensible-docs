@@ -125,7 +125,6 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Advanced: Zip and flatten nested sections](https://docs.sensible.so/docs/sections-example-copy-from-sections.md): Sections example: flattening nested data
 - [Advanced: Transform sections data](https://docs.sensible.so/docs/sections-example-copy-to-section.md): Sections example: transforming section data
 - [Advanced: External anchors for sections](https://docs.sensible.so/docs/sections-example-external-range.md): Sections example: using external anchors
-- [Conditional execution](https://docs.sensible.so/docs/conditional.md): Conditionally execute SenseML
 - [Spreadsheet extraction](https://docs.sensible.so/docs/cell-rows.md): Extract from large spreadsheets
 - [Config settings](https://docs.sensible.so/docs/config-settings.md): SenseML configuration options
 - [Fingerprint](https://docs.sensible.so/docs/fingerprint.md): Document fingerprinting for classification
@@ -137,6 +136,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [OCR level](https://docs.sensible.so/docs/ocr-level.md): Configure OCR processing level
 - [Advanced computed field methods](https://docs.sensible.so/docs/advanced-computed-field-methods.md): Advanced methods for transforming extracted data
 - [Add computed fields](https://docs.sensible.so/docs/add-computed-fields.md): Add computed fields to output
+- [Conditional execution](https://docs.sensible.so/docs/conditional.md): Conditionally execute SenseML
 - [Copy from sections](https://docs.sensible.so/docs/copy-from-sections.md): Copy data from sections
 - [Copy to section](https://docs.sensible.so/docs/copy-to-section.md): Copy data to sections
 - [Custom computation](https://docs.sensible.so/docs/custom-computation.md): Custom JsonLogic computations
