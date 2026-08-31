@@ -49,8 +49,8 @@ The following example shows the preceding parameters documented with in-line com
     "offsetY": 0, /* default: 0. offset the horizontal line up (negative) or down (positive) in inches */
     "width": 0, /* default: 0. (zero creates a point intersection, non-zero creates a horizontal-line region, and in conjunction with Height param, creates a rectangular region. Sensible extracts any line overlapping the point, or any line contained in the region. */
     "height": 0, /* default: 0 (same as width, but for height of the intersection region.) */
-    "percentOverlapX": 0.9, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap */
-    "percentOverlapY": 0.8  /* default: 0.8. same as percentOverlapX, but for height */
+    "percentOverlapX": 0, /* default: 0.9. fraction of width overlap required for a line to be "inside" the region defined by Width or Height parameters; 0 accepts any overlap (recommended) */
+    "percentOverlapY": 0  /* default: 0.8. same as percentOverlapX, but for height */
   }
 }
 ```
@@ -73,7 +73,10 @@ The following example shows using the Intersection method to extract a cell from
         "id": "intersection",
         "verticalAnchor": "col3",
         "width": 1.2,
-        "height": 0.4
+        "height": 0.4,
+        "percentOverlapX": 0,
+        "percentOverlapY": 0
+        
       }
     }
   ]
@@ -129,9 +132,9 @@ The following example shows extracting variably positioned lines by relaxing the
            line's widths must overlap in order to 
            extract the line. 
            To extract variably positioned lines,
-           this config specifies a lower percent
-           than the default */
-        "percentOverlapX": 0.5
+           this config specifies 0 to accept any overlap */
+        "percentOverlapX": 0,
+        "percentOverlapX": 0
       }
     }
   ]
@@ -183,7 +186,9 @@ The following example shows using a horizontal anchor to extract multiple cells 
         "id": "intersection",
         "horizontalAnchor": "maximum", /* defines the horizontal axis (the row) */
         "width": 1.5,
-        "height": 0.5
+        "height": 0.5,
+        "percentOverlapX": 0,
+        "percentOverlapX": 0
       }
     }
   ]
