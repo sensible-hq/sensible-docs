@@ -1,6 +1,7 @@
 ---
 title: SenseML reference
-excerpt: ''
+excerpt: Complete reference guide for SenseML, Sensible's document query language for extracting
+  structured data from documents using AI and rules.
 deprecated: false
 hidden: false
 link:
