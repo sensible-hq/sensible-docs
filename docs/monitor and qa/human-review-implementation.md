@@ -37,8 +37,6 @@ flowchart TD
     style G fill:#BEE3FA,stroke:#2B7FB8,color:#000
 ```
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/human_review_5.png)
-
 1. **Enable review and configure review triggers**: Enable and configure extraction quality validation for a document type, for example, tax documents or pay stubs. Any extraction in the document type that doesn’t meet your quality [validations](doc:validate-extractions) triggers a human review.
 2. **Specify a webhook for each document extraction:** When extracting data from a document using Sensible’s API or SDK, specify a webhook destination URL that receives updates to the extraction’s review status.
 3. **Notify a reviewer**: When the webhook indicates that a completed extraction needs review and correction, notify a reviewer and send them a link to the review interface that they can following without having to log in to Sensible.
