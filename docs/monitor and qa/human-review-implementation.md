@@ -15,7 +15,7 @@ When you extract document data at scale using Sensible, automating human-in-the-
 The following diagram shows how to integrate human-in-the-loop review into your application:
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Configure review criteria] --> B[Specify webhook in extraction request]
     B --> C[Extraction completes and needs review]
     C --> D[Reviewer views and edits extraction]
